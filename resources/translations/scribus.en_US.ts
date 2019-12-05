@@ -35587,12 +35587,12 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Disabled</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Cannot Convert In-Use Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</translation>
     </message>

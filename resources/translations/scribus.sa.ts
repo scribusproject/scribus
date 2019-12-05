@@ -35430,12 +35430,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>निष्प्रकारितम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>उपयोगे विद्यमानं वस्तु विकारयितुं न शक्यते</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 वस्तु कथासम्पादकेन अधुना सम्पाद्यते। अस्मै वस्तुने परिलेखान् प्रति विकारय इति कार्यं त्यक्तं भविष्यति</translation>
     </message>

@@ -35490,12 +35490,12 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
         <translation>Ikke i bruk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kan ikke omgjøre elementer som brukes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>

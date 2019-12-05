@@ -35532,12 +35532,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Искључено</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Не могу да преведем ставку у употреби</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Ставка „%1“ се тренутно уређује у уређивачу текста. Превођење ове ставке у контуре биће прескочено</translation>
     </message>

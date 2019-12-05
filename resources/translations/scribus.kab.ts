@@ -4071,12 +4071,12 @@ Height: %2</source>
 <context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1780"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1781"/>
         <source>All Supported Formats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1808"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1809"/>
         <source>Open</source>
         <translation>Ldi</translation>
     </message>
@@ -4096,24 +4096,24 @@ Height: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1508"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1509"/>
         <source>Page %1 does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1514"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1515"/>
         <source>Link Target is Web URL.
 URL: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1515"/>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1520"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1516"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1521"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1519"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1520"/>
         <source>Link Target is external File.
 File: %1
 Page: %2</source>
@@ -35430,17 +35430,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3156"/>
+        <location filename="../../scribus/scribusview.cpp" line="3140"/>
         <source>Cannot Convert In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3156"/>
+        <location filename="../../scribus/scribusview.cpp" line="3140"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2139"/>
+        <location filename="../../scribus/scribusview.cpp" line="2123"/>
         <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1781,7 +1781,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1682"/>
         <source>Content Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Edukiaren propietatea</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1773"/>
@@ -4034,7 +4034,7 @@ Altuera: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="172"/>
         <source>RGB %1</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="176"/>
@@ -4075,7 +4075,7 @@ Altuera: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="283"/>
         <source>Frame is already linked. Unlink it before linking it to another frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Markoa jadanik estekatuta dago. Kendu esteka beste marko batekin estekatu aurretik.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="290"/>
@@ -4208,7 +4208,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="291"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Errorea %1 fitxategia irakurtzean - fitxategia ziur aski hondatuta dago.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="320"/>
@@ -6051,27 +6051,27 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="331"/>
         <source>Content Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Edukiaren propietatea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="334"/>
         <source>Group Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Taldearen propietateak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="337"/>
         <source>Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Irudiaren propietateak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="340"/>
         <source>Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Orrialdearen propietatea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="343"/>
         <source>Table Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Taularen propietatea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="346"/>
@@ -6084,17 +6084,17 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="142"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;p&gt;Open a document&lt;/p&gt;&lt;p&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Ireki dokumentu bat&lt;/p&gt;&lt;p&gt;eta hautatu elementu bat haren propietateak ikusteko&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="148"/>
         <source>Select a single item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatu elementu bakar bat haren propietateak ikusteko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="150"/>
         <source>Select an item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatu elementu bat haren propietateak ikusteko</translation>
     </message>
 </context>
 <context>
@@ -6102,7 +6102,7 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Open a document&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Ireki dokumentu bat&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;eta hautatu elementu bat haren propietateak ikusteko&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -6110,7 +6110,7 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="35"/>
         <source>Select an item to see its properties.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatu elementu bat haren propietateak ikusteko.</translation>
     </message>
 </context>
 <context>
@@ -11311,7 +11311,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="148"/>
         <source>Horizontal position of the lens</source>
-        <translation>Leiarraren kokapen horizontala</translation>
+        <translation>Leiarraren posizio horizontala</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="161"/>
@@ -11321,7 +11321,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="171"/>
         <source>Vertical position of the lens</source>
-        <translation>Leiarraren kokapen bertikala</translation>
+        <translation>Leiarraren posizio bertikala</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="184"/>
@@ -11953,7 +11953,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="68"/>
         <source>&amp;Import Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inportatu orrialde maisua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="88"/>
@@ -15599,7 +15599,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="211"/>
         <source>Apply to all &amp;matching images</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikatu &amp;bat datozen irudi guztiei</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="214"/>
@@ -15609,7 +15609,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="230"/>
         <source>Since you selected an image with a broken link, only image frames with invalid links will be modified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esteka hautsi bat duen irudi bat hautatu duzunez, baliogabeko estekak dituzten irudi-markoak soilik aldatuko dira.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="258"/>
@@ -15643,7 +15643,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
         <source>Select a base directory to search for </source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatu oinarri-direktorio bat bilaketarako</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
@@ -19963,7 +19963,7 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF bateragarritasuna zehazten du.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt; bertsioa onartzen den bertsiorik zaharrena da eta bateragarritasunik zabalena ematen du inprimagailuen RIPSekin.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; bertsio lehenetsia da eta gardentasuna, 128 bit-eko zifratzea eta antzeko ezaugarriak onartzen ditu.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; beharrezkoa da objektuak PDF barruko geruza desberdinetan antolatuta gorde nahi badituzu.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; bertsioak trukatze itsua onartzen du koloreak CMYK sisteman zehatz-mehatz adierazita daudenean edo kolore zuzenak direnean.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bertsioa inprimatze komertzialerako kolore-kudeaketa duten PDFak sortzeko da, kolore-kudeaketa aktibatuta dagoenean hautagarria dena. Erabili soilik zure inprimatze-etxeak aholkatzen dizunean edo, zenbait kasutan, 4 kolore digitaleko laser-inprimagailuetan erabiltzeko.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; PDF/X-3 formatuaren hedapen bat da, gardentasuna eta geruzak onartzen dituena.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
@@ -23006,22 +23006,22 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
         <source>Text flow around bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Textu-fluxua muga-koadroaren inguruan </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
         <source>Text flow around  frame shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Textu-fluxua marko-formaren inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="126"/>
         <source>Text flow around frame disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Textu-fluxua markoaren inguruan desgaituta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="160"/>
         <source>Text Flow around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Textu-fluxua ingerada-lerroaren inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>
@@ -23031,7 +23031,7 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="194"/>
         <source>Text flow around image clip path</source>
-        <translation type="unfinished"></translation>
+        <translation>Testu-fluxua irudia mozten duen bidearen inguruan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="197"/>
@@ -23041,22 +23041,22 @@ gardentasuna</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="294"/>
         <source>Text Flow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Testu-fluxua:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="301"/>
         <source>Fill Rule:</source>
-        <translation type="unfinished"></translation>
+        <translation>Betegarri-erregela:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="310"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bideen edozein autoebakidurak edo azpibidek zuloak sortzen ditu betegarrian (fill-rule: evenodd)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="329"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
-        <translation type="unfinished"></translation>
+        <translation>Betegarria solidoa da azpibide bat kontrako noranzkoa ez bada (fill-rule: nonzero)</translation>
     </message>
 </context>
 <context>
@@ -25981,7 +25981,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="409"/>
         <source>Maithili</source>
-        <translation>Maithilera</translation>
+        <translation>Maithilia</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="410"/>
@@ -26336,7 +26336,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="485"/>
         <source>Oriya</source>
-        <translation>Oriyera</translation>
+        <translation>Oriya</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="486"/>
@@ -26631,7 +26631,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="556"/>
         <source>Sindhi</source>
-        <translation>Sindhera</translation>
+        <translation>Sindhia</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="557"/>
@@ -28550,13 +28550,13 @@ Kanpoko estekak
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="481"/>
         <source>Cannot layout text of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da testua diseinatu testu-markoa ez den batean.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="501"/>
         <source>Cannot layout text chain for a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ezin da testu-katea diseinatu testu-markoa ez den baterako.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="532"/>
@@ -30098,7 +30098,7 @@ Jarraitzea nahi duzu?</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="126"/>
         <source>invalid tab-position specified.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tabuladore-posizio baliogabea adierazi da.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="218"/>
@@ -35608,12 +35608,12 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua bihurtu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 elementua artikulu-editorean editatzen ari da. Elementua eskemetara bihurtzeko 
 eragiketa saltatu egingo da</translation>
@@ -35786,7 +35786,7 @@ eragiketa saltatu egingo da</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="147"/>
         <source>Embedded Python scripting support for Python 3.x.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kapsulatutako Python scripten euskarria Python 3.x bertsiorako.</translation>
     </message>
 </context>
 <context>
@@ -37629,7 +37629,7 @@ helbidera bidaliko bazenu.</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF bateragarritasuna zehazten du.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt; bertsioa onartzen den bertsiorik zaharrena da eta bateragarritasunik zabalena ematen du inprimagailuen RIPSekin.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; bertsio lehenetsia da eta gardentasuna, 128 bit-eko zifratzea eta antzeko ezaugarriak onartzen ditu.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; beharrezkoa da objektuak PDF barruko geruza desberdinetan antolatuta gorde nahi badituzu.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; bertsioak trukatze itsua onartzen du koloreak CMYK sisteman zehatz-mehatz adierazita daudenean edo kolore zuzenak direnean.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; bertsioa inprimatze komertzialerako kolore-kudeaketa duten PDFak sortzeko da, kolore-kudeaketa aktibatuta dagoenean hautagarria dena. Erabili soilik zure inprimatze-etxeak aholkatzen dizunean edo, zenbait kasutan, 4 kolore digitaleko laser-inprimagailuetan erabiltzeko.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; PDF/X-3 formatuaren hedapen bat da, gardentasuna eta geruzak onartzen dituena.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>

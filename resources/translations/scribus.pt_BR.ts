@@ -419,7 +419,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1523"/>
         <source>&amp;Deselect All</source>
-        <translation>&amp;Deselecionar tudo</translation>
+        <translation>&amp;Desselecionar tudo</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1524"/>
@@ -494,12 +494,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1553"/>
         <source>&amp;All Caps</source>
-        <translation>Caixa &amp;Alta</translation>
+        <translation>Caixa &amp;alta</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1554"/>
         <source>Small &amp;Caps</source>
-        <translation>&amp;Versaletes</translation>
+        <translation>&amp;Caixa baixa</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1555"/>
@@ -864,7 +864,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1743"/>
         <source>&amp;Generate Table Of Contents</source>
-        <translation>&amp;Gerar tabela de conteúdos</translation>
+        <translation>&amp;Gerar sumário</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1751"/>
@@ -1069,7 +1069,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1573"/>
         <source>&amp;Printing Enabled</source>
-        <translation>Im&amp;pressão activada</translation>
+        <translation>Im&amp;pressão ativa</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1574"/>
@@ -1610,7 +1610,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1518"/>
         <source>Paste Image from Clipboard</source>
-        <translation>Colar imagem para a Área De Transferência</translation>
+        <translation>Colar imagem na Área de transferência</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1586"/>
@@ -1705,7 +1705,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1631"/>
         <source>Variable Text</source>
-        <translation>Variável de Texto</translation>
+        <translation>Variável de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1632"/>
@@ -1735,7 +1735,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1676"/>
         <source>Snap to Items</source>
-        <translation>Aderir aos Itens</translation>
+        <translation>Atrair aos itens</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1527"/>
@@ -1996,7 +1996,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1520"/>
         <source>T&amp;runcate</source>
-        <translation>T%runcar</translation>
+        <translation>T&amp;runcar</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1659"/>
@@ -3458,8 +3458,8 @@ serão impressas, baseada no perfil de impressora selecionado.</translation>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="285"/>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation>Simular um ambiente completo de gestão de cores :
-todas as cores rgb ou cmyk serão convertidas para o espaço de cor da impressora.</translation>
+        <translation>Simular um ambiente completo de gerenciamento de cores :
+todas as cores RGB ou CMYK serão convertidas para o espaço de cores da impressora.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="289"/>
@@ -3482,7 +3482,8 @@ Isso requer perfis muito precisos e serve apenas como um alerta.</translation>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="263"/>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compensação de ponto preto é um método usado para melhorar o contraste em fotos.
+Recomenda-se que você ative isso caso queira fotos no seu documento.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="176"/>
@@ -3492,7 +3493,7 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="267"/>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>Usar compensação de pontos negros</translation>
+        <translation>Usar compensação de ponto preto</translation>
     </message>
 </context>
 <context>
@@ -3595,17 +3596,17 @@ It is a reserved name for transparent color</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="216"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation>Escolher isto tornará esta cor uma cor lisa ou de separação, criando assim outra chapa quando se proceder à separação de cores. Isto é usado quando um objeto gráfico necessita uma representação de cor exacta ou que não consegue ser reproduzida com tintas CMYK. Tintas metálicas e fluorecentes ou cores que estão fora do espaço de cor CMYK são os melhores exemplos de utilização.</translation>
+        <translation>Escolher isto tornará esta cor uma cor spot (especial), criando assim outro spot ao criar chapas ou separação de cores. Isto é usado quando um objeto gráfico requer uma representação de cor exata ou que não consegue ser reproduzida com tintas CMYK. Tintas metálicas e fluorescentes são bons exemplos que não podem ser facilmente reproduzidos com tintas CMYK.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="102"/>
         <source>Scribus Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Amostras do Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="106"/>
         <source>User Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Amostras do usuário</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="828"/>
@@ -3683,7 +3684,7 @@ por favor, escolha outro.</translation>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="82"/>
         <source>Is Spot Color</source>
-        <translation type="unfinished"></translation>
+        <translation>É uma cor spot (especial)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="229"/>
@@ -4649,7 +4650,7 @@ atualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
         <source>Object colorspace is not CMYK or spot</source>
-        <translation type="unfinished"></translation>
+        <translation>O espaço de cores do objeto não é CMYK nem spot</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="128"/>
@@ -4684,7 +4685,7 @@ atualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
         <source>PDF supports many different ways to represent the color of any object including RGB, CMYK and Spot (aka Separation) colors. Some of the PDF standards, such as PDF/X-1a, require the only CMYK and Spot colors be used.</source>
-        <translation>O formato PDF tem suporte a vários jeitos diferentes de representar a cor de um objeto, incluindo cores RGB, CMYK e Especial (isto é, de separação). Algumas normas de referência como o PDF/X-1a requerem que apenas as cores CMYK e Especiais sejam usadas. </translation>
+        <translation>O formato PDF tem suporte a vários jeitos diferentes de representar a cor de um objeto, incluindo cores RGB, CMYK e spot (especiais). Algumas normas de referência como o PDF/X-1a requerem que apenas as cores CMYK e spot sejam usadas. </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
@@ -4720,7 +4721,7 @@ atualmente %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta camada usa modos de mistura dependentes de transparência, o que pode ser um problema caso esteja usando perfis de impressão mais antigos. Você pode ignorar este aviso caso esteja usando métodos de impressão atuais ou exportando para PDF com versão maior que 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="147"/>
@@ -5086,7 +5087,7 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Se o gerenciamento de cores estiver ativado, uma exclamação irá indicar que a cor pode estar fora da gama de cores do perfil de impressora selecionado. Isso significa que a cor poderá não ser impressa exatamente como mostrado na tela. Mais dicas sobre avisos de gama de cores estão disponíveis na ajuda online em Gerenciamento de cores. Cores de registro terão marcas de registro junto à cor. Use registros apenas para marcas de impressora e marcas de corte.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Se o gerenciamento de cores estiver ativado, uma exclamação irá indicar que a cor pode estar fora da gama de cores do perfil de impressora selecionado. Isso significa que a cor poderá não ser impressa exatamente como mostrado na tela. Cores spot (especiais) estão indicadas com um círculo vermelho. Mais dicas sobre avisos de gama de cores estão disponíveis na ajuda online em Gerenciamento de cores. Cores de registro terão marcas de registro junto à cor. Use registros apenas para marcas de impressora e marcas de corte.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="55"/>
@@ -5214,12 +5215,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="103"/>
         <source>Scribus Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Amostras do Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="107"/>
         <source>User Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Amostras do usuário</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="115"/>
@@ -5680,7 +5681,7 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
         <location filename="../../scribus/commonstrings.cpp" line="411"/>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
-        <translation>Perda de total da perc. de cores</translation>
+        <translation>Daltonismo completo</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="413"/>
@@ -6054,22 +6055,22 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="334"/>
         <source>Group Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriedades do grupo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="337"/>
         <source>Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriedades da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="340"/>
         <source>Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriedades da página</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="343"/>
         <source>Table Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriedades da tabela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="346"/>
@@ -6082,17 +6083,17 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="142"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;p&gt;Open a document&lt;/p&gt;&lt;p&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Abra um documento&lt;/p&gt;&lt;p&gt;e selecione um item para ver suas propriedades&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="148"/>
         <source>Select a single item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione um único item para ver suas propriedades</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="150"/>
         <source>Select an item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione um item para ver suas propriedades</translation>
     </message>
 </context>
 <context>
@@ -6100,7 +6101,7 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="35"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Open a document&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Abra um documento&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;e selecione um item para ver suas propriedades&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -6108,7 +6109,7 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="35"/>
         <source>Select an item to see its properties.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione um item para ver suas propriedades.</translation>
     </message>
 </context>
 <context>
@@ -6142,7 +6143,7 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
-        <translation>Activado</translation>
+        <translation>Ativado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
@@ -6939,7 +6940,7 @@ Veja a seção de Edição de Cores da documentação para mais detalhes.</trans
     <message>
         <location filename="../../scribus/docinfo.cpp" line="175"/>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here.</source>
-        <translation type="unfinished"></translation>
+        <translation>É a manifestação física ou digital do documento. Tipos de mídia e dimensões devem ser relevantes. Os documentos RFC2045 e RFC2046 referentes a tipos MIME deverão ser úteis aqui.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="167"/>
@@ -7218,7 +7219,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="116"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="132"/>
@@ -8197,7 +8198,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="35"/>
         <source>Show Extended Font Information</source>
-        <translation>Mostrar Informação de Fonte Extendida</translation>
+        <translation>Mostrar informação completa da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="120"/>
@@ -8215,7 +8216,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
         <source>Font Preview dialog</source>
-        <translation>Diálogo de visualização de fontes</translation>
+        <translation>Janela de visualização de fontes</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="68"/>
@@ -8314,7 +8315,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="122"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
 </context>
 <context>
@@ -10143,7 +10144,7 @@ convertendo seus dados vetoriais em objetos do Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="19"/>
         <source>Imposition</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposição</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="44"/>
@@ -10178,7 +10179,7 @@ convertendo seus dados vetoriais em objetos do Scribus.</translation>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="253"/>
         <source>&amp;Booklet</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Livreto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="285"/>
@@ -10297,12 +10298,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="37"/>
         <source>&amp;Imposition...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Imposição…</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Janela de imposição</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="70"/>
@@ -11174,7 +11175,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="721"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleciona o modo de mistura, funciona apenas no PDF 1.4</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="722"/>
@@ -11224,7 +11225,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="727"/>
         <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
-        <translation>Faz o texto em camadas abaixo fluir ao redor dos objetos. Ativar isto força o texto nas camadas abaixo a fluírem ao redor de objetos da camada em que este opção foi ativada.</translation>
+        <translation>Faz o texto em camadas abaixo fluir em volta dos objetos. Ativar isto força o texto nas camadas abaixo a fluírem em volta de objetos da camada em que esta opção foi ativada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="728"/>
@@ -11347,7 +11348,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="230"/>
         <source>&amp;Strength:</source>
-        <translation>&amp;Intensidade:</translation>
+        <translation>&amp;Peso:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="240"/>
@@ -11658,7 +11659,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="37"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="47"/>
@@ -11677,7 +11678,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/mark2mark.cpp" line="27"/>
         <location filename="../../scribus/ui/mark2mark.cpp" line="71"/>
         <source>Mark to Mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcar na marca</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="38"/>
@@ -11687,7 +11688,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="49"/>
         <source>Note mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca de nota</translation>
     </message>
 </context>
 <context>
@@ -11700,7 +11701,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="42"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="55"/>
@@ -11726,7 +11727,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markanchor.ui" line="38"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta:</translation>
     </message>
 </context>
 <context>
@@ -11763,13 +11764,13 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar variável de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcar com variável de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
@@ -11787,12 +11788,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="32"/>
         <source>Add new Mark for Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar nova marca para variável de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="40"/>
         <source>Label:</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="51"/>
@@ -11825,7 +11826,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="102"/>
         <source>Variable Text</source>
-        <translation>Variável de Texto</translation>
+        <translation>Variável de texto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="103"/>
@@ -12380,7 +12381,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="132"/>
         <source>Do not show this dialog again</source>
-        <translation>Não exibir esta janela de diálogo novamente</translation>
+        <translation>Não exibir esta janela novamente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="146"/>
@@ -12789,7 +12790,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1079"/>
         <source>Activate Contour Line Editing Mode</source>
-        <translation>Activa o modo de edição da linha de contorno</translation>
+        <translation>Ativar modo de edição da linha de contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1080"/>
@@ -12834,12 +12835,12 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1048"/>
         <source>Set Contour to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir contorno como recorte de imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1081"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Redefinir a linha de contorno como caminho de recorte da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="244"/>
@@ -12856,12 +12857,12 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1049"/>
         <source>Set Shape to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir forma como recorte de imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1082"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir forma como caminho de recorte da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
@@ -13864,7 +13865,7 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="128"/>
         <source>Enable &amp;Antialiasing</source>
-        <translation>Ativar &amp;suavização (antialiasing)</translation>
+        <translation>Ativar &amp;suavização de texto (antialiasing)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="282"/>
@@ -13909,17 +13910,17 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="257"/>
         <source>Convert Spot Colors</source>
-        <translation>Converter cores lisas</translation>
+        <translation>Converter cores spot (especiais)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="324"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Activa a conversão de cores lisas (Spot Colors) para cores compostas (quadricromia). A menos que esteja a planear imprimir por separações num impressor comercial, provavelmente é melhor deixar essa opção activada.</translation>
+        <translation>Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="248"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Recortar para as margens da impressora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="204"/>
@@ -15403,7 +15404,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="165"/>
         <source>Crop Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Caixa de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="170"/>
@@ -15840,7 +15841,7 @@ Favor selecionar outra.</translation>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="598"/>
         <source>Set format specific properties of certain image types, like clipping paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir propriedades específicas de formato para determinados tipos de imagem, como caminhos de recorte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="624"/>
@@ -16289,7 +16290,7 @@ Favor selecionar outra.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1314"/>
         <source>Name (Wildcards Allowed)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome (expressões regulares permitidas)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1319"/>
@@ -16854,7 +16855,7 @@ Favor selecionar outra.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="272"/>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation>Plugin: %1 falou ao carregar: %2</translation>
+        <translation>Plugin: %1 falhou ao carregar: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="344"/>
@@ -17132,7 +17133,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="29"/>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="22"/>
         <source>Color Management</source>
-        <translation>Gestão de cor</translation>
+        <translation>Gerenciamento de cores</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="83"/>
@@ -17162,7 +17163,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="125"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar compensação de ponto preto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="154"/>
@@ -17461,7 +17462,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="81"/>
         <source>Turns the page shadow on or off</source>
-        <translation>Ativa ou desativa o sombreado das páginas</translation>
+        <translation>Ativa ou desativa a sombra das páginas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="82"/>
@@ -18134,7 +18135,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="78"/>
         <source>&amp;Name of Executable:</source>
-        <translation>%Nome do executável:</translation>
+        <translation>&amp;Nome do executável:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="91"/>
@@ -18213,7 +18214,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="389"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="453"/>
         <source>Name of &amp;Executable:</source>
-        <translation>Nome do %executável:</translation>
+        <translation>Nome do &amp;executável:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="262"/>
@@ -18437,7 +18438,7 @@ Você deseja usá-lo?</translation>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Rejected Fonts</source>
-        <translation>Fontes rejeitadas</translation>
+        <translation>Fontes descartadas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="201"/>
@@ -18675,12 +18676,12 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation>Activa ou desactiva as guias</translation>
+        <translation>Ativa ou desativa as guias</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation>Activa ou desactiva as margens</translation>
+        <translation>Ativa ou desativa as margens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="388"/>
@@ -18691,7 +18692,7 @@ Você deseja usá-lo?</translation>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="61"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Objetos com conteúdo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="65"/>
@@ -18712,7 +18713,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="90"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Raio da área em que o Scribus te permitirá as alças de um objeto. Após configurar isto, você precisará reiniciar o Scribus para ativar a configuração.</translation>
     </message>
 </context>
 <context>
@@ -18730,7 +18731,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="64"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>Hifenizar automaticamente, durante a &amp;digitação</translation>
+        <translation>Hifenizar automaticamente durante a &amp;digitação</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="45"/>
@@ -18912,7 +18913,7 @@ Você deseja usá-lo?</translation>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1307"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1350"/>
         <source>Shading:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="292"/>
@@ -18989,7 +18990,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="716"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar caminho de recorte embutido</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="745"/>
@@ -19498,7 +19499,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="283"/>
         <source>Page Binding:</source>
-        <translation type="unfinished"></translation>
+        <translation>Encadernação de páginas:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="450"/>
@@ -19514,7 +19515,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="297"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Recortar para as margens da impressora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="413"/>
@@ -19644,7 +19645,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="709"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Converter cores lisas (spot colors) em cores compostas (quadricromia)</translation>
+        <translation>Converter cores spot (especiais) em cores compostas (de escala/quadricromia)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="738"/>
@@ -19712,7 +19713,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="959"/>
         <source>Spot Function:</source>
-        <translation type="unfinished"></translation>
+        <translation>Função spot:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="989"/>
@@ -19722,7 +19723,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1025"/>
         <source>Printer Marks</source>
-        <translation>Miras de impressão</translation>
+        <translation>Marcas de impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1086"/>
@@ -19747,17 +19748,17 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1079"/>
         <source>Registration Marks</source>
-        <translation>Miras de registo</translation>
+        <translation>Marcas de registro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1101"/>
         <source>Crop Marks</source>
-        <translation>Miras de corte</translation>
+        <translation>Marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1065"/>
         <source>Bleed Marks</source>
-        <translation>Miras de sangria</translation>
+        <translation>Marcas de sangria</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1072"/>
@@ -19948,7 +19949,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="59"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determina a compatibilidade do PDF. &lt;br/&gt;O &lt;b&gt;PDF 1.3&lt;/b&gt;, a versão mais antiga suportada, oferece a melhor compatibilidade com impressoras RIPS. &lt;br/&gt;O padrão é o &lt;b&gt;PDF 1.4&lt;/b&gt;, que possui suporte a transparência e criptografia de 128 bits. &lt;br/&gt;O &lt;b&gt;PDF 1.5&lt;/b&gt; é necessário quando você desejar preservar os objetos em camadas separadas dentro do PDF. &lt;br/&gt;O &lt;b&gt;PDF/X1a&lt;/b&gt; serve para a troca imediata com cores estritamente especificada na CMYK ou cores spot. &lt;br/&gt;O &lt;b&gt;PDF/X-3&lt;/b&gt; serve para exportação quando deseja gerenciar as cores RGB para impressoras comerciais e esta opção só é selecionável quando o gerenciamento de cores está ativada. Use apenas quando requerido por sua impressora ou em alguns casos de impressão em impressoras digitais a laser de 4 cores. &lt;br/&gt;O &lt;b&gt;PDF/X-4&lt;/b&gt; é uma extensão do PDF/X-3 que suporta transparência e camadas.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
@@ -20063,7 +20064,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="90"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Activa a conversão de cores lisas ou de separaçao (Spot Colors) para cores compostas (quadricromia). A menos que esteja planeando imprimir por separações num impressor comercial, provavelmente é melhor deixar essa opção activada.</translation>
+        <translation>Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="91"/>
@@ -20073,7 +20074,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Cria marcas de corte no PDF indicando onde o papel deve ser cortado ou aparado após a impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
@@ -20396,7 +20397,7 @@ Você deseja usá-lo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
         <source>Length of crop marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprimento das marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
@@ -20881,7 +20882,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="240"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Recortar para as margens da impressora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="269"/>
@@ -20891,12 +20892,12 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="283"/>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar Under Color Removal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="290"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Converter cores lisas (spot colors) em cores compostas (quadricromia)</translation>
+        <translation>Converter cores spot (especiais) em cores compostas (de escala/quadricromia)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="319"/>
@@ -20941,17 +20942,17 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="451"/>
         <source>Crop Marks</source>
-        <translation>Miras de corte</translation>
+        <translation>Marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="458"/>
         <source>Bleed Marks</source>
-        <translation>Miras de sangria</translation>
+        <translation>Marcas de sangria</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="465"/>
         <source>Registration Marks</source>
-        <translation>Miras de registo</translation>
+        <translation>Marcas de registro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="472"/>
@@ -20991,7 +20992,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="36"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Activa a conversão de cores lisas ou de separaçao (Spot Colors) para cores compostas (quadricromia). A menos que esteja planeando imprimir por separações num impressor comercial, provavelmente é melhor deixar essa opção activada.</translation>
+        <translation>Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="63"/>
@@ -21081,7 +21082,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="76"/>
         <source>Enable Extension Scripts</source>
-        <translation>Activa os scripts de extensão</translation>
+        <translation>Ativa os scripts de extensão</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="85"/>
@@ -21306,7 +21307,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="154"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation>A caixa em que será posta a tabela de conteúdos</translation>
+        <translation>A caixa em que será posto o sumário</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="161"/>
@@ -21361,7 +21362,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontents.cpp" line="214"/>
         <source>Table of Contents %1</source>
-        <translation>Tabela de conteúdos %1</translation>
+        <translation>Sumário %1</translation>
     </message>
 </context>
 <context>
@@ -21434,17 +21435,17 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="326"/>
         <source>Strikeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Tachado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="424"/>
         <source>Small Caps</source>
-        <translation>Versaletes</translation>
+        <translation>Caixa baixa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="487"/>
         <source>Automatic Line Spacing</source>
-        <translation>Espaçamento de linha automático</translation>
+        <translation>Espaçamento entrelinhas automático</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="509"/>
@@ -21490,7 +21491,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="40"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Tamanho relativo dos versaletes, comparado à fonte normal</translation>
+        <translation>Tamanho relativo da caixa baixa comparado à fonte normal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="41"/>
@@ -21610,7 +21611,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="359"/>
         <source>Show Startup Dialog</source>
-        <translation>Exibir janela de inicialização</translation>
+        <translation>Exibir janela inicial de criação de documentos</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="63"/>
@@ -21927,12 +21928,12 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="409"/>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar Under Color Removal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="419"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Converter cores lisas (spot colors) em cores compostas (quadricromia)</translation>
+        <translation>Converter cores spot (especiais) em cores compostas (de escala/quadricromia)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="446"/>
@@ -21942,12 +21943,12 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="462"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Cria marcas de corte no PDF indicando onde o papel deve ser cortado ou aparado após a impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="465"/>
         <source>Crop Marks</source>
-        <translation>Miras de corte</translation>
+        <translation>Marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="482"/>
@@ -21957,7 +21958,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="485"/>
         <source>Registration Marks</source>
-        <translation>Miras de registo</translation>
+        <translation>Marcas de registro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="452"/>
@@ -21967,7 +21968,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="455"/>
         <source>Bleed Marks</source>
-        <translation>Miras de sangria</translation>
+        <translation>Marcas de sangria</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="472"/>
@@ -22072,17 +22073,17 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="390"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Recortar para as margens da impressora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="406"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Uma forma de substituir alguns dos tons de cinza que são compostos de ciano, amarelo e magenta, usando preto no lugar. Under Color Removal afeta mais as partes da imagem que são neutras ou em tons escuros, mais próximos do cinza. O uso disso pode melhorar a impressão de algumas imagens, mas recomenda-se que testes sejam feitos para determinar o melhor resultado para cada caso. A Under Color Removal reduz a possibilidade de supersaturação com tintas CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>
         <source>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="494"/>
@@ -22157,12 +22158,12 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="38"/>
         <source>Group clips Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Agrupar recorta o conteúdo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Quando o quadro delimitador do grupo for editado, recortar o conteúdo dos itens da página para o quadro delimitador editado</translation>
     </message>
 </context>
 <context>
@@ -22406,7 +22407,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="282"/>
         <source>Color Management</source>
-        <translation>Gestão de cor</translation>
+        <translation>Gerenciamento de cores</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="331"/>
@@ -22684,7 +22685,7 @@ um intervalo de páginas, ou uma única página</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="61"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="288"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="67"/>
@@ -22696,7 +22697,7 @@ um intervalo de páginas, ou uma única página</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="73"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="311"/>
         <source>Blendmode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de mistura:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="37"/>
@@ -22831,7 +22832,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="68"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="78"/>
@@ -22847,7 +22848,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="101"/>
         <source>Blendmode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de mistura:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="112"/>
@@ -23012,12 +23013,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="194"/>
         <source>Text flow around image clip path</source>
-        <translation type="unfinished"></translation>
+        <translation>Fluxo de texto em volta do caminho de recorte da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="197"/>
         <source>Use Image Clip Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar caminho de recorte da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="294"/>
@@ -23087,7 +23088,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="147"/>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="429"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="169"/>
@@ -23172,7 +23173,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="719"/>
         <source>Automatic Linespacing</source>
-        <translation>Entrelinhamento automático</translation>
+        <translation>Espaçamento entrelinhas automático</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
@@ -23731,17 +23732,17 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcap.cpp" line="279"/>
         <source>Use Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcap.cpp" line="280"/>
         <source>Drop Caps lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Linhas de letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcap.cpp" line="281"/>
         <source>Drop Caps offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Deslocamento de letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcap.cpp" line="282"/>
@@ -23774,7 +23775,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="64"/>
         <source>use Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="47"/>
@@ -24311,7 +24312,7 @@ Um valor 0 significa hifenizações ilimitadas.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="219"/>
         <source>Drop Caps</source>
-        <translation>Capitulares</translation>
+        <translation>Letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="220"/>
@@ -24339,7 +24340,7 @@ Um valor 0 significa hifenizações ilimitadas.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="23"/>
         <source>Drop Caps</source>
-        <translation>Capitulares</translation>
+        <translation>Letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="29"/>
@@ -25316,7 +25317,7 @@ Verifique o caminho e o nome do arquivo.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="135"/>
         <source>&amp;Unshade</source>
-        <translation>&amp;Desenrolar</translation>
+        <translation>&amp;Dessombrear</translation>
     </message>
 </context>
 <context>
@@ -28669,7 +28670,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1106"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Não é possível definir a intensidade do texto numa caixa que não seja de texto.</translation>
+        <translation>Não é possível definir o sombreamento do texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1142"/>
@@ -29092,13 +29093,13 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="288"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>A intensidade da linha está fora do limite, deve ser &gt;=0 e &lt;=100.</translation>
+        <translation>O sombreamento da linha está fora do intervalo adequado, ele deve ser &gt;=0 e &lt;=100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="308"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>A intensidade do preenchimento está fora do limite, deve ser &gt;=0 e &lt;=100.</translation>
+        <translation>O sombreamento do preenchimento está fora do intervalo adequado, ele deve ser &gt;=0 e &lt;=100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="401"/>
@@ -29257,7 +29258,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="678"/>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation>Falhou ao carregar o arquivo %1 - tipo de fonte desconhecido</translation>
+        <translation>Não foi possível carregar a fonte %1 - tipo de fonte desconhecido</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="886"/>
@@ -29277,7 +29278,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="1038"/>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation>Falha no carregamento de fonte - o freetype2 não pôde encontrar o arquivo da fonte</translation>
+        <translation>Não foi possível carregar a fonte - o freetype2 não pôde encontrar o arquivo da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
@@ -29699,7 +29700,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/pagesize.cpp" line="311"/>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation>Carta</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="312"/>
@@ -29858,7 +29859,7 @@ fornecidos na documentação da função.
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="248"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation>Modo de mistura está fora do limite, deve ser &gt;=0 e &lt;=100.</translation>
+        <translation>O modo de mistura está fora do intervalo adequado, deve ser &gt;=0 e &lt;=100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="67"/>
@@ -29969,7 +29970,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="61"/>
         <source>Imposition</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposição</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="75"/>
@@ -30245,7 +30246,7 @@ A imagem portanto pode não estar correta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="101"/>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O sombreamento da parada está fora do intervalo adequado, ele deve ser 0 &lt;= sombreamento &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="106"/>
@@ -30328,7 +30329,7 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgim.cpp" line="32"/>
         <source>Quark XPress Tags Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento do Quark XPress Tags</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="73"/>
@@ -30781,7 +30782,7 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="61"/>
         <source>Hunspell Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin do Hunspell</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="158"/>
@@ -30841,12 +30842,12 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="351"/>
         <source>Letter Half</source>
-        <translation type="unfinished"></translation>
+        <translation>Meia carta</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="357"/>
         <source>US Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>US Letter</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="363"/>
@@ -30856,7 +30857,7 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="369"/>
         <source>11x17</source>
-        <translation type="unfinished">2A17 {11x?}</translation>
+        <translation>11x17</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
@@ -31096,17 +31097,17 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/rtfim/rtfim.cpp" line="25"/>
         <source>RTF Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento RTF</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/docxim/docxim.cpp" line="29"/>
         <source>DOCX Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento DOCX</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="33"/>
         <source>ODT Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Documento ODT</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="44"/>
@@ -31218,12 +31219,12 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="114"/>
         <source>Shade</source>
-        <translation>Enrolar</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="115"/>
         <source>Unshade</source>
-        <translation>Desenrolar</translation>
+        <translation>Dessombrear</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="116"/>
@@ -31343,7 +31344,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="51"/>
         <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Arquivos salvos automaticamente são versões de documentos salvos automaticamente e que estiveram abertos na última abertura do Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="94"/>
@@ -31461,7 +31462,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="381"/>
         <source>Licence</source>
-        <translation>Licensa</translation>
+        <translation>Licença</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="654"/>
@@ -31469,7 +31470,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="804"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="849"/>
         <source>License</source>
-        <translation>Licensa</translation>
+        <translation>Licença</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="849"/>
@@ -31541,7 +31542,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="234"/>
         <source>Show License</source>
-        <translation>Exibir licensa</translation>
+        <translation>Exibir licença</translation>
     </message>
 </context>
 <context>
@@ -31549,7 +31550,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
-        <translation>Licensa</translation>
+        <translation>Licença</translation>
     </message>
 </context>
 <context>
@@ -31654,7 +31655,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="203"/>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation>Carta</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="203"/>
@@ -31816,7 +31817,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="543"/>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="561"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="39"/>
@@ -31905,7 +31906,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="638"/>
         <source>Fill Shade</source>
-        <translation>Intensidade do preenchimento</translation>
+        <translation>Sombreamento do preenchimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="687"/>
@@ -31915,7 +31916,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="716"/>
         <source>Stroke Shade</source>
-        <translation>Intensidade da borda</translation>
+        <translation>Sombreamento da borda</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="765"/>
@@ -31987,7 +31988,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.ui" line="88"/>
         <source>Fill Shade</source>
-        <translation>Intensidade do preenchimento</translation>
+        <translation>Sombreamento do preenchimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.cpp" line="79"/>
@@ -31997,7 +31998,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcellstylewidget.cpp" line="130"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
 </context>
 <context>
@@ -32248,7 +32249,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="234"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="568"/>
         <source>Automatic Linespacing</source>
-        <translation>Entrelinhamento automático</translation>
+        <translation>Espaçamento entrelinhas automático</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="52"/>
@@ -32261,7 +32262,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1098"/>
         <source>Drop Caps</source>
-        <translation>Capitulares</translation>
+        <translation>Letra capitular</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="21"/>
@@ -32614,7 +32615,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="538"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="903"/>
@@ -32846,12 +32847,12 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="130"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="76"/>
         <source>Fill Shade</source>
-        <translation>Intensidade do preenchimento</translation>
+        <translation>Sombreamento do preenchimento</translation>
     </message>
 </context>
 <context>
@@ -33073,13 +33074,13 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar espaço fixo a:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="116"/>
         <source>Apply Unbreakable Space To:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar espaço fixo a:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="117"/>
@@ -33323,7 +33324,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="403"/>
         <source>Text for Roll Over</source>
-        <translation>Texto ao passar o ponteiro do rato (roll over)</translation>
+        <translation>Texto ao passar o ponteiro do mouse (roll over)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="418"/>
@@ -34679,7 +34680,7 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="941"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation>Ocorreu um erro ao abrir os perfis ICC, a gestão de cor não será activada.</translation>
+        <translation>Ocorreu um erro ao abrir os perfis ICC, o gerenciamento de cores não está ativado.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="950"/>
@@ -34718,7 +34719,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="13751"/>
         <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiado %1 itens em %2 páginas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14993"/>
@@ -35164,7 +35165,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <location filename="../../scribus/scribus.cpp" line="9576"/>
         <location filename="../../scribus/scribus.cpp" line="9815"/>
         <source>Mark with &lt;%1&gt; variable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcar com a variável de texto &lt;%1&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9584"/>
@@ -35567,7 +35568,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10707"/>
         <source>Enabled</source>
-        <translation>Activado</translation>
+        <translation>Ativado</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10709"/>
@@ -35575,12 +35576,12 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <translation>Desativado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Não é possível converter um item em uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>O item %1 está atualmente a ser editado pelo Editor de História. A operação de conversão para traços será ignorada para este item</translation>
     </message>
@@ -35597,7 +35598,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/scribusview.cpp" line="305"/>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
-        <translation>A gestão de cor (CMS) está activa. Por isso a visualização pode não corresponder à percepção por deficientes visuais</translation>
+        <translation>O gerenciamento de cores (CMS) está ativo. Devido a isso, a visualização pode não corresponder à percepção de deficientes visuais</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="220"/>
@@ -35922,7 +35923,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <location filename="../../scribus/ui/search.cpp" line="88"/>
         <location filename="../../scribus/ui/search.cpp" line="187"/>
         <source>Fill Shade</source>
-        <translation>Intensidade do preenchimento</translation>
+        <translation>Sombreamento do preenchimento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="91"/>
@@ -35934,7 +35935,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
         <location filename="../../scribus/ui/search.cpp" line="94"/>
         <location filename="../../scribus/ui/search.cpp" line="193"/>
         <source>Stroke Shade</source>
-        <translation>Intensidade da borda</translation>
+        <translation>Sombreamento do traço</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="112"/>
@@ -36087,12 +36088,12 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/shadebutton.cpp" line="49"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
-        <translation>&amp;Intensidade:</translation>
+        <translation>&amp;Sombreamento:</translation>
     </message>
 </context>
 <context>
@@ -36362,7 +36363,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/spiralvectorbase.ui" line="71"/>
         <source>Factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fator:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/spiralvectorbase.ui" line="78"/>
@@ -36390,7 +36391,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="76"/>
         <source>Factor:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fator:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="83"/>
@@ -36880,7 +36881,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="287"/>
         <source>Small Caps</source>
-        <translation>Versaletes</translation>
+        <translation>Caixa baixa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="288"/>
@@ -36895,7 +36896,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="286"/>
         <source>All Caps</source>
-        <translation>Caixa Alta</translation>
+        <translation>Caixa alta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="284"/>
@@ -37593,7 +37594,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determina a compatibilidade do PDF. &lt;br/&gt;O &lt;b&gt;PDF 1.3&lt;/b&gt;, a versão mais antiga suportada, oferece a melhor compatibilidade com impressoras RIPS. &lt;br/&gt;O padrão é o &lt;b&gt;PDF 1.4&lt;/b&gt;, que possui suporte a transparência e criptografia de 128 bits. &lt;br/&gt;O &lt;b&gt;PDF 1.5&lt;/b&gt; é necessário quando você desejar preservar os objetos em camadas separadas dentro do PDF. &lt;br/&gt;O &lt;b&gt;PDF/X1a&lt;/b&gt; serve para a troca imediata com cores estritamente especificada na CMYK ou cores spot. &lt;br/&gt;O &lt;b&gt;PDF/X-3&lt;/b&gt; serve para exportação quando deseja gerenciar as cores RGB para impressoras comerciais e esta opção só é selecionável quando o gerenciamento de cores está ativada. Use apenas quando requerido por sua impressora ou em alguns casos de impressão em impressoras digitais a laser de 4 cores. &lt;br/&gt;O &lt;b&gt;PDF/X-4&lt;/b&gt; é uma extensão do PDF/X-3 que suporta transparência e camadas.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
@@ -37673,7 +37674,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1357"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Converter cores lisas (spot colors) em cores compostas (quadricromia)</translation>
+        <translation>Converter cores spot (especiais) em cores compostas (de escala/quadricromia)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="385"/>
@@ -37693,7 +37694,7 @@ Recomend-se o uso do verificador pré-publicação para corrigi-los</translation
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="269"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Activa a conversão de cores lisas (Spot Colors) para cores compostas (quadricromia). A menos que esteja planeando imprimir por separações num impressor comercial, provavelmente é melhor deixar essa opção habilitada.</translation>
+        <translation>Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="288"/>
@@ -37856,22 +37857,22 @@ quando o PDF estiver aberto:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1682"/>
         <source>Printer Marks</source>
-        <translation>Miras de impressão</translation>
+        <translation>Marcas de impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1724"/>
         <source>Crop Marks</source>
-        <translation>Miras de corte</translation>
+        <translation>Marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1717"/>
         <source>Bleed Marks</source>
-        <translation>Miras de sangria</translation>
+        <translation>Marcas de sangria</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1710"/>
         <source>Registration Marks</source>
-        <translation>Miras de registo</translation>
+        <translation>Marcas de registro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1703"/>
@@ -38016,7 +38017,7 @@ quando o PDF estiver aberto:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="272"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Cria marcas de corte no PDF indicando onde o papel deve ser cortado ou aparado após a impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="273"/>
@@ -38112,7 +38113,7 @@ quando o PDF estiver aberto:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="170"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Recortar para as margens da impressora</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1747"/>
@@ -38122,7 +38123,7 @@ quando o PDF estiver aberto:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="277"/>
         <source>Indicate the size of crops&apos;marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Indica o tamanho das marcas de corte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="327"/>
@@ -38807,7 +38808,7 @@ L: %3, A: %4</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="610"/>
         <source>Set fill color shade</source>
-        <translation>Definir intensidade da cor de preenchimento</translation>
+        <translation>Definir sombreamento da cor de preenchimento</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="611"/>
@@ -38817,7 +38818,7 @@ L: %3, A: %4</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="612"/>
         <source>Set line color shade</source>
-        <translation>Definir intensidade da cor da linha</translation>
+        <translation>Definir sombreamento da cor da linha</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="613"/>
@@ -38980,12 +38981,12 @@ para %2 </translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="658"/>
         <source>Set font fill color shade</source>
-        <translation>Definir intensidade da cor de preenchimento da fonte</translation>
+        <translation>Definir sombreamento da cor de preenchimento da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="659"/>
         <source>Set font stroke color shade</source>
-        <translation>Definir intensidade cor de traço da fonte</translation>
+        <translation>Definir sombreamento da cor de traço da fonte</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="660"/>
@@ -39070,17 +39071,17 @@ para %2 </translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="691"/>
         <source>Text flows around the frame</source>
-        <translation>O texto flui ao redor da caixa</translation>
+        <translation>O texto flui em volta da caixa</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Text flows around bounding box</source>
-        <translation>O texto flui ao redor da caixa delimitadora</translation>
+        <translation>O texto flui em volta da caixa delimitadora</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Text flows around contour line</source>
-        <translation>O texto flui ao redor da linha de contorno</translation>
+        <translation>O texto flui em volta da linha de contorno</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="695"/>
@@ -39357,7 +39358,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Text flows around image clipping path</source>
-        <translation type="unfinished"></translation>
+        <translation>O texto flui em volta do caminho de recorte da imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="771"/>
@@ -39432,7 +39433,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="749"/>
         <source>Set layer blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir modo de mistura da camada</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="750"/>
@@ -39487,7 +39488,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="576"/>
         <source>Change blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar modo de mistura</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="577"/>
@@ -40447,7 +40448,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="510"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="840"/>
         <source>Shade:</source>
-        <translation>Intensidade:</translation>
+        <translation>Sombreamento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="299"/>
@@ -40479,7 +40480,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="187"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="882"/>
         <source>Move Vector</source>
-        <translation>Mover vector</translation>
+        <translation>Mover vetor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1007"/>
@@ -40515,7 +40516,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="275"/>
         <source>Shade</source>
-        <translation>Intensidade</translation>
+        <translation>Sombreamento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="282"/>
@@ -40910,7 +40911,7 @@ para arquivos desse tipo.</translation>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="203"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Remover um modelo da janela de diálogo &quot;Novo a partir do modelo&quot; apagará só a entrada do template.xml, mas não apagará os arquivos. Um menu com a opção de apagar só aparecerá se você tiver acesso de escrita ao arquivo template.xml.</translation>
+        <translation>Remover um modelo da janela &quot;Novo a partir do modelo&quot; apagará só a entrada do template.xml, mas não irá deletar os arquivos. Um menu popup com a opção de deletar só irá aparecer se você tiver acesso de escrita ao arquivo template.xml.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/newfromtemplateplugin/nftdialog.cpp" line="208"/>
@@ -41038,7 +41039,7 @@ para arquivos desse tipo.</translation>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="193"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Remover um modelo da janela de diálogo &quot;Novo a partir do modelo&quot; apagará só a entrada do template.xml, mas não apagará os arquivos. Um menu com a opção de apagar só aparecerá se você tiver acesso de escrita ao arquivo template.xml.</translation>
+        <translation>Remover um modelo da janela &quot;Novo a partir do modelo&quot; apagará só a entrada do template.xml, mas não irá deletar os arquivos. Um menu popup com a opção de deletar só irá aparecer se você tiver acesso de escrita ao arquivo template.xml.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="196"/>
@@ -41124,7 +41125,7 @@ para arquivos desse tipo.</translation>
     <message>
         <location filename="../../scribus/ui/replaceonecolor.ui" line="70"/>
         <source>with:</source>
-        <translation>com:</translation>
+        <translation>por:</translation>
     </message>
 </context>
 <context>
@@ -41825,12 +41826,12 @@ para arquivos desse tipo.</translation>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="314"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation>Mova o início do gradiente do vector com o botão esquerdo do rato pressionado e mova até o fim com o botão direito do rato pressionado</translation>
+        <translation>Mova o início do gradiente do vetor com o botão esquerdo do mouse pressionado e mova até o fim com o botão direito do mouse pressionado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="317"/>
         <source>Move Vector</source>
-        <translation>Mover vector</translation>
+        <translation>Mover vetor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="354"/>

@@ -35477,12 +35477,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>無効</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>使用中のアイテムは変換できません</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>アイテム %1 はストーリエディタで編集中です。このアイテムをアウトラインに変換する操作は、スキップします。</translation>
     </message>

@@ -1976,7 +1976,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1812"/>
         <source>Unlink text frames</source>
-        <translation>Rastavi tekstualne okvire</translation>
+        <translation>Odspoji tekstualne okvire</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1818"/>
@@ -4074,7 +4074,7 @@ Visina: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="283"/>
         <source>Frame is already linked. Unlink it before linking it to another frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Okvir je već povezan. Odspoji ga prije povezivanja s jednim drugim okvirom.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="290"/>
@@ -15592,7 +15592,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="211"/>
         <source>Apply to all &amp;matching images</source>
-        <translation type="unfinished"></translation>
+        <translation>Primijeni na sve &amp;odgovarajuće slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="214"/>
@@ -15602,7 +15602,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="230"/>
         <source>Since you selected an image with a broken link, only image frames with invalid links will be modified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Budući da je odabrana jedna slika s pokvarenom vezom, izmijenit će se samo okviri slika s neispravnim vezama.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="258"/>
@@ -15636,7 +15636,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
         <source>Select a base directory to search for </source>
-        <translation type="unfinished"></translation>
+        <translation>Odaberi osnovni direktorij za traženje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
@@ -28707,7 +28707,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1186"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće rastaviti ne-tekstualni okvir.</translation>
+        <translation>Nije moguće odspojiti ne-tekstualni okvir.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1240"/>
@@ -29118,7 +29118,7 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1192"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Objekt nije povezan tekstualni okvir. Nije ga moguće rastaviti.</translation>
+        <translation>Objekt nije povezan tekstualni okvir. Nije ga moguće odspojiti.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1266"/>
@@ -35577,12 +35577,12 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
         <translation>Deaktivirano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nije moguće konvertirati aktivni element</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Element %1 se trenutačno ueđuje u uređivaču za tekst. Za ovaj element će se preskočiti operacija za konvertiranje u konture</translation>
     </message>
@@ -39457,7 +39457,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="779"/>
         <source>Unlink text frame</source>
-        <translation>Ukloni vezu tekstaulnog okvira</translation>
+        <translation>Odspoji tekstaulni okvir</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="774"/>

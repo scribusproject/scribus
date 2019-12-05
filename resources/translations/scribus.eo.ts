@@ -4074,7 +4074,7 @@ Alto: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="283"/>
         <source>Frame is already linked. Unlink it before linking it to another frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>La kadro jam estas ligita. Malligu ĝin antaŭ ol ligi al alia kadro</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="290"/>
@@ -9140,7 +9140,7 @@ ignorolisto</translation>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="59"/>
         <source>Import AI...</source>
-        <translation>Importu AI...</translation>
+        <translation>Importu aI...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="80"/>
@@ -9231,7 +9231,7 @@ Please submit your file (if possible) to the
 Document Liberation Project http://www.documentliberation.org</source>
         <translation>La analizo malsukcesis
 
-Sendu la dosieron (se eblas) al
+Bonvolu sendi la dosieron (se eblas) al
 Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
@@ -9289,7 +9289,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
-        <translation>All Supported Formats</translation>
+        <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="53"/>
@@ -9767,7 +9767,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
-        <translation>All Supported Formats</translation>
+        <translation>Ĉiuj subtenataj formoj</translation>
     </message>
 </context>
 <context>
@@ -10305,7 +10305,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="69"/>
         <source>Imposition dialog</source>
-        <translation>Impoz dialogo</translation>
+        <translation>Impoz-dialogo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/imposition/impositionplugin.cpp" line="70"/>
@@ -10906,7 +10906,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="76"/>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
-        <translation>Aldonas novan skripton kaj difinas funkcion kun la sama nomo. Se vi intencas uzi ĉi tiun skripton kiel \&quot;malferman\&quot; skripton, ne ŝanĝu la nomon de la funkcio.</translation>
+        <translation>Aldonas novan skripton kaj difinas funkcion kun la sama nomo. Se vi intencas uzi ĉi tiun skripton kiel &quot;malferman&quot; skripton, ne ŝanĝu la nomon de la funkcio.</translation>
     </message>
 </context>
 <context>
@@ -12559,12 +12559,12 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="38"/>
         <source>Left:</source>
-        <translation>Maldekstre:</translation>
+        <translation>Maldekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="58"/>
         <source>Right:</source>
-        <translation>Dekstre:</translation>
+        <translation>Dekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="75"/>
@@ -13134,7 +13134,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="97"/>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
-        <translation>OpenOffice.org 1.x Draw</translation>
+        <translation>OpenOffice.org 1.x Draw (*.sxd *.SXD)</translation>
     </message>
 </context>
 <context>
@@ -13237,7 +13237,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="308"/>
         <source>Face Color:</source>
-        <translation>Fackoloro:</translation>
+        <translation>Frontkoloro:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="343"/>
@@ -14018,7 +14018,7 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
     <message>
         <location filename="../../scribus/pageitem.cpp" line="594"/>
         <source>PathText</source>
-        <translation>PathText</translation>
+        <translation>Vojprefikso</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="598"/>
@@ -14638,7 +14638,7 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="70"/>
         <source>&lt;qt&gt;List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Listo de ĉefpaĝoj en la dokumento. La nomoj de la ĉefpaĝoj povas esti trenitaj sur la ĉi-suba paĝovido por apliki ilin al la paĝoj, aŭ sur la malplenaj spacoj inter la paĝoj por krei novajn paĝojn.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Listo de ĉefpaĝoj en la dokumento. La nomoj de la ĉefpaĝoj povas esti trenitaj sur la ĉi-suba paĝovido por apliki ilin al la ĉefpaĝoj, aŭ sur la malplenaj spacoj inter la paĝoj por krei novajn paĝojn.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="102"/>
@@ -14648,7 +14648,7 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="115"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation>Listo de normalaj paĝoj en la dokumento, montrita kun la dokumentaspekto. La paĝoj povas estis trenitaj por rearanĝi aŭ forigi ilin.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Listo de normalaj paĝoj en la dokumento, montrita kun la dokumentaspekto. La paĝoj povas esti trenitaj por rearanĝi aŭ forigi ilin&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="151"/>
@@ -14658,7 +14658,7 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="170"/>
         <source>&lt;qt&gt;Drag pages or master pages onto the trash to delete them&lt;/qt&gt;</source>
-        <translation>Por forigi paĝojn aŭ ĉefpaĝojn trenu ilin en la rubujon&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Por forigi paĝojn aŭ ĉefpaĝojn trenu ilin en la rubujon&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -15481,7 +15481,7 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
     <message>
         <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="13"/>
         <source>Confirm to run unsafe script</source>
-        <translation>Konfirmu ruli nesekuran skripton</translation>
+        <translation>Konfirmu por ruli nesekuran skripton</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="29"/>
@@ -15589,7 +15589,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="211"/>
         <source>Apply to all &amp;matching images</source>
-        <translation type="unfinished"></translation>
+        <translation>Apliku al ĉiuj kon&amp;gruantaj bikldoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="214"/>
@@ -15599,7 +15599,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="230"/>
         <source>Since you selected an image with a broken link, only image frames with invalid links will be modified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro tio ke oni elektis bildon kun nefunkcianta ligilo, estos modifitaj nur bildokadroj kun nevalidaj ligiloj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="258"/>
@@ -15633,7 +15633,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
         <source>Select a base directory to search for </source>
-        <translation type="unfinished"></translation>
+        <translation>Elektu bazan dosierujon traserĉotan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
@@ -15644,7 +15644,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="143"/>
         <source>The search failed: %1</source>
-        <translation>La seerĉado malsukcesis: %1</translation>
+        <translation>La serĉado malsukcesis: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="13"/>
@@ -16248,7 +16248,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1058"/>
         <source>Profile Name:</source>
-        <translation>Profila nomo:</translation>
+        <translation>Profilnomo:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1152"/>
@@ -16429,7 +16429,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1789"/>
         <source>Same as Image</source>
-        <translation>Sama kiel bildo</translation>
+        <translation>Egala al la bildo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1794"/>
@@ -16619,7 +16619,7 @@ Bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="714"/>
         <source>Preview Images Only</source>
-        <translation>Nur antaŭrigardo de bildoj</translation>
+        <translation>Antaŭrigardu nur bildojn</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1581"/>
@@ -16965,7 +16965,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="183"/>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="199"/>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation>Negativa valoro igos la poligonon konkava (aŭ stelforman), pozitiva valoro igos ĝin konveksa</translation>
+        <translation>Negativa valoro igos la poligonon konkava (aŭ stelforma), pozitiva valoro igos ĝin konveksa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="186"/>
@@ -17325,12 +17325,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="150"/>
         <source>Left:</source>
-        <translation>Maldekstre:</translation>
+        <translation>Maldekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="160"/>
         <source>Right:</source>
-        <translation>Dekstre:</translation>
+        <translation>Dekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="170"/>
@@ -17405,7 +17405,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="435"/>
         <source>Locked Frames:</source>
-        <translation>Kadroj ŝlositaj:</translation>
+        <translation>Ŝlositaj kadroj:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="449"/>
@@ -17450,22 +17450,22 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="78"/>
         <source>Turns the display of frames on or off</source>
-        <translation>Igas (ne)videblaj la kadrojn</translation>
+        <translation>Igas la kadrojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="79"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation>Igas (ne)videblaj la tavolindikilojn</translation>
+        <translation>Igas la tavolindikilojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="80"/>
         <source>Turns the display of images on or off</source>
-        <translation>Igas (ne)videblaj la bildojn</translation>
+        <translation>Igas la bildojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="81"/>
         <source>Turns the page shadow on or off</source>
-        <translation>Igas (ne)videbla la paĝombron</translation>
+        <translation>Igas la paĝombron (ne)videbla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="82"/>
@@ -17490,7 +17490,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="86"/>
         <source>Set the default zoom level</source>
-        <translation>Agordu la defaŭlta zomnivelon</translation>
+        <translation>Agordu la defaŭltan zomnivelon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="87"/>
@@ -17531,7 +17531,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="68"/>
         <source>Author:</source>
-        <translation>Author:</translation>
+        <translation>Aŭtoro:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="78"/>
@@ -18182,7 +18182,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="141"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Glatigu grafikaĵojn de EPS kaj PDF por surekrana montro</translation>
+        <translation>Grafikaĵ-glatigo por montro de bildoj EPS kaj PDF sur la ekrano</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="144"/>
@@ -18381,7 +18381,7 @@ Do you want to migrate them to the new Scribus version?</source>
 Do you want to use this?</source>
         <translation>Scribus trovis la sekvan pdflatex-komandon:
 %1
-Ĉu oni volas uzi ĝin?</translation>
+Ĉu vi volas uzi ĝin?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="332"/>
@@ -18396,7 +18396,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="466"/>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
-        <translation>  &lt;qt&gt;Loko de la dosiersistemo de Uniconverter.&lt;/qt&gt;</translation>
+        <translation>  &lt;qt&gt;Loko de la dosiersistemo de Uniconvertor.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="592"/>
@@ -18489,7 +18489,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="102"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation>Eblas agordi la dosiervojojn nur en Dosiero-&gt;Agordoj, kaj nur kiam ne estas dokumento malfermita. Fermu ĉiujn dokumentojn, kaj uzu Dosiero-&gt;Agordoj-&gt;Tiparoj por ŝanĝi la dosiervojon por la serĉado.</translation>
+        <translation>Eblas agordi la dosiervojojn nur en Dosiero &gt; Agordoj, kaj nur kiam ne estas dokumento malfermita. Fermu ĉiujn dokumentojn, kaj uzu Dosiero &gt; Agordoj &gt; Tiparoj por ŝanĝi la dosiervojon por la serĉado.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="351"/>
@@ -18658,7 +18658,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
-        <translation>Igas (ne)videbla la bazlinian kradon</translation>
+        <translation>Igas la bazlinian kradon (ne)videbla </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="97"/>
@@ -18673,17 +18673,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
-        <translation>Igas (ne)videblaj la kadroliniojn</translation>
+        <translation>Igas la kadroliniojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation>Igas (ne)videblaj la helpliniojn</translation>
+        <translation>Igas la helpliniojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation>Igas (ne)videblaj la marĝenojn</translation>
+        <translation>Igas la marĝenojn (ne)videblaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="388"/>
@@ -18952,12 +18952,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="234"/>
         <source>Left:</source>
-        <translation>Maldekstre:</translation>
+        <translation>Maldekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="258"/>
         <source>Right:</source>
-        <translation>Dekstre:</translation>
+        <translation>Dekstra:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="435"/>
@@ -19931,8 +19931,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1757"/>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation>Ĝavaskripto plenumota
-kiam PDF-dokumento estas malfermita:</translation>
+        <translation>Ĝavaskripto plenumota kiam PDF-dokumento estas malfermita:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="51"/>
@@ -24911,17 +24910,17 @@ pri la Scribus-skriptilo por kromaj informoj.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="44"/>
         <source>Symlink to File</source>
-        <translation>Simbola lligilo al dosiero</translation>
+        <translation>Simbola ligilo al dosiero</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="45"/>
         <source>Symlink to Directory</source>
-        <translation>Simbola lligilo al dosierujo</translation>
+        <translation>Simbola ligilo al dosierujo</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="46"/>
         <source>Symlink to Special</source>
-        <translation>Simbola lligilo al speciala</translation>
+        <translation>Simbola ligilo al speciala</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="47"/>
@@ -30885,7 +30884,7 @@ Do, la bildo povas esti ne ĝusta</translation>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="75"/>
         <source>Xps Importer</source>
-        <translation>Xpsimportilo</translation>
+        <translation>Xps-importilo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="110"/>
@@ -35592,12 +35591,12 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Neebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne eblas konverti elementon uzatan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3140"/>
+        <location filename="../../scribus/scribusview.cpp" line="3139"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>La elemento %1 estas redaktata de Tekstoredaktilo. La konverto al konturoj por ĉi tiu elemento estos preterlasita</translation>
     </message>
