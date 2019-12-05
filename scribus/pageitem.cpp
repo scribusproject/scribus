@@ -1183,6 +1183,30 @@ void PageItem::setImageRotation(const double newRotation)
 	checkChanges();
 }
 
+
+/// tests if a character is displayed by this frame
+bool PageItem::frameDisplays(int textpos) const
+{
+	return 0 <= textpos && textpos < signed(m_maxChars) && textpos < itemText.length();
+}
+
+PageItem* PageItem::frameOfChar(int textPos)
+{
+	PageItem* firstFrame = this->firstInChain();
+	PageItem* nextFrame = firstFrame;
+
+	while (nextFrame)
+	{
+		if (nextFrame->invalid)
+			nextFrame->layout();
+		if (nextFrame->frameDisplays(textPos))
+			return nextFrame;
+		nextFrame = nextFrame->nextInChain();
+	}
+
+	return nullptr;
+}
+
 //return frame where is text end
 PageItem * PageItem::frameTextEnd()
 {
@@ -1531,13 +1555,6 @@ void PageItem::unlinkWithText()
 		undoManager->action(this, is);
 	}
 }
-
-/// tests if a character is displayed by this frame
-bool PageItem::frameDisplays(int textpos) const
-{
-	return 0 <= textpos && textpos < signed(m_maxChars) && textpos < itemText.length();
-}
-
 
 /// returns the style at the current charpos
 const ParagraphStyle& PageItem::currentStyle() const
@@ -7634,7 +7651,7 @@ void PageItem::setTagged(bool tag)
 
 void PageItem::replaceNamedResources(ResourceCollection& newNames)
 {
-	QMap<QString,QString>::ConstIterator it;
+	QMap<QString, QString>::ConstIterator it;
 	
 	it = newNames.colors().find(softShadowColor());
 	if (it != newNames.colors().end())

@@ -2253,11 +2253,11 @@ FPoint ScribusView::canvasOrigin() const
 /*!
   returns the visible part of the canvas in canvas coordinates
  */
-QRectF ScribusView::visibleCanvas() const
+QRectF ScribusView::visibleCanvasRect() const
 {
 	double scale = m_canvas->scale();
-	return QRectF(horizontalScrollBar()->value() / scale,
-				  verticalScrollBar()->value() / scale,
+	return QRectF(horizontalScrollBar()->value() / scale + Doc->minCanvasCoordinate.x(),
+				  verticalScrollBar()->value() / scale + Doc->minCanvasCoordinate.y(),
 				  viewport()->width() / scale,
 				  viewport()->height() / scale);
 }

@@ -342,8 +342,7 @@ void CanvasMode_EditTable::mouseDoubleClickEvent(QMouseEvent* event)
 	{
 		// Regular double click selects a word.
 		m_lastCursorPos = textFrame->itemText.cursorPosition();
-		uint pos = textFrame->itemText.selectWord(textFrame->itemText.cursorPosition());
-		textFrame->itemText.setCursorPosition(pos);
+		textFrame->itemText.selectWord(textFrame->itemText.cursorPosition());
 	}
 
 	updateCanvas(true);

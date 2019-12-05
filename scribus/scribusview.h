@@ -199,7 +199,7 @@ public:
 	void setCanvasOrigin(double x, double y);
 	void setCanvasCenter(double x, double y);
 	FPoint canvasOrigin() const;
-	QRectF visibleCanvas() const;
+	QRectF visibleCanvasRect() const;
 	void setRedrawMarkerShown(bool shown);
 	
 private:

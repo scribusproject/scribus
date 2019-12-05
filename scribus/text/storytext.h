@@ -128,7 +128,10 @@ public:
 	void insertObject(int pos, int obj);
 	// Insert mark at cursor or specific position
 	void insertMark(Mark* Mark, int pos = -1);
+	// Replace a character
  	void replaceChar(int pos, QChar ch);
+	// Replace current selection with specified text
+	void replaceSelection(const QString& newText);
  	// Replaced a word, and return the difference in length between old and new
 	int replaceWord(int pos, QString newWord);
 	void replaceObject(int pos, int obj);
@@ -242,12 +245,13 @@ public:
 	void extendSelection(int oldPos, int newPos);
 	int selectWord(int pos);
 	void select(int pos, int len, bool on = true);
+	QString selectedText() const;
 	bool selected(int pos) const;
 	int startOfSelection() const;
 	int endOfSelection() const;
 	int selectionLength() const;
 	bool isSelected() const;
-
+	
 	// break iterators
 	static BreakIterator* getGraphemeIterator();
 	static BreakIterator* getWordIterator();

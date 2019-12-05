@@ -35,9 +35,9 @@ class SCRIBUS_API SearchReplace : public QDialog
 public:
 	SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode = true );
 	~SearchReplace() {};
-	virtual void slotDoSearch();
-	virtual void slotDoReplace();
+
 	int firstMatchCursorPosition();
+	void setSearchedText(const QString& text);
 
 	QLabel* SText1;
 	QLabel* RText1;
@@ -126,8 +126,9 @@ protected:
 
 	uint m_replStart;
 	PrefsContext* m_prefs;
-	bool m_notFound;
+	bool m_found { false };
 	bool m_itemMode;
+	bool m_replacingAll { false };
 
 	QVBoxLayout* SearchReplaceLayout;
 	QHBoxLayout* SelLayout;
@@ -136,11 +137,15 @@ protected:
 	QHBoxLayout* OptsLayout;
 	QHBoxLayout* ButtonsLayout;
 
+	virtual void doSearch();
+	virtual void doReplace();
+	virtual void showNotFoundMessage();
+
 	virtual void readPrefs();
 
 	/// Number of matches found thus far in a search
-	int matchesFound;
-	int m_firstMatchPosition;
+	int m_matchesFound { 0 };
+	int m_firstMatchPosition { -1 };
 
 };
 

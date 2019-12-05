@@ -378,8 +378,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				}
 				else
 				{
-					int newPos = currItem->itemText.selectWord(oldCp);
-					currItem->itemText.setCursorPosition(newPos);
+					currItem->itemText.selectWord(oldCp);
 				}
 			}
 			currItem->HasSel = currItem->itemText.isSelected();

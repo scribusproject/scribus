@@ -741,9 +741,43 @@ void StoryText::replaceChar(int pos, QChar ch)
 	invalidate(pos, pos + 1);
 }
 
+void StoryText::replaceSelection(const QString& newText)
+{
+	if (selectionLength() <= 0)
+		return;
+
+	int selStart = startOfSelection();
+	int selLength = selectionLength();
+
+	int lengthDiff = newText.length() - selLength;
+	if (lengthDiff == 0)
+	{
+		for (int i = 0; i < selLength; ++i)
+			replaceChar(selStart + i, newText[i]);
+	}
+	else if (lengthDiff > 0)
+	{
+		for (int i = 0; i < selLength; ++i)
+			replaceChar(selStart + i, newText[i]);
+		for (int i = selLength; i < newText.length(); ++i)
+			insertChars(selStart + i, newText.mid(i, 1), true);
+	}
+	else
+	{
+		for (int i = 0; i < newText.length(); ++i)
+			replaceChar(selStart + i, newText[i]);
+		removeChars(selStart + newText.length(), -lengthDiff);
+	}
+
+	deselectAll();
+	if (newText.length() > 0)
+		select(selStart, newText.length());
+	setCursorPosition(selStart + newText.length());
+}
+
 int StoryText::replaceWord(int pos, QString newWord)
 {
-	int eoWord=pos;
+	int eoWord = pos;
 	while (eoWord < length())
 	{
 		if (text(eoWord).isLetterOrNumber() || SpecialChars::isIgnorableCodePoint(text(eoWord).unicode()))
@@ -756,23 +790,20 @@ int StoryText::replaceWord(int pos, QString newWord)
 	if (lengthDiff == 0)
 	{
 		for (int j = 0; j < word.length(); ++j)
-			replaceChar(pos+j, newWord[j]);
+			replaceChar(pos + j, newWord[j]);
+	}
+	else if (lengthDiff > 0)
+	{
+		for (int j = 0; j < word.length(); ++j)
+			replaceChar(pos + j, newWord[j]);
+		for (int j = word.length(); j < newWord.length(); ++j)
+			insertChars(pos + j, newWord.mid(j, 1), true);
 	}
 	else
 	{
-		if (lengthDiff>0)
-		{
-			for (int j = 0; j < word.length(); ++j)
-				replaceChar(pos+j, newWord[j]);
-			for (int j = word.length(); j < newWord.length(); ++j)
-				insertChars(pos+j, newWord.mid(j,1), true);
-		}
-		else
-		{
-			for (int j = 0; j < newWord.length(); ++j)
-				replaceChar(pos+j, newWord[j]);
-			removeChars(pos+newWord.length(), -lengthDiff);
-		}
+		for (int j = 0; j < newWord.length(); ++j)
+			replaceChar(pos + j, newWord[j]);
+		removeChars(pos + newWord.length(), -lengthDiff);
 	}
 	return lengthDiff;
 }
@@ -1772,6 +1803,13 @@ bool StoryText::selected(int pos) const
 	;
 }
 
+QString StoryText::selectedText() const
+{
+	int selLen = selectionLength();
+	if (selLen <= 0)
+		return QString();
+	return text(startOfSelection(), selLen);
+}
 
 int StoryText::selectWord(int pos)
 {
@@ -1784,7 +1822,10 @@ int StoryText::selectWord(int pos)
 	int end = it->next();
 	int wordLength = end - start;
 	if (wordLength > 0)
+	{
 		select(start, wordLength);
+		setCursorPosition(endOfSelection());
+	}
 	else
 	{
 		deselectAll();

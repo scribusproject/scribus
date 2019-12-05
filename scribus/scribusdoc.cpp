@@ -16138,6 +16138,25 @@ Serializer *ScribusDoc::textSerializer()
 	return m_tserializer;
 }
 
+bool ScribusDoc::textCanvasPosition(PageItem* item, int textPos, QPointF& canvasPos)
+{
+	canvasPos = QPointF();
+
+	if (!item->isTextFrame() && !item->isPathText() && !item->isNoteFrame())
+		return false;
+
+	PageItem *charFrame = item->frameOfChar(textPos);
+	if (!charFrame)
+		return false;
+
+	QLineF charPos = charFrame->textLayout.positionToPoint(textPos);
+
+	QTransform itemTransform = charFrame->getTransform();
+	canvasPos = itemTransform.map(QPointF(charPos.x1(), charPos.y1()));
+
+	return true;
+}
+
 void ScribusDoc::setRotationMode(int val)
 {
 	if (m_rotMode == val)

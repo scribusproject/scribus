@@ -404,6 +404,10 @@ public: // Start public functions
 	virtual void invalidateLayout() { invalid = true; }
 	/// creates valid layout information
 	virtual void layout() {}
+	 ///< tests if a character is displayed by this frame
+	bool frameDisplays(int textpos) const;
+	/// get frame where is displayed text char in a chain
+	PageItem* frameOfChar(int textPos);
 	/// returns frame where is text end
 	PageItem * frameTextEnd();
 	/// returns true if text overflows
@@ -418,7 +422,7 @@ public: // Start public functions
 	/// returns index of last char displayed in this frame, used to be MaxChars-1
 	int lastInFrame() const;
 
-	bool frameDisplays(int textpos) const; ///< tests if a character is displayed by this fram
+	
 	const ParagraphStyle& currentStyle() const; ///< returns the style at the current charpos
 	ParagraphStyle& changeCurrentStyle(); ///< returns the style at the current charpos
 	/// returns the style at the current charpos

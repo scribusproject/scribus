@@ -1212,6 +1212,9 @@ public:
 	//! \brief Returns a text serializer for this document, used to paste text chunks
 	Serializer *textSerializer();
 
+	//! \brief Retrieve canvas position of text char in specified text chain
+	bool textCanvasPosition(PageItem* item, int textPos, QPointF& canvasPos);
+
 	//! \brief Get rotation mode
 	int rotationMode() const {return m_rotMode;}
 	//! \brief Set rotation mode
@@ -1221,6 +1224,7 @@ public:
 	// unncessary signals when doing updates on multiple items
 	void beginUpdate();
 	void endUpdate();
+
 	int addToInlineFrames(PageItem *item);
 	void removeInlineFrame(int fIndex);
 	void checkItemForFrames(PageItem *it, int fIndex);
