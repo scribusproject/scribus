@@ -18,15 +18,8 @@ if(PREFIX_CAIRO)
 else(PREFIX_CAIRO)
   # use pkgconfig to get the directories and then use these values
   # in the find_path() and find_library() calls
-  if (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-    include(UsePkgConfig)
-    PKGCONFIG(cairo _libCairoIncDir _libCairoLinkDir _libCairoLinkFlags _libCairoCflags)
-    set(PKG_CAIRO_INCLUDE_DIRS ${_libCairoIncDir})
-    set(PKG_CAIRO_LIBRARIES ${_libCairoLinkDir})
-  else (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-    include(FindPkgConfig)
-    pkg_search_module(CAIRO REQUIRED libcairo>=1.14.0 cairo>=1.14.0)
-  endif (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+  include(FindPkgConfig)
+  pkg_search_module(CAIRO REQUIRED libcairo>=1.14.0 cairo>=1.14.0)
 endif(PREFIX_CAIRO)
 
 find_path(CAIRO_INCLUDE_DIR 

@@ -20,7 +20,7 @@ SET_LIBRARY_FROM_DEBUG_AND_RELEASE(HYPHEN)
 
 # handle the QUIETLY and REQUIRED arguments and set HYPHEN_FOUND to TRUE if 
 # all listed variables are TRUE
-include(ScribusFindPackageHandleStandardArgs)
+include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(HYPHEN DEFAULT_MSG HYPHEN_LIBRARY HYPHEN_INCLUDE_DIR)
 
 if(HYPHEN_FOUND)

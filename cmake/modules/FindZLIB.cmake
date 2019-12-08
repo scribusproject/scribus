@@ -43,7 +43,7 @@ endif(QT_QTCORE_LIBRARY AND USE_QT_ZLIB_PNGLIB)
 
 # handle the QUIETLY and REQUIRED arguments and set ZLIB_FOUND to TRUE if 
 # all listed variables are TRUE
-include(ScribusFindPackageHandleStandardArgs)
+include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(ZLIB DEFAULT_MSG ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
 
 if(ZLIB_FOUND)

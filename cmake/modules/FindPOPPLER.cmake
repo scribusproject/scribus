@@ -1,15 +1,8 @@
-if (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-	include(UsePkgConfig)
-	PKGCONFIG(poppler _libPopplerIncDir _libPopplerLinkDir _libPopplerLinkFlags _libPopplerCflags)
-	set(PKG_POPPLER_INCLUDE_DIRS ${_libPopplerIncDir})
-	set(PKG_POPPLER_LIBRARIES ${_libPopplerLinkDir})
-else (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
-	include(FindPkgConfig)
-	pkg_search_module(POPPLER libpoppler>=0.58.0 poppler>=0.58.0)
-	if (POPPLER_FOUND)
-		pkg_search_module(POPPLER_CPP REQUIRED libpoppler-cpp>=0.58.0 poppler-cpp>=0.58.0)
-	endif(POPPLER_FOUND)
-endif (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+include(FindPkgConfig)
+pkg_search_module(POPPLER libpoppler>=0.58.0 poppler>=0.58.0)
+if (POPPLER_FOUND)
+	pkg_search_module(POPPLER_CPP REQUIRED libpoppler-cpp>=0.58.0 poppler-cpp>=0.58.0)
+endif(POPPLER_FOUND)
  
 find_path(POPPLER_INCLUDE_DIR 
 	NAMES poppler-config.h
