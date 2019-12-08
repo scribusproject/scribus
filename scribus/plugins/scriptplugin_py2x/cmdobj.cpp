@@ -674,9 +674,9 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		if (selectionLength > 0)
 			selectionStart = item->itemText.startOfSelection();
 		// quick hack to always apply on the right frame - pv
-		currentView->Deselect(true);
+		currentView->deselectItems(true);
 		//CB I dont think we need to draw here. Its faster if we dont.
-		currentView->SelectItem(item, false);
+		currentView->selectItem(item, false);
 		// Restore text selection if necessary
 		if (selectionStart >= 0)
 		{
@@ -757,9 +757,9 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		if (selectionLength > 0)
 			selectionStart = item->itemText.startOfSelection();
 		// quick hack to always apply on the right frame - pv
-		currentView->Deselect(true);
+		currentView->deselectItems(true);
 		//CB I dont think we need to draw here. Its faster if we dont.
-		currentView->SelectItem(item, false);
+		currentView->selectItem(item, false);
 		// Restore text selection if necessary
 		if (selectionStart >= 0)
 		{

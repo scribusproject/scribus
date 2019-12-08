@@ -1187,8 +1187,8 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 	}
 	if (item->invalid)
 		item->layout();
-	ScCore->primaryMainWindow()->view->Deselect(true);
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+	ScCore->primaryMainWindow()->view->deselectItems(true);
+	ScCore->primaryMainWindow()->view->selectItem(item);
 	ScCore->primaryMainWindow()->view->TextToPath();
 
 	Py_RETURN_NONE;

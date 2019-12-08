@@ -61,17 +61,17 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 
 	// scale
 	currentDoc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
 	currentDoc->updatePic();
 
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection=tempSelection;
 
@@ -103,10 +103,10 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 
 	// scale
 	double newScaleX = x / item->pixm.imgInfo.xres * 72.0;
@@ -115,7 +115,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	currentDoc->updatePic();
 
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection=tempSelection;
 
@@ -146,10 +146,10 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 
 	// offset
 	double newOffsetX = x / ((item->imageXScale() != 0.0) ? item->imageXScale() : 1);
@@ -158,7 +158,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	currentDoc->updatePic();
 
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection=tempSelection;
 
@@ -240,10 +240,10 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 	// Move the item, or items
 	if (currentDoc->m_Selection->count() > 1)
 	{
@@ -255,7 +255,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 		currentDoc->moveItem(ValueToPoint(x), ValueToPoint(y), item);
 		}
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection=tempSelection;
 	Py_RETURN_NONE;
@@ -280,10 +280,10 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 	// Move the item, or items
 	if (currentDoc->m_Selection->count() > 1)
 	{
@@ -296,7 +296,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	else
 		currentDoc->moveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection=tempSelection;
 
@@ -415,8 +415,8 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 		return nullptr;
 
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
-	currentWin->view->Deselect();
-	currentWin->view->SelectItem(i);
+	currentWin->view->deselectItems();
+	currentWin->view->selectItem(i);
 	currentWin->UnGroupObj();
 
 	Py_RETURN_NONE;
@@ -442,8 +442,8 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 
-	currentView->Deselect();
-	currentView->SelectItem(i);
+	currentView->deselectItems();
+	currentView->selectItem(i);
 //	int h = currentView->frameResizeHandle;
 //	currentView->frameResizeHandle = 1;
 	currentView->startGroupTransaction(Um::Resize, "", Um::IResize);
@@ -483,7 +483,7 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == nullptr)
 		return nullptr;
-	ScCore->primaryMainWindow()->view->SelectItem(i);
+	ScCore->primaryMainWindow()->view->selectItem(i);
 	Py_RETURN_NONE;
 }
 
@@ -491,7 +491,7 @@ PyObject *scribus_deselect(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	ScCore->primaryMainWindow()->view->Deselect();
+	ScCore->primaryMainWindow()->view->deselectItems();
 	Py_RETURN_NONE;
 }
 
@@ -603,10 +603,10 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
-	currentView->Deselect();
+	currentView->deselectItems();
 	// Select the item, which will also select its group if
 	// there is one.
-	currentView->SelectItem(item);
+	currentView->selectItem(item);
 
 	// flip
 	if (h == 1)
@@ -614,7 +614,7 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	if (v == 1)
 		currentDoc->itemSelection_FlipV();
 	// Now restore the selection.
-	currentView->Deselect();
+	currentView->deselectItems();
 	if (hadOrigSelection)
 		*currentDoc->m_Selection = tempSelection;
 
