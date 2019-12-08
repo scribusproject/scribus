@@ -148,12 +148,13 @@ public:
 	
 
 protected:
-	ScribusView * const m_view;
-	Canvas * const m_canvas;
-	ScribusDoc * const m_doc;
-	PanGesture * m_panGesture;
+	ScribusView* const m_view;
+	Canvas* const m_canvas;
+	ScribusDoc* const m_doc;
+	PanGesture* m_panGesture {nullptr};
 	UndoManager* undoManager;
-	double xSnap, ySnap;
+	double xSnap {0.0};
+	double ySnap {0.0};
 	
 	void setResizeCursor(int how, double rot = 0.0);
 	bool commonMouseMove(QMouseEvent *m);
@@ -167,8 +168,8 @@ private:
 	QMap<QString,QPen> m_pen;
 	QMap<QString,QBrush> m_brush;
 
-	bool m_keyRepeat;
-	bool m_arrowKeyDown;
+	bool m_keyRepeat {false};
+	bool m_arrowKeyDown {false};
 	//FPoint m_mousePointDoc;
 };
 

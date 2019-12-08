@@ -78,10 +78,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_view(view),
 	m_canvas(view->m_canvas),
 	m_doc(view->Doc),
-	m_panGesture(nullptr),
-	undoManager(UndoManager::instance()),
-	xSnap(0.0),
-	ySnap(0.0)
+	undoManager(UndoManager::instance())
 {
 	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["outline"].setCosmetic(true);
@@ -99,10 +96,6 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_brush["selection-group"] = QColor(255,0,0,10);
 	m_brush["selection-group-inside"] = Qt::NoBrush;
 	m_brush["handle"]	= PrefsManager::instance().appPrefs.displayPrefs.frameColor;
-
-	m_keyRepeat = false;
-	m_arrowKeyDown = false;
-	//m_mousePointDoc = FPoint(0,0);
 }
 
 CanvasMode::~CanvasMode()

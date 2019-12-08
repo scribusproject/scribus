@@ -2474,7 +2474,7 @@ void ScribusView::hideMasterPage()
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
-void ScribusView::showSymbolPage(QString symbolName)
+void ScribusView::showSymbolPage(const QString& symbolName)
 {
 	deselectItems(false);
 	OldScale = m_canvas->scale();
@@ -2521,8 +2521,8 @@ void ScribusView::showInlinePage(int id)
 	m_ScMW->layerMenu->setEnabled(false);
 	updateOn = false;
 	setZoom();
-	m_oldZoomX = qRound(Doc->currentPage()->xOffset()- 10);
-	m_oldZoomY = qRound(Doc->currentPage()->yOffset()- 10);
+	m_oldZoomX = qRound(Doc->currentPage()->xOffset() - 10);
+	m_oldZoomY = qRound(Doc->currentPage()->yOffset() - 10);
 	setCanvasPos(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
 	endEditButton->setVisible(true);
@@ -2556,8 +2556,6 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 	if (clipw <= 0 || cliph <= 0)
 		return QImage();
 
-	QImage im;
-	QImage pm;
 	double sca = m_canvas->scale();
 	bool   frs = Doc->guidesPrefs().framesShown;
 	double cx = Doc->minCanvasCoordinate.x();
@@ -2574,7 +2572,7 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 	setScale(1.0);
 	m_canvas->setPreviewMode(true);
 	m_canvas->setForcedRedraw(true);
-	pm = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
+	QImage pm = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
 	painter->clear(Doc->paperColor());
 	painter->translate(-clipx, -clipy);
@@ -2597,6 +2595,7 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 	painter->end();
 	double sx = pm.width() / static_cast<double>(maxGr);
 	double sy = pm.height() / static_cast<double>(maxGr);
+	QImage im;
 	if (sy < sx)
 		im = pm.scaled(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	else

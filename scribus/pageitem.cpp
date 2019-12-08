@@ -1306,6 +1306,7 @@ int PageItem::firstInFrame() const
 {
 	return firstChar;
 }
+
 int PageItem::lastInFrame() const
 {
 	return qMin(signed(m_maxChars), itemText.length()) - 1;
@@ -4586,7 +4587,7 @@ void PageItem::convertTo(ItemType newType)
 		return; // nothing to do -> return
 	assert(newType != 1);	//DEBUG CR 2005-02-06
 	assert(newType != 3);	//DEBUG CR 2005-02-06
-	QString fromType = "", toType = "";
+	QString fromType;
 	switch (m_itemType)
 	{
 		case ImageFrame:
@@ -4604,9 +4605,9 @@ void PageItem::convertTo(ItemType newType)
 			fromType = Um::Polygon;
 			break;
 		default:
-			fromType = "";
 			break;
 	}
+	QString toType;
 	switch (newType)
 	{
 		case ImageFrame:
@@ -4632,7 +4633,6 @@ void PageItem::convertTo(ItemType newType)
 			setUPixmap(Um::IPolyline);
 			break;
 		default:
-			toType = "";
 			setUPixmap(nullptr);
 			break;
 	}

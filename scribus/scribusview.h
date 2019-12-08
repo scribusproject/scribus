@@ -158,7 +158,7 @@ public:
 	void reformPagesView();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	void showSymbolPage(QString symbolName);
+	void showSymbolPage(const QString& symbolName);
 	void hideSymbolPage();
 	void showInlinePage(int id);
 	void hideInlinePage();
