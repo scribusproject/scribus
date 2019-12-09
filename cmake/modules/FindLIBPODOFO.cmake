@@ -18,8 +18,6 @@ find_path(LIBPODOFO_INCLUDE_DIR
 	"${LIBPODOFO_DIR}/include"
 	"${LIBPODOFO_DIR}/src"
 	"${LIBPODOFO_DIR}"
-	/usr/include
-	/usr/local/include
 	)
 
 set(LIBPODOFO_FIND_QUIETLY ON)
@@ -30,7 +28,6 @@ find_library(LIBPODOFO_LIBRARY
 	"${LIBPODOFO_DIR}/lib"
 	"${LIBPODOFO_DIR}/src"
 	"${LIBPODOFO_DIR}"
-	/usr/lib /usr/local/lib
 	)
 
 if(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)

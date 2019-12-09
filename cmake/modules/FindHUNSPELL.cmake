@@ -33,9 +33,4 @@ if(CMAKE_MATCH_1 GREATER 4)
 	message(STATUS "HUNSPELL LIBRARIES ${HUNSPELL_LIBRARIES}")
 endif()
 
-#find_path(HUNSPELL_INCLUDE_DIR hunspell/hunspell.hxx )
-#find_library(HUNSPELL_LIBRARIES NAMES hunspell-1.5 hunspell-1.4 hunspell-1.3 hunspell-1.2 PATHS /opt/local/lib /usr/local/lib /usr/lib )
-#include(FindPackageHandleStandardArgs)
-#FIND_PACKAGE_HANDLE_STANDARD_ARGS(HUNSPELL DEFAULT_MSG HUNSPELL_LIBRARIES HUNSPELL_INCLUDE_DIR )
-
 mark_as_advanced(HUNSPELL_INCLUDE_DIR HUNSPELL_LIBRARIES)
