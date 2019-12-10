@@ -421,3 +421,27 @@ void PageItem_PathText::getVisualBoundingRect(double * x1, double * y1, double *
 	totalRect = totalRect.united(QRectF(clipTrans.mapRect(Clip.boundingRect())));
 	totalRect.getCoords(x1, y1, x2, y2);
 }
+
+double PageItem_PathText::visualXPos() const
+{
+	double extraSpace = visualLineWidth() / 2.0;
+	return qMin(m_xPos + QRectF(Clip.boundingRect()).x(), m_xPos - extraSpace);
+}
+
+double PageItem_PathText::visualYPos() const
+{
+	double extraSpace = visualLineWidth() / 2.0;
+	return qMin(m_yPos + QRectF(Clip.boundingRect()).y(), m_yPos - extraSpace);
+}
+
+double PageItem_PathText::visualWidth() const
+{
+	double extraSpace = visualLineWidth();
+	return qMax(QRectF(Clip.boundingRect()).width(), m_width + extraSpace);
+}
+
+double PageItem_PathText::visualHeight() const
+{
+	double extraSpace = visualLineWidth();
+	return qMax(QRectF(Clip.boundingRect()).height(), m_height + extraSpace);
+}

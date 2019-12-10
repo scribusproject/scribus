@@ -501,8 +501,8 @@ public: // Start public functions
 	//Position
 	double xPos() const { return m_xPos; }
 	double yPos() const { return m_yPos; }
-	double visualXPos() const;
-	double visualYPos() const;
+	virtual double visualXPos() const;
+	virtual double visualYPos() const;
 	FPoint xyPos() const { return FPoint(m_xPos, m_yPos); }
 	void setXPos(double, bool drawingOnly=false);
 	void setYPos(double, bool drawingOnly=false);
@@ -511,8 +511,8 @@ public: // Start public functions
 	//Size
 	double width() const override { return m_width; }
 	double height() const override { return m_height; }
-	double visualWidth() const;
-	double visualHeight() const;
+	virtual double visualWidth() const;
+	virtual double visualHeight() const;
 	double visualLineWidth() const;
 	void setWidth(double);
 	void setHeight(double);

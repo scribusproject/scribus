@@ -478,3 +478,25 @@ QRectF PageItem_Line::getEndArrowOldBoundingRect() const
 
 	return arrowRect;
 }
+
+double PageItem_Line::visualXPos() const
+{
+	return m_xPos;
+}
+
+double PageItem_Line::visualYPos() const
+{
+	double extraSpace = visualLineWidth() / 2.0;
+	return m_yPos - extraSpace;
+}
+
+double PageItem_Line::visualWidth() const
+{
+	return m_width;
+}
+
+double PageItem_Line::visualHeight() const
+{
+	double extraSpace = visualLineWidth();
+	return extraSpace;
+}

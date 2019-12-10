@@ -49,6 +49,11 @@ public:
 
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
+	double visualXPos() const override;
+	double visualYPos() const override;
+	double visualWidth() const override;
+	double visualHeight() const override;
+
 protected:
 	void DrawObj_Item(ScPainter *p, QRectF e) override;
 

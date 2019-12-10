@@ -8954,42 +8954,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
-	double extraSpace = 0.0;
-	if (NamedLStyle.isEmpty())
-	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-		{
-			if (isLine() && (PLineEnd == Qt::FlatCap))
-				extraSpace = 0.0;
-			else
-			{
-				extraSpace = m_lineWidth / 2.0;
-				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-					extraSpace = 0.5 / m_Doc->view()->scale();
-			}
-		}
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
-		{
-			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			QTransform mat;
-			mat.rotate(patternStrokeRotation);
-			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-			QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
-			QRectF p2R = mat.map(p1R).boundingRect();
-			extraSpace = p2R.height();
-		}
-	}
-	else
-	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		const SingleLine& sl = ml.last();
-		if (sl.Color != CommonStrings::None)
-		{
-			extraSpace = sl.Width / 2.0;
-			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-				extraSpace = 0.5 / m_Doc->view()->scale();
-		}
-	}
+	double extraSpace = visualLineWidth() / 2.0;
 	if (m_rotation != 0)
 	{
 		FPointArray pb;
@@ -9021,160 +8986,26 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 
 double PageItem::visualXPos() const
 {
-	double extraSpace = 0.0;
-	if (!isLine())
-	{
-		if (NamedLStyle.isEmpty())
-		{
-			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-			{
-				extraSpace = m_lineWidth / 2.0;
-				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-					extraSpace = 0.5 / m_Doc->view()->scale();
-			}
-			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
-			{
-				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-				QTransform mat;
-				mat.rotate(patternStrokeRotation);
-				mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-				QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
-				QRectF p2R = mat.map(p1R).boundingRect();
-				extraSpace = p2R.height();
-			}
-		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Color != CommonStrings::None)
-			{
-				extraSpace = sl.Width / 2.0;
-				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-					extraSpace = 0.5 / m_Doc->view()->scale();
-			}
-		}
-	}
-	if (isPathText())
-		return qMin(m_xPos + QRectF(Clip.boundingRect()).x(), m_xPos - extraSpace);
+	double extraSpace = visualLineWidth() / 2.0;
 	return m_xPos - extraSpace;
 }
 
 double PageItem::visualYPos() const
 {
-	double extraSpace = 0.0;
-	if (NamedLStyle.isEmpty())
-	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-		{
-			extraSpace = m_lineWidth / 2.0;
-			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-				extraSpace = 0.5 / m_Doc->view()->scale();
-		}
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
-		{
-			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			QTransform mat;
-			mat.rotate(patternStrokeRotation);
-			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-			QRectF p1R = QRectF(0, 0, pat->width / 2.0, pat->height / 2.0);
-			QRectF p2R = mat.map(p1R).boundingRect();
-			extraSpace = p2R.height();
-		}
-	}
-	else
-	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		const SingleLine& sl = ml.last();
-		if (sl.Color != CommonStrings::None)
-		{
-			extraSpace = sl.Width / 2.0;
-			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-				extraSpace = 0.5 / m_Doc->view()->scale();
-		}
-	}
-	if (isPathText())
-		return qMin(m_yPos + QRectF(Clip.boundingRect()).y(), m_yPos - extraSpace);
+	double extraSpace = visualLineWidth() / 2.0;
 	return m_yPos - extraSpace;
 }
 
 double PageItem::visualWidth() const
 {
-	double extraSpace = 0.0;
-	if (!isLine())
-	{
-		if (NamedLStyle.isEmpty())
-		{
-			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-			{
-				extraSpace = m_lineWidth;
-				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-					extraSpace = 1.0 / m_Doc->view()->scale();
-			}
-			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
-			{
-				ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-				QTransform mat;
-				mat.rotate(patternStrokeRotation);
-				mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-				QRectF p1R = QRectF(0, 0, pat->width, pat->height);
-				QRectF p2R = mat.map(p1R).boundingRect();
-				extraSpace = p2R.height();
-			}
-		}
-		else
-		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-			const SingleLine& sl = ml.last();
-			if (sl.Color != CommonStrings::None)
-			{
-				extraSpace = sl.Width;
-				if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-					extraSpace = 1.0 / m_Doc->view()->scale();
-			}
-		}
-	}
-	if (isPathText())
-		return qMax(QRectF(Clip.boundingRect()).width(), m_width + extraSpace);
+	double extraSpace = visualLineWidth();
 	return m_width + extraSpace;
 }
 
 double PageItem::visualHeight() const
 {
-	double extraSpace = 0.0;
-	if (NamedLStyle.isEmpty())
-	{
-		if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-		{
-			extraSpace = m_lineWidth;
-			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-				extraSpace = 1.0 / m_Doc->view()->scale();
-		}
-		if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)) && (patternStrokePath))
-		{
-			ScPattern *pat = &m_Doc->docPatterns[patternStrokeVal];
-			QTransform mat;
-			mat.rotate(patternStrokeRotation);
-			mat.scale(patternStrokeScaleX / 100.0, patternStrokeScaleY / 100.0);
-			QRectF p1R = QRectF(0, 0, pat->width, pat->height);
-			QRectF p2R = mat.map(p1R).boundingRect();
-			extraSpace = p2R.height();
-		}
-	}
-	else
-	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-		struct SingleLine& sl = ml[ml.size()-1];
-		if (sl.Color != CommonStrings::None)
-		{
-			extraSpace = sl.Width;
-			if ((extraSpace == 0.0) && m_Doc->view()) // Hairline case
-				extraSpace = 1.0 / m_Doc->view()->scale();
-		}
-	}
-	if (isPathText())
-		return qMax(QRectF(Clip.boundingRect()).height(), m_height + extraSpace);
-	return isLine() ? extraSpace : m_height + extraSpace;
+	double extraSpace = visualLineWidth();
+	return m_height + extraSpace;
 }
 
 double PageItem::visualLineWidth() const

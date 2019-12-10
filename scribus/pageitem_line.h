@@ -58,6 +58,11 @@ public:
 
 	QRectF getEndArrowBoundingRect() const override;
 	QRectF getEndArrowOldBoundingRect() const override;
+
+	double visualXPos() const override;
+	double visualYPos() const override;
+	double visualWidth() const override;
+	double visualHeight() const override;
 	
 protected:
 	void DrawObj_Item(ScPainter *p, QRectF e) override;
