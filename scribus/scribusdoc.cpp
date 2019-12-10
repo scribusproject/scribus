@@ -7718,9 +7718,9 @@ void ScribusDoc::itemSelection_SetLineWidth(double w, Selection* customSelection
 		if (currItem->asLine())
 		{
 			int ph = static_cast<int>(qMax(1.0, w / 2.0));
-			currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-									 static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-									 -ph,static_cast<int>(currItem->height()+ph));
+			currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width() + ph),-ph,
+									 static_cast<int>(currItem->width() + ph),static_cast<int>(currItem->height() + ph),
+									 -ph, static_cast<int>(currItem->height() + ph));
 		}
 		QRectF newRect = currItem->getVisualBoundingRect();
 		//currItem->update();

@@ -10032,40 +10032,40 @@ void PageItem::setPolyClip(int up, int down)
 	Segments.clear();
 	QPainterPath pa = PoLine.toQPainterPath(false);
 	QList<QPolygonF> polist = pa.toSubpathPolygons();
-	for (int a = 0; a < polist.count(); a++)
+	for (int i = 0; i < polist.count(); i++)
 	{
-		QPolygon cli = polist[a].toPolygon();
+		QPolygon cli = polist[i].toPolygon();
 		cl += cli;
 		Segments.append(cl.size());
 	}
 	if (cl.size() > 1)
 	{
 		Clip.resize(0);
-		for (int a = 0; a < cl.size()-1; ++a)
+		for (int i = 0; i < cl.size() - 1; ++i)
 		{
-			rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
+			rot = xy2Deg(cl.point(i + 1).x() - cl.point(i).x(), cl.point(i + 1).y() - cl.point(i).y());
 			QTransform ma;
 			ma.rotate(rot);
 			np = QPoint(0, -upval) * ma;
 			np2 = QPoint(0, -downval) * ma;
-			cl1.resize(cl1.size()+1);
-			cl1.setPoint(cl1.size()-1, np+cl.point(a));
-			cl1.resize(cl1.size()+1);
-			cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
-			cl2.resize(cl2.size()+1);
-			cl2.setPoint(cl2.size()-1, np2+cl.point(a));
-			cl2.resize(cl2.size()+1);
-			cl2.setPoint(cl2.size()-1, np2+cl.point(a+1));
+			cl1.resize(cl1.size() + 1);
+			cl1.setPoint(cl1.size() - 1, np+cl.point(i));
+			cl1.resize(cl1.size() + 1);
+			cl1.setPoint(cl1.size() - 1, np + cl.point(i + 1));
+			cl2.resize(cl2.size() + 1);
+			cl2.setPoint(cl2.size() - 1, np2 + cl.point(i));
+			cl2.resize(cl2.size() + 1);
+			cl2.setPoint(cl2.size() - 1, np2 + cl.point(i + 1));
 		}
-		cl1.resize(cl1.size()+1);
-		cl1.setPoint(cl1.size()-1, np+cl.point(cl.size()-1));
+		cl1.resize(cl1.size() + 1);
+		cl1.setPoint(cl1.size() - 1, np + cl.point(cl.size() - 1));
 		cl2.resize(cl2.size()+1);
-		cl2.setPoint(cl2.size()-1, np2+cl.point(cl.size()-1));
+		cl2.setPoint(cl2.size() - 1, np2 + cl.point(cl.size() - 1));
 		Clip.putPoints(Clip.size(), cl1.size(), cl1);
-		for (int a2 = cl2.size()-1; a2 > -1; a2--)
+		for (int i2 = cl2.size() - 1; i2 > -1; i2--)
 		{
-			Clip.resize(Clip.size()+1);
-			Clip.setPoint(Clip.size()-1, cl2.point(a2));
+			Clip.resize(Clip.size() + 1);
+			Clip.setPoint(Clip.size() - 1, cl2.point(i2));
 		}
 	}
 }
@@ -10074,7 +10074,7 @@ void PageItem::updatePolyClip()
 {
 	int asce = 1;
 	int desc = 1;
-	int itemTextCount=itemText.length();
+	int itemTextCount = itemText.length();
 	for (int i = 0; i < itemTextCount; ++i)
 	{
 		const CharStyle& hl (itemText.charStyle(i));
@@ -10083,7 +10083,7 @@ void PageItem::updatePolyClip()
 		asce = qMax(asce, asc);
 		desc = qMax(desc, des);
 	}
-	setPolyClip(static_cast<int>(asce-BaseOffs), static_cast<int>(desc-BaseOffs));
+	setPolyClip(static_cast<int>(asce - BaseOffs), static_cast<int>(desc - BaseOffs));
 }
 
 void PageItem::handleModeEditKey(QKeyEvent * /* k */, bool & /* keyRepeat */)
@@ -10271,9 +10271,9 @@ void PageItem::updateClip(bool updateWelded)
 	switch (itemType())
 	{
 	case PageItem::Line:
-		Clip.setPoints(4, -ph,-ph, static_cast<int>(width()+ph),-ph,
-		                  static_cast<int>(width()+ph),static_cast<int>(height()+ph),
-		                  -ph,static_cast<int>(height()+ph));
+		Clip.setPoints(4, -ph,-ph, static_cast<int>(width() + ph),-ph,
+		                  static_cast<int>(width() + ph), static_cast<int>(height() + ph),
+		                  -ph, static_cast<int>(height() + ph));
 		break;
 	default:
 		if (((!ClipEdited) || (FrameType < 3)) && !(asPathText()))
