@@ -13780,6 +13780,9 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	if (selectedItemCount == 0)
 		return;
 
+	if ((startArrowID < 0) && (endArrowID < 0))
+		return;
+
 	UndoTransaction activeTransaction;
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && selectedItemCount > 1)
@@ -13787,24 +13790,32 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
+
+	QRectF updateRect;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
+		updateRect = updateRect.united(currItem->getBoundingRect());
 		if (startArrowID != -1)
 			currItem->setStartArrowIndex(startArrowID);
 		if (endArrowID != -1)
 			currItem->setEndArrowIndex(endArrowID);
+		updateRect = updateRect.united(currItem->getBoundingRect());
 		if (selectedItemCount <= Um::ItemsInvolvedLimit)
 			tooltip += "\t" + currItem->getUName() + "\n";
-		currItem->update();
+		//currItem->update();
 	}
+
+	if (!updateRect.isEmpty())
+		regionsChanged()->update(updateRect);
+
 	QString undoText;
 	if (startArrowID!=-1 && endArrowID!=-1)
-		undoText=Um::StartAndEndArrow;
+		undoText = Um::StartAndEndArrow;
 	else
-		undoText=(startArrowID!=-1) ? Um::StartArrow : Um::EndArrow;
+		undoText = (startArrowID != -1) ? Um::StartArrow : Um::EndArrow;
 	if (activeTransaction)
 	{
 		activeTransaction.commit(Um::Selection,
