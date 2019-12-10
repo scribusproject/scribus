@@ -23,6 +23,7 @@
 #include "scribusapi.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "undotransaction.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -89,6 +90,8 @@ private:
 	QRectF    m_bounds;
 	QRectF    m_initialBounds;
 	PageItem* m_line;
+	UndoTransaction m_transaction;
+
 	void adjustBounds(QMouseEvent* m, bool updateCanvas = true);
 	void doResize();
 	void setRotation(double rot);

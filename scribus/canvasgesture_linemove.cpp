@@ -24,12 +24,17 @@
 #include "pageitem_line.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "undomanager.h"
 #include "util_math.h"
-
 
 void LineMove::clear()
 {
 	m_haveLineItem = false;
+	if (m_transaction.isStarted())
+	{
+		m_transaction.cancel();
+		m_transaction.reset();
+	}
 }
 
 
@@ -100,10 +105,11 @@ void LineMove::activate(bool flag)
 
 
 
-void LineMove::deactivate(bool flag)
+void LineMove::deactivate(bool forGesture)
 {
 //	qDebug() << "LineMove::deactivate" << flag;
-	m_haveLineItem = false;
+	if (!forGesture)
+		clear();
 }
 
 
@@ -139,6 +145,12 @@ void LineMove::mousePressEvent(QMouseEvent *m)
 	}
 	if (m_haveLineItem)
 	{
+		if (!m_transaction)
+		{
+			QString targetName = line->getUName();
+			QPixmap* targetIcon = line->getUPixmap();
+			m_transaction = Um::instance()->beginTransaction(targetName, targetIcon, Um::Resize, "", Um::IResize);
+		}	
 		adjustBounds(m, false);
 		m_initialBounds = m_bounds;
 		m->accept();
@@ -171,6 +183,11 @@ void LineMove::mouseReleaseEvent(QMouseEvent *m)
 		m_view->resetMousePressed();
 		m_line->checkChanges();
 		m_line->update();
+	}
+	if (m_transaction.isStarted())
+	{
+		m_transaction.commit();
+		m_transaction.reset();
 	}
 	m->accept();
 	m_canvas->update();
