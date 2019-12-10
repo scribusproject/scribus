@@ -6,6 +6,9 @@
 #Require 3.1.0 for Qt 5.7 C++ 11 easy support
 #Require 3.2.0 for add_custom_target with byproducts
 #Require 3.12 for new Find Python modules
+#TODO: as soon as we require 3.14.0, use the Cmake own modules for
+# - Fontconfig
+
 cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
 
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
@@ -404,7 +407,7 @@ include_directories(
 	${CMAKE_BINARY_DIR}/scribus
 	${QT_INCLUDES}
 	${FREETYPE_INCLUDE_DIR}
-	${FONTCONFIG_INCLUDE_DIR}
+#	${FONTCONFIG_INCLUDE_DIR}
 	${JPEG_INCLUDE_DIR}
 	${LCMS2_INCLUDE_DIR}
 	${LIBXML2_INCLUDE_DIR}

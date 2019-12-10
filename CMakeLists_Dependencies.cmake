@@ -228,15 +228,11 @@ endif()
 
 #<<FontConfig
 if(NOT WIN32)
-	set(FONTCONFIG_DIR ${CMAKE_MODULE_PATH})
-	find_package(FONTCONFIG)
-	if(FONTCONFIG_FOUND)
+	find_package(Fontconfig REQUIRED)
+	if(Fontconfig_FOUND)
 		message("FontConfig Found OK")
 		set(HAVE_FONTCONFIG ON)
 	endif()
-else()
-	# Windows builds neither use nor require fontconfig
-	set(FONTCONFIG_INCLUDE_DIR)
 endif()
 #>>FontConfig
 
