@@ -14275,8 +14275,8 @@ void ScribusDoc::rotateItem(double angle, PageItem *currItem)
 		switch (m_rotMode)
 		{
 		case 2:
-			ma.translate(currItem->width()/2.0, currItem->height()/2.0);
-			n = FPoint(-currItem->width()/2.0, -currItem->height()/2.0);
+			ma.translate(currItem->width() / 2.0, currItem->height() / 2.0);
+			n = FPoint(-currItem->width() / 2.0, -currItem->height() / 2.0);
 			break;
 		case 4:
 			ma.translate(currItem->width(), currItem->height());
