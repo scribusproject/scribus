@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "hyphenator.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_line.h"
 #include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "qtiocompressor.h"
@@ -3011,10 +3012,8 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-		                  -ph,static_cast<int>(currItem->height()+ph));
 		currItem->setHeight(1.0);
+		currItem->asLine()->setLineClip();
 	}
 
 	if (currItem->asPathText())

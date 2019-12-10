@@ -10,16 +10,17 @@ for which a new license (GPL+exception) is in place.
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
-#include "ui/missing.h"
 #include "pageitem_group.h"
+#include "pageitem_line.h"
 #include "prefsmanager.h"
 #include "qtiocompressor.h"
-#include "scconfig.h"
-#include "scribusdoc.h"
 
-#include "sctextstream.h"
+#include "scconfig.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
-#include "ui/scmessagebox.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "sctextstream.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
@@ -27,8 +28,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_layer.h"
 #include "util_math.h"
 #include "util_text.h"
-#include "scclocale.h"
-#include "scribuscore.h"
+
+#include "ui/missing.h"
+#include "ui/scmessagebox.h"
+
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -36,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QApplication>
 #include <QMessageBox>
-
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -1941,10 +1943,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-		                  -ph,static_cast<int>(currItem->height()+ph));
 		currItem->setHeight(1.0);
+		currItem->asLine()->setLineClip();
 	}
 	if (currItem->asImageFrame())
 		currItem->adjustPictScale();

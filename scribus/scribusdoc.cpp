@@ -7716,12 +7716,7 @@ void ScribusDoc::itemSelection_SetLineWidth(double w, Selection* customSelection
 		if (currItem->asPolyLine() || currItem->asSpiral())
 			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 		if (currItem->asLine())
-		{
-			int ph = static_cast<int>(qMax(1.0, w / 2.0));
-			currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width() + ph),-ph,
-									 static_cast<int>(currItem->width() + ph),static_cast<int>(currItem->height() + ph),
-									 -ph, static_cast<int>(currItem->height() + ph));
-		}
+			currItem->asLine()->setLineClip();
 		QRectF newRect = currItem->getVisualBoundingRect();
 		//currItem->update();
 		currItem->invalidateLayout();
@@ -14391,9 +14386,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 			currItem->setWidthHeight( sqrt(pow(t.x(), 2) + pow(t.y(), 2)), 1.0);
 			//currItem->setXYPos(currItem->xPos(), currItem->yPos());
 		}
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width() + ph), -ph,
-		                  static_cast<int>(currItem->width() + ph), static_cast<int>(currItem->height() + ph),
-		                  -ph, static_cast<int>(currItem->height() + ph));
+		currItem->asLine()->setLineClip();
 	}
 	// In the future, it may be good to adjust embedded group items position here
 	/*if (currItem->isGroup() || currItem->isSymbol())

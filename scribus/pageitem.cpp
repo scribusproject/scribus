@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_arc.h"
 #include "pageitem_group.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_line.h"
 #include "pageitem_noteframe.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_spiral.h"
@@ -537,11 +538,11 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	switch (m_itemType)
 	{
 		case Polygon:
-			Clip.setPoints(4, static_cast<int>(w/2), 0, static_cast<int>(w), static_cast<int>(h/2),
-								static_cast<int>(w/2), static_cast<int>(h), 0,static_cast<int>(h/2));
+			Clip.setPoints(4, static_cast<int>(w / 2), 0, static_cast<int>(w), static_cast<int>(h / 2),
+								static_cast<int>(w / 2), static_cast<int>(h), 0, static_cast<int>(h / 2));
 			break;
 		default:
-			Clip.setPoints(4, 0,0, static_cast<int>(w),0, static_cast<int>(w), static_cast<int>(h), 0,static_cast<int>(h));
+			Clip.setPoints(4, 0, 0, static_cast<int>(w), 0, static_cast<int>(w), static_cast<int>(h), 0, static_cast<int>(h));
 			break;
 	}
 	PoLine.resize(0);
@@ -10271,9 +10272,11 @@ void PageItem::updateClip(bool updateWelded)
 	switch (itemType())
 	{
 	case PageItem::Line:
-		Clip.setPoints(4, -ph,-ph, static_cast<int>(width() + ph),-ph,
-		                  static_cast<int>(width() + ph), static_cast<int>(height() + ph),
-		                  -ph, static_cast<int>(height() + ph));
+		{
+			PageItem_Line* lineItem = asLine();
+			if (lineItem)
+				lineItem->setLineClip();
+		}
 		break;
 	default:
 		if (((!ClipEdited) || (FrameType < 3)) && !(asPathText()))

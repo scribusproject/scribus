@@ -174,6 +174,15 @@ QPointF PageItem_Line::endPoint()
 	return QPointF(x, y);
 }
 
+void PageItem_Line::setLineClip()
+{
+	int ph = static_cast<int>(qMax(1.0, m_lineWidth / 2.0));
+	Clip.setPoints(4, -ph,-ph,
+	                  static_cast<int>(width() + ph), -ph,
+	                  static_cast<int>(width() + ph), static_cast<int>(height() + ph),
+	                  -ph, static_cast<int>(height() + ph));
+}
+
 void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
 	double minx =  std::numeric_limits<double>::max();

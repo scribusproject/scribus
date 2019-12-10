@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "prefsmanager.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_line.h"
 #include "pageitem_group.h"
 #include "qtiocompressor.h"
 #include "scconfig.h"
@@ -543,10 +544,8 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
-		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
-		                  -ph,static_cast<int>(currItem->height()+ph));
 		currItem->setHeight(1.0);
+		currItem->asLine()->setLineClip();
 	}
 	// OBSOLETE CR 2005-02-06
 	if (currItem->itemType() == PageItem::ItemType1)
