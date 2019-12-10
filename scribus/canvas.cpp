@@ -298,12 +298,14 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 	// be huge, into account.
 	// ### might be interesting to investigate if it would be painless to just change 
 	// PageItem::getTransform.
-	double extraS = (item->visualHeight() - item->height()) / - 2.0;
+	double extraS = - item->visualLineWidth() / 2.0;
 //	if (item->lineColor() != CommonStrings::None)
 //		extraS = (item->lineWidth() / -2.0);
 	if (item->isTextFrame() && (m_doc->appMode == modeEdit) && !item->asTextFrame()->availableRegion().contains(item->getTransform().inverted().map(canvasPoint.toPoint())))
 		return OUTSIDE;
-	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(extraS, extraS, item->visualWidth(), item->visualHeight()));
+	QRectF visualRect = item->isLine() ? QRectF(0, extraS, item->visualWidth(), item->visualHeight()) 
+		                               : QRectF(extraS, extraS, item->visualWidth(), item->visualHeight());
+	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), visualRect);
 //	qDebug() << "frameHitTest for item" << item->ItemNr 
 //		<< item->getTransform().inverted().map(canvasPoint) 
 //		<< item->getTransform().inverted() 
@@ -423,10 +425,22 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 					itemPos.translate(-Mp->xOffset() + m_doc->currentPage()->xOffset(), -Mp->yOffset() + m_doc->currentPage()->yOffset());
 				}
 				currItem->getTransform(itemPos);
-				QPainterPath currPath(itemPos.map(QPointF(0,0)));
-				currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
-				currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
-				currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+				QPainterPath currPath;
+				if (currItem->isLine())
+				{
+					double visualLineWidth = currItem->visualLineWidth();
+					currPath.moveTo(itemPos.map(QPointF(0.0, -visualLineWidth / 2.0)));
+					currPath.lineTo(itemPos.map(QPointF(currItem->width(), -visualLineWidth / 2.0)));
+					currPath.lineTo(itemPos.map(QPointF(currItem->width(),  visualLineWidth / 2.0)));
+					currPath.lineTo(itemPos.map(QPointF(0.0,  visualLineWidth / 2.0)));
+				}
+				else
+				{
+					currPath.moveTo(itemPos.map(QPointF(0, 0)));
+					currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
+					currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
+					currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+				}
 				currPath.closeSubpath();
 				QPainterPath currClip;
 				currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
@@ -467,10 +481,22 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		if (m_doc->canSelectItemOnLayer(currItem->m_layerID))
 		{
 			QTransform itemPos = currItem->getTransform();
-			QPainterPath currPath(itemPos.map(QPointF(0,0)));
-			currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
-			currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
-			currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+			QPainterPath currPath;
+			if (currItem->isLine())
+			{
+				double visualLineWidth = currItem->visualLineWidth();
+				currPath.moveTo(itemPos.map(QPointF(0.0, -visualLineWidth / 2.0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(), -visualLineWidth / 2.0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(),  visualLineWidth / 2.0)));
+				currPath.lineTo(itemPos.map(QPointF(0.0,  visualLineWidth / 2.0)));
+			}
+			else
+			{
+				currPath.moveTo(itemPos.map(QPointF(0, 0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
+				currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+			}
 			currPath.closeSubpath();
 			QPainterPath currClip;
 			currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
