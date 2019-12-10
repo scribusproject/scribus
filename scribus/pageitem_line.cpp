@@ -176,11 +176,11 @@ QPointF PageItem_Line::endPoint()
 
 void PageItem_Line::setLineClip()
 {
-	int ph = static_cast<int>(qMax(1.0, m_lineWidth / 2.0));
-	Clip.setPoints(4, -ph,-ph,
-	                  static_cast<int>(width() + ph), -ph,
-	                  static_cast<int>(width() + ph), static_cast<int>(height() + ph),
-	                  -ph, static_cast<int>(height() + ph));
+	int ph = static_cast<int>(qMax(1.0, this->visualLineWidth() / 2.0));
+	Clip.setPoints(4, -1.0, -ph,
+	                  static_cast<int>(width() + 1.0), -ph,
+	                  static_cast<int>(width() + 1.0), ph,
+	                  -1.0, ph);
 }
 
 void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
