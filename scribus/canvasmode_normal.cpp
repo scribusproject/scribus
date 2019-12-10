@@ -322,7 +322,14 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
 			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+		}
+		else
+		{
+			PageItem* hoveredItem = nullptr;
+			hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
+			if (hoveredItem)
+				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}
 		enableGuideGesture |= (frameResizeHandle == Canvas::OUTSIDE);
 		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && (frameResizeHandle == Canvas::INSIDE));
