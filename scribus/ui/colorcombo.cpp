@@ -26,7 +26,6 @@ ColorCombo::ColorCombo(QWidget* parent) : QComboBox(parent)
 
 ColorCombo::ColorCombo(ColorCombo::PixmapType type, QWidget* parent) : QComboBox(parent)
 {
-
 	setEditable(false);
 	ColorListBox::PixmapType clbType = ColorListBox::smallPixmap;
 	if (type == ColorCombo::widePixmaps)
