@@ -1,7 +1,7 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-#Just until cmake 3.14 can be set as required for Scribus
+#Just until cmake 3.14 can be set as required for Scribus,see https://cmake.org/licensing for license details.
 
 #[=======================================================================[.rst:
 FindFontconfig
@@ -15,7 +15,7 @@ Imported Targets
 ``Fontconfig::Fontconfig``
   The Fontconfig library, if found.
 
-esult Variables
+Result Variables
 ^^^^^^^^^^^^^^^^
 
 This will define the following variables in your project:

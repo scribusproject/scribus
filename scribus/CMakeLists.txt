@@ -1286,7 +1286,7 @@ target_link_libraries(${EXE_NAME}
 	${FREETYPE_LIBRARIES}
 	${HARFBUZZ_LIBRARIES}
 	${ICU_LIBRARIES}
-	${FONTCONFIG_LIBRARIES}
+#	${FONTCONFIG_LIBRARIES}
 	${LIBXML2_LIBRARIES}
 	${TIFF_LIBRARIES}
 	${JPEG_LIBRARIES}
@@ -1294,6 +1294,14 @@ target_link_libraries(${EXE_NAME}
 	${WIN32_ONLY_LIBS}
 	${GMAGICK_LIBRARIES}
 )
+
+if (TARGET Fontconfig::Fontconfig)
+	target_link_libraries(${EXE_NAME}
+		Fontconfig::Fontconfig
+	)
+endif()
+
+
 
 if (NOT WIN32 AND NOT HAIKU)
 	target_link_libraries(${EXE_NAME}
