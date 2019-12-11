@@ -296,6 +296,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
+	bool wasLastPostOverGuide = m_lastPosWasOverGuide;
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
 	PageItem *currItem=nullptr;
@@ -310,7 +311,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 //	m_mouseCurrentPoint = mousePointDoc;
 	bool movingOrResizing = (m_canvas->m_viewMode.operItemMoving || m_canvas->m_viewMode.operItemResizing);
 	bool mouseIsOnPage    = (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1);
-	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (mouseIsOnPage) )
+	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (mouseIsOnPage))
 	{
 		// #9002: Resize points undraggable when object is aligned to a guide
 		// Allow item resize when guides are aligned to item while preserving
@@ -326,13 +327,13 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 		{
-			PageItem* hoveredItem = nullptr;
-			hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
 			if (hoveredItem)
 				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}
 		enableGuideGesture |= (frameResizeHandle == Canvas::OUTSIDE);
-		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && (frameResizeHandle == Canvas::INSIDE));
+		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && ((frameResizeHandle == Canvas::INSIDE) && (m->modifiers() != SELECT_BENEATH)));
+		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) < m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && ((frameResizeHandle == Canvas::INSIDE) && (m->modifiers() == SELECT_BENEATH)));
 		if (enableGuideGesture)
 		{
 			if (!m_guideMoveGesture)
@@ -358,10 +359,17 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			}
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 		}
+		if (wasLastPostOverGuide)
+		{
+			Qt::CursorShape cursorShape = m_view->cursor().shape();
+			if ((cursorShape == Qt::SplitHCursor) || (cursorShape == Qt::SplitVCursor))
+				m_view->setCursor(QCursor(Qt::ArrowCursor));
+		}
 	}
 	else if (!mouseIsOnPage)
 	{
-		if ((m_view->cursor().shape() == Qt::SplitHCursor) || (m_view->cursor().shape() == Qt::SplitVCursor))
+		Qt::CursorShape cursorShape = m_view->cursor().shape();
+		if ((cursorShape == Qt::SplitHCursor) || (cursorShape == Qt::SplitVCursor))
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 	}
 
@@ -530,8 +538,12 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					//Control Alt drag image in frame without being in edit mode
 					if ((currItem->asImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
 					{
-						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
-						m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+						QTransform mm1 = currItem->getTransform();
+						QTransform mm2 = mm1.inverted();
+						QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(m_mouseSavedPoint.x(), m_mouseSavedPoint.y()));
+						currItem->moveImageInFrame(rota.x() / currItem->imageXScale(), rota.y() / currItem->imageYScale());
+						currItem->update();
+						m_mouseSavedPoint.setXY(newX, newY);
 					}
 					else
 					{
@@ -990,7 +1002,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 
 	// link text frames
 	//<<#10116: Click on overflow icon to get into link frame mode
-	PageItem* clickedItem=nullptr;
+	PageItem* clickedItem = nullptr;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
 	if (clickedItem && clickedItem->asTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
 	{
@@ -1559,9 +1571,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	if (m_doc->m_Selection->count() != 0)
 		previousSelectedItem = m_doc->m_Selection->itemAt(0);
 	m_canvas->m_viewMode.operItemSelecting = true;
-	const unsigned SELECT_IN_GROUP = Qt::AltModifier; // Qt::MetaModifier;
-	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
-	const unsigned SELECT_BENEATH = Qt::ControlModifier;
+	
 	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -1573,44 +1583,52 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 //	QRectF mpo(m_mouseCurrentPoint.x()-grabRadius, m_mouseCurrentPoint.y()-grabRadius, grabRadius*2, grabRadius*2);
 	m_doc->nodeEdit.deselect();
 
-	if (m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) // guides are on foreground and want to be processed first
+	 // Guides are on foreground and want to be processed first
+	if ((m_doc->guidesPrefs().guidesShown) && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
-		if ((m_doc->guidesPrefs().guidesShown) && (m_doc->OnPage(MxpS, MypS) != -1))
+		// #9002: Resize points undraggable when object is aligned to a guide
+		// Allow item resize when guides are aligned to item while preserving
+		// ability to drag guide when guis is in foreground and inside selection
+		bool enableGuideGesture(false);
+		Canvas::FrameHandle frameResizeHandle(Canvas::OUTSIDE);
+		if (m_doc->m_Selection->count() > 0)
 		{
-			// #9002: Resize points undraggable when object is aligned to a guide
-			// Allow item resize when guides are aligned to item while preserving
-			// ability to drag guide when guis is in foreground and inside selection
-			bool enableGuideGesture(true);
-			if (m_doc->m_Selection->count() > 0)
+			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
+			m_doc->m_Selection->setGroupRect();
+			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+		}
+		else
+		{
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
+			if (hoveredItem)
+				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
+		}
+		enableGuideGesture |= (frameResizeHandle == Canvas::OUTSIDE);
+		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) > m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && ((frameResizeHandle == Canvas::INSIDE) && (m->modifiers() != SELECT_BENEATH)));
+		enableGuideGesture |= ((m_doc->guidesPrefs().renderStackOrder.indexOf(3) < m_doc->guidesPrefs().renderStackOrder.indexOf(4)) && ((frameResizeHandle == Canvas::INSIDE) && (m->modifiers() == SELECT_BENEATH)));
+		if (enableGuideGesture)
+		{
+			if (!m_guideMoveGesture)
 			{
-				double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
-				m_doc->m_Selection->setGroupRect();
-				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				Canvas::FrameHandle frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
-				enableGuideGesture = (frameResizeHandle == Canvas::INSIDE);
+				m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(m_guideMoveGesture, SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int,qreal)));
 			}
-			if (enableGuideGesture)
+			if ((!m_doc->GuideLock) && m_guideMoveGesture->mouseHitsGuide(mousePointDoc))
 			{
-				if (!m_guideMoveGesture)
-				{
-					m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-					connect(m_guideMoveGesture,SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette,SLOT(setGuide(int,qreal)));
-				}
-				if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
-				{
-					m_view->startGesture(m_guideMoveGesture);
-					m_guideMoveGesture->mouseMoveEvent(m);
-					m_doc->m_Selection->connectItemToGUI();
-				//	qDebug()<<"Out Of SeleItem"<<__LINE__;
-					return true;
-				}
-				// If we call startGesture now, a new guide is created each time.
-				// ### could be a weakness to avoid calling it tho.
-	 			//	m_view->startGesture(guideMoveGesture);
-				m_guideMoveGesture->mouseSelectGuide(m);
+				m_view->startGesture(m_guideMoveGesture);
+				m_guideMoveGesture->mouseMoveEvent(m);
+				m_doc->m_Selection->connectItemToGUI();
+			//	qDebug()<<"Out Of SeleItem"<<__LINE__;
+				return true;
 			}
+			// If we call startGesture now, a new guide is created each time.
+			// ### could be a weakness to avoid calling it tho.
+	 		//	m_view->startGesture(guideMoveGesture);
+			m_guideMoveGesture->mouseSelectGuide(m);
 		}
 	}
+
 	bool pageChanged(false);
 	if (!m_doc->masterPageMode())
 	{
@@ -1678,6 +1696,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	{
 		m_view->deselectItems(false);
 	}
+
 	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, ((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)));
 	if (currItem)
 	{
@@ -1736,25 +1755,49 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			handleFocusIn(currItem);
 		return true;
 	}
-	if ((m_doc->guidesPrefs().guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
+
+	// Guide selection for case where items are in front of guide
+	// Code below looks unnecessary after fixing #15989
+	/*if ((m_doc->guidesPrefs().guidesShown) && (m_doc->OnPage(MxpS, MypS) != -1))
 	{
-		if (!m_guideMoveGesture)
+		bool enableGuideGesture(false);
+		Canvas::FrameHandle frameResizeHandle(Canvas::OUTSIDE);
+		if (m_doc->m_Selection->count() > 0)
 		{
-			m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
-			connect(m_guideMoveGesture, SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette, SLOT(setGuide(int,qreal)));
+			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
+			m_doc->m_Selection->setGroupRect();
+			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}
-		if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
+		else
 		{
-			m_view->startGesture(m_guideMoveGesture);
-			m_guideMoveGesture->mouseMoveEvent(m);
-			m_doc->m_Selection->connectItemToGUI();
-			return true;
+			PageItem* hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), nullptr, m->modifiers());
+			if (hoveredItem)
+				frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), hoveredItem);
 		}
-		// If we call startGesture now, a new guide is created each time.
-		// ### could be a weakness to avoid calling it tho.
-		// 			m_view->startGesture(guideMoveGesture);
-		m_guideMoveGesture->mouseSelectGuide(m);
-	}
+		enableGuideGesture |= (frameResizeHandle == Canvas::OUTSIDE);
+		enableGuideGesture |= ((frameResizeHandle == Canvas::INSIDE) && (m->modifiers() == SELECT_BENEATH));
+		if (enableGuideGesture)
+		{
+			if (!m_guideMoveGesture)
+			{
+				m_guideMoveGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
+				connect(m_guideMoveGesture, SIGNAL(guideInfo(int,qreal)), m_ScMW->alignDistributePalette, SLOT(setGuide(int,qreal)));
+			}
+			if ( (!m_doc->GuideLock) && (m_guideMoveGesture->mouseHitsGuide(mousePointDoc)) )
+			{
+				m_view->startGesture(m_guideMoveGesture);
+				m_guideMoveGesture->mouseMoveEvent(m);
+				m_doc->m_Selection->connectItemToGUI();
+				return true;
+			}
+			// If we call startGesture now, a new guide is created each time.
+			// ### could be a weakness to avoid calling it tho.
+			// m_view->startGesture(guideMoveGesture);
+			m_guideMoveGesture->mouseSelectGuide(m);
+		}
+	}*/
+
 	m_doc->m_Selection->connectItemToGUI();
 	if ( !(m->modifiers() & SELECT_MULTIPLE))
 	{

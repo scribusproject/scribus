@@ -59,6 +59,10 @@ public:
 	bool handleKeyEvents() override { return true; }
 
 private:
+	const unsigned SELECT_IN_GROUP { Qt::AltModifier }; // Qt::MetaModifier;
+	const unsigned SELECT_MULTIPLE { Qt::ShiftModifier };
+	const unsigned SELECT_BENEATH{ Qt::ControlModifier };
+
 	inline bool GetItem(PageItem** pi);
 	void handleCheckBoxPress(PageItem* currItem);
 	void handlePushButtonPress(PageItem* currItem);
