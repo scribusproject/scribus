@@ -26,43 +26,40 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util_color.h"
 
-class SCRIBUS_API ColorSmallItemDelegate : public ScListBoxPixmap<15,15>
+class SCRIBUS_API ColorSmallItemDelegate : public ScListBoxPixmap<15, 15>
 {
 public:
-	ColorSmallItemDelegate(): ScListBoxPixmap<15,15>() {};
+	ColorSmallItemDelegate(): ScListBoxPixmap<15, 15>() {};
 	~ColorSmallItemDelegate() {};
 	
-	virtual void redraw(const QVariant&) const;
-	virtual QString text(const QVariant&) const;
-	virtual int rtti() const { return 654873547; };
+	void redraw(const QVariant&) const override;
+	QString text(const QVariant&) const override;
 };
 
-class SCRIBUS_API ColorWideItemDelegate : public ScListBoxPixmap<30,15>
+class SCRIBUS_API ColorWideItemDelegate : public ScListBoxPixmap<30, 15>
 {
 public:
-	ColorWideItemDelegate(): ScListBoxPixmap<30,15>() {};
+	ColorWideItemDelegate(): ScListBoxPixmap<30, 15>() {};
 	~ColorWideItemDelegate() {};
 	
-	virtual void redraw(const QVariant&) const;
-	virtual QString text(const QVariant&) const;
-	virtual int rtti() const { return 654873548; };
+	void redraw(const QVariant&) const override;
+	QString text(const QVariant&) const override;
 };
 
-class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60,15>
+class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60, 15>
 {
 public:
-	ColorFancyItemDelegate(): ScListBoxPixmap<60,15>() {};
+	ColorFancyItemDelegate(): ScListBoxPixmap<60, 15>() {};
 	~ColorFancyItemDelegate() {};
 	
-	virtual void redraw(const QVariant&) const;
-	virtual QString text(const QVariant&) const;
-	virtual int rtti() const { return 654873549; };
+	void redraw(const QVariant&) const override;
+	QString text(const QVariant&) const override;
 };
 
 
 void ColorSmallItemDelegate::redraw(const QVariant& data) const
 {
-	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.data();
+	QPixmap* pPixmap = ScListBoxPixmap<15, 15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 	if (data.canConvert<ColorPixmapValue>())
 	{
@@ -80,7 +77,7 @@ void ColorSmallItemDelegate::redraw(const QVariant& data) const
 
 void ColorWideItemDelegate::redraw(const QVariant& data) const
 {
-	QPixmap* pPixmap = ScListBoxPixmap<30,15>::pmap.data();
+	QPixmap* pPixmap = ScListBoxPixmap<30, 15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 	if (data.canConvert<ColorPixmapValue>())
 	{
@@ -113,7 +110,7 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 		iconsInitialized = true;
 	}
 
-	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.data();
+	QPixmap* pPixmap = ScListBoxPixmap<60, 15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
 
 	if (data.canConvert<ColorPixmapValue>())

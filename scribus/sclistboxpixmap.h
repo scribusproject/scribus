@@ -30,8 +30,11 @@ public:
 	ScListBoxPixmap(void);
 
 	virtual QString text(const QVariant&) const = 0;
-	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+
+	// Functions reimplemented from QAbstractItemDelegate
+	QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+	void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+
 protected:
 	static QScopedPointer<QPixmap> pmap;
 	// The drawPixmap function must not modify pixmap size
@@ -48,14 +51,15 @@ ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDeleg
 		pmap.reset(new QPixmap(pixWidth, pixHeight));
 }
 
-
 template<unsigned int pixWidth, unsigned int pixHeight>
 QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
 	int h,w;
 	QFontMetrics metrics(option.font);
 	const QVariant data(index.data(Qt::DisplayRole));
-	if (text(data).isEmpty())
+	
+	QString textData = text(data);
+	if (textData.isEmpty())
 	{
 		h = pmap->height();
 		w = pmap->width() + 6;
@@ -64,11 +68,12 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 	{
 		h = qMax(pmap->height(), metrics.lineSpacing() + 2);
 		//FIXME: metrics.width replacement by horizontalAdvance requires Qt 5.11+
-		w = pmap->width() + metrics.width(text(data)) + 6;
+		w = pmap->width() + metrics.width(textData) + 6;
 	}
-	return QSize(qMax(w, QApplication::globalStrut().width()), qMax( h, QApplication::globalStrut().height()));
-}
 
+	QSize globalStrut = QApplication::globalStrut();
+	return QSize(qMax(w, globalStrut.width()), qMax(h, globalStrut.height()));
+}
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QStyleOptionViewItem & option, const QModelIndex & index) const
