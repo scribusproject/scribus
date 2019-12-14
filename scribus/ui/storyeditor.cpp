@@ -535,8 +535,9 @@ void SEditor::focusInEvent(QFocusEvent *e)
 
 void SEditor::insertChars(const QString& text)
 {
-	if (textCursor().hasSelection())
-		textCursor().removeSelectedText();
+	QTextCursor cursor = textCursor();
+	if (cursor.hasSelection())
+		cursor.removeSelectedText();
 	++blockContentsChangeHook;
 	QTextCursor c(textCursor());
 	int pos = qMin(c.position(), StyledText.length());
@@ -553,16 +554,17 @@ void SEditor::insertChars(const QString& styledText, const QString& editText)
 {
 	if ((styledText.length() == editText.length()) && !styledText.isEmpty())
 	{
-		if (textCursor().hasSelection())
-			textCursor().removeSelectedText();
+		QTextCursor cursor1 = textCursor();
+		if (cursor1.hasSelection())
+			cursor1.removeSelectedText();
 
 		++blockContentsChangeHook;
-		QTextCursor cursor(textCursor());
-		int pos = qMin(cursor.position(), StyledText.length());
+		QTextCursor cursor2 = textCursor();
+		int pos = qMin(cursor2.position(), StyledText.length());
 		StyledText.insertChars(pos, styledText, true);
  		insertPlainText(editText);
-		cursor.setPosition(pos + editText.length());
-		setTextCursor(cursor);
+		cursor2.setPosition(pos + editText.length());
+		setTextCursor(cursor2);
 		--blockContentsChangeHook;
 	}
 }
@@ -571,15 +573,17 @@ void SEditor::insertCharsInternal(const QString& t)
 {
 	if (textCursor().hasSelection())
 		deleteSel();
-	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+	QTextCursor cursor = textCursor();
+	int pos = cursor.hasSelection() ? cursor.selectionStart() : cursor.position();
 	pos = qMin(pos, StyledText.length());
 	insertCharsInternal(t, pos);
 }
 
 void SEditor::insertCharsInternal(const QString& t, int pos)
 {
-	if (textCursor().hasSelection())
-		textCursor().removeSelectedText();
+	QTextCursor cursor = textCursor();
+	if (cursor.hasSelection())
+		cursor.removeSelectedText();
 	int oldLength = StyledText.length();
 	StyledText.insertChars(pos, t, true);
 	int newLength = StyledText.length();
@@ -590,7 +594,8 @@ void SEditor::insertStyledText(const StoryText& styledText)
 {
 	if (styledText.length() == 0)
 		return;
-	int pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
+	QTextCursor cursor = textCursor();
+	int pos = cursor.hasSelection() ? cursor.selectionStart() : cursor.position();
 	pos = qMin(pos, StyledText.length());
 	insertStyledText(styledText, pos);
 }
@@ -599,8 +604,9 @@ void SEditor::insertStyledText(const StoryText& styledText, int pos)
 {
 	if (styledText.length() == 0)
 		return;
-	if (textCursor().hasSelection())
-		textCursor().removeSelectedText();
+	QTextCursor cursor = textCursor();
+	if (cursor.hasSelection())
+		cursor.removeSelectedText();
 	int oldLength = StyledText.length();
 	StyledText.insert(pos, styledText);
 	int newLength = StyledText.length();
