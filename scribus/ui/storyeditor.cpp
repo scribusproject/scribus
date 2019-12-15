@@ -953,8 +953,9 @@ void SEditor::updateSel(const CharStyle& newStyle)
 			setTextCursor(tc);
 		}
 	}
-	int start = textCursor().selectionStart();
-	int end = textCursor().selectionEnd();
+	QTextCursor cursor(textCursor());
+	int start = cursor.selectionStart();
+	int end = cursor.selectionEnd();
 	if (start >= 0 && start < end)
 		StyledText.applyCharStyle(start, end-start, newStyle);
 }
@@ -962,8 +963,9 @@ void SEditor::updateSel(const CharStyle& newStyle)
 
 void SEditor::deleteSel()
 {
-	int start = textCursor().selectionStart();
-	int end   = textCursor().selectionEnd();
+	QTextCursor cursor(textCursor());
+	int start = cursor.selectionStart();
+	int end   = cursor.selectionEnd();
 	if (end > start)
 		StyledText.removeChars(start, end-start);
 	textCursor().setPosition(start);
@@ -3128,21 +3130,22 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 	}
 	else
 	{
+		const CharStyle& currentCharStyle = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle();
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
-		Editor->CurrFontSize   = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
-		Editor->CurrentEffects = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
-		Editor->CurrTextFill   = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
-		Editor->CurrTextFillSh = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
-		Editor->CurrTextStroke = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
-		Editor->CurrTextShadowX = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowYOffset();
-		Editor->CurrTextOutline = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
+		Editor->CurrFont = currentCharStyle.font().scName();
+		Editor->CurrFontSize   = currentCharStyle.fontSize();
+		Editor->CurrentEffects = currentCharStyle.effects();
+		Editor->CurrTextFill   = currentCharStyle.fillColor();
+		Editor->CurrTextFillSh = currentCharStyle.fillShade();
+		Editor->CurrTextStroke = currentCharStyle.strokeColor();
+		Editor->CurrTextStrokeSh = currentCharStyle.strokeShade();
+		Editor->CurrTextShadowX = currentCharStyle.shadowXOffset();
+		Editor->CurrTextShadowY = currentCharStyle.shadowYOffset();
+		Editor->CurrTextOutline = currentCharStyle.outlineWidth();
+		Editor->CurrTextUnderPos = currentCharStyle.underlineOffset();
+		Editor->CurrTextUnderWidth = currentCharStyle.underlineWidth();
+		Editor->CurrTextStrikePos = currentCharStyle.strikethruOffset();
+		Editor->CurrTextStrikeWidth = currentCharStyle.strikethruWidth();
 
 		Editor->setEffects(Editor->CurrentEffects);
 		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
@@ -3186,10 +3189,11 @@ void StoryEditor::changeStyle()
 		int SelEnd = 0;
 		if (Editor->textCursor().hasSelection())
 		{
-			PStart = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionStart());
-			PEnd = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionEnd());
-			SelStart = Editor->textCursor().selectionStart();
-			SelEnd = Editor->textCursor().selectionEnd();
+			QTextCursor textCursor = Editor->textCursor();
+			PStart = Editor->StyledText.nrOfParagraph(textCursor.selectionStart());
+			PEnd = Editor->StyledText.nrOfParagraph(textCursor.selectionEnd());
+			SelStart = textCursor.selectionStart();
+			SelEnd = textCursor.selectionEnd();
 			sel = true;
 		}
 		else
@@ -3216,21 +3220,22 @@ void StoryEditor::changeStyle()
 	}
 	else
 	{
+		const CharStyle& currentCharStyle = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle();
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
-		Editor->CurrFontSize   = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
-		Editor->CurrentEffects = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
-		Editor->CurrTextFill   = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
-		Editor->CurrTextFillSh = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
-		Editor->CurrTextStroke = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
-		Editor->CurrTextShadowX = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowYOffset();
-		Editor->CurrTextOutline = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = m_doc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
+		Editor->CurrFont = currentCharStyle.font().scName();
+		Editor->CurrFontSize   = currentCharStyle.fontSize();
+		Editor->CurrentEffects = currentCharStyle.effects();
+		Editor->CurrTextFill   = currentCharStyle.fillColor();
+		Editor->CurrTextFillSh = currentCharStyle.fillShade();
+		Editor->CurrTextStroke = currentCharStyle.strokeColor();
+		Editor->CurrTextStrokeSh = currentCharStyle.strokeShade();
+		Editor->CurrTextShadowX = currentCharStyle.shadowXOffset();
+		Editor->CurrTextShadowY = currentCharStyle.shadowYOffset();
+		Editor->CurrTextOutline = currentCharStyle.outlineWidth();
+		Editor->CurrTextUnderPos = currentCharStyle.underlineOffset();
+		Editor->CurrTextUnderWidth = currentCharStyle.underlineWidth();
+		Editor->CurrTextStrikePos = currentCharStyle.strikethruOffset();
+		Editor->CurrTextStrikeWidth = currentCharStyle.strikethruWidth();
 
 		Editor->setEffects(Editor->CurrentEffects);
 		if ((Editor->CurrentEffects & ScStyle_Outline) || (Editor->CurrentEffects & ScStyle_Shadowed))
@@ -3272,10 +3277,11 @@ void StoryEditor::changeAlign(int )
 		int SelEnd = 0;
 		if (Editor->textCursor().hasSelection())
 		{
-			PStart = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionStart());
-			PEnd = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionEnd());
-			SelStart = Editor->textCursor().selectionStart();
-			SelEnd = Editor->textCursor().selectionEnd();
+			QTextCursor textCursor = Editor->textCursor();
+			PStart = Editor->StyledText.nrOfParagraph(textCursor.selectionStart());
+			PEnd = Editor->StyledText.nrOfParagraph(textCursor.selectionEnd());
+			SelStart = textCursor.selectionStart();
+			SelEnd = textCursor.selectionEnd();
 			sel = true;
 		}
 		else
@@ -3327,10 +3333,11 @@ void StoryEditor::changeDirection(int )
 		int SelEnd = 0;
 		if (Editor->textCursor().hasSelection())
 		{
-			PStart = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionStart());
-			PEnd = Editor->StyledText.nrOfParagraph(Editor->textCursor().selectionEnd());
-			SelStart = Editor->textCursor().selectionStart();
-			SelEnd = Editor->textCursor().selectionEnd();
+			QTextCursor textCursor = Editor->textCursor();
+			PStart = Editor->StyledText.nrOfParagraph(textCursor.selectionStart());
+			PEnd = Editor->StyledText.nrOfParagraph(textCursor.selectionEnd());
+			SelStart = textCursor.selectionStart();
+			SelEnd = textCursor.selectionEnd();
 			sel = true;
 		}
 		else
