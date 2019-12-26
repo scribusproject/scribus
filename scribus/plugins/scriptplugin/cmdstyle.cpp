@@ -403,6 +403,7 @@ PV */
 void cmdstyledocwarnings()
 {
 	QStringList s;
-	s << scribus_createparagraphstyle__doc__ << scribus_createcharstyle__doc__;
-	s << scribus_createcustomlinestyle__doc__;
+	s  << scribus_createcharstyle__doc__
+	   << scribus_createcustomlinestyle__doc__
+	   << scribus_createparagraphstyle__doc__;
 }

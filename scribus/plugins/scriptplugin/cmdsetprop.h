@@ -183,7 +183,7 @@ May raise ValueError if the fill shade is out of bounds.\n\
 PyObject *scribus_setfillshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstringscribus_setmultiline__doc__ */
-PyDoc_STRVAR(scribus_setcornerrad__doc__,
+PyDoc_STRVAR(scribus_setcornerradius__doc__,
 QT_TR_NOOP("setCornerRadius(radius, [\"name\"])\n\
 \n\
 Sets the corner radius of the object \"name\". The radius is expressed\n\
@@ -192,7 +192,7 @@ in points. If \"name\" is not given the currently selected item is used.\n\
 May raise ValueError if the corner radius is negative.\n\
 "));
 /*! Set corner radius */
-PyObject *scribus_setcornerrad(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setcornerradius(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setmultiline__doc__,

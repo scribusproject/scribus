@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 
 
-PyObject *scribus_newdocdia(PyObject* /* self */)
+PyObject *scribus_newdocdialog(PyObject* /* self */)
 {
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = ScCore->primaryMainWindow()->slotFileNew();
@@ -24,7 +24,7 @@ PyObject *scribus_newdocdia(PyObject* /* self */)
 	return PyLong_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
+PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *filter = const_cast<char*>("");
@@ -71,7 +71,7 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	return PyUnicode_FromString(fName.toUtf8());
 }
 
-PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
+PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
@@ -106,7 +106,7 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	return PyLong_FromLong(static_cast<long>(result));
 }
 
-PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
+PyObject *scribus_valuedialog(PyObject* /* self */, PyObject* args)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
@@ -154,6 +154,9 @@ PV */
 void cmddialogdocwarnings()
 {
 	QStringList s;
-	s << scribus_newdocdia__doc__ << scribus_filedia__doc__ << scribus_messdia__doc__;
-	s << scribus_valdialog__doc__ << scribus_newstyledialog__doc__;
+	s << scribus_filedialog__doc__
+	  << scribus_messagebox__doc__
+	  << scribus_newdocdialog__doc__ 
+	  << scribus_newstyledialog__doc__
+	  << scribus_valuedialog__doc__ ;
 }

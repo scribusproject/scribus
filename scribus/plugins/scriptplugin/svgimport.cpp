@@ -73,5 +73,9 @@ PV */
 void svgimportdocwarnings()
 {
 	QStringList s;
-	s << scribus_placevec__doc__ << scribus_placesvg__doc__ << scribus_placeeps__doc__ << scribus_placesxd__doc__ << scribus_placeodg__doc__;
+	s << scribus_placeeps__doc__
+	  << scribus_placeodg__doc__
+	  << scribus_placesvg__doc__
+	  << scribus_placesxd__doc__
+	  << scribus_placevec__doc__;
 }

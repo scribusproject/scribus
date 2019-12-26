@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 /** Calling Dialogs from Scribus */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newdocdia__doc__,
+PyDoc_STRVAR(scribus_newdocdialog__doc__,
 QT_TR_NOOP("newDocDialog() -> bool\n\
 \n\
 Displays the \"New Document\" dialog box. Creates a new document if the user\n\
@@ -21,10 +21,10 @@ accepts the settings. Does not create a document if the user presses cancel.\n\
 Returns true if a new document was created.\n\
 "));
 /** Raises the Scribus New Document dialog */
-PyObject *scribus_newdocdia(PyObject * /*self*/);
+PyObject *scribus_newdocdialog(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_filedia__doc__,
+PyDoc_STRVAR(scribus_filedialog__doc__,
 QT_TR_NOOP("fileDialog(\"caption\", [\"filter\", \"defaultname\", haspreview, issave, isdir]) -> string with filename\n\
 \n\
 Shows a File Open dialog box with the caption \"caption\". Files are filtered\n\
@@ -46,13 +46,13 @@ Example: fileDialog('Save report', defaultname='report.txt', issave=True)\n\
 "));
 /** Raises file dialog.
  Params - caption, filter, default name and opt. pre, mode. */
-PyObject *scribus_filedia(PyObject * /*self*/, PyObject* args, PyObject* kw);
+PyObject *scribus_filedialog(PyObject * /*self*/, PyObject* args, PyObject* kw);
 /* duplicity Sends a string into the Message Bar
 PyObject *scribus_mess(PyObject *self, PyObject* args);
 */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_messdia__doc__,
+PyDoc_STRVAR(scribus_messagebox__doc__,
 QT_TR_NOOP("messageBox(\"caption\", \"message\",\n\
     icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,\n\
     button2=BUTTON_NONE, button3=BUTTON_NONE) -> integer\n\
@@ -88,10 +88,10 @@ ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.\n\
 "));
 /** Displays a message box with - caption, message, icon, button
  and two more buttons optional. */
-PyObject *scribus_messdia(PyObject * /*self*/, PyObject* args, PyObject* kw);
+PyObject *scribus_messagebox(PyObject * /*self*/, PyObject* args, PyObject* kw);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_valdialog__doc__,
+PyDoc_STRVAR(scribus_valuedialog__doc__,
 QT_TR_NOOP("valueDialog(caption, message [,defaultvalue]) -> string\n\
 \n\
 Shows the common 'Ask for string' dialog and returns its value as a string\n\
@@ -100,7 +100,7 @@ Parameters: window title, text in the window and optional 'default' value.\n\
 Example: valueDialog('title', 'text in the window', 'optional')\n\
 "));
 /* 09/24/2004 petr vanek */
-PyObject *scribus_valdialog(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_valuedialog(PyObject * /*self*/, PyObject* args);
 
 
 PyDoc_STRVAR(scribus_newstyledialog__doc__,
