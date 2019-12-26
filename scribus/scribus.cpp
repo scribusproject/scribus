@@ -2965,7 +2965,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName = localName = QDir::toNativeSeparators(m_recentDocsList[i]);
 		strippedName.remove(QDir::separator());
 		strippedName.prepend(QString("%1").arg(i+1, 2, 10, QChar('0')));
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(i+1).arg(localName.replace("&","&&")), QKeySequence(), this, m_recentDocsList[i]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1 %2").arg(i + 1).arg(localName.replace("&","&&")), QKeySequence(), this, m_recentDocsList[i]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
