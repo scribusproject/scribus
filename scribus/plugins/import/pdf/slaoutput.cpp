@@ -1189,6 +1189,11 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	catalog = catA;
 	pdfDoc = doc;
 	updateGUICounter = 0;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 84, 0)
+	m_fontEngine = new SplashFontEngine(true, true, true, true);
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 61, 0)
+	m_fontEngine = new SplashFontEngine(globalParams->getEnableFreeType(), true, true, true);
+#else
 	m_fontEngine = new SplashFontEngine(
 #if HAVE_T1LIB_H
 	globalParams->getEnableT1lib(),
@@ -1199,6 +1204,7 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	true,
 #endif
 	true);
+#endif
 }
 
 void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)
