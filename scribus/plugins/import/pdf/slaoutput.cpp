@@ -1190,9 +1190,9 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	pdfDoc = doc;
 	updateGUICounter = 0;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 84, 0)
-	m_fontEngine = new SplashFontEngine(true, true, true, true);
+	m_fontEngine = new SplashFontEngine(true, false, false, true);
 #elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 61, 0)
-	m_fontEngine = new SplashFontEngine(globalParams->getEnableFreeType(), true, true, true);
+	m_fontEngine = new SplashFontEngine(globalParams->getEnableFreeType(), false, false, true);
 #else
 	m_fontEngine = new SplashFontEngine(
 #if HAVE_T1LIB_H
@@ -1200,8 +1200,8 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 #endif
 #if HAVE_FREETYPE_H
 	globalParams->getEnableFreeType(),
-	true,
-	true,
+	false,
+	false,
 #endif
 	true);
 #endif
