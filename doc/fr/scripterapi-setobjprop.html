@@ -13,6 +13,10 @@
 <p>Charge l'image "nomFichier" dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
 <p>Peut générer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd></dt>
 
+<dt><a name="-outlineText"><strong>outlineText</strong></a>(...)</dt>
+<dd><code>outlineText(["nom"])</code>
+<p>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+
 <dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
 <dd><code>scaleImage(x, y [, "nom"])</code>
 <p><b>Veuillez ne plus utiliser cette fonction. Utilisez setImageScale en lieu et place.</b></p></dd>
@@ -119,7 +123,7 @@ exprimée en points. Si le "nom" n'est pas fourni, l'élément sélectionné est
 
 <dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
 <dd><code>traceText(["nom"])</code>
-<p>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+<p>Obsolète, veuillez utiliser outlineText() en lieu et place. </p></dd>
 
 </dl>
 </body>

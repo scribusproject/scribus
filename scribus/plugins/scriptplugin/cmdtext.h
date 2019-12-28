@@ -481,16 +481,20 @@ May throw ScribusException if linking rules are violated.\n\
 PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_tracetext__doc__,
+PyDoc_STRVAR(scribus_outlinetext__doc__,
 QT_TR_NOOP("traceText([\"name\"])\n\
 \n\
 Convert the text frame \"name\" to outlines. If \"name\" is not given the\n\
 currently selected item is used."));
+PyDoc_STRVAR(scribus_tracetext__doc__,
+QT_TR_NOOP("traceText([\"name\"])\n\
+\n\
+Deprecated, use outlineText() instead."));
 /**
  Trace text frames via Scripter.
  2004-09-07 (Craig Ringer)
 */
-PyObject *scribus_tracetext(PyObject * self, PyObject* args);
+PyObject *scribus_outlinetext(PyObject * self, PyObject* args);
 
 PyDoc_STRVAR(scribus_istextoverflowing__doc__,
 QT_TR_NOOP("textOverflows([\"name\", nolinks]) -> integer\n\

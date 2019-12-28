@@ -13,6 +13,10 @@
 <p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
 <p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
 
+<dt><a name="-outlineText"><strong>outlineText</strong></a>(...)</dt>
+<dd><code>outlineText(["name"])</code>
+<p>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
 <dd><code>scaleImage(x, y [, "name"])</code>
 <p><b>Do not use this command since it no longer works. Use setImageScale instead.</b></p></dd>
@@ -116,7 +120,7 @@
 
 <dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
 <dd><code>traceText(["name"])</code>
-<p>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</p></dd>
+<p>Deprecated, use outlineText() instead.</p></dd>
 
 </dl>
 </body>
