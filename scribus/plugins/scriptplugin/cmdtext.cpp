@@ -908,8 +908,6 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	if (selcount == 0)
 	{
 		item->HasSel = false;
-//		Py_INCREF(Py_None);
-//		return Py_None;
 		Py_RETURN_NONE;
 	}
 	item->itemText.select(start, selcount, true);
@@ -967,18 +965,6 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(item, QString::fromUtf8(Color)).apply(&CharStyle::setFillColor, 0, item->itemText.length());
-//	for (int b = 0; b < item->itemText.length(); b++)
-//	{
-//		//FIXME: doc method
-//		if (item->HasSel)
-//		{
-//			if (item->itemText.selected(b))
-//				item->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
-//		}
-//		else
-//			item->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
-//	}
-//	item->TxtFill = QString::fromUtf8(Color);
 	Py_RETURN_NONE;
 }
 
@@ -999,18 +985,6 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(item, QString::fromUtf8(Color)).apply(&CharStyle::setStrokeColor, 0, item->itemText.length());
-//	for (int b = 0; b < item->itemText.length(); b++)
-//	{
-//		//FIXME:NLS use document method for this
-//		if (item->HasSel)
-//		{
-//			if (item->itemText.selected(b))
-//				item->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
-//		}
-//		else
-//			item->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
-//	}
-//	item->TxtStroke = QString::fromUtf8(Color);
 	Py_RETURN_NONE;
 }
 
@@ -1107,18 +1081,6 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	ApplyCharstyleHelper<double>(item, w).apply(&CharStyle::setFillShade, 0, item->itemText.length());
-//	//FIXME:NLS use document method for that
-//	for (int b = 0; b < item->itemText.length(); ++b)
-//	{
-//		if (item->HasSel)
-//		{
-//			if (item->itemText.selected(b))
-//				item->itemText.item(b)->setFillShade(w);
-//		}
-//		else
-//			item->itemText.item(b)->setFillShade(w);
-//	}
-//	item->ShTxtFill = w;
 	Py_RETURN_NONE;
 }
 
