@@ -1190,71 +1190,6 @@ void SCFonts::addType1RegistryFonts()
 	FT_Done_FreeType(library);
 }
 
-#elif defined(Q_OS_LINUX)
-
-void SCFonts::addXFontPath()
-{
-	int pathcount,i;
-	Display *display=XOpenDisplay(nullptr);
-	char **fontpath=XGetFontPath(display,&pathcount);
-	for (i=0; i<pathcount; ++i)
-		addPath(fontpath[i]);
-	XFreeFontPath(fontpath);
-}
-
-/* replacement for addXFontServerPath() for correctly parsing
- * RedHad-Style /etc/X11/fs/config files */
-
-void SCFonts::addXFontServerPath()
-{
-	QFile fs("/etc/X11/fs/config");
-	if (!(fs.exists()))
-	{
-		fs.setName("/usr/X11R6/lib/X11/fs/config");
-		if (!(fs.exists()))
-		{
-			fs.setName("/usr/X11/lib/X11/fs/config");
-			if (!(fs.exists()))
-				return;
-		}
-	}
-
-	if (fs.open(QIODevice::ReadOnly))
-	{
-		QString fsconfig,paths,tmp;
-		QTextStream tsx(&fs);
-		fsconfig = tsx.readAll();
-		fs.close();
-
-		int pos = fsconfig.find("catalogue");
-		paths = fsconfig.mid(pos);
-		paths = paths.mid(paths.find("=")+1);
-
-		pos=0;
-		do {
-			pos = paths.find("\n",pos+1);
-		} while (pos > -1 && paths.mid(pos-1, 1) == ",");
-
-		if (pos<0) pos=paths.length();
-		paths = paths.left(pos);
-		paths = paths.simplified();
-		paths.replace(QRegExp(" "), "");
-		paths.replace(QRegExp(","), "\n");
-		paths += "\n";
-		paths = paths.trimmed();
-
-		pos=-1;
-		do {
-			int pos2;
-			pos2 = paths.find("\n",pos+1);
-			tmp = paths.mid(pos+1,(pos2-pos)-1);
-			pos=pos2;
-
-			addPath(tmp);
-
-		} while (pos > -1);
-	}
-}
 #endif
 
 /* Add an extra path to our font search path,
@@ -1387,12 +1322,7 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 		addScalableFonts(*fpi);
 	addFontconfigFonts();
 #else
-// on X11 look there:
-#ifdef Q_OS_LINUX
-	addXFontPath();
-	addXFontServerPath();
-#endif
-// add user and X11 fonts:
+	// add user and X11 fonts:
 	QStringList::iterator fpi, fpend = m_fontPaths.end();
 	for (fpi = m_fontPaths.begin() ; fpi != fpend; ++fpi) 
 		addScalableFonts(*fpi);

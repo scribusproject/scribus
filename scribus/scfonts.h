@@ -73,9 +73,6 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 #elif defined(Q_OS_WIN32)
 		void addRegistryFonts();
 		void addType1RegistryFonts();
-#elif defined(Q_OS_LINUX)
-		void addXFontServerPath();
-		void addXFontPath();
 #endif
 		QStringList m_fontPaths;
 
