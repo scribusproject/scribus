@@ -691,7 +691,7 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 	<dd><code><a href="#-traceText">traceText</a>(["name"])<br><br>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</code></dd>
 
 	<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
-	<dd><code>unGroupObjects("name")<br><br>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</code></dd>
+	<dd><code>unGroupObject("name")<br><br>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</code></dd>
 
 	<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt><dd>
 	<code><a href="#-unlinkTextFrames">unlinkTextFrames</a>("name")<br><br>Remove the specified (named) object from the text frame flow/linkage. If the frame was in the middle of a chain, the previous and next frames will be connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'<br><br>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</code></dd>

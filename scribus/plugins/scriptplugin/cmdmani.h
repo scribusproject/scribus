@@ -121,7 +121,7 @@ PyObject *scribus_groupobj(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_ungroupobj__doc__,
-QT_TR_NOOP("unGroupObjects(\"name\")\n\n\
+QT_TR_NOOP("unGroupObject(\"name\")\n\n\
 Destructs the group the object \"name\" belongs to.\
 If \"name\" is not given the currently selected item is used."));
 /*! Ungroup objects named in list. */
