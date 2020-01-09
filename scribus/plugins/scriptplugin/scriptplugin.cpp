@@ -563,7 +563,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("textFlowMode"), scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
 	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_VARARGS|METH_KEYWORDS, tr(scribus_istextoverflowing__doc__) },
 	{const_cast<char*>("traceText"), scribus_outlinetext, METH_VARARGS, tr(scribus_tracetext__doc__)},
-	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
+	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)}, // Deprecated, now alias for unGroupObjects()
+	{const_cast<char*>("unGroupObjects"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valuedialog, METH_VARARGS, tr(scribus_valuedialog__doc__)},
 	{const_cast<char*>("zoomDocument"), scribus_zoomdocument, METH_VARARGS, tr(scribus_zoomdocument__doc__)},
