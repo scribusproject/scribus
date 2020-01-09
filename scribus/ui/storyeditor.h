@@ -91,6 +91,7 @@ class SCRIBUS_API SEditor : public QTextEdit
 public:
 	SEditor (QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE);
 	~SEditor() {}
+
 	void setCurrentDocument(ScribusDoc *docc);
 	void setAlign(int align);
 	void setDirection(int align);
@@ -196,9 +197,11 @@ class SCRIBUS_API SideBar : public QLabel
 public:
 	SideBar(QWidget *pa);
 	~SideBar() {};
+
+	void setEditor(SEditor* editor);
+
 	int offs;
 	int currentPar;
-	SEditor *editor;
 	QMenu *pmen;
 	QWidgetAction* paraStyleAct;
 	bool noUpdt;
@@ -207,6 +210,9 @@ public:
 protected:
 	void paintEvent(QPaintEvent *e);
 	void mouseReleaseEvent(QMouseEvent *m);
+
+private:
+	SEditor *m_editor;
 
 signals:
 	void ChangeStyle(int, const QString&);

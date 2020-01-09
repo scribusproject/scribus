@@ -121,7 +121,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setPalette(pal);
 	offs = 0;
 	currentPar = 0;
-	editor = nullptr;
+	m_editor = nullptr;
 	noUpdt = true;
 	inRep = false;
 	pmen = new QMenu(this);
@@ -129,24 +129,35 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
+void SideBar::setEditor(SEditor* editor)
+{
+	m_editor = editor;
+	if (editor)
+	{
+		QPalette pal;
+		pal.setColor(QPalette::Window, editor->palette().color(QPalette::Base));
+		setPalette(pal);
+	}
+}
+
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	QPoint globalPos = m->globalPos();
-	QPoint viewPos   = editor->viewport()->mapFromGlobal(globalPos);
-	int p = editor->cursorForPosition(QPoint(2, viewPos.y())).position();
-	currentPar = editor->StyledText.nrOfParagraph(p);
-	int pos = editor->StyledText.startOfParagraph( editor->StyledText.nrOfParagraph(p) );
+	QPoint viewPos   = m_editor->viewport()->mapFromGlobal(globalPos);
+	int p = m_editor->cursorForPosition(QPoint(2, viewPos.y())).position();
+	currentPar = m_editor->StyledText.nrOfParagraph(p);
+	int pos = m_editor->StyledText.startOfParagraph(m_editor->StyledText.nrOfParagraph(p));
 
 	pmen->clear();
 
 	QString styleName = "";
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(pmen);
-	paraStyleCombo->setDoc(editor->doc);
-	if ((currentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
+	paraStyleCombo->setDoc(m_editor->doc);
+	if ((currentPar < static_cast<int>(m_editor->StyledText.nrOfParagraphs())) && (m_editor->StyledText.length() != 0))
 	{
-		int len = editor->StyledText.endOfParagraph(currentPar) - editor->StyledText.startOfParagraph(currentPar);
+		int len = m_editor->StyledText.endOfParagraph(currentPar) - m_editor->StyledText.startOfParagraph(currentPar);
 		if (len > 0)
-			styleName = editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
+			styleName = m_editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
 	}
 	paraStyleCombo->setFormat(styleName);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
@@ -172,44 +183,46 @@ void SideBar::paintEvent(QPaintEvent *e)
 {
 	inRep = true;
 	QLabel::paintEvent(e);
+
 	QPair<int, int> paraInfo;
 	QList< QPair<int,int> > paraList;
-	if (editor != nullptr)
+	if (m_editor != nullptr)
 	{
-		QRect  edRect = editor->viewport()->rect();
+		QRect  edRect = m_editor->viewport()->rect();
 		QPoint pt1 = edRect.topLeft(), pt2 = edRect.bottomRight();
-		QTextCursor cur1 = editor->cursorForPosition(pt1);
-		QTextCursor cur2 = editor->cursorForPosition(pt2);
+		QTextCursor cur1 = m_editor->cursorForPosition(pt1);
+		QTextCursor cur2 = m_editor->cursorForPosition(pt2);
 		int pos1 = cur1.position(), pos2 = cur2.position();
-		pos1 = editor->StyledText.prevParagraph(pos1);
+		pos1 = m_editor->StyledText.prevParagraph(pos1);
 		pos1 = (pos1 == 0) ? 0 : (pos1 + 1);
-		pos2 = editor->StyledText.nextParagraph(pos2);
-		while ((pos1 <= pos2) && (pos1 < editor->StyledText.length()))
+		pos2 = m_editor->StyledText.nextParagraph(pos2);
+		while ((pos1 <= pos2) && (pos1 < m_editor->StyledText.length()))
 		{
 			paraInfo.first = pos1;
-			if (editor->StyledText.text(pos1) == SpecialChars::PARSEP)
+			if (m_editor->StyledText.text(pos1) == SpecialChars::PARSEP)
 			{
 				paraInfo.second = pos1;
 				pos1 += 1;
 			}
 			else
 			{
-				pos1 = editor->StyledText.nextParagraph(pos1) + 1;
-				paraInfo.second = qMax(0, qMin(pos1 - 1, editor->StyledText.length() - 1));
+				pos1 = m_editor->StyledText.nextParagraph(pos1) + 1;
+				paraInfo.second = qMax(0, qMin(pos1 - 1, m_editor->StyledText.length() - 1));
 			}
 			paraList.append(paraInfo);
 		}
 	}
+
 	QPainter p;
 	p.begin(this);
-	if ((editor != nullptr) && (noUpdt))
+	if ((m_editor != nullptr) && (noUpdt))
 	{
 		QString trNoStyle = tr("No Style");
 		for (int pa = 0; pa < paraList.count(); ++pa)
 		{
 			QPair<int,int> paraInfo = paraList[pa];
 			// Draw paragraph style name first
-			QTextCursor cur(editor->document());
+			QTextCursor cur(m_editor->document());
 			cur.setPosition(paraInfo.first);
 			QTextBlock blockStart = cur.block();
 			QTextLine  lineStart  = blockStart.layout()->lineForTextPosition(paraInfo.first - blockStart.position());
@@ -217,12 +230,12 @@ void SideBar::paintEvent(QPaintEvent *e)
 			{
 				QPointF blockPos = blockStart.layout()->position();
 				QRect re = lineStart.rect().translated(0, blockPos.y()).toRect();
-				re.setWidth(width()-5);
-				re.setHeight(re.height()-2);
-				re.translate(5, 2-offs);
+				re.setWidth(width() - 5);
+				re.setHeight(re.height() - 2);
+				re.translate(5, 2 - offs);
 				if ((re.top() < height()) && (re.top() >= 0))
 				{
-					QString parname = editor->StyledText.paragraphStyle(paraInfo.first).parent();
+					QString parname = m_editor->StyledText.paragraphStyle(paraInfo.first).parent();
 					if (parname.isEmpty())
 						parname = trNoStyle;
 					p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
@@ -237,11 +250,12 @@ void SideBar::paintEvent(QPaintEvent *e)
 				QPointF blockPos = blockEnd.layout()->position();
 				QRect re = lineEnd.rect().translated(0, 2 + blockPos.y()).toRect();
 				if ((re.bottom() - offs < height()) && (re.bottom() - offs >= 0))
-					p.drawLine(0, re.bottom()-offs, width()-1, re.bottom() - offs);
+					p.drawLine(0, re.bottom() - offs, width() - 1, re.bottom() - offs);
 			}
 		}
 	}
 	p.end();
+
 	inRep = false;
 }
 
@@ -266,7 +280,7 @@ void SideBar::setRepaint(bool r)
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
 {
 	setCurrentDocument(docc);
-	parentStoryEditor=parentSE;
+	parentStoryEditor = parentSE;
 	wasMod = false;
 	ready = false;
 	unicodeInputCount = 0;
@@ -322,7 +336,6 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	{
 		pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
 		pos = qMin(pos, StyledText.length());
-
 	}
 	QTextEdit::inputMethodEvent(event);
 	SuspendContentsChange = 0;
@@ -1992,7 +2005,7 @@ void StoryEditor::buildGUI()
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 
-	EditorBar->editor = Editor;
+	EditorBar->setEditor(Editor);
 	Editor->installEventFilter(this);
 	languageChange();
 	ActionManager::setActionTooltips(&seActions);
