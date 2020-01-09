@@ -15228,15 +15228,15 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	if (itemSelection->isEmpty())
 		return;
 
-	uint docSelectionCount = itemSelection->count();
+	int docSelectionCount = itemSelection->count();
 	PageItem *currItem;
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::Ungroup, "", Um::IGroup);
 	QList<PageItem*> toDelete;
-	for (uint a=0; a < docSelectionCount; ++a)
+	for (int i = 0; i < docSelectionCount; ++i)
 	{
-		currItem = itemSelection->itemAt(a);
+		currItem = itemSelection->itemAt(i);
 		if (currItem->isGroup())
 			toDelete.append(currItem);
 	}
@@ -15245,9 +15245,9 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	setLoading(true);
 	itemSelection->delaySignalsOn();
 	dontResize = true;
-	for (int b = 0; b < toDelete.count(); b++)
+	for (int i = 0; i < toDelete.count(); i++)
 	{
-		currItem = toDelete.at(b);
+		currItem = toDelete.at(i);
 		QList<PageItem*> *list = Items;
 		list = parentGroup(currItem, Items);
 		int d = list->indexOf(currItem);
@@ -15255,7 +15255,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			list->removeAt(d);
 		itemSelection->removeItem(currItem);
 		int gcount = currItem->groupItemList.count();
-		for (int c = 0; c < gcount; c++)
+		for (int j = 0; j < gcount; j++)
 		{
 			PageItem* gItem = currItem->groupItemList.last();
 			removeFromGroup(gItem);
