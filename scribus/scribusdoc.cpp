@@ -5618,7 +5618,7 @@ int ScribusDoc::getItemNrfromUniqueID(uint unique)
 	return ret;
 }
 
-PageItem* ScribusDoc::getItemFromName(const QString& name)
+PageItem* ScribusDoc::getItemFromName(const QString& name) const
 {
 	PageItem* ret = nullptr;
 	for (int i = 0; i < Items->count(); ++i)
@@ -17013,20 +17013,20 @@ TextNote *ScribusDoc::newNote(NotesStyle* NS)
 	return newNote;
 }
 
-PageItem* ScribusDoc::findMarkItem(Mark* mrk, int &lastItem)
+PageItem* ScribusDoc::findMarkItem(const Mark* mrk, int &lastItem) const
 {
 	PageItem* item = nullptr;
-	for (int a = lastItem +1; a < DocItems.count(); ++a)
+	for (int i = lastItem + 1; i < DocItems.count(); ++i)
 	{
-		item = DocItems.at(a);
+		item = DocItems.at(i);
 		if (!item || !item->isTextFrame() || (item->itemText.length() <= 0))
 			continue;
-	//	for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
-		for (int i = 0; i < item->itemText.length(); ++i)
+	//	for (int j = item->firstInFrame(); j <= item->lastInFrame(); ++j)
+		for (int j = 0; j < item->itemText.length(); ++j)
 		{
-			if (item->itemText.hasMark(i, mrk))
+			if (item->itemText.hasMark(j, mrk))
 			{
-				lastItem = a;
+				lastItem = i;
 				return item;
 			}
 		}
@@ -17035,13 +17035,13 @@ PageItem* ScribusDoc::findMarkItem(Mark* mrk, int &lastItem)
 	return nullptr;
 }
 
-int ScribusDoc::findMarkCPos(Mark* mrk, PageItem* &currItem, int Start)
+int ScribusDoc::findMarkCPos(const Mark* mrk, PageItem* &currItem, int start) const
 {
 	if (currItem == nullptr)
 		currItem = findFirstMarkItem(mrk);
 	if (currItem == nullptr)
 	{
-		foreach (PageItem* item, DocItems)
+		for (PageItem* item : DocItems)
 		{
 			if (item->isTextFrame() && (item->prevInChain() == nullptr))
 			{
@@ -17059,10 +17059,10 @@ int ScribusDoc::findMarkCPos(Mark* mrk, PageItem* &currItem, int Start)
 	}
 	Q_ASSERT(currItem->isTextFrame());
 
-	if (Start < currItem->firstInFrame())
-		Start = currItem->firstInFrame();
+	if (start < currItem->firstInFrame())
+		start = currItem->firstInFrame();
 
-	for (int i = Start; i < currItem->itemText.length(); ++i)
+	for (int i = start; i < currItem->itemText.length(); ++i)
 	{
 		if (currItem->itemText.hasMark(i, mrk))
 			return i;
@@ -17070,9 +17070,9 @@ int ScribusDoc::findMarkCPos(Mark* mrk, PageItem* &currItem, int Start)
 	return -1;
 }
 
-bool ScribusDoc::isMarkUsed(Mark* mrk, bool visible)
+bool ScribusDoc::isMarkUsed(const Mark* mrk, bool visible) const
 {
-	foreach (PageItem* currItem, DocItems)
+	for (const PageItem* currItem : qAsConst(DocItems))
 	{
 		if (currItem->isTextFrame() && (currItem->itemText.length() > 0))
 		{
@@ -17097,7 +17097,7 @@ bool ScribusDoc::isMarkUsed(Mark* mrk, bool visible)
 	return false;
 }
 
-void ScribusDoc::setCursor2MarkPos(Mark *mark)
+void ScribusDoc::setCursor2MarkPos(const Mark *mark)
 {
 	if (mark == nullptr)
 		return;
@@ -17111,11 +17111,11 @@ void ScribusDoc::setCursor2MarkPos(Mark *mark)
 	if (item == nullptr)
 		return;
 
-	int CPos = findMarkCPos(mark, item);
-	if (CPos > -1)
+	int cursorPos = findMarkCPos(mark, item);
+	if (cursorPos > -1)
 	{
 		scMW()->deselectAll();
-		scMW()->selectItemFromOutlines(item, true, CPos +1);
+		scMW()->selectItemFromOutlines(item, true, cursorPos + 1);
 	}
 }
 
@@ -17262,7 +17262,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 {
 	if (updateNotesMarks && !notesList().isEmpty())
 	{
-		foreach (PageItem* item, DocItems)
+		for (PageItem* item : DocItems)
 		{
 			if (!item->isTextFrame() || item->isNoteFrame())
 				continue;
@@ -17297,7 +17297,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 	if (!isLoading())
 	{
 		//run for variable text (invalidate frames with variable text)
-		foreach (Mark* mrk, m_docMarksList)
+		for (Mark* mrk : m_docMarksList)
 		{
 			if (mrk->isType(MARKVariableTextType))
 			{
@@ -17335,7 +17335,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 	}
 
 	//for all marks
-	foreach (Mark* mrk, m_docMarksList)
+	for (Mark* mrk : m_docMarksList)
 	{
 		//set mark page number
 		PageItem* mItem = findFirstMarkItem(mrk);
@@ -17361,7 +17361,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		{
 			QString l;
 			MarkType t;
-			mrk->getMark(l,t);
+			mrk->getMark(l, t);
 			Mark* destMark = getMark(l,t);
 			if (destMark != nullptr)
 			{

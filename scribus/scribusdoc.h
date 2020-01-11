@@ -829,7 +829,7 @@ public:
 
 	int getItemNrfromUniqueID(uint unique);
 	//return pointer to item
-	PageItem* getItemFromName(const QString& name);
+	PageItem* getItemFromName(const QString& name) const;
 	//itemDelete
 	//itemBlah...
 
@@ -1734,9 +1734,9 @@ public:
 	Mark* newMark(Mark* mrk = nullptr);
 	TextNote* newNote(NotesStyle* NS);
 	
-	bool isMarkUsed(Mark* mrk, bool visible = false);
+	bool isMarkUsed(const Mark* mrk, bool visible = false) const;
 	//set cursor in text where given mark will be found
-	void setCursor2MarkPos(Mark* mark);
+	void setCursor2MarkPos(const Mark* mark);
 	//return false if mark was not found
 	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
 	void setUndoDelMark(Mark* mrk);
@@ -1784,20 +1784,21 @@ public:
 	void endNoteFrameChanged(PageItem_NoteFrame* nF) { m_docEndNotesFramesChanged.append(nF); }
 	//update content for changed endnotesframes
 	void updateChangedEndNotesFrames();
+
 	//finds mark position in text
 	//return true if mark was found, CPos is set for mark`s position
 	//if item==nullptr then search in all items and if mark is found than item is set
-	int findMarkCPos(Mark* mrk, PageItem* &item, int Start = 0);
+	int findMarkCPos(const Mark* mrk, PageItem* &item, int start = 0) const;
 	QList<PageItem_NoteFrame*> m_docEndNotesFramesChanged;
 
 	//finds item which holds given mark, start searching from next to lastItem index in DocItems
-	PageItem* findMarkItem(Mark* mrk, int &lastItem);
+	PageItem* findMarkItem(const Mark* mrk, int &lastItem) const;
 	
 private:
 	//QMap<PageItem_NoteFrame*, QList<TextNote *> > map of notesframes and its list of notes
 	NotesInFrameMap m_docNotesInFrameMap;
 
-	PageItem* findFirstMarkItem(Mark* mrk) { int tmp = -1; return findMarkItem(mrk, tmp); }
+	PageItem* findFirstMarkItem(const Mark* mrk) const { int tmp = -1; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
 	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);

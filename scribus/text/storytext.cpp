@@ -1039,7 +1039,7 @@ PageItem* StoryText::getItem(int pos) const
 }
 
 
-bool StoryText::hasMark(int pos, Mark* mrk) const
+bool StoryText::hasMark(int pos, const Mark* mrk) const
 {
 	if (pos < 0)
 		pos += length();

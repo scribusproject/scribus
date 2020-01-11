@@ -52,45 +52,34 @@ public:
 	int OwnPage {-1};
 
 	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
-	MarkType getType() { return typ; }
+
+	MarkType getType() const { return typ; }
 	void setType(MarkType t) { typ = t; }
-	const MarkData getData() { return data; }
+	const MarkData getData() const { return data; }
 	void setData(const MarkData d) { data = d; }
-	PageItem* getItemPtr() { return data.itemPtr; }
+	PageItem* getItemPtr() const { return data.itemPtr; }
 	void setItemPtr( PageItem* ptr ) { data.itemPtr = ptr; }
-	const QString getItemName() { return data.itemName; }
+	const QString getItemName() const { return data.itemName; }
 	void setItemName( const QString name ) { data.itemName = name; }
 
 	//for marks to marks - return label and type of target mark by reference
-	void getMark(QString& l, MarkType &t);
+	void getMark(QString& l, MarkType &t) const;
 	//for marks to marks - set label and type of target mark from mark pointer
-	void setMark(Mark* mP)
-	{
-		if (mP == nullptr)
-		{
-			data.destmarkName = "";
-			data.destmarkType = MARKNoType;
-		}
-		else
-		{
-			data.destmarkName = mP->label;
-			data.destmarkType = mP->getType();
-		}
-	}
+	void setMark(Mark* mP);
 	void setMark(const QString& l, MarkType t);
-	MarkType getMarkType() { return data.markTyp; }
+	MarkType getMarkType() const { return data.markTyp; }
 	void setMarkType(MarkType t) { data.markTyp = t; }
-	const QString getString();
+	const QString getString() const;
 	void setString(const QString& str );
-	TextNote* getNotePtr() { return data.notePtr; }
+	TextNote* getNotePtr() const { return data.notePtr; }
 	void setNotePtr(TextNote *note);
 
-	bool hasItemPtr();
-	bool hasString();
-	bool hasMark();
-	bool isUnique();
-	bool isNoteType();
-	bool isType(const MarkType t);
+	bool hasItemPtr() const;
+	bool hasString() const;
+	bool hasMark() const;
+	bool isUnique() const;
+	bool isNoteType() const;
+	bool isType(const MarkType t) const;
 
     virtual ~Mark() {}
 

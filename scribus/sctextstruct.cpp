@@ -33,13 +33,13 @@ bool ScText::hasObject(ScribusDoc *doc) const
 	return false;
 }
 
-bool ScText::hasMark(Mark* MRK) const
+bool ScText::hasMark(const Mark* mrk) const
 {
 	if (this->ch == SpecialChars::OBJECT)
 	{
-		if (MRK == nullptr)
+		if (mrk == nullptr)
 			return mark != nullptr;
-		return mark == MRK;
+		return mark == mrk;
 	}
 	return false;
 }

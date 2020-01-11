@@ -20,10 +20,24 @@ void Mark::setValues(const QString& l, int p, MarkType t, const MarkData& d)
 	data = d;
 }
 
-void Mark::getMark(QString& l, MarkType& t)
+void Mark::getMark(QString& l, MarkType& t) const
 {
 	l = data.destmarkName;
 	t = data.destmarkType;
+}
+
+void Mark::setMark(Mark* mP)
+{
+	if (mP == nullptr)
+	{
+		data.destmarkName = "";
+		data.destmarkType = MARKNoType;
+	}
+	else
+	{
+		data.destmarkName = mP->label;
+		data.destmarkType = mP->getType();
+	}
 }
 
 void Mark::setMark(const QString& l, MarkType t)
@@ -32,7 +46,7 @@ void Mark::setMark(const QString& l, MarkType t)
 	data.destmarkType = t;
 }
 
-const QString Mark::getString()
+const QString Mark::getString() const
 {
 	return data.strtxt;
 }
@@ -47,34 +61,34 @@ void Mark::setNotePtr(TextNote* note)
 	data.notePtr = note;
 }
 
-bool Mark::hasItemPtr()
+bool Mark::hasItemPtr() const
 {
 	return data.itemPtr != nullptr;
 }
 
-bool Mark::hasString()
+bool Mark::hasString() const
 {
 	return !data.strtxt.isEmpty();
 }
 
-bool Mark::hasMark()
+bool Mark::hasMark() const
 {
 	return data.destmarkName != "";
 }
 
-bool Mark::isUnique()
+bool Mark::isUnique() const
 {
 	return ((typ != MARKVariableTextType) && (typ != MARKIndexType) && (typ != MARKBullNumType));
 }
 
-bool Mark::isNoteType()
+bool Mark::isNoteType() const
 {
-	return ((typ == MARKNoteMasterType) || (typ==MARKNoteFrameType));
+	return ((typ == MARKNoteMasterType) || (typ == MARKNoteFrameType));
 }
 
-bool Mark::isType(const MarkType t)
+bool Mark::isType(const MarkType t) const
 {
-	return t==typ;
+	return t == typ;
 }
 
 BulNumMark::BulNumMark()
