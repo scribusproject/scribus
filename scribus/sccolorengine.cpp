@@ -175,17 +175,17 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 	}
 	else
 	{
-		int h, s, v, snew, vnew;
+		qreal h, s, v, snew, vnew;
 		QColor tmpR(color.CR, color.MG, color.YB);
-		tmpR.getHsv(&h, &s, &v);
-		snew = qRound(s * level / 100.0);
-		vnew = 255 - qRound(((255 - v) * level / 100.0));
-		tmpR.setHsv(h, snew, vnew);
+		tmpR.getHsvF(&h, &s, &v);
+		snew = s * (level / 100.0);
+		vnew = 1.0 - (1.0 - v) * (level / 100.0);
+		tmpR.setHsvF(h, snew, vnew);
 		tmpR.getRgb(&rgb.r, &rgb.g, &rgb.b);
 		//We could also compute rgb shade using rgb directly
-		/*rgb.CR = 255 - ((255 - color.CR) * level / 100);
-		rgb.MG = 255 - ((255 - color.MG) * level / 100);
-		rgb.YB = 255 - ((255 - color.YB) * level / 100);*/
+		/*rgb.CR = 255 - ((255 - color.CR) * level / 100.0);
+		rgb.MG = 255 - ((255 - color.MG) * level / 100.0);
+		rgb.YB = 255 - ((255 - color.YB) * level / 100.0);*/
 	}
 }
 
