@@ -75,13 +75,25 @@ public:
 
 private:
 	ScribusDoc* m_Doc;
+
+	int m_gradCount;
+	int m_clipCount;
+	int m_pattCount;
+	int m_maskCount;
+	int m_filterCount;
+	QString m_baseDir;
+	QDomDocument m_domDoc;
+	QDomElement m_domElem;
+	QDomElement m_globalDefs;
+	QList<QString> m_glyphNames;
+
 	/*!
 	\author Franz Schmid
 	\brief Process a page to export to SVG format
 	\param Seite Page *
 	*/
-	void ProcessPageLayer(ScPage *page, ScLayer& layer);
-	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
+	void processPageLayer(ScPage *page, ScLayer& layer);
+	void processItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob);
 	QString processDropShadow(PageItem *Item);
 	QDomElement processHatchFill(PageItem *Item, const QString& transl = "");
@@ -104,7 +116,7 @@ private:
 	\param ite PageItem *
 	\retval QString Clipping Path
 	*/
-	QString SetClipPath(FPointArray *ite, bool closed);
+	QString setClipPath(FPointArray *ite, bool closed);
 	QDomElement createClipPathElement(FPointArray *ite, QDomElement* pathElem = nullptr);
 	/*!
 	\author Franz Schmid
@@ -127,25 +139,15 @@ private:
 	\param plug ScribusMainWindow *
 	\retval QString Colour settings
 	*/
-	QString MatrixToStr(QTransform &mat);
-	QString SetColor(const QString& farbe, int shad);
+	QString matrixToStr(QTransform &mat);
+	QString setColor(const QString& farbe, int shad);
 	/*!
 	\author Franz Schmid
 	\param sl struct SingleLine *
 	\param Item PageItem *
 	\retval QString Stroke settings
 	*/
-	QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
-	int GradCount;
-	int ClipCount;
-	int PattCount;
-	int MaskCount;
-	int FilterCount;
-	QString baseDir;
-	QDomDocument docu;
-	QDomElement docElement;
-	QDomElement globalDefs;
-	QList<QString> glyphNames;
+	QString getMultiStroke(struct SingleLine *sl, PageItem *Item);
 };
 
 #endif
