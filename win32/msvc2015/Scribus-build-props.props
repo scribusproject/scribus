@@ -2,79 +2,25 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets">
   </ImportGroup>
+  <!-- Import Scribus dependencies (other than Qt) -->
   <PropertyGroup Label="UserMacros">
-	<!-- Scribus libs root path -->
 	<SCRIBUS_COMMON_LIB_ROOT>F:\Scribus Libs\scribus-common-libs</SCRIBUS_COMMON_LIB_ROOT>
 	<SCRIBUS_LIB_ROOT>F:\Scribus Libs\scribus-1.4.x-libs-msvc2015</SCRIBUS_LIB_ROOT>
+  </PropertyGroup>
+  <Import Project="$(SCRIBUS_COMMON_LIB_ROOT)\scribus-common-lib-paths.props" />
+  <Import Project="$(SCRIBUS_LIB_ROOT)\scribus-lib-paths.props" />
+  <!-- Import Qt4 -->
+  <PropertyGroup Label="UserMacros">
 	<!-- Qt4 -->
     <QT4_DIR Condition="'$(Platform)' == 'Win32'">F:\Libraries-vcall\Qt-4.8.7\msvc2015</QT4_DIR>
 	<QT4_DIR Condition="'$(Platform)' == 'x64'">F:\Libraries-vcall\Qt-4.8.7\msvc2015_64</QT4_DIR>
 	<QT4_LIBS Condition="'$(Configuration)' == 'Debug-cairo'">QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib</QT4_LIBS>
 	<QT4_LIBS Condition="'$(Configuration)' == 'Release-cairo'">QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib</QT4_LIBS>
-	<!-- Boost -->
-    <BOOST_DIR>$(SCRIBUS_COMMON_LIB_ROOT)\boost-1.58.0</BOOST_DIR>
-	<BOOST_INCLUDE_DIR>$(BOOST_DIR)</BOOST_INCLUDE_DIR>
-	<!-- Cairo -->
-    <CAIRO_DIR>$(SCRIBUS_LIB_ROOT)\cairo-1.8.6</CAIRO_DIR>
-	<CAIRO_INCLUDE_DIR>$(CAIRO_DIR)\include</CAIRO_INCLUDE_DIR>
-	<CAIRO_LIB_DIR>$(CAIRO_DIR)\lib\$(Platform)</CAIRO_LIB_DIR>
-    <CAIRO_LIB Condition="'$(Configuration)' == 'Debug-cairo'">cairo2d.lib</CAIRO_LIB>
-    <CAIRO_LIB Condition="'$(Configuration)' == 'Release-cairo'">cairo2.lib</CAIRO_LIB>
-	<!-- Freetype -->
-    <FREETYPE_DIR>$(SCRIBUS_LIB_ROOT)\freetype-2.4.6</FREETYPE_DIR>
-	<FREETYPE_INCLUDE_DIR>$(FREETYPE_DIR)\include</FREETYPE_INCLUDE_DIR>
-	<FREETYPE_LIB_DIR>$(FREETYPE_DIR)\lib\$(Platform)</FREETYPE_LIB_DIR>
-    <FREETYPE_LIB Condition="'$(Configuration)' == 'Debug-cairo'">freetypeD.lib</FREETYPE_LIB>
-    <FREETYPE_LIB Condition="'$(Configuration)' == 'Release-cairo'">freetype.lib</FREETYPE_LIB>
-	<!-- Hunspell -->
-    <HUNSPELL_DIR>$(SCRIBUS_LIB_ROOT)\hunspell-1.3.3</HUNSPELL_DIR>
-	<HUNSPELL_INCLUDE_DIR>$(HUNSPELL_DIR)\include</HUNSPELL_INCLUDE_DIR>
-	<HUNSPELL_LIB_DIR>$(HUNSPELL_DIR)\lib\$(Platform)</HUNSPELL_LIB_DIR>
-    <HUNSPELL_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libhunspell_staticD.lib</HUNSPELL_LIB>
-    <HUNSPELL_LIB Condition="'$(Configuration)' == 'Release-cairo'">libhunspell_static.lib</HUNSPELL_LIB>
-	<!-- Iconv -->
-    <ICONV_DIR>$(SCRIBUS_LIB_ROOT)\libiconv-1.14</ICONV_DIR>
-	<ICONV_INCLUDE_DIR>$(ICONV_DIR)\include</ICONV_INCLUDE_DIR>
-	<ICONV_LIB_DIR>$(ICONV_DIR)\lib\$(Platform)</ICONV_LIB_DIR>
-	<ICONV_LIB Condition="'$(Configuration)' == 'Debug-cairo'">iconv_d.lib</ICONV_LIB>
-    <ICONV_LIB Condition="'$(Configuration)' == 'Release-cairo'">iconv.lib</ICONV_LIB>
-	<!-- Littlecms -->
-    <LCMS_DIR>$(SCRIBUS_LIB_ROOT)\lcms2-2.3</LCMS_DIR>
-	<LCMS_INCLUDE_DIR>$(LCMS_DIR)\include</LCMS_INCLUDE_DIR>
-	<LCMS_LIB_DIR>$(LCMS_DIR)\lib\$(Platform)</LCMS_LIB_DIR>
-    <LCMS_LIB Condition="'$(Configuration)' == 'Debug-cairo'">lcms2_staticd.lib</LCMS_LIB>
-    <LCMS_LIB Condition="'$(Configuration)' == 'Release-cairo'">lcms2_static.lib</LCMS_LIB>
-	<!-- Libjpeg -->
-    <LIBJPEG_DIR>$(SCRIBUS_LIB_ROOT)\libjpeg-9a</LIBJPEG_DIR>
-	<LIBJPEG_INCLUDE_DIR>$(LIBJPEG_DIR)\include</LIBJPEG_INCLUDE_DIR>
-	<LIBJPEG_LIB_DIR>$(LIBJPEG_DIR)\lib\$(Platform)</LIBJPEG_LIB_DIR>
-    <LIBJPEG_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libjpeg9a_d.lib</LIBJPEG_LIB>
-    <LIBJPEG_LIB Condition="'$(Configuration)' == 'Release-cairo'">libjpeg9a.lib</LIBJPEG_LIB>
-	<!-- Libtiff -->
-    <LIBTIFF_DIR>$(SCRIBUS_LIB_ROOT)\libtiff-3.9.7</LIBTIFF_DIR>
-	<LIBTIFF_INCLUDE_DIR>$(LIBTIFF_DIR)\include</LIBTIFF_INCLUDE_DIR>
-	<LIBTIFF_LIB_DIR>$(LIBTIFF_DIR)\lib\$(Platform)</LIBTIFF_LIB_DIR>
-    <LIBTIFF_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libtiff3_d.lib</LIBTIFF_LIB>
-    <LIBTIFF_LIB Condition="'$(Configuration)' == 'Release-cairo'">libtiff3.lib</LIBTIFF_LIB>
-	<!-- Libxml2 -->
-    <LIBXML2_DIR>$(SCRIBUS_LIB_ROOT)\libxml2-2.9.7</LIBXML2_DIR>
-	<LIBXML2_INCLUDE_DIR>$(LIBXML2_DIR)\include</LIBXML2_INCLUDE_DIR>
-	<LIBXML2_LIB_DIR>$(LIBXML2_DIR)\lib\$(Platform)</LIBXML2_LIB_DIR>
-    <LIBXML2_LIB Condition="'$(Configuration)' == 'Debug-cairo'">libxml2_d.lib</LIBXML2_LIB>
-    <LIBXML2_LIB Condition="'$(Configuration)' == 'Release-cairo'">libxml2.lib</LIBXML2_LIB>
-	<!-- PoDoFo -->
-    <PODOFO_DIR>$(SCRIBUS_LIB_ROOT)\podofo-0.9.1</PODOFO_DIR>
-	<PODOFO_INCLUDE_DIR>$(PODOFO_DIR)\include</PODOFO_INCLUDE_DIR>
-	<PODOFO_LIB_DIR>$(PODOFO_DIR)\lib\$(Platform)</PODOFO_LIB_DIR>
-    <PODOFO_LIB Condition="'$(Configuration)' == 'Debug-cairo'">PoDoFoLibD.lib</PODOFO_LIB>
-    <PODOFO_LIB Condition="'$(Configuration)' == 'Release-cairo'">PoDoFoLib.lib</PODOFO_LIB>
-	<!-- Python -->
-    <PYTHON_DIR Condition="'$(Platform)' == 'Win32'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.15-win32</PYTHON_DIR>
-	<PYTHON_DIR Condition="'$(Platform)' == 'x64'">$(SCRIBUS_COMMON_LIB_ROOT)\python-2.7.15-amd64</PYTHON_DIR>
-	<PYTHON_INCLUDE_DIR>$(PYTHON_DIR)\include</PYTHON_INCLUDE_DIR>
-	<PYTHON_LIB_DIR>$(PYTHON_DIR)\lib</PYTHON_LIB_DIR>
-    <PYTHON_LIB Condition="'$(Configuration)' == 'Debug-cairo'">python27_d.lib</PYTHON_LIB>
-    <PYTHON_LIB Condition="'$(Configuration)' == 'Release-cairo'">python27.lib</PYTHON_LIB>
+	<!-- LittleCMS 2 -->
+	<LCMS_DIR>$(LCMS2_DIR)</LCMS_DIR>
+	<LCMS_INCLUDE_DIR>$(LCMS2_INCLUDE_DIR)</LCMS_INCLUDE_DIR>
+	<LCMS_LIB_DIR>$(LCMS2_LIB_DIR)</LCMS_LIB_DIR>
+	<LCMS_LIB>$(LCMS2_LIB)</LCMS_LIB>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>

@@ -10,7 +10,7 @@
 	/>
 	<!-- Boost -->
 	<UserMacro Name="BOOST_DIR"
-		Value="F:\Scribus Libs\scribus-common-libs\boost-1.58.0"
+		Value="F:\Scribus Libs\scribus-common-libs\boost-1.70.0"
 	/>
 	<!-- Cairo -->
 	<UserMacro Name="CAIRO_DIR"
