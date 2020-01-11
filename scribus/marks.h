@@ -32,7 +32,7 @@ struct MarkData
 	TextNote* notePtr {nullptr};
 	//fields used for resolving to pointers for load and copy
 	QString itemName;
-	MarkType markTyp {MARKNoType};
+	MarkType markType {MARKNoType};
 	
 	MarkData() {}
 };
@@ -44,7 +44,7 @@ class SCRIBUS_API Mark
 	friend class BulNumMark;
 	//only ScribusDoc && ScribusMainWindow can create and delete marks
 private:
-	Mark() : data() {}
+	Mark() : m_data() {}
 	Mark(const Mark& other);
 
 public:
@@ -53,25 +53,25 @@ public:
 
 	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
 
-	MarkType getType() const { return typ; }
-	void setType(MarkType t) { typ = t; }
-	const MarkData getData() const { return data; }
-	void setData(const MarkData d) { data = d; }
-	PageItem* getItemPtr() const { return data.itemPtr; }
-	void setItemPtr( PageItem* ptr ) { data.itemPtr = ptr; }
-	const QString getItemName() const { return data.itemName; }
-	void setItemName( const QString name ) { data.itemName = name; }
+	MarkType getType() const { return m_type; }
+	void setType(MarkType t) { m_type = t; }
+	const MarkData getData() const { return m_data; }
+	void setData(const MarkData d) { m_data = d; }
+	PageItem* getItemPtr() const { return m_data.itemPtr; }
+	void setItemPtr( PageItem* ptr ) { m_data.itemPtr = ptr; }
+	const QString getItemName() const { return m_data.itemName; }
+	void setItemName( const QString name ) { m_data.itemName = name; }
 
 	//for marks to marks - return label and type of target mark by reference
 	void getMark(QString& l, MarkType &t) const;
 	//for marks to marks - set label and type of target mark from mark pointer
 	void setMark(Mark* mP);
 	void setMark(const QString& l, MarkType t);
-	MarkType getMarkType() const { return data.markTyp; }
-	void setMarkType(MarkType t) { data.markTyp = t; }
+	MarkType getMarkType() const { return m_data.markType; }
+	void setMarkType(MarkType t) { m_data.markType = t; }
 	const QString getString() const;
 	void setString(const QString& str );
-	TextNote* getNotePtr() const { return data.notePtr; }
+	TextNote* getNotePtr() const { return m_data.notePtr; }
 	void setNotePtr(TextNote *note);
 
 	bool hasItemPtr() const;
@@ -84,8 +84,8 @@ public:
     virtual ~Mark() {}
 
 protected:
-	MarkType typ {MARKNoType};
-	MarkData data;
+	MarkType m_type {MARKNoType};
+	MarkData m_data;
 };
 
 class SCRIBUS_API BulNumMark : public Mark
