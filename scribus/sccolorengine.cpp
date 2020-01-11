@@ -585,9 +585,9 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 		hsv.v = 1.0 - (1.0 - hsv.v) * (level / 100.0);
 		hsv.toRgb(rgb);
 		//We could also compute rgb shade using rgb directly
-		/*rgb.r = 1.0 - ((1.0 - color.m_values[0]) * level / 100);
-		rgb.g = 1.0 - ((1.0 - color.m_values[1]) * level / 100);
-		rgb.b = 1.0 - ((1.0 - color.m_values[2]) * level / 100);*/
+		/*rgb.r = 1.0 - ((1.0 - color.m_values[0]) * level / 100.0);
+		rgb.g = 1.0 - ((1.0 - color.m_values[1]) * level / 100.0);
+		rgb.b = 1.0 - ((1.0 - color.m_values[2]) * level / 100.0);*/
 	}
 	else if (color.getColorModel() == colorModelLab)
 	{
