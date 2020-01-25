@@ -50,6 +50,7 @@ public:
 	QString currentColor() const;
 
 	void setColors(ColorList& list, bool insertNone = true);
+	void setCurrentColor(QString colorName);
 	void setPixmapType(ColorCombo::PixmapType type);
 
 	void initColorList(ColorList* colorList, ScribusDoc* doc, const QString& colorValue);

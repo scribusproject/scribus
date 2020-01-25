@@ -69,6 +69,16 @@ void ColorCombo::setColors(ColorList& list, bool insertNone)
 	clm->setColorList(list, insertNone);
 }
 
+void ColorCombo::setCurrentColor(QString colorName)
+{
+	if (colorName == CommonStrings::None)
+		colorName = CommonStrings::tr_NoneColor;
+	
+	int index = findText(colorName);
+	if (index >= 0)
+		this->setCurrentIndex(index);
+}
+
 void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
