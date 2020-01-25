@@ -260,49 +260,28 @@ void PropertyWidget_TextColor::showStrikeThru(double p, double w)
 	textEffects->StrikeVal->LWidth->showValue(w / 10.0);
 }
 
-void PropertyWidget_TextColor::showTextColors(const QString& p, const QString& b, const QString& bc, double shp, double shb, double sbc)
+void PropertyWidget_TextColor::showTextColors(const QString& strokeCol, const QString& fillCol, const QString& backCol, double strokeShd, double fillShd, double backShd)
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	ColorList::Iterator it;
-	int c = 0;
-	fillShade->setValue(qRound(shb));
-	strokeShade->setValue(qRound(shp));
-	backShade->setValue(qRound(sbc));
-	if ((b != CommonStrings::None) && (!b.isEmpty()))
-	{
-		c++;
-		for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
-		{
-			if (it.key() == b)
-				break;
-			c++;
-		}
-	}
-	fillColor->setCurrentIndex(c);
-	c = 0;
-	if ((p != CommonStrings::None) && (!p.isEmpty()))
-	{
-		for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
-		{
-			if (it.key() == p)
-				break;
-			c++;
-		}
-	}
-	strokeColor->setCurrentIndex(c);
-	c = 0;
-	if ((bc != CommonStrings::None) && (!bc.isEmpty()))
-	{
-		c++;
-		for (it = m_doc->PageColors.begin(); it != m_doc->PageColors.end(); ++it)
-		{
-			if (it.key() == bc)
-				break;
-			c++;
-		}
-	}
-	backColor->setCurrentIndex(c);
+
+	QSignalBlocker fillShadeBlocker(fillShade);
+	QSignalBlocker strokeShadeBlocker(strokeShade);
+	QSignalBlocker backShadeBlocker(backShade);
+	QSignalBlocker fillColorBlocker(fillColor);
+	QSignalBlocker strokeColorBlocker(strokeColor);
+	QSignalBlocker backColorBlocker(backColor);
+
+	fillShade->setValue(qRound(fillShd));
+	strokeShade->setValue(qRound(strokeShd));
+	backShade->setValue(qRound(backShd));
+
+	if (!fillCol.isEmpty())
+		fillColor->setCurrentColor(fillCol);
+	if (!strokeCol.isEmpty())
+		strokeColor->setCurrentColor(strokeCol);
+	if (!backCol.isEmpty())
+		backColor->setCurrentColor(backCol);
 }
 
 void PropertyWidget_TextColor::showTextEffects(int s)
