@@ -105,7 +105,7 @@ void PdfVersionCombo::setVersion(PDFOptions::PDFVersion version)
 	else if  (version == PDFOptions::PDFVersion_X3)
 		setCurrentIndex(PdfVersionModel::ItemPDFX_3);
 	else if  (version == PDFOptions::PDFVersion_X4)
-		setCurrentIndex(PdfVersionModel::ItemPDFX_4);;
+		setCurrentIndex(PdfVersionModel::ItemPDFX_4);
 }
 
 void PdfVersionCombo::setPDFXEnabled(bool enabled)
