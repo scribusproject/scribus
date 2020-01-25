@@ -468,6 +468,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 						QRectF br(currItem->getBoundingRect());
 						m_canvas->update(QRectF(m_canvas->canvasToLocal(br.topLeft()), br.size() * m_canvas->scale()).toRect());
 					}
+					// We have to call this unconditionally because slotSetCurs() doesn't know selection
+					// when it is called
+					m_doc->scMW()->setTBvals(currItem);
 				}
 			}
 		}
