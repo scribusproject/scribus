@@ -16845,8 +16845,10 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 	if (updateNumerations)
 		//after styles change reset all numerations settings
 		setupNumerations();
+
 	//reset ALL counters
-	foreach (NumStruct * numS, numerations.values())
+	QList<NumStruct*> numerationValues = numerations.values();
+	for (NumStruct * numS : numerationValues)
 		for (int l = 0; l < numS->m_nums.count(); ++l)
 			numS->m_counters[l] = numS->m_nums[l].start -1;
 
@@ -16855,7 +16857,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 	for (int sec = 0; sec < sections().count(); ++sec)
 	{
 		//reset section range counters
-		foreach (NumStruct * numS, numerations.values())
+		for (NumStruct * numS : numerationValues)
 			for (int l = 0; l < numS->m_nums.count(); ++l)
 				if (numS->m_nums[l].range == NSRsection)
 					numS->m_counters[l] = numS->m_nums[l].start -1;
@@ -16865,11 +16867,12 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 		for (int page = start; page <= stop; ++page)
 		{
 			//reset page range counters
-			foreach (NumStruct * numS, numerations.values())
+			for (NumStruct * numS : numerationValues)
 				for (int l = 0; l < numS->m_nums.count(); ++l)
 					if (numS->m_nums[l].range == NSRpage)
 						numS->m_counters[l] = numS->m_nums[l].start -1;
-			for (int i=0; i < DocItems.count(); ++i)
+
+			for (int i = 0; i < DocItems.count(); ++i)
 			{
 				PageItem* item = DocItems.at(i);
 				if (item->OwnPage != page)
@@ -16880,17 +16883,18 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 					continue;
 
 				//reset items and stories range counters
-				foreach (NumStruct * numS, numerations.values())
+				for (NumStruct * numS : numerationValues)
 					for (int l = 0; l < numS->m_nums.count(); ++l)
 						if ((numS->m_nums[l].range == NSRframe) || ((numS->m_nums[l].range == NSRstory) && (item->prevInChain() == nullptr)))
 							numS->m_counters[l] = numS->m_nums[l].start -1;
 
 				int pos = item->firstInFrame();
 				int last = item->lastInFrame();
-				if (pos > last) continue;
+				if (pos > last)
+					continue;
 
-				if ((pos != 0) && (item->itemText.text(pos-1) != SpecialChars::PARSEP))
-					pos = item->itemText.nextParagraph(pos)+1;
+				if ((pos != 0) && (item->itemText.text(pos - 1) != SpecialChars::PARSEP))
+					pos = item->itemText.nextParagraph(pos) + 1;
 				int len = item->itemText.length();
 				while (pos <= last)
 				{
@@ -16955,19 +16959,19 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 	}
 
 	//update local numbering
-	foreach (PageItem* item, DocItems)
+	for (PageItem* item : DocItems)
 	{
-		if (item->itemText.length() > 0)
-		{
-			PageItem* itemFirst = item->firstInChain();
-			if (updateLocalNums(itemFirst->itemText))
-			{
-				if (itemFirst->isTextFrame())
-					itemFirst->asTextFrame()->invalidateLayout(true);
-				else
-					itemFirst->invalidateLayout();
-			}
-		}
+		if (item->itemText.length() <= 0)
+			continue;
+
+		PageItem* itemFirst = item->firstInChain();
+		if (!updateLocalNums(itemFirst->itemText))
+			continue;
+
+		if (itemFirst->isTextFrame())
+			itemFirst->asTextFrame()->invalidateLayout(true);
+		else
+			itemFirst->invalidateLayout();
 	}
 
 }
@@ -16975,9 +16979,9 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 QStringList ScribusDoc::marksLabelsList(MarkType type)
 {
 	QStringList nameList;
-	for (int a=0; a < m_docMarksList.count(); ++a)
+	for (int i = 0; i < m_docMarksList.count(); ++i)
 	{
-		Mark* m = m_docMarksList.at(a);
+		Mark* m = m_docMarksList.at(i);
 		if (m == nullptr)
 			continue;
 		if ((m != nullptr) && m->isType(type))
