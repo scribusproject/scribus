@@ -16913,8 +16913,9 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 								continue;
 							}
 							Mark* mark = item->itemText.mark(pos);
+							NumStruct* numStyle = numerations.value(style.numName());
 							bool resetNums = false;
-							if (numerations.value(style.numName())->m_lastlevel == -1)
+							if (numStyle->m_lastlevel == -1)
 								resetNums = true;
 							else if (style.numOther())
 							{
@@ -16923,11 +16924,11 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 								if (!preStyle.hasNum() || (preStyle.numName() != style.numName()))
 									resetNums = true;
 							}
-							else if (style.numHigher() && (style.numLevel() > numerations.value(style.numName())->m_lastlevel))
+							else if (style.numHigher() && (style.numLevel() > numStyle->m_lastlevel))
 								resetNums = true;
 							
 							QString prefixStr = getNumberStr(style.numName(), style.numLevel(), resetNums, style);
-							numerations.value(style.numName())->m_lastlevel = style.numLevel();
+							numStyle->m_lastlevel = style.numLevel();
 							if (mark == nullptr)
 							{
 								BulNumMark* bnMark = new BulNumMark;
