@@ -28,6 +28,8 @@ public:
 	uint refs;
 	uint len;
 	uint cursorPosition;
+	uint marksCount;
+	bool marksCountChanged;
 	ParagraphStyle trailingStyle;
 	CharStyle orphanedCharStyle;
 

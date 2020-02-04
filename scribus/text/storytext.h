@@ -78,6 +78,11 @@ public:
 	StoryText(const StoryText & other);
 	StoryText& operator= (const StoryText & other);
 	virtual ~StoryText();
+
+	bool hasBulletOrNum() const;
+	bool hasTextMarks() const;
+	bool marksCountChanged() const;
+	void resetMarksCountChanged();
 	
 	void setDoc(ScribusDoc *docin);
 	
@@ -127,7 +132,7 @@ public:
 	// Insert object at specific position
 	void insertObject(int pos, int obj);
 	// Insert mark at cursor or specific position
-	void insertMark(Mark* Mark, int pos = -1);
+	void insertMark(Mark* mark, int pos = -1);
 	// Replace a character
  	void replaceChar(int pos, QChar ch);
 	// Replace current selection with specified text

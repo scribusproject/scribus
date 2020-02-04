@@ -1364,6 +1364,13 @@ void PageItem_TextFrame::layout()
 			}
 			m_availableRegion = matrix.map(m_availableRegion);
 		}
+		
+		// update Bullet & number list if any.
+		if (itemText.hasTextMarks() || itemText.hasBulletOrNum() ||  itemText.marksCountChanged())
+		{
+			updateBulletsNum();
+			itemText.resetMarksCountChanged();
+		}
 
 		ITextContext* context = this;
 		//TextShaper textShaper(this, itemText, firstInFrame());
@@ -1372,7 +1379,7 @@ void PageItem_TextFrame::layout()
 		QList<GlyphCluster> glyphClusters; // = textShaper.shape();
 		// std::sort(glyphClusters.begin(), glyphClusters.end(), logicalGlyphRunComp);
 
-		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, context,columnWidth(), m_columnGap);
+		LineControl current(m_width, m_height, m_textDistanceMargins, lineCorr, m_Doc, context, columnWidth(), m_columnGap);
 		current.nextColumn(textLayout);
 
 		lastLineY = m_textDistanceMargins.top();
@@ -1405,8 +1412,6 @@ void PageItem_TextFrame::layout()
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
 			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.top() + lineCorr - desc;
 		}
-		// update Bullet & number list if any.
-		updateBulletsNum();
 
 		current.startLine(0);
 

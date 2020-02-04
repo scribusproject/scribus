@@ -106,6 +106,48 @@ StoryText::~StoryText()
 	}	
 }
 
+bool StoryText::hasBulletOrNum() const
+{
+	if (!d)
+		return false;
+
+	bool lastWasPARSEP = true;
+	for (int i = 0; i < length(); ++i)
+	{
+		lastWasPARSEP = (d->at(i)->ch == SpecialChars::PARSEP);
+		if (!lastWasPARSEP)
+			continue;
+		const ParagraphStyle& paraStyle = paragraphStyle(i);
+		if (paraStyle.hasBullet() || paraStyle.hasNum())
+			return true;
+	}
+
+	const ParagraphStyle& trailingStyle = d->trailingStyle;
+	if (trailingStyle.hasBullet() || trailingStyle.hasNum())
+		return true;
+
+	return false;
+}
+
+bool StoryText::hasTextMarks() const
+{
+	if (d)
+		return (d->marksCount > 0);
+	return false;
+}
+
+bool StoryText::marksCountChanged() const
+{
+	if (d)
+		return d->marksCountChanged;
+	return false;
+}
+
+void StoryText::resetMarksCountChanged()
+{
+	d->marksCountChanged = false;
+}
+
 void StoryText::setDoc(ScribusDoc *docin)
 {
 	if (m_doc)
@@ -471,6 +513,11 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			insertChars(pos, SpecialChars::OBJECT);
 			item(pos)->embedded = other.item(i)->embedded;
 			item(pos)->mark = other.item(i)->mark;
+			if (item(pos)->mark)
+			{
+				d->marksCount++;
+				d->marksCountChanged = true;
+			}
 			applyCharStyle(pos, 1, other.charStyle(i));
 			cstyleStart = i+1;
 			pos += 1;
@@ -555,6 +602,8 @@ void StoryText::removeChars(int pos, uint len)
 	if (pos + static_cast<int>(len) > length())
 		len = length() - pos;
 
+	uint oldMarksCount = d->marksCount;
+
 	if ((pos == 0) && (len > 0) && (static_cast<int>(len) == length()))
 	{
 		int lastChar = length() - 1;
@@ -565,8 +614,10 @@ void StoryText::removeChars(int pos, uint len)
 	for (int i = pos + static_cast<int>(len) - 1; i >= pos; --i)
 	{
 		ScText *it = d->at(i);
-		if ((it->ch == SpecialChars::PARSEP))
+		if (it->ch == SpecialChars::PARSEP)
 			removeParSep(i);
+		if ((it->ch == SpecialChars::OBJECT) && (it->mark != nullptr))
+			d->marksCount--;
 		d->takeAt(i);
 		d->len--;
 		delete it;
@@ -579,6 +630,9 @@ void StoryText::removeChars(int pos, uint len)
 		if (static_cast<uint>(i + 1) <= d->cursorPosition && d->cursorPosition > 0)
 			d->cursorPosition -= 1;
 	}
+
+	if (oldMarksCount != d->marksCount)
+		d->marksCountChanged = true;
 
 	d->len = d->count();
 	d->cursorPosition = qMin(d->cursorPosition, d->len);
@@ -731,12 +785,19 @@ void StoryText::replaceChar(int pos, QChar ch)
 	ScText* item = d->at(pos);
 	if (item->ch == ch)
 		return;
+
+	uint oldMarksCount = d->marksCount;
 	
-	if (d->at(pos)->ch == SpecialChars::PARSEP)
+	if (item->ch == SpecialChars::PARSEP)
 		removeParSep(pos);
+	if ((item->ch == SpecialChars::OBJECT) && (item->mark != nullptr))
+		d->marksCount--;
 	item->ch = ch;
 	if (d->at(pos)->ch == SpecialChars::PARSEP)
 		insertParSep(pos);
+
+	if (oldMarksCount != d->marksCount)
+		d->marksCountChanged = true;
 	
 	invalidate(pos, pos + 1);
 }
@@ -846,15 +907,20 @@ void StoryText::insertObject(int pos, int ob)
 	m_doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
-void StoryText::insertMark(Mark* Mark, int pos)
+void StoryText::insertMark(Mark* mark, int pos)
 {
-	if (Mark == nullptr)
+	if (mark == nullptr)
 		return;
 	if (pos < 0)
 		pos = d->cursorPosition;
 
 	insertChars(pos, SpecialChars::OBJECT, false);
-	const_cast<StoryText *>(this)->d->at(pos)->mark = Mark;
+	d->at(pos)->mark = mark;
+	if (mark)
+	{
+		d->marksCount++;
+		d->marksCountChanged = true;
+	}
 }
 
 void StoryText::replaceObject(int pos, int ob)
@@ -983,9 +1049,9 @@ ExpansionPoint StoryText::expansionPoint(int pos) const
 
 QString StoryText::sentence(int pos, int &posn)
 {
-	int sentencePos=qMax(0, prevSentence(pos));
+	int sentencePos = qMax(0, prevSentence(pos));
 	posn=sentencePos;
-	int nextSentencePos=qMin(length(), endOfSentence(pos));
+	int nextSentencePos = qMin(length(), endOfSentence(pos));
 	return text(sentencePos, nextSentencePos-sentencePos);
 }
 
@@ -1111,7 +1177,17 @@ void StoryText::replaceMark(int pos, Mark* mrk)
 	assert(pos >= 0);
 	assert(pos < length());
 
+	bool hadMarks = (d->marksCount > 0);
+
+	ScText* textItem = this->d->at(pos);
+	if (textItem->mark)
+		this->d->marksCount--;
 	this->d->at(pos)->mark = mrk;
+	if (textItem->mark)
+		this->d->marksCount++;
+
+	// Set marksCountChanged unconditionnaly to force text relayout
+	d->marksCountChanged = true;
 }
 
 
