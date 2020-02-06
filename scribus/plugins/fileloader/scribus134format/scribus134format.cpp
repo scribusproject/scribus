@@ -646,38 +646,36 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 		}
 	}
-	if (groupStackP.count() > 0)
+
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
 
 	while (groupStackF.count() > 0)
@@ -2225,38 +2223,36 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				ta->m_bottomLink = nullptr;
 		}
 	}
-	if (groupStackP.count() > 0)
+
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
 
 	uint itemCount2 = m_Doc->Items->count();

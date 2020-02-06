@@ -1101,104 +1101,99 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			}
 		}
 	}
-	if (groupStackP.count() > 0)
+
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
-	if (groupStackF.count() > 0)
+
+
+	while (groupStackF.count() > 0)
 	{
-		while (groupStackF.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackF.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackF.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
-	if (groupStackM.count() > 0)
+
+	while (groupStackM.count() > 0)
 	{
-		while (groupStackM.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackM.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackM.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->MasterItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->MasterItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
 
 	if (m_Doc->Layers.count() == 0)
@@ -1821,105 +1816,99 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 	}
 
-	if (groupStackP.count() > 0)
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
-	if (groupStackF.count() > 0)
+
+	while (groupStackF.count() > 0)
 	{
-		while (groupStackF.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackF.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackF.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
-	if (groupStackM.count() > 0)
+
+	while (groupStackM.count() > 0)
 	{
-		while (groupStackM.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackM.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackM.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->MasterItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->MasterItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
+
 	//update names to pointers
 	updateNames2Ptr();
 
@@ -4421,38 +4410,36 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			}
 		}
 	}
-	if (groupStackP.count() > 0)
+
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
 
 	int itemCount2 = m_Doc->Items->count();
@@ -6515,71 +6502,68 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 	}
-	if (groupStackP.count() > 0)
+
+	while (groupStackP.count() > 0)
 	{
-		while (groupStackP.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackP.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackP.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->DocItems.removeOne(cItem);
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->DocItems.removeOne(cItem);
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
-	if (groupStackF.count() > 0)
+
+
+	while (groupStackF.count() > 0)
 	{
-		while (groupStackF.count() > 0)
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackF.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
 		{
-			bool isTableIt = false;
-			QList<PageItem*> gpL = groupStackF.pop();
-			PageItem* gItem = gpL.takeFirst();
-			for (int id = 0; id < gpL.count(); id++)
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
 			{
-				PageItem* cItem = gpL.at(id);
-				isTableIt = cItem->isTableItem;
-				cItem->gXpos = cItem->xPos() - gItem->xPos();
-				cItem->gYpos = cItem->yPos() - gItem->yPos();
-				cItem->Parent = gItem;
-				if (gItem->rotation() != 0)
-				{
-					QTransform ma;
-					ma.rotate(-gItem->rotation());
-					FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
-					cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-					cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-					cItem->setRotation(cItem->rotation() - gItem->rotation());
-					cItem->oldRot = cItem->rotation();
-				}
-				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
 			}
-			bool converted = false;
-			if (isTableIt)
-				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
-			if (!converted)
-				gItem->groupItemList = gpL;
+			m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
+		if (!converted)
+			gItem->groupItemList = gpL;
 	}
 
 	// reestablish first/lastAuto
