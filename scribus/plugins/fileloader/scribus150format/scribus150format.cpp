@@ -205,11 +205,15 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	QMap<int,PageItem*> TableIDF;
 	QMap<int,PageItem*> TableIDM;
 	QMap<int,PageItem*> WeldID;
-	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackFI;
+	QStack< QList<PageItem*> > groupStackMI;
+	QStack< QList<PageItem*> > groupStackPI;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
 	QStack< QList<PageItem*> > groupStackP;
-	QStack<int> groupStack2;
+	QStack<int> groupStackFI2;
+	QStack<int> groupStackMI2;
+	QStack<int> groupStackPI2;
 
 
 	itemRemap.clear();
@@ -357,28 +361,60 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 					}
 				}
 			}
-			if (groupStack.count() > 0)
+
+			if ((tagName == "PAGEOBJECT") && (groupStackPI.count() > 0))
 			{
-				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
+				groupStackPI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackPI2.top())
 				{
-					if ((tagName == "PAGEOBJECT") || (tagName == "ITEM"))
-						groupStackP.push(groupStack.pop());
-					else if (tagName == "FRAMEOBJECT")
-						groupStackF.push(groupStack.pop());
-					else
-						groupStackM.push(groupStack.pop());
-					groupStack2.pop();
-					if (groupStack2.count() == 0)
+					groupStackP.push(groupStackPI.pop());
+					groupStackPI2.pop();
+					if (groupStackPI2.count() == 0)
 						break;
 				}
 			}
+			else if ((tagName == "FRAMEOBJECT") && (groupStackFI.count() > 0))
+			{
+				groupStackFI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackFI2.top())
+				{
+					groupStackF.push(groupStackFI.pop());
+					groupStackFI2.pop();
+					if (groupStackFI2.count() == 0)
+						break;
+				}
+			}
+			else if ((tagName == "MASTEROBJECT") && (groupStackMI.count() > 0))
+			{
+				groupStackMI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackMI2.top())
+				{
+					groupStackM.push(groupStackMI.pop());
+					groupStackMI2.pop();
+					if (groupStackMI2.count() == 0)
+						break;
+				}
+			}
+
 			if (itemInfo.isGroupFlag)
 			{
-				QList<PageItem*> GroupItems;
-				GroupItems.append(itemInfo.item);
-				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				QList<PageItem*> groupItems;
+				groupItems.append(itemInfo.item);
+				if (tagName == "PAGEOBJECT")
+				{
+					groupStackPI.push(groupItems);
+					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else if (tagName == "FRAMEOBJECT")
+				{
+					groupStackFI.push(groupItems);
+					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else
+				{
+					groupStackMI.push(groupItems);
+					groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
 			}
 		}
 		if (tagName == "Pattern")
@@ -697,11 +733,15 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	QList<PageItem*> TableItemsF;
 	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
-	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackFI;
+	QStack< QList<PageItem*> > groupStackMI;
+	QStack< QList<PageItem*> > groupStackPI;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
 	QStack< QList<PageItem*> > groupStackP;
-	QStack<int> groupStack2;
+	QStack<int> groupStackFI2;
+	QStack<int> groupStackMI2;
+	QStack<int> groupStackPI2;
 
 	QByteArray docBytes("");
 	loadRawText(fileName, docBytes);
@@ -858,28 +898,60 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 				}
 			}
-			if (groupStack.count() > 0)
+
+			if ((tagName == "PAGEOBJECT") && (groupStackPI.count() > 0))
 			{
-				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
+				groupStackPI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackPI2.top())
 				{
-					if (tagName == "PAGEOBJECT")
-						groupStackP.push(groupStack.pop());
-					else if (tagName == "FRAMEOBJECT")
-						groupStackF.push(groupStack.pop());
-					else
-						groupStackM.push(groupStack.pop());
-					groupStack2.pop();
-					if (groupStack2.count() == 0)
+					groupStackP.push(groupStackPI.pop());
+					groupStackPI2.pop();
+					if (groupStackPI2.count() == 0)
 						break;
 				}
 			}
+			else if ((tagName == "FRAMEOBJECT") && (groupStackFI.count() > 0))
+			{
+				groupStackFI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackFI2.top())
+				{
+					groupStackF.push(groupStackFI.pop());
+					groupStackFI2.pop();
+					if (groupStackFI2.count() == 0)
+						break;
+				}
+			}
+			else if ((tagName == "MASTEROBJECT") && (groupStackMI.count() > 0))
+			{
+				groupStackMI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackMI2.top())
+				{
+					groupStackM.push(groupStackMI.pop());
+					groupStackMI2.pop();
+					if (groupStackMI2.count() == 0)
+						break;
+				}
+			}
+
 			if (itemInfo.isGroupFlag)
 			{
-				QList<PageItem*> GroupItems;
-				GroupItems.append(itemInfo.item);
-				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				QList<PageItem*> groupItems;
+				groupItems.append(itemInfo.item);
+				if (tagName == "PAGEOBJECT")
+				{
+					groupStackPI.push(groupItems);
+					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else if (tagName == "FRAMEOBJECT")
+				{
+					groupStackFI.push(groupItems);
+					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else
+				{
+					groupStackMI.push(groupItems);
+					groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
 			}
 		}
 		if (tagName == "Pattern")
@@ -1231,11 +1303,15 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QList<PageItem*> TableItemsF;
 	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
-	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackFI;
+	QStack< QList<PageItem*> > groupStackMI;
+	QStack< QList<PageItem*> > groupStackPI;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
 	QStack< QList<PageItem*> > groupStackP;
-	QStack<int> groupStack2;
+	QStack<int> groupStackFI2;
+	QStack<int> groupStackMI2;
+	QStack<int> groupStackPI2;
 	
 	markeredItemsMap.clear();
 	markeredMarksMap.clear();
@@ -1524,28 +1600,60 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 					WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 				}
 			}
-			if (groupStack.count() > 0)
+
+			if ((tagName == "PAGEOBJECT") && (groupStackPI.count() > 0))
 			{
-				groupStack.top().append(itemInfo.item);
-				while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
+				groupStackPI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackPI2.top())
 				{
-					if (tagName == "PAGEOBJECT")
-						groupStackP.push(groupStack.pop());
-					else if (tagName == "FRAMEOBJECT")
-						groupStackF.push(groupStack.pop());
-					else
-						groupStackM.push(groupStack.pop());
-					groupStack2.pop();
-					if (groupStack2.count() == 0)
+					groupStackP.push(groupStackPI.pop());
+					groupStackPI2.pop();
+					if (groupStackPI2.count() == 0)
 						break;
 				}
 			}
+			else if ((tagName == "FRAMEOBJECT") && (groupStackFI.count() > 0))
+			{
+				groupStackFI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackFI2.top())
+				{
+					groupStackF.push(groupStackFI.pop());
+					groupStackFI2.pop();
+					if (groupStackFI2.count() == 0)
+						break;
+				}
+			}
+			else if ((tagName == "MASTEROBJECT") && (groupStackMI.count() > 0))
+			{
+				groupStackMI.top().append(itemInfo.item);
+				while (itemInfo.ownNr == groupStackMI2.top())
+				{
+					groupStackM.push(groupStackMI.pop());
+					groupStackMI2.pop();
+					if (groupStackMI2.count() == 0)
+						break;
+				}
+			}
+
 			if (itemInfo.isGroupFlag)
 			{
-				QList<PageItem*> GroupItems;
-				GroupItems.append(itemInfo.item);
-				groupStack.push(GroupItems);
-				groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				QList<PageItem*> groupItems;
+				groupItems.append(itemInfo.item);
+				if (tagName == "PAGEOBJECT")
+				{
+					groupStackPI.push(groupItems);
+					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else if (tagName == "FRAMEOBJECT")
+				{
+					groupStackFI.push(groupItems);
+					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
+				else
+				{
+					groupStackMI.push(groupItems);
+					groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+				}
 			}
 		}
 		if (tagName == "Pattern")
@@ -4305,7 +4413,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		if (groupStack.count() > 0)
 		{
 			groupStack.top().append(itemInfo.item);
-			while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
+			while (itemInfo.ownNr == groupStack2.top())
 			{
 				groupStackP.push(groupStack.pop());
 				groupStack2.pop();
@@ -5993,10 +6101,15 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QList<PageItem*> TableItems;
 	QMap<int,PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
-	QStack< QList<PageItem*> > groupStack;
+	QStack< QList<PageItem*> > groupStackFI;
+	QStack< QList<PageItem*> > groupStackMI;
+	QStack< QList<PageItem*> > groupStackPI;
 	QStack< QList<PageItem*> > groupStackF;
+	QStack< QList<PageItem*> > groupStackM;
 	QStack< QList<PageItem*> > groupStackP;
-	QStack<int> groupStack2;
+	QStack<int> groupStackFI2;
+	QStack<int> groupStackMI2;
+	QStack<int> groupStackPI2;
 	double pageX = 0, pageY = 0;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
@@ -6267,7 +6380,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 			else
 			{
-
 				ItemInfo itemInfo;
 				QString masterPageName = Mpage ? renamedPageName : QString();
 				success = readObject(m_Doc, reader, itemInfo, fileDir, true, masterPageName);
@@ -6316,28 +6428,60 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 					}
 				}
-				if (groupStack.count() > 0)
+
+				if ((tagName == "PAGEOBJECT") && (groupStackPI.count() > 0))
 				{
-					groupStack.top().append(itemInfo.item);
-					while (static_cast<int>(itemInfo.ownNr) == groupStack2.top())
+					groupStackPI.top().append(itemInfo.item);
+					while (itemInfo.ownNr == groupStackPI2.top())
 					{
-						if (tagName == "PAGEOBJECT")
-							groupStackP.push(groupStack.pop());
-						else if (tagName == "FRAMEOBJECT")
-							groupStackF.push(groupStack.pop());
-						else
-							groupStack.pop();
-						groupStack2.pop();
-						if (groupStack2.count() == 0)
+						groupStackP.push(groupStackPI.pop());
+						groupStackPI2.pop();
+						if (groupStackPI2.count() == 0)
 							break;
 					}
 				}
+				else if ((tagName == "FRAMEOBJECT") && (groupStackFI.count() > 0))
+				{
+					groupStackFI.top().append(itemInfo.item);
+					while (itemInfo.ownNr == groupStackFI2.top())
+					{
+						groupStackF.push(groupStackFI.pop());
+						groupStackFI2.pop();
+						if (groupStackFI2.count() == 0)
+							break;
+					}
+				}
+				else if ((tagName == "MASTEROBJECT") && (groupStackMI.count() > 0))
+				{
+					groupStackMI.top().append(itemInfo.item);
+					while (itemInfo.ownNr == groupStackMI2.top())
+					{
+						groupStackM.push(groupStackMI.pop());
+						groupStackMI2.pop();
+						if (groupStackMI2.count() == 0)
+							break;
+					}
+				}
+
 				if (itemInfo.isGroupFlag)
 				{
-					QList<PageItem*> GroupItems;
-					GroupItems.append(itemInfo.item);
-					groupStack.push(GroupItems);
-					groupStack2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+					QList<PageItem*> groupItems;
+					groupItems.append(itemInfo.item);
+					if (tagName == "PAGEOBJECT")
+					{
+						groupStackPI.push(groupItems);
+						groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+					}
+					else if (tagName == "FRAMEOBJECT")
+					{
+						groupStackFI.push(groupItems);
+						groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+					}
+					else
+					{
+						groupStackMI.push(groupItems);
+						groupStackMI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
+					}
 				}
 			}
 		}
@@ -6534,7 +6678,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			gItem->groupItemList = gpL;
 	}
 
-
 	while (groupStackF.count() > 0)
 	{
 		bool isTableIt = false;
@@ -6562,6 +6705,37 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		bool converted = false;
 		if (isTableIt)
 			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, nullptr);
+		if (!converted)
+			gItem->groupItemList = gpL;
+	}
+
+	while (groupStackM.count() > 0)
+	{
+		bool isTableIt = false;
+		QList<PageItem*> gpL = groupStackM.pop();
+		PageItem* gItem = gpL.takeFirst();
+		for (int id = 0; id < gpL.count(); id++)
+		{
+			PageItem* cItem = gpL.at(id);
+			isTableIt = cItem->isTableItem;
+			cItem->gXpos = cItem->xPos() - gItem->xPos();
+			cItem->gYpos = cItem->yPos() - gItem->yPos();
+			cItem->Parent = gItem;
+			if (gItem->rotation() != 0)
+			{
+				QTransform ma;
+				ma.rotate(-gItem->rotation());
+				FPoint n = FPoint(cItem->gXpos, cItem->gYpos);
+				cItem->gXpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+				cItem->gYpos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+				cItem->setRotation(cItem->rotation() - gItem->rotation());
+				cItem->oldRot = cItem->rotation();
+			}
+			m_Doc->MasterItems.removeOne(cItem);
+		}
+		bool converted = false;
+		if (isTableIt)
+			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
