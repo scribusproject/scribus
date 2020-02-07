@@ -2474,19 +2474,19 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 {
 	docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
-	docu.writeAttribute("PTYPE",item->realItemType());
-	docu.writeAttribute("WIDTH",item->width());
-	docu.writeAttribute("HEIGHT",item->height());
+	docu.writeAttribute("PTYPE", item->realItemType());
+	docu.writeAttribute("WIDTH", item->width());
+	docu.writeAttribute("HEIGHT", item->height());
 	if (item->cornerRadius() != 0)
-		docu.writeAttribute("RADRECT",item->cornerRadius());
+		docu.writeAttribute("RADRECT", item->cornerRadius());
 	docu.writeAttribute("FRTYPE", item->FrameType);
 	docu.writeAttribute("CLIPEDIT", item->ClipEdited ? 1 : 0);
 	if (item->GrType != 0)
-		docu.writeAttribute("GRTYP",item->GrType);
+		docu.writeAttribute("GRTYP", item->GrType);
 	if (item->GrTypeStroke != 0)
-		docu.writeAttribute("GRTYPS",item->GrTypeStroke);
+		docu.writeAttribute("GRTYPS", item->GrTypeStroke);
 	if (item->rotation() != 0)
-		docu.writeAttribute("ROT",item->rotation());
+		docu.writeAttribute("ROT", item->rotation());
 	if (!item->printEnabled())
 		docu.writeAttribute("PRINTABLE", 0);
 	if (item->imageFlippedH())
@@ -2495,19 +2495,19 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("FLIPPEDV", 1);
 	if (!(item->isGroup() || item->isSymbol()))
 	{
-		docu.writeAttribute("PWIDTH",item->lineWidth());
+		docu.writeAttribute("PWIDTH", item->lineWidth());
 		if (item->fillColor() != CommonStrings::None)
-			docu.writeAttribute("PCOLOR",item->fillColor());
+			docu.writeAttribute("PCOLOR", item->fillColor());
 		if (item->fillShade() != 100)
-			docu.writeAttribute("SHADE",item->fillShade());
+			docu.writeAttribute("SHADE", item->fillShade());
 		if (item->lineColor() != CommonStrings::None)
-			docu.writeAttribute("PCOLOR2",item->lineColor());
+			docu.writeAttribute("PCOLOR2", item->lineColor());
 		if (item->lineShade() != 100)
-			docu.writeAttribute("SHADE2",item->lineShade());
+			docu.writeAttribute("SHADE2", item->lineShade());
 		if (!item->NamedLStyle.isEmpty())
-			docu.writeAttribute("NAMEDLST",item->NamedLStyle);
+			docu.writeAttribute("NAMEDLST", item->NamedLStyle);
 		if (item->PLineArt != 0)
-			docu.writeAttribute("PLINEART",item->PLineArt);
+			docu.writeAttribute("PLINEART", item->PLineArt);
 		if (item->PLineEnd != 0)
 			docu.writeAttribute("PLINEEND", item->PLineEnd);
 		if (item->PLineJoin != 0)
@@ -2613,11 +2613,11 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 //	docu.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
 	{
-		docu.writeAttribute("LOCALSCX",item->imageXScale());
-		docu.writeAttribute("LOCALSCY",item->imageYScale());
-		docu.writeAttribute("LOCALX",item->imageXOffset());
-		docu.writeAttribute("LOCALY",item->imageYOffset());
-		docu.writeAttribute("LOCALROT" ,item->imageRotation());
+		docu.writeAttribute("LOCALSCX", item->imageXScale());
+		docu.writeAttribute("LOCALSCY", item->imageYScale());
+		docu.writeAttribute("LOCALX", item->imageXOffset());
+		docu.writeAttribute("LOCALY", item->imageYOffset());
+		docu.writeAttribute("LOCALROT" , item->imageRotation());
 		docu.writeAttribute("PICART", item->imageVisible() ? 1 : 0);
 		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
@@ -2627,12 +2627,12 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("COLUMNS", item->columns());
 		docu.writeAttribute("COLGAP", item->columnGap());
 		docu.writeAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
-		docu.writeAttribute("EXTRA",item->textToFrameDistLeft());
-		docu.writeAttribute("TEXTRA",item->textToFrameDistTop());
-		docu.writeAttribute("BEXTRA",item->textToFrameDistBottom());
-		docu.writeAttribute("REXTRA",item->textToFrameDistRight());
+		docu.writeAttribute("EXTRA", item->textToFrameDistLeft());
+		docu.writeAttribute("TEXTRA", item->textToFrameDistTop());
+		docu.writeAttribute("BEXTRA", item->textToFrameDistBottom());
+		docu.writeAttribute("REXTRA", item->textToFrameDistRight());
 		docu.writeAttribute("VAlign", item->verticalAlignment());
-		docu.writeAttribute("FLOP",item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
+		docu.writeAttribute("FLOP", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 		docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 		docu.writeAttribute("BASEOF", item->BaseOffs);
 		docu.writeAttribute("textPathType", item->textPathType);
@@ -2689,11 +2689,11 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (!item->Pfile3.isEmpty())
 		docu.writeAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	if (!item->IProfile.isEmpty())
-		docu.writeAttribute("PRFILE",item->IProfile);
+		docu.writeAttribute("PRFILE", item->IProfile);
 	if (!item->EmProfile.isEmpty())
 		docu.writeAttribute("EPROF", item->EmProfile);
 	if (item->IRender != 1)
-		docu.writeAttribute("IRENDER",item->IRender);
+		docu.writeAttribute("IRENDER", item->IRender);
 	if (!item->UseEmbedded)
 		docu.writeAttribute("EMBEDDED", 0);
 	if (item->asImageFrame())
@@ -2717,16 +2717,16 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("TransBlendS", item->lineBlendmode());
 	if (item->hasSoftShadow())
 	{
-		docu.writeAttribute("HASSOFTSHADOW",item->hasSoftShadow() ? 1 : 0);
-		docu.writeAttribute("SOFTSHADOWXOFFSET",item->softShadowXOffset());
-		docu.writeAttribute("SOFTSHADOWYOFFSET",item->softShadowYOffset());
-		docu.writeAttribute("SOFTSHADOWCOLOR",item->softShadowColor());
-		docu.writeAttribute("SOFTSHADOWBLURRADIUS",item->softShadowBlurRadius());
-		docu.writeAttribute("SOFTSHADOWSHADE",item->softShadowShade());
-		docu.writeAttribute("SOFTSHADOWBLENDMODE",item->softShadowBlendMode());
-		docu.writeAttribute("SOFTSHADOWOPACITY",item->softShadowOpacity());
-		docu.writeAttribute("SOFTSHADOWERASE",item->softShadowErasedByObject());
-		docu.writeAttribute("SOFTSHADOWOBJTRANS",item->softShadowHasObjectTransparency());
+		docu.writeAttribute("HASSOFTSHADOW", item->hasSoftShadow() ? 1 : 0);
+		docu.writeAttribute("SOFTSHADOWXOFFSET", item->softShadowXOffset());
+		docu.writeAttribute("SOFTSHADOWYOFFSET", item->softShadowYOffset());
+		docu.writeAttribute("SOFTSHADOWCOLOR", item->softShadowColor());
+		docu.writeAttribute("SOFTSHADOWBLURRADIUS", item->softShadowBlurRadius());
+		docu.writeAttribute("SOFTSHADOWSHADE", item->softShadowShade());
+		docu.writeAttribute("SOFTSHADOWBLENDMODE", item->softShadowBlendMode());
+		docu.writeAttribute("SOFTSHADOWOPACITY", item->softShadowOpacity());
+		docu.writeAttribute("SOFTSHADOWERASE", item->softShadowErasedByObject());
+		docu.writeAttribute("SOFTSHADOWOBJTRANS", item->softShadowHasObjectTransparency());
 	}
 
 	QString tmp;
@@ -2735,7 +2735,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		//PTYPE == PageItem::Table or 16 (pageitem.h)
 		PageItem_Table* tableItem=item->asTable();
 		docu.writeAttribute("Rows", tableItem->rows());
-		docu.writeAttribute("Columns",tableItem->columns());
+		docu.writeAttribute("Columns", tableItem->columns());
 
 		QString outputData;
 		//Row Positions
@@ -2766,7 +2766,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("CellAreas", outputData.simplified());
 		outputData.clear();
 
-		docu.writeAttribute("TableStyle",tableItem->styleName());
+		docu.writeAttribute("TableStyle", tableItem->styleName());
 	}
 
 	if (item->isGroup())
