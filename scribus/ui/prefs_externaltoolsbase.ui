@@ -259,7 +259,7 @@
          <item>
           <widget class="QLineEdit" name="imageToolLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;File system location for graphics editor.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>

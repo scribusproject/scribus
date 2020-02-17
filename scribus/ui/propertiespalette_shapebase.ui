@@ -157,7 +157,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Text Flow around contour line</string>
+          <string>Text flow around contour line</string>
          </property>
          <property name="text">
           <string>&amp;Use Contour Line</string>

@@ -112,7 +112,7 @@ PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
 	{
 		QString qnum = QString("%1").arg(action);
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Action must be be 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+			QObject::tr("Action must be 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
