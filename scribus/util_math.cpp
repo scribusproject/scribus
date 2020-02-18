@@ -264,8 +264,10 @@ QPainterPath spiralPath(double spiralWidth, double spiralHeight, double spiralSt
 QList<QPainterPath> decomposePath(QPainterPath &path)
 {
 	QList<QPainterPath> ret;
-	ret.clear();
 	QPainterPath part;
+	QPainterPath::Element element1;
+	QPainterPath::Element element2;
+
 	part = QPainterPath();
 	bool first = true;
 	for (int i = 0; i < path.elementCount(); ++i)
@@ -288,7 +290,9 @@ QList<QPainterPath> decomposePath(QPainterPath &path)
 				part.lineTo(elm.x, elm.y);
 				break;
 			case QPainterPath::CurveToElement:
-				part.cubicTo(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
+				element1 = path.elementAt(i + 1);
+				element2 = path.elementAt(i + 2);
+				part.cubicTo(elm.x, elm.y, element1.x, element1.y, element2.x, element2.y );
 				break;
 			default:
 				break;
@@ -391,31 +395,33 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	return partIn ? (ry > prect->bottom()) : false;
 }
 
-QPolygon flattenPath(const FPointArray& ina, QList<uint> &Segs)
+QPolygon flattenPath(const FPointArray& ina, QList<uint> &segments)
 {
 	QPolygon cli;
 	QPolygon outa;
-	Segs.clear();
+
+	segments.clear();
 	if (ina.size() <= 3)
 		return outa;
-	int limit=ina.size()-3;
-	for (int poi=0; poi<limit; poi += 4)
+
+	int limit = ina.size() - 3;
+	for (int i = 0; i < limit; i += 4)
 	{
-		if (ina.isMarker(poi)) // && cli.size() > 0)
+		if (ina.isMarker(i)) // && cli.size() > 0)
 		{
-			Segs.append(outa.size());
+			segments.append(outa.size());
 			continue;
 		}
-		const FPoint& a1 = ina.point(poi);
-		const FPoint& a2 = ina.point(poi+1);
-		const FPoint& a3 = ina.point(poi+3);
-		const FPoint& a4 = ina.point(poi+2);
-		QPainterPath Bez;
-		Bez.moveTo(a1.x(), a1.y());
-		Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
-		cli = Bez.toFillPolygon().toPolygon();
+		const FPoint& a1 = ina.point(i);
+		const FPoint& a2 = ina.point(i + 1);
+		const FPoint& a3 = ina.point(i + 3);
+		const FPoint& a4 = ina.point(i + 2);
+		QPainterPath bez;
+		bez.moveTo(a1.x(), a1.y());
+		bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+		cli = bez.toFillPolygon().toPolygon();
 		if (cli.size() > 1)
-			outa.putPoints(outa.size(), cli.size()-2, cli);
+			outa.putPoints(outa.size(), cli.size() - 2, cli);
 		else
 			outa << QPoint(qRound(a4.x()), qRound(a4.y()));
 	}
@@ -480,13 +486,13 @@ bool compareDouble(double a, double b)
 
 double constrainAngle(double angle, double constrain)
 {
-	double newAngle=angle;
-	double constrainTo=constrain;
-	if (newAngle<0.0)
-		newAngle+=360.0;
-	newAngle=qRound(newAngle/constrainTo)*constrainTo;
-	if (newAngle==360.0)
-		newAngle=0.0;
+	double newAngle = angle;
+	double constrainTo = constrain;
+	if (newAngle < 0.0)
+		newAngle += 360.0;
+	newAngle = qRound(newAngle / constrainTo) * constrainTo;
+	if (newAngle == 360.0)
+		newAngle = 0.0;
 	return newAngle;
 }
 
