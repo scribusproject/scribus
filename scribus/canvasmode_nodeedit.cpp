@@ -633,7 +633,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				{
 					cli.resize(cli.size()+4);
 					cli.putPoints(cli.size() - 4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-					cli.putPoints(cli.size(), Clip.size()-(m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
+					cli.putPoints(cli.size(), Clip.size() - (m_doc->nodeEdit.clre2() + 2), Clip, m_doc->nodeEdit.clre2() + 2);
 				}
 				else
 				{
@@ -685,7 +685,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				{
 					if (currItem->Segments.count() == 0)
 					{
-						cli.putPoints(0, EndInd-(m_doc->nodeEdit.clre() + 2), Clip, m_doc->nodeEdit.clre() + 2);
+						cli.putPoints(0, EndInd - (m_doc->nodeEdit.clre() + 2), Clip, m_doc->nodeEdit.clre() + 2);
 						cli.putPoints(cli.size(), m_doc->nodeEdit.clre() + 2, Clip);
 					}
 					else
@@ -702,12 +702,12 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 							if (m_doc->nodeEdit.isContourLine())
 							{
 								bb->ContourLine.putPoints(0, StartInd - 4, Clip);
-								bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size()-EndInd, Clip, EndInd);
+								bb->ContourLine.putPoints(bb->ContourLine.size(), Clip.size() -EndInd, Clip, EndInd);
 							}
 							else
 							{
 								bb->PoLine.putPoints(0, StartInd - 4, Clip);
-								bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+								bb->PoLine.putPoints(bb->PoLine.size(), Clip.size() - EndInd, Clip, EndInd);
 							}
 						}
 						else

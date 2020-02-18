@@ -2584,19 +2584,20 @@ void PageItem::SetQColor(QColor *tmp, const QString& colorName, double shad)
 
 void PageItem::DrawPolyL(QPainter *p, const QPolygon& pts)
 {
-	if (Segments.count() != 0)
+	if (Segments.count() == 0)
 	{
-		QList<uint>::Iterator it2end=Segments.end();
-		uint FirstVal = 0;
-		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
-		{
-			p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
-			FirstVal = (*it2);
-		}
-		p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
-	}
-	else
 		p->drawPolygon(pts);
+		return;
+	}
+
+	QList<uint>::Iterator it2end = Segments.end();
+	uint firstVal = 0;
+	for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
+	{
+		p->drawPolygon(pts.constData() + firstVal, (*it2) - firstVal);
+		firstVal = (*it2);
+	}
+	p->drawPolygon(pts.constData() + firstVal, pts.size() - firstVal);
 }
 
 void PageItem::setItemName(const QString& newName)
@@ -10439,8 +10440,8 @@ void PageItem::updateClip(bool updateWelded)
 				OldH2 = height();
 				ContourLine = PoLine.copy();
 			}
-			OldB2 = (OldB2==0)?1:OldB2;
-			OldH2 = (OldH2==0)?1:OldH2;
+			OldB2 = (OldB2 == 0) ? 1 : OldB2;
+			OldH2 = (OldH2 == 0) ? 1 : OldH2;
 			double scx = width() / OldB2;
 			double scy = height() / OldH2;
 			QTransform ma;
