@@ -116,32 +116,30 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 	if (!invertible)
 		return QRegion();
 
-	int LayerLev = m_Doc->layerLevelFromID(m_layerID);
+	int layerLev = m_Doc->layerLevelFromID(m_layerID);
 	int docItemsCount = m_Doc->Items->count();
-	ScPage* Mp = nullptr;
-	ScPage* Dp = nullptr;
 	PageItem* docItem = nullptr;
-	int LayerLevItem;
+	int layerLevItem;
 	QList<PageItem*> thisList;
 	if (!OnMasterPage.isEmpty())
 	{
 		if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
 			return result;
-		Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-		Dp = m_Doc->Pages->at(savedOwnPage);
+		ScPage* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+		ScPage* Dp = m_Doc->Pages->at(savedOwnPage);
 		if (isGroupChild())
 			thisList = Parent->asGroupFrame()->groupItemList;
 		else
 			thisList = m_Doc->MasterItems;
 		int thisid = thisList.indexOf(this);
-		for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
+		for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 		{
-			docItem = m_Doc->MasterItems.at(a);
+			docItem = m_Doc->MasterItems.at(i);
 			// #10642 : masterpage items interact only with items placed on same masterpage
 			if (docItem->OnMasterPage != OnMasterPage)
 				continue;
-			LayerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
-			if (((a > thisid) && (docItem->m_layerID == m_layerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->m_layerID)))
+			layerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
+			if (((i > thisid) && (docItem->m_layerID == m_layerID)) || (layerLevItem > layerLev && m_Doc->layerFlow(docItem->m_layerID)))
 			{
 				if (docItem->textFlowAroundObject())
 				{
@@ -154,9 +152,9 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		// which have the text flow option set
 		/*if (!m_Doc->masterPageMode())
 		{
-			for (uint a = 0; a < docItemsCount; ++a)
+			for (uint i = 0; i < docItemsCount; ++i)
 			{
-				docItem = m_Doc->Items->at(a);
+				docItem = m_Doc->Items->at(i);
 				Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 				Dp = m_Doc->Pages->at(OwnPage);
 				if ((docItem->textFlowAroundObject()) && (docItem->OwnPage == OwnPage))
@@ -173,9 +171,9 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		{
 			thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
 			docItemsCount = Parent->asGroupFrame()->groupItemList.count();
-			for (int a = thisid + 1; a < docItemsCount; ++a)
+			for (int i = thisid + 1; i < docItemsCount; ++i)
 			{
-				docItem = Parent->asGroupFrame()->groupItemList.at(a);
+				docItem = Parent->asGroupFrame()->groupItemList.at(i);
 				if (docItem->textFlowAroundObject())
 				{
 					QRegion itemRgn = docItem->textInteractionRegion(0, 0);
@@ -186,11 +184,11 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		else
 		{
 			thisid = m_Doc->Items->indexOf(this);
-			for (int a = 0; a < docItemsCount; ++a)
+			for (int i = 0; i < docItemsCount; ++i)
 			{
-				docItem = m_Doc->Items->at(a);
-				LayerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
-				if (((a > thisid) && (docItem->m_layerID == m_layerID)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->m_layerID)))
+				docItem = m_Doc->Items->at(i);
+				layerLevItem = m_Doc->layerLevelFromID(docItem->m_layerID);
+				if (((i > thisid) && (docItem->m_layerID == m_layerID)) || (layerLevItem > layerLev && m_Doc->layerFlow(docItem->m_layerID)))
 				{
 					if (docItem->textFlowAroundObject())
 					{
