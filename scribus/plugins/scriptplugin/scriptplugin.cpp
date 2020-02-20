@@ -746,6 +746,7 @@ PyObject* PyInit_scribus(void)
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_RETRY"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Retry));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_IGNORE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ignore));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_DEFAULT"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Default));
+	PyDict_SetItemString(d, const_cast<char*>("BUTTON_ESCAPE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Escape));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoIcon));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_INFORMATION"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Information));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_WARNING"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Warning));

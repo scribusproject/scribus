@@ -54,7 +54,7 @@ PyObject *scribus_mess(PyObject *self, PyObject* args);
 /*! docstring */
 PyDoc_STRVAR(scribus_messagebox__doc__,
 QT_TR_NOOP("messageBox(\"caption\", \"message\",\n\
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,\n\
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTON_DEFAULT,\n\
     button2=BUTTON_NONE, button3=BUTTON_NONE) -> integer\n\
 \n\
 Displays a message box with the title \"caption\", the message \"message\", and\n\
@@ -63,23 +63,24 @@ button, OK, is displayed. Only the caption and message arguments are required,\n
 though setting an icon and appropriate button(s) is strongly\n\
 recommended. The message text may contain simple HTML-like markup.\n\
 \n\
-Returns the number of the button the user pressed. Button numbers start\n\
-at 1.\n\
+Returns the BUTTON_* constant value corresponding to the clicked button. For example,\n\
+if OK button is clicked, BUTTON_OK will be returned regardless of whether it is assigned to\n\
+button1, button2, or button3.\n\
 \n\
 For the icon and the button parameters there are predefined constants available\n\
 with the same names as in the Qt Documentation. These are the BUTTON_* and\n\
 ICON_* constants defined in the module. There are also two extra constants that\n\
 can be binary-ORed with button constants:\n\
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.\n\
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.\n\
+    BUTTON_DEFAULT   Pressing enter presses this button.\n\
+    BUTTON_ESCAPE    Pressing escape presses this button.\n\
 \n\
 Usage examples:\n\
 result = messageBox('Script failed',\n\
                     'This script only works when you have a text frame selected.',\n\
                     ICON_ERROR)\n\
 result = messageBox('Monkeys!', 'Something went ook! <i>Was it a monkey?</i>',\n\
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,\n\
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)\n\
+                    ICON_WARNING, BUTTON_YES|BUTTON_DEFAULT,\n\
+                    BUTTON_NO, BUTTON_IGNORE|BUTTON_ESCAPE)\n\
 \n\
 Defined button and icon constants:\n\
 BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,\n\

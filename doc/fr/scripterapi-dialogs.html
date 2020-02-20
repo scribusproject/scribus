@@ -34,24 +34,24 @@ nomDefaut='report.txt', estEnregistre=True)</p></dd>
 	
 <dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
 <dd><code>messageBox("titre", "message",
-icone=ICON_NONE, bouton1=BUTTON_OK|BUTTONOPT_DEFAULT,
+icone=ICON_NONE, bouton1=BUTTON_OK|BUTTON_DEFAULT,
 bouton2=BUTTON_NONE, bouton3=BUTTON_NONE) -&gt; nombre entier</code>
 <p>Affiche une boîte de message contenant le "titre", le message
 "message", une icône "icone" et jusqu'à 3 boutons. Par défaut, aucune icône n'est utilisée et un seul bouton, OK, est affiché. Seuls les arguments titre et message sont requis, mais on recommande de définir une icône et un ou plusieurs boutons appropriés. Le message texte peut contenir des marqueurs de type HTML simples.</p>
-<p>Retourne le numéro du bouton que l'utilisateur a enfoncé. Les numéros de boutons commencent à 1.</p>
+<p>Retourne la constante BUTTON_* correspondant au bouton cliqué. Par exemple, si le bouton OK est cliqué, la fonction retournera BUTTON_OK que le bouton soit assigné au bouton 1, bouton 2, ou bouton 3.</p>
 <p>Pour les paramètres d'icône et de bouton, certaines constantes prédéfinies sont disponibles et portent les mêmes noms que dans la documentation Qt. 
 Ce sont les constantes BUTTON_* et ICON_* définies dans ce module. Il y a également deux constantes supplémentaires qui peuvent être combinées par un OU aux constantes de bouton :</p>
 <ul>
-	<li>BUTTONOPT_DEFAULT - Appuyer sur Entrée enfonce ce bouton.</li>
-	<li>BUTTONOPT_ESCAPE - Appuyer sur Esc enfonce ce bouton.</li>
+	<li>BUTTON_DEFAULT - Appuyer sur Entrée enfonce ce bouton.</li>
+	<li>BUTTON_ESCAPE - Appuyer sur Esc enfonce ce bouton.</li>
 </ul>
 <p>Exemples d'utilisation :</p>
 <pre>
 result = <a href="#-messageBox">messageBox</a>('Le script a échoué', 'Ce script fonctionne seulement lorsqu'un cadre de texte est sélectionné.'
 ICON_ERROR)result = <a href="#-messageBox">messageBox</a>('Singes!',
 'Quelque chose s'est passé! &lt;i&gt;était-ce un singe? &lt;/i&gt;',
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+                    ICON_WARNING, BUTTON_YES|BUTTON_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTON_ESCAPE)
 </pre>
 <p>Les constantes de boutons et d'icônes suivantes sont définies : BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</p></dd>
 	

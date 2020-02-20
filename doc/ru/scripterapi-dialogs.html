@@ -34,18 +34,18 @@
 
 <dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
 <dd><code>messageBox("caption", "message",
-icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+icon=ICON_NONE, button1=BUTTON_OK|BUTTON_DEFAULT,
 button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer</code>
 <p>Displays a message box with the title "caption", the message "message", and an icon "icon" and up to 3 buttons. By default no icon is used and a single button, OK, is displayed. Only the caption and message arguments are required, though setting an icon and appropriate button(s) is strongly recommended. The message text may contain simple HTML-like markup.</p>
-<p>Returns the integer value of the assigned button. For example, regardless of whether BUTTON_OK is assigned to button1, button2, or button3, it will return 16384. Check <a href="scripterapi-constants.html">Pre-defined Constants</a> for further information.</p>
+<p>Returns the BUTTON_* constant value corresponding to the clicked button. For example, if OK button is clicked, BUTTON_OK will be returned regardless of whether it is assigned to button1, button2, or button3. Check <a href="scripterapi-constants.html">Pre-defined Constants</a> for further information.</p>
 <p>For the icon and the button parameters there are predefined constants available with the same names as in the Qt Documentation. These are the BUTTON_* and ICON_* constants defined in the module. There are also two extra constants that can be binary-ORed with button constants:</p>
 <ul>
-<li>BUTTONOPT_DEFAULT Pressing enter presses this button.</li>
-<li>BUTTONOPT_ESCAPE Pressing escape presses this button.</li>
+<li>BUTTON_DEFAULT Pressing enter presses this button.</li>
+<li>BUTTON_ESCAPE Pressing escape presses this button.</li>
 </ul>
 <p>Usage examples:</p>
 <p><b>result = messageBox</a>('Script failed', 'This script only works when you have a text frame selected.', ICON_ERROR)</p>
-<p>result = messageBox('Monkeys!', 'Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;', ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT, BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)</b></p>
+<p>result = messageBox('Monkeys!', 'Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;', ICON_WARNING, BUTTON_YES|BUTTON_DEFAULT, BUTTON_NO, BUTTON_IGNORE|BUTTON_ESCAPE)</b></p>
 <p>Defined button and icon constants: BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</p></dd>
 
 <dt><a name="-newDocDialog"><strong>newDocDialog</strong></a>(...)</dt>
