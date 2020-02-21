@@ -78,9 +78,11 @@ where text is incorporated in an image. Use a superimposed text frame
 <td valign="top"><img src="images/context_image.png" alt="Image Context Menu" align="right"></td>
 </tr>
 </tbody></table>
-<h3>Properties: Image</h3>
+<h3>Image Properties</h3>
 <table cellpadding="3"><tbody><tr>
-<td><p>When an Image is first loaded, the default is for it to have Free
+
+<td valign="top"><p>We now have moved Image Properties to its own dockable palette. What you see here is what has been removed from Properties. In the top section, we see <b>X-Pos</b>, <b>Y-Pos</b>, and <b>Rotation</b>. These refer to the position of the image <i>inside</i> the frame. For example, <b>X-Pos</b> is the relative position of the image itself compared to the upper left corner of the frame. Similarly, <b>Rotation</b> applies to the rotation of the image <i>relative</i> to the frame.</p>
+<p>When an Image is first loaded, the default is for it to have Free
 Scaling or as is set in <i>File&nbsp;&gt; Preferences/Document Setup&nbsp;&gt; Tools&nbsp;&gt; Image</i>.</p>
 <p>Under Free Scaling the spinboxes are:
 </p><ul>
@@ -95,8 +97,9 @@ final resolution to be exported to the PDF.</li>
 the image is simply stretched to fit the frame and may be quite
 distorted. You should find the combination of scaling to frame size
 (proportional) and then <b>Adjust Frame to Image</b> from the Context Menu very useful for making a frame exactly the right size for your image.
-</p><p>The <strong>Color Management</strong> section tells us that you can now specify per-frame profiles, as well as the <strong>Rendering Intent</strong>. Likewise, we can see that image compression type and degree on PDF export can now follow the <i>Global</i> settings or be on a per-frame basis.</p></td>
-<td valign="top"><img src="images/Image_Properties.png" alt="Properties: Image"></td>
+</p><p>The <strong>PDF Compression</strong> section tells us that you can now specify per-frame values.</p>
+<p>The <strong>Image Effects</strong> button brings up its dialog, which allows you to apply some selected imaging manipulation, such as adjusting Brightness or Contrast, Blurring, and so on. </p></td>
+<td valign="top"><img src="images/Image_Properties.png" alt="Image Properties Pallette"></td>
 </tr>
 <tr><td align="right"><img src="images/Image_warning.png"></td>
 <td valign="top"><p>If you see this warning triangle in the lower right corner of your frame, it indicates that the image resolution is below 144 DPI, or whatever you have set as your minimum value in the Preflight Verifier settings in <i>File > Preferences</i> or <i>File > Document Settings</i>. This is strictly a warning.</p></td></tr>
