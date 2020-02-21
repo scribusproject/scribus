@@ -1182,16 +1182,16 @@ void StyleManager::slotSetupWidget()
 	QPair<QString, QStringList> selection = namesFromSelection();
 	QString typeName = selection.first;
 // 	qDebug()<<"slotSetupWidget"<<selection.first<<selection.second.join("|");
-	if (typeName.isNull() && m_widget)
+	if (typeName.isEmpty() && m_widget)
 		m_widget->setEnabled(false); // nothing selected or two or more different types
-	else if (!m_item || m_item->typeName() != typeName || m_widget != m_item->widget())
+	else if (!m_item || (m_item->typeName() != typeName) || (m_widget != m_item->widget()))
 		loadType(typeName); // new type selected
 	else if (m_widget && !m_widget->isEnabled())
 		m_widget->setEnabled(true);
 
 	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
 	           this, SLOT(slotNameChanged(const QString&)));
-	if (!typeName.isNull())
+	if (!typeName.isEmpty())
 	{
 		m_item->selected(selection.second);
 		if (selection.second.count() > 1)
@@ -1375,6 +1375,7 @@ void StyleManager::loadType(const QString &name)
 	m_layout->addWidget(m_widget, 0, 0);
 	layout()->activate();
 	m_widget->resize(m_widget->minimumSizeHint());
+	m_widget->setEnabled(true);
 	m_widget->show();
 }
 
