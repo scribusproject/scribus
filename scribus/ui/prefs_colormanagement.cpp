@@ -164,8 +164,8 @@ void Prefs_ColorManagement::cmActivated(bool active)
 	imageRenderingIntentComboBox->setEnabled(active);
 	solidColorsRenderingIntentComboBox->setEnabled(active);
 	simulatePrinterOnScreenCheckBox->setEnabled(active);
-	convertAllColorsToPrinterSpaceCheckBox->setEnabled(active);
-	markColorsOutOfGamutCheckBox->setEnabled(active);
+	convertAllColorsToPrinterSpaceCheckBox->setEnabled(active && simulatePrinterOnScreenCheckBox->isChecked());
+	markColorsOutOfGamutCheckBox->setEnabled(active && simulatePrinterOnScreenCheckBox->isChecked());
 	useBlackpointCompensationCheckBox->setEnabled(active);
 	rgbImageProfileComboBox->setEnabled(active);
 	cmykImageProfileComboBox->setEnabled(active);
@@ -181,4 +181,3 @@ void Prefs_ColorManagement::simulatePrinter(bool active)
 	convertAllColorsToPrinterSpaceCheckBox->setEnabled(active);
 	markColorsOutOfGamutCheckBox->setEnabled(active);
 }
-
