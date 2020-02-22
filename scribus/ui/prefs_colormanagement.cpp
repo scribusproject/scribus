@@ -92,28 +92,28 @@ void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, Prof
 	{
 		rgbImageProfileComboBox->addItem(it.key());
 		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultImageRGBProfile)
-			rgbImageProfileComboBox->setCurrentIndex(rgbImageProfileComboBox->count()-1);
+			rgbImageProfileComboBox->setCurrentIndex(rgbImageProfileComboBox->count() - 1);
 	}
 	cmykImageProfileComboBox->clear();
 	for (it = inputProfilesCMYK->begin(); it != inputProfilesCMYK->end(); ++it)
 	{
 		cmykImageProfileComboBox->addItem(it.key());
 		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultImageCMYKProfile)
-			cmykImageProfileComboBox->setCurrentIndex(cmykImageProfileComboBox->count()-1);
+			cmykImageProfileComboBox->setCurrentIndex(cmykImageProfileComboBox->count() - 1);
 	}
 	rgbSolidProfileComboBox->clear();
 	for (it = inputProfiles->begin(); it != inputProfiles->end(); ++it)
 	{
 		rgbSolidProfileComboBox->addItem(it.key());
 		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultSolidColorRGBProfile)
-			rgbSolidProfileComboBox->setCurrentIndex(rgbSolidProfileComboBox->count()-1);
+			rgbSolidProfileComboBox->setCurrentIndex(rgbSolidProfileComboBox->count() - 1);
 	}
 	cmykSolidProfileComboBox->clear();
 	for (it = inputProfilesCMYK->begin(); it != inputProfilesCMYK->end(); ++it)
 	{
 		cmykSolidProfileComboBox->addItem(it.key());
 		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultSolidColorCMYKProfile)
-			cmykSolidProfileComboBox->setCurrentIndex(cmykSolidProfileComboBox->count()-1);
+			cmykSolidProfileComboBox->setCurrentIndex(cmykSolidProfileComboBox->count() - 1);
 	}
 	monitorProfileComboBox->clear();
 	if (m_canChangeMonitorProfile && !m_Doc)
@@ -122,7 +122,7 @@ void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, Prof
 		{
 			monitorProfileComboBox->addItem(it.key());
 			if (it.key() == prefsData->colorPrefs.DCMSset.DefaultMonitorProfile)
-				monitorProfileComboBox->setCurrentIndex(monitorProfileComboBox->count()-1);
+				monitorProfileComboBox->setCurrentIndex(monitorProfileComboBox->count() - 1);
 		}
 	}
 	printerProfileComboBox->clear();
@@ -130,19 +130,19 @@ void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, Prof
 	{
 		printerProfileComboBox->addItem(it.key());
 		if (it.key() == prefsData->colorPrefs.DCMSset.DefaultPrinterProfile)
-			printerProfileComboBox->setCurrentIndex(printerProfileComboBox->count()-1);
+			printerProfileComboBox->setCurrentIndex(printerProfileComboBox->count() - 1);
 	}
 }
 
 void Prefs_ColorManagement::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->colorPrefs.DCMSset.CMSinUse=activateCMCheckBox->isChecked();
-	prefsData->colorPrefs.DCMSset.DefaultIntentImages=(eRenderIntent) imageRenderingIntentComboBox->currentIndex();
-	prefsData->colorPrefs.DCMSset.DefaultIntentColors=(eRenderIntent) solidColorsRenderingIntentComboBox->currentIndex();
-	prefsData->colorPrefs.DCMSset.SoftProofOn=simulatePrinterOnScreenCheckBox->isChecked();
-	prefsData->colorPrefs.DCMSset.SoftProofFullOn=convertAllColorsToPrinterSpaceCheckBox->isChecked();
-	prefsData->colorPrefs.DCMSset.GamutCheck=markColorsOutOfGamutCheckBox->isChecked();
-	prefsData->colorPrefs.DCMSset.BlackPoint=useBlackpointCompensationCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.CMSinUse = activateCMCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) imageRenderingIntentComboBox->currentIndex();
+	prefsData->colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) solidColorsRenderingIntentComboBox->currentIndex();
+	prefsData->colorPrefs.DCMSset.SoftProofOn = simulatePrinterOnScreenCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.SoftProofFullOn = convertAllColorsToPrinterSpaceCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.GamutCheck = markColorsOutOfGamutCheckBox->isChecked();
+	prefsData->colorPrefs.DCMSset.BlackPoint = useBlackpointCompensationCheckBox->isChecked();
 
 	prefsData->colorPrefs.DCMSset.DefaultImageRGBProfile = rgbImageProfileComboBox->currentText();
 	prefsData->colorPrefs.DCMSset.DefaultImageCMYKProfile = cmykImageProfileComboBox->currentText();
@@ -161,24 +161,24 @@ bool Prefs_ColorManagement::cmActive()
 
 void Prefs_ColorManagement::cmActivated(bool active)
 {
-	imageRenderingIntentComboBox->setEnabled( active );
-	solidColorsRenderingIntentComboBox->setEnabled( active );
-	simulatePrinterOnScreenCheckBox->setEnabled( active );
-	convertAllColorsToPrinterSpaceCheckBox->setEnabled( active );
-	markColorsOutOfGamutCheckBox->setEnabled( active );
-	useBlackpointCompensationCheckBox->setEnabled( active );
-	rgbImageProfileComboBox->setEnabled( active );
-	cmykImageProfileComboBox->setEnabled( active );
-	rgbSolidProfileComboBox->setEnabled( active );
-	cmykSolidProfileComboBox->setEnabled( active );
+	imageRenderingIntentComboBox->setEnabled(active);
+	solidColorsRenderingIntentComboBox->setEnabled(active);
+	simulatePrinterOnScreenCheckBox->setEnabled(active);
+	convertAllColorsToPrinterSpaceCheckBox->setEnabled(active);
+	markColorsOutOfGamutCheckBox->setEnabled(active);
+	useBlackpointCompensationCheckBox->setEnabled(active);
+	rgbImageProfileComboBox->setEnabled(active);
+	cmykImageProfileComboBox->setEnabled(active);
+	rgbSolidProfileComboBox->setEnabled(active);
+	cmykSolidProfileComboBox->setEnabled(active);
 	if (!m_Doc)
-		monitorProfileComboBox->setEnabled( m_canChangeMonitorProfile );
-	printerProfileComboBox->setEnabled( active );
+		monitorProfileComboBox->setEnabled(m_canChangeMonitorProfile);
+	printerProfileComboBox->setEnabled(active);
 }
 
 void Prefs_ColorManagement::simulatePrinter(bool active)
 {
-	convertAllColorsToPrinterSpaceCheckBox->setEnabled( active );
-	markColorsOutOfGamutCheckBox->setEnabled( active );
+	convertAllColorsToPrinterSpaceCheckBox->setEnabled(active);
+	markColorsOutOfGamutCheckBox->setEnabled(active);
 }
 
