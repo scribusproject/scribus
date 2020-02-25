@@ -55,6 +55,8 @@ public slots:
 	void handleCellSelectionChanged();
 	/// Handles update requests from the main window.
 	void handleUpdateRequest(int updateFlags);
+	/// Handles icon set changes.
+	void iconSetChange();
 	/// Handles language changes.
 	void languageChange();
 	/// Handles unit changes.

@@ -61,6 +61,9 @@ private:
 	QPixmap otfFont;
 	QPixmap psFont;
 	QPixmap substFont;
+
+private slots:
+	void iconSetChange();
 };
 
 class SCRIBUS_API FontComboH : public QWidget

@@ -44,6 +44,7 @@ class SCRIBUS_API ScribusWin : public QMainWindow
 public: 
 	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
+
 	void closeEvent(QCloseEvent *ce);
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);

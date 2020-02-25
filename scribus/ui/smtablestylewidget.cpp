@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "smtablestylewidget.h"
 
 SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) :
@@ -16,10 +17,12 @@ SMTableStyleWidget::SMTableStyleWidget(QWidget *parent) :
 {
 	setupUi(this);
 
-	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor->addItem(CommonStrings::tr_NoneColor);
-	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png") );
+
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 SMTableStyleWidget::~SMTableStyleWidget()
@@ -32,6 +35,12 @@ void SMTableStyleWidget::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QWidget::changeEvent(e);
+}
+
+void SMTableStyleWidget::iconSetChange()
+{
+	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
+	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png") );
 }
 
 void SMTableStyleWidget::handleUpdateRequest(int updateFlags)

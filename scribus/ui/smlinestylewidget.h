@@ -21,6 +21,7 @@ class ScrSpinBox;
 class SMLineStyleWidget : public QWidget, Ui::SMLineStyleWidget
 {
 	Q_OBJECT
+
 public:
 	SMLineStyleWidget();
 	~SMLineStyleWidget();
@@ -28,7 +29,6 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
-	void languageChange();
 	void unitChange(int unitIndex);
 
 private:
@@ -44,6 +44,8 @@ private:
 	friend class SMLineStyle;
 
 protected slots:
+	void iconSetChange();
+	void languageChange();
 	void slotEditNewLine(int i);
 
 };

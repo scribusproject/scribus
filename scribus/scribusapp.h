@@ -45,7 +45,10 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void initLang();
 		void initDLMgr();
 		void parseCommandLine();
-		void changeGUILanguage(const QString & m_lang);
+
+		void changeGUILanguage(const QString & newGUILang);
+		void changeIconSet(const QString& newIconSet);
+
 		/*!
 		\author Franz Schmid
 		\author Alessandro Rimoldi
@@ -117,6 +120,9 @@ class SCRIBUS_API ScribusQApp : public QApplication
 
 	signals:
 		void appStarted();
+		void iconSetChanged();
 };
+
+extern SCRIBUS_API ScribusQApp * ScQApp;
 
 #endif

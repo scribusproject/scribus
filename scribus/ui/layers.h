@@ -63,6 +63,7 @@ public slots:
 	void setActiveLayer(int row, int col);
 	void clearContent();
 	void markActiveLayer(int layerID=-1);
+	void iconSetChange();
 	void languageChange();
 
 signals:

@@ -7,12 +7,14 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
+
+#include "iconmanager.h"
 #include "numeration.h"
 #include "smpstylewidget.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "units.h"
 #include "util.h"
-#include "iconmanager.h"
 #include "ui/charselectenhanced.h"
 
 static bool isEqual(double a, double b)
@@ -35,13 +37,11 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	m_cstyles = cstyles;
 
 	setupUi(this);
+
 	//Not used yet
 // 	optMarginCheckLeftProtruding->setVisible(false);
-	lineSpacingLabel->setPixmap(IconManager::instance().loadPixmap("linespacing2.png"));
-	spaceAboveLabel->setPixmap(IconManager::instance().loadPixmap("above.png") );
-	spaceBelowLabel->setPixmap(IconManager::instance().loadPixmap("below.png") );
-	backIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
-	backShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
+
+	iconSetChange();
 	
 	backColor_->setPixmapType(ColorCombo::fancyPixmaps);
 	backColor_->clear();
@@ -66,7 +66,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	parEffectOffset->setSuffix(unitGetSuffixFromIndex(0));
 
 	fillBulletStrEditCombo();
-	bulletCharTableButton->setIcon(IconManager::instance().loadPixmap("22/insert-table.png"));
+
 	numStartSpin->setMinimum(1);
 	numStartSpin->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
@@ -78,6 +78,8 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
 	minSpaceSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	minGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	maxGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(optMarginDefaultButton, SIGNAL(clicked()), this, SLOT(slotDefaultOpticalMargins()));
 	if (m_Doc)
@@ -98,6 +100,19 @@ void SMPStyleWidget::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void SMPStyleWidget::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	lineSpacingLabel->setPixmap(iconManager.loadPixmap("linespacing2.png"));
+	spaceAboveLabel->setPixmap(iconManager.loadPixmap("above.png") );
+	spaceBelowLabel->setPixmap(iconManager.loadPixmap("below.png") );
+	backIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
+
+	bulletCharTableButton->setIcon(IconManager::instance().loadPixmap("22/insert-table.png"));
 }
 
 void SMPStyleWidget::languageChange()

@@ -560,6 +560,14 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 		installTranslators(newLangs);
 }
 
+void ScribusQApp::changeIconSet(const QString& newIconSet)
+{
+	IconManager& iconManager = IconManager::instance();
+	iconManager.clearCache();
+	iconManager.setActiveFromPrefs(newIconSet);
+	emit iconSetChanged();
+}
+
 /*! \brief Format an arguments line for printing
 Helper procedure */
 static void printArgLine(QTextStream & ts, const char * smallArg, const char* fullArg, const QString& desc)

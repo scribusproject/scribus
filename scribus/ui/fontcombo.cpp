@@ -41,27 +41,32 @@ for which a new license (GPL+exception) is in place.
 
 #include "fonts/scface.h"
 
-extern ScribusQApp* ScQApp;
-
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa),
 									prefsManager(PrefsManager::instance())
 {
-	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
-	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance().loadPixmap("font_subst16.png");
+	iconSetChange();
 	setEditable(true);
 	setValidator(new FontComboValidator(this));
 	setInsertPolicy(QComboBox::NoInsert);
 	setItemDelegate(new FontFamilyDelegate(this));
 	RebuildList(nullptr);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+}
+
+void FontCombo::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	ttfFont = iconManager.loadPixmap("font_truetype16.png");
+	otfFont = iconManager.loadPixmap("font_otf16.png");
+	psFont = iconManager.loadPixmap("font_type1_16.png");
+	substFont = iconManager.loadPixmap("font_subst16.png");
 }
 
 void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
 {
 	clear();
 	QMap<QString, QString> rlist;
-	rlist.clear();
 	SCFontsIterator it(prefsManager.appPrefs.fontPrefs.AvailFonts);
 	for ( ; it.hasNext(); it.next())
 	{

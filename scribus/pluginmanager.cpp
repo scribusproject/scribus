@@ -287,7 +287,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
 			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.icon1, ai.icon2, ai.text, ai.keySequence, mw);
+			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, mw);
 			Q_CHECK_PTR(action);
 			action->setStatusTip(ai.helpText);
 			action->setToolTip(ai.helpText);
@@ -390,7 +390,7 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			if (ai.enabledForStoryEditor)
 			{
-				ScrAction* action = new ScrAction(ScrAction::ActionDLLSE, ai.icon1, ai.icon2, ai.text, ai.keySequence, sew);
+				ScrAction* action = new ScrAction(ScrAction::ActionDLLSE, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, sew);
 				Q_CHECK_PTR(action);
 				sew->seActions.insert(ai.name, action);
 

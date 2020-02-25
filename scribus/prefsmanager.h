@@ -153,6 +153,8 @@ public:
 	//! \brief Get the GUI style from preferences
 	const QString& guiStyle() const;
 	const QString& guiSystemStyle() const;
+	//! \brief Get the GUI icon set from preferences
+	const QString& guiIconSet() const;
 	//! \brief Get the GUI style from preferences
 	const int& guiFontSize() const;
 	const int& paletteFontSize() const;

@@ -424,11 +424,13 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), this, SLOT(removeRecentFromWatcher(QString)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
 	scrActions["toolsSelect"]->setChecked(true);
+
 	ColorSetManager csm;
 	csm.findPaletteLocations();
 	csm.findPalettes();
@@ -1281,7 +1283,6 @@ void ScribusMainWindow::initStatusBar()
 	zoomDefaultToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-original.png"));
 	zoomOutToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-out.png"));
 	zoomInToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-in.png"));
-
 
 	zoomLayout->addWidget( zoomSpinBox );
 	zoomLayout->addWidget( zoomOutToolbarButton );
@@ -2441,7 +2442,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow(windows.at(i)->windowTitle());
-			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QPixmap(), QPixmap(), docInWindow, QKeySequence(), this, i));
+			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QString(), QString(), docInWindow, QKeySequence(), this, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
 			scrWindowsActions[docInWindow]->setChecked(mdiArea->activeSubWindow() == windows.at(i));
@@ -2965,7 +2966,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName = localName = QDir::toNativeSeparators(m_recentDocsList[i]);
 		strippedName.remove(QDir::separator());
 		strippedName.prepend(QString("%1").arg(i+1, 2, 10, QChar('0')));
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1 %2").arg(i + 1).arg(localName.replace("&","&&")), QKeySequence(), this, m_recentDocsList[i]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QString(), QString(), QString("&%1 %2").arg(i + 1).arg(localName.replace("&","&&")), QKeySequence(), this, m_recentDocsList[i]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
@@ -2989,7 +2990,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		{
 			strippedName = it.key();
 			QPixmap pm = it.value().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, it.key()));
+			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QString(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
 			it--;
@@ -3008,7 +3009,7 @@ void ScribusMainWindow::rebuildScrapbookMenu()
 	scrapNames.removeAt(1);
 	for (int i = 0; i < scrapNames.count(); ++i)
 	{
-		ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
+		ScrAction *act = new ScrAction( ScrAction::DataInt, QString(), QString(), scrapNames[i], QKeySequence(), this, i);
 		scrScrapActions.insert(scrapNames[i], act);
 		connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
 		scrMenuMgr->addMenuItemString(scrapNames[i], "ItemSendToScrapbook");
@@ -3197,7 +3198,7 @@ void ScribusMainWindow::rebuildLayersList()
 	{
 		for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 		{
-			scrLayersActions.insert(QString("%1").arg((*it).ID), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).ID));
+			scrLayersActions.insert(QString("%1").arg((*it).ID), new ScrAction(ScrAction::Layer, QString(), QString(), (*it).Name, QKeySequence(), this, (*it).ID));
 			scrLayersActions[QString("%1").arg((*it).ID)]->setToggleAction(true);
 			QPixmap pm(20,15);
 			pm.fill((*it).markerColor);
@@ -6648,9 +6649,10 @@ void ScribusMainWindow::slotPrefsOrg()
 	ScQApp->neverSplash(!m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup);
 
 	QString newUILanguage = m_prefsManager.uiLanguage();
-	if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage()!=newUILanguage)
+	if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage() != newUILanguage)
 		ScQApp->changeGUILanguage(newUILanguage);
 	m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+
 	QString newUIStyle = m_prefsManager.guiStyle();
 	if (oldPrefs.uiPrefs.style != newUIStyle)
 	{
@@ -6663,6 +6665,11 @@ void ScribusMainWindow::slotPrefsOrg()
 		else
 			m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
 	}
+
+	QString newIconSet = m_prefsManager.guiIconSet();
+	if (oldPrefs.uiPrefs.iconSet != newIconSet)
+		ScQApp->changeIconSet(newIconSet);
+
 	int newUIFontSize = m_prefsManager.guiFontSize();
 	if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
 	{
@@ -8615,6 +8622,17 @@ void ScribusMainWindow::insertSampleText()
 
 	if (loremMgr.exec())
 		loremMgr.insertLoremIpsum(loremMgr.getName(), loremMgr.paragraphCount(), loremMgr.randomize());
+}
+
+void ScribusMainWindow::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	setWindowIcon(iconManager.loadIcon("AppIcon.png"));
+
+	zoomDefaultToolbarButton->setIcon(iconManager.loadIcon("16/zoom-original.png"));
+	zoomOutToolbarButton->setIcon(iconManager.loadIcon("16/zoom-out.png"));
+	zoomInToolbarButton->setIcon(iconManager.loadIcon("16/zoom-in.png"));
 }
 
 void ScribusMainWindow::languageChange()

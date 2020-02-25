@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "sccolorengine.h"
 #include "scraction.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "selection.h"
 #include "ui/propertiespalette_utils.h"
@@ -70,6 +71,8 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	lineStyles->addItem( "No Style" );
 
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(lineWidth, SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
 	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineStyle()));
@@ -645,6 +648,28 @@ void PropertiesPalette_Line::handleLineStyle(QListWidgetItem *widgetItem)
 	lineEndStyle->setEnabled(setter);
 }
 
+void PropertiesPalette_Line::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
+	int oldLJoinStyle = lineJoinStyle->currentIndex();
+	lineJoinStyle->clear();
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
+	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-round.png"), tr("Round Join"));
+	lineJoinStyle->setCurrentIndex(oldLJoinStyle);
+
+	QSignalBlocker lineEndStyleBlocker(lineEndStyle);
+	int oldLEndStyle = lineEndStyle->currentIndex();
+	lineEndStyle->clear();
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
+	lineEndStyle->addItem(im.loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
+	lineEndStyle->setCurrentIndex(oldLEndStyle);
+	lineEndLabel->setText( tr("&Endings:"));
+}
+
 void PropertiesPalette_Line::languageChange()
 {
 	QSignalBlocker lineTypeBlocker(lineType);
@@ -684,7 +709,7 @@ void PropertiesPalette_Line::languageChange()
 	QSignalBlocker lineJoinStyleBlocker(lineJoinStyle);
 	int oldLJoinStyle = lineJoinStyle->currentIndex();
 	lineJoinStyle->clear();
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
 	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
 	lineJoinStyle->addItem(im.loadIcon("16/stroke-join-round.png"), tr("Round Join"));

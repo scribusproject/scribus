@@ -83,6 +83,7 @@ private:
 	void closeEnhanced();
 
 private slots:
+	void iconSetChange();
 	void enhancedDialogButton_toggled(bool);
 	void slot_insertSpecialChar();
 	void slot_insertSpecialChars(const QVector<uint> & chars);

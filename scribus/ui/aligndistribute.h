@@ -71,6 +71,7 @@ protected:
 	ScribusView *currView;
 	
 protected slots:
+	virtual void iconSetChange();
 	virtual void languageChange();
 	
 	void alignLeftOut();

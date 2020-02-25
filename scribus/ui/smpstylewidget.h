@@ -76,6 +76,7 @@ private:
 	friend class SMParagraphStyle;
 
 private slots:
+	void iconSetChange();
 	void slotLineSpacingModeChanged(int);
 	void slotDropCap(bool isOn);
 	void slotBullets(bool isOn);

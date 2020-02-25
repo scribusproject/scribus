@@ -1342,6 +1342,11 @@ const QString& PrefsManager::guiSystemStyle() const
 	return appPrefs.ui_SystemTheme;
 }
 
+const QString& PrefsManager::guiIconSet() const
+{
+	return appPrefs.uiPrefs.iconSet;
+}
+
 const int& PrefsManager::guiFontSize() const
 {
 	return appPrefs.uiPrefs.applicationFontSize;

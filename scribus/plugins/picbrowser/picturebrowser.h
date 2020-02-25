@@ -132,6 +132,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void unitChange();
 
 	private slots:
+		void iconSetChange();
 		//slot for the navigation combobox, sets current browsingmode (folderbrowser, collectionsbrowser, documentbrowser)
 		void navigate ( int index );
 		//called when a previewicon was clicked
@@ -236,7 +237,26 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//a list containing the items in the documentbrowser treewidget
 		QList<QTreeWidgetItem *> documentItems;
 		//contain the icons needed
-		QIcon *iconArrowUp, *iconArrowDown, *iconFolderBrowser, *iconCollectionsBrowser, *iconDocumentBrowser, *iconDocument, *iconCollection, *iconZoomPlus, *iconZoomMinus, *iconOk, *iconClose, *iconNew, *iconNew2, *iconEdit, *iconRemove, *iconLoad, *iconSave, *iconPlus, *iconMinus, *iconPen;
+		QIcon iconArrowUp;
+		QIcon iconArrowDown;
+		QIcon iconFolderBrowser;
+		QIcon iconCollectionsBrowser;
+		QIcon iconDocumentBrowser;
+		QIcon iconDocument;
+		QIcon iconCollection;
+		QIcon iconZoomPlus;
+		QIcon iconZoomMinus;
+		QIcon iconOk;
+		QIcon iconClose;
+		QIcon iconNew;
+		QIcon iconNew2;
+		QIcon iconEdit;
+		QIcon iconRemove;
+		QIcon iconLoad;
+		QIcon iconSave;
+		QIcon iconPlus;
+		QIcon iconMinus;
+		QIcon iconPen;
 		//thread for searching dirs
 		findImagesThread *fit;
 		//the current set of previewimages

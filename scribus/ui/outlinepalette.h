@@ -75,6 +75,7 @@ public:
 public slots:
 	void BuildTree(bool storeVals = true);
 	void filterTree(const QString& keyword);
+	void iconSetChange();
 	void languageChange();
 	void slotShowSelect(int SNr, PageItem *Nr);
 	void setPaletteShown(bool);
@@ -96,6 +97,7 @@ protected slots:
 	void slotMultiSelect();
 	void slotSelect(QTreeWidgetItem* ite, int col);
 	void slotDoubleClick(QTreeWidgetItem* ite, int col);
+
 protected:
 	void filterTree();
 	void clearPalette();

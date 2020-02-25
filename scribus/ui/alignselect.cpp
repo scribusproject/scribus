@@ -6,16 +6,19 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "alignselect.h"
+
 #include <QEvent>
 #include <QPixmap>
 #include <QToolTip>
+
 #include "iconmanager.h"
+#include "scribusapp.h"
 
 AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 {
 	selected = 0;
 
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 	buttonGroup = new QButtonGroup(this);
 
 	GroupAlignLayout = new QHBoxLayout( this );
@@ -58,6 +61,8 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 	GroupAlignLayout->addWidget( TextF );
 	buttonGroup->addButton(TextF, 4);
 	resize(minimumSizeHint());
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
 }
 
@@ -105,6 +110,17 @@ void AlignSelect::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QWidget::changeEvent(e);
+}
+
+void AlignSelect::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	TextL->setIcon(im.loadIcon("16/format-justify-left.png"));
+	TextC->setIcon(im.loadIcon("16/format-justify-center.png"));
+	TextR->setIcon(im.loadIcon("16/format-justify-right.png"));
+	TextB->setIcon(im.loadIcon("16/format-justify-fill-block.png"));
+	TextF->setIcon(im.loadIcon("16/format-justify-fill.png"));
 }
 
 void AlignSelect::languageChange()

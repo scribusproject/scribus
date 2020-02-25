@@ -5,11 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "editor.h"
-#include "selfield.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "scribusapp.h"
 #include "scribusview.h"
+#include "selfield.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -26,13 +28,14 @@ for which a new license (GPL+exception) is in place.
 	#include <QVBoxLayout>
 #endif
 
-#include "iconmanager.h"
+
 
 Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDialog( parent )
 {
 	setModal(true);
 	setWindowTitle(tr("Editor"));
-	IconManager& im=IconManager::instance();
+
+	IconManager& im = IconManager::instance();
 	setWindowIcon(im.loadIcon("AppIcon.png"));
 	view = vie;
 	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
@@ -108,6 +111,8 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
 #endif
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void Editor::del()
@@ -115,6 +120,22 @@ void Editor::del()
 	QTextCursor curs = EditTex->textCursor();
 	curs.deleteChar();
 	EditTex->setTextCursor(curs);
+}
+
+void Editor::iconSetChange()
+{
+	IconManager& im=IconManager::instance();
+
+	setWindowIcon(im.loadIcon("AppIcon.png"));
+
+	newAct->setIcon(im.loadIcon("16/document-new.png"));
+	openAct->setIcon(im.loadIcon("16/document-open.png"));
+	undoAct->setIcon(im.loadIcon("16/edit-undo.png"));
+	redoAct->setIcon(im.loadIcon("16/edit-redo.png"));
+	cutAct->setIcon(im.loadIcon("16/edit-cut.png"));
+	copyAct->setIcon(im.loadIcon("16/edit-copy.png"));
+	pasteAct->setIcon(im.loadIcon("16/edit-paste.png"));
+	clearAct->setIcon(im.loadIcon("16/edit-delete.png"));
 }
 
 void Editor::GetFieldNames()

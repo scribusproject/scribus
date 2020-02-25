@@ -108,6 +108,7 @@ signals:
 
 
 protected slots:
+    virtual void iconSetChange();
 	virtual void languageChange();
 
 protected:

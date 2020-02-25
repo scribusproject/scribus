@@ -381,7 +381,7 @@ void ContextMenu::createMenuItems_Selection()
 		scrapNames.removeAt(1);
 		for (int i = 0; i < scrapNames.count(); i++)
 		{
-			ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
+			ScrAction *act = new ScrAction(ScrAction::DataInt, QString(), QString(), scrapNames[i], QKeySequence(), this, i);
 			menuScrapbook->addAction(act);
 			connect(act, SIGNAL(triggeredData(int)), m_ScMW, SLOT(PutScrap(int)));
 		}

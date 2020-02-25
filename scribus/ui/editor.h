@@ -30,6 +30,7 @@ class SCRIBUS_API Editor : public QDialog
 public:
 	Editor (QWidget* parent, const QString& daten, ScribusView* vie = 0 );
 	~Editor() {};
+
 	QTextEdit* EditTex;
 	QMenu* fmenu;
 	QMenu* emenu;
@@ -54,6 +55,7 @@ public:
 
 private slots:
 	void del();
+	void iconSetChange();
 	void OpenScript();
 	void SaveAs();
 	void GetFieldNames();

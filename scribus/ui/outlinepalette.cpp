@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "scpage.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -43,7 +44,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
@@ -478,33 +478,19 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	setWidget( containerWidget );
 
 	unsetDoc();
-	IconManager& im = IconManager::instance();
-	imageIcon = im.loadPixmap("22/insert-image.png");
-	latexIcon = im.loadPixmap("22/insert-latex.png");
-	lineIcon = im.loadPixmap("stift.png");
-	textIcon = im.loadPixmap("22/insert-text-frame.png");
-	polylineIcon = im.loadPixmap("22/draw-path.png");
-	polygonIcon = im.loadPixmap("22/draw-polygon.png");
-	arcIcon = im.loadPixmap("22/draw-arc.png");
-	spiralIcon = im.loadPixmap("22/draw-spiral.png");
-	tableIcon = im.loadPixmap("22/insert-table.png");
-	groupIcon = im.loadPixmap("u_group.png");
-	buttonIcon = im.loadPixmap("22/insert-button.png");
-	radiobuttonIcon = im.loadPixmap("22/radiobutton.png");
-	textFieldIcon = im.loadPixmap("22/text-field.png");
-	checkBoxIcon = im.loadPixmap("22/checkbox.png");
-	comboBoxIcon = im.loadPixmap("22/combobox.png");
-	listBoxIcon = im.loadPixmap("22/list-box.png");
-	annotTextIcon = im.loadPixmap("22/pdf-annotations.png");
-	annotLinkIcon = im.loadPixmap("goto.png");
-	annot3DIcon = im.loadPixmap("22/annot3d.png");
+
 	selectionTriggered = false;
 	m_MainWindow  = nullptr;
 	freeObjects   = nullptr;
 	rootObject    = nullptr;
 	currentObject = nullptr;
+
+	iconSetChange();
 	languageChange();
+
 	// signals and slots connections
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
 	connect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
@@ -1482,6 +1468,33 @@ void OutlinePalette::changeEvent(QEvent *e)
 		languageChange();
 	else
 		ScDockPalette::changeEvent(e);
+}
+
+void OutlinePalette::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+	imageIcon = im.loadPixmap("22/insert-image.png");
+	latexIcon = im.loadPixmap("22/insert-latex.png");
+	lineIcon = im.loadPixmap("stift.png");
+	textIcon = im.loadPixmap("22/insert-text-frame.png");
+	polylineIcon = im.loadPixmap("22/draw-path.png");
+	polygonIcon = im.loadPixmap("22/draw-polygon.png");
+	arcIcon = im.loadPixmap("22/draw-arc.png");
+	spiralIcon = im.loadPixmap("22/draw-spiral.png");
+	tableIcon = im.loadPixmap("22/insert-table.png");
+	groupIcon = im.loadPixmap("u_group.png");
+	buttonIcon = im.loadPixmap("22/insert-button.png");
+	radiobuttonIcon = im.loadPixmap("22/radiobutton.png");
+	textFieldIcon = im.loadPixmap("22/text-field.png");
+	checkBoxIcon = im.loadPixmap("22/checkbox.png");
+	comboBoxIcon = im.loadPixmap("22/combobox.png");
+	listBoxIcon = im.loadPixmap("22/list-box.png");
+	annotTextIcon = im.loadPixmap("22/pdf-annotations.png");
+	annotLinkIcon = im.loadPixmap("goto.png");
+	annot3DIcon = im.loadPixmap("22/annot3d.png");
+
+	if (this->isVisible() && (currDoc != nullptr))
+		BuildTree();
 }
 
 void OutlinePalette::languageChange()

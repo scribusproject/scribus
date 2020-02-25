@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/scmessagebox.h"
@@ -28,11 +29,7 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	enhancedDialogButton->setIcon(IconManager::instance().loadIcon("16/insert-table.png"));
-	unicodeButton->setIcon(IconManager::instance().loadIcon("find.png"));
-	uniLoadButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
-	uniSaveButton->setIcon(IconManager::instance().loadIcon("16/document-save.png"));
-	uniClearButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
+	iconSetChange();
 
 	m_userTableModel = new CharTableModel(this, 6, m_doc, PrefsManager::instance().appPrefs.itemToolPrefs.textFont);
 	loadUserContent(ScPaths::applicationDataDir() + "charpalette.ucp");
@@ -43,20 +40,31 @@ CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), 
 	m_userTable->setAcceptDrops(true);
 
 	// signals and slots connections
-	connect(m_userTable, SIGNAL(selectChar(uint,QString)),this,SLOT(userNewChar(uint,QString)));
-	connect(m_userTable->selectionModel(),SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)),this,SLOT(slot_selectionChanged(const QItemSelection&,const QItemSelection&)));
-	connect(m_userTableModel,SIGNAL(rowAppended()),m_userTable,SLOT(resizeLastRow()));
-	connect(unicodeButton,SIGNAL(chosenUnicode(const QString&)),m_userTableModel,SLOT(appendUnicode(const QString&)));
-	connect(enhancedDialogButton, SIGNAL(toggled(bool)),this,SLOT(enhancedDialogButton_toggled(bool)));
-	connect(this,SIGNAL(insertUserSpecialChar(QChar,QString)),this,SLOT(slot_insertUserSpecialChar(QChar,QString)));
-	connect(uniLoadButton,SIGNAL(clicked()),this,SLOT(uniLoadButton_clicked()));
-	connect(uniSaveButton,SIGNAL(clicked()),this,SLOT(uniSaveButton_clicked()));
-	connect(uniClearButton,SIGNAL(clicked()),this,SLOT(uniClearButton_clicked()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
+	connect(m_userTable, SIGNAL(selectChar(uint,QString)), this, SLOT(userNewChar(uint,QString)));
+	connect(m_userTable->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&,const QItemSelection&)), this, SLOT(slot_selectionChanged(const QItemSelection&,const QItemSelection&)));
+	connect(m_userTableModel, SIGNAL(rowAppended()),m_userTable, SLOT(resizeLastRow()));
+	connect(unicodeButton, SIGNAL(chosenUnicode(const QString&)),m_userTableModel, SLOT(appendUnicode(const QString&)));
+	connect(enhancedDialogButton, SIGNAL(toggled(bool)), this, SLOT(enhancedDialogButton_toggled(bool)));
+	connect(this, SIGNAL(insertUserSpecialChar(QChar,QString)), this, SLOT(slot_insertUserSpecialChar(QChar,QString)));
+	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
+	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
+	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
 }
 
 CharSelect::~CharSelect()
 {
 	delete m_unicodeSearchModel;
+}
+
+void CharSelect::iconSetChange()
+{
+	enhancedDialogButton->setIcon(IconManager::instance().loadIcon("16/insert-table.png"));
+	unicodeButton->setIcon(IconManager::instance().loadIcon("find.png"));
+	uniLoadButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
+	uniSaveButton->setIcon(IconManager::instance().loadIcon("16/document-save.png"));
+	uniClearButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
 }
 
 void CharSelect::setDoc(ScribusDoc* doc)

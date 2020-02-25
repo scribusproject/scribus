@@ -9,7 +9,9 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QPixmap>
 #include <QToolTip>
+
 #include "iconmanager.h"
+#include "scribusapp.h"
 
 DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
 {
@@ -38,6 +40,8 @@ DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
 	buttonGroup->addButton(RTL, 1);
 
 	resize(minimumSizeHint());
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(setTypeStyle(int)));
 }
 
@@ -76,14 +80,16 @@ void DirectionSelect::changeEvent(QEvent *e)
 	}
 }
 
+void DirectionSelect::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	LTR->setIcon(iconManager.loadIcon("16/text-direction-ltr.png"));
+	RTL->setIcon(iconManager.loadIcon("16/text-direction-rtl.png"));
+}
+
 void DirectionSelect::languageChange()
 {
-	LTR->setToolTip("");
-	RTL->setToolTip("");
-
-
 	LTR->setToolTip( tr("Left to right paragraph"));
 	RTL->setToolTip( tr("Right to left paragraph"));
-
 }
 

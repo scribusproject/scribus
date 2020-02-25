@@ -382,7 +382,7 @@ void SMTabruler::firstValueChanged()
 	double a, b, value;
 	int c;
 	first_->getValues(&a, &b, &c, &value);
-	setFirstLineData(value / docUnitRatio);
+	setFirstLineData(value / m_docUnitRatio);
 	setFirstLine();
 	setLeftIndent();
 	setRightIndent();
@@ -400,7 +400,7 @@ void SMTabruler::leftValueChanged()
 	double a, b, value;
 	int c;
 	left_->getValues(&a, &b, &c, &value);
-	setLeftIndentData(value / docUnitRatio);
+	setLeftIndentData(value / m_docUnitRatio);
 	setLeftIndent();
 //	setFirstLine();
 	setRightIndent();
@@ -418,7 +418,7 @@ void SMTabruler::rightValueChanged()
 	double a, b, value;
 	int c;
 	right_->getValues(&a, &b, &c, &value);
-	setRightIndentData(value / docUnitRatio);
+	setRightIndentData(value / m_docUnitRatio);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();

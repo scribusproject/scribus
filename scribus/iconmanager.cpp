@@ -37,6 +37,11 @@ IconManager& IconManager::instance()
 	return m_instance;
 }
 
+void IconManager::clearCache()
+{
+	m_pxCache.clear();
+}
+
 bool IconManager::setup()
 {
 	if (!initIcons())

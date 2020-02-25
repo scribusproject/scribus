@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 class SMCellStyleWidget : public QWidget, public Ui::SMCellStyleWidget
 {
 	Q_OBJECT
+
 public:
 	/// Constructor.
 	SMCellStyleWidget(QWidget *parent = 0);
@@ -72,6 +73,7 @@ private:
 
 private slots:
 	void handleUpdateRequest(int);
+	void iconSetChange();
 };
 
 #endif // SMCELLSTYLEWIDGET_H

@@ -10,11 +10,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "smlinestylewidget.h"
 #include "colorcombo.h"
+#include "iconmanager.h"
 #include "linecombo.h"
 #include "sccolorengine.h"
+#include "scribusapp.h"
 #include "scrspinbox.h"
 #include "util_color.h"
-#include "iconmanager.h"
 #include "util.h"
 
 
@@ -34,6 +35,8 @@ SMLineStyleWidget::SMLineStyleWidget()
 	fillJoinCombo();
 
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void SMLineStyleWidget::changeEvent(QEvent *e)
@@ -42,6 +45,29 @@ void SMLineStyleWidget::changeEvent(QEvent *e)
 	{
 		languageChange();
 	}
+}
+
+void SMLineStyleWidget::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	addButton->setIcon(iconManager.loadIcon("penciladd.png"));
+	removeButton->setIcon(iconManager.loadIcon("pencilsub.png"));
+
+	int  oldEndComboIndex = endCombo->currentIndex();
+	bool endComboBlocked  = endCombo->blockSignals(true);
+
+	int  oldJoinComboIndex = joinCombo->currentIndex();
+	bool joinComboBlocked  = joinCombo->blockSignals(true);
+
+	fillEndCombo();
+	fillJoinCombo();
+
+	endCombo->setCurrentIndex(oldEndComboIndex);
+	endCombo->blockSignals(endComboBlocked);
+
+	joinCombo->setCurrentIndex(oldJoinComboIndex);
+	joinCombo->blockSignals(joinComboBlocked);
 }
 
 void SMLineStyleWidget::languageChange()

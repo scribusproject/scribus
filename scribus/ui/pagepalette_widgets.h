@@ -144,6 +144,9 @@ public:
 protected:
 	QPixmap Normal;
 	QPixmap Offen;
+
+protected slots:
+	void iconSetChange();
 	
 signals:
 	void DelPage(int);

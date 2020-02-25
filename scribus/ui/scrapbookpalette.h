@@ -99,6 +99,7 @@ public:
 	QListWidgetItem *actItem;
 	
 public slots:
+	void iconSetChange();
 	void languageChange();
 	void objFromFile(const QString& path, int testResult);
 	void objFromMenu(QString text);

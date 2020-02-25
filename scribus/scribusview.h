@@ -231,6 +231,7 @@ public: // for now
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
 public slots: // Public slots
+	void iconSetChange();
 	void languageChange();
 	void toggleCMS(bool cmsOn);
 	void switchPreviewVisual(int vis);

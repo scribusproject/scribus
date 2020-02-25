@@ -79,8 +79,8 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		QString nameForIndex(const QModelIndex & index);
 
         bool isLive() const { return m_embedFlags.count() == 0; }
+
 	private:
-    
 		enum EmbedMethod {
 			DontEmbed = 0,
 			EmbedFont = 1,
@@ -113,6 +113,9 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 							int role = Qt::DisplayRole) const;
 
 		bool m_includeDisabled;
+
+	private slots:
+		void iconSetChange();
 };
 
 #endif

@@ -32,9 +32,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scribus.h"
-#include "scribusXml.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "scribusXml.h"
 #include "selection.h"
 #include "util.h"
 #include "util_os.h"
@@ -46,11 +47,7 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 	m_view = pCurrentView;
 
 	setupUi(this);
-
-	importButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
-	newButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
-	duplicateButton->setIcon(IconManager::instance().loadIcon("16/edit-copy.png"));
-	deleteButton->setIcon(IconManager::instance().loadIcon("16/edit-delete.png"));
+	iconSetChange();
 
 	masterPageListBox->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	styleChange();
@@ -66,6 +63,7 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 	setMinimumSize(sizeHint());
 
 	// signals and slots connections
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connectSignals();
 }
 
@@ -125,6 +123,16 @@ void PagePalette_MasterPages::disconnectSignals()
 	disconnect(masterPageListBox, SIGNAL(itemChanged(QListWidgetItem*)),
 			   this, SLOT(renameMasterPage( QListWidgetItem*)));
 	disconnect(finishButton   , SIGNAL(released()), this, SIGNAL(finished()));
+}
+
+void PagePalette_MasterPages::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	importButton->setIcon(iconManager.loadIcon("16/document-open.png"));
+	newButton->setIcon(iconManager.loadIcon("16/document-new.png"));
+	duplicateButton->setIcon(iconManager.loadIcon("16/edit-copy.png"));
+	deleteButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
 }
 
 void PagePalette_MasterPages::languageChange()

@@ -37,6 +37,7 @@ class SCRIBUS_API NodePalette : public ScrPaletteBase
 public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
+
 	void setDefaults(PageItem* currItem);
 
 	QToolButton* MoveNode;
@@ -118,6 +119,7 @@ public slots:
 	void HaveNode(bool have, bool mov);
 	void IsOpen();
 	void PolyStatus(int typ, uint size);
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 	void EndEdit(); // allow remote close

@@ -106,6 +106,7 @@ public:
 public slots:
 	void closeTab();
 	void Import();
+	void iconSetChange();
 	void languageChange();
 
 protected:

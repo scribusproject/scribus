@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "nodeeditpalette.h"
 #include "pageitem.h"
 #include "scpage.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h" 
 #include "selection.h"
@@ -22,8 +23,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 {
 	IconManager& im = IconManager::instance();
 	QSize iconSize = QSize(22, 22);
-	m_doc=nullptr;
-	unitRatio=1.0;
+	m_doc = nullptr;
+	unitRatio = 1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(2);
 	vboxLayout->setMargin(5);
@@ -305,6 +306,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
 
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void NodePalette::connectSignals()
@@ -1030,6 +1033,78 @@ void NodePalette::setDefaults(PageItem* currItem)
 	yPos = currItem->yPos();
 	itemPath = currItem->PoLine.copy();
 	itemContourPath = currItem->ContourLine.copy();
+}
+
+void NodePalette::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+	QSize iconSize = QSize(22, 22);
+
+	MoveNode->setIcon(im.loadIcon("MoveNode.png"));
+	MoveNode->setIconSize(iconSize);
+
+	AddNode->setIcon(im.loadIcon("AddNode.png"));
+	AddNode->setIconSize(iconSize);
+
+	DeleteNode->setIcon(im.loadIcon("DeleteNode.png"));
+	DeleteNode->setIconSize(iconSize);
+
+	ResNode->setIcon(im.loadIcon("ResetNode.png"));
+	ResNode->setIconSize(iconSize);
+
+	MoveControl->setIcon(im.loadIcon("MoveKontrol.png"));
+	MoveControl->setIconSize(iconSize);
+
+	AsymMove->setIcon(im.loadIcon("MoveAsym.png"));
+	AsymMove->setIconSize(iconSize);
+
+	SymMove->setIcon(im.loadIcon("MoveSym.png"));
+	SymMove->setIconSize(iconSize);
+
+	Res1Node->setIcon(im.loadIcon("Reset1Node.png"));
+	Res1Node->setIconSize(iconSize);
+
+	PolySplit->setIcon(im.loadIcon("PolyCut.png"));
+	PolySplit->setIconSize(iconSize);
+
+	BezierClose->setIcon(im.loadIcon("BezierClose.png"));
+	BezierClose->setIconSize(iconSize);
+
+	PolyMirrorH->setIcon(im.loadIcon("hmirror.png"));
+	PolyMirrorH->setIconSize(iconSize);
+
+	PolyMirrorV->setIcon(im.loadIcon("vmirror.png"));
+	PolyMirrorV->setIconSize(iconSize);
+
+	PolyShearL->setIcon(im.loadIcon("22/transform-shear-left.png"));
+	PolyShearL->setIconSize(iconSize);
+
+	PolyShearR->setIcon(im.loadIcon("22/transform-shear-right.png"));
+	PolyShearR->setIconSize(iconSize);
+
+	PolyShearU->setIcon(im.loadIcon("22/transform-shear-up.png"));
+	PolyShearU->setIconSize(iconSize);
+
+	PolyShearD->setIcon(im.loadIcon("22/transform-shear-down.png"));
+	PolyShearD->setIconSize(iconSize);
+
+	RotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
+	RotateCCW->setIconSize(iconSize);
+
+	RotateCW->setIcon(im.loadIcon("rotate_cw.png"));
+	RotateCW->setIconSize(iconSize);
+
+	Expand->setIcon(im.loadIcon("expand.png"));
+	Expand->setIconSize(iconSize);
+
+	Shrink->setIcon(im.loadIcon("crop.png"));
+	Shrink->setIconSize(iconSize);
+
+	Enlarge->setIcon(im.loadIcon("expand.png"));
+	Enlarge->setIconSize(iconSize);
+
+	Reduce->setIcon(im.loadIcon("crop.png"));
+	Reduce->setIconSize(iconSize);
 }
 
 void NodePalette::languageChange()

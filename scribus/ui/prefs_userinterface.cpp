@@ -19,8 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_text.h"
 
-extern ScribusQApp *ScQApp;
-
 Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {

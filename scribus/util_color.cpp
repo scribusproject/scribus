@@ -292,7 +292,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 }
 
 
-void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
+void paintAlert(const QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 {
 	// there is no alpha mask in the beginning
 //	if (useMask)

@@ -15,8 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusapp.h"
 
-extern ScribusQApp* ScQApp;
-
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
 #ifdef Q_OS_MAC

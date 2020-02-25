@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "util_color.h"
 
@@ -49,13 +50,26 @@ public:
 class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60, 15>
 {
 public:
-	ColorFancyItemDelegate(): ScListBoxPixmap<60, 15>() {};
+	ColorFancyItemDelegate();
 	~ColorFancyItemDelegate() {};
 	
+	void iconSetChange();
 	void redraw(const QVariant&) const override;
 	QString text(const QVariant&) const override;
+
+private:
+	QPixmap alertIcon;
+	QPixmap cmykIcon;
+	QPixmap rgbIcon;
+	QPixmap labIcon;
+	QPixmap spotIcon;
+	QPixmap regIcon;
 };
 
+ColorFancyItemDelegate::ColorFancyItemDelegate() : ScListBoxPixmap<60, 15>()
+{
+	iconSetChange();
+}
 
 void ColorSmallItemDelegate::redraw(const QVariant& data) const
 {
@@ -87,28 +101,9 @@ void ColorWideItemDelegate::redraw(const QVariant& data) const
 	}
 }
 
-
 void ColorFancyItemDelegate::redraw(const QVariant& data) const
 {
 	static QPixmap smallPix(15, 15);
-	static QPixmap alertIcon;
-	static QPixmap cmykIcon;
-	static QPixmap rgbIcon;
-	static QPixmap labIcon;
-	static QPixmap spotIcon;
-	static QPixmap regIcon;
-	static bool iconsInitialized = false;
-
-	if ( !iconsInitialized )
-	{
-		alertIcon = IconManager::instance().loadPixmap("alert.png", true);
-		cmykIcon = IconManager::instance().loadPixmap("cmyk.png", true);
-		rgbIcon = IconManager::instance().loadPixmap("rgb.png", true);
-		labIcon = IconManager::instance().loadPixmap("lab.png", true);
-		spotIcon = IconManager::instance().loadPixmap("spot.png", true);
-		regIcon = IconManager::instance().loadPixmap("register.png", true);
-		iconsInitialized = true;
-	}
 
 	QPixmap* pPixmap = ScListBoxPixmap<60, 15>::pmap.data();
 	pPixmap->fill(Qt::transparent);
@@ -165,6 +160,17 @@ QString ColorFancyItemDelegate::text(const QVariant& data) const
 	return data.toString();
 }
 
+void ColorFancyItemDelegate::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	alertIcon = iconManager.loadPixmap("alert.png", true);
+	cmykIcon = iconManager.loadPixmap("cmyk.png", true);
+	rgbIcon = iconManager.loadPixmap("rgb.png", true);
+	labIcon = iconManager.loadPixmap("lab.png", true);
+	spotIcon = iconManager.loadPixmap("spot.png", true);
+	regIcon = iconManager.loadPixmap("register.png", true);
+}
 
 int ColorListBox::initialized;
 int ColorListBox::sortRule;
@@ -197,6 +203,8 @@ ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 	initialized = 12345;
 	QListView::setModel(new ColorListModel(this));
 	setPixmapType(type);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(this, SIGNAL(clicked(QModelIndex)),       this, SLOT(emitItemClicked(QModelIndex)));
 	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
@@ -254,6 +262,20 @@ void ColorListBox::emitItemDoubleClicked(const QModelIndex &current)
 {
 	QPersistentModelIndex persistentCurrent = current;
 	emit itemDoubleClicked(persistentCurrent.row());
+}
+
+void ColorListBox::iconSetChange()
+{
+	if (m_type == ColorListBox::fancyPixmap)
+	{
+		QAbstractItemDelegate* curDelegate = itemDelegate();
+		ColorFancyItemDelegate* colorDelegate = dynamic_cast<ColorFancyItemDelegate*>(curDelegate);
+		if (colorDelegate)
+		{
+			colorDelegate->iconSetChange();
+			this->update();
+		}
+	}
 }
 
 void ColorListBox::languageChange()

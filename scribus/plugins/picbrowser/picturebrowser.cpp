@@ -9,22 +9,23 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 #include <iostream>
+
 #include "picturebrowser.h"
+
 #include "collection.h"
-#include "findimage.h"
-#include "previewimage.h"
-#include "loadimage.h"
-#include "ui/scmessagebox.h"
-
 #include "fileloader.h"
+#include "findimage.h"
+#include "iconmanager.h"
+#include "loadimage.h"
 #include "loadsaveplugin.h"
-#include "../../plugins/formatidlist.h"
-
 #include "prefsfile.h"
 #include "prefsmanager.h"
-
-#include "iconmanager.h"
+#include "previewimage.h"
+#include "scribusapp.h"
+#include "ui/scmessagebox.h"
 #include "util_formats.h"
+
+#include "../../plugins/formatidlist.h"
 
 PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	QDialog(parent),
@@ -194,7 +195,6 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	insertFramesCombobox->addItem("All Frames", 0);
 	insertFramesCombobox->addItem("All Empty Frames", 0);
 
-
 	PageItem *pItem;
 	QList<PageItem*> allItems;
 	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
@@ -219,6 +219,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		}
 		allItems.clear();
 	}
+
 	for (int a = 0; a < m_Doc->Items->count(); ++a)
 	{
 		PageItem *currItem = m_Doc->Items->at(a);
@@ -241,7 +242,6 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		}
 		allItems.clear();
 	}
-
 
 //set namefilters for global use
 //	nameFilters << "*.jpg" << "*.jpeg" << "*.gif" << "*.png" << "*.ps" << "*.psd" << "*.tif" << "*.tiff" << "*.xpm" << "*.eps" << "*.epsf" << "*.epsi" << "*.eps2" << "*.eps3" << "*.epi" << "*.epg";
@@ -267,7 +267,6 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 
 	filters = new imageFilters;
 
-
 	filterTypeCombobox->addItem("All Supported Formats", 1);
 
 	for (int i = 0; i < nameFilters.size(); ++i)
@@ -281,9 +280,10 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 //imageViewArea->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 //imageViewArea->setHorizontalScrollMode(QAbstractItemView::ScrollPerItem);
 
-
 //Actually select the current folder to generate the preview from it's contents
 	dirChosen(folderModel.index( QDir::currentPath()));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 
@@ -475,12 +475,12 @@ void PictureBrowser::sortOrderButtonClicked()
 	if (!pbSettings.sortOrder)
 	{
 		pbSettings.sortOrder = true;
-		sortOrderButton->setIcon(*iconArrowUp);
+		sortOrderButton->setIcon(iconArrowUp);
 	}
 	else
 	{
 		pbSettings.sortOrder = false;
-		sortOrderButton->setIcon(*iconArrowDown);
+		sortOrderButton->setIcon(iconArrowDown);
 	}
 
 	if (saveSettingsCheckbox->isChecked())
@@ -766,7 +766,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 
 				tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
 				tmpItem->setData(0, Qt::UserRole, crt->collection->file);
-				tmpItem->setIcon(0, *iconCollection);
+				tmpItem->setIcon(0, iconCollection);
 				collectionsWidget->blockSignals(false);
 
 				collectionsWidget->setCurrentItem(tmpItem);
@@ -1277,7 +1277,7 @@ void PictureBrowser::collectionsNewButtonClicked()
 
 	tmpItem->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
 	tmpItem->setData(0, Qt::UserRole, newCollectionFile);
-	tmpItem->setIcon(0, *iconCollection);
+	tmpItem->setIcon(0, iconCollection);
 	collectionsWidget->blockSignals(false);
 
 	collectionsWidget->setCurrentItem(tmpItem);
@@ -1580,52 +1580,53 @@ void PictureBrowser::updateBrowser(bool filter, bool sort, bool reload)
 
 void PictureBrowser::loadIcons()
 {
-	IconManager& im=IconManager::instance();
-	iconArrowUp = new QIcon(im.loadIcon("pitr_green_arrows_set_1.svg"));
-	iconArrowDown = new QIcon(im.loadIcon("pitr_green_arrows_set_5.svg"));
-	iconFolderBrowser = new QIcon(im.loadIcon("sarxos_Simple_Folder_Seek.svg"));
-	iconCollectionsBrowser = new QIcon(im.loadIcon("sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
-	iconDocumentBrowser = new QIcon(im.loadIcon("sarxos_Paper_Sheets.svg"));
-	iconDocument = new QIcon(im.loadIcon("doc.png"));
-	iconCollection = new QIcon(im.loadIcon("cmyk.png"));
-	iconOk = new QIcon(im.loadIcon("ok22.png"));
-	iconClose = new QIcon(im.loadIcon("/16/close.png"));
-	iconZoomPlus = new QIcon(im.loadIcon("viewmagin.png"));
-	iconZoomMinus = new QIcon(im.loadIcon("viewmagout.png"));
-	iconNew = new QIcon(im.loadIcon("/16/insert-table.png"));
-	iconNew2 = new QIcon(im.loadIcon("/16/document-new.png"));
-	iconEdit = new QIcon(im.loadIcon("/16/document-properties.png"));
-	iconRemove = new QIcon(im.loadIcon("/16/edit-cut.png"));
-	iconLoad = new QIcon(im.loadIcon("/16/document-open.png"));
-	iconSave = new QIcon(im.loadIcon("/16/document-save.png"));
-	iconPlus = new QIcon(im.loadIcon("/16/list-add.png"));
-	iconMinus = new QIcon(im.loadIcon("/16/list-remove.png"));
-	iconPen = new QIcon(im.loadIcon("/16/story-editor.png"));
+	IconManager& im = IconManager::instance();
 
-	collectionsNewCategoryButton->setIcon(*iconNew);
-	collectionsNewButton->setIcon(*iconNew2);
-	collectionsRenameButton->setIcon(*iconEdit);
-	collectionsDeleteButton->setIcon(*iconRemove);
-	collectionsImportButton->setIcon(*iconLoad);
-	collectionsExportButton->setIcon(*iconSave);
-	collectionsAddImagesButton->setIcon(*iconPlus);
-	collectionsRemoveImagesButton->setIcon(*iconMinus);
-	collectionsTagImagesButton->setIcon(*iconPen);
-	collectionsAddImagesOkButton->setIcon(*iconOk);
-	collectionsAddImagesCancelButton->setIcon(*iconClose);
+	iconArrowUp = QIcon(im.loadIcon("pitr_green_arrows_set_1.svg"));
+	iconArrowDown = QIcon(im.loadIcon("pitr_green_arrows_set_5.svg"));
+	iconFolderBrowser = QIcon(im.loadIcon("sarxos_Simple_Folder_Seek.svg"));
+	iconCollectionsBrowser = QIcon(im.loadIcon("sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
+	iconDocumentBrowser = QIcon(im.loadIcon("sarxos_Paper_Sheets.svg"));
+	iconDocument = QIcon(im.loadIcon("doc.png"));
+	iconCollection = QIcon(im.loadIcon("cmyk.png"));
+	iconOk = QIcon(im.loadIcon("ok22.png"));
+	iconClose = QIcon(im.loadIcon("/16/close.png"));
+	iconZoomPlus = QIcon(im.loadIcon("viewmagin.png"));
+	iconZoomMinus = QIcon(im.loadIcon("viewmagout.png"));
+	iconNew = QIcon(im.loadIcon("/16/insert-table.png"));
+	iconNew2 = QIcon(im.loadIcon("/16/document-new.png"));
+	iconEdit = QIcon(im.loadIcon("/16/document-properties.png"));
+	iconRemove = QIcon(im.loadIcon("/16/edit-cut.png"));
+	iconLoad = QIcon(im.loadIcon("/16/document-open.png"));
+	iconSave = QIcon(im.loadIcon("/16/document-save.png"));
+	iconPlus = QIcon(im.loadIcon("/16/list-add.png"));
+	iconMinus = QIcon(im.loadIcon("/16/list-remove.png"));
+	iconPen = QIcon(im.loadIcon("/16/story-editor.png"));
 
-	navigationBox->setItemIcon(0, *iconFolderBrowser);
-	navigationBox->setItemIcon(1, *iconCollectionsBrowser);
-	navigationBox->setItemIcon(2, *iconDocumentBrowser);
+	collectionsNewCategoryButton->setIcon(iconNew);
+	collectionsNewButton->setIcon(iconNew2);
+	collectionsRenameButton->setIcon(iconEdit);
+	collectionsDeleteButton->setIcon(iconRemove);
+	collectionsImportButton->setIcon(iconLoad);
+	collectionsExportButton->setIcon(iconSave);
+	collectionsAddImagesButton->setIcon(iconPlus);
+	collectionsRemoveImagesButton->setIcon(iconMinus);
+	collectionsTagImagesButton->setIcon(iconPen);
+	collectionsAddImagesOkButton->setIcon(iconOk);
+	collectionsAddImagesCancelButton->setIcon(iconClose);
 
-	zoomPlusButton->setIcon(*iconZoomPlus);
-	zoomMinusButton->setIcon(*iconZoomMinus);
+	navigationBox->setItemIcon(0, iconFolderBrowser);
+	navigationBox->setItemIcon(1, iconCollectionsBrowser);
+	navigationBox->setItemIcon(2, iconDocumentBrowser);
 
-	actionsGoButton->setIcon(*iconOk);
+	zoomPlusButton->setIcon(iconZoomPlus);
+	zoomMinusButton->setIcon(iconZoomMinus);
 
-	closeButton->setIcon(*iconClose);
+	actionsGoButton->setIcon(iconOk);
 
-	moreButton->setIcon(*iconArrowDown);
+	closeButton->setIcon(iconClose);
+
+	moreButton->setIcon(iconArrowDown);
 }
 
 
@@ -1648,11 +1649,11 @@ void PictureBrowser::setSettings()
 
 	if (pbSettings.sortOrder)
 	{
-		sortOrderButton->setIcon(*iconArrowUp);
+		sortOrderButton->setIcon(iconArrowUp);
 	}
 	else
 	{
-		sortOrderButton->setIcon(*iconArrowDown);
+		sortOrderButton->setIcon(iconArrowDown);
 	}
 
 	sortCombobox->setCurrentIndex(pbSettings.sortSetting);
@@ -1703,7 +1704,7 @@ void PictureBrowser::updateDocumentBrowser()
 	{
 		tmpItem = new QTreeWidgetItem(allpages, QStringList(QString("Page %1").arg(i+1)));
 		tmpItem->setData(0, Qt::UserRole,(i+1));
-		tmpItem->setIcon(0, *iconDocument);
+		tmpItem->setIcon(0, iconDocument);
 		documentItems.append(tmpItem);
 	}
 
@@ -1853,7 +1854,7 @@ void PictureBrowser::updateCollectionsWidget(bool addImages)
 			}
 
 			tmpItem->setData(0, Qt::UserRole, tmpCollections->collectionFiles.at(j));
-			tmpItem->setIcon(0, *iconCollection);
+			tmpItem->setIcon(0, iconCollection);
 		}
 	}
 
@@ -1886,7 +1887,7 @@ void PictureBrowser::expandDialog(bool expand)
 
 		resize(872, 550);
 		moreButton->setText(tr("Hide"));
-		moreButton->setIcon(*iconArrowUp);
+		moreButton->setIcon(iconArrowUp);
 	}
 	else
 	{
@@ -1894,7 +1895,7 @@ void PictureBrowser::expandDialog(bool expand)
 
 		resize(872, 385);
 		moreButton->setText(tr("More"));
-		moreButton->setIcon(*iconArrowDown);
+		moreButton->setIcon(iconArrowDown);
 	}
 }
 
@@ -2074,6 +2075,11 @@ void PictureBrowser::updateTagImagesTab()
 			collectionsTagImagesCombobox->setCheckstate(i, 2);
 		}
 	}
+}
+
+void PictureBrowser::iconSetChange()
+{
+	loadIcons();
 }
 
 void PictureBrowser::unitChange()

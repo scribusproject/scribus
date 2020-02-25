@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QEvent>
 
-#include "styleselect.h"
 #include "iconmanager.h"
-
+#include "scribusapp.h"
+#include "styleselect.h"
 
 StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 {
@@ -236,10 +236,9 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	outlineButton->setMaximumSize(s);
 	shadowButton->setMaximumSize(s);
 
-
 	languageChange();
 
-
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
@@ -262,6 +261,41 @@ void StyleSelect::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void StyleSelect::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+	
+	underlineButton->setIcon(im.loadIcon("unter.png"));
+	underlineWordButton->setIcon(im.loadIcon("wordsOnly.png"));
+	subscriptButton->setIcon(im.loadIcon("tief.png"));
+	superscriptButton->setIcon(im.loadIcon("hoch.png"));
+	allcapsButton->setIcon(im.loadIcon("AllCaps.png"));
+	smallcapsButton->setIcon(im.loadIcon("kapital.png"));
+	strikeoutButton->setIcon(im.loadIcon("strike.png"));
+	outlineButton->setIcon(im.loadIcon("outlined.png"));
+	shadowButton->setIcon(im.loadIcon("shadow.png"));
+	
+	QSize s(24,24);
+	underlineButton->setMinimumSize(s);
+	underlineWordButton->setMinimumSize(s);
+	subscriptButton->setMinimumSize(s);
+	superscriptButton->setMinimumSize(s);
+	smallcapsButton->setMinimumSize(s);
+	allcapsButton->setMinimumSize(s);
+	strikeoutButton->setMinimumSize(s);
+	outlineButton->setMinimumSize(s);
+	shadowButton->setMinimumSize(s);
+	underlineButton->setMaximumSize(s);
+	underlineWordButton->setMaximumSize(s);
+	subscriptButton->setMaximumSize(s);
+	superscriptButton->setMaximumSize(s);
+	smallcapsButton->setMaximumSize(s);
+	allcapsButton->setMaximumSize(s);
+	strikeoutButton->setMaximumSize(s);
+	outlineButton->setMaximumSize(s);
+	shadowButton->setMaximumSize(s);
 }
 
 void StyleSelect::languageChange()

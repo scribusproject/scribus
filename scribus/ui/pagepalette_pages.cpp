@@ -25,12 +25,14 @@ for which a new license (GPL+exception) is in place.
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
 #include "scpage.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 
 PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 {
+	currView = nullptr;
 	m_scMW = ScCore->primaryMainWindow();
 	
 	setupUi(this);
@@ -61,9 +63,10 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 
 	pix = IconManager::instance().loadPixmap("32/page-simple.png");
 
-	currView = nullptr;
 	Rebuild();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(masterPageList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
@@ -392,6 +395,13 @@ void PagePalette_Pages::changeEvent(QEvent *e)
 	}
 	
 	QWidget::changeEvent(e);
+}
+
+void PagePalette_Pages::iconSetChange()
+{
+	pix = IconManager::instance().loadPixmap("32/page-simple.png");
+	if (currView != nullptr)
+		Rebuild();
 }
 
 void PagePalette_Pages::languageChange()

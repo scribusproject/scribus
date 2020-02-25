@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "pageitem_table.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
@@ -30,14 +31,9 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	layout()->setAlignment( Qt::AlignLeft );
 
 	textBase->setValue( 0 );
-	textBaseLabel->setPixmap(IconManager::instance().loadPixmap("textbase.png"));
-	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
 
 	scaleH->setValues(10, 400, 2, 100 );
-	scaleHLabel->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
-
 	scaleV->setValues(10, 400, 2, 100 );
-	scaleVLabel->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
 
 	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
 	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
@@ -45,7 +41,10 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
 	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
 
+	iconSetChange();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void PropertyWidget_Advanced::setMainWindow(ScribusMainWindow *mw)
@@ -364,6 +363,15 @@ void PropertyWidget_Advanced::changeEvent(QEvent *e)
 		return;
 	}
 	QWidget::changeEvent(e);
+}
+
+void PropertyWidget_Advanced::iconSetChange()
+{
+	textBaseLabel->setPixmap(IconManager::instance().loadPixmap("textbase.png"));
+	trackingLabel->setPixmap(IconManager::instance().loadPixmap("textkern.png"));
+
+	scaleHLabel->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
+	scaleVLabel->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
 }
 
 void PropertyWidget_Advanced::languageChange()

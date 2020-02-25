@@ -270,6 +270,7 @@ public:
 	QStringList patternsDependingOnThis;
 
 public slots:
+	void iconSetChange();
 	void languageChange();
 	void statusBarLanguageChange();
 	void specialActionKeyEvent(int unicodevalue);
@@ -603,7 +604,6 @@ private:
 	void initKeyboardShortcuts();
 	void initPalettes();
 	void initScrapbook();
-
 	void updateColorMenu(QProgressBar* progressBar=nullptr);
 
 	int m_ScriptRunning;

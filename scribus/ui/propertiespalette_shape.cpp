@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "polyprops.h"
 #include "sccolorengine.h"
 #include "scraction.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -49,18 +50,10 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	roundRectIcon->setPixmap(IconManager::instance().loadPixmap("round-corners.png"));
-
-	textFlowDisabled->setIcon(IconManager::instance().loadIcon("flow-none.png"));
-	textFlowUsesFrameShape->setIcon(IconManager::instance().loadIcon("flow-frame.png"));
-	textFlowUsesBoundingBox->setIcon(IconManager::instance().loadIcon("flow-bounding.png"));
-	textFlowUsesContourLine->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
-	textFlowUsesImageClipping->setIcon(IconManager::instance().loadIcon("flow-contour.png"));
-
-	evenOdd->setIcon(IconManager::instance().loadIcon("fill-rule-even-odd.png"));
-	nonZero->setIcon(IconManager::instance().loadIcon("fill-rule-nonzero.png"));
-
+	iconSetChange();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(textFlowBtnGroup, SIGNAL(buttonClicked(int)), this, SLOT(handleTextFlow()));
 	connect(editShape  , SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
@@ -528,6 +521,22 @@ void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 		textFlowUsesImageClipping->setEnabled(true);
 	else
 		textFlowUsesImageClipping->setEnabled(false);
+}
+
+void PropertiesPalette_Shape::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	roundRectIcon->setPixmap(iconManager.loadPixmap("round-corners.png"));
+
+	textFlowDisabled->setIcon(iconManager.loadIcon("flow-none.png"));
+	textFlowUsesFrameShape->setIcon(iconManager.loadIcon("flow-frame.png"));
+	textFlowUsesBoundingBox->setIcon(iconManager.loadIcon("flow-bounding.png"));
+	textFlowUsesContourLine->setIcon(iconManager.loadIcon("flow-contour.png"));
+	textFlowUsesImageClipping->setIcon(iconManager.loadIcon("flow-contour.png"));
+
+	evenOdd->setIcon(iconManager.loadIcon("fill-rule-even-odd.png"));
+	nonZero->setIcon(iconManager.loadIcon("fill-rule-nonzero.png"));
 }
 
 void PropertiesPalette_Shape::languageChange()

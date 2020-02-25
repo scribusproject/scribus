@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QPixmap>
 #include <QMenu>
+#include <QString>
+
 #include "scribusapi.h"
 class ScribusDoc;
 /**
@@ -43,7 +45,7 @@ public:
 		\brief Constructor from QAction, sets menuType to Normal
 		\param parent Parent object of this action
 	*/
-	ScrAction ( QObject *parent ) ;
+	ScrAction (QObject *parent) ;
 		
 	/*!
 		\author Craig Bradney
@@ -53,15 +55,15 @@ public:
 		\param accel Accelerator QKeySequence
 		\param parent Parent object of this action
 	*/
-	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent );
+	ScrAction(const QString &menuText, QKeySequence accel, QObject *parent);
 		
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for an action that may require a specific menu type, such as a DLL menu
 		\param mType menuType, of Normal, RecentFile or DLL
-		\param icon16 Iconset for the action
-		\param icon22 Iconset for the action
+		\param icon16Path path of icon for the action
+		\param icon22Path path of icon for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
@@ -69,20 +71,22 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType aType,
+	ScrAction(ActionType aType,
 			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
-	ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22,
+	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22,
+			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path,
 			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for a normal action. Stores iconset.
-		\param icon Iconset for the action
+		\param icon path of icon for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 	*/
-	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent );
+	ScrAction(const QString& icon16Path, const QString& icon22Path, const QString & menuText, QKeySequence accel, QObject *parent);
 	/*!
 	\author Craig Bradney
 	\date Mar 2008
@@ -92,7 +96,7 @@ public:
 	\param extraInt extra int value
 	\param extraQString extra QString value
 	 */
-	ScrAction( QKeySequence accel, QObject *parent, QVariant data = QVariant());
+	ScrAction(QKeySequence accel, QObject *parent, QVariant data = QVariant());
 	~ScrAction();
 	
 	/*!
@@ -186,15 +190,17 @@ signals:
 	void triggeredUnicodeShortcut(int);
 	
 protected:
-	void initScrAction();
 	int m_menuIndex;
 	ActionType m_actionType;
 	QMenu *m_popupMenuAddedTo;
 	QKeySequence m_savedKeySequence;
 	bool m_shortcutSaved;
 	bool m_fakeToggle;
-	QIcon m_icon;
-	
+
+	QString m_iconPath16;
+	QString m_iconPath22;
+
+	void initScrAction();
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -205,6 +211,12 @@ protected:
 	void addedTo(int index, QMenu* menu);
 				
 private slots:
+	/*!
+		\author Jean Ghali
+		\date Feb 2020
+		\brief Reload action icon following an icon set change for eg.
+	 */
+	void loadIcon();
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

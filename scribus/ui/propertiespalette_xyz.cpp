@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribuscore.h"
 #include "scraction.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -45,8 +46,8 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW=nullptr;
-	m_doc=nullptr;
+	m_ScMW = nullptr;
+	m_doc = nullptr;
 	m_haveDoc  = false;
 	m_haveItem = false;
 	m_lineMode = false;
@@ -78,42 +79,21 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	installSniffer(rotationSpin);
 	rotationLabel->setBuddy(rotationSpin);
 
-	IconManager& im=IconManager::instance();
-	levelUp->setIcon(im.loadIcon("16/go-up.png"));
-	levelDown->setIcon(im.loadIcon("16/go-down.png"));
-	levelTop->setIcon(im.loadIcon("16/go-top.png"));
-	levelBottom->setIcon(im.loadIcon("16/go-bottom.png"));
 	levelLabel->setAlignment( Qt::AlignCenter );
 
-	doGroup->setIcon(im.loadIcon("group.png"));
-	doUnGroup->setIcon(im.loadIcon("ungroup.png"));
-
-	flipH->setIcon(im.loadIcon("16/flip-object-horizontal.png"));
-	flipH->setCheckable( true );
-	flipV->setIcon(im.loadIcon("16/flip-object-vertical.png"));
-	flipV->setCheckable( true );
+	flipH->setCheckable(true);
+	flipV->setCheckable(true);
 	
-	doLock->setCheckable( true );
-	QIcon a = QIcon();
-	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
-	a.addPixmap(im.loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
-	doLock->setIcon(a);
-
-	noPrint->setCheckable( true );
-	QIcon a2 = QIcon();
-	a2.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
-	a2.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
-	noPrint->setIcon(a2);
-
-	noResize->setCheckable( true );
-	QIcon a3 = QIcon();
-	a3.addPixmap(im.loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
-	a3.addPixmap(im.loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
-	noResize->setIcon(a3);
+	doLock->setCheckable(true);
+	noPrint->setCheckable(true);
+	noResize->setCheckable(true);
 
 	m_lineMode = false;
 
+	iconSetChange();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
 	connect(yposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
@@ -1266,6 +1246,37 @@ void PropertiesPalette_XYZ::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void PropertiesPalette_XYZ::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	levelUp->setIcon(im.loadIcon("16/go-up.png"));
+	levelDown->setIcon(im.loadIcon("16/go-down.png"));
+	levelTop->setIcon(im.loadIcon("16/go-top.png"));
+	levelBottom->setIcon(im.loadIcon("16/go-bottom.png"));
+
+	doGroup->setIcon(im.loadIcon("group.png"));
+	doUnGroup->setIcon(im.loadIcon("ungroup.png"));
+
+	flipH->setIcon(im.loadIcon("16/flip-object-horizontal.png"));
+	flipV->setIcon(im.loadIcon("16/flip-object-vertical.png"));
+	
+	QIcon a = QIcon();
+	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
+	a.addPixmap(im.loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
+	doLock->setIcon(a);
+
+	QIcon a2 = QIcon();
+	a2.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
+	a2.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
+	noPrint->setIcon(a2);
+
+	QIcon a3 = QIcon();
+	a3.addPixmap(im.loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
+	a3.addPixmap(im.loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
+	noResize->setIcon(a3);
 }
 
 void PropertiesPalette_XYZ::languageChange()

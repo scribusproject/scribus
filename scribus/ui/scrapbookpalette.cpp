@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scpaths.h"
 #include "scpreview.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "util.h"
 #include "util_color.h"
@@ -716,7 +717,7 @@ void BibView::readContents(const QString& name)
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent) : ScDockPalette(parent, "Sclib", nullptr)
+Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", nullptr)
 {
 //	resize( 230, 190 );
 	setObjectName(QString::fromLocal8Bit("Sclib"));
@@ -747,8 +748,7 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette(parent, "Sclib", nullptr)
 	closeButton->setIconSize(QSize(16, 16));
 	configButton = new QToolButton(this);
 	configButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	configButton->setIcon(IconManager::instance().loadPixmap("16/configure.png"));
-	configButton->setIconSize(QSize(16, 16));
+
 	configMenue = new QMenu();
 	conf_HideDirs = configMenue->addAction( tr("Hide Directories"));
 	conf_HideDirs->setCheckable(true);
@@ -792,6 +792,8 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette(parent, "Sclib", nullptr)
 	conf_HideImages->setChecked(m_prefs->getBool("hideImages", false));
 	conf_HideVectors->setChecked(m_prefs->getBool("hideVectors", false));
 	conf_OpenMode->setChecked(m_prefs->getBool("openMode", false));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newLib()));
 	connect(upButton, SIGNAL(clicked()), this, SLOT(goOneDirUp()));
@@ -1990,6 +1992,26 @@ void Biblio::changeEvent(QEvent *e)
 		languageChange();
 	else
 		ScDockPalette::changeEvent(e);
+}
+
+void Biblio::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	newButton->setIcon(iconManager.loadPixmap("16/document-new.png"));
+	newButton->setIconSize(QSize(16, 16));
+
+	upButton->setIcon(iconManager.loadPixmap("16/go-up.png"));
+	upButton->setIconSize(QSize(16, 16));
+
+	importButton->setIcon(iconManager.loadPixmap("compfile16.png"));
+	importButton->setIconSize(QSize(16, 16));
+
+	closeButton->setIcon(iconManager.loadPixmap("16/close.png"));
+	closeButton->setIconSize(QSize(16, 16));
+
+	configButton->setIcon(iconManager.loadPixmap("16/configure.png"));
+	configButton->setIconSize(QSize(16, 16));
 }
 
 void Biblio::languageChange()

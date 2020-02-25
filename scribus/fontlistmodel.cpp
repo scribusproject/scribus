@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontlistmodel.h"
 #include "iconmanager.h"
 #include "prefsmanager.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 
 FontListModel::FontListModel(QObject * parent, ScribusDoc * doc, bool includeDisabled)
@@ -19,12 +20,19 @@ FontListModel::FontListModel(QObject * parent, ScribusDoc * doc, bool includeDis
 	m_fonts(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts),
 	m_includeDisabled(includeDisabled)
 {
-	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
-	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
-	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
-	substFont = IconManager::instance().loadPixmap("font_subst16.png");
-
+	iconSetChange();
 	setFonts(m_fonts.keys());
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+}
+
+void FontListModel::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	ttfFont = iconManager.loadPixmap("font_truetype16.png");
+	otfFont = iconManager.loadPixmap("font_otf16.png");
+	psFont = iconManager.loadPixmap("font_type1_16.png");
+	substFont = iconManager.loadPixmap("font_subst16.png");
 }
 
 void FontListModel::setFonts(QList<QString> f)

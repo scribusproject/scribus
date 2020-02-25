@@ -84,8 +84,8 @@ void PathFinderPlugin::languageChange()
 	m_actionInfo.subMenuName = tr("Path Tools");
 //	m_actionInfo.toolbar = "Vector";
 //	m_actionInfo.toolBarName = tr("Vector-Tools");
-//	m_actionInfo.icon1 = loadIcon("pathintersection.png");
-//	m_actionInfo.icon2 = loadIcon("pathintersection.png");
+//	m_actionInfo.iconPath1 = "pathintersection.png";
+//	m_actionInfo.iconPath2 = "pathintersection.png";
 	m_actionInfo.enabledOnStartup = false;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::TextFrame);

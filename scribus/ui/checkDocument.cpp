@@ -25,11 +25,11 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "prefsmanager.h"
 #include "scpage.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "iconmanager.h"
 #include "util.h"
-
 
 // readable constants for QTreeWidgetItem column ids
 #define COLUMN_ITEM 0
@@ -45,12 +45,11 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	minResDPI(0),
 	maxResDPI(0)
 {
-	showPagesWithoutErrors=PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
-	showNonPrintingLayerErrors=PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
+	showPagesWithoutErrors = PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
+	showNonPrintingLayerErrors = PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;
 
-	graveError = IconManager::instance().loadPixmap("22/dialog-error.png");
-	onlyWarning = IconManager::instance().loadPixmap("22/dialog-warning.png");
-	noErrors = IconManager::instance().loadPixmap("ok.png");
+	iconSetChange();
+
 	checkDocumentLayout = new QVBoxLayout( this );
 	checkDocumentLayout->setMargin(5);
 	checkDocumentLayout->setSpacing(5);
@@ -91,6 +90,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	masterPageItemMap.clear();
 	resize( QSize(320, 260).expandedTo(minimumSizeHint()) );
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
@@ -104,6 +105,13 @@ void CheckDocument::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void CheckDocument::iconSetChange()
+{
+	graveError = IconManager::instance().loadPixmap("22/dialog-error.png");
+	onlyWarning = IconManager::instance().loadPixmap("22/dialog-warning.png");
+	noErrors = IconManager::instance().loadPixmap("ok.png");
 }
 
 void CheckDocument::languageChange()
@@ -290,19 +298,19 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 		case MissingGlyph:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].second);
-			item->setIcon(COLUMN_ITEM, graveError );
+			item->setIcon(COLUMN_ITEM, graveError);
 			pageGraveError = true;
 			itemError = true;
 			break;
 		case TextOverflow:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].second);
-			item->setIcon(COLUMN_ITEM, onlyWarning );
+			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
 		case ObjectNotOnPage:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].second);
-			item->setIcon(COLUMN_ITEM, onlyWarning );
+			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
 		case MissingImage:
 			if (pageItem->externalFile().isEmpty())

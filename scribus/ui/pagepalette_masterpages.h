@@ -38,6 +38,7 @@ public:
 	void updateMasterPageList(QString MasterPageName);
 
 public slots:
+	void iconSetChange();
 	void languageChange();
 	void styleChange();
 	void selectMasterPage(const QString& name);

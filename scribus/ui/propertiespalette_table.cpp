@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_table.h"
 #include "sccolorengine.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "selection.h"
 #include "tableborder.h"
 #include "tablesideselector.h"
@@ -34,14 +35,24 @@ PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(pare
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	addBorderLineButton->setIcon(IconManager::instance().loadIcon("penciladd.png"));
-	removeBorderLineButton->setIcon(IconManager::instance().loadIcon("pencilsub.png"));
+	iconSetChange();
 	labelTable->setBuddy(tableStyleCombo);
-	buttonClearTableStyle->setIcon(IconManager::instance().loadIcon("16/edit-clear.png"));
 	labelCells->setBuddy(cellStyleCombo);
-	buttonClearCellStyle->setIcon(IconManager::instance().loadIcon("16/edit-clear.png"));
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect(tableStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setTableStyle(const QString&)));
 	connect(cellStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setCellStyle(const QString&)));
+}
+
+void PropertiesPalette_Table::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	addBorderLineButton->setIcon(iconManager.loadIcon("penciladd.png"));
+	removeBorderLineButton->setIcon(iconManager.loadIcon("pencilsub.png"));
+	buttonClearTableStyle->setIcon(iconManager.loadIcon("16/edit-clear.png"));
+	buttonClearCellStyle->setIcon(iconManager.loadIcon("16/edit-clear.png"));
 }
 
 void PropertiesPalette_Table::handleUpdateRequest(int updateFlags)

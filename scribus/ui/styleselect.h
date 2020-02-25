@@ -119,6 +119,7 @@ public:
 	StrikeValues* StrikeVal;
 
 public slots:
+	void iconSetChange();
 	void languageChange();
 
 private slots:

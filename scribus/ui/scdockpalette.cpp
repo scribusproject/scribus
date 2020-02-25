@@ -62,8 +62,8 @@ ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt:
 						QToolBox::tab { font-size: 10px; padding: 0px; margin: 0px; } \
 			  		");
 	}
-	m_originalParent=parent;
-	m_tempParent=nullptr;
+	m_originalParent = parent;
+	m_tempParent = nullptr;
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	setPrefsContext(prefsContext);

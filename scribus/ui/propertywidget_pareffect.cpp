@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/sctreewidget.h"
@@ -42,6 +43,8 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 	numLevelSpin->setMaximum(3);
 	dropCapLines->setMinimum(2);
 	dropCapLines->setMaximum(99);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void PropertyWidget_ParEffect::setMainWindow(ScribusMainWindow* mw)
@@ -103,6 +106,12 @@ void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
 		updateStyle(parStyle);
 		connectSignals();
 	}
+}
+
+void PropertyWidget_ParEffect::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	bulletCharTableButton->setIcon(iconManager.loadIcon("22/insert-table.png"));
 }
 
 void PropertyWidget_ParEffect::unitChange()

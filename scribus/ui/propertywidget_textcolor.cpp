@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_table.h"
 #include "propertywidget_textcolor.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "selection.h"
 
 PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(parent)
@@ -27,29 +28,26 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 
 	fillLayout->setAlignment( Qt::AlignLeft );
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
-	fillIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	fillIcon->setScaledContents( false );
-	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	strokeLayout->setAlignment( Qt::AlignLeft );
 	strokeColor->setPixmapType(ColorCombo::fancyPixmaps);
-	strokeIcon->setPixmap(IconManager::instance().loadPixmap("16/color-stroke.png"));
 	strokeIcon->setScaledContents( false );
-	strokeShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	backLayout->setAlignment( Qt::AlignLeft );
 	backColor->setPixmapType(ColorCombo::fancyPixmaps);
-	backIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	backIcon->setScaledContents( false );
-	backShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png"));
 
 	effectsLayout->setAlignment( Qt::AlignLeft );
 
+	iconSetChange();
 	languageChange();
 
 	strokeIcon->setEnabled(false);
 	strokeColor->setEnabled(false);
 	strokeShade->setEnabled(false);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void PropertyWidget_TextColor::setMainWindow(ScribusMainWindow *mw)
@@ -490,6 +488,20 @@ void PropertyWidget_TextColor::changeEvent(QEvent *e)
 		return;
 	}
 	QWidget::changeEvent(e);
+}
+
+void PropertyWidget_TextColor::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	fillIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
+	fillShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
+
+	strokeIcon->setPixmap(iconManager.loadPixmap("16/color-stroke.png"));
+	strokeShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
+
+	backIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
 }
 
 void PropertyWidget_TextColor::languageChange()

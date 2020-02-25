@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "smcellstylewidget.h"
 
 SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) :
@@ -16,10 +17,12 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) :
 {
 	setupUi(this);
 
-	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor->addItem(CommonStrings::tr_NoneColor);
-	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png") );
+
+	iconSetChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 SMCellStyleWidget::~SMCellStyleWidget()
@@ -32,6 +35,25 @@ void SMCellStyleWidget::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QWidget::changeEvent(e);
+}
+
+void SMCellStyleWidget::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	fillColorIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
+	fillShadeLabel->setPixmap(iconManager.loadPixmap("shade.png") );
+}
+
+void SMCellStyleWidget::languageChange()
+{
+	retranslateUi(this);
+
+	if (fillColor->count() > 0)
+	{
+		bool fillColorBlocked = fillColor->blockSignals(true);
+		fillColor->setItemText(0, CommonStrings::tr_NoneColor);
+		fillColor->blockSignals(fillColorBlocked);
+	}
 }
 
 void SMCellStyleWidget::handleUpdateRequest(int updateFlags)
@@ -149,18 +171,6 @@ void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
 	}
 	else
 		fillColor->setCurrentText(s);
-}
-
-void SMCellStyleWidget::languageChange()
-{
-	retranslateUi(this);
-
-	if (fillColor->count() > 0)
-	{
-		bool fillColorBlocked = fillColor->blockSignals(true);
-		fillColor->setItemText(0, CommonStrings::tr_NoneColor);
-		fillColor->blockSignals(fillColorBlocked);
-	}
 }
 
 void SMCellStyleWidget::fillFillColorCombo(ColorList &colors)

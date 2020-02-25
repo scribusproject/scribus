@@ -24,8 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 
-extern ScribusQApp* ScQApp;
-
 Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {

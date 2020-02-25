@@ -250,6 +250,7 @@ public slots:
 	void SetColor(int c);
 	void SetShade(double s);
 	void newShadeHandler();
+	void iconSetChange();
 	void languageChange();
 
 signals:
@@ -279,6 +280,7 @@ public slots:
 	void SetColor(int c);
 	void SetShade(double s);
 	void newShadeHandler();
+	void iconSetChange();
 	void languageChange();
 
 signals:
@@ -314,6 +316,7 @@ public slots:
 	void setOutline(double o);
 	void SetStyle(int s);
 	void SetKern(double k);
+	void iconSetChange();
 	void languageChange();
 
 signals:
@@ -392,6 +395,7 @@ private:
 	QAction* scaleTxtVAction;
 
 private slots:
+	void iconSetChange();
 	void languageChange();
 };
 
@@ -495,6 +499,8 @@ protected slots:
 	void LoadTextFile();
 	void SaveTextFile();
 	void setSmart(bool);
+
+	void iconSetChange();
 	void languageChange();
 
 	void specialActionKeyEvent(int unicodevalue);

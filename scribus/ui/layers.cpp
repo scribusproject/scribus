@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/scrspinbox.h"
@@ -148,6 +149,8 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", n
 	setWidget( containerWidget );
 	clearContent();
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 
 	connect(newLayerButton, SIGNAL(clicked()), this, SLOT(addLayer()));
 	connect(duplicateLayerButton, SIGNAL(clicked()), this, SLOT(dupLayer()));
@@ -672,6 +675,24 @@ void LayerPalette::changeEvent(QEvent *e)
 		languageChange();
 	else
 		ScDockPalette::changeEvent(e);
+}
+
+void LayerPalette::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	Table->horizontalHeaderItem(1)->setIcon(iconManager.loadIcon("16/show-object.png"));
+	Table->horizontalHeaderItem(2)->setIcon(iconManager.loadIcon("16/document-print.png"));
+	Table->horizontalHeaderItem(3)->setIcon(iconManager.loadIcon("16/lock.png"));
+	Table->horizontalHeaderItem(4)->setIcon(iconManager.loadIcon("16/layer-flow-around.png"));
+	Table->horizontalHeaderItem(5)->setIcon(iconManager.loadIcon("layer-outline.png"));
+	Table->horizontalHeaderItem(6)->setIcon(iconManager.loadIcon("16/pointer.png"));
+
+	newLayerButton->setIcon(iconManager.loadIcon("16/list-add.png"));
+	deleteLayerButton->setIcon(iconManager.loadIcon("16/list-remove.png"));
+	duplicateLayerButton->setIcon(iconManager.loadIcon("16/edit-copy.png"));
+	raiseLayerButton->setIcon(iconManager.loadIcon("16/go-up.png"));
+	lowerLayerButton->setIcon(iconManager.loadIcon("16/go-down.png"));
 }
 
 void LayerPalette::languageChange()

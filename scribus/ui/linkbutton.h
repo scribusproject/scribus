@@ -43,7 +43,7 @@ public:
 	 */
 	LinkButton(QWidget *pa);
 	~LinkButton() {};
-	void setNewIcon();
+
 	/*!
 	\author Franz Schmid
 	\brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
@@ -56,6 +56,9 @@ public:
 	\retval QSize size
 	*/
 	virtual QSize minimumSizeHint() const;
+
+protected slots:
+	void iconSetChange();
 };
  
 #endif

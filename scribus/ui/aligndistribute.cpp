@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "scpage.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "selection.h"
@@ -71,6 +72,8 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	languageChange();
 	init();
 	setDoc(nullptr);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 AlignDistributePalette::~AlignDistributePalette()
@@ -82,9 +85,9 @@ void AlignDistributePalette::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		languageChange();
+		return;
 	}
-	else
-		ScDockPalette::changeEvent(e);
+	ScDockPalette::changeEvent(e);
 }
 
 void AlignDistributePalette::languageChange()
@@ -150,7 +153,53 @@ void AlignDistributePalette::languageChange()
 void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
+	
+	iconSetChange();
+
+	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
+	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
+	connect(alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
+	connect(alignRightInToolButton, SIGNAL(clicked()), this, SLOT(alignRightIn()));
+	connect(alignBottomOutToolButton, SIGNAL(clicked()), this, SLOT(alignBottomOut()));
+	connect(alignCenterHorToolButton, SIGNAL(clicked()), this, SLOT(alignCenterHor()));
+	connect(alignLeftInToolButton, SIGNAL(clicked()), this, SLOT(alignLeftIn()));
+	connect(alignCenterVerToolButton, SIGNAL(clicked()), this, SLOT(alignCenterVer()));
+	connect(alignTopOutToolButton, SIGNAL(clicked()), this, SLOT(alignTopOut()));
+	connect(alignTopInToolButton, SIGNAL(clicked()), this, SLOT(alignTopIn()));
+	connect(distributeDistHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistH()));
+	connect(distributeDistValueHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValH()));
+	connect(distributeRightToolButton, SIGNAL(clicked()), this, SLOT(distributeRight()));
+	connect(distributeBottomToolButton, SIGNAL(clicked()), this, SLOT(distributeBottom()));
+	connect(distributeCenterHToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterH()));
+	connect(distributeDistVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistV()));
+	connect(distributeDistValueVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValV()));
+	connect(distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
+	connect(distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
+	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
+	connect(distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
+	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
+	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
+	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
+	connect(swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
+	connect(swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
+	
+	alignRelativeToCombo->setCurrentIndex(0);
+	alignToChanged(0);
+	alignMethodChanged(0);
+	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
+	connect(alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
+	
+	unitRatio=1.0;
+	guideDirection=-1;
+	
+	guideInfoText = guideInfoTextNone;
+	alignGuideLineEdit->setText(guideInfoTextNone);
+}
+
+void AlignDistributePalette::iconSetChange()
+{
 	IconManager& im = IconManager::instance();
+
 	alignLeftOutToolButton->setIcon(im.loadIcon("22/align-horizontal-left-out.png"));
 	alignLeftInToolButton->setIcon(im.loadIcon("22/align-horizontal-left.png"));
 	alignCenterHorToolButton->setIcon(im.loadIcon("22/align-horizontal-center.png"));
@@ -247,46 +296,6 @@ void AlignDistributePalette::init()
 
 	swapLeftToolButton->setMaximumSize(s);
 	swapRightToolButton->setMaximumSize(s);
-
-
-	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
-	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
-	connect(alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
-	connect(alignRightInToolButton, SIGNAL(clicked()), this, SLOT(alignRightIn()));
-	connect(alignBottomOutToolButton, SIGNAL(clicked()), this, SLOT(alignBottomOut()));
-	connect(alignCenterHorToolButton, SIGNAL(clicked()), this, SLOT(alignCenterHor()));
-	connect(alignLeftInToolButton, SIGNAL(clicked()), this, SLOT(alignLeftIn()));
-	connect(alignCenterVerToolButton, SIGNAL(clicked()), this, SLOT(alignCenterVer()));
-	connect(alignTopOutToolButton, SIGNAL(clicked()), this, SLOT(alignTopOut()));
-	connect(alignTopInToolButton, SIGNAL(clicked()), this, SLOT(alignTopIn()));
-	connect(distributeDistHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistH()));
-	connect(distributeDistValueHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValH()));
-	connect(distributeRightToolButton, SIGNAL(clicked()), this, SLOT(distributeRight()));
-	connect(distributeBottomToolButton, SIGNAL(clicked()), this, SLOT(distributeBottom()));
-	connect(distributeCenterHToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterH()));
-	connect(distributeDistVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistV()));
-	connect(distributeDistValueVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValV()));
-	connect(distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
-	connect(distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
-	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
-	connect(distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
-	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
-	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
-	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
-	connect(swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
-	connect(swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
-	
-	alignRelativeToCombo->setCurrentIndex(0);
-	alignToChanged(0);
-	alignMethodChanged(0);
-	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
-	connect(alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
-	
-	unitRatio=1.0;
-	guideDirection=-1;
-	
-	guideInfoText = guideInfoTextNone;
-	alignGuideLineEdit->setText(guideInfoTextNone);
 }
 
 void AlignDistributePalette::unitChange()

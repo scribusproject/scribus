@@ -90,8 +90,8 @@ ScActionPlugin::ScActionPlugin() : ScPlugin()
 	m_actionInfo.subMenuName = "";
 	m_actionInfo.toolbar = "";
 	m_actionInfo.toolBarName = "";
-	m_actionInfo.icon1 = QPixmap();
-	m_actionInfo.icon2 = QPixmap();
+	m_actionInfo.iconPath1 = QString();
+	m_actionInfo.iconPath2 = QString();
 	m_actionInfo.notSuitableFor.clear();
 	m_actionInfo.forAppMode.clear();
 	m_actionInfo.needsNumObjects = -1;

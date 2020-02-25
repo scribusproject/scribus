@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagelayout.h"
 #include "pagepalette_widgets.h"
 #include "scpage.h"
+#include "scribusapp.h"
 #include "ui/scmessagebox.h"
 
 
@@ -488,6 +489,8 @@ TrashBin::TrashBin(QWidget * parent) : QLabel(parent)
 	setPixmap(Normal);
 	setScaledContents(false);
 	setAcceptDrops(true);
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void TrashBin::dragEnterEvent(QDragEnterEvent *e)
@@ -524,4 +527,11 @@ void TrashBin::dropEvent(QDropEvent * e)
 			emit DelMaster(tmp);
 		}
 	}
+}
+
+void TrashBin::iconSetChange()
+{
+	Normal = IconManager::instance().loadPixmap("trashcan.png");
+	Offen = IconManager::instance().loadPixmap("trashcan2.png");
+	setPixmap(Normal);
 }

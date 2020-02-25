@@ -72,6 +72,7 @@ private:
 
 private slots:
 	void handleUpdateRequest(int);
+	void iconSetChange();
 };
 
 #endif // SMTABLESTYLEWIDGET_H

@@ -7,12 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORLISTBOX_H
 #define COLORLISTBOX_H
 
+#include <QColor>
 #include <QListView>
 #include <QListWidget>
-#include <QColor>
+#include <QPixmap>
 #include <QPointer>
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 
 #include "colorlistmodel.h"
 #include "colorsetmanager.h"
@@ -123,6 +125,8 @@ class SCRIBUS_API ColorListBox : public QListView
 		void emitCurrentChanged(const QModelIndex &current, const QModelIndex &previous);
 		void emitItemClicked(const QModelIndex &current);
 		void emitItemDoubleClicked(const QModelIndex &current);
+
+		virtual void iconSetChange();
 		virtual void languageChange();
 
 	signals:

@@ -51,6 +51,7 @@ public slots:
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 

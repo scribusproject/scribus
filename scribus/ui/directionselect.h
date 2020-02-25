@@ -20,32 +20,35 @@ class QEvent;
 class SCRIBUS_API DirectionSelect : public QWidget
 {
 	Q_OBJECT
+
 public:
-        DirectionSelect(QWidget* parent);
-        ~DirectionSelect() {};
-        void setStyle(int s);
-        int getStyle();
-        int selectedId();
+    DirectionSelect(QWidget* parent);
+    ~DirectionSelect() {};
 
-        virtual void changeEvent(QEvent *e);
+    void setStyle(int s);
+    int getStyle();
+    int selectedId();
 
-        QButtonGroup* buttonGroup;
-        int selected;
-        QToolButton* RTL;
-        QToolButton* LTR;
+    virtual void changeEvent(QEvent *e);
+
+    QButtonGroup* buttonGroup;
+    int selected;
+    QToolButton* RTL;
+    QToolButton* LTR;
 
 
 public slots:
-        void languageChange();
+	void iconSetChange();
+    void languageChange();
 
 private slots:
-        void setTypeStyle(int a);
+    void setTypeStyle(int a);
 
 signals:
-        void State(int);
+    void State(int);
 
 protected:
-        QHBoxLayout* GroupSelectLayout;
+    QHBoxLayout* GroupSelectLayout;
 };
 
 #endif // DIRECTIONSELECT_H

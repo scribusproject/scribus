@@ -26,8 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include "scmimedata.h"
 #include "scpainter.h"
 #include "scribus.h"
-#include "scribusXml.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
+#include "scribusXml.h"
 #include "selection.h"
 #include "shapepalette.h"
 #include "ui/scmessagebox.h"
@@ -289,26 +290,34 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", nu
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
+
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	importButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
 	importButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( importButton );
+
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
+
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	closeButton->setIcon(IconManager::instance().loadIcon("16/close.png"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( closeButton );
 	vLayout->addLayout( buttonLayout );
+
 	Frame3 = new QToolBox( this );
 	vLayout->addWidget(Frame3);
 	setWidget(containerWidget);
 
 	unsetDoc();
 	m_scMW  = nullptr;
+
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeTab()));
 }
@@ -585,6 +594,17 @@ void ShapePalette::changeEvent(QEvent *e)
 	}
 	else
 		ScDockPalette::changeEvent(e);
+}
+
+void ShapePalette::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	importButton->setIcon(iconManager.loadIcon("16/document-open.png"));
+	importButton->setIconSize(QSize(16, 16));
+
+	closeButton->setIcon(iconManager.loadIcon("16/close.png"));
+	closeButton->setIconSize(QSize(16, 16));
 }
 
 void ShapePalette::languageChange()

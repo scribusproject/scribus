@@ -100,9 +100,10 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
-#include "scribusXml.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribuswin.h"
+#include "scribusXml.h"
 #include "selection.h"
 #include "selectionrubberband.h"
 #include "serializer.h"
@@ -175,15 +176,18 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	// in case ClearType is not enabled
 	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
 	fo.setPointSize(posi);
+
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
 	horizRuler->installEventFilter(this);
 	vertRuler->installEventFilter(this);
+
 	rulerMover = new RulerMover(this);
 	rulerMover->setFocusPolicy(Qt::NoFocus);
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
 	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
+
 	m_ready = true;
 	m_canvas->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -195,11 +199,14 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	storedFramesShown = Doc->guidesPrefs().framesShown;
 	storedShowControls = Doc->guidesPrefs().showControls;
 	setRulersShown(Doc->guidesPrefs().rulersShown);
+
 	m_canvas->m_viewMode.viewAsPreview = false;
 	m_canvas->setPreviewVisual(-1);
 	m_previousMode = -1;
+
 	redrawMarker = new SelectionRubberBand(QRubberBand::Rectangle, this);
 	redrawMarker->hide();
+
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
 	//  #13101 : "viewPreviewMode" is checked if necessary in ScribusMainWindow::newActWin()
@@ -214,15 +221,19 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	//	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
 	//	m_dragTimer->stop();
 	m_dragTimerFired = false;
+
 	clockLabel = new ClockWidget(this, Doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
+
 	endEditButton = new QPushButton(IconManager::instance().loadIcon("22/exit.png"), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
-	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotEndSpecialEdit()));
 
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotEndSpecialEdit()));
 }
 
 ScribusView::~ScribusView()
@@ -242,6 +253,12 @@ void ScribusView::changeEvent(QEvent *e)
 	}
 	else
 		QFrame::changeEvent(e);
+}
+
+void ScribusView::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+	endEditButton->setIcon(iconManager.loadIcon("22/exit.png"));
 }
 
 void ScribusView::languageChange()

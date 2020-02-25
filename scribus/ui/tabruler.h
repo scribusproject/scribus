@@ -96,11 +96,9 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	void languageChange();
 	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
 
 	QList<ParagraphStyle::TabRecord> getTabVals();
-	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();
 	double getRightIndent();
@@ -142,31 +140,35 @@ signals:
 	void mouseReleased();
 
 protected:
-	QVBoxLayout* tabrulerLayout;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout1;
-	QHBoxLayout* indentLayout;
-//	QVBoxLayout* layout3;
-	QHBoxLayout* layout4;
-	QComboBox* typeCombo;
-	QComboBox* tabFillCombo;
-	QLabel* tabFillComboT;
-	RulerT* ruler;
-	QToolButton* rulerScrollL;
-	QToolButton* rulerScrollR;
-	QLabel* positionLabel;
-	QLabel* firstLineLabel;
-	QLabel* leftIndentLabel;
-	QLabel* rightIndentLabel;
-	ScrSpinBox* tabData;
-	ScrSpinBox* firstLineData;
-	ScrSpinBox* leftIndentData;
-	ScrSpinBox* rightIndentData;
-	QPushButton* clearButton;
-	QPushButton* clearOneButton;
+	QVBoxLayout* tabrulerLayout { nullptr };
+	QHBoxLayout* layout2 { nullptr };
+	QHBoxLayout* layout1 { nullptr };
+	QHBoxLayout* indentLayout { nullptr };
+//	QVBoxLayout* layout3 { nullptr };
+	QHBoxLayout* layout4 { nullptr };
+	QComboBox* typeCombo { nullptr };
+	QComboBox* tabFillCombo { nullptr };
+	QLabel* tabFillComboT { nullptr };
+	RulerT* ruler { nullptr };
+	QToolButton* rulerScrollL { nullptr };
+	QToolButton* rulerScrollR { nullptr };
+	QLabel* positionLabel { nullptr };
+	QLabel* firstLineLabel { nullptr };
+	QLabel* leftIndentLabel { nullptr };
+	QLabel* rightIndentLabel { nullptr };
+	ScrSpinBox* tabData { nullptr };
+	ScrSpinBox* firstLineData { nullptr };
+	ScrSpinBox* leftIndentData { nullptr };
+	ScrSpinBox* rightIndentData { nullptr };
+	QPushButton* clearButton { nullptr };
+	QPushButton* clearOneButton { nullptr };
 
-	double docUnitRatio;
+	bool   m_haveFirst;
+	double m_docUnitRatio;
+
 protected slots:
+	void iconSetChange();
+	void languageChange();
 	void slotMouseReleased();
 };
 

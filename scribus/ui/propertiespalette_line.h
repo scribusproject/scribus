@@ -64,6 +64,7 @@ public slots:
 	void showLineWidth(double s);
 	void showLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 

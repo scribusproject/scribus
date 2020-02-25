@@ -268,8 +268,8 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString subMenuName;
 			QString toolbar;				// Name of the ToolBar the action is to be inserted, if that toolbar doesn't exits it will be created
 			QString toolBarName;			// translateable ToolBar title
-			QPixmap icon1;
-			QPixmap icon2;
+			QString iconPath1;
+			QString iconPath2;
 			QList<int> notSuitableFor;		// a list of PageItem type values which the plugin can *not* handle
 			QList<int> forAppMode;			// a list of AppMode values for which the plugin will be active, an empty list indicates that the plugin is always active
 			int needsNumObjects;			// plugin needs this number of selected Objects. -1 = needs no Object, num > 2 any number of Objects is allowed

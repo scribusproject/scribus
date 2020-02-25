@@ -23,6 +23,7 @@ Q_OBJECT
 public:
 	AlignSelect(QWidget* parent);
 	~AlignSelect() {};
+
 	void setStyle(int s, int d);
 	int getStyle();
 	int selectedId();
@@ -38,6 +39,7 @@ public:
 	QToolButton* TextF;
 
 public slots:
+	void iconSetChange();
 	void languageChange();
 	void setTypeStyle(int a);
 

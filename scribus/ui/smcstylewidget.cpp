@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "prefsmanager.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "smcstylewidget.h"
 #include "util.h"
 #include "units.h"
@@ -21,19 +22,7 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) :
 {
 	setupUi(this);
 
-	IconManager& im = IconManager::instance();
-	fontSizeLabel_->setPixmap(im.loadPixmap("zeichen.png"));
-	trackingLabel_->setPixmap(im.loadPixmap("textkern.png"));
-	widthSpaceLabel->setPixmap(im.loadPixmap("spacewidth.png"));
-	baselineOffsetLabel_->setPixmap(im.loadPixmap("textbase.png"));
-	hscaleLabel_->setPixmap(im.loadPixmap("textscaleh.png"));
-	vscaleLabel_->setPixmap(im.loadPixmap("textscalev.png"));
-	FillIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
-	fillShadeLabel->setPixmap(im.loadPixmap("shade.png"));
-	StrokeIcon->setPixmap(im.loadPixmap("16/color-stroke.png"));
-	strokeShadeLabel->setPixmap(im.loadPixmap("shade.png"));
-	backIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
-	backShadeLabel->setPixmap(im.loadPixmap("shade.png"));
+	iconSetChange();
 
 	fillColor_->setPixmapType(ColorCombo::fancyPixmaps);
 	fillColor_->clear();
@@ -54,6 +43,8 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) :
 
 	hyphenCharLineEdit->setMaxLength(1);
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	connect(fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotEnableFontFeatures(QString)));
 }
@@ -66,6 +57,24 @@ void SMCStyleWidget::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void SMCStyleWidget::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	fontSizeLabel_->setPixmap(im.loadPixmap("zeichen.png"));
+	trackingLabel_->setPixmap(im.loadPixmap("textkern.png"));
+	widthSpaceLabel->setPixmap(im.loadPixmap("spacewidth.png"));
+	baselineOffsetLabel_->setPixmap(im.loadPixmap("textbase.png"));
+	hscaleLabel_->setPixmap(im.loadPixmap("textscaleh.png"));
+	vscaleLabel_->setPixmap(im.loadPixmap("textscalev.png"));
+	FillIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
+	fillShadeLabel->setPixmap(im.loadPixmap("shade.png"));
+	StrokeIcon->setPixmap(im.loadPixmap("16/color-stroke.png"));
+	strokeShadeLabel->setPixmap(im.loadPixmap("shade.png"));
+	backIcon->setPixmap(im.loadPixmap("16/color-fill.png"));
+	backShadeLabel->setPixmap(im.loadPixmap("shade.png"));
 }
 
 void SMCStyleWidget::languageChange()

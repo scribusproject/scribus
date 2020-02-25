@@ -50,6 +50,7 @@ private:
 	friend class SMCharacterStyle;
 
 private slots:
+	void iconSetChange();
 	void slotColorChange();
 	void handleUpdateRequest(int);
 	void slotEnableFontFeatures(const QString& s);

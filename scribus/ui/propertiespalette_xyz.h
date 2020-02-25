@@ -53,6 +53,7 @@ public slots:
 	void unsetDoc();
 	void unsetItem();
 
+	void iconSetChange();
 	void languageChange();
 	void unitChange();
 

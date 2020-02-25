@@ -44,8 +44,10 @@ class SCRIBUS_API IconManager : public QObject
 		* @return A pointer to the IconManager instance
 		*/
 		static IconManager& instance();
-
+		
+		void clearCache();
 		bool setup();
+
 		QCursor loadCursor(const QString& nam, int hotX = -1, int hotY = -1, bool forceUseColor=false);
 		QIcon loadIcon(const QString& nam, bool forceUseColor=false);
 		QPixmap loadPixmap(const QString& nam, bool forceUseColor=false, bool rtlFlip=false);
