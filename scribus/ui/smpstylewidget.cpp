@@ -1226,7 +1226,7 @@ void SMPStyleWidget::closeEnhanced(bool show)
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QVector<uint> &)), this, SLOT(insertSpecialChars(const QVector<uint> &)));
 	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
-	delete m_enhanced;
+	m_enhanced->deleteLater();
 	m_enhanced = nullptr;
 }
 
