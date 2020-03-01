@@ -236,7 +236,7 @@ if(NOT WIN32)
 endif()
 #>>FontConfig
 
-#<<HUNSPELL for Speelling support
+#<<HUNSPELL for Spelling support
 option(WANT_HUNSPELL "Enable support for spell checking with hunspell" ON)
 if (WANT_HUNSPELL)
 	find_package(HUNSPELL)
@@ -247,7 +247,7 @@ if (WANT_HUNSPELL)
 		message("Hunspell or its developer libraries NOT found - Disabling support for spell checking")
 	endif()
 endif()
-#>>HUNSPELL for Speelling support
+#>>HUNSPELL for Spelling support
 
 #<<PoDoFo for AI PDF import
 option(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
