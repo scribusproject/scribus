@@ -27,7 +27,7 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 5.5.0 (Scribus has specific code requiring Qt 5.5.0, not Qt 5.4.x or before)
+	Qt >= 5.10.0 (Scribus has specific code requiring Qt 5.10.0, not Qt 5.9.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.14.x 
 	libtiff >= 3.6.0
@@ -41,7 +41,7 @@ Recommended:
 	Fontconfig >= 2.0
 	LibXML2 >= 2.6.0
 	GhostScript >= 8.0 (9.0+ or greater preferred)
-	Python >= 2.3
+	Python >= 3.6
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
@@ -97,7 +97,7 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-Qt 5.6 is now the *minimum*. Older versions of Qt are *not* supported. 
+Qt 5.10 is now the *minimum*. Older versions of Qt are *not* supported. 
 If you build Qt from sources, the recommended ./configure/cmake switches are the
  same as used by KDE. Use of other switches aside from those used by distro
 packages can make trouble shooting issues very difficult at times.
@@ -194,7 +194,7 @@ information can be found in the README.
 Debian
 ======
 
-Recommended packages for compiling from source on Jessie (Debian 8.0):
+Recommended packages for compiling from source on Buster (Debian 10.0):
 	qtbase5-dev (Required)
 	qtdeclarative5-dev (Required)
 	qttools5-dev (Required)
@@ -203,6 +203,7 @@ Recommended packages for compiling from source on Jessie (Debian 8.0):
 	libcupsys2-dev (Required)
 	libfontconfig1-dev (Required)
 	libfreetype6-dev (Required)
+	libharfbuzz-dev (Required)
 	liblcms2-dev (Required)
 	libtiff5-dev (Required)
 	libxml2-dev (Required)
@@ -210,12 +211,13 @@ Recommended packages for compiling from source on Jessie (Debian 8.0):
 	libhunspell-dev
 	libpodofo-dev
 	libpoppler-dev
+	libpoppler-cpp-dev
 	libpoppler-private-dev
-	python2.7-dev
+	python3-dev
 	gs-gpl or gs-afpl (usually gs-gpl is newer now)
 
-You are unlikely to be able to compile Scribus 1.5.x on Debian 7.0 (Wheezy)
-Scribus 1.5.x should be considered not to support Debian Wheezy.
+You are unlikely to be able to compile Scribus 1.5.x on Debian 9.0 (Stretch)
+Scribus 1.5.x should be considered not to support Debian Stretch.
 
 More info can be found in the README.
 
@@ -232,6 +234,7 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	cups-devel (Required)
 	fontconfig-devel (Required)
 	freetype-devel (Required)
+	harfbuzz-devel (Required)
 	lcms2-devel (Required)
 	libjpeg-devel (Required)
 	libtiff-devel (Required)
@@ -240,7 +243,7 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	hunspell-devel
 	podofo-devel
 	poppler-devel
-	python-devel
+	python3-devel
 
 You can install these packages with 'yum install packagename' as root.
 
@@ -250,7 +253,7 @@ More info can be found in the README.
 Suse/Opensuse
 =============
 
-Recommended packages for compiling from source on SuSE 13.2 => :
+Recommended packages for compiling from source on OpenSuse 15.1 => :
 	libqt5-qtbase-devel (required)
 	libqt5-qtdeclarative-devel (required)
 	libqt5-qttools-devel (required)
@@ -258,30 +261,29 @@ Recommended packages for compiling from source on SuSE 13.2 => :
 	cups-devel (required)
 	fontconfig-devel (required)
 	freetype2-devel (required)
+	harfbuzz-devel (required) > 0.9.42
 	libjpeg-devel (required)
 	liblcms-devel (required)
 	libtiff-devel (required)
 	libxml2-devel (required)
-	harfbuzz-devel (required) > 0.9.42
 	openssl-devel (required if CUPS support is needed)
 	boost-devel
 	hunspell-devel
 	libpodofo-devel
 	libpoppler-devel
-	python-devel
-	python-imaging or python-pillow depending on distro version
-	tk
+	python3-devel
+	python3-imaging or python3-pillow depending on distro version
+	python3-tk
 	libGraphicsMagick++-devel
 	libOpenSceneGraph-devel  *Optional- but available from the games repo
 	update-desktop-files
 	libicu
-	harfbuzz-devel
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.5.3+ on anything older than Suse 13.2.
+Scribus 1.5.6+ on anything older than OpenSuse 15.1.
 
 Please note we do provide frequently updated packages including debuginfo rpms
-on the Suse Build Server at http//software.opensuse.org .
+on the Suse Build Server at https://software.opensuse.org .
 
 Mac OS X
 ========
