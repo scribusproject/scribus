@@ -20,6 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QTransform>
 
+#include <memory>
+
 #include "fpointarray.h"
 #include "importpdfconfig.h"
 #include "pageitem.h"
@@ -73,8 +75,8 @@ public:
 	int getFlags() { return m_flags; }
 
 private:
-GooString *fileName {nullptr};		// file name
-int m_flags {0};
+	GooString *fileName {nullptr};		// file name
+	int m_flags {0};
 };
 
 //------------------------------------------------------------------------
@@ -96,7 +98,7 @@ public:
 	GooString *getFileName() { return fileName; }
 
 private:
-GooString *fileName {nullptr};		// file name
+	GooString *fileName {nullptr};		// file name
 };
 //------------------------------------------------------------------------
 // SplashOutFontFileID
@@ -159,7 +161,11 @@ public:
 	virtual ~SlaOutputDev();
 
 	LinkAction* SC_getAction(AnnotWidget *ano);
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
+	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
+#else
 	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
+#endif
 	static GBool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
@@ -287,6 +293,7 @@ private:
 	void applyMask(PageItem *ite);
 	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
+	QString UnicodeParsedString(const std::string& s1);
 	bool checkClip();
 	bool pathIsClosed {false};
 	QString CurrColorFill;

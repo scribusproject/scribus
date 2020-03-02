@@ -7,19 +7,21 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTPDF_H
 #define IMPORTPDF_H
 
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
-#include <QTextStream>
-#include <QSizeF>
+#include <QBrush>
 #include <QBuffer>
 #include <QColor>
-#include <QBrush>
-#include <QPen>
 #include <QImage>
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QPen>
+#include <QtGlobal>
+#include <QSizeF>
+#include <QString>
+#include <QTextStream>
+#include <QTransform>
+
+#include <memory>
 
 #include "fpointarray.h"
 #include "importpdfconfig.h"
@@ -82,6 +84,7 @@ private:
 	bool convert(const QString& fn);
 	QRectF getCBox(int box, int pgNum);
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
+	QString UnicodeParsedString(const std::string& s1);
 	
 	QList<PageItem*> Elements;
 

@@ -791,11 +791,20 @@ bool PdfPlug::convert(const QString& fn)
 								names = catDict.dictLookup("OpenAction");
 								if (names.isDict())
 								{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
+									std::unique_ptr<LinkAction> linkAction;
+									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+#else
 									LinkAction *linkAction = nullptr;
 									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+#endif
 									if (linkAction)
 									{
-										LinkJavaScript *jsa = (LinkJavaScript*)linkAction;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
+										LinkJavaScript *jsa = (LinkJavaScript*) linkAction.get();
+#else
+										LinkJavaScript *jsa = (LinkJavaScript*) linkAction;
+#endif
 										if (jsa->isOk())
 										{
 											QString script = UnicodeParsedString(jsa->getScript());
@@ -994,6 +1003,46 @@ QString PdfPlug::UnicodeParsedString(POPPLER_CONST GooString *s1)
 		else
 		{
 			u = s1->getChar(i) & 0xff;
+			++i;
+		}
+		// #15616: imagemagick may write unicode strings incorrectly in PDF
+		if (u == 0)
+			continue;
+		result += QChar( u );
+	}
+	return result;
+}
+
+QString PdfPlug::UnicodeParsedString(const std::string& s1)
+{
+	if (s1.length() == 0)
+		return QString();
+	GBool isUnicode;
+	int i;
+	Unicode u;
+	QString result;
+	if ((s1.at(0) & 0xff) == 0xfe && (s1.length() > 1 && (s1.at(1) & 0xff) == 0xff))
+	{
+		isUnicode = gTrue;
+		i = 2;
+		result.reserve((s1.length() - 2) / 2);
+	}
+	else
+	{
+		isUnicode = gFalse;
+		i = 0;
+		result.reserve(s1.length());
+	}
+	while (i < s1.length())
+	{
+		if (isUnicode)
+		{
+			u = ((s1.at(i) & 0xff) << 8) | (s1.at(i+1) & 0xff);
+			i += 2;
+		}
+		else
+		{
+			u = s1.at(i) & 0xff;
 			++i;
 		}
 		// #15616: imagemagick may write unicode strings incorrectly in PDF
