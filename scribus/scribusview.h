@@ -121,12 +121,12 @@ public:
 	Canvas * const m_canvas;
 	CanvasMode* m_canvasMode; // might be a CanvasGesture FIXME make private
 	CanvasMode* canvasMode();
-	QMap<int,CanvasMode*> modeInstances;
+	QMap<int, CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	ScribusMainWindow* m_ScMW;
 	double OldScale;
-	double dragX,dragY,dragW,dragH;
+	double dragX, dragY, dragW, dragH;
 	double oldW;
 	int RotMode;
 	bool HaveSelRect;
