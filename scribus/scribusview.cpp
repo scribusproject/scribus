@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 
 #include <QColor>
+#include <QCursor>
 #include <QDebug>
 #include <QDrag>
 #include <QDragEnterEvent>

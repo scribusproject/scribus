@@ -26,40 +26,35 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 // include files for QT
-#include <QScrollArea>
-#include <QLineEdit>
-#include <QScrollBar>
-#include <QMap>
-#include <QMenu>
-#include <QLabel>
-#include <QComboBox>
-#include <QProgressDialog>
-#include <QPushButton>
-#include <QSpinBox>
-#include <QCursor>
 #include <QDragLeaveEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QElapsedTimer>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMap>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPoint>
+#include <QPushButton>
 #include <QRect>
 #include <QRectF>
 #include <QSize>
-#include <QTime>
 #include <QTimer>
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QWheelEvent>
-#include <QRubberBand>
-#include <QList>
 
 class QEvent;
+class QMenu;
 class QMimeData;
 
 // application specific includes
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
+#include "selectionrubberband.h"
 #include "ui/clockwidget.h"
 #include "undotransaction.h"
 
@@ -79,7 +74,6 @@ class ScrSpinBox;
 class Selection;
 class UndoManager;
 class TransactionSettings;
-#include "selectionrubberband.h"
 
 /**
  * This class provides an incomplete base for your application view.
@@ -272,7 +266,7 @@ private: // Private attributes
 	QMenu *pmen3;
 	QMenu *pmenResolution;
 	QPoint m_pressLocation;
-	QTime m_moveTimer;
+	QElapsedTimer m_moveTimer;
 	QTimer *m_dragTimer;
 	bool  m_dragTimerFired;
 	bool  m_ready;

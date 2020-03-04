@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #define CANVASMODE_EDITTABLE_H
 
 #include <QCursor>
+#include <QElapsedTimer>
 #include <QObject>
-#include <QTime>
 
 #include "canvasmode.h"
 #include "cellarea.h"
@@ -81,7 +81,7 @@ private:
 	QTimer* m_canvasUpdateTimer;
 
 	/// Time since last text cursor blink.
-	QTime m_blinkTime;
+	QElapsedTimer m_blinkTime;
 	/// <code>true</code> if the text cursor should make a long blink.
 	bool m_longBlink;
 	/// <code>true</code> if the text cursor is visible.
