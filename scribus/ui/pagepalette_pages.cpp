@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QBitmap>
+#include <QComboBox>
 #include <QCursor>
 #include <QDrag>
 #include <QEvent>
