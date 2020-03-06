@@ -31,8 +31,8 @@ ShapedTextFeed::ShapedTextFeed(ITextSource* source, int firstChar, ITextContext*
 
 bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 {
-    while (glyphPos >= glyphs.count())
-    {
+	while (glyphPos >= glyphs.count())
+	{
 		int nextChar = m_textSource->nextBlockStart(m_endChar);
 		ShapedText more(getMore(m_endChar, nextChar));
 		
@@ -42,9 +42,9 @@ bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 		m_endChar = more.lastChar();
 		int nOldGlyphs = glyphs.count();
 		glyphs.append(more.glyphs());
-		std::sort(glyphs.begin() + nOldGlyphs, glyphs.end(), logicalGlyphRunComp);
-    }
-    return glyphPos < glyphs.count();
+		std::stable_sort(glyphs.begin() + nOldGlyphs, glyphs.end(), logicalGlyphRunComp);
+	}
+	return glyphPos < glyphs.count();
 }
 
 
@@ -71,7 +71,7 @@ QList<GlyphCluster> ShapedTextFeed::putInVisualOrder(const QList<GlyphCluster>& 
 	QList<GlyphCluster> runs;
 	for (int i = 0; i < glyphsCount; ++i)
 		runs.append(glyphs.at(start + i));
-	std::sort(runs.begin(), runs.end(), visualGlyphRunComp);
+	std::stable_sort(runs.begin(), runs.end(), visualGlyphRunComp);
 	return runs;
 }
 
