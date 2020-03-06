@@ -346,7 +346,7 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
 			glEncoding.glyphName = adobeGlyphName(charcode);
 		else
 			glEncoding.glyphName = QString(reinterpret_cast<char*>(buf));
-		glEncoding.toUnicode = QString().sprintf("%04lX", charcode);
+		glEncoding.toUnicode = QString::asprintf("%04lX", charcode);
 		glyphList.insert(gindex, glEncoding);
 
 		charcode = FT_Get_Next_Char(face, charcode, &gindex);
@@ -379,7 +379,7 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
 		ScFace::GlyphEncoding glEncoding;
 		glEncoding.charcode  = static_cast<ScFace::ucs4_type>(charcode);
 		glEncoding.glyphName = glyphName;
-		glEncoding.toUnicode = QString().sprintf("%04lX", charcode);
+		glEncoding.toUnicode = QString::asprintf("%04lX", charcode);
 		if ((charcode == 0) && glyphName.startsWith("uni"))
 		{
 			QString uniHexStr = uniGlyphNameToUnicode(glyphName);

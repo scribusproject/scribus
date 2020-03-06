@@ -558,7 +558,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 						if ( c != '\0' && c != ' ' )
 						{
 							//strncpy(ImageInfo.Comments, (const char*)(a+ValuePtr), 199);
-							UserComment.sprintf ( "%s", ( const char* ) ( a+ValuePtr ) );
+							UserComment = QString::asprintf ( "%s", ( const char* ) ( a+ValuePtr ) );
 							break;
 						}
 					}
@@ -566,7 +566,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				else
 				{
 					//strncpy(ImageInfo.Comments, (const char*)ValuePtr, 199);
-					UserComment.sprintf ( "%s", ( const char* ) ValuePtr );
+					UserComment = QString::asprintf ( "%s", ( const char* ) ValuePtr );
 				}
 				break;
 

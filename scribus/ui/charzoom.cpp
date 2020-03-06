@@ -20,11 +20,11 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, const ScFace& face)
 	setMinimumSize(sizex, sizey);
 	setMaximumSize(sizex, sizey);
 	
-	pixm = QPixmap(size, size);
+	m_pixm = QPixmap(size, size);
 	QImage pix(size, size, QImage::Format_ARGB32_Premultiplied);
 	ScPainter *p = new ScPainter(&pix, size, size);
 	p->clear();
-	pixm.fill(Qt::white);
+	m_pixm.fill(Qt::white);
 	QTransform chma;
 	chma.scale(4.8, 4.8);
 
@@ -42,11 +42,10 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, const ScFace& face)
 		p->end();
 	}
 	delete p;
-	pixm=QPixmap::fromImage(pix);
+	m_pixm = QPixmap::fromImage(pix);
 
-	QString tmp;
-	tmp.sprintf("%04X", currentChar);
-	valu = "0x"+tmp;
+	QString tmp = QString::asprintf("%04X", currentChar);
+	m_value = "0x" + tmp;
 }
 
 void CharZoom::paintEvent(QPaintEvent *)
@@ -55,8 +54,8 @@ void CharZoom::paintEvent(QPaintEvent *)
 	p.begin(this);
 	p.setPen(Qt::black);
 	p.setBrush(Qt::NoBrush);
-	p.drawRect(0, 0, width()-1, height()-1);
-	p.drawPixmap(1, 1, pixm);
-	p.drawText(5, height()-3, valu);
+	p.drawRect(0, 0, width() - 1, height() - 1);
+	p.drawPixmap(1, 1, m_pixm);
+	p.drawText(5, height() - 3, m_value);
 	p.end();
 }

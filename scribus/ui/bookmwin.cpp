@@ -92,8 +92,7 @@ void BookMItem::setup(struct ScribusDoc::BookMa *Bm)
 
 QString BookMItem::key(int, bool) const
 {
-	QString tmp;
-	tmp.sprintf("%5d", ItemNr);
+	QString tmp = QString::asprintf("%5d", ItemNr);
 	return tmp;
 }
 

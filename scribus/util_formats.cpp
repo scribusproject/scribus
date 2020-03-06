@@ -362,7 +362,6 @@ bool extensionIndicatesPSD(const QString &ext)
 	QStringList strl;
 	strl << "psd";
 	return strl.contains(ext, Qt::CaseInsensitive);
-//	return (QString::compare("psd", ext, Qt::CaseInsensitive) == 0);
 }
 
 bool extensionIndicatesJPEG(const QString &ext)

@@ -1846,18 +1846,16 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 	
 	PutDoc("[ ");
 	QList<uint> keys = gl.uniqueKeys();
-	QList<uint>::iterator git;
 	bool seenNotDef = false;
-	for (git = keys.begin(); git != keys.end(); ++git)
+	for (auto git = keys.begin(); git != keys.end(); ++git)
 	{
 		uint gid = result.encoding == Encode_Subset? glyphmap[*git] : *git;
 		if (gid > 0 || !seenNotDef)
 		{
 			seenNotDef |= (gid == 0);
-			PutDoc(Pdf::toPdf(gid)+" ["+Pdf::toPdf(static_cast<int>(face.glyphWidth(*git)* 1000))+"] " );
-			QString tmp, tmp2;
-			tmp.sprintf("%04X", gid);
-			tmp2 = gl.value(*git).toUnicode;
+			PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] " );
+			QString tmp = QString::asprintf("%04X", gid);
+			QString tmp2 = gl.value(*git).toUnicode;
 			toUnicodeMap += "<" + Pdf::toAscii(tmp)+ "> <" + Pdf::toAscii(tmp2) + ">\n";
 			toUnicodeMapCounter++;
 			if (toUnicodeMapCounter == 100)
@@ -1993,9 +1991,8 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 					startOfSeq = false;
 				}
 				PutDoc(Pdf::toName(glEncoding.glyphName)+" ");
-				QString tmp, tmp2;
-				tmp.sprintf("%02X", ww2);
-				tmp2 = glEncoding.toUnicode;
+				QString tmp = QString::asprintf("%02X", ww2);
+				QString tmp2 = glEncoding.toUnicode;
 				toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
 				//QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
 				toUnicodeMapCounter++;

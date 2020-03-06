@@ -103,9 +103,9 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	if (info->exifInfo.ExposureTime != 0)
 	{
 		float exposureTime = info->exifInfo.ExposureTime;
-		tag = QString().sprintf("%6.3f", exposureTime);
+		tag = QString::asprintf("%6.3f", exposureTime);
 		if ((exposureTime > 0.0) && (exposureTime <= 0.5))
-			tag += QString().sprintf(" (1/%d)", (int)(0.5 + 1/exposureTime) );
+			tag += QString::asprintf(" (1/%d)", (int)(0.5 + 1/exposureTime) );
 	}
 	Text7 = Text8 = nullptr;
 	ExposureTime = nullptr;
@@ -117,11 +117,11 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 		layout2->addWidget( ExposureTime, a+2, 1 );
 		Text7 = new QLabel( "", ExGroup);
 		layout2->addWidget( Text7, a+3, 0 );
-		ApertureFNumber = new QLabel(QString().sprintf("f/%3.1f", info->exifInfo.ApertureFNumber), ExGroup);
+		ApertureFNumber = new QLabel(QString::asprintf("f/%3.1f", info->exifInfo.ApertureFNumber), ExGroup);
 		layout2->addWidget( ApertureFNumber, a+3, 1 );
 		Text8 = new QLabel( "", ExGroup);
 		layout2->addWidget( Text8, a+4, 0 );
-		ISOequivalent = new QLabel(QString().sprintf("%2d", info->exifInfo.ISOequivalent), ExGroup);
+		ISOequivalent = new QLabel(QString::asprintf("%2d", info->exifInfo.ISOequivalent), ExGroup);
 		layout2->addWidget( ISOequivalent, a+4, 1 );
 	}
 	ImageInfoDialogLayout->addWidget(ExGroup);

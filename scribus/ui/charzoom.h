@@ -19,12 +19,13 @@ class SCRIBUS_API CharZoom : public QDialog
 	public:
 		CharZoom(QWidget* parent, uint currentChar, const ScFace& face);
 		~CharZoom() {};
+
 	private:
 		void paintEvent(QPaintEvent *);
-		//! \brief Pixmap generated in constructor
-		QPixmap pixm;
+		//! \brief pixmap generated in constructor
+		QPixmap m_pixm;
 		//! \brief A hex value as string
-		QString valu;
+		QString m_value;
 };
 
 #endif
