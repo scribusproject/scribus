@@ -567,7 +567,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("nso",      "",         "Sotho Northern",          QObject::tr("Sotho Northern")));
 	m_langTable.append(LangDef("st",       "",         "Sotho Southern",          QObject::tr("Sotho Southern")));
 	m_langTable.append(LangDef("es",       "es_ES",    "Spanish",                 QObject::tr("Spanish")));
-	m_langTable.append(LangDef("es",       "es_ANY",   "Spanish",                 QObject::tr("Spanish")));
+	m_langTable.append(LangDef("es",       "es_ANY",   "Spanish (Generic)",       QObject::tr("Spanish (Generic)")));
 	m_langTable.append(LangDef("es_AR",    "",         "Spanish (Argentina)",     QObject::tr("Spanish (Argentina)")));
 	m_langTable.append(LangDef("es_LA",    "",         "Spanish (Latin)",         QObject::tr("Spanish (Latin)")));
 	m_langTable.append(LangDef("aii",      "",         "Swadaya Aramaic",         QObject::tr("Swadaya Aramaic")));
