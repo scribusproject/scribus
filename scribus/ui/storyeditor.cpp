@@ -1739,7 +1739,6 @@ void StoryEditor::loadPrefs()
 
 void StoryEditor::initActions()
 {
-	IconManager& im = IconManager::instance();
 	//File Menu
 	seActions.insert("fileNew", new ScrAction("16/document-new.png", "22/document-new.png", "", Qt::CTRL+Qt::Key_N, this));
 	seActions.insert("fileRevert", new ScrAction("reload16.png", "reload.png", "", QKeySequence(), this));
