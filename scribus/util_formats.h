@@ -26,6 +26,7 @@ bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesJPEG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
+bool SCRIBUS_API extensionIndicatesPNG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPattern(const QString &ext);
 bool SCRIBUS_API extensionIndicatesTIFF(const QString &ext);

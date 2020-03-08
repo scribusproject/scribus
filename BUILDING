@@ -29,17 +29,19 @@ Install the below packages BEFORE running CMake or compiling Scribus:
 Requirements:
 	Qt >= 5.10.0 (Scribus has specific code requiring Qt 5.10.0, not Qt 5.9.x or before)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
-	cairo >= 1.14.x 
-	libtiff >= 3.6.0
-	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
-	libjpeg (depending on how Qt is packaged)
+	cairo >= 1.14.x
 	harfbuzz = > 0.9.42
 	libicu
+	libjpeg (depending on how Qt is packaged)
+	libpng >= 1.6.0
+	libtiff >= 3.6.0
+	libxml2 >= 2.6.0
+	LittleCMS (liblcms) >= 2.0 (2.1+ recommended)
+	poppler and poppler-cpp >= 0.62.0
 	
 Recommended:
 	CUPS
 	Fontconfig >= 2.0
-	LibXML2 >= 2.6.0
 	GhostScript >= 8.0 (9.0+ or greater preferred)
 	Python >= 3.6
 	tkinter for the font sampler script
@@ -205,6 +207,7 @@ Recommended packages for compiling from source on Buster (Debian 10.0):
 	libfreetype6-dev (Required)
 	libharfbuzz-dev (Required)
 	liblcms2-dev (Required)
+	libpng-dev (Required)
 	libtiff5-dev (Required)
 	libxml2-dev (Required)
 	libboost-dev
@@ -237,6 +240,7 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	harfbuzz-devel (Required)
 	lcms2-devel (Required)
 	libjpeg-devel (Required)
+	libpng-devel (Required)
 	libtiff-devel (Required)
 	libxml2-devel (Required)
 	boost-devel
@@ -264,6 +268,7 @@ Recommended packages for compiling from source on OpenSuse 15.1 => :
 	harfbuzz-devel (required) > 0.9.42
 	libjpeg-devel (required)
 	liblcms-devel (required)
+	libpng16-compat-devel (required)
 	libtiff-devel (required)
 	libxml2-devel (required)
 	openssl-devel (required if CUPS support is needed)

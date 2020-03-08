@@ -39,7 +39,7 @@ install:
 # Linux
 -   if [ $TRAVIS_OS_NAME == linux ]; then
       sudo apt-get install --force-yes cmake libboost-python-dev libcairo2-dev libcups2-dev
-      libharfbuzz-dev libharfbuzz-icu0 libhunspell-dev libhyphen-dev liblcms2-dev
+      libharfbuzz-dev libharfbuzz-icu0 libhunspell-dev libhyphen-dev liblcms2-dev libpng-dev
       libpodofo-dev libpoppler-dev libpoppler-cpp-dev libtiff-dev libxml2-dev
       qt510base qt510declarative qt510tools python3-all-dev python3-tk zlib1g-dev
       libgraphicsmagick++1-dev libopenscenegraph-dev libcdr-dev libmspub-dev libwpg-dev libvisio-dev 
@@ -61,6 +61,7 @@ install:
       brew install xz little-cms2 cairo qt5 hunspell ghostscript graphicsmagick poppler podofo harfbuzz;
       brew install python3 --with-tcl-tk;
       brew outdated jpeg --verbose || brew upgrade jpeg;
+      brew outdated libpng --verbose || brew upgrade libpng; 
       brew outdated libtiff --verbose || brew upgrade libtiff; 
       brew outdated fontconfig --verbose || brew upgrade fontconfig; 
       brew install openssl && brew link --force openssl; 

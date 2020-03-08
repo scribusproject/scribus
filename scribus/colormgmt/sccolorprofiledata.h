@@ -31,6 +31,7 @@ public:
 	virtual bool isNull() const = 0;
 	virtual eColorSpaceType colorSpace()  const = 0;
 	virtual eProfileClass   deviceClass() const = 0;
+	virtual bool    isSuitableForOutput() const = 0;
 	virtual QString productDescription() const = 0;
 };
 

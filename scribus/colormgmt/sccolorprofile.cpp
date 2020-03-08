@@ -33,6 +33,20 @@ eProfileClass ScColorProfile::deviceClass() const
 	return Class_Unknown;
 }
 
+QString ScColorProfile::dataHash() const
+{
+	if (m_data)
+		return m_data->dataHash();
+	return QString();
+}
+
+bool ScColorProfile::isSuitableForOutput() const
+{
+	if (m_data)
+		return m_data->isSuitableForOutput();
+	return false;
+}
+
 QString ScColorProfile::profilePath() const
 {
 	if (m_data)

@@ -788,6 +788,7 @@ set(SCRIBUS_SOURCES
 	imagedataloaders/scimgdataloader_pdf.cpp
 	imagedataloaders/scimgdataloader_pgf.cpp
 	imagedataloaders/scimgdataloader_pict.cpp
+	imagedataloaders/scimgdataloader_png.cpp
 	imagedataloaders/scimgdataloader_ps.cpp
 	imagedataloaders/scimgdataloader_psd.cpp
 	imagedataloaders/scimgdataloader_qt.cpp
@@ -1289,6 +1290,7 @@ target_link_libraries(${EXE_NAME}
 #	${FONTCONFIG_LIBRARIES}
 	${LIBXML2_LIBRARIES}
 	${TIFF_LIBRARIES}
+	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}
 	${ZLIB_LIBRARIES}
 	${WIN32_ONLY_LIBS}

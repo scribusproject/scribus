@@ -44,10 +44,11 @@ for which a new license (GPL+exception) is in place.
 #include "imagedataloaders/scimgdataloader_ora.h"
 #include "imagedataloaders/scimgdataloader_kra.h"
 #include "imagedataloaders/scimgdataloader_pict.h"
-#include "imagedataloaders/scimgdataloader_ps.h"
-#include "imagedataloaders/scimgdataloader_psd.h"
 #include "imagedataloaders/scimgdataloader_pdf.h"
 #include "imagedataloaders/scimgdataloader_pgf.h"
+#include "imagedataloaders/scimgdataloader_png.h"
+#include "imagedataloaders/scimgdataloader_ps.h"
+#include "imagedataloaders/scimgdataloader_psd.h"
 #include "imagedataloaders/scimgdataloader_qt.h"
 #include "imagedataloaders/scimgdataloader_tiff.h"
 #include "imagedataloaders/scimgdataloader_wpg.h"
@@ -2007,15 +2008,21 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 	{
 		pDataLoader.reset( new ScImgDataLoader_PS() );
 	}
-	else if (extensionIndicatesTIFF(ext))
+	else if (extensionIndicatesPNG(ext))
 	{
-		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+		pDataLoader.reset( new ScImgDataLoader_PNG() );
 		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
+		if	(pDataLoader.data())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
+	else if (extensionIndicatesTIFF(ext))
+	{
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
 		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
@@ -2135,6 +2142,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 	profile->resize(0);
 	*components = 0;
+
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
@@ -2143,18 +2151,30 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
 
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	QStringList fmtImg;
+	for (int i = 0; i < fmtList.count(); i++)
+		fmtImg.append( QString(fmtList[i].toLower()) );
+
 	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
 	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader = new ScImgDataLoader_PS();
-	else if (extensionIndicatesTIFF(ext))
-		pDataLoader = new ScImgDataLoader_TIFF();
 	else if (extensionIndicatesJPEG(ext))
 		pDataLoader = new ScImgDataLoader_JPEG();
-	#ifdef FOUND_GMAGICK
+	else if (extensionIndicatesPNG(ext))
+		pDataLoader = new ScImgDataLoader_PNG();
+	else if (extensionIndicatesTIFF(ext))
+		pDataLoader = new ScImgDataLoader_TIFF();
+#ifdef GMAGICK_FOUND
+	else if (fmtImg.contains(ext))
+		pDataLoader = new ScImgDataLoader_QT();
 	else
 		pDataLoader = new ScImgDataLoader_GMagick();
-	#endif
+#else
+	else
+		pDataLoader = new ScImgDataLoader_QT();
+#endif
 
 	if (pDataLoader)
 	{
@@ -2183,13 +2203,9 @@ void ScImage::addProfileToCacheModifiers(ScImageCacheProxy & cache, const QStrin
 	if (profile)
 	{
 		cache.addModifier(prefix + "ProfileDescription", profile.productDescription());
-		const ScColorProfileData *pd = profile.data();
-		if (pd)
-		{
-			QString hash = pd->dataHash();
-			if (!hash.isEmpty())
-				cache.addModifier(prefix + "ProfileHash", hash);
-		}
+		QString hash = profile.dataHash();
+		if (!hash.isEmpty())
+			cache.addModifier(prefix + "ProfileHash", hash);
 	}
 }
 
@@ -2283,15 +2299,17 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader.reset( new ScImgDataLoader_PS() );
-	else if (extensionIndicatesTIFF(ext))
-		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+	else if (extensionIndicatesJPEG(ext))
+		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	else if (extensionIndicatesPNG(ext))
+		pDataLoader.reset( new ScImgDataLoader_PNG() );
 	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-	else if (extensionIndicatesJPEG(ext))
-		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	else if (extensionIndicatesTIFF(ext))
+		pDataLoader.reset( new ScImgDataLoader_TIFF() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if (ext == "pgf")

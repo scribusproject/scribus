@@ -329,13 +329,6 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 	formatAll=QObject::tr("All Files (*)");
 }
 
-bool extensionIndicatesPDF(const QString &ext)
-{
-	QStringList strl;
-	strl << "ai" << "pdf";
-	return strl.contains(ext, Qt::CaseInsensitive);
-}
-
 bool extensionIndicatesEPS(const QString &ext)
 {
 	QStringList strl;
@@ -350,10 +343,24 @@ bool extensionIndicatesEPSorPS(const QString &ext)
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
-bool extensionIndicatesTIFF(const QString &ext)
+bool extensionIndicatesJPEG(const QString &ext)
 {
 	QStringList strl;
-	strl << "tif" << "tiff";
+	strl << "jpg" << "jpeg";
+	return strl.contains(ext, Qt::CaseInsensitive);
+}
+
+bool extensionIndicatesPDF(const QString &ext)
+{
+	QStringList strl;
+	strl << "ai" << "pdf";
+	return strl.contains(ext, Qt::CaseInsensitive);
+}
+
+bool extensionIndicatesPNG(const QString &ext)
+{
+	QStringList strl;
+	strl << "png";
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
@@ -364,10 +371,10 @@ bool extensionIndicatesPSD(const QString &ext)
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
-bool extensionIndicatesJPEG(const QString &ext)
+bool extensionIndicatesTIFF(const QString &ext)
 {
 	QStringList strl;
-	strl << "jpg" << "jpeg";
+	strl << "tif" << "tiff";
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 

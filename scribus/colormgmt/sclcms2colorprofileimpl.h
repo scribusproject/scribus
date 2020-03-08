@@ -26,6 +26,7 @@ public:
 
 	virtual eColorSpaceType colorSpace()  const;
 	virtual eProfileClass   deviceClass() const;
+	virtual bool            isSuitableForOutput() const;
 	virtual QString         productDescription() const;
 
 protected:

@@ -30,6 +30,7 @@ if(WIN32)
 	target_link_libraries(${SCRIBUS_IMPORTAI_PLUGIN}
 		${PLUGIN_LIBRARIES}
 		${TIFF_LIBRARIES}
+		${PNG_LIBRARIES}
 		${JPEG_LIBRARIES}
 	)
 else()

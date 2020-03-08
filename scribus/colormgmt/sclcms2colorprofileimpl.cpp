@@ -39,6 +39,23 @@ eProfileClass ScLcms2ColorProfileImpl::deviceClass() const
 	return Class_Unknown;
 }
 
+bool ScLcms2ColorProfileImpl::isSuitableForOutput() const
+{
+	if (!m_profileHandle)
+		return false;
+
+	if (cmsIsMatrixShaper(m_profileHandle))
+		return true;
+
+	cmsUInt32Number defaultIntent = cmsGetHeaderRenderingIntent(m_profileHandle);
+	if (cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_INPUT) &&
+		cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_OUTPUT))
+	{
+		return true;
+	}
+	return false;
+}
+
 QString ScLcms2ColorProfileImpl::productDescription() const
 {
 	if (m_productDescription.isEmpty())

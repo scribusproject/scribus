@@ -120,11 +120,17 @@ else()
 	endif()
 endif()
 
-#<< JPEG, TIFF
+#<< JPEG, PNG, TIFF
 find_package(JPEG REQUIRED)
 if (JPEG_FOUND)
 	message("JPEG Library Found OK")
 endif()
+
+find_package(PNG 1.6 REQUIRED)
+if (PNG_FOUND)
+	message("PNG Library Found OK")
+endif()
+
 find_package(TIFF REQUIRED)
 if (TIFF_FOUND)
 	message("TIFF Library Found OK")
