@@ -1177,8 +1177,6 @@ void StoryText::replaceMark(int pos, Mark* mrk)
 	assert(pos >= 0);
 	assert(pos < length());
 
-	bool hadMarks = (d->marksCount > 0);
-
 	ScText* textItem = this->d->at(pos);
 	if (textItem->mark)
 		this->d->marksCount--;
