@@ -201,9 +201,9 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 			QString Pfile;
 			QString Pfile2;
 			QString Pfile3;
-			QString IProfile;
-			QString EmProfile;
-			eRenderIntent IRender;
+			QString ImageProfile;
+			QString EmbeddedProfile;
+			eRenderIntent ImageIntent;
 			bool UseEmbedded;
 			bool OverrideCompressionMethod;
 			int CompressionMethodIndex;

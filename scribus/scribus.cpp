@@ -4027,11 +4027,11 @@ void ScribusMainWindow::slotGetClipboardImage()
 		return;
 	}
 
-	currItem->EmProfile = "";
+	currItem->EmbeddedProfile.clear();
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
-	currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
-	currItem->IRender = doc->cmsSettings().DefaultIntentImages;
+	currItem->ImageProfile = doc->cmsSettings().DefaultImageRGBProfile;
+	currItem->ImageIntent = doc->cmsSettings().DefaultIntentImages;
 	qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	
@@ -8854,9 +8854,9 @@ void ScribusMainWindow::slotEditCopyContents()
 	contentsBuffer.ItemX   = imageItem->xPos();
 	contentsBuffer.ItemY   = imageItem->yPos();
 	contentsBuffer.effects = imageItem->effectsInUse;
-	contentsBuffer.inputProfile = imageItem->IProfile;
+	contentsBuffer.inputProfile = imageItem->ImageProfile;
 	contentsBuffer.useEmbedded  = imageItem->UseEmbedded;
-	contentsBuffer.renderingIntent = imageItem->IRender;
+	contentsBuffer.renderingIntent = imageItem->ImageIntent;
 }
 
 void ScribusMainWindow::slotEditPasteContents(int absolute)
@@ -8880,25 +8880,24 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 	if (i != QMessageBox::Yes)
 		return;
 
-	imageItem->EmProfile = "";
+	imageItem->EmbeddedProfile.clear();
 	imageItem->pixm.imgInfo.isRequest = false;
-	imageItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
-	imageItem->IRender  = doc->cmsSettings().DefaultIntentImages;
+	imageItem->ImageProfile = doc->cmsSettings().DefaultImageRGBProfile;
+	imageItem->ImageIntent  = doc->cmsSettings().DefaultIntentImages;
 	imageItem->effectsInUse = contentsBuffer.effects;
 	qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	doc->loadPict(contentsBuffer.contentsFileName, imageItem);
 	imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
-	if (absolute==0)
+	if (absolute == 0)
 		imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
 	else
-		imageItem->setImageXYOffset(
-		((contentsBuffer.ItemX-imageItem->xPos()) / contentsBuffer.LocalScX)+contentsBuffer.LocalX,
-		((contentsBuffer.ItemY-imageItem->yPos()) / contentsBuffer.LocalScY)+contentsBuffer.LocalY);
+		imageItem->setImageXYOffset(((contentsBuffer.ItemX - imageItem->xPos()) / contentsBuffer.LocalScX) + contentsBuffer.LocalX,
+		                            ((contentsBuffer.ItemY - imageItem->yPos()) / contentsBuffer.LocalScY) + contentsBuffer.LocalY);
 	imageItem->setImageRotation(contentsBuffer.LocalRot);
-	imageItem->IProfile=contentsBuffer.inputProfile;
-	imageItem->UseEmbedded=contentsBuffer.useEmbedded;
-	imageItem->IRender=contentsBuffer.renderingIntent;
+	imageItem->ImageProfile = contentsBuffer.inputProfile;
+	imageItem->ImageIntent = contentsBuffer.renderingIntent;
+	imageItem->UseEmbedded = contentsBuffer.useEmbedded;
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	view->DrawNew();
 	propertiesPalette->updateColorList();

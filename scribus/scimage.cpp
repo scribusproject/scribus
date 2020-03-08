@@ -2430,11 +2430,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		eColorFormat outputProfFormat = Format_YMCK_8;
 		eColorSpaceType inputProfColorSpace  = inputProf.colorSpace();
 		eColorSpaceType outputProfColorSpace = printerProf.colorSpace();
-		if ( inputProfColorSpace == ColorSpace_Gray)
+		if (inputProfColorSpace == ColorSpace_Gray)
 			inputProfFormat  = Format_GRAY_8; // Grayscale is still a bit tricky
-		if ( outputProfColorSpace == ColorSpace_Rgb )
+		if (outputProfColorSpace == ColorSpace_Rgb)
 			outputProfFormat = Format_BGRA_8;
-		else if ( outputProfColorSpace == ColorSpace_Cmyk )
+		else if (outputProfColorSpace == ColorSpace_Cmyk)
 			outputProfFormat = Format_YMCK_8;
 		ScColorSpace inputCSpace  = engine.createColorSpace(inputProf, inputProfFormat);
 		ScColorSpace screenCSpace = engine.createColorSpace(screenProf, Format_BGRA_8);
@@ -2540,7 +2540,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			{
 				uchar* ptr = scanLine(i);
 				ptr2 = pDataLoader->useRawImage() ? pDataLoader->r_image.scanLine(i) : nullptr;
-				if ( inputProfFormat == Format_GRAY_8 && (outputProfColorSpace != ColorSpace_Cmyk) )
+				if ((inputProfFormat == Format_GRAY_8) && (outputProfColorSpace != ColorSpace_Cmyk))
 				{
 					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
@@ -2552,7 +2552,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 					xform.apply(uc, ptr, width());
 					delete[] uc;
 				}
-				else if (inputProfFormat == Format_GRAY_8 && (outputProfColorSpace == ColorSpace_Cmyk))
+				else if ((inputProfFormat == Format_GRAY_8) && (outputProfColorSpace == ColorSpace_Cmyk))
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr2 ? ptr2 : ptr;

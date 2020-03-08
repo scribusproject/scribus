@@ -712,7 +712,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		QDomElement obf = p_docu.createElement("Path.Fill");
 		QDomElement gr = p_docu.createElement("ImageBrush");
 		ScImage img;
-		CMSettings cms(m_Doc, Item->IProfile, Item->IRender);
+		CMSettings cms(m_Doc, Item->ImageProfile, Item->ImageIntent);
 		cms.setUseEmbeddedProfile(Item->UseEmbedded);
 		cms.allowSoftProofing(true);
 		img.loadPicture(Item->Pfile, Item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 96);

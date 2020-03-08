@@ -4448,9 +4448,9 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles) const
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				it = allItems.at(ii);
-				if (it->IProfile.isEmpty() || profileNames.contains(it->IProfile))
+				if (it->ImageProfile.isEmpty() || profileNames.contains(it->ImageProfile))
 					continue;
-				profileNames.append(it->IProfile);
+				profileNames.append(it->ImageProfile);
 			}
 			allItems.clear();
 		}
@@ -4466,9 +4466,9 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles) const
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			it = allItems.at(ii);
-			if (it->IProfile.isEmpty() || profileNames.contains(it->IProfile))
+			if (it->ImageProfile.isEmpty() || profileNames.contains(it->ImageProfile))
 				continue;
-			profileNames.append(it->IProfile);
+			profileNames.append(it->ImageProfile);
 		}
 		allItems.clear();
 	}
@@ -5441,11 +5441,11 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 				if (QFile::exists(iafData.source))
 				{
 					PrefsManager::instance().prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.lastIndexOf("/")));
-					currItem->EmProfile = "";
+					currItem->EmbeddedProfile.clear();
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;
-					currItem->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
-					currItem->IRender = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
+					currItem->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+					currItem->ImageIntent = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					loadPict(iafData.source, currItem, false, true);
@@ -5504,8 +5504,8 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setImageXYScale(m_docPrefsData.itemToolPrefs.imageScaleX, m_docPrefsData.itemToolPrefs.imageScaleY);
 			newItem->ScaleType = m_docPrefsData.itemToolPrefs.imageScaleType;
 			newItem->AspectRatio = m_docPrefsData.itemToolPrefs.imageAspectRatio;
-			newItem->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
-			newItem->IRender = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
+			newItem->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+			newItem->ImageIntent = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
 			newItem->setFillShade(m_docPrefsData.itemToolPrefs.imageFillColorShade);
 			newItem->setLineShade(m_docPrefsData.itemToolPrefs.imageStrokeColorShade);
 			break;
@@ -7295,13 +7295,13 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 			{
 				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
-					if (!PrCMYK->contains(it->IProfile))
-						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+					if (!PrCMYK->contains(it->ImageProfile))
+						it->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 				}
 				else
 				{
-					if (!Pr->contains(it->IProfile))
-						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+					if (!Pr->contains(it->ImageProfile))
+						it->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 				}
 				loadPict(it->Pfile, it, true);
 			}
@@ -7341,13 +7341,13 @@ void ScribusDoc::RecalcPictures(QList<PageItem*>* items, ProfilesL *Pr, Profiles
 			{
 				if (it->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 				{
-					if (!PrCMYK->contains(it->IProfile))
-						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
+					if (!PrCMYK->contains(it->ImageProfile))
+						it->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile;
 				}
 				else
 				{
-					if (!Pr->contains(it->IProfile))
-						it->IProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
+					if (!Pr->contains(it->ImageProfile))
+						it->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 				}
 				loadPict(it->Pfile, it, true);
 			}
@@ -16029,7 +16029,7 @@ void ScribusDoc::itemSelection_SetColorProfile(const QString & profileName, Sele
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
-			currItem->IProfile = profileName;
+			currItem->ImageProfile = profileName;
 			currItem->UseEmbedded = profileName.startsWith("Embedded");
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->update();
@@ -16053,7 +16053,7 @@ void ScribusDoc::itemSelection_SetRenderIntent(int intentIndex, Selection * cust
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem && currItem->itemType() == PageItem::ImageFrame)
 		{
-			currItem->IRender = (eRenderIntent) intentIndex;
+			currItem->ImageIntent = (eRenderIntent) intentIndex;
 			loadPict(currItem->Pfile, currItem, true);
 			currItem->update();
 		}

@@ -635,7 +635,7 @@ bool PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double width, doub
 			PageItem* item = pa.items.at(em);
 			if ((item->asImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
 			{
-				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->IProfile, item->UseEmbedded))
+				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->ImageProfile, item->UseEmbedded))
 					return false;
 			}
 		}
@@ -1167,7 +1167,7 @@ bool PSLib::PS_ImageData(PageItem *item, const QString& fn, const QString& Name,
 	image.imgInfo.layerInfo.clear();
 	image.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-	CMSettings cms(item->doc(), Prof, item->IRender);
+	CMSettings cms(item->doc(), Prof, item->ImageIntent);
 	cms.allowColorManagement(true);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	if (!image.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 300, &dummy))
@@ -1262,7 +1262,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 	image.imgInfo.layerInfo.clear();
 	image.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-	CMSettings cms(item->doc(), Prof, item->IRender);
+	CMSettings cms(item->doc(), Prof, item->ImageIntent);
 	cms.allowColorManagement(true);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	int resolution = 300;
@@ -1678,7 +1678,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						if ((optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
 						{
-							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded);
+							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->ImageProfile, it->UseEmbedded);
 							if (errorOccured) break;
 						}
 						PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(qHash(it)));
@@ -1859,9 +1859,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr,
 			bool imageOk = false;
 			PS_translate(0, -item->BBoxH*item->imageYScale());
 			if ((optimization == OptimizeSize) && (((!page->pageNameEmpty()) && !sep && farb) || useTemplate))
-				imageOk = PS_image(item, item->imageXOffset(), -item->imageYOffset(), item->Pfile, item->imageXScale(), item->imageYScale(), item->IProfile, item->UseEmbedded, item->itemName());
+				imageOk = PS_image(item, item->imageXOffset(), -item->imageYOffset(), item->Pfile, item->imageXScale(), item->imageYScale(), item->ImageProfile, item->UseEmbedded, item->itemName());
 			else
-				imageOk = PS_image(item, item->imageXOffset(), -item->imageYOffset(), item->Pfile, item->imageXScale(), item->imageYScale(), item->IProfile, item->UseEmbedded);
+				imageOk = PS_image(item, item->imageXOffset(), -item->imageYOffset(), item->Pfile, item->imageXScale(), item->imageYScale(), item->ImageProfile, item->UseEmbedded);
 			if (!imageOk) return false;
 		}
 		PS_restore();

@@ -233,7 +233,7 @@ void PageItem_ImageFrame::clearContents()
 	}
 	effectsInUse.clear();
 	imageIsAvailable = false;
-	Pfile = "";
+	Pfile.clear();
 	pixm = ScImage();
 
 	m_imageXScale = 1;
@@ -244,7 +244,8 @@ void PageItem_ImageFrame::clearContents()
 	m_imageYOffset = 0;
 	setImageFlippedH(false);
 	setImageFlippedV(false);
-	EmProfile = "";
+	EmbeddedProfile.clear();
+	UseEmbedded = true; // Otherwise embedded profile will never be used when reloading image
 	ScaleType = m_Doc->prefsData().itemToolPrefs.imageScaleType;;
 	AspectRatio = m_Doc->prefsData().itemToolPrefs.imageAspectRatio;
 	setFillTransparency(0.0);

@@ -164,10 +164,10 @@ PageItem::PageItem(const PageItem & other)
 	Pfile(other.Pfile),
 	Pfile2(other.Pfile2),
 	Pfile3(other.Pfile3),
-	IProfile(other.IProfile),
+	ImageProfile(other.ImageProfile),
 	UseEmbedded(other.UseEmbedded),
-	EmProfile(other.EmProfile),
-	IRender(other.IRender),
+	EmbeddedProfile(other.EmbeddedProfile),
+	ImageIntent(other.ImageIntent),
 	OverrideCompressionMethod(other.OverrideCompressionMethod),
 	CompressionMethodIndex(other.CompressionMethodIndex),
 	OverrideCompressionQuality(other.OverrideCompressionQuality),
@@ -645,8 +645,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Sizing = false;
 //	toPixmap = false;
 	UseEmbedded = true;
-	IRender = Intent_Relative_Colorimetric;
-	EmProfile = "";
+	ImageIntent = Intent_Relative_Colorimetric;
+	EmbeddedProfile.clear();
 	groupItemList.clear();
 	groupWidth = 1.0;
 	groupHeight = 1.0;
@@ -9367,7 +9367,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		gsRes = PrefsManager::instance().gsResolution();
 	bool dummy;
 
-	CMSettings cms(m_Doc, IProfile, IRender);
+	CMSettings cms(m_Doc, ImageProfile, ImageIntent);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	cms.allowSoftProofing(true);
 
@@ -9460,14 +9460,14 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		effectsInUse.clear();
 		imgcache.delModifier("effectsInUse");
 	}
-	UseEmbedded=pixm.imgInfo.isEmbedded;
+	UseEmbedded = pixm.imgInfo.isEmbedded;
 	if (pixm.imgInfo.isEmbedded)
 	{
-		IProfile = "Embedded " + pixm.imgInfo.profileName;
-		EmProfile = "Embedded " + pixm.imgInfo.profileName;
+		ImageProfile = "Embedded " + pixm.imgInfo.profileName;
+		EmbeddedProfile = "Embedded " + pixm.imgInfo.profileName;
 	}
 	else
-		IProfile = pixm.imgInfo.profileName;
+		ImageProfile = pixm.imgInfo.profileName;
 
 	adjustPictScale();
 

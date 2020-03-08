@@ -228,11 +228,11 @@ void CanvasMode_ImageImport::mouseReleaseEvent(QMouseEvent *m)
 void CanvasMode_ImageImport::setImage(PageItem *currItem)
 {
 	QString fileName = m_imageList.takeFirst();
-	currItem->EmProfile = "";
+	currItem->EmbeddedProfile.clear();
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
-	currItem->IProfile = m_doc->cmsSettings().DefaultImageRGBProfile;
-	currItem->IRender = m_doc->cmsSettings().DefaultIntentImages;
+	currItem->ImageProfile = m_doc->cmsSettings().DefaultImageRGBProfile;
+	currItem->ImageIntent = m_doc->cmsSettings().DefaultIntentImages;
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	m_doc->loadPict(fileName, currItem, false, true);
 	// Call to showScaleAndOffset() is now very likely unnecessary

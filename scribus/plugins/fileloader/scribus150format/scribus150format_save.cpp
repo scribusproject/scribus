@@ -2688,12 +2688,12 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	if (!item->Pfile3.isEmpty())
 		docu.writeAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
-	if (!item->IProfile.isEmpty())
-		docu.writeAttribute("PRFILE", item->IProfile);
-	if (!item->EmProfile.isEmpty())
-		docu.writeAttribute("EPROF", item->EmProfile);
-	if (item->IRender != 1)
-		docu.writeAttribute("IRENDER", item->IRender);
+	if (!item->ImageProfile.isEmpty())
+		docu.writeAttribute("PRFILE", item->ImageProfile);
+	if (item->ImageIntent != 1)
+		docu.writeAttribute("IRENDER", item->ImageIntent);
+	if (!item->EmbeddedProfile.isEmpty())
+		docu.writeAttribute("EPROF", item->EmbeddedProfile);
 	if (!item->UseEmbedded)
 		docu.writeAttribute("EMBEDDED", 0);
 	if (item->asImageFrame())

@@ -770,7 +770,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 					useCmyk = true;
 				QFileInfo fInfo(item->Pfile);
 				QString ext = fInfo.suffix();
-				CMSettings cmsSettings(item->doc(), item->IProfile, item->IRender);
+				CMSettings cmsSettings(item->doc(), item->ImageProfile, item->ImageIntent);
 				cmsSettings.allowColorManagement(m_useProfiles);
 				cmsSettings.setUseEmbeddedProfile(item->UseEmbedded);
 				scImg.imgInfo.valid = false;

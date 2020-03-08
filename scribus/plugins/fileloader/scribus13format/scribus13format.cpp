@@ -1529,9 +1529,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setImageXYOffset(offsX, offsY);
 		currItem->setImageRotation(rot);
 		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
-		currItem->IProfile  = obj->attribute("PRFILE","");
-		currItem->EmProfile = obj->attribute("EPROF","");
-		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+		currItem->ImageProfile = obj->attribute("PRFILE","");
+		currItem->ImageIntent  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+		currItem->EmbeddedProfile = obj->attribute("EPROF","");
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->pixm.imgInfo.lowResType = obj->attribute("ImageRes", "1").toInt();
 		node = obj->firstChild();
@@ -1549,9 +1549,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		}
 		if (!currItem->Pfile.isEmpty())
 			doc->loadPict(currItem->Pfile, currItem, false);
-		currItem->IProfile  = obj->attribute("PRFILE","");
-		currItem->EmProfile = obj->attribute("EPROF","");
-		currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+		currItem->ImageProfile    = obj->attribute("PRFILE","");
+		currItem->ImageIntent     = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+		currItem->EmbeddedProfile = obj->attribute("EPROF","");
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 		currItem->setImageXYScale(scx, scy);
 		clPath = obj->attribute("ImageClip", "");
@@ -1825,9 +1825,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-			currItem->IProfile  = obj->attribute("PRFILE","");
-			currItem->EmProfile = obj->attribute("EPROF","");
-			currItem->IRender   = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+			currItem->ImageProfile    = obj->attribute("PRFILE","");
+			currItem->ImageIntent     = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+			currItem->EmbeddedProfile = obj->attribute("EPROF","");
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);

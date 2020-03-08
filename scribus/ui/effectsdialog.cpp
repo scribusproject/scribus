@@ -52,7 +52,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 //	CMSettings cms(docc, "", Intent_Perceptual);
 //	cms.allowColorManagement(false);
 	bool mode = false;
-	CMSettings cms(m_doc, m_item->IProfile, m_item->IRender);
+	CMSettings cms(m_doc, m_item->ImageProfile, m_item->ImageIntent);
 	cms.setUseEmbeddedProfile(m_item->UseEmbedded);
 	cms.allowSoftProofing(true);
 	m_image.loadPicture(m_item->Pfile, m_item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &mode);

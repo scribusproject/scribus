@@ -446,8 +446,8 @@ public: // Start public functions
 
 	bool useEmbeddedImageProfile() const { return UseEmbedded; }
 	void setUseEmbeddedImageProfile(bool val) { UseEmbedded = val; }
-	QString embeddedImageProfile() const { return EmProfile; }
-	void setEmbeddedImageProfile(const QString& val) { EmProfile = val; }
+	QString embeddedImageProfile() const { return EmbeddedProfile; }
+	void setEmbeddedImageProfile(const QString& val) { EmbeddedProfile = val; }
 	bool drawFrame() { return ((m_itemType == TextFrame && !m_sampleItem) || (m_itemType == ImageFrame) || (m_itemType == PathText)); }
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(const QString& filename, const QString& baseDir = QString());
@@ -460,10 +460,10 @@ public: // Start public functions
 	QString fileIconRollover() const { return Pfile3; }
 	void setFileIconRollover(const QString& filename, const QString& baseDir = QString());
 
-	int  cmsRenderingIntent() const { return IRender; }
-	void setCmsRenderingIntent(eRenderIntent val) { IRender = val; }
-	QString cmsProfile() const { return IProfile; }
-	void setCmsProfile(const QString& val) { IProfile = val; }
+	int  cmsRenderingIntent() const { return ImageIntent; }
+	void setCmsRenderingIntent(eRenderIntent val) { ImageIntent = val; }
+	QString cmsProfile() const { return ImageProfile; }
+	void setCmsProfile(const QString& val) { ImageProfile = val; }
 	void setOverrideCompressionMethod(bool val) { OverrideCompressionMethod = val; }
 	void setCompressionMethodIndex(int val) { CompressionMethodIndex = val; }
 	void setOverrideCompressionQuality(bool val) { OverrideCompressionQuality = val; }
@@ -1345,10 +1345,10 @@ public:	// Start public variables
 	QString Pfile; ///< Dateiname des Bildes
 	QString Pfile2;
 	QString Pfile3;
-	QString IProfile;
+	QString ImageProfile;
 	bool UseEmbedded;
-	QString EmProfile;
-	eRenderIntent IRender;
+	QString EmbeddedProfile;
+	eRenderIntent ImageIntent;
 	bool OverrideCompressionMethod;
 	int CompressionMethodIndex;
 	bool OverrideCompressionQuality;

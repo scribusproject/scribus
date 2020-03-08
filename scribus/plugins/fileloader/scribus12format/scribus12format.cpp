@@ -215,9 +215,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		currItem->setImageRotation(Buffer->LocalRot);
 		currItem->Pfile = Buffer->Pfile;
-		currItem->IProfile = Buffer->IProfile;
-		currItem->EmProfile = Buffer->EmProfile;
-		currItem->IRender = Buffer->IRender;
+		currItem->ImageProfile = Buffer->ImageProfile;
+		currItem->ImageIntent = Buffer->ImageIntent;
+		currItem->EmbeddedProfile = Buffer->EmbeddedProfile;
 		currItem->UseEmbedded = Buffer->UseEmbedded;
 		if (!currItem->Pfile.isEmpty())
 			m_Doc->loadPict(currItem->Pfile, currItem);
@@ -249,9 +249,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			currItem->Pfile = Buffer->Pfile;
 			currItem->Pfile2 = Buffer->Pfile2;
 			currItem->Pfile3 = Buffer->Pfile3;
-			currItem->IProfile = Buffer->IProfile;
-			currItem->EmProfile = Buffer->EmProfile;
-			currItem->IRender = Buffer->IRender;
+			currItem->ImageProfile = Buffer->ImageProfile;
+			currItem->ImageIntent = Buffer->ImageIntent;
+			currItem->EmbeddedProfile = Buffer->EmbeddedProfile;
 			currItem->UseEmbedded = Buffer->UseEmbedded;
 			m_Doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
@@ -398,9 +398,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		currItem->setImageRotation(Buffer->LocalRot);
 		currItem->Pfile = Buffer->Pfile;
-		currItem->IProfile = Buffer->IProfile;
-		currItem->EmProfile = Buffer->EmProfile;
-		currItem->IRender = Buffer->IRender;
+		currItem->ImageProfile = Buffer->ImageProfile;
+		currItem->ImageIntent = Buffer->ImageIntent;
+		currItem->EmbeddedProfile = Buffer->EmbeddedProfile;
 		currItem->UseEmbedded = Buffer->UseEmbedded;
 		if (!currItem->Pfile.isEmpty())
 			m_Doc->loadPict(currItem->Pfile, currItem);
@@ -423,9 +423,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
 		currItem->setImageRotation(Buffer->LocalRot);
 		currItem->Pfile = Buffer->Pfile;
-		currItem->IProfile = Buffer->IProfile;
-		currItem->EmProfile = Buffer->EmProfile;
-		currItem->IRender = Buffer->IRender;
+		currItem->ImageProfile = Buffer->ImageProfile;
+		currItem->ImageIntent = Buffer->ImageIntent;
+		currItem->EmbeddedProfile = Buffer->EmbeddedProfile;
 		currItem->UseEmbedded = Buffer->UseEmbedded;
 		if (!currItem->Pfile.isEmpty())
 			m_Doc->loadPict(currItem->Pfile, currItem);
@@ -1604,9 +1604,9 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
-	OB->IProfile = obj->attribute("PRFILE","");
-	OB->EmProfile= obj->attribute("EPROF","");
-	OB->IRender  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+	OB->ImageProfile = obj->attribute("PRFILE","");
+	OB->ImageIntent  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
+	OB->EmbeddedProfile = obj->attribute("EPROF","");
 	OB->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 	OB->Locked = static_cast<bool>(obj->attribute("LOCK", "0").toInt());
 	OB->LockRes = static_cast<bool>(obj->attribute("LOCKR", "0").toInt());

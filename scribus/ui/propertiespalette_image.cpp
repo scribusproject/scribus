@@ -271,47 +271,45 @@ void PropertiesPalette_Image::updateProfileList()
 		{
 			if (m_item->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 			{
-				ProfilesL::Iterator itP;
 				ProfilesL::Iterator itPend = ScCore->InputProfilesCMYK.end();
-				for (itP = ScCore->InputProfilesCMYK.begin(); itP != itPend; ++itP)
+				for (auto itP = ScCore->InputProfilesCMYK.begin(); itP != itPend; ++itP)
 				{
 					inputProfiles->addItem(itP.key());
-					if (itP.key() == m_item->IProfile)
-						inputProfiles->setCurrentIndex(inputProfiles->count()-1);
+					if (itP.key() == m_item->ImageProfile)
+						inputProfiles->setCurrentIndex(inputProfiles->count() - 1);
 				}
-				if (!ScCore->InputProfilesCMYK.contains(m_item->IProfile))
+				if (!ScCore->InputProfilesCMYK.contains(m_item->ImageProfile))
 				{
-					inputProfiles->addItem(m_item->IProfile);
-					inputProfiles->setCurrentIndex(inputProfiles->count()-1);
+					inputProfiles->addItem(m_item->ImageProfile);
+					inputProfiles->setCurrentIndex(inputProfiles->count() - 1);
 				}
 				else
 				{
-					if (!m_item->EmProfile.isEmpty())
-						inputProfiles->addItem(m_item->EmProfile);
+					if (!m_item->EmbeddedProfile.isEmpty())
+						inputProfiles->addItem(m_item->EmbeddedProfile);
 				}
 			}
 			else
 			{
-				ProfilesL::Iterator itP;
-				ProfilesL::Iterator itPend=ScCore->InputProfiles.end();
-				for (itP = ScCore->InputProfiles.begin(); itP != itPend; ++itP)
+				ProfilesL::Iterator itPend = ScCore->InputProfiles.end();
+				for (auto itP = ScCore->InputProfiles.begin(); itP != itPend; ++itP)
 				{
 					inputProfiles->addItem(itP.key());
-					if (itP.key() == m_item->IProfile)
-						inputProfiles->setCurrentIndex(inputProfiles->count()-1);
+					if (itP.key() == m_item->ImageProfile)
+						inputProfiles->setCurrentIndex(inputProfiles->count() - 1);
 				}
-				if (!ScCore->InputProfiles.contains(m_item->IProfile))
+				if (!ScCore->InputProfiles.contains(m_item->ImageProfile))
 				{
-					inputProfiles->addItem(m_item->IProfile);
-					inputProfiles->setCurrentIndex(inputProfiles->count()-1);
+					inputProfiles->addItem(m_item->ImageProfile);
+					inputProfiles->setCurrentIndex(inputProfiles->count() - 1);
 				}
 				else
 				{
-					if (!m_item->EmProfile.isEmpty())
-						inputProfiles->addItem(m_item->EmProfile);
+					if (!m_item->EmbeddedProfile.isEmpty())
+						inputProfiles->addItem(m_item->EmbeddedProfile);
 				}
 			}
-			renderIntent->setCurrentIndex(m_item->IRender);
+			renderIntent->setCurrentIndex(m_item->ImageIntent);
 		}
 
 		inputProfiles->blockSignals(false);

@@ -1060,7 +1060,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 			ob6.setAttribute("clip-path", "url(#" + ob2.attribute("id") + ")");
 		QDomElement ob3 = m_domDoc.createElement("image");
 		ScImage img;
-		CMSettings cms(m_Doc, item->IProfile, item->IRender);
+		CMSettings cms(m_Doc, item->ImageProfile, item->ImageIntent);
 		cms.setUseEmbeddedProfile(item->UseEmbedded);
 		cms.allowSoftProofing(true);
 		img.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72);
