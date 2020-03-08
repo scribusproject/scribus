@@ -38,20 +38,19 @@ before_install:
 install:
 # Linux
 -   if [ $TRAVIS_OS_NAME == linux ]; then
-      sudo apt-get install --force-yes cmake libboost-python-dev libcups2-dev libhunspell-dev
-      libhyphen-dev liblcms2-dev libpodofo-dev libtiff-dev libxml2-dev
-      python3-all-dev zlib1g-dev qt510base qt510declarative
-      qt510tools libgraphicsmagick++1-dev
-      libopenscenegraph-dev libpoppler-dev libpoppler-cpp-dev libcairo2-dev libwpg-dev 
-      libmspub-dev libcdr-dev libvisio-dev libharfbuzz-dev libharfbuzz-icu0
-      coreutils binutils python3-tk;
+      sudo apt-get install --force-yes cmake libboost-python-dev libcairo2-dev libcups2-dev
+      libharfbuzz-dev libharfbuzz-icu0 libhunspell-dev libhyphen-dev liblcms2-dev
+      libpodofo-dev libpoppler-dev libpoppler-cpp-dev libtiff-dev libxml2-dev
+      qt510base qt510declarative qt510tools python3-all-dev python3-tk zlib1g-dev
+      libgraphicsmagick++1-dev libopenscenegraph-dev libcdr-dev libmspub-dev libwpg-dev libvisio-dev 
+      coreutils binutils ;
 #     Build a more recent poppler than Ubuntu Xenial's poppler 0.41.0
       mkdir deps && pushd deps;
       sudo apt-get install --force-yes libopenjpeg-dev;
       wget https://poppler.freedesktop.org/poppler-data-0.4.9.tar.gz && tar -xf poppler-data-0.4.9.tar.gz;
       pushd poppler-data-0.4.9 && cmake -DCMAKE_BUILD_TYPE=Release && sudo make install && popd;
-      wget https://poppler.freedesktop.org/poppler-0.58.0.tar.xz && tar -xf poppler-0.58.0.tar.xz;
-      pushd poppler-0.58.0 && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_XPDF_HEADERS=1 && sudo make install && popd;
+      wget https://poppler.freedesktop.org/poppler-0.62.0.tar.xz && tar -xf poppler-0.62.0.tar.xz;
+      pushd poppler-0.62.0 && cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_XPDF_HEADERS=1 && sudo make install && popd;
       popd;
     fi
 # OSX
