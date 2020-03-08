@@ -45,34 +45,34 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 	}
 	else
 		loadOK = m_image.load(fn);
-	if (loadOK)
-	{
-		m_imageInfoRecord.type = ImageTypeOther;
-		m_imageInfoRecord.exifDataValid = false;
-		float xres = m_image.dotsPerMeterX() * 0.0254;
-		float yres = m_image.dotsPerMeterY() * 0.0254;
-		if (xres <= 1.0 || xres > 3000.0)
-			xres = 72.0;
-		if (yres <= 1.0 || yres > 3000.0)
-			yres = 72.0;
-		int resInf = m_imageInfoRecord.lowResType;
-		m_imageInfoRecord.colorspace = ColorSpaceRGB;
-		if (m_image.depth() == 1)
-			m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
-		else if (m_image.isGrayscale() && m_image.depth() <= 16)
-			m_imageInfoRecord.colorspace = ColorSpaceGray;
-		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
-		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
-		m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-		m_imageInfoRecord.xres = qRound(xres);
-		m_imageInfoRecord.yres = qRound(yres);
-		m_imageInfoRecord.lowResType = resInf;
-		m_imageInfoRecord.BBoxX = 0;
-		m_imageInfoRecord.BBoxH = m_image.height();
-		m_pixelFormat = Format_BGRA_8;
-		return true;
-	}
-	return false; //TODO: I think this should be false!
+
+	if (!loadOK)
+		return false;
+
+	m_imageInfoRecord.type = ImageTypeOther;
+	m_imageInfoRecord.exifDataValid = false;
+	float xres = m_image.dotsPerMeterX() * 0.0254;
+	float yres = m_image.dotsPerMeterY() * 0.0254;
+	if (xres <= 1.0 || xres > 3000.0)
+		xres = 72.0;
+	if (yres <= 1.0 || yres > 3000.0)
+		yres = 72.0;
+	int resInf = m_imageInfoRecord.lowResType;
+	m_imageInfoRecord.colorspace = ColorSpaceRGB;
+	if (m_image.depth() == 1)
+		m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
+	else if (m_image.isGrayscale() && m_image.depth() <= 16)
+		m_imageInfoRecord.colorspace = ColorSpaceGray;
+	m_image = m_image.convertToFormat(QImage::Format_ARGB32);
+	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
+	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+	m_imageInfoRecord.xres = qRound(xres);
+	m_imageInfoRecord.yres = qRound(yres);
+	m_imageInfoRecord.lowResType = resInf;
+	m_imageInfoRecord.BBoxX = 0;
+	m_imageInfoRecord.BBoxH = m_image.height();
+	m_pixelFormat = Format_BGRA_8;
+	return true;
 }
 
 bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
