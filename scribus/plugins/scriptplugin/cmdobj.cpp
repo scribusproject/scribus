@@ -914,6 +914,7 @@ void cmdobjdocwarnings()
 	  << scribus_pathtext__doc__
 	  << scribus_polygon__doc__
 	  << scribus_polyline__doc__
+	  << scribus_setcharstyle__doc__
 	  << scribus_setstyle__doc__
 	  << scribus_textflow__doc__;
 }

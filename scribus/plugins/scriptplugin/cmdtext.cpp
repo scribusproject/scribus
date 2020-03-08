@@ -1370,8 +1370,10 @@ void cmdtextdocwarnings()
 	  << scribus_getframetext__doc__
 	  << scribus_getlinespace__doc__
 	  << scribus_gettext__doc__
+	  << scribus_gettextcolor__doc__
 	  << scribus_gettextdistances__doc__  
 	  << scribus_gettextlines__doc__
+	  << scribus_gettextshade__doc__
 	  << scribus_gettextsize__doc__
 	  << scribus_gettextverticalalignment__doc__
 	  << scribus_hyphenatetext__doc__
@@ -1379,6 +1381,8 @@ void cmdtextdocwarnings()
 	  << scribus_inserttext__doc__
 	  << scribus_ispdfbookmark__doc__
 	  << scribus_istextoverflowing__doc__
+	  << scribus_layouttext__doc__
+	  << scribus_layouttextchain__doc__
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
 	  << scribus_selecttext__doc__

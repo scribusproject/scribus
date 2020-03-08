@@ -655,7 +655,8 @@ PV */
 void cmdmanidocwarnings()
 {
 	QStringList s;
-	s << scribus_deselect__doc__
+	s << scribus_combinepolygons__doc__
+	  << scribus_deselect__doc__
 	  << scribus_flipobject__doc__
 	  << scribus_getselobjnam__doc__
 	  << scribus_groupobj__doc__
