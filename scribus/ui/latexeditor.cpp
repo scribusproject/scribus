@@ -605,7 +605,7 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 			else
 				item = new QListWidgetItem(*icon, "", iconList);
 			item->setData(Qt::UserRole, value);
-			item->setData(Qt::UserRole + 1, qVariantFromValue((void *) statusLabel)); //UGLY
+			item->setData(Qt::UserRole + 1, QVariant::fromValue((void *) statusLabel)); //UGLY
 			item->setToolTip(text);
 			item->setStatusTip(status);
 		} 

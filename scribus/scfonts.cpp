@@ -162,9 +162,9 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 			bool symlink = fi.isSymLink();
 			if (symlink)
 			{
-				QFileInfo fi3(fi.readLink());
+				QFileInfo fi3(fi.symLinkTarget());
 				if (fi3.isRelative())
-					pathfile = pathname + fi.readLink();
+					pathfile = pathname + fi.symLinkTarget();
 				else
 					pathfile = fi3.absoluteFilePath();
 			}
@@ -1084,9 +1084,9 @@ void SCFonts::addRegistryFonts()
 			bool isSymlink = fontInfo.isSymLink();
 			if (isSymlink)
 			{
-				QFileInfo symlinkInfo(fontInfo.readLink());
+				QFileInfo symlinkInfo(fontInfo.symLinkTarget());
 				if (symlinkInfo.isRelative())
-					fontPath = pathName + fontInfo.readLink();
+					fontPath = pathName + fontInfo.symLinkTarget();
 				else
 					fontPath = symlinkInfo.absoluteFilePath();
 			}
@@ -1162,9 +1162,9 @@ void SCFonts::addType1RegistryFonts()
 				bool isSymlink = fontInfo.isSymLink();
 				if (isSymlink)
 				{
-					QFileInfo symlinkInfo(fontInfo.readLink());
+					QFileInfo symlinkInfo(fontInfo.symLinkTarget());
 					if (symlinkInfo.isRelative())
-						fontPath = pathName + fontInfo.readLink();
+						fontPath = pathName + fontInfo.symLinkTarget();
 					else
 						fontPath = symlinkInfo.absoluteFilePath();
 				}

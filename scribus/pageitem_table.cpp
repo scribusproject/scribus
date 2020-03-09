@@ -1009,8 +1009,8 @@ TableCell PageItem_Table::cellAt(const QPointF& point) const
 		return TableCell(); // Outside table grid.
 
 	return cellAt(
-		qUpperBound(m_rowPositions, gridPoint.y()) - m_rowPositions.begin() - 1,
-		qUpperBound(m_columnPositions, gridPoint.x()) - m_columnPositions.begin() - 1);
+		std::upper_bound(m_rowPositions.begin(), m_rowPositions.end(), gridPoint.y()) - m_rowPositions.begin() - 1,
+		std::upper_bound(m_columnPositions.begin(), m_columnPositions.end(), gridPoint.x()) - m_columnPositions.begin() - 1);
 }
 
 void PageItem_Table::moveLeft()

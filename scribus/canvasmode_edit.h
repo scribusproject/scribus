@@ -18,8 +18,8 @@
 #ifndef CANVAS_MODE_EDIT_H
 #define CANVAS_MODE_EDIT_H
 
+#include <QElapsedTimer>
 #include <QObject>
-#include <QTime>
 
 #include "canvasmode.h"
 #include "fpointarray.h"
@@ -71,7 +71,7 @@ private:
 	double SeRx, SeRy;
 	ScribusMainWindow* m_ScMW;
 	bool m_cursorVisible;
-	QTime m_blinkTime;
+	QElapsedTimer m_blinkTime;
 	QTimer* m_blinker;
 	double mRulerGuide;
 	bool m_longCursorTime;
