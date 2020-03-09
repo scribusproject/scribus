@@ -33,7 +33,8 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
 	refs(1), len(0), cursorPosition(other.cursorPosition),
-	trailingStyle(other.trailingStyle), marksCount(other.marksCount), marksCountChanged(other.marksCountChanged)
+	marksCount(other.marksCount), marksCountChanged(other.marksCountChanged),
+	trailingStyle(other.trailingStyle)
 {
 	pstyleContext.setDefaultStyle( &defaultStyle );
 	trailingStyle.setContext( &pstyleContext );
