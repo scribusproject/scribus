@@ -327,6 +327,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/imagedataloaders/scimgdataloader_pdf.h \
            scribus/imagedataloaders/scimgdataloader_pgf.h \
            scribus/imagedataloaders/scimgdataloader_pict.h \
+           scribus/imagedataloaders/scimgdataloader_png.h \
            scribus/imagedataloaders/scimgdataloader_ps.h \
            scribus/imagedataloaders/scimgdataloader_psd.h \
            scribus/imagedataloaders/scimgdataloader_qt.h \
@@ -1454,6 +1455,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/imagedataloaders/scimgdataloader_pdf.cpp \
            scribus/imagedataloaders/scimgdataloader_pgf.cpp \
            scribus/imagedataloaders/scimgdataloader_pict.cpp \
+           scribus/imagedataloaders/scimgdataloader_png.cpp \
            scribus/imagedataloaders/scimgdataloader_ps.cpp \
            scribus/imagedataloaders/scimgdataloader_psd.cpp \
            scribus/imagedataloaders/scimgdataloader_qt.cpp \
