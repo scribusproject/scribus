@@ -6,6 +6,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <algorithm>
 
 #include <QColor>
 #include <QDebug>
@@ -125,7 +126,7 @@ TableSideSelector::Side TableSideSelector::closestSide(const QPointF& point) con
 	distances.append(QPair<double, Side>(QLineF(point, m_right.pointAt(0.5)).length(), Right));
 	distances.append(QPair<double, Side>(QLineF(point, m_top.pointAt(0.5)).length(), Top));
 	distances.append(QPair<double, Side>(QLineF(point, m_bottom.pointAt(0.5)).length(), Bottom));
-	qSort(distances);
+	std::sort(distances.begin(), distances.end());
 
 	return distances.first().second;
 }
