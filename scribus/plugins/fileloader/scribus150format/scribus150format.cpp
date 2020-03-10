@@ -5558,7 +5558,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
-		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
 		currItem->setHeight(1.0);
