@@ -24,18 +24,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef DASHEDITOR_H
 #define DASHEDITOR_H
 
-#include <QLabel>
+#include <QElapsedTimer>
 #include <QFrame>
-#include <QDoubleSpinBox>
+#include <QHBoxLayout>
 #include <QLayout>
 #include <QList>
-#include <QPaintEvent>
 #include <QMouseEvent>
+#include <QPaintEvent>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QTime>
 
+class QDoubleSpinBox;
 class QEvent;
+class QLabel;
 
 #include "scribusapi.h"
 #include "vgradient.h"
@@ -47,23 +47,29 @@ class SCRIBUS_API DashPreview : public QFrame
 public:
 	DashPreview(QWidget *pa);
 	~DashPreview() {};
-	void paintEvent(QPaintEvent *e);
-	void mousePressEvent(QMouseEvent *m);
-	void mouseReleaseEvent(QMouseEvent *);
-	void mouseMoveEvent(QMouseEvent *m);
-	void leaveEvent(QEvent*);
-	void enterEvent(QEvent*);
+
+	void paintEvent(QPaintEvent *e) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void leaveEvent(QEvent*) override;
+	void enterEvent(QEvent*) override;
+
+	const QVector<double>& dashValues() const { return m_dashValues; }
 	void setDashValues(const QVector<double>& vals);
-	QVector<double> DashValues;
-	QList<double> StopM;
-	bool Mpressed;
-	bool outside;
-	bool onlyselect;
-	int ActStop;
-	QTime m_moveTimer;
 
 public slots:
 	void setActStep(double t);
+
+private:
+	bool  m_onlySelect { true };
+	bool  m_outside { false };
+	bool  m_mousePressed { false };
+	int   m_currentStop { 0 };
+	QElapsedTimer m_moveTimer;
+
+	QVector<double> m_dashValues;
+	QList<double>   m_stops;
 
 signals:
 	void currStep(double);

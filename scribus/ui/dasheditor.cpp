@@ -25,7 +25,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QCursor>
+#include <QDoubleSpinBox>
 #include <QEvent>
+#include <QLabel>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
@@ -46,55 +48,54 @@ DashPreview::DashPreview(QWidget *pa) : QFrame(pa)
 	setMinimumSize(QSize(200, 35));
 	setMaximumSize(QSize(3000, 35));
 	setMouseTracking(true);
-	Mpressed = false;
-	outside = false;
-	onlyselect = true;
-	StopM.clear();
-	ActStop = 0;
-	DashValues.clear();
-	DashValues.append(4.0);
-	DashValues.append(2.0);
+
+	m_dashValues.clear();
+	m_dashValues.append(4.0);
+	m_dashValues.append(2.0);
 } 
 
 void DashPreview::paintEvent(QPaintEvent *e)
 {
-	if (onlyselect)
-		StopM.clear();
-	int pWidth = width()-20;
+	if (m_onlySelect)
+		m_stops.clear();
+
+	int pWidth = width() - 20;
 	QImage pixm(pWidth, 10, QImage::Format_ARGB32_Premultiplied);
+
 	ScPainter *p = new ScPainter(&pixm, pWidth, 10);
 	p->clear(QColor(128, 128, 128));
 	double startX = 0.0;
 	p->setLineWidth(0);
 	p->setFillMode(1);
 	p->setBrush(Qt::black);
-	for (int a = 0; a < DashValues.count(); a++)
+	for (int i = 0; i < m_dashValues.count(); i++)
 	{
-		if (a % 2 == 0)
+		if (i % 2 == 0)
 			p->setBrush(Qt::black);
 		else
 			p->setBrush(Qt::white);
-		double w = DashValues[a] * 10;
+		double w = m_dashValues[i] * 10;
 		p->drawRect(startX, 0, w, 10);
 		startX += w;
-		if (onlyselect)
-			StopM.append(startX);
+		if (m_onlySelect)
+			m_stops.append(startX);
 	}
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(0);
 	p->drawRect(0, 0, pWidth, 10);
 	p->end();
 	delete p;
+
 	QPainter pw;
 	pw.begin(this);
 	pw.drawImage(10, 5, pixm);
-	for (int a = 0; a < StopM.count(); ++a)
+	for (int i = 0; i < m_stops.count(); ++i)
 	{
-		double center = StopM[a]+10;
+		double center = m_stops[i] + 10;
 		pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		if (ActStop == a)
+		if (m_currentStop == i)
 		{
-			emit currStep(DashValues[ActStop]);
+			emit currStep(m_dashValues[m_currentStop]);
 			pw.setBrush(Qt::red);
 		}
 		else
@@ -104,25 +105,28 @@ void DashPreview::paintEvent(QPaintEvent *e)
 		pw.drawPolygon(cr);
 	}
 	pw.end();
+
 	QFrame::paintEvent(e);
-	onlyselect = true;
+	m_onlySelect = true;
 }
 
 void DashPreview::mousePressEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	m_moveTimer.start();
-	Mpressed = true;
-	ActStop = -1;
+	m_mousePressed = true;
+	m_currentStop = -1;
+
 	m->accept();
 	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
-	for (int yg = 0; yg < StopM.count(); ++yg)
+
+	for (int i = 0; i < m_stops.count(); ++i)
 	{
-		fpo = QRect(static_cast<int>(StopM[yg]) + 6, 16, 8, 13);
+		fpo = QRect(static_cast<int>(m_stops[i]) + 6, 16, 8, 13);
 		if (fpo.contains(m->pos()))
 		{
-			ActStop = yg;
-			emit currStep(DashValues[ActStop]);
+			m_currentStop = i;
+			emit currStep(m_dashValues[m_currentStop]);
 			repaint();
 			return;
 		}
@@ -133,78 +137,79 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	m->accept();
 	qApp->restoreOverrideCursor();
-	if ((Mpressed) && (StopM.count() > 2) && (outside || m->y() > 30))
+	if ((m_mousePressed) && (m_stops.count() > 2) && (m_outside || m->y() > 30))
 	{
-		StopM.removeAt(ActStop);
-		DashValues.clear();
+		m_stops.removeAt(m_currentStop);
+		m_dashValues.clear();
 		double startX = 0.0;
-		for (int yg = 0; yg < StopM.count(); ++yg)
+		for (int i = 0; i < m_stops.count(); ++i)
 		{
-			double w = StopM[yg] / 10.0 - startX;
-			DashValues.append(w);
+			double w = m_stops[i] / 10.0 - startX;
+			m_dashValues.append(w);
 			startX += w;
 		}
-		ActStop = 0;
-		onlyselect = true;
-		Mpressed = false;
+		m_currentStop = 0;
+		m_onlySelect = true;
+		m_mousePressed = false;
 		repaint();
-		emit currStep(DashValues[ActStop]);
+		emit currStep(m_dashValues[m_currentStop]);
 		emit dashChanged();
 		return;
 	}
 	if ((m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width() - 9))
 	{
-		if (ActStop != -1)
+		if (m_currentStop != -1)
 		{
 			if (m_moveTimer.elapsed() < 250)
 			{
-				Mpressed = false;
+				m_mousePressed = false;
 				return;
 			}
-			StopM[ActStop] = m->x()-10;
+			m_stops[m_currentStop] = m->x() - 10;
 		}
 		else
 		{
-			if (DashValues.count() < 10)
-				StopM.append(m->x()-10);
-			qSort(StopM.begin(), StopM.end());
-			ActStop = 0;
-			for (int yg = 0; yg < StopM.count(); ++yg)
+			if (m_dashValues.count() < 10)
+				m_stops.append(m->x() - 10);
+			qSort(m_stops.begin(), m_stops.end());
+			m_currentStop = 0;
+			for (int i = 0; i < m_stops.count(); ++i)
 			{
-				QRect fpo = QRect(static_cast<int>(StopM[yg]) + 6, 16, 8, 13);
+				QRect fpo = QRect(static_cast<int>(m_stops[i]) + 6, 16, 8, 13);
 				if (fpo.contains(m->pos()))
 				{
-					ActStop = yg;
+					m_currentStop = i;
 					break;
 				}
 			}
 		}
-		DashValues.clear();
+		m_dashValues.clear();
 		double startX = 0.0;
-		for (int yg = 0; yg < StopM.count(); ++yg)
+		for (int i = 0; i < m_stops.count(); ++i)
 		{
-			double w = StopM[yg] / 10.0 - startX;
-			DashValues.append(w);
+			double w = m_stops[i] / 10.0 - startX;
+			m_dashValues.append(w);
 			startX += w;
 		}
-		onlyselect = true;
+		m_onlySelect = true;
 		repaint();
-		emit currStep(DashValues[ActStop]);
+		emit currStep(m_dashValues[m_currentStop]);
 		emit dashChanged();
 	}
-	Mpressed = false;
+	m_mousePressed = false;
 }
 
 void DashPreview::mouseMoveEvent(QMouseEvent *m)
 {
 	m->accept();
+
 	QRect fpo;
-	if ((!Mpressed) && (m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width()-9) && (DashValues.count() < 10))
+	if ((!m_mousePressed) && (m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width() - 9) && (m_dashValues.count() < 10))
 	{
 		setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
-		for (int yg = 0; yg < StopM.count(); ++yg)
+		for (int i = 0; i < m_stops.count(); ++i)
 		{
-			fpo = QRect(static_cast<int>(StopM[yg])+6, 16, 8, 13);
+			fpo = QRect(static_cast<int>(m_stops[i]) + 6, 16, 8, 13);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
@@ -212,80 +217,80 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((Mpressed) && (m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width()-9) && (ActStop != -1))
+	if ((m_mousePressed) && (m->y() < height()) && (m->y() > 16) && (m->x() > 9) && (m->x() < width() - 9) && (m_currentStop != -1))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-		if (ActStop > 1)
+		if (m_currentStop > 1)
 		{
-			if (static_cast<int>(StopM[ActStop-1]+10)+2 >= m->x())
+			if (static_cast<int>(m_stops[m_currentStop - 1] + 10) + 2 >= m->x())
 				return;
 		}
-		if (ActStop < static_cast<int>(StopM.count()-2))
+		if (m_currentStop < static_cast<int>(m_stops.count() - 2))
 		{
-			if (static_cast<int>(StopM[ActStop+1]+10)-2 < m->x())
+			if (static_cast<int>(m_stops[m_currentStop + 1] + 10) - 2 < m->x())
 				return;
 		}
-		StopM[ActStop] = m->x()-10;
-		DashValues.clear();
+		m_stops[m_currentStop] = m->x() - 10;
+		m_dashValues.clear();
 		double startX = 0.0;
-		for (int yg = 0; yg < StopM.count(); ++yg)
+		for (int i = 0; i < m_stops.count(); ++i)
 		{
-			double w = StopM[yg] / 10.0 - startX;
-			DashValues.append(w);
+			double w = m_stops[i] / 10.0 - startX;
+			m_dashValues.append(w);
 			startX += w;
 		}
-		onlyselect = true;
+		m_onlySelect = true;
 		repaint();
 		startX = 0.0;
-		for (int yg = 0; yg < ActStop; ++yg)
+		for (int i = 0; i < m_currentStop; ++i)
 		{
-			startX += StopM[yg] / 10.0 - startX;
+			startX += m_stops[i] / 10.0 - startX;
 		}
-		emit currStep(StopM[ActStop] / 10.0 - startX);
+		emit currStep(m_stops[m_currentStop] / 10.0 - startX);
 	}
-	if ((Mpressed) && (outside || m->y() > 30) && (ActStop >= 0) && (StopM.count() > 2))
+	if ((m_mousePressed) && (m_outside || m->y() > 30) && (m_currentStop >= 0) && (m_stops.count() > 2))
 		qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 }
 
 void DashPreview::leaveEvent(QEvent*)
 {
-	if (Mpressed)
+	if (m_mousePressed)
 	{
-		if ((ActStop >= 0) && (StopM.count() > 2))
+		if ((m_currentStop >= 0) && (m_stops.count() > 2))
 			qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
 		else
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	outside = true;
+	m_outside = true;
 }
 
 void DashPreview::enterEvent(QEvent*)
 {
-	outside = false;
+	m_outside = false;
 }
 
 void DashPreview::setActStep(double t)
 {
-	if (ActStop == -1)
+	if (m_currentStop == -1)
 		return;
-	DashValues[ActStop] = t;
-	onlyselect = true;
+	m_dashValues[m_currentStop] = t;
+	m_onlySelect = true;
 	repaint();
 	emit dashChanged();
 }
 
 void DashPreview::setDashValues(const QVector<double>& vals)
 {
-	DashValues = vals;
-	if ((ActStop >= vals.count()) || (ActStop == -1))
-		ActStop = 0;
-	onlyselect = true;
-	if (DashValues.count() != 0)
+	m_dashValues = vals;
+	if ((m_currentStop >= vals.count()) || (m_currentStop == -1))
+		m_currentStop = 0;
+	m_onlySelect = true;
+	if (m_dashValues.count() != 0)
 	{
-		if ((ActStop >= vals.count()) || (ActStop == -1))
-			emit currStep(DashValues[0]);
+		if ((m_currentStop >= vals.count()) || (m_currentStop == -1))
+			emit currStep(m_dashValues[0]);
 		else
-			emit currStep(DashValues[ActStop]);
+			emit currStep(m_dashValues[m_currentStop]);
 	}
 	update();
 }
@@ -339,11 +344,10 @@ void DashEditor::setPos(double p)
 void DashEditor::setDashValues(QVector<double> vals, double linewidth, double offset)
 {
 	QVector<double> tmp;
-	for (int a = 0; a < vals.count(); a++)
-	{
-		tmp.append(vals[a] / linewidth);
-	}
+	for (int i = 0; i < vals.count(); i++)
+		tmp.append(vals[i] / linewidth);
 	Preview->setDashValues(tmp);
+
 	disconnect(Offset, SIGNAL(valueChanged(double)), this, SIGNAL(dashChanged()));
 	Offset->setValue(offset / linewidth);
 	connect(Offset, SIGNAL(valueChanged(double)), this, SIGNAL(dashChanged()));
@@ -351,12 +355,10 @@ void DashEditor::setDashValues(QVector<double> vals, double linewidth, double of
 
 QVector<double> DashEditor::getDashValues(double linewidth)
 {
-	QVector<double> tmp;
-	for (int a = 0; a < Preview->DashValues.count(); a++)
-	{
-		tmp.append(Preview->DashValues[a] * linewidth);
-	}
-	return tmp;
+	auto dashValues = Preview->dashValues();
+	for (int i = 0; i < dashValues.count(); i++)
+		dashValues[i] *= linewidth;
+	return dashValues;
 }
 
 void DashEditor::changeEvent(QEvent *e)
