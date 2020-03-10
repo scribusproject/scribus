@@ -1018,7 +1018,7 @@ QString PdfPlug::UnicodeParsedString(const std::string& s1)
 	if (s1.length() == 0)
 		return QString();
 	GBool isUnicode;
-	int i;
+	size_t i;
 	Unicode u;
 	QString result;
 	if ((s1.at(0) & 0xff) == 0xfe && (s1.length() > 1 && (s1.at(1) & 0xff) == 0xff))
