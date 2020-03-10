@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <algorithm>
+
 #include <QButtonGroup>
 #include <QFileDialog>
 
@@ -49,7 +51,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
-	qSort(languageList.begin(), languageList.end(), localeAwareLessThan);
+	std::sort(languageList.begin(), languageList.end(), localeAwareLessThan);
 	languageComboBox->addItems( languageList );
 
 	pageLayoutButtonGroup->setId(singlePageRadioButton,0);

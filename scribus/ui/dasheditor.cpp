@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "dasheditor.h"
 
+#include <algorithm>
+
 #include <QApplication>
 #include <QCursor>
 #include <QDoubleSpinBox>
@@ -171,7 +173,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (m_dashValues.count() < 10)
 				m_stops.append(m->x() - 10);
-			qSort(m_stops.begin(), m_stops.end());
+			std::sort(m_stops.begin(), m_stops.end());
 			m_currentStop = 0;
 			for (int i = 0; i < m_stops.count(); ++i)
 			{
