@@ -655,7 +655,7 @@ QSize FontFamilyDelegate::sizeHint(const QStyleOptionViewItem &option, const QMo
 	QFont font(option.font);
 	font.setPointSize(QFontInfo(font).pointSize() * 3/2);
 	QFontMetrics fontMetrics(font);
-	return QSize(fontMetrics.width(text), fontMetrics.height() + 5);
+	return QSize(fontMetrics.horizontalAdvance(text), fontMetrics.height() + 5);
 }
 
 

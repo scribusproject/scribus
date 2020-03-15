@@ -67,8 +67,7 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 	else
 	{
 		h = qMax(pmap->height(), metrics.lineSpacing() + 2);
-		//FIXME: metrics.width replacement by horizontalAdvance requires Qt 5.11+
-		w = pmap->width() + metrics.width(textData) + 6;
+		w = pmap->width() + metrics.horizontalAdvance(textData) + 6;
 	}
 
 	QSize globalStrut = QApplication::globalStrut();

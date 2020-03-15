@@ -1870,7 +1870,7 @@ QList<PageItem*> SVGPlug::parseTextNode(const QDomText& e, FPoint& currentPos, d
 	SvgStyle *gc   = m_gc.top();
 	QFont textFont = getFontFromStyle(*gc);
 	QFontMetrics fm(textFont);
-	double width   = fm.width(textString);
+	double width   = fm.horizontalAdvance(textString);
 
 	if (gc->textAnchor == "middle")
 		startX -= chunkW / 2.0;
@@ -2123,7 +2123,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 				textFont.setPointSizeF(100.0);
 
 				QFontMetrics fm(textFont);
-				width += fm.width(textString) * (fontSize / 100.0);
+				width += fm.horizontalAdvance(textString) * (fontSize / 100.0);
 			}
 		}
 	}

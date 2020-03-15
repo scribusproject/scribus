@@ -1194,7 +1194,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 		textString = QString::fromLocal8Bit(textArray.data());
 
 	QFontMetrics fm( m_context.font() );
-	int width  = fm.width(textString) + fm.descent();  // because fm.width(text) isn't rigth with Italic text
+	int width  = fm.horizontalAdvance(textString) + fm.descent();  // because fm.width(text) isn't rigth with Italic text
 	/*int height = fm.height();
 	int ascent = fm.ascent();*/
 
