@@ -2209,7 +2209,7 @@ void ActionManager::createDefaultMenus()
 		<< "insertMarkItem"
 		<< "insertMark2Mark"
 		<< "insertMarkNote"
-		<< "insertMarkIndex"
+//		<< "insertMarkIndex"
 		<< "editMark"
 		<< "itemUpdateMarks";
 
