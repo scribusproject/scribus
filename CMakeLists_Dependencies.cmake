@@ -2,7 +2,7 @@
 ########## Find Dependencies                                                                        ##########
 
 #<< Qt
-set(QT_MIN_VERSION "5.10.0")
+set(QT_MIN_VERSION "5.11.0")
 set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Qt5Core ${QT_MIN_VERSION} REQUIRED)
