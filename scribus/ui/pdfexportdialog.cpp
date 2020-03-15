@@ -53,9 +53,9 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  const ProfilesL & printerProfiles)
 	: QDialog( parent ),
-	m_doc(currView->Doc),
+	m_doc(currView->m_doc),
 	m_opts(pdfOptions),
-	m_unitRatio(currView->Doc->unitRatio()),
+	m_unitRatio(currView->m_doc->unitRatio()),
 	m_cmsDescriptor(""),
 	m_components(3),
 	m_printerProfiles(printerProfiles)
@@ -112,7 +112,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	NameLayout->addWidget( openAfterExportCheckBox, 2, 0 );
 	PDFExportLayout->addWidget( Name );
 
-	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts, currView->Doc );
+	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts, currView->m_doc );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );

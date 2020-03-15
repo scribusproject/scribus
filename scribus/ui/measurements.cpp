@@ -46,7 +46,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	ScribusView* view = qobject_cast<ScribusView*>(parent);
 	if (view)
 	{
-		ScribusDoc* doc = view->Doc;
+		ScribusDoc* doc = view->m_doc;
 		if (doc)
 		{
 			int unitIndex = doc->unitIndex();

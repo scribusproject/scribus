@@ -142,7 +142,7 @@ void Editor::GetFieldNames()
 {
 	if (view != nullptr)
 	{
-		SelectFields* dia = new SelectFields(this, "", "", view->Doc, 0);
+		SelectFields* dia = new SelectFields(this, "", "", view->m_doc, 0);
 		if (dia->exec())
 			EditTex->insertPlainText(dia->S_Fields);
 		delete dia;

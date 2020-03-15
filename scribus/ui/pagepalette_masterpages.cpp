@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, const QString& masterPageName) : QWidget(parent)
 {
-	m_doc  = pCurrentView->Doc;
+	m_doc  = pCurrentView->m_doc;
 	m_view = pCurrentView;
 
 	setupUi(this);
@@ -74,7 +74,7 @@ void PagePalette_MasterPages::setView(ScribusView* view, const QString& masterPa
 
 	disconnectSignals();
 	m_view = view;
-	m_doc = m_view ? m_view->Doc : nullptr;
+	m_doc = m_view ? m_view->m_doc : nullptr;
 
 	if (!view)
 	{

@@ -72,7 +72,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Layout1->setMargin( 0 );
 
 	ComboBox1 = new QComboBox(this);
-	if (!view->Doc->masterPageMode())
+	if (!view->m_doc->masterPageMode())
 		ComboBox1->addItem( tr("Text"));
 	ComboBox1->addItem( tr("Link"));
 	ComboBox1->addItem( tr("External Link"));
@@ -83,7 +83,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Layout1->addWidget( TextLabel1 );
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	if (view->Doc->masterPageMode())
+	if (view->m_doc->masterPageMode())
 	{
 		if (item->annotation().Type() < 2)
 			ComboBox1->setCurrentIndex(item->annotation().Type() - 1);
@@ -179,11 +179,11 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	else
 	{
 		int targetPage = item->annotation().Ziel();
-		if ((targetPage >= 0) && (targetPage < view->Doc->Pages->count()))
+		if ((targetPage >= 0) && (targetPage < view->m_doc->Pages->count()))
 			Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
 		else
 		{
-			item->annotation().setZiel(view->Doc->currentPageNumber());
+			item->annotation().setZiel(view->m_doc->currentPageNumber());
 			Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
 		}
 	}
@@ -232,7 +232,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	connect(SpinBox2, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
 	connect(SpinBox3, SIGNAL(valueChanged(double)), this, SLOT(SetCross()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
-	if (view->Doc->masterPageMode())
+	if (view->m_doc->masterPageMode())
 		SetTarget(item->annotation().Type() - 1);
 	else
 		SetTarget(item->annotation().Type());
@@ -249,7 +249,7 @@ void Annota::SetPage(double v)
 {
 	disconnect(SpinBox1, SIGNAL(valueChanged(double)), this, SLOT(SetPage(double)));
 	int link = 2;
-	if (view->Doc->masterPageMode())
+	if (view->m_doc->masterPageMode())
 		link = 1;
 	if (ComboBox1->currentIndex() == link)
 	{
@@ -287,7 +287,7 @@ void Annota::SetValues()
 {
 	QString tmp, tmp2;
 	item->annotation().setZiel(SpinBox1->value()-1);
-	if (view->Doc->masterPageMode())
+	if (view->m_doc->masterPageMode())
 		item->annotation().setType(ComboBox1->currentIndex()+11);
 	else
 		item->annotation().setType(ComboBox1->currentIndex()+10);
@@ -332,7 +332,7 @@ void Annota::SetTarget(int it)
 {
 	int a = it;
 	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetTarget(int)));
-	if (view->Doc->masterPageMode())
+	if (view->m_doc->masterPageMode())
 		a++;
 	Pg->show();
 	TextLabel3->show();
@@ -370,7 +370,7 @@ void Annota::SetTarget(int it)
 			Destfile->hide();
 			ChFile->hide();
 			useAbsolute->hide();
-			if (view->Doc->masterPageMode())
+			if (view->m_doc->masterPageMode())
 				ComboBox1->setCurrentIndex(0);
 			else
 				ComboBox1->setCurrentIndex(1);

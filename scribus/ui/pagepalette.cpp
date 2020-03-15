@@ -128,7 +128,7 @@ void PagePalette::setView(ScribusView *view)
 	if (!m_view)
 		return;
 
-	ScribusDoc* doc = m_view->Doc;
+	ScribusDoc* doc = m_view->m_doc;
 	if (doc->masterPageMode())
 	{
 		QString pageName = doc->currentPage()->pageName();
@@ -161,7 +161,7 @@ bool PagePalette::masterPageMode()
 
 void PagePalette::startMasterPageMode(const QString& masterPage)
 {
-	ScribusDoc* doc = m_view->Doc;
+	ScribusDoc* doc = m_view->m_doc;
 	
 	bool mustDeselect = false;
 	mustDeselect |= (!doc->masterPageMode());
@@ -188,7 +188,7 @@ void PagePalette::startMasterPageMode(const QString& masterPage)
 	}
 	else
 	{
-		ScribusDoc* doc = m_view->Doc;
+		ScribusDoc* doc = m_view->m_doc;
 		PagePalette_MasterPages* mpWidget = this->masterpageWidget();
 		if (mpWidget->m_view != m_view)
 			mpWidget->setView(m_view, masterPage);

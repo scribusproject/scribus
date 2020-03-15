@@ -150,7 +150,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	{
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "", Intent_Perceptual);
+		CMSettings cms(view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		if (!item->Pfile.isEmpty())
 		{
@@ -469,9 +469,9 @@ void ScAnnot::NewName()
 	}
 	bool found = false;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < view->Doc->Items->count(); ++a)
+	for (int a = 0; a < view->m_doc->Items->count(); ++a)
 	{
-		PageItem *currItem = view->Doc->Items->at(a);
+		PageItem *currItem = view->m_doc->Items->at(a);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
@@ -581,7 +581,7 @@ void ScAnnot::GetNIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
-		CMSettings cms(view->Doc, "", Intent_Perceptual);
+		CMSettings cms(view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		item->pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(item->pixm.qImage());
@@ -614,7 +614,7 @@ void ScAnnot::GetPIcon()
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "", Intent_Perceptual);
+		CMSettings cms(view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
@@ -639,7 +639,7 @@ void ScAnnot::GetRIcon()
 		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->Doc, "", Intent_Perceptual);
+		CMSettings cms(view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
 		pmI1=QPixmap::fromImage(im.qImage());
@@ -651,7 +651,7 @@ void ScAnnot::GetRIcon()
 
 void ScAnnot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), view->Doc, 3);
+	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), view->m_doc, 3);
 	if (dia->exec())
 		CalcFields->setText(dia->S_Fields);
 	delete dia;

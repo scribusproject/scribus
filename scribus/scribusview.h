@@ -117,7 +117,7 @@ public:
 	ClockWidget *clockLabel;
 	QPushButton *endEditButton;
   /** Dokument zu dem die Seite gehoert */
-	ScribusDoc * const Doc;
+	ScribusDoc * const m_doc;
 	Canvas * const m_canvas;
 	CanvasMode* m_canvasMode; // might be a CanvasGesture FIXME make private
 	CanvasMode* canvasMode();
@@ -125,15 +125,18 @@ public:
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	ScribusMainWindow* m_ScMW;
-	double OldScale;
-	double dragX, dragY, dragW, dragH;
-	double oldW;
-	int RotMode;
-	bool HaveSelRect;
-	bool DraggedGroup;
-	bool MidButt;
-	bool updateOn;
-	bool Magnify;
+	double OldScale {0.0};
+	double dragX {0.0};
+	double dragY {0.0};
+	double dragW {0.0};
+	double dragH {0.0};
+	double oldW {-1.0};
+	int RotMode {0};
+	bool HaveSelRect {false};
+	bool DraggedGroup {false};
+	bool MidButt {false};
+	bool updateOn {true};
+	bool Magnify {false};
 	bool storedFramesShown;
 	bool storedShowControls;
 	int editStrokeGradient;
@@ -268,16 +271,16 @@ private: // Private attributes
 	QPoint m_pressLocation;
 	QElapsedTimer m_moveTimer;
 	QTimer *m_dragTimer;
-	bool  m_dragTimerFired;
-	bool  m_ready;
-	int   m_oldZoomX;
-	int   m_oldZoomY;
+	bool m_dragTimerFired;
+	bool m_ready {false};
+	int m_oldZoomX {0};
+	int m_oldZoomY {0};
 	QSize m_oldCanvasSize;
-	int   m_groupTransactions;
+	int m_groupTransactions {0};
 	UndoTransaction m_groupTransaction;
-	bool  _isGlobalMode;
-	bool linkAfterDraw;
-	bool ImageAfterDraw;
+	bool _isGlobalMode {true};
+	bool linkAfterDraw {false};
+	bool ImageAfterDraw {false};
 
 private slots:
 	void setZoom();

@@ -91,9 +91,9 @@ void PagePalette_Pages::deleteMasterPage(const QString& tmp)
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
 	QString extraWarn = "";
-	for (int i=0; i < currView->Doc->DocPages.count(); ++i )
+	for (int i=0; i < currView->m_doc->DocPages.count(); ++i )
 	{
-		if (currView->Doc->DocPages[i]->masterPageName() == tmp)
+		if (currView->m_doc->DocPages[i]->masterPageName() == tmp)
 			extraWarn = tr("This master page is used at least once in the document.");
 	}
 	int exit = ScMessageBox::warning(this,
@@ -104,22 +104,22 @@ void PagePalette_Pages::deleteMasterPage(const QString& tmp)
 									  QMessageBox::Yes);	// batch default
 	if (exit == QMessageBox::Yes)
 	{
-		bool oldMPMode = currView->Doc->masterPageMode();
-		int  storedPageNum = currView->Doc->currentPageNumber();
+		bool oldMPMode = currView->m_doc->masterPageMode();
+		int  storedPageNum = currView->m_doc->currentPageNumber();
 		int  storedViewXCoor = currView->horizontalScrollBar()->value();
 		int  storedViewYCoor = currView->verticalScrollBar()->value();
 
-		currView->Doc->setMasterPageMode(true);
-		currView->Doc->scMW()->deletePage2(currView->Doc->MasterNames[tmp]);
+		currView->m_doc->setMasterPageMode(true);
+		currView->m_doc->scMW()->deletePage2(currView->m_doc->MasterNames[tmp]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
-		currView->Doc->rebuildMasterNames();
+		currView->m_doc->rebuildMasterNames();
 		// Fix up any pages that refer to the deleted master page
-		currView->Doc->replaceMasterPage(tmp);
-		currView->Doc->setMasterPageMode(oldMPMode);
-		currView->Doc->setModified(true);
+		currView->m_doc->replaceMasterPage(tmp);
+		currView->m_doc->setMasterPageMode(oldMPMode);
+		currView->m_doc->setModified(true);
 
-		currView->Doc->setCurrentPage(currView->Doc->DocPages.at(storedPageNum));
+		currView->m_doc->setCurrentPage(currView->m_doc->DocPages.at(storedPageNum));
 		currView->reformPages(false);
 		currView->setContentsPos(storedViewXCoor, storedViewYCoor);
 		currView->DrawNew();
@@ -141,9 +141,9 @@ void PagePalette_Pages::pageView_movePage(int r, int c)
 	if ((r == c) || (r >= pageView->m_pageCount))
 		return;
 	if (c >= pageView->m_pageCount)
-		currView->Doc->movePage(r, r + 1, c, 2);
+		currView->m_doc->movePage(r, r + 1, c, 2);
 	else
-		currView->Doc->movePage(r, r + 1, c, 0);
+		currView->m_doc->movePage(r, r + 1, c, 0);
 	currView->reformPages();
 	rebuildPages();
 	currView->DrawNew();
@@ -169,20 +169,20 @@ void PagePalette_Pages::enablePalette(const bool enabled)
 
 void PagePalette_Pages::handlePageLayout(int layout)
 {
-	pageLayout->selectFirstP(currView->Doc->pageSets()[layout].FirstPage);
-	currView->Doc->resetPage(layout);
+	pageLayout->selectFirstP(currView->m_doc->pageSets()[layout].FirstPage);
+	currView->m_doc->resetPage(layout);
 	currView->reformPages();
 	currView->DrawNew();
-	currView->GotoPage(currView->Doc->currentPageNumber());
+	currView->GotoPage(currView->m_doc->currentPageNumber());
 	rebuildPages();
 }
 
 void PagePalette_Pages::handleFirstPage(int fp)
 {
-	currView->Doc->setPageSetFirstPage(currView->Doc->pagePositioning(), fp);
+	currView->m_doc->setPageSetFirstPage(currView->m_doc->pagePositioning(), fp);
 	currView->reformPages();
 	currView->DrawNew();
-	currView->GotoPage(currView->Doc->currentPageNumber());
+	currView->GotoPage(currView->m_doc->currentPageNumber());
 	rebuildPages();
 }
 
@@ -196,7 +196,7 @@ void PagePalette_Pages::rebuildMasters()
 	QPixmap pm;
 	QListWidgetItem* item;
 	QMap<QString,int>::Iterator it;
-	for (it = currView->Doc->MasterNames.begin(); it != currView->Doc->MasterNames.end(); ++it)
+	for (it = currView->m_doc->MasterNames.begin(); it != currView->m_doc->MasterNames.end(); ++it)
 	{
 		const QString& pageName = it.key();
 		QString pageLabel = (pageName == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : pageName;
@@ -227,14 +227,14 @@ void PagePalette_Pages::rebuildPages()
 		connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 		return;
 	}
-	pageLayout->updateLayoutSelector(currView->Doc->pageSets());
-	pageLayout->selectItem(currView->Doc->pagePositioning());
-	pageLayout->firstPage->setCurrentIndex(currView->Doc->pageSets()[currView->Doc->pagePositioning()].FirstPage);
-	pageView->m_pageCount = currView->Doc->DocPages.count();
-	int counter = currView->Doc->pageSets()[currView->Doc->pagePositioning()].FirstPage;
-	int cols = currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
-	int rows = (currView->Doc->DocPages.count()+counter) / currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
-	if (((currView->Doc->DocPages.count()+counter) % currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns) != 0)
+	pageLayout->updateLayoutSelector(currView->m_doc->pageSets());
+	pageLayout->selectItem(currView->m_doc->pagePositioning());
+	pageLayout->firstPage->setCurrentIndex(currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage);
+	pageView->m_pageCount = currView->m_doc->DocPages.count();
+	int counter = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].FirstPage;
+	int cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
+	int rows = (currView->m_doc->DocPages.count()+counter) / currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
+	if (((currView->m_doc->DocPages.count()+counter) % currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns) != 0)
 		rows++;
 	int rowcounter = 0;
 	int colmult, rowmult, coladd, rowadd;
@@ -270,11 +270,11 @@ void PagePalette_Pages::rebuildPages()
 	pageView->m_rowadd = rowadd;
 	pageView->m_rowmult = rowmult;
 	pageView->m_firstPage = counter;
-	pageView->m_cols = currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns;
+	pageView->m_cols = currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns;
 	pageList.clear();
-	for (int a = 0; a < currView->Doc->DocPages.count(); ++a)
+	for (int a = 0; a < currView->m_doc->DocPages.count(); ++a)
 	{
-		str = currView->Doc->DocPages.at(a)->masterPageName();
+		str = currView->m_doc->DocPages.at(a)->masterPageName();
 		SeItem *it = new SeItem(str, a, createIcon(a, str, pix));
 		pageList.append(it);
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableWidgetItem *)it);
@@ -287,7 +287,7 @@ void PagePalette_Pages::rebuildPages()
 		else
 			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
 		counter++;
-		if (counter > currView->Doc->pageSets()[currView->Doc->pagePositioning()].Columns-1)
+		if (counter > currView->m_doc->pageSets()[currView->m_doc->pagePositioning()].Columns-1)
 		{
 			counter = 0;
 			rowcounter++;
@@ -308,7 +308,7 @@ void PagePalette_Pages::rebuildPages()
 	}
 	pageView->repaint();
 	if (currView != nullptr)
-		markPage(currView->Doc->currentPageNumber());
+		markPage(currView->m_doc->currentPageNumber());
 	connect(pageLayout, SIGNAL(selectedLayout(int)), this, SLOT(handlePageLayout(int)));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 }
@@ -370,7 +370,7 @@ QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, const QPixmap&
 		p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		//p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		//QString tmp = tmp.setNum(nr+1);
-		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));
+		QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(nr));
 		if (tmp.isEmpty())
 			tmp = tmp.setNum(nr+1);
 		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
