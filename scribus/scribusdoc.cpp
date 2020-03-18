@@ -15129,13 +15129,29 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	if (objectsLayer == -1)
 		return nullptr;
 	PageItem *currItem;
-	double x, y, w, h;
+	
+	// Remove from selection any item which may already be grouped
+	QList<PageItem*> selectedItems = itemSelection->items();
+	for (int i = 0; i < selectedItems.count(); ++i)
+	{
+		currItem = selectedItems.at(i);
+		if (currItem->Parent)
+		{
+			selectedItems.removeAt(i);
+			--i;
+		}
+	}
+
+	int selectedItemCount = selectedItems.count();
+	if (selectedItemCount <= 1)
+		return nullptr;
+
+	// Sort selection so as to preserve item levels
+	std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::Group, "", Um::IGroup);
-	QList<PageItem*> selectedItems = itemSelection->items();
-	std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
-	int selectedItemCount = selectedItems.count();
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
@@ -15149,7 +15165,12 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 				tooltip += "\t" + currItem->getUName() + "\n";
 		}
 	}
-	itemSelection->getVisualGroupRect(&x, &y, &w, &h);
+	
+	double x, y, w, h;
+	Selection tempSelection(this, false);
+	tempSelection.addItems(selectedItems);
+	tempSelection.getVisualGroupRect(&x, &y, &w, &h);
+
 	int lowestItem = std::numeric_limits<int>::max();
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
@@ -15201,8 +15222,8 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	{
 		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(UndoManager::Group);
 		is->set("GROUP");
-		itemSelection->addItem(groupItem,true);
-		is->setItem(itemSelection->selectionList());
+		tempSelection.addItem(groupItem, true);
+		is->setItem(tempSelection.selectionList());
 		m_undoManager->action(this, is);
 	}
 	if (activeTransaction)
