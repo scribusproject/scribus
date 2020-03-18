@@ -15232,7 +15232,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	itemSelection->addItem(groupItem);
 
 	GroupCounter++;
-	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
+	regionsChanged()->update(QRectF(gx - 5, gy - 5, gw + 10, gh + 10));
 	emit docChanged();
 	if (m_ScMW && ScCore->usingGUI())
 	{
@@ -15324,7 +15324,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	emit docChanged();
 	if (itemSelection->count() > 0)
 		m_ScMW->HaveNewSel();
-	regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
+	regionsChanged()->update(QRectF(x - 5, y - 5, w + 10, h + 10));
 }
 
 void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
