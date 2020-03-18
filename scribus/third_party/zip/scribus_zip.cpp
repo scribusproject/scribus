@@ -37,6 +37,10 @@ ScZipHandler::ScZipHandler(bool forWrite)
 
 ScZipHandler::~ScZipHandler()
 {
+	if (m_uz && m_uz->isOpen())
+		m_uz->closeArchive();
+	if (m_zi && m_zi->isOpen())
+		m_zi->closeArchive();
 	delete m_uz;
 	delete m_zi;
 }
