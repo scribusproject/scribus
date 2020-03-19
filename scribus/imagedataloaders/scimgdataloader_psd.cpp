@@ -47,49 +47,49 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
+
 	ScColorProfile prof;
 	ScColorMgmtEngine engine(ScCore->defaultEngine);
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
+
 	QString ext = fi.suffix().toLower();
-	if (ext == "psd")
+	if (ext != "psd")
+		return;
+
+	QFile f(fn);
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+
+	m_imageInfoRecord.xres = 72;
+	m_imageInfoRecord.yres = 72;
+	QDataStream s( &f );
+	s.setByteOrder( QDataStream::BigEndian );
+	PSDHeader header;
+	s >> header;
+	// Check image file format.
+	if (s.atEnd() || !IsValid(header))
+		return;
+	// Check if it's a supported format.
+	if (!IsSupported(header))
+		return;
+	if (!LoadPSDResources(s, header, s.device()->pos()))
+		return;
+	if (m_embeddedProfile.size() > 0)
 	{
-		QFile f(fn);
-		if (f.open(QIODevice::ReadOnly))
+		prof = engine.openProfileFromMem(m_embeddedProfile.data());
+		if (prof)
 		{
-			m_imageInfoRecord.xres = 72;
-			m_imageInfoRecord.yres = 72;
-			QDataStream s( &f );
-			s.setByteOrder( QDataStream::BigEndian );
-			PSDHeader header;
-			s >> header;
-			// Check image file format.
-			if (s.atEnd() || !IsValid(header))
-				return;
-			// Check if it's a supported format.
-			if (!IsSupported(header))
-				return;
-			if (!LoadPSDResources(s, header, s.device()->pos()))
-				return;
-			if (m_embeddedProfile.size() > 0)
-			{
-				prof = engine.openProfileFromMem(m_embeddedProfile.data());
-				if (prof)
-				{
-					if (prof.colorSpace() == ColorSpace_Rgb)
-						m_profileComponents = 3;
-					if (prof.colorSpace() == ColorSpace_Cmyk)
-						m_profileComponents = 4;
-					if (prof.colorSpace() == ColorSpace_Gray)
-						m_profileComponents = 1;
-				}
-			}
-			f.close();
+			if (prof.colorSpace() == ColorSpace_Rgb)
+				m_profileComponents = 3;
+			if (prof.colorSpace() == ColorSpace_Cmyk)
+				m_profileComponents = 4;
+			if (prof.colorSpace() == ColorSpace_Gray)
+				m_profileComponents = 1;
 		}
-		else
-			return;
 	}
+	f.close();
 }
 
 bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
