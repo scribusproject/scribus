@@ -108,6 +108,16 @@ void ScImgDataLoader_PNG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 			m_embeddedProfile = profArray;
 		}
 	}
+	else if (png_get_valid(pngPtr, pngInfo, PNG_INFO_sRGB))
+	{
+		QByteArray profArray;
+		ScColorProfile prof = ScCore->defaultEngine.createProfile_sRGB();
+		if (prof.save(profArray))
+		{
+			m_embeddedProfile = profArray;
+			m_profileComponents = 3;
+		}
+	}
 
     pngFile.close();
     png_destroy_read_struct(&pngPtr, &pngInfo, (png_infopp) NULL);
