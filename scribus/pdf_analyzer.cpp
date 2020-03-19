@@ -158,6 +158,7 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 	}
 	return CS_Unknown;
 }
+
 bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)
 {
 	// this method can be used to get used color spaces, detect transparency, and get used fonts in either PdfPage or PdfXObject
@@ -278,7 +279,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					PdfArray dashArr = args[0].GetArray();
 					for (uint i=0; i<dashArr.size(); ++i)
 						currGS.dashPattern.first.append(dashArr[i].GetNumber());
-					currGS.dashPattern.second = args[0].GetNumber();
+					currGS.dashPattern.second = args[1].GetNumber();
 					}
 					break;
 				case KW_g:
@@ -780,10 +781,10 @@ PDFFont PDFAnalyzer::getFontInfo(PdfObject* fontObj)
 			PdfObject* descendantFonts = fontObj->GetIndirectKey("DescendantFonts");
 			if (descendantFonts && descendantFonts->IsArray())
 			{
-				PdfObject descendantFont = descendantFonts->GetArray()[0];
-				descendantFont.SetOwner(descendantFonts->GetOwner());
-				PdfObject* subtypeDescFont = descendantFont.GetIndirectKey("Subtype");
-				fontDesc = descendantFont.MustGetIndirectKey("FontDescriptor");
+				PdfReference refDescFont = descendantFonts->GetArray()[0].GetReference();
+				PdfObject* descendantFont = descendantFonts->GetOwner()->GetObject(refDescFont);
+				PdfObject* subtypeDescFont = descendantFont->GetIndirectKey("Subtype");
+				fontDesc = descendantFont->MustGetIndirectKey("FontDescriptor");
 				if (subtypeDescFont && subtypeDescFont->IsName())
 				{
 					if (subtypeDescFont->GetName() == "CIDFontType0")
