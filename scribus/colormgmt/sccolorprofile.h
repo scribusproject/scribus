@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORPROFILE_H
 #define SCCOLORPROFILE_H
 
+#include <QByteArray>
 #include <QSharedPointer>
 #include <QWeakPointer>
 

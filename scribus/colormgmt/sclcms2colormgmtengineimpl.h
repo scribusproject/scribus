@@ -23,29 +23,29 @@ public:
 	ScLcms2ColorMgmtEngineImpl();
 
 	// Setter, only for  color management strategy
-	virtual void setStrategy(const ScColorMgmtStrategy& strategy);
+	void setStrategy(const ScColorMgmtStrategy& strategy) override;
 
 	// function for getting available profile in a directory
-	virtual QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
+	QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive) override;
 	
 	// functions for opening icc profiles
-	virtual ScColorProfile openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath);
-	virtual ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& array);
+	ScColorProfile openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath) override;
+	ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& array) override;
 	
 	// functions for creating profiles
-	virtual ScColorProfile createProfile_sRGB(ScColorMgmtEngine& engine);
-	virtual ScColorProfile createProfile_Lab (ScColorMgmtEngine& engine);
+	ScColorProfile createProfile_sRGB(ScColorMgmtEngine& engine) override;
+	ScColorProfile createProfile_Lab (ScColorMgmtEngine& engine) override;
 	
 	// functions for creating transforms
-	virtual ScColorTransform createTransform(ScColorMgmtEngine& colorManagementEngine,
-		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,
-	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
-											 eRenderIntent renderIntent, long transformFlags);
-	virtual ScColorTransform createProofingTransform(ScColorMgmtEngine& colorManagementEngine,
-		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,
-	                                         const ScColorProfile& outputProfile, eColorFormat outputFormat,
-											 const ScColorProfile& proofing, eRenderIntent renderIntent, 
-	                                         eRenderIntent proofingIntent, long transformFlags);
+	ScColorTransform createTransform(ScColorMgmtEngine& colorManagementEngine,
+	                                 const ScColorProfile& inputProfile , eColorFormat inputFormat,
+	                                 const ScColorProfile& outputProfile, eColorFormat outputFormat,
+	                                 eRenderIntent renderIntent, long transformFlags) override;
+	ScColorTransform createProofingTransform(ScColorMgmtEngine& colorManagementEngine,
+	                                  const ScColorProfile& inputProfile , eColorFormat inputFormat,
+	                                  const ScColorProfile& outputProfile, eColorFormat outputFormat,
+	                                  const ScColorProfile& proofing, eRenderIntent renderIntent, 
+	                                  eRenderIntent proofingIntent, long transformFlags) override;
 
 protected:
 

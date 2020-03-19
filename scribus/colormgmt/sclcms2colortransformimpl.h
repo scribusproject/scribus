@@ -20,10 +20,10 @@ public:
 	ScLcms2ColorTransformImpl(ScColorMgmtEngine& engine, cmsHTRANSFORM lcmsTransform);
 	virtual ~ScLcms2ColorTransformImpl();
 
-	virtual bool isNull() const;
+	bool isNull() const override;
 
-	virtual bool apply(void* input, void* output, uint numElem);
-	virtual bool apply(QByteArray& input, QByteArray& output, uint numElem);
+	bool apply(void* input, void* output, uint numElem) override;
+	bool apply(QByteArray& input, QByteArray& output, uint numElem) override;
 
 protected:
 	cmsHTRANSFORM m_transformHandle;

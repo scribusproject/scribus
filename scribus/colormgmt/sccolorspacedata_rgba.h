@@ -19,8 +19,8 @@ protected:
 public:
 	ScColorSpaceDataTempl_RGBA(ScColorProfile& profile);
 
-	virtual uint alphaIndex(void) const { return m_aIndex; }
-	virtual void flattenAlpha(void* dataIn, uint numElems) const;
+	uint alphaIndex(void) const override { return m_aIndex; }
+	void flattenAlpha(void* dataIn, uint numElems) const override;
 };
 
 template<typename T, eColorFormat COLORFORMAT>

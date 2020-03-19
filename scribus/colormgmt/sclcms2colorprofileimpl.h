@@ -22,13 +22,13 @@ public:
 	ScLcms2ColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile);
 	virtual ~ScLcms2ColorProfileImpl();
 
-	virtual bool isNull() const;
+	bool isNull() const override;
 
-	virtual eColorSpaceType colorSpace()  const;
-	virtual eProfileClass   deviceClass() const;
-	virtual bool            isSuitableForOutput() const;
-	virtual QString         productDescription() const;
-	virtual bool            save(QByteArray& profileData) const;
+	eColorSpaceType colorSpace()  const override;
+	eProfileClass   deviceClass() const override;
+	bool            isSuitableForOutput() const override;
+	QString         productDescription() const override;
+	bool            save(QByteArray& profileData) const override;
 
 protected:
 	cmsHPROFILE     m_profileHandle;
