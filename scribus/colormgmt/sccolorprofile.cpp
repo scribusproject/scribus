@@ -61,6 +61,13 @@ QString ScColorProfile::productDescription() const
 	return QString();
 }
 
+bool ScColorProfile::save(QByteArray& profileData) const
+{
+	if (m_data)
+		return m_data->save(profileData);
+	return false;
+}
+
 bool ScColorProfile::operator==(const ScColorProfile& other) const
 {
 	return m_data == other.m_data;

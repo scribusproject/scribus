@@ -33,6 +33,7 @@ public:
 	virtual eProfileClass   deviceClass() const = 0;
 	virtual bool    isSuitableForOutput() const = 0;
 	virtual QString productDescription() const = 0;
+	virtual bool    save(QByteArray& profileData) const = 0;
 };
 
 #endif

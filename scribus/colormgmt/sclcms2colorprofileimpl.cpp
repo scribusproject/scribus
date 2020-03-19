@@ -106,3 +106,24 @@ void ScLcms2ColorProfileImpl::closeProfile()
 		m_profileHandle = nullptr;
 	}
 }
+
+bool ScLcms2ColorProfileImpl::save(QByteArray& profileData) const
+{
+	if (!m_profileHandle)
+		return false;
+	profileData.clear();
+
+	// First retrieve profile size
+	cmsUInt32Number bytesNeeded = 0;
+	bool done = cmsSaveProfileToMem(m_profileHandle, 0, &bytesNeeded);
+	if (!done)
+		return false;
+
+	// Allocate array for profile data
+	profileData.resize(bytesNeeded);
+	if (profileData.size() != bytesNeeded)
+		return false;
+	done = cmsSaveProfileToMem(m_profileHandle, profileData.data(), &bytesNeeded);
+
+	return done;
+}

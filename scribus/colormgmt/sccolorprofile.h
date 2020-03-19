@@ -40,6 +40,8 @@ public:
 	const ScColorProfileData* data() const { return m_data.data(); }
 	QString dataHash() const;
 
+	bool save(QByteArray& profileData) const;
+
 	bool operator==(const ScColorProfile& prof) const;
 	
 protected:
