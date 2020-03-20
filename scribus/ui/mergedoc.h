@@ -44,23 +44,23 @@ public:
 	const int getPageCounter();
 
 private:
-	QLabel* fromDocLabel;
-	QLabel* importPageLabel;
-	QLabel* fromLabel;
-	QLineEdit* pageNumberData;
-	QLineEdit* fromDocData;
-	QPushButton* importButton;
-	QPushButton* cancelButton;
-	QPushButton* changeButton;
-	QCheckBox* createPageData;
-	QListWidget* masterPageNameData;
-	QComboBox* importWhereData;
-	QSpinBox* importWherePageData;
-	QVBoxLayout* dialogLayout;
-	QGridLayout* fromInfoLayout;
-	QHBoxLayout* importCancelLayout;
-	int count;
-	bool masterPages;
+	QLabel* fromDocLabel {nullptr};
+	QLabel* importPageLabel {nullptr};
+	QLabel* fromLabel {nullptr};
+	QLineEdit* pageNumberData {nullptr};
+	QLineEdit* fromDocData {nullptr};
+	QPushButton* importButton {nullptr};
+	QPushButton* cancelButton {nullptr};
+	QPushButton* changeButton {nullptr};
+	QCheckBox* createPageData {nullptr};
+	QListWidget* masterPageNameData {nullptr};
+	QComboBox* importWhereData {nullptr};
+	QSpinBox* importWherePageData {nullptr};
+	QVBoxLayout* dialogLayout {nullptr};
+	QGridLayout* fromInfoLayout {nullptr};
+	QHBoxLayout* importCancelLayout {nullptr};
+	int count {0};
+	bool masterPages {false};
 
 private slots:
 	void changeFile();

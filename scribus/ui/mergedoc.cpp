@@ -39,7 +39,6 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	setWindowTitle((masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ));
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
-	count = 0;
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setMargin(10);
 	dialogLayout->setSpacing(5);
@@ -47,7 +46,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	fromInfoLayout->setMargin(0);
 	fromInfoLayout->setSpacing(5);
 	fromDocData = new QLineEdit( this );
-	fromDocData->setMinimumWidth(QWidget::fontMetrics().width('a')*50);
+	fromDocData->setMinimumWidth(QWidget::fontMetrics().horizontalAdvance('a') * 50);
 	fromDocLabel = new QLabel( tr( "&From Document:"), this );
 	fromDocLabel->setBuddy( fromDocData );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
@@ -58,11 +57,6 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this );
 	fromInfoLayout->addWidget( importPageLabel, 1, 0 );
 
-	fromLabel = nullptr;
-	pageNumberData = nullptr;
-	createPageData = nullptr;
-	importWhereData = nullptr;
-	importWherePageData = nullptr;
 	if (masterPages)
 	{
 		importPageLabel->setText( tr("&Import Master Page:") );
@@ -137,8 +131,6 @@ MergeDoc::~MergeDoc()
 
 void MergeDoc::changeFile()
 {
-	QString fn;
-	int dummy;
 	count = 0;
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
@@ -147,7 +139,7 @@ void MergeDoc::changeFile()
 		dia->setSelection(fromDocData->text());
 	if (dia->exec() == QDialog::Accepted)
 	{
-		fn = dia->selectedFile();
+		QString fn(dia->selectedFile());
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.lastIndexOf("/")));
@@ -158,12 +150,13 @@ void MergeDoc::changeFile()
 				return;
 			QStringList masterPageNames;
 			bool ret = false;
+			int dummy;
 			if (masterPages)
 				ret = fl.readPageCount(&dummy, &count, masterPageNames);
 			else
 				ret = fl.readPageCount(&count, &dummy, masterPageNames);
 			qApp->restoreOverrideCursor();
-			if ((ret) && (count != 0))
+			if (ret && count > 0)
 			{
 				fromDocData->setText( QDir::toNativeSeparators(fn) );
 				importButton->setEnabled(true);
@@ -172,6 +165,7 @@ void MergeDoc::changeFile()
 					masterPageNameData->clear();
 					masterPageNameData->setEnabled(true);
 					masterPageNameData->addItems(masterPageNames);
+					masterPageNameData->setCurrentRow(0);
 				}
 				else
 				{
