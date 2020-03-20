@@ -39,20 +39,20 @@ protected:
 	void init();
 	virtual void outputText(const QString& text, bool noLineFeed=false);
 	void reportError(const QString& s);
-	bool m_writeToConsole;
-	QString m_version;
-	QString m_stability;
-	uint major, minor, m_revision1, m_revision2;
-	bool m_isCVS;
-	QString m_platform;
-	QStringList m_updates;
-	QString m_tempFile;
-	bool m_fin;
-	QNetworkAccessManager* m_networkManager;
-	QNetworkReply *m_networkReply;
+	QFile *m_file {nullptr};
+	QNetworkAccessManager* m_networkManager {nullptr};
+	QNetworkReply *m_networkReply {nullptr};
 	QString m_message;
-	QFile *m_file;
-	bool m_errorReported;
+	QString m_platform;
+	QString m_stability;
+	QString m_tempFile;
+	QString m_version;
+	QStringList m_updates;
+	bool m_errorReported {false};
+	bool m_fin {false};
+	bool m_isCVS {false};
+	bool m_writeToConsole {true};
+	uint major, minor, m_revision1, m_revision2;
 };
 
 class UpgradeCheckerGUI : public UpgradeChecker

@@ -27,12 +27,6 @@ for which a new license (GPL+exception) is in place.
 UpgradeChecker::UpgradeChecker()
 {
 	init();
-
-	m_fin = false;
-	m_file = nullptr;
-	m_networkManager = nullptr;
-	m_networkReply = nullptr;
-	m_writeToConsole = true;
 }
 
 UpgradeChecker::~UpgradeChecker()
@@ -233,6 +227,7 @@ void UpgradeChecker::show(bool error)
 		for ( QStringList::Iterator it = m_updates.begin(); it != m_updates.end(); ++it )
 			outputText(*it);
 		outputText("<b>"+ tr("Please visit www.scribus.net for details.")+"</b>");
+		outputText("<b>"+ tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.")+"</b>");
 	}
 	outputText(m_message);
 }
