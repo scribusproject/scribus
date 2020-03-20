@@ -54,11 +54,11 @@ public:
 	void setSubWin(QMdiSubWindow *win) { m_subWindow = win; }
 
 protected:
-	QMdiSubWindow *m_subWindow;
-	ScribusDoc *m_Doc;
-	ScribusMainWindow *m_ScMW;
-	ScribusView *m_View;
-	int m_winIndex;
+	QMdiSubWindow *m_subWindow {nullptr};
+	ScribusDoc *m_Doc {nullptr};
+	ScribusMainWindow *m_ScMW {nullptr};
+	ScribusView *m_View {nullptr};
+	int m_winIndex {0};
 
 };
 

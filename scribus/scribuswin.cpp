@@ -35,11 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
-	QMainWindow(parent),
-	m_subWindow(nullptr),
-	m_ScMW(nullptr),
-	m_View(nullptr),
-	m_winIndex(0)
+	QMainWindow(parent)
 {
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);

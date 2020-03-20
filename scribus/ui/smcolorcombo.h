@@ -30,9 +30,9 @@ public:
 	bool useParentValue();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	int    m_pItem;
+	bool m_hasParent {false};
+	bool m_useParentValue {false};
+	int m_pItem {0};
 	QString m_pText;
 	void setFont(bool wantBold);
 

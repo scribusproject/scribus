@@ -10,19 +10,13 @@ for which a new license (GPL+exception) is in place.
 
 
 SMColorCombo::SMColorCombo(QWidget *parent)
-: ColorCombo(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pItem(0)
+: ColorCombo(parent)
 {
 	
 }
 
 SMColorCombo::SMColorCombo(bool rw, QWidget* parent)
-: ColorCombo(rw, parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pItem(0)
+: ColorCombo(rw, parent)
 {
 	
 }
