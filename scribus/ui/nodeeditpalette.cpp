@@ -971,9 +971,20 @@ void NodePalette::CancelEdit()
 		EditCont->setChecked(false);
 		ToggleConMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		currItem->setXYPos(xPos, yPos, true);
-		currItem->ContourLine = itemContourPath.copy();
+
+		// Calculate the difference of the current position and the original
+		// position in the item's coordinate space (which is rotated and translated,
+		// but the translation does not matter for the delta)
+		QTransform m = QTransform().rotate(-currItem->rotation());
+		QPointF delta = m.map(QPointF(xPos, yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+		// During operation the image offsets and possibly other values are changed.
+		// To not remember everything we move the clip path to the original position
+		// relative to the current position (in the item's coordinate space).
+		// adjustItemSize will then take care of moving the position and changing
+		// image offsets, etc.
 		currItem->PoLine = itemPath.copy();
+		currItem->PoLine.translate(delta.x(), delta.y());
+		currItem->ContourLine = itemContourPath.copy();
 		m_doc->adjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
@@ -997,12 +1008,21 @@ void NodePalette::ResetToEditDefaults()
 	m_doc->nodeEdit.selNode().clear();
 	m_doc->nodeEdit.setPreviewMode(false);
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+
+	// See comment in NodePalette::CancelEdit
+	QTransform m = QTransform().rotate(-currItem->rotation());
+	QPointF delta = m.map(QPointF(xPos, yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
 	if (EditCont->isChecked())
+	{
 		currItem->ContourLine = itemContourPath.copy();
+		currItem->ContourLine.translate(delta.x(), delta.y());
+	}
 	else
 	{
-		currItem->setXYPos(xPos, yPos, true);
-		currItem->PoLine = itemPath.copy();
+		// See comment in NodePalette::CancelEdit
+		currItem->PoLine = itemPath;
+ 		currItem->PoLine.translate(delta.x(), delta.y());
+ 		currItem->ContourLine = itemContourPath;
 		m_doc->adjustItemSize(currItem);
 	}
 	if (currItem->itemType() == PageItem::PathText)

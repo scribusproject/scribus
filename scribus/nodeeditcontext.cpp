@@ -352,7 +352,12 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	}
 	if (!m_isContourLine)
-		currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
+	{
+		// Move the contour accordingly in the item's coordinate space
+		QTransform m = QTransform().rotate(-currItem->rotation());
+		QPointF delta = m.map(QPointF(xposOrig, yposOrig)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+		currItem->ContourLine.translate(delta.x(), delta.y());
+	}
 }
 
 

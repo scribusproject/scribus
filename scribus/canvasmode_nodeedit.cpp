@@ -452,7 +452,12 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		}
 		m_doc->adjustItemSize(currItem, true);
 		if (!m_doc->nodeEdit.isContourLine())
-			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
+		{
+			// Move the contour accordingly in the item's coordinate space
+			QTransform m = QTransform().rotate(-currItem->rotation());
+			QPointF delta = m.map(QPointF(xposOrig, yposOrig)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+			currItem->ContourLine.translate(delta.x(), delta.y());
+		}
 		m_doc->regionsChanged()->update(QRectF());
 		if (state)
 			m_doc->nodeEdit.finishTransaction2(currItem, state);
