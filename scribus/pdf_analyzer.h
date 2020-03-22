@@ -164,6 +164,9 @@ private:
 	// pointer to the PoDoFo Pdf's object
 	PoDoFo::PdfMemDocument* m_doc;
 
+	// Path to the analyzed file
+	QString m_filename;
+
 	// Call to this method to inspect a PdfCanvas (either a PdfPage or PdfXObject of subtype Form). This method will be called by inspectPDF
 	// to start inspecting a PDF's page; it could well be called recursively to continue analyzing further in case form XObjects are painted
 	// onto the page.

@@ -66,6 +66,7 @@ static void generateKWNameMap()
 
 
 PDFAnalyzer::PDFAnalyzer(QString & filename)
+ : m_filename(filename)
 {
 	static bool nameMapInited = false;
 	if (!nameMapInited)
@@ -82,7 +83,7 @@ PDFAnalyzer::PDFAnalyzer(QString & filename)
 	}
 	catch (PdfError & e)
 	{
-		qDebug() << "Can't open the file";
+		qDebug() << "Can't open PDF file" << filename;
 		e.PrintErrorMsg();
 		return;
 	}
@@ -152,7 +153,7 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 	}
 	catch (PdfError & e)
 	{
-		qDebug() << "Error in identifying the color type";
+		qDebug() << "Error in identifying the color type. File:" << m_filename;
 		e.PrintErrorMsg();
 		return CS_Unknown;
 	}
@@ -211,7 +212,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 	}
 	catch (PdfError & e)
 	{
-		qDebug() << "Error in analyzing stream's resources.";
+		qDebug() << "Error in analyzing stream's resources. File:" << m_filename;
 		e.PrintErrorMsg();
 		return false;
 	}
@@ -384,7 +385,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 								}
 								else
 								{
-									qDebug() << "Supplied colorspace is undefined!";
+									qDebug() << "Supplied colorspace is undefined! File:" << m_filename;
 									return false;
 								}
 							}
@@ -392,7 +393,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					}
 					else
 					{
-						qDebug() << "Wrong syntax in specifying color space!";
+						qDebug() << "Wrong syntax in specifying color space! File:" << m_filename;
 						return false;
 					}
 					}
@@ -453,7 +454,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 								}
 								else
 								{
-									qDebug() << "Supplied colorspace is undefined!";
+									qDebug() << "Supplied colorspace is undefined! File:" << m_filename;
 									return false;
 								}
 							}
@@ -461,7 +462,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 					}
 					else
 					{
-						qDebug() << "Wrong syntax in specifying color space!";
+						qDebug() << "Wrong syntax in specifying color space! File:" << m_filename;
 						return false;
 					}
 					}
@@ -530,14 +531,14 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							}
 							else
 							{
-								qDebug() << "Supplied external object is undefined!";
+								qDebug() << "Supplied external object is undefined! File:" << m_filename;
 								return false;
 							}
 							processedNamedXObj.append(args[0].GetName());
 						}
 						else
 						{
-							qDebug() << "Wrong syntax for Do operator or there's no XObject defined!";
+							qDebug() << "Wrong syntax for Do operator or there's no XObject defined! File:" << m_filename;
 							return false;
 						}
 
@@ -617,14 +618,14 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							}
 							else
 							{
-								qDebug() << "Named graphic state used with gs operator is undefined in current ExtGState";
+								qDebug() << "Named graphic state used with gs operator is undefined in current ExtGState. File:" << m_filename;
 								return false;
 							}
 							processedNamedGS.append(args[0].GetName());
 						}
 						else
 						{
-							qDebug() << "Wrong syntax in applying extended graphic state (gs operator) or there's no ExtGState defined!";
+							qDebug() << "Wrong syntax in applying extended graphic state (gs operator) or there's no ExtGState defined! File:" << m_filename;
 							return false;
 						}
 					}
@@ -652,13 +653,13 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							}
 							else
 							{
-								qDebug() << "The specified font cannot be found in current Resources!";
+								qDebug() << "The specified font cannot be found in current Resources! File:" << m_filename;
 								return false;
 							}
 						}
 						else
 						{
-							qDebug() << "Wrong syntax in use of Tf operator or there's no Font defined in current Resources dictionary!";
+							qDebug() << "Wrong syntax in use of Tf operator or there's no Font defined in current Resources dictionary! File:" << m_filename;
 							return false;
 						}
 					}
@@ -674,7 +675,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 	}
 	catch (PdfError & e)
 	{
-		qDebug() << "Error in parsing content stream";
+		qDebug() << "Error in parsing content stream File:" << m_filename;
 		e.PrintErrorMsg();
 		return false;
 	}

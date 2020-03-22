@@ -14565,7 +14565,7 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 			currItem->moveImageInFrame(-tp2.x() / currItem->imageXScale(), 0);
 		if (!currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, -tp2.y() / currItem->imageYScale());
-		FPoint tp(clipRect.width(), clipRect.height());
+		FPoint tp(clipRect.right(), clipRect.bottom());
 		if (currItem->imageFlippedH())
 			currItem->moveImageInFrame((currItem->width() - tp.x())/currItem->imageXScale(), 0);
 		if (currItem->imageFlippedV())

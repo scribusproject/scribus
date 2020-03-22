@@ -295,6 +295,9 @@ private:
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	QString UnicodeParsedString(const std::string& s1);
 	bool checkClip();
+
+	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
+
 	bool pathIsClosed {false};
 	QString CurrColorFill;
 	int CurrFillShade {100};
@@ -314,6 +317,7 @@ private:
 		GBool isolated;
 		GBool alpha;
 		QString maskName;
+		QRectF maskBBox;
 		bool inverted;
 	};
 	QStack<groupEntry> m_groupStack;

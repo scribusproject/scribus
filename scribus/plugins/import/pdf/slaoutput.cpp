@@ -1513,7 +1513,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	tmpSel->clear();
 }
 
-void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * /*bbox*/, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
+void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * bbox, GBool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
 {
 	if (m_groupStack.count() <= 0)
 		return;
@@ -1529,6 +1529,8 @@ void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * 
 	else
 		m_groupStack.top().inverted = true;
 	m_groupStack.top().maskName = m_currentMask;
+	// Remember the mask's bounding box as it might not align with the image to which the mask is later assigned.
+	m_groupStack.top().maskBBox = QRectF(QPointF(bbox[0], m_doc->currentPage()->height() - bbox[1]), QPointF(bbox[2], m_doc->currentPage()->height() - bbox[3]));
 	m_groupStack.top().alpha = alpha;
 	if (m_groupStack.top().Items.count() != 0)
 		applyMask(m_groupStack.top().Items.last());
@@ -2459,94 +2461,10 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			t++;
 		}
 	}
-	const double *ctm = state->getCTM();
-	double xCoor = m_doc->currentPage()->xOffset();
-	double yCoor = m_doc->currentPage()->yOffset();
-	QRectF crect = QRectF(0, 0, width, height);
-	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
-	QLineF cline = QLineF(0, 0, width, 0);
-	QLineF tline = m_ctm.map(cline);
-	QRectF trect = m_ctm.mapRect(crect);
-	double sx = m_ctm.m11();
-	double sy = m_ctm.m22();
-	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
-	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
-	{
-		mm.reset();
-		mm.rotate(-tline.angle());
-		res = res.transformed(mm);
-	}
-	else
-	{
-		if ((sx < 0) || (sy < 0))
-		{
-			mm.reset();
-			if (sx < 0)
-				mm.scale(-1, 1);
-			if (sy < 0)
-				mm.scale(1, -1);
-			res = res.transformed(mm);
-		}
-	}
-	if (res.isNull())
-	{
-		delete imgStr;
-		delete image;
-		return;
-	}
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None);
-	PageItem* ite = m_doc->Items->at(z);
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	m_doc->setRedrawBounding(ite);
-	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setFillShade(100);
-	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
-	m_doc->adjustItemSize(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
-	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
-		{
-			tempFile->close();
-			ite->isInlineImage = true;
-			ite->isTempFile = true;
-			res.save(fileName, "PNG");
-			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, false);
-			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
-			{
-				m_groupStack.top().Items.append(ite);
-				applyMask(ite);
-			}
-			if ((checkClip()) && (inPattern == 0))
-			{
-				FPointArray out = m_currentClipPath.copy();
-				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-				out.translate(-ite->xPos(), -ite->yPos());
-				ite->PoLine = out.copy();
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				ite->ScaleType   = true;
-				m_doc->adjustItemSize(ite);
-				ite->OldB2 = ite->width();
-				ite->OldH2 = ite->height();
-				ite->updateClip();
-			}
-		}
-		else
-			m_doc->Items->removeAll(ite);
-	}
-	else
-		m_doc->Items->removeAll(ite);
+
+	createImageFrame(res, state, 3);
+
 	imgStr->close();
-	delete tempFile;
 	delete imgStr;
 	delete image;
 }
@@ -2554,7 +2472,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
 				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
 {
-//	qDebug() << "Masked Image Components" << colorMap->getNumPixelComps();
+//	qDebug() << "SlaOutputDev::drawSoftMaskedImage Masked Image Components" << colorMap->getNumPixelComps();
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
@@ -2604,90 +2522,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	const double *ctm = state->getCTM();
-	double xCoor = m_doc->currentPage()->xOffset();
-	double yCoor = m_doc->currentPage()->yOffset();
-	QRectF crect = QRectF(0, 0, width, height);
-	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
-	QLineF cline = QLineF(0, 0, width, 0);
-	QLineF tline = m_ctm.map(cline);
-	QRectF trect = m_ctm.mapRect(crect);
-	double sx = m_ctm.m11();
-	double sy = m_ctm.m22();
-	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
-	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
-	{
-		mm.reset();
-		mm.rotate(-tline.angle());
-		res = res.transformed(mm);
-	}
-	else
-	{
-		if ((sx < 0) || (sy < 0))
-		{
-			if (sx < 0)
-				mm.scale(-1, 1);
-			if (sy < 0)
-				mm.scale(1, -1);
-			res = res.transformed(mm);
-		}
-	}
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None);
-	PageItem* ite = m_doc->Items->at(z);
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	m_doc->setRedrawBounding(ite);
-	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setFillShade(100);
-	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
-	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->adjustItemSize(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
-	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
-		{
-			tempFile->close();
-			ite->isInlineImage = true;
-			ite->isTempFile = true;
-			ite->AspectRatio = false;
-			ite->ScaleType   = false;
-			res.save(fileName, "PNG");
-			m_doc->loadPict(fileName, ite);
-		//	ite->setImageScalingMode(false, false);
-			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
-			{
-				m_groupStack.top().Items.append(ite);
-			//	applyMask(ite);
-			}
-			if ((checkClip()) && (inPattern == 0))
-			{
-				FPointArray out = m_currentClipPath.copy();
-				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-				out.translate(-ite->xPos(), -ite->yPos());
-				ite->PoLine = out.copy();
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				ite->ScaleType   = true;
-				m_doc->adjustItemSize(ite);
-				ite->OldB2 = ite->width();
-				ite->OldH2 = ite->height();
-				ite->updateClip();
-			}
-		}
-		else
-			m_doc->Items->removeAll(ite);
-	}
-	else
-		m_doc->Items->removeAll(ite);
-	delete tempFile;
+	
+	createImageFrame(res, state, 3);
+	
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2697,6 +2534,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 
 void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight, GBool maskInvert, GBool maskInterpolate)
 {
+//	qDebug() << "SlaOutputDev::drawMaskedImage";
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
@@ -2753,90 +2591,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	const double *ctm = state->getCTM();
-	double xCoor = m_doc->currentPage()->xOffset();
-	double yCoor = m_doc->currentPage()->yOffset();
-	QRectF crect = QRectF(0, 0, width, height);
-	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
-	QLineF cline = QLineF(0, 0, width, 0);
-	QLineF tline = m_ctm.map(cline);
-	QRectF trect = m_ctm.mapRect(crect);
-	double sx = m_ctm.m11();
-	double sy = m_ctm.m22();
-	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
-	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
-	{
-		mm.reset();
-		mm.rotate(-tline.angle());
-		res = res.transformed(mm);
-	}
-	else
-	{
-		if ((sx < 0) || (sy < 0))
-		{
-			if (sx < 0)
-				mm.scale(-1, 1);
-			if (sy < 0)
-				mm.scale(1, -1);
-			res = res.transformed(mm);
-		}
-	}
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None);
-	PageItem* ite = m_doc->Items->at(z);
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	m_doc->setRedrawBounding(ite);
-	ite->Clip = flattenPath(ite->PoLine, ite->Segments);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->setFillShade(100);
-	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
-	ite->setFillTransparency(1.0 - state->getFillOpacity());
-	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->adjustItemSize(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
-	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
-		{
-			tempFile->close();
-			ite->isInlineImage = true;
-			ite->isTempFile = true;
-			ite->AspectRatio = false;
-			ite->ScaleType   = false;
-			res.save(fileName, "PNG");
-			m_doc->loadPict(fileName, ite);
-		//	ite->setImageScalingMode(false, false);
-			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
-			{
-				m_groupStack.top().Items.append(ite);
-			//	applyMask(ite);
-			}
-			if ((checkClip()) && (inPattern == 0))
-			{
-				FPointArray out = m_currentClipPath.copy();
-				out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-				out.translate(-ite->xPos(), -ite->yPos());
-				ite->PoLine = out.copy();
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				ite->ScaleType   = true;
-				m_doc->adjustItemSize(ite);
-				ite->OldB2 = ite->width();
-				ite->OldH2 = ite->height();
-				ite->updateClip();
-			}
-		}
-		else
-			m_doc->Items->removeAll(ite);
-	}
-	else
-		m_doc->Items->removeAll(ite);
-	delete tempFile;
+	
+	createImageFrame(res, state, colorMap->getNumPixelComps());
+	
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2847,7 +2604,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int* maskColors, GBool inlineImg)
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-//	qDebug() << "Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
+//	qDebug() << "SlaOutputDev::drawImage Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
 	imgStr->reset();
 	QImage* image = nullptr;
 	if (maskColors)
@@ -2911,25 +2668,45 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 			}
 		}
 	}
-	if (image == nullptr || image->isNull())
-	{
-		delete imgStr;
-		delete image;
-		return;
+
+	if (image != nullptr && !image->isNull()) {
+		createImageFrame(*image, state, colorMap->getNumPixelComps());
 	}
+
+	delete imgStr;
+	delete image;
+}
+
+void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColorComponents)
+{
 	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	QRectF crect = QRectF(0, 0, width, height);
-	m_ctm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, ctm[2] + ctm[4], ctm[3] + ctm[5]);
-	QLineF cline = QLineF(0, 0, width, 0);
-	QLineF tline = m_ctm.map(cline);
-	QRectF trect = m_ctm.mapRect(crect);
-	double sx = m_ctm.m11();
-	double sy = m_ctm.m22();
-	QImage img = image->copy();
-	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
-	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None);
+
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	double angle = m_ctm.map(QLineF(0, 0, 1, 0)).angle();
+	QPointF torigin;
+	// In PDF all images considered squares with unit length that are transformed into the proper
+	// dimensions by ctm.
+	// A positive determinant retains orientation. Thus orientation is the same as in the PDF
+	// coordinate system (y-axis increases upwards). As Scribus uses the inverse orientation the
+	// image needs to be flipped (a horizontal flip is applied later).  For a flipped image the
+	// corner that will be origin in Scribus is the upper right corner (1, 1) of the image.
+	// A negative determinant changes the orientation such that the image is already in the Scribus
+	// coordinate orientation and no flip is necessary. The origin will be the upper left corner (0, 1).
+	if (m_ctm.determinant() > 0) {
+		torigin = m_ctm.map(QPointF(1, 1));
+	} else {
+		torigin = m_ctm.map(QPointF(0, 1));
+	}
+
+    // Determine the width and height of the image by undoing the rotation part
+	// of the CTM and applying the result to the unit square.
+	QTransform without_rotation; 
+	without_rotation = m_ctm * without_rotation.rotate(angle);
+	QRectF trect_wr = without_rotation.mapRect(QRectF(0, 0, 1, 1));
+
+	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, xCoor + torigin.x(), yCoor + torigin.y(), trect_wr.width(), trect_wr.height(), 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -2941,30 +2718,16 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	m_doc->adjustItemSize(ite);
-	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
+	if (m_ctm.determinant() > 0)
 	{
-		ite->setImageRotation(-tline.angle());
-		/*QTransform rotMat;
-		rotMat.rotate(tline.angle());
-		QTransform imgMat = m_ctm * rotMat.inverted();
-		double scaleX = sqrt(imgMat.m11() * imgMat.m11() + imgMat.m12() * imgMat.m12());
-		double scaleY = sqrt(imgMat.m21() * imgMat.m21() + imgMat.m22() * imgMat.m22());
-		imgMat.scale(1.0 / scaleX, 1.0 / scaleY);
-		if (!imgMat.isIdentity())
-			img = img.transformed(imgMat);*/
+		ite->setRotation(-(angle - 180));
+		ite->setImageFlippedH(true);
 	}
 	else
-	{
-		if ((sx < 0) || (sy < 0))
-		{
-			if (sx < 0)
-				ite->setImageFlippedH(true);
-			if (sy < 0)
-				ite->setImageFlippedV(true);
-		}
-	}
-	if (colorMap->getNumPixelComps() == 4)
+		ite->setRotation(-angle);
+	m_doc->adjustItemSize(ite);
+
+	if (numColorComponents == 4)
 	{
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
 		tempFile->setAutoRemove(false);
@@ -2981,16 +2744,16 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 				TIFF* tif = TIFFOpen(fileName.toLocal8Bit().data(), "w");
 				if (tif)
 				{
-					TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, img.width());
-					TIFFSetField(tif, TIFFTAG_IMAGELENGTH, img.height());
+					TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, image.width());
+					TIFFSetField(tif, TIFFTAG_IMAGELENGTH, image.height());
 					TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
 					TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 4);
 					TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
 					TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
 					TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
-					for (int y = 0; y < img.height(); ++y)
+					for (int y = 0; y < image.height(); ++y)
 					{
-						TIFFWriteScanline(tif, img.scanLine(y), y);
+						TIFFWriteScanline(tif, image.scanLine(y), y);
 					}
 					TIFFClose(tif);
 					m_doc->loadPict(fileName, ite);
@@ -3021,7 +2784,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 				ite->isTempFile = true;
 				ite->AspectRatio = false;
 				ite->ScaleType   = false;
-				img.save(fileName, "PNG");
+				image.save(fileName, "PNG");
 				m_doc->loadPict(fileName, ite);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
@@ -3038,13 +2801,19 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	if ((checkClip()) && (inPattern == 0))
 	{
 		FPointArray out = m_currentClipPath.copy();
+		QTransform mm;
+		mm.rotate(-ite->rotation());
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		out.translate(-ite->xPos(), -ite->yPos());
+		// Undo the rotation of the clipping path as it is rotated together with the iamge.
+		for (int i = 0; i != out.size(); ++i)
+		{
+			QPointF p = mm.map(out.pointQF(i));
+			out.setPoint(i, p.x(), p.y());
+		}
 		ite->PoLine = out.copy();
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(), wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		ite->ScaleType   = true;
 		m_doc->adjustItemSize(ite);
@@ -3052,8 +2821,6 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		ite->OldH2 = ite->height();
 		ite->updateClip();
 	}
-	delete imgStr;
-	delete image;
 }
 
 void SlaOutputDev::beginMarkedContent(POPPLER_CONST char *name, Object *dictRef)
@@ -3911,6 +3678,10 @@ void SlaOutputDev::applyMask(PageItem *ite)
 		if (!m_groupStack.top().maskName.isEmpty())
 		{
 			ite->setPatternMask(m_groupStack.top().maskName);
+			QRectF bbox = m_groupStack.top().maskBBox; 
+			double sx, sy, px, py, r, shx, shy;
+			ite->maskTransform(sx, sy, px, py, r, shx, shy);
+			ite->setMaskTransform(sx, sy, bbox.x() - (ite->xPos() - m_doc->currentPage()->xOffset()) , bbox.y() - (ite->yPos() - m_doc->currentPage()->yOffset()) , r, shx, shy);
 			if (m_groupStack.top().alpha)
 			{
 				if (m_groupStack.top().inverted)
