@@ -1725,7 +1725,7 @@ int StoryText::endOfRun(uint index) const
 int StoryText::nextChar(int pos)
 {
 	if (pos < length())
-		return pos+1;
+		return pos + 1;
 	return length();
 }
 
@@ -1826,14 +1826,14 @@ int StoryText::prevSentence(int pos)
 int StoryText::nextParagraph(int pos)
 {
 	int len = length();
-	pos = qMin(len, pos+1);
+	pos = qMin(len, pos + 1);
 	while (pos < len && text(pos) != SpecialChars::PARSEP)
 		++pos;
 	return pos;
 }
 int StoryText::prevParagraph(int pos)
 {
-	pos = qMax(0, pos-1);
+	pos = qMax(0, pos - 1);
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
 		--pos;
 	return pos;
