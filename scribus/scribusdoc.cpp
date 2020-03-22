@@ -15915,56 +15915,55 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem != nullptr)
+		if (!currItem)
+			continue;
+		if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+			continue;
+
+		double w = currItem->OrigW * currItem->imageXScale();
+		double h = currItem->OrigH * currItem->imageYScale();
+		double x = currItem->imageXOffset() * currItem->imageXScale();
+		double y = currItem->imageYOffset() * currItem->imageYScale();
+
+		// m determines the position of the upper left corner of the image relative to
+		// the current position of the item. 
+		QTransform m = QTransform().rotate(currItem->rotation());
+		double newRotation = currItem->rotation();
+		if (currItem->imageFlippedH() && currItem->imageFlippedV())
 		{
-			if (currItem->asImageFrame() && currItem->imageIsAvailable)
-			{
-				double w = currItem->OrigW * currItem->imageXScale();
-				double h = currItem->OrigH * currItem->imageYScale();
-				double x = currItem->imageXOffset() * currItem->imageXScale();
-				double y = currItem->imageYOffset() * currItem->imageYScale();
-
-				// m determines the position of the upper left corner of the image relative to
-				// the current position of the item. 
-				QTransform m = QTransform().rotate(currItem->rotation());
-				double newRotation = currItem->rotation();
-				if (currItem->imageFlippedH() && currItem->imageFlippedV())
-				{
-					newRotation += currItem->imageRotation();
-					// Inner rotation happens around the lower right corner. m already contains the item rotation.
-					// Next we have to translate to the rotation point. For flipped images the offsets are subtracted from
-					// the opposite edge. Then we have to adjust for the inner rotation. Finally, we can translate to
-					// to the upper left corner of the image. The transformations in the other cases happen analogously.
-					m.translate(currItem->width() - x, currItem->height() - y).rotate(currItem->imageRotation()).translate(-w, -h);
-				}
-				else if (currItem->imageFlippedH() && !currItem->imageFlippedV())
-				{
-					newRotation -= currItem->imageRotation();
-					// Inner rotation happens around the upper right corner.
-					m.translate(currItem->width() - x, y).rotate(-currItem->imageRotation()).translate(-w, 0);
-				}
-				else if (!currItem->imageFlippedH() && currItem->imageFlippedV())
-				{
-					newRotation -= currItem->imageRotation();
-					// Inner rotation happens around the lower left corner.
-					m.translate(x, currItem->height() - y).rotate(-currItem->imageRotation()).translate(0, -h);
-				}
-				else
-				{
-					/* !FlippedH and !FlippedV */
-					newRotation += currItem->imageRotation();
-					// Inner rotation happens already around the upper left corner.
-					m.translate(x, y);
-				}
-				currItem->setRotation(newRotation);
-				currItem->setImageRotation(0);
-
-				sizeItem(w, h, currItem);
-				QPointF imageUpperLeft = m.map(QPointF(0, 0));
-				moveItem(imageUpperLeft.x(), imageUpperLeft.y(), currItem);
-				currItem->setImageXYOffset(0.0, 0.0);
-			}
+			newRotation += currItem->imageRotation();
+			// Inner rotation happens around the lower right corner. m already contains the item rotation.
+			// Next we have to translate to the rotation point. For flipped images the offsets are subtracted from
+			// the opposite edge. Then we have to adjust for the inner rotation. Finally, we can translate to
+			// to the upper left corner of the image. The transformations in the other cases happen analogously.
+			m.translate(currItem->width() - x, currItem->height() - y).rotate(currItem->imageRotation()).translate(-w, -h);
 		}
+		else if (currItem->imageFlippedH() && !currItem->imageFlippedV())
+		{
+			newRotation -= currItem->imageRotation();
+			// Inner rotation happens around the upper right corner.
+			m.translate(currItem->width() - x, y).rotate(-currItem->imageRotation()).translate(-w, 0);
+		}
+		else if (!currItem->imageFlippedH() && currItem->imageFlippedV())
+		{
+			newRotation -= currItem->imageRotation();
+			// Inner rotation happens around the lower left corner.
+			m.translate(x, currItem->height() - y).rotate(-currItem->imageRotation()).translate(0, -h);
+		}
+		else
+		{
+			/* !FlippedH and !FlippedV */
+			newRotation += currItem->imageRotation();
+			// Inner rotation happens already around the upper left corner.
+			m.translate(x, y);
+		}
+		currItem->setRotation(newRotation);
+		currItem->setImageRotation(0);
+
+		sizeItem(w, h, currItem);
+		QPointF imageUpperLeft = m.map(QPointF(0, 0));
+		moveItem(imageUpperLeft.x(), imageUpperLeft.y(), currItem);
+		currItem->setImageXYOffset(0.0, 0.0);
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
