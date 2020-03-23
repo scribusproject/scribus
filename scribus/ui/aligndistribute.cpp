@@ -535,7 +535,7 @@ void AlignDistributePalette::enableGuideButtons()
 			}
 			break;
 	}
-	bool setterO=true;
+	bool setterO = true;
 	if (currAlignTo == ScribusDoc::alignGuide)
 		setterO = false;
 		
