@@ -1973,7 +1973,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr,
 			PS_setlinewidth(item->lineWidth());
 			PS_setcapjoin(item->PLineEnd, item->PLineJoin);
 			PS_setdash(item->PLineArt, item->DashOffset, item->DashValues);
-			if ((item->NamedLStyle.isEmpty()) && (item->lineWidth() != 0.0))
+			if (item->NamedLStyle.isEmpty()) // && (item->lineWidth() != 0.0))
 			{
 				ScPattern* strokePattern = Doc->checkedPattern(item->strokePattern());
 				if ((strokePattern) && (item->patternStrokePath))
