@@ -483,7 +483,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 			else
 			{
 				multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					const SingleLine& sl = ml[it];
 					if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
@@ -892,7 +892,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	{
 		painter->setStrokeMode(ScPainterExBase::Solid);
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-		for (int it = ml.size()-1; it > -1; it--)
+		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
 			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
@@ -909,7 +909,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	{
 		QTransform arrowTrans;
 		arrowTrans.translate(0, 0);
-		arrowTrans.scale(-1,1);
+		arrowTrans.scale(-1, 1);
 		drawArrow(painter, item, arrowTrans, startArrowIndex);
 	}
 	if (endArrowIndex != 0)
@@ -1232,7 +1232,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	else
 	{
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-		for (int it = ml.size()-1; it > -1; it--)
+		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
 			if (sl.Color != CommonStrings::None)
@@ -1253,7 +1253,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 			FPoint Vector = item->PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 			{
-				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
 				arrowTrans.translate(Start.x(), Start.y());
 				arrowTrans.rotate(r);
@@ -1265,12 +1265,12 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	if (endArrowIndex != 0)
 	{
 		FPoint End = item->PoLine.point(item->PoLine.size()-2);
-		for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+		for (uint xx = item->PoLine.size() - 1; xx > 0; xx -= 2)
 		{
 			FPoint Vector = item->PoLine.point(xx);
 			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 			{
-				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
 				arrowTrans.translate(End.x(), End.y());
 				arrowTrans.rotate(r);
@@ -1399,7 +1399,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 	else
 	{
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-		for (int it = ml.size()-1; it > -1; it--)
+		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
 			if (sl.Color != CommonStrings::None)
@@ -1420,7 +1420,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 			FPoint Vector = item->PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 			{
-				double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
 				arrowTrans.translate(Start.x(), Start.y());
 				arrowTrans.rotate(r);
@@ -1432,12 +1432,12 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 	if (endArrowIndex != 0)
 	{
 		FPoint End = item->PoLine.point(item->PoLine.size()-2);
-		for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+		for (uint xx = item->PoLine.size() - 1; xx > 0; xx -= 2)
 		{
 			FPoint Vector = item->PoLine.point(xx);
 			if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 			{
-				double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+				double r = atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI);
 				QTransform arrowTrans;
 				arrowTrans.translate(End.x(), End.y());
 				arrowTrans.rotate(r);
@@ -1518,7 +1518,7 @@ void ScPageOutput::drawItem_Text( PageItem* item, ScPainterExBase* painter, QRec
 
 void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransform &arrowTrans, int arrowIndex)
 {
-	FPointArray arrow = m_doc->arrowStyles().at(arrowIndex-1).points.copy();
+	FPointArray arrow = m_doc->arrowStyles().at(arrowIndex - 1).points.copy();
 	if (item->NamedLStyle.isEmpty())
 	{
 		if (item->lineWidth() != 0.0)
@@ -1527,8 +1527,8 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 	else
 	{
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
-		if (ml[ml.size()-1].Width != 0.0)
-			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+		if (ml[ml.size() - 1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
 	arrow.map(arrowTrans);
 	painter->setupPolygon(&arrow);
@@ -1555,7 +1555,7 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 			painter->setFillMode(ScPainterExBase::Solid);
 			painter->fillPath();
 		}
-		for (int it = ml.size()-1; it > 0; it--)
+		for (int it = ml.size() - 1; it > 0; it--)
 		{
 			if (ml[it].Color != CommonStrings::None)
 			{
