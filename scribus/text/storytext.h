@@ -287,8 +287,8 @@ signals:
 	void changed(int firstItem, int endItem);
 
 private:
-	ScText * item(uint index);
-	const ScText * item(uint index) const;
+	ScText * item(int index);
+	const ScText * item(int index) const;
 	void fixSurrogateSelection();
 	
 private:
