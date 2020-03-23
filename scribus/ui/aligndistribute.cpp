@@ -52,8 +52,8 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-	currDoc=nullptr;
-	guideDirection=-1;
+	currDoc = nullptr;
+	guideDirection = -1;
 	setObjectName(name);
 	
 	//hide spare controls 
@@ -189,8 +189,8 @@ void AlignDistributePalette::init()
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 	connect(alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
 	
-	unitRatio=1.0;
-	guideDirection=-1;
+	unitRatio = 1.0;
+	guideDirection = -1;
 	
 	guideInfoText = guideInfoTextNone;
 	alignGuideLineEdit->setText(guideInfoTextNone);
@@ -300,182 +300,182 @@ void AlignDistributePalette::iconSetChange()
 
 void AlignDistributePalette::unitChange()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 	{
-		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
+		unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
 		distributeDistSpinBox->setNewUnit(currDoc->unitIndex());
 		enableGuideButtons();
 	}
 }
 
-void AlignDistributePalette::setDoc( ScribusDoc* newDoc )
+void AlignDistributePalette::setDoc(ScribusDoc* newDoc)
 {
-	currDoc=newDoc;
-	if (currDoc!=nullptr)
-		alignObjects=&(currDoc->AObjects);
+	currDoc = newDoc;
+	if (currDoc != nullptr)
+		alignObjects = &(currDoc->AObjects);
 	else
-		alignObjects=nullptr;
+		alignObjects = nullptr;
 	unitChange();
 }
 
 void AlignDistributePalette::alignLeftOut()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignLeftOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignLeftIn()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignLeftIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignCenterHor()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignCenterHor(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightIn()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignRightIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignRightOut()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignRightOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopOut()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignTopOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignTopIn()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignTopIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignCenterVer()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignCenterVer(currAlignTo, currAlignMethod, guidePosition);
 }
 
 
 void AlignDistributePalette::alignBottomIn()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignBottomIn(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::alignBottomOut()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_AlignBottomOut(currAlignTo, currAlignMethod, guidePosition);
 }
 
 void AlignDistributePalette::distributeLeft()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeLeft();
 }
 
 void AlignDistributePalette::distributeCenterH()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeCenterH();
 }
 
 void AlignDistributePalette::distributeRight()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeRight();
 }
 
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValH()
 {
 	distributeDistSpinBox->interpretText();
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		distributeDistH(true);
 }
 
 void AlignDistributePalette::distributeDistAcrossPage()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeAcrossPage();
 }
 
 void AlignDistributePalette::distributeDistDownPage()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeDownPage();
 }
 
 void AlignDistributePalette::distributeDistAcrossMargins()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeAcrossPage(true);
 }
 
 void AlignDistributePalette::distributeDistDownMargins()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeDownPage(true);
 }
 
 
 void AlignDistributePalette::distributeBottom()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeBottom();
 }
 
 void AlignDistributePalette::distributeCenterV()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeCenterV();
 }
 
 void AlignDistributePalette::distributeTop()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeTop();
 }
 
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value(), reverseDistributionCheckBox->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValV()
 {
 	distributeDistSpinBox->interpretText();
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		distributeDistV(true);
 }
 
 void AlignDistributePalette::swapLeft()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_SwapLeft();
 }
 
 void AlignDistributePalette::swapRight()
 {
-	if (currDoc!=nullptr)
+	if (currDoc != nullptr)
 		currDoc->itemSelection_SwapRight();
 }
 
@@ -494,50 +494,50 @@ void AlignDistributePalette::setGuide(int direction, qreal position)
 {
 	//direction 0=H, 1=V
 // 	qDebug()<<"AlignDistributePalette::setGuide("<<direction<<""<<position<<")";
-	guideDirection=direction;
-	guidePosition=position;
+	guideDirection = direction;
+	guidePosition = position;
 	enableGuideButtons();
 }
 
 void AlignDistributePalette::enableGuideButtons()
 {
 	QString suffix;
-	double unitRatio=1.0;
-	int precision=1;
-	if (currDoc!=nullptr)
+	double unitRatio = 1.0;
+	int precision = 1;
+	if (currDoc != nullptr)
 	{
-		suffix=unitGetSuffixFromIndex(currDoc->unitIndex());
-		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
-		precision=unitGetPrecisionFromIndex(currDoc->unitIndex());
+		suffix = unitGetSuffixFromIndex(currDoc->unitIndex());
+		unitRatio = unitGetRatioFromIndex(currDoc->unitIndex());
+		precision = unitGetPrecisionFromIndex(currDoc->unitIndex());
 	}
-	bool setterH=true, setterV=true;
+	bool setterH = true, setterV = true;
 	switch (guideDirection)
 	{
 		case -1:
 			guideInfoText = guideInfoTextNone;
-			if (currAlignTo==ScribusDoc::alignGuide)
-				setterH=setterV=false;
+			if (currAlignTo == ScribusDoc::alignGuide)
+				setterH = setterV = false;
 			break;
 		case 0:
 			guideInfoText = tr("Y: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
-			if (currAlignTo==ScribusDoc::alignGuide)
+			if (currAlignTo == ScribusDoc::alignGuide)
 			{
-				setterV=false;
-				setterH=true;
+				setterV = false;
+				setterH = true;
 			}
 			break;
 		case 1:
 			guideInfoText = tr("X: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
-			if (currAlignTo==ScribusDoc::alignGuide)
+			if (currAlignTo == ScribusDoc::alignGuide)
 			{
-				setterV=true;
-				setterH=false;
+				setterV = true;
+				setterH = false;
 			}
 			break;
 	}
 	bool setterO=true;
-	if (currAlignTo==ScribusDoc::alignGuide)
-		setterO=false;
+	if (currAlignTo == ScribusDoc::alignGuide)
+		setterO = false;
 		
 	alignLeftInToolButton->setEnabled(setterV);
 	alignLeftOutToolButton->setEnabled(setterO);
