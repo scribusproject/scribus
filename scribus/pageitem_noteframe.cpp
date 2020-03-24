@@ -249,14 +249,8 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 		mrk = m_Doc->newMark();
 		mrk->setType(MARKNoteFrameType);
 		QString label = "NoteFrameMark_" + notesStyle()->name();
-		if (notesStyle()->range() == NSRsection)
-			label += " in section " + m_Doc->getSectionNameForPageIndex(note->masterMark()->OwnPage) + " page " + QString::number(note->masterMark()->OwnPage +1);
-		else if (notesStyle()->range() == NSRpage)
-			label += " on page " + QString::number(note->masterMark()->OwnPage +1);
-		else if (notesStyle()->range() == NSRstory)
+		if (notesStyle()->range() == NSRstory)
 			label += " in " + note->masterMark()->getItemPtr()->firstInChain()->itemName();
-		else if (notesStyle()->range() == NSRframe)
-			label += " in frame " + note->masterMark()->getItemName();
 		mrk->label = label + "_" + note->numString();
 		mrk->setNotePtr(note);
 		getUniqueName(mrk->label, m_Doc->marksLabelsList(MARKNoteFrameType), "_");

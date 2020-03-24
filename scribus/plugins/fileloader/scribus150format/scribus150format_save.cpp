@@ -1417,11 +1417,7 @@ void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 			//docu.writeAttribute("name", nF->itemName());
 			
 			rangeItem rI = m_Doc->m_docEndNotesFramesMap.value(nF);
-			if (NS->range() == NSRsection)
-				docu.writeAttribute("index", rI.sectionIndex);
-			else if (NS->range() == NSRpage)
-				docu.writeAttribute("index", rI.page->pageNr());
-			else if (NS->range() == NSRstory)
+			if (NS->range() == NSRstory)
 				docu.writeAttribute("ItemID", qHash(rI.firstStoryFrame) & 0x7FFFFFFF);
 				//docu.writeAttribute("item", rI.firstStoryFrame->itemName());
 		}

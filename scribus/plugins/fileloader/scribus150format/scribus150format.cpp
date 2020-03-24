@@ -3511,7 +3511,11 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 				NS.setType(Type_CJK);
 			else //if (type == "Type_None")
 				NS.setType(Type_None);
-			NS.setRange((NumerationRange) attrs.valueAsInt("Range"));
+			// Fix deprecated numeration ranges
+			NumerationRange numRange = (NumerationRange) attrs.valueAsInt("Range");
+			if (numRange != NSRdocument && numRange != NSRstory)
+				numRange = NSRstory;
+			NS.setRange(numRange);
 			NS.setPrefix(attrs.valueAsString("Prefix"));
 			NS.setSuffix(attrs.valueAsString("Suffix"));
 			NS.setAutoNotesHeight(attrs.valueAsBool("AutoHeight"));
@@ -3555,6 +3559,9 @@ bool Scribus150Format::readNotesFrames(ScXmlStreamReader& reader)
 			{
 				eF.index = attrs.valueAsInt("index");
 				eF.NSrange = (NumerationRange) attrs.valueAsInt("range");
+				 // Fix deprecated numeration ranges
+				if (eF.NSrange != NSRdocument && eF.NSrange != NSRstory)
+					eF.NSrange = NSRstory;
 				eF.itemID = attrs.valueAsInt("ItemID");
 			}
 			if (reader.name() == "FOOTNOTEFRAME")
@@ -5240,7 +5247,13 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (attrs.hasAttribute("NumerationSuffix"))
 		pstyle.setNumSuffix(attrs.valueAsString("NumerationSuffix"));
 	if (attrs.hasAttribute("NumerationRestart"))
-		pstyle.setNumRestart(attrs.valueAsInt("NumerationRestart"));
+	{
+		NumerationRange numRange = (NumerationRange) attrs.valueAsInt("NumerationRestart");
+		// Fix deprecated numeration ranges
+		if (numRange != NSRdocument && numRange != NSRstory)
+			numRange = NSRstory;
+		pstyle.setNumRestart(static_cast<int>(numRange));
+	}
 	if (attrs.hasAttribute("NumeartionOther"))
 		pstyle.setNumOther(static_cast<bool>(attrs.valueAsInt("NumeartionOther")));
 	if (attrs.hasAttribute("NumerationHigher"))
@@ -7086,10 +7099,6 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 					{
 						if (eF.NSrange == NSRdocument)
 							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) nullptr);
-						else if (eF.NSrange == NSRpage)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) m_Doc->DocPages.at(eF.index));
-						else if (eF.NSrange == NSRsection)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), m_Doc->getSectionKeyForPageIndex(eF.index));
 						else if (eF.NSrange == NSRstory)
 							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) LinkID.value(eF.itemID));
 					}

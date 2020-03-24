@@ -1231,12 +1231,14 @@ void SMParagraphStyle::slotNumStart(int start)
 
 void SMParagraphStyle::slotNumRestart(int restart)
 {
+	int restartRange = m_pwidget->numRestartCombo->itemData(restart).toInt();
+
 	if (m_pwidget->numRestartCombo->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumRestart();
 	else
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setNumRestart(restart);
+			m_selection[i]->setNumRestart(restartRange);
 
 	if (!m_selectionIsDirty)
 	{
@@ -1746,9 +1748,9 @@ void SMParagraphStyle::slotLanguage()
 	}
 	else
 	{
-		QString la=LanguageManager::instance()->getAbbrevFromLang(m_pwidget->cpage->language_->currentText(), false);
+		QString la = LanguageManager::instance()->getAbbrevFromLang(m_pwidget->cpage->language_->currentText(), false);
 		if (!la.isEmpty())
-			language=la;
+			language = la;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setLanguage(language);
 	}

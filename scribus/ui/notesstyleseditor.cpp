@@ -25,11 +25,8 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	setDoc(nullptr);
 	NSlistBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
-	RangeBox->addItem(tr("Document"));
-	RangeBox->addItem(tr("Section"));
-	RangeBox->addItem(tr("Story"));
-	RangeBox->addItem(tr("Page"));
-	RangeBox->addItem(tr("Frame"));
+	RangeBox->addItem(tr("Document"), static_cast<int>(NSRdocument));
+	RangeBox->addItem(tr("Story"), static_cast<int>(NSRstory));
 
 	languageChange();
 
@@ -93,12 +90,8 @@ void NotesStylesEditor::languageChange()
 
 	bool rangeBlocked = RangeBox->blockSignals(true);
 	int  rangeIndex = RangeBox->currentIndex();
-	RangeBox->clear();
-	RangeBox->addItem(tr("Document"));
-	RangeBox->addItem(tr("Section"));
-	RangeBox->addItem(tr("Story"));
-	RangeBox->addItem(tr("Page"));
-	RangeBox->addItem(tr("Frame"));
+	RangeBox->addItem(tr("Document"), static_cast<int>(NSRdocument));
+	RangeBox->addItem(tr("Story"), static_cast<int>(NSRstory));
 	if (rangeIndex >= 0)
 		RangeBox->setCurrentIndex(rangeIndex);
 	RangeBox->blockSignals(rangeBlocked);
@@ -195,13 +188,11 @@ void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 	else
 		NewNameEdit->setEnabled(true);
 	FootRadio->setChecked(!NS->isEndNotes());
-	if (NS->range() == NSRframe)
-		EndRadio->setEnabled(false);
-	else
-		EndRadio->setEnabled(true);
+	EndRadio->setEnabled(true);
 	EndRadio->setChecked(NS->isEndNotes());
 	NumberingBox->setCurrentFormat(NS->getType());
-	RangeBox->setCurrentIndex((int) NS->range());
+	int rangeIndex = RangeBox->findData((int) NS->range());
+	RangeBox->setCurrentIndex((rangeIndex >= 0) ? rangeIndex : 0);
 	StartSpinBox->setValue(NS->start());
 	PrefixEdit->setText(NS->prefix());
 	SuffixEdit->setText(NS->suffix());
@@ -214,22 +205,16 @@ void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 	AutoH->setChecked(NS->isAutoNotesHeight());
 	AutoW->setChecked(NS->isAutoNotesWidth());
 	AutoWeld->setChecked(NS->isAutoWeldNotesFrames());
-	//for endnotes remove FRAME range (same effect as footnotes for frame)
-	//and disable autofixing size of notes frames
-	int rangeFrameIndex = RangeBox->findText(tr("Frame"));
+	//for endnotes disable autofixing size of notes frames
 	if (NS->isEndNotes())
 	{
 		AutoW->setEnabled(false);
 		AutoWeld->setEnabled(false);
-		if (rangeFrameIndex >= 0)
-			RangeBox->removeItem(rangeFrameIndex);
-}
+	}
 	else
 	{
 		AutoW->setEnabled(true);
 		AutoWeld->setEnabled(true);
-		if (rangeFrameIndex == -1)
-			RangeBox->addItem(tr("Frame"));
 	}
 	AutoRemove->setChecked(NS->isAutoRemoveEmptyNotesFrames());
 
@@ -507,7 +492,7 @@ void NotesStylesEditor::on_NumberingBox_currentIndexChanged(int /*index*/)
 void NotesStylesEditor::on_RangeBox_currentIndexChanged(int index)
 {
 	NotesStyle ns = changesMap.value(NSlistBox->currentText());
-	ns.setRange((NumerationRange) index);
+	ns.setRange((NumerationRange) RangeBox->itemData(index).toInt());
 
 	changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);

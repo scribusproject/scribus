@@ -134,7 +134,11 @@ void PropertyWidget_ParEffect::fillNumerationsCombo()
 	{
 		const auto numerationKeys = m_doc->numerations.keys();
 		for (const QString& numName : numerationKeys)
+		{
+			if (numName.isEmpty())
+				continue;
 			numNames.append(numName);
+		}
 		numNames.sort();
 	}
 	numNames.prepend("<local block>");
@@ -282,10 +286,10 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	numComboBox->setCurrentIndex(numComboBox->findText(numName));
 	NumStruct * numS = m_doc->numerations.value(numName);
 	if (numS)
-		numLevelSpin->setMaximum(numS->m_counters.count()+1);
+		numLevelSpin->setMaximum(numS->m_counters.count() + 1);
 	else
 		numLevelSpin->setMaximum(3);
-	numLevelSpin->setValue(newPStyle.numLevel() +1);
+	numLevelSpin->setValue(newPStyle.numLevel() + 1);
 	numPrefix->setText(newPStyle.numPrefix());
 	numSuffix->setText(newPStyle.numSuffix());
 	numStart->setValue(newPStyle.numStart());
@@ -409,7 +413,7 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 		newStyle.setHasNum(true);
 		newStyle.setNumName(numComboBox->currentText());
 		newStyle.setNumFormat(numFormatCombo->currentFormat());
-		newStyle.setNumLevel(numLevelSpin->value() -1);
+		newStyle.setNumLevel(numLevelSpin->value() - 1);
 		newStyle.setNumStart(numStart->value());
 		newStyle.setNumPrefix(numPrefix->text());
 		newStyle.setNumSuffix(numSuffix->text());
@@ -468,8 +472,8 @@ void PropertyWidget_ParEffect::handleNumName(const QString& numName)
 	{
 		NumStruct * numS = m_doc->numerations.value(numName);
 		Q_ASSERT(numS);
-		int level = qMin(numLevelSpin->value(), numS->m_counters.count()) -1;
-		numLevelSpin->setValue(level +1);
+		int level = qMin(numLevelSpin->value(), numS->m_counters.count()) - 1;
+		numLevelSpin->setValue(level + 1);
 		newStyle.setNumLevel(level);
 		Numeration num = numS->m_nums[level];
 		numFormatCombo->setCurrentFormat(num.numFormat);

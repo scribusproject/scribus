@@ -3769,6 +3769,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		/*QTime t;
 		t.start();*/
 		doc->flag_Renumber = false;
+		doc->updateNumbers(true);
 		for (auto iti = doc->Items->begin(); iti != doc->Items->end(); ++iti)
 		{
 			PageItem* ite = *iti;
@@ -3814,7 +3815,6 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		// Seems to fix crash on loading
 		ActWin = nullptr;
 		newActWin(w->getSubWin());
-		doc->updateNumbers(true);
 		emit UpdateRequest(reqNumUpdate);
 		doc->setCurrentPage(doc->DocPages.at(0));
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
@@ -9494,14 +9494,8 @@ void ScribusMainWindow::slotInsertMarkNote()
 		}
 		NotesStyle* nStyle = doc->m_docNotesStylesList.at(0);
 		QString label = "NoteMark_" + nStyle->name();
-		if (nStyle->range() == NSRsection)
-			label += " in section " + doc->getSectionNameForPageIndex(currItem->OwnPage) + " page " + QString::number(currItem->OwnPage +1);
-		else if (nStyle->range() == NSRpage)
-			label += " on page " + QString::number(currItem->OwnPage +1);
-		else if (nStyle->range() == NSRstory)
+		if (nStyle->range() == NSRstory)
 			label += " in " + currItem->firstInChain()->itemName();
-		else if (nStyle->range() == NSRframe)
-			label += " in frame" + currItem->itemName();
 		if (doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
 			getUniqueName(label,doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 		else
@@ -9633,14 +9627,8 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 
 			markdata.notePtr = doc->newNote(NStyle);
 			label = "NoteMark_" + NStyle->name();
-			if (NStyle->range() == NSRsection)
-				label += " in section " + doc->getSectionNameForPageIndex(currItem->OwnPage) + " page " + QString::number(currItem->OwnPage +1);
-			else if (NStyle->range() == NSRpage)
-				label += " on page " + QString::number(currItem->OwnPage +1);
-			else if (NStyle->range() == NSRstory)
+			if (NStyle->range() == NSRstory)
 				label += " in " + currItem->firstInChain()->itemName();
-			else if (NStyle->range() == NSRframe)
-				label += " in frame" + currItem->itemName();
 			break;
 		case MARKIndexType:
 				return false;

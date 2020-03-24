@@ -1802,7 +1802,6 @@ private:
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
 	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);
-	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, int sectIndex);
 	//clear list of notes for given notesframe
 	void clearNotesInFrameList(PageItem_NoteFrame* nF) { m_docNotesInFrameMap.insert(nF, QList<TextNote*>()); }
 	//renumber notes with given notes style for given frame starting from number num
@@ -1839,7 +1838,7 @@ public:
 	bool flag_Renumber {false};
 	bool flag_NumUpdateRequest {false};
 	// for local numeration of paragraphs
-	bool updateLocalNums(StoryText& itemText); //return true if any num strings were updated and item need s invalidation
+	int  updateLocalNums(StoryText& itemText); //return first invalidated char
 	void updateNumbers(bool updateNumerations = false);
 	void itemSelection_ClearBulNumStrings(Selection *customSelection);
 /* Functions for PDF Form Actions */

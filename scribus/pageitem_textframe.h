@@ -71,8 +71,10 @@ public:
 
 	//for speed up updates when changed was only one frame from chain
 	virtual void invalidateLayout(bool wholeChain);
+	virtual void invalidateLayout(int firstChar);
 	using PageItem::invalidateLayout;
 	void layout() override;
+
 	//return true if all previouse frames from chain are valid (including that one)
 	bool isValidChainFromBegin();
 	void setTextAnnotationOpen(bool open);

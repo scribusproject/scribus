@@ -24,17 +24,16 @@ enum NumFormat
 enum NumerationRange
 {
 	NSRdocument,
-	NSRsection,
+	NSRsection, // deprecated, kept only to allow loading old documents
 	NSRstory,
-	NSRpage,
-	NSRframe
-//	NSRblock //used for contignous numeration eg. paragraphs - paragraph without numbering reset counter
+	NSRpage, // deprecated, kept only to allow loading old documents
+	NSRframe // deprecated, kept only to allow loading old documents
 };
 
 class Numeration
 {
 public:
-	Numeration() : numFormat(Type_1_2_3), asterix(QString()), lead('0'), len(0), range(NSRdocument), prefix(QString()), suffix(QString()), start(1) {}
+	Numeration() : numFormat(Type_1_2_3), asterix(QString()), lead('0'), range(NSRdocument) {}
 	Numeration(NumFormat f) : numFormat(f), asterix("*") {}
 	
 	QString numString(int num) const;
@@ -42,11 +41,11 @@ public:
 	NumFormat numFormat;
 	QString asterix;
 	QChar lead;
-	int len;
+	int len { 0 };
 	NumerationRange range;
 	QString prefix;
 	QString suffix;
-	int start;
+	int start { 1 };
 };
 
 struct NumFormatPair

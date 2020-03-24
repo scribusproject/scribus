@@ -207,8 +207,12 @@ void SMPStyleWidget::fillNumerationsCombo()
 {
 	QStringList numNames;
 	const auto numerationKeys = m_Doc->numerations.keys();
-	foreach (const QString& numName, numerationKeys)
+	for (const QString& numName : numerationKeys)
+	{
+		if (numName.isEmpty())
+			continue;
 		numNames.append(numName);
+	}
 	numNames.sort();
 	numComboBox->clear();
 	numComboBox->insertItems(0, numNames);
@@ -218,11 +222,8 @@ void SMPStyleWidget::fillNumerationsCombo()
 void SMPStyleWidget::fillNumRestartCombo()
 {
 	numRestartCombo->clear();
-	numRestartCombo->addItem(tr("Document"));
-	numRestartCombo->addItem(tr("Section"));
-	numRestartCombo->addItem(tr("Story"));
-	numRestartCombo->addItem(tr("Page"));
-	numRestartCombo->addItem(tr("Frame"));
+	numRestartCombo->addItem(tr("Document"), static_cast<int>(NSRdocument));
+	numRestartCombo->addItem(tr("Story") , static_cast<int>(NSRstory));
 }
 
 void SMPStyleWidget::checkParEffectState()
@@ -389,8 +390,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		setWidgetBoldFont(numSuffixLabel, !pstyle->isInhNumSuffix());
 		numStartSpin->setValue(pstyle->numStart(), pstyle->isInhNumStart());
 		numStartSpin->setParentValue(parent->numStart());
-		numRestartCombo->setCurrentItem(pstyle->numRestart(), pstyle->isInhNumRestart());
-		numRestartCombo->setParentItem(parent->numRestart());
+		int numRestartIndex = numRestartCombo->findData(pstyle->numRestart());
+		numRestartCombo->setCurrentItem(numRestartIndex, pstyle->isInhNumRestart());
+		numRestartCombo->setParentItem(numRestartIndex);
 		numRestartOtherBox->setChecked(pstyle->numOther(), pstyle->isInhNumOther());
 		numRestartOtherBox->setParentValue(parent->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher(), pstyle->isInhNumHigher());
@@ -444,7 +446,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numSuffix->setText(pstyle->numSuffix());
 		setWidgetBoldFont(numSuffixLabel, false);
 		numStartSpin->setValue(pstyle->numStart());
-		numRestartCombo->setCurrentItem(pstyle->numRestart());
+		int numRestartIndex = numRestartCombo->findData(pstyle->numRestart());
+		numRestartCombo->setCurrentItem((numRestartIndex >= 0) ? numRestartIndex : 0);
 		numRestartOtherBox->setChecked(pstyle->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher());
 

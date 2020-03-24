@@ -138,14 +138,8 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 		{
 			NotesStyle* nStyle = m_note->notesStyle();
 			QString label = "NoteMark_" + nStyle->name();
-			if (nStyle->range() == NSRsection)
-				label += " in section " + m_it->m_Doc->getSectionNameForPageIndex(m_it->OwnPage) + " page " + QString::number(m_it->OwnPage +1);
-			else if (nStyle->range() == NSRpage)
-				label += " on page " + QString::number(m_it->OwnPage +1);
-			else if (nStyle->range() == NSRstory)
+			if (nStyle->range() == NSRstory)
 				label += " in " + m_it->firstInChain()->itemName();
-			else if (nStyle->range() == NSRframe)
-				label += " in frame" + m_it->itemName();
 			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
 				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
@@ -293,14 +287,8 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 		{
 			NotesStyle* nStyle = m_note->notesStyle();
 			QString label = "NoteMark_" + nStyle->name();
-			if (nStyle->range() == NSRsection)
-				label += " in section " + m_it->m_Doc->getSectionNameForPageIndex(m_it->OwnPage) + " page " + QString::number(m_it->OwnPage +1);
-			else if (nStyle->range() == NSRpage)
-				label += " on page " + QString::number(m_it->OwnPage +1);
-			else if (nStyle->range() == NSRstory)
+			if (nStyle->range() == NSRstory)
 				label += " in " + m_it->firstInChain()->itemName();
-			else if (nStyle->range() == NSRframe)
-				label += " in frame" + m_it->itemName();
 			if (m_it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != nullptr)
 				getUniqueName(label,m_it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
