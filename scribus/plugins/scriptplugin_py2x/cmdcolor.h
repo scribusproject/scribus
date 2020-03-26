@@ -267,7 +267,7 @@ PyObject *scribus_delcolor(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_replcolor__doc__,
 QT_TR_NOOP("replaceColor(\"name\", \"replace\")\n\
 \n\
-Every occurence of the color \"name\" is replaced by the color \"replace\".\n\
+Every occurrence of the color \"name\" is replaced by the color \"replace\".\n\
 \n\
 May raise NotFoundError if a named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
