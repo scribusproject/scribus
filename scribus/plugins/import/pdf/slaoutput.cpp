@@ -1298,8 +1298,7 @@ void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)
 	m_actPage = pageNum;
 	m_groupStack.clear();
 	pushGroup();
-	m_currentClipPath.resize(0);
-	m_currentClipPath.svgInit();
+	m_currentClipPath = QPainterPath();
 	m_clipPaths.clear();
 }
 
@@ -1358,10 +1357,10 @@ void SlaOutputDev::restoreState(GfxState *state)
 				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
 				if (ite)
 				{
-					FPointArray out = m_currentClipPath.copy();
-					out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-					out.translate(-ite->xPos(), -ite->yPos());
-					ite->PoLine = out.copy();
+					QPainterPath clippath = m_currentClipPath;
+					clippath.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+					clippath.translate(-ite->xPos(), -ite->yPos());
+					ite->PoLine.fromQPainterPath(clippath, true);
 					ite->ClipEdited = true;
 					ite->FrameType = 3;
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1486,10 +1485,10 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 		ite->FrameType = 3;
 		if (checkClip())
 		{
-			FPointArray out = m_currentClipPath.copy();
-			out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-			out.translate(-ite->xPos(), -ite->yPos());
-			ite->PoLine = out.copy();
+			QPainterPath clippath = m_currentClipPath;
+			clippath.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+			clippath.translate(-ite->xPos(), -ite->yPos());
+			ite->PoLine.fromQPainterPath(clippath, true);
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1557,75 +1556,39 @@ void SlaOutputDev::updateStrokeColor(GfxState *state)
 void SlaOutputDev::clip(GfxState *state)
 {
 //	qDebug() << "Clip";
-	const double *ctm;
-	ctm = state->getCTM();
+	adjustClip(state, Qt::WindingFill);
+}
+
+void SlaOutputDev::eoClip(GfxState *state)
+{
+//	qDebug() << "EoClip";
+	adjustClip(state, Qt::OddEvenFill);
+}
+
+void SlaOutputDev::adjustClip(GfxState *state, Qt::FillRule fillRule)
+{
+	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	if (output.isEmpty())
 		return;
-
 	FPointArray out;
 	out.parseSVG(output);
 	out.svgClosePath();
 	out.map(m_ctm);
 	if (checkClip())
 	{
-		QPainterPath pathN = out.toQPainterPath(true);
-		QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
-		QPainterPath resultPath = pathA.intersected(pathN);
-		if (!resultPath.isEmpty())
-		{
-			FPointArray polyline;
-			polyline.resize(0);
-			polyline.fromQPainterPath(resultPath, true);
-			polyline.svgClosePath();
-			m_currentClipPath = polyline.copy();
-		}
-		else
-		{
-			m_currentClipPath.resize(0);
-			m_currentClipPath.svgInit();
-		}
+		// "clip" (WindingFill) and "eoClip" (OddEvenFill) only the determine
+		// the fill rule of the new clipping path. The new clip should be the
+		// intersection of the old and new area. QPainterPath determines on
+		// its own which fill rule to use for the result. We should not loose
+		// this information.
+		QPainterPath pathN = out.toQPainterPath(false);
+		pathN.setFillRule(fillRule);
+		m_currentClipPath = pathN.intersected(m_currentClipPath);
 	}
 	else
-		m_currentClipPath = out.copy();
-}
-
-void SlaOutputDev::eoClip(GfxState *state)
-{
-//	qDebug() << "EoClip";
-	const double *ctm;
-	ctm = state->getCTM();
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	QString output = convertPath(state->getPath());
-	FPointArray out;
-	if (!output.isEmpty())
-	{
-		out.parseSVG(output);
-		out.svgClosePath();
-		out.map(m_ctm);
-		if (checkClip())
-		{
-			QPainterPath pathN = out.toQPainterPath(true);
-			QPainterPath pathA = m_currentClipPath.toQPainterPath(true);
-			QPainterPath resultPath = pathA.intersected(pathN);
-			if (!resultPath.isEmpty())
-			{
-				FPointArray polyline;
-				polyline.resize(0);
-				polyline.fromQPainterPath(resultPath, true);
-				polyline.svgClosePath();
-				m_currentClipPath = polyline.copy();
-			}
-			else
-			{
-				m_currentClipPath.resize(0);
-				m_currentClipPath.svgInit();
-			}
-		}
-		else
-			m_currentClipPath = out.copy();
-	}
+		m_currentClipPath = out.toQPainterPath(false);
 }
 
 void SlaOutputDev::stroke(GfxState *state)
@@ -1723,51 +1686,17 @@ void SlaOutputDev::stroke(GfxState *state)
 void SlaOutputDev::fill(GfxState *state)
 {
 //	qDebug() << "Fill";
-	const double *ctm;
-	ctm = state->getCTM();
-	double xCoor = m_doc->currentPage()->xOffset();
-	double yCoor = m_doc->currentPage()->yOffset();
-	FPointArray out;
-	QString output = convertPath(state->getPath());
-	out.parseSVG(output);
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	out.map(m_ctm);
-	Coords = output;
-	FPoint wh = out.widthHeight();
-	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
-	{
-		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
-		int z;
-		if (pathIsClosed)
-			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
-		else
-			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
-		PageItem* ite = m_doc->Items->at(z);
-		ite->PoLine = out.copy();
-		ite->ClipEdited = true;
-		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
-		ite->setLineShade(100);
-		ite->setFillEvenOdd(false);
-		ite->setFillTransparency(1.0 - state->getFillOpacity());
-		ite->setFillBlendmode(getBlendMode(state));
-		ite->setLineEnd(PLineEnd);
-		ite->setLineJoin(PLineJoin);
-		ite->setWidthHeight(wh.x(),wh.y());
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_doc->adjustItemSize(ite);
-		m_Elements->append(ite);
-		if (m_groupStack.count() != 0)
-		{
-			m_groupStack.top().Items.append(ite);
-			applyMask(ite);
-		}
-	}
+	createFillItem(state, Qt::WindingFill);
 }
 
 void SlaOutputDev::eoFill(GfxState *state)
 {
 //	qDebug() << "EoFill";
+	createFillItem(state, Qt::OddEvenFill);
+}
+
+void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
+{
 	const double *ctm;
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
@@ -1777,9 +1706,15 @@ void SlaOutputDev::eoFill(GfxState *state)
 	out.parseSVG(output);
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	out.map(m_ctm);
+
+	// Clip the new path first and only add it if it is not empty.
+	QPainterPath path = out.toQPainterPath(false);
+	path.setFillRule(fillRule);
+	QPainterPath clippedPath = path.intersected(m_currentClipPath);
+
 	Coords = output;
-	FPoint wh = out.widthHeight();
-	if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
+	QRectF bbox = clippedPath.boundingRect();
+	if (!clippedPath.isEmpty() && !bbox.isNull())
 	{
 		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 		int z;
@@ -1788,17 +1723,20 @@ void SlaOutputDev::eoFill(GfxState *state)
 		else
 			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
 		PageItem* ite = m_doc->Items->at(z);
-		ite->PoLine = out.copy();
+		ite->PoLine.fromQPainterPath(clippedPath, true);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(100);
-		ite->setFillEvenOdd(true);
+		// Only the new path has to be interpreted according to fillRule. QPainterPath
+		// could decide to create a final path according to the other rule. Thus
+		// we have to set this from the final path.
+		ite->setFillEvenOdd(clippedPath.fillRule() == Qt::OddEvenFill);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
 		ite->setLineEnd(PLineEnd);
 		ite->setLineJoin(PLineJoin);
-		ite->setWidthHeight(wh.x(),wh.y());
+		ite->setWidthHeight(bbox.width(),bbox.height());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_doc->adjustItemSize(ite);
 		m_Elements->append(ite);
@@ -1812,6 +1750,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 
 GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
 {
+//	qDebug() << "SlaOutputDev::axialShadedFill";
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -1884,16 +1823,16 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	PageItem* ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
-		FPointArray out = m_currentClipPath.copy();
+		QPainterPath out = m_currentClipPath;
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		out.translate(-ite->xPos(), -ite->yPos());
-		ite->PoLine = out.copy();
+		ite->PoLine.fromQPainterPath(out, true);
+		ite->setFillEvenOdd(out.fillRule() == Qt::OddEvenFill);
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
@@ -1924,6 +1863,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 
 GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
 {
+//	qDebug() << "SlaOutputDev::radialShadedFill";
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -2004,16 +1944,16 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	PageItem* ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
-		FPointArray out = m_currentClipPath.copy();
+		QPainterPath out = m_currentClipPath;
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		out.translate(-ite->xPos(), -ite->yPos());
-		ite->PoLine = out.copy();
+		ite->PoLine.fromQPainterPath(out, true);
+		ite->setFillEvenOdd(out.fillRule() == Qt::OddEvenFill);
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
@@ -2044,6 +1984,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 
 GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangleShading *shading)
 {
+//	qDebug() << "SlaOutputDev::gouraudTriangleShadedFill";
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	double xmin, ymin, xmax, ymax;
@@ -2123,7 +2064,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 
 GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *shading)
 {
-//	qDebug() << "mesh shaded fill";
+//	qDebug() << "SlaOutputDev::patchMeshShadedFill";
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	double xmin, ymin, xmax, ymax;
@@ -2272,6 +2213,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 
 GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, Object *str, POPPLER_CONST_070 double *pmat, int paintType, int tilingType, Dict *resDict, POPPLER_CONST_070 double *mat, POPPLER_CONST_070 double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
 {
+//	qDebug() << "SlaOutputDev::tilingPatternFill";
 	PDFRectangle box;
 	Gfx *gfx;
 	QString id;
@@ -2360,16 +2302,16 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
-		FPointArray out = m_currentClipPath.copy();
+		QPainterPath out = m_currentClipPath;
 		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
 		out.translate(-ite->xPos(), -ite->yPos());
-		ite->PoLine = out.copy();
+		ite->PoLine.fromQPainterPath(out, true);
+		ite->setFillEvenOdd(out.fillRule() == Qt::OddEvenFill);
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
-	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	ite->setLineEnd(PLineEnd);
@@ -2700,6 +2642,17 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 		torigin = m_ctm.map(QPointF(0, 1));
 	}
 
+	// Determine the visible area of the picture after clipping it. If it is empty, no item
+	// needs to be created.
+	QPainterPath outline;
+	outline.addRect(0, 0, 1, 1);
+	outline = m_ctm.map(outline);
+	if (!m_currentClipPath.isEmpty())
+		outline = outline.intersected(m_currentClipPath);
+
+	if ((inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
+		return;
+
     // Determine the width and height of the image by undoing the rotation part
 	// of the CTM and applying the result to the unit square.
 	QTransform without_rotation; 
@@ -2798,20 +2751,15 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 		}
 		delete tempFile;
 	}
-	if ((checkClip()) && (inPattern == 0))
+	if (inPattern == 0)
 	{
-		FPointArray out = m_currentClipPath.copy();
+		outline.translate(xCoor - ite->xPos(), yCoor - ite->yPos());
+		// Undo the rotation of the clipping path as it is rotated together with the iamge.
 		QTransform mm;
 		mm.rotate(-ite->rotation());
-		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-		out.translate(-ite->xPos(), -ite->yPos());
-		// Undo the rotation of the clipping path as it is rotated together with the iamge.
-		for (int i = 0; i != out.size(); ++i)
-		{
-			QPointF p = mm.map(out.pointQF(i));
-			out.setPoint(i, p.x(), p.y());
-		}
-		ite->PoLine = out.copy();
+		outline = mm.map(outline);
+		ite->PoLine.fromQPainterPath(outline, true);
+		ite->setFillEvenOdd(outline.fillRule() == Qt::OddEvenFill);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -3536,6 +3484,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 
 QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
 {
+//	qDebug() << "SlaOutputDev::convertPath";
 	if (! path)
 		return QString();
 
@@ -3798,10 +3747,10 @@ QString SlaOutputDev::UnicodeParsedString(const std::string& s1)
 bool SlaOutputDev::checkClip()
 {
 	bool ret = false;
-	if (m_currentClipPath.count() != 0)
+	if (!m_currentClipPath.isEmpty())
 	{
-		FPoint wh = m_currentClipPath.widthHeight();
-		if ((wh.x() > 0) && (wh.y() > 0))
+		QRectF bbox = m_currentClipPath.boundingRect();
+		if ((bbox.width() > 0) && (bbox.height() > 0))
 			ret = true;
 	}
 	return ret;

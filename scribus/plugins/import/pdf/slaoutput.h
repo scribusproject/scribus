@@ -296,6 +296,14 @@ private:
 	QString UnicodeParsedString(const std::string& s1);
 	bool checkClip();
 
+	// Intersect the current clip path with the new path in state where filled areas
+	// are interpreted according to fillRule.
+	void adjustClip(GfxState *state, Qt::FillRule fillRule);
+
+	// Take the current path of state and interpret it according to fillRule,
+	// intersect it with the clipping path and create a new pageitem for it.
+	void createFillItem(GfxState *state, Qt::FillRule fillRule);
+
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
 
 	bool pathIsClosed {false};
@@ -308,8 +316,15 @@ private:
 	QVector<double> DashValues;
 	double DashOffset {0.0};
 	QString Coords;
-	FPointArray m_currentClipPath;
-	QStack<FPointArray> m_clipPaths;
+	// The currently visible area. If it is empty, everything is visible.
+	// QPainterPath has the drawback that it sometimes approximates Bezier curves
+	// by line segments for numerical stability. If available, a better class
+	// should be used. However, it is important that the used class knows which
+	// areas are covered and does not rely on external information about the fill
+	// rule to use.
+	QPainterPath m_currentClipPath;
+	QStack<QPainterPath> m_clipPaths;
+
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
