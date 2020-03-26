@@ -2648,7 +2648,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	outline.addRect(0, 0, 1, 1);
 	outline = m_ctm.map(outline);
 	if (!m_currentClipPath.isEmpty())
-		outline = outline.intersected(m_currentClipPath);
+		outline = m_currentClipPath.intersected(outline);
 
 	if ((inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
 		return;
