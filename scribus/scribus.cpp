@@ -4026,10 +4026,10 @@ void ScribusMainWindow::slotGetClipboardImage()
 		QFile::remove(fileName);
 		return;
 	}
-
-	currItem->EmbeddedProfile.clear();
+	
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
+	currItem->EmbeddedProfile.clear();
 	currItem->ImageProfile = doc->cmsSettings().DefaultImageRGBProfile;
 	currItem->ImageIntent = doc->cmsSettings().DefaultIntentImages;
 	qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
@@ -8880,8 +8880,8 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 	if (i != QMessageBox::Yes)
 		return;
 
-	imageItem->EmbeddedProfile.clear();
 	imageItem->pixm.imgInfo.isRequest = false;
+	imageItem->EmbeddedProfile.clear();
 	imageItem->ImageProfile = doc->cmsSettings().DefaultImageRGBProfile;
 	imageItem->ImageIntent  = doc->cmsSettings().DefaultIntentImages;
 	imageItem->effectsInUse = contentsBuffer.effects;

@@ -157,6 +157,7 @@ public:
 	QString clipPath;
 	QString usedPath;
 	QString profileName;
+	QString embeddedProfileName;
 	QList<PSDLayer> layerInfo;
 	QList<PSDDuotone_Color> duotoneColors;
 	ExifValues exifInfo;

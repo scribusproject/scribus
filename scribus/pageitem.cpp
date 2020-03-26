@@ -9454,20 +9454,23 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		imgcache.addInfo("OrigW", QString::number(OrigW));
 		imgcache.addInfo("OrigH", QString::number(OrigH));
 	}
+
 	isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 	if (!isRaster)
 	{
 		effectsInUse.clear();
 		imgcache.delModifier("effectsInUse");
 	}
+
 	UseEmbedded = pixm.imgInfo.isEmbedded;
 	if (pixm.imgInfo.isEmbedded)
-	{
 		ImageProfile = "Embedded " + pixm.imgInfo.profileName;
-		EmbeddedProfile = "Embedded " + pixm.imgInfo.profileName;
-	}
 	else
 		ImageProfile = pixm.imgInfo.profileName;
+	if (!pixm.imgInfo.embeddedProfileName.isEmpty())
+		EmbeddedProfile = "Embedded " + pixm.imgInfo.embeddedProfileName;
+	else
+		EmbeddedProfile.clear();
 
 	adjustPictScale();
 

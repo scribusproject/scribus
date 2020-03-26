@@ -306,6 +306,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		{
 			m_embeddedProfile = profArray;
 			m_imageInfoRecord.profileName = prof.productDescription();
+			m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 		}
 		m_imageInfoRecord.isEmbedded = profileIsValid;
 		free(EmbedBuffer);
@@ -313,7 +314,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	else
 	{
 		m_imageInfoRecord.isEmbedded = false;
-		m_imageInfoRecord.profileName = "";
+		m_imageInfoRecord.profileName.clear();
 	}
 
 	unsigned int PhotoshopLen = 0;
@@ -402,8 +403,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
 		m_image.setColorCount(256);
-		for (int i=0; i<256; i++)
-			m_image.setColor(i, qRgb(i,i,i));
+		for (int i = 0; i < 256; i++)
+			m_image.setColor(i, qRgb(i, i, i));
 	}
 	if (!m_image.isNull())
 	{
@@ -499,11 +500,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_ARGB32 );
 			QRgb *s;
 			QRgb *d;
-			for (int yi=0; yi < tmpImg.height(); ++yi)
+			for (int yi = 0; yi < tmpImg.height(); ++yi)
 			{
 				s = (QRgb*)(tmpImg.scanLine( yi ));
 				d = (QRgb*)(m_image.scanLine( yi ));
-				for (int xi=0; xi < tmpImg.width(); ++xi)
+				for (int xi = 0; xi < tmpImg.width(); ++xi)
 				{
 					(*d) = (*s);
 					s++;

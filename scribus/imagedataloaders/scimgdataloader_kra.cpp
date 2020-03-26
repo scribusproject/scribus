@@ -274,6 +274,10 @@ bool ScImgDataLoader_KRA::loadPicture(const QString& fn, int /*page*/, int /*res
 				m_profileComponents = 4;
 			if (prof.colorSpace() == ColorSpace_Gray)
 				m_profileComponents = 1;
+			m_imageInfoRecord.profileName = prof.productDescription();
+			if (m_imageInfoRecord.profileName.isEmpty())
+				m_imageInfoRecord.profileName = "Profile #" + prof.dataHash();
+			m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 			m_embeddedProfile = profileData;
 		}
 	}

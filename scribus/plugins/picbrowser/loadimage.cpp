@@ -106,7 +106,7 @@ void loadImagesThread::processLoadImageJob(int row, const QString& path, int siz
 					imgInfo->ydpi = 72;
 					imgInfo->layers = 0;
 					imgInfo->embedded = false;
-					imgInfo->profileName = "";
+					imgInfo->profileName.clear();
 					imgInfo->valid = true;
 
 					if ((im.width() > (size - 2)) || (im.height() > (size - 2)))

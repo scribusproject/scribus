@@ -115,6 +115,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 						if (prof.colorSpace() == ColorSpace_Cmyk)
 							m_profileComponents = 4;
 						m_imageInfoRecord.profileName = prof.productDescription();
+						m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 						m_imageInfoRecord.isEmbedded = true;
 						m_embeddedProfile = psdata;
 					}

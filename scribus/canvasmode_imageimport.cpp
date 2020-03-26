@@ -228,9 +228,9 @@ void CanvasMode_ImageImport::mouseReleaseEvent(QMouseEvent *m)
 void CanvasMode_ImageImport::setImage(PageItem *currItem)
 {
 	QString fileName = m_imageList.takeFirst();
-	currItem->EmbeddedProfile.clear();
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
+	currItem->EmbeddedProfile.clear();
 	currItem->ImageProfile = m_doc->cmsSettings().DefaultImageRGBProfile;
 	currItem->ImageIntent = m_doc->cmsSettings().DefaultIntentImages;
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);

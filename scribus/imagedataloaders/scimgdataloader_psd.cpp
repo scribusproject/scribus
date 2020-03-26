@@ -170,6 +170,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 		{
 			ScColorProfile prof = engine.openProfileFromMem(m_embeddedProfile);
 			m_imageInfoRecord.profileName = prof.productDescription();
+			m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 			m_imageInfoRecord.isEmbedded = true;
 		}
 		isCMYK = (header.color_mode == CM_CMYK);

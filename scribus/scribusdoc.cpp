@@ -5441,9 +5441,9 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 				if (QFile::exists(iafData.source))
 				{
 					PrefsManager::instance().prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.lastIndexOf("/")));
-					currItem->EmbeddedProfile.clear();
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;
+					currItem->EmbeddedProfile.clear();
 					currItem->ImageProfile = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 					currItem->ImageIntent = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );

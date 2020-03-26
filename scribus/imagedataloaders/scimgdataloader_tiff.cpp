@@ -731,12 +731,14 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		ScColorProfile tiffProf = engine.openProfileFromMem(profArray);
 		m_embeddedProfile = profArray;
 		m_imageInfoRecord.profileName = tiffProf.productDescription();
+		m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 		m_imageInfoRecord.isEmbedded = true;
 	}
 	else
 	{
 		m_imageInfoRecord.isEmbedded = false;
-		m_imageInfoRecord.profileName = "";
+		m_imageInfoRecord.profileName.clear();
+		m_imageInfoRecord.embeddedProfileName.clear();
 	}
 	unsigned int PhotoshopLen = 0;
 	unsigned char* PhotoshopBuffer;

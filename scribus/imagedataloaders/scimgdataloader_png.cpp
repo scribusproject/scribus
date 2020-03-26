@@ -137,6 +137,7 @@ bool ScImgDataLoader_PNG::loadPicture(const QString& fn, int page, int res, bool
 		m_imageInfoRecord.profileName = imgProfile.productDescription();
 		if (m_imageInfoRecord.profileName.isEmpty())
 			m_imageInfoRecord.profileName = "Profile #" + imgProfile.dataHash();
+		m_imageInfoRecord.embeddedProfileName = m_imageInfoRecord.profileName;
 		m_imageInfoRecord.isEmbedded = true;
 	}
 

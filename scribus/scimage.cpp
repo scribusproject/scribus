@@ -109,12 +109,14 @@ void ScImage::initialize()
 	imgInfo.lowResScale = 1.0;
 	imgInfo.PDSpathData.clear();
 	imgInfo.RequestProps.clear();
-	imgInfo.clipPath = "";
-	imgInfo.usedPath = "";
+	imgInfo.clipPath.clear();
+	imgInfo.usedPath.clear();
+	imgInfo.profileName.clear();
+	imgInfo.embeddedProfileName.clear();
 	imgInfo.layerInfo.clear();
 	imgInfo.duotoneColors.clear();
-	imgInfo.exifInfo.cameraName = "";
-	imgInfo.exifInfo.cameraVendor = "";
+	imgInfo.exifInfo.cameraName.clear();
+	imgInfo.exifInfo.cameraVendor.clear();
 	imgInfo.exifInfo.thumbnail = QImage();
 	imgInfo.BBoxX = 0;
 	imgInfo.BBoxH = 0;
@@ -2268,7 +2270,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	if (!fi.exists())
 		return ret;
 	QString ext = fi.suffix().toLower();
-	QString profileName = "";
+	QString profileName;
 	bool hasEmbeddedProfile = false;
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	QStringList fmtImg;
