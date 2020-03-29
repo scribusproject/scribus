@@ -12,6 +12,7 @@
 
 #include <QDebug>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPixmap>
 #include <QPen>
 #include <QBrush>
