@@ -33,20 +33,22 @@
 
 class ScResizeCursor
 {
-	void initCursorDb(int idx);
-	static QMap<unsigned int, QCursor> cdb;
-	int cIdx;
-	public:
-		/**
-		* Build a new ScResizeCursor
-		* rotation is in degrees and clockwise
-		* initial position of the cursor is vertical, corresponding to Qt::SizeVerCursor
-		*/
-		ScResizeCursor();
-		ScResizeCursor(double rotation);
-		~ScResizeCursor() {}
+public:
+	/**
+	* Build a new ScResizeCursor
+	* rotation is in degrees and clockwise
+	* initial position of the cursor is vertical, corresponding to Qt::SizeVerCursor
+	*/
+	ScResizeCursor();
+	ScResizeCursor(double rotation);
+	~ScResizeCursor() {}
 		
-		operator const QCursor& ();
+	operator const QCursor& ();
+
+private:
+	void initCursorDb(int idx);
+	static QMap<unsigned int, QCursor> m_cursors;
+	int m_currIndex;
 };
 
 #endif // SCCURSOR_H

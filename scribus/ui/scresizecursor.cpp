@@ -19,19 +19,41 @@
 
 #define SCCURSORMAXANGLE 360
 
-QMap<unsigned int, QCursor> ScResizeCursor::cdb;
+QMap<unsigned int, QCursor> ScResizeCursor::m_cursors;
+
+ScResizeCursor::ScResizeCursor()
+{
+	m_currIndex = 0;
+	initCursorDb(m_currIndex);
+}
+
+ScResizeCursor::ScResizeCursor(double rotation)
+{
+	int iRot(qRound(rotation));
+	if (iRot < 0)
+		m_currIndex = SCCURSORMAXANGLE + (iRot % SCCURSORMAXANGLE);
+	else
+		m_currIndex = iRot % SCCURSORMAXANGLE ;
+	
+	initCursorDb(m_currIndex);
+}
+
+ScResizeCursor::operator const QCursor &()
+{
+	return m_cursors[m_currIndex];
+}
 
 void ScResizeCursor::initCursorDb(int idx)
 {
-	if(cdb.contains(idx))
+	if (m_cursors.contains(idx))
 		return;
 	
-	QRect rect(0,0,32,32);
+	QRect rect(0, 0, 32, 32);
 	int ww(rect.width());
 	int hh(rect.height());
 	int uu(ww / 32 );
-	QPen pen(QColor(232,232,232), 1);
-	QBrush brush(QColor(32,32,32));
+	QPen pen(QColor(232, 232, 232), 1);
+	QBrush brush(QColor(32, 32, 32));
 	
 	// the double-arrow
 	// we build it around (0,0) to ease rotations
@@ -70,65 +92,38 @@ void ScResizeCursor::initCursorDb(int idx)
 */
 	
 	path.moveTo(0, -sext * uu);
-	path.lineTo( pint*uu,-pext*uu);
-	path.lineTo( sint*uu,-pext*uu);
-	path.lineTo( sint*uu, pext*uu);
-	path.lineTo( pint*uu, pext*uu);
-	path.lineTo( 0   , sext*uu);
-	path.lineTo(-pint*uu, pext*uu);
-	path.lineTo(-sint*uu, pext*uu);
-	path.lineTo(-sint*uu,-pext*uu);
-	path.lineTo(-pint*uu,-pext*uu);
-	path.lineTo( 0, -sext*uu);
+	path.lineTo(pint * uu, -pext * uu);
+	path.lineTo(sint * uu, -pext * uu);
+	path.lineTo(sint * uu, pext * uu);
+	path.lineTo(pint * uu, pext * uu);
+	path.lineTo(0, sext * uu);
+	path.lineTo(-pint * uu, pext * uu);
+	path.lineTo(-sint * uu, pext * uu);
+	path.lineTo(-sint * uu,-pext * uu);
+	path.lineTo(-pint * uu,-pext * uu);
+	path.lineTo(0, -sext * uu);
 	
-// 	for(unsigned int rot(0); rot < SCCURSORMAXANGLE; ++rot)
-// 	{
 	int rot(idx);
-		QPixmap pxm(rect.size());
-		pxm.fill(QColor (255, 255, 255, 0 ));
+	QPixmap pxm(rect.size());
+	pxm.fill(QColor (255, 255, 255, 0 ));
 		
-		QPainter painter(&pxm);
-		if((idx != 0)
-//			&& (idx != 45)
-			&& (idx != 90)
-//			&& (idx != 135)
-			&& (idx != 180)
-//			&& (idx != 225)
-			&& (idx != 270)
-//			&& (idx != 315)
-			&& (idx != 360)
-			)
-			painter.setRenderHint(QPainter::Antialiasing, true);
-		painter.translate( ww/2, ww/2 );
-		painter.rotate(rot);
-		painter.setPen(pen);
-		painter.setBrush(brush);
-		painter.drawPath(path);
+	QPainter painter(&pxm);
+	if((idx != 0)
+//		&& (idx != 45)
+		&& (idx != 90)
+//		&& (idx != 135)
+		&& (idx != 180)
+//		&& (idx != 225)
+		&& (idx != 270)
+//		&& (idx != 315)
+		&& (idx != 360)
+		)
+		painter.setRenderHint(QPainter::Antialiasing, true);
+	painter.translate(ww / 2, ww / 2);
+	painter.rotate(rot);
+	painter.setPen(pen);
+	painter.setBrush(brush);
+	painter.drawPath(path);
 		
-		cdb[rot] = QCursor ( pxm, ww/2, hh/2 );
-// 	}
-
+	m_cursors[rot] = QCursor(pxm, ww / 2, hh / 2);
 }
-
-ScResizeCursor::ScResizeCursor()
-{
-	cIdx = 0;
-	initCursorDb(cIdx);
-}
-
-ScResizeCursor::ScResizeCursor(double rotation)
-{
-	int irot(qRound(rotation));
-	if(irot < 0)
-		cIdx = SCCURSORMAXANGLE + (irot % SCCURSORMAXANGLE);
-	else
-		cIdx = irot % SCCURSORMAXANGLE ;
-	
-	initCursorDb(cIdx);
-}
-
-ScResizeCursor::operator const QCursor &()
-{
-	return cdb[cIdx];
-}
-
