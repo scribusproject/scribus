@@ -3054,9 +3054,8 @@ void SlaOutputDev::updateFont(GfxState *state)
 		case fontCIDType0COT:
 			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
 				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-				codeToGID = (int *)gmallocn(n, sizeof(int));
-				memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
-				n * sizeof(int));
+				codeToGID = (int *)gmallocn(n, sizeof(*codeToGID));
+				memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
 			} else {
 				codeToGID = nullptr;
 				n = 0;
@@ -3079,9 +3078,8 @@ void SlaOutputDev::updateFont(GfxState *state)
 			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
 				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
 				if (n) {
-					codeToGID = (int *)gmallocn(n, sizeof(int));
-					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(),
-					n * sizeof(Gushort));
+					codeToGID = (int *)gmallocn(n, sizeof(*codeToGID));
+					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
 				}
 			} else {
 				if (fileName)
