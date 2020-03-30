@@ -2943,29 +2943,29 @@ void SlaOutputDev::updateFont(GfxState *state)
 
 	// check the font file cache
 	id = new SplashOutFontFileID(gfxFont->getID());
-	if ((fontFile = m_fontEngine->getFontFile(id))) {
+	if ((fontFile = m_fontEngine->getFontFile(id)))
 		delete id;
-
-	}
 	else
 	{
 		if (!(fontLoc = gfxFont->locateFont(xref, nullptr)))
 		{
 			error(errSyntaxError, -1, "Couldn't find a font for '{0:s}'",
-			gfxFont->getName() ? gfxFont->getName()->getCString()
-			: "(unnamed)");
+			gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 			goto err2;
 		}
 
 		// embedded font
-		if (fontLoc->locType == gfxFontLocEmbedded) {
+		if (fontLoc->locType == gfxFontLocEmbedded)
+		{
 			// if there is an embedded font, read it to memory
 			tmpBuf = gfxFont->readEmbFontFile(xref, &tmpBufLen);
 			if (! tmpBuf)
 				goto err2;
 
 			// external font
-		} else { // gfxFontLocExternal
+		}
+		else
+		{ // gfxFontLocExternal
 			fileName = fontLoc->path;
 			fontType = fontLoc->fontType;
 		}
@@ -2982,11 +2982,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 			if (!(fontFile = m_fontEngine->loadType1Font(
 				id,
 				fontsrc,
-				(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+				(const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -2994,11 +2993,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 			if (!(fontFile = m_fontEngine->loadType1CFont(
 							id,
 							fontsrc,
-							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+							(const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3006,11 +3004,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 			if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(
 							id,
 							fontsrc,
-							(const char **)((Gfx8BitFont *)gfxFont)->getEncoding())))
+							(const char **)((Gfx8BitFont *) gfxFont)->getEncoding())))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3020,11 +3017,14 @@ void SlaOutputDev::updateFont(GfxState *state)
 				ff = FoFiTrueType::load(fileName->getCString());
 			else
 				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
-			if (ff) {
+			if (ff)
+			{
 				codeToGID = ((Gfx8BitFont *)gfxFont)->getCodeToGIDMap(ff);
 				n = 256;
 				delete ff;
-			} else {
+			}
+			else
+			{
 				codeToGID = nullptr;
 				n = 0;
 			}
@@ -3034,8 +3034,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 							codeToGID, n)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3046,17 +3045,19 @@ void SlaOutputDev::updateFont(GfxState *state)
 							fontsrc)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
 		case fontCIDType0COT:
-			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
-				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-				codeToGID = (int *)gmallocn(n, sizeof(*codeToGID));
-				memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
-			} else {
+			if (((GfxCIDFont *) gfxFont)->getCIDToGID())
+			{
+				n = ((GfxCIDFont *) gfxFont)->getCIDToGIDLen();
+				codeToGID = (int *) gmallocn(n, sizeof(*codeToGID));
+				memcpy(codeToGID, ((GfxCIDFont *) gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
+			}
+			else
+			{
 				codeToGID = nullptr;
 				n = 0;
 			}
@@ -3066,8 +3067,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 							codeToGID, n)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
@@ -3075,13 +3075,17 @@ void SlaOutputDev::updateFont(GfxState *state)
 		case fontCIDType2OT:
 			codeToGID = nullptr;
 			n = 0;
-			if (((GfxCIDFont *)gfxFont)->getCIDToGID()) {
-				n = ((GfxCIDFont *)gfxFont)->getCIDToGIDLen();
-				if (n) {
+			if (((GfxCIDFont *) gfxFont)->getCIDToGID())
+			{
+				n = ((GfxCIDFont *) gfxFont)->getCIDToGIDLen();
+				if (n)
+				{
 					codeToGID = (int *)gmallocn(n, sizeof(*codeToGID));
 					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
 				}
-			} else {
+			}
+			else
+			{
 				if (fileName)
 					ff = FoFiTrueType::load(fileName->getCString());
 				else
@@ -3097,8 +3101,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 							codeToGID, n, faceIndex)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
-				gfxFont->getName() ? gfxFont->getName()->getCString()
-				: "(unnamed)");
+				gfxFont->getName() ? gfxFont->getName()->getCString() : "(unnamed)");
 				goto err2;
 			}
 			break;
