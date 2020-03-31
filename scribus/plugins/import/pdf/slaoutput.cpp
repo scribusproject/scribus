@@ -20,6 +20,42 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
+namespace
+{
+	// Compute the intersection of two paths while considering the fillrule of each of them.
+	// QPainterPath has the right interface to do the operation but is currently buggy.
+	// See for example https://bugreports.qt.io/browse/QTBUG-83102. Thus this function
+	// applies some heuristics to find the best result. As soon QPainterPath is fixed
+	// one can just use a.intersected(b) wherever this function is called.
+	// TODO: Find an alternative to QPainterPath that works for different fill rules.
+	QPainterPath intersection(QPainterPath const &a, QPainterPath const &b)
+	{
+		// An empty path is treated like the whole area.
+		if (a.elementCount() == 0)
+			return b;
+		if (b.elementCount() == 0)
+			return a;
+
+		QPainterPath ret_a = a.intersected(b);
+		QPainterPath ret_b = b.intersected(a);
+		// Sometimes the resulting paths are not closed even though they should.
+		// Close them now.
+		ret_a.closeSubpath();
+		ret_b.closeSubpath();
+
+		// Most of the time one of the two operations returns an empty path while the other
+		// gives us the desired result. Return the non-empty one.
+		if (ret_a.elementCount() == 0)
+			return ret_b;
+		if (ret_b.elementCount() == 0)
+			return ret_a;
+
+		// There are cases where both intersections are not empty but one of them is quite
+		// complicated with several subpaths, etc. We return the simpler one.
+		return (ret_a.elementCount() <= ret_b.elementCount()) ? ret_a : ret_b;
+	}
+}
+
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
 	if (!actionObj->isDict())
@@ -1411,12 +1447,14 @@ void SlaOutputDev::restoreState(GfxState *state)
 
 void SlaOutputDev::beginTransparencyGroup(GfxState *state, POPPLER_CONST_070 double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool isolated, GBool knockout, GBool forSoftMask)
 {
+// 	qDebug() << "SlaOutputDev::beginTransparencyGroup isolated:" << isolated << "knockout:" << knockout << "forSoftMask:" << forSoftMask;
 	pushGroup("", forSoftMask);
 	m_groupStack.top().isolated = isolated;
 }
 
 void SlaOutputDev::paintTransparencyGroup(GfxState *state, POPPLER_CONST_070 double *bbox)
 {
+// 	qDebug() << "SlaOutputDev::paintTransparencyGroup";
 	if (m_groupStack.count() != 0)
 	{
 		if ((m_groupStack.top().Items.count() != 0) && (!m_groupStack.top().forSoftMask))
@@ -1430,6 +1468,7 @@ void SlaOutputDev::paintTransparencyGroup(GfxState *state, POPPLER_CONST_070 dou
 
 void SlaOutputDev::endTransparencyGroup(GfxState *state)
 {
+// 	qDebug() << "SlaOutputDev::endTransparencyGroup";
 	if (m_groupStack.count() <= 0)
 		return;
 
@@ -1458,6 +1497,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 		m_doc->DoDrawing = false;
 		pat.width = ite->width();
 		pat.height = ite->height();
+		m_currentMaskPosition = QPointF(ite->xPos(), ite->yPos());
 		ite->gXpos = 0;
 		ite->gYpos = 0;
 		ite->setXYPos(ite->gXpos, ite->gYpos, true);
@@ -1528,8 +1568,8 @@ void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * 
 	else
 		m_groupStack.top().inverted = true;
 	m_groupStack.top().maskName = m_currentMask;
-	// Remember the mask's bounding box as it might not align with the image to which the mask is later assigned.
-	m_groupStack.top().maskBBox = QRectF(QPointF(bbox[0], m_doc->currentPage()->height() - bbox[1]), QPointF(bbox[2], m_doc->currentPage()->height() - bbox[3]));
+	// Remember the mask's position as it might not align with the image to which the mask is later assigned.
+	m_groupStack.top().maskPos = m_currentMaskPosition;
 	m_groupStack.top().alpha = alpha;
 	if (m_groupStack.top().Items.count() != 0)
 		applyMask(m_groupStack.top().Items.last());
@@ -1585,7 +1625,7 @@ void SlaOutputDev::adjustClip(GfxState *state, Qt::FillRule fillRule)
 		// this information.
 		QPainterPath pathN = out.toQPainterPath(false);
 		pathN.setFillRule(fillRule);
-		m_currentClipPath = pathN.intersected(m_currentClipPath);
+		m_currentClipPath = intersection(pathN, m_currentClipPath);
 	}
 	else
 		m_currentClipPath = out.toQPainterPath(false);
@@ -1699,18 +1739,24 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 {
 	const double *ctm;
 	ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	FPointArray out;
 	QString output = convertPath(state->getPath());
 	out.parseSVG(output);
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	out.map(m_ctm);
 
 	// Clip the new path first and only add it if it is not empty.
 	QPainterPath path = out.toQPainterPath(false);
 	path.setFillRule(fillRule);
-	QPainterPath clippedPath = path.intersected(m_currentClipPath);
+	QPainterPath clippedPath = intersection(m_currentClipPath, path);
+
+	// Undo the rotation of the clipping path as it is rotated together with the item.
+	double angle = m_ctm.map(QLineF(0, 0, 1, 0)).angle();
+	QTransform mm;
+	mm.rotate(angle);
+	clippedPath = mm.map(clippedPath);
 
 	Coords = output;
 	QRectF bbox = clippedPath.boundingRect();
@@ -1728,6 +1774,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 		ite->FrameType = 3;
 		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(100);
+		ite->setRotation(-angle);
 		// Only the new path has to be interpreted according to fillRule. QPainterPath
 		// could decide to create a final path according to the other rule. Thus
 		// we have to set this from the final path.
@@ -2242,7 +2289,11 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 
 	gfx = new Gfx(pdfDoc, this, resDict, &box, nullptr);
 	inPattern++;
+	// Unset the clip path as it is unrelated to the pattern's coordinate space.
+	QPainterPath savedClip = m_currentClipPath;
+	m_currentClipPath = QPainterPath();
 	gfx->display(str);
+	m_currentClipPath = savedClip;
 	inPattern--;
 	gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
@@ -2300,13 +2351,20 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	Coords = output;
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
 	ite = m_doc->Items->at(z);
+
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	double angle = m_ctm.map(QLineF(0, 0, 1, 0)).angle();
+	ite->setRotation(-angle);
 	if (checkClip())
 	{
-		QPainterPath out = m_currentClipPath;
-		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-		out.translate(-ite->xPos(), -ite->yPos());
-		ite->PoLine.fromQPainterPath(out, true);
-		ite->setFillEvenOdd(out.fillRule() == Qt::OddEvenFill);
+		QPainterPath outline = m_currentClipPath;
+		outline.translate(xCoor - ite->xPos(), yCoor - ite->yPos());
+		// Undo the rotation of the clipping path as it is rotated together with the item.
+		QTransform mm;
+		mm.rotate(angle);
+		outline = mm.map(outline);
+		ite->PoLine.fromQPainterPath(outline, true);
+		ite->setFillEvenOdd(outline.fillRule() == Qt::OddEvenFill);
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -2621,6 +2679,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 
 void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColorComponents)
 {
+//	qDebug() << "SlaOutputDev::createImageFrame";
 	const double *ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -2647,8 +2706,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	QPainterPath outline;
 	outline.addRect(0, 0, 1, 1);
 	outline = m_ctm.map(outline);
-	if (!m_currentClipPath.isEmpty())
-		outline = m_currentClipPath.intersected(outline);
+	outline = intersection(outline, m_currentClipPath);
 
 	if ((inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
 		return;
@@ -3628,10 +3686,10 @@ void SlaOutputDev::applyMask(PageItem *ite)
 		if (!m_groupStack.top().maskName.isEmpty())
 		{
 			ite->setPatternMask(m_groupStack.top().maskName);
-			QRectF bbox = m_groupStack.top().maskBBox; 
+			QPointF maskPos = m_groupStack.top().maskPos;
 			double sx, sy, px, py, r, shx, shy;
 			ite->maskTransform(sx, sy, px, py, r, shx, shy);
-			ite->setMaskTransform(sx, sy, bbox.x() - (ite->xPos() - m_doc->currentPage()->xOffset()) , bbox.y() - (ite->yPos() - m_doc->currentPage()->yOffset()) , r, shx, shy);
+			ite->setMaskTransform(sx, sy, maskPos.x() - ite->xPos(), maskPos.y() - ite->yPos(), r, shx, shy);
 			if (m_groupStack.top().alpha)
 			{
 				if (m_groupStack.top().inverted)

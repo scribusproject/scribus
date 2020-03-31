@@ -332,11 +332,12 @@ private:
 		GBool isolated;
 		GBool alpha;
 		QString maskName;
-		QRectF maskBBox;
+		QPointF maskPos;
 		bool inverted;
 	};
 	QStack<groupEntry> m_groupStack;
 	QString m_currentMask;
+	QPointF m_currentMaskPosition;
 	ScribusDoc* m_doc;
 	Selection* tmpSel;
 	QList<PageItem*> *m_Elements;
