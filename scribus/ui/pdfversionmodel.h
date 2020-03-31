@@ -27,9 +27,10 @@ public:
 		ItemPDF_13 = 0,
 		ItemPDF_14 = 1,
 		ItemPDF_15 = 2,
-		ItemPDFX_1a = 3,
-		ItemPDFX_3  = 4,
-		ItemPDFX_4  = 5
+		ItemPDF_16 = 3,
+		ItemPDFX_1a = 4,
+		ItemPDFX_3  = 5,
+		ItemPDFX_4  = 6
 	};
 
 	//! Remove all colors from list;

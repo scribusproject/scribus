@@ -143,6 +143,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/pdfoptions.h \
            scribus/pdfoptionsio.h \
            scribus/pdfstructs.h \
+           scribus/pdfversion.h \
            scribus/pdfwriter.h \
            scribus/pluginapi.h \
            scribus/pluginmanager.h \
@@ -1305,6 +1306,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/pdflib_core.cpp \
            scribus/pdfoptions.cpp \
            scribus/pdfoptionsio.cpp \
+           scribus/pdfversion.cpp \
            scribus/pdfwriter.cpp \
            scribus/pluginmanager.cpp \
            scribus/pp_proxy.cpp \

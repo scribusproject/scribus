@@ -597,10 +597,7 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 			case ScFace::TYPE42:
 				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 				getSFontType(face, t.m_m->typeCode);
-				if (t.type() == ScFace::OTF)
-					t.subset(true);
-				else
-					t.subset(Subset);
+				t.subset(Subset);
 				break;
 			default:
 				/* catching any types not handled above to silence compiler */
@@ -840,34 +837,19 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 				case ScFace::SFNT:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
-					if (t.type() == ScFace::OTF) 
-					{
-						t.subset(true);
-					}
-					else
-						t.subset(Subset);
+					t.subset(Subset);
 					break;
 				case ScFace::TTCF:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					t.m_m->formatCode = ScFace::TTCF;
 					t.m_m->typeCode = ScFace::TTF;
 					getSFontType(face, t.m_m->typeCode);
-					if (t.type() == ScFace::OTF) 
-					{
-						t.subset(true);
-					}
-					else
-						t.subset(Subset);
+					t.subset(Subset);
 					break;
 				case ScFace::TYPE42:
 					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
-					if (t.type() == ScFace::OTF) 
-					{
-						t.subset(true);
-					}
-					else
-						t.subset(Subset);
+					t.subset(Subset);
 					break;
 				default:
 				/* catching any types not handled above to silence compiler */

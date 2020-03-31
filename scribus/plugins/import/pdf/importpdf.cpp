@@ -821,7 +821,7 @@ bool PdfPlug::convert(const QString& fn)
 							}
 							delete jsNameTreeP;
 						}
-						m_Doc->pdfOptions().Version = (PDFOptions::PDFVersion)qMin(15, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));
+						m_Doc->pdfOptions().Version = (PDFVersion::Version) qMin(16, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));
 						ViewerPreferences *viewPrefs = pdfDoc->getCatalog()->getViewerPreferences();
 						if (viewPrefs)
 						{

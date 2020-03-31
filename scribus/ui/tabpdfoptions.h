@@ -113,6 +113,7 @@ protected:
 	QString SelLPIcolor;
 
 	QListWidgetItem* addFontItem(const QString& fontName, QListWidget* fontList);
+	void checkEmbeddableFonts();
 
 private:
 	// Non-GUI protected members

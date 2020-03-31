@@ -26,40 +26,44 @@ PdfVersionCombo::~PdfVersionCombo()
 	}
 }
 
-PDFOptions::PDFVersion PdfVersionCombo::version() const
+PDFVersion PdfVersionCombo::version() const
 {
 	int curIndex = currentIndex();
 
 	if (curIndex == PdfVersionModel::ItemPDF_13)
-		return PDFOptions::PDFVersion_13;
+		return PDFVersion::PDF_13;
 	if (curIndex == PdfVersionModel::ItemPDF_14)
-		return PDFOptions::PDFVersion_14;
+		return PDFVersion::PDF_14;
 	if (curIndex == PdfVersionModel::ItemPDF_15)
-		return PDFOptions::PDFVersion_15;
+		return PDFVersion::PDF_15;
+	if (curIndex == PdfVersionModel::ItemPDF_16)
+		return PDFVersion::PDF_16;
 	if (curIndex == PdfVersionModel::ItemPDFX_1a)
-		return PDFOptions::PDFVersion_X1a;
+		return PDFVersion::PDF_X1a;
 	if (curIndex == PdfVersionModel::ItemPDFX_3)
-		return PDFOptions::PDFVersion_X3;
+		return PDFVersion::PDF_X3;
 	if (curIndex == PdfVersionModel::ItemPDFX_4)
-		return PDFOptions::PDFVersion_X4;
-	return PDFOptions::PDFVersion_14;
+		return PDFVersion::PDF_X4;
+	return PDFVersion::PDF_14;
 }
 
-bool PdfVersionCombo::versionIs(PDFOptions::PDFVersion version) const
+bool PdfVersionCombo::versionIs(const PDFVersion& version) const
 {
 	int curIndex = currentIndex();
 
-	if (version == PDFOptions::PDFVersion_13)
+	if (version == PDFVersion::PDF_13)
 		return (curIndex == PdfVersionModel::ItemPDF_13);
-	if (version == PDFOptions::PDFVersion_14)
+	if (version == PDFVersion::PDF_14)
 		return (curIndex == PdfVersionModel::ItemPDF_14);
-	if (version == PDFOptions::PDFVersion_15)
+	if (version == PDFVersion::PDF_15)
 		return (curIndex == PdfVersionModel::ItemPDF_15);
-	if (version == PDFOptions::PDFVersion_X1a)
+	if (version == PDFVersion::PDF_16)
+		return (curIndex == PdfVersionModel::ItemPDF_16);
+	if (version == PDFVersion::PDF_X1a)
 		return (curIndex == PdfVersionModel::ItemPDFX_1a);
-	if (version == PDFOptions::PDFVersion_X3)
+	if (version == PDFVersion::PDF_X3)
 		return (curIndex == PdfVersionModel::ItemPDFX_3);
-	if (version == PDFOptions::PDFVersion_X4)
+	if (version == PDFVersion::PDF_X4)
 		return (curIndex == PdfVersionModel::ItemPDFX_4);
 	return false;
 }
@@ -76,35 +80,37 @@ bool PdfVersionCombo::versionIsPDFX() const
 	return false;
 }
 
-void PdfVersionCombo::setVersion(PDFOptions::PDFVersion version)
+void PdfVersionCombo::setVersion(const PDFVersion& version)
 {
-	if ((version == PDFOptions::PDFVersion_X1a) && !m_isPdfXEnabled)
+	if ((version == PDFVersion::PDF_X1a) && !m_isPdfXEnabled)
 	{
 		setCurrentIndex(PdfVersionModel::ItemPDF_13);
 		return;
 	}
-	if ((version == PDFOptions::PDFVersion_X3) && !m_isPdfXEnabled)
+	if ((version == PDFVersion::PDF_X3) && !m_isPdfXEnabled)
 	{
 		setCurrentIndex(PdfVersionModel::ItemPDF_13);
 		return;
 	}
-	if ((version == PDFOptions::PDFVersion_X4) && !m_isPdfXEnabled)
+	if ((version == PDFVersion::PDF_X4) && !m_isPdfXEnabled)
 	{
 		setCurrentIndex(PdfVersionModel::ItemPDF_15);
 		return;
 	}
 	
-	if (version == PDFOptions::PDFVersion_13)
+	if (version == PDFVersion::PDF_13)
 		setCurrentIndex(PdfVersionModel::ItemPDF_13);
-	else if (version == PDFOptions::PDFVersion_14)
+	else if (version == PDFVersion::PDF_14)
 		setCurrentIndex(PdfVersionModel::ItemPDF_14);
-	else if  (version == PDFOptions::PDFVersion_15)
+	else if  (version == PDFVersion::PDF_15)
 		setCurrentIndex(PdfVersionModel::ItemPDF_15);
-	else if  (version == PDFOptions::PDFVersion_X1a)
+	else if  (version == PDFVersion::PDF_16)
+		setCurrentIndex(PdfVersionModel::ItemPDF_16);
+	else if  (version == PDFVersion::PDF_X1a)
 		setCurrentIndex(PdfVersionModel::ItemPDFX_1a);
-	else if  (version == PDFOptions::PDFVersion_X3)
+	else if  (version == PDFVersion::PDF_X3)
 		setCurrentIndex(PdfVersionModel::ItemPDFX_3);
-	else if  (version == PDFOptions::PDFVersion_X4)
+	else if  (version == PDFVersion::PDF_X4)
 		setCurrentIndex(PdfVersionModel::ItemPDFX_4);
 }
 
@@ -114,14 +120,14 @@ void PdfVersionCombo::setPDFXEnabled(bool enabled)
 		return;
 	m_isPdfXEnabled = enabled;
 	
-	PDFOptions::PDFVersion oldVersion = version();
+	PDFVersion oldVersion = version();
 	if (!enabled)
 	{
-		if ((oldVersion == PDFOptions::PDFVersion_X1a) && !enabled) 
+		if ((oldVersion == PDFVersion::PDF_X1a) && !enabled) 
 			setCurrentIndex((int) PdfVersionModel::ItemPDF_13);
-		if ((oldVersion == PDFOptions::PDFVersion_X3) && !enabled) 
+		if ((oldVersion == PDFVersion::PDF_X3) && !enabled) 
 			setCurrentIndex((int) PdfVersionModel::ItemPDF_13);
-		if ((oldVersion == PDFOptions::PDFVersion_X4) && !enabled) 
+		if ((oldVersion == PDFVersion::PDF_X4) && !enabled) 
 			setCurrentIndex((int) PdfVersionModel::ItemPDF_15);
 	}
 	m_pdfVersionModel->setPdfXEnabled(enabled);

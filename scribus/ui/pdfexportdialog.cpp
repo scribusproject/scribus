@@ -126,7 +126,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout7->addWidget( cancelButton );
 	PDFExportLayout->addLayout( Layout7 );
-	if ((m_opts.Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
+	if ((m_opts.Version == PDFVersion::PDF_X3) && (Options->InfoString->text().isEmpty()))
 		okButton->setEnabled(false);
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
@@ -336,7 +336,7 @@ void PDFExportDialog::updateDocOptions()
 	if (Options->Encry->isChecked())
 	{
 		int Perm = -64;
-		if (Options->PDFVersionCombo->currentIndex() == 1)
+		if (Options->PDFVersionCombo->version() == PDFVersion::PDF_14)
 			Perm &= ~0x00240000;
 		if (Options->PrintSec->isChecked())
 			Perm += 4;
@@ -350,18 +350,7 @@ void PDFExportDialog::updateDocOptions()
 		m_opts.PassOwner = Options->PassOwner->text();
 		m_opts.PassUser = Options->PassUser->text();
 	}
-	if (Options->PDFVersionCombo->currentIndex() == 0)
-		m_opts.Version = PDFOptions::PDFVersion_13;
-	if (Options->PDFVersionCombo->currentIndex() == 1)
-		m_opts.Version = PDFOptions::PDFVersion_14;
-	if (Options->PDFVersionCombo->currentIndex() == 2)
-		m_opts.Version = PDFOptions::PDFVersion_15;
-	if (Options->PDFVersionCombo->currentIndex() == 3)
-		m_opts.Version = PDFOptions::PDFVersion_X1a;
-	if (Options->PDFVersionCombo->currentIndex() == 4)
-		m_opts.Version = PDFOptions::PDFVersion_X3;
-	if (Options->PDFVersionCombo->currentIndex() == 5)
-		m_opts.Version = PDFOptions::PDFVersion_X4;
+	m_opts.Version = Options->PDFVersionCombo->version();
 	if (Options->OutCombo->currentIndex() == 0)
 	{
 		m_opts.UseRGB = true;
@@ -386,7 +375,7 @@ void PDFExportDialog::updateDocOptions()
 			{
 				m_opts.UseProfiles = Options->EmbedProfs->isChecked();
 				m_opts.UseProfiles2 = Options->EmbedProfs2->isChecked();
-				if (m_opts.Version != PDFOptions::PDFVersion_X1a)
+				if (m_opts.Version != PDFVersion::PDF_X1a)
 				{
 					m_opts.Intent = Options->IntendS->currentIndex();
 					m_opts.Intent2 = Options->IntendI->currentIndex();
@@ -395,7 +384,7 @@ void PDFExportDialog::updateDocOptions()
 					m_opts.ImageProf = Options->ImageP->currentText();
 				}
 				m_opts.PrintProf = Options->PrintProfC->currentText();
-				if ((m_opts.Version == PDFOptions::PDFVersion_X3) || (m_opts.Version == PDFOptions::PDFVersion_X1a) || (m_opts.Version == PDFOptions::PDFVersion_X4))
+				if ((m_opts.Version == PDFVersion::PDF_X3) || (m_opts.Version == PDFVersion::PDF_X1a) || (m_opts.Version == PDFVersion::PDF_X4))
 				{
 					ScColorProfile hIn = m_doc->colorEngine.openProfileFromFile( m_printerProfiles[m_opts.PrintProf] );
 					m_cmsDescriptor = hIn.productDescription();

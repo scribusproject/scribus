@@ -742,21 +742,24 @@ namespace Pdf
 //	}
 	
 	
-	void Writer::writeHeader(PDFOptions::PDFVersion Version)
+	void Writer::writeHeader(const PDFVersion& Version)
 	{
 		switch (Version)
 		{
-			case PDFOptions::PDFVersion_X1a:
-			case PDFOptions::PDFVersion_X3:
-			case PDFOptions::PDFVersion_13:
+			case PDFVersion::PDF_X1a:
+			case PDFVersion::PDF_X3:
+			case PDFVersion::PDF_13:
 				write("%PDF-1.3\n");
 				break;
-			case PDFOptions::PDFVersion_14:
+			case PDFVersion::PDF_14:
 				write("%PDF-1.4\n");
 				break;
-			case PDFOptions::PDFVersion_X4:
-			case PDFOptions::PDFVersion_15:
+			case PDFVersion::PDF_X4:
+			case PDFVersion::PDF_15:
 				write("%PDF-1.5\n");
+				break;
+			case PDFVersion::PDF_16:
+				write("%PDF-1.6\n");
 				break;
 		}
 		write("%\xc7\xec\x8f\xa2\n");

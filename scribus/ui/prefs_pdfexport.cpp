@@ -257,7 +257,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 {
 	exportingPDF=exporting;
 	enablePDFExportTabs(exportingPDF);
-	AllFonts=prefsData->fontPrefs.AvailFonts;
+	AllFonts = prefsData->fontPrefs.AvailFonts;
 	int unitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitChange(unitIndex);
@@ -272,14 +272,14 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	clipToPrinterMarginsCheckBox->setChecked(prefsData->pdfPrefs.doClip);
 	bool cmsUse = m_doc ? (ScCore->haveCMS() && m_doc->HasCMS) : false;
 	if (!cmsUse)
-		pdfVersionComboBox->setVersion(PDFOptions::PDFVersion_14);
+		pdfVersionComboBox->setVersion(PDFVersion::PDF_14);
 	pdfVersionComboBox->setVersion(prefsData->pdfPrefs.Version);
 	pageBindingComboBox->setCurrentIndex(prefsData->pdfPrefs.Binding);
 	generateThumbnailsCheckBox->setChecked(prefsData->pdfPrefs.Thumbnails);
 	saveLinkedTextFramesAsArticlesCheckBox->setChecked(prefsData->pdfPrefs.Articles);
 	includeBookmarksCheckBox->setChecked(prefsData->pdfPrefs.Bookmarks);
 	includeLayersCheckBox->setChecked(prefsData->pdfPrefs.useLayers);
-	includeLayersCheckBox->setEnabled(prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_15 || prefsData->pdfPrefs.Version == PDFOptions::PDFVersion_X4);
+	includeLayersCheckBox->setEnabled(prefsData->pdfPrefs.Version.supportsOCGs());
 
 	epsExportResolutionSpinBox->setValue(prefsData->pdfPrefs.Resolution);
 	embedPDFAndEPSFilesCheckBox->setChecked(prefsData->pdfPrefs.embedPDF);
@@ -354,7 +354,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			for (int fe = 0; fe < docFonts.count(); ++ fe)
 			{
 				const QString& fontName = docFonts.at(fe);
-				if (Opts.EmbedList.contains(fontName))
+				const ScFace fontFace = AllFonts[fontName];
+				if (Opts.EmbedList.contains(fontName) && (!fontFace.isOTF() || Opts.supportsEmbeddedOpenTypeFonts()) && !fontFace.subset())
 					addFontItem(fontName, embeddedFontsListWidget);
 				else
 				{
@@ -418,10 +419,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			facingPagesLeftRadioButton->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
 			facingPagesRightRadioButton->setChecked(true);
-		if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
-			useLayersRadioButton->setEnabled(true);
-		else
-			useLayersRadioButton->setEnabled(false);
+		useLayersRadioButton->setEnabled(Opts.Version.supportsOCGs());
 	}
 
 	useEncryptionCheckBox->setChecked( prefsData->pdfPrefs.Encrypt );
@@ -568,11 +566,11 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	printPageInfoCheckBox->setChecked(prefsData->pdfPrefs.docInfoMarks);
 	if (!cmsUse)
 		enablePDFXWidgets(false);
-	if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X1a) && (!PDFXProfiles.isEmpty()))
+	if (cmsUse && (Opts.Version == PDFVersion::PDF_X1a) && (!PDFXProfiles.isEmpty()))
 		enablePDFX(3);
-	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X3) && (!PDFXProfiles.isEmpty()))
+	else if (cmsUse && (Opts.Version == PDFVersion::PDF_X3) && (!PDFXProfiles.isEmpty()))
 		enablePDFX(4);
-	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X4) && (!PDFXProfiles.isEmpty()))
+	else if (cmsUse && (Opts.Version == PDFVersion::PDF_X4) && (!PDFXProfiles.isEmpty()))
 		enablePDFX(5);
 	else
 		enablePDFXWidgets(false);
@@ -587,7 +585,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		effectTypeComboBox->addItem( tr("Glitter"));
 		effectTypeComboBox->addItem( tr("Split"));
 		effectTypeComboBox->addItem( tr("Wipe"));
-		if (Opts.Version == PDFOptions::PDFVersion_15)
+		if (Opts.Version.supportsPDF15PresentationEffects())
 		{
 			effectTypeComboBox->addItem( tr("Push"));
 			effectTypeComboBox->addItem( tr("Cover"));
@@ -697,7 +695,7 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	if (useEncryptionCheckBox->isChecked())
 	{
 		int Perm = -64;
-		if (pdfVersionComboBox->currentIndex() == 1)
+		if (pdfVersionComboBox->version() == PDFVersion::PDF_14)
 			Perm &= ~0x00240000;
 		if (allowPrintingCheckBox->isChecked())
 			Perm += 4;
@@ -828,7 +826,7 @@ void Prefs_PDFExport::enableProfiles(int i)
 {
 	enableLPI(i);
 	bool setter = false;
-	if (i == 1 && (!pdfVersionComboBox->versionIs(PDFOptions::PDFVersion_X1a)))
+	if (i == 1 && (!pdfVersionComboBox->versionIs(PDFVersion::PDF_X1a)))
 		setter = true;
 	enableSolidsImagesWidgets(setter);
 }
@@ -990,11 +988,14 @@ void Prefs_PDFExport::enablePG()
 	solidColorRenderingIntentComboBox->setEnabled(setter);
 }
 
-void Prefs_PDFExport::enablePDFX(int i)
+void Prefs_PDFExport::enablePDFX(int)
 {
-	includeLayersCheckBox->setEnabled((i == 2) || (i == 5));
+	PDFVersion pdfVer = pdfVersionComboBox->version();
+
+	includeLayersCheckBox->setEnabled(pdfVer.supportsOCGs());
 	if (useLayersRadioButton)
-		useLayersRadioButton->setEnabled((i == 2) || (i == 5));
+		useLayersRadioButton->setEnabled(pdfVer.supportsOCGs());
+
 	if (m_doc != nullptr && exportingPDF)
 	{
 		int currentEff = effectTypeComboBox->currentIndex();
@@ -1007,7 +1008,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 		effectTypeComboBox->addItem( tr("Glitter"));
 		effectTypeComboBox->addItem( tr("Split"));
 		effectTypeComboBox->addItem( tr("Wipe"));
-		if (i == 2)
+		if (pdfVer.supportsPDF15PresentationEffects())
 		{
 			effectTypeComboBox->addItem( tr("Push"));
 			effectTypeComboBox->addItem( tr("Cover"));
@@ -1034,8 +1035,9 @@ void Prefs_PDFExport::enablePDFX(int i)
 		connect(effectTypeComboBox, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	}
 
-	if (i < 3)  // not PDF/X
+	if (!pdfVer.isPDFX())  // not PDF/X
 	{
+		checkEmbeddableFonts();
 		fontEmbeddingCombo->setNoEmbeddingEnabled(true);
 		enablePDFXWidgets(false);
 		tabWidget->setTabEnabled(2, true);
@@ -1055,7 +1057,7 @@ void Prefs_PDFExport::enablePDFX(int i)
 	outputIntentionComboBox->setCurrentIndex(1);
 	outputIntentionComboBox->setEnabled(false);
 	enableProfiles(1);
-	if ((i == 4) || (i == 5)) // X3 or X4, enforcing color profiles on images
+	if (pdfVer == PDFVersion::PDF_X3 || pdfVer == PDFVersion::PDF_X4) // X3 or X4, enforcing color profiles on images
 	{
 		useImageProfileCheckBox->setChecked(true);
 		useImageProfileCheckBox->setEnabled(false);
@@ -1098,10 +1100,10 @@ void Prefs_PDFExport::enablePDFX(int i)
 void Prefs_PDFExport::addPDFVersions(bool addPDFXStrings)
 {
 	disconnect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
-	PDFOptions::PDFVersion currVersion = pdfVersionComboBox->version();
+	PDFVersion currVersion = pdfVersionComboBox->version();
 	pdfVersionComboBox->setPDFXEnabled(addPDFXStrings);
 	if (!addPDFXStrings)
-		currVersion = qMax(PDFOptions::PDFVersion_13, qMin(currVersion, PDFOptions::PDFVersion_15));
+		currVersion = qMax(PDFVersion::PDF_13, qMin((PDFVersion::Version) currVersion, PDFVersion::PDF_16));
 	pdfVersionComboBox->setVersion(currVersion);
 	connect(pdfVersionComboBox, SIGNAL(activated(int)), this, SLOT(enablePDFX(int)));
 }
@@ -1127,6 +1129,8 @@ void Prefs_PDFExport::enableEffects(bool enabled)
 
 void Prefs_PDFExport::EmbedAll()
 {
+	PDFVersion pdfVer = pdfVersionComboBox->version();
+
 	embeddedFontsListWidget->clear();
 	subsettedFontsListWidget->clear();
 	toSubsetButton->setEnabled(false);
@@ -1136,10 +1140,11 @@ void Prefs_PDFExport::EmbedAll()
 	if (m_doc)
 		docFonts = m_doc->usedFonts().keys();
 
-	for (int a=0; a < docFonts.count(); ++a)
+	for (int i = 0; i < docFonts.count(); ++i)
 	{
-		const QString& fontName = docFonts.at(a);
-		if (!AllFonts[fontName].subset())
+		const QString& fontName = docFonts.at(i);
+		const ScFace fontFace = AllFonts[fontName];
+		if (!fontFace.subset() && (!fontFace.isOTF() || pdfVer.supportsEmbeddedOpenTypeFonts()))
 		{
 			QListWidgetItem* item = addFontItem(fontName, embeddedFontsListWidget);
 			if (AnnotationFonts.contains(item->text()))
@@ -1186,6 +1191,26 @@ void Prefs_PDFExport::SubsetAll()
 void Prefs_PDFExport::OutlineAll()
 {
 	// Nothing to do at this point
+}
+
+void Prefs_PDFExport::checkEmbeddableFonts()
+{
+	PDFVersion pdfVer = pdfVersionComboBox->version();
+
+	for (int i = 0; i < embeddedFontsListWidget->count(); ++i)
+	{
+		QListWidgetItem* item = embeddedFontsListWidget->item(i);
+		QString fontName = item->text();
+		if (AnnotationFonts.contains(fontName))
+			continue;
+		const ScFace fontFace = AllFonts[fontName];
+		if (fontFace.isOTF() && !pdfVer.supportsEmbeddedOpenTypeFonts())
+		{
+			delete embeddedFontsListWidget->takeItem(i);
+			addFontItem(fontName, subsettedFontsListWidget);
+			--i;
+		}
+	}
 }
 
 void Prefs_PDFExport::doDocBleeds()
@@ -1349,38 +1374,47 @@ void Prefs_PDFExport::EmbeddingModeChange()
 
 void Prefs_PDFExport::RemoveSubset()
 {
-	QString currentFont = subsettedFontsListWidget->currentItem()->text();
-	const ScFace fontFace = AllFonts[currentFont];
-	if ((fontFace.type() != ScFace::OTF) && (!fontFace.subset()))
+	PDFVersion pdfVer = pdfVersionComboBox->version();
+
+	QList<QListWidgetItem*> selection = subsettedFontsListWidget->selectedItems();
+	for (int i = 0; i < selection.count() ; ++i)
 	{
-		embeddedFontsListWidget->addItem(currentFont);
-		delete subsettedFontsListWidget->takeItem(subsettedFontsListWidget->currentRow());
+		QListWidgetItem* fontItem = selection[i];
+		QString currentFont = fontItem->text();
+		const ScFace fontFace = AllFonts[currentFont];
+		if (fontFace.isOTF() && !pdfVer.supportsEmbeddedOpenTypeFonts())
+			continue;
+		if (fontFace.subset())
+			continue;
+		addFontItem(currentFont, embeddedFontsListWidget);
+		int currentRow = subsettedFontsListWidget->row(fontItem);
+		delete subsettedFontsListWidget->takeItem(currentRow);
 	}
+
 	subsettedFontsListWidget->clearSelection();
-	if (subsettedFontsListWidget->count() == 0)
-		fromSubsetButton->setEnabled(false);
+	fromSubsetButton->setEnabled(false);
 }
 
 void Prefs_PDFExport::PutToSubset()
 {
-	QString currentFont = embeddedFontsListWidget->currentItem()->text();
-	if (subsettedFontsListWidget->count() != 0)
+	QList<QListWidgetItem*> selection = embeddedFontsListWidget->selectedItems();
+	for (int i = 0; i < selection.count() ; ++i)
 	{
-		if (subsettedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+		QListWidgetItem* fontItem = selection[i];
+		QString currentFont = fontItem->text();
+		if (subsettedFontsListWidget->count() != 0)
+		{
+			if (subsettedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+				addFontItem(currentFont, subsettedFontsListWidget);
+		}
+		else
+		{
 			addFontItem(currentFont, subsettedFontsListWidget);
+		}
+		int itemRow = embeddedFontsListWidget->row(fontItem);
+		delete embeddedFontsListWidget->takeItem(itemRow);
 	}
-	else
-	{
-		addFontItem(currentFont, subsettedFontsListWidget);
-	}
-	delete embeddedFontsListWidget->takeItem(embeddedFontsListWidget->currentRow());
+
 	embeddedFontsListWidget->clearSelection();
-	if (embeddedFontsListWidget->count() == 0)
-	{
-		toSubsetButton->setEnabled(false);
-	}
-	else if (!(embeddedFontsListWidget->currentItem()->flags() & Qt::ItemIsSelectable))
-	{
-		toSubsetButton->setEnabled(false);
-	}
+	toSubsetButton->setEnabled(false);
 }

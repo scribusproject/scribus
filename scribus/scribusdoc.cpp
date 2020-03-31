@@ -442,7 +442,7 @@ void ScribusDoc::init()
 	Layers.addLayer( tr("Background") );
 	// FIXME: Check PDF version input
 	//TODO: Check if this is needed now we ue appPrefsData --> docPrefsData
-	pdfOptions().Version = (PDFOptions::PDFVersion)m_appPrefsData.pdfPrefs.Version;
+	pdfOptions().Version = m_appPrefsData.pdfPrefs.Version;
 
 	pdfOptions().firstUse = true;
 	docPatterns.clear();

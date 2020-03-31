@@ -14,7 +14,7 @@ PdfVersionModel::PdfVersionModel(QObject *parent)
 	          : QAbstractItemModel(parent)
 {
 	
-	m_enabledVec << true << true << true << false << false << false;
+	m_enabledVec << true << true << true << true << false << false << false;
 }
 
 void PdfVersionModel::clear()
@@ -45,6 +45,8 @@ QVariant PdfVersionModel::data(const QModelIndex &index, int role) const
 			return tr("PDF 1.4 (Acrobat 5)");
 		if (row == ItemPDF_15)
 			return tr("PDF 1.5 (Acrobat 6)");
+		if (row == ItemPDF_16)
+			return tr("PDF 1.6 (Acrobat 7)");
 		if (row == ItemPDFX_1a)
 			return tr("PDF/X-1a");
 		if (row == ItemPDFX_3)

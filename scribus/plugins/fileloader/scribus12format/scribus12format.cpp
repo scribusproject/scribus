@@ -1179,7 +1179,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					m_Doc->pdfOptions().RotateDeg = 0;
 				m_Doc->pdfOptions().PresentMode = static_cast<bool>(pg.attribute("PresentMode").toInt());
 				m_Doc->pdfOptions().PicRes = pg.attribute("PicRes").toInt();
-				m_Doc->pdfOptions().Version = (PDFOptions::PDFVersion)pg.attribute("Version").toInt();
+				m_Doc->pdfOptions().Version = (PDFVersion::Version) pg.attribute("Version").toInt();
 				m_Doc->pdfOptions().Resolution = pg.attribute("Resolution").toInt();
 				m_Doc->pdfOptions().Binding = pg.attribute("Binding").toInt();
 				m_Doc->pdfOptions().fileName = "";

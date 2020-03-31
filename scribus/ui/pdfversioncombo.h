@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "pdfoptions.h"
+#include "pdfversion.h"
 
 class PdfVersionModel;
 
@@ -26,12 +27,12 @@ public:
 	PdfVersionCombo(QWidget* parent=0);
 	~PdfVersionCombo();
 
-	PDFOptions::PDFVersion version() const;
+	PDFVersion version() const;
 
-	bool versionIs(PDFOptions::PDFVersion version) const;
+	bool versionIs(const PDFVersion& version) const;
 	bool versionIsPDFX() const;
 
-	void setVersion(PDFOptions::PDFVersion version);
+	void setVersion(const PDFVersion& version);
 	void setPDFXEnabled(bool enabled);
 	
 private:

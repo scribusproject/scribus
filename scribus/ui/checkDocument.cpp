@@ -167,18 +167,20 @@ QString CheckDocument::bestCheckerProfileForCheckMode(CheckMode mode, const QStr
 
 	if (mode == CheckDocument::checkPDF)
 	{
-		PDFOptions::PDFVersion pdfVersion = m_Doc->pdfOptions().Version;
-		if (pdfVersion == PDFOptions::PDFVersion_13)
+		PDFVersion pdfVersion = m_Doc->pdfOptions().Version;
+		if (pdfVersion == PDFVersion::PDF_13)
 			bestProfile = CommonStrings::PDF_1_3;
-		else if (pdfVersion == PDFOptions::PDFVersion_14)
+		else if (pdfVersion == PDFVersion::PDF_14)
 			bestProfile = CommonStrings::PDF_1_4;
-		else if (pdfVersion == PDFOptions::PDFVersion_15)
+		else if (pdfVersion == PDFVersion::PDF_15)
 			bestProfile = CommonStrings::PDF_1_5;
-		else if (pdfVersion == PDFOptions::PDFVersion_X1a)
+		else if (pdfVersion == PDFVersion::PDF_16)
+			bestProfile = CommonStrings::PDF_1_6;
+		else if (pdfVersion == PDFVersion::PDF_X1a)
 			bestProfile = CommonStrings::PDF_X1a;
-		else if (pdfVersion == PDFOptions::PDFVersion_X3)
+		else if (pdfVersion == PDFVersion::PDF_X3)
 			bestProfile = CommonStrings::PDF_X3;
-		else if (pdfVersion == PDFOptions::PDFVersion_X4)
+		else if (pdfVersion == PDFVersion::PDF_X4)
 			bestProfile = CommonStrings::PDF_X4;
 	}
 	else if (mode == CheckDocument::checkEPS)

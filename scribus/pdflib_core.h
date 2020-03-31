@@ -91,7 +91,7 @@ private:
 	};
 
 	bool PDF_IsPDFX();
-	bool PDF_IsPDFX(PDFOptions::PDFVersion ver);
+	bool PDF_IsPDFX(const PDFVersion& ver);
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi);
 	void PDF_Begin_Catalog();

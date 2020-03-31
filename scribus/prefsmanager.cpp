@@ -437,7 +437,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.embedPDF  = false;
 	appPrefs.pdfPrefs.Bookmarks = false;
 	appPrefs.pdfPrefs.PicRes = 300;
-	appPrefs.pdfPrefs.Version = PDFOptions::PDFVersion_14;
+	appPrefs.pdfPrefs.Version = PDFVersion::PDF_14;
 	appPrefs.pdfPrefs.Resolution = 300;
 	appPrefs.pdfPrefs.Binding = 0;
 	appPrefs.pdfPrefs.FontEmbedding = PDFOptions::EmbedFonts;
@@ -2556,7 +2556,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.pdfPrefs.RotateDeg = dc.attribute("RotateDeg", "0").toInt();
 			appPrefs.pdfPrefs.PresentMode = static_cast<bool>(dc.attribute("PresentMode").toInt());
 			appPrefs.pdfPrefs.PicRes = dc.attribute("PicRes").toInt();
-			appPrefs.pdfPrefs.Version = (PDFOptions::PDFVersion) dc.attribute("Version").toInt();
+			appPrefs.pdfPrefs.Version = (PDFVersion::Version) dc.attribute("Version").toInt();
 			appPrefs.pdfPrefs.Resolution = dc.attribute("Resolution").toInt();
 			appPrefs.pdfPrefs.Binding = dc.attribute("Binding").toInt();
 			appPrefs.pdfPrefs.fileName = "";
@@ -2738,6 +2738,9 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 	checkerSettings.checkTransparency = false;
 	cp.insert(CommonStrings::PDF_1_4   , checkerSettings);
 	cp.insert(CommonStrings::PDF_1_5   , checkerSettings);
+	checkerSettings.checkFontIsOpenType = false;
+	cp.insert(CommonStrings::PDF_1_6   , checkerSettings);
+	checkerSettings.checkFontIsOpenType = true;
 	checkerSettings.checkTransparency = true;
 	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;

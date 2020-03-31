@@ -1269,8 +1269,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pdfOptions.Bookmarks = false;
 
 // get PDF version
-	self->version = minmaxi(self->version, PDFOptions::PDFVersion_Min, PDFOptions::PDFVersion_Max);
-	pdfOptions.Version = (PDFOptions::PDFVersion) self->version;
+	self->version = minmaxi(self->version, PDFVersion::PDFVersion_Min, PDFVersion::PDFVersion_Max);
+	pdfOptions.Version = (PDFVersion::Version) self->version;
 
 // apply fonts attribute
 	pdfOptions.EmbedList.clear();
@@ -1292,9 +1292,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 // apply font embedding mode
 	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyLong_AsLong(self->fontEmbedding);
-	if (pdfOptions.Version == PDFOptions::PDFVersion_X1a ||
-	    pdfOptions.Version == PDFOptions::PDFVersion_X3 ||
-	    pdfOptions.Version == PDFOptions::PDFVersion_X4)
+	if (pdfOptions.Version == PDFVersion::PDF_X1a ||
+	    pdfOptions.Version == PDFVersion::PDF_X3 ||
+	    pdfOptions.Version == PDFVersion::PDF_X4)
 	{
 		pdfOptions.FontEmbedding = PDFOptions::EmbedFonts;
 	}
@@ -1420,7 +1420,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	if (self->encrypt)
 	{
 		int Perm = -64;
-		if (pdfOptions.Version == PDFOptions::PDFVersion_14)
+		if (pdfOptions.Version == PDFVersion::PDF_14)
 			Perm &= ~0x00240000;
 		if (self->allowPrinting)
 			Perm += 4;
@@ -1455,9 +1455,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 			pdfOptions.SolidProf = PyUnicode_asQString(self->solidpr);
 			pdfOptions.ImageProf = PyUnicode_asQString(self->imagepr);
 			pdfOptions.PrintProf = PyUnicode_asQString(self->printprofc);
-			if (pdfOptions.Version == PDFOptions::PDFVersion_X1a ||
-				pdfOptions.Version == PDFOptions::PDFVersion_X3 ||
-				pdfOptions.Version == PDFOptions::PDFVersion_X4)
+			if (pdfOptions.Version == PDFVersion::PDF_X1a ||
+				pdfOptions.Version == PDFVersion::PDF_X3 ||
+				pdfOptions.Version == PDFVersion::PDF_X4)
 			{
 				ScColorProfile profile;
 				profile = ScCore->defaultEngine.openProfileFromFile(ScCore->PrinterProfiles[pdfOptions.PrintProf]);

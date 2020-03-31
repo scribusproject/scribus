@@ -14,9 +14,11 @@ for which a new license (GPL+exception) is in place.
  * @brief Defines class PDFOptions, used for loading/saving/passing around PDF options
  */
 
-#include "qstring.h"
-#include "qmap.h"
-#include "QList"
+#include <QList>
+#include <QMap>
+#include <QString>
+
+#include "pdfversion.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -44,18 +46,6 @@ public:
 		Verify_OptionConflict,
 		Verify_OptionOutOfRange,
 		Verify_OtherError
-	};
-
-	enum PDFVersion
-	{
-		PDFVersion_13  = 13,
-		PDFVersion_14  = 14,
-		PDFVersion_15  = 15,
-		PDFVersion_X1a = 11,
-		PDFVersion_X3  = 12,
-		PDFVersion_X4  = 10,
-		PDFVersion_Min = 10,
-		PDFVersion_Max = 15,
 	};
 
 	enum PDFPageLayout
@@ -103,6 +93,11 @@ public:
 	 */
 	PDFOptions::VerifyResults verify(QString* problemDescription);
 	PDFOptions::VerifyResults verify();
+
+	bool exportsLayers() const;
+	bool supportsEmbeddedOpenTypeFonts() const;
+	bool supportsOCGs() const;
+	bool supportsTransparency() const;
 
 	bool firstUse;
 	bool Thumbnails;

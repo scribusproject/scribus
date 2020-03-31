@@ -344,6 +344,7 @@
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_sk1.h" />
     <ClInclude Include="..\..\..\scribus\palettes\paletteloader_swatchbook.h" />
     <ClInclude Include="..\..\..\scribus\pdfstructs.h" />
+    <ClInclude Include="..\..\..\scribus\pdfversion.h" />
     <ClInclude Include="..\..\..\scribus\pdfwriter.h" />
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
@@ -882,6 +883,7 @@
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_sk1.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_swatchbook.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdfversion.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />

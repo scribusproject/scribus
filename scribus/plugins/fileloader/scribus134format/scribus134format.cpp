@@ -1596,7 +1596,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().PresentMode = attrs.valueAsBool("PresentMode");
 	doc->pdfOptions().PicRes     = attrs.valueAsInt("PicRes");
 	// Fixme: check input pdf version
-	doc->pdfOptions().Version    = (PDFOptions::PDFVersion) attrs.valueAsInt("Version");
+	doc->pdfOptions().Version    = (PDFVersion::Version) attrs.valueAsInt("Version");
 	doc->pdfOptions().Resolution = attrs.valueAsInt("Resolution");
 	doc->pdfOptions().Binding    = attrs.valueAsInt("Binding");
 	doc->pdfOptions().fileName   = "";

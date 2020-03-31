@@ -72,6 +72,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 
 	protected:
 		QListWidgetItem* addFontItem(const QString& fontName, QListWidget* fontList);
+		void checkEmbeddableFonts();
 		void setCustomRenderingWidgetsShown(bool);
 		void setSolidsImagesWidgetsShown(bool);
 		void enableCustomRenderingWidgets(bool);

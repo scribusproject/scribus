@@ -347,17 +347,14 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ClipMarg->setChecked(Opts.doClip);
 	bool cmsUse = (ScCore->haveCMS() && m_Doc->HasCMS);
 	if (!cmsUse)
-		PDFVersionCombo->setVersion(PDFOptions::PDFVersion_14);
+		PDFVersionCombo->setVersion(PDFVersion::PDF_14);
 	PDFVersionCombo->setVersion(Opts.Version);
 	ComboBind->setCurrentIndex(Opts.Binding);
 	CheckBox1->setChecked(Opts.Thumbnails);
 	Article->setChecked(Opts.Articles);
 	CheckBM->setChecked(Opts.Bookmarks);
 	useLayers->setChecked(Opts.useLayers);
-	if (Opts.Version == PDFOptions::PDFVersion_15 || Opts.Version == PDFOptions::PDFVersion_X4)
-		useLayers->setEnabled(true);
-	else
-		useLayers->setEnabled(false);
+	useLayers->setEnabled(Opts.Version.supportsOCGs());
 	Resolution->setValue(Opts.Resolution);
 	EmbedPDF->setChecked(Opts.embedPDF);
 	Compression->setChecked( Opts.Compress );
@@ -370,9 +367,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ValC->setEnabled(DSColor->isChecked());
 
 	m_docFonts = DocFonts.keys();
-	if (Opts.Version == PDFOptions::PDFVersion_X1a ||
-		Opts.Version == PDFOptions::PDFVersion_X3  ||
-		Opts.Version == PDFOptions::PDFVersion_X4 )
+	if (Opts.Version == PDFVersion::PDF_X1a ||
+		Opts.Version == PDFVersion::PDF_X3  ||
+		Opts.Version == PDFVersion::PDF_X4 )
 	{
 		if (Opts.FontEmbedding != PDFOptions::EmbedFonts &&
 			Opts.FontEmbedding != PDFOptions::OutlineFonts)
@@ -467,7 +464,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		{
 			QString fontName = m_docFonts.at(fe);
 			const ScFace fontFace = AllFonts[fontName];
-			if (Opts.EmbedList.contains(fontName) && (!fontFace.isOTF()))
+			if (Opts.EmbedList.contains(fontName) && (!fontFace.isOTF() || Opts.supportsEmbeddedOpenTypeFonts()) && !fontFace.subset())
 				addFontItem(fontName, EmbedList);
 			else
 			{
@@ -531,10 +528,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		facingPagesLeft->setChecked(true);
 	else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
 		facingPagesRight->setChecked(true);
-	if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
-		useLayers2->setEnabled(true);
-	else
-		useLayers2->setEnabled(false);
+	useLayers2->setEnabled(Opts.Version.supportsOCGs());
 
 	Encry->setChecked( Opts.Encrypt );
 	PassOwner->setText(Opts.PassOwner);
@@ -657,11 +651,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	docInfoMarks->setChecked(Opts.docInfoMarks);
 	if (!cmsUse)
 		X3Group->setEnabled(false);
-	if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X1a) && (!PDFXProfiles.isEmpty()))
+	if (cmsUse && (Opts.Version == PDFVersion::PDF_X1a) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(3);
-	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X3) && (!PDFXProfiles.isEmpty()))
+	else if (cmsUse && (Opts.Version == PDFVersion::PDF_X3) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(4);
-	else if (cmsUse && (Opts.Version == PDFOptions::PDFVersion_X4) && (!PDFXProfiles.isEmpty()))
+	else if (cmsUse && (Opts.Version == PDFVersion::PDF_X4) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(5);
 	else
 		X3Group->setEnabled(false);
@@ -674,7 +668,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	EffectType->addItem( tr("Glitter"));
 	EffectType->addItem( tr("Split"));
 	EffectType->addItem( tr("Wipe"));
-	if (Opts.Version == PDFOptions::PDFVersion_15)
+	if (Opts.Version.supportsPDF15PresentationEffects())
 	{
 		EffectType->addItem( tr("Push"));
 		EffectType->addItem( tr("Cover"));
@@ -747,7 +741,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	if (Encry->isChecked())
 	{
 		int Perm = -64;
-		if (PDFVersionCombo->currentIndex() == 1)
+		if (PDFVersionCombo->version() == PDFVersion::PDF_14)
 			Perm &= ~0x00240000;
 		if (PrintSec->isChecked())
 			Perm += 4;
@@ -845,20 +839,22 @@ void TabPDFOptions::ToggleEncr()
 void TabPDFOptions::enableCMS(bool enable)
 {
 	QSignalBlocker blocker(PDFVersionCombo);
-	PDFOptions::PDFVersion currVersion = PDFVersionCombo->version();
+	PDFVersion currVersion = PDFVersionCombo->version();
 	PDFVersionCombo->setPDFXEnabled(enable);
 	cms = enable;
 	if (!enable)
-		currVersion = qMax(PDFOptions::PDFVersion_13, qMin(currVersion, PDFOptions::PDFVersion_15));
+		currVersion = qMax(PDFVersion::PDF_13, qMin((PDFVersion::Version) currVersion, PDFVersion::PDF_16));
 	PDFVersionCombo->setVersion(currVersion);
 	EnablePr(1);
 }
 
-void TabPDFOptions::EnablePDFX(int a)
+void TabPDFOptions::EnablePDFX(int /*a*/)
 {
-	useLayers->setEnabled((a == 2) || (a == 5));
+	PDFVersion pdfVer = PDFVersionCombo->version();
+
+	useLayers->setEnabled(pdfVer.supportsOCGs());
 	if (useLayers2)
-		useLayers2->setEnabled((a == 2) || (a == 5));
+		useLayers2->setEnabled(pdfVer.supportsOCGs());
 
 	int currentEff = EffectType->currentIndex();
 	disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -870,7 +866,7 @@ void TabPDFOptions::EnablePDFX(int a)
 	EffectType->addItem( tr("Glitter"));
 	EffectType->addItem( tr("Split"));
 	EffectType->addItem( tr("Wipe"));
-	if (a == 2)
+	if (pdfVer.supportsPDF15PresentationEffects())
 	{
 		EffectType->addItem( tr("Push"));
 		EffectType->addItem( tr("Cover"));
@@ -896,8 +892,9 @@ void TabPDFOptions::EnablePDFX(int a)
 	}
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 
-	if (a < 3)  // not PDF/X
+	if (!pdfVer.isPDFX())  // not PDF/X
 	{
+		checkEmbeddableFonts();
 		fontEmbeddingCombo->setNoEmbeddingEnabled(true);
 		X3Group->setEnabled(false);
 		setTabEnabled(indexOf(tabSecurity), true);
@@ -911,19 +908,20 @@ void TabPDFOptions::EnablePDFX(int a)
 		EnablePr(OutCombo->currentIndex());
 		return;
 	}
+
 	// PDF/X is selected
 	disconnect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 	OutCombo->setCurrentIndex(1);
 	OutCombo->setEnabled(false);
 	EnablePr(1);
-	if (a == 3) // X1, no profile embedding
+	if (pdfVer == PDFVersion::PDF_X1a) // X1, no profile embedding
 	{
 		EmbedProfs->setChecked(false);
 		EmbedProfs->setEnabled(false);
 		EmbedProfs2->setChecked(false);
 		EmbedProfs2->setEnabled(false);
 	}
-	if ((a == 4) || (a == 5)) // X3 or X4, enforcing color profiles on images
+	if (pdfVer == PDFVersion::PDF_X3 || pdfVer == PDFVersion::PDF_X4) // X3 or X4, enforcing color profiles on images
 	{
 		EmbedProfs->setEnabled(true);
 		EmbedProfs2->setChecked(true);
@@ -1003,7 +1001,7 @@ void TabPDFOptions::EnablePr(int a)
 	EnableLPI(a);
 	bool setter = false;
 	if (a == 1)
-		setter = !PDFVersionCombo->versionIs(PDFOptions::PDFVersion_X1a);
+		setter = !PDFVersionCombo->versionIs(PDFVersion::PDF_X1a);
 
 	solidsProfileGroup->setEnabled(setter);
 	imageProfileGroup->setEnabled(setter);
@@ -1295,13 +1293,17 @@ void TabPDFOptions::EmbeddingModeChange()
 
 void TabPDFOptions::RemoveSubset()
 {
+	PDFVersion pdfVer = PDFVersionCombo->version();
+
 	QList<QListWidgetItem*> selection = SubsetList->selectedItems();
 	for (int i = 0; i < selection.count() ; ++i)
 	{
 		QListWidgetItem* fontItem = selection[i];
 		QString currentFont = fontItem->text();
 		const ScFace fontFace = AllFonts[currentFont];
-		if (fontFace.isOTF() || fontFace.subset())
+		if (fontFace.isOTF() && !pdfVer.supportsEmbeddedOpenTypeFonts())
+			continue;
+		if (fontFace.subset())
 			continue;
 		addFontItem(currentFont, EmbedList);
 		int currentRow = SubsetList->row(fontItem);
@@ -1348,6 +1350,7 @@ void TabPDFOptions::SelEFont(QListWidgetItem*)
 
 void TabPDFOptions::SelSFont(QListWidgetItem*)
 {
+	PDFVersion pdfVer = PDFVersionCombo->version();
 	QList<QListWidgetItem*> selection = SubsetList->selectedItems();
 	int enabledForEmbedding = selection.count();
 
@@ -1355,7 +1358,9 @@ void TabPDFOptions::SelSFont(QListWidgetItem*)
 	{
 		const QListWidgetItem* item = selection.at(i);
 		const ScFace face = AllFonts[item->text()];
-		if (face.isOTF() || face.subset())
+		if (face.isOTF() && !pdfVer.supportsEmbeddedOpenTypeFonts())
+			enabledForEmbedding--;
+		else if (face.subset())
 			enabledForEmbedding--;
 	}
 
@@ -1366,15 +1371,18 @@ void TabPDFOptions::SelSFont(QListWidgetItem*)
 
 void TabPDFOptions::EmbedAll()
 {
+	PDFVersion pdfVer = PDFVersionCombo->version();
+
 	EmbedList->clear();
 	SubsetList->clear();
 	ToSubset->setEnabled(false);
 	FromSubset->setEnabled(false);
+
 	for (int i = 0; i < m_docFonts.count(); ++i)
 	{
 		QString fontName = m_docFonts.at(i);
 		const ScFace fontFace = AllFonts[fontName];
-		if (!fontFace.subset() && !fontFace.isOTF())
+		if (!fontFace.subset() && (!fontFace.isOTF() || pdfVer.supportsEmbeddedOpenTypeFonts()))
 		{
 			QListWidgetItem* item = addFontItem(fontName, EmbedList);
 			if (m_annotationFonts.contains(item->text()))
@@ -1409,6 +1417,26 @@ void TabPDFOptions::SubsetAll()
 		else
 		{
 			addFontItem(fontName, SubsetList);
+		}
+	}
+}
+
+void TabPDFOptions::checkEmbeddableFonts()
+{
+	PDFVersion pdfVer = PDFVersionCombo->version();
+
+	for (int i = 0; i < EmbedList->count(); ++i)
+	{
+		QListWidgetItem* item = EmbedList->item(i);
+		QString fontName = item->text();
+		if (m_annotationFonts.contains(fontName))
+			continue;
+		const ScFace fontFace = AllFonts[fontName];
+		if (fontFace.isOTF() && !pdfVer.supportsEmbeddedOpenTypeFonts())
+		{
+			delete EmbedList->takeItem(i);
+			addFontItem(fontName, SubsetList);
+			--i;
 		}
 	}
 }

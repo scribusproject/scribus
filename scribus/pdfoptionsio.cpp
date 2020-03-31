@@ -111,13 +111,13 @@ void PDFOptionsIO::buildSettings()
 	QString pdfVersString;
 	switch (m_opts->Version)
 	{
-		case PDFOptions::PDFVersion_X1a:
+		case PDFVersion::PDF_X1a:
 			pdfVersString = "X1a";
 			break;
-		case PDFOptions::PDFVersion_X3:
+		case PDFVersion::PDF_X3:
 			pdfVersString = "X3";
 			break;
-		case PDFOptions::PDFVersion_X4:
+		case PDFVersion::PDF_X4:
 			pdfVersString = "X4";
 			break;
 		default:
@@ -447,32 +447,37 @@ bool PDFOptionsIO::readPDFVersion()
 		return false;
 	if (pdfVersString == "X1a")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_X1a;
+		m_opts->Version = PDFVersion::PDF_X1a;
 		return true;
 	}
 	if (pdfVersString == "X3")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_X3;
+		m_opts->Version = PDFVersion::PDF_X3;
 		return true;
 	}
 	if (pdfVersString == "X4")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_X4;
+		m_opts->Version = PDFVersion::PDF_X4;
 		return true;
 	}
 	if (pdfVersString == "13")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_13;
+		m_opts->Version = PDFVersion::PDF_13;
 		return true;
 	}
 	if (pdfVersString == "14")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_14;
+		m_opts->Version = PDFVersion::PDF_14;
 		return true;
 	}
 	if (pdfVersString == "15")
 	{
-		m_opts->Version = PDFOptions::PDFVersion_15;
+		m_opts->Version = PDFVersion::PDF_15;
+		return true;
+	}
+	if (pdfVersString == "16")
+	{
+		m_opts->Version = PDFVersion::PDF_16;
 		return true;
 	}
 	m_error = QObject::tr("Unable to read settings XML: %1").arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));

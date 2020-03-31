@@ -19,6 +19,7 @@
 
 #include "pdfoptions.h"
 #include "pdfstructs.h"
+#include "pdfversion.h"
 #include "scstreamfilter.h"
 
 namespace Pdf
@@ -177,7 +178,7 @@ private:
 public:
 	
 	// writing
-	void writeHeader(PDFOptions::PDFVersion vers);
+	void writeHeader(const PDFVersion& vers);
 	void writeXrefAndTrailer();
 	void write(const QByteArray& bytes);
 	void write(const Pdf::ResourceDictionary& dict);
