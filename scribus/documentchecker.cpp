@@ -195,8 +195,16 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			itemError.clear();
 			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
 				itemError.insert(PDFAnnotField, 0);
-			if ((currItem->hasSoftShadow() || (currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))
+			if (currItem->hasSoftShadow() && checkerSettings.checkTransparency)
 				itemError.insert(Transparency, 0);
+			if ((currItem->GrType == 0) && (checkerSettings.checkTransparency))
+			{
+				if (currItem->fillColor() != CommonStrings::None)
+				{
+					if ((currItem->fillTransparency() != 0.0) || (currItem->fillBlendmode() != 0))
+						itemError.insert(Transparency, 0);
+				}
+			}
 			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 			{
 				if (currItem->GrType == 9)
@@ -247,6 +255,14 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 							break;
 						}
 					}
+				}
+			}
+			if ((currItem->GrTypeStroke == 0) && (checkerSettings.checkTransparency))
+			{
+				if ((currItem->lineColor() != CommonStrings::None) || !currItem->NamedLStyle.isEmpty())
+				{
+					if ((currItem->lineTransparency() != 0.0) || (currItem->lineBlendmode() != 0))
+						itemError.insert(Transparency, 0);
 				}
 			}
 			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
@@ -441,7 +457,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			if (!(currDoc->layerPrintable(currItem->m_layerID)) && (checkerSettings.ignoreOffLayers))
 				continue;
 			itemError.clear();
-			if (currItem->hasSoftShadow())
+			if (currItem->hasSoftShadow() && checkerSettings.checkTransparency)
 				itemError.insert(Transparency, 0);
 			if ((currItem->GrType == 0) && (checkerSettings.checkTransparency))
 			{
