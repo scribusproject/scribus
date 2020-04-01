@@ -1536,8 +1536,9 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = dynamic_cast<SimpleState*>(m_undoManager->getLastUndo());
-			if (ss && ss->get("ETEA") == "insert_frametext")
-				ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
+			UndoObject *undoTarget = currItem;
+			if (ss && (ss->get("ETEA") == "insert_frametext") && (ss->undoObject() == undoTarget))
+				ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
 			else
 			{
 				ss = new SimpleState(Um::InsertText,"",Um::ICreate);
@@ -1545,7 +1546,6 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				ss->set("ETEA", QString("insert_frametext"));
 				ss->set("TEXT_STR", QString(QChar(unicodevalue)));
 				ss->set("START", currItem->itemText.cursorPosition());
-				UndoObject * undoTarget = currItem;
 				if (currItem->isNoteFrame())
 				{
 					undoTarget = doc;
@@ -1572,8 +1572,9 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = dynamic_cast<SimpleState*>(m_undoManager->getLastUndo());
-			if (ss && ss->get("ETEA") == "insert_frametext")
-				ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
+			UndoObject *undoTarget = currItem;
+			if (ss && (ss->get("ETEA") == "insert_frametext") && (ss->undoObject() == undoTarget))
+				ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
 			else
 			{
 				ss = new SimpleState(Um::InsertText,"", Um::ICreate);
@@ -1581,7 +1582,6 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				ss->set("ETEA", QString("insert_frametext"));
 				ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
 				ss->set("START", currItem->itemText.cursorPosition());
-				UndoObject * undoTarget = currItem;
 				if (currItem->isNoteFrame())
 				{
 					undoTarget = doc;

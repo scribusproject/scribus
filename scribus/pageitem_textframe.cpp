@@ -3954,10 +3954,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						}
 						undoManager->action(undoTarget, ip);
 					}
-					else if (ss && ss->get("ETEA") == "insert_frametext")
+					else if (ss && (ss->get("ETEA") == "insert_frametext") && (ss->undoObject() == undoTarget))
 						ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(QChar(conv)));
 					else {
-						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+						ss = new SimpleState(Um::InsertText, "", Um::ICreate);
 						ss->set("INSERT_FRAMETEXT");
 						ss->set("ETEA", QString("insert_frametext"));
 						ss->set("TEXT_STR", QString(QChar(conv)));
@@ -4400,11 +4400,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-				if (ss && ss->get("ETEA") == "insert_frametext")
-					ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::TAB));
+				UndoObject *undoTarget = this;
+				if (ss && (ss->get("ETEA") == "insert_frametext") && (ss->undoObject() == undoTarget))
+					ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(SpecialChars::TAB));
 				else
 				{
-					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+					ss = new SimpleState(Um::InsertText, "", Um::ICreate);
 					ss->set("INSERT_FRAMETEXT");
 					ss->set("ETEA", QString("insert_frametext"));
 					ss->set("TEXT_STR", QString(SpecialChars::TAB));
@@ -4445,7 +4446,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					}
 					undoManager->action(undoTarget, ip);
 				}
-				else if (ss && ss->get("ETEA") == "insert_frametext")
+				else if (ss && (ss->get("ETEA") == "insert_frametext") && (ss->undoObject() == undoTarget))
 					ss->set("TEXT_STR", ss->get("TEXT_STR") + uc);
 				else
 				{
