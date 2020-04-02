@@ -3203,16 +3203,27 @@ err1:
 
 void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
 {
+//	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen;
 	double x1, y1, x2, y2;
-	int render;
 	updateFont(state);
 	if (!m_font)
 		return;
-	// check for invisible text -- this is used by Acrobat Capture
-	render = state->getRender();
-	if (render == 3)
+
+	// PDF 1.7 Section 9.3.6 defines eight text rendering modes.
+	// 0 - Fill
+	// 1 - Stroke
+	// 2 - First fill and then stroke
+	// 3 - Invisible
+	// 4 - Fill and use as a clipping path
+	// 5 - Stroke and use as a clipping path
+	// 6 - First fill, then stroke and add as a clipping path
+	// 7 - Only use as a clipping path.
+	// TODO Implement the clipping operations. At least the characters are shown.
+	int textRenderingMode = state->getRender();
+	// Invisible or only used for clipping
+	if (textRenderingMode == 3 || textRenderingMode == 7)
 		return;
-	if (!(render & 1))
+	if (textRenderingMode < 8)
 	{
 		SplashPath * fontPath;
 		fontPath = m_font->getGlyphPath(code);
@@ -3249,8 +3260,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			FPoint wh = textPath.widthHeight();
 			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 			{
-				CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
-				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
+				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* ite = m_doc->Items->at(z);
 				QTransform mm;
 				mm.scale(1, -1);
@@ -3260,22 +3270,30 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				ite->PoLine = textPath.copy();
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
-				ite->setFillShade(CurrFillShade);
-				ite->setFillEvenOdd(false);
-				ite->setFillTransparency(1.0 - state->getFillOpacity());
-				ite->setFillBlendmode(getBlendMode(state));
 				ite->setLineEnd(PLineEnd);
 				ite->setLineJoin(PLineJoin);
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				m_doc->adjustItemSize(ite);
-				if ((render & 3) == 1 || (render & 3) == 2)
+				// Fill text rendering modes. See above
+				if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
 				{
+					CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+					ite->setFillColor(CurrColorFill);
+					ite->setFillShade(CurrFillShade);
+					ite->setFillEvenOdd(false);
+					ite->setFillTransparency(1.0 - state->getFillOpacity());
+					ite->setFillBlendmode(getBlendMode(state));
+				}
+				// Stroke text rendering modes. See above
+				if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
+				{
+					CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
 					ite->setLineColor(CurrColorStroke);
 					ite->setLineWidth(state->getTransformedLineWidth());
 					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 					ite->setLineBlendmode(getBlendMode(state));
 					ite->setLineShade(CurrStrokeShade);
 				}
+				m_doc->adjustItemSize(ite);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
 				{
