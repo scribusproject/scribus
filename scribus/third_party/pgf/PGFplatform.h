@@ -480,7 +480,12 @@ __inline int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	#define ReturnWithError2(err, ret) throw IOException(err)
 #endif //NEXCEPTIONS
 
+// Dynamic exceptions specifications are deprecated in C++11
+#if __cplusplus < 201103L
 #define THROW_ throw(IOException)
+#else
+#define THROW_
+#endif
 #define CONST const
 
 //-------------------------------------------------------------------------------
