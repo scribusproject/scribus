@@ -428,21 +428,18 @@ bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOption
 bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/)
 {
 	bool succeed = false;
-	ColorList usedColors;
 	PrintOptions options2 = options;
-	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	QString tempFilePath;
 	int ret = 0;
 
-	doc->getUsedFonts(usedFonts);
-	doc->getUsedColors(usedColors);
 	options2.pageNumbers.clear();
 	options2.pageNumbers.push_back(page->pageNr() + 1);
+	options2.includePDFMarks = false;
 
 	tempFilePath = PrefsManager::instance().preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib(options2, false, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors);
+	PSLib *dd = new PSLib(doc, options2, PSLib::OutputEPS);
 	dd->PS_set_file(tempFilePath);
-	ret = dd->CreatePS(doc, options2);
+	ret = dd->createPS(options2);
 	delete dd;
 	if (ret != 0) return false;
 

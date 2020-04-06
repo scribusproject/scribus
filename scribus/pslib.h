@@ -60,30 +60,39 @@ class SCRIBUS_API PSLib : public QObject
 
 	public:
 
-		typedef enum
+		enum Optimization
 		{
 			OptimizeCompat = 0,
 			OptimizeSize = 1
-		} Optimization;
+		};
 
-		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
+		enum OutputFormat
+		{
+			OutputPS = 0,
+			OutputEPS = 1
+		};
+
+		PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, ColorList *docColors = nullptr);
 		virtual ~PSLib();
 
-		void setOptimization (Optimization opt) { optimization = opt; }
+		void setOptimization (Optimization opt) { m_optimization = opt; }
+		void setOutputFormat (OutputFormat outputFmt) { m_outputFormat = outputFmt; }
 
-		virtual int   CreatePS(ScribusDoc* Doc, PrintOptions &options);
+		virtual int   createPS(PrintOptions &options);
 		virtual const QString& errorMessage();
 
+		virtual bool PS_set_file(const QString& fn);
+		virtual void PS_set_Info(const QString& art, const QString& was);
+
+	protected:
 		virtual void PS_Error(const QString& message);
 		virtual void PS_Error_ImageDataWriteFailure();
 		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
 		virtual void PS_Error_MaskLoadFailure(const QString& fileName);
 		virtual void PS_Error_InsufficientMemory();
 
-		virtual bool PS_set_file(const QString& fn);
-		virtual void PS_set_Info(const QString& art, const QString& was);
-		virtual bool PS_begin_doc(ScribusDoc *doc, double x, double y, double width, double height, int numpage, bool sep, bool farb);
-		virtual void PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping);
+		virtual bool PS_begin_doc( double x, double y, double width, double height, int numpage);
+		virtual void PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
 		virtual void PS_moveto(double x, double y);
@@ -101,7 +110,6 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_setlinewidth(double w);
 		virtual void PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
 		virtual void PS_setdash(Qt::PenStyle st, double offset, QVector<double> dash);
-		virtual void PS_selectfont(const QString& f, double s);
 		virtual void PS_fill();
 		virtual void PS_fillspot(const QString& color, double shade);
 		virtual void PS_stroke();
@@ -121,10 +129,10 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateStart(const QString& Name);
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(const QString& Name);
-		virtual bool ProcessItem(ScribusDoc* Doc, ScPage* page, PageItem* item, uint PNr, bool sep, bool farb, bool master, bool embedded = false, bool useTemplate = false);
-		virtual void ProcessPage(ScribusDoc* Doc, ScPage* page, uint PNr, bool sep = false, bool farb = true);
-		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
-		virtual bool ProcessPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true);
+		virtual bool ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, bool embedded = false, bool useTemplate = false);
+		virtual void ProcessPage(ScPage* page, uint PNr);
+		virtual bool ProcessMasterPageLayer(ScPage* page, ScLayer& ll, uint PNr);
+		virtual bool ProcessPageLayer(ScPage* a, ScLayer& ll, uint PNr);
 		virtual void PS_HatchFill(PageItem *currItem);
 		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 		virtual void putColor(const QString& color, double shade, bool fill);
@@ -133,7 +141,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void GetBleeds(ScPage* page, double& left, double& right, double& bottom, double& top);
 		virtual void SetClipPath(const FPointArray &points, bool poly = true);
 		virtual void SetPathAndClip(const FPointArray &points, bool clipRule);
-		virtual void HandleBrushPattern(PageItem *item, QPainterPath &path, ScPage* a, uint PNr, bool sep, bool farb, bool master);
+		virtual void HandleBrushPattern(PageItem *item, QPainterPath &path, ScPage* a, uint PNr, bool master);
 		virtual void HandleStrokePattern(PageItem *item);
 		virtual void HandleMeshGradient(PageItem* item);
 		virtual void HandlePatchMeshGradient(PageItem* item);
@@ -142,11 +150,9 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void HandleGradientFillStroke(PageItem *item, bool stroke = true, bool forArrow = false);
 		virtual void SetColor(const QString& color, double shade, double *c, double *m, double *y, double *k);
 		virtual void SetColor(const ScColor& color, double shade, double *c, double *m, double *y, double *k);
-		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, uint a, ScPage* pg, bool sep, bool farb, bool master);
-		bool psExport;
+		virtual void setTextSt(PageItem* ite, uint a, ScPage* pg, bool master);
 
 	private:
-
 		void PutStream (const QString& c);
 		void PutStream (const QByteArray& array, bool hexEnc);
 		void PutStream (const char* in, int length, bool hexEnc);
@@ -161,49 +167,42 @@ class SCRIBUS_API PSLib : public QObject
 		void WriteASCII85Bytes(const unsigned char* array, int length);
 
 		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
-
-		Optimization optimization;
+		
+		ScribusDoc *m_Doc { nullptr };
+		Optimization m_optimization { OptimizeCompat };
+		OutputFormat m_outputFormat { OutputPS };
 
 		QString ToStr(double c);
 		QString IToStr(int c);
 		QString MatrixToStr(double m11, double m12, double m21, double m22, double x, double y);
 		QString PSEncode(const QString& in);
 		QString ErrorMessage;
-		QString Prolog;
-		QString Header;
 		QString Creator;
 		QString User;
-		QString Titel;
+		QString Title;
 		QString BBox;
 		QString BBoxH;
 		QString Farben;
 		QString FNamen;
-		QString PDev;
-		QString GrayCalc;
-		bool GraySc;
-		int  PageIndex;
+		bool GraySc { false };
+		int  PageIndex { 0 };
 		QString FillColor;
 		QString StrokeColor;
 		double LineW;
-		QString Fonts;
 		QString FontDesc;
-		QMap<QString, QString> UsedFonts;
 		QMap<QString, QString> FontSubsetMap;
-		bool isPDF;
 		QFile Spool;
 		QDataStream spoolStream;
 		int  Plate;
-		bool DoSep;
-		bool useSpotColors;
+		bool DoSep { false };
 		bool fillRule;
 		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;
-		ScribusDoc *m_Doc;
 		QMap<QString, QString> spotMap;
-		MultiProgressDialog* progressDialog;
-		bool abortExport;
+		MultiProgressDialog* progressDialog { nullptr };
+		bool abortExport { false };
 		PrintOptions Options;
 		ScPage* ActPage;
 

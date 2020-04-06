@@ -479,7 +479,6 @@ int PPreview::RenderPreview(int pageIndex, int res)
 {
 	int ret = -1;
 	QString cmd1;
-	QMap<QString,QMap<uint, FPointArray> > ReallyUsed;
 #if defined _WIN32
 	if (!postscriptPreview)
 	{
@@ -511,13 +510,12 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
 		|| (spotColors->isChecked() != fSpot))
 	{
-		ReallyUsed.clear();
-		doc->getUsedFonts(ReallyUsed);
 		PrintOptions options;
 		options.pageNumbers.push_back(pageIndex + 1);
 		options.outputSeparations = false;
 		options.separationName = "All";
 		options.allSeparations = QStringList();
+		options.useSpotColors = !spotColors->isChecked();
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
 		options.mirrorV = MirrorVert->isChecked();
@@ -528,14 +526,15 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		options.bleedMarks = false;
 		options.registrationMarks = false;
 		options.colorMarks = false;
+		options.includePDFMarks = false;
 		options.markLength = 20.0;
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
-		PSLib *dd = new PSLib(options, true, prefsManager.appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
 		if (!dd)
 			return ret;
 		dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
-		ret = dd->CreatePS(doc, options);
+		ret = dd->createPS(options);
 		delete dd;
 		if (ret != 0) return 1;
 	}
@@ -616,19 +615,17 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 	int ret = -1;
 	QString cmd;
 	QStringList args, args1, args2, args3;
-	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((pageIndex != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
 		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
 		|| (spotColors->isChecked() != fSpot))
 	{
-		ReallyUsed.clear();
-		doc->getUsedFonts(ReallyUsed);
 		PrintOptions options;
 		options.pageNumbers.push_back(pageIndex + 1);
 		options.outputSeparations = false;
 		options.separationName = "All";
 		options.allSeparations = QStringList();
+		options.useSpotColors = !spotColors->isChecked();
 		options.useColor = !useGray->isChecked();
 		options.mirrorH = MirrorHor->isChecked();
 		options.mirrorV = MirrorVert->isChecked();
@@ -639,14 +636,15 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		options.bleedMarks = false;
 		options.registrationMarks = false;
 		options.colorMarks = false;
+		options.includePDFMarks = false;
 		options.markLength = 20.0;
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
-		PSLib *dd = new PSLib(options, true, prefsManager.appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
 		if (dd != nullptr)
 		{
 			dd->PS_set_file(ScPaths::tempFileDir()+"/tmp.ps");
-			ret = dd->CreatePS(doc, options);
+			ret = dd->createPS(options);
 			delete dd;
 			if (ret != 0) return 1;
 		}

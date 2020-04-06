@@ -415,6 +415,7 @@ static PyObject *Printer_print(Printer *self)
 	options.toFile    = fil;
 	options.separationName = SepName;
 	options.outputSeparations = SepName != QString("No");
+	options.useSpotColors = true;
 	options.useColor = self->color;
 	options.mirrorH  = self->mph;
 	options.mirrorV  = self->mpv;
@@ -423,14 +424,14 @@ static PyObject *Printer_print(Printer *self)
 	options.bleedMarks = false;
 	options.registrationMarks = false;
 	options.colorMarks = false;
+	options.includePDFMarks = false;
 	options.markOffset = 0.0;
 	options.bleeds.set(0, 0, 0, 0);
 	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
 		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
 	printcomm = PyUnicode_asQString(self->cmd);
-	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
-	ReallyUsed.clear();
-	ScCore->primaryMainWindow()->doc->getUsedFonts(ReallyUsed);
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
 #if defined(_WIN32)
 	if (!options.toFile)
@@ -440,7 +441,7 @@ static PyObject *Printer_print(Printer *self)
 		if ( PrinterUtil::getDefaultSettings(prn, options.devMode) )
 		{
 			ScPrintEngine_GDI winPrint;
-			printDone = winPrint.print( *ScCore->primaryMainWindow()->doc, options );
+			printDone = winPrint.print( *currentDoc, options );
 		}
 		if (!printDone)
 			PyErr_SetString(PyExc_SystemError, "Printing failed");
@@ -448,26 +449,26 @@ static PyObject *Printer_print(Printer *self)
 	}
 #endif
 
-	PSLib *dd = new PSLib(options, true, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
+	PSLib *dd = new PSLib(currentDoc, options, PSLib::OutputPS, &currentDoc->PageColors);
 	if (dd != nullptr)
 	{
 		if (!fil)
-			fna = QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps");
+			fna = QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps");
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::toNativeSeparators(fna);
 		if (PSfile)
 		{
 			options.setDevParam = false;
 			options.doClip = false;
-			dd->CreatePS(ScCore->primaryMainWindow()->doc, options);
+			dd->createPS(options);
 			if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
 			{
 				if (ScCore->haveGS())
 				{
 					QString tmp;
 					QStringList opts;
-					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageWidth())) );
-					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(ScCore->primaryMainWindow()->doc->pageHeight())) );
+					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(currentDoc->pageWidth())) );
+					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(currentDoc->pageHeight())) );
 					convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
 					moveFile( fna + ".tmp", fna );
 				}

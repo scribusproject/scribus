@@ -6966,11 +6966,6 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	QStringList spots;
 	bool return_value = true;
 	ReOrderText(doc, view);
-	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
-	ReallyUsed.clear();
-	doc->getUsedFonts(ReallyUsed);
-	ColorList usedColors;
-	doc->getUsedColors(usedColors);
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	PrintOptions options;
@@ -6978,6 +6973,7 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	options.outputSeparations = false;
 	options.separationName = "All";
 	options.allSeparations = spots;
+	options.useSpotColors = true;
 	options.useColor = true;
 	options.mirrorH = false;
 	options.mirrorV = false;
@@ -6988,16 +6984,17 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	options.bleedMarks = false;
 	options.registrationMarks = false;
 	options.colorMarks = false;
+	options.includePDFMarks = false;
 	options.markLength = 20.0;
 	options.markOffset = 0.0;
 	options.bleeds.set(0, 0, 0, 0);
-	PSLib *pslib = new PSLib(options, false, m_prefsManager.appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
+	PSLib *pslib = new PSLib(doc, options, PSLib::OutputEPS);
 	if (pslib != nullptr)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (pslib->PS_set_file(fn))
 		{
-			int psRet = pslib->CreatePS(doc, options);
+			int psRet = pslib->createPS(options);
 			if (psRet == 1)
 			{
 				error = pslib->errorMessage();
