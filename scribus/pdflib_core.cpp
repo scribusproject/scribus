@@ -111,6 +111,11 @@ static inline QByteArray FToStr(double c)
 	return QByteArray::number(v, 'f', 5);
 }
 
+static inline QByteArray TransformToStr(const QTransform& tr)
+{
+	return FToStr(tr.m11()) + " " + FToStr(tr.m12()) + " " + FToStr(tr.m21()) + " " + FToStr(tr.m22()) + " " + FToStr(tr.dx()) + " " + FToStr(tr.dy());
+}
+
 class PdfPainter: public TextLayoutPainter
 {
 	QByteArray m_backBuffer;
@@ -3201,7 +3206,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						trans.scale(ite->width() / pat.width, ite->height() / pat.height);
 						trans.translate(0.0, -ite->height());
 				//		trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
-						PutPage(FToStr(trans.m11()) + " " + FToStr(trans.m12()) + " " + FToStr(trans.m21()) + " " + FToStr(trans.m22()) + " " + FToStr(trans.dx()) + " " + FToStr(trans.dy()) + " cm\n");
+						PutPage(TransformToStr(trans) + " cm\n");
 						for (int em = 0; em < pat.items.count(); ++em)
 						{
 							PageItem* embedded = pat.items.at(em);
@@ -3234,7 +3239,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						QTransform trans;
 						trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 						trans.translate(0.0, -ite->height());
-						PutPage(FToStr(trans.m11()) + " " + FToStr(trans.m12()) + " " + FToStr(trans.m21()) + " " + FToStr(trans.m22()) + " " + FToStr(trans.dx()) + " " + FToStr(trans.dy()) + " cm\n");
+						PutPage(TransformToStr(trans) + " cm\n");
 						groupStackPos.push(QPointF(ite->xPos(), ite->height()));
 						for (int em = 0; em < ite->groupItemList.count(); ++em)
 						{
@@ -5132,7 +5137,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				trans.scale(ite->width() / pat.width, ite->height() / pat.height);
 				trans.translate(0.0, -ite->height());
 	//			trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
-				tmp += FToStr(trans.m11()) + " " + FToStr(trans.m12()) + " " + FToStr(trans.m21()) + " " + FToStr(trans.m22()) + " " + FToStr(trans.dx()) + " " + FToStr(trans.dy()) + " cm\n";
+				tmp += TransformToStr(trans) + " cm\n";
 				groupStackPos.push(QPointF(0, ite->height()));
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
@@ -5167,7 +5172,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				QTransform trans;
 				trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 				trans.translate(0.0, -ite->height());
-				tmp += FToStr(trans.m11()) + " " + FToStr(trans.m12()) + " " + FToStr(trans.m21()) + " " + FToStr(trans.m22()) + " " + FToStr(trans.dx()) + " " + FToStr(trans.dy()) + " cm\n";
+				tmp += TransformToStr(trans) + " cm\n";
 				groupStackPos.push(QPointF(ite->xPos(), ite->height()));
 				for (int em = 0; em < ite->groupItemList.count(); ++em)
 				{
@@ -5465,7 +5470,7 @@ QByteArray PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, con
 		QTransform base;
 		base.translate(currPoint.x(), -currPoint.y());
 		base.rotate(-currAngle);
-		tmp += FToStr(base.m11()) + " " + FToStr(base.m12()) + " " + FToStr(base.m21()) + " " + FToStr(base.m22()) + " " + FToStr(base.dx()) + " " + FToStr(base.dy()) + " cm\n";
+		tmp += TransformToStr(base) +  " cm\n";
 		QTransform trans;
 		trans.translate(0.0, -ite->patternStrokeOffsetY);
 		trans.rotate(-ite->patternStrokeRotation);
@@ -5482,7 +5487,7 @@ QByteArray PDFLibCore::handleBrushPattern(PageItem* ite, QPainterPath &path, con
 			trans.translate(0, pat.height);
 			trans.scale(1, -1);
 		}
-		tmp += FToStr(trans.m11()) + " " + FToStr(trans.m12()) + " " + FToStr(trans.m21()) + " " + FToStr(trans.m22()) + " " + FToStr(trans.dx()) + " " + FToStr(trans.dy()) + " cm\n";
+		tmp += TransformToStr(trans) + " cm\n";
 		for (int em = 0; em < pat.items.count(); ++em)
 		{
 			PageItem* embedded = pat.items.at(em);
@@ -6270,7 +6275,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+		PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
 		if ((GType == 1) || (GType == 4))
@@ -6348,14 +6353,14 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			QTransform mpa;
 			mpa.translate(0, currItem->height());
 			mpa.rotate(-currItem->rotation());
-			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
+			stre += TransformToStr(mpa) + " cm\n";
 		}
 		else if (currItem->itemType() == PageItem::Symbol)
 		{
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
-			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
+			stre += TransformToStr(mpa) + " cm\n";
 		}
 		stre += SetClipPath(currItem) + "h\n";
 		stre += FToStr(fabs(currItem->lineWidth())) + " w\n";
@@ -6418,7 +6423,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			QTransform mpa;
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
-			stre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
+			stre += TransformToStr(mpa) + " cm\n";
 		}
 		stre += SetClipPath(currItem) + "h\n";
 		stre += FToStr(fabs(currItem->lineWidth())) + " w\n";
@@ -6480,13 +6485,13 @@ bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 	output += SetPathAndClip(currItem);
 	QTransform mpa;
 	mpa.translate(currItem->width() / 2.0, -currItem->height() / 2.0);
-	output += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + " cm\n";
+	output += TransformToStr(mpa) + " cm\n";
 	double lineLen = sqrt((currItem->width() / 2.0) * (currItem->width() / 2.0) + (currItem->height() / 2.0) * (currItem->height() / 2.0));
 	double dist = 0.0;
 	output += "q\n";
 	QTransform mp;
 	mp.rotate(currItem->hatchAngle);
-	output += FToStr(mp.m11()) + " " + FToStr(mp.m12()) + " " + FToStr(mp.m21()) + " " + FToStr(mp.m22()) + " " + FToStr(mp.dx()) + " " + FToStr(mp.dy()) + " cm\n";
+	output += TransformToStr(mp) + " cm\n";
 	while (dist < lineLen)
 	{
 		output += FToStr(-lineLen) + " " + FToStr(dist) + " m\n";
@@ -6507,7 +6512,7 @@ bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 		output += "q\n";
 		QTransform mp;
 		mp.rotate(currItem->hatchAngle + 90);
-		output += FToStr(mp.m11()) + " " + FToStr(mp.m12()) + " " + FToStr(mp.m21()) + " " + FToStr(mp.m22()) + " " + FToStr(mp.dx()) + " " + FToStr(mp.dy()) + " cm\n";
+		output += TransformToStr(mp) + " cm\n";
 		while (dist < lineLen)
 		{
 			output += FToStr(-lineLen) + " " + FToStr(dist) + " m\n";
@@ -6529,7 +6534,7 @@ bool PDFLibCore::PDF_HatchFill(QByteArray& output, PageItem *currItem)
 		output += "q\n";
 		QTransform mp;
 		mp.rotate(currItem->hatchAngle - 45);
-		output += FToStr(mp.m11()) + " " + FToStr(mp.m12()) + " " + FToStr(mp.m21()) + " " + FToStr(mp.m22()) + " " + FToStr(mp.dx()) + " " + FToStr(mp.dy()) + " cm\n";
+		output += TransformToStr(mp) +  " cm\n";
 		while (dist < lineLen)
 		{
 			output += FToStr(-lineLen) + " " + FToStr(dist * sqrt(2.0)) + " m\n";
@@ -6677,7 +6682,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 		mpa.scale(-1, 1);
 	if (mirrorY)
 		mpa.scale(1, -1);
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/XStep " + FToStr(pat->width) + "\n");
 	PutDoc("/YStep " + FToStr(pat->height) + "\n");
 	PutDoc("/Resources ");
@@ -7020,7 +7025,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 		if (patternStackPos.count() != 0)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading " + Pdf::toPdf(shadeObject) + " 0 R\n");
 	PutDoc(">>");
 	writer.endObj(patObject);
@@ -7347,7 +7352,7 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 		if (patternStackPos.count() != 0)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading " + Pdf::toPdf(shadeObject) + " 0 R\n");
 	PutDoc(">>");
 	writer.endObj(patObject);
@@ -7780,7 +7785,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		if (patternStackPos.count() != 0)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading " + Pdf::toPdf(shadeObject) + " 0 R\n");
 	PutDoc(">>");
 	writer.endObj(patObject);
@@ -8100,7 +8105,7 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 		if (patternStackPos.count() != 0)
 			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading " + Pdf::toPdf(shadeObject) + " 0 R\n");
 	PutDoc(">>");
 	writer.endObj(patObject);
@@ -8331,7 +8336,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		writer.startObj(patObject);
 		PutDoc("<<\n/Type /Pattern\n");
 		PutDoc("/PatternType 2\n");
-		PutDoc("/Matrix [" + FToStr(mpM.m11()) + " " + FToStr(mpM.m12()) + " " + FToStr(mpM.m21()) + " " + FToStr(mpM.m22()) + " " + FToStr(mpM.dx()) + " " + FToStr(mpM.dy()) + "]\n");
+		PutDoc("/Matrix [" + TransformToStr(mpM) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
 		if (GType == 6)
@@ -8434,7 +8439,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	writer.startObj(patObject);
 	PutDoc("<<\n/Type /Pattern\n");
 	PutDoc("/PatternType 2\n");
-	PutDoc("/Matrix [" + FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " " + FToStr(mpa.dx()) + " " + FToStr(mpa.dy()) + "]\n");
+	PutDoc("/Matrix [" + TransformToStr(mpa) +  "]\n");
 	PutDoc("/Shading\n");
 	PutDoc("<<\n");
 	if (GType == 6)
