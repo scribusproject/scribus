@@ -6992,17 +6992,12 @@ bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 	if (pslib != nullptr)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (pslib->PS_set_file(fn))
+		int psRet = pslib->createPS(fn);
+		if (psRet == 1)
 		{
-			int psRet = pslib->createPS(options);
-			if (psRet == 1)
-			{
-				error = pslib->errorMessage();
-				return_value = false;
-			}
-		}
-		else
+			error = pslib->errorMessage();
 			return_value = false;
+		}
 		delete pslib;
 		qApp->restoreOverrideCursor();
 	}

@@ -24,18 +24,12 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 		return false;
 
 	if (!options.toFile)
-		filename = prefsManager.preferencesLocation()+"/tmp.ps";
-	bool psFile = dd->PS_set_file(filename);
-	if (!psFile)
-	{
-		delete dd;
-		return false;
-	}
+		filename = prefsManager.preferencesLocation() + "/tmp.ps";
 
 	// Write the PS to a file
 	filename = QDir::toNativeSeparators(filename);
 
-	int psCreationRetVal = dd->createPS(options);
+	int psCreationRetVal = dd->createPS(filename);
 	if (psCreationRetVal != 0)
 	{
 		QFile::remove(filename);

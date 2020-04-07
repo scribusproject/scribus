@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <structmember.h>
 #include <QFileInfo>
 #include <QDir>
+#include <QScopedPointer>
 
 #include "pslib.h"
 #include "scpaths.h"
@@ -396,8 +397,7 @@ static PyObject *Printer_print(Printer *self)
 // copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp
 	QString fna, prn, cmd, cc, SepName;
 	QString printcomm;
-	bool fil, PSfile;
-	PSfile = false;
+	bool fil;
 
 //    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 	prn = PyUnicode_asQString(self->printer);
@@ -420,6 +420,8 @@ static PyObject *Printer_print(Printer *self)
 	options.mirrorH  = self->mph;
 	options.mirrorV  = self->mpv;
 	options.doGCR    = self->ucr;
+	options.doClip = false;
+	options.setDevParam = false;
 	options.cropMarks  = false;
 	options.bleedMarks = false;
 	options.registrationMarks = false;
@@ -438,10 +440,10 @@ static PyObject *Printer_print(Printer *self)
 	{
 		QByteArray devMode;
 		bool printDone = false;
-		if ( PrinterUtil::getDefaultSettings(prn, options.devMode) )
+		if (PrinterUtil::getDefaultSettings(prn, options.devMode))
 		{
 			ScPrintEngine_GDI winPrint;
-			printDone = winPrint.print( *currentDoc, options );
+			printDone = winPrint.print(*currentDoc, options);
 		}
 		if (!printDone)
 			PyErr_SetString(PyExc_SystemError, "Printing failed");
@@ -449,58 +451,57 @@ static PyObject *Printer_print(Printer *self)
 	}
 #endif
 
-	PSLib *dd = new PSLib(currentDoc, options, PSLib::OutputPS, &currentDoc->PageColors);
-	if (dd != nullptr)
+	QScopedPointer<PSLib> psLib(new PSLib(currentDoc, options, PSLib::OutputPS, &currentDoc->PageColors));
+	if (psLib.isNull())
 	{
-		if (!fil)
-			fna = QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps");
-		PSfile = dd->PS_set_file(fna);
-		fna = QDir::toNativeSeparators(fna);
-		if (PSfile)
-		{
-			options.setDevParam = false;
-			options.doClip = false;
-			dd->createPS(options);
-			if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
-			{
-				if (ScCore->haveGS())
-				{
-					QString tmp;
-					QStringList opts;
-					opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(currentDoc->pageWidth())) );
-					opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(currentDoc->pageHeight())) );
-					convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
-					moveFile( fna + ".tmp", fna );
-				}
-				else
-				{
-					PyErr_SetString(PyExc_SystemError, "Printing failed : GhostScript is needed to print to PostScript Level 1 or Level 2");
-					Py_RETURN_NONE;
-				}
-			}
-
-			if (!fil)
-			{
-				if (!printcomm.isEmpty())
-					cmd = printcomm + " "+fna;
-				else
-				{
-					cmd = "lpr -P" + prn;
-					if (copyCount > 1)
-						cmd += " -#" + cc.setNum(copyCount);
-					cmd += " "+fna;
-				}
-				system(cmd.toLocal8Bit().constData());
-				unlink(fna.toLocal8Bit().constData());
-			}
-		}
-		else {
-			delete dd;
-			PyErr_SetString(PyExc_SystemError, "Printing failed");
-			return nullptr;
-		}
-		delete dd;
+		PyErr_SetString(PyExc_SystemError, "Memory allocation error");
+		return nullptr;
 	}
+
+	if (!fil)
+		fna = QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps");
+	fna = QDir::toNativeSeparators(fna);
+
+	int printed = psLib->createPS(fna);
+	if (printed == 1)
+	{
+		PyErr_SetString(PyExc_SystemError, "Printing failed");
+		return nullptr;
+	}
+
+	if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
+	{
+		if (ScCore->haveGS())
+		{
+			QString tmp;
+			QStringList opts;
+			opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(currentDoc->pageWidth())) );
+			opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(currentDoc->pageHeight())) );
+			convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
+			moveFile( fna + ".tmp", fna );
+		}
+		else
+		{
+			PyErr_SetString(PyExc_SystemError, "Printing failed : GhostScript is needed to print to PostScript Level 1 or Level 2");
+			Py_RETURN_NONE;
+		}
+	}
+
+	if (!fil)
+	{
+		if (!printcomm.isEmpty())
+			cmd = printcomm + " "+fna;
+		else
+		{
+			cmd = "lpr -P" + prn;
+			if (copyCount > 1)
+				cmd += " -#" + cc.setNum(copyCount);
+			cmd += " "+fna;
+		}
+		system(cmd.toLocal8Bit().constData());
+		unlink(fna.toLocal8Bit().constData());
+	}
+
 	Py_RETURN_NONE;
 }
 

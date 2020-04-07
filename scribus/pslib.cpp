@@ -244,11 +244,9 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 	Title = "";
 	FillColor = "0.0 0.0 0.0 0.0";
 	StrokeColor = "0.0 0.0 0.0 0.0";
-	BBox = "";
-	BBoxH = "";
 	FontDesc = "";
-	Farben = "";
-	FNamen = "";
+	cmykCustomColors = "";
+	docCustomColors = "";
 
 	CMYKColorF cmykValues;
 	double c, m, y, k;
@@ -288,12 +286,12 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 			cmykValues.getValues(c, m, y, k);
 			if (!first)
 			{
-				Farben += "%%+ ";
-				FNamen += "%%+ ";
+				cmykCustomColors += "%%+ ";
+				docCustomColors += "%%+ ";
 			}
-			Farben += ToStr(c) + " " + ToStr(m) + " ";
-			Farben += ToStr(y) + " " + ToStr(k) + " (" + itf.key() + ")\n";
-			FNamen += "(" + itf.key() + ")\n";
+			cmykCustomColors += ToStr(c) + " " + ToStr(m) + " ";
+			cmykCustomColors += ToStr(y) + " " + ToStr(k) + " (" + itf.key() + ")\n";
+			docCustomColors += "(" + itf.key() + ")\n";
 			first = false;
 		}
 	}
@@ -344,9 +342,9 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
 						nPath = false;
 					}
-					np = ig.value().point(poi+1);
-					np1 = ig.value().point(poi+3);
-					np2 = ig.value().point(poi+2);
+					np = ig.value().point(poi + 1);
+					np1 = ig.value().point(poi + 3);
+					np2 = ig.value().point(poi + 2);
 					FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
 							ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
 							ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
@@ -516,8 +514,13 @@ bool PSLib::PS_set_file(const QString& fn)
 	if (Spool.exists())
 		Spool.remove();
 	bool ret = Spool.open(QIODevice::WriteOnly);
+	if (!ret)
+	{
+		PS_Error( tr("Failed to openfile for writing : %1").arg(fn) );
+		return false;
+	}
 	spoolStream.setDevice(&Spool);
-	return ret;
+	return true;
 }
 
 bool PSLib::PS_begin_doc(double x, double y, double width, double height, int numpage)
@@ -528,22 +531,25 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	PutStream("%%Title: " + Title + "\n");
 	PutStream("%%Creator: " + Creator + "\n");
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
+
+	QString bbox, bboxH;
 	if (width < height || (m_outputFormat == OutputEPS))
 	{
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
+		bbox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
+		bboxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
 	}
 	else
 	{
-		BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
-		BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
+		bbox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(height)) + " " + IToStr(qRound(width)) + "\n";
+		bboxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(height) + " " + ToStr(width) + "\n";
 	}
-	PutStream(BBox);
-	PutStream(BBoxH);
-	if (!FNamen.isEmpty())
-		PutStream("%%DocumentCustomColors: " + FNamen);
-	if (!Farben.isEmpty())
-		PutStream("%%CMYKCustomColor: " + Farben);
+	PutStream(bbox);
+	PutStream(bboxH);
+
+	if (!docCustomColors.isEmpty())
+		PutStream("%%DocumentCustomColors: " + docCustomColors);
+	if (!cmykCustomColors.isEmpty())
+		PutStream("%%CMYKCustomColor: " + cmykCustomColors);
 	PutStream("%%LanguageLevel: 3\n");
 	PutStream("%%EndComments\n");
 	if (m_outputFormat == OutputEPS)
@@ -623,19 +629,20 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	Optimization optim = m_optimization;
 	m_optimization = OptimizeSize;
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
-	for (int c = 0; c < patterns.count(); ++c)
+	for (int i = 0; i < patterns.count(); ++i)
 	{
-		ScPattern pa = m_Doc->docPatterns[patterns[c]];
-		for (int em = 0; em < pa.items.count(); ++em)
+		QString patternName = patterns.at(i);
+		ScPattern pa = m_Doc->docPatterns[patternName];
+		for (int j = 0; j < pa.items.count(); ++j)
 		{
-			PageItem* item = pa.items.at(em);
+			PageItem* item = pa.items.at(j);
 			if ((item->asImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
 			{
 				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->ImageProfile, item->UseEmbedded))
 					return false;
 			}
 		}
-		uint patHash = qHash(patterns[c]);
+		uint patHash = qHash(patternName);
 		PutStream("/Pattern" + QString::number(patHash) + " 8 dict def\n");
 		PutStream("Pattern" + QString::number(patHash) + " begin\n");
 		PutStream("/PatternType 1 def\n");
@@ -652,9 +659,9 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
 //		PS_translate(pa.items.at(0)->gXpos, -pa.items.at(0)->gYpos);
-		for (int em = 0; em < pa.items.count(); ++em)
+		for (int j = 0; j < pa.items.count(); ++j)
 		{
-			PageItem* item = pa.items.at(em);
+			PageItem* item = pa.items.at(j);
 			PutStream("{\n");
 			PS_save();
 			PS_translate(item->gXpos, pa.height - item->gYpos);
@@ -668,10 +675,64 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		PutStream("end\n");
 	}
 	m_optimization = optim;
-//	PutStream("end\n");
-//	PutStream("%%EndSetup\n");
-	FontDesc = "";
-	return true;
+
+	bool errorOccured = false;
+	for (int ap = 0; ap < m_Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)
+	{
+		if (progressDialog)
+		{
+			progressDialog->setOverallProgress(ap);
+			progressDialog->setProgress("EMP", ap);
+			ScQApp->processEvents();
+		}
+		if (m_Doc->MasterItems.count() <= 0)
+			continue;
+
+		ScLayer ll;
+		ll.isPrintable = false;
+		ll.ID = 0;
+		for (int layerLevel = 0; layerLevel < m_Doc->Layers.count() && !abortExport && !errorOccured; ++layerLevel)
+		{
+			m_Doc->Layers.levelToLayer(ll, layerLevel);
+			if (!ll.isPrintable)
+				continue;
+			for (int api = 0; api < m_Doc->MasterItems.count() && !abortExport; ++api)
+			{
+				PageItem *it = m_Doc->MasterItems.at(api);
+				if (progressDialog)
+					ScQApp->processEvents();
+				if ((it->m_layerID != ll.ID) || (!it->printEnabled()))
+					continue;
+				double bLeft, bRight, bBottom, bTop;
+				GetBleeds(m_Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
+				double x1 = m_Doc->MasterPages.at(ap)->xOffset() - bLeft;
+				double y1 = m_Doc->MasterPages.at(ap)->yOffset() - bTop;
+				double w1 = m_Doc->MasterPages.at(ap)->width() + bLeft + bRight;
+				double h1 = m_Doc->MasterPages.at(ap)->height()+ bBottom + bTop;
+				double lw = it->visualLineWidth();
+				double x2 = it->BoundingX - lw / 2.0;
+				double y2 = it->BoundingY - lw / 2.0;
+				double w2 = qMax(it->BoundingW + lw, 1.0);
+				double h2 = qMax(it->BoundingH + lw, 1.0);
+				if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
+					continue;
+				if ((it->OwnPage != m_Doc->MasterPages.at(ap)->pageNr()) && (it->OwnPage != -1))
+					continue;
+				if ((m_optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!Options.outputSeparations) && Options.useColor)
+				{
+					errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->ImageProfile, it->UseEmbedded);
+					if (errorOccured) break;
+				}
+				PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(qHash(it)));
+				ProcessItem(m_Doc->MasterPages.at(ap), it, ap+1, true);
+				PS_TemplateEnd();
+			}
+			if (errorOccured) break;
+		}
+	}	
+	PutStream("%%EndSetup\n");
+
+	return (!errorOccured);
 }
 
 QString PSLib::PSEncode(const QString& in)
@@ -746,7 +807,7 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping)
 	PutStream(clipStr);
 	// Move to page origin
 	PutStream(ToStr(bleedLeft + markOffs) + " " + ToStr(Options.bleeds.bottom() + markOffs) + " tr\n");
-	ActPage = pg;
+	m_currentPage = pg;
 	// Clip to margins if requested
 	if (clipping)
 	{
@@ -768,11 +829,11 @@ void PSLib::PS_end_page()
 		markOffs = qMax(markOffs, Options.markOffset + 20.0);
 	double markDelta = markOffs - (Options.markLength + Options.markOffset);
 	double bleedRight, bleedLeft;
-	GetBleeds(ActPage, bleedLeft, bleedRight);
-	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = ActPage->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
+	GetBleeds(m_currentPage, bleedLeft, bleedRight);
+	double maxBoxX = m_currentPage->width() + bleedLeft + bleedRight + markOffs * 2.0;
+	double maxBoxY = m_currentPage->height() + Options.bleeds.bottom() + Options.bleeds.top() + markOffs * 2.0;
 	PutStream("gs\n");
-	if ((ActPage->orientation() == 1) && (m_outputFormat == OutputPS))
+	if ((m_currentPage->orientation() == 1) && (m_outputFormat == OutputPS))
 		PutStream("90 rotate 0 " + IToStr(qRound(maxBoxY)) + " neg translate\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 	{
@@ -1512,18 +1573,20 @@ void PSLib::PS_Error_InsufficientMemory()
 	PS_Error( tr("Insufficient memory for processing an image"));
 }
 
-int PSLib::createPS(PrintOptions &options)
+int PSLib::createPS(const QString& outputFileName)
 {
 	bool errorOccured = false;
-	Options = options;
-	std::vector<int> &pageNs = options.pageNumbers;
-	bool sep = options.outputSeparations;
-	QString SepNam = options.separationName;
-	QStringList spots = options.allSeparations;
-	bool farb = options.useColor;
-	bool Hm = options.mirrorH;
-	bool Vm = options.mirrorV;
-	bool doClip = options.doClip;
+
+	if (!PS_set_file(outputFileName))
+		return 1;
+
+	std::vector<int> &pageNs = Options.pageNumbers;
+	bool sep = Options.outputSeparations;
+	QString SepNam = Options.separationName;
+	QStringList spots = Options.allSeparations;
+	bool Hm = Options.mirrorH;
+	bool Vm = Options.mirrorV;
+	bool doClip = Options.doClip;
 	int sepac;
 	int pagemult;
 	if ((sep) && (SepNam == "All"))
@@ -1624,65 +1687,6 @@ int PSLib::createPS(PrintOptions &options)
 		}
 		errorOccured = !PS_begin_doc(0.0, 0.0, maxWidth, maxHeight, pageNs.size() * pagemult);
 	}
-	int ap=0;
-	for (; ap < m_Doc->MasterPages.count() && !abortExport && !errorOccured; ++ap)
-	{
-		if (progressDialog)
-		{
-			progressDialog->setOverallProgress(ap);
-			progressDialog->setProgress("EMP", ap);
-			ScQApp->processEvents();
-		}
-		if (m_Doc->MasterItems.count() != 0)
-		{
-			int Lnr = 0;
-			ScLayer ll;
-			ll.isPrintable = false;
-			ll.ID = 0;
-			for (int lam = 0; lam < m_Doc->Layers.count() && !abortExport && !errorOccured; ++lam)
-			{
-				m_Doc->Layers.levelToLayer(ll, Lnr);
-				if (ll.isPrintable)
-				{
-					for (int api = 0; api < m_Doc->MasterItems.count() && !abortExport; ++api)
-					{
-						PageItem *it = m_Doc->MasterItems.at(api);
-						if (progressDialog)
-							ScQApp->processEvents();
-						if ((it->m_layerID != ll.ID) || (!it->printEnabled()))
-							continue;
-						double bLeft, bRight, bBottom, bTop;
-						GetBleeds(m_Doc->MasterPages.at(ap), bLeft, bRight, bBottom, bTop);
-						double x1 = m_Doc->MasterPages.at(ap)->xOffset() - bLeft;
-						double y1 = m_Doc->MasterPages.at(ap)->yOffset() - bTop;
-						double w1 = m_Doc->MasterPages.at(ap)->width() + bLeft + bRight;
-						double h1 = m_Doc->MasterPages.at(ap)->height()+ bBottom + bTop;
-						double lw = it->visualLineWidth();
-						double x2 = it->BoundingX - lw / 2.0;
-						double y2 = it->BoundingY - lw / 2.0;
-						double w2 = qMax(it->BoundingW + lw, 1.0);
-						double h2 = qMax(it->BoundingH + lw, 1.0);
-						if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
-							continue;
-						if ((it->OwnPage != static_cast<int>(m_Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
-							continue;
-						if ((m_optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!sep) && farb)
-						{
-							errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->ImageProfile, it->UseEmbedded);
-							if (errorOccured) break;
-						}
-						PS_TemplateStart(QString("mp_obj_%1_%2").arg(ap).arg(qHash(it)));
-						ProcessItem(m_Doc->MasterPages.at(ap), it, ap+1, true);
-						PS_TemplateEnd();
-					}
-				}
-				Lnr++;
-				if (errorOccured) break;
-			}
-		}
-		if (errorOccured) break;
-	}	
-	PutStream("%%EndSetup\n");
 	
 	sepac = 0;
 	uint aa = 0;
@@ -1692,7 +1696,7 @@ int PSLib::createPS(PrintOptions &options)
 		if (progressDialog)
 		{
 			progressDialog->setProgress("EP", aa);
-			progressDialog->setOverallProgress(ap+aa);
+			progressDialog->setOverallProgress(aa + m_Doc->MasterPages.count());
 			ScQApp->processEvents();
 		}
 		a = pageNs[aa]-1;
@@ -1848,7 +1852,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		if ((item->imageIsAvailable) && (!item->Pfile.isEmpty()))
 		{
 			bool imageOk = false;
-			PS_translate(0, -item->BBoxH*item->imageYScale());
+			PS_translate(0, -item->BBoxH * item->imageYScale());
 			if ((m_optimization == OptimizeSize) && (((!page->pageNameEmpty()) && !Options.outputSeparations && Options.useColor) || useTemplate))
 				imageOk = PS_image(item, item->imageXOffset(), -item->imageYOffset(), item->Pfile, item->imageXScale(), item->imageYScale(), item->ImageProfile, item->UseEmbedded, item->itemName());
 			else
@@ -2573,56 +2577,54 @@ void PSLib::paintBorder(const TableBorder& border, const QPointF& start, const Q
 void PSLib::ProcessPage(ScPage* page, uint PNr)
 {
 	PageItem *item;
-	QList<PageItem*> PItems;
-	int Lnr = 0;
+	QList<PageItem*> pageItems = (page->pageNameEmpty()) ? m_Doc->DocItems : m_Doc->MasterItems;
+
 	ScLayer ll;
 	ll.isPrintable = false;
 	ll.ID = 0;
-	PItems = (page->pageNameEmpty()) ? m_Doc->DocItems : m_Doc->MasterItems;
-	for (int la = 0; la < m_Doc->Layers.count(); ++la)
+
+	for (int layerLevel = 0; layerLevel < m_Doc->Layers.count(); ++layerLevel)
 	{
-		m_Doc->Layers.levelToLayer(ll, Lnr);
-		if (ll.isPrintable && !abortExport)
+		m_Doc->Layers.levelToLayer(ll, layerLevel);
+		if (!ll.isPrintable)
+			continue;
+		for (int i = 0; i < pageItems.count() && !abortExport; ++i)
 		{
-			for (int b = 0; b < PItems.count() && !abortExport; ++b)
-			{
-				item = PItems.at(b);
-				if (progressDialog)
-					ScQApp->processEvents();
-				if (item->m_layerID != ll.ID)
-					continue;
-				if ((!page->pageNameEmpty()) && (item->asTextFrame()))
-					continue;
-				if ((!page->pageNameEmpty()) && (item->asPathText()))
-					continue;
-				if ((!page->pageNameEmpty()) && (item->asTable()))
-					continue;
-				if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
-					continue;
-				//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
-				if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
-					continue;
-				double bLeft, bRight, bBottom, bTop;
-				GetBleeds(page, bLeft, bRight, bBottom, bTop);
-				double x1 = page->xOffset() - bLeft;
-				double y1 = page->yOffset() - bTop;
-				double w1 = page->width() + bLeft + bRight;
-				double h1 = page->height() + bBottom + bTop;
-				double lw = item->visualLineWidth();
-				double x2 = item->BoundingX - lw / 2.0;
-				double y2 = item->BoundingY - lw / 2.0;
-				double w2 = qMax(item->BoundingW + lw, 1.0);
-				double h2 = qMax(item->BoundingH + lw, 1.0);
-				if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
-					continue;
-				if (item->ChangedMasterItem)
-					continue;
-				if ((!page->pageNameEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
-					continue;
-				ProcessItem(page, item, PNr, false);
-			}
+			item = pageItems.at(i);
+			if (progressDialog)
+				ScQApp->processEvents();
+			if (item->m_layerID != ll.ID)
+				continue;
+			if ((!page->pageNameEmpty()) && (item->asTextFrame()))
+				continue;
+			if ((!page->pageNameEmpty()) && (item->asPathText()))
+				continue;
+			if ((!page->pageNameEmpty()) && (item->asTable()))
+				continue;
+			if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
+				continue;
+			//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
+			if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
+				continue;
+			double bLeft, bRight, bBottom, bTop;
+			GetBleeds(page, bLeft, bRight, bBottom, bTop);
+			double x1 = page->xOffset() - bLeft;
+			double y1 = page->yOffset() - bTop;
+			double w1 = page->width() + bLeft + bRight;
+			double h1 = page->height() + bBottom + bTop;
+			double lw = item->visualLineWidth();
+			double x2 = item->BoundingX - lw / 2.0;
+			double y2 = item->BoundingY - lw / 2.0;
+			double w2 = qMax(item->BoundingW + lw, 1.0);
+			double h2 = qMax(item->BoundingH + lw, 1.0);
+			if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x1, y1, w1, h1)))
+				continue;
+			if (item->ChangedMasterItem)
+				continue;
+			if ((!page->pageNameEmpty()) && (item->OwnPage != page->pageNr()) && (item->OwnPage != -1))
+				continue;
+			ProcessItem(page, item, PNr, false);
 		}
-		Lnr++;
 	}
 }
 
@@ -3043,7 +3045,7 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			continue;
 		if (item->ChangedMasterItem)
 			continue;
-		if ((!page->pageNameEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
+		if ((!page->pageNameEmpty()) && (item->OwnPage != page->pageNr()) && (item->OwnPage != -1))
 			continue;
 		success &= ProcessItem(page, item, PNr, false);
 		if (!success)
@@ -4513,9 +4515,9 @@ void PSLib::SetClipPath(const FPointArray &points, bool poly)
 			np4 = np;
 		}
 		np = points.point(poi);
-		np1 = points.point(poi+1);
-		np2 = points.point(poi+3);
-		np3 = points.point(poi+2);
+		np1 = points.point(poi + 1);
+		np2 = points.point(poi + 3);
+		np3 = points.point(poi + 2);
 		if ((np == np1) && (np2 == np3))
 			PS_lineto(np3.x(), -np3.y());
 		else

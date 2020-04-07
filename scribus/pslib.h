@@ -78,10 +78,8 @@ class SCRIBUS_API PSLib : public QObject
 		void setOptimization (Optimization opt) { m_optimization = opt; }
 		void setOutputFormat (OutputFormat outputFmt) { m_outputFormat = outputFmt; }
 
-		virtual int   createPS(PrintOptions &options);
+		virtual int   createPS(const QString& outputFileName);
 		virtual const QString& errorMessage();
-
-		virtual bool PS_set_file(const QString& fn);
 		virtual void PS_set_Info(const QString& art, const QString& was);
 
 	protected:
@@ -90,6 +88,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_Error_ImageLoadFailure(const QString& fileName);
 		virtual void PS_Error_MaskLoadFailure(const QString& fileName);
 		virtual void PS_Error_InsufficientMemory();
+
+		virtual bool PS_set_file(const QString& fn);
 
 		virtual bool PS_begin_doc( double x, double y, double width, double height, int numpage);
 		virtual void PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping);
@@ -169,6 +169,7 @@ class SCRIBUS_API PSLib : public QObject
 		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 		
 		ScribusDoc *m_Doc { nullptr };
+		ScPage*      m_currentPage { nullptr };
 		Optimization m_optimization { OptimizeCompat };
 		OutputFormat m_outputFormat { OutputPS };
 
@@ -180,10 +181,6 @@ class SCRIBUS_API PSLib : public QObject
 		QString Creator;
 		QString User;
 		QString Title;
-		QString BBox;
-		QString BBoxH;
-		QString Farben;
-		QString FNamen;
 		bool GraySc { false };
 		int  PageIndex { 0 };
 		QString FillColor;
@@ -200,11 +197,12 @@ class SCRIBUS_API PSLib : public QObject
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;
+		QString cmykCustomColors;
+		QString docCustomColors;
 		QMap<QString, QString> spotMap;
 		MultiProgressDialog* progressDialog { nullptr };
 		bool abortExport { false };
 		PrintOptions Options;
-		ScPage* ActPage;
 
 	protected slots:
 		void cancelRequested();

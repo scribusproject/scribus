@@ -533,8 +533,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
 		if (!dd)
 			return ret;
-		dd->PS_set_file( ScPaths::tempFileDir() + "/tmp.ps");
-		ret = dd->createPS(options);
+		ret = dd->createPS(ScPaths::tempFileDir() + "/tmp.ps");
 		delete dd;
 		if (ret != 0) return 1;
 	}
@@ -641,15 +640,11 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
-		if (dd != nullptr)
-		{
-			dd->PS_set_file(ScPaths::tempFileDir()+"/tmp.ps");
-			ret = dd->createPS(options);
-			delete dd;
-			if (ret != 0) return 1;
-		}
-		else
-			return ret;
+		if (!dd)
+			return -1;
+		ret = dd->createPS(ScPaths::tempFileDir() + "/tmp.ps");
+		delete dd;
+		if (ret != 0) return 1;
 	}
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;

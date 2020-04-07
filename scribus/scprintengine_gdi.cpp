@@ -438,8 +438,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 
 	tempFilePath = PrefsManager::instance().preferencesLocation() + "/tmp.ps";
 	PSLib *dd = new PSLib(doc, options2, PSLib::OutputEPS);
-	dd->PS_set_file(tempFilePath);
-	ret = dd->createPS(options2);
+	ret = dd->createPS(tempFilePath);
 	delete dd;
 	if (ret != 0) return false;
 
