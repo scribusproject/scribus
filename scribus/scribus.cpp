@@ -499,6 +499,9 @@ void ScribusMainWindow::setupMainWindow()
 		r=s->geometry();
 	move(r.left()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition), r.top()+m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
 	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
+
+	if (!m_prefsManager.appPrefs.uiPrefs.mainWinState.isEmpty())
+		restoreState(m_prefsManager.appPrefs.uiPrefs.mainWinState);
 }
 
 void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
