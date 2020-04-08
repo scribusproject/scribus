@@ -66,7 +66,7 @@ public:
 	*/	
 	int init(bool useGUI, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
-	bool initialized() const {return m_ScribusInitialized;}
+	bool initialized() const {return m_scribusInitialized;}
 	const QString& getGuiLanguage() const;
 
 	void initSplash(bool showSplash);
@@ -87,10 +87,10 @@ public:
 	* @retval bool true if we are on Qt/Win
 	*/
 	bool isWinGUI() const;
-	bool haveCMS() const {return m_HaveCMS;}
-	bool haveGS() const {return m_HaveGS;}
-	bool havePNGAlpha() const {return m_HavePngAlpha;}
-	bool haveTIFFSep() const {return m_HaveTiffSep;}
+	bool haveCMS() const {return m_haveCMS;}
+	bool haveGS() const {return m_haveGS;}
+	bool havePNGAlpha() const {return m_havePNGAlpha;}
+	bool haveTIFFSep() const {return m_haveTiffSep;}
 	void getCMSProfiles(bool showInfo);
 	void getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive);
 	void InitDefaultColorTransforms();
@@ -101,8 +101,8 @@ public:
 	//Main Window members
 	ScribusMainWindow* primaryMainWindow();
 	
-	PluginManager* pluginManager;	
-	FileWatcher* fileWatcher;
+	PluginManager* pluginManager {nullptr};
+	FileWatcher* fileWatcher {nullptr};
 	
 	ProfilesL InputProfiles;
 	ProfilesL InputProfilesCMYK;
@@ -128,20 +128,19 @@ public:
 protected:
 	void initCMS();
 	
-	QList<ScribusMainWindow*> m_ScMWList;
-	int m_currScMW;
-	
-	ScSplashScreen *m_SplashScreen;
 	IconManager& m_iconManager;
-	UndoManager *m_undoManager;
 	PrefsManager& m_prefsManager;
-	bool m_ScribusInitialized;
-	bool m_UseGUI;
 	QList<QString> m_Files;
-	bool m_HaveCMS;
-	bool m_HaveGS;
-	bool m_HavePngAlpha;
-	bool m_HaveTiffSep;
+	QList<ScribusMainWindow*> m_ScMWList;
+	ScSplashScreen *m_SplashScreen {nullptr};
+	UndoManager *m_undoManager {nullptr};
+	bool m_haveCMS {false};
+	bool m_haveGS {false};
+	bool m_havePNGAlpha {false};
+	bool m_haveTiffSep {false};
+	bool m_scribusInitialized {false};
+	bool m_useGUI {false};
+	int m_currScMW {0};
 };
 
 #endif

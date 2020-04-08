@@ -50,23 +50,8 @@ for which a new license (GPL+exception) is in place.
 
 ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine()),
 							m_iconManager(IconManager::instance()),
-							 m_prefsManager(PrefsManager::instance())
+							m_prefsManager(PrefsManager::instance())
 {
-	m_ScribusInitialized = false;
-	m_currScMW = 0;
-
-	pluginManager = nullptr;
-	fileWatcher = nullptr;
-
-	m_SplashScreen = nullptr;
-	m_undoManager = nullptr;
-
-	m_UseGUI = false;
-	m_HaveCMS = false;
-	m_HaveGS = false;
-	m_HavePngAlpha = false;
-	m_HaveTiffSep = false;
-
 	ScColorMgmtStrategy strategy;
 	strategy.setUseBlackPointCompensation(true);
 	strategy.setUseBlackPreservation(false);
@@ -94,7 +79,7 @@ static void abort_on_error(QtMsgType t, const QMessageLogContext&, const QString
 
 int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 {
-	m_UseGUI=useGUI;
+	m_useGUI=useGUI;
 	m_Files=filesToUse;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMessageHandler( & abort_on_error );
@@ -124,7 +109,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		return(EXIT_FAILURE);
 	
 	closeSplash();
-	m_ScribusInitialized=true;
+	m_scribusInitialized=true;
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
@@ -197,14 +182,14 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		m_prefsManager.appPrefs.uiPrefs.iconSet=m_iconManager.activeSetBasename();
 	}
 
-	m_HaveGS = testGSAvailability();
-	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
-	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
+	m_haveGS = testGSAvailability();
+	m_havePNGAlpha = testGSDeviceAvailability("pngalpha");
+	m_haveTiffSep = testGSDeviceAvailability("tiffsep");
 	setSplashStatus( tr("Initializing Plugins") );
 	pluginManager->initPlugs();
 	
 	ScCore->setSplashStatus( tr("Reading Color Profiles") );
-	m_HaveCMS = false;
+	m_haveCMS = false;
 	getCMSProfiles(showProfileInfo);
 	initCMS();
 
@@ -261,7 +246,7 @@ void ScribusCore::closeSplash()
 
 bool ScribusCore::usingGUI() const
 {
-	return m_UseGUI;
+	return m_useGUI;
 }
 
 bool ScribusCore::isMacGUI() const
@@ -325,9 +310,9 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
-		m_HaveCMS = true;
+		m_haveCMS = true;
 	else
-		m_HaveCMS = false;
+		m_haveCMS = false;
 }
 
 void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive)
@@ -511,7 +496,7 @@ void ScribusCore::ResetDefaultColorTransforms()
 
 void ScribusCore::initCMS()
 {
-	if (!m_HaveCMS)
+	if (!m_haveCMS)
 		return;
 
 	ProfilesL::Iterator ip;
@@ -601,9 +586,9 @@ ScribusMainWindow * ScribusCore::primaryMainWindow()
 
 void ScribusCore::recheckGS()
 {
-	m_HaveGS = testGSAvailability();
-	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
-	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
+	m_haveGS = testGSAvailability();
+	m_havePNGAlpha = testGSDeviceAvailability("pngalpha");
+	m_haveTiffSep = testGSDeviceAvailability("tiffsep");
 }
 
 bool ScribusCore::fileWatcherActive() const
