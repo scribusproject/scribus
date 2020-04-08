@@ -507,7 +507,7 @@ void ScribusMainWindow::setupMainWindow()
 void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 {
 	QList<QScreen*> screens = QGuiApplication::screens();
-	screenNumber = 0;
+	screenNumber = -1;
 	xPos = 0;
 	yPos = 0;
 
@@ -515,8 +515,6 @@ void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
 	if (w != nullptr)
 		screenNumber = screens.indexOf(w->screen());
-	else
-		screenNumber = screens.indexOf(QGuiApplication::primaryScreen());
 #else
 	QScreen* s = ScCore->primaryMainWindow()->screen();
 	screenNumber = screens.indexOf(s);
