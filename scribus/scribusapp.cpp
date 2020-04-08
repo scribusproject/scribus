@@ -99,14 +99,10 @@ extern const char ARG_CONSOLE_SHORT[] = "-cl";
 
 bool ScribusQApp::useGUI=false;
 
-ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
-	m_lang(""),
-	m_GUILang("en_GB")
+ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
 	ScQApp = this;
 	ScCore = nullptr;
-	m_scDLMgr = nullptr;
-	m_ScCore = nullptr;
 	initDLMgr();
 	setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 }

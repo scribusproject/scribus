@@ -83,7 +83,6 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QStringList pythonScriptArgs; // command line arguments and flags for script from CLI
 
 	private:
-		ScribusCore* m_ScCore;
 		void showHeader();
 		void showVersion();
 		/*!
@@ -100,8 +99,9 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		*/
 		void showAvailLangs();
 
+		ScribusCore* m_ScCore {nullptr};
 		QString m_lang;
-		QString m_GUILang;
+		QString m_GUILang {"en_GB"};
 		bool m_showSplash;
 		bool m_showFontInfo;
 		bool m_showProfileInfo;
@@ -110,7 +110,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QList<QString> m_filesToLoad;
 		QString m_fileName;
 		QFontDatabase m_fontDb;
-		ScDLManager *m_scDLMgr;
+		ScDLManager *m_scDLMgr {nullptr};
 
 	protected:
 		virtual bool event(QEvent *event);
