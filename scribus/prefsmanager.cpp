@@ -986,15 +986,6 @@ void PrefsManager::SavePrefs()
 	appPrefs.uiPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
 	appPrefs.uiPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
 	appPrefs.uiPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
-	QList<QScreen*> screens = QGuiApplication::screens();
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
-	if (w != nullptr)
-		currentScreen=screens.indexOf(w->screen());
-#else
-	QScreen* s = ScCore->primaryMainWindow()->screen();
-	currentScreen=screens.indexOf(s);
-#endif
 	appPrefs.uiPrefs.mainWinSettings.screenNumber = currentScreen;
 	appPrefs.uiPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
 	appPrefs.uiPrefs.RecentDocs.clear();

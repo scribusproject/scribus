@@ -497,7 +497,7 @@ void ScribusMainWindow::setupMainWindow()
 	QRect r(0,0,0,0);
 	if (s!=nullptr)
 		r=s->geometry();
-	move(r.left()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition), r.top()+m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
+	move(r.left()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition), r.top()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition));
 	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
 
 	if (!m_prefsManager.appPrefs.uiPrefs.mainWinState.isEmpty())
@@ -511,6 +511,8 @@ void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
 	if (w != nullptr)
 		screenNumber=screens.indexOf(w->screen());
+	else
+		screenNumber=screens.indexOf(QGuiApplication::primaryScreen());
 #else
 	QScreen* s = ScCore->primaryMainWindow()->screen();
 	screenNumber = screens.indexOf(s);
