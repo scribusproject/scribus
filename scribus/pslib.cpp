@@ -328,7 +328,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 			bool nPath = true;
 			if (ig.value().size() > 3)
 			{
-				for (int poi = 0; poi < ig.value().size()-3; poi += 4)
+				for (int poi = 0; poi < ig.value().size() - 3; poi += 4)
 				{
 					if (ig.value().isMarker(poi))
 					{
@@ -795,7 +795,7 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping)
 	PutStream("save\n");
 	if ((pg->orientation() == 1) && (m_outputFormat == OutputPS))
 		PutStream("90 rotate 0 " + IToStr(qRound(maxBoxY)) + " neg translate\n");
-  	PutStream("/DeviceCMYK setcolorspace\n");
+	PutStream("/DeviceCMYK setcolorspace\n");
 	// Clip to bleeds
 	QString clipStr;
 	double bbWidth  = pg->width()  + bleedLeft + bleedRight;
@@ -853,8 +853,8 @@ void PSLib::PS_end_page()
 			PutStream(ToStr(markOffs + bleedLeft) + " " + ToStr(markDelta + Options.markLength) + " li\n");
 			PutStream("st\n");
 		// Top Left
-			PutStream(ToStr(markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top()-markOffs) + " m\n");
-			PutStream(ToStr(markDelta + Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top()-markOffs) + " li\n");
+			PutStream(ToStr(markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " m\n");
+			PutStream(ToStr(markDelta + Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs + bleedLeft) + " " + ToStr(maxBoxY - markDelta) + " m\n");
 			PutStream(ToStr(markOffs + bleedLeft) + " " + ToStr(maxBoxY - markDelta - Options.markLength)  + " li\n");
@@ -867,8 +867,8 @@ void PSLib::PS_end_page()
 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(markDelta + Options.markLength)  + " li\n");
 			PutStream("st\n");
 		// Top Right
-			PutStream(ToStr(maxBoxX - markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top()-markOffs) + " m\n");
-			PutStream(ToStr(maxBoxX - markDelta - Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top()-markOffs) + " li\n");
+			PutStream(ToStr(maxBoxX - markDelta) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " m\n");
+			PutStream(ToStr(maxBoxX - markDelta - Options.markLength) + " " + ToStr(maxBoxY - Options.bleeds.top() - markOffs) + " li\n");
 			PutStream("st\n");
  			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta) + " m\n");
 			PutStream(ToStr(maxBoxX - bleedRight - markOffs) + " " +  ToStr(maxBoxY - markDelta - Options.markLength)  + " li\n");
@@ -1761,7 +1761,7 @@ int PSLib::createPS(const QString& outputFileName)
 				aa++;
 			else
 			{
-				if (sepac == static_cast<int>(spots.count()-1))
+				if (sepac == static_cast<int>(spots.count() - 1))
 				{
 					aa++;
 					sepac = 0;
@@ -1892,7 +1892,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
 					{
@@ -1995,7 +1995,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
@@ -2048,7 +2048,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
+			for (int it = ml.size() - 1; it > -1; it--)
 			{
 				if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 				{
@@ -2124,7 +2124,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
@@ -2180,7 +2180,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 					{
@@ -2203,7 +2203,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 				FPoint Vector = item->PoLine.point(xx);
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					double r = atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI);
 					QTransform arrowTrans;
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
@@ -2215,13 +2215,13 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		}
 		if (item->endArrowIndex() != 0)
 		{
-			FPoint End = item->PoLine.point(item->PoLine.size()-2);
-			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+			FPoint End = item->PoLine.point(item->PoLine.size() - 2);
+			for (uint xx = item->PoLine.size() - 1; xx > 0; xx -= 2)
 			{
 				FPoint Vector = item->PoLine.point(xx);
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					double r = atan2(End.y() - Vector.y(),End.x() - Vector.x())*(180.0/M_PI);
 					QTransform arrowTrans;
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
@@ -2262,7 +2262,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 				else
 				{
 					multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
-					for (int it = ml.size()-1; it > -1; it--)
+					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 						{
@@ -2926,7 +2926,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 					else
 					{
 						multiLine ml = m_Doc->MLineStyles[ite->NamedLStyle];
-						for (int it = ml.size()-1; it > -1; it--)
+						for (int it = ml.size() - 1; it > -1; it--)
 						{
 							if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 							{
@@ -2975,7 +2975,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 						else
 						{
 							multiLine ml = m_Doc->MLineStyles[ite->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
+							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
 								{
@@ -3206,7 +3206,7 @@ void PSLib::HandleMeshGradient(PageItem* item)
 			colorValues.append(colorVal);
 		}
 	}
-	for (int grow = 0; grow < item->meshGradientArray.count()-1; grow++)
+	for (int grow = 0; grow < item->meshGradientArray.count() - 1; grow++)
 	{
 		PutStream("gs\n");
 		PutStream("<<\n");
@@ -3257,7 +3257,7 @@ void PSLib::HandleMeshGradient(PageItem* item)
 		QString vertStream;
 		QTextStream vst(&vertStream, QIODevice::WriteOnly);
 		quint8 flg = 0;
-		for (int gcol = 0; gcol < item->meshGradientArray[grow].count()-1; gcol++)
+		for (int gcol = 0; gcol < item->meshGradientArray[grow].count() - 1; gcol++)
 		{
 			MeshPoint mp1 = item->meshGradientArray[grow][gcol];
 			MeshPoint mp2 = item->meshGradientArray[grow][gcol+1];
@@ -3604,7 +3604,7 @@ void PSLib::HandleDiamondGradient(PageItem* item)
 	}
 	else
 		PutStream("/ColorSpace /DeviceCMYK\n");
-	PutStream("/Background [" + colorValues[colorValues.count()-1] + "]\n");
+	PutStream("/Background [" + colorValues[colorValues.count() - 1] + "]\n");
 	PutStream("/DataSource [\n");
 	QPointF centerP = QPointF(item->GrControl5.x(), -item->GrControl5.y());
 	QLineF edge1 = QLineF(centerP, QPointF(item->GrControl1.x(), -item->GrControl1.y()));
@@ -4239,8 +4239,8 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	else
 	{
 		multiLine ml = m_Doc->MLineStyles[ite->NamedLStyle];
-		if (ml[ml.size()-1].Width != 0.0)
-			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+		if (ml[ml.size() - 1].Width != 0.0)
+			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
 	arrow.map(arrowTrans);
 	if (ite->NamedLStyle.isEmpty())
@@ -4302,7 +4302,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 			PS_closepath();
 			putColor(ite->lineColor(), ite->lineShade(), true);
 		}
-		for (int it = ml.size()-1; it > 0; it--)
+		for (int it = ml.size() - 1; it > 0; it--)
 		{
 			if (ml[it].Color != CommonStrings::None)
 			{
@@ -4496,7 +4496,7 @@ void PSLib::SetClipPath(const FPointArray &points, bool poly)
 	if (points.size() <= 3)
 		return;
 
-	for (int poi=0; poi < points.size()-3; poi += 4)
+	for (int poi=0; poi < points.size() - 3; poi += 4)
 	{
 		if (points.isMarker(poi))
 		{
