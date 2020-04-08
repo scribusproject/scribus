@@ -20,16 +20,17 @@ for which a new license (GPL+exception) is in place.
 
 #include <QColor>
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QList>
 #include <QMessageBox>
+#include <QScreen>
 #include <QString>
 #include <QStringList>
 #include <QStyleFactory>
 #include <QTransform>
+#include <QWindow>
 
 #include "prefsmanager.h"
 
@@ -76,6 +77,11 @@ PrefsManager::~PrefsManager()
 {
 	appPrefs.fontPrefs.AvailFonts.clear();
 	delete prefsFile;
+}
+
+bool PrefsManager::firstTimeIgnoreOldPrefs() const
+{
+	return m_firstTimeIgnoreOldPrefs;
 }
 
 PrefsManager& PrefsManager::instance()
@@ -164,9 +170,9 @@ void PrefsManager::initDefaults()
 //	appPrefs.uiPrefs.mainWinSettings.yPosition = 0;
 	appPrefs.uiPrefs.mainWinSettings.width = 640;
 	appPrefs.uiPrefs.mainWinSettings.height = 480;
-	QDesktopWidget *d = QApplication::desktop();
-	appPrefs.uiPrefs.mainWinSettings.xPosition=(d->availableGeometry().width()-appPrefs.uiPrefs.mainWinSettings.width)/2;
-	appPrefs.uiPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.uiPrefs.mainWinSettings.height)/2;
+	QScreen* s=QGuiApplication::primaryScreen();
+	appPrefs.uiPrefs.mainWinSettings.xPosition=(s->availableGeometry().width()-appPrefs.uiPrefs.mainWinSettings.width)/2;
+	appPrefs.uiPrefs.mainWinSettings.yPosition=(s->availableGeometry().height()-appPrefs.uiPrefs.mainWinSettings.height)/2;
 	appPrefs.uiPrefs.mainWinSettings.maximized = false;
 	appPrefs.uiPrefs.mainWinState = QByteArray();
 	appPrefs.uiPrefs.RecentDocs.clear();
@@ -332,7 +338,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.AutoSaveLocation = true;
 	appPrefs.docSetupPrefs.AutoSaveDir = "";
 	appPrefs.miscPrefs.saveEmergencyFile = true;
-	int dpi = qApp->desktop()->logicalDpiX();
+	int dpi = s->logicalDotsPerInchX();
 	if ((dpi < 60) || (dpi > 200))
 		dpi = 72;
 	appPrefs.displayPrefs.displayScale = dpi / 72.0;
@@ -460,8 +466,8 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.ImageProf = "";
 	appPrefs.pdfPrefs.PrintProf = "";
 	appPrefs.pdfPrefs.Info = "";
-	appPrefs.pdfPrefs.Intent = 0;
 	appPrefs.pdfPrefs.Intent2 = 0;
+	appPrefs.pdfPrefs.Intent = 0;
 	appPrefs.pdfPrefs.bleeds.set(0, 0, 0, 0);
 	appPrefs.pdfPrefs.useDocBleeds = true;
 	appPrefs.pdfPrefs.cropMarks = false;
@@ -906,37 +912,6 @@ void PrefsManager::ReadPrefs()
 	}
 }
 
-void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
-{
-	mw->setDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
-
-	uint max = qMin(appPrefs.uiPrefs.recentDocCount, appPrefs.uiPrefs.RecentDocs.count());
-	for (uint m = 0; m < max; ++m)
-	{
-		QFileInfo fd(appPrefs.uiPrefs.RecentDocs[m]);
-		if (fd.exists())
-		{
-			mw->m_recentDocsList.append(appPrefs.uiPrefs.RecentDocs[m]);
-			//#9845: ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
-		}
-	}
-	mw->rebuildRecentFileMenu();
-	mw->move(appPrefs.uiPrefs.mainWinSettings.xPosition, appPrefs.uiPrefs.mainWinSettings.yPosition);
-	mw->resize(appPrefs.uiPrefs.mainWinSettings.width, appPrefs.uiPrefs.mainWinSettings.height);
-	if (appPrefs.uiPrefs.mainWinSettings.maximized)
-		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
-	//For 1.3.5, we dump prefs first time around.
-	if (!m_firstTimeIgnoreOldPrefs)
-		ReadPrefsXML();
-	if (appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
-	{
-		initDefaultCheckerPrefs(appPrefs.verifierPrefs.checkerPrefsList);
-		appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
-	}
-	if (!appPrefs.uiPrefs.mainWinState.isEmpty())
-		mw->restoreState(appPrefs.uiPrefs.mainWinState);
-}
-
 void PrefsManager::ReadPrefsXML()
 {
 	if (prefsFile)
@@ -1002,11 +977,25 @@ void PrefsManager::SavePrefs()
 	// The caller is responsible for ensuring we aren't called under those
 	// conditions.
 	Q_ASSERT(!emergencyActivated);
-	appPrefs.uiPrefs.mainWinSettings.xPosition = abs(ScCore->primaryMainWindow()->pos().x());
-	appPrefs.uiPrefs.mainWinSettings.yPosition = abs(ScCore->primaryMainWindow()->pos().y());
+	int currentScreen=0;
+	int currentScreenXPos=0;
+	int currentScreenYPos=0;
+	ScCore->primaryMainWindow()->getScreenData(currentScreen, currentScreenXPos, currentScreenYPos);
+	appPrefs.uiPrefs.mainWinSettings.xPosition = ScCore->primaryMainWindow()->pos().x() - currentScreenXPos;
+	appPrefs.uiPrefs.mainWinSettings.yPosition = ScCore->primaryMainWindow()->pos().y();
 	appPrefs.uiPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
 	appPrefs.uiPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
 	appPrefs.uiPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
+	QList<QScreen*> screens = QGuiApplication::screens();
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
+	if (w != nullptr)
+		currentScreen=screens.indexOf(w->screen());
+#else
+	QScreen* s = ScCore->primaryMainWindow()->screen();
+	currentScreen=screens.indexOf(s);
+#endif
+	appPrefs.uiPrefs.mainWinSettings.screenNumber = currentScreen;
 	appPrefs.uiPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
 	appPrefs.uiPrefs.RecentDocs.clear();
 	uint max = qMin(appPrefs.uiPrefs.recentDocCount, ScCore->primaryMainWindow()->m_recentDocsList.count());
@@ -1628,6 +1617,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcMainWindow.setAttribute("Width",appPrefs.uiPrefs.mainWinSettings.width);
 	dcMainWindow.setAttribute("Height",appPrefs.uiPrefs.mainWinSettings.height);
 	dcMainWindow.setAttribute("Maximized",static_cast<int>(appPrefs.uiPrefs.mainWinSettings.maximized));
+	dcMainWindow.setAttribute("ScreenNumber",appPrefs.uiPrefs.mainWinSettings.screenNumber);
 	elem.appendChild(dcMainWindow);
 
 	QDomElement dcScrapbook=docu.createElement("ScrapBook");
@@ -2258,7 +2248,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.uiPrefs.mainWinSettings.width = dc.attribute("Width", "640").toInt();
 			appPrefs.uiPrefs.mainWinSettings.height = dc.attribute("Height", "480").toInt();
 			appPrefs.uiPrefs.mainWinSettings.maximized = static_cast<bool>(dc.attribute("Maximized", "0").toInt());
-			QDesktopWidget *d = QApplication::desktop();
+			appPrefs.uiPrefs.mainWinSettings.screenNumber = dc.attribute("ScreenNumber", "0").toInt();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
 			int minY = 0;
@@ -2266,14 +2256,18 @@ bool PrefsManager::ReadPref(const QString& ho)
 			// on Mac you're dead if the titlebar is not on screen
 			minY = 22;
 #endif
-			if (appPrefs.uiPrefs.mainWinSettings.xPosition < minX )
-				appPrefs.uiPrefs.mainWinSettings.xPosition = minX;
-			if (appPrefs.uiPrefs.mainWinSettings.yPosition <  minY)
-				appPrefs.uiPrefs.mainWinSettings.yPosition = minY;
+			if (QGuiApplication::screens().count()==1)
+			{
+				if (appPrefs.uiPrefs.mainWinSettings.xPosition < minX )
+					appPrefs.uiPrefs.mainWinSettings.xPosition = minX;
+				if (appPrefs.uiPrefs.mainWinSettings.yPosition <  minY)
+					appPrefs.uiPrefs.mainWinSettings.yPosition = minY;
+			}
 			int minWidth = 5*gStrut.width();
 			int minHeight = 5*gStrut.width();
-			int maxWidth = d->width();
-			int maxHeight = d->height();
+			QScreen* s=QGuiApplication::screens().at(qMin(appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count()-1));
+			int maxWidth = s->availableSize().width();
+			int maxHeight = s->availableSize().height();
 			if (appPrefs.uiPrefs.mainWinSettings.width > maxWidth)
 				appPrefs.uiPrefs.mainWinSettings.width = maxWidth;
 			if (appPrefs.uiPrefs.mainWinSettings.width < minWidth)
@@ -2282,8 +2276,8 @@ bool PrefsManager::ReadPref(const QString& ho)
 				appPrefs.uiPrefs.mainWinSettings.height = maxHeight;
 			if (appPrefs.uiPrefs.mainWinSettings.height < minHeight)
 				appPrefs.uiPrefs.mainWinSettings.height = minHeight;
-			int maxX = d->width() - minWidth;
-			int maxY = d->height() - minHeight;
+			int maxX = s->availableSize().width() - minWidth;
+			int maxY = s->availableSize().height() - minHeight;
 			if (appPrefs.uiPrefs.mainWinSettings.xPosition >= maxX)
 				appPrefs.uiPrefs.mainWinSettings.xPosition = maxX;
 			if (appPrefs.uiPrefs.mainWinSettings.yPosition >= maxY)

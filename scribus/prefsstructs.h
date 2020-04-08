@@ -92,23 +92,14 @@ struct TypoPrefs
 
 struct WindowPrefs
 {
-	WindowPrefs() {
-		xPosition = 0;
-		yPosition = 0;
-		width   = 640;
-		height  = 480;
-		visible = true;
-		docked  = false;
-		maximized = false;
-	}
-
-	int xPosition;
-	int yPosition;
-	int width;
-	int height;
-	bool visible;
-	bool docked;
-	bool maximized;
+	int xPosition {0};
+	int yPosition {0};
+	int width {640};
+	int height {480};
+	bool visible {true};
+	bool docked {false};
+	bool maximized {false};
+	int screenNumber {0};
 };
 
 struct tabPrefs
@@ -120,34 +111,20 @@ struct tabPrefs
 //User Interface
 struct UIPrefs
 {
-	UIPrefs() {
-		mouseMoveTimeout = 150;
-		wheelJump = 40;
-		applicationFontSize = 12;
-		paletteFontSize = 10;
-		recentDocCount = 5;
-		useSmallWidgets = false;
-		useTabs = false;
-		showStartupDialog = true;
-		showSplashOnStartup = true;
-		stickyTools = false;
-		grayscaleIcons = false;
-	}
-
-	int mouseMoveTimeout; //! Mouse move timeout for move/resize operations
-	int wheelJump; //! Distance to jump with mouse wheel scrolling
-	int applicationFontSize; //! Font size to use in the application, apart from pßalettes
-	int paletteFontSize; //! Font size to use in the palettes
+	int mouseMoveTimeout {150}; //! Mouse move timeout for move/resize operations
+	int wheelJump {40}; //! Distance to jump with mouse wheel scrolling
+	int applicationFontSize {12}; //! Font size to use in the application, apart from pßalettes
+	int paletteFontSize {10}; //! Font size to use in the palettes
 	QString style; 	//! Currently used QStyle name
-	int recentDocCount; //! Number of recent documents to remember
+	int recentDocCount {5}; //! Number of recent documents to remember
 	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
-	bool useSmallWidgets; //! Use small widgets in the palettes
-	bool useTabs;		 //! Use a tabbed MainWidget a la FireFox 
-	bool showStartupDialog; //! Whether to show the startup dialog or not
-	bool showSplashOnStartup; //! Whether to show the splashscreen or not
-	bool stickyTools; //! Whether a user's tool section remains after use or the normal tool is reselected
-	bool grayscaleIcons; //! Show icons in toolbars as grayscale
+	bool useSmallWidgets {false}; //! Use small widgets in the palettes
+	bool useTabs {false}; //! Use a tabbed MainWidget a la FireFox
+	bool showStartupDialog {true}; //! Whether to show the startup dialog or not
+	bool showSplashOnStartup {true}; //! Whether to show the splashscreen or not
+	bool stickyTools {false}; //! Whether a user's tool section remains after use or the normal tool is reselected
+	bool grayscaleIcons {false}; //! Show icons in toolbars as grayscale
 	QString iconSet; //! Icon set name
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;

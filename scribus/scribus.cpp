@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QColorDialog>
 #include <QCursor>
-#include <QDesktopWidget>
 #include <QDrag>
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -62,10 +61,12 @@ for which a new license (GPL+exception) is in place.
 //>>
 #include <QRegExp>
 #include <QScopedPointer>
+#include <QScreen>
 #include <QStyleFactory>
 #include <QTableWidget>
 #include <QTextCodec>
 #include <QTranslator>
+#include <QWindow>
 #include <QWheelEvent>
 
 #ifdef DEBUG_LOAD_TIMES
@@ -393,7 +394,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
 	initPalettes();
 
-	m_prefsManager.setupMainWindow(this);
+	setupMainWindow();
 
 	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager.appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)
@@ -457,6 +458,62 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setStyleSheet();
 
 	return retVal;
+}
+
+void ScribusMainWindow::setupMainWindow()
+{
+	setDefaultPrinter(m_prefsManager.appPrefs.printerPrefs.PrinterName, m_prefsManager.appPrefs.printerPrefs.PrinterFile, m_prefsManager.appPrefs.printerPrefs.PrinterCommand);
+
+	uint max = qMin(m_prefsManager.appPrefs.uiPrefs.recentDocCount, m_prefsManager.appPrefs.uiPrefs.RecentDocs.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		QFileInfo fd(m_prefsManager.appPrefs.uiPrefs.RecentDocs[m]);
+		if (fd.exists())
+		{
+			m_recentDocsList.append(m_prefsManager.appPrefs.uiPrefs.RecentDocs[m]);
+			//#9845: ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
+		}
+	}
+	rebuildRecentFileMenu();
+	//For 1.3.5, we dump prefs first time around.
+	if (!m_prefsManager.firstTimeIgnoreOldPrefs())
+		m_prefsManager.ReadPrefsXML();
+	if (m_prefsManager.appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
+	{
+		m_prefsManager.initDefaultCheckerPrefs(m_prefsManager.appPrefs.verifierPrefs.checkerPrefsList);
+		m_prefsManager.appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
+	}
+
+	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
+	QList<QScreen*> screens = QGuiApplication::screens();
+	QScreen* s=nullptr;
+	if (w != nullptr)
+	{
+		s=screens.at(qMin(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count()-1));
+		windowHandle()->setScreen(s);
+	}
+	else
+		s=QGuiApplication::primaryScreen();
+	QRect r(0,0,0,0);
+	if (s!=nullptr)
+		r=s->geometry();
+	move(r.left()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition), r.top()+m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
+	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
+}
+
+void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
+{
+	QList<QScreen*> screens = QGuiApplication::screens();
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
+	if (w != nullptr)
+		screenNumber=screens.indexOf(w->screen());
+#else
+	QScreen* s = ScCore->primaryMainWindow()->screen();
+	screenNumber = screens.indexOf(s);
+#endif
+	xPos = screens.at(screenNumber)->geometry().left();
+	yPos = screens.at(screenNumber)->geometry().top();
 }
 
 
@@ -6861,9 +6918,6 @@ int ScribusMainWindow::ShowSubs()
 			}
 		}
 	}
-
-	move(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition);
-	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
 
 	// init the toolbars
 	fileToolBar->initVisibility();
