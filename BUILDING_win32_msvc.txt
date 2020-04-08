@@ -8,7 +8,7 @@ related tools will be provided.
 You will need:
 - Microsoft Vista, 7 or a more recent version
 - Microsoft Visual Studio 2013 or later (for 32/64bit build)
-- A recent Qt release built with corresponding Visual Studio version (minimum 5.6, recommended >= 5.9.0)
+- A recent Qt release built with corresponding Visual Studio version (minimum 5.11, recommended >= 5.12.0)
 - Scribus common libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
 - Scribus 15x libraries kit downloaded from http://sourceforge.net/projects/scribus/files/scribus-libs/
 
