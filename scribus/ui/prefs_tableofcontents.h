@@ -30,7 +30,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
-		virtual void changeEvent(QEvent *e);
+		void changeEvent(QEvent *e) override;
 		virtual void enableGUIWidgets();
 
 	public slots:

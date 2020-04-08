@@ -72,14 +72,14 @@ protected slots:
 
 private:
 	QString m_name;
-	PrefsContext *m_prefs;
-	Qt::Orientation floatOrientation;
-	QToolButton *prefsButton;
-	QMainWindow* parentMW;
-	bool dockTop;
-	bool dockRight;
-	bool dockBottom;
-	bool dockLeft;
+	PrefsContext *m_prefs {nullptr};
+	Qt::Orientation floatOrientation {Qt::Horizontal};
+	QToolButton *prefsButton {nullptr};
+	QMainWindow* parentMW {nullptr};
+	bool dockTop {false};
+	bool dockRight {false};
+	bool dockBottom {false};
+	bool dockLeft {false};
 
 // 	void initPrefsButton();
 // 	void storeDockPositions();

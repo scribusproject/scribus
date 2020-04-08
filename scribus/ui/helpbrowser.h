@@ -85,7 +85,7 @@ public slots:
 	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="", bool dontChangeIfAlreadyLoaded=false);
 
 protected:
-	void closeEvent(QCloseEvent * event);
+	void closeEvent(QCloseEvent * event) override;
 
 	void setupLocalUI();
 	/*! \brief Reads saved bookmarks from external file */

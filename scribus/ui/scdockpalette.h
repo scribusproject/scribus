@@ -71,10 +71,10 @@ protected:
 	/** @brief Stores the geometry of the window when hiding. */
 	virtual void hideEvent(QHideEvent* hideEvent);
 
-	PrefsContext* m_palettePrefs;
+	PrefsContext* m_palettePrefs {nullptr};
 	QString m_prefsContextName;
-	bool m_visibleOnStartup;
-	QWidget* m_originalParent;
-	QWidget* m_tempParent;
+	bool m_visibleOnStartup {false};
+	QWidget* m_originalParent {nullptr};
+	QWidget* m_tempParent {nullptr};
 };
 #endif

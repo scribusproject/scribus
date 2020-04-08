@@ -32,9 +32,9 @@ class SCRIBUS_API Prefs_KeyboardShortcuts : public Prefs_Pane, Ui::Prefs_Keyboar
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
-		bool event( QEvent* ev );
-		void keyPressEvent(QKeyEvent *k);
-		void keyReleaseEvent(QKeyEvent *k);
+		bool event( QEvent* ev ) override;
+		void keyPressEvent(QKeyEvent *k) override;
+		void keyReleaseEvent(QKeyEvent *k) override;
 
 		static QString getKeyText(const QKeySequence& KeyC);
 		static QString getTrKeyText(const QKeySequence& KeyC);

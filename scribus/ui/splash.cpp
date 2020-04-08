@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDebug>
 #include <QMouseEvent>
 #include <QPainter>
@@ -78,8 +77,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 	if (versionText.contains("svn"))
 	{
 #if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
-		QString revText;
-		revText=QString("SVN Revision: %1").arg(SVNVERSION);
+		QString revText=QString("SVN Revision: %1").arg(SVNVERSION);
 		QRect r2 = rect().adjusted(0, 0, -15, -50);
 		painter->setFont(f);
 		painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
