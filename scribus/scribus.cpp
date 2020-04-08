@@ -507,6 +507,10 @@ void ScribusMainWindow::setupMainWindow()
 void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 {
 	QList<QScreen*> screens = QGuiApplication::screens();
+	screenNumber = 0;
+	xPos = 0;
+	yPos = 0;
+
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
 	if (w != nullptr)
@@ -517,6 +521,10 @@ void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 	QScreen* s = ScCore->primaryMainWindow()->screen();
 	screenNumber = screens.indexOf(s);
 #endif
+	if (screenNumber < 0)
+		screenNumber = screens.indexOf(QGuiApplication::primaryScreen());
+	if (screenNumber < 0)
+		screenNumber = 0;
 	QRect screenGeom = screens.at(screenNumber)->geometry();
 	xPos = screenGeom.left();
 	yPos = screenGeom.top();
