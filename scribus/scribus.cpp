@@ -394,7 +394,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect( scrActions["windowsTile"], SIGNAL(triggered()) , mdiArea, SLOT(tileSubWindows()) );
 	initPalettes();
 
-	setupMainWindow();
 
 	viewToolBar->previewQualitySwitcher->setCurrentIndex(m_prefsManager.appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)

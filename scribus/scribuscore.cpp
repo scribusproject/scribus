@@ -128,6 +128,8 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
+	scribus->setupMainWindow();
+
 	QStringList recoverFiles = scribus->findRecoverableFile();
 	int subsRet=scribus->ShowSubs();
 	if (subsRet==0)
