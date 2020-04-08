@@ -27,6 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QMap>
 #include <QList>
+#include <QString>
+#include <QStringList>
+
 class QHBoxLayout;
 class QVBoxLayout;
 class QPushButton;
@@ -48,21 +51,34 @@ class SCRIBUS_API CupsOptions : public QDialog
 public: 
 	CupsOptions(QWidget* parent, const QString& device);
 	~CupsOptions();
-	QPushButton* PushButton1;
-	QPushButton* PushButton2;
-	QTableWidget* Table;
-	struct OpData { 
-					int Cnum;
-					QString KeyW;
-				  };
-	QList<QComboBox*> FlagsOpt;
-	QMap<QString,OpData> KeyToText;
-	QMap<QString,QString> KeyToDefault;
+
+	struct OptionData
+	{ 
+		int comboIndex;
+		QString keyword;
+	};
+
+	QString defaultOptionValue(const QString& optionKey) const;
+	bool    useDefaultValue(const QString& optionKey) const;
+
+	const QMap<QString, OptionData>& options() const { return m_keyToDataMap; }
+	QStringList optionKeys() { return m_keyToDataMap.keys(); }
+
+	int     optionIndex(const QString& optionKey) const;
+	QString optionText(const QString& optionKey) const;
 
 protected:
-	QVBoxLayout* CupsOptionsLayout;
-	QHBoxLayout* Layout2;
+	QVBoxLayout*  CupsOptionsLayout;
+	QHBoxLayout*  Layout2;
+	QPushButton*  PushButton1;
+	QPushButton*  PushButton2;
+	QTableWidget* Table;
+
 	PrefsContext* prefs;
+	
+	QList<QComboBox*> m_optionCombos;
+	QMap<QString, OptionData> m_keyToDataMap;
+	QMap<QString, QString> m_keyToDefault;
 };
 
 #endif

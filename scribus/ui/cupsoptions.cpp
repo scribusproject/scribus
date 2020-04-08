@@ -50,12 +50,13 @@ for which a new license (GPL+exception) is in place.
 
 CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( parent )
 {
-	FlagsOpt.clear();
 	setModal(true);
 	setWindowTitle( tr( "Printer Options" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	prefs = PrefsManager::instance().prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
+
+	prefs = PrefsManager::instance().prefsFile->getContext("cups_options");
+
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );
@@ -87,8 +88,8 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 		cupsMarkOptions(ppd, dest->num_options, dest->options);
 		QStringList opts;
 		QString Marked;
-		KeyToText.clear();
-		KeyToDefault.clear();
+		m_keyToDataMap.clear();
+		m_keyToDefault.clear();
 		for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, ++group)
 		{
 			int ix;
@@ -98,7 +99,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 			{
 				int j;
 				Marked = "";
-				struct OpData Daten;
+				struct OptionData optionData;
 				opts.clear();
 				for (j = option->num_choices, choice = option->choices; j > 0; j --, ++choice)
 				{
@@ -108,37 +109,37 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 				}
 				if (!Marked.isEmpty())
 				{
-					Table->setRowCount(Table->rowCount()+1);
-					Table->setItem(Table->rowCount()-1, 0, new QTableWidgetItem(QString(option->text)));
+					Table->setRowCount(Table->rowCount() + 1);
+					Table->setItem(Table->rowCount() - 1, 0, new QTableWidgetItem(QString(option->text)));
 					QComboBox *item = new QComboBox( this );
 					item->setEditable(false);
-					FlagsOpt.append(item);
-					Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
-					Daten.KeyW = QString(option->keyword);
-					KeyToText[QString(option->text)] = Daten;
+					m_optionCombos.append(item);
+					optionData.comboIndex = m_optionCombos.count() - 1;
+					optionData.keyword = QString(option->keyword);
+					m_keyToDataMap[QString(option->text)] = optionData;
 					item->addItems(opts);
 					int lastSelected = prefs->getInt(QString(option->text), 0);
 					if (lastSelected >= static_cast<int>(opts.count()))
 						lastSelected = 0;
 					item->setCurrentIndex(lastSelected);
-					KeyToDefault[QString(option->text)] = Marked;
-					Table->setCellWidget(Table->rowCount()-1, 1, item);
+					m_keyToDefault[QString(option->text)] = Marked;
+					Table->setCellWidget(Table->rowCount() - 1, 1, item);
 				}
 			}
 		}
 		ppdClose(ppd);
 		cupsFreeDests(num_dests, dests);
 	}
-	struct OpData Daten;
+	struct OptionData optionData;
 
-	Table->setRowCount(Table->rowCount()+1);
-	Table->setItem(Table->rowCount()-1, 0, new QTableWidgetItem(QString( tr("Page Set"))));
+	Table->setRowCount(Table->rowCount() + 1);
+	Table->setItem(Table->rowCount() - 1, 0, new QTableWidgetItem(QString( tr("Page Set"))));
 	QComboBox *item4 = new QComboBox( this );
 	item4->setEditable(false);
-	FlagsOpt.append(item4);
-	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
-	Daten.KeyW = "page-set";
-	KeyToText["Page Set"] = Daten;
+	m_optionCombos.append(item4);
+	optionData.comboIndex = m_optionCombos.count() - 1;
+	optionData.keyword = "page-set";
+	m_keyToDataMap["Page Set"] = optionData;
 	item4->addItem( tr("All Pages"));
 	item4->addItem( tr("Even Pages only"));
 	item4->addItem( tr("Odd Pages only"));
@@ -146,16 +147,17 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 	if (lastSelected >= 3)
 		lastSelected = 0;
 	item4->setCurrentIndex(lastSelected);
-	KeyToDefault["Page Set"] = tr("All Pages");
-	Table->setCellWidget(Table->rowCount()-1, 1, item4);
-	Table->setRowCount(Table->rowCount()+1);
-	Table->setItem(Table->rowCount()-1, 0, new QTableWidgetItem(QString( tr("Mirror"))));
+	m_keyToDefault["Page Set"] = tr("All Pages");
+	Table->setCellWidget(Table->rowCount() - 1, 1, item4);
+	
+	Table->setRowCount(Table->rowCount() + 1);
+	Table->setItem(Table->rowCount() - 1, 0, new QTableWidgetItem(QString( tr("Mirror"))));
 	QComboBox *item2 = new QComboBox( this );
 	item2->setEditable(false);
-	FlagsOpt.append(item2);
-	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
-	Daten.KeyW = "mirror";
-	KeyToText["Mirror"] = Daten;
+	m_optionCombos.append(item2);
+	optionData.comboIndex = m_optionCombos.count() - 1;
+	optionData.keyword = "mirror";
+	m_keyToDataMap["Mirror"] = optionData;
 	item2->addItem(CommonStrings::trNo);
 	item2->addItem(CommonStrings::trYes);
 	item2->setCurrentIndex(0);
@@ -163,16 +165,17 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item2->setCurrentIndex(lastSelected);
-	KeyToDefault["Mirror"] = CommonStrings::trNo;
-	Table->setCellWidget(Table->rowCount()-1, 1, item2);
-	Table->setRowCount(Table->rowCount()+1);
-	Table->setItem(Table->rowCount()-1, 0, new QTableWidgetItem(QString( tr("Orientation"))));
+	m_keyToDefault["Mirror"] = CommonStrings::trNo;
+	Table->setCellWidget(Table->rowCount() - 1, 1, item2);
+	
+	Table->setRowCount(Table->rowCount() + 1);
+	Table->setItem(Table->rowCount() - 1, 0, new QTableWidgetItem(QString( tr("Orientation"))));
 	QComboBox *item5 = new QComboBox( this );
 	item5->setEditable(false);
-	FlagsOpt.append(item5);
-	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
-	Daten.KeyW = "orientation";
-	KeyToText["Orientation"] = Daten;
+	m_optionCombos.append(item5);
+	optionData.comboIndex = m_optionCombos.count() - 1;
+	optionData.keyword = "orientation";
+	m_keyToDataMap["Orientation"] = optionData;
 	item5->addItem( tr("Portrait"));
 	item5->addItem( tr("Landscape"));
 	item5->setCurrentIndex(0);
@@ -180,28 +183,29 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item5->setCurrentIndex(lastSelected);
-	KeyToDefault["Orientation"] = tr("Portrait");
-	Table->setCellWidget(Table->rowCount()-1, 1, item5);
-	Table->setRowCount(Table->rowCount()+1);
-	Table->setItem(Table->rowCount()-1, 0, new QTableWidgetItem(QString( tr("N-Up Printing"))));
+	m_keyToDefault["Orientation"] = tr("Portrait");
+	Table->setCellWidget(Table->rowCount() - 1, 1, item5);
+	
+	Table->setRowCount(Table->rowCount() + 1);
+	Table->setItem(Table->rowCount() - 1, 0, new QTableWidgetItem(QString( tr("N-Up Printing"))));
 	QComboBox *item3 = new QComboBox( this );
 	item3->setEditable(false);
-	FlagsOpt.append(item3);
-	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
-	Daten.KeyW = "number-up";
-	KeyToText["N-Up Printing"] = Daten;
-	item3->addItem("1 "+ tr("Page per Sheet"));
-	item3->addItem("2 "+ tr("Pages per Sheet"));
-	item3->addItem("4 "+ tr("Pages per Sheet"));
-	item3->addItem("6 "+ tr("Pages per Sheet"));
-	item3->addItem("9 "+ tr("Pages per Sheet"));
+	m_optionCombos.append(item3);
+	optionData.comboIndex = m_optionCombos.count() - 1;
+	optionData.keyword = "number-up";
+	m_keyToDataMap["N-Up Printing"] = optionData;
+	item3->addItem("1 " + tr("Page per Sheet"));
+	item3->addItem("2 " + tr("Pages per Sheet"));
+	item3->addItem("4 " + tr("Pages per Sheet"));
+	item3->addItem("6 " + tr("Pages per Sheet"));
+	item3->addItem("9 " + tr("Pages per Sheet"));
 	item3->addItem("16 "+ tr("Pages per Sheet"));
 	lastSelected = prefs->getInt( tr("N-Up Printing"), 0);
 	if (lastSelected >= 6)
 		lastSelected = 0;
 	item3->setCurrentIndex(lastSelected);
-	KeyToDefault["N-Up Printing"] = "1 "+ tr("Page per Sheet");
-	Table->setCellWidget(Table->rowCount()-1, 1, item3);
+	m_keyToDefault["N-Up Printing"] = "1 "+ tr("Page per Sheet");
+	Table->setCellWidget(Table->rowCount() - 1, 1, item3);
 #endif
 	Table->resizeColumnsToContents();
 	CupsOptionsLayout->addWidget( Table );
@@ -238,4 +242,45 @@ CupsOptions::~CupsOptions()
 		if (combo)
 			prefs->set(Table->item(i, 0)->text(), combo->currentIndex());
 	}
+}
+
+QString CupsOptions::defaultOptionValue(const QString& optionKey) const
+{
+	QString defValue = m_keyToDefault.value(optionKey, QString());
+	return defValue;
+}
+
+bool CupsOptions::useDefaultValue(const QString& optionKey) const
+{
+	QString defValue = m_keyToDefault.value(optionKey, QString());
+	QString optValue = optionText(optionKey);
+	return (optValue == defValue);
+}
+
+int CupsOptions::optionIndex(const QString& optionKey) const
+{
+	if (!m_keyToDataMap.contains(optionKey))
+		return -1;
+	const OptionData& optionData = m_keyToDataMap[optionKey];
+
+	int comboIndex = optionData.comboIndex;
+	if (comboIndex < 0 || comboIndex >= m_optionCombos.count())
+		return -1;
+
+	QComboBox* optionCombo = m_optionCombos.at(comboIndex);
+	return optionCombo->currentIndex();
+}
+
+QString CupsOptions::optionText(const QString& optionKey) const
+{
+	if (!m_keyToDataMap.contains(optionKey))
+		return QString();
+	const OptionData& optionData = m_keyToDataMap[optionKey];
+
+	int comboIndex = optionData.comboIndex;
+	if (comboIndex < 0 || comboIndex >= m_optionCombos.count())
+		return QString();
+
+	QComboBox* optionCombo = m_optionCombos.at(comboIndex);
+	return optionCombo->currentText();
 }

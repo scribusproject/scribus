@@ -41,36 +41,36 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 {
 	setupUi(this);
 	setModal(true);
-	cdia = nullptr;
+
 	m_doc = doc;
-	unit = doc->unitIndex();
-	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
+	m_unit = doc->unitIndex();
+	m_unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance().prefsFile->getContext("print_options");
-	DevMode = printOptions.devMode;
-	PrinterOpts = "";
+	m_devMode = printOptions.devMode;
+
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	printEngines->addItem( CommonStrings::trPostScript1 );
 	printEngines->addItem( CommonStrings::trPostScript2 );
 	printEngines->addItem( CommonStrings::trPostScript3 );
-	markLength->setNewUnit(unit);
-	markLength->setMinimum(1*unitRatio);
-	markLength->setMaximum(3000*unitRatio);
-	markOffset->setNewUnit(unit);
+	markLength->setNewUnit(m_unit);
+	markLength->setMinimum(1 * m_unitRatio);
+	markLength->setMaximum(3000 * m_unitRatio);
+	markOffset->setNewUnit(m_unit);
 	markOffset->setMinimum(0);
-	markOffset->setMaximum(3000*unitRatio);
-	BleedBottom->setNewUnit(unit);
+	markOffset->setMaximum(3000 * m_unitRatio);
+	BleedBottom->setNewUnit(m_unit);
 	BleedBottom->setMinimum(0);
-	BleedBottom->setMaximum(3000*unitRatio);
-	BleedLeft->setNewUnit(unit);
+	BleedBottom->setMaximum(3000 * m_unitRatio);
+	BleedLeft->setNewUnit(m_unit);
 	BleedLeft->setMinimum(0);
-	BleedLeft->setMaximum(3000*unitRatio);
-	BleedRight->setNewUnit(unit);
+	BleedLeft->setMaximum(3000 * m_unitRatio);
+	BleedRight->setNewUnit(m_unit);
 	BleedRight->setMinimum(0);
-	BleedRight->setMaximum(3000*unitRatio);
-	BleedTop->setNewUnit(unit);
+	BleedRight->setMaximum(3000 * m_unitRatio);
+	BleedTop->setNewUnit(m_unit);
 	BleedTop->setMinimum(0);
-	BleedTop->setMaximum(3000*unitRatio);
+	BleedTop->setMaximum(3000 * m_unitRatio);
 	previewButton->setEnabled(!previewDinUse);
 	// Fill printer list
 	QString printerName;
@@ -141,17 +141,17 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 #if defined(_WIN32)
 	if (!outputToFile())
 	{
-		DevMode = printOptions.devMode;
-		PrinterUtil::initDeviceSettings(PrintDest->currentText(), DevMode);
+		m_devMode = printOptions.devMode;
+		PrinterUtil::initDeviceSettings(PrintDest->currentText(), m_devMode);
 	}
 #endif
 
-	printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), outputToFile());
+	m_printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), outputToFile());
 	refreshPrintEngineBox();
 
-	bool ps1Supported = printEngineMap.contains(CommonStrings::trPostScript1);
-	bool ps2Supported = printEngineMap.contains(CommonStrings::trPostScript2);
-	bool ps3Supported = printEngineMap.contains(CommonStrings::trPostScript3);
+	bool ps1Supported = m_printEngineMap.contains(CommonStrings::trPostScript1);
+	bool ps2Supported = m_printEngineMap.contains(CommonStrings::trPostScript2);
+	bool ps3Supported = m_printEngineMap.contains(CommonStrings::trPostScript3);
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
 	printEngines->setEnabled(psSupported || outputToFile());
 }
@@ -159,28 +159,27 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 PrintDialog::~PrintDialog()
 {
 #ifdef HAVE_CUPS
-	delete cdia;
+	delete m_cupsOptions;
 #endif
-	cdia = nullptr;
+	m_cupsOptions = nullptr;
 }
 
 void PrintDialog::SetOptions()
 {
 #ifdef HAVE_CUPS
-	PrinterOpts = "";
-	if (!cdia)
-		cdia = new CupsOptions(this, PrintDest->currentText());
-	if (!cdia->exec())
+	if (!m_cupsOptions)
+		m_cupsOptions = new CupsOptions(this, PrintDest->currentText());
+	if (!m_cupsOptions->exec())
 	{
-		delete cdia; // if options was canceled delete dia 
-		cdia = nullptr;    // so that getoptions() in the okButtonClicked() will get
+		delete m_cupsOptions; // if options was canceled delete dia 
+		m_cupsOptions = nullptr;    // so that getoptions() in the okButtonClicked() will get
 		             // the default values from the last successful run
 	}
 
 #elif defined(_WIN32)
 	bool done;
 	Qt::HANDLE handle = nullptr;
-	DEVMODEW* devMode = (DEVMODEW*) DevMode.data();
+	DEVMODEW* devMode = (DEVMODEW*) m_devMode.data();
 	// Retrieve the selected printer
 	QString printerS = PrintDest->currentText(); 
 	// Get a printer handle
@@ -188,7 +187,7 @@ void PrintDialog::SetOptions()
 	if (!done)
 		return;
 	// Merge stored settings, prompt user and return user settings
-	DocumentPropertiesW((HWND) winId(), handle, (LPWSTR) printerS.utf16(), (DEVMODEW*) DevMode.data(), (DEVMODEW*) DevMode.data(), 
+	DocumentPropertiesW((HWND) winId(), handle, (LPWSTR) printerS.utf16(), (DEVMODEW*) m_devMode.data(), (DEVMODEW*) m_devMode.data(), 
 						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter(handle);
@@ -205,60 +204,67 @@ void PrintDialog::SetOptions()
 #endif
 }
 
-void PrintDialog::getOptions()
+QString PrintDialog::getOptions()
 {
 #ifdef HAVE_CUPS
-	PrinterOpts = "";
-	if (!cdia)
-		cdia = new CupsOptions(this, PrintDest->currentText());
-	struct CupsOptions::OpData daten;
-	QMap<QString,CupsOptions::OpData>::Iterator it;
-	for (it = cdia->KeyToText.begin(); it != cdia->KeyToText.end(); ++it)
+	QString printerOptions;
+	if (!m_cupsOptions)
+		m_cupsOptions = new CupsOptions(this, PrintDest->currentText());
+
+	auto printOptions = m_cupsOptions->options();
+	for (auto it = printOptions.begin(); it != printOptions.end(); ++it)
 	{
-		if (cdia->KeyToDefault[it.key()] == cdia->FlagsOpt.at(it.value().Cnum)->currentText())
+		const QString& optionKey = it.key();
+		const CupsOptions::OptionData& printOption = it.value(); 
+		if (m_cupsOptions->useDefaultValue(optionKey))
 			continue;
 
-		if (it.value().KeyW == "mirror")
-			PrinterOpts += " -o mirror";
-		else if (it.value().KeyW == "page-set")
+		if (printOption.keyword == "mirror")
+			printerOptions += " -o mirror";
+		else if (printOption.keyword == "page-set")
 		{
-			PrinterOpts += " -o " + it.value().KeyW + "=";
-			if (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex() == 1)
-				PrinterOpts += "even";
-			else
-				PrinterOpts += "odd";
-		}
-		else if (it.value().KeyW == "number-up")
-		{
-			PrinterOpts += " -o " + it.value().KeyW + "=";
-			switch (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex())
+			int pageSetIndex = m_cupsOptions->optionIndex(optionKey);
+			if (pageSetIndex > 0)
 			{
+				printerOptions += " -o " + printOption.keyword + "=";
+				printerOptions += (pageSetIndex == 1) ? "even" : "odd";
+			}
+		}
+		else if (printOption.keyword == "number-up")
+		{
+			printerOptions += " -o " + printOption.keyword + "=";
+			switch (m_cupsOptions->optionIndex(optionKey))
+			{
+				case 0:
+					printerOptions += "1";
+					break;
 				case 1:
-					PrinterOpts += "2";
+					printerOptions += "2";
 					break;
 				case 2:
-					PrinterOpts += "4";
+					printerOptions += "4";
 					break;
 				case 3:
-					PrinterOpts += "6";
+					printerOptions += "6";
 					break;
 				case 4:
-					PrinterOpts += "9";
+					printerOptions += "9";
 					break;
 				case 5:
-					PrinterOpts += "16";
+					printerOptions += "16";
 					break;
 			}
 		}
-		else if (it.value().KeyW == "orientation")
-			PrinterOpts += " -o landscape";
+		else if (printOption.keyword == "orientation")
+			printerOptions += " -o landscape";
 		else
 		{
-			PrinterOpts += " -o " +
-				it.value().KeyW+"="+cdia->FlagsOpt.at(it.value().Cnum)->currentText();
+			printerOptions += " -o " + printOption.keyword + "=" + m_cupsOptions->optionText(optionKey);
 		}
 	}
+	return printerOptions;
 #endif
+	return QString();
 }
 
 void PrintDialog::SelComm()
@@ -284,7 +290,7 @@ void PrintDialog::SelComm()
 
 void PrintDialog::SelEngine(const QString& eng)
 {
-	prefs->set("CurrentPrnEngine", printEngineMap[printEngines->currentText()]);
+	prefs->set("CurrentPrnEngine", m_printEngineMap[printEngines->currentText()]);
 	bool psSupported = outputToFile();
 	psSupported |= (eng == CommonStrings::trPostScript1);
 	psSupported |= (eng == CommonStrings::trPostScript2);
@@ -314,7 +320,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 #if defined(_WIN32)
 	if (!toFile)
 	{
-		if (!PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode))
+		if (!PrinterUtil::getDefaultSettings(PrintDest->currentText(), m_devMode))
 			qWarning( tr("Failed to retrieve printer settings").toLatin1().data() );
 	}
 #endif
@@ -335,15 +341,15 @@ void PrintDialog::SelPrinter(const QString& prn)
 	}
 
 	// Get page description language supported by the selected printer
-	printEngineMap = PrinterUtil::getPrintEngineSupport(prn, toFile);
+	m_printEngineMap = PrinterUtil::getPrintEngineSupport(prn, toFile);
 	refreshPrintEngineBox();
 
 	prefs->set("CurrentPrn", prn);
-	prefs->set("CurrentPrnEngine", printEngineMap[printEngines->currentText()]);
+	prefs->set("CurrentPrnEngine", m_printEngineMap[printEngines->currentText()]);
 	
-	bool ps1Supported = printEngineMap.contains(CommonStrings::trPostScript1);
-	bool ps2Supported = printEngineMap.contains(CommonStrings::trPostScript2);
-	bool ps3Supported = printEngineMap.contains(CommonStrings::trPostScript3);
+	bool ps1Supported = m_printEngineMap.contains(CommonStrings::trPostScript1);
+	bool ps2Supported = m_printEngineMap.contains(CommonStrings::trPostScript2);
+	bool ps3Supported = m_printEngineMap.contains(CommonStrings::trPostScript3);
 	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
 	if (psSupported || toFile)
 	{
@@ -436,12 +442,8 @@ void PrintDialog::storeValues()
 	}
 	else
 		m_doc->Print_Options.useAltPrintCommand = false;
-#ifdef HAVE_CUPS
-	m_doc->Print_Options.printerOptions = PrinterOpts;
-#else
-	m_doc->Print_Options.printerOptions.clear();
-#endif
-	m_doc->Print_Options.devMode = DevMode;
+	m_doc->Print_Options.printerOptions = getOptions();
+	m_doc->Print_Options.devMode = m_devMode;
 }
 
 void PrintDialog::okButtonClicked()
@@ -540,24 +542,24 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
-		BleedTop->setValue(m_doc->bleeds()->top()*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->bottom()*unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->right()*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->left()*unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
 	}
 	else
 	{
-		BleedTop->setValue(m_doc->Print_Options.bleeds.top()*unitRatio);
-		BleedBottom->setValue(m_doc->Print_Options.bleeds.bottom()*unitRatio);
-		BleedRight->setValue(m_doc->Print_Options.bleeds.right()*unitRatio);
-		BleedLeft->setValue(m_doc->Print_Options.bleeds.left()*unitRatio);
+		BleedTop->setValue(m_doc->Print_Options.bleeds.top() * m_unitRatio);
+		BleedBottom->setValue(m_doc->Print_Options.bleeds.bottom() * m_unitRatio);
+		BleedRight->setValue(m_doc->Print_Options.bleeds.right() * m_unitRatio);
+		BleedLeft->setValue(m_doc->Print_Options.bleeds.left() * m_unitRatio);
 	}
 	BleedTop->setEnabled(!docBleeds->isChecked());
 	BleedBottom->setEnabled(!docBleeds->isChecked());
 	BleedRight->setEnabled(!docBleeds->isChecked());
 	BleedLeft->setEnabled(!docBleeds->isChecked());
-	markLength->setValue(m_doc->Print_Options.markLength*unitRatio);
-	markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
+	markLength->setValue(m_doc->Print_Options.markLength * m_unitRatio);
+	markOffset->setValue(m_doc->Print_Options.markOffset * m_unitRatio);
 	cropMarks->setChecked(m_doc->Print_Options.cropMarks);
 	bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
 	registrationMarks->setChecked(m_doc->Print_Options.registrationMarks);
@@ -642,7 +644,7 @@ bool PrintDialog::doClip()
 
 PrintEngine PrintDialog::printEngine()
 {
-	return printEngineMap[printEngines->currentText()];
+	return m_printEngineMap[printEngines->currentText()];
 }
 
 bool PrintDialog::doDev()
@@ -674,21 +676,21 @@ void PrintDialog::doDocBleeds()
 {
 	if (docBleeds->isChecked())
 	{
-		prefs->set("BleedTop", BleedTop->value() / unitRatio);
-		prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
-		prefs->set("BleedRight", BleedRight->value() / unitRatio);
-		prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
-		BleedTop->setValue(m_doc->bleeds()->top()*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->bottom()*unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->right()*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->left()*unitRatio);
+		prefs->set("BleedTop", BleedTop->value() / m_unitRatio);
+		prefs->set("BleedBottom", BleedBottom->value() / m_unitRatio);
+		prefs->set("BleedRight", BleedRight->value() / m_unitRatio);
+		prefs->set("BleedLeft", BleedLeft->value() / m_unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
 	}
 	else
 	{
-		BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
-		BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
-		BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
-		BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
+		BleedTop->setValue(prefs->getDouble("BleedTop",0.0) * m_unitRatio);
+		BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0) * m_unitRatio);
+		BleedRight->setValue(prefs->getDouble("BleedRight",0.0) * m_unitRatio);
+		BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0) * m_unitRatio);
 	}
 	bool isChecked = docBleeds->isChecked();
 	prefs->set("UseDocBleeds", isChecked);
@@ -718,9 +720,9 @@ void PrintDialog::refreshPrintEngineBox()
 {
 	int index = 0, oldPDLIndex = -1;
 	QString oldPDL  = printEngines->currentText();
-	PrintEngineMap::Iterator it, itEnd = printEngineMap.end();
+	PrintEngineMap::Iterator it, itEnd = m_printEngineMap.end();
 	printEngines->clear();
-	for (it = printEngineMap.begin(); it != itEnd; ++it)
+	for (it = m_printEngineMap.begin(); it != itEnd; ++it)
 	{
 		printEngines->addItem(it.key());
 		if (it.key() == oldPDL)
@@ -740,13 +742,13 @@ void PrintDialog::refreshPrintEngineBox()
 
 void PrintDialog::setPrintEngine(PrintEngine pdl)
 {
-	QString pdlString = printEngineMap.key(pdl, "");
+	QString pdlString = m_printEngineMap.key(pdl, "");
 	int itemIndex = printEngines->findText(pdlString);
 	if (itemIndex >= 0)
 		printEngines->setCurrentIndex(itemIndex);
 	else if (printEngines->count() > 0)
 	{
-		pdlString = printEngineMap.key(PostScript3, "");
+		pdlString = m_printEngineMap.key(PostScript3, "");
 		itemIndex = printEngines->findText(pdlString);
 		if (itemIndex >= 0)
 			printEngines->setCurrentIndex(itemIndex);
