@@ -483,21 +483,22 @@ void ScribusMainWindow::setupMainWindow()
 		m_prefsManager.appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PDF_1_4;
 	}
 
+	const WindowPrefs& mainWinSettings = m_prefsManager.appPrefs.uiPrefs.mainWinSettings;
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
 	QList<QScreen*> screens = QGuiApplication::screens();
-	QScreen* s=nullptr;
+	QScreen* s = nullptr;
 	if (w != nullptr)
 	{
-		s=screens.at(qMin(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count()-1));
+		s = screens.at(qMin(mainWinSettings.screenNumber, QGuiApplication::screens().count() - 1));
 		windowHandle()->setScreen(s);
 	}
 	else
-		s=QGuiApplication::primaryScreen();
-	QRect r(0,0,0,0);
-	if (s!=nullptr)
-		r=s->geometry();
-	move(r.left()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.xPosition), r.top()+abs(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.yPosition));
-	resize(m_prefsManager.appPrefs.uiPrefs.mainWinSettings.width, m_prefsManager.appPrefs.uiPrefs.mainWinSettings.height);
+		s = QGuiApplication::primaryScreen();
+	QRect r(0, 0, 0, 0);
+	if (s != nullptr)
+		r = s->geometry();
+	move(r.left() + abs(mainWinSettings.xPosition), r.top() + abs(mainWinSettings.yPosition));
+	resize(mainWinSettings.width, mainWinSettings.height);
 
 	if (!m_prefsManager.appPrefs.uiPrefs.mainWinState.isEmpty())
 		restoreState(m_prefsManager.appPrefs.uiPrefs.mainWinState);
@@ -509,15 +510,16 @@ void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
 	if (w != nullptr)
-		screenNumber=screens.indexOf(w->screen());
+		screenNumber = screens.indexOf(w->screen());
 	else
-		screenNumber=screens.indexOf(QGuiApplication::primaryScreen());
+		screenNumber = screens.indexOf(QGuiApplication::primaryScreen());
 #else
 	QScreen* s = ScCore->primaryMainWindow()->screen();
 	screenNumber = screens.indexOf(s);
 #endif
-	xPos = screens.at(screenNumber)->geometry().left();
-	yPos = screens.at(screenNumber)->geometry().top();
+	QRect screenGeom = screens.at(screenNumber)->geometry();
+	xPos = screenGeom.left();
+	yPos = screenGeom.top();
 }
 
 
