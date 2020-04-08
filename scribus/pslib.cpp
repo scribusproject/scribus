@@ -533,7 +533,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	PutStream("%%Pages: " + IToStr(numpage) + "\n");
 
 	QString bbox, bboxH;
-	if (width < height || (m_outputFormat == OutputEPS))
+	if ((width <= height) || (m_outputFormat == OutputEPS))
 	{
 		bbox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(width)) + " " + IToStr(qRound(height)) + "\n";
 		bboxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(width) + " " + ToStr(height) + "\n";
@@ -552,7 +552,16 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		PutStream("%%CMYKCustomColor: " + cmykCustomColors);
 	PutStream("%%LanguageLevel: 3\n");
 	PutStream("%%EndComments\n");
-	if (m_outputFormat == OutputEPS)
+	if ((m_outputFormat == OutputPS) && Options.setDevParam)
+	{
+		PutStream("%%BeginDefaults\n");
+		if (width <= height)
+			PutStream("%%ViewingOrientation: 1 0 0 1\n");
+		else
+			PutStream("%%ViewingOrientation: 0 1 -1 0\n");
+		PutStream("%%EndDefaults\n");
+	}
+	else if (m_outputFormat == OutputEPS)
 	{
 		PutStream("%%BeginDefaults\n");
 		PutStream("%%ViewingOrientation: 1 0 0 1\n");
@@ -789,7 +798,10 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool clipping)
 	PutStream("Scribusdict begin\n");
 	if ((m_outputFormat == OutputPS) && (Options.setDevParam))
   	{
-		PutStream("<< /PageSize [ " + ToStr(maxBoxX) + " " + ToStr(maxBoxY) + " ]\n");
+		if (pg->orientation() == 0)
+			PutStream("<< /PageSize [ " + ToStr(maxBoxX) + " " + ToStr(maxBoxY) + " ]\n");
+		else
+			PutStream("<< /PageSize [ " + ToStr(maxBoxY) + " " + ToStr(maxBoxX) + " ]\n");
 		PutStream(">> setpagedevice\n");
 	}
 	PutStream("save\n");
