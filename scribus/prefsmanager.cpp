@@ -977,10 +977,10 @@ void PrefsManager::SavePrefs()
 	// The caller is responsible for ensuring we aren't called under those
 	// conditions.
 	Q_ASSERT(!emergencyActivated);
-	int currentScreen=0;
+	int currentScreen=ScCore->primaryMainWindow()->getScreenNumber();
 	int currentScreenXPos=0;
 	int currentScreenYPos=0;
-	ScCore->primaryMainWindow()->getScreenData(currentScreen, currentScreenXPos, currentScreenYPos);
+	ScCore->primaryMainWindow()->getScreenPosition(currentScreenXPos, currentScreenYPos);
 	appPrefs.uiPrefs.mainWinSettings.xPosition = ScCore->primaryMainWindow()->pos().x() - currentScreenXPos;
 	appPrefs.uiPrefs.mainWinSettings.yPosition = ScCore->primaryMainWindow()->pos().y();
 	appPrefs.uiPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();

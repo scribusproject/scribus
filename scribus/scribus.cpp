@@ -504,12 +504,10 @@ void ScribusMainWindow::setupMainWindow()
 		restoreState(m_prefsManager.appPrefs.uiPrefs.mainWinState);
 }
 
-void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
+int ScribusMainWindow::getScreenNumber() const
 {
 	QList<QScreen*> screens = QGuiApplication::screens();
-	screenNumber = -1;
-	xPos = 0;
-	yPos = 0;
+	int screenNumber = -1;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
@@ -523,11 +521,29 @@ void ScribusMainWindow::getScreenData(int& screenNumber, int& xPos, int& yPos)
 		screenNumber = screens.indexOf(QGuiApplication::primaryScreen());
 	if (screenNumber < 0)
 		screenNumber = 0;
-	QRect screenGeom = screens.at(screenNumber)->geometry();
+	return screenNumber;
+}
+
+QScreen* ScribusMainWindow::getScreen() const
+{
+	QList<QScreen*> screens = QGuiApplication::screens();
+	return screens.at(getScreenNumber());
+}
+
+void ScribusMainWindow::getScreenPosition(int& xPos, int& yPos) const
+{
+	QScreen* screen(getScreen());
+	QRect screenGeom = screen->geometry();
 	xPos = screenGeom.left();
 	yPos = screenGeom.top();
 }
 
+void ScribusMainWindow::getScreenDPI(int& dpiX, int& dpiY) const
+{
+	QScreen* screen(getScreen());
+	dpiX = screen->physicalDotsPerInchX();
+	dpiY = screen->physicalDotsPerInchY();
+}
 
 ScribusMainWindow::~ScribusMainWindow()
 {

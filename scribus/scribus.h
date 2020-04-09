@@ -135,7 +135,10 @@ public:
 	*/
 	int initScMW(bool primaryMainwWindow);
 	void setupMainWindow();
-	void getScreenData(int& screenNumber, int& xPos, int& yPos);
+	int getScreenNumber() const;
+	QScreen* getScreen() const;
+	void getScreenPosition(int& xPos, int& yPos) const;
+	void getScreenDPI(int& dpiX, int& dpiY) const;
 	void addScToolBar(ScToolBar *tb, const QString& name);
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
