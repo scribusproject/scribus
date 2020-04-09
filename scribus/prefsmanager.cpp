@@ -338,8 +338,8 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.AutoSaveLocation = true;
 	appPrefs.docSetupPrefs.AutoSaveDir = "";
 	appPrefs.miscPrefs.saveEmergencyFile = true;
-	int dpi = s->logicalDotsPerInchX();
-	if ((dpi < 60) || (dpi > 200))
+	int dpi = s->physicalDotsPerInchX();
+	if ((dpi < 60) || (dpi > 400))
 		dpi = 72;
 	appPrefs.displayPrefs.displayScale = dpi / 72.0;
 
