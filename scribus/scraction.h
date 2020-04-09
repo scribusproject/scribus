@@ -71,12 +71,9 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction(ActionType aType,
-			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
-	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22,
-			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
-	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path,
-			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QPixmap& icon16, const QPixmap& icon22, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
+	ScrAction(ActionType aType, const QString& icon16Path, const QString& icon22Path, const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
