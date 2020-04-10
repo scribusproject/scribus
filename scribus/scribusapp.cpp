@@ -352,7 +352,7 @@ int ScribusQApp::init()
 	if (!m_ScCore)
 		return EXIT_FAILURE;
 	ScCore=m_ScCore;
-	processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers,1000);
+	processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers, 1000);
 	ScCore->init(useGUI, m_filesToLoad);
 	processEvents();
 	int retVal=EXIT_SUCCESS;
