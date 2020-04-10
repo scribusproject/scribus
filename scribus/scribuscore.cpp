@@ -211,9 +211,11 @@ void ScribusCore::initSplash(bool showSplash)
 	QPixmap pix = IconManager::instance().loadPixmap("scribus_splash.png", true);
 	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != nullptr)
+	{
 		m_SplashScreen->show();
-	if (m_SplashScreen != nullptr && m_SplashScreen->isVisible())
-		setSplashStatus(QObject::tr("Initializing..."));
+		if (m_SplashScreen->isVisible())
+			setSplashStatus(QObject::tr("Initializing..."));
+	}
 }
 
 void ScribusCore::setSplashStatus(const QString& newText)

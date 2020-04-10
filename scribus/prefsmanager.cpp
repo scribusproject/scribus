@@ -982,7 +982,7 @@ void PrefsManager::SavePrefs()
 	int currentScreenYPos=0;
 	ScCore->primaryMainWindow()->getScreenPosition(currentScreenXPos, currentScreenYPos);
 	appPrefs.uiPrefs.mainWinSettings.xPosition = ScCore->primaryMainWindow()->pos().x() - currentScreenXPos;
-	appPrefs.uiPrefs.mainWinSettings.yPosition = ScCore->primaryMainWindow()->pos().y();
+	appPrefs.uiPrefs.mainWinSettings.yPosition = ScCore->primaryMainWindow()->pos().y() - currentScreenYPos;
 	appPrefs.uiPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
 	appPrefs.uiPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
 	appPrefs.uiPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
