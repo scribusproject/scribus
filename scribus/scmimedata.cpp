@@ -40,6 +40,7 @@ bool ScMimeData::clipboardHasScribusData()
 		hasData |= mimeData->hasFormat(ScMimeData::ScribusTextMimeType);
 		hasData |= mimeData->hasText();
 		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/svg+xml");
 		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
 		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
 	}
@@ -85,6 +86,7 @@ bool ScMimeData::clipboardHasKnownData()
 	if (mimeData)
 	{
 		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/svg+xml");
 		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
 		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
 	}
@@ -99,7 +101,7 @@ QString ScMimeData::clipboardKnownDataExt()
 	{
 		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
 			ext = "svm";
-		else if (mimeData->hasFormat("image/x-inkscape-svg"))
+		else if (mimeData->hasFormat("image/svg+xml") || mimeData->hasFormat("image/x-inkscape-svg"))
 			ext = "svg";
 		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
 			ext = "odg";
@@ -115,6 +117,8 @@ QByteArray ScMimeData::clipboardKnownDataData()
 	{
 		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
 			data = mimeData->data("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		else if (mimeData->hasFormat("image/svg+xml"))
+			data = mimeData->data("image/svg+xml");
 		else if (mimeData->hasFormat("image/x-inkscape-svg"))
 			data = mimeData->data("image/x-inkscape-svg");
 		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
