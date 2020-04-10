@@ -3552,9 +3552,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		if (docNameUnmodified == platfName)
 		{
 			qApp->restoreOverrideCursor();
-			ScMessageBox::information(this, tr("Document is already opened"),
-			                         tr("This document is already in use."
-			                            "You'll be switched into its window now."));
+			ScMessageBox::information(this, tr("Document is already opened"), tr("This document is already open. It will be set as the active document."));
 			windowsMenuActivated(i);
 			return true;
 		}
