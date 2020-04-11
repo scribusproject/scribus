@@ -1846,16 +1846,37 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
 	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
+	QPainterPath out;
+	out.addRect(crect);
+	if (checkClip())
+	{
+		// Apply the clip path early to adjust the gradient vector to the
+		// smaller boundign box.
+		out = intersection(m_currentClipPath, out);
+		crect = out.boundingRect();
+	}
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	FPointArray gr;
 	gr.addPoint(GrStartX, GrStartY);
 	gr.addPoint(GrEndX, GrEndY);
 	gr.map(m_ctm);
-	GrStartX = gr.point(0).x() - crect.x();
-	GrStartY = gr.point(0).y() - crect.y();
-	GrEndX = gr.point(1).x() - crect.x();
-	GrEndY = gr.point(1).y() - crect.y();
+	gr.translate(-crect.x(), -crect.y());
+
+	// Undo the rotation and translation of the gradient vector.
+	double angle = m_ctm.map(QLineF(0, 0, 1, 0)).angle();
+	QTransform mm;
+	mm.rotate(angle);
+	out.translate(-crect.x(), -crect.y());
+	out = mm.map(out);
+	QRectF bb = out.boundingRect();
+	gr.map(mm);
+	gr.translate(-bb.left(), -bb.top());
+	GrStartX = gr.point(0).x();
+	GrStartY = gr.point(0).y();
+	GrEndX = gr.point(1).x();
+	GrEndY = gr.point(1).y();
+
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
@@ -1866,16 +1887,14 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), bb.width(), bb.height(), 0, CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
-		QPainterPath out = m_currentClipPath;
-		out.translate(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
-		out.translate(-ite->xPos(), -ite->yPos());
 		ite->PoLine.fromQPainterPath(out, true);
 		ite->setFillEvenOdd(out.fillRule() == Qt::OddEvenFill);
 	}
+	ite->setRotation(-angle);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(CurrFillShade);
@@ -3203,7 +3222,7 @@ err1:
 
 void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
 {
-//	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen;
+//	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
 	updateFont(state);
 	if (!m_font)
@@ -3221,7 +3240,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 	// TODO Implement the clipping operations. At least the characters are shown.
 	int textRenderingMode = state->getRender();
 	// Invisible or only used for clipping
-	if (textRenderingMode == 3 || textRenderingMode == 7)
+	if (textRenderingMode == 3)
 		return;
 	if (textRenderingMode < 8)
 	{
@@ -3258,7 +3277,15 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			FPointArray textPath;
 			textPath.fromQPainterPath(qPath);
 			FPoint wh = textPath.widthHeight();
-			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
+			if (textRenderingMode > 3)
+			{
+				QTransform mm;
+				mm.scale(1, -1);
+				mm.translate(x, -y);
+				// Remember the glyph for later clipping
+ 				m_clipTextPath.addPath(m_ctm.map(mm.map(qPath)));
+			}
+			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)) && (textRenderingMode != 7))
 			{
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* ite = m_doc->Items->at(z);
@@ -3374,7 +3401,12 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 
 void SlaOutputDev::endTextObject(GfxState *state)
 {
-//	qDebug() << "End Text Object";
+//	qDebug() << "SlaOutputDev::endTextObject";
+	if (!m_clipTextPath.isEmpty())
+	{
+		m_currentClipPath = intersection(m_currentClipPath, m_clipTextPath);
+		m_clipTextPath = QPainterPath();
+	}
 	if (m_groupStack.count() != 0)
 	{
 		groupEntry gElements = m_groupStack.pop();

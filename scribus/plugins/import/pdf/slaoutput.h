@@ -324,6 +324,8 @@ private:
 	// rule to use.
 	QPainterPath m_currentClipPath;
 	QStack<QPainterPath> m_clipPaths;
+	// Collect the paths of character glyphs for clipping of a whole text group.
+	QPainterPath  m_clipTextPath;
 
 	struct groupEntry
 	{
