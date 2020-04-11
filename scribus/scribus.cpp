@@ -484,7 +484,7 @@ void ScribusMainWindow::setupMainWindow()
 	}
 
 	const WindowPrefs& mainWinSettings = m_prefsManager.appPrefs.uiPrefs.mainWinSettings;
-	QWindow* w = ScCore->primaryMainWindow()->windowHandle();
+	QWindow* w = windowHandle();
 	QList<QScreen*> screens = QGuiApplication::screens();
 	QScreen* s = nullptr;
 	if (w != nullptr)
@@ -499,6 +499,9 @@ void ScribusMainWindow::setupMainWindow()
 		r = s->geometry();
 	move(r.left() + abs(mainWinSettings.xPosition), r.top() + abs(mainWinSettings.yPosition));
 	resize(mainWinSettings.width, mainWinSettings.height);
+
+	if (mainWinSettings.maximized)
+		this->setWindowState((this->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
 
 	if (!m_prefsManager.appPrefs.uiPrefs.mainWinState.isEmpty())
 		restoreState(m_prefsManager.appPrefs.uiPrefs.mainWinState);
