@@ -54,6 +54,20 @@ namespace
 		// complicated with several subpaths, etc. We return the simpler one.
 		return (ret_a.elementCount() <= ret_b.elementCount()) ? ret_a : ret_b;
 	}
+
+	// Invert preblending matte values into the color values. Assuming that c and alpha are RGBA components
+	// between 0 and 255.
+	int unblendMatte(int c, int alpha, int matte)
+	{
+		if (alpha == 0)
+			return matte;
+		int ret = matte + ((c - matte) * 255) / alpha;
+		if (ret < 0)
+			return 0;
+		if (ret > 255)
+			return 255;
+		return ret;
+	}
 }
 
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
@@ -2525,18 +2539,36 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	if ((maskWidth != width) || (maskHeight != height))
 		*image = image->scaled(maskWidth, maskHeight, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
-	unsigned char cc, cm, cy, ck;
+
+	int matteRc, matteGc, matteBc;
+	const GfxColor *matteColor = maskColorMap->getMatteColor();
+	if (matteColor != nullptr)
+	{
+		GfxRGB matteRgb;
+		colorMap->getColorSpace()->getRGB(matteColor, &matteRgb);
+		matteRc = qRound(colToDbl(matteRgb.r) * 255);
+		matteGc = qRound(colToDbl(matteRgb.g) * 255);
+		matteBc = qRound(colToDbl(matteRgb.b) * 255);
+	}
+
+	unsigned char cr, cg, cb, ca;
 	int s = 0;
 	for (int yi=0; yi < res.height(); ++yi)
 	{
 		QRgb *t = (QRgb*)(res.scanLine( yi ));
 		for (int xi=0; xi < res.width(); ++xi)
 		{
-			cc = qRed(*t);
-			cm = qGreen(*t);
-			cy = qBlue(*t);
-			ck = mbuffer[s];
-			(*t) = qRgba(cc, cm, cy, ck);
+			cr = qRed(*t);
+			cg = qGreen(*t);
+			cb = qBlue(*t);
+			ca = mbuffer[s];
+			if (matteColor != nullptr)
+			{
+				cr = unblendMatte(cr, ca, matteRc);
+				cg = unblendMatte(cg, ca, matteGc);
+				cb = unblendMatte(cb, ca, matteBc);
+			}
+			(*t) = qRgba(cr, cg, cb, ca);
 			s++;
 			t++;
 		}
