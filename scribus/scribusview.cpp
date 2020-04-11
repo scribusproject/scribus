@@ -241,6 +241,21 @@ void ScribusView::nativeGestureEvent(QNativeGestureEvent *e)
 		FPoint mp = m_canvas->globalToCanvas(e->globalPos());
 		zoom(mp.x(), mp.y(), m_canvas->scale() * delta, true);
 	}
+	if (e->gestureType() == Qt::SmartZoomNativeGesture)
+	{
+		static bool zoomTo100 = false;
+		FPoint mp = m_canvas->globalToCanvas(e->globalPos());
+		if (zoomTo100)
+		{
+			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale, true);
+		}
+		else
+		{
+			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale*0.75, true);
+		}
+		zoomTo100 = !zoomTo100;
+	}
+	e->accept();
 }
 
 void ScribusView::iconSetChange()
