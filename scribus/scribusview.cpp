@@ -30,10 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QDebug>
 #include <QDrag>
-#include <QDragEnterEvent>
-#include <QDragLeaveEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
 #include <QEvent>
 #include <QFile>
 #include <QFileInfo>
@@ -41,19 +37,15 @@ for which a new license (GPL+exception) is in place.
 #include <QFontMetrics>
 #include <QImage>
 #include <QImageReader>
-#include <QLabel>
 #include <QList>
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QMouseEvent>
-#include <QPaintEvent>
 #include <QPixmap>
 #include <QPolygon>
 #include <QStack>
 #include <QStringList>
 #include <QStyleOptionRubberBand>
-#include <QWheelEvent>
 #include <QWidgetAction>
 
 #include <cstdio>
@@ -239,6 +231,16 @@ void ScribusView::changeEvent(QEvent *e)
 	}
 	else
 		QFrame::changeEvent(e);
+}
+
+void ScribusView::nativeGestureEvent(QNativeGestureEvent *e)
+{
+	if (e->gestureType() == Qt::ZoomNativeGesture)
+	{
+		double delta = 1 + e->value();
+		FPoint mp = m_canvas->globalToCanvas(e->globalPos());
+		zoom(mp.x(), mp.y(), m_canvas->scale() * delta, true);
+	}
 }
 
 void ScribusView::iconSetChange()
@@ -2322,9 +2324,9 @@ void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 	}
 	rememberOldZoomLocation(oldZoomX, oldZoomY);
 
-	double newScale = m_canvas->scale() * (1 + static_cast<double>(m_doc->opToolPrefs().magStep)/100.0);
-	if (static_cast<int>(newScale * 100) > static_cast<int>(100 * static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100))
-		newScale = m_canvas->scale() + static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100;
+	double newScale = m_canvas->scale() * (1 + static_cast<double>(m_doc->opToolPrefs().magStep) / 100.0);
+	if (static_cast<int>(newScale * 100.0) > static_cast<int>(100.0 * static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100.0))
+		newScale = m_canvas->scale() + static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100.0;
 
 	int zoomPointX(m_oldZoomX), zoomPointY(m_oldZoomY);
 	if (!preservePoint)
@@ -2355,10 +2357,10 @@ void ScribusView::slotZoomOut(int mx, int my, bool preservePoint)
 	}
 	rememberOldZoomLocation(oldZoomX, oldZoomY);
 
-	double newScale = m_canvas->scale() - static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale/100;
-	if (newScale <= Prefs->displayPrefs.displayScale / 100)
+	double newScale = m_canvas->scale() - static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100.0;
+	if (newScale <= Prefs->displayPrefs.displayScale / 100.0)
 		newScale = m_canvas->scale() / (1 + static_cast<double>(m_doc->opToolPrefs().magStep) / 100.0);
-	if (newScale <= Prefs->displayPrefs.displayScale / 100)
+	if (newScale <= Prefs->displayPrefs.displayScale / 100.0)
 		newScale = m_canvas->scale();
 
 	int zoomPointX(m_oldZoomX), zoomPointY(m_oldZoomY);
@@ -3469,11 +3471,11 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	}
 	if (event->type() == QEvent::KeyPress)
 	{
-		auto* m = dynamic_cast<QKeyEvent*> (event);
+		auto* k = dynamic_cast<QKeyEvent*> (event);
 		if (m_canvasMode->handleKeyEvents())
-			m_canvasMode->keyPressEvent(m);
+			m_canvasMode->keyPressEvent(k);
 		else
-			m_ScMW->keyPressEvent(m);
+			m_ScMW->keyPressEvent(k);
 		return true;
 	}
 	if (event->type() == QEvent::KeyRelease)
@@ -3507,6 +3509,12 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		auto* d = dynamic_cast<QDropEvent*> (event);
 		contentsDropEvent(d);
+		return true;
+	}
+	if (event->type() == QEvent::NativeGesture)
+	{
+		auto *ng = static_cast<QNativeGestureEvent*>(event);
+		nativeGestureEvent(ng);
 		return true;
 	}
 

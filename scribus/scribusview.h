@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QMap>
 #include <QMouseEvent>
+#include <QNativeGestureEvent>
 #include <QPaintEvent>
 #include <QPoint>
 #include <QPushButton>
@@ -260,7 +261,7 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 
-//for linking frame after draw new frame
+	//for linking frame after draw new frame
 private:
 	PageItem * firstFrame;
 
@@ -295,13 +296,13 @@ private slots:
 	void dragTimerTimeOut();
 
 public:
-	virtual void wheelEvent ( QWheelEvent *ev );
+	virtual void wheelEvent(QWheelEvent *ev);
 	virtual void changeEvent(QEvent *e);
-
+	void nativeGestureEvent(QNativeGestureEvent *e);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
-	void inputMethodEvent ( QInputMethodEvent * event );
-	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
+	void inputMethodEvent(QInputMethodEvent * event);
+	QVariant inputMethodQuery(Qt::InputMethodQuery query) const ;
 	
 	inline void registerMousePress(QPoint p);
 	bool mousePressed();
