@@ -2541,7 +2541,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	QImage res = image->convertToFormat(QImage::Format_ARGB32);
 
 	int matteRc, matteGc, matteBc;
-	const GfxColor *matteColor = maskColorMap->getMatteColor();
+	POPPLER_CONST_070 GfxColor *matteColor = maskColorMap->getMatteColor();
 	if (matteColor != nullptr)
 	{
 		GfxRGB matteRgb;
