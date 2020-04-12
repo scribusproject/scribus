@@ -579,7 +579,7 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
 	if (system != QFontDatabase::Any)
 	{
-		int w = pixPainter.fontMetrics().width(text + QLatin1String("  "));
+		int w = pixPainter.fontMetrics().horizontalAdvance(text + QLatin1String("  "));
 		pixPainter.setFont(font2);
 		invpixPainter.setFont(font2);
 		QString sample = fontDb.writingSystemSample(system);

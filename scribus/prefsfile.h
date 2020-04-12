@@ -42,16 +42,18 @@ private:
 	ContextMap m_contexts;
 	ContextMap m_pluginContexts;
 	ContextMap m_userprefsContexts;
-	bool m_ioEnabled;
+	bool m_ioEnabled {false};
+
 	void load();
 	QString replaceIllegalChars(const QString& text);
 	void writeContexts(ContextMap* contextMap, QTextStream& stream);
 	void canWrite();
+
 public:
 	PrefsFile();
 	PrefsFile(const QString& pFilePath, bool write = true);
 	~PrefsFile();
-	bool          hasContext(const QString& contextName) const;
+	bool hasContext(const QString& contextName) const;
 	PrefsContext* getContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getPluginContext(const QString& contextName, bool persistent = true);
 	PrefsContext* getUserPrefsContext(const QString& contextName, bool persistent = true);

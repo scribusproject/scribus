@@ -66,10 +66,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool emergencyActivated;
 
-PrefsManager::PrefsManager(QObject *parent) : QObject(parent),
-	prefsFile(nullptr),
-	m_importingFrom12(false),
-	m_firstTimeIgnoreOldPrefs(false)
+PrefsManager::PrefsManager(QObject *parent) : QObject(parent)
 {
 }
 
@@ -2792,10 +2789,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 	ScCore->showSplash(splashShowing);
 }
 
-int PrefsManager::gsResolution()
-{
-	return appPrefs.extToolPrefs.gs_Resolution;
-}
+
 
 void PrefsManager::languageChange()
 {

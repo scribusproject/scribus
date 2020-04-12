@@ -35,8 +35,6 @@ for which a new license (GPL+exception) is in place.
 
 PrefsFile::PrefsFile()
 {
-	m_prefsFilePath = "";
-	m_ioEnabled = false;
 }
 
 PrefsFile::PrefsFile(const QString& pFilePath, bool write)
@@ -170,18 +168,17 @@ QString PrefsFile::replaceIllegalChars(const QString& text)
 
 void PrefsFile::canWrite()
 {
-	if (m_ioEnabled)
+	if (!m_ioEnabled)
+		return;
+	QFile f(m_prefsFilePath);
+	QFileInfo fi(f);
+	if (fi.exists())
+		m_ioEnabled = fi.isWritable();
+	else
 	{
-		QFile f(m_prefsFilePath);
-		QFileInfo fi(f);
-		if (fi.exists())
-			m_ioEnabled = fi.isWritable();
-		else
-		{
-			QFile f2(m_prefsFilePath.left(m_prefsFilePath.lastIndexOf("/")));
-			QFileInfo fi2(f2);
-			m_ioEnabled = fi2.isWritable();
-		}
+		QFile f2(m_prefsFilePath.left(m_prefsFilePath.lastIndexOf("/")));
+		QFileInfo fi2(f2);
+		m_ioEnabled = fi2.isWritable();
 	}
 }
 

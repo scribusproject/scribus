@@ -1391,8 +1391,8 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowXPosDataLabel->setFont(fo);
 	mainWindowYPosDataLabel = new QLabel( "", statusBar());
 	mainWindowYPosDataLabel->setFont(fo);
-	mainWindowXPosDataLabel->setMinimumWidth(mainWindowXPosDataLabel->fontMetrics().width("99999.999"));
-	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().width("99999.999"));
+	mainWindowXPosDataLabel->setMinimumWidth(mainWindowXPosDataLabel->fontMetrics().horizontalAdvance("99999.999"));
+	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().horizontalAdvance("99999.999"));
 	statusBarLanguageChange();
 
 	layerMenu->setObjectName("layerMenu");

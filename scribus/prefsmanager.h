@@ -137,7 +137,7 @@ public:
 	QString latexEditorExecutable() const {return appPrefs.extToolPrefs.latexEditorExecutable;}
 	bool latexStartWithEmptyFrames() const {return appPrefs.extToolPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
-	int gsResolution();
+	int gsResolution() const {return appPrefs.extToolPrefs.gs_Resolution;}
 	int latexResolution() const {return appPrefs.extToolPrefs.latexResolution;}
 	bool latexForceDpi() const {return appPrefs.extToolPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
@@ -207,8 +207,7 @@ public:
 public slots:
 	void languageChange();
 
-
-	private:
+private:
 	PrefsManager(QObject *parent = nullptr);
 	~PrefsManager();
 

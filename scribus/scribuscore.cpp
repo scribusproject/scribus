@@ -404,12 +404,12 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 void ScribusCore::InitDefaultColorTransforms()
 {
 	QString defaultRGBString;
-	QString defaultRGBString1  = "sRGB display profile (ICC v2.2)";
-	QString defaultRGBString2  = "sRGB IEC61966-2.1";
-	QString defaultCMYKString1 = "ISO Coated v2 300% (basICColor)";
-	QString defaultCMYKString2 = "Fogra27L CMYK Coated Press";
+	QString defaultRGBString1("sRGB display profile (ICC v2.2)");
+	QString defaultRGBString2("sRGB IEC61966-2.1");
+	QString defaultCMYKString1("ISO Coated v2 300% (basICColor)");
+	QString defaultCMYKString2("Fogra27L CMYK Coated Press");
 
-	// Ouvre le profile RGB par d�fault
+	// Open the CMYK profile RGB by default
 	if (InputProfiles.contains(defaultRGBString1))
 	{
 		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString1]);
@@ -426,7 +426,7 @@ void ScribusCore::InitDefaultColorTransforms()
 		defaultRGBString = defaultRGBString2;
 	}
 
-	// Ouvre le profile CMYK par d�faut
+	// Open the CMYK profile CMYK by default
 	if (InputProfilesCMYK.contains(defaultCMYKString1))
 		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString1]);
 	else if (InputProfilesCMYK.contains(defaultCMYKString2))

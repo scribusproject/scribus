@@ -347,16 +347,14 @@ void PreferencesDialog::addPlugins()
 			continue;
 		// If we got a plugin (which we know is enabled):
 		// Ask the plugin for a prefs widget
+		panel = nullptr;
 		bool wantPanel = plugin->newPrefsPanelWidget(prefsStackWidget, panel);
 		// If it gave us one...
-		if (wantPanel)
+		if (wantPanel && panel!=nullptr)
 		{
-			// Ensure that we got sane return values
-			Q_ASSERT(panel);
 			// plug it in to the dialog,
 			addWidget(panel);
-			// and connect a signal to tell it to save its
-			// settings.
+			// and connect a signal to tell it to save its settings.
 			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
 		}
 	}
