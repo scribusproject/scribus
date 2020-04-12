@@ -9154,8 +9154,11 @@ void ScribusMainWindow::PutToPatterns()
 {
 	if (!HaveDoc)
 		return;
-	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
+
+	QString patternName("Pattern_" + doc->m_Selection->itemAt(0)->itemName());
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
+	patternName = doc->getUniquePatternName(patternName);
+
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
 	bool savedAlignElement = doc->SnapElement;
@@ -9299,8 +9302,11 @@ void ScribusMainWindow::ConvertToSymbol()
 		return;
 	if (doc->m_Selection->isEmpty())
 		return;
-	QString patternName("Pattern_"+doc->m_Selection->itemAt(0)->itemName());
+
+	QString patternName("Pattern_" + doc->m_Selection->itemAt(0)->itemName());
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
+	patternName = doc->getUniquePatternName(patternName);
+
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
 	patternsDependingOnThis.clear();

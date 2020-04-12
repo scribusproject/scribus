@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPointer>
 #include <QProgressBar>
+#include <QRegExp>
 #include <QtAlgorithms>
 #include <QTime>
 //#include <qtconcurrentmap.h>
@@ -3745,6 +3746,42 @@ void ScribusDoc::setPatterns(const QHash<QString, ScPattern> &patterns)
 {
 	docPatterns.clear();
 	docPatterns = patterns;
+}
+
+QString ScribusDoc::getUniquePatternName(const QString& originalName) const
+{
+	if (!docPatterns.contains(originalName))
+		return originalName;
+
+	QString newName(originalName);
+
+	// Search the string for (number) at the end and capture
+	// both the number and the text leading up to it sans brackets.
+	//     Copy of fred (5)
+	//     ^^^^^^^^^^^^  ^   (where ^ means captured)
+	QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+	int numMatches = rx.lastIndexIn(originalName);
+	// Add a (number) suffix to the end of the name. We start at the
+	// old suffix's value if there was one, or at 2 if there was not.
+	int suffixNum = 1;
+	QString prefix(newName);
+	if (numMatches != -1)
+	{
+		// Already had a suffix; use the name w/o suffix for prefix and
+		// grab the old suffix value as a starting point.
+		QStringList matches = rx.capturedTexts();
+		prefix = matches[1];
+		suffixNum = matches[2].toInt();
+	}
+	// Keep on incrementing the suffix 'till we find a free name
+	do
+	{
+		suffixNum ++;
+		newName = prefix + " (" + QString::number(suffixNum) + ")";
+	}
+	while (docPatterns.contains(newName));
+
+	return newName;
 }
 
 QStringList ScribusDoc::getUsedPatterns() const

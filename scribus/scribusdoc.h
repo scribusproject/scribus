@@ -707,6 +707,10 @@ public:
 	*/
 	ScPattern* checkedPattern(const QString &name);
 	/*!
+	* @brief Get a unique pattern name
+	*/
+	QString getUniquePatternName(const QString& originalName) const;
+	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns() const;
