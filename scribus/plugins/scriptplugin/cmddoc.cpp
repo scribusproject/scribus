@@ -112,6 +112,24 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	return PyLong_FromLong(static_cast<long>(ret));
 }
 
+PyObject *scribus_setbleeds(PyObject */* self */, PyObject *args)
+{
+	double lr, tpr, btr, rr;
+	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	MarginStruct bleeds(ValueToPoint(tpr), ValueToPoint(lr), ValueToPoint(btr), ValueToPoint(rr));
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	currentDoc->setBleeds(bleeds);
+	currentView->reformPages();
+	currentDoc->setModified(true);
+	currentView->DrawNew();
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 {
 	double lr, tpr, btr, rr;

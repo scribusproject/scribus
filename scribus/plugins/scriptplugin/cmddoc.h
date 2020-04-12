@@ -182,6 +182,17 @@ strings.\n\
 PyObject *scribus_setinfo(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setbleeds__doc__,
+QT_TR_NOOP("setBleeds(lr, rr, tr, br)\n\
+\n\
+Sets the bleeds of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+bleeds are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
+/** Sets document bleeds - left, right, top and bottom. */
+PyObject *scribus_setbleeds(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setmargins__doc__,
 QT_TR_NOOP("setMargins(lr, rr, tr, br)\n\
 \n\

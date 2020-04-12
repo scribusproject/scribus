@@ -523,6 +523,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setLineSpacingMode"), scribus_setlinespacemode, METH_VARARGS, tr(scribus_setlinespacemode__doc__)},
 	{const_cast<char*>("setLineStyle"), scribus_setlinestyle, METH_VARARGS, tr(scribus_setlinestyle__doc__)},
 	{const_cast<char*>("setLineWidth"), scribus_setlinewidth, METH_VARARGS, tr(scribus_setlinewidth__doc__)},
+    {const_cast<char*>("setBleeds"), scribus_setbleeds, METH_VARARGS, tr(scribus_setbleeds__doc__)},
 	{const_cast<char*>("setMargins"), scribus_setmargins, METH_VARARGS, tr(scribus_setmargins__doc__)},
 	{const_cast<char*>("setBaseLine"), scribus_setbaseline, METH_VARARGS, tr(scribus_setbaseline__doc__)},
 	{const_cast<char*>("setMultiLine"), scribus_setmultiline, METH_VARARGS, tr(scribus_setmultiline__doc__)},
