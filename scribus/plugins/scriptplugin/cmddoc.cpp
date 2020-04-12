@@ -123,7 +123,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
-	currentDoc->resetPage(currentDoc->pagePositioning(), &margins);
+	currentDoc->setMargins(margins);
 	currentView->reformPages();
 	currentDoc->setModified(true);
 	currentView->GotoPage(currentDoc->currentPageNumber());

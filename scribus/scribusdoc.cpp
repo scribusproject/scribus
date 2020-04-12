@@ -2308,12 +2308,6 @@ void ScribusDoc::setPage(double w, double h, double t, double l, double r, doubl
 	m_automaticTextFrames = atf;
 }
 
-void ScribusDoc::resetPage(int fp, MarginStruct* newMargins)
-{
-	if (newMargins != nullptr)
-		m_docPrefsData.docSetupPrefs.margins = *newMargins;
-	m_docPrefsData.docSetupPrefs.pagePositioning = fp;
-}
 
 
 bool ScribusDoc::AddFont(const QString& name, int fsize)
