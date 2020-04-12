@@ -3207,6 +3207,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						trans.translate(0.0, -ite->height());
 				//		trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 						PutPage(TransformToStr(trans) + " cm\n");
+						groupStackPos.push(QPointF(0, ite->height()));
 						for (int em = 0; em < pat.items.count(); ++em)
 						{
 							PageItem* embedded = pat.items.at(em);
@@ -3218,10 +3219,11 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							tmpD += output;
 							tmpD += "Q\n";
 						}
+						groupStackPos.pop();
 						if (Options.supportsTransparency())
 							PutPage(Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite));
 						else
-							PutPage(tmpD);
+							PutPage(Write_FormXObject(tmpD, ite));
 						PutPage("Q\n");
 					}
 					break;
@@ -5154,7 +5156,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				if (Options.supportsTransparency())
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
 				else
-					tmp += tmpD;
+					tmp += Write_FormXObject(tmpD, ite);
 				tmp += "Q\n";
 			}
 			break;
