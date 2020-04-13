@@ -4368,7 +4368,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	pat.xoffset = attrs.valueAsDouble("xoffset", 0.0);
 	pat.yoffset = attrs.valueAsDouble("yoffset", 0.0);
 
-	int itemCount1 = m_Doc->Items->count();
 	bool savedAlignGrid = m_Doc->SnapGrid;
 	bool savedAlignGuides = m_Doc->SnapGuides;
 	bool savedAlignElement = m_Doc->SnapElement;
@@ -4376,6 +4375,9 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	m_Doc->SnapGrid  = false;
 	m_Doc->SnapGuides = false;
 	m_Doc->SnapElement = false;
+
+	m_Doc->setMasterPageMode(false);
+	int itemCount1 = m_Doc->Items->count();
 
 	QStringRef tagName = reader.name();
 	while (!reader.atEnd() && !reader.hasError())
@@ -4389,7 +4391,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		ScXmlStreamAttributes tAtt = reader.attributes();
 			
 		ItemInfo itemInfo;
-		m_Doc->setMasterPageMode(false);
 		
 		//int ownPage = tAtt.valueAsInt("OwnPage");
 		success = readObject(doc, reader, itemInfo, baseDir, false);
