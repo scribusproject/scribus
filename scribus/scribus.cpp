@@ -2695,7 +2695,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	if (!doc->masterPageMode())
-		pagePalette->Rebuild();
+		pagePalette->rebuild();
 	outlinePalette->setDoc(doc);
 	if (outlinePalette->isVisible())
 	{
@@ -3506,7 +3506,7 @@ bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, cons
 		ret = true;
 	}
 	if (!Mpa)
-		pagePalette->Rebuild();
+		pagePalette->rebuild();
 	view->reformPages();
 	view->DrawNew();
 	return ret;
@@ -3930,7 +3930,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 	}
 
 	m_undoManager->switchStack(doc->documentFileName());
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 	qApp->restoreOverrideCursor();
 	doc->setModified(false);
 	foreach (NotesStyle* NS, doc->m_docNotesStylesList)
@@ -4389,7 +4389,7 @@ bool ScribusMainWindow::DoFileClose()
 	inlinePalette->unsetDoc();
 	symbolPalette->unsetDoc();
 	pagePalette->setView(nullptr);
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	bookmarkPalette->BView->clear();
@@ -5381,7 +5381,7 @@ void ScribusMainWindow::applyNewMaster(const QString& name)
 	Apply_MasterPage(name, doc->currentPage()->pageNr(), false);
 	view->reformPages();
 	view->DrawNew();
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 }
 
 void ScribusMainWindow::slotNewPageP(int wo, const QString& templ)
@@ -5573,8 +5573,8 @@ void ScribusMainWindow::duplicateToMasterPage()
 	if (!HaveDoc)
 		return;
 	view->deselectItems(true);
-	int pageLocationIndex=-1;
-	int pageLocationCount=0;
+	int pageLocationIndex = -1;
+	int pageLocationCount = 0;
 	if (doc->pagePositioning() != singlePage)
 	{
 		QStringList locationEntries;
@@ -5593,7 +5593,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 	{
 		bool copyFromMaster=false;
 		QString masterPageName;
-		int pageLocation=0;
+		int pageLocation = 0;
 		copyDialog.values(masterPageName, copyFromMaster, pageLocation);
 		bool badMasterPageName = doc->MasterNames.contains(masterPageName);
 		badMasterPageName |= (masterPageName == CommonStrings::masterPageNormal);
@@ -5615,10 +5615,10 @@ void ScribusMainWindow::duplicateToMasterPage()
 			badMasterPageName |= (masterPageName == CommonStrings::trMasterPageNormalRight);
 			badMasterPageName |=  masterPageName.isEmpty();
 		}
-		int currentPageNumber=doc->currentPage()->pageNr();
-		bool ok=doc->copyPageToMasterPage(currentPageNumber, pageLocation, pageLocationCount, masterPageName, copyFromMaster);
+		int currentPageNumber = doc->currentPage()->pageNr();
+		bool ok = doc->copyPageToMasterPage(currentPageNumber, pageLocation, pageLocationCount, masterPageName, copyFromMaster);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
-		pagePalette->Rebuild();
+		pagePalette->rebuild();
 	}
 }
 
@@ -7652,7 +7652,7 @@ void ScribusMainWindow::editSymbolEnd()
 	doc->setCurrentPage(doc->DocPages.at(m_storedPageNum));
 	view->setContentsPos(static_cast<int>(m_storedViewXCoor * m_storedViewScale), static_cast<int>(m_storedViewYCoor * m_storedViewScale));
 	view->DrawNew();
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 	propertiesPalette->updateColorList();
 	contentPalette->updateColorList();
 	symbolPalette->editingFinished();
@@ -7713,7 +7713,7 @@ void ScribusMainWindow::editInlineEnd()
 	view->setContentsPos(static_cast<int>(m_storedViewXCoor * m_storedViewScale), static_cast<int>(m_storedViewYCoor * m_storedViewScale));
 	doc->invalidateAll();
 	view->DrawNew();
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 	propertiesPalette->unsetItem();
 	propertiesPalette->updateColorList();
 	contentPalette->unsetItem();
@@ -7851,7 +7851,7 @@ void ScribusMainWindow::ApplyMasterPage()
 
 	view->reformPages();
 	view->DrawNew();
-	pagePalette->Rebuild();
+	pagePalette->rebuild();
 	// #9476 : call setupPage with false arg to setup only guidePalette GUI
 	// Otherwise setupPage() will apply guides to current page, doesn't need that, 
 	// Apply_MasterPage() has already done it

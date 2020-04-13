@@ -46,7 +46,7 @@ public slots:
 	void rebuildMasters();
 	//! Recreate common pages arrangement
 	void rebuildPages();
-	void Rebuild();
+	void rebuild();
 	void markPage(uint nr);
 	void selMasterPage();
 	void languageChange();

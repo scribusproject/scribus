@@ -42,7 +42,7 @@ PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette",
 
 	connect(pageWidget, SIGNAL(gotoMasterPage(QString)), m_scMW, SLOT(editMasterPagesStart(QString)));
 	
-	Rebuild();
+	rebuild();
 	languageChange();
 }
 
@@ -101,7 +101,7 @@ void PagePalette::rebuildPages()
 		pageWidget->rebuildPages();
 }
 
-void PagePalette::Rebuild()
+void PagePalette::rebuild()
 {
 	rebuildMasters();
 	rebuildPages();
@@ -216,7 +216,7 @@ void PagePalette::endMasterPageMode()
 	if (pageWidget)
 	{
 		pageWidget->setView(m_view);
-		pageWidget->Rebuild();
+		pageWidget->rebuild();
 	}
 	setWindowTitle( tr( "Arrange Pages" ) );
 }

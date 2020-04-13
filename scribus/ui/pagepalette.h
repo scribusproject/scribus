@@ -53,12 +53,12 @@ protected:
 public slots:
 	void setView(ScribusView *view);
 	void enablePalette(const bool);
+	//! Rebuild all lists
+	void rebuild();
 	//! Recreate master pages thumbnails (if it's set on)
 	void rebuildMasters();
 	//! Recreate common pages arrangement
 	void rebuildPages();
-	//! Rebuild all lists
-	void Rebuild();
 	void markPage(uint nr);
 	void updateMasterPageList();
 
