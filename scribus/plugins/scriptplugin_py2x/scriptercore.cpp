@@ -167,7 +167,7 @@ void ScripterCore::finishScriptRun()
 	mainWin->outlinePalette->setDoc(mainWin->doc);
 	mainWin->outlinePalette->BuildTree();
 	mainWin->pagePalette->setView(mainWin->view);
-	mainWin->pagePalette->Rebuild();
+	mainWin->pagePalette->rebuild();
 	mainWin->doc->RePos = false;
 	if (mainWin->doc->m_Selection->count() != 0)
 		mainWin->doc->m_Selection->itemAt(0)->emitAllToGUI();
