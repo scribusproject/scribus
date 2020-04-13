@@ -5164,7 +5164,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 			ScPage* pageMaster = nullptr;
 			for (int i = 0; i < MasterPages.count(); ++i )
 			{
-				pageMaster=MasterPages[i];
+				pageMaster = MasterPages[i];
 				if (pageMaster->pageName() == sourcePage->masterPageName())
 					break;
 			}
@@ -5198,7 +5198,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		}
 	}
 	//Copy the items from our current *document* page
-	if (Layers.count() != 0 )
+	if (Layers.count() != 0)
 	{
 		int currActiveLayer = activeLayer();
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
