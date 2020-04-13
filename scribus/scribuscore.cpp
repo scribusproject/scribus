@@ -409,7 +409,7 @@ void ScribusCore::InitDefaultColorTransforms()
 	QString defaultCMYKString1("ISO Coated v2 300% (basICColor)");
 	QString defaultCMYKString2("Fogra27L CMYK Coated Press");
 
-	// Open the CMYK profile RGB by default
+	// Open the default RGB profile
 	if (InputProfiles.contains(defaultRGBString1))
 	{
 		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString1]);
@@ -426,7 +426,7 @@ void ScribusCore::InitDefaultColorTransforms()
 		defaultRGBString = defaultRGBString2;
 	}
 
-	// Open the CMYK profile CMYK by default
+	// Open the default CMYK profile
 	if (InputProfilesCMYK.contains(defaultCMYKString1))
 		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString1]);
 	else if (InputProfilesCMYK.contains(defaultCMYKString2))
