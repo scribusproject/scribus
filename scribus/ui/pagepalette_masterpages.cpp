@@ -292,7 +292,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			{
 				ScriXmlDoc ss;
 				QString buffer = ss.writeElem(m_doc, m_doc->m_Selection);
-				ss.readElemToLayer(buffer, prefsManager.appPrefs.fontPrefs.AvailFonts, m_doc, destination->xOffset(), destination->yOffset(), false, true, prefsManager.appPrefs.fontPrefs.GFontSub, it->ID);
+				ss.readElemToLayer(buffer, m_doc, destination->xOffset(), destination->yOffset(), false, true, it->ID);
 				m_doc->m_Selection->clear();
 			}
 		}

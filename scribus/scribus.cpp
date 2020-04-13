@@ -7530,7 +7530,7 @@ void ScribusMainWindow::slotElemRead(const QString& xml, double x, double y, boo
 		view->requestMode(submodeEndNodeEdit);
 
 	ScriXmlDoc ss;
-	if (ss.readElem(xml, m_prefsManager.appPrefs.fontPrefs.AvailFonts, docc, x, y, art, loca, m_prefsManager.appPrefs.fontPrefs.GFontSub))
+	if (ss.readElem(xml, docc, x, y, art, loca))
 	{
 		vie->DrawNew();
 		if (doc == docc)

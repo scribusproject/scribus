@@ -46,7 +46,7 @@ QImage ScPreview::createPreview(const QString& data)
 		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 		m_Doc->setLoading(true);
 		m_Doc->DoDrawing = false;
-		if (ss.readElem(data, prefsManager.appPrefs.fontPrefs.AvailFonts, m_Doc, 0, 0, false, true, prefsManager.appPrefs.fontPrefs.GFontSub))
+		if (ss.readElem(data, m_Doc, 0, 0, false, true))
 		{
 			QList<PageItem*> Elements = *m_Doc->Items;
 			Selection *tmpSel = new Selection(m_Doc, false);

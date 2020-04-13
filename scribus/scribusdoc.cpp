@@ -2802,7 +2802,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 	{
 		ScriXmlDoc ss;
 		QString dataS = ss.writeElem(this, &sourceSelection);
-		ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, whereToInsert);
+		ss.readElemToLayer(dataS, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, whereToInsert);
 	}
 	sourceSelection.clear();
 	changed();
@@ -5132,7 +5132,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 	int GrMax = GroupCounter;
 	ScPage* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
-	ScPage* targetPage=addMasterPage(nr, masterPageName);
+	ScPage* targetPage = addMasterPage(nr, masterPageName);
 	assert(targetPage != nullptr);
 	//Backup currentpage, and don't use sourcepage here as we might convert a non current page
 	ScPage* oldCurrentPage = currentPage();
@@ -5162,13 +5162,13 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		if (!sourcePage->masterPageNameEmpty() && MasterNames.contains(sourcePage->masterPageName()))
 		{
 			ScPage* pageMaster = nullptr;
-			for (int i=0; i < MasterPages.count(); ++i )
+			for (int i = 0; i < MasterPages.count(); ++i )
 			{
 				pageMaster=MasterPages[i];
 				if (pageMaster->pageName() == sourcePage->masterPageName())
 					break;
 			}
-			if (Layers.count()!= 0 && pageMaster != nullptr)
+			if (Layers.count() != 0 && pageMaster != nullptr)
 			{
 				int currActiveLayer = activeLayer();
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
@@ -5187,7 +5187,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 						setCurrentPage(pageMaster); // Needed for writeElem to write proper page relative coordinates
 						QString dataS = ss.writeElem(this, &tempSelection);
 						setCurrentPage(targetPage);
-						ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+						ss.readElemToLayer(dataS, this, targetPage->xOffset(), targetPage->yOffset(), false, true, it->ID);
 						setMasterPageMode(false);
 						setCurrentPage(oldCurrentPage);
 					}
@@ -5198,7 +5198,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		}
 	}
 	//Copy the items from our current *document* page
-	if (Layers.count()!= 0)
+	if (Layers.count() != 0 )
 	{
 		int currActiveLayer = activeLayer();
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
@@ -5217,7 +5217,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 				QString dataS = ss.writeElem(this, &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss.readElemToLayer(dataS, m_appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+				ss.readElemToLayer(dataS, this, targetPage->xOffset(), targetPage->yOffset(), false, true, it->ID);
 				setMasterPageMode(false);
 				setCurrentPage(oldCurrentPage);
 			}
@@ -5342,7 +5342,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		newItem = createPageItem(itemType, frameType, x, y, b, h, w, fill, outline); 
 	
 	Q_CHECK_PTR(newItem);
-	if (newItem==nullptr)
+	if (newItem == nullptr)
 		return -1;
 
 	if (itemKind == PageItem::InlineItem || itemKind == PageItem::PatternItem)
@@ -7226,7 +7226,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					{
 						ScriXmlDoc ss;
 						QString fragment = itemBuffer[lcount];
-						ss.readElemToLayer(fragment, m_appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub, it->ID);
+						ss.readElemToLayer(fragment, this, destination->xOffset(), destination->yOffset(), false, true, it->ID);
 					}
 					lcount++;
 				}
@@ -10779,7 +10779,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		for (int b = 0; b < nrOfCopies; b++)
 		{
 			uint ac = Items->count();
-			xmlDoc.readElem(copyBuffer, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			xmlDoc.readElem(copyBuffer, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
 			for (int as = ac; as < Items->count(); ++as)
 			{
 				PageItem* bItem = Items->at(as);
@@ -13575,7 +13575,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			uint ac = Items->count();
-			ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+			ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
 			m_Selection->delaySignalsOn();
 			for (int as = ac; as < Items->count(); ++as)
 			{
@@ -13635,7 +13635,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 				if (i==0 && j==0)
 					continue;
 				uint ac = Items->count();
-				ss.readElem(BufferS, m_appPrefsData.fontPrefs.AvailFonts, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+				ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
 				for (int as = ac; as < Items->count(); ++as)
 				{
 					PageItem* bItem = Items->at(as);
@@ -13749,7 +13749,7 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 		ScPage* targetPage = Pages->at(page - 1);
 		setCurrentPage(targetPage);
 		int countBeforeInsert = Items->count();
-		xmlStream.readElem(buffer, m_appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, m_appPrefsData.fontPrefs.GFontSub);
+		xmlStream.readElem(buffer, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true);
 		if (!lastInChain)
 			continue;
 		for (int i = countBeforeInsert; i < Items->count(); ++i)

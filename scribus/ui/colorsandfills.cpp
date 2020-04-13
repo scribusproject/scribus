@@ -1324,7 +1324,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 	if (fi.suffix().toLower() == "sce")
 	{
 		ScriXmlDoc ss;
-		ss.readElem(data, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true, PrefsManager::instance().appPrefs.fontPrefs.GFontSub);
+		ss.readElem(data, m_doc, m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset(), true, true);
 	}
 	else
 	{
