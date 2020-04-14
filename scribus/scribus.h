@@ -277,6 +277,7 @@ public:
 public slots:
 	void iconSetChange();
 	void languageChange();
+	void localeChange();
 	void statusBarLanguageChange();
 	void specialActionKeyEvent(int unicodevalue);
 	void newView();

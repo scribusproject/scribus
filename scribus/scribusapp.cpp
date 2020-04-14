@@ -355,14 +355,13 @@ int ScribusQApp::init()
 	processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers, 1000);
 	ScCore->init(useGUI, m_filesToLoad);
 	processEvents();
-	int retVal=EXIT_SUCCESS;
 	/* TODO:
 	 * When Scribus is truly able to run without GUI
 	 * we should uncomment if (useGUI)
 	 * and delete if (true)
 	 */
 	// if (useGUI)
-	retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
+	int retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
 	// built and shown) before running their setup.
@@ -562,6 +561,12 @@ void ScribusQApp::changeIconSet(const QString& newIconSet)
 	iconManager.clearCache();
 	iconManager.setActiveFromPrefs(newIconSet);
 	emit iconSetChanged();
+}
+
+void ScribusQApp::setLocale()
+{
+	QLocale::setDefault(LocaleManager::instance().userPreferredLocale());
+	emit localeChanged();
 }
 
 /*! \brief Format an arguments line for printing

@@ -2117,8 +2117,8 @@ void ScribusView::setRulerPos(int x, int y)
 	}
 	//	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
 	//	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
-	horizRuler->shiftRel(0*m_doc->minCanvasCoordinate.x()  - m_doc->rulerXoffset);
-	vertRuler->shiftRel(0*m_doc->minCanvasCoordinate.y()  - m_doc->rulerYoffset);
+	horizRuler->shiftRel(0*m_doc->minCanvasCoordinate.x() - m_doc->rulerXoffset);
+	vertRuler->shiftRel(0*m_doc->minCanvasCoordinate.y() - m_doc->rulerYoffset);
 	horizRuler->update();
 	vertRuler->update();
 	//	evSpon = true;

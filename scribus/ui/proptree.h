@@ -47,8 +47,10 @@ public:
 	virtual void destroyEditor(QWidget * editor, const QModelIndex & index) const;
 	virtual void updateEditorGeometry(QWidget *editor,const QStyleOptionViewItem &option, const QModelIndex &index) const;
 	virtual QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const;
+
 private slots:
 	void valueHasChanged();
+
 private:
 	PropTreeWidget *m_parent;
 	mutable QWidget *m_edit {nullptr};
@@ -109,6 +111,9 @@ signals:
 	void valueChanged(QString);
 	void editFinished();
 	void editStarted();
+
+public slots:
+	void localeChange();
 };
 
 class SCRIBUS_API PropTreeWidget : public QTreeWidget

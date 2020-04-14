@@ -61,11 +61,12 @@ public:
 
 	virtual void setDoc( ScribusDoc* newDoc );
 	void unitChange();
-	
+
 	virtual void changeEvent(QEvent *e);
 	
 public slots:
 	void setGuide(int, qreal);
+	void localeChange();
 
 protected:
 	ScribusView *currView;
@@ -110,9 +111,9 @@ private:
 	ScribusDoc::AlignTo currAlignTo;
 	ScribusDoc::AlignMethod currAlignMethod;
 	QList<AlignObjs> *alignObjects;
-	ScribusDoc *currDoc;
+	ScribusDoc *currDoc {nullptr};
 	qreal unitRatio;
-	int guideDirection;
+	int guideDirection {-1};
 	qreal guidePosition;
 	QString guideInfoText, guideInfoTextNone;
 	void enableGuideButtons();

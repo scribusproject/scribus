@@ -48,6 +48,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 
 		void changeGUILanguage(const QString & newGUILang);
 		void changeIconSet(const QString& newIconSet);
+		void setLocale();
 
 		/*!
 		\author Franz Schmid
@@ -102,6 +103,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		ScribusCore* m_ScCore {nullptr};
 		QString m_lang;
 		QString m_GUILang {"en_GB"};
+		QLocale m_locale;
 		bool m_showSplash;
 		bool m_showFontInfo;
 		bool m_showProfileInfo;
@@ -121,6 +123,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 	signals:
 		void appStarted();
 		void iconSetChanged();
+		void localeChanged();
 };
 
 extern SCRIBUS_API ScribusQApp * ScQApp;

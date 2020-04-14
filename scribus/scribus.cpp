@@ -115,6 +115,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "iconmanager.h"
 #include "langmgr.h"
+#include "localemgr.h"
 #include "loadsaveplugin.h"
 #include "marks.h"
 #include "nfttemplate.h"
@@ -425,6 +426,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), this, SLOT(removeRecentFromWatcher(QString)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
@@ -6738,7 +6740,8 @@ void ScribusMainWindow::slotPrefsOrg()
 	if (oldPrefs.uiPrefs.language != newUILanguage || ScQApp->currGUILanguage() != newUILanguage)
 		ScQApp->changeGUILanguage(newUILanguage);
 	m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-
+	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
+	ScQApp->setLocale();
 	QString newUIStyle = m_prefsManager.guiStyle();
 	if (oldPrefs.uiPrefs.style != newUIStyle)
 	{
@@ -6831,6 +6834,7 @@ void ScribusMainWindow::slotPrefsOrg()
 	icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
 
 	m_prefsManager.SavePrefs();
+	m_mainWindowStatusLabel->setText( tr("Ready"));
 }
 
 void ScribusMainWindow::slotDocSetup()
@@ -8735,6 +8739,14 @@ void ScribusMainWindow::languageChange()
 		m_undoManager->languageChange();
 	statusBarLanguageChange();
 	viewToolBar->languageChange();
+}
+
+void ScribusMainWindow::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	zoomSpinBox->setLocale(l);
+	mainWindowXPosDataLabel->setText("         ");
+	mainWindowYPosDataLabel->setText("         ");
 }
 
 void ScribusMainWindow::statusBarLanguageChange()

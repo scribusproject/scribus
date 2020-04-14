@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
@@ -36,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_textcolor.h"
 #include "scfonts.h"
 #include "scraction.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "selection.h"
 #include "spalette.h"
@@ -121,6 +123,8 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 
 	connect(fontfeaturesWidget, SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 	connect(parEffectWidgets,   SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
+
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	m_haveItem = false;
 	setEnabled(false);
@@ -377,6 +381,18 @@ void PropertiesPalette_Text::unitChange()
 	parEffectWidgets->unitChange();
 
 	m_haveItem = tmp;
+}
+
+void PropertiesPalette_Text::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	fontSize->setLocale(l);
+	lineSpacing->setLocale(l);
+	advancedWidgets->localeChange();
+	colorWidgets->localeChange();
+	distanceWidgets->localeChange();
+	parEffectWidgets->localeChange();
+	pathTextWidgets->localeChange();
 }
 
 void PropertiesPalette_Text::handleLineSpacingMode(int id)

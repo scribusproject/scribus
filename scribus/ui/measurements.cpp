@@ -7,7 +7,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
+#include <QLocale>
+
+#include "localemgr.h"
 #include "measurements.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "units.h"
@@ -19,13 +23,8 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 {
 	setupUi(this);
 
-	mX1 = mY1 = 0;
-	mX2 = mY2 = 0;
-	mDX = mDY = 0;
-	mLength = 0;
-
 	const QString widthString="10000.0000";
-	int textWidth = fontMetrics().width(widthString);
+	int textWidth = fontMetrics().horizontalAdvance(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);
 	x2Data->setMinimumSize(textWidth, 12);
@@ -56,6 +55,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	setValues(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	
 	connect(unitSwitch, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localChange()));
 }
 
 void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len)
@@ -85,13 +85,14 @@ void Measurements::unitChanged()
 	int uPrec = unitGetPrecisionFromIndex(uInd);
 	double uRatio = unitGetRatioFromIndex(uInd);
 	QString uStr  = unitGetStrFromIndex(uInd);
-	x1Data->setText(tmp.setNum(qRound(mX1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	y1Data->setText(tmp.setNum(qRound(mY1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	x2Data->setText(tmp.setNum(qRound(mX2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	y2Data->setText(tmp.setNum(qRound(mY2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	dXData->setText(tmp.setNum(qRound(mDX * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	dYData->setText(tmp.setNum(qRound(mDY * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
-	lengthData->setText(tmp.setNum(qRound(mLength * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	const QLocale& l = LocaleManager::instance().userPreferredLocale();
+	x1Data->setText(l.toString(qRound(mX1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	y1Data->setText(l.toString(qRound(mY1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	x2Data->setText(l.toString(qRound(mX2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	y2Data->setText(l.toString(qRound(mY2 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	dXData->setText(l.toString(qRound(mDX * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	dYData->setText(l.toString(qRound(mDY * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
+	lengthData->setText(l.toString(qRound(mLength * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
 }
 
 void Measurements::changeEvent(QEvent *e)
@@ -107,4 +108,10 @@ void Measurements::changeEvent(QEvent *e)
 void Measurements::languageChange()
 {
 	retranslateUi(this);
+}
+
+void Measurements::localChange()
+{
+	//We can just call unitChanged as it already needs to use the locale for the conversions
+	unitChanged();
 }

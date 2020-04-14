@@ -48,6 +48,7 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 	void showColumns(int r, double g);
 	void showTextDistances(double left, double top, double bottom, double right);

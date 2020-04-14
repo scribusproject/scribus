@@ -27,15 +27,16 @@ public slots:
 	void unitChanged();
 	/** @brief Sets GUI strings on language change */
 	void languageChange();
+	void localChange();
 	
 private:
-	double mX1;
-	double mY1;
-	double mX2;
-	double mY2;
-	double mDX;
-	double mDY;
-	double mLength;
+	double mX1 {0.0};
+	double mY1 {0.0};
+	double mX2 {0.0};
+	double mY2 {0.0};
+	double mDX {0.0};
+	double mDY {0.0};
+	double mLength {0.0};
 };
 
 #endif // MEASUREMENTS_H

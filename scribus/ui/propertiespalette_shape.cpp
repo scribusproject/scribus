@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "autoform.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem_arc.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_textframe.h"
@@ -54,6 +55,7 @@ PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent)
 	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	connect(textFlowBtnGroup, SIGNAL(buttonClicked(int)), this, SLOT(handleTextFlow()));
 	connect(editShape  , SIGNAL(clicked())                 , this, SLOT(handleShapeEdit()));
@@ -559,4 +561,10 @@ void PropertiesPalette_Shape::unitChange()
 	roundRect->blockSignals(true);
 	roundRect->setNewUnit( m_unitIndex );
 	roundRect->blockSignals(false);
+}
+
+void PropertiesPalette_Shape::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	roundRect->setLocale(l);
 }

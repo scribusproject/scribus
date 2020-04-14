@@ -75,6 +75,7 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void localeChange();
 	void changeLang(int id);
 
 	void showAlignment(int e);

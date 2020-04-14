@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Craig Bradney, cbradney@zip.com.au                                    *
  ***************************************************************************/
 
-#include <clocale>
+//#include <clocale>
 #include <cmath>
 
 #include <QtDebug>
@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "commonstrings.h"
+#include "localemgr.h"
 #include "scrspinbox.h"
 #include "units.h"
 #include "third_party/fparser/fparser.hh"
@@ -41,6 +42,7 @@ void ScrSpinBox::init(int unitIndex)
 	m_unitIndex = unitIndex;
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
+	setLocale(LocaleManager::instance().userPreferredLocale());
 	setSingleStep(1.0);
 	lineEdit()->setValidator(nullptr);
 	disconnect(this, SIGNAL(valueChanged(const QString &)), this, SLOT(textChanged()));
@@ -152,11 +154,26 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
 	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
+
+//	const lconv * lc(localeconv());
+	QString cSepDecimal(QLocale::c().decimalPoint());
+	QString cSepGroup(QLocale::c().groupSeparator());
+	QString sysSepDecimal(QLocale::system().decimalPoint());
+//	qDebug()<<"sysSepDecimal"<<sysSepDecimal;
+	QString sysSepGroup(QLocale::system().groupSeparator());
+//	qDebug()<<"sysSepGroup"<<sysSepGroup;
+//	QString crtSepDecimal(QString::fromLocal8Bit( lc->decimal_point ));
+//	QString crtSepGroup(QString::fromLocal8Bit( lc->thousands_sep ));
+//	QString crtSepDecimal(LocaleManager::instance().userPreferredLocale().decimalPoint());
+	QString crtSepGroup(LocaleManager::instance().userPreferredLocale().groupSeparator());
+//	qDebug()<<"crtSepGroup"<<crtSepGroup;
+	QString crtSepDecimal(LocaleManager::instance().userPreferredLocale().decimalPoint());
+//	qDebug()<<"crtSepDecimal"<<crtSepDecimal;
 	QRegExp rxP;
 	if (m_unitIndex==SC_PICAS)
-		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\.?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\"+crtSepDecimal+"?\\d*)?\\b");
 	else
-		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\.?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\"+crtSepDecimal+"?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
@@ -173,20 +190,34 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 // 	qDebug() << "##" << ts;
 
-	const lconv * lc(localeconv());
-	QString sysSepDecimal(QLocale::system().decimalPoint());
-	QString sysSepGroup(QLocale::system().groupSeparator());
-	QString crtSepDecimal(QString::fromLocal8Bit( lc->decimal_point ));
-	QString crtSepGroup(QString::fromLocal8Bit( lc->thousands_sep ));
+/*
 	// this could be hardcoded: "."
-	QString cSepDecimal(QLocale::c().decimalPoint());
+
 	if (sysSepGroup != sysSepDecimal)
+	{
+		qDebug()<<"Removing "<<sysSepGroup;
 		ts.remove(sysSepGroup);
+	}
 	ts.replace(sysSepDecimal, crtSepDecimal);
+	qDebug()<<"Replacing "<<sysSepDecimal<<"by"<<crtSepDecimal;
 	if (crtSepGroup != crtSepDecimal)
+	{
+		qDebug()<<"Removing "<<crtSepGroup;
 		ts.remove(crtSepGroup);
+	}
 	ts.replace(crtSepDecimal, cSepDecimal);
-	
+	qDebug()<<"Replacing "<<crtSepDecimal<<"by"<<cSepDecimal;
+	*/
+	if (crtSepGroup != cSepGroup)
+	{
+//		qDebug()<<"Removing "<<crtSepGroup;
+		ts.remove(crtSepGroup);
+	}
+	if (crtSepDecimal != cSepDecimal)
+	{
+		ts.replace(crtSepDecimal, cSepDecimal);
+//		qDebug()<<"Replacing "<<crtSepDecimal<<"by"<<cSepDecimal;
+	}
 	ts.replace(CommonStrings::trStrPX, "");
 	ts.replace("%", "");
 	ts.replace("°", "");
@@ -252,14 +283,11 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			++it;
 		}
 	}
-//	qDebug() << "TS"<<ts;
 	std::string str(ts.toLocal8Bit().data());
 	double erg = this->value();
-
 	int ret = fp.Parse(str, "", true);
 	if(ret < 0)
 		erg = fp.Eval(nullptr);
-
 	//qDebug() << "fp value =" << erg ;
 	return erg;
 }
@@ -332,6 +360,11 @@ bool ScrSpinBox::eventFilter(QObject* watched, QEvent* event)
 			retval = QAbstractSpinBox::event(event);
 		}
 		return retval;
+	}
+
+	if (event->type() == QEvent::LocaleChange)
+	{
+		setLocale(LocaleManager::instance().userPreferredLocale());
 	}
 
 	return QDoubleSpinBox::eventFilter(watched, event);

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "proptree.h"
 
 #include "colorcombo.h"
+#include "localemgr.h"
 #include "scrspinbox.h"
 #include <QCheckBox>
 #include <QApplication>
@@ -360,8 +361,12 @@ void PropTreeItem::setIntValue(int value)
 
 void PropTreeItem::setDoubleValue(double value)
 {
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+
 	setData(1, Qt::UserRole, value);
-	setData(1, Qt::DisplayRole, QString("%1 %2").arg(value, 0, 'f', m_decimals).arg(unitGetSuffixFromIndex(m_unit)));
+//	setData(1, Qt::DisplayRole, QString("%1 %2").arg(value, 0, 'f', m_decimals).arg(unitGetSuffixFromIndex(m_unit)));
+	setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(value, 'f', m_decimals)).arg(unitGetSuffixFromIndex(m_unit)));
+
 }
 
 void PropTreeItem::setBoolValue(bool value)
@@ -395,7 +400,10 @@ void PropTreeItem::setDecimalsValue(int unit)
 {
 	m_decimals = unit;
 	if (m_type == DoubleSpinBox)
-		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toDouble(), 0, 'f', unit).arg(unitGetSuffixFromIndex(m_unit)));
+	{
+		const QLocale& l(LocaleManager::instance().userPreferredLocale());
+		setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(data(1, Qt::UserRole).toDouble(), 'f', unit)).arg(unitGetSuffixFromIndex(m_unit)));
+	}
 	else
 		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString(), unitGetSuffixFromIndex(m_unit)));
 }
@@ -420,6 +428,14 @@ void PropTreeItem::setMinMaxValues(double min, double max)
 void PropTreeItem::setColorList(const ColorList& colors)
 {
 	m_colors = colors;
+}
+
+void PropTreeItem::localeChange()
+{
+	if (m_type == DoubleSpinBox)
+	{
+		setDoubleValue(data(1, Qt::UserRole).toDouble());
+	}
 }
 
 PropTreeWidget::PropTreeWidget(QWidget* pa) : QTreeWidget(pa)

@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList> 
 
 #include "scconfig.h"
+#include "scribuscore.h"
 #include "localemgr.h"
 #include "scpaths.h"
 
@@ -125,4 +126,14 @@ QString LocaleManager::unitForLocale(const QString &locale)
 	//	return "";
 }
 
+void LocaleManager::setUserPreferredLocale(const QString& userLocale)
+{
+	m_userPreferredLocale = (userLocale == "System") ? QLocale::system() : QLocale(ScCore->getGuiLanguage());
+	QLocale::setDefault(m_userPreferredLocale);
+}
 
+void LocaleManager::setUserPreferredLocale(const QLocale& userLocale)
+{
+	m_userPreferredLocale = userLocale;
+	QLocale::setDefault(m_userPreferredLocale);
+}

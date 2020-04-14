@@ -5,9 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-
+#include <QLocale>
 #include "appmodes.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem_table.h"
 #include "propertywidget_textcolor.h"
 #include "scribus.h"
@@ -48,6 +49,8 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	strokeShade->setEnabled(false);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+
 }
 
 void PropertyWidget_TextColor::setMainWindow(ScribusMainWindow *mw)
@@ -508,4 +511,16 @@ void PropertyWidget_TextColor::languageChange()
 {
 	retranslateUi(this);
 	textEffects->languageChange();
+}
+
+void PropertyWidget_TextColor::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	textEffects->ShadowVal->Xoffset->setLocale(l);
+	textEffects->ShadowVal->Yoffset->setLocale(l);
+	textEffects->OutlineVal->LWidth->setLocale(l);
+	textEffects->UnderlineVal->LPos->setLocale(l);
+	textEffects->UnderlineVal->LWidth->setLocale(l);
+	textEffects->StrikeVal->LPos->setLocale(l);
+	textEffects->StrikeVal->LWidth->setLocale(l);
 }

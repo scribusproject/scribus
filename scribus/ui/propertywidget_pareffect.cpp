@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "scribus.h"
@@ -125,6 +126,12 @@ void PropertyWidget_ParEffect::unitChange()
 	bool sigBlocked = peOffset->blockSignals(true);
 	peOffset->setNewUnit( m_unitIndex );
 	peOffset->blockSignals(sigBlocked);
+}
+
+void PropertyWidget_ParEffect::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	peOffset->setLocale(l);
 }
 
 void PropertyWidget_ParEffect::fillNumerationsCombo()

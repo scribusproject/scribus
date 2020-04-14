@@ -49,6 +49,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void unitChange() {};
+	void localeChange();
 
 	void showBaseLineOffset(double e);
 	void showTextScaleH(double e);

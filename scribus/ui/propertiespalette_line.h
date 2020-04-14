@@ -34,11 +34,11 @@ public:
 
 protected:
 
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	bool      m_lineMode;
-	double    m_unitRatio;
-	int       m_unitIndex;
+	bool m_haveDoc;
+	bool m_haveItem;
+	bool m_lineMode;
+	double m_unitRatio;
+	int m_unitIndex;
 
 	PageItem *m_item;
 	ScribusMainWindow*       m_ScMW;
@@ -67,6 +67,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 private slots:
 

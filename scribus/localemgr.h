@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef LOCALEMANAGER_H
 #define LOCALEMANAGER_H
 
+#include <QDebug>
 #include <QLocale>
 #include <QMap>
 #include <QString>
@@ -62,11 +63,16 @@ public:
 	QString pageSizeForLocale(const QString &locale);
 	QString unitForLocale(const QString &locale);
 
-private:
+	const QLocale userPreferredLocale() const { return m_userPreferredLocale; }
+	void setUserPreferredLocale(const QString& userLocale);
+	void setUserPreferredLocale(const QLocale& userLocale);
+
+	private:
 	LocaleManager() = default;
 	~LocaleManager() = default;
 	QList <LocaleDef> m_localeTable;
 	QLocale m_sysLocale;
+	QLocale m_userPreferredLocale;
 	void generateLocaleList();
 };
 

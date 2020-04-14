@@ -119,6 +119,7 @@ struct UIPrefs
 	int recentDocCount {5}; //! Number of recent documents to remember
 	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
+	QString userPreferredLocale; //! System or interface language number formats
 	bool useSmallWidgets {false}; //! Use small widgets in the palettes
 	bool useTabs {false}; //! Use a tabbed MainWidget a la FireFox
 	bool showStartupDialog {true}; //! Whether to show the startup dialog or not

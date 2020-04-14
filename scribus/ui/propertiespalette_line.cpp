@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "dasheditor.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "sccolorengine.h"
@@ -73,6 +74,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	connect(lineWidth, SIGNAL(valueChanged(double)), this, SLOT(handleLineWidth()));
 	connect(lineType, SIGNAL(activated(int)), this, SLOT(handleLineStyle()));
@@ -760,4 +762,10 @@ void PropertiesPalette_Line::unitChange()
 	lineWidth->blockSignals(true);
 	lineWidth->setNewUnit( m_unitIndex );
 	lineWidth->blockSignals(false);
+}
+
+void PropertiesPalette_Line::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	lineWidth->setLocale(l);
 }

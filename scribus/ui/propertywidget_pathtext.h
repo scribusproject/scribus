@@ -47,6 +47,7 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 private slots:
 	void handlePathType();

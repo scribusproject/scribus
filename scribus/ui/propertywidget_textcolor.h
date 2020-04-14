@@ -47,6 +47,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void unitChange() {};
+	void localeChange();
 
 	void showOutlineW(double x);
 	void showShadowOffset(double x, double y);

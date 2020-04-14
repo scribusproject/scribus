@@ -54,6 +54,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 	void handleParEffectUse();
 	void handleBulletStr(QString);

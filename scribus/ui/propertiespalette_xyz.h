@@ -56,6 +56,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 	void showXY(double x, double y);
 	void showWH(double x, double y);

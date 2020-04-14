@@ -72,6 +72,7 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void localeChange();
 
 protected slots:
 	void spinboxStartUserAction();

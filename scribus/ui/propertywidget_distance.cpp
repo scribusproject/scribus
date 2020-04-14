@@ -11,9 +11,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodehelper.h"
 #include "appmodes.h"
+#include "localemgr.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "tabmanager.h"
@@ -55,6 +57,8 @@ PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(paren
 	languageChange();
 
 	columnGapLabel->setCurrentIndex(0);
+
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 }
 
 void PropertyWidget_Distance::setMainWindow(ScribusMainWindow* mw)
@@ -488,4 +492,14 @@ void PropertyWidget_Distance::unitChange()
 	topDistance->blockSignals(false);
 	bottomDistance->blockSignals(false);
 	rightDistance->blockSignals(false);
+}
+
+void PropertyWidget_Distance::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	columnGap->setLocale(l);
+	topDistance->setLocale(l);
+	bottomDistance->setLocale(l);
+	leftDistance->setLocale(l);
+	rightDistance->setLocale(l);
 }

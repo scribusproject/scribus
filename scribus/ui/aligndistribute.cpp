@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QLayout>
 #include <QLineEdit>
+#include <QLocale>
 #include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
@@ -37,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "iconmanager.h"
+#include "localemgr.h"
 #include "scpage.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
@@ -52,8 +54,6 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-	currDoc = nullptr;
-	guideDirection = -1;
 	setObjectName(name);
 	
 	//hide spare controls 
@@ -61,7 +61,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy2->hide();
 
 	//set up scrspinboxes
-	distributeDistSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
+	distributeDistSpinBox->setValues(-10000.0, 10000.0, 2, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
@@ -74,6 +74,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	setDoc(nullptr);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 }
 
 AlignDistributePalette::~AlignDistributePalette()
@@ -497,6 +498,13 @@ void AlignDistributePalette::setGuide(int direction, qreal position)
 	guideDirection = direction;
 	guidePosition = position;
 	enableGuideButtons();
+}
+
+
+void AlignDistributePalette::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	distributeDistSpinBox->setLocale(l);
 }
 
 void AlignDistributePalette::enableGuideButtons()

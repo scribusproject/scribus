@@ -177,6 +177,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
 	if (appPrefs.uiPrefs.language.isEmpty())
 		appPrefs.uiPrefs.language = "en_GB";
+	appPrefs.uiPrefs.userPreferredLocale = "System";
 	appPrefs.uiPrefs.showStartupDialog = true;
 	appPrefs.uiPrefs.showSplashOnStartup = true;
 	appPrefs.uiPrefs.useSmallWidgets = false;
@@ -911,58 +912,57 @@ void PrefsManager::ReadPrefs()
 
 void PrefsManager::ReadPrefsXML()
 {
-	if (prefsFile)
+	if (!prefsFile)
+		return;
+	PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+	if (userprefsContext)
 	{
-		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-		if (userprefsContext)
+		QString guiLanguage = userprefsContext->get("gui_language", "");
+		if (!guiLanguage.isEmpty())
+			appPrefs.uiPrefs.language = guiLanguage;
+		if (appPrefs.uiPrefs.language.isEmpty())
 		{
-			QString guiLanguage = userprefsContext->get("gui_language", "");
-			if (!guiLanguage.isEmpty())
-				appPrefs.uiPrefs.language = guiLanguage;
+			appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
 			if (appPrefs.uiPrefs.language.isEmpty())
-			{
-				appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-				if (appPrefs.uiPrefs.language.isEmpty())
-					appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
-			}
-			if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
-			{
-				appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
-				if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
-					appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
-			}
-			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
-			appPrefs.uiPrefs.tabbedPalettes.clear();
-			PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
-			PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
-			if (tabsTable)
-			{
-				for (int r = 0; r < tabsTable->getRowCount(); r++)
-				{
-					tabPrefs tabs;
-					for (int c = 0; c < tabsTable->getColCount(); c++)
-					{
-						QString tabName = tabsTable->get(r, c);
-						if (!tabName.isEmpty())
-							tabs.palettes.append(tabsTable->get(r, c));
-					}
-					if (actTabsTable)
-						tabs.activeTab = actTabsTable->getInt(r, 0);
-					else
-						tabs.activeTab = -1;
-					appPrefs.uiPrefs.tabbedPalettes.append(tabs);
-				}
-			}
-			//continue here...
-			//Prefs."blah blah" =...
+				appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
 		}
-		if (prefsFile->hasContext("print_options"))
+		if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
 		{
-			// Reset copies number to 1 when user start new session
-			PrefsContext* printOptionsContext = prefsFile->getContext("print_options");
-			if (printOptionsContext)
-				printOptionsContext->set("Copies", 1);
+			appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
+			if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
+				appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
 		}
+		appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
+		appPrefs.uiPrefs.tabbedPalettes.clear();
+		PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
+		PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
+		if (tabsTable)
+		{
+			for (int r = 0; r < tabsTable->getRowCount(); r++)
+			{
+				tabPrefs tabs;
+				for (int c = 0; c < tabsTable->getColCount(); c++)
+				{
+					QString tabName = tabsTable->get(r, c);
+					if (!tabName.isEmpty())
+						tabs.palettes.append(tabsTable->get(r, c));
+				}
+				if (actTabsTable)
+					tabs.activeTab = actTabsTable->getInt(r, 0);
+				else
+					tabs.activeTab = -1;
+				appPrefs.uiPrefs.tabbedPalettes.append(tabs);
+			}
+		}
+		//continue here...
+		//Prefs."blah blah" =...
+	}
+	if (prefsFile->hasContext("print_options"))
+	{
+		// Reset copies number to 1 when user start new session
+		PrefsContext* printOptionsContext = prefsFile->getContext("print_options");
+		if (printOptionsContext)
+			printOptionsContext->set("Copies", 1);
 	}
 }
 
@@ -1362,6 +1362,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcUI.setAttribute("RecentDocumentCount", appPrefs.uiPrefs.recentDocCount);
 	dcUI.setAttribute("UseGrayscaleIcons", appPrefs.uiPrefs.grayscaleIcons);
 	dcUI.setAttribute("IconSet", appPrefs.uiPrefs.iconSet);
+	dcUI.setAttribute("UserPreferredLocale", appPrefs.uiPrefs.userPreferredLocale);
 	elem.appendChild(dcUI);
 
 	QDomElement deDocumentSetup=docu.createElement("DocumentSetup");
@@ -1971,6 +1972,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());
 			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_5_0");
+			appPrefs.uiPrefs.userPreferredLocale = dc.attribute("UserPreferredLocale","System");
 		}
 
 		if (dc.tagName()=="DocumentSetup")

@@ -9,7 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QSignalBlocker>
 
+#include "localemgr.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "units.h"
@@ -33,6 +35,8 @@ PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(paren
 
 	distFromCurve->setValues(-300, 300, 2, 0);
 	distFromCurve->setSingleStep(10);
+
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	languageChange();
 }
@@ -254,4 +258,11 @@ void PropertyWidget_PathText::unitChange()
 
 	startOffset->setNewUnit( m_unitIndex );
 	distFromCurve->setNewUnit( m_unitIndex );
+}
+
+void PropertyWidget_PathText::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	startOffset->setLocale(l);
+	distFromCurve->setLocale(l);
 }

@@ -11,17 +11,18 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
 #include "commonstrings.h"
-#include "sccolorengine.h"
+#include "localemgr.h"
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
-
-#include "scribuscore.h"
+#include "sccolorengine.h"
 #include "scraction.h"
-
+#include "scribusapp.h"
+#include "scribuscore.h"
 #include "selection.h"
-#include "units.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -86,6 +87,7 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	m_haveItem = false;
 }
@@ -238,6 +240,13 @@ void PropertiesPalette_Shadow::unitChange()
 	softShadowYOffset->blockSignals(sigBlocked2);
 	softShadowBlurRadius->blockSignals(sigBlocked3);
 	this->model()->blockSignals(sigBlocked4);
+}
+
+void PropertiesPalette_Shadow::localeChange()
+{
+	softShadowXOffset->localeChange();
+	softShadowYOffset->localeChange();
+	softShadowBlurRadius->localeChange();
 }
 
 void PropertiesPalette_Shadow::updateColorList()

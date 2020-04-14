@@ -42,6 +42,8 @@ public slots:
 
 	void languageChange();
 	void unitChange();
+	void localeChange();
+
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 

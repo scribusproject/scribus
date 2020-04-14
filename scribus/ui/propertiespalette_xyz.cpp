@@ -14,13 +14,15 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
+
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "autoform.h"
 #include "basepointwidget.h"
-#include "commonstrings.h"
 #include "colorlistbox.h"
-#include "sccolorengine.h"
+#include "commonstrings.h"
+#include "iconmanager.h"
+#include "localemgr.h"
 #include "pageitem.h"
 #include "pageitem_arc.h"
 #include "pageitem_group.h"
@@ -28,18 +30,17 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
-
-#include "scribuscore.h"
+#include "sccolorengine.h"
 #include "scraction.h"
 #include "scribusapp.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "tabmanager.h"
-#include "units.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
-#include "iconmanager.h"
 #include "util_math.h"
 
 //using namespace std;
@@ -94,6 +95,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	languageChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 
 	connect(xposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewX()));
 	connect(yposSpin, SIGNAL(valueChanged(double)), this, SLOT(handleNewY()));
@@ -537,6 +539,16 @@ void PropertiesPalette_XYZ::unitChange()
 	widthSpin->setNewUnit( m_unitIndex );
 	heightSpin->setNewUnit( m_unitIndex );
 	m_haveItem = tmp;
+}
+
+void PropertiesPalette_XYZ::localeChange()
+{
+	const QLocale& l(LocaleManager::instance().userPreferredLocale());
+	xposSpin->setLocale(l);
+	yposSpin->setLocale(l);
+	widthSpin->setLocale(l);
+	heightSpin->setLocale(l);
+	rotationSpin->setLocale(l);
 }
 
 void PropertiesPalette_XYZ::showXY(double x, double y)

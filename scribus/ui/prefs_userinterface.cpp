@@ -27,6 +27,14 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	m_caption = tr("User Interface");
 	m_icon = "scribus16.png";
 
+	// qt styles
+	QStringList styleList = QStyleFactory::keys();
+	themeComboBox->addItem("");
+	themeComboBox->addItems(styleList);
+	QStringList iconSetList;
+	iconSetList = IconManager::instance().nameList(ScQApp->currGUILanguage());
+	iconSetComboBox->addItems(iconSetList);
+
 	QStringList languageList;
 	LanguageManager::instance()->fillInstalledGUIStringList(&languageList);
 	if (languageList.isEmpty())
@@ -40,13 +48,8 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 	std::sort(languageList.begin(), languageList.end(), localeAwareLessThan);
 	languageComboBox->addItems(languageList);
 
-	// qt styles
-	QStringList styleList = QStyleFactory::keys();
-	themeComboBox->addItem("");
-	themeComboBox->addItems(styleList);
-	QStringList iconSetList;
-	iconSetList = IconManager::instance().nameList(ScQApp->currGUILanguage());
-	iconSetComboBox->addItems(iconSetList);
+	numberFormatComboBox->addItem(tr("Use System Format"),"System");
+	numberFormatComboBox->addItem(tr("Use Interface Language Format"),"Language");
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
@@ -57,11 +60,12 @@ Prefs_UserInterface::~Prefs_UserInterface() = default;
 
 void Prefs_UserInterface::languageChange()
 {
-	languageComboBox->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus." )+"</qt>");
 	themeComboBox->setToolTip( "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>");
 	iconSetComboBox->setToolTip( "<qt>" + tr( "Choose the default icon set" ) + "</qt>");
 	useSmallWidgetsCheckBox->setToolTip( "<qt>" + tr( "Palette windows will use smaller (space savy) widgets. Requires application restart." ) + "</qt>");
 	recentDocumentsSpinBox->setToolTip( "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>");
+	languageComboBox->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus." )+"</qt>");
+	numberFormatComboBox->setToolTip( "<qt>" + tr( "Use either the system or selected language related definition for number formats for decimals for numbers in the interface" ) + "</qt>");
 	fontSizeMenuSpinBox->setToolTip( "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>");
 	fontSizePaletteSpinBox->setToolTip( "<qt>" + tr( "Default font size for the tool windows" ) + "</qt>");
 	resizeMoveDelaySpinBox->setToolTip( "<qt>" + tr( "Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands." ) + "</qt>");
@@ -88,6 +92,7 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
 	}
 	setCurrentComboItem(languageComboBox, langString);
+	numberFormatComboBox->setCurrentIndex(prefsData->uiPrefs.userPreferredLocale == "System" ? 0 : 1);
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
 	setCurrentComboItem(iconSetComboBox, prefsData->uiPrefs.iconSet);
 	fontSizeMenuSpinBox->setValue( prefsData->uiPrefs.applicationFontSize );
@@ -112,6 +117,7 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->uiPrefs.language=selectedGUILang;
+	prefsData->uiPrefs.userPreferredLocale=numberFormatComboBox->currentData().toString();
 	prefsData->uiPrefs.style=themeComboBox->currentText();
 	prefsData->uiPrefs.iconSet=IconManager::instance().baseNameForTranslation(iconSetComboBox->currentText());
 	prefsData->uiPrefs.applicationFontSize=fontSizeMenuSpinBox->value();
