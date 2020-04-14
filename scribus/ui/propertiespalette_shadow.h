@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scguardedptr.h"
 
 #include "proptree.h"
+#include "units.h"
 
 class PageItem;
 class ScribusDoc;
@@ -54,23 +55,22 @@ protected slots:
 	void updateSpinBoxConstants();
 
 protected:
-	PropTreeItem *hasSoftShadow;
-	PropTreeItem *softShadowXOffset;
-	PropTreeItem *softShadowYOffset;
-	PropTreeItem *softShadowBlurRadius;
-	PropTreeItem *softShadowColor;
-	PropTreeItem *softShadowShade;
-	PropTreeItem *softShadowOpacity;
-	PropTreeItem *softShadowBlendMode;
-	PropTreeItem *softShadowErase;
-	PropTreeItem *softShadowObjTrans;
-	ScribusMainWindow *m_ScMW;
-
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	double    m_unitRatio;
-	int       m_unitIndex;
-	PageItem *m_item;
+	PropTreeItem *hasSoftShadow {nullptr};
+	PropTreeItem *softShadowXOffset {nullptr};
+	PropTreeItem *softShadowYOffset {nullptr};
+	PropTreeItem *softShadowBlurRadius {nullptr};
+	PropTreeItem *softShadowColor {nullptr};
+	PropTreeItem *softShadowShade {nullptr};
+	PropTreeItem *softShadowOpacity {nullptr};
+	PropTreeItem *softShadowBlendMode {nullptr};
+	PropTreeItem *softShadowErase {nullptr};
+	PropTreeItem *softShadowObjTrans {nullptr};
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 };
 

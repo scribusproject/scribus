@@ -20,10 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/sctreewidget.h"
-#include "units.h"
 #include "util.h"
 
-PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent), m_enhanced(nullptr), m_item(nullptr), m_ScMW(nullptr)
+PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent)
 {
 	setupUi(this);
 	setFrameStyle(QFrame::Box | QFrame::Plain);

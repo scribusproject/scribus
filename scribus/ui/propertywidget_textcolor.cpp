@@ -17,9 +17,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(parent)
 {
-	m_item = nullptr;
-	m_ScMW = nullptr;
-
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);

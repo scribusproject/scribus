@@ -36,15 +36,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = nullptr;
-	m_doc  = nullptr;
-	m_haveDoc  = false;
-	m_haveItem = false;
-	m_item     = nullptr;
-	m_lineMode = false;
-	m_unitRatio = 1.0;
-	m_unitIndex = 0;
-
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 

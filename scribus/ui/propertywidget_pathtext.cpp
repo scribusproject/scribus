@@ -14,16 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "units.h"
 
 PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(parent)
 {
-	m_ScMW = nullptr;
-	m_doc  = nullptr;
-	m_item = nullptr;
-	m_unitRatio = 1.0;
-	m_unitIndex = 0;
-
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);

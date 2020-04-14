@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_propertywidget_distancebase.h"
 
 #include "propertywidgetbase.h"
+#include "units.h"
 
 class ScribusDoc;
 class ScribusMainWindow;
@@ -27,11 +28,10 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 
-	PageItem *         m_item;
-	ScribusMainWindow* m_ScMW;
-
-	double m_unitRatio;
-	int    m_unitIndex;
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 
 	void configureWidgets();
 	void setCurrentItem(PageItem *item);

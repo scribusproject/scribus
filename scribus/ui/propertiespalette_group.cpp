@@ -67,13 +67,7 @@ for which a new license (GPL+exception) is in place.
 
 
 PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent)
-	: QWidget(parent),
-	  m_haveDoc(false),
-	  m_haveItem(false),
-	  m_unitRatio(1.0),
-	  m_unitIndex(SC_PT),
-	  m_item(nullptr),
-	  m_doc(nullptr)
+	: QWidget(parent)
 {
 	m_tmpSelection = new Selection(this, false);
 	m_tmpSelection->clear();

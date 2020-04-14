@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scguardedptr.h"
 #include "scribusdoc.h"
+#include "units.h"
 
 class ScribusDoc;
 class ScribusMainWindow;
@@ -34,16 +35,14 @@ public:
 	void updateColorSpecialGradient();
 
 protected:
-
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	double    m_unitRatio;
-	int       m_unitIndex;
-
-	PageItem *m_item;
-	ScribusMainWindow*       m_ScMW;
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
-	Selection*               m_tmpSelection;
+	Selection* m_tmpSelection {nullptr};
 
 private:
 

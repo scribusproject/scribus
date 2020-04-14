@@ -15,15 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "units.h"
 
 PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(parent)
 {
-	m_item = nullptr;
-	m_ScMW = nullptr;
-	m_unitIndex = 0;
-	m_unitRatio = 1.0;
-
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);

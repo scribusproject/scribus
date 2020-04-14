@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scguardedptr.h"
 #include "sctextstruct.h"
+#include "units.h"
 
 class PageItem;
 class PropertyWidget_Advanced;
@@ -49,14 +50,12 @@ public:
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 protected:
-
-	bool   m_haveDoc;
-	bool   m_haveItem;
-	double m_unitRatio;
-	int    m_unitIndex;
-
-	PageItem *m_item;
-	ScribusMainWindow*       m_ScMW;
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 
 private:

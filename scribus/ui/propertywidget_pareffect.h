@@ -3,10 +3,11 @@
 
 #include <QVector>
 
-#include "ui_propertywidget_pareffectbase.h"
 #include "numeration.h"
 #include "propertywidgetbase.h"
 #include "ui/charselectenhanced.h"
+#include "ui_propertywidget_pareffectbase.h"
+#include "units.h"
 
 class PageItem;
 class ParagraphStyle;
@@ -26,16 +27,15 @@ public:
 	void showCharStyle(const QString& name);
 	void connectSignals();
 	void disconnectSignals();
-	CharSelectEnhanced * m_enhanced;
+	CharSelectEnhanced * m_enhanced {nullptr};
 	
 	void fillNumerationsCombo();
 
 protected:
-	double m_unitRatio;
-	int    m_unitIndex;
-
-	PageItem *         m_item;
-	ScribusMainWindow* m_ScMW;
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 
 	void configureWidgets();
 	void setCurrentItem(PageItem *item);

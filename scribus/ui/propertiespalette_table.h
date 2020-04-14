@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scguardedptr.h"
 #include "tableborder.h"
+#include "units.h"
 
 #include "ui_propertiespalette_tablebase.h"
 
@@ -117,13 +118,13 @@ private:
 
 private:
 	/// The current main window.
-	ScribusMainWindow* m_mainWindow;
+	ScribusMainWindow* m_mainWindow {nullptr};
 	/// The current document.
 	ScGuardedPtr<ScribusDoc> m_doc;
 	/// The currently edited item.
-	PageItem* m_item;
+	PageItem* m_item {nullptr};
 	/// The previous edited selected items.
-	PageItem* m_previousItem;
+	PageItem* m_previousItem {nullptr};
 
 	/// The currently edited border.
 	TableBorder m_currentBorder;

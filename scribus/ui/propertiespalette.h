@@ -29,6 +29,7 @@ class QWidget;
 #include "scpage.h"
 #include "spalette.h"
 #include "sctreewidget.h"
+#include "units.h"
 
 class ColorCombo;
 class ColorPalette;
@@ -107,14 +108,14 @@ private slots:
 	void handleShapeEdit();
 
 protected:
-	ScribusMainWindow *m_ScMW {nullptr};
 	ScTreeWidget* TabStack {nullptr};
 
 	bool m_haveDoc {false};
 	bool m_haveItem {false};
 	double m_unitRatio {1.0};
-	int m_unitIndex {0};
-	PageItem* m_item {nullptr};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	UndoManager *undoManager {nullptr};
 	
 	ScGuardedPtr<ScribusDoc> m_doc;

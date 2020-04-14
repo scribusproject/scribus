@@ -32,15 +32,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = nullptr;
-	m_doc  = nullptr;
-	m_haveDoc    = false;
-	m_haveItem   = false;
-	m_item       = nullptr;
-	m_unitRatio  = 1.0;
-	m_unitIndex  = 0;
-
-	m_userActionOn    = false;
 	userActionSniffer = new UserActionSniffer(this);
 	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));

@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "linecombo.h"
 #include "scguardedptr.h"
+#include "units.h"
 
 class ArrowChooser;
 class DashEditor;
@@ -33,15 +34,13 @@ public:
 	void updateArrowStyles();
 
 protected:
-
-	bool m_haveDoc;
-	bool m_haveItem;
-	bool m_lineMode;
-	double m_unitRatio;
-	int m_unitIndex;
-
-	PageItem *m_item;
-	ScribusMainWindow*       m_ScMW;
+	bool m_lineMode {false};
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 
 private:

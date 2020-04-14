@@ -47,14 +47,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW = nullptr;
-	m_doc = nullptr;
-	m_haveDoc  = false;
-	m_haveItem = false;
-	m_lineMode = false;
-	m_oldRotation = 0;
-	m_unitRatio = 1.0;
-
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
@@ -75,7 +67,7 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setChecked(false);
 
-	rotationSpin->setNewUnit(6);
+	rotationSpin->setNewUnit(SC_DEG);
 	rotationSpin->setWrapping( true );
 	installSniffer(rotationSpin);
 	rotationLabel->setBuddy(rotationSpin);
@@ -88,8 +80,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	doLock->setCheckable(true);
 	noPrint->setCheckable(true);
 	noResize->setCheckable(true);
-
-	m_lineMode = false;
 
 	iconSetChange();
 	languageChange();
@@ -409,7 +399,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
-		m_oldRotation = 0;
+		m_oldRotation = 0.0;
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		int bp = basePointWidget->checkedId();

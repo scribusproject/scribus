@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "linkbutton.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
+#include "units.h"
 
 class BasePointWidget;
 class NameWidget;
@@ -97,17 +98,16 @@ protected slots:
 	void updateSpinBoxConstants();
 
 protected:
-	ScribusMainWindow *m_ScMW;
-
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	bool      m_lineMode;
-	double    m_unitRatio;
-	int       m_unitIndex;
-	PageItem *m_item;
+	bool m_lineMode {false};
+	bool m_haveDoc {false};
+	bool m_haveItem {false};
+	double m_unitRatio {1.0};
+	int m_unitIndex {SC_PT};
+	PageItem *m_item {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 	
-	double    m_oldRotation;
+	double m_oldRotation {0.0};
 
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;

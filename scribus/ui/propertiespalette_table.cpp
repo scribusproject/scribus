@@ -29,8 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(parent),
-	m_mainWindow(nullptr), m_doc(nullptr), m_item(nullptr), m_previousItem(nullptr)
+PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));

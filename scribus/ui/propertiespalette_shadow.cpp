@@ -28,13 +28,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeWidget(parent)
 {
-	m_ScMW = nullptr;
-	m_doc = nullptr;
-	m_item = nullptr;
-	m_haveDoc  = false;
-	m_haveItem = false;
-	m_unitIndex = 0;
-	m_unitRatio = 1.0;
 	hasSoftShadow = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Has Drop Shadow"));
 	hasSoftShadow->setBoolValue(false);
 
@@ -83,13 +76,9 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	softShadowObjTrans->setBoolValue(false);
 
 	languageChange();
-	m_haveItem = false;
-
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 	connect(this->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(handleNewValues()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
-
-	m_haveItem = false;
 }
 
 void PropertiesPalette_Shadow::setMainWindow(ScribusMainWindow* mw)

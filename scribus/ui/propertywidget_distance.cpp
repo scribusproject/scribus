@@ -19,16 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "tabmanager.h"
-#include "units.h"
 
 PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(parent)
 {
-	m_item = nullptr;
-	m_ScMW = nullptr;
-
-	m_unitRatio = 1.0;
-	m_unitIndex = 0;
-
 	setupUi(this);
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);

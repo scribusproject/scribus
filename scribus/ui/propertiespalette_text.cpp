@@ -53,14 +53,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(parent)
 {
-	m_ScMW=nullptr;
-	m_doc=nullptr;
-	m_item=nullptr;
-	m_haveDoc = false;
-	m_haveItem = false;
-	m_unitIndex = 0;
-	m_unitRatio = 1.0;
-
 	setupUi(this);
 
 	fontSize->setPrefix( "" );
@@ -125,8 +117,6 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(parEffectWidgets,   SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
-
-	m_haveItem = false;
 	setEnabled(false);
 }
 
