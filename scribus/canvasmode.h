@@ -83,12 +83,17 @@ public:
 	  (fromgesture == false) or because a gesture completed and the canvas returns back to
 	  this mode (fromGesture == true)
 	 */
-	virtual void activate(bool fromGesture) {}
+	virtual void activate(bool fromGesture) { m_isActive = true; }
 	/**
 	  Is called when this mode becomes inactive, either because the canvas switches to
 	  another mode (forGesture == false) or because a gesture is activated (forGesture == true)
 	 */
-	virtual void deactivate(bool forGesture) {}
+	virtual void deactivate(bool forGesture) { m_isActive = false; }
+
+	/**
+	 Test if canvas mode is currently active
+	*/
+	virtual bool isActive() const { return m_isActive; }
 	
 	virtual void enterEvent(QEvent *) {}
 	virtual void leaveEvent(QEvent *) {}
@@ -153,6 +158,7 @@ protected:
 	ScribusDoc* const m_doc;
 	PanGesture* m_panGesture {nullptr};
 	UndoManager* undoManager;
+	bool   m_isActive { false };
 	double xSnap {0.0};
 	double ySnap {0.0};
 	

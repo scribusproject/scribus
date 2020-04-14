@@ -286,6 +286,8 @@ void CanvasMode_EditMeshPatch::leaveEvent(QEvent *e)
 
 void CanvasMode_EditMeshPatch::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -316,6 +318,8 @@ void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 	m_currItem->selectedMeshControlPoint = m_gradientPoint;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
 	m_currItem->snapToPatchGrid = false;
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)

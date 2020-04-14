@@ -123,6 +123,8 @@ void CanvasMode_EditWeldPoint::leaveEvent(QEvent *e)
 
 void CanvasMode_EditWeldPoint::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -157,6 +159,8 @@ void CanvasMode_EditWeldPoint::deactivate(bool forGesture)
 	disconnect(m_ModeDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	m_ModeDialog->close();
 	delete m_ModeDialog;
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditWeldPoint::endEditing(bool active)

@@ -80,6 +80,8 @@ void CanvasMode_EyeDropper::leaveEvent(QEvent *e)
 void CanvasMode_EyeDropper::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_EyeDropper::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -100,6 +102,8 @@ void CanvasMode_EyeDropper::deactivate(bool forGesture)
 //	qDebug() << "CanvasMode_EyeDropper::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
 	releaseMouse();
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)

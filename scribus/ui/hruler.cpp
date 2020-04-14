@@ -296,14 +296,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		m_view->DrawNew();
 		m_doc->m_Selection->itemAt(0)->emitAllToGUI();
 	}
-	else
-	{
-		if (m_mousePressed)
-		{
-			rulerGesture->mouseReleaseEvent(m);
-			m_mousePressed = false;
-		}
-	}
+	else if (m_mousePressed && rulerGesture->isActive())
+		rulerGesture->mouseReleaseEvent(m);
 	m_mousePressed = false;
 	qApp->restoreOverrideCursor();
 }
@@ -448,10 +442,8 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (m_mousePressed)
-		{
+		if (m_mousePressed && rulerGesture->isActive())
 			rulerGesture->mouseMoveEvent(m);
-		}
 		else
 			setCursor(QCursor(Qt::ArrowCursor));
 	}

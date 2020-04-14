@@ -83,6 +83,8 @@ void CanvasMode_FrameLinks::leaveEvent(QEvent *e)
 void CanvasMode_FrameLinks::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	if (m_doc->m_Selection->count() >= 2)
 	{
 		switch (m_doc->appMode)
@@ -125,6 +127,7 @@ void CanvasMode_FrameLinks::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)

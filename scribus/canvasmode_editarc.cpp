@@ -150,6 +150,8 @@ void CanvasMode_EditArc::leaveEvent(QEvent *e)
 
 void CanvasMode_EditArc::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	vectorDialog = new ArcVectorDialog(m_ScMW);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -183,6 +185,18 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	connect(vectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
+}
+
+void CanvasMode_EditArc::deactivate(bool forGesture)
+{
+	CanvasMode::deactivate(forGesture);
+
+	disconnect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	vectorDialog->close();
+	vectorDialog->deleteLater();
+	m_view->setRedrawMarkerShown(false);
+	m_arcPoint = noPointDefined;
+	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::updateFromItem()
@@ -282,16 +296,6 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 
 //	QTransform itemMatrix = currItem->getTransform();
 //	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
-}
-
-void CanvasMode_EditArc::deactivate(bool forGesture)
-{
-	disconnect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	vectorDialog->close();
-	vectorDialog->deleteLater();
-	m_view->setRedrawMarkerShown(false);
-	m_arcPoint = noPointDefined;
-	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)

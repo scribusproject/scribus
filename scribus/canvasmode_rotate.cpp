@@ -157,6 +157,8 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 
 void CanvasMode_Rotate::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->leaveDrag = false;
@@ -173,10 +175,11 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 	}
 }
 
-void CanvasMode_Rotate::deactivate(bool)
+void CanvasMode_Rotate::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
 	m_inItemRotation = false;
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Rotate::enterEvent(QEvent *)

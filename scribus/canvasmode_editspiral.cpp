@@ -109,6 +109,8 @@ void CanvasMode_EditSpiral::leaveEvent(QEvent *e)
 
 void CanvasMode_EditSpiral::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_VectorDialog = new SpiralVectorDialog(m_ScMW);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -135,6 +137,18 @@ void CanvasMode_EditSpiral::activate(bool fromGesture)
 	connect(m_VectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(m_VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	connect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
+}
+
+void CanvasMode_EditSpiral::deactivate(bool forGesture)
+{
+	disconnect(m_VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
+	m_VectorDialog->close();
+	m_VectorDialog->deleteLater();
+	m_view->setRedrawMarkerShown(false);
+	m_arcPoint = noPointDefined;
+	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditSpiral::updateFromItem()
@@ -245,16 +259,6 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 	m_endAngle = item->spiralEndAngle;
 	QTransform itemMatrix = currItem->getTransform();
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
-}
-
-void CanvasMode_EditSpiral::deactivate(bool forGesture)
-{
-	disconnect(m_VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
-	m_VectorDialog->close();
-	m_VectorDialog->deleteLater();
-	m_view->setRedrawMarkerShown(false);
-	m_arcPoint = noPointDefined;
-	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }
 
 void CanvasMode_EditSpiral::mouseDoubleClickEvent(QMouseEvent *m)

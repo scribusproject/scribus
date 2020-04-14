@@ -63,6 +63,8 @@ CanvasMode_EditTable::~CanvasMode_EditTable()
 
 void CanvasMode_EditTable::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	PageItem *item = m_doc->m_Selection->itemAt(0);
 	Q_ASSERT(item && item->isTable());
 	m_table = item->asTable();
@@ -84,6 +86,7 @@ void CanvasMode_EditTable::deactivate(bool forGesture)
 		m_canvasUpdateTimer->stop();
 
 	m_view->m_ScMW->updateTableMenuActions();
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditTable::keyPressEvent(QKeyEvent* event)

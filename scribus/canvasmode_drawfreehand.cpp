@@ -68,16 +68,18 @@ void FreehandMode::leaveEvent(QEvent *e)
 }
 
 
-void FreehandMode::activate(bool flag)
+void FreehandMode::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
 	m_xp = m_yp = -1;
 	m_mouseButtonPressed = false;
 	setModeCursor();
 }
 
-void FreehandMode::deactivate(bool flag)
+void FreehandMode::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void FreehandMode::mouseDoubleClickEvent(QMouseEvent *m)

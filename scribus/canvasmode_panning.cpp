@@ -57,6 +57,8 @@ void CanvasMode_Panning::leaveEvent(QEvent *e)
 
 void CanvasMode_Panning::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -74,6 +76,7 @@ void CanvasMode_Panning::activate(bool fromGesture)
 void CanvasMode_Panning::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Panning::mouseDoubleClickEvent(QMouseEvent *m)

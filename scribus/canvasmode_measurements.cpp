@@ -51,14 +51,16 @@ void MeasurementsMode::setActive(bool active)
 }
 
 
-void MeasurementsMode::activate(bool)
+void MeasurementsMode::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
 	m_palette->show();
 }
 
-void MeasurementsMode::deactivate(bool)
+void MeasurementsMode::deactivate(bool forGesture)
 {
 	m_palette->hide();
+	CanvasMode::deactivate(forGesture);
 }
 
 void MeasurementsMode::drawControls(QPainter* p)

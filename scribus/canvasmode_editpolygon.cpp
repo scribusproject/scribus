@@ -172,6 +172,8 @@ void CanvasMode_EditPolygon::updateFromItem()
 
 void CanvasMode_EditPolygon::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_polygonPoint = noPointDefined;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -223,6 +225,8 @@ void CanvasMode_EditPolygon::deactivate(bool forGesture)
 	m_view->setRedrawMarkerShown(false);
 	m_polygonPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditPolygon::endEditing(bool active)

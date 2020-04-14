@@ -68,6 +68,8 @@ void CanvasMode_CopyProperties::leaveEvent(QEvent *e)
 void CanvasMode_CopyProperties::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -85,10 +87,11 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 	}
 }
 
-void CanvasMode_CopyProperties::deactivate(bool  /*forGesture*/)
+void CanvasMode_CopyProperties::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)

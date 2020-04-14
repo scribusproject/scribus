@@ -27,15 +27,17 @@ PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
 }
 
-void PanGesture::activate(bool /*fromGesture*/)
+void PanGesture::activate(bool fromGesture)
 {
+	CanvasGesture::activate(fromGesture);
 	m_cursor = m_view->cursor();
 	m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
 }
 
-void PanGesture::deactivate(bool /*forgesture*/)
+void PanGesture::deactivate(bool forGesture)
 {
 	m_view->setCursor(m_cursor);
+	CanvasGesture::deactivate(forGesture);
 }
 
 void PanGesture::drawControls(QPainter* p)

@@ -87,6 +87,8 @@ void CanvasMode_ObjImport::leaveEvent(QEvent *e)
 void CanvasMode_ObjImport::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_ObjImport::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -108,6 +110,8 @@ void CanvasMode_ObjImport::deactivate(bool forGesture)
 	setMimeData(nullptr);
 	setTransactionSettings(nullptr);
 	m_view->setRedrawMarkerShown(false);
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)

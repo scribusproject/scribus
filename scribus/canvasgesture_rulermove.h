@@ -61,6 +61,8 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 		void drawControls(QPainter* p) override;
 		void activate(bool) override;
 		void deactivate(bool) override;
+		bool handleKeyEvents() override { return true; }
+		void keyPressEvent(QKeyEvent* event) override;
 		void mouseReleaseEvent(QMouseEvent *m) override;
 		void mouseMoveEvent(QMouseEvent *m) override;
 		/**

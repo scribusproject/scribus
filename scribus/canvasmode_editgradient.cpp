@@ -244,6 +244,8 @@ void CanvasMode_EditGradient::leaveEvent(QEvent *e)
 void CanvasMode_EditGradient::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_EditGradient::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -263,6 +265,7 @@ void CanvasMode_EditGradient::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EditGradient::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)

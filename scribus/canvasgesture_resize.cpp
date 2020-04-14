@@ -107,19 +107,18 @@ void ResizeGesture::clear()
 	}
 }
 
-void ResizeGesture::activate(bool flag)
+void ResizeGesture::activate(bool fromGesture)
 {
+	CanvasGesture::activate(fromGesture);
 }
 
 
-
-void ResizeGesture::deactivate(bool forgesture)
+void ResizeGesture::deactivate(bool forGesture)
 {
-	if (!forgesture)
+	if (!forGesture)
 		clear();
+	CanvasGesture::deactivate(forGesture);
 }
-
-
 
 void ResizeGesture::drawControls(QPainter* p) 
 {

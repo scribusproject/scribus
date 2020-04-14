@@ -106,6 +106,8 @@ void CanvasMode_Normal::leaveEvent(QEvent *e)
 void CanvasMode_Normal::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_Normal::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -131,6 +133,7 @@ void CanvasMode_Normal::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Normal::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)

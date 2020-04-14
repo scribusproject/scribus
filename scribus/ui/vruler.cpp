@@ -69,14 +69,15 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
 	if (!m_mousePressed)
 		return;
-	rulerGesture->mouseReleaseEvent(m);
+	if (rulerGesture->isActive())
+		rulerGesture->mouseReleaseEvent(m);
 	qApp->restoreOverrideCursor();
 	m_mousePressed = false;
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if (m_mousePressed)
+	if (m_mousePressed && rulerGesture->isActive())
 		rulerGesture->mouseMoveEvent(m);
 }
 

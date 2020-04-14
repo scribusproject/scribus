@@ -38,16 +38,16 @@ public:
 	explicit CreateMode(ScribusView* view);
 	~CreateMode() override  = default;
 
-	void enterEvent(QEvent *) override ;
-	void leaveEvent(QEvent *) override ;
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
 	
-	void activate(bool) override ;
-	void deactivate(bool) override ;
-	void mouseDoubleClickEvent(QMouseEvent *m) override ;
-	void mouseReleaseEvent(QMouseEvent *m) override ;
-	void mouseMoveEvent(QMouseEvent *m) override ;
-	void mousePressEvent(QMouseEvent *m) override ;
-	void drawControls(QPainter* p) override ;
+	void activate(bool) override;
+	void deactivate(bool) override;
+	void mouseDoubleClickEvent(QMouseEvent *m) override;
+	void mouseReleaseEvent(QMouseEvent *m) override;
+	void mouseMoveEvent(QMouseEvent *m) override;
+	void mousePressEvent(QMouseEvent *m) override;
+	void drawControls(QPainter* p) override;
 	
 // protected:
 // 	void setResizeCursor(int);

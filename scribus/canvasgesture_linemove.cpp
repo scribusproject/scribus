@@ -98,9 +98,9 @@ void LineMove::setEndPoint(QPointF p)
 }
 
 
-void LineMove::activate(bool flag)
+void LineMove::activate(bool forGesture)
 {
-//	qDebug() << "LineMove::activate" << flag << m_bounds;	
+	CanvasGesture::activate(forGesture);
 }
 
 
@@ -110,6 +110,7 @@ void LineMove::deactivate(bool forGesture)
 //	qDebug() << "LineMove::deactivate" << flag;
 	if (!forGesture)
 		clear();
+	CanvasGesture::deactivate(forGesture);
 }
 
 

@@ -158,6 +158,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 
 void CanvasMode_NodeEdit::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
 	if (fromGesture && m_rectangleSelect)
 	{
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -220,7 +221,6 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 	}
 }
 
-
 void CanvasMode_NodeEdit::deactivate(bool forGesture)
 {
 	if (!forGesture && m_rectangleSelect)
@@ -229,6 +229,7 @@ void CanvasMode_NodeEdit::deactivate(bool forGesture)
 		delete m_rectangleSelect;
 		m_rectangleSelect = nullptr;
 	}
+	CanvasMode::deactivate(forGesture);
 }
 
 

@@ -75,6 +75,8 @@ void CanvasMode_Magnifier::leaveEvent(QEvent *e)
 void CanvasMode_Magnifier::activate(bool fromGesture)
 {
 //	qDebug() << "CanvasMode_Magnifier::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -92,6 +94,7 @@ void CanvasMode_Magnifier::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Magnifier::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)

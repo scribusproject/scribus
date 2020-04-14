@@ -35,7 +35,7 @@ public:
 	void enterEvent(QEvent *) override ;
 	void leaveEvent(QEvent *) override ;
 	
-	void activate(bool) override ;
+	void activate(bool) override;
 	void deactivate(bool) override ;
 	void mouseDoubleClickEvent(QMouseEvent *m) override ;
 	void mouseReleaseEvent(QMouseEvent *m) override ;

@@ -72,16 +72,19 @@ void CalligraphicMode::leaveEvent(QEvent *e)
 }
 
 
-void CalligraphicMode::activate(bool flag)
+void CalligraphicMode::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_xp = m_yp = -1;
 	m_mouseButtonPressed = false;
 	setModeCursor();
 }
 
-void CalligraphicMode::deactivate(bool flag)
+void CalligraphicMode::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CalligraphicMode::mouseDoubleClickEvent(QMouseEvent *m)

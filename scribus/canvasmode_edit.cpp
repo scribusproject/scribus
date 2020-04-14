@@ -260,6 +260,8 @@ void CanvasMode_Edit::leaveEvent(QEvent *e)
 
 void CanvasMode_Edit::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_doc->DragP = false;
@@ -303,6 +305,7 @@ void CanvasMode_Edit::deactivate(bool forGesture)
 		mRulerGuide = -1;
 		m_blinker->stop();
 	}
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)

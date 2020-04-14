@@ -129,6 +129,8 @@ void CanvasMode_ImageImport::leaveEvent(QEvent *e)
 
 void CanvasMode_ImageImport::activate(bool fromGesture)
 {
+	CanvasMode::activate(fromGesture);
+
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m_keyRepeat = false;
@@ -145,6 +147,7 @@ void CanvasMode_ImageImport::activate(bool fromGesture)
 void CanvasMode_ImageImport::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
+	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_ImageImport::mouseDoubleClickEvent(QMouseEvent *m)

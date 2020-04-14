@@ -53,15 +53,17 @@ void RectSelect::clear()
 }
 
 
-void RectSelect::activate(bool)
+void RectSelect::activate(bool fromGesture)
 {
+	CanvasGesture::activate(fromGesture);
 	prepare(m_start);
 	m_selectionRubberBand->show();
 }
 
-void RectSelect::deactivate(bool)
+void RectSelect::deactivate(bool fromGesture)
 {
 	m_selectionRubberBand->hide();
+	CanvasGesture::deactivate(fromGesture);
 }
 
 void RectSelect::setStart(QPoint globalPos)

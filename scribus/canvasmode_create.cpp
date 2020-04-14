@@ -193,8 +193,10 @@ void CreateMode::leaveEvent(QEvent *e)
 
 void CreateMode::activate(bool fromGesture)
 {
-	PageItem* currItem;
 //	qDebug() << "CreateMode::activate" << fromGesture;
+	CanvasMode::activate(fromGesture);
+
+	PageItem* currItem;
 	if (!fromGesture || !GetItem(&currItem) || !m_createTransaction)
 	{
 		if (m_createTransaction)
@@ -222,6 +224,8 @@ void CreateMode::deactivate(bool forGesture)
 			m_createTransaction.reset();
 		}
 	}
+
+	CanvasMode::deactivate(forGesture);
 }
 
 void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)

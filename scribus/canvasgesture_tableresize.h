@@ -34,8 +34,6 @@ public:
 	explicit TableResize(CanvasMode* parent) : TableGesture(parent), m_minHeight(0.0), m_minWidth(0.0) {}
 	~TableResize() override = default;
 
-	void activate(bool fromGesture) override {};
-	void deactivate(bool forGesture) override {}
 	void keyPressEvent(QKeyEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;

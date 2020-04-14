@@ -112,22 +112,26 @@ void BezierMode::leaveEvent(QEvent *e)
 }
 
 
-void BezierMode::activate(bool /*flag*/)
+void BezierMode::activate(bool fromGesture)
 {
 //	qDebug() << "DrawBezierMode::activate" << flag;
+	CanvasMode::activate(fromGesture);
+
 	m_xp = m_yp = -1;
 	m_inItemCreation = false;
 	m_firstPoly = true;
 	setModeCursor();
 }
 
-void BezierMode::deactivate(bool /*flag*/)
+void BezierMode::deactivate(bool forGesture)
 {
 //	qDebug() << "BezierMode::deactivate" << flag;
 //	m_view->stopDragTimer();
-	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+
+	CanvasMode::deactivate(forGesture);
 
 	//When only one node(size=2) was created; it's not a valid line(min valid PoLine size is 6), delete it
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	if (currItem)
 	{
 		if (currItem->PoLine.size() % 4 != 0)
