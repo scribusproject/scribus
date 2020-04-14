@@ -56,7 +56,7 @@ public:
 	void keyPressEvent(QKeyEvent *e) override;
 	void keyReleaseEvent(QKeyEvent *e) override;
 
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 
 private:
 	const unsigned SELECT_IN_GROUP { Qt::AltModifier }; // Qt::MetaModifier;

@@ -112,7 +112,7 @@ public:
 	virtual void keyReleaseEvent(QKeyEvent *e) {}
 	virtual void inputMethodEvent(QInputMethodEvent *e) {}
 
-	virtual bool handleKeyEvents() { return false; }
+	virtual bool handleKeyEvents() const { return false; }
 
 	/**
 		Sets appropriate values for this canvas mode

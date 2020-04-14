@@ -55,7 +55,7 @@ public:
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void keyPressEvent(QKeyEvent *e) override;
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 	void drawControls(QPainter* p) override;
 	void drawControlsWeldPoint(QPainter* psx, PageItem* currItem);
 

@@ -41,7 +41,7 @@ public:
 
 	void activate(bool fromGesture) override;
 	void deactivate(bool forGesture) override;
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 	void keyPressEvent(QKeyEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void mousePressEvent(QMouseEvent* event) override;

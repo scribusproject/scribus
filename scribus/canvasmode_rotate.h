@@ -51,7 +51,7 @@ public:
 	void keyReleaseEvent(QKeyEvent *e) override;
 	void keyPressEvent(QKeyEvent *e) override;
 
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 
 private:
 	inline bool GetItem(PageItem** pi);

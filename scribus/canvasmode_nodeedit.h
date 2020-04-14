@@ -33,6 +33,7 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 {
 public:
 	explicit CanvasMode_NodeEdit (ScribusView* view);
+	~CanvasMode_NodeEdit() override = default;
 	
 	void activate(bool fromgesture) override;
 	void deactivate(bool forGesture) override;
@@ -48,17 +49,12 @@ public:
 	void keyPressEvent(QKeyEvent *e) override;
 	void keyReleaseEvent(QKeyEvent *e) override;
 
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 
-	
 	/**
 		Draws the controls for this mode
 	 */
 	void drawControls(QPainter* p) override;
-	
-	
-	~CanvasMode_NodeEdit() override = default;
-	
 	
 private:
 	inline bool GetItem(PageItem** pi); 

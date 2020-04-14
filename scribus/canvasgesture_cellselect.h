@@ -42,7 +42,7 @@ public:
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
-	bool handleKeyEvents() override { return true; }
+	bool handleKeyEvents() const override { return true; }
 	void drawControls(QPainter* p) override;
 
 	/// Sets up this gesture to select cells in @a table, starting with @a cell.
