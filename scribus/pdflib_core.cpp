@@ -5175,7 +5175,8 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				trans.scale(ite->width() / ite->groupWidth, ite->height() / ite->groupHeight);
 				trans.translate(0.0, -ite->height());
 				tmp += TransformToStr(trans) + " cm\n";
-				groupStackPos.push(QPointF(ite->xPos(), ite->height()));
+				if (Options.supportsTransparency())
+					groupStackPos.push(QPointF(ite->xPos(), ite->height()));
 				for (int em = 0; em < ite->groupItemList.count(); ++em)
 				{
 					PageItem* embedded = ite->groupItemList.at(em);
@@ -5191,11 +5192,13 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					tmpD += output;
 					tmpD += "Q\n";
 				}
-				groupStackPos.pop();
 				if (Options.supportsTransparency())
+				{
+					groupStackPos.pop();
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
+				}
 				else
-					tmp += Write_FormXObject(tmpD, ite);
+					tmp += tmpD;
 				tmp += "Q\n";
 			}
 			break;
