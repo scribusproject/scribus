@@ -17,53 +17,52 @@ Does not rely on QObject, and provides faster destructor
 template<typename T>
 class ScGuardedPtrData
 {
-public:
+	public:
+		int refs {0};
+		T* pointer {nullptr};
 
-	int refs;
-	T* pointer;
-
-	ScGuardedPtrData(void) { pointer = nullptr; refs = 0; }
-	ScGuardedPtrData(T* ptr) { pointer = ptr; refs = 0; }
+		ScGuardedPtrData(void) { }
+		ScGuardedPtrData(T* ptr) { pointer = ptr; }
 };
 
 template<typename T>
 class ScGuardedPtr
 {
-protected:
-ScGuardedPtrData<T>* data {nullptr};
-public:
-	ScGuardedPtr();
-	ScGuardedPtr(T* ptr);
-	ScGuardedPtr(const ScGuardedPtr& gPtr);
-	~ScGuardedPtr();
+	protected:
+		ScGuardedPtrData<T>* data {nullptr};
+	public:
+		ScGuardedPtr();
+		ScGuardedPtr(T* ptr);
+		ScGuardedPtr(const ScGuardedPtr& gPtr);
+		~ScGuardedPtr();
 
-	ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
-	bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
-	bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
+		ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
+		bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
+		bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
 
-	bool isNull() const;
+		bool isNull() const;
 
-	T* operator->() const { return (T*)(data ? data->pointer : nullptr); }
-	T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
-	operator T*() const { return (T*)(data ? data->pointer : nullptr); }
+		T* operator->() const { return (T*)(data ? data->pointer : nullptr); }
+		T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
+		operator T*() const { return (T*)(data ? data->pointer : nullptr); }
 
-	int refCount() const;
-	void deref(void);
+		int refCount() const;
+		void deref(void);
 };
 
 template<typename T>
 class ScGuardedObject : public ScGuardedPtr<T>
 {
-public:
-	ScGuardedObject(T* ptr);
-	ScGuardedObject(const ScGuardedObject& gPtr);
-	~ScGuardedObject();
+	public:
+		ScGuardedObject(T* ptr);
+		ScGuardedObject(const ScGuardedObject& gPtr);
+		~ScGuardedObject();
 
-	ScGuardedObject& operator=(const ScGuardedObject& gPtr);
-	bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
-	bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
+		ScGuardedObject& operator=(const ScGuardedObject& gPtr);
+		bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
+		bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
 
-	void nullify();
+		void nullify();
 };
 
 template<typename T>
