@@ -63,7 +63,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	insWherePageData->setDisabled( true );
 
 	whereLayout->addWidget( insWherePageData, 1, 2 );
-	whereLayout->addItem(new QSpacerItem(insCountLabel->fontMetrics().width( tr( "&Insert" )), 0), 0, 0);
+	whereLayout->addItem(new QSpacerItem(insCountLabel->fontMetrics().horizontalAdvance( tr( "&Insert" )), 0), 0, 0);
 	dialogLayout->addLayout( whereLayout );
 	
 	masterPageLabel = nullptr;

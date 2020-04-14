@@ -62,12 +62,6 @@
 
 CanvasMode_EditArc::CanvasMode_EditArc(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_Mxp = m_Myp = -1;
-	m_blockUpdateFromItem = 0;
-	m_arcPoint = noPointDefined;
-	m_startAngle = m_endAngle = 0;
-
-	vectorDialog = nullptr;
 }
 
 inline bool CanvasMode_EditArc::GetItem(PageItem** pi)

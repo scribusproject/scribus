@@ -41,14 +41,6 @@
 CanvasMode_Rotate::CanvasMode_Rotate(ScribusView* view) : CanvasMode(view)
 {
 	m_canvasPressCoord.setXY(-1.0, -1.0);
-	m_oldRotMode   = 0;
-	m_oldRotCenter = FPoint(0.0, 0.0);
-	m_angleConstrained = false;
-	m_inItemRotation = false;
-
-	m_rotMode    = 0;
-	m_rotCenter  = FPoint(0.0, 0.0);
-	m_startAngle = 0.0;
 }
 
 inline bool CanvasMode_Rotate::GetItem(PageItem** pi)

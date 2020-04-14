@@ -65,7 +65,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	keyTable->clear();
 	keyMap.clear();
 	keyCode = 0;
-	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
+	keyDisplay->setMinimumWidth(fontMetrics().horizontalAdvance("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 	selectedLVI = nullptr;
 

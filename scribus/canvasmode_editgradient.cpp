@@ -56,8 +56,7 @@
 
 CanvasMode_EditGradient::CanvasMode_EditGradient(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_Mxp = m_Myp = -1;
-	m_gradientPoint = noPointDefined;
+
 }
 
 inline bool CanvasMode_EditGradient::GetItem(PageItem** pi)

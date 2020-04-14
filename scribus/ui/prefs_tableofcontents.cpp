@@ -23,10 +23,10 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	m_caption = tr("Tables of Contents");
 	m_icon = "tabtocindex_16.png";
 
-	itemDestFrameComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
-	itemAttrComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
-	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
-	itemParagraphStyleComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
+	itemDestFrameComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
+	itemAttrComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
+	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
+	itemParagraphStyleComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
 
 	// signals and slots connections
 	//do not connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );

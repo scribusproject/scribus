@@ -56,9 +56,11 @@ public:
 
 private:
 
-	double m_Mxp, m_Myp;
-	double m_SeRx, m_SeRy;
-	bool   m_lastPosWasOverGuide;
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	double m_SeRx {0.0};
+	double m_SeRy {0.0};
+	bool  m_lastPosWasOverGuide {false};
 };
 
 

@@ -127,18 +127,17 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	inRep = false;
 	pmen = new QMenu(this);
 	paraStyleAct = nullptr;
-	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
+	setMinimumWidth(fontMetrics().horizontalAdvance( tr("No Style") )+30);
 }
 
 void SideBar::setEditor(SEditor* editor)
 {
 	m_editor = editor;
-	if (editor)
-	{
-		QPalette pal;
-		pal.setColor(QPalette::Window, editor->palette().color(QPalette::Base));
-		setPalette(pal);
-	}
+	if (!editor)
+		return;
+	QPalette pal;
+	pal.setColor(QPalette::Window, editor->palette().color(QPalette::Base));
+	setPalette(pal);
 }
 
 void SideBar::mouseReleaseEvent(QMouseEvent *m)

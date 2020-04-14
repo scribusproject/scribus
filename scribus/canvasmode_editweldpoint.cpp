@@ -64,14 +64,7 @@
 
 
 CanvasMode_EditWeldPoint::CanvasMode_EditWeldPoint(ScribusView* view) : CanvasMode(view),
-	m_Mxp(-1.0),
-	m_Myp(1.0),
-	m_selectedPoint(-1),
-	m_ScMW(view->m_ScMW),
-	m_keyRepeat(false),
-	m_currItem(nullptr),
-	m_ModeDialog(nullptr),
-	m_editWeldMode(true)
+	m_ScMW(view->m_ScMW)
 {
 }
 

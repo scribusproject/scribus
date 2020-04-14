@@ -73,21 +73,6 @@
 
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_frameResizeHandle = -1;
-	m_dragConstrainInitPtX = 0;
-	m_dragConstrainInitPtY = 0;
-	m_lastPosWasOverGuide = false;
-	m_shiftSelItems = false;
-	m_resizeGesture = nullptr;
-	m_lineMoveGesture  = nullptr;
-	m_guideMoveGesture = nullptr;
-	m_mousePressPoint.setXY(0, 0);
-	m_mouseCurrentPoint.setXY(0, 0);
-	m_mouseSavedPoint.setXY(0, 0);
-	m_objectDeltaPos.setXY(0, 0);
-	ySnap = 0;
-	xSnap = 0;
-	m_hoveredItem = nullptr;
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)

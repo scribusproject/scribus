@@ -41,8 +41,6 @@
 
 FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view) 
 {
-	m_xp = m_yp = -1;
-	m_mouseButtonPressed = false;
 }
 
 void FreehandMode::drawControls(QPainter* p) 

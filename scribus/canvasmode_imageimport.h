@@ -55,11 +55,12 @@ public:
 	void updateList();
 
 private:
-	bool m_keyRepeat;
+	bool m_keyRepeat {false};
 	QString m_tipText;
 	QStringList m_imageList;
-	ScribusMainWindow *m_ScMW;
-	double m_Mx, m_My;
+	ScribusMainWindow *m_ScMW {nullptr};
+	double m_Mx {0.0};
+	double m_My {0.0};
 	void newToolTip(const QString& name);
 };
 

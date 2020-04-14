@@ -63,18 +63,9 @@
 
 CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	SeRx = SeRy = -1;
-	oldCp = Cp = -1;
-	frameResizeHandle = -1;
-	m_blinker = new QTimer(view);	
+	m_blinker = new QTimer(view);
 	connect(m_blinker, SIGNAL(timeout()), this, SLOT(blinkTextCursor()));
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double,double)), this, SLOT(rulerPreview(double,double)));
-	mRulerGuide = -1;
-	m_cursorVisible = false;
-	m_longCursorTime = false;
-	m_keyRepeat = false;
 }
 
 inline bool CanvasMode_Edit::GetItem(PageItem** pi)

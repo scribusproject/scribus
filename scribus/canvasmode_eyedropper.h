@@ -47,8 +47,8 @@ public:
 // 	void setResizeCursor(int);
 
 private:
-	bool m_mouseGrabbed;
-	ScribusMainWindow* m_ScMW;
+	bool m_mouseGrabbed {false};
+	ScribusMainWindow* m_ScMW {nullptr};
 
 	void grabMouse();
 	void releaseMouse();

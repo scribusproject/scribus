@@ -65,14 +65,16 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double m_Mxp, m_Myp;
-	int m_selectedPoint;
-	ScribusMainWindow* m_ScMW;
-	bool m_keyRepeat;
-	PageItem *m_currItem;
+	PageItem *m_currItem {nullptr};
 	QList<PageItem*> m_weldToList;
-	WeldEditDialog* m_ModeDialog;
-	bool m_editWeldMode;
+	ScribusMainWindow* m_ScMW {nullptr};
+	WeldEditDialog* m_ModeDialog {nullptr};
+	bool m_editWeldMode {true};
+	bool m_keyRepeat {false};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	int m_selectedPoint {-1};
+
 private slots:
 	void endEditing(bool active);
 	void endEditing();

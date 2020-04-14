@@ -34,7 +34,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	angleData->setMinimumSize(textWidth, 12);
 	lengthData->setMinimumSize(textWidth, 12);
 	int maxUindex = unitGetMaxIndex() - 2;
-	textWidth = fontMetrics().width("mmm")+12;
+	textWidth = fontMetrics().horizontalAdvance("mmm")+12;
 	for (int i = 0; i <= maxUindex; ++i)
 		unitSwitch->addItem(unitGetStrFromIndex(i));
 	int minHeight = unitSwitch->minimumSizeHint().height();

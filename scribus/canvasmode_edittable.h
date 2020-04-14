@@ -75,7 +75,7 @@ private:
 
 private:
 	/// Table being edited.
-	PageItem_Table *m_table;
+	PageItem_Table *m_table {nullptr};
 
 	/// Timer for canvas updates.
 	QTimer* m_canvasUpdateTimer;
@@ -83,12 +83,12 @@ private:
 	/// Time since last text cursor blink.
 	QElapsedTimer m_blinkTime;
 	/// <code>true</code> if the text cursor should make a long blink.
-	bool m_longBlink;
+	bool m_longBlink {false};
 	/// <code>true</code> if the text cursor is visible.
-	bool m_cursorVisible;
+	bool m_cursorVisible {false};
 
 	// Last cursor position pressed with the mouse, or <code>-1</code>.
-	int m_lastCursorPos;
+	int m_lastCursorPos {-1};
 
 	/// The "select row" mouse cursor.
 	QCursor m_selectRowCursor;

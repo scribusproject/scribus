@@ -54,8 +54,6 @@
 
 CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_Mxp = m_Myp = -1;
-	m_frameResizeHandle = -1;
 }
 
 inline bool CanvasMode_FrameLinks::GetItem(PageItem** pi)

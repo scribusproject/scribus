@@ -60,9 +60,10 @@ public:
 // 	void setResizeCursor(int);
 
 private:
-	QMimeData* m_mimeData;
-	TransactionSettings* m_trSettings;
-	double m_Mxp, m_Myp;
+	QMimeData* m_mimeData {nullptr};
+	TransactionSettings* m_trSettings {nullptr};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
 };
 
 

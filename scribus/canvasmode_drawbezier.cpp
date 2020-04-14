@@ -60,10 +60,6 @@
 
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
-	m_xp = m_yp = -1;
-	m_inItemCreation = false;
-	m_mouseButtonPressed = false;
-	m_firstPoly = true;
 }
 
 

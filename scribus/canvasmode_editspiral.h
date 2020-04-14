@@ -70,19 +70,20 @@ private:
 	QPointF getSegment(double angle);
 	double computeRealAngle(double angle, bool fromDia);
 
-	double m_Mxp, m_Myp;
-	ScribusMainWindow* m_ScMW;
-	QPointF m_startPoint;
 	QPointF m_endPoint;
-	double m_startAngle;
-	double m_endAngle;
-	eSpiralPoint m_arcPoint;
-	SpiralVectorDialog* m_VectorDialog;
+	QPointF m_startPoint;
+	ScribusMainWindow* m_ScMW {nullptr};
+	SpiralVectorDialog* m_VectorDialog {nullptr};
 	UndoTransaction m_transaction;
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	double m_endAngle {0.0};
+	double m_startAngle {0.0};
+	eSpiralPoint m_arcPoint {noPointDefined};
+	int m_blockUpdateFromItem {0};
 
-	int    m_blockUpdateFromItem;
-	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
-	bool   updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
+	void blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
+	bool updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
 
 public slots:
 	void updateFromItem();

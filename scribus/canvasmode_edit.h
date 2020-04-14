@@ -65,17 +65,22 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
 
-	int  Cp, oldCp;
-	int  frameResizeHandle;
-	double Mxp, Myp, Dxp, Dyp;
-	double SeRx, SeRy;
-	ScribusMainWindow* m_ScMW;
-	bool m_cursorVisible;
 	QElapsedTimer m_blinkTime;
 	QTimer* m_blinker;
-	double mRulerGuide;
-	bool m_longCursorTime;
-	bool m_keyRepeat;
+	ScribusMainWindow* m_ScMW {nullptr};
+	bool m_cursorVisible {false};
+	bool m_keyRepeat {false};
+	bool m_longCursorTime {false};
+	double Dxp {-1};
+	double Dyp {-1};
+	double Mxp {-1};
+	double Myp {-1};
+	double SeRx {-1};
+	double SeRy {-1};
+	double mRulerGuide {-1.0};
+	int Cp {-1};
+	int frameResizeHandle {-1};
+	int oldCp {-1};
 
 private slots:
 	void blinkTextCursor();

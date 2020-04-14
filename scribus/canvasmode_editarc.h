@@ -70,21 +70,23 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double m_Mxp, m_Myp;
-	ScribusMainWindow* m_ScMW;
-	QPointF m_startPoint;
-	QPointF m_endPoint;
-	QPointF m_centerPoint;
-	QPointF m_widthPoint;
-	QPointF m_heightPoint;
-	double m_startAngle;
-	double m_endAngle;
-	eArcPoint m_arcPoint;
-	ArcVectorDialog* vectorDialog;
 
-	int    m_blockUpdateFromItem;
-	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
-	bool   updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
+	ArcVectorDialog* vectorDialog {nullptr};
+	QPointF m_centerPoint;
+	QPointF m_endPoint;
+	QPointF m_heightPoint;
+	QPointF m_startPoint;
+	QPointF m_widthPoint;
+	ScribusMainWindow* m_ScMW {nullptr};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	double m_endAngle {0.0};
+	double m_startAngle {0.0};
+	eArcPoint m_arcPoint {noPointDefined};
+	int m_blockUpdateFromItem {0};
+
+	void blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
+	bool updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
 
 public slots:
 	void updateFromItem();

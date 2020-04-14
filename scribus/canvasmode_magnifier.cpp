@@ -53,8 +53,6 @@
 
 CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 {
-	m_Mxp = m_Myp = -1;
-	m_lastPosWasOverGuide = false;
 }
 
 void CanvasMode_Magnifier::drawControls(QPainter* p)
@@ -65,9 +63,7 @@ void CanvasMode_Magnifier::drawControls(QPainter* p)
 void CanvasMode_Magnifier::enterEvent(QEvent *)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-	{
 		setModeCursor();
-	}
 }
 
 
@@ -89,9 +85,7 @@ void CanvasMode_Magnifier::activate(bool fromGesture)
 	m_Mxp = m_Myp = -1;
 	setModeCursor();
 	if (fromGesture)
-	{
 		m_view->update();
-	}
 }
 
 void CanvasMode_Magnifier::deactivate(bool forGesture)
@@ -114,14 +108,13 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m_lastPosWasOverGuide = false;
-	double newX, newY;
 	m->accept();
 	if (commonMouseMove(m))
 		return;
 	if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(m_Myp + ((m_SeRx - m_Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
+		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		double newY = qRound(m_Myp + ((m_SeRx - m_Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
 		m_SeRx = newX;
 		m_SeRy = newY;
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(m_Mxp, m_Myp));

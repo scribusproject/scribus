@@ -39,9 +39,6 @@
 
 CanvasMode_CopyProperties::CanvasMode_CopyProperties(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	Mxp = Myp = -1;
-	Dxp = Dyp = -1;
-	frameResizeHandle = -1;
 }
 
 inline bool CanvasMode_CopyProperties::GetItem(PageItem** pi)

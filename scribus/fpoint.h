@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API FPoint
 {
 public: 
-	FPoint() : xp(0), yp(0) {}
+	FPoint() {}
 	FPoint(double x, double y) : xp(x), yp(y) {}
 	FPoint(const QPoint & p) : xp(p.x()), yp(p.y()) {}
 	FPoint(const QPointF & p) : xp(p.x()), yp(p.y()) {}
@@ -77,8 +77,8 @@ public:
 	bool isNull() const;
 
 private:
-	double xp;
-	double yp;
+	double xp {0.0};
+	double yp {0.0};
 };
 
 

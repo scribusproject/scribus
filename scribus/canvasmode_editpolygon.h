@@ -73,21 +73,22 @@ private:
 	double GetMaxFactor();
 	double getUserValFromFactor(double factor);
 
-	double m_Mxp, m_Myp;
-	ScribusMainWindow* m_ScMW;
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	ScribusMainWindow* m_ScMW {nullptr};
 	QPointF m_startPoint;
 	QPointF m_endPoint;
 	QPointF m_centerPoint;
 	QPointF m_innerCPoint;
 	QPointF m_outerCPoint;
-	int m_polyCorners;
-	bool m_polyUseFactor;
-	double m_polyFactor;
-	double m_polyRotation;
-	double m_polyCurvature;
-	double m_polyInnerRot;
-	double m_polyOuterCurvature;
-	ePolygonPoint m_polygonPoint;
+	int m_polyCorners {0};
+	bool m_polyUseFactor {false};
+	double m_polyFactor {0.0};
+	double m_polyRotation {0.0};
+	double m_polyCurvature {0.0};
+	double m_polyInnerRot {0.0};
+	double m_polyOuterCurvature {0.0};
+	ePolygonPoint m_polygonPoint {noPointDefined};
 	PolyVectorDialog *m_VectorDialog;
 	UndoTransaction m_transaction;
 

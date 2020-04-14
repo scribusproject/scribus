@@ -33,9 +33,6 @@ MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_star
 	m_palette->startup();
 	m_palette->hide();
 	connect( m_palette, SIGNAL(paletteShown(bool)), this, SLOT(setActive(bool)));
-	m_active = false;
-	m_startDoc = FPoint(0,0);
-	m_currentDoc = FPoint(0,0);
 }
 
 void MeasurementsMode::enterEvent(QEvent *)

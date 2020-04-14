@@ -38,15 +38,8 @@
 #include "undomanager.h"
 #include "util_math.h"
 
-CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(nullptr)
+CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 {
-	m_Mxp = -1;  // last mouse position
-	m_Myp = -1;
-	m_Dxp = -1;  // last mouse press position for rectangle select
-	m_Dyp = -1;
-	m_GxM = -1;  // guide position
-	m_GyM = -1;
-	m_MoveGX = m_MoveGY = false;
 	m_ScMW = m_view->m_ScMW;
 }
 

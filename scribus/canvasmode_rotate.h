@@ -61,17 +61,15 @@ private:
 	void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
 // 	void   setResizeCursor(int how);
 
-	bool   m_inItemRotation;
-
-	int    m_oldRotMode;
-	FPoint m_oldRotCenter;
-	FPoint m_canvasPressCoord;
 	FPoint m_canvasCurrCoord;
-	bool   m_angleConstrained;
-
-	int    m_rotMode;
+	FPoint m_canvasPressCoord;
+	FPoint m_oldRotCenter;
 	FPoint m_rotCenter;
-	double m_startAngle;
+	bool   m_angleConstrained {false};
+	bool   m_inItemRotation {false};
+	double m_startAngle {0.0};
+	int    m_oldRotMode {0};
+	int    m_rotMode {0};
 };
 
 #endif

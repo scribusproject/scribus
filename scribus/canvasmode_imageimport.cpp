@@ -39,9 +39,6 @@
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
-	m_Mx = 0;
-	m_My = 0;
-	m_keyRepeat = false;
 }
 
 void CanvasMode_ImageImport::setImageList(QStringList l)

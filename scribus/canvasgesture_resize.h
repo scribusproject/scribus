@@ -77,18 +77,18 @@ private:
 	FPoint applyGrid(const FPoint& docPoint);
 	FPoint applyGuides(const FPoint& docPoint);
 
-	Canvas::FrameHandle m_handle;
-	double m_rotation;
-	double m_origRatio;
+	Canvas::FrameHandle m_handle {Canvas::INSIDE};
 	QPoint m_mousePressPoint;
 	QRectF m_bounds;
-	QRectF m_origBounds;
 	QRectF m_mousePressBounds;
+	QRectF m_origBounds;
 	UndoTransaction m_transaction;
-	double m_extraWidth;
-	double m_extraHeight;
-	double m_extraX;
-	double m_extraY;
+	double m_extraHeight {0.0};
+	double m_extraWidth {0.0};
+	double m_extraX {0.0};
+	double m_extraY {0.0};
+	double m_origRatio {1.0};
+	double m_rotation {0.0};
 };
 
 

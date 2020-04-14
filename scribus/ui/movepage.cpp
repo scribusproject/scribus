@@ -91,7 +91,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	mvWherePageData->setSuffix("");
 	mvWherePageData->setDisabled( true );
 	fromToLayout->addWidget( mvWhereData, currentRow, 0 );
-	fromToLayout->addItem(new QSpacerItem(moveLabel->fontMetrics().width( tr( "Move Page(s):" )), 0), currentRow, 1);
+	fromToLayout->addItem(new QSpacerItem(moveLabel->fontMetrics().horizontalAdvance( tr( "Move Page(s):" )), 0), currentRow, 1);
 	fromToLayout->addWidget( mvWherePageData, currentRow, 2 );
 //	fromToLayout->addColumnSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );

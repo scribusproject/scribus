@@ -50,7 +50,7 @@ class SCRIBUS_API CanvasGesture : public CanvasMode
 
 protected:
 	explicit CanvasGesture (CanvasMode* parent) : CanvasMode(parent->view()), m_delegate(parent) {};
-	explicit CanvasGesture (ScribusView* view) : CanvasMode(view), m_delegate(nullptr) {};
+	explicit CanvasGesture (ScribusView* view) : CanvasMode(view) {};
 	
 public:
 	~CanvasGesture() override = default;
@@ -75,7 +75,7 @@ public:
 	void setDelegate(CanvasMode* delegate) { if (delegate) m_delegate = delegate; }
 	
 protected:
-	CanvasMode* m_delegate;
+	CanvasMode* m_delegate {nullptr};
 };
 
 

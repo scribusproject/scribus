@@ -74,16 +74,16 @@ private:
 	 */
 	FRect adjustedRect(FPoint &firstPoint, FPoint &secondPoint);
 
-	bool   inItemCreation;
-	bool   m_MouseButtonPressed;
-	FPoint mouseGlobalCoord;
-	FPoint canvasPressCoord;
 	FPoint canvasCurrCoord;
+	FPoint canvasPressCoord;
 	FPoint createObjectPos;
-	int    createObjectMode;
-	int    createObjectSubMode;
-	Qt::KeyboardModifiers modifiers;
-	UndoTransaction m_createTransaction;
+	FPoint mouseGlobalCoord;
+	Qt::KeyboardModifiers modifiers {Qt::NoModifier};
+	UndoTransaction m_createTransaction {nullptr};
+	bool inItemCreation {false};
+	bool m_MouseButtonPressed {false};
+	int createObjectMode {0};
+	int createObjectSubMode {0};
 };
 
 

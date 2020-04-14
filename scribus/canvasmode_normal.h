@@ -85,15 +85,16 @@ private:
 	FPoint m_mouseSavedPoint;
 	FPoint m_objectDeltaPos;
 
-	bool m_shiftSelItems;
-	int  m_frameResizeHandle;
-	int  m_dragConstrainInitPtX, m_dragConstrainInitPtY;
-	ScribusMainWindow* m_ScMW;
-	ResizeGesture* m_resizeGesture;
-	LineMove* m_lineMoveGesture;
-	RulerGesture* m_guideMoveGesture;
-	bool m_lastPosWasOverGuide;
-	PageItem* m_hoveredItem;
+	LineMove* m_lineMoveGesture {nullptr};
+	PageItem* m_hoveredItem {nullptr};
+	ResizeGesture* m_resizeGesture {nullptr};
+	RulerGesture* m_guideMoveGesture {nullptr};
+	ScribusMainWindow* m_ScMW {nullptr};
+	bool m_lastPosWasOverGuide {false};
+	bool m_shiftSelItems {false};
+	int m_dragConstrainInitPtX {0};
+	int m_dragConstrainInitPtY {0};
+	int m_frameResizeHandle {-1};
 
 public slots:
 	void importToPage();

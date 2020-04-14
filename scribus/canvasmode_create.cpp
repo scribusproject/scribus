@@ -65,12 +65,6 @@ CreateMode::CreateMode(ScribusView* view) : CanvasMode(view)
 {
 	canvasPressCoord.setXY(-1.0, -1.0);
 	mouseGlobalCoord.setXY(-1.0, -1.0);
-	inItemCreation = false;
-	createObjectMode     = 0;
-	createObjectSubMode  = 0;
-	modifiers            = Qt::NoModifier;
-	m_MouseButtonPressed = false;
-	m_createTransaction  = nullptr;
 }
 
 

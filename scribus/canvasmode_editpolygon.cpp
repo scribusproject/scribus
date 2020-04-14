@@ -63,9 +63,6 @@
 
 CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
-	m_Mxp = m_Myp = -1;
-	m_blockUpdateFromItem = 0;
-	m_polygonPoint = noPointDefined;
 }
 
 inline bool CanvasMode_EditPolygon::GetItem(PageItem** pi)

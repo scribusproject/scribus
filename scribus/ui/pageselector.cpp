@@ -69,7 +69,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	for (int i = 0; i < m_lastPage; ++i)
 		m_pageCombo->addItem(QString::number(i+1));
 	m_pageCombo->setValidator(m_validator);
-	m_pageCombo->setMinimumSize(fontMetrics().width( "9999" )+20, 20);
+	m_pageCombo->setMinimumSize(fontMetrics().horizontalAdvance( "9999" )+20, 20);
 	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
 	m_pageCombo->setObjectName("pageCombo");
 	

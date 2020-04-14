@@ -68,40 +68,41 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
-	double m_Mxp, m_Myp;
-	ScribusMainWindow* m_ScMW;
-	eGradientPoint m_gradientPoint;
 
 	//save of previous state
-	double OldGrStartX;
-	double OldGrStartY;
-	double OldGrEndX;
-	double OldGrEndY;
-	double OldGrFocalX;
-	double OldGrFocalY;
-	double OldGrScale;
-	double OldGrSkew;
 	FPoint OldGrControl1;
 	FPoint OldGrControl2;
 	FPoint OldGrControl3;
 	FPoint OldGrControl4;
 	FPoint OldGrControl5;
-	double OldGrStrokeStartX;
-	double OldGrStrokeStartY;
-	double OldGrStrokeEndX;
-	double OldGrStrokeEndY;
-	double OldGrStrokeFocalX;
-	double OldGrStrokeFocalY;
-	double OldGrStrokeScale;
-	double OldGrStrokeSkew;
-	double OldGrMaskStartX;
-	double OldGrMaskStartY;
-	double OldGrMaskEndX;
-	double OldGrMaskEndY;
-	double OldGrMaskFocalX;
-	double OldGrMaskFocalY;
-	double OldGrMaskScale;
-	double OldGrMaskSkew;
+	ScribusMainWindow* m_ScMW {nullptr};
+	double OldGrEndX {0.0};
+	double OldGrEndY {0.0};
+	double OldGrFocalX {0.0};
+	double OldGrFocalY {0.0};
+	double OldGrMaskEndX {0.0};
+	double OldGrMaskEndY {0.0};
+	double OldGrMaskFocalX {0.0};
+	double OldGrMaskFocalY {0.0};
+	double OldGrMaskScale {0.0};
+	double OldGrMaskSkew {0.0};
+	double OldGrMaskStartX {0.0};
+	double OldGrMaskStartY {0.0};
+	double OldGrScale {0.0};
+	double OldGrSkew {0.0};
+	double OldGrStartX {0.0};
+	double OldGrStartY {0.0};
+	double OldGrStrokeEndX {0.0};
+	double OldGrStrokeEndY {0.0};
+	double OldGrStrokeFocalX {0.0};
+	double OldGrStrokeFocalY {0.0};
+	double OldGrStrokeScale {0.0};
+	double OldGrStrokeSkew {0.0};
+	double OldGrStrokeStartX {0.0};
+	double OldGrStrokeStartY {0.0};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
+	eGradientPoint m_gradientPoint {noPointDefined};
 };
 
 
