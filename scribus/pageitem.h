@@ -1517,6 +1517,8 @@ public:	// Start public variables
 	bool hatchUseBackground;
 	QString hatchBackground;
 	QString hatchForeground;
+	QColor  hatchBackgroundQ;
+	QColor  hatchForegroundQ;
 
 	// End public variables
 
@@ -1875,8 +1877,6 @@ protected: // Start protected variables
 	double m_imageRotation; ///< Image rotation in frame
 	FirstLineOffsetPolicy m_firstLineOffset;
 	bool   m_groupClips;
-	QColor hatchBackgroundQ;
-	QColor hatchForegroundQ;
 
 	int m_startArrowIndex;
 	int m_endArrowIndex;
