@@ -5152,8 +5152,8 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		targetPage->LeftPg = lp;
 	}
 	sourcePage->guides.copy(&targetPage->guides);
-	int end = DocItems.count();
-	int end2 = MasterItems.count();
+	int docItemsOldCount = DocItems.count();
+	int masterItemsOldCount = MasterItems.count();
 	Selection tempSelection(this, false);
 	m_Selection->clear();
 	//Copy the items from our current document page's applied *master* page
@@ -5174,7 +5174,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 				{
 					setActiveLayer(it->ID);
-					for (int ite = 0; ite < end2; ++ite)
+					for (int ite = 0; ite < masterItemsOldCount; ++ite)
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
 						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->m_layerID))
@@ -5204,7 +5204,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
 			setActiveLayer(it->ID);
-			for (int ite = 0; ite < end; ++ite)
+			for (int ite = 0; ite < docItemsOldCount; ++ite)
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
 				if ((itemToCopy->OwnPage == sourcePage->pageNr()) && (it->ID == itemToCopy->m_layerID))
@@ -5226,10 +5226,10 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 		setActiveLayer(currActiveLayer);
 	}
 	//Make sure our copied items have the master page name and own page set.
-	int end3 = MasterItems.count();
-	for (int a = end2; a < end3; ++a)
+	int masterItemsNewCount = MasterItems.count();
+	for (int i = masterItemsOldCount; i < masterItemsNewCount; ++i)
 	{
-		PageItem *newItem = MasterItems.at(a);
+		PageItem *newItem = MasterItems.at(i);
 		newItem->setMasterPage(MasterNames[masterPageName], masterPageName);
 	}
 	targetPage->clearMasterPageName();
