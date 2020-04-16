@@ -90,6 +90,17 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			bool isWeldFlag;
 		};
 
+		class ReadObjectParams
+		{
+		public:
+			ReadObjectParams() {}
+
+			PageItem::ItemKind itemKind { PageItem::StandardItem };
+			bool    loadingPage { false };
+			QString baseDir;
+			QString renamedMasterPage;
+		};
+
 		void registerFormats();
 		
 		QIODevice* slaReader(const QString & fileName);
@@ -119,7 +130,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
 		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
 		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
-		bool readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, const QString& renamedPageName = QString());
+		bool readObject(ScribusDoc* doc, ScXmlStreamReader& reader, const ReadObjectParams& loadParams, ItemInfo& info);
 		bool readPage(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readPageItemAttributes(PageItem* item, ScXmlStreamReader& reader);
 		bool readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader);
@@ -154,7 +165,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		
 		void updateNames2Ptr(); //after document load items pointers should be updated in markeredItemList
 
-		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
+		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr = -2 /* currentPage*/);
 
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
 		void writeLineStyles(ScXmlStreamWriter& docu);

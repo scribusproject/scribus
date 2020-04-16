@@ -1792,16 +1792,13 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		switch (master)
 		{
 			case ItemSelectionMaster:
-//				item = doc->MasterItems.at(j);
 				docu.writeStartElement("MASTEROBJECT");
 				break;
 			case ItemSelectionGroup:
 			case ItemSelectionPage:
-//				item = doc->DocItems.at(j);
 				docu.writeStartElement("PAGEOBJECT");
 				break;
 			case ItemSelectionFrame:
-//				item = doc->FrameItems.at(j);
 				docu.writeStartElement("FRAMEOBJECT");
 				break;
 			case ItemSelectionPattern:

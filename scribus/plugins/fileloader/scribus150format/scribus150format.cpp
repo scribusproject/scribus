@@ -215,7 +215,6 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
 
-
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -228,6 +227,11 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 
 	bool firstElement = true;
 	bool success = true;
+
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = fileDir;
+	readObjectParams.itemKind = PageItem::StandardItem;
+	readObjectParams.loadingPage = true;
 
 	ScXmlStreamReader reader(data);
 	ScXmlStreamAttributes attrs;
@@ -323,7 +327,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		if ((tagName == "ITEM") || (tagName == "PAGEOBJECT") || (tagName == "FRAMEOBJECT"))
 		{
 			ItemInfo itemInfo;
-			success = readObject(m_Doc, reader, itemInfo, fileDir, true);
+			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
 			if (!success)
 				break;
 			itemInfo.item->m_layerID = LayerToPaste;
@@ -785,6 +789,11 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	bool success = true;
 	int  progress = 0;
 
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = fileDir;
+	readObjectParams.itemKind = PageItem::StandardItem;
+	readObjectParams.loadingPage = false;
+
 	ScXmlStreamReader reader(f);
 	ScXmlStreamAttributes attrs;
 	while (!reader.atEnd() && !reader.hasError())
@@ -849,7 +858,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
 		{
 			ItemInfo itemInfo;
-			success = readObject(m_Doc, reader, itemInfo, fileDir, false);
+			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
 			if (!success) break;
 
 			if (isNewFormat)
@@ -1205,7 +1214,6 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			gItem->groupItemList = gpL;
 	}
 
-
 	while (groupStackF.count() > 0)
 	{
 		bool isTableIt = false;
@@ -1363,6 +1371,11 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->LastAuto = nullptr;
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
+
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = fileDir;
+	readObjectParams.itemKind = PageItem::StandardItem;
+	readObjectParams.loadingPage = false;
 
 	bool firstElement = true;
 	bool success = true;
@@ -1549,7 +1562,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
 		{
 			ItemInfo itemInfo;
-			success = readObject(m_Doc, reader, itemInfo, fileDir, false);
+			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
 			if (!success)
 				break;
 
@@ -3607,7 +3620,7 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 
-			QString label = "";
+			QString label;
 			if (attrs.hasAttribute("label"))
 				label = attrs.valueAsString("label");
 
@@ -3615,7 +3628,7 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 			if (attrs.hasAttribute("type"))
 				type = (MarkType) attrs.valueAsInt("type");
 
-			if (label != "" && type != MARKNoType)
+			if (!label.isEmpty() && type != MARKNoType)
 			{
 				Mark* mark = doc->newMark();
 				mark->label=attrs.valueAsString("label");
@@ -3743,6 +3756,8 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 		qDebug() << "scribus150format: corrupted masterpage with empty name detected";
 		return true;
 	}
+
+	bool savedMasterPageMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!pageName.isEmpty());
 	ScPage* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
 
@@ -3772,8 +3787,6 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 			newPage->setSize(pageSize);
 	}
 
-
-
 	newPage->setInitialHeight(newPage->height());
 	newPage->setInitialWidth(newPage->width());
 	newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BORDERTOP")));
@@ -3783,8 +3796,9 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	newPage->marginPreset = attrs.valueAsInt("PRESET", 0);
 	newPage->Margins.setTop(newPage->initialMargins.top());
 	newPage->Margins.setBottom(newPage->initialMargins.bottom());
-	m_Doc->setMasterPageMode(false);
-	//m_Doc->Pages=&m_Doc->DocPages;
+
+	m_Doc->setMasterPageMode(savedMasterPageMode);
+
 	// guides reading
 	newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
 	newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
@@ -3815,12 +3829,13 @@ bool Scribus150Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	return true;
 }
 
-bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, ItemInfo& info, const QString& baseDir, bool loadPage, const QString& renamedPageName)
+bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, const ReadObjectParams& readObjectParams, ItemInfo& info)
 {
 	QStringRef tagName = reader.name();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 
-	if (!loadPage)
+	bool savedMasterPageMode = doc->masterPageMode();
+	if (!readObjectParams.loadingPage)
 	{
 		if (tagName == "PAGEOBJECT" || tagName == "FRAMEOBJECT" || tagName == "PatternItem" || tagName == "ITEM")
 			doc->setMasterPageMode(false);
@@ -3834,18 +3849,23 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	else if (tagName =="PatternItem")
 		itemKind = PageItem::PatternItem;
 
-	int pagenr = -1;
+	// We are loading patterns, force itemKind to PatternItem
+	if (readObjectParams.itemKind == PageItem::PatternItem)
+		itemKind = PageItem::PatternItem;
+
+	int pageNr = -1;
 	QString masterPageName = attrs.valueAsString("OnMasterPage");
 	if ((!masterPageName.isEmpty()) && (tagName == "MASTEROBJECT"))
 	{
-		if (!renamedPageName.isEmpty())
-			masterPageName = renamedPageName;
+		if (!readObjectParams.renamedMasterPage.isEmpty())
+			masterPageName = readObjectParams.renamedMasterPage;
 		doc->setCurrentPage(doc->MasterPages.at(doc->MasterNames[masterPageName]));
-		pagenr = -2;
+		pageNr = -2;
 	}
 	layerFound = false;
-	clipPath = "";
-	PageItem* newItem = pasteItem(doc, attrs, baseDir, itemKind, pagenr);
+	clipPath.clear();
+
+	PageItem* newItem = pasteItem(doc, attrs, readObjectParams.baseDir, itemKind, pageNr);
 	newItem->setRedrawBounding();
 	if (tagName == "MASTEROBJECT")
 		newItem->setOwnerPage(doc->OnPage(newItem));
@@ -3880,7 +3900,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		newItem->setLayer(doc->firstLayerID());
 	}
 
-	info.item     = newItem;
+	info.item   = newItem;
 	isNewFormat = attrs.hasAttribute("ItemID");
 	if (isNewFormat)
 	{
@@ -4174,25 +4194,28 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			if (newItem->asGroupFrame())
 			{
 			//	bool success = true;
-				QList<PageItem*>* DItems = doc->Items;
-				QList<PageItem*> GroupItems;
-				doc->Items = &GroupItems;
+				QList<PageItem*>* docItems = doc->Items;
+				QList<PageItem*> groupItems;
+				doc->Items = &groupItems;
 				ItemInfo itemInfo;
 				// #12313: set the 'loadPage' parameter to true in order to
 				// avoid the change of page mode and the doc item lists switch
 				// when loading groups in masterpages
-			//	success =
-				readObject(doc, reader, itemInfo, baseDir, true);
-				for (int as = 0; as < GroupItems.count(); ++as)
+				ReadObjectParams readObjectParams2;
+				readObjectParams2.baseDir = readObjectParams.baseDir;
+				readObjectParams2.itemKind = (itemKind == PageItem::PatternItem) ? PageItem::PatternItem : PageItem::StandardItem;
+				readObjectParams2.loadingPage = true;
+				readObject(doc, reader, readObjectParams2, itemInfo);
+				for (int as = 0; as < groupItems.count(); ++as)
 				{
-					PageItem* currItem = GroupItems.at(as);
+					PageItem* currItem = groupItems.at(as);
 					newItem->groupItemList.append(currItem);
 					currItem->Parent = newItem;
 					currItem->m_layerID = newItem->m_layerID;
 					currItem->OwnPage = newItem->OwnPage;
 					currItem->OnMasterPage = newItem->OnMasterPage;
 				}
-				doc->Items = DItems;
+				doc->Items = docItems;
 			}
 		}
 		if (tName == "MARK")
@@ -4333,8 +4356,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 			}
 		}
 	}
-	if (!loadPage)
-		doc->setMasterPageMode(false);
+	if (!readObjectParams.loadingPage)
+		doc->setMasterPageMode(savedMasterPageMode);
 	return !reader.hasError();
 }
 
@@ -4367,6 +4390,11 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	pat.scaleY  = attrs.valueAsDouble("scaleY", 0.0);
 	pat.xoffset = attrs.valueAsDouble("xoffset", 0.0);
 	pat.yoffset = attrs.valueAsDouble("yoffset", 0.0);
+	
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = baseDir;
+	readObjectParams.itemKind = PageItem::PatternItem;
+	readObjectParams.loadingPage = false;
 
 	bool savedAlignGrid = m_Doc->SnapGrid;
 	bool savedAlignGuides = m_Doc->SnapGuides;
@@ -4391,13 +4419,12 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		ScXmlStreamAttributes tAtt = reader.attributes();
 			
 		ItemInfo itemInfo;
-		
-		//int ownPage = tAtt.valueAsInt("OwnPage");
-		success = readObject(doc, reader, itemInfo, baseDir, false);
+
+		success = readObject(doc, reader, readObjectParams, itemInfo);
 		if (!success) break;
 
 		itemInfo.item->OwnPage = -1 /*ownPage*/;
-		itemInfo.item->OnMasterPage = "";
+		itemInfo.item->OnMasterPage.clear();
 		if (isNewFormat)
 		{
 			if (itemInfo.item->isTableItem)
@@ -4906,7 +4933,7 @@ bool Scribus150Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader&
 	return !reader.hasError();
 }
 
-PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr)
+PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr)
 {
 	int z = 0;
 	struct ImageLoadRequest loadingInfo;
@@ -4944,8 +4971,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ItemType1:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	//
 	case PageItem::ImageFrame:
@@ -4953,8 +4980,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		UndoManager::instance()->setUndoEnabled(false);
 		currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);
 		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
@@ -5033,53 +5060,53 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::ItemType3:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Symbol:
 		z = doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		currItem->setPattern( attrs.valueAsString("pattern", "") );
 		break;
 	case PageItem::Group:
 		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
 		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
 		doc->GroupCounter++;
@@ -5087,26 +5114,26 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	case PageItem::RegularPolygon:
 		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Arc:
 		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Spiral:
 		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2) 
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Table:
 		z = doc->itemAdd(PageItem::Table, PageItem::Unspecified, x, y, w, h, 0.0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2)
-			currItem->setOwnerPage(pagenr);
+		if (pageNr > -2)
+			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Multiple:
 		Q_ASSERT(false);
@@ -6164,6 +6191,12 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	QString fileDir = QFileInfo(fileName).absolutePath();
+	
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = fileDir;
+	readObjectParams.itemKind = PageItem::StandardItem;
+	readObjectParams.loadingPage = true;
+	readObjectParams.renamedMasterPage = Mpage ? renamedPageName : QString();
 
 	bool firstElement = true;
 	bool success = true;
@@ -6394,8 +6427,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			else
 			{
 				ItemInfo itemInfo;
-				QString masterPageName = Mpage ? renamedPageName : QString();
-				success = readObject(m_Doc, reader, itemInfo, fileDir, true, masterPageName);
+				success = readObject(m_Doc, reader, readObjectParams, itemInfo);
 				if (!success) break;
 
 				PageItem* newItem = itemInfo.item;
