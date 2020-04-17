@@ -33,7 +33,7 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 	dropCapLines->setValue(2);
 
 	if (m_doc)
-		peCharStyleCombo->updateFormatList();
+		peCharStyleCombo->updateStyleList();
 	fillBulletStrEditCombo();
 	enableParEffect(false);
 	bulletCharTableButton->setIcon(IconManager::instance().loadIcon("22/insert-table.png"));
@@ -154,13 +154,13 @@ void PropertyWidget_ParEffect::fillNumerationsCombo()
 
 void PropertyWidget_ParEffect::updateCharStyles()
 {
-	peCharStyleCombo->updateFormatList();
+	peCharStyleCombo->updateStyleList();
 }
 
 void PropertyWidget_ParEffect::showCharStyle(const QString& name)
 {
 	bool blocked = peCharStyleCombo->blockSignals(true);
-	peCharStyleCombo->setFormat(name);
+	peCharStyleCombo->setStyle(name);
 	peCharStyleCombo->blockSignals(blocked);
 }
 

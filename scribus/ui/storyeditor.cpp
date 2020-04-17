@@ -159,7 +159,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 		if (len > 0)
 			styleName = m_editor->StyledText.paragraphStyle(pos).parent(); //FIXME ParaStyleComboBox and use localized style name
 	}
-	paraStyleCombo->setFormat(styleName);
+	paraStyleCombo->setStyle(styleName);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
 	
 	paraStyleAct = new QWidgetAction(pmen);
@@ -1486,7 +1486,7 @@ void SToolBAlign::SetDirection(int s)
 void SToolBAlign::SetParaStyle(const QString& s)
 {
 	QSignalBlocker sigBlocker(paraStyleCombo);
-	paraStyleCombo->setFormat(s);
+	paraStyleCombo->setStyle(s);
 }
 
 /* Toolbar for Font related Settings */

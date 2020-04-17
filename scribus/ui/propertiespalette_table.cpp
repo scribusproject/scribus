@@ -58,8 +58,8 @@ void PropertiesPalette_Table::handleUpdateRequest(int updateFlags)
 {
 	if (updateFlags & reqColorsUpdate)
 		updateColorList();
-	tableStyleCombo->updateFormatList();
-	cellStyleCombo->updateFormatList();
+	tableStyleCombo->updateStyleList();
+	cellStyleCombo->updateStyleList();
 }
 
 void PropertiesPalette_Table::updateColorList()
@@ -163,14 +163,14 @@ void PropertiesPalette_Table::handleCellSelectionChanged()
 void PropertiesPalette_Table::showTableStyle(const QString& name)
 {
 	bool blocked = tableStyleCombo->blockSignals(true);
-	tableStyleCombo->setFormat(name);
+	tableStyleCombo->setStyle(name);
 	tableStyleCombo->blockSignals(blocked);
 }
 
 void PropertiesPalette_Table::showCellStyle(const QString& name)
 {
 	bool blocked = cellStyleCombo->blockSignals(true);
-	cellStyleCombo->setFormat(name);
+	cellStyleCombo->setStyle(name);
 	cellStyleCombo->blockSignals(blocked);
 }
 

@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QLayout>
 #include "scribusapi.h"
+
+class QEvent;
 class ScribusDoc;
 
 /**
@@ -40,18 +42,25 @@ class SCRIBUS_API ParaStyleComboBox : public QComboBox
 public: 
 	ParaStyleComboBox(QWidget* parent);
 	~ParaStyleComboBox() {};
-	
-	ScribusDoc *currentDoc;
+
+	QString currentStyle() const;
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(const QString& name);
-	void updateFormatList();
-	void selFormat(int e);
+	void setStyle(const QString& name);
+	void updateStyleList();
+
+protected:
+	ScribusDoc *m_doc { nullptr };
+
+	void changeEvent(QEvent *e) override;
+	void languageChange();
+
+protected slots:
+	void selectedStyle(int e);
 	
 signals:
 	void newStyle(const QString&);
-	void editStyle();
 };
 
 class SCRIBUS_API CharStyleComboBox : public QComboBox
@@ -61,18 +70,25 @@ class SCRIBUS_API CharStyleComboBox : public QComboBox
 public: 
 	CharStyleComboBox(QWidget* parent);
 	~CharStyleComboBox() {};
-	
-	ScribusDoc *currentDoc;
+
+	QString currentStyle() const;
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(const QString& name);
-	void updateFormatList();
-	void selFormat(int e);
+	void setStyle(const QString& name);
+	void updateStyleList();
+
+protected:
+	ScribusDoc *m_doc { nullptr };
+
+	void changeEvent(QEvent *e) override;
+	void languageChange();
+
+protected slots:
+	void selectedStyle(int e);
 	
 signals:
 	void newStyle(const QString&);
-	void editCharStyle();
 };
 
 class SCRIBUS_API CellStyleComboBox : public QComboBox
@@ -83,17 +99,24 @@ public:
 	CellStyleComboBox(QWidget* parent);
 	~CellStyleComboBox() {};
 
-	ScribusDoc *currentDoc;
+	QString currentStyle() const;
 
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(const QString& name);
-	void updateFormatList();
-	void selFormat(int e);
+	void setStyle(const QString& name);
+	void updateStyleList();
+
+protected:
+	ScribusDoc *m_doc { nullptr };
+
+	void changeEvent(QEvent *e) override;
+	void languageChange();
+
+protected slots:
+	void selectedStyle(int e);
 
 signals:
 	void newStyle(const QString&);
-	void editCharStyle();
 };
 
 class SCRIBUS_API TableStyleComboBox : public QComboBox
@@ -104,17 +127,24 @@ public:
 	TableStyleComboBox(QWidget* parent);
 	~TableStyleComboBox() {};
 
-	ScribusDoc *currentDoc;
+	QString currentStyle() const;
 
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
-	void setFormat(const QString& name);
-	void updateFormatList();
-	void selFormat(int e);
+	void setStyle(const QString& name);
+	void updateStyleList();
+
+protected:
+	ScribusDoc *m_doc { nullptr };
+
+	void changeEvent(QEvent *e) override;
+	void languageChange();
+
+protected slots:
+	void selectedStyle(int e);
 
 signals:
 	void newStyle(const QString&);
-	void editCharStyle();
 };
 
 #endif

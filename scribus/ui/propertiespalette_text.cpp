@@ -287,11 +287,11 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 		updateColorList();*/
 	if (updateFlags & reqCharStylesUpdate)
 	{
-		charStyleCombo->updateFormatList();
+		charStyleCombo->updateStyleList();
 		parEffectWidgets->updateCharStyles();
 	}
 	if (updateFlags & reqParaStylesUpdate)
-		paraStyleCombo->updateFormatList();
+		paraStyleCombo->updateStyleList();
 	if (updateFlags & reqDefFontListUpdate)
 		fonts->rebuildList(nullptr);
 	if (updateFlags & reqDocFontListUpdate)
@@ -543,21 +543,21 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 
 void PropertiesPalette_Text::updateCharStyles()
 {
-	charStyleCombo->updateFormatList();
+	charStyleCombo->updateStyleList();
 	parEffectWidgets->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateParagraphStyles()
 {
-	paraStyleCombo->updateFormatList();
-	charStyleCombo->updateFormatList();
+	paraStyleCombo->updateStyleList();
+	charStyleCombo->updateStyleList();
 	parEffectWidgets->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateTextStyles()
 {
-	paraStyleCombo->updateFormatList();
-	charStyleCombo->updateFormatList();
+	paraStyleCombo->updateStyleList();
+	charStyleCombo->updateStyleList();
 }
 
 void PropertiesPalette_Text::updateTreeLayout()
@@ -592,7 +592,7 @@ void PropertiesPalette_Text::showCharStyle(const QString& name)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool blocked = charStyleCombo->blockSignals(true);
-	charStyleCombo->setFormat(name);
+	charStyleCombo->setStyle(name);
 	charStyleCombo->blockSignals(blocked);
 }
 
@@ -601,7 +601,7 @@ void PropertiesPalette_Text::showParStyle(const QString& name)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool blocked = paraStyleCombo->blockSignals(true);
-	paraStyleCombo->setFormat(name);
+	paraStyleCombo->setStyle(name);
 	paraStyleCombo->blockSignals(blocked);
 }
 

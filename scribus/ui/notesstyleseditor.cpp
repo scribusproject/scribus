@@ -131,9 +131,9 @@ void NotesStylesEditor::handleUpdateRequest(int updateFlags)
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
 	if ((updateFlags & reqCharStylesUpdate) || (updateFlags & reqTextStylesUpdate))
-		charStyleCombo->updateFormatList();
+		charStyleCombo->updateStyleList();
 	if ((updateFlags & reqParaStylesUpdate) || (updateFlags & reqTextStylesUpdate))
-		paraStyleCombo->updateFormatList();
+		paraStyleCombo->updateStyleList();
 	readNotesStyle(NSlistBox->currentText());
 	setBlockSignals(wasSignalsBlocked);
 }
