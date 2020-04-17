@@ -13,14 +13,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
 #include <QMimeData>
 #include <QRegExp>
+#include <QScopedPointer>
 #include <QStack>
 #include <QUrl>
-#include <QDebug>
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
@@ -69,32 +70,32 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = nullptr;
-	fun = nullptr;
+	m_zip = nullptr;
 }
 
 QString IdmlPlug::getNodeValue(QDomNode &baseNode, const QString& path)
 {
-	QString ret = "";
+	QString ret;
 	QStringList pathParts = path.split("/", QString::SkipEmptyParts);
 	QDomNode n = baseNode.namedItem(pathParts[0]);
+	if (n.isNull())
+		return QString();
+
 	bool fail = false;
-	if (!n.isNull())
+	for (int a = 1; a < pathParts.count(); a++)
 	{
-		for (int a = 1; a < pathParts.count(); a++)
+		n = n.namedItem(pathParts[a]);
+		if (n.isNull())
 		{
-			n = n.namedItem(pathParts[a]);
-			if (n.isNull())
-			{
-				fail = true;
-				break;
-			}
+			fail = true;
+			break;
 		}
-		if (!fail)
-		{
-			QDomElement e = n.toElement();
-			if (!e.isNull())
-				ret = e.text();
-		}
+	}
+	if (!fail)
+	{
+		QDomElement e = n.toElement();
+		if (!e.isNull())
+			ret = e.text();
 	}
 	return ret;
 }
@@ -109,101 +110,105 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fName))
+		m_zip = new ScZipHandler();
+		if (!m_zip->open(fName))
 		{
-			delete fun;
+			delete m_zip;
+			m_zip = nullptr;
 			return QImage();
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
-		delete fun;
+		if (m_zip->contains("designmap.xml"))
+			m_zip->read("designmap.xml", f);
+		delete m_zip;
+		m_zip = nullptr;
 	}
 	else if (ext == "idms")
 	{
 		loadRawText(fName, f);
 	}
-	if (!f.isEmpty())
+
+	if (f.isEmpty())
+		return QImage();
+
+	if (!designMapDom.setContent(f))
+		return QImage();
+
+	bool found = false;
+	QDomElement docElem = designMapDom.documentElement();
+	QString metaD = getNodeValue(docElem, "MetadataPacketPreference/Properties/Contents");
+	QDomDocument rdfD;
+	rdfD.setContent(metaD);
+	QDomElement docElemR = rdfD.documentElement();
+	for (QDomNode drawPag = docElemR.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
-		if (!designMapDom.setContent(f))
-			return QImage();
-		bool found = false;
-		QDomElement docElem = designMapDom.documentElement();
-		QString metaD = getNodeValue(docElem, "MetadataPacketPreference/Properties/Contents");
-		QDomDocument rdfD;
-		rdfD.setContent(metaD);
-		QDomElement docElemR = rdfD.documentElement();
-		for (QDomNode drawPag = docElemR.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+		QDomElement dpg = drawPag.toElement();
+		if (dpg.tagName() == "rdf:RDF")
 		{
-			QDomElement dpg = drawPag.toElement();
-			if (dpg.tagName() == "rdf:RDF")
+			for (QDomNode drawPag2 = dpg.firstChild(); !drawPag2.isNull(); drawPag2 = drawPag2.nextSibling())
 			{
-				for (QDomNode drawPag2 = dpg.firstChild(); !drawPag2.isNull(); drawPag2 = drawPag2.nextSibling())
+				QDomElement dpg2 = drawPag2.toElement();
+				if (dpg2.hasAttribute("xmlns:xmpGImg"))
 				{
-					QDomElement dpg2 = drawPag2.toElement();
-					if (dpg2.hasAttribute("xmlns:xmpGImg"))
-					{
-						QByteArray imgD = getNodeValue(dpg2, "xmp:Thumbnails/rdf:Alt/rdf:li/xmpGImg:image").toLatin1();
-						QByteArray inlineImageData = QByteArray::fromBase64(imgD);
-						tmp.loadFromData(inlineImageData);
-						found = true;
-					}
+					QByteArray imgD = getNodeValue(dpg2, "xmp:Thumbnails/rdf:Alt/rdf:li/xmpGImg:image").toLatin1();
+					QByteArray inlineImageData = QByteArray::fromBase64(imgD);
+					tmp.loadFromData(inlineImageData);
+					found = true;
 				}
 			}
 		}
-		if (!found)
+	}
+	if (!found)
+	{
+		progressDialog = nullptr;
+		QFileInfo fi = QFileInfo(fName);
+		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
+		m_Doc = new ScribusDoc();
+		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
+		Elements.clear();
+		m_Doc->setLoading(true);
+		m_Doc->DoDrawing = false;
+		m_Doc->scMW()->setScriptRunning(true);
+		QString CurDirP = QDir::currentPath();
+		QDir::setCurrent(fi.path());
+		if (convert(fName))
 		{
-			progressDialog = nullptr;
-			QFileInfo fi = QFileInfo(fName);
-			baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-			docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-			docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-			m_Doc = new ScribusDoc();
-			m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-			m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
-			m_Doc->addPage(0);
-			m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-			Elements.clear();
-			m_Doc->setLoading(true);
-			m_Doc->DoDrawing = false;
-			m_Doc->scMW()->setScriptRunning(true);
-			QString CurDirP = QDir::currentPath();
-			QDir::setCurrent(fi.path());
-			if (convert(fName))
-			{
-				tmpSel->clear();
-				QDir::setCurrent(CurDirP);
-				if (Elements.count() > 1)
-					m_Doc->groupObjectsList(Elements);
-				m_Doc->DoDrawing = true;
-				m_Doc->m_Selection->delaySignalsOn();
-				QImage tmpImage;
-				if (Elements.count() > 0)
-				{
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						tmpSel->addItem(Elements.at(dre), true);
-					}
-					tmpSel->setGroupRect();
-					double xs = tmpSel->width();
-					double ys = tmpSel->height();
-					tmpImage = Elements.at(0)->DrawObj_toImage(500);
-					tmpImage.setText("XSize", QString("%1").arg(xs));
-					tmpImage.setText("YSize", QString("%1").arg(ys));
-				}
-				m_Doc->scMW()->setScriptRunning(false);
-				m_Doc->setLoading(false);
-				m_Doc->m_Selection->delaySignalsOff();
-				delete m_Doc;
-				return tmpImage;
-			}
+			tmpSel->clear();
 			QDir::setCurrent(CurDirP);
+			if (Elements.count() > 1)
+				m_Doc->groupObjectsList(Elements);
 			m_Doc->DoDrawing = true;
+			m_Doc->m_Selection->delaySignalsOn();
+			QImage tmpImage;
+			if (Elements.count() > 0)
+			{
+				for (int dre=0; dre<Elements.count(); ++dre)
+				{
+					tmpSel->addItem(Elements.at(dre), true);
+				}
+				tmpSel->setGroupRect();
+				double xs = tmpSel->width();
+				double ys = tmpSel->height();
+				tmpImage = Elements.at(0)->DrawObj_toImage(500);
+				tmpImage.setText("XSize", QString("%1").arg(xs));
+				tmpImage.setText("YSize", QString("%1").arg(ys));
+			}
 			m_Doc->scMW()->setScriptRunning(false);
+			m_Doc->setLoading(false);
+			m_Doc->m_Selection->delaySignalsOff();
 			delete m_Doc;
+			return tmpImage;
 		}
+		QDir::setCurrent(CurDirP);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->setScriptRunning(false);
+		delete m_Doc;
 	}
 	return tmp;
 }
@@ -212,56 +217,72 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 {
 	bool success = false;
 	importedColors.clear();
-	m_Doc = new ScribusDoc();
-	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
-	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
+
 	QByteArray f;
 	QFileInfo fi = QFileInfo(fNameIn);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fNameIn))
+		m_zip = new ScZipHandler();
+		if (!m_zip->open(fNameIn))
 		{
-			delete fun;
+			delete m_zip;
+			m_zip = nullptr;
 			return false;
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
+		if (m_zip->contains("designmap.xml"))
+			m_zip->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
 		loadRawText(fNameIn, f);
 	}
-	if (!f.isEmpty())
+
+	if (f.isEmpty())
 	{
-		if (designMapDom.setContent(f))
+		delete m_zip;
+		m_zip = nullptr;
+		return false;
+	}
+
+	if (!designMapDom.setContent(f))
+	{
+		delete m_zip;
+		m_zip = nullptr;
+		return false;
+	}
+
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(1, 1, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
+
+	QDomElement docElem = designMapDom.documentElement();
+	if (ext == "idms")
+	{
+		parseGraphicsXMLNode(docElem);
+	}
+	else
+	{
+		for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 		{
-			QDomElement docElem = designMapDom.documentElement();
-			if (ext == "idms")
+			QDomElement dpg = drawPag.toElement();
+			if (dpg.tagName() == "idPkg:Graphic")
 			{
-				parseGraphicsXMLNode(docElem);
-			}
-			else
-			{
-				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+				if (!parseGraphicsXML(dpg))
 				{
-					QDomElement dpg = drawPag.toElement();
-					if (dpg.tagName() == "idPkg:Graphic")
-					{
-						if (!parseGraphicsXML(dpg))
-						{
-							delete fun;
-							return false;
-						}
-					}
+					delete m_zip;
+					m_zip = nullptr;
+					return false;
 				}
 			}
 		}
 	}
-	delete fun;
+
+	delete m_zip;
+	m_zip = nullptr;
+
 	if (importedColors.count() != 0)
 	{
 		colors = m_Doc->PageColors;
@@ -283,13 +304,13 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	pagecount = 1;
 	mpagecount = 0;
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
@@ -511,177 +532,195 @@ bool IdmlPlug::convert(const QString& fn)
 	colorTranslate.insert("Swatch/None", CommonStrings::None);
 	bool retVal = true;
 	bool firstSpread = true;
+
 	QByteArray f;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new ScZipHandler();
-		if (!fun->open(fn))
+		m_zip = new ScZipHandler();
+		if (!m_zip->open(fn))
 		{
-			delete fun;
+			delete m_zip;
+			m_zip = nullptr;
 			return false;
 		}
-		if (fun->contains("designmap.xml"))
-			fun->read("designmap.xml", f);
+		if (m_zip->contains("designmap.xml"))
+			m_zip->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
 		loadRawText(fn, f);
 	}
-	if (!f.isEmpty())
+
+	if (f.isEmpty())
 	{
-		if (designMapDom.setContent(f))
+		if (progressDialog)
+			progressDialog->close();
+		delete m_zip;
+		m_zip = nullptr;
+		return false;
+	}
+
+	if (!designMapDom.setContent(f))
+	{
+		if (progressDialog)
+			progressDialog->close();
+		delete m_zip;
+		m_zip = nullptr;
+		return false;
+	}
+
+	QDomElement docElem = designMapDom.documentElement();
+	QString activeLayer = docElem.attribute("ActiveLayer");
+	if (ext == "idms")
+	{
+		for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 		{
-			QDomElement docElem = designMapDom.documentElement();
-			QString activeLayer = docElem.attribute("ActiveLayer");
-			if (ext == "idms")
+			QDomElement dpg = drawPag.toElement();
+			if (dpg.tagName() == "Layer")
 			{
-				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+				QString layerSelf = dpg.attribute("Self");
+				QString layerName = dpg.attribute("Name");
+				if (importerFlags & LoadSavePlugin::lfCreateDoc)
 				{
-					QDomElement dpg = drawPag.toElement();
-					if (dpg.tagName() == "Layer")
-					{
-						QString layerSelf = dpg.attribute("Self");
-						QString layerName = dpg.attribute("Name");
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						{
-							int currentLayer = 0;
-							if (!firstLayer)
-								currentLayer = m_Doc->addLayer(layerName);
-							else
-								m_Doc->changeLayerName(currentLayer, layerName);
-							m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
-							m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
-							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
-							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
-						}
-						layerTranslate.insert(layerSelf, layerName);
-						firstLayer = false;
-					}
+					int currentLayer = 0;
+					if (!firstLayer)
+						currentLayer = m_Doc->addLayer(layerName);
+					else
+						m_Doc->changeLayerName(currentLayer, layerName);
+					m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
+					m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+					m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
+					m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
 				}
-				parseFontsXMLNode(docElem);
-				parseGraphicsXMLNode(docElem);
-				parseStylesXMLNode(docElem);
-				parsePreferencesXMLNode(docElem);
-				parseSpreadXMLNode(docElem);
-				parseStoryXMLNode(docElem);
+				layerTranslate.insert(layerSelf, layerName);
+				firstLayer = false;
 			}
-			else
+		}
+		parseFontsXMLNode(docElem);
+		parseGraphicsXMLNode(docElem);
+		parseStylesXMLNode(docElem);
+		parsePreferencesXMLNode(docElem);
+		parseSpreadXMLNode(docElem);
+		parseStoryXMLNode(docElem);
+	}
+	else
+	{
+		for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+		{
+			QDomElement dpg = drawPag.toElement();
+			if (dpg.tagName() == "Layer")
 			{
-				for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
+				QString layerSelf = dpg.attribute("Self");
+				QString layerName = dpg.attribute("Name");
+				if (importerFlags & LoadSavePlugin::lfCreateDoc)
 				{
-					QDomElement dpg = drawPag.toElement();
-					if (dpg.tagName() == "Layer")
+					int currentLayer = 0;
+					if (!firstLayer)
+						currentLayer = m_Doc->addLayer(layerName);
+					else
+						m_Doc->changeLayerName(currentLayer, layerName);
+					m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
+					m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+					m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
+					m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
+				}
+				layerTranslate.insert(layerSelf, layerName);
+				firstLayer = false;
+			}
+			if (dpg.tagName() == "idPkg:Fonts")
+			{
+				if (!parseFontsXML(dpg))
+				{
+					retVal = false;
+					break;
+				}
+			}
+			if (dpg.tagName() == "idPkg:Graphic")
+			{
+				if (!parseGraphicsXML(dpg))
+				{
+					retVal = false;
+					break;
+				}
+			}
+			if (dpg.tagName() == "idPkg:Styles")
+			{
+				if (!parseStylesXML(dpg))
+				{
+					retVal = false;
+					break;
+				}
+			}
+			if (dpg.tagName() == "idPkg:Preferences")
+			{
+				if (!parsePreferencesXML(dpg))
+				{
+					retVal = false;
+					break;
+				}
+			}
+			if (dpg.tagName() == "idPkg:MasterSpread")
+			{
+				if (importerFlags & LoadSavePlugin::lfCreateDoc)
+				{
+					if (!parseSpreadXML(dpg))
 					{
-						QString layerSelf = dpg.attribute("Self");
-						QString layerName = dpg.attribute("Name");
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						{
-							int currentLayer = 0;
-							if (!firstLayer)
-								currentLayer = m_Doc->addLayer(layerName);
-							else
-								m_Doc->changeLayerName(currentLayer, layerName);
-							m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
-							m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
-							m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
-							m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
-						}
-						layerTranslate.insert(layerSelf, layerName);
-						firstLayer = false;
-					}
-					if (dpg.tagName() == "idPkg:Fonts")
-					{
-						if (!parseFontsXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
-					}
-					if (dpg.tagName() == "idPkg:Graphic")
-					{
-						if (!parseGraphicsXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
-					}
-					if (dpg.tagName() == "idPkg:Styles")
-					{
-						if (!parseStylesXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
-					}
-					if (dpg.tagName() == "idPkg:Preferences")
-					{
-						if (!parsePreferencesXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
-					}
-					if (dpg.tagName() == "idPkg:MasterSpread")
-					{
-						if (importerFlags & LoadSavePlugin::lfCreateDoc)
-						{
-							if (!parseSpreadXML(dpg))
-							{
-								retVal = false;
-								break;
-							}
-						}
-					}
-					if (dpg.tagName() == "idPkg:Spread")
-					{
-						if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
-						{
-							if (firstSpread)
-							{
-								parseSpreadXML(dpg);
-								firstSpread = false;
-							}
-						}
-						else if (!parseSpreadXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
-					}
-					if (dpg.tagName() == "idPkg:Story")
-					{
-						if (!parseStoryXML(dpg))
-						{
-							retVal = false;
-							break;
-						}
+						retVal = false;
+						break;
 					}
 				}
 			}
-			if (!frameLinks.isEmpty())
+			if (dpg.tagName() == "idPkg:Spread")
 			{
-				QMap<PageItem*, QString>::Iterator lc;
-				for (lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
+				if (!(importerFlags & LoadSavePlugin::lfCreateDoc))
 				{
-					PageItem *Its = lc.key();
-					PageItem *Itn = frameTargets[lc.value()];
-					if (Its->canBeLinkedTo(Itn))
-						Its->link(Itn);
+					if (firstSpread)
+					{
+						parseSpreadXML(dpg);
+						firstSpread = false;
+					}
+				}
+				else if (!parseSpreadXML(dpg))
+				{
+					retVal = false;
+					break;
 				}
 			}
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			if (dpg.tagName() == "idPkg:Story")
 			{
-				if (layerTranslate.contains(activeLayer))
-					activeLayer = layerTranslate[activeLayer];
-				else
-					activeLayer = m_Doc->layerName(0);
-				m_Doc->setActiveLayer(activeLayer);
+				if (!parseStoryXML(dpg))
+				{
+					retVal = false;
+					break;
+				}
 			}
 		}
 	}
-	delete fun;
+	if (!frameLinks.isEmpty())
+	{
+		QMap<PageItem*, QString>::Iterator lc;
+		for (lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
+		{
+			PageItem *Its = lc.key();
+			PageItem *Itn = frameTargets[lc.value()];
+			if (Its->canBeLinkedTo(Itn))
+				Its->link(Itn);
+		}
+	}
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (layerTranslate.contains(activeLayer))
+			activeLayer = layerTranslate[activeLayer];
+		else
+			activeLayer = m_Doc->layerName(0);
+		m_Doc->setActiveLayer(activeLayer);
+	}
+
+	delete m_zip;
+	m_zip = nullptr;
+
 	if (progressDialog)
 		progressDialog->close();
 	return retVal;
@@ -694,18 +733,16 @@ bool IdmlPlug::parseFontsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(grElem.attribute("src"), f2);
-		if (grMapDom.setContent(f2))
-			grNode = grMapDom.documentElement();
-		else
+		m_zip->read(grElem.attribute("src"), f2);
+		if (!grMapDom.setContent(f2))
 			return false;
+		grNode = grMapDom.documentElement();
 	}
 	else
 	{
-		if (grElem.hasChildNodes())
-			grNode = grElem;
-		else
+		if (!grElem.hasChildNodes())
 			return false;
+		grNode = grElem;
 	}
 	parseFontsXMLNode(grNode);
 	return true;
@@ -742,18 +779,16 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(grElem.attribute("src"), f2);
-		if (grMapDom.setContent(f2))
-			grNode = grMapDom.documentElement();
-		else
+		m_zip->read(grElem.attribute("src"), f2);
+		if (!grMapDom.setContent(f2))
 			return false;
+		grNode = grMapDom.documentElement();
 	}
 	else
 	{
-		if (grElem.hasChildNodes())
-			grNode = grElem;
-		else
+		if (!grElem.hasChildNodes())
 			return false;
+		grNode = grElem;
 	}
 	parseGraphicsXMLNode(grNode);
 	return true;
@@ -881,18 +916,16 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	if (sElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(sElem.attribute("src"), f2);
-		if (sMapDom.setContent(f2))
-			sNode = sMapDom.documentElement();
-		else
+		m_zip->read(sElem.attribute("src"), f2);
+		if (!sMapDom.setContent(f2))
 			return false;
+		sNode = sMapDom.documentElement();
 	}
 	else
 	{
-		if (sElem.hasChildNodes())
-			sNode = sElem;
-		else
+		if (!sElem.hasChildNodes())
 			return false;
+		sNode = sElem;
 	}
 	parseStylesXMLNode(sNode);
 	return true;
@@ -1303,18 +1336,16 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 	if (prElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(prElem.attribute("src"), f2);
-		if (prMapDom.setContent(f2))
-			prNode = prMapDom.documentElement();
-		else
+		m_zip->read(prElem.attribute("src"), f2);
+		if (!prMapDom.setContent(f2))
 			return false;
+		prNode = prMapDom.documentElement();
 	}
 	else
 	{
-		if (prElem.hasChildNodes())
-			prNode = prElem;
-		else
+		if (!prElem.hasChildNodes())
 			return false;
+		prNode = prElem;
 	}
 	parsePreferencesXMLNode(prNode);
 	return true;
@@ -1515,18 +1546,16 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 	if (spElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(spElem.attribute("src"), f2);
-		if (spMapDom.setContent(f2))
-			spNode = spMapDom.documentElement();
-		else
+		m_zip->read(spElem.attribute("src"), f2);
+		if (!spMapDom.setContent(f2))
 			return false;
+		spNode = spMapDom.documentElement();
 	}
 	else
 	{
-		if (spElem.hasChildNodes())
-			spNode = spElem;
-		else
+		if (!spElem.hasChildNodes())
 			return false;
+		spNode = spElem;
 	}
 	parseSpreadXMLNode(spNode);
 	return true;
@@ -2726,18 +2755,16 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 	if (stElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		fun->read(stElem.attribute("src"), f2);
-		if (stMapDom.setContent(f2))
-			stNode = stMapDom.documentElement();
-		else
+		m_zip->read(stElem.attribute("src"), f2);
+		if (!stMapDom.setContent(f2))
 			return false;
+		stNode = stMapDom.documentElement();
 	}
 	else
 	{
-		if (stElem.hasChildNodes())
-			stNode = stElem;
-		else
+		if (!stElem.hasChildNodes())
 			return false;
+		stNode = stElem;
 	}
 	parseStoryXMLNode(stNode);
 	return true;

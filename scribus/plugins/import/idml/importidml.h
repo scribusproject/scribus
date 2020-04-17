@@ -128,7 +128,7 @@ private:
 
 	FPointArray Coords;
 	bool interactive;
-	MultiProgressDialog * progressDialog;
+	MultiProgressDialog * progressDialog { nullptr };
 	bool cancel;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
@@ -187,7 +187,7 @@ private:
 	QMap<QString, PageItem*> frameTargets;
 	QMap<QString, ObjectStyle> ObjectStyles;
 
-	ScZipHandler *fun;
+	ScZipHandler *m_zip { nullptr };
 
 public slots:
 	void cancelRequested() { cancel = true; }
