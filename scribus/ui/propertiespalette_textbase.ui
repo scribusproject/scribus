@@ -309,7 +309,7 @@
   <customwidget>
    <class>CharStyleComboBox</class>
    <extends>QComboBox</extends>
-   <header>ui/spalette.h</header>
+   <header>ui/stylecombos.h</header>
   </customwidget>
   <customwidget>
    <class>ScTreeWidget</class>
@@ -319,7 +319,7 @@
   <customwidget>
    <class>ParaStyleComboBox</class>
    <extends>QComboBox</extends>
-   <header>ui/spalette.h</header>
+   <header>ui/stylecombos.h</header>
   </customwidget>
   <customwidget>
    <class>AlignSelect</class>

@@ -632,11 +632,11 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/smtablestylewidget.h \
            scribus/ui/smtabruler.h \
            scribus/ui/smtextstyles.h \
-           scribus/ui/spalette.h \
            scribus/ui/spiralvectordialog.h \
            scribus/ui/spiralwidget.h \
            scribus/ui/splash.h \
            scribus/ui/storyeditor.h \
+           scribus/ui/stylecombos.h \
            scribus/ui/stylemanager.h \
            scribus/ui/styleselect.h \
            scribus/ui/styleview.h \
@@ -1759,11 +1759,11 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/smtablestylewidget.cpp \
            scribus/ui/smtabruler.cpp \
            scribus/ui/smtextstyles.cpp \
-           scribus/ui/spalette.cpp \
            scribus/ui/spiralvectordialog.cpp \
            scribus/ui/spiralwidget.cpp \
            scribus/ui/splash.cpp \
            scribus/ui/storyeditor.cpp \
+           scribus/ui/stylecombos.cpp \
            scribus/ui/stylemanager.cpp \
            scribus/ui/styleselect.cpp \
            scribus/ui/styleview.cpp \

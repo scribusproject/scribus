@@ -85,7 +85,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/charselect.h"
 #include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
-#include "ui/spalette.h"
+#include "ui/stylecombos.h"
 #include "ui/stylemanager.h"
 #include "units.h"
 #include "util.h"

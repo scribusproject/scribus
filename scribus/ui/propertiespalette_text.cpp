@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "selection.h"
-#include "spalette.h"
+#include "stylecombos.h"
 #include "styleselect.h"
 #include "tabmanager.h"
 #include "undomanager.h"

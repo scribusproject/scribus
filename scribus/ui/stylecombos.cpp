@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          spalette.cpp  -  description
+                          stylecombos.cpp  -  description
                              -------------------
     begin                : Wed Apr 25 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scribusdoc.h"
-#include "spalette.h"
+#include "stylecombos.h"
 
 #include <QListView>
 

@@ -532,11 +532,11 @@ set(SCRIBUS_MOC_CLASSES
 	ui/smtablestyle.h
 	ui/smtabruler.h
 	ui/smtextstyles.h
-	ui/spalette.h
 	ui/spiralvectordialog.h
 	ui/spiralwidget.h
 	ui/splash.h
 	ui/storyeditor.h
+	ui/stylecombos.h
 	ui/stylemanager.h
 	ui/styleselect.h
 	ui/styleview.h
@@ -1036,11 +1036,11 @@ set(SCRIBUS_SOURCES
 	ui/smtablestyle.cpp
 	ui/smtabruler.cpp
 	ui/smtextstyles.cpp
-	ui/spalette.cpp
 	ui/spiralvectordialog.cpp
 	ui/spiralwidget.cpp
 	ui/splash.cpp
 	ui/storyeditor.cpp
+	ui/stylecombos.cpp
 	ui/stylemanager.cpp
 	ui/styleselect.cpp
 	ui/styleview.cpp

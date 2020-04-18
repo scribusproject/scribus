@@ -2035,7 +2035,7 @@
     <ClCompile Include="..\..\..\scribus\ui\smtextstyles.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\spalette.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\stylecombos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\specialchars.cpp">
@@ -3920,7 +3920,7 @@
     <moc Include="..\..\..\scribus\ui\smtextstyles.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\spalette.h">
+    <moc Include="..\..\..\scribus\ui\stylecombos.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\spiralvectordialog.h">

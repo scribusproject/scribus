@@ -758,7 +758,7 @@
     <moc Include="..\..\..\scribus\ui\smtablestylewidget.h" />
     <moc Include="..\..\..\scribus\ui\smtabruler.h" />
     <moc Include="..\..\..\scribus\ui\smtextstyles.h" />
-    <moc Include="..\..\..\scribus\ui\spalette.h" />
+    <moc Include="..\..\..\scribus\ui\stylecombos.h" />
     <ClInclude Include="..\..\..\scribus\text\specialchars.h" />
     <moc Include="..\..\..\scribus\ui\spiralvectordialog.h" />
     <moc Include="..\..\..\scribus\ui\spiralwidget.h" />
@@ -1444,7 +1444,7 @@
     <ClCompile Include="..\..\..\scribus\ui\smtablestylewidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smtabruler.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smtextstyles.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\spalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\stylecombos.cpp" />
     <ClCompile Include="..\..\..\scribus\text\specialchars.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\spiralvectordialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\spiralwidget.cpp" />

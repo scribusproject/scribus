@@ -3,8 +3,9 @@
 
 #include "notesstyles.h"
 #include "ui/scrpalettebase.h"
-#include "ui/spalette.h"
+#include "ui/stylecombos.h"
 #include "ui_notesstyleseditor.h"
+
 class ScribusDoc;
 class ScribusMainWindow;
 

@@ -348,7 +348,7 @@
   <customwidget>
    <class>CharStyleComboBox</class>
    <extends>QComboBox</extends>
-   <header>ui/spalette.h</header>
+   <header>ui/stylecombos.h</header>
   </customwidget>
   <customwidget>
    <class>NumFormatCombo</class>
