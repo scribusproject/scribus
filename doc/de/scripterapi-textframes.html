@@ -67,7 +67,8 @@ is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getTextLines"><strong>getTextLines</strong>(...)</a></dt>
 <dd><code>getTextLines(["name"]) -&gt; integer</code>
-<p>Returns the number of lines of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+<p>Returns the number of lines of text in text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
 
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code>getTextShade(["name"]) -&gt; integer</code>
@@ -85,12 +86,13 @@ is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-insertHtmlText"><strong>insertHtmlText</strong></a>(...)</dt>
 <dd><code>insertHtmlText("text", ["name"])</code>
-<p>Inserts the text from "file" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference). If "name" is not given the currently selected Item is used.</p>
+<p>Inserts the text from "file" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference). If "name" is not given the currently selected item is used.</p>
 <p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code>insertText("text", pos, ["name"])</code>
-<p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected Item is used.</p>
+<p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected item is used.</p>
+<p>For performance reason, this function does not update text layout in any way. As a consequence, you may need to call <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> at appropriate times after calling this function and before calling functions such as <a href="#-getText">getText()</a> or <a href="#-getTextLines">getTextLines()</a>.</p>
 <p>May throw IndexError for an insertion out of bounds.</p></dd>
 
 <dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong>(...)</a></dt>

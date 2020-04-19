@@ -54,6 +54,11 @@ Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 <dd><code>getTextLength(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la longueur du texte dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
+<dt><a name="-getTextLines"><strong>getTextLines</strong>(...)</a></dt>
+<dd><code>getTextLines(["nom"]) -&gt; integer</code>
+<p>Retourne le nombre de lignes de texte présenté dans le cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
+
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code>getTextShade(["nom"]) -&gt; nombre entier</code>
 <p>Retourne la valeur de la teinte de couleur définie pour le texte de l'objet "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
@@ -69,6 +74,7 @@ Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 texte doit &ecirc;tre encodé en UTF (voir <a href="#-setText">setText</a>()
 comme référence). Le premier caractère a un index de 0.
 Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Pour des raisons de performance, cette fonction ne réalise aucune mise à jour de la mise en page du texte. En conséquence il est possible que vous deviez appeler <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> après avoir appelé cette fonction et lorsque vous le jugez nécessaire préalablement à l'appel de fonctions telles que <a href="#-getText">getText()</a> ou <a href="#-getTextLines">getTextLines()</a>.</p>
 <p>Peut générer IndexError dans le cas d'une insertion hors limites.</p></dd>
 
 <dt><a name="-layoutText"><strong>layoutText</strong></a>(...)</dt>

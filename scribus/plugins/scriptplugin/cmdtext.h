@@ -88,6 +88,10 @@ QT_TR_NOOP("getTextLines([\"name\"]) -> integer\n\
 \n\
 Returns the number of lines of the text in the text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
+\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
 "));
 /*! Get text lines */
 PyObject *scribus_gettextlines(PyObject * /*self*/, PyObject* args);
@@ -99,8 +103,10 @@ QT_TR_NOOP("getText([\"name\"]) -> string\n\
 Returns the text visible in text frame \"name\". If this text frame has some text\n\
 selected, the selected text is returned. If \"name\" is not given the currently\n\
 selected item is used.\n\
+\n\
 This function returns only the text visible in specified frame. If you need to \n\
 retrieve the text contained in a text chain, use getAllText() instead.\n\
+\n\
 As this function depends on text layout being up-to-date, you may need to call \n\
 layoutText() or layoutTextChain() before calling this function in order to get \n\
 expected result.\n\
@@ -190,7 +196,12 @@ QT_TR_NOOP("insertText(\"text\", pos, [\"name\"])\n\
 Inserts the text \"text\" at the position \"pos\" into the text frame \"name\".\n\
 Text must be UTF encoded (see setText() as reference) The first character has an\n\
 index of 0. Inserting text at position -1 appends it to the frame. If \"name\" is\n\
-not given the currently selected Item is used.\n\
+not given the currently selected item is used.\n\
+\n\
+For performance reason, this function does not update text layout in any way. \n\
+As a consequence, you may need to call layoutText() or layoutTextChain() at appropriate \n\
+times after calling this function and before calling functions such as getText() \n\
+or getTextLines().\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\
 "));
