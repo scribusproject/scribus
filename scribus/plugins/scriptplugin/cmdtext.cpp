@@ -152,7 +152,7 @@ PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
 	return PyLong_FromLong(item->currentCharStyle().fillShade());
 }
 
-PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
+PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -307,7 +307,7 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 	        PointToValue(item->textToFrameDistBottom()));
 }
 
-PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -338,7 +338,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 	return PyUnicode_FromString(text.toUtf8());
 }
 
-PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -371,7 +371,7 @@ PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 	return PyUnicode_FromString(text.toUtf8());
 }
 
-PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_settext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Text;
@@ -387,12 +387,12 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	QString Daten = QString::fromUtf8(Text);
-	Daten.replace("\r\n", SpecialChars::PARSEP);
-	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
+	QString userText = QString::fromUtf8(Text);
+	userText.replace("\r\n", SpecialChars::PARSEP);
+	userText.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	currItem->itemText.clear();
-	currItem->itemText.insertChars(0, Daten);
+	currItem->itemText.insertChars(0, userText);
 	currItem->invalidateLayout();
 
 	Py_RETURN_NONE;
@@ -1362,19 +1362,19 @@ void cmdtextdocwarnings()
 	QStringList s;
 	s << scribus_dehyphenatetext__doc__
 	  << scribus_deletetext__doc__
+	  << scribus_getalltext__doc__
 	  << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__
 	  << scribus_getfont__doc__
 	  << scribus_getfontfeatures__doc__
 	  << scribus_getfontsize__doc__
-	  << scribus_getframetext__doc__
 	  << scribus_getlinespace__doc__
 	  << scribus_gettext__doc__
 	  << scribus_gettextcolor__doc__
-	  << scribus_gettextdistances__doc__  
+	  << scribus_gettextdistances__doc__
+	  << scribus_gettextlength__doc__
 	  << scribus_gettextlines__doc__
 	  << scribus_gettextshade__doc__
-	  << scribus_gettextsize__doc__
 	  << scribus_gettextverticalalignment__doc__
 	  << scribus_hyphenatetext__doc__
 	  << scribus_inserthtmltext__doc__
@@ -1387,7 +1387,6 @@ void cmdtextdocwarnings()
 	  << scribus_outlinetext__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setalign__doc__
-	  << scribus_setboxtext__doc__
 	  << scribus_setcolumngap__doc__
 	  << scribus_setcolumns__doc__
 	  << scribus_setdirection__doc__
@@ -1398,6 +1397,7 @@ void cmdtextdocwarnings()
 	  << scribus_setlinespacemode__doc__
 	  << scribus_setpdfbookmark__doc__
 	  << scribus_settextdistances__doc__
+	  << scribus_settext__doc__
 	  << scribus_settextfill__doc__
 	  << scribus_settextscalingh__doc__
 	  << scribus_settextscalingv__doc__

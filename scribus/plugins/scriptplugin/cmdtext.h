@@ -73,14 +73,14 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_gettextshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_gettextsize__doc__,
+PyDoc_STRVAR(scribus_gettextlength__doc__,
 QT_TR_NOOP("getTextLength([\"name\"]) -> integer\n\
 \n\
 Returns the length of the text in the text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get text size */
-PyObject *scribus_gettextsize(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_gettextlength(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextlines__doc__,
@@ -93,19 +93,23 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_gettextlines(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getframetext__doc__,
+PyDoc_STRVAR(scribus_gettext__doc__,
 QT_TR_NOOP("getText([\"name\"]) -> string\n\
 \n\
-Returns the text of the text frame \"name\". If this text frame has some text\n\
-selected, the selected text is returned. All text in the frame, not just\n\
-currently visible text, is returned. If \"name\" is not given the currently\n\
+Returns the text visible in text frame \"name\". If this text frame has some text\n\
+selected, the selected text is returned. If \"name\" is not given the currently\n\
 selected item is used.\n\
+This function returns only the text visible in specified frame. If you need to \n\
+retrieve the text contained in a text chain, use getAllText() instead.\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
 "));
 /*! Get frame text */
-PyObject *scribus_getframetext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_gettext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_gettext__doc__,
+PyDoc_STRVAR(scribus_getalltext__doc__,
 QT_TR_NOOP("getAllText([\"name\"]) -> string\n\
 \n\
 Returns the text of the text frame \"name\" and of all text frames which are\n\
@@ -114,7 +118,7 @@ text is returned. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Get all text */
-PyObject *scribus_gettext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getalltext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinespace__doc__,
@@ -168,7 +172,7 @@ given the currently selected item is used.\n\
 PyObject *scribus_getcolumns(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setboxtext__doc__,
+PyDoc_STRVAR(scribus_settext__doc__,
 QT_TR_NOOP("setText(\"text\", [\"name\"])\n\
 \n\
 Sets the text of the text frame \"name\" to the text of the string \"text\".\n\
@@ -177,7 +181,7 @@ for more details. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Set text */
-PyObject *scribus_setboxtext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_inserttext__doc__,

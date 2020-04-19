@@ -41,8 +41,9 @@ Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["nom"]) -&gt; chaîne</code>
-<p>Retourne le texte du cadre de texte "nom". Si ce cadre de texte contient du texte sélectionné, celui-ci est retourné. 
-Tout le texte présent dans le cadre, et non seulement le texte visible, est retourné. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+<p>Retourne le texte visible dans le cadre de texte "nom". Si ce cadre de texte contient du texte sélectionné, celui-ci est retourné. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Cette fonction retourne uniquement le texte visible dans le cadre spécifié. Si vous souhaitez obtenir le texte contenu dans une chaîne de texte, veuillez utiliser <a href="#-getAllText">getAllText()</a> en lieu et place.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
 <dd><code>getTextColor(["nom"]) -&gt; chaîne</code>

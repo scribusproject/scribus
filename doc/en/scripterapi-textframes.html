@@ -46,7 +46,9 @@
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["name"]) -&gt; string</code>
-<p>Returns the text of the text frame "name". If this text frame has some text selected, the selected text is returned. All text in the frame, not just currently visible text, is returned. If "name" is not given the currently selected item is used.</p></dd>
+<p>Returns the text visible in text frame "name". If this text frame has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p>
+<p>This function returns only the text visible in specified frame. If you need to retrieve the text contained in a text chain, use <a href="#-getAllText">getAllText()</a> instead.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
 <dd><code>getTextColor(["name"]) -&gt; string</code>
