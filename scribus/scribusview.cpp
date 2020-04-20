@@ -1863,7 +1863,7 @@ void ScribusView::deselectItems(bool /*prop*/)
 		double x, y, w, h;
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 		m_doc->m_Selection->clear();
-		updateCanvas(x - 5/scale, y - 5/scale, w + 10/scale, h + 10/scale);
+		updateCanvas(x - 5 / scale, y - 5 / scale, w + 10 / scale, h + 10 / scale);
 	}
 	else
 	{
