@@ -193,7 +193,7 @@ public:
 	virtual void changed(QRectF re, bool);
 
 	void updateCanvas(QRectF box = QRectF());
-	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
+	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x, y, width, height)); }
 	void setCanvasOrigin(double x, double y);
 	void setCanvasCenter(double x, double y);
 	FPoint canvasOrigin() const;

@@ -8853,7 +8853,7 @@ QRectF PageItem::getBoundingRect() const
 {
 	double x,y,x2,y2;
 	getBoundingRect(&x, &y, &x2, &y2);
-	return QRectF(x,y,x2-x,y2-y);
+	return QRectF(x, y, x2 - x, y2 - y);
 }
 
 QRectF PageItem::getCurrentBoundingRect(double moreSpace) const

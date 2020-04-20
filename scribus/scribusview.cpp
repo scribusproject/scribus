@@ -2182,7 +2182,7 @@ void ScribusView::reformPages(bool moveObjects)
 void ScribusView::reformPagesView()
 {
 	if (!m_ScMW->scriptIsRunning())
-		setContentsPos(qRound((m_doc->currentPage()->xOffset()-10 - 0*m_doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((m_doc->currentPage()->yOffset()-10 - 0*m_doc->minCanvasCoordinate.y()) * m_canvas->scale()));
+		setContentsPos(qRound((m_doc->currentPage()->xOffset() - 10 - 0 * m_doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((m_doc->currentPage()->yOffset() - 10 - 0 * m_doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 	if (!m_doc->isLoading())
 	{
 		setRulerPos(contentsX(), contentsY());
@@ -2212,7 +2212,7 @@ void ScribusView::updateCanvas(QRectF box)
 		lowerRight.setX(qMax(0, lowerRight.x()+10));
 		lowerRight.setY(qMax(0, lowerRight.y()+10));
 		//		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
-		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x()-upperLeft.x(), lowerRight.y()-upperLeft.y());
+		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x() - upperLeft.x(), lowerRight.y() - upperLeft.y());
 	}
 	else
 	{
