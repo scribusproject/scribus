@@ -171,6 +171,7 @@ public:
 
 	bool hasObject(int pos) const;
 	PageItem* getItem(int pos) const; // deprecated
+	int  findMark(const Mark* mrk, int startPos = 0) const;
 	bool hasMark(int pos, const Mark* mrk = nullptr) const;
 	Mark *mark(int pos) const;
 	void replaceMark(int pos, Mark* mrk);

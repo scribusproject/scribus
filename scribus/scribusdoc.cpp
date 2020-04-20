@@ -17156,31 +17156,21 @@ int ScribusDoc::findMarkCPos(const Mark* mrk, PageItem* &currItem, int start) co
 	{
 		for (PageItem* item : DocItems)
 		{
-			if (item->isTextFrame() && (item->prevInChain() == nullptr))
+			if (!item->isTextFrame() || (item->prevInChain() != nullptr))
+				continue;
+			int pos = item->itemText.findMark(mrk);
+			if (pos >= 0)
 			{
-				for (int pos = 0; pos < item->itemText.length(); ++pos)
-				{
-					if (item->itemText.hasMark(pos, mrk))
-					{
-						currItem = item;
-						return pos;
-					}
-				}
+				currItem = item;
+				return pos;
 			}
 		}
 		return -1;
 	}
 	Q_ASSERT(currItem->isTextFrame());
 
-	if (start < currItem->firstInFrame())
-		start = currItem->firstInFrame();
-
-	for (int i = start; i < currItem->itemText.length(); ++i)
-	{
-		if (currItem->itemText.hasMark(i, mrk))
-			return i;
-	}
-	return -1;
+	int markPos = currItem->itemText.findMark(mrk, start);
+	return markPos;
 }
 
 bool ScribusDoc::isMarkUsed(const Mark* mrk, bool visible) const
@@ -17239,30 +17229,30 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 	{
 		if (item != nullptr)
 		{
-			int MPos = findMarkCPos(mrk, item);
-			while (MPos > -1)
+			int markPos = findMarkCPos(mrk, item);
+			while (markPos > -1)
 			{
-				if (mrk->isType(MARKNoteFrameType) && MPos > 1 && item->itemText.text(MPos -1) == SpecialChars::PARSEP)
-					item->itemText.removeChars(MPos-1,2);
+				if (mrk->isType(MARKNoteFrameType) && markPos > 1 && item->itemText.text(markPos -1) == SpecialChars::PARSEP)
+					item->itemText.removeChars(markPos - 1,2);
 				else
-					item->itemText.removeChars(MPos, 1);
+					item->itemText.removeChars(markPos, 1);
 				found = true;
-				MPos = findMarkCPos(mrk, item);
+				markPos = findMarkCPos(mrk, item);
 			}
 		}
 		else
 		{
 			//find and delete all mark`s apperences in text
-			int MPos = -1;
+			int markPos = -1;
 			int itemIndex = -1;
 			item = findMarkItem(mrk, itemIndex);
 			while (item != nullptr)
 			{
-				MPos = findMarkCPos(mrk, item);
-				while (MPos > -1)
+				markPos = findMarkCPos(mrk, item);
+				while (markPos > -1)
 				{
-					item->itemText.removeChars(MPos, 1);
-					MPos = findMarkCPos(mrk, item);
+					item->itemText.removeChars(markPos, 1);
+					markPos = findMarkCPos(mrk, item);
 				}
 				found = true;
 				item->asTextFrame()->invalidateLayout(false);
@@ -17326,19 +17316,19 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 		else
 		{
 			ims->set("MARK", QString("delNonUnique"));
-			int MPos = -1;
+			int markPos = -1;
 			int itemIndex = -1;
 			//find all mark insertions
 			PageItem* item = findMarkItem(mrk, itemIndex);
 			while (item != nullptr)
 			{
 				int num = 0; //shift of insertion position for undo
-				MPos = findMarkCPos(mrk, item);
-				while (MPos > -1)
+				markPos = findMarkCPos(mrk, item);
+				while (markPos > -1)
 				{
-					ims->insertItemPos.append(QPair<void*, int>((void*) item, MPos - num)); //-num as while undo text will be shorter (without marks)
+					ims->insertItemPos.append(QPair<void*, int>((void*) item, markPos - num)); //-num as while undo text will be shorter (without marks)
 					//++num;
-					MPos = findMarkCPos(mrk, item, MPos+1);
+					markPos = findMarkCPos(mrk, item, markPos + 1);
 				}
 				item = findMarkItem(mrk, itemIndex);
 			}

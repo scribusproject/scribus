@@ -1104,6 +1104,22 @@ PageItem* StoryText::getItem(int pos) const
 	return that->d->at(pos)->getItem(m_doc);
 }
 
+int StoryText::findMark(const Mark* mrk, int startPos) const
+{
+	assert(startPos >= 0);
+	assert(startPos < length());
+
+	int len = d->len;
+	for (int i = startPos; i < len; ++i)
+	{
+		if (d->at(i)->ch != SpecialChars::OBJECT)
+			continue;
+		if (d->at(i)->hasMark(mrk))
+			return i;
+	}
+
+	return -1;
+}
 
 bool StoryText::hasMark(int pos, const Mark* mrk) const
 {
@@ -1928,7 +1944,7 @@ void StoryText::select(int pos, int len, bool on)
 	if (on) {
 		// extend if possible
 		if (selected(pos - 1))
-			m_selLast = qMax(m_selLast, pos + static_cast<int>(len) - 1);
+			m_selLast = qMax(m_selLast, pos + len - 1);
 		else if (selected(pos + len))
 			m_selFirst = qMin(m_selFirst, pos);
 		else {
