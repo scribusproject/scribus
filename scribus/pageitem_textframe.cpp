@@ -4561,7 +4561,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		{
 			//find and delete notes
 			//if marks are in notes then they will be deleted further while note is physically deleted
-			for (int i=start; i < stop; ++i)
+			for (int i = start; i < stop; ++i)
 			{
 				if (i == itemText.length())
 					break;
@@ -4577,12 +4577,12 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 			stop -= marksNum;
 		}
 		//delete text
-		for (int i=start; i <= stop; ++i)
+		for (int i = start; i <= stop; ++i)
 		{
 			Mark* mark = i < itemText.length() && itemText.hasMark(i) ? itemText.mark(i) : nullptr;
 			const CharStyle& curParent = itemText.charStyle(i);
 			bool needParaAction = ((i < stop) && (itemText.text(i) == SpecialChars::PARSEP));
-			if (i==stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
+			if (i == stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
 			{
 				added = false;
 				lastIsDelete = false;

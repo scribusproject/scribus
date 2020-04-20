@@ -438,9 +438,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 						psx->setRenderHint(QPainter::Antialiasing);
 						psx->setBrush(Qt::white);
 						psx->setPen(m_pen["handle"]);
-						handleRect.moveCenter(QPointF(x, y+h/2.0));
+						handleRect.moveCenter(QPointF(x, y + h / 2.0));
 						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w, y+h/2.0));
+						handleRect.moveCenter(QPointF(x + w, y + h / 2.0));
 						psx->drawRect(handleRect);
 					}
 					else
