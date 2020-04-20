@@ -7121,43 +7121,44 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 		for (int i = 0; i < notesFramesData.count(); ++i)
 		{
 			NoteFrameData eF = notesFramesData.at(i);
-			NotesStyle* NS = m_Doc->getNotesStyle(eF.NSname);
-			if (NS != nullptr)
+			NotesStyle* ns = m_Doc->getNotesStyle(eF.NSname);
+			if (ns == nullptr)
+				continue;
+
+			PageItem* item = LinkID.value(eF.myID);
+			if (item == nullptr || !item->isNoteFrame())
 			{
-				PageItem* item = LinkID.value(eF.myID);
-				if ((item != nullptr) && item->isNoteFrame())
+				qDebug() << "Scribus150Format::updateNames2Ptr() : update end frames pointers - item is not note frame or name is wrong";
+				continue;
+			}
+
+			PageItem_NoteFrame* noteFrame = item->asNoteFrame();
+			noteFrame->setNoteStyle(ns);
+			if (ns->isEndNotes())
+			{
+				if (eF.NSrange == NSRdocument)
+					m_Doc->setEndNoteFrame(noteFrame, (void*) nullptr);
+				else if (eF.NSrange == NSRstory)
+					m_Doc->setEndNoteFrame(noteFrame, (void*) LinkID.value(eF.itemID));
+			}
+			else
+			{
+				PageItem* master = LinkID.value(eF.itemID);
+				if (master == nullptr)
+					continue;
+				noteFrame->setMaster(master);
+				master->asTextFrame()->setNoteFrame(noteFrame);
+				//FIX welding with note frame
+				PageItem::WeldingInfo wInf;
+				for (int i = 0 ; i < master->weldList.count(); i++)
 				{
-					item->asNoteFrame()->setNoteStyle(NS);
-					if (NS->isEndNotes())
+					wInf = master->weldList.at(i);
+					if (wInf.weldID == eF.myID)
 					{
-						if (eF.NSrange == NSRdocument)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) nullptr);
-						else if (eF.NSrange == NSRstory)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) LinkID.value(eF.itemID));
-					}
-					else
-					{
-						PageItem* master = LinkID.value(eF.itemID);
-						if (master != nullptr)
-						{
-							item->asNoteFrame()->setMaster(master);
-							master->asTextFrame()->setNoteFrame(item->asNoteFrame());
-						//FIX welding with note frame
-							PageItem::WeldingInfo wInf;
-							for (int i = 0 ; i < master->weldList.count(); i++)
-							{
-								wInf = master->weldList.at(i);
-								if (wInf.weldID == eF.myID)
-								{
-									master->weldList[i].weldItem = item;
-									break;
-								}
-							}
-						}
+						master->weldList[i].weldItem = item;
+						break;
 					}
 				}
-				else
-					qDebug() << "Scribus150Format::updateNames2Ptr() : update end frames pointers - item is not note frame or name is wrong";
 			}
 		}
 	}
