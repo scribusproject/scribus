@@ -7127,7 +7127,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 				PageItem* item = LinkID.value(eF.myID);
 				if ((item != nullptr) && item->isNoteFrame())
 				{
-					item->asNoteFrame()->setNS(NS);
+					item->asNoteFrame()->setNoteStyle(NS);
 					if (NS->isEndNotes())
 					{
 						if (eF.NSrange == NSRdocument)

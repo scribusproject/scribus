@@ -133,7 +133,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	deleteIt = false;
 }
 
-void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
+void PageItem_NoteFrame::setNoteStyle(NotesStyle *nStyle, PageItem_TextFrame* master)
 {
 	m_nstyle = nStyle;
 	if (master != nullptr)
