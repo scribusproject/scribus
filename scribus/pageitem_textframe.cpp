@@ -4629,26 +4629,29 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 						if (is)
 							is->set("noteframeName", getUName());
 						//remove marks from notes
-						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
+						for (int ii = notes2DEL.count() - 1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
 							Q_ASSERT(note != nullptr);
-							if (note->textLen > 0)
-							{
-								itemText.deselectAll();
-								itemText.select(notes2DEL.at(ii).second + 1, note->textLen);
-								removeMarksFromText(true);
-							}
+							if (note->textLen <= 0)
+								continue;
+							int oldTextLen = itemText.length();
+							itemText.deselectAll();
+							itemText.select(notes2DEL.at(ii).second + 1, note->textLen);
+							removeMarksFromText(true);
+							marksNum += oldTextLen - itemText.length();
 						}
 						asNoteFrame()->updateNotesText();
 						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
 							Q_ASSERT(note != nullptr);
+							int oldTextLen = itemText.length();
 							m_Doc->setUndoDelNote(note);
 							if (note->isEndNote())
 								m_Doc->flag_updateEndNotes = true;
 							m_Doc->deleteNote(note);
+							marksNum += oldTextLen - itemText.length();
 						}
 						if (is)
 						{
