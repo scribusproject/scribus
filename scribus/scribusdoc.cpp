@@ -17260,10 +17260,11 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			}
 		}
 	}
+
 	//remove mark references
-	for (int a=0; a < m_docMarksList.count(); ++a)
+	for (int i = 0; i < m_docMarksList.count(); ++i)
 	{
-		Mark* m = m_docMarksList.at(a);
+		Mark* m = m_docMarksList.at(i);
 		if (m == nullptr)
 			continue;
 		if (m->isType(MARK2MarkType))
@@ -17278,6 +17279,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			}
 		}
 	}
+
 	//erase mark from marksMap
 	if (mrk->isUnique() || force)
 	{

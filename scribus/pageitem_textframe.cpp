@@ -4536,6 +4536,8 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	}
 	int start = itemText.startOfSelection();
 	int stop = itemText.endOfSelection();
+	int savedStart = itemText.startOfSelection();
+	int savedStop = itemText.endOfSelection();
 	int marksNum = 0;
 	if (UndoManager::undoEnabled()) 
 	{
@@ -4705,12 +4707,11 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	else //remove marks without undo
 		marksNum = removeMarksFromText(false);
 
-	start = itemText.startOfSelection();
-	stop = itemText.endOfSelection();
-
-	itemText.setCursorPosition(start);
-	//for sure text is still selected
-	itemText.select(start, stop - start - marksNum);
+	// We have to use saved selection because mark removal may clear selection
+	// so that we cannot get it back from itemText
+	itemText.deselectAll();
+	itemText.setCursorPosition(savedStart);
+	itemText.select(savedStart, savedStop - savedStart - marksNum);
 	itemText.removeSelection();
 	HasSel = false;
 //	m_Doc->updateFrameItems();

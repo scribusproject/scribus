@@ -293,8 +293,7 @@ private:
 	void fixSurrogateSelection();
 	
 private:
-	ScribusDoc * m_doc; 
-	int m_selFirst, m_selLast;
+	ScribusDoc * m_doc;
 	ShapedTextCache* m_shapedTextCache;
 	static BreakIterator* m_graphemeIterator;
 	static BreakIterator* m_wordIterator;

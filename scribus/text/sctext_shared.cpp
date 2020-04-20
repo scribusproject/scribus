@@ -17,8 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
-	pstyleContext(nullptr),
-	refs(1), len(0), cursorPosition(0), marksCount(0), marksCountChanged(false)
+	pstyleContext(nullptr)
 {
 	pstyleContext.setDefaultStyle( & defaultStyle );
 	defaultStyle.setContext( pstyles );
@@ -32,7 +31,8 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
 ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
-	refs(1), len(0), cursorPosition(other.cursorPosition),
+	cursorPosition(other.cursorPosition),
+	selFirst(other.selFirst), selLast(other.selLast),
 	marksCount(other.marksCount), marksCountChanged(other.marksCountChanged),
 	trailingStyle(other.trailingStyle)
 {
@@ -65,6 +65,8 @@ void ScText_Shared::clear()
 		delete this->takeFirst(); 
 	QList<ScText*>::clear();
 	cursorPosition = 0;
+	selFirst = 0;
+	selLast = -1;
 	if (marksCount > 0)
 		marksCountChanged = true;
 	marksCount = 0;
@@ -101,6 +103,8 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 		}
 		len = count();
 		cursorPosition = other.cursorPosition;
+		selFirst = other.selFirst;
+		selLast = other.selLast;
 		marksCount = other.marksCount;
 		marksCountChanged = other.marksCountChanged;
 		pstyleContext.invalidate();
