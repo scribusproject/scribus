@@ -764,6 +764,14 @@ public:
 	void restoreLevelDown(SimpleState* ss, bool isUndo);
 	void restoreLevelBottom(SimpleState* ss, bool isUndo);
 	void restoreGuideLock(SimpleState* ss, bool isUndo);
+
+	/**
+	 * @brief Undo functions for marks / notes
+	 */
+	void restoreMarks(UndoState* ss, bool isUndo);
+	void restoreNoteStyle(SimpleState* ss, bool isUndo);
+	void restoreDeleteNote(UndoState* ss, bool isUndo);
+
 	/**
 	 * @brief Save function
 	 */
