@@ -288,7 +288,8 @@ void UndoManager::renameStack(const QString& newName)
 	if (currentDoc_ == newName)
 		return;
 
-	if (stacks_[currentDoc_].size() == 0) {
+	if (stacks_[currentDoc_].size() == 0)
+	{
 		currentDoc_ = newName;
 		return;
 	}

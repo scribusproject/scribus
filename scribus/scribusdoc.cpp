@@ -1612,7 +1612,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			lowerLayer(ss->getInt("ACTIVE"));
 		else
 			raiseLayer(ss->getInt("ACTIVE"));
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("DOWN_LAYER"))
 	{
@@ -1620,39 +1620,39 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			raiseLayer(ss->getInt("ACTIVE"));
 		else
 			lowerLayer(ss->getInt("ACTIVE"));
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("PRINT_LAYER"))
 	{
 		bool print = ss->getBool("PRINT");
 		setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("LAYER_FLOW"))
 	{
 		bool flow = ss->getBool("FLOW");
 		setLayerFlow(ss->getInt("ACTIVE"), isUndo ? !flow : flow);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("LAYER_LOCK"))
 	{
 		bool lock = ss->getBool("LOCK");
 		setLayerLocked(ss->getInt("ACTIVE"), isUndo ? !lock : lock);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("LAYER_TRANSPARENCY"))
 	{
 		double old_trans = ss->getDouble("OLD_TRANS");
 		double new_trans = ss->getDouble("NEW_TRANS");
 		setLayerTransparency(ss->getInt("ACTIVE"), isUndo ? old_trans : new_trans);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("LAYER_BLENDMODE"))
 	{
 		int old_blend = ss->getInt("OLD_BLENDMODE");
 		int new_blend = ss->getInt("NEW_BLENDMODE");
 		setLayerBlendMode(ss->getInt("ACTIVE"), isUndo ? old_blend : new_blend);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("ADD_LAYER"))
 	{
@@ -1660,22 +1660,22 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			deleteLayer(ss->getInt("LAYER_NR"), false);
 		else
 		{
-			int layerID=addLayer( ss->get("NAME"), false );
-			int newLayerID=ss->getInt("LAYER_NR");
+			int layerID = addLayer(ss->get("NAME"), false);
+			int newLayerID = ss->getInt("LAYER_NR");
 			bool renumberedOk=renumberLayer(layerID, newLayerID);
 			Q_ASSERT(renumberedOk);
 		}
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("REMOVE_LAYER"))
 	{
 		if (isUndo)
 		{
-			int layerID=addLayer( ss->get("NAME"), false );
-			int newLayerID=ss->getInt("LAYER_NR");
+			int layerID = addLayer(ss->get("NAME"), false);
+			int newLayerID = ss->getInt("LAYER_NR");
 			bool renumberedOk=renumberLayer(layerID, newLayerID);
 			Q_ASSERT(renumberedOk);
-			layerID=newLayerID;
+			layerID = newLayerID;
 			//Layer is at the top now, lower it until it reaches the old level
 			int level = ss->getInt("LEVEL");
 			while (layerLevelFromID(layerID)!=level)
@@ -1683,7 +1683,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		}
 		else
 			deleteLayer(ss->getInt("LAYER_NR"), ss->getBool("DELETE"));
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("CHANGE_NAME"))
 	{
@@ -1691,7 +1691,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		if (!isUndo)
 			name = ss->get("NEW_NAME");
 		changeLayerName(ss->getInt("ACTIVE"), name);
-		layersUndo=true;
+		layersUndo = true;
 	}
 	else if (ss->contains("MASTERPAGE_ADD"))
 		restoreAddMasterPage(ss, isUndo);
