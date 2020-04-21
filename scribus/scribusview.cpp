@@ -1371,26 +1371,26 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 
 void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
 {
-	QPoint in(qRound(dragX*m_canvas->scale()), qRound(dragY*m_canvas->scale()));
+	QPoint in(qRound(dragX * m_canvas->scale()), qRound(dragY * m_canvas->scale()));
 	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
-	*w = dragW*m_canvas->scale();
-	*h = dragH*m_canvas->scale();
+	*w = dragW * m_canvas->scale();
+	*h = dragH * m_canvas->scale();
 }
 
 void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 {
 	double gx, gy, gh, gw;
 	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-	QPoint in(qRound(gx*m_canvas->scale()), qRound(gy*m_canvas->scale()));
+	QPoint in(qRound(gx * m_canvas->scale()), qRound(gy * m_canvas->scale()));
 	//	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
-	*w = gw*m_canvas->scale();
-	*h = gh*m_canvas->scale();
+	*w = gw * m_canvas->scale();
+	*h = gh * m_canvas->scale();
 }
 
 
@@ -1858,14 +1858,7 @@ void ScribusView::deselectItems(bool /*prop*/)
 		if ((currItem->asTextFrame()) && (currItem->isBookmark))
 			emit ChBMText(currItem);
 	}
-	if (m_doc->m_Selection->isMultipleSelection())
-	{
-		double x, y, w, h;
-		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-		m_doc->m_Selection->clear();
-		updateCanvas(x - 5 / scale, y - 5 / scale, w + 10 / scale, h + 10 / scale);
-	}
-	else
+	if (!m_doc->m_Selection->isMultipleSelection())
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem != nullptr)
@@ -1873,10 +1866,11 @@ void ScribusView::deselectItems(bool /*prop*/)
 			currItem->itemText.deselectAll();
 			currItem->HasSel = false;
 		}
-		m_doc->m_Selection->clear();
-		if (currItem != nullptr)
-			updateContents(currItem->getRedrawBounding(scale));
 	}
+	double x, y, w, h;
+	m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+	m_doc->m_Selection->clear();
+	updateCanvas(x - 5 / scale, y - 5 / scale, w + 10 / scale, h + 10 / scale);
 }
 
 // FIXME:av -> CanvasMode_legacy / Doc
@@ -2207,10 +2201,10 @@ void ScribusView::updateCanvas(QRectF box)
 	{
 		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());
 		QPoint lowerRight = m_canvas->canvasToLocal(box.bottomRight());
-		upperLeft.setX(qMax(0, upperLeft.x()-10));
-		upperLeft.setY(qMax(0, upperLeft.y()-10));
-		lowerRight.setX(qMax(0, lowerRight.x()+10));
-		lowerRight.setY(qMax(0, lowerRight.y()+10));
+		upperLeft.setX(qMax(0, upperLeft.x() - 10));
+		upperLeft.setY(qMax(0, upperLeft.y() - 10));
+		lowerRight.setX(qMax(0, lowerRight.x() + 10));
+		lowerRight.setY(qMax(0, lowerRight.y() + 10));
 		//		qDebug() << "updateCanvas:" << upperLeft << lowerRight;
 		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x() - upperLeft.x(), lowerRight.y() - upperLeft.y());
 	}
