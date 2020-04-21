@@ -1995,7 +1995,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 			if (is->contains("dName"))
 				mrk->setMark(is->get("dName"), (MarkType) is->getInt("dType"));
 			if (is->getItem("itemPtr") != nullptr)
-				mrk->setItemPtr((PageItem*) is->getItem("itemPtrOLD"));
+				mrk->setItemPtr((PageItem*) is->getItem("itemPtr"));
 		}
 		else if (markAction == "eraseFromText") ////for non-unique marks
 		{
@@ -2049,7 +2049,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 			if (is->contains("dName"))
 				mrk->setMark(is->get("dName"), (MarkType) is->getInt("dType"));
 			if (is->getItem("itemPtr") != nullptr)
-				mrk->setItemPtr((PageItem*) is->getItem("itemPtrOLD"));
+				mrk->setItemPtr((PageItem*) is->getItem("itemPtr"));
 			if (mrk->isType(MARKNoteMasterType))
 			{
 				NotesStyle* nStyle = getNotesStyle(is->get("nStyle"));;
