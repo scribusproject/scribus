@@ -161,12 +161,12 @@ QString PageItem_Line::infoDescription() const
 	return QString();
 }
 
-QPointF PageItem_Line::startPoint()
+QPointF PageItem_Line::startPoint() const
 {
 	return QPointF(m_xPos, m_yPos);
 }
 
-QPointF PageItem_Line::endPoint()
+QPointF PageItem_Line::endPoint() const
 {
 	double rot = this->rotation();
 	double x = m_xPos + m_width * cos(rot * M_PI / 180.0);
