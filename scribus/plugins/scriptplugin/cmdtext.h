@@ -561,4 +561,26 @@ May raise WrongFrameTypeError if the target frame is not a text frame\n\
 /*! Is PDF bookmark? */
 PyObject *scribus_ispdfbookmark(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_positiontopoint__doc__,
+QT_TR_NOOP("positionToPoint(pos, [\"name\"]) -> (x,y,width,height)\n\
+\n\
+Returns a (x, y, width, height) tuple based on the character at position\n\
+\"pos\" in the text frame \"name\". If \"name\" is not given the currently\n\
+selected item is used.\n\
+"));
+/*! Point for glyth at position */
+PyObject *scribus_positiontopoint(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getmark__doc__,
+QT_TR_NOOP("getMark(pos, [\"name\"]) -> (type,text)\n\
+\n\
+Returns a (type, text) tuple for the mark at position pos in object \"name\".\n\
+If \"name\" is not given the currently selected item is used. If there is no\n\
+mark at that position, type is -1.\n\
+"));
+/*! Returns info about mark */
+PyObject *scribus_getmark(PyObject * /*self*/, PyObject* args);
+
 #endif

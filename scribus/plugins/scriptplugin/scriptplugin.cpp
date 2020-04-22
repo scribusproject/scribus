@@ -407,6 +407,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getUnit"), (PyCFunction)scribus_getunit, METH_NOARGS, tr(scribus_getunit__doc__)},
 	{const_cast<char*>("getVGuides"), (PyCFunction)scribus_getVguides, METH_NOARGS, tr(scribus_getVguides__doc__)},
 	{const_cast<char*>("getXFontNames"), (PyCFunction)scribus_xfontnames, METH_NOARGS, tr(scribus_xfontnames__doc__)},
+	{const_cast<char*>("positionToPoint"), scribus_positiontopoint, METH_VARARGS, tr(scribus_positiontopoint__doc__)},
+	{const_cast<char*>("getMark"), scribus_getmark, METH_VARARGS, tr(scribus_getmark__doc__)},
 	{const_cast<char*>("gotoPage"), scribus_gotopage, METH_VARARGS, tr(scribus_gotopage__doc__)},
 	{const_cast<char*>("groupObjects"), (PyCFunction)scribus_groupobj, METH_VARARGS, tr(scribus_groupobj__doc__)},
 	{const_cast<char*>("haveDoc"), (PyCFunction)scribus_havedoc, METH_NOARGS, tr(scribus_havedoc__doc__)},
