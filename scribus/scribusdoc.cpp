@@ -1876,7 +1876,6 @@ void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 	if (isUndo)
 	{
 		tempSelect.addItem(select.last());
-		tempSelect.setGroupRect();
 		tempSelect.getGroupRect(&x, &y, &w, &h);
 		itemSelection_UnGroupObjects(&tempSelect);
 	}
@@ -1884,7 +1883,6 @@ void ScribusDoc::restoreGrouping(SimpleState* ss, bool isUndo)
 	{
 		for (int i = 0; i < select.size()-1; ++i)
 			tempSelect.addItem(select.at(i));
-		tempSelect.setGroupRect();
 		tempSelect.getGroupRect(&x, &y, &w, &h);
 		select.removeLast();
 		select.append(itemSelection_GroupObjects(false, false,&tempSelect));
@@ -13614,7 +13612,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 			}
 			dH2 += dH;
 			dV2 += dV;
-			if (mdData.copyShiftOrGap==1)
+			if (mdData.copyShiftOrGap == 1)
 			{
 				if (dH != 0.0)
 					dH2 += m_Selection->width();
@@ -14679,7 +14677,6 @@ void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 	
 	PageItem* currItem;
 	double gx, gy, gw, gh;
-	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	QRectF oldRect = QRectF(gx, gy, gw, gh);
 	QList<PageItem*> weldL;
@@ -14693,7 +14690,6 @@ void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 			moveItem(x, y, currItem);
 		}
 	}
-	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	if (itemSelection->isMultipleSelection())
 	{
@@ -14753,9 +14749,8 @@ void ScribusDoc::rotateGroup(double angle, const FPoint& RCenter, Selection* cus
 	}
 	currItem = itemSelection->itemAt(0);
 	GroupOnPage(currItem);
-	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
-	regionsChanged()->update(QRectF(gxS-5, gyS-5, gwS+10, ghS+10).united(oldR));
+	regionsChanged()->update(QRectF(gxS - 5, gyS - 5, gwS + 10, ghS + 10).united(oldR));
 }
 
 void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* customSelection, bool scaleLine)
@@ -14958,7 +14953,6 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	}
 	item = itemSelection->itemAt(0);
 	GroupOnPage(item);
-	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	m_rotMode = drm;
 	if ((m_rotMode != 0) && (!isLoading()))
@@ -14981,7 +14975,6 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	}
 	updateManager()->setUpdatesEnabled();
 	regionsChanged()->update(QRectF(gx - 5, gy - 5, gw + 10, gh + 10).united(oldR));
-	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{

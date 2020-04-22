@@ -4902,7 +4902,6 @@ void ScribusMainWindow::slotEditPaste()
 			}
 			if (isGroup)
 				doc->GroupCounter++;
-			doc->m_Selection->setGroupRect();
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			PageItem* currItem3 = doc->Items->at(ac);
 			currItem3->isEmbedded = true;
@@ -4975,7 +4974,6 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->clear();
 				doc->m_Selection->delaySignalsOn();
 				doc->m_Selection->addItem(retObj);
-				doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				retObj->isEmbedded = true;
@@ -9069,7 +9067,6 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	}
 	if (isGroup)
 		doc->GroupCounter++;
-	doc->m_Selection->setGroupRect();
 	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	PageItem* currItem3 = doc->Items->at(ac);
 	currItem3->isEmbedded = true;
@@ -9133,7 +9130,6 @@ void ScribusMainWindow::PutToInline()
 	}
 	if (isGroup)
 		doc->GroupCounter++;
-	doc->m_Selection->setGroupRect();
 	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	PageItem* currItem3 = doc->Items->at(ac);
 	currItem3->isEmbedded = true;

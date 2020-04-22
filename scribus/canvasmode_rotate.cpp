@@ -352,7 +352,6 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
@@ -514,7 +513,6 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 			double x, y, w, h;
 			m_doc->setRotationMode(m_oldRotMode);
 			m_view->RCenter = m_oldRotCenter;
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}

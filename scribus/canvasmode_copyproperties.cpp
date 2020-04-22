@@ -333,7 +333,6 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
 				bb->update();
 			}
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);

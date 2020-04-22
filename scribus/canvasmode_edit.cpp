@@ -766,7 +766,6 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				{
 					m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 				}
-				m_doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
@@ -774,23 +773,22 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				{
 					FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-					FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-					if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+					FPoint npw = m_doc->ApplyGridF(FPoint(gx + gw, gy + gh));
+					if ((fabs(gx - npx.x())) > (fabs((gx + gw) - npw.x())))
 						nx = npw.x() - gw;
 					else
 						nx = npx.x();
-					if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+					if ((fabs(gy - npx.y())) > (fabs((gy + gh) - npw.y())))
 						ny = npw.y() - gh;
 					else
 						ny = npx.y();
 				}
-				m_doc->moveGroup(nx-gx, ny-gy);
-				m_doc->m_Selection->setGroupRect();
+				m_doc->moveGroup(nx - gx, ny - gy);
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				nx = gx+gw;
-				ny = gy+gh;
+				nx = gx + gw;
+				ny = gy + gh;
 				if (m_doc->ApplyGuides(&nx, &ny) || m_doc->ApplyGuides(&nx,&ny,true))
-					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
+					m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
 				m_doc->m_Selection->setGroupRect();
 			}
 			else
@@ -802,16 +800,15 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 					double ny = currItem->yPos();
 					if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					{
-						m_doc->m_Selection->setGroupRect();
 						double gx, gy, gh, gw;
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
-						FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
-						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+						FPoint npw = m_doc->ApplyGridF(FPoint(gx + gw, gy + gh));
+						if ((fabs(gx - npx.x())) > (fabs((gx + gw) - npw.x())))
 							nx = npw.x() - gw;
 						else
 							nx = npx.x();
-						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+						if ((fabs(gy - npx.y())) > (fabs((gy + gh) - npw.y())))
 							ny = npw.y() - gh;
 						else
 							ny = npx.y();
@@ -826,8 +823,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			{
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				FPoint maxSize(gx+gw+m_doc->scratch()->right(), gy+gh+m_doc->scratch()->bottom());
-				FPoint minSize(gx-m_doc->scratch()->left(), gy-m_doc->scratch()->top());
+				FPoint maxSize(gx + gw + m_doc->scratch()->right(), gy + gh + m_doc->scratch()->bottom());
+				FPoint minSize(gx - m_doc->scratch()->left(), gy - m_doc->scratch()->top());
 				m_doc->adjustCanvas(minSize, maxSize);
 			}
 			m_doc->setRedrawBounding(currItem);
@@ -891,7 +888,6 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->delaySignalsOff();
 			if (m_doc->m_Selection->count() > 1)
 			{
-				m_doc->m_Selection->setGroupRect();
 				double x, y, w, h;
 				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 				m_view->getGroupRectScreen(&x, &y, &w, &h);
@@ -905,7 +901,6 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_canvas->m_viewMode.operItemMoving = false;
@@ -1057,7 +1052,6 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);

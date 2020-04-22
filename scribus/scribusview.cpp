@@ -1285,7 +1285,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (m_doc->m_Selection->count() > 1)
 		{
 			m_doc->m_Selection->connectItemToGUI();
-			m_doc->m_Selection->setGroupRect();
 			double gx, gy, gh, gw;
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			double nx = gx;
@@ -1298,15 +1297,13 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				ny = npx.y();
 			}
 			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move, "", Um::IMove);
-			m_doc->moveGroup(nx-gx, ny-gy);
-			m_doc->m_Selection->setGroupRect();
+			m_doc->moveGroup(nx - gx, ny - gy);
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			nx = gx+gw;
-			ny = gy+gh;
+			nx = gx + gw;
+			ny = gy + gh;
 			m_doc->ApplyGuides(&nx, &ny);
 			m_doc->ApplyGuides(&nx, &ny,true);
-			m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
-			m_doc->m_Selection->setGroupRect();
+			m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 			{
@@ -1337,7 +1334,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					nx = npx.x();
 					ny = npx.y();
 				}
-				m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+				m_doc->moveItem(nx - currItem->xPos(), ny - currItem->yPos(), currItem);
 			}
 		}
 		if ((m_doc->m_Selection->count() > 0) && (m_doc->appMode != modeNormal))
@@ -1834,7 +1831,6 @@ void ScribusView::selectItem(PageItem *currItem, bool draw, bool single)
 	}
 	if (draw && !m_doc->m_Selection->isEmpty())
 	{
-		m_doc->m_Selection->setGroupRect();
 		double x, y, w, h;
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 		getGroupRectScreen(&x, &y, &w, &h);
@@ -1900,10 +1896,8 @@ void ScribusView::PasteToPage()
 	if (newObjects.count() > 1)
 	{
 		double gx, gy, gh, gw;
-		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		m_doc->moveGroup(dragX - gx, dragY - gy, &newObjects);
-		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
@@ -1914,15 +1908,13 @@ void ScribusView::PasteToPage()
 			nx = npx.x();
 			ny = npx.y();
 		}
-		m_doc->moveGroup(nx-gx, ny-gy, &newObjects);
-		newObjects.setGroupRect();
+		m_doc->moveGroup(nx - gx, ny - gy, &newObjects);
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		nx = gx+gw;
-		ny = gy+gh;
+		nx = gx + gw;
+		ny = gy + gh;
 		m_doc->ApplyGuides(&nx, &ny);
 		m_doc->ApplyGuides(&nx, &ny,true);
-		m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), &newObjects);
-		newObjects.setGroupRect();
+		m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh), &newObjects);
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemGeom();
 		emit HaveSel();
@@ -1941,7 +1933,7 @@ void ScribusView::PasteToPage()
 				nx = npx.x();
 				ny = npx.y();
 			}
-			m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+			m_doc->moveItem(nx - currItem->xPos(), ny - currItem->yPos(), currItem);
 		}
 		currItem->emitAllToGUI();
 	}
