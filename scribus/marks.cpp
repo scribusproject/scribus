@@ -56,6 +56,11 @@ void Mark::setString(const QString& str)
 	m_data.strtxt = str;
 }
 
+void Mark::clearString()
+{
+	m_data.strtxt.clear();
+}
+
 void Mark::setNotePtr(TextNote* note)
 {
 	m_data.notePtr = note;
@@ -73,7 +78,7 @@ bool Mark::hasString() const
 
 bool Mark::hasMark() const
 {
-	return m_data.destmarkName != "";
+	return !m_data.destmarkName.isEmpty();
 }
 
 bool Mark::isUnique() const

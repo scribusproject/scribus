@@ -9594,7 +9594,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 		mrk->setType(MARKNoteMasterType);
 		mrk->setNotePtr(doc->newNote(nStyle));
 		mrk->getNotePtr()->setMasterMark(mrk);
-		mrk->setString("");
+		mrk->clearString();
 		mrk->OwnPage = currItem->OwnPage;
 		currItem->itemText.insertMark(mrk);
 		currItem->invalidateLayout();
@@ -9757,7 +9757,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		if (mrkType == MARKNoteMasterType)
 		{
 			mrk->getNotePtr()->setMasterMark(mrk);
-			mrk->setString("");
+			mrk->clearString();
 		}
 
 		if (UndoManager::undoEnabled())

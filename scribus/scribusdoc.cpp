@@ -17468,24 +17468,18 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 				}
 			}
 			else
-				mrk->setString("");
+				mrk->clearString();
 		}
 		else if (mrk->isType(MARK2MarkType))
 		{
 			QString l;
 			MarkType t;
 			mrk->getMark(l, t);
-			Mark* destMark = getMark(l,t);
+			Mark* destMark = getMark(l, t);
 			if (destMark != nullptr)
 			{
 				PageItem* dItem = findFirstMarkItem(destMark);
-				if (dItem == nullptr)
-				{
-					destMark->OwnPage = -1;
-					mrk->setString("");
-					docWasChanged = true;
-				}
-				else
+				if (dItem != nullptr)
 				{
 					destMark->OwnPage = dItem->OwnPage;
 					mrk->setString(getSectionPageNumberForPageIndex(destMark->OwnPage));
@@ -17495,10 +17489,16 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 						docWasChanged = true;
 					}
 				}
+				else
+				{
+					destMark->OwnPage = -1;
+					mrk->clearString();
+					docWasChanged = true;
+				}
 			}
 			else
 			{
-				mrk->setString("");
+				mrk->clearString();
 				docWasChanged = true;
 			}
 		}
