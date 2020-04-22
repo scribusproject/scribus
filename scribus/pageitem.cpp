@@ -9958,17 +9958,26 @@ PageItem* PageItem::lastInChainSamePage()
 
 QRect PageItem::getRedrawBounding(double viewScale) const
 {
-	int x = qRound(floor(BoundingX - m_oldLineWidth / 2.0 - 5) * viewScale);
-	int y = qRound(floor(BoundingY - m_oldLineWidth / 2.0 - 5) * viewScale);
-	int w = qRound(ceil(BoundingW + m_oldLineWidth + 10) * viewScale);
-	int h = qRound(ceil(BoundingH + m_oldLineWidth + 10) * viewScale);
-	QRect ret = QRect(0, 0, w - x, h - y);
+	double maxLineWidth = qMax(m_lineWidth, m_oldLineWidth);
+	QRectF boundingRect(-maxLineWidth / 2.0 - 5 / viewScale,
+	                    -maxLineWidth / 2.0 - 5 / viewScale,
+	                    BoundingW + maxLineWidth + 10 / viewScale,
+	                    BoundingH + maxLineWidth + 10 / viewScale);
 	QTransform t = getTransform();
-	ret = t.mapRect(ret);
-	ret.translate(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
-	return ret;
-}
+	boundingRect = t.mapRect(boundingRect);
 
+	QRectF redrawBoundingF((boundingRect.x() - m_Doc->minCanvasCoordinate.x()) * viewScale,
+	                       (boundingRect.y() - m_Doc->minCanvasCoordinate.y()) * viewScale,
+	                        boundingRect.width() * viewScale,
+	                        boundingRect.height() * viewScale);
+	redrawBoundingF = redrawBoundingF.normalized();
+
+	int x = floor(redrawBoundingF.left());
+	int y = floor(redrawBoundingF.top());
+	int w = ceil(redrawBoundingF.right()) - x;
+	int h = ceil(redrawBoundingF.bottom()) - y;
+	return QRect(x, y, w, h);
+}
 
 void PageItem::setRedrawBounding()
 {
