@@ -562,15 +562,17 @@ May raise WrongFrameTypeError if the target frame is not a text frame\n\
 PyObject *scribus_ispdfbookmark(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_positiontopoint__doc__,
-QT_TR_NOOP("positionToPoint(pos, [\"name\"]) -> (x,y,width,height)\n\
+PyDoc_STRVAR(scribus_getcharcoordinates__doc__,
+QT_TR_NOOP("getCharCoordinates(pos, [\"name\"]) -> (x,y,width,height)\n\
 \n\
 Returns a (x, y, width, height) tuple based on the character at position\n\
-\"pos\" in the text frame \"name\". If \"name\" is not given the currently\n\
-selected item is used.\n\
+\"pos\" in the text frame \"name\". Even if the text frame is chained from\n\
+another text frame, \"pos\" is related to the named text frame, not the\n\
+overall story text. If \"name\" is not given the currently selected item is\n\
+used.\n\
 "));
 /*! Point for glyth at position */
-PyObject *scribus_positiontopoint(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getcharcoordinates(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getmark__doc__,

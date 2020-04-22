@@ -1354,7 +1354,7 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(0);
 }
 
-PyObject *scribus_positiontopoint(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
 {
 	int pos;
 	char *Name = const_cast<char*>("");
@@ -1367,14 +1367,18 @@ PyObject *scribus_positiontopoint(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character positions from a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
+	if ((pos < -1) || (pos > item->lastInFrame() - item->firstInFrame()))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds for this text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+	if (pos == -1)
+		pos = item->lastInFrame();
+	else
+		pos += item->firstInFrame();
 	QLineF box = item->textLayout.positionToPoint(pos);
 	return Py_BuildValue("(dddd)",
 			     docUnitXToPageX(item->xPos() + box.x1()),
@@ -1396,7 +1400,7 @@ PyObject *scribus_getmark(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get mark info from a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
@@ -1445,7 +1449,7 @@ void cmdtextdocwarnings()
 	  << scribus_layouttextchain__doc__
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
-	  << scribus_positiontopoint__doc__
+	  << scribus_getcharcoordinates__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setalign__doc__
 	  << scribus_setboxtext__doc__
