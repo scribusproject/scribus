@@ -3466,52 +3466,51 @@ bool ScribusMainWindow::slotPageImport()
 
 bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName)
 {
-	bool ret = false;
-	if (!fileName.isEmpty())
+	if (fileName.isEmpty())
+		return false;
+
+	FileLoader *fl = new FileLoader(fileName);
+	if (fl->testFile() == -1)
 	{
-		FileLoader *fl = new FileLoader(fileName);
-		if (fl->testFile() == -1)
-		{
-			delete fl;
-			return false;
-		}
-		doc->setLoading(true);
-		int oldItemsCount = doc->Items->count();
-		if (!fl->loadPage(doc, Nr, Mpa, renamedPageName))
-		{
-			delete fl;
-			doc->setLoading(false);
-			return false;
-		}
 		delete fl;
-		if (ScCore->haveCMS() && doc->cmsSettings().CMSinUse)
-		{
-			recalcColors();
-			doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
-		}
-		int docItemsCount=doc->Items->count();
-		for (int i = oldItemsCount; i < docItemsCount; ++i)
-		{
-			PageItem *ite = doc->Items->at(i);
-			if ((ite->asTextFrame()) && (ite->isBookmark))
-				AddBookMark(ite);
-		}
-		propertiesPalette->updateColorList();
-		contentPalette->updateColorList();
-		emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
-		symbolPalette->updateSymbolList();
-		slotDocCh();
-		rebuildLayersList();
-		updateLayerMenu();
-		layerPalette->rebuildList();
-		doc->setLoading(false);
-		ret = true;
+		return false;
 	}
+	doc->setLoading(true);
+	int oldItemsCount = doc->Items->count();
+	if (!fl->loadPage(doc, Nr, Mpa, renamedPageName))
+	{
+		delete fl;
+		doc->setLoading(false);
+		return false;
+	}
+	delete fl;
+	if (ScCore->haveCMS() && doc->cmsSettings().CMSinUse)
+	{
+		recalcColors();
+		doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
+	}
+	int docItemsCount=doc->Items->count();
+	for (int i = oldItemsCount; i < docItemsCount; ++i)
+	{
+		PageItem *ite = doc->Items->at(i);
+		if ((ite->asTextFrame()) && (ite->isBookmark))
+			AddBookMark(ite);
+	}
+	propertiesPalette->updateColorList();
+	contentPalette->updateColorList();
+	emit UpdateRequest(reqArrowStylesUpdate | reqLineStylesUpdate | reqStyleComboDocUpdate | reqInlinePalUpdate);
+	symbolPalette->updateSymbolList();
+	slotDocCh();
+	rebuildLayersList();
+	updateLayerMenu();
+	layerPalette->rebuildList();
+	doc->setLoading(false);
+
 	if (!Mpa)
 		pagePalette->rebuild();
 	view->reformPages();
 	view->DrawNew();
-	return ret;
+	return true;
 }
 
 bool ScribusMainWindow::loadDoc(const QString& fileName)
