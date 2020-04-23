@@ -1370,15 +1370,12 @@ PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character positions from a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if ((pos < -1) || (pos > item->lastInFrame() - item->firstInFrame()))
+	if ((pos < 0) || (pos > item->lastInFrame() - item->firstInFrame()))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds for this text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (pos == -1)
-		pos = item->lastInFrame();
-	else
-		pos += item->firstInFrame();
+	pos += item->firstInFrame();
 	QLineF box = item->textLayout.positionToPoint(pos);
 	return Py_BuildValue("(dddd)",
 			     docUnitXToPageX(item->xPos() + box.x1()),
