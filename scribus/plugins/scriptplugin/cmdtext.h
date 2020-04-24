@@ -563,13 +563,12 @@ PyObject *scribus_ispdfbookmark(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcharcoordinates__doc__,
-QT_TR_NOOP("getCharCoordinates(pos, [\"name\"]) -> (x,y,width,height)\n\
+QT_TR_NOOP("getCharCoordinates(pos, [\"name\"]) -> (page,x,y,width,height)\n\
 \n\
-Returns a (x, y, width, height) tuple based on the character at position\n\
-\"pos\" in the text frame \"name\". Even if the text frame is chained from\n\
-another text frame, \"pos\" is related to the named text frame, not the\n\
-overall story text. If \"name\" is not given the currently selected item is\n\
-used.\n\
+Returns a (page, x, y, width, height) tuple based on the character at\n\
+position \"pos\" in the text frame \"name\". If the text frame is chained\n\
+from another text frame, \"pos\" is based on the overall story text. If\n\
+ \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Point for glyth at position */
 PyObject *scribus_getcharcoordinates(PyObject * /*self*/, PyObject* args);

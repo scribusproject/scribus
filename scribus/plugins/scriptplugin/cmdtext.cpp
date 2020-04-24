@@ -1370,16 +1370,20 @@ PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character positions from a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if ((pos < 0) || (pos > item->lastInFrame() - item->firstInFrame()))
+	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds for this text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	pos += item->firstInFrame();
-	QLineF box = item->textLayout.positionToPoint(pos);
-	return Py_BuildValue("(dddd)",
-			     docUnitXToPageX(item->xPos() + box.x1()),
-			     docUnitYToPageY(item->yPos() + box.y1()),
+	// When chaining the frame the char is in doesn't necessarily match
+	// the selected frame.
+	PageItem* actual = item->frameOfChar(pos);
+	QLineF box = actual->textLayout.positionToPoint(pos);
+	return Py_BuildValue("(idddd)",
+			     // Scripter API page starts at 1, not 0.
+			     actual->OwnPage + 1,
+			     docUnitXToPageX(actual->xPos() + box.x1()),
+			     docUnitYToPageY(actual->yPos() + box.y1()),
 			     PointToValue(box.x2() - box.x1()),
 			     PointToValue(box.y2() - box.y1()));
 }
@@ -1402,7 +1406,7 @@ PyObject *scribus_getmark(PyObject* /* self */, PyObject* args)
 	}
 	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 	Mark* mark = item->itemText.mark(pos);
