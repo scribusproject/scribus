@@ -1378,6 +1378,10 @@ PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
 	// When chaining the frame the char is in doesn't necessarily match
 	// the selected frame.
 	PageItem* actual = item->frameOfChar(pos);
+	if (actual == nullptr) {
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index not visible in a frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
 	QLineF box = actual->textLayout.positionToPoint(pos);
 	return Py_BuildValue("(idddd)",
 			     // Scripter API page starts at 1, not 0.
