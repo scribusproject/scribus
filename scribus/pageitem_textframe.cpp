@@ -5572,7 +5572,6 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 					return nullptr;
 			}
 		}
-
 	}
 	else //in whole text
 		stop = itemText.length();
