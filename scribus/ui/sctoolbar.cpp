@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QPixmap>
 #include <QString>
+#include <QStyle>
 #include <QToolButton>
 
 #include "sctoolbar.h"
@@ -41,10 +42,12 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	m_name(QString("ToolBar-%1").arg(prefName)),
 	parentMW(parent)
 {
-	m_prefs=PrefsManager::instance().prefsFile->getContext(m_name);
+	m_prefs = PrefsManager::instance().prefsFile->getContext(m_name);
 	setObjectName(prefName);
 	setAllowedAreas(Qt::AllToolBarAreas);
-	this->setIconSize(QSize(16,16));
+
+	int smallIconSize = this->style()->pixelMetric(QStyle::PM_SmallIconSize, nullptr, this);
+	this->setIconSize(QSize(smallIconSize, smallIconSize));
 	/*
 	setCloseMode(Q3DockWindow::Undocked);
 
