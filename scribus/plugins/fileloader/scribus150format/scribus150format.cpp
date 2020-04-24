@@ -183,7 +183,7 @@ QIODevice* Scribus150Format::slaReader(const QString & fileName)
 
 void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=false;
+	getNewReplacement = false;
 	getReplacedFonts.clear();
 }
 
@@ -224,6 +224,14 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	itemRemapF.clear();
 	itemNextF.clear();
 	FrameItems.clear();
+	LinkID.clear();
+
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
 
 	bool firstElement = true;
 	bool success = true;
@@ -4378,9 +4386,9 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
-	QMap<int,PageItem*> TableID2;
+	QMap<int, PageItem*> TableID2;
 	QList<PageItem*> TableItems2;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 
 	pat.setDoc(doc);
@@ -6137,9 +6145,9 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 	ScPage* newPage = nullptr;
 	
-	QMap<int,PageItem*> TableID;
+	QMap<int, PageItem*> TableID;
 	QList<PageItem*> TableItems;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
@@ -6175,6 +6183,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	FrameItems.clear();
 	WeldItems.clear();
 	WeldID.clear();
+	LinkID.clear();
 
 	markeredItemsMap.clear();
 	markeredMarksMap.clear();
