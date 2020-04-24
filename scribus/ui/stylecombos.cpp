@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	addItem( tr("[Inherited Style]") );
 	addItem( CommonStrings::trDefaultParagraphStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -80,7 +81,7 @@ void ParaStyleComboBox::setStyle(const QString& name)
 	QString parStyleName = name;
 	if (parStyleName == CommonStrings::DefaultParagraphStyle)
 		parStyleName = CommonStrings::trDefaultParagraphStyle;
-	setCurrentComboItem(this, parStyleName.isEmpty() ? CommonStrings::trDefaultParagraphStyle : parStyleName);
+	setCurrentComboItem(this, parStyleName.isEmpty() ? tr("[Inherited Style]") : parStyleName);
 }
 
 void ParaStyleComboBox::updateStyleList()
@@ -94,6 +95,7 @@ void ParaStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( tr("[Inherited Style]") );
 		addItem( CommonStrings::trDefaultParagraphStyle );
 		for (int i = 0; i < m_doc->paragraphStyles().count(); ++i)
 		{
@@ -138,6 +140,7 @@ void ParaStyleComboBox::selectedStyle(int index)
 CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	addItem( tr("[Inherited Style]") );
 	addItem( CommonStrings::trDefaultCharacterStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -186,7 +189,7 @@ void CharStyleComboBox::setStyle(const QString& name)
 	QString charStyleName = name;
 	if (charStyleName == CommonStrings::DefaultCharacterStyle)
 		charStyleName = CommonStrings::trDefaultCharacterStyle;
-	setCurrentComboItem(this, charStyleName.isEmpty() ? CommonStrings::trDefaultCharacterStyle : charStyleName);
+	setCurrentComboItem(this, charStyleName.isEmpty() ? tr("[Inherited Style]") : charStyleName);
 }
 
 void CharStyleComboBox::updateStyleList()
@@ -200,6 +203,7 @@ void CharStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( tr("[Inherited Style]") );
 		addItem( CommonStrings::trDefaultCharacterStyle );
 		for (int i = 0; i < m_doc->charStyles().count(); ++i)
 		{
@@ -244,6 +248,7 @@ void CharStyleComboBox::selectedStyle(int index)
 CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	addItem( tr("[Inherited Style]") );
 	addItem( CommonStrings::trDefaultCellStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -292,7 +297,7 @@ void CellStyleComboBox::setStyle(const QString& name)
 	QString cellStyleName = name;
 	if (cellStyleName == CommonStrings::DefaultCellStyle)
 		cellStyleName = CommonStrings::trDefaultCellStyle;
-	setCurrentComboItem(this, cellStyleName.isEmpty() ? CommonStrings::trDefaultCellStyle : cellStyleName);
+	setCurrentComboItem(this, cellStyleName.isEmpty() ? tr("[Inherited Style]") : cellStyleName);
 }
 
 void CellStyleComboBox::updateStyleList()
@@ -306,6 +311,7 @@ void CellStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( tr("[Inherited Style]") );
 		addItem( CommonStrings::trDefaultCellStyle  );
 		for (int i = 0; i < m_doc->cellStyles().count(); ++i)
 		{
@@ -347,6 +353,7 @@ void CellStyleComboBox::selectedStyle(int index)
 TableStyleComboBox::TableStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	addItem( tr("[Inherited Style]") );
 	addItem( CommonStrings::trDefaultTableStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -395,7 +402,7 @@ void TableStyleComboBox::setStyle(const QString& name)
 	QString tableStyleName = name;
 	if (tableStyleName == CommonStrings::DefaultTableStyle)
 		tableStyleName = CommonStrings::trDefaultTableStyle;
-	setCurrentComboItem(this, tableStyleName.isEmpty() ? CommonStrings::trDefaultTableStyle : tableStyleName);
+	setCurrentComboItem(this, tableStyleName.isEmpty() ? tr("[Inherited Style]") : tableStyleName);
 }
 
 void TableStyleComboBox::updateStyleList()
@@ -409,6 +416,7 @@ void TableStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( tr("[Inherited Style]") );
 		addItem( CommonStrings::trDefaultTableStyle );
 		for (int i = 0; i < m_doc->tableStyles().count(); ++i)
 		{
