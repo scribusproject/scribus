@@ -4844,7 +4844,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 
 bool ScribusDoc::changePageProperties(double initialTop, double initialBottom, double initialLeft, double initialRight, double initialHeight, double initialWidth, double height, double width, int orientation, const QString& pageSize, int marginPreset, bool moveObjects, int pageNumber, int pageType)
 {
-	if (pageNumber == -1 || m_currentPage ==nullptr)
+	if (pageNumber == -1 || m_currentPage == nullptr)
 		return false;
 
 	QRectF pagebox(m_currentPage->xOffset(), m_currentPage->yOffset(), qMax( m_currentPage->width(), width), qMax(m_currentPage->height(), height));
@@ -6364,7 +6364,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem = new PageItem_PolyLine(*oldItem);
 			break;
 		case PageItem::PathText:
-			if (secondaryItem==nullptr)
+			if (secondaryItem == nullptr)
 				return nullptr;
 			if (UndoManager::undoEnabled())
 				transactionConversion = m_undoManager->beginTransaction(m_currentPage->getUName(), nullptr, Um::PathText, "", Um::ITextFrame);
@@ -6848,32 +6848,32 @@ void ScribusDoc::addSection(int number, const QString& name, const uint frominde
 	bool empty=m_docPrefsData.docSectionMap.isEmpty();
 	if (empty)
 	{
-		newSection.number=0;
-		newSection.name="0";
-		newSection.fromindex=0;
-		newSection.toindex=docPageCount-1;
-		newSection.type=Type_1_2_3;
-		newSection.sectionstartindex=1;
-		newSection.reversed=false;
-		newSection.active=true;
-		newSection.pageNumberFillChar=QChar();
-		newSection.pageNumberWidth=0;
+		newSection.number = 0;
+		newSection.name = "0";
+		newSection.fromindex = 0;
+		newSection.toindex = docPageCount-1;
+		newSection.type = Type_1_2_3;
+		newSection.sectionstartindex = 1;
+		newSection.reversed = false;
+		newSection.active = true;
+		newSection.pageNumberFillChar = QChar();
+		newSection.pageNumberWidth = 0;
 		m_docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 	else if (number!=-1)
 	{
-		newSection.number=number;
-		newSection.name=name;
-		newSection.fromindex=fromindex;
-		newSection.toindex=toindex;
+		newSection.number = number;
+		newSection.name = name;
+		newSection.fromindex = fromindex;
+		newSection.toindex = toindex;
 		if (newSection.toindex > (uint) docPageCount - 1)
 			newSection.toindex = docPageCount - 1;
-		newSection.type=type;
-		newSection.sectionstartindex=sectionstartindex;
-		newSection.reversed=reversed;
-		newSection.active=active;
-		newSection.pageNumberFillChar=fillChar;
-		newSection.pageNumberWidth=fieldWidth;
+		newSection.type = type;
+		newSection.sectionstartindex = sectionstartindex;
+		newSection.reversed = reversed;
+		newSection.active = active;
+		newSection.pageNumberFillChar = fillChar;
+		newSection.pageNumberWidth = fieldWidth;
 		m_docPrefsData.docSectionMap.insert(newSection.number, newSection);
 	}
 }
@@ -6883,27 +6883,27 @@ bool ScribusDoc::deleteSection(const uint number)
 {
 	if (!m_docPrefsData.docSectionMap.contains(number))
 		return false;
-	if (m_docPrefsData.docSectionMap.count()<=1)
+	if (m_docPrefsData.docSectionMap.count() <= 1)
 		return false;
-	QMap<uint, DocumentSection>::Iterator itprev=m_docPrefsData.docSectionMap.begin();
-	QMap<uint, DocumentSection>::Iterator it=itprev;
+	QMap<uint, DocumentSection>::Iterator itprev = m_docPrefsData.docSectionMap.begin();
+	QMap<uint, DocumentSection>::Iterator it = itprev;
 	uint currMaxIndex = itprev.value().toindex;
 	for ( ; it != m_docPrefsData.docSectionMap.end(); ++it)
 	{
 		currMaxIndex=it.value().toindex;
 
-		if (it.key()!=number)
-			itprev=it;
+		if (it.key() != number)
+			itprev = it;
 		else
 			break;
 	}
 	if (it != itprev)
-		itprev.value().toindex=currMaxIndex;
+		itprev.value().toindex = currMaxIndex;
 	else {
 		// special case: delete first section
 		QMap<uint, DocumentSection>::Iterator itnext = it;
 		++itnext;
-		itnext.value().fromindex=it.value().fromindex;
+		itnext.value().fromindex = it.value().fromindex;
 	}
 	m_docPrefsData.docSectionMap.erase(it);
 	return true;
@@ -10649,7 +10649,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 		for (int a = 0; a < m_Selection->count(); ++a)
 		{
 			PageItem_ImageFrame* imageItem=m_Selection->itemAt(a)->asImageFrame();
-			if (imageItem==nullptr)
+			if (imageItem == nullptr)
 				continue;
 			imageItem->setImageVisible(!imageItem->imageVisible());
 			imageItem->update();
@@ -13400,7 +13400,7 @@ ScPage* ScribusDoc::currentPage()
 
 void ScribusDoc::setCurrentPage(ScPage *newPage)
 {
-	if (newPage==nullptr)
+	if (newPage == nullptr)
 		return;
 	m_currentPage = newPage;
 	if (m_ScMW)
@@ -17241,7 +17241,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			while (markPos > -1)
 			{
 				if (mrk->isType(MARKNoteFrameType) && markPos > 1 && item->itemText.text(markPos -1) == SpecialChars::PARSEP)
-					item->itemText.removeChars(markPos - 1,2);
+					item->itemText.removeChars(markPos - 1, 2);
 				else
 					item->itemText.removeChars(markPos, 1);
 				found = true;
