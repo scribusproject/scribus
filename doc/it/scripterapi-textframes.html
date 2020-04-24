@@ -40,15 +40,19 @@
 <dd><code>getFontSize(["name"]) -&gt; float</code>
 <p>Returns the font size in points for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
 
+<dt><a name="-getFrameText"><strong>getFrameText</strong></a>(...)</dt>
+<dd><code>getFrameText(["name"]) -&gt; string</code>
+<p>Returns the text visible in text frame "name". If this text frame has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p>
+<p>This function returns only the text visible in specified frame. If you need to retrieve the text contained in a text chain, use <a href="#-getAllText">getAllText()</a> instead.</p>
+<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
+
 <dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
 <dd><code>getLineSpacing(["name"]) -&gt; float</code>
 <p>Returns the line spacing ("leading") of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["name"]) -&gt; string</code>
-<p>Returns the text visible in text frame "name". If this text frame has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p>
-<p>This function returns only the text visible in specified frame. If you need to retrieve the text contained in a text chain, use <a href="#-getAllText">getAllText()</a> instead.</p>
-<p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
+<p>Deprecated. Use getFrameText() instead.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
 <dd><code>getTextColor(["name"]) -&gt; string</code>
@@ -92,7 +96,7 @@ is not given the currently selected item is used.</p></dd>
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code>insertText("text", pos, ["name"])</code>
 <p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected item is used.</p>
-<p>For performance reason, this function does not update text layout in any way. As a consequence, you may need to call <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> at appropriate times after calling this function and before calling functions such as <a href="#-getText">getText()</a> or <a href="#-getTextLines">getTextLines()</a>.</p>
+<p>For performance reason, this function does not update text layout in any way. As a consequence, you may need to call <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> at appropriate times after calling this function and before calling functions such as <a href="#-getFrameText">getFrameText()</a> or <a href="#-getTextLines">getTextLines()</a>.</p>
 <p>May throw IndexError for an insertion out of bounds.</p></dd>
 
 <dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong>(...)</a></dt>

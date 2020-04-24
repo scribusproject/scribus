@@ -307,7 +307,7 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 	        PointToValue(item->textToFrameDistBottom()));
 }
 
-PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -1368,8 +1368,9 @@ void cmdtextdocwarnings()
 	  << scribus_getfont__doc__
 	  << scribus_getfontfeatures__doc__
 	  << scribus_getfontsize__doc__
+	  << scribus_getframetext__doc__
 	  << scribus_getlinespace__doc__
-	  << scribus_gettext__doc__
+	  << scribus_gettext__doc__ // Deprecated
 	  << scribus_gettextcolor__doc__
 	  << scribus_gettextdistances__doc__
 	  << scribus_gettextlength__doc__

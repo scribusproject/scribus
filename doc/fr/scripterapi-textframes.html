@@ -35,15 +35,19 @@ réel</code>
 <p>Retourne la taille, en points, de la police du cadre de texte "nom". Si ce cadre contient du texte sélectionné, la valeur assignée au premier caractère de la sélection est retournée. 
 Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
+<dt><a name="-getFrameText"><strong>getFrameText</strong></a>(...)</dt>
+<dd><code>getFrameText(["nom"]) -&gt; chaîne</code>
+<p>Retourne le texte visible dans le cadre de texte "nom". Si ce cadre de texte contient du texte sélectionné, celui-ci est retourné. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Cette fonction retourne uniquement le texte visible dans le cadre spécifié. Si vous souhaitez obtenir le texte contenu dans une chaîne de texte, veuillez utiliser <a href="#-getAllText">getAllText()</a> en lieu et place.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
+
 <dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
 <dd><code>getLineSpacing(["nom"]) -&gt; réel</code>
 <p>Retourne l'espacement de ligne ("leading") du cadre de texte "nom", exprimé en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["nom"]) -&gt; chaîne</code>
-<p>Retourne le texte visible dans le cadre de texte "nom". Si ce cadre de texte contient du texte sélectionné, celui-ci est retourné. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
-<p>Cette fonction retourne uniquement le texte visible dans le cadre spécifié. Si vous souhaitez obtenir le texte contenu dans une chaîne de texte, veuillez utiliser <a href="#-getAllText">getAllText()</a> en lieu et place.</p>
-<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
+<p>Obsolète. Veuillez utiliser getFrameText() en lieu et place.</p></dd>
 
 <dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
 <dd><code>getTextColor(["nom"]) -&gt; chaîne</code>
@@ -74,7 +78,7 @@ Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 texte doit &ecirc;tre encodé en UTF (voir <a href="#-setText">setText</a>()
 comme référence). Le premier caractère a un index de 0.
 Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
-<p>Pour des raisons de performance, cette fonction ne réalise aucune mise à jour de la mise en page du texte. En conséquence il est possible que vous deviez appeler <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> après avoir appelé cette fonction et lorsque vous le jugez nécessaire préalablement à l'appel de fonctions telles que <a href="#-getText">getText()</a> ou <a href="#-getTextLines">getTextLines()</a>.</p>
+<p>Pour des raisons de performance, cette fonction ne réalise aucune mise à jour de la mise en page du texte. En conséquence il est possible que vous deviez appeler <a href="#-layoutText">layoutText()</a>  or <a href="#-layoutTextChain">layoutTextChain()</a> après avoir appelé cette fonction et lorsque vous le jugez nécessaire préalablement à l'appel de fonctions telles que <a href="#-getFrameText">getFrameText()</a> ou <a href="#-getTextLines">getTextLines()</a>.</p>
 <p>Peut générer IndexError dans le cas d'une insertion hors limites.</p></dd>
 
 <dt><a name="-layoutText"><strong>layoutText</strong></a>(...)</dt>

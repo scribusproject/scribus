@@ -97,8 +97,8 @@ expected result.\n\
 PyObject *scribus_gettextlines(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_gettext__doc__,
-QT_TR_NOOP("getText([\"name\"]) -> string\n\
+PyDoc_STRVAR(scribus_getframetext__doc__,
+QT_TR_NOOP("getFrameText([\"name\"]) -> string\n\
 \n\
 Returns the text visible in text frame \"name\". If this text frame has some text\n\
 selected, the selected text is returned. If \"name\" is not given the currently\n\
@@ -111,8 +111,13 @@ As this function depends on text layout being up-to-date, you may need to call \
 layoutText() or layoutTextChain() before calling this function in order to get \n\
 expected result.\n\
 "));
+PyDoc_STRVAR(scribus_gettext__doc__,
+QT_TR_NOOP("getText([\"name\"]) -> string\n\
+\n\
+Deprecated. Use getFrameText() instead.\n\
+"));
 /*! Get frame text */
-PyObject *scribus_gettext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getframetext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getalltext__doc__,
@@ -200,7 +205,7 @@ not given the currently selected item is used.\n\
 \n\
 For performance reason, this function does not update text layout in any way. \n\
 As a consequence, you may need to call layoutText() or layoutTextChain() at appropriate \n\
-times after calling this function and before calling functions such as getText() \n\
+times after calling this function and before calling functions such as getFrameText() \n\
 or getTextLines().\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\
