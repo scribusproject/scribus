@@ -642,7 +642,7 @@ void ColorsAndFillsDialog::duplicateColorItem()
 		dialogGradients.insert(gradN, dialogGradients[it->text(0)]);
 		origNames.insert(gradN, gradN);
 		QString patternName = origNames[gradN];
-		QString newName = "";
+		QString newName;
 		gradientEditDialog *dia = new gradientEditDialog(this, gradN, dialogGradients[gradN], m_colorList, m_doc, &dialogGradients, false);
 		if (dia->exec())
 		{

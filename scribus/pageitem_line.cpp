@@ -83,7 +83,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			else if (GrTypeStroke > 0)
 			{
 				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-					gradientStrokeVal = "";
+					gradientStrokeVal.clear();
 				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.

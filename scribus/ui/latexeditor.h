@@ -146,7 +146,7 @@ class SCRIBUS_API XmlWidget
 		QString name() const { return m_name; }
 		QString description() const { return m_description; }
 		QString defaultValue() const { return m_defaultValue; }
-		virtual QString toString() const { return ""; }
+		virtual QString toString() const { return QString(); }
 		virtual void fromString(QString str) {}
 	protected:
 		QString m_name;

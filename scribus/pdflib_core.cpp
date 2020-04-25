@@ -10264,7 +10264,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ext = getImageType(fn);
 	ScImage img;
 	QString BBox;
-	QChar  tc;
+//	QChar  tc;
 	bool   found = false;
 	bool   alphaM = false;
 	bool   realCMYK = false;

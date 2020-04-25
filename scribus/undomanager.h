@@ -143,10 +143,10 @@ public:
 	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa commit()
 	 */
-	UndoTransaction beginTransaction(const QString &targetName = "",
+	UndoTransaction beginTransaction(const QString &targetName = QString(),
 									 QPixmap *targetPixmap = nullptr,
-									 const QString &actionName = "",
-									 const QString &description = "",
+									 const QString &actionName = QString(),
+									 const QString &description = QString(),
 									 QPixmap *actionPixmap = nullptr);
 
 	UndoTransaction beginTransaction(const TransactionSettings& settings);

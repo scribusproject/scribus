@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 QImage ScPreview::createPreview(const QString& data)
 {
-	PrefsManager& prefsManager = PrefsManager::instance();
+//	PrefsManager& prefsManager = PrefsManager::instance();
 	double gx, gy, gw, gh;
 	ScriXmlDoc ss;
 	if (ss.readElemHeader(data, false, &gx, &gy, &gw, &gh))

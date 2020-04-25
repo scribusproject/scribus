@@ -178,7 +178,7 @@ public:
 
 		// dummy implementations
 		virtual qreal ascent(qreal sz)           const { return sz; }
-		virtual QString pdfAscentAsString()      const { return "0" ; }
+		virtual QString pdfAscentAsString()      const { return "0"; }
 		virtual QString pdfDescentAsString()     const { return "0"; }
 		virtual QString pdfCapHeightAsString()   const { return "0"; }
 		virtual QString pdfFontBBoxAsString()    const { return "0 0 0 0"; }

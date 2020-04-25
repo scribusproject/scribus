@@ -65,24 +65,7 @@ using namespace TableUtils;
 
 class PSPainter:public TextLayoutPainter
 {
-	ScribusDoc* m_Doc;
-	uint m_argh;
-	ScPage* m_page;
-	bool m_farb;
-	bool m_master;
-	PSLib* m_ps;
-
-	void applyTransform()
-	{
-		if (matrix() != QTransform())
-		{
-			m_ps->PutStream(m_ps->MatrixToStr(1.0, 0.0, 0.0, -1.0, x(), 0.0) + "\n");
-			m_ps->PutStream(m_ps->MatrixToStr(matrix().m11(), -matrix().m12(), matrix().m21(), -matrix().m22(), matrix().dx(), -matrix().dy()) + "\n");
-			m_ps->PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
-		}
-	}
-
-public:
+	public:
 	PSPainter(ScribusDoc* Doc, uint argh, ScPage* page, bool master, PSLib* ps):
 		m_Doc(Doc),
 		m_argh(argh),
@@ -96,6 +79,25 @@ public:
 	void drawLine(QPointF start, QPointF end) override;
 	void drawRect(QRectF rect) override;
 	void drawObject(PageItem* item) override;
+
+	private:
+		ScribusDoc* m_Doc;
+		uint m_argh;
+		ScPage* m_page;
+		bool m_farb;
+		bool m_master;
+		PSLib* m_ps;
+
+		void applyTransform()
+		{
+			if (matrix() != QTransform())
+			{
+				m_ps->PutStream(m_ps->MatrixToStr(1.0, 0.0, 0.0, -1.0, x(), 0.0) + "\n");
+				m_ps->PutStream(m_ps->MatrixToStr(matrix().m11(), -matrix().m12(), matrix().m21(), -matrix().m22(), matrix().dx(), -matrix().dy()) + "\n");
+				m_ps->PutStream("[0.0 0.0 0.0 0.0 0.0 0.0] concatmatrix\nconcat\n");
+			}
+		}
+
 };
 
 void PSPainter::drawGlyph(const GlyphCluster& gc)

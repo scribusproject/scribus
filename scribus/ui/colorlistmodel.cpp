@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 
-ColorPixmapValue::ColorPixmapValue() : m_doc(nullptr), m_name("invalid")
+ColorPixmapValue::ColorPixmapValue() : m_name("invalid")
 {}
 
 ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)

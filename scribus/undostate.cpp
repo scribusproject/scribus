@@ -219,7 +219,7 @@ SimpleState::~SimpleState()
 
 /*** TransactionState *****************************************************/
 
-TransactionState::TransactionState() : UndoState("")
+TransactionState::TransactionState() : UndoState(QString())
 {
 	m_size = 0;
 }

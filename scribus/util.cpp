@@ -205,15 +205,15 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 
 QString CompressStr(QString *in)
 {
-	QString out = "";
+	QString out;
 	QByteArray bb(in->length(), ' ');
 	if (bb.size() == in->length())
 	{
-		for (int ax = 0; ax < in->length(); ++ax)
+		for (int i = 0; i < in->length(); ++i)
 		{
 			// bb.insert(ax, in->at(ax)); JG monstruously inefficient due to frequent memory reallocation
-			bb[ax] = in->at(ax).cell();
-			assert(in->at(ax).row() == 0);
+			bb[i] = in->at(i).cell();
+			assert(in->at(i).row() == 0);
 		}
 		uLong exlen = (uLong)(bb.size() * 0.001 + 16) + bb.size();
 		QByteArray bc(exlen, ' ');

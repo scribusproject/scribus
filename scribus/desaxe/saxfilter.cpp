@@ -54,7 +54,7 @@ RenameElem::RenameElem(SaxHandler* delegate, const Xml_string& oldname, const Xm
 : SaxFilter(delegate), m_level(0), m_old(oldname), m_new(newname) {}
 
 RenameElem::RenameElem(SaxHandler* delegate, const Xml_string& newname)
-: SaxFilter(delegate), m_level(0), m_old(""), m_new(newname) {}
+: SaxFilter(delegate), m_level(0), m_new(newname) {}
 
 void RenameElem::begin(const Xml_string& tag, Xml_attr attr)
 {

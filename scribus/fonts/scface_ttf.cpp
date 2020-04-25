@@ -163,22 +163,19 @@ void ScFace_ttf::rawData(QByteArray & bb) const {
 
 bool ScFace_ttf::embedFont(QByteArray &str) const
 {
-    QByteArray bb;
-    FtFace::rawData(bb);
+	QByteArray bb;
+	FtFace::rawData(bb);
 	if (formatCode == ScFace::TYPE42)
 	{
 		//easy:
 		str = bb;
 		return true;
 	}
-    
-	QString tmp4;
-	QString tmp2 = "";
-	QString tmp3 = "";
+
 	int counter = 0;
 	char *buf[50];
-	FT_ULong  charcode;
-	FT_UInt   gindex;
+	FT_ULong charcode;
+	FT_UInt gindex;
 	FT_Face face = ftFace();
 	if (!face)
 		return false;
@@ -246,11 +243,12 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 	delete[] tmp;
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
+	QString tmp2, tmp3, tmp4;
 	while (gindex != 0)
 	{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		tmp2 += "/"+QString(reinterpret_cast<char*>(buf))+" "+tmp3.setNum(gindex)+" def\n";
-		 charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		tmp2 += "/"+QString(reinterpret_cast<char*>(buf)) + " " + tmp3.setNum(gindex) + " def\n";
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter++;
 	}
 	tmp4.setNum(counter);

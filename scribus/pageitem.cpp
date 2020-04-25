@@ -482,7 +482,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStrokeFocalY = 0;
 	GrStrokeScale = 1;
 	GrStrokeSkew = 0;
-	gradientStrokeVal = "";
+	gradientStrokeVal.clear();
 	m_patternName = "";
 	patternScaleX = 100;
 	patternScaleY = 100;
@@ -2092,7 +2092,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					else if (GrTypeStroke > 0)
 					{
 						if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-							gradientStrokeVal = "";
+							gradientStrokeVal.clear();
 						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 						if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -9715,7 +9715,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			else if (GrTypeStroke > 0)
 			{
 				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-					gradientStrokeVal = "";
+					gradientStrokeVal.clear();
 				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -10280,7 +10280,7 @@ void PageItem::updateClip(bool updateWelded)
 		return;
 	if (ContourLine.empty())
 		ContourLine = PoLine.copy();
-	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
+//	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
 	bool clipBackup = ClipEdited;
 	switch (itemType())
 	{

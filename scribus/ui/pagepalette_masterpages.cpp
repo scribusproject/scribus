@@ -224,7 +224,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	name = getNonReservedName(name);
 	name = getUniqueName(name, m_doc->MasterNames);
 
-	PrefsManager& prefsManager = PrefsManager::instance();
+//	PrefsManager& prefsManager = PrefsManager::instance();
 	int inde = m_doc->MasterNames[m_currentPage];
 	int nr = m_doc->Pages->count();
 	ScPage* from = m_doc->Pages->at(inde);

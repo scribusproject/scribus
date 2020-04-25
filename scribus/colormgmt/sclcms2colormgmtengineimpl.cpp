@@ -23,7 +23,7 @@ QSharedPointer<ScColorProfileCache>  ScLcms2ColorMgmtEngineImpl::m_profileCache;
 QSharedPointer<ScColorTransformPool> ScLcms2ColorMgmtEngineImpl::m_transformPool;
 
 ScLcms2ColorMgmtEngineImpl::ScLcms2ColorMgmtEngineImpl()
-                         : ScColorMgmtEngineData("Littlecms v2", 1)
+	: ScColorMgmtEngineData("Littlecms v2", 1)
 {
 	if (!m_profileCache)
 		m_profileCache = QSharedPointer<ScColorProfileCache>(new ScColorProfileCache());

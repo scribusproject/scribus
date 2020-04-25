@@ -52,8 +52,8 @@ public:
 	virtual bool cancel();
 	bool commit(const QString &targetName,
 				QPixmap *targetPixmap,
-				const QString &name = "",
-				const QString &description = "",
+				const QString &name = QString(),
+				const QString &description = QString(),
 				QPixmap *actionPixmap = nullptr);
 };
 

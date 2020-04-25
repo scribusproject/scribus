@@ -36,8 +36,6 @@ UpgradeChecker::~UpgradeChecker()
 void UpgradeChecker::init()
 {
 	m_errorReported=false;
-	m_message="";
-	m_updates.clear();
 	m_version=(VERSION);
 	m_stability="unstablesvn";
 	QString versionStripped=m_version.toLower();

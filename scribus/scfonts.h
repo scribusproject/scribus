@@ -59,7 +59,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
-		QMap<QString, QString>     rejectedFonts;
+		QMap<QString, QString> rejectedFonts;
 
 	private:
 		void readFontCache(const QString& pf);

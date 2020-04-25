@@ -1981,7 +1981,7 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 	bool gotAlpha = false;
 	QScopedPointer<ScImgDataLoader> pDataLoader;
 	imgInfo.valid = false;
-	imgInfo.clipPath = "";
+	imgInfo.clipPath.clear();
 	imgInfo.PDSpathData.clear();
 	imgInfo.layerInfo.clear();
 	QFileInfo fi = QFileInfo(fn);

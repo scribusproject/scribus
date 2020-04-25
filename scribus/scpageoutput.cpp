@@ -442,7 +442,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 				{
 					QString gradientStrokeVal = item->strokeGradient();
 					if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-						gradientStrokeVal = "";
+						gradientStrokeVal.clear();
 					if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 						painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 					if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -850,7 +850,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -1191,7 +1191,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -1358,7 +1358,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.

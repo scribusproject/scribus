@@ -115,8 +115,8 @@ public:
 
 	const QList<VColorStop*>& colorStops() const;
 	void addStop(const VColorStop& colorStop);
-	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100);
-	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100);
+	void addStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
+	void setStop(const QColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void removeStop(VColorStop& colorStop);
 	void removeStop(int n);
 	void clearStops();

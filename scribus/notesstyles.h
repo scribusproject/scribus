@@ -95,7 +95,7 @@ class SCRIBUS_API TextNote : public QObject
 
 private:
 	//only ScribusDoc can create and delete notes
-	TextNote(NotesStyle *nStyle) : textLen(0), m_notesStyle(nStyle), m_noteMasterMark(NULL), m_noteFrameMark(NULL), m_number(0) { }
+	TextNote(NotesStyle *nStyle) : m_notesStyle(nStyle), m_noteMasterMark(NULL), m_noteFrameMark(NULL), m_number(0) { }
 	~TextNote() {}
 public:
 	void setNotesStyle (NotesStyle* ns) { m_notesStyle = ns; }
@@ -109,8 +109,9 @@ public:
 	void setNoteMark(Mark* m) { m_noteFrameMark = m; }
 	const QString saxedText() { return m_noteSaxedText; }
 	void setSaxedText(const QString& string) { m_noteSaxedText = string; }
+	void clearSaxedText() { m_noteSaxedText.clear(); textLen = 0; }
 	bool isEndNote() { return m_notesStyle->isEndNotes(); }
-	int textLen;
+	int textLen {0};
 
 protected:
 	NotesStyle *m_notesStyle;
