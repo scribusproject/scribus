@@ -522,8 +522,8 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QPainter invpixPainter(&invPixmap);
 
 	QRect r(0, 0, option.rect.width(), option.rect.height());
-	pixPainter.fillRect(r, option.palette.background());
-	invpixPainter.fillRect(r, option.palette.background());
+	pixPainter.fillRect(r, option.palette.window());
+	invpixPainter.fillRect(r, option.palette.window());
 
 	QFont font = option.font;
 	font.setPointSize(QFontInfo(font).pointSize() * 3 / 2.0);

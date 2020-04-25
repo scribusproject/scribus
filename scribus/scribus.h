@@ -201,65 +201,65 @@ public:
 	bool internalCopy;
 	QString internalCopyBuffer;
 	int  HaveDoc;
-	PrefsContext* dirs;
+	PrefsContext* dirs {nullptr};
 	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
 	 * you can create your view according to your application's needs by
 	 * changing the view class.
 	 */
-	ScribusView *view;
+	ScribusView *view {nullptr};
 	/** \brief doc represents your actual document and is created only once. It keeps
 	 * information such as filename and does the serialization of your files.
 	 */
-	ScribusDoc *doc;
+	ScribusDoc *doc {nullptr};
 	/** \brief private doc for managing default patterns. */
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc {nullptr};
 
 
-	QProgressBar* mainWindowProgressBar;
+	QProgressBar* mainWindowProgressBar {nullptr};
 	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
 	PageSelector* pageSelector; //Page selector at bottom of view
-	QPushButton *zoomDefaultToolbarButton;
-	QPushButton *zoomOutToolbarButton;
-	QPushButton *zoomInToolbarButton;
-	QComboBox *layerMenu; //Menu for layers at bottom of view
-	QComboBox *unitSwitcher; //Menu for units at bottom of view
-	EditToolBar *editToolBar;
-	FileToolBar *fileToolBar;
-	ModeToolBar* modeToolBar;
-	PDFToolBar* pdfToolBar;
-	ViewToolBar* viewToolBar;
-	QLabel* mainWindowXPosLabel;
-	QLabel* mainWindowXPosDataLabel;
-	QLabel* mainWindowYPosLabel;
-	QLabel* mainWindowYPosDataLabel;
-	GuideManager *guidePalette;
-	CharSelect *charPalette;
-	PropertiesPalette *propertiesPalette;
-	ContentPalette *contentPalette;
-	MarksManager *marksManager;
-	NotesStylesEditor *nsEditor;
-	NodePalette *nodePalette;
-	OutlinePalette *outlinePalette;
-	Biblio *scrapbookPalette;
-	LayerPalette* layerPalette;
-	PagePalette *pagePalette;
-	BookPalette *bookmarkPalette;
-	DownloadsPalette *downloadsPalette;
-	SymbolPalette *symbolPalette;
-	InlinePalette *inlinePalette;
-	Measurements* measurementPalette;
-	CheckDocument * docCheckerPalette;
-	UndoPalette* undoPalette;
-	AlignDistributePalette *alignDistributePalette;
-	ResourceManager *resourceManager;
-	StoryEditor* storyEditor;
-	StoryEditor* CurrStED;
-	QMdiArea *mdiArea;
-	ScribusWin* ActWin;
-	QClipboard *ClipB;
+	QPushButton *zoomDefaultToolbarButton {nullptr};
+	QPushButton *zoomOutToolbarButton {nullptr};
+	QPushButton *zoomInToolbarButton {nullptr};
+	QComboBox *layerMenu {nullptr}; //Menu for layers at bottom of view
+	QComboBox *unitSwitcher {nullptr}; //Menu for units at bottom of view
+	EditToolBar *editToolBar {nullptr};
+	FileToolBar *fileToolBar {nullptr};
+	ModeToolBar* modeToolBar {nullptr};
+	PDFToolBar* pdfToolBar {nullptr};
+	ViewToolBar* viewToolBar {nullptr};
+	QLabel* mainWindowXPosLabel {nullptr};
+	QLabel* mainWindowXPosDataLabel {nullptr};
+	QLabel* mainWindowYPosLabel {nullptr};
+	QLabel* mainWindowYPosDataLabel {nullptr};
+	GuideManager *guidePalette {nullptr};
+	CharSelect *charPalette {nullptr};
+	PropertiesPalette *propertiesPalette {nullptr};
+	ContentPalette *contentPalette {nullptr};
+	MarksManager *marksManager {nullptr};
+	NotesStylesEditor *nsEditor {nullptr};
+	NodePalette *nodePalette {nullptr};
+	OutlinePalette *outlinePalette {nullptr};
+	Biblio *scrapbookPalette {nullptr};
+	LayerPalette* layerPalette {nullptr};
+	PagePalette *pagePalette {nullptr};
+	BookPalette *bookmarkPalette {nullptr};
+	DownloadsPalette *downloadsPalette {nullptr};
+	SymbolPalette *symbolPalette {nullptr};
+	InlinePalette *inlinePalette {nullptr};
+	Measurements* measurementPalette {nullptr};
+	CheckDocument * docCheckerPalette {nullptr};
+	UndoPalette* undoPalette {nullptr};
+	AlignDistributePalette *alignDistributePalette {nullptr};
+	ResourceManager *resourceManager {nullptr};
+	StoryEditor* storyEditor {nullptr};
+	StoryEditor* CurrStED {nullptr};
+	QMdiArea *mdiArea {nullptr};
+	ScribusWin* ActWin {nullptr};
+	QClipboard *ClipB {nullptr};
 	QString LoadEnc;
-	AppModeHelper *appModeHelper;
+	AppModeHelper *appModeHelper {nullptr};
 
 	QMap<QString, QPointer<ScrAction> > scrActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
@@ -269,8 +269,8 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 	QMap<QString, QPointer<ScToolBar> > scrToolBars;
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
-	ScMWMenuManager* scrMenuMgr;
-	ActionManager* actionManager;
+	ScMWMenuManager* scrMenuMgr {nullptr};
+	ActionManager* actionManager {nullptr};
 	QStringList m_recentDocsList;
 	QStringList patternsDependingOnThis;
 
@@ -612,9 +612,9 @@ private:
 	void initScrapbook();
 	void updateColorMenu(QProgressBar* progressBar=nullptr);
 
-	int m_ScriptRunning;
+	int m_ScriptRunning {0};
 
-	QLabel* m_mainWindowStatusLabel;
+	QLabel* m_mainWindowStatusLabel {nullptr};
 	QString m_statusLabelText;
 	//QPixmap noIcon;
 
@@ -650,15 +650,15 @@ private:
 					QString Dname;
 					QString Command;
 				} PDef ;
-	TOCGenerator *m_tocGenerator;
+	TOCGenerator *m_tocGenerator {nullptr};
 	int m_storedPageNum;
 	int m_storedViewXCoor;
 	int m_storedViewYCoor;
 	double m_storedViewScale;
-	StyleManager *m_styleManager;
-	UndoManager *m_undoManager;
+	StyleManager *m_styleManager {nullptr};
+	UndoManager *m_undoManager {nullptr};
 	PrefsManager& m_prefsManager;
-	FormatsManager *m_formatsManager;
+	FormatsManager *m_formatsManager {nullptr};
 
 	QPointer<HelpBrowser> m_helpBrowser;
 	QString m_osgFilterString;
@@ -668,8 +668,6 @@ private:
 	int m_marksCount; //remember marks count from last call
 	bool m_WasAutoSave;
 	bool m_pagePalVisible;
-
-	//QQuickView *m_qqview;
 };
 
 #endif

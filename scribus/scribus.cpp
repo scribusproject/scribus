@@ -298,20 +298,11 @@ extern bool emergencyActivated;
 ScribusMainWindow::ScribusMainWindow() :
 	m_prefsManager(PrefsManager::instance())
 {
-	actionManager=nullptr;
-	appModeHelper=nullptr;
-	scrMenuMgr=nullptr;
-	m_formatsManager=nullptr;
-	resourceManager=nullptr;
-	m_mainWindowStatusLabel=nullptr;
-	m_ScriptRunning = 0;
 #ifdef Q_OS_MAC
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	//noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
-	m_doc = nullptr;
-	m_tocGenerator = nullptr;
 }
 
 /*
