@@ -1040,8 +1040,8 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							gIt = groupRemap.find(x);
-							if (gIt != groupRemap.end())
+							gIt = groupRemap.constFind(x);
+							if (gIt != groupRemap.constEnd())
 								OB.Groups.push(gIt.value());
 							else
 							{
@@ -1939,7 +1939,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
-				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
+				if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
 				{
 					while (m_Doc->MLineStyles.contains(Nam2))
 					{
@@ -2045,8 +2045,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
 							fg >> x;
-							gIt = groupRemap.find(x);
-							if (gIt != groupRemap.end())
+							gIt = groupRemap.constFind(x);
+							if (gIt != groupRemap.constEnd())
 								OB.Groups.push(gIt.value());
 							else
 							{
@@ -2465,11 +2465,11 @@ bool Scribus12Format::readLineStyles(const QString& fileName, QHash<QString,mult
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				QString Nam = pg.attribute("Name");
-				QString Nam2 = Nam;
+				QString Nam(pg.attribute("Name"));
+				QString Nam2(Nam);
 				int copyC = 1;
 				QHash<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
-				if (mlit != Sty->end() && ml != mlit.value())
+				if (mlit != Sty->constEnd() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))
 					{

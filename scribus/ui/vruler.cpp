@@ -129,7 +129,6 @@ void Vruler::paintEvent(QPaintEvent *e)
 						tx += QChar(0xBD);
 					if ((frac > 0.74) && (frac < 0.76))
 						tx += QChar(0xBE);
-					tx = tx;
 				}
 				break;
 			case SC_P:

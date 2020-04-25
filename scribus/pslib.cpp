@@ -189,7 +189,7 @@ void PSPainter::drawGlyphOutline(const GlyphCluster& gc, bool fill)
 
 void PSPainter::drawRect(QRectF rect)
 {
-	double h, s, v, k;
+	double h {0.0}, s {0.0}, v {0.0}, k {0.0};
 	m_ps->PS_save();
 	applyTransform();
 	m_ps->PS_moveto(x() + rect.x(), -y() - rect.y());

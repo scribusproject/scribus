@@ -22,7 +22,7 @@ WortEdit::WortEdit ( QWidget* parent ) : QLineEdit ( parent )
 void WortEdit::keyPressEvent ( QKeyEvent *k )
 {
 	int p = cursorPosition();
-	QChar cc = text() [p];
+	QChar cc = text().at(p);
 	if ( ( k->key() == Qt::Key_Left ) || ( k->key() == Qt::Key_Right ) )
 		QLineEdit::keyPressEvent ( k );
 	if ( k->key() == Qt::Key_Delete )
@@ -33,7 +33,7 @@ void WortEdit::keyPressEvent ( QKeyEvent *k )
 	}
 	if ( ( k->key() == Qt::Key_Backspace ) && ( p != 0 ) )
 	{
-		cc = text() [p-1];
+		cc = text().at(p-1);
 		if ( cc == '-' )
 			QLineEdit::keyPressEvent ( k );
 		setCursorPosition ( p-1 );

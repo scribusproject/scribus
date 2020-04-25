@@ -77,14 +77,13 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 
 void Measurements::unitChanged()
 {
-	QString tmp;
 	int uInd = unitSwitch->currentIndex();
 	int uDec = unitGetDecimalsFromIndex(uInd);
 	if (uDec == 0)
 		uDec = 1; // Unlikely but avoid division by 0 if unitGetDecimalsFromIndex() returns 0
 	int uPrec = unitGetPrecisionFromIndex(uInd);
 	double uRatio = unitGetRatioFromIndex(uInd);
-	QString uStr  = unitGetStrFromIndex(uInd);
+	QString uStr(unitGetStrFromIndex(uInd));
 	const QLocale& l = LocaleManager::instance().userPreferredLocale();
 	x1Data->setText(l.toString(qRound(mX1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);
 	y1Data->setText(l.toString(qRound(mY1 * uRatio * uDec) / static_cast<double>(uDec), 'f', uPrec) + " " + uStr);

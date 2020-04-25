@@ -33,10 +33,10 @@ protected:
 	int m_PageCount;
 
 protected slots:
-	virtual void createPageNumberRange();
-	virtual void languageChange();
-	virtual void readConfig();
-	virtual void writeConfig();
+	void createPageNumberRange();
+	void languageChange();
+	void readConfig();
+	void writeConfig();
 };
 
 #endif // EXPORTFORM_H

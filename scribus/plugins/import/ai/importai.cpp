@@ -2151,8 +2151,8 @@ void AIPlug::processData(const QString& data)
 			}
 			if (mKey == "N")
 			{
-				double cVal, mVal, yVal, kVal, coorX1, coorY1, coorX2, coorY2, coorX3, coorY3;
-				int dummy;
+				double cVal {0.0}, mVal {0.0}, yVal {0.0}, kVal {0.0}, coorX1 {0.0}, coorY1 {0.0}, coorX2 {0.0}, coorY2 {0.0}, coorX3 {0.0}, coorY3 {0.0};
+				int dummy {0};
 				meshNodeCounter++;
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");

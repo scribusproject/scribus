@@ -277,8 +277,8 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QList<int> secondObjectType;	// when needsNumObjects is 2 this list contains the Object Types of the second object on the selection
 											// -1 indicates that any kind of object is possible. Otherwise the selection must contain the 2 Object Types
 											// for the Plugin Action to be enabled
-			bool enabledOnStartup;
-			bool enabledForStoryEditor;
+			bool enabledOnStartup {false};
+			bool enabledForStoryEditor {false};
 			QString seMenu;
 			QString seParentMenu;
 			QString seKeySequence;
@@ -431,7 +431,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		ActionInfo m_actionInfo;
 		// Obsolete - see runResult()
 		QString m_runResult;
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc {nullptr};
 };
 
 /**

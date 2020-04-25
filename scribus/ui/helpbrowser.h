@@ -140,7 +140,7 @@ protected:
 	QMap<QAction*, histd2> m_history;
 	
 protected slots:
-	virtual void languageChange();
+	void languageChange();
 	void histChosen(QAction* i);
 	void loadHelp(const QString& fileName);
 	void loadMenu();

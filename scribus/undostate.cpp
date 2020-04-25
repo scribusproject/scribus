@@ -109,8 +109,8 @@ bool SimpleState::contains(const QString& key)
 
 QVariant SimpleState::variant(const QString& key, const QVariant& def)
 {
-	QMap<QString, QVariant>::const_iterator it = m_values.find(key);
-	if (it != m_values.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
+	if (it != m_values.constEnd())
 		return it.value();
 
 	m_values[key] = def;
@@ -119,8 +119,8 @@ QVariant SimpleState::variant(const QString& key, const QVariant& def)
 
 QString SimpleState::get(const QString& key, const QString& def)
 {
-	QMap<QString, QVariant>::const_iterator it = m_values.find(key);
-	if (it != m_values.end())
+	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
+	if (it != m_values.constEnd())
 		return it.value().toString();
 
 	m_values[key] = def;

@@ -108,8 +108,8 @@ signals:
 
 
 protected slots:
-    virtual void iconSetChange();
-	virtual void languageChange();
+	void iconSetChange();
+	void languageChange();
 
 protected:
 	QVBoxLayout* checkDocumentLayout;

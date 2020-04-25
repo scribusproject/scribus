@@ -132,7 +132,7 @@ private:
 	virtual void changeEvent(QEvent *e);
 
 protected slots:
-	virtual void languageChange();
+	void languageChange();
 
 };
 

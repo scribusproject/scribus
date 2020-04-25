@@ -654,22 +654,20 @@ void ScImage::blur(int radius)
 
 bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
 {
-	long widthk;
 	double red, green, blue, alpha;
-	double normalize, *normal_kernel;
 	const double *k;
 	unsigned int *q;
 	int x, y, mx, my, sx, sy;
 	long i;
 	int mcx, mcy;
-	widthk = order;
+	long widthk = order;
 	if ((widthk % 2) == 0)
 		return(false);
-	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
+	double *normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
 	if (!normal_kernel)
 		return(false);
 	*dest = QImage(width(), height(), QImage::Format_ARGB32);
-	normalize=0.0;
+	double normalize=0.0;
 	for (i=0; i < (widthk*widthk); i++)
 		normalize += kernel[i];
 	if (fabs(normalize) <= 1.0e-12)

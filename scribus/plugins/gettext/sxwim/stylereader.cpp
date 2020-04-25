@@ -256,11 +256,11 @@ void StyleReader::styleProperties(const QXmlAttributes& attrs)
 			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
 		else if ((attrs.localName(i) == "style:text-position") &&
 				 (((attrs.value(i)).indexOf("sub") != -1) ||
-				  (((attrs.value(i)).left(1) == "-") && ((attrs.value(i)).left(1) != "0"))))
+				  (((attrs.value(i)).at(0) == "-") && ((attrs.value(i)).at(0) != "0"))))
 			currentStyle->getFont()->toggleEffect(SUBSCRIPT);
 		else if ((attrs.localName(i) == "style:text-position") &&
 				 (((attrs.value(i)).indexOf("super") != -1) ||
-				  (((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
+				  (((attrs.value(i)).at(0) != "-") && ((attrs.value(i)).at(0) != "0"))))
 			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
 		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != nullptr))
 			pstyle->setSpaceAbove(getSize(attrs.value(i)));
@@ -645,12 +645,12 @@ bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QStri
 	else if (key == "style:text-scale")
 		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
 	else if ((key == "style:text-position") &&
-			 (((value).indexOf("sub") != -1) ||
-			  (((value).left(1) == "-") && ((value).left(1) != "0"))))
+			 ((value.indexOf("sub") != -1) ||
+			  ((value.at(0) == "-") && (value.at(0) != "0"))))
 		style->getFont()->toggleEffect(SUBSCRIPT);
 	else if ((key == "style:text-position") &&
-			 (((value).indexOf("super") != -1) ||
-			  (((value).left(1) != "-") && ((value).left(1) != "0"))))
+			 ((value.indexOf("super") != -1) ||
+			  ((value.at(0) != "-") && (value.at(0) != "0"))))
 		style->getFont()->toggleEffect(SUPERSCRIPT);
 	else if ((key == "fo:margin-top") && (pstyle != nullptr))
 		pstyle->setSpaceAbove(getSize(value));

@@ -322,12 +322,8 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	endArrowScale->blockSignals(false);
 	lineMode->blockSignals(false);
 
-	setter = false;
-
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
-	{
 		setEnabled(false);
-	}
 
 	m_haveItem = true;
 
@@ -335,13 +331,9 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
 
 	if (m_item->asOSGFrame())
-	{
 		setEnabled(false);
-	}
 	if (m_item->asSymbolFrame())
-	{
 		setEnabled(false);
-	}
 }
 
 void PropertiesPalette_Line::updateArrowStyles()
@@ -351,11 +343,10 @@ void PropertiesPalette_Line::updateArrowStyles()
 
 void PropertiesPalette_Line::updateArrowStyles(ScribusDoc *doc)
 {
-	if (doc)
-	{
-		startArrow->rebuildList(&doc->arrowStyles());
-		endArrow->rebuildList(&doc->arrowStyles());
-	}
+	if (!doc)
+		return;
+	startArrow->rebuildList(&doc->arrowStyles());
+	endArrow->rebuildList(&doc->arrowStyles());
 }
 
 void PropertiesPalette_Line::updateLineStyles()

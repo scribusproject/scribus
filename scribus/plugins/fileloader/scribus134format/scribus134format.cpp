@@ -3291,8 +3291,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
 			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-			if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
+			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.constFind(mlName2);
+			if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
 			{
 				while (m_Doc->MLineStyles.contains(mlName2))
 				{
@@ -3849,8 +3849,8 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
 			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = styles->find(mlName2);
-			if (mlit != styles->end() && ml != mlit.value())
+			QHash<QString,multiLine>::ConstIterator mlit = styles->constFind(mlName2);
+			if (mlit != styles->constEnd() && ml != mlit.value())
 			{
 				while (styles->contains(mlName2))
 				{

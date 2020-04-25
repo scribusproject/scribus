@@ -736,8 +736,8 @@ void parsePagesString(const QString& pages, std::vector<int>* pageNs, int source
 		}
 		else if (token.indexOf("-") != -1) // import a range of source doc pages
 		{
-			int from = QString(token.left(token.indexOf("-"))).toInt();
-			int to = QString(token.right(token.length() - token.indexOf("-") - 1)).toInt();
+			int from = QStringRef(token.leftRef(token.indexOf("-"))).toInt();
+			int to = QStringRef(token.rightRef(token.length() - token.indexOf("-") - 1)).toInt();
 			if ((from != 0) && (to != 0))
 			{
 				if (from > sourcePageCount)

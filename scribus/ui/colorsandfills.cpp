@@ -756,18 +756,18 @@ void ColorsAndFillsDialog::removeColorItem()
 		{
 			ColorList dCols = m_colorList;
 			QString dColor = tr("Selected Colors");
-			for (int a = 0; a < usedColors.count(); a++)
+			for (int i = 0; i < usedColors.count(); i++)
 			{
-				dCols.remove(usedColors[a]);
+				dCols.remove(usedColors[i]);
 			}
 			dCols.insert(dColor , ScColor());
 			DelColor *dia = new DelColor(this, dCols, dColor, true);
 			if (dia->exec())
 			{
 				QString replacementColor(dia->getReplacementColor());
-				for (int a = 0; a < colors.count(); a++)
+				for (int i = 0; i < colors.count(); i++)
 				{
-					dColor = colors[a];
+					dColor = colors[i];
 					if (replacementColor == CommonStrings::tr_NoneColor)
 						replacementColor = CommonStrings::None;
 					if (replaceColorMap.values().contains(dColor))

@@ -60,13 +60,13 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		PathAlongPathPlugin();
 		virtual ~PathAlongPathPlugin();
-		virtual bool run(ScribusDoc* doc, const QString& target = QString());
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-		bool handleSelection(ScribusDoc* doc, int SelectedType);
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		const QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
+		bool handleSelection(ScribusDoc* doc, int SelectedType) override;
 	private:
 		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate);
 		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern);

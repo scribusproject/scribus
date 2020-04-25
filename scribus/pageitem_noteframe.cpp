@@ -186,7 +186,7 @@ void PageItem_NoteFrame::layout()
 		return;
 	if (itemText.length() == 0)
 		return;
-	if ((masterFrame() != nullptr) && masterFrame()->invalid)
+	if ((m_masterFrame != nullptr) && m_masterFrame->invalid)
 		return;
 
 	//while layouting notes frames undo should be disabled

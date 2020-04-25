@@ -76,7 +76,7 @@ public:
 	virtual void clear() = 0;
 
 	/** @brief Sets GUI strings on language change */
-	virtual void languageChange();
+	void languageChange();
 	
 public slots:
 	/**

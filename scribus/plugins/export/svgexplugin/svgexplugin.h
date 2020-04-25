@@ -42,12 +42,12 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	virtual bool run(ScribusDoc* doc=nullptr, const QString& filename = QString());
-	virtual const QString fullTrName() const;
-	virtual const AboutData* getAboutData() const;
-	virtual void deleteAboutData(const AboutData* about) const;
-	virtual void languageChange();
-	virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+	bool run(ScribusDoc* doc=nullptr, const QString& filename = QString()) override;
+	const QString fullTrName() const override;
+	const AboutData* getAboutData() const override;
+	void deleteAboutData(const AboutData* about) const override;
+	void languageChange() override;
+	void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 	// Special features (none)
 };
