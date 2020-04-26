@@ -34,14 +34,14 @@ public:
 	MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCount = -1, int currentPage = 1 );
 	~MergeDoc();
 
-	const QString &getFromDoc();
-	const QStringList &getMasterPageNames() const;
+	QString getFromDoc() const;
+	QStringList getMasterPageNames() const;
 	QList<int> getMasterPageIndexes() const;
-	int getImportWhere();
-	int getImportWherePage();
-	bool getCreatePageChecked();
-	const QString &getPageNumbers();
-	int getPageCounter();
+	int getImportWhere() const;
+	int getImportWherePage() const;
+	bool getCreatePageChecked() const;
+	QString getPageNumbers() const;
+	int getPageCounter() const;
 
 private:
 	QLabel* fromDocLabel {nullptr};
