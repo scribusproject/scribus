@@ -153,7 +153,7 @@ ScColorProfile ScLcms2ColorMgmtEngineImpl::openProfileFromFile(ScColorMgmtEngine
 				ScLcms2ColorProfileImpl* profData = new ScLcms2ColorProfileImpl(engine, lcmsProf);
 				profData->m_profileData = data;
 				profData->m_profilePath = filePath;
-				profile = ScColorProfile(profData);
+				profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
 				m_profileCache->addProfile(profile);
 			}
 			if (profile.isNull() && lcmsProf)
@@ -178,7 +178,7 @@ ScColorProfile ScLcms2ColorMgmtEngineImpl::openProfileFromMem(ScColorMgmtEngine&
 		if (!desc.isEmpty())
 			profData->m_profilePath = QString("memprofile://%1").arg(desc);
 		profData->m_profileData = data;
-		profile = ScColorProfile(profData);
+		profile = ScColorProfile(dynamic_cast<ScColorProfileData*>(profData));
 	}
 	if (profile.isNull() && lcmsProf)
 	{
@@ -299,7 +299,7 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createTransform(ScColorMgmtEngine& 
 		{
 			ScLcms2ColorTransformImpl* newTrans = new ScLcms2ColorTransformImpl(engine, hTransform);
 			newTrans->setTransformInfo(transInfo);
-			transform = ScColorTransform(newTrans);
+			transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
 			m_transformPool->addTransform(transform, true);
 		}
 	}
@@ -368,7 +368,7 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createProofingTransform(ScColorMgmt
 			{
 				ScLcms2ColorTransformImpl* newTrans = new ScLcms2ColorTransformImpl(engine, hTransform);
 				newTrans->setTransformInfo(transInfo);
-				transform = ScColorTransform(newTrans);
+				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
 				m_transformPool->addTransform(transform, true);
 			}
 		}
@@ -402,7 +402,7 @@ ScColorTransform ScLcms2ColorMgmtEngineImpl::createProofingTransform(ScColorMgmt
 			{
 				ScLcms2ColorTransformImpl* newTrans = new ScLcms2ColorTransformImpl(engine, hTransform);
 				newTrans->setTransformInfo(transInfo);
-				transform = ScColorTransform(newTrans);
+				transform = ScColorTransform(dynamic_cast<ScColorTransformData*>(newTrans));
 				m_transformPool->addTransform(transform, true);
 			}
 		}
