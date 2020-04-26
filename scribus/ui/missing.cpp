@@ -59,7 +59,7 @@ void MissingFont::newFont(const QString& replacement)
 	replacementFont = replacement;
 }
 
-const QString MissingFont::getReplacementFont()
+const QString& MissingFont::getReplacementFont()
 {
 	return replacementFont;
 }

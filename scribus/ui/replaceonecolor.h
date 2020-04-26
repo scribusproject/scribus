@@ -39,8 +39,8 @@ class SCRIBUS_API replaceColorDialog : public QDialog, Ui::replaceColorDialog
 public:
 	replaceColorDialog(QWidget* parent, ColorList &availableColors, ColorList &usedColors);
 	~replaceColorDialog() {};
-	const QString getOriginalColor();
-	const QString getReplacementColor();
+	const QString& getOriginalColor();
+	const QString& getReplacementColor();
 	void setReplacementColor(const QString& color);
 	void setOriginalColor(const QString& color);
 };

@@ -181,7 +181,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 	
 	for (int i = fromPos; i < toPos; ++i)
 	{
-		QString str = m_story.text(i,1);
+		QString str(m_story.text(i,1));
 		
 		if (m_singlePar)
 		{

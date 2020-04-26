@@ -25,7 +25,7 @@ class SCRIBUS_API DelColor : public QDialog
 public:
 	DelColor(QWidget* parent, const ColorList& colorList, const QString& colorName, bool haveDoc );
 	~DelColor() {};
-	const QString getReplacementColor();
+	const QString &getReplacementColor();
 
 private:
 	QLabel* deleteLabel;

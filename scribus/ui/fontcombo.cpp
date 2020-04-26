@@ -170,7 +170,7 @@ void FontComboH::familySelected(int id)
 	fontStyle->clear();
 	QString fntFamily = fontFamily->itemText(id);
 	QStringList slist, styleList = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[fntFamily];
-	for (QStringList::ConstIterator it = styleList.begin(); it != styleList.end(); ++it)
+	for (QStringList::ConstIterator it = styleList.constBegin(); it != styleList.constEnd(); ++it)
 	{
 		SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(fntFamily + " " + *it);
 		if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
@@ -220,7 +220,7 @@ void FontComboH::setCurrentFont(const QString& f)
 	QStringList ilist;
 	if (currDoc != nullptr)
 	{
-		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+		for (QStringList::ConstIterator it3 = slist.constBegin(); it3 != slist.constEnd(); ++it3)
 		{
 			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it3);
 			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
@@ -255,13 +255,13 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	QStringList rlist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.keys();
 	QMap<QString, ScFace::FontType> flist;
 	flist.clear();
-	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+	for (QStringList::ConstIterator it2 = rlist.constBegin(); it2 != rlist.constEnd(); ++it2)
 	{
 		if (currentDoc != nullptr)
 		{
 			QStringList slist = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap[*it2];
 			slist.sort();
-			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+			for (QStringList::ConstIterator it3 = slist.constBegin(); it3 != slist.constEnd(); ++it3)
 			{
 				if ( prefsManager.appPrefs.fontPrefs.AvailFonts.contains(*it2 + " " + *it3))
 				{
@@ -317,7 +317,7 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	QStringList ilist;
 	if (currentDoc != nullptr)
 	{
-		for (QStringList::ConstIterator it = slist.begin(); it != slist.end(); ++it)
+		for (QStringList::ConstIterator it = slist.constBegin(); it != slist.constEnd(); ++it)
 		{
 			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it);
 			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())

@@ -54,7 +54,7 @@ void GradientEditor::setGradient(const VGradient& grad)
 	Preview->updateDisplay();
 }
 
-const VGradient GradientEditor::gradient()
+const VGradient& GradientEditor::gradient()
 {
 	return Preview->gradient();
 }

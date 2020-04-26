@@ -100,7 +100,7 @@ void Query::Leave()
 		accept();
 }
 
-const QString Query::getEditText()
+const QString& Query::getEditText()
 {
 	return answerEdit->text();
 }

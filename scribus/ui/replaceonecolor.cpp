@@ -39,12 +39,12 @@ replaceColorDialog::replaceColorDialog(QWidget* parent, ColorList &availableColo
 	replacementColor->setColors(availableColors, true);
 }
 
-const QString replaceColorDialog::getOriginalColor()
+const QString& replaceColorDialog::getOriginalColor()
 {
 	return originalColor->currentText();
 }
 
-const QString replaceColorDialog::getReplacementColor()
+const QString& replaceColorDialog::getReplacementColor()
 {
 	return replacementColor->currentText();
 }

@@ -34,8 +34,8 @@ public:
 
 	QString prefsPageSizeName;
 
-	const QStringList getMasterPages();
-	const QString getMasterPageN(uint n);
+	const QStringList &getMasterPages();
+	const QString &getMasterPageN(uint n);
 	int getWhere() const;
 	int getWherePage() const;
 	int getCount() const;

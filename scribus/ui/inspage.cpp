@@ -345,7 +345,7 @@ void InsPage::setOrientation(int ori)
 	}
 }
 
-const QStringList InsPage::getMasterPages()
+const QStringList& InsPage::getMasterPages()
 {
 	QStringList ret;
 	for (int n = 0; n < masterPageCombos.count(); ++n)
@@ -357,7 +357,7 @@ const QStringList InsPage::getMasterPages()
 	return ret;
 }
 
-const QString InsPage::getMasterPageN(uint n)
+const QString& InsPage::getMasterPageN(uint n)
 {
 	QComboBox* comboBox = masterPageCombos.at(n);
 	int currentIndex = comboBox->currentIndex();

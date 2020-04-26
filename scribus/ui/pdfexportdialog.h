@@ -50,9 +50,9 @@ public:
 	~PDFExportDialog() {};
 
 	void updateDocOptions();
-	const QString cmsDescriptor();
-	const int colorSpaceComponents();
-	const QString getPagesString();
+	const QString &cmsDescriptor();
+	int colorSpaceComponents();
+	QString getPagesString();
 
 protected slots:
 	void DoExport();

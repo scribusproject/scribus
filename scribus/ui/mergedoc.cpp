@@ -217,12 +217,12 @@ void MergeDoc::enableCreateWidgets()
 	}
 }
 
-const QString MergeDoc::getFromDoc()
+const QString& MergeDoc::getFromDoc()
 {
 	return QDir::fromNativeSeparators(fromDocData->text());
 }
 
-const QStringList MergeDoc::getMasterPageNames() const
+const QStringList& MergeDoc::getMasterPageNames() const
 {
 	QStringList result;
 	for (const auto item : masterPageNameData->selectedItems())
@@ -238,27 +238,27 @@ QList<int> MergeDoc::getMasterPageIndexes() const
 	return result;
 }
 
-const int MergeDoc::getImportWhere()
+int MergeDoc::getImportWhere()
 {
 	return importWhereData->currentIndex();
 }
 
-const int MergeDoc::getImportWherePage()
+int MergeDoc::getImportWherePage()
 {
 	return importWherePageData->value();
 }
 
-const bool MergeDoc::getCreatePageChecked()
+bool MergeDoc::getCreatePageChecked()
 {
 	return createPageData->isChecked();
 }
 
-const QString MergeDoc::getPageNumbers()
+const QString& MergeDoc::getPageNumbers()
 {
 	return pageNumberData->text();
 }
 
-const int MergeDoc::getPageCounter()
+int MergeDoc::getPageCounter()
 {
 	return count;
 }
