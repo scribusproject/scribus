@@ -512,7 +512,7 @@ void PrefsManager::initDefaultActionKeys()
 {
 	ActionManager::createDefaultShortcuts();
 	QMap<QString, QKeySequence > *map = ActionManager::defaultShortcuts();
-	for (QMap<QString, QKeySequence >::ConstIterator it = map->constBegin(); it != map->constEnd(); ++it)
+	for (auto it = map->constBegin(); it != map->constEnd(); ++it)
 	{
 		Keys& keyAction = appPrefs.keyShortcutPrefs.KeyActions[it.key()];
 		keyAction.actionName = it.key();
