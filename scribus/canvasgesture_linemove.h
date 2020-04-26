@@ -49,8 +49,10 @@ class PageItem_Line;
  */
 class SCRIBUS_API LineMove : public CanvasGesture
 {
+	Q_OBJECT
+
 public:
-	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_haveLineItem(false), m_useOriginAsEndpoint(false), m_bounds(0,0,0,0), m_line(nullptr) {}
+	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_bounds(0,0,0,0) {}
 	~LineMove() override = default;
 	
 	/**
@@ -85,11 +87,11 @@ public:
 	bool haveLineItem() const { return m_haveLineItem; }
 	
 private:
-	bool      m_haveLineItem;
-	bool      m_useOriginAsEndpoint;
+	bool      m_haveLineItem {false};
+	bool      m_useOriginAsEndpoint {false};
 	QRectF    m_bounds;
 	QRectF    m_initialBounds;
-	PageItem* m_line;
+	PageItem* m_line {nullptr};
 	UndoTransaction m_transaction;
 
 	void adjustBounds(QMouseEvent* m, bool updateCanvas = true);

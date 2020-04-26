@@ -249,8 +249,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 //		m_height = (face->bbox.yMax - face->bbox.yMin) / uniEM;
 
 	int h = qRound(m_height * s) + 1;
-	qreal a = m_descent * s + 1;
-	a = 0;
+	qreal a = 0;//m_descent * s + 1;
 	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
 	if (w < 1)
 		w = s * (ts.length()+1);

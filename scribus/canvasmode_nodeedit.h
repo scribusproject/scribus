@@ -31,48 +31,48 @@ class ScribusMainWindow;
 
 class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 {
-public:
-	explicit CanvasMode_NodeEdit (ScribusView* view);
-	~CanvasMode_NodeEdit() override = default;
-	
-	void activate(bool fromgesture) override;
-	void deactivate(bool forGesture) override;
-	
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
+	public:
+		explicit CanvasMode_NodeEdit (ScribusView* view);
+		~CanvasMode_NodeEdit() override = default;
 
-	void keyPressEvent(QKeyEvent *e) override;
-	void keyReleaseEvent(QKeyEvent *e) override;
+		void activate(bool fromgesture) override;
+		void deactivate(bool forGesture) override;
 
-	bool handleKeyEvents() const override { return true; }
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-	/**
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+
+		void keyPressEvent(QKeyEvent *e) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
+
+		bool handleKeyEvents() const override { return true; }
+
+		/**
 		Draws the controls for this mode
 	 */
-	void drawControls(QPainter* p) override;
-	
-private:
-	inline bool GetItem(PageItem** pi); 
-	void handleNodeEditPress(QMouseEvent*, QRect);
-	void handleNodeEditDrag(QMouseEvent*, PageItem*);
-	bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, const QTransform&);
-	
-	ScribusMainWindow* m_ScMW;
-	
-	RectSelect* m_rectangleSelect {nullptr};
-	int m_Mxp {-1}; // last mouse position
-	int m_Myp {-1};
-	int m_Dxp {-1}; // last mouse press position for rectangle select
-	int m_Dyp {-1};
-	int m_GxM {-1}; // guide position
-	int m_GyM {-1};
-	bool m_MoveGX {false};
-	bool m_MoveGY {false};
+		void drawControls(QPainter* p) override;
+
+	private:
+		inline bool GetItem(PageItem** pi);
+		void handleNodeEditPress(QMouseEvent*, QRect);
+		void handleNodeEditDrag(QMouseEvent*, PageItem*);
+		bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, const QTransform&);
+
+		ScribusMainWindow* m_ScMW;
+
+		RectSelect* m_rectangleSelect {nullptr};
+		int m_Mxp {-1}; // last mouse position
+		int m_Myp {-1};
+		int m_Dxp {-1}; // last mouse press position for rectangle select
+		int m_Dyp {-1};
+		int m_GxM {-1}; // guide position
+		int m_GyM {-1};
+		bool m_MoveGX {false};
+		bool m_MoveGY {false};
 };
 
 

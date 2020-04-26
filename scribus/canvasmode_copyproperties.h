@@ -28,35 +28,35 @@ class ScribusView;
 
 class CanvasMode_CopyProperties :  public CanvasMode
 {
-public:
-	explicit CanvasMode_CopyProperties(ScribusView* view);
-	~CanvasMode_CopyProperties() override = default;
+	public:
+		explicit CanvasMode_CopyProperties(ScribusView* view);
+		~CanvasMode_CopyProperties() override = default;
 
-	void enterEvent(QEvent *) override ;
-	void leaveEvent(QEvent *) override ;
-	
-	void activate(bool) override;
-	void deactivate(bool) override ;
-	void mouseDoubleClickEvent(QMouseEvent *m) override ;
-	void mouseReleaseEvent(QMouseEvent *m) override ;
-	void mouseMoveEvent(QMouseEvent *m) override ;
-	void mousePressEvent(QMouseEvent *m) override ;
-	void drawControls(QPainter* p) override ;
+		void enterEvent(QEvent *) override ;
+		void leaveEvent(QEvent *) override ;
 
-// protected:
-// 	void setResizeCursor(int);
+		void activate(bool) override;
+		void deactivate(bool) override ;
+		void mouseDoubleClickEvent(QMouseEvent *m) override ;
+		void mouseReleaseEvent(QMouseEvent *m) override ;
+		void mouseMoveEvent(QMouseEvent *m) override ;
+		void mousePressEvent(QMouseEvent *m) override ;
+		void drawControls(QPainter* p) override ;
 
-private:
-	inline bool GetItem(PageItem** pi);
-	bool SeleItem(QMouseEvent *m);
-	void createContextMenu(PageItem *currItem, double mx, double my);
+		// protected:
+		// 	void setResizeCursor(int);
 
-	int frameResizeHandle {-1};
-	double Mxp {-1.0};
-	double Myp {-1.0};
-	double Dxp {-1.0};
-	double Dyp {-1.0};
-	ScribusMainWindow* m_ScMW;
+	private:
+		inline bool GetItem(PageItem** pi);
+		bool SeleItem(QMouseEvent *m);
+		void createContextMenu(PageItem *currItem, double mx, double my);
+
+		int frameResizeHandle {-1};
+		double Mxp {-1.0};
+		double Myp {-1.0};
+		double Dxp {-1.0};
+		double Dyp {-1.0};
+		ScribusMainWindow* m_ScMW;
 };
 
 

@@ -34,42 +34,42 @@ class PageItem;
 
 class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 {
-public:
-	explicit CanvasMode_Rotate(ScribusView* view);
-	~CanvasMode_Rotate() override = default;
+	public:
+		explicit CanvasMode_Rotate(ScribusView* view);
+		~CanvasMode_Rotate() override = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-	void drawControls(QPainter* p) override;
-	void activate(bool) override;
-	void deactivate(bool) override;
+		void drawControls(QPainter* p) override;
+		void activate(bool) override;
+		void deactivate(bool) override;
 
-	void mousePressEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void keyReleaseEvent(QKeyEvent *e) override;
-	void keyPressEvent(QKeyEvent *e) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
+		void keyPressEvent(QKeyEvent *e) override;
 
-	bool handleKeyEvents() const override { return true; }
+		bool handleKeyEvents() const override { return true; }
 
-private:
-	inline bool GetItem(PageItem** pi);
-	
-	void   createContextMenu(PageItem *currItem, double mx, double my);
-	void   drawItemOutlines(QPainter*);
-	void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
-// 	void   setResizeCursor(int how);
+	private:
+		inline bool GetItem(PageItem** pi);
 
-	FPoint m_canvasCurrCoord;
-	FPoint m_canvasPressCoord;
-	FPoint m_oldRotCenter;
-	FPoint m_rotCenter;
-	bool   m_angleConstrained {false};
-	bool   m_inItemRotation {false};
-	double m_startAngle {0.0};
-	int    m_oldRotMode {0};
-	int    m_rotMode {0};
+		void   createContextMenu(PageItem *currItem, double mx, double my);
+		void   drawItemOutlines(QPainter*);
+		void   getNewItemPosition(PageItem* item, FPoint& pos, double& rotation);
+		// 	void   setResizeCursor(int how);
+
+		FPoint m_canvasCurrCoord;
+		FPoint m_canvasPressCoord;
+		FPoint m_oldRotCenter;
+		FPoint m_rotCenter;
+		bool   m_angleConstrained {false};
+		bool   m_inItemRotation {false};
+		double m_startAngle {0.0};
+		int    m_oldRotMode {0};
+		int    m_rotMode {0};
 };
 
 #endif

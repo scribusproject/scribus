@@ -240,7 +240,6 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 				str += bb[j];
 		}
 		str += "\n";
-		cxxc = 0;
 		return true;
 	}
 	else

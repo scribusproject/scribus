@@ -31,32 +31,32 @@ class UndoTransaction;
 */
 class BezierMode : public CanvasMode
 {
-public:
-	explicit BezierMode(ScribusView* view);
-	~BezierMode() override = default;
+	public:
+		explicit BezierMode(ScribusView* view);
+		~BezierMode() override = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void drawControls(QPainter* p) override;
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
+
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter* p) override;
 		
-private:
-	inline bool GetItem(PageItem** pi); 
+	private:
+		inline bool GetItem(PageItem** pi);
 
-	void finalizeItem(PageItem* item);
-	void selectPage(QMouseEvent *m);
+		void finalizeItem(PageItem* item);
+		void selectPage(QMouseEvent *m);
 
-	bool m_inItemCreation {false};
-	bool m_firstPoly {false};
-	bool m_mouseButtonPressed {false};
-	double m_xp {-1.0};
-	double m_yp {-1.0};
+		bool m_inItemCreation {false};
+		bool m_firstPoly {false};
+		bool m_mouseButtonPressed {false};
+		double m_xp {-1.0};
+		double m_yp {-1.0};
 };
 
 

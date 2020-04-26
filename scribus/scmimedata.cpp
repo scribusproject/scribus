@@ -130,7 +130,7 @@ QByteArray ScMimeData::clipboardKnownDataData()
 QString ScMimeData::clipboardScribusElem()
 {
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
-	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(mimeData);
+	const ScElemMimeData* elemData = qobject_cast<const ScElemMimeData*>(mimeData);
 	if (elemData)
 		return elemData->scribusElem();
 	QByteArray data = QApplication::clipboard()->mimeData()->data(ScribusElemMimeType);

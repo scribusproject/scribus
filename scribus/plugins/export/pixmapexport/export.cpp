@@ -37,7 +37,7 @@ ScPlugin* scribusexportpixmap_getPlugin()
 
 void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 {
-	PixmapExportPlugin* plug = dynamic_cast<PixmapExportPlugin*>(plugin);
+	PixmapExportPlugin* plug = qobject_cast<PixmapExportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

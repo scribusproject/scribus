@@ -385,7 +385,7 @@ void ScribusView::changed(QRectF re, bool)
 bool ScribusView::handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings)
 {
 	requestMode(modeImportObject);
-	CanvasMode_ObjImport* objImport = dynamic_cast<CanvasMode_ObjImport*>(m_canvasMode);
+	CanvasMode_ObjImport* objImport = qobject_cast<CanvasMode_ObjImport*>(m_canvasMode);
 	if (objImport)
 	{
 		objImport->setMimeData(mimeData);
@@ -632,7 +632,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 {
 	QString text;
 	bool /* dataFound = false, */ fromFile = false;
-	const ScElemMimeData* elemData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
+	const ScElemMimeData* elemData = qobject_cast<const ScElemMimeData*>(e->mimeData());
 	if (elemData)
 		text = elemData->scribusElem();
 	else if (e->mimeData()->hasUrls())
@@ -858,7 +858,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	else if (e->mimeData()->hasFormat("application/x-scribus-elem"))
 	{
-		const ScElemMimeData* scMimeData = dynamic_cast<const ScElemMimeData*>(e->mimeData());
+		const ScElemMimeData* scMimeData = qobject_cast<const ScElemMimeData*>(e->mimeData());
 		if (scMimeData)
 			text = scMimeData->scribusElem();
 	}
