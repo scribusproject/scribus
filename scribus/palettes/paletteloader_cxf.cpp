@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QScopedPointer>
-#include <QVector>
 
 #include "lcms2.h"
 #include "paletteloader_cxf.h"
@@ -95,7 +94,7 @@ bool PaletteLoader_CxF::importFile(const QString& fileName, bool /*merge*/)
 		colorspaces = cxfImportDia->priorities();
 	}
 
-	QVector<PaletteLoader_CxF::ColorImportFunction> importFunctions;
+	QList<PaletteLoader_CxF::ColorImportFunction> importFunctions;
 	for (int i = 0; i < colorspaces.count(); ++i)
 	{
 		eColorSpaceType colorspace = colorspaces.at(i);
