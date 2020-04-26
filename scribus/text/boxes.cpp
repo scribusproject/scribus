@@ -6,6 +6,7 @@
  */
 
 #include <cmath>
+#include <unicode/brkiter.h>
 
 #include "pageitem.h"
 #include "boxes.h"
@@ -20,6 +21,8 @@
 #include "screenpainter.h"
 #include "itextcontext.h"
 #include "itextsource.h"
+
+using namespace icu;
 
 int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 {

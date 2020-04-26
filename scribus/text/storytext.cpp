@@ -22,6 +22,8 @@ pageitem.cpp  -  description
 ***************************************************************************/
 
 //#include <QDebug>
+#include <unicode/brkiter.h>
+
 //FIXME: this include must go to sctextstruct.h !
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
@@ -40,6 +42,7 @@ pageitem.cpp  -  description
 #include "desaxe/simple_actions.h"
 #include "shapedtextcache.h"
 
+using namespace icu;
 
 StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 {

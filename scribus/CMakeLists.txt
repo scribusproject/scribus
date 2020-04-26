@@ -21,6 +21,15 @@ if(WIN32)
 	add_definitions(-DQT_DLL)
 endif()
 
+
+include_directories(
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_CURRENT_BINARY_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${FREETYPE_INCLUDE_DIRS}
+	${HARFBUZZ_INCLUDE_DIRS}
+)
+
 add_subdirectory(dtd)
 add_subdirectory(colormgmt)
 add_subdirectory(desaxe)
@@ -1150,14 +1159,6 @@ set(SCRIBUS_WPG_LIB "scribus_wpg_lib")
 set(SCRIBUS_PGF_LIB "scribus_pgf_lib")
 set(SCRIBUS_ZIP_LIB "scribus_zip_lib")
 set(SCRIBUS_RTF_LIB "scribus_rtf_lib")
-
-include_directories(
-	${CMAKE_SOURCE_DIR}
-	${CMAKE_CURRENT_BINARY_DIR}
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${FREETYPE_INCLUDE_DIRS}
-	${HARFBUZZ_INCLUDE_DIRS}
-)
 
 if (GMAGICK_FOUND)
 	message(STATUS "GMAGICK: Libs: ${GMAGICK_LDFLAGS}, Inc: ${GMAGICK_INCLUDE_DIRS}, Ldflags: ${GMAGICK_LDFLAGS}")
