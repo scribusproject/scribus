@@ -42,10 +42,10 @@ void UpgradeChecker::init()
 	m_isCVS = versionStripped.contains("svn");
 	if (m_isCVS)
 		versionStripped.remove("svn");
-	major = versionStripped.section('.',0,0).toInt();
-	minor = versionStripped.section('.',1,1).toInt();
-	m_revision1 = versionStripped.section('.',2,2).toInt();
-	m_revision2 = versionStripped.section('.',3,4).toInt();
+	major = versionStripped.section('.', 0, 0).toInt();
+	minor = versionStripped.section('.', 1, 1).toInt();
+	m_revision1 = versionStripped.section('.', 2, 2).toInt();
+	m_revision2 = versionStripped.section('.', 3, 4).toInt();
 	#if defined(Q_OS_MAC)
 	m_platform = "MacOSX";
 	#elif defined(Q_OS_WIN32)
@@ -72,9 +72,9 @@ void UpgradeChecker::fetch()
 		if (m_file->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
-			QString filepath("/"+filename);
+			QString filepath("/" + filename);
 			QUrl fileURL(QString("https://%1%2").arg(hostname, filepath));
-			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
+			outputText("<b>" + tr("Attempting to get the Scribus version update file:") + "</b>");
 			outputText(fileURL.toString());
 
 			QNetworkRequest networkRequest(fileURL);
@@ -95,7 +95,7 @@ void UpgradeChecker::fetch()
 			if (m_writeToConsole)
 				std::cout << std::endl;
 			if (waitCount >= 20)
-				outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
+				outputText("<b>" + tr("Timed out when attempting to get update file.") + "</b>");
 			m_file->close();
 		}
 		m_file->remove();
@@ -116,7 +116,7 @@ void UpgradeChecker::downloadFinished()
 		m_file->reset();
 		process();
 		m_fin = true;
-		show(m_networkReply->error()!=QNetworkReply::NoError);
+		show(m_networkReply->error() != QNetworkReply::NoError);
 	}
 }
 
@@ -139,9 +139,9 @@ bool UpgradeChecker::process()
 	if (!doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.contains("404 not found", Qt::CaseInsensitive))
-			outputText("<b>"+ tr("File not found on server")+"</b>");
+			outputText("<b>" + tr("File not found on server") + "</b>");
 		else
-			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>" + tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), errorMsg).arg(eline).arg(ecol) + "</b>");
 		return false;
 	}
 	
@@ -164,14 +164,14 @@ bool UpgradeChecker::process()
 			bool verIsCVS = verAStripped.contains("cvs");
 			if (verIsCVS)
 				verAStripped.remove("cvs");
-			uint verMajor = verAStripped.section('.',0,0).toInt();
-			uint verMinor = verAStripped.section('.',1,1).toInt();
-			uint verRevsion1 = verAStripped.section('.',2,2).toInt();
-			uint verRevsion2 = verAStripped.section('.',3,3).toInt();
+			uint verMajor = verAStripped.section('.', 0, 0).toInt();
+			uint verMinor = verAStripped.section('.', 1, 1).toInt();
+			uint verRevsion1 = verAStripped.section('.', 2, 2).toInt();
+			uint verRevsion2 = verAStripped.section('.', 3, 3).toInt();
 			//If we found a release whe a user is running an old CVS version
 			if (verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 == m_revision2 && m_isCVS && !verIsCVS && !m_updates.contains(verA))
 				newVersion = true;
-			else if (!(verMajor == major && verMinor==minor && verRevsion1==m_revision1 && verRevsion2==m_revision2))
+			else if (!(verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 == m_revision2))
 			{
 				//If we found a version that is not the same as what we are running
 				if (((verMajor > major) ||
@@ -213,19 +213,19 @@ void UpgradeChecker::show(bool error)
 	outputText("<br/>");
 	if (error)
 	{
-		outputText("<b>"+ tr("An error occurred while looking for updates for Scribus, please check your internet connection.")+"</b>");
+		outputText("<b>" + tr("An error occurred while looking for updates for Scribus, please check your internet connection.") + "</b>");
 		return;
 	}
 	if (m_updates.isEmpty())
-		outputText("<b>"+ tr("No updates are available for your version of Scribus %1").arg(m_version)+"</b>");
+		outputText("<b>" + tr("No updates are available for your version of Scribus %1").arg(m_version) + "</b>");
 	else
 	{
-		outputText("<b>"+ tr("One or more updates for your version of Scribus (%1) are available:").arg(m_version)+"</b>");
+		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(m_version) + "</b>");
 		outputText( tr("This list may contain development/unstable versions."));
 		for ( QStringList::Iterator it = m_updates.begin(); it != m_updates.end(); ++it )
 			outputText(*it);
-		outputText("<b>"+ tr("Please visit www.scribus.net for details.")+"</b>");
-		outputText("<b>"+ tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.")+"</b>");
+		outputText("<b>" + tr("Please visit www.scribus.net for details.") + "</b>");
+		outputText("<b>" + tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.") + "</b>");
 	}
 	outputText(m_message);
 }
