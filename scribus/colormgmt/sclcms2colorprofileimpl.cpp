@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 ScLcms2ColorProfileImpl::ScLcms2ColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile)
-                      : ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
+	: ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
 {
 
 }
@@ -48,12 +48,8 @@ bool ScLcms2ColorProfileImpl::isSuitableForOutput() const
 		return true;
 
 	cmsUInt32Number defaultIntent = cmsGetHeaderRenderingIntent(m_profileHandle);
-	if (cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_INPUT) &&
-		cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_OUTPUT))
-	{
-		return true;
-	}
-	return false;
+	return (cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_INPUT) &&
+			cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_OUTPUT));
 }
 
 QString ScLcms2ColorProfileImpl::productDescription() const
