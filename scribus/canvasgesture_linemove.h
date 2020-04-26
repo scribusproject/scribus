@@ -49,8 +49,6 @@ class PageItem_Line;
  */
 class SCRIBUS_API LineMove : public CanvasGesture
 {
-	Q_OBJECT
-
 public:
 	explicit LineMove (CanvasMode* parent): CanvasGesture(parent), m_bounds(0,0,0,0) {}
 	~LineMove() override = default;

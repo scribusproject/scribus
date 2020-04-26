@@ -25,7 +25,6 @@
 
 class SCRIBUS_API PanGesture : public CanvasGesture
 {
-	Q_OBJECT
 	public:
 		explicit PanGesture (CanvasMode* parent);
 		~PanGesture() override = default;

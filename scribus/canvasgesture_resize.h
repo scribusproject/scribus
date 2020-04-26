@@ -46,8 +46,6 @@ class PageItem;
  */
 class SCRIBUS_API ResizeGesture : public CanvasGesture
 {
-	Q_OBJECT
-
 	public:
 		explicit ResizeGesture (CanvasMode* parent);
 		~ResizeGesture() override = default;

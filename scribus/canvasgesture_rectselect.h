@@ -47,8 +47,6 @@ class SelectionRubberBand;
  */
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
-	Q_OBJECT
-
 	public:
 		explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(nullptr) {};
 		~RectSelect() override = default;
