@@ -3,6 +3,7 @@
 #include <harfbuzz/hb.h>
 #include <harfbuzz/hb-ft.h>
 #include <harfbuzz/hb-icu.h>
+#include <unicode/brkiter.h>
 #include <unicode/ubidi.h>
 
 #include "scrptrun.h"
