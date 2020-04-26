@@ -125,7 +125,7 @@ int Digester::nrOfErrors() const
 	return m_errors.size();
 }
 
-const Xml_string Digester::getError(int i) const
+const Xml_string& Digester::getError(int i) const
 {
 	return m_errors[i];
 }

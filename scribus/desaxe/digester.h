@@ -112,7 +112,7 @@ public:
 	template<class ObjType>
 		ObjType*  result();	
 	int nrOfErrors() const;
-	const Xml_string getError(int i) const;
+	const Xml_string &getError(int i) const;
 
 // called by SAX parser:
 	void beginDoc();
