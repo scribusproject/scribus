@@ -35,23 +35,23 @@ UpgradeChecker::~UpgradeChecker()
 
 void UpgradeChecker::init()
 {
-	m_errorReported=false;
-	m_version=(VERSION);
-	m_stability="unstablesvn";
-	QString versionStripped=m_version.toLower();
-	m_isCVS=versionStripped.contains("svn");
+	m_errorReported = false;
+	m_version = (VERSION);
+	m_stability = "unstablesvn";
+	QString versionStripped = m_version.toLower();
+	m_isCVS = versionStripped.contains("svn");
 	if (m_isCVS)
 		versionStripped.remove("svn");
-	major=versionStripped.section('.',0,0).toInt();
-	minor=versionStripped.section('.',1,1).toInt();
-	m_revision1=versionStripped.section('.',2,2).toInt();
-	m_revision2=versionStripped.section('.',3,4).toInt();
+	major = versionStripped.section('.',0,0).toInt();
+	minor = versionStripped.section('.',1,1).toInt();
+	m_revision1 = versionStripped.section('.',2,2).toInt();
+	m_revision2 = versionStripped.section('.',3,4).toInt();
 	#if defined(Q_OS_MAC)
-	m_platform="MacOSX";
+	m_platform = "MacOSX";
 	#elif defined(Q_OS_WIN32)
-	m_platform="Win32";
+	m_platform = "Win32";
 	#else
-	m_platform="X11";
+	m_platform = "X11";
 	#endif
 }
 
@@ -59,7 +59,7 @@ void UpgradeChecker::init()
 void UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	m_tempFile=ScPaths::tempFileDir()+filename;
+	m_tempFile = ScPaths::tempFileDir()+filename;
 
 	m_fin = false;
 
@@ -101,7 +101,7 @@ void UpgradeChecker::fetch()
 		m_file->remove();
 	}
 	delete m_file;
-	m_file=nullptr;
+	m_file = nullptr;
 	outputText( tr("Finished") );
 	m_networkReply->deleteLater();
 	m_networkManager->deleteLater();
