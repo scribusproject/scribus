@@ -475,9 +475,9 @@ void PropertiesPalette_Text::setupLineSpacingSpinbox(int mode, double value)
 	bool blocked = lineSpacing->blockSignals(true);
 	if (mode > 0)
 	{
-		if (mode==1)
+		if (mode == 1)
 			lineSpacing->setSpecialValueText( tr( "Auto" ) );
-		if (mode==2)
+		if (mode == 2)
 			lineSpacing->setSpecialValueText( tr( "Baseline" ) );
 		lineSpacing->setMinimum(0);
 		lineSpacing->setValue(0);
@@ -527,7 +527,31 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	showFontSize(charStyle.fontSize());
 	showLanguage(charStyle.language());
 
+	if (m_item)
+	{
+		QString defaultParStyle = m_item->itemText.defaultStyle().parent();
+		if (defaultParStyle.isEmpty())
+			defaultParStyle = CommonStrings::DefaultParagraphStyle;
+		paraStyleCombo->setDefaultStyle(defaultParStyle);
+	}
 	showParStyle(newCurrent.parent());
+
+	if (m_item)
+	{
+		QString defaultCharStyle;
+		if (!newCurrent.parent().isEmpty())
+		{
+			const ParagraphStyle& paraStyle = m_doc->paragraphStyles().get(newCurrent.parent());
+			defaultCharStyle = paraStyle.charStyle().parent();
+			if (defaultCharStyle.isEmpty())
+				defaultCharStyle = CommonStrings::DefaultCharacterStyle;
+		}
+		if (defaultCharStyle.isEmpty())
+			defaultCharStyle = m_item->itemText.defaultStyle().charStyle().parent();
+		if (defaultCharStyle.isEmpty())
+			defaultCharStyle = CommonStrings::DefaultCharacterStyle;
+		charStyleCombo->setDefaultStyle(defaultCharStyle);
+	}
 	showCharStyle(charStyle.parent());
 
 	bool tmp = m_haveItem;
