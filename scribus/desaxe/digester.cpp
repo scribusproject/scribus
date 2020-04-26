@@ -108,6 +108,8 @@ Digester::~Digester() {
 
 Digester& Digester::operator=(const Digester& other)
 {
+	if (&other == this)
+		return *this;
 	delete m_state;
 	m_state = new RuleState(*other.m_state);
 	m_objects = other.m_objects;

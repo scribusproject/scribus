@@ -71,11 +71,13 @@ bool ScColorSpaceData::convert(ScColorSpaceData& data, eRenderIntent renderInten
 	if (transform)
 	{
 		success = transform.apply(dataIn, dataOut, numElems);
-		if (!this->hasAlphaChannel() && data.hasAlphaChannel())
-			data.flattenAlpha(dataOut, numElems);
-		if (lastTrans && (transform != *lastTrans))
-			*lastTrans = transform;
-		success = true;
+		if (success)
+		{
+			if (!this->hasAlphaChannel() && data.hasAlphaChannel())
+				data.flattenAlpha(dataOut, numElems);
+			if (lastTrans && (transform != *lastTrans))
+				*lastTrans = transform;
+		}
 	}
 	return success;
 }
