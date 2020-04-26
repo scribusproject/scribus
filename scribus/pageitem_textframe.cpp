@@ -1806,7 +1806,7 @@ void PageItem_TextFrame::layout()
 					{
 						if (style.direction() == ParagraphStyle::RTL)
 						{
-							//use rightIndent to not miss with old behavior
+							// use rightIndent to not mess with old behavior
 							current.rightIndent = style.firstIndent();
 							// line width should consider RTL indent when it breaks the line.
 							current.mustLineEnd = current.colRight - style.firstIndent();

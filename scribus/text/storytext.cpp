@@ -998,7 +998,7 @@ QString StoryText::text(int pos, uint len) const
 
 bool StoryText::isBlockStart(int pos) const 
 {
-	return pos  == 0 || text(pos-1) == SpecialChars::PARSEP;
+	return pos == 0 || text(pos-1) == SpecialChars::PARSEP;
 }
 
 
