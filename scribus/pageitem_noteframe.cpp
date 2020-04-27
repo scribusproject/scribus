@@ -133,6 +133,30 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	deleteIt = false;
 }
 
+void PageItem_NoteFrame::getNamedResources(ResourceCollection& lists) const
+{
+	PageItem_TextFrame::getNamedResources(lists);
+
+	if (m_nstyle)
+		lists.collectNoteStyle(m_nstyle->name());
+}
+
+void PageItem_NoteFrame::replaceNamedResources(ResourceCollection& newNames)
+{
+	PageItem_TextFrame::replaceNamedResources(newNames);
+
+	if (m_nstyle)
+	{
+		const auto& rsrcNoteStyles = newNames.noteStyles();
+		auto it = rsrcNoteStyles.find(m_nstyle->name());
+		if ((it != rsrcNoteStyles.end()) && (*it != m_nstyle->name()))
+		{
+			NotesStyle* newStyle = m_Doc->getNotesStyle(*it);
+			setNoteStyle(newStyle);
+		}
+	}
+}
+
 void PageItem_NoteFrame::setNoteStyle(NotesStyle *nStyle, PageItem_TextFrame* master)
 {
 	m_nstyle = nStyle;

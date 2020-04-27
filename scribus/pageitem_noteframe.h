@@ -24,6 +24,9 @@ public:
 	//overloaded text frame layouting
 	void layout() override;
 
+	void getNamedResources(ResourceCollection& lists) const override;
+	void replaceNamedResources(ResourceCollection& newNames) override;
+
 	//indicate if noteframe should be deleted
 	bool deleteIt;
 
