@@ -757,37 +757,45 @@ struct LineControl {
 		imSpace /= 2;
 
 		// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
-
 		if (lineData.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
 		{
 			glyphExtension = style.minGlyphExtension() - 1;
-			spaceExtension = (lineData.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+			spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension) ) / spaceNatural - 1;
 			imSpace = 0;
 		}
 		else if (lineData.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
 		{
 			spaceExtension = 0;
-			glyphExtension = (lineData.width - spaceNatural) / glyphNatural  - 1;
+			glyphExtension = (lineData.width - spaceNatural) / glyphNatural - 1;
 			imSpace = 0;
 		}
 		else
 		{
 			glyphExtension = style.maxGlyphExtension() - 1;
-			if (spaceInsertion) {
+			if (spaceInsertion)
+			{
 				double remaining = lineData.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
-				if (imSpace > 0) {
-					if (remaining / spaceInsertion < imSpace) {
+				if (imSpace > 0)
+				{
+					if (remaining / spaceInsertion < imSpace)
+					{
 						imSpace = remaining / spaceInsertion;
 						spaceExtension = 0;
-					} else {
+					} 
+					else
+					{
 						spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
 						imSpace *= spaceExtension + 1;
 					}
-				} else {
+				}
+				else
+				{
 					imSpace = remaining / spaceInsertion;
 					spaceExtension = 0;
 				}
-			} else {
+			} 
+			else
+			{
 				if (spaceNatural > 0)
 					spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
 				else
@@ -1809,8 +1817,7 @@ void PageItem_TextFrame::layout()
 							// use rightIndent to not mess with old behavior
 							current.rightIndent = style.firstIndent();
 							// line width should consider RTL indent when it breaks the line.
-							current.mustLineEnd = current.colRight - style.firstIndent();
-
+							current.mustLineEnd = current.colRight - current.rightIndent;
 						}
 						else
 							current.leftIndent += style.firstIndent();
