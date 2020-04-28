@@ -24,6 +24,7 @@ class QIODevice;
 
 class  ColorList;
 class  multiLine;
+class  PageItem_NoteFrame;
 class  ScLayer;
 class  ScribusDoc;
 //struct ScribusDoc::BookMa;
@@ -31,6 +32,7 @@ class  ScXmlStreamAttributes;
 class  ScXmlStreamReader;
 class  ScXmlStreamWriter;
 class  StoryText;
+class  TextNote;
 
 class PLUGIN_API Scribus150Format : public LoadSavePlugin
 {
@@ -192,8 +194,11 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeTOC(ScXmlStreamWriter& docu);
 		void writeMarks(ScXmlStreamWriter & docu);
 		void writeNotesStyles(ScXmlStreamWriter & docu);
+		void writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection);
 		void writeNotesFrames(ScXmlStreamWriter & docu);
+		void writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& nfList);
 		void writeNotes(ScXmlStreamWriter & docu);
+		void writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList);
 		void writePageSets(ScXmlStreamWriter& docu);
 		void writeSections(ScXmlStreamWriter& docu);
 		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir, bool part = false, Selection* selection = 0);

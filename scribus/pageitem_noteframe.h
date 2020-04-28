@@ -35,6 +35,11 @@ public:
 	//returns Notes Style
 	NotesStyle* notesStyle() { return m_nstyle; }
 
+	//return list of notes in noteframe
+	const QList<TextNote*>& notesList() const { return m_notes; }
+	//remove note from list
+	void removeNote(TextNote* note) { m_notes.removeOne(note); }
+
 	//insert notes content into notesframe
 	void updateNotes(const QList<TextNote*>& nList, bool clear = true);
 	//read notes text from notesframe itemText and store it in notes`s saxed text field
@@ -47,11 +52,6 @@ public:
 	bool isAutoHeight()  const { return m_nstyle->isAutoNotesHeight(); }
 	bool isAutoWidth()  const { return m_nstyle->isAutoNotesWidth(); }
 
-	//return list of notes in noteframe
-	QList<TextNote*> notesList() { return l_notes; }
-	//remove note from list
-	void removeNote(TextNote* note) { l_notes.removeOne(note); }
-
 	void restoreDeleteNoteText(SimpleState *state, bool isUndo);
 	void restoreDeleteNoteParagraph(SimpleState *state, bool isUndo);
 	void restoreInsertNoteText(SimpleState *state, bool isUndo);
@@ -60,7 +60,7 @@ public:
 	void unWeld(bool doUndo=true);
 	
 private:
-	QList<TextNote*> l_notes;
+	QList<TextNote*> m_notes;
 	NotesStyle* m_nstyle;
 	PageItem_TextFrame *m_masterFrame;
 

@@ -499,6 +499,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 		}
+
+		//update names to pointers
+		updateNames2Ptr();
+
 		if (itemNext.count() != 0)
 		{
 			QMap<int,int>::Iterator lc;
@@ -603,6 +607,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 		}
+
+		//update names to pointers
+		updateNames2Ptr();
+
 		// reestablish textframe links
 		if (itemNext.count() != 0)
 		{

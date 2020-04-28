@@ -1722,8 +1722,8 @@ private:
 	void multipleDuplicateByPage(const ItemMultipleDuplicateData& mdData, Selection& selection, QString& tooltip);
 
 public:
-	const QList<Mark*> marksList() { return m_docMarksList; }
-	const QList<TextNote*> notesList() { return m_docNotesList; }
+	const QList<Mark*>& marksList() { return m_docMarksList; }
+	const QList<TextNote*>& notesList() { return m_docNotesList; }
 	QList<NotesStyle*> m_docNotesStylesList;
 	QMap<PageItem_NoteFrame*, rangeItem> m_docEndNotesFramesMap;
 	QList<NotesStyle*> ns2Update; //list of notes styles to update

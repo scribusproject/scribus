@@ -204,7 +204,7 @@ void PageItem_NoteFrame::setNoteStyle(NotesStyle *nStyle, PageItem_TextFrame* ma
 
 void PageItem_NoteFrame::layout()
 {
-	if (!invalid || l_notes.isEmpty())
+	if (!invalid || m_notes.isEmpty())
 		return;
 	if (!m_Doc->flag_layoutNotesFrames)
 		return;
@@ -296,7 +296,7 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 
 void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 {
-	if (nList == l_notes && !clear)
+	if (nList == m_notes && !clear)
 		return;
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc->setNotesChanged(true);
@@ -306,9 +306,9 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 	{
 		itemText.selectAll();
 		deleteSelectedTextFromFrame();
-		l_notes = nList;
-		for (int a=0; a < l_notes.count(); ++a)
-			insertNote(l_notes.at(a));
+		m_notes = nList;
+		for (int a=0; a < m_notes.count(); ++a)
+			insertNote(m_notes.at(a));
 	}
 	else
 	{
@@ -319,9 +319,9 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 			for (int i=0; i< count; ++i)
 			{
 				TextNote* note = nList.at(i);
-				if (!l_notes.contains(note))
+				if (!m_notes.contains(note))
 				{
-					l_notes.append(note);
+					m_notes.append(note);
 					insertNote(note);
 				}
 			}
@@ -335,7 +335,7 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 void PageItem_NoteFrame::updateNotesText()
 {
 	//read texts from notes frame and copy it to note`s data
-	if (l_notes.isEmpty() || (itemText.length() == 0))
+	if (m_notes.isEmpty() || (itemText.length() == 0))
 		return;
 
 	int oldSelStart = itemText.startOfSelection();
