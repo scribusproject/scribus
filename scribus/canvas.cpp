@@ -464,7 +464,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	if (m_doc->Items->count() == 0)
 		return nullptr;
 
-	int currNr = itemAbove? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
+	int currNr = itemAbove ? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
 	while (currNr >= 0)
 	{
 		currItem = m_doc->Items->at(currNr);
