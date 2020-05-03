@@ -18,7 +18,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nStyle;
-	m_masterFrame = nullptr;
 	itemText.clear();
 
 	m_itemName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
@@ -65,8 +64,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
-	m_nstyle = nullptr;
-	m_masterFrame = nullptr;
 	m_textFlowMode = TextFlowUsesFrameShape;
 	deleteIt = false;
 }

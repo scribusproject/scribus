@@ -61,8 +61,8 @@ public:
 	
 private:
 	QList<TextNote*> m_notes;
-	NotesStyle* m_nstyle;
-	PageItem_TextFrame *m_masterFrame;
+	NotesStyle* m_nstyle {nullptr};
+	PageItem_TextFrame *m_masterFrame {nullptr};
 
 	//insert note at end of text in noteframe
 	void insertNote(TextNote* note);
