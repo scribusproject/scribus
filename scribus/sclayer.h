@@ -20,17 +20,17 @@ public:
 	ScLayer(void);
 	ScLayer(const QString& name, int level, int id);
 	QString Name;
-	int     ID;
-	int     Level;
-	bool    isPrintable;
-	bool    isViewable;
-	bool    isEditable;
-	bool    isSelectable;
-	bool    flowControl;
-	bool    outlineMode;
-	double  transparency;
-	int     blendMode;
-	QColor  markerColor;
+	int ID {0};
+	int Level {0};
+	bool isPrintable {true};
+	bool isViewable {true};
+	bool isEditable {true};
+	bool isSelectable {false};
+	bool flowControl {true};
+	bool outlineMode {false};
+	double transparency {1.0};
+	int blendMode {0};
+	QColor markerColor;
 	bool operator< (const ScLayer& other) const;
 	bool operator== (const ScLayer& other) const;
 };
@@ -244,10 +244,10 @@ public:
 	/**
 	 * @brief Set the layer locked via the layer ID
 	 * @param layerID ID of the layer
-	 * @param isViewable true = layer is locked
+	 * @param isLocked true = layer is locked
 	 * @return bool Success or failure
 	 */
-	bool setLayerLocked(int layerID, bool isViewable);
+	bool setLayerLocked(int layerID, bool isLocked);
 
 	/**
 	 * @brief does text flow around objects on this layer
