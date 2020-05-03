@@ -14376,21 +14376,21 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Endnote frame </source>
         <translation>إطار تعليقات ختامية</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Footnote frame </source>
         <translation>إطار حاشية</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="172"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="82"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="169"/>
         <source>No Style</source>
         <translation>بلا نمط</translation>
     </message>

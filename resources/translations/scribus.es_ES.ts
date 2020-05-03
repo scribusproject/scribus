@@ -14387,21 +14387,21 @@ Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuev
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Endnote frame </source>
         <translation>Marca de nota al final </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Footnote frame </source>
         <translation>Marco de nota al pie </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="172"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="82"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="169"/>
         <source>No Style</source>
         <translation>Sin estilo</translation>
     </message>

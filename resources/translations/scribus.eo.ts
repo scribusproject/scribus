@@ -13956,7 +13956,7 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
     <message>
         <location filename="../../scribus/pslib.cpp" line="521"/>
         <source>Failed to openfile for writing : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Malsukcesis malfermi dokumenton por skribado: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1577"/>
@@ -14386,21 +14386,21 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Endnote frame </source>
         <translation>Finnota kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Footnote frame </source>
         <translation>Piednota kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="172"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="82"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="169"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
@@ -15449,7 +15449,7 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="49"/>
         <source>PDF 1.6 (Acrobat 7)</source>
-        <translation type="unfinished">PDF 1.5 (Acrobat 6) {1.6 ?} {7)?}</translation>
+        <translation>PDF 1.6 (Acrobat 7)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="51"/>
@@ -21536,12 +21536,12 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="150"/>
         <source>Language and Regionalization</source>
-        <translation type="unfinished"></translation>
+        <translation>Lingvo kaj laŭregionigo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="179"/>
         <source>Number Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Numera formato:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="216"/>
@@ -21627,7 +21627,7 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu aŭ la sisteman aŭ la rilatan elektitan lingvan difinon por la numerformato de la dekumoj en la interfaco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
@@ -21676,12 +21676,12 @@ Agordado al Nivelo 1 aŭ 2 povus krei grandegajn dosierojn.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="51"/>
         <source>Use System Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu la sistemformaton</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="52"/>
         <source>Use Interface Language Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu la interfacformaton</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="72"/>
@@ -35304,7 +35304,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3550"/>
         <source>This document is already open. It will be set as the active document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tiu dokumento estas jam malfermita. Ĝi estos agordita kiel aktiva dokumento.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="5360"/>
@@ -40019,7 +40019,7 @@ Eraro:%2 ĉe linio: %3, vico: %4</translation>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="228"/>
         <source>If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se oni instalis Scribus el pakaĵmastrumada sistemo, ekzemple en Linuksa operaciumo, la pakaĵa administrilo povus havi disponeblan ĝisdatigon.</translation>
     </message>
     <message>
         <location filename="../../scribus/upgradechecker.cpp" line="250"/>

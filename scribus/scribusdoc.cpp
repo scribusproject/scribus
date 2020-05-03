@@ -17717,7 +17717,7 @@ void ScribusDoc::updateItemNotesNums(PageItem_TextFrame* frame, NotesStyle* nSty
 			}
 		}
 	}
-	PageItem_NoteFrame * nF;
+	PageItem_NoteFrame* nF = nullptr;
 	if (nStyle->isEndNotes())
 		nF = endNoteFrame(nStyle);
 	else

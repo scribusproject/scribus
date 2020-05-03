@@ -14379,21 +14379,21 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
 <context>
     <name>PageItem_NoteFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Endnote frame </source>
         <translation>Slutnoteramme </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="24"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="79"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Footnote frame </source>
         <translation>Fodnoteramme </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="30"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="85"/>
-        <location filename="../../scribus/pageitem_noteframe.cpp" line="172"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="82"/>
+        <location filename="../../scribus/pageitem_noteframe.cpp" line="169"/>
         <source>No Style</source>
         <translation>Intet format</translation>
     </message>
