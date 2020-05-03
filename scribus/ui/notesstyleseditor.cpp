@@ -90,6 +90,7 @@ void NotesStylesEditor::languageChange()
 
 	bool rangeBlocked = RangeBox->blockSignals(true);
 	int  rangeIndex = RangeBox->currentIndex();
+	RangeBox->clear();
 	RangeBox->addItem(tr("Document"), static_cast<int>(NSRdocument));
 	RangeBox->addItem(tr("Story"), static_cast<int>(NSRstory));
 	if (rangeIndex >= 0)
