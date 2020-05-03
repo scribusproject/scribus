@@ -117,12 +117,22 @@ protected:
 	void done();
 
 private:
+	enum FileSearchStatus
+	{
+		Status_NotStarted,
+		Status_Running,
+		Status_Cancelled,
+		Status_Failed,
+		Status_Finished,
+	};
+
+
 	/*! \brief Status code indicating whether we're running, not yet started, failed,
 	etc. */
-	int m_status;
+	int m_status {Status_NotStarted};
 
 	//! \brief  The timer used to control next() calls.
-	QTimer* m_timer;
+	QTimer* m_timer {nullptr};
 };
 
 #endif

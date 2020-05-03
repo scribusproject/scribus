@@ -54,7 +54,8 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 
 	if (fiC.open(QIODevice::ReadOnly))
 	{
-		QString ColorEn, Cname;
+		QString ColorEn;
+		QString Cname;
 		int Rval, Gval, Bval;
 		QTextStream tsC(&fiC);
 		ColorEn = tsC.readLine();
