@@ -20,6 +20,7 @@
 #include <QButtonGroup>
 #include <QCheckBox>
 #include <QCursor>
+#include <QDebug>
 #include <QEvent>
 #include <QMessageBox>
 #include <QMouseEvent>
@@ -29,7 +30,6 @@
 #include <QRect>
 #include <QTimer>
 #include <QWidgetAction>
-#include <QDebug>
 
 #include "appmodes.h"
 #include "canvas.h"
@@ -138,11 +138,15 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 		currItem->handleModeEditKey(e, m_keyRepeat);
 		if (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty())
 		{
-			if (!currItem->asNoteFrame()->isEndNotesFrame())
+			PageItem_NoteFrame* noteFrame = currItem->asNoteFrame();
+			if (!noteFrame->isEndNotesFrame() && noteFrame->masterFrame())
 			{
-				currItem->asNoteFrame()->masterFrame()->invalidateLayout(false);
-				currItem->asNoteFrame()->masterFrame()->updateLayout();
+				PageItem_TextFrame* masterFrame = noteFrame->masterFrame();
+				masterFrame->invalidateLayout(false);
+				masterFrame->updateLayout();
 			}
+			else if (!noteFrame->isEndNotesFrame() && !noteFrame->masterFrame())
+				qDebug() << "Broken note frame without master frame detected";
 		}
 		m_keyRepeat = oldKeyRepeat;
 		m_doc->regionsChanged()->update(QRectF());
