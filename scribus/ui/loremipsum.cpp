@@ -45,17 +45,15 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 
-QString getLoremLocation(const QString& fname)
+QString getLoremLocation(const QString& filename)
 {
-	return QDir::toNativeSeparators(ScPaths::instance().shareDir() + "/loremipsum/" + fname);
+	return QDir::toNativeSeparators(ScPaths::instance().shareDir() + "/loremipsum/" + filename);
 }
 
-LoremParser::LoremParser(const QString& fname)
+LoremParser::LoremParser(const QString& filename)
 {
-	name = author = url = "n/a";
-	correct = false;
 	QDomDocument doc("loremdoc");
-	QFile file(getLoremLocation(fname));
+	QFile file(getLoremLocation(filename));
 	if (!file.open(QIODevice::ReadOnly))
 		return;
 	if (!doc.setContent(&file))
@@ -248,7 +246,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(accept()));
+	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(accept()));
 	
 }
 

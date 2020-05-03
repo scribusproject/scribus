@@ -161,14 +161,14 @@ NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDistance(double)));
 	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
-	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
 	if (startUp)
 	{
 		connect(nftGui, SIGNAL(leaveOK()), this, SLOT(ExitOK()));
-		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(recentDocListBox_doubleClicked()));
+		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(recentDocListBox_doubleClicked()));
 		connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(adjustTitles(int)));
 	}
 }
@@ -450,10 +450,10 @@ void NewDocDialog::setHeight(double)
 
 void NewDocDialog::selectItem(uint nr)
 {
-	disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	disconnect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	disconnect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	disconnect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
 	if (nr > 0)
 	{
 		firstPage->setEnabled(true);
@@ -472,10 +472,10 @@ void NewDocDialog::selectItem(uint nr)
 	}
 	layoutsView->setCurrentRow(nr);
 	layoutsView->item(nr)->setSelected(true);
-	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
-	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
 }
 
 void NewDocDialog::itemSelected(QListWidgetItem* ic)

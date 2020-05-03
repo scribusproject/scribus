@@ -46,7 +46,7 @@ public:
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by width */
 	void setPageWidth(double width);
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by height */
-	void setPageHeight(double heigth);
+	void setPageHeight(double height);
 	/*! \brief Setup the widgets by new options */
 	void setNewUnit(int newUnitIndex);
 	/*! \brief Set the page size for margin getting from cups */

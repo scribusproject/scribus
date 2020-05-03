@@ -29,10 +29,10 @@ for which a new license (GPL+exception) is in place.
 
 /* IconItems Code */
 SeItem::SeItem(const QString& text, uint nr, const QPixmap& Pix)
-	: QTableWidgetItem(QIcon(Pix), "", 1002)
+	: QTableWidgetItem(QIcon(Pix), "", 1002),
+	  pageNumber(nr),
+	  pageName(text)
 {
-	pageNumber = nr;
-	pageName = text;
 	setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 }
 
@@ -44,9 +44,6 @@ const QString& SeItem::getPageName()
 /* ListBox Subclass */
 SeList::SeList(QWidget* parent) : QListWidget(parent)
 {
-	m_currItem = nullptr;
-	m_mousePressed = false;
-	m_thumb = false;
 	setAcceptDrops(true);
 }
 
@@ -139,18 +136,8 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 	setDragEnabled(true);
 	setAcceptDrops(true);
 	setDropIndicatorShown(true);
-//	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	setWordWrap(true);
-	m_mousePressed = false;
-	m_pageCount = 0;
-	m_colmult = 1;
-	m_coladd = 0;
-	m_rowmult = 2;
-	m_rowadd = 1;
-	m_cols = 1;
-	m_firstPage = 0;
-// 	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::mousePressEvent(QMouseEvent* e)
@@ -337,27 +324,26 @@ void SeView::dragLeaveEvent(QDragLeaveEvent *)
 
 void SeView::dragMoveEvent(QDragMoveEvent *e)
 {
-	if (e->mimeData()->hasFormat("page/magic"))
+	if (!e->mimeData()->hasFormat("page/magic"))
+		return;
+	e->acceptProposedAction();
+	int a = rowAt(e->pos().y());
+	int b = columnAt(e->pos().x());
+	clearPix();
+	if ((a == -1) || (b == -1))
+		return;
+	if (columnCount() == 1)
 	{
-		e->acceptProposedAction();
-		int a = rowAt(e->pos().y());
-		int b = columnAt(e->pos().x());
-		clearPix();
-		if ((a == -1) || (b == -1))
-			return;
-		if (columnCount() == 1)
+		if ((a % 2) == 0)
 		{
-			if ((a % 2) == 0)
-			{
-				item(a, 0)->setBackground(Qt::darkBlue);
-			}
+			item(a, 0)->setBackground(Qt::darkBlue);
 		}
-		else
+	}
+	else
+	{
+		if (((b % 2) == 0) || (a == rowCount()-1))
 		{
-			if (((b % 2) == 0) || (a == rowCount()-1))
-			{
-				item(a, b)->setBackground(Qt::darkBlue);
-			}
+			item(a, b)->setBackground(Qt::darkBlue);
 		}
 	}
 }
@@ -385,14 +371,13 @@ void SeView::keyPressEvent(QKeyEvent * e)
 
 void SeView::clearPix()
 {
-	int counter = 0;
 	int rowcounter = 0;
-	for (int a = 0; a < rowCount(); ++a)
+	for (int i = 0; i < rowCount(); ++i)
 	{
-		counter = 0;
+		int counter = 0;
 		if (columnCount() == 1)
 		{
-			if ((a % 2) == 0)
+			if ((i % 2) == 0)
 			{
 				item(rowcounter, 0)->setBackground(Qt::white);
 				rowcounter += 2;
@@ -400,9 +385,9 @@ void SeView::clearPix()
 		}
 		else
 		{
-			for (int b = 0; b < columnCount(); ++b)
+			for (int j = 0; j < columnCount(); ++j)
 			{
-				if ((b % 2) == 0)
+				if ((j % 2) == 0)
 				{
 					item(rowcounter, counter)->setBackground(Qt::white);
 					counter += 2;
@@ -411,9 +396,9 @@ void SeView::clearPix()
 			rowcounter++;
 		}
 	}
-	for (int c = 0; c < columnCount(); ++c)
+	for (int i = 0; i < columnCount(); ++i)
 	{
-		item(rowCount()-1, c)->setBackground(Qt::white);
+		item(rowCount()-1, i)->setBackground(Qt::white);
 	}
 }
 

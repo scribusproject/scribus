@@ -157,7 +157,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", n
 	connect(deleteLayerButton, SIGNAL(clicked()), this, SLOT(removeLayer()));
 	connect(raiseLayerButton, SIGNAL(clicked()), this, SLOT(upLayer()));
 	connect(lowerLayerButton, SIGNAL(clicked()), this, SLOT(downLayer()));
-	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
+	connect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader(int)));
@@ -167,8 +167,8 @@ void LayerPalette::clearContent()
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
-	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
+	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
+	disconnect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	Table->clearContents();
 	Table->setRowCount(0);
 	m_Doc = nullptr;
@@ -212,8 +212,8 @@ void LayerPalette::rebuildList()
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
-	disconnect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
+	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
+	disconnect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	QString tmp;
 	ScLayers::iterator it;
 	int layerCount = m_Doc->layerCount();
@@ -303,8 +303,8 @@ void LayerPalette::rebuildList()
 
 		Table->setItem(row, 7, new QTableWidgetItem(m_Doc->layerName(layerID)));
 	}
-	connect(Table, SIGNAL(cellChanged(int, int)), this, SLOT(changeName(int, int)));
-	connect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
+	connect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
+	connect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
@@ -535,27 +535,27 @@ void LayerPalette::toggleAllfromHeader(int index)
 		int row = layerCount - m_Doc->layerLevelFromID(it->ID) - 1;
 		if (index == 1)
 		{
-			((QCheckBox*)(Table->cellWidget(row, 1)))->toggle();
+			(dynamic_cast<QCheckBox*>(Table->cellWidget(row, 1)))->toggle();
 			it->isViewable = ((QCheckBox*)(Table->cellWidget(row, 1)))->isChecked();
 		}
 		if (index == 2)
 		{
-			((QCheckBox*)(Table->cellWidget(row, 2)))->toggle();
+			(dynamic_cast<QCheckBox*>(Table->cellWidget(row, 2)))->toggle();
 			it->isPrintable = ((QCheckBox*)(Table->cellWidget(row, 2)))->isChecked();
 		}
 		if (index == 3)
 		{
-			((QCheckBox*)(Table->cellWidget(row, 3)))->toggle();
+			(dynamic_cast<QCheckBox*>(Table->cellWidget(row, 3)))->toggle();
 			it->isEditable = !((QCheckBox*)(Table->cellWidget(row, 3)))->isChecked();
 		}
 		if (index == 4)
 		{
-			((QCheckBox*)(Table->cellWidget(row, 4)))->toggle();
+			(dynamic_cast<QCheckBox*>(Table->cellWidget(row, 4)))->toggle();
 			it->flowControl = ((QCheckBox*)(Table->cellWidget(row, 4)))->isChecked();
 		}
 		else if (index == 5)
 		{
-			((QCheckBox*)(Table->cellWidget(row, 5)))->toggle();
+			(dynamic_cast<QCheckBox*>(Table->cellWidget(row, 5)))->toggle();
 			it->outlineMode = ((QCheckBox*)(Table->cellWidget(row, 5)))->isChecked();
 		}
 	}
@@ -573,8 +573,7 @@ void LayerPalette::markLayer()
 	const QObject* senderBox = sender();
 	if (strcmp(senderBox->metaObject()->className(), "QToolButton") == 0)
 	{
-		QColor neu = QColor();
-		neu = QColorDialog::getColor(m_Doc->layerMarker(layerID), this);
+		QColor neu(QColorDialog::getColor(m_Doc->layerMarker(layerID), this));
 		if (neu.isValid())
 		{
 			QPixmap pm(20,15);
@@ -611,7 +610,7 @@ void LayerPalette::markActiveLayer(int layerID)
 		return;
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changeOpacity()));
-	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
+	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
 	int layerToMark = layerID;
 	if (layerID == -1)
 		layerToMark = m_Doc->activeLayer();
