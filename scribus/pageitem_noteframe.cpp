@@ -58,14 +58,12 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 		m_SizeLocked = true;
 	else
 		m_SizeLocked = false;
-	deleteIt = false;
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_textFlowMode = TextFlowUsesFrameShape;
-	deleteIt = false;
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle) : PageItem_TextFrame(inFrame->doc(),inFrame->xPos(), inFrame->yPos(),inFrame->width(), inFrame->height(),inFrame->lineWidth(), inFrame->fillColor(), inFrame->lineColor())
@@ -127,7 +125,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 		m_SizeLocked = true;
 	else
 		m_SizeLocked = false;
-	deleteIt = false;
 }
 
 void PageItem_NoteFrame::getNamedResources(ResourceCollection& lists) const

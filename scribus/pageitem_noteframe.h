@@ -28,7 +28,7 @@ public:
 	void replaceNamedResources(ResourceCollection& newNames) override;
 
 	//indicate if noteframe should be deleted
-	bool deleteIt;
+	bool deleteIt { false };
 
 	//used while reading SLA file
 	void setNoteStyle(NotesStyle* nStyle, PageItem_TextFrame* master = nullptr);
