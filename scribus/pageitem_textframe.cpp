@@ -2170,8 +2170,10 @@ void PageItem_TextFrame::layout()
 				const GlyphCluster& nextCluster = glyphClusters[i + 1];
 				if (nextCluster.hasFlag(ScLayout_LineBoundary))
 				{
-					if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
-						&& !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
+					// #16100: why preventing possible line break when there are two
+					// consecutive line break opportunities? This is bad for CJK. /
+					if (/*!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
+						&&*/ !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
 						&& (itemText.text(a) != '-')
 						&& (itemText.text(a) != SpecialChars::SHYPHEN))
 					{
@@ -2415,11 +2417,13 @@ void PageItem_TextFrame::layout()
 			if ((itemText.text(a) == SpecialChars::COLBREAK) && (m_columns > 1))
 				goNextColumn = true;
 
-			if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
+			// #16100: this block is useless now that we allow remembering break in case of consecutive line break opportunities
+			// Anyway this block has a bug : it potentially remember break for a lower indice than upper code
+			/*if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
 			{
 //				qDebug() << "rememberBreak implicitbreak @" << i-1;
 				current.rememberBreak(i - 1, breakPos);
-			}
+			}*/
 			current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 
 			if (tabs.active)
