@@ -237,35 +237,47 @@ PyObject *scribus_objectexists(PyObject * /*self*/, PyObject* args);
 
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getstyle__doc__,
-QT_TR_NOOP("getStyle([\"name\"])\n\
+PyDoc_STRVAR(scribus_getparagraphstyle__doc__,
+QT_TR_NOOP("getParagraphStyle([\"name\"])\n\
 \n\
 Return name of style applied to object named \"name\". If \"name\" is not given,\n\
 the currently selected object is used. If current object has a text selection, \n\
 the name of style applied to start of selection is returned. Otherwise the name \n\
 of the item default style is returned.\n\
 "));
+
+PyDoc_STRVAR(scribus_getstyle__doc__,
+QT_TR_NOOP("getStyle([\"name\"])\n\
+\n\
+Deprecated. Use getParagraphStyle() instead.\n\
+"));
 /**
  Vaclav Smilauer, 2017-12-21
  Return style name of the object (or currently selected object)
  */
-PyObject *scribus_getstyle(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getparagraphstyle(PyObject * /*self*/, PyObject* args);
 
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setparagraphstyle__doc__,
+QT_TR_NOOP("setParagraphStyle(\"style\" [, \"name\"])\n\
+\n\
+Apply the named paragraph \"style\" to the object named \"name\". If object name is\n\
+given, style is applied to the current text selection in object \"name\".\n\
+If no object name is given, style is applied on selected object.\n\
+"));
+
 PyDoc_STRVAR(scribus_setstyle__doc__,
 QT_TR_NOOP("setStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named \"style\" to the object named \"name\". If object name is\n\
-given, style is applied to the current text selection in object \"name\".\n\
-If no object name is given, style is applied on selected object.\n\
+Deprecated. Use setParagraphStyle() instead.\n\
 "));
 /**
  Craig Ringer, 2004-09-09
  Apply the named style to the currently selected object.
  pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setparagraphstyle(PyObject * /*self*/, PyObject* args);
 
 
 /*! docstring */

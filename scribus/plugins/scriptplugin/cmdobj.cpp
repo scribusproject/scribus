@@ -584,7 +584,7 @@ PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
  * Vaclav Smilauer, 2017-21-21
  * Return style name of the object (or currently selected object)
  */
-PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -624,7 +624,7 @@ PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
  * Apply the named style to the currently selected object.
  * pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 {
 	char *style = const_cast<char*>("");
 	char *name = const_cast<char*>("");
@@ -901,6 +901,7 @@ void cmdobjdocwarnings()
 	  << scribus_deleteobj__doc__
 	  << scribus_duplicateobject__doc__
 	  << scribus_getcharstylenames__doc__
+	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
 	  << scribus_getstylenames__doc__
 	  << scribus_newellipse__doc__
@@ -915,6 +916,7 @@ void cmdobjdocwarnings()
 	  << scribus_polygon__doc__
 	  << scribus_polyline__doc__
 	  << scribus_setcharstyle__doc__
+	  << scribus_setparagraphstyle__doc__
 	  << scribus_setstyle__doc__
 	  << scribus_textflow__doc__;
 }

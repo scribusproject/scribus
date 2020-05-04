@@ -21,11 +21,15 @@
 <dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
 <p>Crée une copie du ou des objects sélectionnés dans le document courant.</p></dd>
 
-<dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
-<dd><code>getStyle(["nom"])  -&gt; chaîne</code>
+<dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
+<dd><code>getParagraphStyle(["nom"])  -&gt; chaîne</code>
 <p>Retourne le nom du style appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
 <p>Si l'objet courant poss&egrave;de une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
 <p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+
+<dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
+<dd><code>getStyle(["nom"])  -&gt; chaîne</code>
+<p>Obsolète. Veuillez utiliser getParagraphStyle() en lieu et place.</p></dd>
 
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
 <dd><code>groupObjects(liste)  -&gt; chaîne</code>
@@ -73,6 +77,10 @@ pas valide.</p></dd>
 <dd><code>setCharacterStyle("style" [, "nom"])</code>
 <p>Applique le "style" de caract&egrave;re désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
 
+<dt><a name="-setParagraphStyle"><strong>setParagraphStyle</strong></a>(...)</dt>
+<dd><code>setParagraphStyle("style" [, "nom"])</code>
+<p>Applique le "style" de paragraphe désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
+
 <dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
 <dd><code>setScaleFrameToImage([nom])</code>
 <p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé</p>
@@ -86,7 +94,7 @@ Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant d
 
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code>setStyle("style" [, "nom"])</code>
-<p>Applique le "style" désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
+<p>Obsolète. Veuillez utiliser setParagraphStyle() en lieu et place.</p></dd>
 
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code>sizeObject(largeur, hauteur [, "nom"])</code>
