@@ -271,9 +271,11 @@ PyObject *scribus_getparagraphstyle(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setparagraphstyle__doc__,
 QT_TR_NOOP("setParagraphStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named paragraph \"style\" to the object named \"name\". If object name is\n\
-given, style is applied to the current text selection in object \"name\".\n\
-If no object name is given, style is applied on selected object.\n\
+Apply the named paragraph \"style\" to the object named \"name\".\n\
+If  object name is not provided, style is applied on current object selection.\n\
+If multiple objects are selected or if selected object has no text selection,\n\
+style is applied on selected objects. Otherwise style is applied to the current\n\
+text selection.\n\
 "));
 
 PyDoc_STRVAR(scribus_setstyle__doc__,
@@ -293,9 +295,11 @@ PyObject *scribus_setparagraphstyle(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setcharstyle__doc__,
 QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named character \"style\" to the object named \"name\". If object name is\n\
-given, style is applied to the current text selection in object \"name\".\n\
-If no object name is given, style is applied on selected object.\n\
+Apply the named character \"style\" to the object named \"name\".\n\
+If  object name is not provided, style is applied on current object selection.\n\
+If multiple objects are selected or if selected object has no text selection,\n\
+style is applied on selected objects. Otherwise style is applied to the current\n\
+text selection.\n\
 "));
 /**
 Apply the named character style to the currently selected object.

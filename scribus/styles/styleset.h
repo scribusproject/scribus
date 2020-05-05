@@ -127,19 +127,16 @@ private:
 template<class STYLE>
 inline void StyleSet<STYLE>::remove(int index)
 {
-	assert(index >= 0 && index < styles.count()); 
-//	QList<STYLE*> it = styles.at(index);
+	assert(index >= 0 && index < styles.count());
 	if (styles.at(index) == m_default)
 		return;
-//	delete (*it);
-//	styles.erase(it);
 	styles.removeAt(index);
 }
 
 template<class STYLE>
 inline bool StyleSet<STYLE>::contains(const QString& name) const
 {
-	for (int i=0; i < styles.count(); ++i)
+	for (int i = 0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)
 			return true;
 	return false;
@@ -148,7 +145,7 @@ inline bool StyleSet<STYLE>::contains(const QString& name) const
 template<class STYLE>
 inline int StyleSet<STYLE>::find(const QString& name) const
 {
-	for (int i=0; i < styles.count(); ++i)
+	for (int i = 0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)
 			return i;
 	return -1;
