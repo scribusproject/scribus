@@ -338,6 +338,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getCellColumnSpan"), scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
 	{const_cast<char*>("getCellRowSpan"), scribus_getcellrowspan, METH_VARARGS, tr(scribus_getcellrowspan__doc__)},
 	{const_cast<char*>("getCellFillColor"), scribus_getcellfillcolor, METH_VARARGS, tr(scribus_getcellfillcolor__doc__)},
+	{const_cast<char*>("getCharacterStyle"), scribus_getcharacterstyle, METH_VARARGS, tr(scribus_getcharacterstyle__doc__) },
 	{const_cast<char*>("getCharStyles"), (PyCFunction)scribus_getcharstylenames, METH_NOARGS, tr(scribus_getcharstylenames__doc__)},
 	{const_cast<char*>("getColorNames"), (PyCFunction)scribus_colornames, METH_NOARGS, tr(scribus_colornames__doc__)},
 	{const_cast<char*>("getColor"), scribus_getcolor, METH_VARARGS, tr(scribus_getcolor__doc__)},

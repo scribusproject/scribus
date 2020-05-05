@@ -234,13 +234,22 @@ ObjectName is now optional. When none set, search for selection...
 */
 PyObject *scribus_objectexists(PyObject * /*self*/, PyObject* args);
 
-
+/*! docstring */
+PyDoc_STRVAR(scribus_getcharacterstyle__doc__,
+QT_TR_NOOP("getCharacterStyle([\"name\"])\n\
+\n\
+Return name of character style applied to object named \"name\". If \"name\" is not given,\n\
+the currently selected object is used. If current object has a text selection, \n\
+the name of style applied to start of selection is returned. Otherwise the name \n\
+of the item default character style is returned.\n\
+"));
+PyObject *scribus_getcharacterstyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getparagraphstyle__doc__,
 QT_TR_NOOP("getParagraphStyle([\"name\"])\n\
 \n\
-Return name of style applied to object named \"name\". If \"name\" is not given,\n\
+Return name of paragraph style applied to object named \"name\". If \"name\" is not given,\n\
 the currently selected object is used. If current object has a text selection, \n\
 the name of style applied to start of selection is returned. Otherwise the name \n\
 of the item default style is returned.\n\
@@ -282,7 +291,7 @@ PyObject *scribus_setparagraphstyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcharstyle__doc__,
-	QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
+QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
 \n\
 Apply the named character \"style\" to the object named \"name\". If object name is\n\
 given, style is applied to the current text selection in object \"name\".\n\

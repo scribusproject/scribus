@@ -21,9 +21,15 @@
 <dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
 <p>Crée une copie du ou des objects sélectionnés dans le document courant.</p></dd>
 
+<dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
+<dd><code>getCharacterStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style de caractère appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant poss&egrave;de une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style de caractère appliqué par défaut.</p>
+<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+
 <dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
 <dd><code>getParagraphStyle(["nom"])  -&gt; chaîne</code>
-<p>Retourne le nom du style appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Retourne le nom du style de paragraphe appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
 <p>Si l'objet courant poss&egrave;de une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
 <p>Peut générer l'exception WrongFrameTypeError.</p></dd>
 

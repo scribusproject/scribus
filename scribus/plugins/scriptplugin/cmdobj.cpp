@@ -579,6 +579,41 @@ PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(static_cast<long>(false));
 }
 
+PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character style of a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	StoryText&  itemText = item->itemText;
+
+	int selectionLength = itemText.selectionLength();	
+	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
+	{
+		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
+		const CharStyle& currentStyle = itemText.charStyle(cursorPos);
+		if (currentStyle.hasParent())
+			return PyUnicode_FromString(currentStyle.parentStyle()->name().toUtf8());
+	}
+	else
+	{
+		const CharStyle& itemDefaultStyle = itemText.defaultStyle().charStyle();
+		if (itemDefaultStyle.hasParent())
+			return PyUnicode_FromString(itemDefaultStyle.parentStyle()->name().toUtf8());
+	}
+	Py_RETURN_NONE;
+};
 
 /*
  * Vaclav Smilauer, 2017-21-21
@@ -600,11 +635,14 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	int selectionLength = item->itemText.selectionLength();	
-	if (selectionLength > 0)
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	StoryText&  itemText = item->itemText;
+
+	int selectionLength = itemText.selectionLength();	
+	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
 	{
-		int selectionStart = item->itemText.startOfSelection();
-		const ParagraphStyle& currentStyle = item->itemText.paragraphStyle(selectionStart);
+		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
+		const ParagraphStyle& currentStyle = itemText.paragraphStyle(cursorPos);
 		if (currentStyle.hasParent())
 			return PyUnicode_FromString(currentStyle.parentStyle()->name().toUtf8());
 	}
@@ -900,6 +938,7 @@ void cmdobjdocwarnings()
 	  << scribus_copyobject__doc__
 	  << scribus_deleteobj__doc__
 	  << scribus_duplicateobject__doc__
+	  << scribus_getcharacterstyle__doc__
 	  << scribus_getcharstylenames__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__

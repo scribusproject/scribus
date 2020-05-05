@@ -21,9 +21,15 @@
 <dd><code>duplicateObject(["name"]) -&gt; string</code>
 <p>Creates a Duplicate of the selected Object (or Selection Group).</p></dd>
 
+<dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
+<dd><code>getCharacterStyle(["name"])</code>
+<p>Return name of character style applied to object named "name". If "name" is not given, the currently selected object is used.<p>
+<p>If current object has a text selection, the name of style applied to start of selection is returned. Otherwise the name of the item default character style is returned.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
 <dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
 <dd><code>getParagraphStyle(["name"])</code>
-<p>Return name of style applied to object named "name". If "name" is not given, the currently selected object is used.<p>
+<p>Return name of paragraph style applied to object named "name". If "name" is not given, the currently selected object is used.<p>
 <p>If current object has a text selection, the name of style applied to start of selection is returned. Otherwise the name of the item default style is returned.</p>
 <p>May raise WrongFrameTypeError.</p></dd>
 
