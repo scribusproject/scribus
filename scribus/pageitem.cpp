@@ -326,7 +326,6 @@ PageItem::PageItem(const PageItem & other)
 	m_textFlowMode(other.m_textFlowMode),
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
-	tagged(other.tagged),
 	m_fillQColor(other.m_fillQColor),
 	m_strokeQColor(other.m_strokeQColor),
 	m_grQColorP1(other.m_grQColorP1),
@@ -890,14 +889,13 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	hatchBackgroundQ = QColor();
 	hatchForeground = "Black";
 	hatchForegroundQ = qcol;
-	selectedMeshControlPoint=0;
-	snapToPatchGrid=false;
-	FrameOnly=false;
-	inlineCharID=0;
-	GrStrokeExtend=VGradient::none;
-	tagged=false;
-	no_fill=false;
-	no_stroke=false;
+	selectedMeshControlPoint = 0;
+	snapToPatchGrid = false;
+	FrameOnly = false;
+	inlineCharID = 0;
+	GrStrokeExtend = VGradient::none;
+	no_fill = false;
+	no_stroke = false;
 }
 
 PageItem::~PageItem()
@@ -7644,11 +7642,6 @@ QString PageItem::generateUniqueCopyName(const QString& originalName, bool prepe
 	// Unnecessary assert, previous code ensure condition is always true - JG
 	// assert(!m_Doc->itemNameExists(newname));
 	return newname;
-}
-
-void PageItem::setTagged(bool tag)
-{
-	tagged=tag;
 }
 
 void PageItem::replaceNamedResources(ResourceCollection& newNames)

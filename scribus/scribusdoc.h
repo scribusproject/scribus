@@ -517,9 +517,6 @@ public:
 
 	int firstLayerID() const;
 
-	//Items
-	bool deleteTaggedItems();
-
 	/*!
 		* @brief Builds a qmap of the icc profiles used within the document
 	 */

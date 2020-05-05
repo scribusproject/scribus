@@ -3500,29 +3500,6 @@ bool ScribusDoc::renumberLayer(int layerID, int newLayerID)
 	return true;
 }
 
-
-//Make the doc delete the items, not the view. TODO: Currently does nada, zilch, zero
-bool ScribusDoc::deleteTaggedItems()
-{
-//	QString tooltip = Um::ItemsInvolved + "\n";
-	//Master Items
-	for (int i = 0; i < MasterItems.count(); ++i)
-	{
-		if (MasterItems.at(i)->isTagged())
-		{
-		}
-	}
-	//Doc Items
-	for (int i = 0; i < DocItems.count(); ++i)
-	{
-		if (DocItems.at(i)->isTagged())
-		{
-		}
-	}
-	return true;
-}
-
-
 void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 {
 	multiLine::iterator its;
@@ -10504,8 +10481,6 @@ void ScribusDoc::updatePic()
 		regionsChanged()->update(QRectF());
 }
 
-
-//TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusDoc::removeLayer(int l, bool dl)
 {
 	//FIXME: stop using m_View

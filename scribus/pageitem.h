@@ -1217,22 +1217,10 @@ public: // Start public functions
 	void togglePrintEnabled();
 
 	/**
-	 * @brief Tells if the frame is tagged or not
-	 * @sa isTagged()
-	 */
-	bool isTagged() const { return tagged; }
-	/**
-	 * @brief Set the tagged member for use when deleting items, instead of reselecting them.
-	 * @sa setTagged()
-	 */
-	void setTagged(bool);
-
-	/**
 	 * @brief Load an image into an image frame, moved from ScribusView
 	 * @return True if load succeeded
 	 */
 	virtual bool loadImage(const QString& filename, bool reload, int gsResolution=-1, bool showMsg = false);
-
 
 	/**
 	 * @brief Connect the item's signals to the GUI, primarily the Properties palette, also some to ScMW
@@ -1846,12 +1834,6 @@ protected: // Start protected variables
 	 * @sa PageItem::printable(), PageItem::setPrintable()
 	 */
 	bool m_PrintEnabled;
-
-	/**
-	 * @brief Is this item set to have an action done to it, eg deleted
-	 * @sa PageItem::isTagged(), PageItem::setTagged()
-	 */
-	bool tagged;
 
 	bool no_fill;
 	bool no_stroke;
