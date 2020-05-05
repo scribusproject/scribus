@@ -26,16 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 UpgradeChecker::UpgradeChecker()
 {
-	init();
-}
-
-UpgradeChecker::~UpgradeChecker()
-{
-}
-
-void UpgradeChecker::init()
-{
-	m_errorReported = false;
 	m_version = (VERSION);
 	m_stability = "unstablesvn";
 	QString versionStripped = m_version.toLower();
@@ -46,15 +36,18 @@ void UpgradeChecker::init()
 	minor = versionStripped.section('.', 1, 1).toInt();
 	m_revision1 = versionStripped.section('.', 2, 2).toInt();
 	m_revision2 = versionStripped.section('.', 3, 4).toInt();
-	#if defined(Q_OS_MAC)
+#if defined(Q_OS_MAC)
 	m_platform = "MacOSX";
-	#elif defined(Q_OS_WIN32)
+#elif defined(Q_OS_WIN32)
 	m_platform = "Win32";
-	#else
+#else
 	m_platform = "X11";
-	#endif
+#endif
 }
 
+UpgradeChecker::~UpgradeChecker()
+{
+}
 
 void UpgradeChecker::fetch()
 {
