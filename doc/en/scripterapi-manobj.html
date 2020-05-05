@@ -105,6 +105,11 @@
 <dd><code>setStyle("style" [, "name"])</code>
 <p>Deprecated. Use setParagraphStyle() instead.</p></dd>
 
+<dt><a name="-setTextFlowMode"><strong>setTextFlowMode</strong>(...)</a></dt>
+<dd><code>setTextFlowMode("name" [, state])</code>
+<p>Enables/disables "Text Flows Around Frame" feature for object "name".</p>
+<p>Called with parameters string name and optional int "state" (0 &lt;= state &lt;= 3). Setting "state" to 0 will disable text flow. Setting "state" to 1 will make text flow around object frame. Setting "state" to 2 will make text flow around bounding box. Setting "state" to 3 will make text flow around contour line. If "state" is not passed, text flow is toggled.</p></dd>
+
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code>sizeObject(width, height [, "name"])</code>
 <p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
@@ -115,8 +120,7 @@
 
 <dt><a name="-textFlowMode"><strong>textFlowMode</strong>(...)</a></dt>
 <dd><code>textFlowMode("name" [, state])</code>
-<p>Enables/disables "Text Flows Around Frame" feature for object "name".</p>
-<p>Called with parameters string name and optional int "state" (0 &lt;= state &lt;= 3). Setting "state" to 0 will disable text flow. Setting "state" to 1 will make text flow around object frame. Setting "state" to 2 will make text flow around bounding box. Setting "state" to 3 will make text flow around contour line. If "state" is not passed, text flow is toggled.</p></dd>
+<p>Deprecated. Use setTextFlowMode() instead.</p></dd>
 
 </dl>
 </body>

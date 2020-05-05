@@ -196,8 +196,8 @@ selected item is deleted.\n\
 PyObject *scribus_deleteobj(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_textflow__doc__,
-QT_TR_NOOP("textFlowMode(\"name\" [, state])\n\
+PyDoc_STRVAR(scribus_settextflowmode__doc__,
+QT_TR_NOOP("setTextFlowMode(\"name\" [, state])\n\
 \n\
 Enables/disables \"Text Flows Around Frame\" feature for object \"name\".\n\
 Called with parameters string name and optional int \"state\" (0 <= state <= 3).\n\
@@ -207,6 +207,11 @@ Setting \"state\" to 2 will make text flow around bounding box.\n\
 Setting \"state\" to 3 will make text flow around contour line.\n\
 If \"state\" is not passed, text flow is toggled.\n\
 "));
+PyDoc_STRVAR(scribus_textflowmode__doc__,
+QT_TR_NOOP("textFlowMode(\"name\" [, state])\n\
+\n\
+Deprecated. Use setTextFlowMode() instead.\n\
+"));
 /**
 Enables/disables "Text Flows Around Object" feature for object.
 Called with params string objectName and state 0|1|2|3.
@@ -215,7 +220,7 @@ When set to 0 disable flowing, 1 text flows around frame,
 empty flowing is reverted.
 02/28/2004 petr vanek
  */
-PyObject *scribus_textflow(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settextflowmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_objectexists__doc__,

@@ -73,8 +73,7 @@ constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est util
 <p>&Eacute;tablit la rotation de l'objet "nom" à "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
-<dd><code>scaleGroup(facteur
-[,"nom"])</code>
+<dd><code>scaleGroup(facteur [,"nom"])</code>
 <p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs supérieures à 1 agrandissent le groupe, les valeurs inférieures à 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe à 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe à 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre supérieure à 0. Si le "nom" n'est pas fourni, l'élément sélectionné courant est utilisé.</p>
 <p>Peut générer ValueError si le facteur de redimensionnement n'est pas valide.</p></dd>
 
@@ -109,6 +108,14 @@ Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant d
 <dd><code>setStyle("style" [, "nom"])</code>
 <p>Obsolète. Veuillez utiliser setParagraphStyle() en lieu et place.</p></dd>
 
+<dt><a name="-setTextFlowMode"><strong>setTextFlowMode</strong></a>(...)</dt>
+<dd><code>setTextFlowMode("nom" [, etat])</code>
+<p>Active ou désactive l'habillage du texte pour l'objet "nom".</p>
+<p>Appelé avec les paramètres chaîne "nom" et l'entier optionnel "état" (0 &lt;= "état" &lt;= 3).
+Paramétrer "état" à la valeur 0 désactivera l'habillage du texte. Paramétrer "état" à la valeur 1 habillera le texte selon le cadre de l'objet.
+Paramétrer "état" à la valeur 2 habillera le texte selon la bounding box de l'objet. Paramétrer "état" à la valeur 3 habillera le texte selon la ligne de contourde l'objet.
+Si l'argument"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
+
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code>sizeObject(largeur, hauteur [, "nom"])</code>
 <p>Redimensionne l'objet "nom" à la largeur et à la hauteur données. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
@@ -119,11 +126,7 @@ Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant d
 
 <dt><a name="-textFlowMode"><strong>textFlowMode</strong></a>(...)</dt>
 <dd><code>textFlowMode("nom" [, etat])</code>
-<p>Active ou désactive l'habillage du texte pour l'objet "nom".</p>
-<p>Appelé avec les paramètres chaîne "nom" et l'entier optionnel "état" (0 &lt;= "état" &lt;= 3).
-Paramétrer "état" à la valeur 0 désactivera l'habillage du texte. Paramétrer "état" à la valeur 1 habillera le texte selon le cadre de l'objet.
-Paramétrer "état" à la valeur 2 habillera le texte selon la bounding box de l'objet. Paramétrer "état" à la valeur 3 habillera le texte selon la ligne de contourde l'objet.
-Si l'argument"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
+<p>Obsolète. Veuillez utiliser setTextFlowMode() en lieu et place.</p></dd>
 
 </dl>
 </body>

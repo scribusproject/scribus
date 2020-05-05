@@ -533,7 +533,7 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 
 /* 03/21/2004 - exception raises by non existent name (subik)
  */
-PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
+PyObject *scribus_settextflowmode(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	int state = -1;
@@ -934,5 +934,6 @@ void cmdobjdocwarnings()
 	  << scribus_setcharstyle__doc__
 	  << scribus_setparagraphstyle__doc__
 	  << scribus_setstyle__doc__
-	  << scribus_textflow__doc__;
+	  << scribus_settextflowmode__doc__
+	  << scribus_textflowmode__doc__;
 }

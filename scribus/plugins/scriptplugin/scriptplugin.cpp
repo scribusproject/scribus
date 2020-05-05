@@ -556,6 +556,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setTextAlignment"), scribus_setalignment, METH_VARARGS, tr(scribus_setalign__doc__)},
 	{const_cast<char*>("setTextDirection"), scribus_setdirection, METH_VARARGS, tr(scribus_setdirection__doc__)},
 	{const_cast<char*>("setTextColor"), scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
+	{const_cast<char*>("setTextFlowMode"), scribus_settextflowmode, METH_VARARGS, tr(scribus_settextflowmode__doc__)},
 	{const_cast<char*>("setTextScalingH"), scribus_settextscalingh, METH_VARARGS, tr(scribus_settextscalingh__doc__)},
 	{const_cast<char*>("setTextScalingV"), scribus_settextscalingv, METH_VARARGS, tr(scribus_settextscalingv__doc__)},
 	{const_cast<char*>("setTextShade"), scribus_settextshade, METH_VARARGS, tr(scribus_settextshade__doc__)},
@@ -565,7 +566,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setVGuides"), scribus_setVguides, METH_VARARGS, tr(scribus_setVguides__doc__)},
 	{const_cast<char*>("sizeObject"), scribus_sizeobjabs, METH_VARARGS, tr(scribus_sizeobjabs__doc__)},
 	{const_cast<char*>("statusMessage"), scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
-	{const_cast<char*>("textFlowMode"), scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
+	{const_cast<char*>("textFlowMode"), scribus_settextflowmode, METH_VARARGS, tr(scribus_textflowmode__doc__)}, // Deprecated
 	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_VARARGS|METH_KEYWORDS, tr(scribus_istextoverflowing__doc__) },
 	{const_cast<char*>("traceText"), scribus_outlinetext, METH_VARARGS, tr(scribus_tracetext__doc__)},
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)}, // Deprecated, now alias for unGroupObjects()
