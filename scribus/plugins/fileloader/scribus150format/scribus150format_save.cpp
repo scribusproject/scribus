@@ -515,7 +515,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu) 
 {
 	QHash<QString,multiLine>::Iterator itMU;
-	for (itMU = m_Doc->MLineStyles.begin(); itMU != m_Doc->MLineStyles.end(); ++itMU)
+	for (itMU = m_Doc->docLineStyles.begin(); itMU != m_Doc->docLineStyles.end(); ++itMU)
 	{
 		docu.writeStartElement("MultiLine");
 		docu.writeAttribute("Name",itMU.key());

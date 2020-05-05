@@ -1213,7 +1213,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 							}
 							else
 							{
-								multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+								multiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
 								lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 								lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 								le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
@@ -1247,7 +1247,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				}
 				else
 				{
-					multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+					multiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
 					lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 					lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);

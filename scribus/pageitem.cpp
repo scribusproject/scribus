@@ -2136,7 +2136,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				else
 				{
 					p->setStrokeMode(ScPainter::Solid);
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
@@ -9034,7 +9034,7 @@ double PageItem::visualLineWidth() const
 	}
 	else
 	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 		const SingleLine& sl = ml.last();
 		if (sl.Color != CommonStrings::None)
 		{
@@ -9071,7 +9071,7 @@ QRectF PageItem::getStartArrowBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9113,7 +9113,7 @@ QRectF PageItem::getStartArrowOldBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9155,7 +9155,7 @@ QRectF PageItem::getEndArrowBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9197,7 +9197,7 @@ QRectF PageItem::getEndArrowOldBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9284,7 +9284,7 @@ QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
 			}
 			else
 			{
-				multiLine ml = doc()->MLineStyles[NamedLStyle];
+				multiLine ml = doc()->docLineStyles[NamedLStyle];
 				int ind = ml.size()-1;
 				if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
 				{
@@ -9693,7 +9693,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 		if (ml[ml.size()-1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 	}
@@ -9752,7 +9752,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			QColor tmp;
 			if (ml[0].Color != CommonStrings::None)
 			{

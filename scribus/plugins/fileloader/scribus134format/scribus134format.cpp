@@ -363,7 +363,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "Bookmark")
@@ -3290,10 +3290,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.constFind(mlName2);
-			if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
-			m_Doc->MLineStyles.insert(mlName2, ml);
+			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
+			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
 		{

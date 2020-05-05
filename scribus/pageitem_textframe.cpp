@@ -1686,7 +1686,7 @@ void PageItem_TextFrame::layout()
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
 						wide += gm.width;
 					}
-					wide = (wide* scaleH) + (1 - scaleH);
+					wide = (wide * scaleH) + (1 - scaleH);
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -3673,7 +3673,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			else
 			{
 				p->setStrokeMode(ScPainter::Solid);
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{

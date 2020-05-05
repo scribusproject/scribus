@@ -590,7 +590,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				m_Doc->MLineStyles.insert(pg.attribute("Name"), ml);
+				m_Doc->docLineStyles.insert(pg.attribute("Name"), ml);
 			}
 			if (pg.tagName() == "Arrows")
 			{
@@ -2161,10 +2161,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				QString mlName = pg.attribute("Name");
 				QString mlName2 = mlName;
-				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-				if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
-				m_Doc->MLineStyles.insert(mlName2, ml);
+				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+				if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+				m_Doc->docLineStyles.insert(mlName2, ml);
 			}
 			if (pg.tagName() == "Arrows")
 			{

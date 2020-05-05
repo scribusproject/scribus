@@ -329,7 +329,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if ((tagName == "ITEM") || (tagName == "PAGEOBJECT") || (tagName == "FRAMEOBJECT"))
@@ -868,7 +868,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
@@ -1528,7 +1528,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "Bookmark")
@@ -6288,10 +6288,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-			if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
-			m_Doc->MLineStyles.insert(mlName2, ml);
+			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+			if (mlit != m_Doc->docLineStyles.end() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
 		{

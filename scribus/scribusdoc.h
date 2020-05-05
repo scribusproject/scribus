@@ -537,9 +537,9 @@ public:
 	const StyleSet<ParagraphStyle>& paragraphStyles()  const { return m_docParagraphStyles; }
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return m_docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
-// 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
+// 	bool isDefaultStyle( LineStyle& l ) const { return docLineStyles......; }
 
-	const QHash<QString, multiLine>& lineStyles() const { return MLineStyles; }
+	const QHash<QString, multiLine>& lineStyles() const { return docLineStyles; }
 
 	/**
 	 * Returns the table style named @a name.
@@ -1405,7 +1405,7 @@ public:
 	bool isConverted {false};
 	QTimer * const autoSaveTimer;
 	QList<QString> autoSaveFiles;
-	QHash<QString, multiLine> MLineStyles;
+	QHash<QString, multiLine> docLineStyles;
 	QHash<QString, ScPattern> docPatterns;
 	QHash<QString, VGradient> docGradients;
 	QWidget* WinHan {nullptr};

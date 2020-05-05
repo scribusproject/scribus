@@ -56,7 +56,7 @@ void SMLineStyle::setCurrentDoc(ScribusDoc *doc)
 	m_doc = doc;
 	if (m_doc)
 	{
-		m_tmpLines = m_doc->MLineStyles;
+		m_tmpLines = m_doc->docLineStyles;
 		m_selection.clear();
 		if (m_widget)
 		{
@@ -74,7 +74,7 @@ void SMLineStyle::setCurrentDoc(ScribusDoc *doc)
 QList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 {
 	if (m_doc && reloadFromDoc) {
-		m_tmpLines = m_doc->MLineStyles;
+		m_tmpLines = m_doc->docLineStyles;
 	}
 
 	QList<StyleName> tmp;
@@ -92,7 +92,7 @@ void SMLineStyle::reload()
 		return;
 
 	m_selection.clear();
-	m_tmpLines = m_doc->MLineStyles;
+	m_tmpLines = m_doc->docLineStyles;
 }
 
 void SMLineStyle::selected(const QStringList &styleNames)
@@ -248,7 +248,7 @@ void SMLineStyle::apply()
 		return;
 
 	PageItem* ite;
-	m_doc->MLineStyles = m_tmpLines;
+	m_doc->docLineStyles = m_tmpLines;
 	QMap<QString, QString> replacement;
 	for (int i = 0; i < m_deleted.count(); ++i)
 	{
@@ -264,7 +264,7 @@ void SMLineStyle::apply()
 		ite = m_doc->DocItems.at(d);
 		if (!ite->NamedLStyle.isEmpty())
 		{
-			if (!m_doc->MLineStyles.contains(ite->NamedLStyle))
+			if (!m_doc->docLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
@@ -273,7 +273,7 @@ void SMLineStyle::apply()
 		ite = m_doc->MasterItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
 		{
-			if (!m_doc->MLineStyles.contains(ite->NamedLStyle))
+			if (!m_doc->docLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
@@ -282,7 +282,7 @@ void SMLineStyle::apply()
 		ite = it.value();
 		if (!ite->NamedLStyle.isEmpty())
 		{
-			if (!m_doc->MLineStyles.contains(ite->NamedLStyle))
+			if (!m_doc->docLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}

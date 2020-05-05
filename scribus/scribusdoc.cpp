@@ -1448,7 +1448,7 @@ void ScribusDoc::loadStylesFromFile(const QString& fileName)
 {
 	StyleSet<ParagraphStyle> *wrkStyles     = &m_docParagraphStyles;
 	StyleSet<CharStyle> *wrkCharStyles      = &m_docCharStyles;
-	QHash<QString, multiLine> *wrkLineStyles = &MLineStyles;
+	QHash<QString, multiLine> *wrkLineStyles = &docLineStyles;
 	
 	int oldStyles = wrkStyles->count();
 	int oldCharStyles = wrkCharStyles->count();
@@ -3527,8 +3527,7 @@ void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 {
 	multiLine::iterator its;
 	QMap<QString, QString>::const_iterator it;
-	QHash<QString,multiLine>::iterator  itl;
-	for (itl = MLineStyles.begin(); itl != MLineStyles.end(); ++itl)
+	for (auto itl = docLineStyles.begin(); itl != docLineStyles.end(); ++itl)
 	{
 		multiLine& mline = itl.value();
 		for (its = mline.begin(); its != mline.end(); ++its)
@@ -3594,8 +3593,8 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName) const
 {
 	bool found = false;
 	multiLine::const_iterator its, itsend;
-	auto itmend = MLineStyles.constEnd();
-	for (auto itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
+	auto itmend = docLineStyles.constEnd();
+	for (auto itm = docLineStyles.constBegin(); itm != itmend && !found; ++itm)
 	{
 		const multiLine& ml = itm.value();
 		itsend = ml.constEnd();

@@ -2862,7 +2862,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -2921,7 +2921,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					}
 					else
 					{
-						multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+						multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 						for (int it = ml.size() - 1; it > -1; it--)
 						{
 							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -3036,7 +3036,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -3138,7 +3138,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -4604,7 +4604,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4726,7 +4726,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4784,7 +4784,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			}
 			else
 			{
-				multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+				multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4900,7 +4900,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5002,7 +5002,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5098,7 +5098,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5521,7 +5521,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	else
 	{
-		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 		if (ml[ml.size() - 1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
@@ -5565,7 +5565,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	else
 	{
-		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 		if (ml[0].Color != CommonStrings::None)
 		{
 			tmp += putColor(ml[0].Color, ml[0].Shade, true);

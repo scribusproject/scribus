@@ -941,7 +941,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				m_Doc->MLineStyles.insert(pg.attribute("Name"), ml);
+				m_Doc->docLineStyles.insert(pg.attribute("Name"), ml);
 			}
 			if (pg.tagName() == "PAGE")
 			{
@@ -1937,10 +1937,10 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				QString mlName = pg.attribute("Name");
 				QString mlName2 = mlName;
-				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-				if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
-				m_Doc->MLineStyles.insert(mlName2, ml);
+				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+				if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+				m_Doc->docLineStyles.insert(mlName2, ml);
 			}
 			if ((pg.tagName() == "PAGE") && (pg.attribute("NUM").toInt() == pageNumber))
 			{
@@ -2010,7 +2010,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					OB.Xpos = ScCLocale::toDoubleC(obj.attribute("XPOS"))+m_Doc->Pages->at(a)->xOffset();
 					OB.Ypos=ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
-					if (!m_Doc->MLineStyles.contains(OB.NamedLStyle))
+					if (!m_Doc->docLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
