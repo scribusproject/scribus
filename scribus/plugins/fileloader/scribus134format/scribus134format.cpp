@@ -3290,16 +3290,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			int copyC = 1;
 			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.constFind(mlName2);
 			if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
-			{
-				while (m_Doc->MLineStyles.contains(mlName2))
-				{
-					mlName2 = QObject::tr("Copy #%1 of ").arg(copyC)+mlName;
-					copyC++;
-				}
-			}
+					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
 			m_Doc->MLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")

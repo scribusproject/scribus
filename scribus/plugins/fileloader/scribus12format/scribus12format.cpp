@@ -1935,19 +1935,12 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				QString Nam = pg.attribute("Name");
-				QString Nam2 = Nam;
-				int copyC = 1;
-				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
+				QString mlName = pg.attribute("Name");
+				QString mlName2 = mlName;
+				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
 				if (mlit != m_Doc->MLineStyles.constEnd() && ml != mlit.value())
-				{
-					while (m_Doc->MLineStyles.contains(Nam2))
-					{
-						Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-						copyC++;
-					}
-				}
-				m_Doc->MLineStyles.insert(Nam2, ml);
+					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);
+				m_Doc->MLineStyles.insert(mlName2, ml);
 			}
 			if ((pg.tagName() == "PAGE") && (pg.attribute("NUM").toInt() == pageNumber))
 			{
