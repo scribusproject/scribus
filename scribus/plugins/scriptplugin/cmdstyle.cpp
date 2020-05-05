@@ -400,7 +400,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
  * Craig Ringer, 2004-09-09
  * Enumerate all known paragraph styles
  */
-PyObject *scribus_getstylenames(PyObject* /* self */)
+PyObject *scribus_getparagraphstyles(PyObject* /* self */)
 {
 	PyObject *styleList;
 	if (!checkHaveDocument())
@@ -447,6 +447,7 @@ void cmdstyledocwarnings()
 	s  << scribus_createcharstyle__doc__
 	   << scribus_createcustomlinestyle__doc__
 	   << scribus_createparagraphstyle__doc__
+	   << scribus_getallstyles__doc__
 	   << scribus_getcharstylenames__doc__
-	   << scribus_getstylenames__doc__;
+	   << scribus_getparagraphstyles__doc__;
 }

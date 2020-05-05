@@ -108,16 +108,22 @@ one subline within style. Dictionary can have those keys:\n\n\
 PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getstylenames__doc__,
-QT_TR_NOOP("getAllStyles() -> list\n\
+PyDoc_STRVAR(scribus_getparagraphstyles__doc__,
+QT_TR_NOOP("getParagraphStyles() -> list\n\
 \n\
 Return a list of the names of all paragraph styles in the current document.\n\
+"));
+
+PyDoc_STRVAR(scribus_getallstyles__doc__,
+QT_TR_NOOP("getAllStyles() -> list\n\
+\n\
+Deprecated. Use getParagraphStyles() instead.\n\
 "));
 /**
  Craig Ringer, 2004-09-09
  Enumerate all known paragraph styles
 */
-PyObject *scribus_getstylenames(PyObject * /*self*/);
+PyObject *scribus_getparagraphstyles(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcharstylenames__doc__,

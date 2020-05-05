@@ -332,7 +332,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("flipObject"), scribus_flipobject, METH_VARARGS, tr(scribus_flipobject__doc__)},
 	{const_cast<char*>("getActiveLayer"), (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
 	{const_cast<char*>("getAllObjects"), (PyCFunction)scribus_getallobj, METH_VARARGS|METH_KEYWORDS, tr(scribus_getallobj__doc__)},
-	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)}, //Deprecated
+	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getparagraphstyles, METH_NOARGS, tr(scribus_getallstyles__doc__)}, //Deprecated
 	{const_cast<char*>("getAllText"), scribus_getalltext, METH_VARARGS, tr(scribus_getalltext__doc__)},
 	{const_cast<char*>("getCellStyle"), scribus_getcellstyle, METH_VARARGS, tr(scribus_getcellstyle__doc__)},
 	{const_cast<char*>("getCellColumnSpan"), scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
@@ -386,7 +386,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getPageNSize"), scribus_getpagensize, METH_VARARGS, tr(scribus_getpagensize__doc__)},
 	{const_cast<char*>("getPageNMargins"), scribus_getpagenmargins, METH_VARARGS, tr(scribus_getpagenmargins__doc__)},
 	{const_cast<char*>("getParagraphStyle"), scribus_getparagraphstyle, METH_VARARGS, tr(scribus_getparagraphstyle__doc__) },
-	{const_cast<char*>("getParagraphStyles"), (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
+	{const_cast<char*>("getParagraphStyles"), (PyCFunction)scribus_getparagraphstyles, METH_NOARGS, tr(scribus_getparagraphstyles__doc__)},
 	{const_cast<char*>("getPosition"), scribus_getposition, METH_VARARGS, tr(scribus_getposition__doc__)},
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
 	{const_cast<char*>("getObjectType"), scribus_getobjecttype, METH_VARARGS, tr(scribus_getobjecttype__doc__)},
