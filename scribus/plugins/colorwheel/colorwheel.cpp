@@ -53,7 +53,7 @@ void ColorWheelPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString ColorWheelPlugin::fullTrName() const
+QString ColorWheelPlugin::fullTrName() const
 {
 	return QObject::tr("Color Wheel");
 }

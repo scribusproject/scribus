@@ -200,12 +200,12 @@ void ScripterCore::runScriptDialog()
 	finishScriptRun();
 }
 
-void ScripterCore::StdScript(const QString& basefilename)
+void ScripterCore::StdScript(const QString& baseFilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
 	pfad2 = QDir::toNativeSeparators(pfad);
-	QString fn = pfad2+basefilename+".py";
+	QString fn = pfad2+baseFilename+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;

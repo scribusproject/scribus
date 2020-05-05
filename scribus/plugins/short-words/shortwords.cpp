@@ -81,7 +81,7 @@ void ShortWordsPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString ShortWordsPlugin::fullTrName() const
+QString ShortWordsPlugin::fullTrName() const
 {
 	return QObject::tr("Short Words");
 }

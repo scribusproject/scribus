@@ -143,7 +143,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * The results of testing the value of this can not be guaranteed,
 		 * as its value may change depending on locale and change at runtime.
 		 */
-		virtual const QString fullTrName() const = 0;
+		virtual QString fullTrName() const = 0;
 
 		/**
 		 * \brief Create and return a prefs UI panel for the plugin.
@@ -512,7 +512,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000106
+#define PLUGIN_API_VERSION 0x00000107
 
 
 #endif

@@ -67,12 +67,12 @@ XarPlug::XarPlug(ScribusDoc* doc, int flags)
 	progressDialog = nullptr;
 }
 
-bool XarPlug::readColors(const QString& fNameIn, ColorList &colors)
+bool XarPlug::readColors(const QString& fileName, ColorList & colors)
 {
 	progressDialog = nullptr;
 	bool success = false;
 	importedColors.clear();
-	QFile f(fNameIn);
+	QFile f(fileName);
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream ts(&f);

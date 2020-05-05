@@ -69,7 +69,7 @@ void PixmapExportPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString PixmapExportPlugin::fullTrName() const
+QString PixmapExportPlugin::fullTrName() const
 {
 	return tr("Export As Image");
 }

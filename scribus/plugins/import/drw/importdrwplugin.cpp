@@ -69,7 +69,7 @@ ImportDrwPlugin::~ImportDrwPlugin()
 	unregisterAll();
 }
 
-const QString ImportDrwPlugin::fullTrName() const
+QString ImportDrwPlugin::fullTrName() const
 {
 	return QObject::tr("DRW Importer");
 }

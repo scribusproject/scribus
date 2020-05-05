@@ -43,7 +43,7 @@ public:
 	\retval bool true
 	*/
 	bool run(ScribusDoc* doc=nullptr, const QString& filename = QString()) override;
-	const QString fullTrName() const override;
+	QString fullTrName() const override;
 	const AboutData* getAboutData() const override;
 	void deleteAboutData(const AboutData* about) const override;
 	void languageChange() override;

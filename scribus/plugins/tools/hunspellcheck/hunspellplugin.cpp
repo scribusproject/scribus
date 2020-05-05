@@ -56,7 +56,7 @@ void HunspellPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString HunspellPlugin::fullTrName() const
+QString HunspellPlugin::fullTrName() const
 {
 	return QObject::tr("Hunspell Plugin");
 }

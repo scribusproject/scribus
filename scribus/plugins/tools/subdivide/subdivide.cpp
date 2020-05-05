@@ -78,7 +78,7 @@ void SubdividePlugin::languageChange()
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString SubdividePlugin::fullTrName() const
+QString SubdividePlugin::fullTrName() const
 {
 	return QObject::tr("Subdivide");
 }

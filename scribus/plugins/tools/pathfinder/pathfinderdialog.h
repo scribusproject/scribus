@@ -25,8 +25,8 @@ public:
 	~PathFinderDialog() = default;
 	void updatePreview(QLabel *label, QPainterPath &path, const QColor& color, double scale);
 	void updatePartPreview(const QColor& color, double scale);
-	const QString getOtherFillColor();
-	const QString getOtherLineColor();
+	QString getOtherFillColor();
+	QString getOtherLineColor();
 
 	bool keepItem1;
 	bool keepItem2;

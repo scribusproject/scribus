@@ -70,7 +70,7 @@ ImportIdmlPlugin::~ImportIdmlPlugin()
 	unregisterAll();
 }
 
-const QString ImportIdmlPlugin::fullTrName() const
+QString ImportIdmlPlugin::fullTrName() const
 {
 	return QObject::tr("Idml Importer");
 }

@@ -163,7 +163,7 @@ QImage VivaPlug::readThumbnail(const QString& fName)
 	return tmp;
 }
 
-bool VivaPlug::readColors(const QString& fNameIn, ColorList & colors)
+bool VivaPlug::readColors(const QString& fileName, ColorList & colors)
 {
 	bool success = false;
 	m_Doc = new ScribusDoc();
@@ -173,7 +173,7 @@ bool VivaPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	importedColors.clear();
 	QByteArray f;
-	loadRawText(fNameIn, f);
+	loadRawText(fileName, f);
 	if (designMapDom.setContent(f))
 	{
 		QDomElement docElem = designMapDom.documentElement();

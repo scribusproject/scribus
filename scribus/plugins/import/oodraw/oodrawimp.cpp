@@ -97,7 +97,7 @@ void OODrawImportPlugin::languageChange()
 	fmt2->filter = tr("OpenOffice.org 1.x Draw (*.sxd *.SXD)");
 }
 
-const QString OODrawImportPlugin::fullTrName() const
+QString OODrawImportPlugin::fullTrName() const
 {
 	return QObject::tr("OpenOffice.org Draw Importer");
 }

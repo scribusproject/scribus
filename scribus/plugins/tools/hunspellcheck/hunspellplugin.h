@@ -25,7 +25,7 @@ class PLUGIN_API HunspellPlugin : public ScActionPlugin
 		//! \brief main method to run the plug
 		bool run(ScribusDoc* doc, const QString& target = QString()) override;
 		bool run(QWidget* p, ScribusDoc* doc, const QString& target = QString()) override;
-		const QString fullTrName() const override;
+		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;

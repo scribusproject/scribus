@@ -27,24 +27,24 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus13Format();
 		virtual ~Scribus13Format();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
+		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
 
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual bool saveFile(const QString & fileName, const FileFormat & fmt) { return false; };
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
+		bool saveFile(const QString & fileName, const FileFormat & fmt) override { return false; };
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
-		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
-		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
-		virtual bool readColors(const QString& fileName, ColorList & colors);
-		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) override;
+		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
+		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
+		bool readColors(const QString& fileName, ColorList & colors) override;
+		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) override;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
 
 	private:
 		void registerFormats();

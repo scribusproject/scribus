@@ -52,7 +52,7 @@ PyObject *scribus_setjsactionscript(PyObject * /*self*/, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 
-	if (item->isAnnotation() == false)
+	if (!item->isAnnotation())
 	{
 		PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());
@@ -123,7 +123,7 @@ PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 
-	if (item->isAnnotation() == false)
+	if (!item->isAnnotation())
 	{
 		PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());

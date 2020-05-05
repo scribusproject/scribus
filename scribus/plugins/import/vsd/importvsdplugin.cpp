@@ -61,7 +61,7 @@ ImportVsdPlugin::~ImportVsdPlugin()
 	unregisterAll();
 }
 
-const QString ImportVsdPlugin::fullTrName() const
+QString ImportVsdPlugin::fullTrName() const
 {
 	return QObject::tr("MS Visio Importer");
 }

@@ -94,7 +94,7 @@ void SmoothPathPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString SmoothPathPlugin::fullTrName() const
+QString SmoothPathPlugin::fullTrName() const
 {
 	return QObject::tr("SmoothPath");
 }

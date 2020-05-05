@@ -36,11 +36,11 @@ class PLUGIN_API ImpositionPlugin : public ScActionPlugin
     
 	virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString());
 	virtual bool run(ScribusDoc* doc, QString target = QString());
-    virtual void languageChange();
-    virtual const QString fullTrName() const;
-    virtual const AboutData* getAboutData() const;
-    virtual void deleteAboutData(const AboutData* about) const;
-    virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+    void languageChange() override;
+    QString fullTrName() const override;
+    const AboutData* getAboutData() const override;
+    void deleteAboutData(const AboutData* about) const override;
+    void addToMainWindowMenu(ScribusMainWindow *) override {};
 };
 
 extern "C" PLUGIN_API int imposition_getPluginAPIVersion();

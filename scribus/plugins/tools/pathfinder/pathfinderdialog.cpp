@@ -275,12 +275,12 @@ QColor PathFinderDialog::getColorFromItem(const QString& color, const QColor& in
 	return out;
 }
 
-const QString PathFinderDialog::getOtherFillColor()
+QString PathFinderDialog::getOtherFillColor()
 {
 	return otherColorComboFill->currentText();
 }
 
-const QString PathFinderDialog::getOtherLineColor()
+QString PathFinderDialog::getOtherLineColor()
 {
 	return otherColorComboLine->currentText();
 }

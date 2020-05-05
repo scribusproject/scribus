@@ -239,9 +239,9 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 	return tmpImage;
 }
 
-bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
+bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 {
-	QString fName = fNameIn;
+	QString fName(fileName);
 	bool success = false;
 	cancel = false;
 	double x, y, b, h;

@@ -28,7 +28,7 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		~ScriptPlugin() override;
 		bool initPlugin() override;
 		bool cleanupPlugin() override;
-		const QString fullTrName() const override;
+		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;

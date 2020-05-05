@@ -88,7 +88,7 @@ void FlattenPathPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString FlattenPathPlugin::fullTrName() const
+QString FlattenPathPlugin::fullTrName() const
 {
 	return QObject::tr("FlattenPath");
 }

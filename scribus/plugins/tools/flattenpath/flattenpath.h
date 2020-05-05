@@ -39,7 +39,7 @@ class PLUGIN_API FlattenPathPlugin : public ScActionPlugin
 		FlattenPathPlugin();
 		virtual ~FlattenPathPlugin();
 		bool run(ScribusDoc* doc, const QString& target = QString()) override;
-		const QString fullTrName() const override;
+		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;

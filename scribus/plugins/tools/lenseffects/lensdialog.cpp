@@ -58,10 +58,10 @@ LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 
 }
 
-void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget)
 {
 	Q_UNUSED(widget);
-	painter->setPen(QPen(Qt::black, 1.0 / option->levelOfDetail));
+	painter->setPen(QPen(Qt::black, 1.0 / item->levelOfDetail));
 	QRadialGradient radialGrad(QPointF(0.5, 0.5), 1.0);
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
@@ -69,13 +69,13 @@ void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
 	painter->setBrush(radialGrad);
 	painter->drawEllipse(rect().toRect());
-	if (option->state & QStyle::State_Selected)
+	if (item->state & QStyle::State_Selected)
 	{
-		scaling = option->levelOfDetail;
-		double siz = 6.0 / option->levelOfDetail;
+		scaling = item->levelOfDetail;
+		double siz = 6.0 / item->levelOfDetail;
 		QRectF br = boundingRect();
 		painter->setBrush(Qt::NoBrush);
-		painter->setPen(QPen(Qt::red, 1.0 / option->levelOfDetail, Qt::DotLine));
+		painter->setPen(QPen(Qt::red, 1.0 / item->levelOfDetail, Qt::DotLine));
 		painter->drawRect(br);
 		painter->setBrush(Qt::red);
 		painter->setPen(Qt::NoPen);

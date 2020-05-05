@@ -78,7 +78,7 @@ void Scribus150Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus150Format::fullTrName() const
+QString Scribus150Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.5.0+ Support");
 }
@@ -6288,7 +6288,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			int copyC = 1;
 			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
 			if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
 					mlName2 = getUniqueName(mlName2, m_Doc->MLineStyles);

@@ -61,7 +61,7 @@ ImportPctPlugin::~ImportPctPlugin()
 	unregisterAll();
 }
 
-const QString ImportPctPlugin::fullTrName() const
+QString ImportPctPlugin::fullTrName() const
 {
 	return QObject::tr("Pict Importer");
 }

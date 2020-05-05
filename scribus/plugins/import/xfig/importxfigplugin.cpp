@@ -61,7 +61,7 @@ ImportXfigPlugin::~ImportXfigPlugin()
 	unregisterAll();
 }
 
-const QString ImportXfigPlugin::fullTrName() const
+QString ImportXfigPlugin::fullTrName() const
 {
 	return QObject::tr("Xfig Importer");
 }

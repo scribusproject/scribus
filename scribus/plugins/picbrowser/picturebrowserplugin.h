@@ -26,7 +26,7 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		bool cleanupPlugin() override;
 		//! \brief main method to run the plug
 		bool run ( ScribusDoc* doc, const QString& target = QString() ) override;
-		const QString fullTrName() const override;
+		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData ( const AboutData* about ) const override;
 		void languageChange() override;

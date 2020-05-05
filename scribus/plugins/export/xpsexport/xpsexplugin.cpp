@@ -105,7 +105,7 @@ void XPSExportPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString XPSExportPlugin::fullTrName() const
+QString XPSExportPlugin::fullTrName() const
 {
 	return QObject::tr("XPS Export");
 }

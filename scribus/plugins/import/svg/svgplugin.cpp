@@ -101,7 +101,7 @@ void SVGImportPlugin::languageChange()
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG);
 }
 
-const QString SVGImportPlugin::fullTrName() const
+QString SVGImportPlugin::fullTrName() const
 {
 	return QObject::tr("SVG Import");
 }

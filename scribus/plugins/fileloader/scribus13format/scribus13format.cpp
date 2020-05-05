@@ -65,7 +65,7 @@ void Scribus13Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus13Format::fullTrName() const
+QString Scribus13Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.3.0->1.3.3.x Support");
 }

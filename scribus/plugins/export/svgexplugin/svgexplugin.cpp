@@ -102,7 +102,7 @@ void SVGExportPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString SVGExportPlugin::fullTrName() const
+QString SVGExportPlugin::fullTrName() const
 {
 	return QObject::tr("SVG Export");
 }

@@ -61,7 +61,7 @@ ImportSmlPlugin::~ImportSmlPlugin()
 	unregisterAll();
 }
 
-const QString ImportSmlPlugin::fullTrName() const
+QString ImportSmlPlugin::fullTrName() const
 {
 	return QObject::tr("Sml Importer");
 }

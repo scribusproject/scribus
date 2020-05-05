@@ -70,7 +70,7 @@ ImportXpsPlugin::~ImportXpsPlugin()
 	unregisterAll();
 }
 
-const QString ImportXpsPlugin::fullTrName() const
+QString ImportXpsPlugin::fullTrName() const
 {
 	return QObject::tr("Xps Importer");
 }

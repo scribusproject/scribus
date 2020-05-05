@@ -96,7 +96,7 @@ void PathStrokerPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 1;
 }
 
-const QString PathStrokerPlugin::fullTrName() const
+QString PathStrokerPlugin::fullTrName() const
 {
 	return QObject::tr("PathStroker");
 }

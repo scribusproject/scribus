@@ -48,7 +48,7 @@ void PictureBrowserPlugin::languageChange()
 	m_actionInfo.enabledOnStartup = false;
 }
 
-const QString PictureBrowserPlugin::fullTrName() const
+QString PictureBrowserPlugin::fullTrName() const
 {
 	return QObject::tr ( "Picture Browser" );
 }

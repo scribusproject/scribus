@@ -67,7 +67,7 @@ ImportAIPlugin::~ImportAIPlugin()
 	unregisterAll();
 }
 
-const QString ImportAIPlugin::fullTrName() const
+QString ImportAIPlugin::fullTrName() const
 {
 	return QObject::tr("Adobe Illustrator Importer");
 }
@@ -112,7 +112,7 @@ bool ImportAIPlugin::fileSupported(QIODevice* /* file */, const QString & fileNa
 	return true;
 }
 
-bool ImportAIPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
+bool ImportAIPlugin::loadFile(const QString & fileName, const FileFormat & /*fmt*/, int flags, int /*index*/)
 {
 	// There's only one format to handle, so we just call import(...)
 	return import(fileName, flags);

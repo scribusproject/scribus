@@ -37,7 +37,7 @@ void Barcode::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString Barcode::fullTrName() const
+QString Barcode::fullTrName() const
 {
 	return QObject::tr("Barcode Generator");
 }

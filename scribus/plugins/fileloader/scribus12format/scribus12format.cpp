@@ -63,7 +63,7 @@ void Scribus12Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus12Format::fullTrName() const
+QString Scribus12Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.2.x Support");
 }

@@ -88,7 +88,7 @@ void MeshDistortionPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 3;
 }
 
-const QString MeshDistortionPlugin::fullTrName() const
+QString MeshDistortionPlugin::fullTrName() const
 {
 	return QObject::tr("MeshDistortion");
 }

@@ -67,7 +67,7 @@ ImportSvmPlugin::~ImportSvmPlugin()
 	unregisterAll();
 }
 
-const QString ImportSvmPlugin::fullTrName() const
+QString ImportSvmPlugin::fullTrName() const
 {
 	return QObject::tr("SVM Importer");
 }

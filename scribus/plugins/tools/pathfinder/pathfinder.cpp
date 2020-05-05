@@ -100,7 +100,7 @@ void PathFinderPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 2;
 }
 
-const QString PathFinderPlugin::fullTrName() const
+QString PathFinderPlugin::fullTrName() const
 {
 	return QObject::tr("PathFinder");
 }

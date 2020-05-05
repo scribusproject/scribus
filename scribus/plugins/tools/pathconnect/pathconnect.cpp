@@ -86,7 +86,7 @@ void PathConnectPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 2;
 }
 
-const QString PathConnectPlugin::fullTrName() const
+QString PathConnectPlugin::fullTrName() const
 {
 	return QObject::tr("PathConnect");
 }
