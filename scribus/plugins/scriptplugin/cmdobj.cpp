@@ -813,48 +813,6 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-/*
- * Craig Ringer, 2004-09-09
- * Enumerate all known paragraph styles
- */
-PyObject *scribus_getstylenames(PyObject* /* self */)
-{
-	PyObject *styleList;
-	if (!checkHaveDocument())
-		return nullptr;
-	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
-
-	styleList = PyList_New(0);
-	for (int i = 0; i < paragraphStyles.count(); ++i)
-	{
-		if (PyList_Append(styleList, PyUnicode_FromString(paragraphStyles[i].name().toUtf8())))
-		{
-			// An exception will have already been set by PyList_Append apparently.
-			return nullptr;
-		}
-	}
-	return styleList;
-}
-
-PyObject *scribus_getcharstylenames(PyObject* /* self */)
-{
-	PyObject *charStyleList;
-	if (!checkHaveDocument())
-		return nullptr;
-	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
-
-	charStyleList = PyList_New(0);
-	for (int i = 0; i < charStyles.count(); ++i)
-	{
-		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyles[i].name().toUtf8())))
-		{
-			// An exception will have already been set by PyList_Append apparently.
-			return nullptr;
-		}
-	}
-	return charStyleList;
-}
-
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
@@ -929,10 +887,8 @@ void cmdobjdocwarnings()
 	  << scribus_deleteobj__doc__
 	  << scribus_duplicateobject__doc__
 	  << scribus_getcharacterstyle__doc__
-	  << scribus_getcharstylenames__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
-	  << scribus_getstylenames__doc__
 	  << scribus_newellipse__doc__
 	  << scribus_newimage__doc__
 	  << scribus_newline__doc__

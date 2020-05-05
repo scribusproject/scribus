@@ -396,6 +396,47 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+/*
+ * Craig Ringer, 2004-09-09
+ * Enumerate all known paragraph styles
+ */
+PyObject *scribus_getstylenames(PyObject* /* self */)
+{
+	PyObject *styleList;
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
+
+	styleList = PyList_New(0);
+	for (int i = 0; i < paragraphStyles.count(); ++i)
+	{
+		if (PyList_Append(styleList, PyUnicode_FromString(paragraphStyles[i].name().toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
+}
+
+PyObject *scribus_getcharstylenames(PyObject* /* self */)
+{
+	PyObject *charStyleList;
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
+
+	charStyleList = PyList_New(0);
+	for (int i = 0; i < charStyles.count(); ++i)
+	{
+		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyles[i].name().toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return charStyleList;
+}
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -405,5 +446,7 @@ void cmdstyledocwarnings()
 	QStringList s;
 	s  << scribus_createcharstyle__doc__
 	   << scribus_createcustomlinestyle__doc__
-	   << scribus_createparagraphstyle__doc__;
+	   << scribus_createparagraphstyle__doc__
+	   << scribus_getcharstylenames__doc__
+	   << scribus_getstylenames__doc__;
 }
