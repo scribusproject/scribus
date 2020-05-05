@@ -403,6 +403,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getText"), scribus_getframetext, METH_VARARGS, tr(scribus_gettext__doc__)}, // Deprecated
 	{const_cast<char*>("getTextColor"), scribus_gettextcolor, METH_VARARGS, tr(scribus_gettextcolor__doc__)},
 	{const_cast<char*>("getTextDistances"), scribus_gettextdistances, METH_VARARGS, tr(scribus_gettextdistances__doc__)},
+	{const_cast<char*>("getTextFlowMode"), scribus_gettextflowmode, METH_VARARGS, tr(scribus_gettextflowmode__doc__)},
 	{const_cast<char*>("getTextLength"), scribus_gettextlength, METH_VARARGS, tr(scribus_gettextlength__doc__)},
 	{const_cast<char*>("getTextLines"), scribus_gettextlines, METH_VARARGS, tr(scribus_gettextlines__doc__)},
 	{const_cast<char*>("getTextShade"), scribus_gettextshade, METH_VARARGS, tr(scribus_gettextshade__doc__)},

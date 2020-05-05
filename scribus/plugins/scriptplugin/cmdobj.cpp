@@ -530,6 +530,19 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_gettextflowmode(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+
+	return PyLong_FromLong(static_cast<int>(item->textFlowMode()));
+};
 
 /* 03/21/2004 - exception raises by non existent name (subik)
  */

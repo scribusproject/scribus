@@ -195,6 +195,21 @@ selected item is deleted.\n\
  deleted else the active object erased. */
 PyObject *scribus_deleteobj(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_gettextflowmode__doc__,
+QT_TR_NOOP("getTextFlowMode([\"name\"]) -> integer\n\
+\n\
+Return the current text flow mode used by item \"name\" as an integer.\n\
+If \"name\" is not given, the currently selected object is used.\n\
+\n\
+The function will return one of the following value:\n\
+- 0 : text flow around frame is disabled\n\
+- 1 : text flow around frame shape\n\
+- 2 : text flow around frame bounding box\n\
+- 3 : text flow around frame contour line\n\
+- 4 : text flow around image clip path\n\
+"));
+PyObject *scribus_gettextflowmode(PyObject * /*self*/, PyObject* args);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_settextflowmode__doc__,
 QT_TR_NOOP("setTextFlowMode(\"name\" [, state])\n\

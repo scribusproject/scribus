@@ -37,6 +37,19 @@
 <dd><code>getStyle(["nom"])  -&gt; chaîne</code>
 <p>Obsolète. Veuillez utiliser getParagraphStyle() en lieu et place.</p></dd>
 
+<dt><a name="-getTextFlowMode"><strong>getTextFlowMode</strong></a>(...)</dt>
+<dd><code>getTextFlowMode(["nom"]) -&gt; entier</code>
+<p>Return le mode d'habillage du texte appliqué à l'objet "nom" sous forme d'un entier. Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p>
+<p>La fonction retournera une des valeurs suivantes:
+<ul>
+	<li>0 : l'habillage du texte est désactivé</li>
+	<li>1 : l'habillage du texte suit la forme du cadre</li>
+	<li>2 : l'habillage du texte suit la bounding box du cadre</li>
+	<li>3 : l'habillage du texte suit la ligne de contour du cadre</li>
+	<li>4 : l'habillage du texte suit le tracé de découpage de l'image</li>
+</ul>
+</p></dd>
+
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
 <dd><code>groupObjects(liste)  -&gt; chaîne</code>
 <p>Groupe les objets énumérés dans "liste". La "liste" doit contenir les noms des objets à grouper. 
