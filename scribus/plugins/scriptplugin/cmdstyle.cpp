@@ -419,6 +419,9 @@ PyObject *scribus_getparagraphstyles(PyObject* /* self */)
 	return styleList;
 }
 
+/*
+ * Enumerate all known character styles
+ */
 PyObject *scribus_getcharstylenames(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
@@ -438,6 +441,9 @@ PyObject *scribus_getcharstylenames(PyObject* /* self */)
 	return charStyleList;
 }
 
+/*
+ * Enumerate all known line styles
+ */
 PyObject *scribus_getlinestyles(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
@@ -456,6 +462,50 @@ PyObject *scribus_getlinestyles(PyObject* /* self */)
 		}
 	}
 	return lineStyleList;
+}
+
+/*
+ * Enumerate all known cell styles
+ */
+PyObject *scribus_getcellstyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& cellStyles = ScCore->primaryMainWindow()->doc->cellStyles();
+
+	PyObject *styleList = PyList_New(0);
+	for (int i = 0; i < cellStyles.count(); ++i)
+	{
+		const QString& cellStyleName = cellStyles[i].name();
+		if (PyList_Append(styleList, PyUnicode_FromString(cellStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
+}
+
+/*
+ * Enumerate all known table styles
+ */
+PyObject *scribus_gettablestyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& tableStyles = ScCore->primaryMainWindow()->doc->tableStyles();
+
+	PyObject *styleList = PyList_New(0);
+	for (int i = 0; i < tableStyles.count(); ++i)
+	{
+		const QString& tableStyleName = tableStyles[i].name();
+		if (PyList_Append(styleList, PyUnicode_FromString(tableStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

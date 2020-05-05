@@ -133,7 +133,6 @@ Return a list of the names of all character styles in the current document.\n\
 "));
 PyObject *scribus_getcharstylenames(PyObject * /*self*/);
 
-
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinestyles__doc__,
 QT_TR_NOOP("getLineStyles() -> list\n\
@@ -141,6 +140,22 @@ QT_TR_NOOP("getLineStyles() -> list\n\
 Return a list of the names of all line styles in the current document.\n\
 "));
 PyObject *scribus_getlinestyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcellstyles__doc__,
+QT_TR_NOOP("getCellStyles() -> list\n\
+\n\
+Return a list of the names of all cell styles in the current document.\n\
+"));
+PyObject *scribus_getcellstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettablestyles__doc__,
+QT_TR_NOOP("getTableStyles() -> list\n\
+\n\
+Return a list of the names of all table styles in the current document.\n\
+"));
+PyObject *scribus_gettablestyles(PyObject * /*self*/);
 
 #endif
 

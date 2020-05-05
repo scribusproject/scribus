@@ -335,6 +335,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getAllStyles"), (PyCFunction)scribus_getparagraphstyles, METH_NOARGS, tr(scribus_getallstyles__doc__)}, //Deprecated
 	{const_cast<char*>("getAllText"), scribus_getalltext, METH_VARARGS, tr(scribus_getalltext__doc__)},
 	{const_cast<char*>("getCellStyle"), scribus_getcellstyle, METH_VARARGS, tr(scribus_getcellstyle__doc__)},
+	{const_cast<char*>("getCellStyles"), (PyCFunction)scribus_getcellstyles, METH_VARARGS, tr(scribus_getcellstyles__doc__)},
 	{const_cast<char*>("getCellColumnSpan"), scribus_getcellcolumnspan, METH_VARARGS, tr(scribus_getcellcolumnspan__doc__)},
 	{const_cast<char*>("getCellRowSpan"), scribus_getcellrowspan, METH_VARARGS, tr(scribus_getcellrowspan__doc__)},
 	{const_cast<char*>("getCellFillColor"), scribus_getcellfillcolor, METH_VARARGS, tr(scribus_getcellfillcolor__doc__)},
@@ -400,6 +401,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getTableColumns"), scribus_gettablecolumns, METH_VARARGS, tr(scribus_gettablecolumns__doc__)},
 	{const_cast<char*>("getTableColumnWidth"), scribus_gettablecolumnwidth, METH_VARARGS, tr(scribus_gettablecolumnwidth__doc__)},
 	{const_cast<char*>("getTableStyle"), scribus_gettablestyle, METH_VARARGS, tr(scribus_gettablestyle__doc__)},
+	{const_cast<char*>("getTableStyles"), (PyCFunction)scribus_gettablestyles, METH_VARARGS, tr(scribus_gettablestyles__doc__)},
 	{const_cast<char*>("getTableFillColor"), scribus_gettablefillcolor, METH_VARARGS, tr(scribus_gettablefillcolor__doc__)},
 	{const_cast<char*>("getText"), scribus_getframetext, METH_VARARGS, tr(scribus_gettext__doc__)}, // Deprecated
 	{const_cast<char*>("getTextColor"), scribus_gettextcolor, METH_VARARGS, tr(scribus_gettextcolor__doc__)},
