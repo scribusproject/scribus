@@ -89,7 +89,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	static bool hasMicrosoftUnicodeCmap(FT_Face face);
 	static QString adobeGlyphName(FT_ULong charcode);
-	virtual bool glyphNames(ScFace::FaceEncoding& GList) const;
+	virtual bool glyphNames(ScFace::FaceEncoding& glyphList) const;
 
 	void load() const;
 	void unload() const;

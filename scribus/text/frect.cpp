@@ -646,7 +646,7 @@ void FRect::setRect( qreal x, qreal y, qreal w, qreal h )
 	\sa coords(), setRect()
 */
 
-void FRect::setCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
+void FRect::setCoords(qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 {
 	x1 = (qreal)xp1;
 	y1 = (qreal)yp1;

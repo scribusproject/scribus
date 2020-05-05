@@ -51,7 +51,7 @@ public:
     TreeItem(const QList<QVariant> &data, TreeItem *parent = 0);
     ~TreeItem();
 
-    void appendChild(TreeItem *child);
+	void appendChild(TreeItem *item);
 
     TreeItem *child(int row);
     int childCount() const;

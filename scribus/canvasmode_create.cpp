@@ -177,7 +177,7 @@ inline bool CreateMode::GetItem(PageItem** pi)
 // the following code was moved from scribusview.cpp:
 
 
-void CreateMode::enterEvent(QEvent *)
+void CreateMode::enterEvent(QEvent *e)
 {
 	if (!m_MouseButtonPressed)
 	{
@@ -254,8 +254,8 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if (GetItem(&currItem))
 	{
-		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
+//		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
+//		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
 		
 		if (m_doc->DragP)
 			return;

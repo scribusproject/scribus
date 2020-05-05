@@ -148,22 +148,21 @@ public:
 	void setRegistrationColor(bool s);
 
 private:
-
 	/** \brief Color values (depends of color model) */
-	double m_values[4];
+	double m_values[4] {0.0, 0.0, 0.0, 0.0};
 	/** \brief L component of Color */
-	double m_L_val;
+	double m_L_val {0.0};
 	/** \brief a component of Color */
-	double m_a_val;
+	double m_a_val {0.0};
 	/** \brief b component of Color */
-	double m_b_val;
+	double m_b_val {0.0};
 
 	/** \brief Flag, true if the Color is a Spotcolor */
-	bool m_Spot;
+	bool m_Spot {false};
 	/** \brief Flag, true if the Color is a Registration color */
-	bool m_Regist;
+	bool m_Regist {false};
 	/** \brief Color model of the current color */
-	colorModel m_Model;
+	colorModel m_Model {colorModelRGB};
 };
 
 class SCRIBUS_API ColorList : public QMap<QString,ScColor>

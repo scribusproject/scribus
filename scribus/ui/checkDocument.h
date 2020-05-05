@@ -127,7 +127,7 @@ protected:
 	QMap<QTreeWidgetItem*, int> posMap;
 
 	//! \brief a reference to the current document
-	ScribusDoc* m_Doc;
+	ScribusDoc* m_Doc {nullptr};
 	//! \brief Icon for fatal error
 	QPixmap graveError;
 	//! \brief Icon for warning
@@ -170,13 +170,13 @@ protected:
 	QPushButton* reScan;
 
 // 	bool globalGraveError;
-	bool pageGraveError;
-	bool itemError;
+	bool pageGraveError {false};
+	bool itemError {false};
 	bool showPagesWithoutErrors;
 	bool showNonPrintingLayerErrors;
 
-	int minResDPI;
-	int maxResDPI;
+	int minResDPI {0};
+	int maxResDPI {0};
 
 	/*! \brief Create content of QTreeWidgetItem based on error type
 	and pageItem state.

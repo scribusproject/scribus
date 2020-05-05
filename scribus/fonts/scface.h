@@ -397,7 +397,7 @@ public:
 	/// translate unicode to glyph index
 	gid_type char2CMap(uint ch)   const;
 
-	gid_type emulateGlyph(uint u) const;
+	gid_type emulateGlyph(uint ch) const;
 
 	gid_type hyphenGlyph() const;
 	gid_type hyphenGlyph(const CharStyle& style) const;

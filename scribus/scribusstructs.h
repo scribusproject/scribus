@@ -165,9 +165,9 @@ struct PDFPresentationData
 
 struct LPIData
 {
-	int Frequency;
-	int Angle;
-	int SpotFunc;
+	int Frequency {0};
+	int Angle {0};
+	int SpotFunc {0};
 };
 
 struct Keys

@@ -59,8 +59,8 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QList<PageItem*> FrameItems;
-		int  itemCount;
-		bool newReplacement;
+		int itemCount {0};
+		bool newReplacement {false};
 		QMap<QString,QString> ReplacedFonts;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;

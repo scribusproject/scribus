@@ -58,9 +58,9 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 
 	private:
 		inline bool GetItem(PageItem** pi);
-		void handleNodeEditPress(QMouseEvent*, QRect);
+		void handleNodeEditPress(QMouseEvent*, QRect r);
 		void handleNodeEditDrag(QMouseEvent*, PageItem*);
-		bool handleNodeEditMove(QMouseEvent*, QRect, PageItem*, const QTransform&);
+		bool handleNodeEditMove(QMouseEvent*, QRect r, PageItem*, const QTransform&);
 
 		ScribusMainWindow* m_ScMW;
 

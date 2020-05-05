@@ -342,7 +342,7 @@ void CanvasMode_EditMeshGradient::drawControlsMeshGradient(QPainter* psx, PageIt
 	}
 }
 
-void CanvasMode_EditMeshGradient::enterEvent(QEvent *)
+void CanvasMode_EditMeshGradient::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

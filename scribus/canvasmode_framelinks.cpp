@@ -67,7 +67,7 @@ void CanvasMode_FrameLinks::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_FrameLinks::enterEvent(QEvent *)
+void CanvasMode_FrameLinks::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

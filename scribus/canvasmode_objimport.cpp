@@ -70,7 +70,7 @@ void CanvasMode_ObjImport::drawControls(QPainter* p)
 	drawSelection(p, false);
 }
 
-void CanvasMode_ObjImport::enterEvent(QEvent *)
+void CanvasMode_ObjImport::enterEvent(QEvent *e)
 {
 	if (m_mimeData)
 	{

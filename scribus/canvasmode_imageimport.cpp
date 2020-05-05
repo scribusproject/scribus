@@ -90,7 +90,7 @@ void CanvasMode_ImageImport::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_ImageImport::enterEvent(QEvent *)
+void CanvasMode_ImageImport::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		setModeCursor();

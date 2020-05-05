@@ -2448,7 +2448,7 @@ void ScribusDoc::addSymbols()
 }
 
 
-ScPage* ScribusDoc::addPage(int pageIndex, const QString& masterPageName, bool addAutoFrame)
+ScPage* ScribusDoc::addPage(int pageNumber, const QString& masterPageName, bool addAutoFrame)
 {
 	assert(masterPageMode() == false);
 	ScPage* addedPage = new ScPage(m_docPrefsData.displayPrefs.scratch.left(), DocPages.count()*(m_docPrefsData.docSetupPrefs.pageHeight+m_docPrefsData.displayPrefs.scratch.bottom()+m_docPrefsData.displayPrefs.scratch.top())+m_docPrefsData.displayPrefs.scratch.top(), m_docPrefsData.docSetupPrefs.pageWidth, m_docPrefsData.docSetupPrefs.pageHeight);
@@ -2457,18 +2457,18 @@ ScPage* ScribusDoc::addPage(int pageIndex, const QString& masterPageName, bool a
 	addedPage->Margins.setTop(m_docPrefsData.docSetupPrefs.margins.top());
 	addedPage->Margins.setBottom(m_docPrefsData.docSetupPrefs.margins.bottom());
 	addedPage->initialMargins = m_docPrefsData.docSetupPrefs.margins;
-	addedPage->setPageNr(pageIndex);
+	addedPage->setPageNr(pageNumber);
 	addedPage->setSize(m_docPrefsData.docSetupPrefs.pageSize);
 	addedPage->setOrientation(m_docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = m_docPrefsData.docSetupPrefs.marginPreset;
-	DocPages.insert(pageIndex, addedPage);
-	assert(DocPages.at(pageIndex) != nullptr);
+	DocPages.insert(pageNumber, addedPage);
+	assert(DocPages.at(pageNumber) != nullptr);
 	setCurrentPage(addedPage);
 	if (!masterPageName.isEmpty())
-		applyMasterPage(masterPageName, pageIndex);
-	setLocationBasedPageLRMargins(pageIndex);
+		applyMasterPage(masterPageName, pageNumber);
+	setLocationBasedPageLRMargins(pageNumber);
 	if (addAutoFrame && m_automaticTextFrames)
-		addAutomaticTextFrame(pageIndex);
+		addAutomaticTextFrame(pageNumber);
 	return addedPage;
 }
 

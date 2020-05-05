@@ -61,12 +61,12 @@ QImage* ScPattern::getPattern()
 	return &pattern;
 }
 
-void ScPattern::setPattern(const QString& name)
+void ScPattern::setPattern(const QString& filename)
 {
 	items.clear();
 	doc->setLoading(true);
 	PageItem* newItem = new PageItem_ImageFrame(doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-	if (newItem->loadImage(name, false, 72, false))
+	if (newItem->loadImage(filename, false, 72, false))
 	{
 		pattern = newItem->pixm.qImage().copy();
 		scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;

@@ -58,7 +58,7 @@ inline bool CalligraphicMode::GetItem(PageItem** pi)
 	return (*pi) != nullptr;
 }
 
-void CalligraphicMode::enterEvent(QEvent *)
+void CalligraphicMode::enterEvent(QEvent *e)
 {
 	if (!m_mouseButtonPressed)
 	{

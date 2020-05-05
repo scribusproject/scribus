@@ -133,7 +133,7 @@ public:
 	/*!
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
-	int initScMW(bool primaryMainwWindow);
+	int initScMW(bool primaryMainWindow);
 	void setupMainWindow();
 	int getScreenNumber() const;
 	QScreen* getScreen() const;

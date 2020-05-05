@@ -94,7 +94,7 @@ void CanvasMode_EditSpiral::drawControlsSpiral(QPainter* psx, PageItem* currItem
 	psx->drawPoint(m_endPoint);
 }
 
-void CanvasMode_EditSpiral::enterEvent(QEvent *)
+void CanvasMode_EditSpiral::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

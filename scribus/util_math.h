@@ -34,7 +34,7 @@ FPoint   SCRIBUS_API getMaxClipF(const FPointArray* clip);
 FPoint   SCRIBUS_API getMinClipF(const FPointArray* clip);
 FPoint   SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
 bool     SCRIBUS_API regionContainsRect(const QRegion& shape, QRect rect);
-QPolygon SCRIBUS_API flattenPath(const FPointArray& ina, QList<uint> &Segs);
+QPolygon SCRIBUS_API flattenPath(const FPointArray& ina, QList<uint> &segments);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 QPainterPath  SCRIBUS_API regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
 QPainterPath  SCRIBUS_API spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);

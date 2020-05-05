@@ -182,7 +182,7 @@ void CanvasMode_Rotate::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
-void CanvasMode_Rotate::enterEvent(QEvent *)
+void CanvasMode_Rotate::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -190,7 +190,7 @@ void CanvasMode_Rotate::enterEvent(QEvent *)
 	}
 }
 
-void CanvasMode_Rotate::leaveEvent(QEvent *)
+void CanvasMode_Rotate::leaveEvent(QEvent *e)
 {
 }
 

@@ -135,7 +135,7 @@ void CanvasMode_EditArc::drawControlsArc(QPainter* psx, PageItem* currItem)
 	psx->drawPoint(m_heightPoint);
 }
 
-void CanvasMode_EditArc::enterEvent(QEvent *)
+void CanvasMode_EditArc::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

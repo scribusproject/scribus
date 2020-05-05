@@ -8,10 +8,6 @@ for which a new license (GPL+exception) is in place.
 
 RawImage::RawImage()
 {
-	m_width = 0;
-	m_height = 0;
-	m_channels = 0;
-	resize(0);
 }
 
 RawImage::RawImage( int width, int height, int channels )

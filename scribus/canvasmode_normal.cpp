@@ -90,7 +90,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 		drawSelection(p, !m_doc->drawAsPreview);
 }
 
-void CanvasMode_Normal::enterEvent(QEvent *)
+void CanvasMode_Normal::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

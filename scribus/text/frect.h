@@ -91,7 +91,7 @@ public:
     FPoint center()	 const;
 
     void   rect( qreal *x, qreal *y, qreal *w, qreal *h ) const;
-    void   coords( qreal *x1, qreal *y1, qreal *x2, qreal *y2 ) const;
+	void   coords( qreal *xp1, qreal *yp1, qreal *xp2, qreal *yp2 ) const;
 
     void   moveLeft( qreal pos );
     void   moveTop( qreal pos );
@@ -105,12 +105,12 @@ public:
     void   moveBy( qreal dx, qreal dy );
 
     void   setRect( qreal x, qreal y, qreal w, qreal h );
-    void   setCoords( qreal x1, qreal y1, qreal x2, qreal y2 );
-    void   addCoords( qreal x1, qreal y1, qreal x2, qreal y2 );
+	void   setCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp );
+	void   addCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 );
 
     FSize  size()	const;
-    qreal	   width()	const;
-    qreal	   height()	const;
+	qreal width() const;
+	qreal height() const;
     void   setWidth( qreal w );
     void   setHeight( qreal h );
     void   setSize( const FSize &s );

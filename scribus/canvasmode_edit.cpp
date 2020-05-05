@@ -250,7 +250,7 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 	}
 }
 
-void CanvasMode_Edit::enterEvent(QEvent *)
+void CanvasMode_Edit::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

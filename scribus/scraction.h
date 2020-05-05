@@ -137,8 +137,8 @@ public:
 	 *	\brief Connect the internal toggle connections. Fake toggle actions are toggle actions
 	 *         but we connect activated() only, eg itemLock. This means they can be setOn()
 	 *         to the status of an item's bool, eg isLocked(), without toggling anything.
-	 */		
-	void setToggleAction(bool isToggle, bool m_fakeToggle=false);
+	 */
+	void setToggleAction(bool isToggle, bool m_fakeToggle = false);
 	
 	/*!
 		\author Craig Bradney

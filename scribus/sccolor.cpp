@@ -33,39 +33,23 @@ for which a new license (GPL+exception) is in place.
 
 ScColor::ScColor()
 {
-//	Model = colorModelCMYK;
-//	CR = MG = YB = K = 0;
-	m_Model = colorModelRGB;
 	m_values[0] = 0.6;
 	m_values[1] = 0.4;
 	m_values[2] = 0.2;
-	m_values[3] = 0.0;
-	m_L_val = m_a_val = m_b_val = 0;
-	m_Spot = false;
-	m_Regist = false;
 }
 
 ScColor::ScColor(int c, int m, int y, int k)
 {
-	m_L_val = m_a_val = m_b_val = 0;
-	m_Spot = false;
-	m_Regist = false;
 	setColor(c, m, y, k);
 }
  
 ScColor::ScColor(int r, int g, int b)
 {
-	m_values[3] = 0.0;
-	m_L_val = m_a_val = m_b_val = 0;
-	m_Spot = false;
-	m_Regist = false;
 	setRgbColor(r, g, b);
 }
 
 ScColor::ScColor(double l, double a, double b)
 {
-	m_Spot = false;
-	m_Regist = false;
 	m_Model = colorModelLab;
 
 	m_L_val = l;
@@ -75,7 +59,6 @@ ScColor::ScColor(double l, double a, double b)
 	m_values[0] = 0.6;
 	m_values[1] = 0.4;
 	m_values[2] = 0.2;
-	m_values[3] = 0.0;
 }
 
 bool ScColor::operator==(const ScColor& other) const

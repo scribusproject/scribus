@@ -128,7 +128,7 @@ void CanvasMode_EditPolygon::drawControlsPolygon(QPainter* psx, PageItem* currIt
 	}
 }
 
-void CanvasMode_EditPolygon::enterEvent(QEvent *)
+void CanvasMode_EditPolygon::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		setModeCursor();
