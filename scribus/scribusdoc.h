@@ -539,6 +539,8 @@ public:
 	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
 
+	const QHash<QString, multiLine>& lineStyles() const { return MLineStyles; }
+
 	/**
 	 * Returns the table style named @a name.
 	 */
@@ -1403,7 +1405,7 @@ public:
 	bool isConverted {false};
 	QTimer * const autoSaveTimer;
 	QList<QString> autoSaveFiles;
-	QHash<QString,multiLine> MLineStyles;
+	QHash<QString, multiLine> MLineStyles;
 	QHash<QString, ScPattern> docPatterns;
 	QHash<QString, VGradient> docGradients;
 	QWidget* WinHan {nullptr};

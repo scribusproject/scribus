@@ -377,6 +377,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getLineJoin"), scribus_getlinejoin, METH_VARARGS, tr(scribus_getlinejoin__doc__)},
 	{const_cast<char*>("getLineSpacing"), scribus_getlinespace, METH_VARARGS, tr(scribus_getlinespace__doc__)},
 	{const_cast<char*>("getLineStyle"), scribus_getlinestyle, METH_VARARGS, tr(scribus_getlinestyle__doc__)},
+	{const_cast<char*>("getLineStyles"), (PyCFunction)scribus_getlinestyles, METH_VARARGS, tr(scribus_getlinestyles__doc__)},
 	{const_cast<char*>("getLineWidth"), scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
 	{const_cast<char*>("getMasterPage"), scribus_getmasterpage, METH_VARARGS, tr(scribus_getmasterpage__doc__)},
 	{const_cast<char*>("getPageItems"), (PyCFunction)scribus_getpageitems, METH_NOARGS, tr(scribus_getpageitems__doc__)},

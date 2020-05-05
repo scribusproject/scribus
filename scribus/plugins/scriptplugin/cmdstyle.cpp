@@ -402,15 +402,15 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
  */
 PyObject *scribus_getparagraphstyles(PyObject* /* self */)
 {
-	PyObject *styleList;
 	if (!checkHaveDocument())
 		return nullptr;
 	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
 
-	styleList = PyList_New(0);
+	PyObject *styleList = PyList_New(0);
 	for (int i = 0; i < paragraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyUnicode_FromString(paragraphStyles[i].name().toUtf8())))
+		const QString& paraStyleName = paragraphStyles[i].name();
+		if (PyList_Append(styleList, PyUnicode_FromString(paraStyleName.toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;
@@ -421,21 +421,41 @@ PyObject *scribus_getparagraphstyles(PyObject* /* self */)
 
 PyObject *scribus_getcharstylenames(PyObject* /* self */)
 {
-	PyObject *charStyleList;
 	if (!checkHaveDocument())
 		return nullptr;
 	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
 
-	charStyleList = PyList_New(0);
+	PyObject *charStyleList = PyList_New(0);
 	for (int i = 0; i < charStyles.count(); ++i)
 	{
-		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyles[i].name().toUtf8())))
+		const QString& charStyleName = charStyles[i].name();
+		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyleName.toUtf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return nullptr;
 		}
 	}
 	return charStyleList;
+}
+
+PyObject *scribus_getlinestyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& lineStyles = ScCore->primaryMainWindow()->doc->lineStyles();
+
+	PyObject *lineStyleList = PyList_New(0);
+	auto itEnd = lineStyles.constEnd();
+	for (auto it = lineStyles.constBegin(); it != itEnd; ++it)
+	{
+		QString lineStyleName = it.key();
+		if (PyList_Append(lineStyleList, PyUnicode_FromString(lineStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return lineStyleList;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
@@ -449,5 +469,6 @@ void cmdstyledocwarnings()
 	   << scribus_createparagraphstyle__doc__
 	   << scribus_getallstyles__doc__
 	   << scribus_getcharstylenames__doc__
+	   << scribus_getlinestyles__doc__
 	   << scribus_getparagraphstyles__doc__;
 }

@@ -133,5 +133,14 @@ Return a list of the names of all character styles in the current document.\n\
 "));
 PyObject *scribus_getcharstylenames(PyObject * /*self*/);
 
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinestyles__doc__,
+QT_TR_NOOP("getLineStyles() -> list\n\
+\n\
+Return a list of the names of all line styles in the current document.\n\
+"));
+PyObject *scribus_getlinestyles(PyObject * /*self*/);
+
 #endif
 
