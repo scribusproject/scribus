@@ -57,16 +57,11 @@
 #include "util.h"
 #include "util_math.h"
 
-
-
-
-
 CreateMode::CreateMode(ScribusView* view) : CanvasMode(view) 
 {
 	canvasPressCoord.setXY(-1.0, -1.0);
 	mouseGlobalCoord.setXY(-1.0, -1.0);
 }
-
 
 void CreateMode::drawControls(QPainter* p) 
 {
@@ -235,7 +230,6 @@ void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 }
 
-
 void CreateMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
@@ -294,9 +288,9 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
 				m_doc->ApplyGuides(&nx, &ny,true);
-				if (nx!=np2.x())
+				if (nx != np2.x())
 					xSnap = nx;
-				if (ny!=np2.y())
+				if (ny != np2.y())
 					ySnap = ny;
 				// #8959 : suppress qRound here as this prevent drawing line with angle constrain
 				// precisely and does not allow to stick precisely to grid or guides
@@ -392,8 +386,6 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	inItemCreation = true;
 }
 
-
-
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	modifiers = m->modifiers();
@@ -437,8 +429,6 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	inItemCreation = false;
 }
-
-
 
 void CreateMode::selectPage(QMouseEvent *m)
 {
