@@ -9264,7 +9264,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		if (currItemTextCount > 0)
 		{
 			int start = currItem->asPathText() ? currItem->firstInFrame() : 0;
-			int stop  = currItem->asPathText() ? currItem->lastInFrame()+1 :  currItemTextCount;
+			int stop  = currItem->asPathText() ? currItem->lastInFrame() + 1 :  currItemTextCount;
 			if ((appMode == modeEdit) || (appMode == modeEditTable))
 			{
 				start = currItem->itemText.startOfSelection();
@@ -9272,7 +9272,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				if (start >= stop)
 					start = stop = currItem->itemText.normalizedCursorPosition();
 			}
-			for (int pos=start; pos < stop; ++pos)
+			for (int pos = start; pos < stop; ++pos)
 			{
 				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
 				{
@@ -9351,7 +9351,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				}
 			}
 			CharStyle lastParent = currItem->itemText.charStyle(start);
-			int stop = start+qMax(0,length);
+			int stop = start + qMax(0,length);
 			int lastPos = start;
 			for (int i = start; i <= stop; ++i)
 			{
