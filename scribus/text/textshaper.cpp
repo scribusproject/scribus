@@ -456,6 +456,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 			int firstStat = SpecialChars::getCJKAttr(m_story.text(firstChar));
 			int currStat  = (firstChar != lastChar) ? SpecialChars::getCJKAttr(m_story.text(lastChar)) : firstStat;
+			int prevStat  = (firstChar > 0) ? SpecialChars::getCJKAttr(m_story.text(firstChar - 1)) : 0;
 
 			if (firstStat & SpecialChars::CJK_NOBREAK_BEFORE)
 				run.setFlag(ScLayout_NoBreakBefore);
@@ -465,7 +466,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 			if ((firstChar > 0) && (firstStat != 0) && ((firstStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0))
 			{
-				int prevStat = SpecialChars::getCJKAttr(m_story.text(firstChar - 1));
 				if (prevStat != 0 && ((prevStat & SpecialChars::CJK_NOBREAK_AFTER) == 0))
 					run.setFlag(ScLayout_LineBoundary);
 			}
@@ -560,49 +560,52 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			}
 
 			// Apply CJK spacing according to JIS X4051
-			if (lastChar + 1 < m_story.length())
+			// https://www.w3.org/TR/jlreq/
+
+			// 1. add 1/4 aki (space) between a CJK letter and
+			//    - a latin letter
+			//    - an ASCII digit
+			if (firstChar > 0)
 			{
-				double halfEM = run.style().fontSize() / 10 / 2;
-				double quarterEM = run.style().fontSize() / 10 / 4;
-
-				int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
-
-				// 1. add 1/4 aki (space) between a CJK letter and
-				//    - a latin letter
-				//    - an ASCII Digits
-				if (currStat != 0)
+				if (prevStat == 0)
 				{
-					// current char is CJK
-					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(lastChar + 1).unicode()))
+					// <Latin> <<CJK>>
+					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(firstChar - 1).unicode()))
 					{
 						switch (currStat & SpecialChars::CJK_CHAR_MASK)
 						{
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								run.extraWidth += quarterEM;
+								run.setFlag(ScLayout_CJKLatinSpace);
 						}
 					}
 				}
 				else
 				{
-					// current char is not CJK
-					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(lastChar).unicode()))
+					// <CJK> <<Latin>>
+					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(firstChar).unicode()))
 					{
-						switch (nextStat & SpecialChars::CJK_CHAR_MASK)
+						switch (prevStat & SpecialChars::CJK_CHAR_MASK)
 						{
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								// use the size of the current char instead of the next one
-								run.extraWidth += quarterEM;
+								// use the size of the current Latin char
+								// instead of the previous CJK char
+								run.setFlag(ScLayout_CJKLatinSpace);
 						}
 					}
 				}
+			}
 
-				// 2. remove spaces from glyphs with the following CJK attributes
+			// 2. remove spaces from glyphs with the following CJK attributes
+			if (lastChar + 1 < m_story.length())
+			{
 				if (currStat != 0)
 				{	// current char is CJK
+					double halfEM = run.style().fontSize() / 10 / 2;
+					int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
 					switch (currStat & SpecialChars::CJK_CHAR_MASK)
 					{
 						case SpecialChars::CJK_FENCE_END:
@@ -636,7 +639,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 							break;
 
 						case SpecialChars::CJK_FENCE_BEGIN:
-							int prevStat = SpecialChars::getCJKAttr(m_story.text(lastChar - 1));
 							if ((prevStat & SpecialChars::CJK_CHAR_MASK) == SpecialChars::CJK_FENCE_BEGIN)
 							{
 								run.extraWidth -= halfEM;

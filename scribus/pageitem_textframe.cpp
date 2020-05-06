@@ -1643,6 +1643,14 @@ void PageItem_TextFrame::layout()
 
 //			glyphs->yadvance = 0;
 
+			// adjust space between CJK and Latin letter
+			if (!current.glyphs[currentIndex].hasFlag(ScLayout_StartOfLine) && current.glyphs[currentIndex].hasFlag(ScLayout_CJKLatinSpace))
+			{
+				double quaterEM = charStyle.fontSize() / 10 / 4;
+				current.glyphs[currentIndex].extraWidth += quaterEM;
+				current.glyphs[currentIndex].xoffset += quaterEM;
+			}
+
 			if (i == current.lineData.firstCluster && current.glyphs[currentIndex].hasFlag(ScLayout_CJKFence))
 			{
 				current.glyphs[currentIndex].extraWidth -= (charStyle.fontSize() / 10 / 2);
