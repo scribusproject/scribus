@@ -54,6 +54,34 @@ bool SpecialChars::isExpandingSpace(QChar c)
 	return c == BLANK || c == NBSPACE;
 }
 
+bool SpecialChars::isImplicitSpace(QChar c1, QChar c2)
+{
+	uint uni1 = c1.unicode();
+	uint uni2 = c2.unicode();
+	return isImplicitSpace(uni1, uni2);
+}
+
+bool SpecialChars::isImplicitSpace(uint c1, uint c2)
+{
+	// CJK characters side-by-side
+	bool isCJK1 = SpecialChars::isCJK(c1);
+	bool isCJK2 = SpecialChars::isCJK(c2);
+	if (!isCJK1 && !isCJK2)
+		return false;
+	if (isCJK1 && isCJK2)
+		return true;
+
+	// Not exactly implicit spaces but latin char before or after
+	// a CJK character behaves similarly to an implicit space
+	bool isLatin1 = SpecialChars::isLetterRequiringSpaceAroundCJK(c1);
+	if (isLatin1 && isCJK2)
+		return true;
+	bool isLatin2 = SpecialChars::isLetterRequiringSpaceAroundCJK(c2);
+	if (isCJK1 && isLatin2)
+		return true;
+	return false;
+}
+
 bool SpecialChars::isBreak(QChar c, bool includeColBreak)
 {
 	return (c == PARSEP 

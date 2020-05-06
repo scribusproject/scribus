@@ -449,9 +449,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			if (effects & ScStyle_UnderlineWords && !ch.isSpace())
 				run.setFlag(ScLayout_Underlined);
 
-			if (firstChar != 0 &&
-			    SpecialChars::isCJK(m_story.text(firstChar).unicode()) &&
-			    SpecialChars::isCJK(m_story.text(firstChar - 1).unicode()))
+			if (firstChar != 0 && SpecialChars::isImplicitSpace(m_story.text(firstChar - 1).unicode(), m_story.text(firstChar).unicode()))
 				run.setFlag(ScLayout_ImplicitSpace);
 
 			int firstStat = SpecialChars::getCJKAttr(m_story.text(firstChar));
@@ -542,7 +540,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 					m_contextNeeded = true;
 					if (m_context != nullptr)
 					{
-						
 						double smallcapsScale = m_context->typographicPrefs().valueSmallCaps / 100.0;
 						run.setScaleH(run.scaleH() * smallcapsScale);
 						run.setScaleV(run.scaleV() * smallcapsScale);
