@@ -38,14 +38,14 @@
 // @param levels The number of levels (>= 0)
 // @param data Input data of subband LL at level 0
 CWaveletTransform::CWaveletTransform(UINT32 width, UINT32 height, int levels, DataT* data) 
-: m_nLevels(levels + 1)
-, m_subband(0) 
+: m_nLevels(levels + 1) // m_nLevels in CPGFImage determines the number of FWT steps; this.m_nLevels determines the number subband-planes
+, m_subband(nullptr)
+#ifdef __PGFROISUPPORT__
+, m_indices(nullptr)
+#endif
 {
 	ASSERT(m_nLevels > 0 && m_nLevels <= MaxLevel + 1);
 	InitSubbands(width, height, data);
-#ifdef __PGFROISUPPORT__
-	m_ROIindices.SetLevels(levels + 1);
-#endif
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -77,11 +77,11 @@ void CWaveletTransform::InitSubbands(UINT32 width, UINT32 height, DataT* data) {
 
 //////////////////////////////////////////////////////////////////////////
 // Compute fast forward wavelet transform of LL subband at given level and
-// stores result on all 4 subbands of level + 1.
+// stores result in all 4 subbands of level + 1.
 // Wavelet transform used in writing a PGF file
 // Forward Transform of srcBand and split and store it into subbands on destLevel
-// high pass filter at even positions: 1/4(-2, 4, -2)
-// low pass filter at odd positions: 1/8(-1, 2, 6, 2, -1)
+// low pass filter at even positions: 1/8[-1, 2, (6), 2, -1]
+// high pass filter at odd positions: 1/4[-2, (4), -2]
 // @param level A wavelet transform pyramid level (>= 0 && < Levels())
 // @param quant A quantization value (linear scalar quantization)
 // @return error in case of a memory allocation problem
@@ -100,18 +100,17 @@ OSError CWaveletTransform::ForwardTransform(int level, int quant) {
 		if (!m_subband[destLevel][i].AllocMemory()) return InsufficientMemory;
 	}
 
- 	if (height >= FilterHeight) {
-		// transform LL subband
+ 	if (height >= FilterSize) { // changed from FilterSizeH to FilterSize
 		// top border handling
 		row0 = src; row1 = row0 + width; row2 = row1 + width;
 		ForwardRow(row0, width);
 		ForwardRow(row1, width);
 		ForwardRow(row2, width);
 		for (UINT32 k=0; k < width; k++) {
-			row1[k] -= ((row0[k] + row2[k] + c1) >> 1);
-			row0[k] += ((row1[k] + c1) >> 1);
+			row1[k] -= ((row0[k] + row2[k] + c1) >> 1); // high pass
+			row0[k] += ((row1[k] + c1) >> 1); // low pass
 		}
-		LinearToMallat(destLevel, row0, row1, width);
+		InterleavedToSubbands(destLevel, row0, row1, width);
 		row0 = row1; row1 = row2; row2 += width; row3 = row2 + width;
 
 		// middle part
@@ -119,27 +118,27 @@ OSError CWaveletTransform::ForwardTransform(int level, int quant) {
 			ForwardRow(row2, width);
 			ForwardRow(row3, width);
 			for (UINT32 k=0; k < width; k++) {
-				row2[k] -= ((row1[k] + row3[k] + c1) >> 1);
-				row1[k] += ((row0[k] + row2[k] + c2) >> 2);
+				row2[k] -= ((row1[k] + row3[k] + c1) >> 1); // high pass filter
+				row1[k] += ((row0[k] + row2[k] + c2) >> 2); // low pass filter
 			}
-			LinearToMallat(destLevel, row1, row2, width);
+			InterleavedToSubbands(destLevel, row1, row2, width);
 			row0 = row2; row1 = row3; row2 = row3 + width; row3 = row2 + width;
 		}
 
 		// bottom border handling
 		if (height & 1) {
 			for (UINT32 k=0; k < width; k++) {
-				row1[k] += ((row0[k] + c1) >> 1);
+				row1[k] += ((row0[k] + c1) >> 1); // low pass
 			}
-			LinearToMallat(destLevel, row1, NULL, width);
+			InterleavedToSubbands(destLevel, row1, nullptr, width);
 			row0 = row1; row1 += width;
 		} else {
 			ForwardRow(row2, width);
 			for (UINT32 k=0; k < width; k++) {
-				row2[k] -= row1[k];
-				row1[k] += ((row0[k] + row2[k] + c2) >> 2);
+				row2[k] -= row1[k]; // high pass
+				row1[k] += ((row0[k] + row2[k] + c2) >> 2); // low pass
 			}
-			LinearToMallat(destLevel, row1, row2, width);
+			InterleavedToSubbands(destLevel, row1, row2, width);
 			row0 = row1; row1 = row2; row2 += width;
 		}
 	} else {
@@ -149,12 +148,12 @@ OSError CWaveletTransform::ForwardTransform(int level, int quant) {
 		for (UINT32 k=0; k < height; k += 2) {
 			ForwardRow(row0, width);
 			ForwardRow(row1, width);
-			LinearToMallat(destLevel, row0, row1, width);
+			InterleavedToSubbands(destLevel, row0, row1, width);
 			row0 += width << 1; row1 += width << 1;
 		}
 		// bottom
 		if (height & 1) {
-			LinearToMallat(destLevel, row0, NULL, width);
+			InterleavedToSubbands(destLevel, row0, nullptr, width);
 		}
 	}
 
@@ -176,37 +175,37 @@ OSError CWaveletTransform::ForwardTransform(int level, int quant) {
 
 //////////////////////////////////////////////////////////////
 // Forward transform one row
-// high pass filter at even positions: 1/4(-2, 4, -2)
-// low pass filter at odd positions: 1/8(-1, 2, 6, 2, -1)
+// low pass filter at even positions: 1/8[-1, 2, (6), 2, -1]
+// high pass filter at odd positions: 1/4[-2, (4), -2]
 void CWaveletTransform::ForwardRow(DataT* src, UINT32 width) {
-	if (width >= FilterWidth) {
+	if (width >= FilterSize) {
 		UINT32 i = 3;
 
 		// left border handling
-		src[1] -= ((src[0] + src[2] + c1) >> 1);
-		src[0] += ((src[1] + c1) >> 1);
+		src[1] -= ((src[0] + src[2] + c1) >> 1); // high pass
+		src[0] += ((src[1] + c1) >> 1); // low pass
 		
 		// middle part
 		for (; i < width-1; i += 2) {
-			src[i] -= ((src[i-1] + src[i+1] + c1) >> 1);
-			src[i-1] += ((src[i-2] + src[i] + c2) >> 2);
+			src[i] -= ((src[i-1] + src[i+1] + c1) >> 1); // high pass
+			src[i-1] += ((src[i-2] + src[i] + c2) >> 2); // low pass
 		}
 
 		// right border handling
 		if (width & 1) {
-			src[i-1] += ((src[i-2] + c1) >> 1);
+			src[i-1] += ((src[i-2] + c1) >> 1); // low pass
 		} else {
-			src[i] -= src[i-1];
-			src[i-1] += ((src[i-2] + src[i] + c2) >> 2);
+			src[i] -= src[i-1]; // high pass
+			src[i-1] += ((src[i-2] + src[i] + c2) >> 2); // low pass
 		}
 	}
 }
 
 /////////////////////////////////////////////////////////////////
-// Copy transformed rows loRow and hiRow to subbands LL,HL,LH,HH
-void CWaveletTransform::LinearToMallat(int destLevel, DataT* loRow, DataT* hiRow, UINT32 width) {
+// Copy transformed and interleaved (L,H,L,H,...) rows loRow and hiRow to subbands LL,HL,LH,HH
+void CWaveletTransform::InterleavedToSubbands(int destLevel, DataT* loRow, DataT* hiRow, UINT32 width) {
 	const UINT32 wquot = width >> 1;
-	const bool wrem = width & 1;
+	const bool wrem = (width & 1);
 	CSubband &ll = m_subband[destLevel][LL], &hl = m_subband[destLevel][HL];
 	CSubband &lh = m_subband[destLevel][LH], &hh = m_subband[destLevel][HH];
 
@@ -235,8 +234,9 @@ void CWaveletTransform::LinearToMallat(int destLevel, DataT* loRow, DataT* hiRow
 // stores result in LL subband of level - 1.
 // Inverse wavelet transform used in reading a PGF file
 // Inverse Transform srcLevel and combine to destBand
-// inverse high pass filter for even positions: 1/4(-1, 4, -1)
-// inverse low pass filter for odd positions: 1/8(-1, 4, 6, 4, -1)
+// low-pass coefficients at even positions, high-pass coefficients at odd positions
+// inverse filter for even positions: 1/4[-1, (4), -1]
+// inverse filter for odd positions: 1/8[-1, 4, (6), 4, -1]
 // @param srcLevel A wavelet transform pyramid level (> 0 && <= Levels())
 // @param w [out] A pointer to the returned width of subband LL (in pixels)
 // @param h [out] A pointer to the returned height of subband LL (in pixels)
@@ -251,14 +251,14 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 
 	// allocate memory for the results of the inverse transform 
 	if (!destBand->AllocMemory()) return InsufficientMemory;
-	DataT *dest = destBand->GetBuffer(), *origin = dest, *row0, *row1, *row2, *row3;
+	DataT *origin = destBand->GetBuffer(), *row0, *row1, *row2, *row3;
 
 #ifdef __PGFROISUPPORT__
-	PGFRect destROI = destBand->GetROI();	// is valid only after AllocMemory
-	width = destROI.Width();
-	height = destROI.Height();
-	const UINT32 destWidth = width; // destination buffer width
-	const UINT32 destHeight = height; // destination buffer height
+	PGFRect destROI = destBand->GetAlignedROI();	
+	const UINT32 destWidth  = destROI.Width();  // destination buffer width
+	const UINT32 destHeight = destROI.Height(); // destination buffer height
+	width = destWidth;		// destination working width
+	height = destHeight;	// destination working height
 
 	// update destination ROI
 	if (destROI.top & 1) {
@@ -274,15 +274,15 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 
 	// init source buffer position
 	const UINT32 leftD = destROI.left >> 1;
-	const UINT32 left0 = m_subband[srcLevel][LL].GetROI().left;
-	const UINT32 left1 = m_subband[srcLevel][HL].GetROI().left;
+	const UINT32 left0 = m_subband[srcLevel][LL].GetAlignedROI().left;
+	const UINT32 left1 = m_subband[srcLevel][HL].GetAlignedROI().left;
 	const UINT32 topD = destROI.top >> 1;
-	const UINT32 top0 = m_subband[srcLevel][LL].GetROI().top;
-	const UINT32 top1 = m_subband[srcLevel][LH].GetROI().top;
-	ASSERT(m_subband[srcLevel][LH].GetROI().left == left0);
-	ASSERT(m_subband[srcLevel][HH].GetROI().left == left1);
-	ASSERT(m_subband[srcLevel][HL].GetROI().top == top0);
-	ASSERT(m_subband[srcLevel][HH].GetROI().top == top1);
+	const UINT32 top0 = m_subband[srcLevel][LL].GetAlignedROI().top;
+	const UINT32 top1 = m_subband[srcLevel][LH].GetAlignedROI().top;
+	ASSERT(m_subband[srcLevel][LH].GetAlignedROI().left == left0);
+	ASSERT(m_subband[srcLevel][HH].GetAlignedROI().left == left1);
+	ASSERT(m_subband[srcLevel][HL].GetAlignedROI().top == top0);
+	ASSERT(m_subband[srcLevel][HH].GetAlignedROI().top == top1);
 
 	UINT32 srcOffsetX[2] = { 0, 0 };
 	UINT32 srcOffsetY[2] = { 0, 0 };
@@ -323,7 +323,7 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 			srcOffsetY[1] = top0 - top1;
 		}
 	}
-		
+
 	m_subband[srcLevel][LL].InitBuffPos(srcOffsetX[0], srcOffsetY[0]);
 	m_subband[srcLevel][HL].InitBuffPos(srcOffsetX[1], srcOffsetY[0]);
 	m_subband[srcLevel][LH].InitBuffPos(srcOffsetX[0], srcOffsetY[1]);
@@ -337,26 +337,26 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 	const UINT32 destHeight = height; // destination buffer height
 
 	// init source buffer position
-	for (int i=0; i < NSubbands; i++) {
+	for (int i = 0; i < NSubbands; i++) {
 		m_subband[srcLevel][i].InitBuffPos();
 	}
 #endif
 
-	if (destHeight >= FilterHeight) {
+	if (destHeight >= FilterSize) { // changed from FilterSizeH to FilterSize
 		// top border handling
 		row0 = origin; row1 = row0 + destWidth;
-		MallatToLinear(srcLevel, row0, row1, width);
-		for (UINT32 k=0; k < width; k++) {
-			row0[k] -= ((row1[k] + c1) >> 1);
+		SubbandsToInterleaved(srcLevel, row0, row1, width);
+		for (UINT32 k = 0; k < width; k++) {
+			row0[k] -= ((row1[k] + c1) >> 1); // even
 		}
 
 		// middle part
 		row2 = row1 + destWidth; row3 = row2 + destWidth;
-		for (UINT32 i=destROI.top + 2; i < destROI.bottom - 1; i += 2) {
-			MallatToLinear(srcLevel, row2, row3, width);
-			for (UINT32 k=0; k < width; k++) {
-				row2[k] -= ((row1[k] + row3[k] + c2) >> 2);
-				row1[k] += ((row0[k] + row2[k] + c1) >> 1);
+		for (UINT32 i = destROI.top + 2; i < destROI.bottom - 1; i += 2) {
+			SubbandsToInterleaved(srcLevel, row2, row3, width);
+			for (UINT32 k = 0; k < width; k++) {
+				row2[k] -= ((row1[k] + row3[k] + c2) >> 2); // even
+				row1[k] += ((row0[k] + row2[k] + c1) >> 1); // odd
 			}
 			InverseRow(row0, width);
 			InverseRow(row1, width);
@@ -365,17 +365,17 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 
 		// bottom border handling
 		if (height & 1) {
-			MallatToLinear(srcLevel, row2, NULL, width);
-			for (UINT32 k=0; k < width; k++) {
-				row2[k] -= ((row1[k] + c1) >> 1);
-				row1[k] += ((row0[k] + row2[k] + c1) >> 1);
+			SubbandsToInterleaved(srcLevel, row2, nullptr, width);
+			for (UINT32 k = 0; k < width; k++) {
+				row2[k] -= ((row1[k] + c1) >> 1); // even
+				row1[k] += ((row0[k] + row2[k] + c1) >> 1); // odd
 			}
 			InverseRow(row0, width);
 			InverseRow(row1, width);
 			InverseRow(row2, width);
 			row0 = row1; row1 = row2; row2 += destWidth;
 		} else {
-			for (UINT32 k=0; k < width; k++) {
+			for (UINT32 k = 0; k < width; k++) {
 				row1[k] += row0[k];
 			}
 			InverseRow(row0, width);
@@ -386,63 +386,64 @@ OSError CWaveletTransform::InverseTransform(int srcLevel, UINT32* w, UINT32* h, 
 		// height is too small
 		row0 = origin; row1 = row0 + destWidth;
 		// first part
-		for (UINT32 k=0; k < height; k += 2) {
-			MallatToLinear(srcLevel, row0, row1, width);
+		for (UINT32 k = 0; k < height; k += 2) {
+			SubbandsToInterleaved(srcLevel, row0, row1, width);
 			InverseRow(row0, width);
 			InverseRow(row1, width);
 			row0 += destWidth << 1; row1 += destWidth << 1;
 		}
 		// bottom
 		if (height & 1) {
-			MallatToLinear(srcLevel, row0, NULL, width);
+			SubbandsToInterleaved(srcLevel, row0, nullptr, width);
 			InverseRow(row0, width);
-		} 
+		}
 	}
 
 	// free memory of the current srcLevel
-	for (int i=0; i < NSubbands; i++) {
+	for (int i = 0; i < NSubbands; i++) {
 		m_subband[srcLevel][i].FreeMemory();
 	}
 
 	// return info
 	*w = destWidth;
-	*h = height;
-	*data = dest;
+	*h = destHeight;
+	*data = destBand->GetBuffer();
 	return NoError;
 }
 
 //////////////////////////////////////////////////////////////////////
 // Inverse Wavelet Transform of one row
-// inverse high pass filter for even positions: 1/4(-1, 4, -1)
-// inverse low pass filter for odd positions: 1/8(-1, 4, 6, 4, -1)
+// low-pass coefficients at even positions, high-pass coefficients at odd positions
+// inverse filter for even positions: 1/4[-1, (4), -1]
+// inverse filter for odd positions: 1/8[-1, 4, (6), 4, -1]
 void CWaveletTransform::InverseRow(DataT* dest, UINT32 width) {
-	if (width >= FilterWidth) {
+	if (width >= FilterSize) {
 		UINT32 i = 2;
 
 		// left border handling
-		dest[0] -= ((dest[1] + c1) >> 1);
+		dest[0] -= ((dest[1] + c1) >> 1); // even
 
 		// middle part
 		for (; i < width - 1; i += 2) {
-			dest[i] -= ((dest[i-1] + dest[i+1] + c2) >> 2);
-			dest[i-1] += ((dest[i-2] + dest[i] + c1) >> 1);
+			dest[i] -= ((dest[i-1] + dest[i+1] + c2) >> 2); // even
+			dest[i-1] += ((dest[i-2] + dest[i] + c1) >> 1); // odd
 		}
 
 		// right border handling
 		if (width & 1) {
-			dest[i] -= ((dest[i-1] + c1) >> 1);
-			dest[i-1] += ((dest[i-2] + dest[i] + c1) >> 1);
+			dest[i] -= ((dest[i-1] + c1) >> 1); // even
+			dest[i-1] += ((dest[i-2] + dest[i] + c1) >> 1); // odd
 		} else {
-			dest[i-1] += dest[i-2];
+			dest[i-1] += dest[i-2]; // odd
 		}
 	}
 }
 
 ///////////////////////////////////////////////////////////////////
-// Copy transformed coefficients from subbands LL,HL,LH,HH to interleaved format
-void CWaveletTransform::MallatToLinear(int srcLevel, DataT* loRow, DataT* hiRow, UINT32 width) {
+// Copy transformed coefficients from subbands LL,HL,LH,HH to interleaved format (L,H,L,H,...)
+void CWaveletTransform::SubbandsToInterleaved(int srcLevel, DataT* loRow, DataT* hiRow, UINT32 width) {
 	const UINT32 wquot = width >> 1;
-	const bool wrem = width & 1;
+	const bool wrem = (width & 1);
 	CSubband &ll = m_subband[srcLevel][LL], &hl = m_subband[srcLevel][HL];
 	CSubband &lh = m_subband[srcLevel][LH], &hh = m_subband[srcLevel][HH];
 
@@ -512,99 +513,57 @@ void CWaveletTransform::MallatToLinear(int srcLevel, DataT* loRow, DataT* hiRow,
 
 #ifdef __PGFROISUPPORT__
 //////////////////////////////////////////////////////////////////////
-/// Compute and store ROIs for each level
-/// @param rect rectangular region of interest (ROI)
-void CWaveletTransform::SetROI(const PGFRect& rect) {
+/// Compute and store ROIs for nLevels
+/// @param roi rectangular region of interest at level 0
+void CWaveletTransform::SetROI(PGFRect roi) {
+	const UINT32 delta = (FilterSize >> 1) << m_nLevels;
+
 	// create tile indices
-	m_ROIindices.CreateIndices();
+	delete[] m_indices;
+	m_indices = new PGFRect[m_nLevels];
 
-	// compute tile indices
-	m_ROIindices.ComputeIndices(m_subband[0][LL].GetWidth(), m_subband[0][LL].GetHeight(), rect);
+	// enlarge rect: add margin
+	roi.left = (roi.left > delta) ? roi.left - delta : 0;
+	roi.top  = (roi.top  > delta) ? roi.top  - delta : 0;
+	roi.right += delta; 
+	roi.bottom += delta; 
 
-	// compute ROIs
-	UINT32 w, h;
-	PGFRect r;
+	for (int l = 0; l < m_nLevels; l++) {
+		PGFRect alignedROI;
+		PGFRect& indices = m_indices[l];
+		UINT32 nTiles = GetNofTiles(l);
+		CSubband& subband = m_subband[l][LL];
 
-	for (int i=0; i < m_nLevels; i++) {
-		const PGFRect& indices = m_ROIindices.GetIndices(i);
+		// use roi to determine the necessary tile indices (for all subbands the same) and aligned ROI for LL subband
+		subband.SetNTiles(nTiles); // must be called before TileIndex()
+		subband.TileIndex(true, roi.left, roi.top, indices.left, indices.top, alignedROI.left, alignedROI.top);
+		subband.TileIndex(false, roi.right, roi.bottom, indices.right, indices.bottom, alignedROI.right, alignedROI.bottom);
+		subband.SetAlignedROI(alignedROI);
+		ASSERT(l == 0 ||
+			(m_indices[l-1].left >= 2*m_indices[l].left &&
+			m_indices[l-1].top >= 2*m_indices[l].top &&
+			m_indices[l-1].right <= 2*m_indices[l].right &&
+			m_indices[l-1].bottom <= 2*m_indices[l].bottom));
 
-		for (int o=0; o < NSubbands; o++) {
-			CSubband& subband = m_subband[i][o];
-
-			subband.SetNTiles(m_ROIindices.GetNofTiles(i)); // must be called before TilePosition()
-			subband.TilePosition(indices.left, indices.top, r.left, r.top, w, h);
-			subband.TilePosition(indices.right - 1, indices.bottom - 1, r.right, r.bottom, w, h);
-			r.right += w;
-			r.bottom += h;
-			subband.SetROI(r);
-		}
-	}
-}
-
-/////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////
-void CRoiIndices::CreateIndices() {
-	if (!m_indices) {
-		// create tile indices 
-		m_indices = new PGFRect[m_nLevels];
-	}
-}
-
-//////////////////////////////////////////////////////////////////////
-/// Computes a tile index either in x- or y-direction for a given image position.
-/// @param width PGF image width
-/// @param height PGF image height
-/// @param pos A valid image position: (0 <= pos < width) or (0 <= pos < height)
-/// @param horizontal If true, then pos must be a x-value, otherwise a y-value
-/// @param isMin If true, then pos is left/top, else pos right/bottom
-void CRoiIndices::ComputeTileIndex(UINT32 width, UINT32 height, UINT32 pos, bool horizontal, bool isMin) {
-	ASSERT(m_indices);
-
-	UINT32 m;
-	UINT32 tileIndex = 0;
-	UINT32 tileMin = 0, tileMax = (horizontal) ? width : height;
-	ASSERT(pos <= tileMax);
-
-	// compute tile index with binary search
-	for (int i=m_nLevels - 1; i >= 0; i--) {
-		// store values
-		if (horizontal) {
-			if (isMin) {
-				m_indices[i].left = tileIndex;
-			} else {
-				m_indices[i].right = tileIndex + 1;
-			}
-		} else {
-			if (isMin) {
-				m_indices[i].top = tileIndex;
-			} else {
-				m_indices[i].bottom = tileIndex + 1;
-			}
+		// determine aligned ROI of other three subbands
+		PGFRect aroi;
+		UINT32 w, h;
+		for (int b = 1; b < NSubbands; b++) {
+			CSubband& sb = m_subband[l][b];
+			sb.SetNTiles(nTiles); // must be called before TilePosition()
+			sb.TilePosition(indices.left, indices.top, aroi.left, aroi.top, w, h);
+			sb.TilePosition(indices.right - 1, indices.bottom - 1, aroi.right, aroi.bottom, w, h);
+			aroi.right += w;
+			aroi.bottom += h;
+			sb.SetAlignedROI(aroi);
 		}
 
-		// compute values
-		tileIndex <<= 1;
-		m = tileMin + (tileMax - tileMin)/2;
-		if (pos >= m) {
-			tileMin = m;
-			tileIndex++;
-		} else {
-			tileMax = m;
-		}
+		// use aligned ROI of LL subband for next level
+		roi.left = alignedROI.left >> 1;
+		roi.top = alignedROI.top >> 1;
+		roi.right = (alignedROI.right + 1) >> 1;
+		roi.bottom = (alignedROI.bottom + 1) >> 1;
 	}
-}
-
-/////////////////////////////////////////////////////////////////////
-/// Compute tile indices for given rectangle (ROI)
-/// @param width PGF image width
-/// @param height PGF image height
-/// @param rect ROI
-void CRoiIndices::ComputeIndices(UINT32 width, UINT32 height, const PGFRect& rect) {
-	ComputeTileIndex(width, height, rect.left, true, true);
-	ComputeTileIndex(width, height, rect.top, false, true);
-	ComputeTileIndex(width, height, rect.right, true, false);
-	ComputeTileIndex(width, height, rect.bottom, false, false);
 }
 
 #endif // __PGFROISUPPORT__

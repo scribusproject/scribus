@@ -34,7 +34,7 @@
 //////////////////////////////////////////////////////
 // PGF: file structure
 //
-// PGFPreHeader PGFHeader PGFPostHeader LevelLengths Level_n-1 Level_n-2 ... Level_0
+// PGFPreHeader PGFHeader [PGFPostHeader] LevelLengths Level_n-1 Level_n-2 ... Level_0
 // PGFPostHeader ::= [ColorTable] [UserData]
 // LevelLengths  ::= UINT32[nLevels]
 
@@ -67,7 +67,7 @@
 /// @param postHeader [in] An already filled in PGF post-header (containing color table, user data, ...)
 /// @param userDataPos [out] File position of user data
 /// @param useOMP If true, then the encoder will use multi-threading based on openMP
-CEncoder::CEncoder(CPGFStream* stream, PGFPreHeader preHeader, PGFHeader header, const PGFPostHeader& postHeader, UINT64& userDataPos, bool useOMP) THROW_
+CEncoder::CEncoder(CPGFStream* stream, PGFPreHeader preHeader, PGFHeader header, const PGFPostHeader& postHeader, UINT64& userDataPos, bool useOMP)
 : m_stream(stream)
 , m_bufferStartPos(0)
 , m_currLevelIndex(0)
@@ -82,7 +82,7 @@ CEncoder::CEncoder(CPGFStream* stream, PGFPreHeader preHeader, PGFHeader header,
 
 	int count;
 	m_lastMacroBlock = 0;
-	m_levelLength = NULL;
+	m_levelLength = nullptr;
 
 	// set number of threads
 #ifdef LIBPGF_USE_OPENMP
@@ -157,12 +157,12 @@ CEncoder::~CEncoder() {
 /// Increase post-header size and write new size into stream.
 /// @param preHeader An already filled in PGF pre-header
 /// It might throw an IOException.
-void CEncoder::UpdatePostHeaderSize(PGFPreHeader preHeader) THROW_ {
+void CEncoder::UpdatePostHeaderSize(PGFPreHeader preHeader) {
 	UINT64 curPos = m_stream->GetPos(); // end of user data
 	int count = PreHeaderSize;
 
 	// write preHeader
-	m_stream->SetPos(FSFromStart, m_startPosition);
+	SetStreamPosToStart();
 	preHeader.hSize = __VAL(preHeader.hSize);
 	m_stream->Write(&count, &preHeader);
 
@@ -174,7 +174,7 @@ void CEncoder::UpdatePostHeaderSize(PGFPreHeader preHeader) THROW_ {
 /// It might throw an IOException.
 /// @param levelLength A reference to an integer array, large enough to save the relative file positions of all PGF levels
 /// @return number of bytes written into stream
-UINT32 CEncoder::WriteLevelLength(UINT32*& levelLength) THROW_ {
+UINT32 CEncoder::WriteLevelLength(UINT32*& levelLength) {
 	// renew levelLength
 	delete[] levelLength;
 	levelLength = new(std::nothrow) UINT32[m_nLevels];
@@ -199,7 +199,7 @@ UINT32 CEncoder::WriteLevelLength(UINT32*& levelLength) THROW_ {
 /// Write new levelLength into stream.
 /// It might throw an IOException.
 /// @return Written image bytes.
-UINT32 CEncoder::UpdateLevelLength() THROW_ {
+UINT32 CEncoder::UpdateLevelLength() {
 	UINT64 curPos = m_stream->GetPos(); // end of image
 
 	// set file pos to levelLength
@@ -243,7 +243,7 @@ UINT32 CEncoder::UpdateLevelLength() THROW_ {
 /// @param height The height of the rectangle
 /// @param startPos The absolute subband position of the top left corner of the rectangular region
 /// @param pitch The number of bytes in row of the subband
-void CEncoder::Partition(CSubband* band, int width, int height, int startPos, int pitch) THROW_ {
+void CEncoder::Partition(CSubband* band, int width, int height, int startPos, int pitch) {
 	ASSERT(band);
 
 	const div_t hh = div(height, LinBlockSize);
@@ -307,7 +307,7 @@ void CEncoder::Partition(CSubband* band, int width, int height, int startPos, in
 //////////////////////////////////////////////////////
 /// Pad buffer with zeros and encode buffer.
 /// It might throw an IOException.
-void CEncoder::Flush() THROW_ {
+void CEncoder::Flush() {
 	if (m_currentBlock->m_valuePos > 0) {
 		// pad buffer with zeros
 		memset(&(m_currentBlock->m_value[m_currentBlock->m_valuePos]), 0, (BufferSize - m_currentBlock->m_valuePos)*DataTSize);
@@ -323,7 +323,7 @@ void CEncoder::Flush() THROW_ {
 // Stores band value from given position bandPos into buffer m_value at position m_valuePos
 // If buffer is full encode it to file
 // It might throw an IOException.
-void CEncoder::WriteValue(CSubband* band, int bandPos) THROW_ {
+void CEncoder::WriteValue(CSubband* band, int bandPos) {
 	if (m_currentBlock->m_valuePos == BufferSize) {
 		EncodeBuffer(ROIBlockHeader(BufferSize, false));
 	}
@@ -338,7 +338,7 @@ void CEncoder::WriteValue(CSubband* band, int bandPos) THROW_ {
 // Encoding scheme: <wordLen>(16 bits) [ ROI ] data
 //		ROI	  ::= <bufferSize>(15 bits) <eofTile>(1 bit)
 // It might throw an IOException.
-void CEncoder::EncodeBuffer(ROIBlockHeader h) THROW_ {
+void CEncoder::EncodeBuffer(ROIBlockHeader h) {
 	ASSERT(m_currentBlock);
 #ifdef __PGFROISUPPORT__
 	ASSERT(m_roi && h.rbh.bufferSize <= BufferSize || h.rbh.bufferSize == BufferSize);
@@ -403,7 +403,7 @@ void CEncoder::EncodeBuffer(ROIBlockHeader h) THROW_ {
 /////////////////////////////////////////////////////////////////////
 // Write encoded macro block into stream.
 // It might throw an IOException.
-void CEncoder::WriteMacroBlock(CMacroBlock* block) THROW_ {
+void CEncoder::WriteMacroBlock(CMacroBlock* block) {
 	ASSERT(block);
 #ifdef __PGFROISUPPORT__
 	ROIBlockHeader h = block->m_header;
@@ -424,8 +424,9 @@ void CEncoder::WriteMacroBlock(CMacroBlock* block) THROW_ {
 #ifdef __PGFROISUPPORT__
 	// write ROIBlockHeader
 	if (m_roi) {
+		count = sizeof(ROIBlockHeader);
 		h.val = __VAL(h.val);
-		m_stream->Write(&count, &h.val); ASSERT(count == sizeof(UINT16));
+		m_stream->Write(&count, &h.val); ASSERT(count == sizeof(ROIBlockHeader));
 	}
 #endif // __PGFROISUPPORT__
 
@@ -440,7 +441,8 @@ void CEncoder::WriteMacroBlock(CMacroBlock* block) THROW_ {
 #ifdef __PGFROISUPPORT__
 	// write ROIBlockHeader
 	if (m_roi) {
-		m_stream->Write(&count, &h.val); ASSERT(count == sizeof(UINT16));
+		count = sizeof(ROIBlockHeader);
+		m_stream->Write(&count, &h.val); ASSERT(count == sizeof(ROIBlockHeader));
 	}
 #endif // __PGFROISUPPORT__
 #endif // PGF_USE_BIG_ENDIAN

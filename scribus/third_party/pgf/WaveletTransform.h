@@ -34,8 +34,9 @@
 
 //////////////////////////////////////////////////////////////////////
 // Constants
-#define FilterWidth			5					///< number of coefficients of the row wavelet filter
-#define FilterHeight		3					///< number of coefficients of the column wavelet filter
+const UINT32 FilterSizeL = 5;					///< number of coefficients of the low pass filter
+const UINT32 FilterSizeH = 3;					///< number of coefficients of the high pass filter
+const UINT32 FilterSize = __max(FilterSizeL, FilterSizeH);
 
 #ifdef __PGFROISUPPORT__
 //////////////////////////////////////////////////////////////////////
@@ -43,36 +44,6 @@
 /// @author C. Stamm
 /// @brief ROI indices
 class CRoiIndices {
-	friend class CWaveletTransform;
-
-	//////////////////////////////////////////////////////////////////////
-	/// Constructor: Creates a ROI helper object
-	CRoiIndices() 
-	: m_nLevels(0)
-	, m_indices(0) 
-	{}
-
-	//////////////////////////////////////////////////////////////////////
-	/// Destructor
-	~CRoiIndices() { Destroy(); }
-
-	void Destroy()								{ delete[] m_indices; m_indices = 0; }
-	void CreateIndices();
-	void ComputeIndices(UINT32 width, UINT32 height, const PGFRect& rect);
-	const PGFRect& GetIndices(int level) const	{ ASSERT(m_indices); ASSERT(level >= 0 && level < m_nLevels); return m_indices[level]; }
-	void SetLevels(int levels)					{ ASSERT(levels > 0); m_nLevels = levels; }
-	void ComputeTileIndex(UINT32 width, UINT32 height, UINT32 pos, bool horizontal, bool isMin);
-
-public:
-	//////////////////////////////////////////////////////////////////////
-	/// Returns the number of tiles in one dimension at given level.
-	/// @param level A wavelet transform pyramid level (>= 0 && < Levels())
-	UINT32 GetNofTiles(int level) const			{ ASSERT(level >= 0 && level < m_nLevels); return 1 << (m_nLevels - level - 1); }
-
-private:
-	int      m_nLevels;			///< number of levels of the image
-	PGFRect *m_indices;			///< array of tile indices (index is level)
-
 };
 #endif //__PGFROISUPPORT__
 
@@ -91,7 +62,7 @@ public:
 	/// @param height The height of the original image (at level 0) in pixels
 	/// @param levels The number of levels (>= 0)
 	/// @param data Input data of subband LL at level 0
-	CWaveletTransform(UINT32 width, UINT32 height, int levels, DataT* data = NULL);
+	CWaveletTransform(UINT32 width, UINT32 height, int levels, DataT* data = nullptr);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Destructor
@@ -99,7 +70,7 @@ public:
 	
 	//////////////////////////////////////////////////////////////////////
 	/// Compute fast forward wavelet transform of LL subband at given level and
-	/// stores result on all 4 subbands of level + 1.
+	/// stores result in all 4 subbands of level + 1.
 	/// @param level A wavelet transform pyramid level (>= 0 && < Levels())
 	/// @param quant A quantization value (linear scalar quantization)
 	/// @return error in case of a memory allocation problem
@@ -126,45 +97,48 @@ public:
 	
 #ifdef __PGFROISUPPORT__
 	//////////////////////////////////////////////////////////////////////
-	/// Compute and store ROIs for each level
-	/// @param rect rectangular region of interest (ROI)
-	void SetROI(const PGFRect& rect);
+	/// Compute and store ROIs for nLevels
+	/// @param rect rectangular region of interest (ROI) at level 0
+	void SetROI(PGFRect rect);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Get tile indices of a ROI at given level.
+	/// Checks the relevance of a given tile at given level.
 	/// @param level A valid subband level.
-	const PGFRect& GetTileIndices(int level) const		{ return m_ROIindices.GetIndices(level); }
+	/// @param tileX x-index of the given tile
+	/// @param tileY y-index of the given tile
+	const bool TileIsRelevant(int level, UINT32 tileX, UINT32 tileY) const { ASSERT(m_indices); ASSERT(level >= 0 && level < m_nLevels); return m_indices[level].IsInside(tileX, tileY); }
 
 	//////////////////////////////////////////////////////////////////////
-	/// Get number of tiles in x- or y-direction at given level.
+	/// Get number of tiles in x- or y-direction at given level. 
+	/// This number is independent of the given ROI.
 	/// @param level A valid subband level.
-	UINT32 GetNofTiles(int level) const					{ return m_ROIindices.GetNofTiles(level); }
+	UINT32 GetNofTiles(int level) const { ASSERT(level >= 0 && level < m_nLevels); return 1 << (m_nLevels - level - 1); }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return ROI at given level.
 	/// @param level A valid subband level.
-	const PGFRect& GetROI(int level) const				{ return m_subband[level][LL].GetROI(); }
+	const PGFRect& GetAlignedROI(int level) const		{ return m_subband[level][LL].GetAlignedROI(); }
 
 #endif // __PGFROISUPPORT__
 
 private:
 	void Destroy() { 
-		delete[] m_subband; m_subband = 0; 
+		delete[] m_subband; m_subband = nullptr;
 	#ifdef __PGFROISUPPORT__
-		m_ROIindices.Destroy(); 
+		delete[] m_indices; m_indices = nullptr;
 	#endif
 	}
 	void InitSubbands(UINT32 width, UINT32 height, DataT* data);
 	void ForwardRow(DataT* buff, UINT32 width);
 	void InverseRow(DataT* buff, UINT32 width);
-	void LinearToMallat(int destLevel,DataT* loRow, DataT* hiRow, UINT32 width);
-	void MallatToLinear(int srcLevel, DataT* loRow, DataT* hiRow, UINT32 width);
+	void InterleavedToSubbands(int destLevel, DataT* loRow, DataT* hiRow, UINT32 width);
+	void SubbandsToInterleaved(int srcLevel, DataT* loRow, DataT* hiRow, UINT32 width);
 
 #ifdef __PGFROISUPPORT__
-	CRoiIndices		m_ROIindices;				///< ROI indices 
+	PGFRect *m_indices;							///< array of length m_nLevels of tile indices
 #endif //__PGFROISUPPORT__
 
-	int			m_nLevels;						///< number of transform levels: one more than the number of level in PGFimage
+	int			m_nLevels;						///< number of LL levels: one more than header.nLevels in PGFimage
 	CSubband	(*m_subband)[NSubbands];		///< quadtree of subbands: LL HL LH HH
 };
 

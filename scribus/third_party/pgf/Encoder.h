@@ -54,9 +54,7 @@ class CEncoder {
 		/// Constructor: Initializes new macro block.
 		/// @param encoder Pointer to outer class.
 		CMacroBlock(CEncoder *encoder)
-#if defined(WIN32) || defined(WINCE) || defined(WIN64)
 #pragma warning( suppress : 4351 )
-#endif
 		: m_value()
 		, m_codeBuffer()
 		, m_header(0)
@@ -112,7 +110,7 @@ public:
 	/// @param userDataPos [out] File position of user data
 	/// @param useOMP If true, then the encoder will use multi-threading based on openMP
 	CEncoder(CPGFStream* stream, PGFPreHeader preHeader, PGFHeader header, const PGFPostHeader& postHeader, 
-		UINT64& userDataPos, bool useOMP) THROW_; // throws IOException
+		UINT64& userDataPos, bool useOMP); // throws IOException
 
 	/////////////////////////////////////////////////////////////////////
 	/// Destructor
@@ -125,26 +123,26 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	/// Pad buffer with zeros and encode buffer.
 	/// It might throw an IOException.
-	void Flush() THROW_;
+	void Flush();
 
 	/////////////////////////////////////////////////////////////////////
 	/// Increase post-header size and write new size into stream.
 	/// @param preHeader An already filled in PGF pre-header
 	/// It might throw an IOException.
-	void UpdatePostHeaderSize(PGFPreHeader preHeader) THROW_;
+	void UpdatePostHeaderSize(PGFPreHeader preHeader);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Create level length data structure and write a place holder into stream.
 	/// It might throw an IOException.
 	/// @param levelLength A reference to an integer array, large enough to save the relative file positions of all PGF levels
 	/// @return number of bytes written into stream
-	UINT32 WriteLevelLength(UINT32*& levelLength) THROW_;
+	UINT32 WriteLevelLength(UINT32*& levelLength);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Write new levelLength into stream.
 	/// It might throw an IOException.
 	/// @return Written image bytes.
-	UINT32 UpdateLevelLength() THROW_;
+	UINT32 UpdateLevelLength();
 
 	/////////////////////////////////////////////////////////////////////
 	/// Partitions a rectangular region of a given subband.
@@ -156,7 +154,7 @@ public:
 	/// @param height The height of the rectangle
 	/// @param startPos The absolute subband position of the top left corner of the rectangular region
 	/// @param pitch The number of bytes in row of the subband
-	void Partition(CSubband* band, int width, int height, int startPos, int pitch) THROW_;
+	void Partition(CSubband* band, int width, int height, int startPos, int pitch);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Informs the encoder about the encoded level. 
@@ -168,7 +166,7 @@ public:
 	/// It might throw an IOException.
 	/// @param band A subband
 	/// @param bandPos A valid position in subband band
-	void WriteValue(CSubband* band, int bandPos) THROW_;
+	void WriteValue(CSubband* band, int bandPos);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Compute stream length of header.
@@ -185,6 +183,10 @@ public:
 	/// @return file offset
 	INT64 ComputeOffset() const { return m_stream->GetPos() - m_levelLengthPos; }
 
+	////////////////////////////////////////////////////////////////////
+	/// Resets stream position to beginning of PGF pre-header
+	void SetStreamPosToStart() { ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPosition); }
+
 	/////////////////////////////////////////////////////////////////////
 	/// Save current stream position as beginning of current level.
 	void SetBufferStartPos() { m_bufferStartPos = m_stream->GetPos(); }
@@ -193,7 +195,7 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	/// Encodes tile buffer and writes it into stream
 	/// It might throw an IOException.
-	void EncodeTileBuffer() THROW_	{ ASSERT(m_currentBlock && m_currentBlock->m_valuePos >= 0 && m_currentBlock->m_valuePos <= BufferSize); EncodeBuffer(ROIBlockHeader(m_currentBlock->m_valuePos, true)); }
+	void EncodeTileBuffer()	{ ASSERT(m_currentBlock && m_currentBlock->m_valuePos >= 0 && m_currentBlock->m_valuePos <= BufferSize); EncodeBuffer(ROIBlockHeader(m_currentBlock->m_valuePos, true)); }
 
 	/////////////////////////////////////////////////////////////////////
 	/// Enables region of interest (ROI) status.
@@ -205,8 +207,8 @@ public:
 #endif
 
 private:
-	void EncodeBuffer(ROIBlockHeader h) THROW_; // throws IOException
-	void WriteMacroBlock(CMacroBlock* block) THROW_; // throws IOException
+	void EncodeBuffer(ROIBlockHeader h); // throws IOException
+	void WriteMacroBlock(CMacroBlock* block); // throws IOException
 
 	CPGFStream *m_stream;						///< output PMF stream
 	UINT64	m_startPosition;					///< stream position of PGF start (PreHeader)

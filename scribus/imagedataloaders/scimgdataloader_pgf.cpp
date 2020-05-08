@@ -194,7 +194,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 				pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
 			}
 		}
-		pgfImg.Close();
+		pgfImg.Destroy();
 #ifdef WIN32
 		CloseHandle(fd);
 #else

@@ -38,8 +38,8 @@ CSubband::CSubband()
 , m_size(0)
 , m_level(0)
 , m_orientation(LL)
-, m_dataPos(0)
 , m_data(0)
+, m_dataPos(0)
 #ifdef __PGFROISUPPORT__
 , m_nTiles(0)
 #endif
@@ -174,7 +174,7 @@ void CSubband::Dequantize(int quantParam) {
 /// @param tile True if just a rectangular region is extracted, false if the entire subband is extracted.
 /// @param tileX Tile index in x-direction
 /// @param tileY Tile index in y-direction
-void CSubband::ExtractTile(CEncoder& encoder, bool tile /*= false*/, UINT32 tileX /*= 0*/, UINT32 tileY /*= 0*/) THROW_ {
+void CSubband::ExtractTile(CEncoder& encoder, bool tile /*= false*/, UINT32 tileX /*= 0*/, UINT32 tileY /*= 0*/) {
 #ifdef __PGFROISUPPORT__
 	if (tile) {
 		// compute tile position and size
@@ -186,6 +186,7 @@ void CSubband::ExtractTile(CEncoder& encoder, bool tile /*= false*/, UINT32 tile
 	} else 
 #endif
 	{
+		tileX; tileY; tile; // prevents from unreferenced formal parameter warning
 		// write values into buffer using partitiong scheme
 		encoder.Partition(this, m_width, m_height, 0, m_width);
 	}
@@ -199,7 +200,7 @@ void CSubband::ExtractTile(CEncoder& encoder, bool tile /*= false*/, UINT32 tile
 /// @param tile True if just a rectangular region is placed, false if the entire subband is placed.
 /// @param tileX Tile index in x-direction
 /// @param tileY Tile index in y-direction
-void CSubband::PlaceTile(CDecoder& decoder, int quantParam, bool tile /*= false*/, UINT32 tileX /*= 0*/, UINT32 tileY /*= 0*/) THROW_ {
+void CSubband::PlaceTile(CDecoder& decoder, int quantParam, bool tile /*= false*/, UINT32 tileX /*= 0*/, UINT32 tileY /*= 0*/) {
 	// allocate memory
 	if (!AllocMemory()) ReturnWithError(InsufficientMemory);
 
@@ -225,6 +226,7 @@ void CSubband::PlaceTile(CDecoder& decoder, int quantParam, bool tile /*= false*
 	} else 
 #endif
 	{
+		tileX; tileY; tile; // prevents from unreferenced formal parameter warning
 		// read values into buffer using partitiong scheme
 		decoder.Partition(this, quantParam, m_width, m_height, 0, m_width);
 	}
@@ -234,6 +236,17 @@ void CSubband::PlaceTile(CDecoder& decoder, int quantParam, bool tile /*= false*
 
 #ifdef __PGFROISUPPORT__
 //////////////////////////////////////////////////////////////////////
+/// Set ROI
+void CSubband::SetAlignedROI(const PGFRect& roi) {
+	ASSERT(roi.left <= m_width); 
+	ASSERT(roi.top <= m_height); 
+	
+	m_ROI = roi; 
+	if (m_ROI.right > m_width) m_ROI.right = m_width; 
+	if (m_ROI.bottom > m_height) m_ROI.bottom = m_height;
+}
+
+//////////////////////////////////////////////////////////////////////
 /// Compute tile position and size.
 /// @param tileX Tile index in x-direction
 /// @param tileY Tile index in y-direction
@@ -242,6 +255,7 @@ void CSubband::PlaceTile(CDecoder& decoder, int quantParam, bool tile /*= false*
 /// @param w [out] Tile width
 /// @param h [out] Tile height
 void CSubband::TilePosition(UINT32 tileX, UINT32 tileY, UINT32& xPos, UINT32& yPos, UINT32& w, UINT32& h) const {
+	ASSERT(tileX < m_nTiles); ASSERT(tileY < m_nTiles);
 	// example
 	// band = HH, w = 30, ldTiles = 2 -> 4 tiles in a row/column
 	// --> tile widths
@@ -254,7 +268,6 @@ void CSubband::TilePosition(UINT32 tileX, UINT32 tileY, UINT32& xPos, UINT32& yP
 	// C D E F
 
 	UINT32 nTiles = m_nTiles;
-	ASSERT(tileX < nTiles); ASSERT(tileY < nTiles);
 	UINT32 m;
 	UINT32 left = 0, right = nTiles;
 	UINT32 top = 0, bottom = nTiles;
@@ -289,6 +302,87 @@ void CSubband::TilePosition(UINT32 tileX, UINT32 tileY, UINT32& xPos, UINT32& yP
 	}
 	ASSERT(xPos < m_width && (xPos + w <= m_width));
 	ASSERT(yPos < m_height && (yPos + h <= m_height));
+}
+
+//////////////////////////////////////////////////////////////////////
+/// Compute tile index and extrem position (x,y) of given position (xPos, yPos).
+void CSubband::TileIndex(bool topLeft, UINT32 xPos, UINT32 yPos, UINT32& tileX, UINT32& tileY, UINT32& x, UINT32& y) const {
+	UINT32 m;
+	UINT32 left = 0, right = m_width;
+	UINT32 top = 0, bottom = m_height;
+	UINT32 nTiles = m_nTiles;
+
+	if (xPos > m_width) xPos = m_width;
+	if (yPos > m_height) yPos = m_height;
+
+	if (topLeft) {
+		// compute tileX with binary search
+		tileX = 0;
+		while (nTiles > 1) {
+			nTiles >>= 1;
+			m = left + ((right - left + 1) >> 1);
+			if (xPos < m) {
+				// exclusive m
+				right = m;
+			} else {
+				tileX += nTiles;
+				left = m;
+			}
+		}
+		x = left;
+		ASSERT(tileX >= 0 && tileX < m_nTiles);
+
+		// compute tileY with binary search
+		nTiles = m_nTiles;
+		tileY = 0;
+		while (nTiles > 1) {
+			nTiles >>= 1;
+			m = top + ((bottom - top + 1) >> 1);
+			if (yPos < m) {
+				// exclusive m
+				bottom = m;
+			} else {
+				tileY += nTiles;
+				top = m;
+			}
+		}
+		y = top;
+		ASSERT(tileY >= 0 && tileY < m_nTiles);
+
+	} else {
+		// compute tileX with binary search
+		tileX = 1;
+		while (nTiles > 1) {
+			nTiles >>= 1;
+			m = left + ((right - left + 1) >> 1);
+			if (xPos <= m) {
+				// inclusive m
+				right = m;
+			} else {
+				tileX += nTiles;
+				left = m;
+			}
+		}
+		x = right;
+		ASSERT(tileX > 0 && tileX <= m_nTiles);
+
+		// compute tileY with binary search
+		nTiles = m_nTiles;
+		tileY = 1;
+		while (nTiles > 1) {
+			nTiles >>= 1;
+			m = top + ((bottom - top + 1) >> 1);
+			if (yPos <= m) {
+				// inclusive m
+				bottom = m;
+			} else {
+				tileY += nTiles;
+				top = m;
+			}
+		}
+		y = bottom;
+		ASSERT(tileY > 0 && tileY <= m_nTiles);
+	}
 }
 
 #endif

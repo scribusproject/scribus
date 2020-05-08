@@ -92,10 +92,10 @@ public:
 	HANDLE GetHandle() { return m_hFile; }
 
 	virtual ~CPGFFileStream() { m_hFile = 0; }
-	virtual void Write(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void Read(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void SetPos(short posMode, INT64 posOff) THROW_; // throws IOException
-	virtual UINT64 GetPos() const THROW_; // throws IOException
+	virtual void Write(int *count, void *buffer); // throws IOException 
+	virtual void Read(int *count, void *buffer); // throws IOException 
+	virtual void SetPos(short posMode, INT64 posOff); // throws IOException
+	virtual UINT64 GetPos() const; // throws IOException
 	virtual bool   IsValid() const	{ return m_hFile != 0; }
 };
 
@@ -113,17 +113,17 @@ protected:
 public:
 	/// Constructor
 	/// @param size Size of new allocated memory buffer
-	CPGFMemoryStream(size_t size) THROW_;
+	CPGFMemoryStream(size_t size);
 	
 	/// Constructor. Use already allocated memory of given size
 	/// @param pBuffer Memory location
 	/// @param size Memory size
-	CPGFMemoryStream(UINT8 *pBuffer, size_t size) THROW_;
+	CPGFMemoryStream(UINT8 *pBuffer, size_t size);
 	
 	/// Use already allocated memory of given size
 	/// @param pBuffer Memory location
 	/// @param size Memory size
-	void Reinitialize(UINT8 *pBuffer, size_t size) THROW_;
+	void Reinitialize(UINT8 *pBuffer, size_t size);
 	
 	virtual ~CPGFMemoryStream() { 
 		m_pos = 0; 
@@ -133,9 +133,9 @@ public:
 		}
 	}
 
-	virtual void Write(int *count, void *buffer) THROW_; // throws IOException 
+	virtual void Write(int *count, void *buffer); // throws IOException 
 	virtual void Read(int *count, void *buffer);
-	virtual void SetPos(short posMode, INT64 posOff) THROW_; // throws IOException
+	virtual void SetPos(short posMode, INT64 posOff); // throws IOException
 	virtual UINT64 GetPos() const { ASSERT(IsValid()); return m_pos - m_buffer; }
 	virtual bool   IsValid() const	{ return m_buffer != 0; }
 
@@ -161,12 +161,12 @@ protected:
 	CMemFile *m_memFile;	///< MFC memory file
 public:
 	CPGFMemFileStream(CMemFile *memFile) : m_memFile(memFile) {}
-	virtual bool	IsValid() const	{ return m_memFile != NULL; }
+	virtual bool	IsValid() const	{ return m_memFile != nullptr; }
 	virtual ~CPGFMemFileStream() {}
-	virtual void Write(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void Read(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void SetPos(short posMode, INT64 posOff) THROW_; // throws IOException
-	virtual UINT64 GetPos() const THROW_; // throws IOException
+	virtual void Write(int *count, void *buffer); // throws IOException 
+	virtual void Read(int *count, void *buffer); // throws IOException 
+	virtual void SetPos(short posMode, INT64 posOff); // throws IOException
+	virtual UINT64 GetPos() const; // throws IOException
 };
 #endif
 
@@ -179,14 +179,14 @@ class CPGFIStream : public CPGFStream {
 protected:
 	IStream *m_stream;	///< COM+ IStream
 public:
-	CPGFIStream(IStream *stream) : m_stream(stream) {}
+	CPGFIStream(IStream *stream) : m_stream(stream) { m_stream->AddRef(); }
 	virtual bool IsValid() const	{ return m_stream != 0; }
-	virtual ~CPGFIStream() {}
-	virtual void Write(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void Read(int *count, void *buffer) THROW_; // throws IOException 
-	virtual void SetPos(short posMode, INT64 posOff) THROW_; // throws IOException
-	virtual UINT64 GetPos() const THROW_; // throws IOException
-	IStream* GetIStream() const		{ return m_stream; }
+	virtual ~CPGFIStream() { m_stream->Release(); }
+	virtual void Write(int *count, void *buffer); // throws IOException 
+	virtual void Read(int *count, void *buffer); // throws IOException 
+	virtual void SetPos(short posMode, INT64 posOff); // throws IOException
+	virtual UINT64 GetPos() const; // throws IOException
+	IStream* GetIStream() const { return m_stream; }
 };
 #endif
 
