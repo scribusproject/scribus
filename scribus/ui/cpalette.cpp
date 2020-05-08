@@ -115,6 +115,7 @@ ColorPalette::ColorPalette(QWidget* parent) : QWidget(parent)
 	setCurrentItem(nullptr);
 	hatchAngle->setDecimals(0);
 	hatchAngle->setNewUnit(6);
+	hatchAngle->setValues(-360, 360, 1, 0);
 	hatchDist->setDecimals(0);
 	hatchDist->setNewUnit(0);
 	hatchDist->setValues(1, 1000, 0, 1);
