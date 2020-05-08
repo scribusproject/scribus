@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "newdocdialog.h"
 
-#include <QFormLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -94,12 +93,13 @@ NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
-	m_tabSelected = 0;
+
 	m_onStartup = startUp;
 	m_unitIndex = prefsManager.appPrefs.docSetupPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
 	m_orientation = prefsManager.appPrefs.docSetupPrefs.pageOrientation;
+
 	setWindowTitle( tr( "New Document" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	TabbedNewDocLayout = new QVBoxLayout( this );
@@ -262,8 +262,8 @@ void NewDocDialog::createNewDocPage()
 	marginGroup->setFacingPages(!(prefsManager.appPrefs.docSetupPrefs.pagePositioning == singlePage));
 	widthSpinBox->setValue(prefsManager.appPrefs.docSetupPrefs.pageWidth * m_unitRatio);
 	heightSpinBox->setValue(prefsManager.appPrefs.docSetupPrefs.pageHeight * m_unitRatio);
-	QStringList pageSizes=ps.activeSizeTRList();
-	int sizeIndex=pageSizes.indexOf(ps.nameTR());
+	QStringList pageSizes = ps.activeSizeTRList();
+	int sizeIndex = pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex != -1)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
@@ -274,26 +274,26 @@ void NewDocDialog::createNewDocPage()
 
 	optionsGroupBox = new QGroupBox( newDocFrame );
 	optionsGroupBox->setTitle( tr( "Options" ) );
-	optionsGroupBoxLayout = new QFormLayout( optionsGroupBox );
+	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox );
 	optionsGroupBoxLayout->setSpacing( 5 );
 	optionsGroupBoxLayout->setMargin( 10 );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
-	optionsGroupBoxLayout->setFormAlignment(Qt::AlignLeft | Qt::AlignTop);
-	optionsGroupBoxLayout->setLabelAlignment(Qt::AlignLeft);
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox );
 
 	pageCountSpinBox = new QSpinBox( optionsGroupBox );
 	pageCountSpinBox->setMaximum( 10000 );
 	pageCountSpinBox->setMinimum( 1 );
 	pageCountLabel->setBuddy(pageCountSpinBox);
-	optionsGroupBoxLayout->addRow( pageCountLabel, pageCountSpinBox);
+	optionsGroupBoxLayout->addWidget(pageCountLabel, 0, 0, Qt::AlignLeft);
+	optionsGroupBoxLayout->addWidget(pageCountSpinBox, 0, 1);
 
 	layoutLabel1 = new QLabel( optionsGroupBox );
 	layoutLabel1->setText( tr( "First Page is:" ) );
 	firstPage = new QComboBox( optionsGroupBox );
 	firstPage->clear();
 	selectItem(prefsManager.appPrefs.docSetupPrefs.pagePositioning);
-	optionsGroupBoxLayout->addRow( layoutLabel1, firstPage );
+	optionsGroupBoxLayout->addWidget(layoutLabel1, 1, 0, Qt::AlignLeft);
+	optionsGroupBoxLayout->addWidget(firstPage, 1, 1);
 	firstPage->setCurrentIndex(prefsManager.appPrefs.pageSets[prefsManager.appPrefs.docSetupPrefs.pagePositioning].FirstPage);
 
 	setDocLayout(prefsManager.appPrefs.docSetupPrefs.pagePositioning);
@@ -302,21 +302,23 @@ void NewDocDialog::createNewDocPage()
 
 	autoTextFrame = new QCheckBox( optionsGroupBox );
 	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
-	optionsGroupBoxLayout->addRow( autoTextFrame );
+	optionsGroupBoxLayout->addWidget(autoTextFrame, 2, 0, 1, 2, Qt::AlignLeft);
+
 	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox );
 	numberOfCols = new QSpinBox( optionsGroupBox );
 	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
 	numberOfCols->setMinimum( 1 );
 	numberOfCols->setValue( 1 );
 	TextLabel3->setBuddy(numberOfCols);
-	optionsGroupBoxLayout->addRow( TextLabel3, numberOfCols );
+	optionsGroupBoxLayout->addWidget(TextLabel3, 3, 0, Qt::AlignLeft);
+	optionsGroupBoxLayout->addWidget(numberOfCols, 3, 1);
 
 	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox );
 	Distance = new ScrSpinBox( 0, 1000, optionsGroupBox, m_unitIndex );
 	Distance->setValue(11 * m_unitRatio);
-	m_distance = 11;
-	optionsGroupBoxLayout->addRow( TextLabel4, Distance );
 	TextLabel4->setBuddy(Distance);
+	optionsGroupBoxLayout->addWidget(TextLabel4, 4, 0, Qt::AlignLeft);
+	optionsGroupBoxLayout->addWidget(Distance, 4, 1);
 
 	firstPage->setMinimumWidth(Distance->width());
 
@@ -327,7 +329,8 @@ void NewDocDialog::createNewDocPage()
 	startDocSetup = new QCheckBox( optionsGroupBox );
 	startDocSetup->setText( tr( "Show Document Settings After Creation" ) );
 	startDocSetup->setChecked(false);
-	optionsGroupBoxLayout->addRow( startDocSetup );
+	optionsGroupBoxLayout->addWidget(startDocSetup, 5, 0, 1, 2, Qt::AlignLeft);
+
 	NewDocLayout = new QGridLayout( newDocFrame );
 	NewDocLayout->setMargin(10);
 	NewDocLayout->setSpacing(5);
