@@ -1545,7 +1545,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
-				if ( current.isEmpty && (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a).isSpace()))
+				if (current.isEmpty && (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a).isSpace()))
 				{
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
@@ -2579,8 +2579,14 @@ void PageItem_TextFrame::layout()
 					current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 					if (current.addLine && !current.isEmpty)
 					{
-						if (itemText.text(a) == ' ') {
-							current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
+						int supSpace = currentIndex;
+						while (supSpace > 0)
+						{
+							GlyphCluster& cluster = current.glyphs[supSpace];
+							if (cluster.glyphs().count() != 1 || !itemText.text(cluster.firstChar()).isSpace())
+								break;
+							cluster.setFlag(ScLayout_SuppressSpace);
+							--supSpace;
 						}
 
 						current.updateHeightMetrics();
