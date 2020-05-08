@@ -8,28 +8,19 @@ for which a new license (GPL+exception) is in place.
 
 
 SMScrSpinBox::SMScrSpinBox(QWidget *pa, int s)
-: ScrSpinBox(pa, s),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(0.0)
+	: ScrSpinBox(pa, s)
 {
 	
 }
 
 SMScrSpinBox::SMScrSpinBox(double minValue, double maxValue, QWidget *pa, int s)
-: ScrSpinBox(minValue, maxValue, pa, s),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(0.0)
+	: ScrSpinBox(minValue, maxValue, pa, s)
 {
 	
 }
 
 SMScrSpinBox::SMScrSpinBox(QWidget *parent, const char * name)
-: ScrSpinBox(parent, 0),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(0.0)
+	: ScrSpinBox(parent, 0)
 {
 	
 }
@@ -94,6 +85,6 @@ void SMScrSpinBox::setFont(bool wantBold)
 
 void SMScrSpinBox::slotValueChanged()
 {
-	if(m_hasParent)
+	if (m_hasParent)
 		setFont(true);
 }
