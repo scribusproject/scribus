@@ -77,11 +77,11 @@ void PageLayoutsWidget::arrangeIcons()
 		ic = item(cc);
 		QRect ir = visualItemRect(ic);
 		setPositionForIndex(QPoint(startX, startY), indexFromItem(ic));
-		startX += ir.width()+5;
+		startX += ir.width() + 5;
 		maxSizeY = qMax(maxSizeY, ir.height());
 	}
 	maxX = startX;
-	maxY = maxSizeY+10;
+	maxY = maxSizeY + 10;
 }
 
 QSize PageLayoutsWidget::minimumSizeHint() const
@@ -186,26 +186,26 @@ void NewDocDialog::createNewDocPage()
 
 	layoutsView = new PageLayoutsWidget( pageSizeGroupBox );
 	layoutsView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-	for (int pg = 0; pg < prefsManager.appPrefs.pageSets.count(); ++pg)
+	for (int i = 0; i < prefsManager.appPrefs.pageSets.count(); ++i)
 	{
 		QListWidgetItem *ic;
-		QString psname=CommonStrings::translatePageSetString(prefsManager.appPrefs.pageSets[pg].Name);
-		if (pg == 0)
+		QString psname=CommonStrings::translatePageSetString(prefsManager.appPrefs.pageSets[i].Name);
+		if (i == 0)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-simple.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 1)
+		else if (i == 1)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-doublesided.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 2 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 2)
+		else if (i == 2 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 2)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-3fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 3 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 3)
+		else if (i == 3 && prefsManager.appPrefs.docSetupPrefs.pagePositioning == 3)
 		{
 			ic = new QListWidgetItem( IconManager::instance().loadIcon("32/page-4fold.png"), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -214,7 +214,6 @@ void NewDocDialog::createNewDocPage()
 	layoutsView->arrangeIcons();
 	pageSizeGroupBoxLayout->addWidget( layoutsView, 0, 0, 5, 1 );
 	layoutsView->arrangeIcons();
-
 
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
@@ -265,10 +264,10 @@ void NewDocDialog::createNewDocPage()
 	heightSpinBox->setValue(prefsManager.appPrefs.docSetupPrefs.pageHeight * m_unitRatio);
 	QStringList pageSizes=ps.activeSizeTRList();
 	int sizeIndex=pageSizes.indexOf(ps.nameTR());
-	if (sizeIndex!=-1)
+	if (sizeIndex != -1)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	marginGroup->setPageSize(pageSizeComboBox->currentText());
 	marginGroup->setNewBleeds(prefsManager.appPrefs.docSetupPrefs.bleeds);
 	marginGroup->setMarginPreset(prefsManager.appPrefs.docSetupPrefs.marginPreset);
@@ -371,18 +370,16 @@ void NewDocDialog::createOpenDocPage()
 	fileDialog->setReadOnly(true);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
-	QList<QPushButton *> b = fileDialog->findChildren<QPushButton *>();
-	QListIterator<QPushButton *> i(b);
-	while (i.hasNext())
-		i.next()->setVisible(false);
+	QList<QPushButton *> pushButtons = fileDialog->findChildren<QPushButton *>();
+	for (auto pushButton : pushButtons)
+		pushButton->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
-	QList<QListView *> lv = fileDialog->findChildren<QListView *>();
-	QListIterator<QListView *> lvi(lv);
-	while (lvi.hasNext())
-		lvi.next()->installEventFilter(keyCatcher);
+	QList<QListView *> listViews = fileDialog->findChildren<QListView *>();
+	for (auto listView : listViews)
+		listView->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));
 	connect(keyCatcher, SIGNAL(desktopPressed()), this, SLOT(gotoDesktopDirectory()));
@@ -420,7 +417,7 @@ void NewDocDialog::setWidth(double)
 	marginGroup->setPageWidth(m_pageWidth);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != m_orientation)
 	{
@@ -437,7 +434,7 @@ void NewDocDialog::setHeight(double)
 	marginGroup->setPageHeight(m_pageHeight);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	int newOrientation = (widthSpinBox->value() > heightSpinBox->value()) ? landscapePage : portraitPage;
 	if (newOrientation != m_orientation)
 	{
@@ -456,13 +453,11 @@ void NewDocDialog::selectItem(uint nr)
 	disconnect(layoutsView, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(itemSelected(QListWidgetItem* )));
 	if (nr > 0)
 	{
+		const QStringList& pageNames = prefsManager.appPrefs.pageSets[nr].pageNames;
 		firstPage->setEnabled(true);
 		firstPage->clear();
-		QStringList::Iterator pNames;
-		for (pNames = prefsManager.appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager.appPrefs.pageSets[nr].pageNames.end(); ++pNames )
-		{
+		for (auto pNames = pageNames.begin(); pNames != pageNames.end(); ++pNames)
 			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
-		}
 	}
 	else
 	{
@@ -629,7 +624,7 @@ void NewDocDialog::setSize(const QString& gr)
 	}
 	else
 	{
-		PageSize *ps2=new PageSize(gr);
+		PageSize *ps2 = new PageSize(gr);
 		if (pageOrientationComboBox->currentIndex() == portraitPage)
 		{
 			m_pageWidth = ps2->width();
@@ -700,17 +695,16 @@ void NewDocDialog::gotoParentDirectory()
 void NewDocDialog::gotoSelectedDirectory()
 {
 	QStringList s(fileDialog->selectedFiles());
-	if (s.count()>0)
-	{
-		QFileInfo fi(s.first());
-		if (fi.isDir())
-			fileDialog->setDirectory(fi.absoluteFilePath());
-	}
+	if (s.count() <= 0)
+		return;
+	QFileInfo fi(s.first());
+	if (fi.isDir())
+		fileDialog->setDirectory(fi.absoluteFilePath());
 }
 
 void NewDocDialog::gotoDesktopDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		fileDialog->setDirectory(dp);
@@ -719,7 +713,7 @@ void NewDocDialog::gotoDesktopDirectory()
 
 void NewDocDialog::gotoHomeDirectory()
 {
-	QString dp=QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+	QString dp = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 	QFileInfo fi(dp);
 	if (fi.exists())
 		fileDialog->setDirectory(dp);
