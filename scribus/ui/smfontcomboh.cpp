@@ -9,8 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 SMFontComboH::SMFontComboH(QWidget *parent)
 : FontComboH(parent, true),
-  m_hasParent(false),
-  m_useParentValue(false),
   m_useParentFont( tr("Use Parent Font"))
 {
 	

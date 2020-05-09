@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "alignselect.h"
 
-
 class SMAlignSelect : public AlignSelect
 {
 	Q_OBJECT
@@ -22,16 +21,16 @@ public:
 	void setStyle(int a, int d, bool isParentValue);
 
 	void setParentItem(int a, int d);
-
 	bool useParentValue();
 
 	QToolButton *parentButton;
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentStyle;
-	int    m_pStyle;
-	int    m_pDirection;
+	bool   m_hasParent = false;
+	bool   m_useParentStyle = false;
+	int    m_pStyle = 0;
+	int    m_pDirection = 0;
+
 	void setFont(bool wantBold);
 
 private slots:

@@ -17,8 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 
-SMCStyleWidget::SMCStyleWidget(QWidget *parent) :
-	m_Doc(nullptr)
+SMCStyleWidget::SMCStyleWidget(QWidget *parent)
 {
 	setupUi(this);
 

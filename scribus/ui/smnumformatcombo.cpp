@@ -7,12 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "smnumformatcombo.h"
 
-
 SMNumFormatCombo::SMNumFormatCombo(QWidget *parent)
-: NumFormatCombo(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_parentFormat(Type_1_2_3)
+	: NumFormatCombo(parent)
 {
 	
 }

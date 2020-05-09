@@ -25,7 +25,6 @@ public:
 	void clear();
 
 	void setParentValue(double val);
-
 	bool useParentValue();
 
 protected:

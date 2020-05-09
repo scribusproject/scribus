@@ -9,10 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMShadeButton::SMShadeButton(QWidget *parent)
-: ShadeButton(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(0)
+	: ShadeButton(parent)
 {
 	
 }

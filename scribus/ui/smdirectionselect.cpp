@@ -1,10 +1,7 @@
 #include "smdirectionselect.h"
 
 SMDirectionSelect::SMDirectionSelect(QWidget *parent)
-: DirectionSelect(parent),
-  m_hasParent(false),
-  m_useParentStyle(false),
-  m_pStyle(0)
+: DirectionSelect(parent)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize( QSize( 22, 22 ) );

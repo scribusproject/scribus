@@ -22,12 +22,11 @@ public:
 	void setCurrentFont(const QString &s, bool isParentValue);
 
 	void setParentFont(const QString &s);
-	
 	bool useParentFont();
 
 private:
-	bool    m_hasParent;
-	bool    m_useParentValue;
+	bool    m_hasParent = false;
+	bool    m_useParentValue = false;
 	QString m_parentFont;
 	QString m_useParentFont;
 

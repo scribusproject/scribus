@@ -13,10 +13,7 @@
 #include "smradiobutton.h"
 
 SMRadioButton::SMRadioButton ( QWidget * parent )
-		: QRadioButton ( parent ),
-		m_hasParent ( false ),
-		m_useParentValue ( false ),
-		m_pValue ( false )
+		: QRadioButton ( parent )
 {
 }
 

@@ -31,13 +31,13 @@ public:
 	int getItemIndexForData(double d);
 	
 	void setParentItem(int i);
-
 	bool useParentValue();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	int    m_pItem;
+	bool   m_hasParent = false;
+	bool   m_useParentValue = false;
+	int    m_pItem = 0;
+
 	void setFont(bool wantBold);
 
 private slots:

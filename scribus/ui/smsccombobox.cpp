@@ -9,10 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMScComboBox::SMScComboBox(QWidget *parent)
-: QComboBox(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pItem(0)
+	: QComboBox(parent)
 {
 	
 }

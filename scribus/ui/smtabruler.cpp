@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid)
-: Tabruler(parent, haveFirst, dEin, Tabs, wid)
+	: Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
 	m_parentButton = new QToolButton(this);
 	Q_CHECK_PTR(m_parentButton);
@@ -23,9 +23,6 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<Paragrap
 	f.setBold(true);
 	m_parentButton->setFont(f);
 	connect(m_parentButton, SIGNAL(clicked()), this, SLOT(pbClicked()));
-	m_hasParent = false;
-	m_tabsChanged = false;
-	m_useParentTabs = false;
 	first_ = new SMScrSpinBox(-3000, 4000, this, dEin);
 	Q_CHECK_PTR(first_);
 	left_ = new SMScrSpinBox(0, 4000, this, dEin);

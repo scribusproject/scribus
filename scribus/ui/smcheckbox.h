@@ -20,13 +20,13 @@ public:
 	void setChecked(bool val, bool isParentVal);
 
 	void setParentValue(bool);
-
 	bool useParentValue();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	bool   m_pValue;
+	bool   m_hasParent = false;
+	bool   m_useParentValue = false;
+	bool   m_pValue = false;
+
 	void setFont(bool wantBold);
 
 private slots:

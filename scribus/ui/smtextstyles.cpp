@@ -38,8 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) :
-	m_pwidget(nullptr), m_cstyleItem(cstyleItem), m_doc(nullptr), m_selectionIsDirty(false), m_unitRatio(1.0)
+SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem)
 {
 	Q_ASSERT(m_cstyleItem);
 	m_cstyles = m_cstyleItem->tmpStyles();
@@ -2068,7 +2067,7 @@ SMParagraphStyle::~SMParagraphStyle()
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : m_widget(nullptr), m_page(nullptr), m_doc(nullptr), m_selectionIsDirty(false)
+SMCharacterStyle::SMCharacterStyle()
 {
 	m_widget = new QTabWidget();
 	Q_CHECK_PTR(m_widget);
