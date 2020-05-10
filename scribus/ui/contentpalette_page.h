@@ -28,11 +28,6 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	// void showTextFlowMode(PageItem::TextFlowMode mode);
-
-	// void updateColorList();
-	// void updateColorSpecialGradient();
-
 protected:
 	bool      m_haveDoc = false;
 	bool      m_haveItem = false;
