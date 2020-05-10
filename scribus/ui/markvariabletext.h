@@ -13,8 +13,9 @@ public:
 	explicit MarkVariableText(const QList<Mark*>&, QWidget *parent = 0);
 	explicit MarkVariableText(const Mark*, QWidget *parent = 0);
 	~MarkVariableText();
-	virtual Mark* values(QString& label, QString& text);
-	virtual void setValues(const QString label, const QString text);
+
+	Mark* values(QString& label, QString& text) override;
+	void setValues(const QString label, const QString text) override;
 
 protected:
 	void changeEvent(QEvent *e);
@@ -30,10 +31,10 @@ private:
 		LineEdit = 1
 	};
 
-	QWidget* labelEditWidget;
+	QWidget* labelEditWidget = nullptr;
 	const WidgetType m_widgetType;
 
-	const Mark* m_mark;
+	const Mark* m_mark = nullptr;
 };
 
 #endif // MARKVARIABLETEXT_H

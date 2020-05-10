@@ -5,19 +5,7 @@
 #include "util_math.h"
 
 NodeEditContext::NodeEditContext() :
-	oldClip(nullptr),
-	nodeTransaction(nullptr),
-	m_submode(MOVE_POINT),
-	m_isContourLine(false),
-	m_ClRe(-1),
-	m_ClRe2(-1),
-	m_SegP1(-1),
-	m_SegP2(-1),
-	m_EdPoints(true),
-	m_MoveSym(false),
-	m_oldItemX(0.0),
-	m_oldItemY(0.0),
-	m_preview(false)
+	nodeTransaction(nullptr)
 {
 }
 
@@ -25,7 +13,6 @@ bool NodeEditContext::hasNodeSelected() const
 { 
 	return m_ClRe != -1;
 }
-
 
 void NodeEditContext::deselect() 
 { 
@@ -254,34 +241,34 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 			np.setY(0);
 		}
 		update(QPointF(np.x(), np.y()));
-		if ((m_ClRe+1 < static_cast<int>(EndInd)) && (m_ClRe % 2 == 0))
+		if ((m_ClRe + 1 < static_cast<int>(EndInd)) && (m_ClRe % 2 == 0))
 		{
 			FPoint ap(Clip.point(m_ClRe));
-			FPoint ap2(Clip.point(m_ClRe+1));
+			FPoint ap2(Clip.point(m_ClRe + 1));
 			ap2.setX(ap2.x() - (ap.x() - np.x()));
 			ap2.setY(ap2.y() - (ap.y() - np.y()));
-			Clip.setPoint(m_ClRe+1, ap2);
+			Clip.setPoint(m_ClRe + 1, ap2);
 		}
 		Clip.setPoint(m_ClRe, np);
-		if (((m_ClRe % 4 != 0) && (m_ClRe % 2 == 0)) && (m_ClRe+3 < static_cast<int>(EndInd)) && (m_ClRe != static_cast<int>(StartInd)))
+		if (((m_ClRe % 4 != 0) && (m_ClRe % 2 == 0)) && (m_ClRe + 3 < static_cast<int>(EndInd)) && (m_ClRe != static_cast<int>(StartInd)))
 		{
-			FPoint ap(Clip.point(m_ClRe+2));
-			FPoint ap2(Clip.point(m_ClRe+3));
+			FPoint ap(Clip.point(m_ClRe + 2));
+			FPoint ap2(Clip.point(m_ClRe + 3));
 			ap2.setX(ap2.x() - (ap.x() - np.x()));
 			ap2.setY(ap2.y() - (ap.y() - np.y()));
-			Clip.setPoint(m_ClRe+3, ap2);
-			Clip.setPoint(m_ClRe+2, np);
+			Clip.setPoint(m_ClRe + 3, ap2);
+			Clip.setPoint(m_ClRe + 2, np);
 		}
-		if ((m_ClRe % 4 == 0) && (m_ClRe+3 < static_cast<int>(EndInd)) && (m_ClRe != static_cast<int>(StartInd)))
+		if ((m_ClRe % 4 == 0) && (m_ClRe + 3 < static_cast<int>(EndInd)) && (m_ClRe != static_cast<int>(StartInd)))
 		{
-			FPoint ap(Clip.point(m_ClRe-2));
-			FPoint ap2(Clip.point(m_ClRe-1));
+			FPoint ap(Clip.point(m_ClRe - 2));
+			FPoint ap2(Clip.point(m_ClRe - 1));
 			ap2.setX(ap2.x() - (ap.x() - np.x()));
 			ap2.setY(ap2.y() - (ap.y() - np.y()));
-			Clip.setPoint(m_ClRe-1, ap2);
-			Clip.setPoint(m_ClRe-2, np);
+			Clip.setPoint(m_ClRe - 1, ap2);
+			Clip.setPoint(m_ClRe - 2, np);
 		}
-		if (((m_ClRe == static_cast<int>(StartInd)) || (m_ClRe == static_cast<int>(EndInd-2))) &&
+		if (((m_ClRe == static_cast<int>(StartInd)) || (m_ClRe == static_cast<int>(EndInd - 2))) &&
 			((currItem->itemType() == PageItem::Polygon)
 			|| (currItem->itemType() == PageItem::Group)
 			|| (currItem->itemType() == PageItem::Symbol)
@@ -290,12 +277,12 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 		{
 			if (m_ClRe == static_cast<int>(StartInd))
 			{
-				FPoint ap(Clip.point(EndInd-2));
-				FPoint ap2(Clip.point(EndInd-1));
+				FPoint ap(Clip.point(EndInd- 2));
+				FPoint ap2(Clip.point(EndInd - 1));
 				ap2.setX(ap2.x() - (ap.x() - np.x()));
 				ap2.setY(ap2.y() - (ap.y() - np.y()));
-				Clip.setPoint(EndInd-2, Clip.point(StartInd));
-				Clip.setPoint(EndInd-1, ap2);
+				Clip.setPoint(EndInd - 2, Clip.point(StartInd));
+				Clip.setPoint(EndInd - 1, ap2);
 			}
 			else
 			{
@@ -303,11 +290,11 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 				FPoint ap2(Clip.point(StartInd + 1));
 				ap2.setX(ap2.x() - (ap.x() - np.x()));
 				ap2.setY(ap2.y() - (ap.y() - np.y()));
-				Clip.setPoint(StartInd, Clip.point(EndInd-2));
+				Clip.setPoint(StartInd, Clip.point(EndInd - 2));
 				Clip.setPoint(StartInd + 1, ap2);
 			}
 		}
-		if (((m_ClRe == static_cast<int>(StartInd+1)) || (m_ClRe == static_cast<int>(EndInd-1))) &&
+		if (((m_ClRe == static_cast<int>(StartInd + 1)) || (m_ClRe == static_cast<int>(EndInd - 1))) &&
 			((currItem->itemType() == PageItem::Polygon)
 			|| (currItem->itemType() == PageItem::Group)
 			|| (currItem->itemType() == PageItem::Symbol)
@@ -316,31 +303,31 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 			(m_MoveSym))
 		{
 			uint kon = 0;
-			if (m_ClRe == static_cast<int>(StartInd+1))
-				kon = EndInd-1;
+			if (m_ClRe == static_cast<int>(StartInd + 1))
+				kon = EndInd - 1;
 			else
 				kon = StartInd + 1;
-			FPoint lxy(Clip.point(m_ClRe-1));
+			FPoint lxy(Clip.point(m_ClRe - 1));
 			FPoint lk(Clip.point(m_ClRe));
 			double dx = lxy.x() - lk.x();
 			double dy = lxy.y() - lk.y();
-			lk.setX(lk.x() + dx*2);
-			lk.setY(lk.y() + dy*2);
+			lk.setX(lk.x() + dx * 2);
+			lk.setY(lk.y() + dy * 2);
 			Clip.setPoint(kon, lk);
 		}
-		if ((m_ClRe % 2 != 0) && (m_MoveSym) && (m_ClRe != static_cast<int>(StartInd + 1)) && (m_ClRe != static_cast<int>(EndInd-1)))
+		if ((m_ClRe % 2 != 0) && (m_MoveSym) && (m_ClRe != static_cast<int>(StartInd + 1)) && (m_ClRe != static_cast<int>(EndInd - 1)))
 		{
 			uint kon = 0;
-			if ((m_ClRe+1) % 4 == 0)
+			if ((m_ClRe + 1) % 4 == 0)
 				kon = m_ClRe + 2;
 			else
 				kon = m_ClRe - 2;
-			FPoint lxy(Clip.point(m_ClRe-1));
+			FPoint lxy(Clip.point(m_ClRe - 1));
 			FPoint lk(Clip.point(m_ClRe));
 			double dx = lxy.x() - lk.x();
 			double dy = lxy.y() - lk.y();
-			lk.setX(lk.x() + dx*2);
-			lk.setY(lk.y() + dy*2);
+			lk.setX(lk.x() + dx * 2);
+			lk.setY(lk.y() + dy * 2);
 			Clip.setPoint(kon, lk);
 		}
 		if (Doc->nodeEdit.m_isContourLine)
@@ -375,9 +362,9 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (Doc->nodeEdit.m_isContourLine)
-		np = currItem->ContourLine.point(Doc->nodeEdit.m_ClRe-1);
+		np = currItem->ContourLine.point(Doc->nodeEdit.m_ClRe - 1);
 	else
-		np = currItem->PoLine.point(Doc->nodeEdit.m_ClRe-1);
+		np = currItem->PoLine.point(Doc->nodeEdit.m_ClRe - 1);
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
 	if (Doc->nodeEdit.m_isContourLine)
@@ -458,24 +445,24 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	FPoint np = Clip.point(Doc->nodeEdit.clre());
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
-	if ((Doc->nodeEdit.clre() == StartInd) || (Doc->nodeEdit.clre() == EndInd-2))
+	if ((Doc->nodeEdit.clre() == StartInd) || (Doc->nodeEdit.clre() == EndInd - 2))
 	{
 		if (currItem->asPolyLine())
 		{
 			if (Doc->nodeEdit.clre() == StartInd)
-				Clip.setPoint(StartInd+1, np);
+				Clip.setPoint(StartInd + 1, np);
 			else
-				Clip.setPoint(EndInd-1, np);
+				Clip.setPoint(EndInd - 1, np);
 		}
 		else
 		{
-			Clip.setPoint(StartInd+1, np);
-			Clip.setPoint(EndInd-1, np);
+			Clip.setPoint(StartInd + 1, np);
+			Clip.setPoint(EndInd - 1, np);
 		}
 	}
 	else
 	{
-		Clip.setPoint(Doc->nodeEdit.m_ClRe+1, np);
+		Clip.setPoint(Doc->nodeEdit.m_ClRe + 1, np);
 		Clip.setPoint((Doc->nodeEdit.m_ClRe % 4 != 0 ? Doc->nodeEdit.m_ClRe + 3 : Doc->nodeEdit.m_ClRe - 1), np);
 	}
 	if (!Doc->nodeEdit.m_isContourLine)

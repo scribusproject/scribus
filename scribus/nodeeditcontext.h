@@ -75,24 +75,24 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		void finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state);
 		void moveClipPoint(PageItem *currItem, const FPoint& ip);
 
-		FPointArray *oldClip;
+		FPointArray *oldClip { nullptr };
 		UndoTransaction nodeTransaction;
 
 		enum SubMode { MOVE_POINT = 0, ADD_POINT = 1, DEL_POINT = 2, SPLIT_PATH = 3 };
 
 	protected:
-		int m_submode;
-		bool m_isContourLine;
+		int m_submode { MOVE_POINT };
+		bool m_isContourLine { false };
 
-		int m_ClRe;
-		int m_ClRe2;
-		int m_SegP1;
-		int m_SegP2;
-		bool m_EdPoints;
-		bool m_MoveSym;
+		int m_ClRe { -1 };
+		int m_ClRe2 { -1 };
+		int m_SegP1 { -1 };
+		int m_SegP2 { -1 };
+		bool m_EdPoints { true };
+		bool m_MoveSym { false };
 		QList<int> m_SelNode;
-		double m_oldItemX;
-		double m_oldItemY;
-		bool m_preview;
+		double m_oldItemX { 0.0 };
+		double m_oldItemY { 0.0 };
+		bool m_preview { false };
 };
 #endif
