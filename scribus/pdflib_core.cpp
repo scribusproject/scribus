@@ -1650,6 +1650,7 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = Use_XForm;
 	result.encoding = Encode_224;
 
