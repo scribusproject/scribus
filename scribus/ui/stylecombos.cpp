@@ -399,10 +399,14 @@ void CellStyleComboBox::updateStyleList()
 				setCurrentIndex(newIndex);
 		}
 	}
+
 	QListView *tmpView = dynamic_cast<QListView*>(view());
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
+	if (tmpView)
+	{
+		int tmpWidth = tmpView->sizeHintForColumn(0);
+		if (tmpWidth > 0)
+			tmpView->setMinimumWidth(tmpWidth + 24);
+	}
 	this->blockSignals(sigBlocked);
 }
 
