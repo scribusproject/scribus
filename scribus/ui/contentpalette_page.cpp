@@ -18,11 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 ContentPalette_Page::ContentPalette_Page( QWidget* parent)
 	: QWidget(parent),
-	  m_haveDoc(false),
-	  m_haveItem(false),
-	  m_unitRatio(1.0),
-	  m_unitIndex(SC_PT),
-	  m_doc(nullptr)
+	  m_unitIndex(SC_PT)
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
