@@ -27,16 +27,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	//set default style for note frame
 	ParagraphStyle newStyle;
 	if (nStyle->notesParStyle().isEmpty() || (nStyle->notesParStyle() == tr("No Style")))
-	{
-		if (nStyle->isEndNotes())
-			//set default doc style
-			newStyle.setParent(m_Doc->paragraphStyles()[0].name());
-		else
-		{
-			newStyle.setParent(m_masterFrame->itemText.defaultStyle().parent());
-			newStyle.applyStyle(m_masterFrame->currentStyle());
-		}
-	}
+		newStyle.setParent(m_Doc->paragraphStyles()[0].name()); // set default doc style
 	else
 		newStyle.setParent(nStyle->notesParStyle());
 	itemText.blockSignals(true);
