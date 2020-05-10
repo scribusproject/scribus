@@ -442,6 +442,14 @@ void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
 {
 	if (e->isAutoRepeat())
 		return;
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->requestMode(modeNormal);
+		return;
+	}
+
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
