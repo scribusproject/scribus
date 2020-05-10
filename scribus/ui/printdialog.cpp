@@ -263,8 +263,9 @@ QString PrintDialog::getOptions()
 		}
 	}
 	return printerOptions;
-#endif
+#else
 	return QString();
+#endif
 }
 
 void PrintDialog::SelComm()
