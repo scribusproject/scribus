@@ -7,10 +7,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include <QByteArray>
 #include <QDebug>
 #include <QFile>
-#include <QByteArray>
 #include <QList>
+#include <QScopedPointer>
+
 #include "scimgdataloader_pgf.h"
 #include "third_party/pgf/PGFimage.h"
 #include "util.h"
@@ -60,11 +62,11 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 	try
 	{
 		CPGFFileStream stream(fd);
-		CPGFImage      pgfImg;
-		pgfImg.Open(&stream);
+		QScopedPointer<CPGFImage> pgfImg(new CPGFImage());
+		pgfImg->Open(&stream);
 		int level = 0;
 /*
-        const PGFHeader* header = pgfImg.GetHeader();
+        const PGFHeader* header = pgfImg->GetHeader();
         qDebug() << "PGF width    = " << header->width;
         qDebug() << "PGF height   = " << header->height;
         qDebug() << "PGF bbp      = " << header->bpp;
@@ -73,36 +75,36 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
         qDebug() << "PGF mode     = " << header->mode;
         qDebug() << "PGF levels   = " << header->nLevels;
 */
-		pgfImg.Read(level);
-		if (pgfImg.BPP() > 32)
+		pgfImg->Read(level);
+		if (pgfImg->BPP() > 32)
 			return false;
-		if (pgfImg.Channels() > 4)
+		if (pgfImg->Channels() > 4)
 			return false;
-		if (pgfImg.Mode() == 2)
+		if (pgfImg->Mode() == 2)
 			return false;
 		if (QSysInfo::ByteOrder == QSysInfo::BigEndian)
 		{
-			if (pgfImg.Channels() == 1)
+			if (pgfImg->Channels() == 1)
 			{
-				if (pgfImg.BPP() == 1)
+				if (pgfImg->BPP() == 1)
 				{
-					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_Mono);
+					m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_Mono);
 					int map[] = {0};
-					pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
+					pgfImg->GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
 					m_image.invertPixels();
 				}
-				else if (pgfImg.BPP() == 8)
+				else if (pgfImg->BPP() == 8)
 				{
 					QByteArray data;
-					data.resize(pgfImg.Width(level) * pgfImg.Height(level));
+					data.resize(pgfImg->Width(level) * pgfImg->Height(level));
 					int map[] = {0};
-					pgfImg.GetBitmap(pgfImg.Width(level), (UINT8*)data.data(), 8, map);
-					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+					pgfImg->GetBitmap(pgfImg->Width(level), (UINT8*)data.data(), 8, map);
+					m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 					int imgDcount = 0;
-					for (uint y = 0; y < pgfImg.Height(level); y++)
+					for (uint y = 0; y < pgfImg->Height(level); y++)
 					{
 						QRgb *q = (QRgb*)(m_image.scanLine(y));
-						for (uint x = 0; x < pgfImg.Width(level); x++)
+						for (uint x = 0; x < pgfImg->Width(level); x++)
 						{
 							uchar r = data[imgDcount++];
 							*q++ = qRgba(r, r, r, 255);
@@ -110,18 +112,18 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					}
 				}
 			}
-			else if (pgfImg.Channels() == 3)
+			else if (pgfImg->Channels() == 3)
 			{
 				QByteArray data;
-				data.resize(pgfImg.Width(level) * pgfImg.Height(level) * 3);
+				data.resize(pgfImg->Width(level) * pgfImg->Height(level) * 3);
 				int map[] = {0, 1, 2};
-				pgfImg.GetBitmap(pgfImg.Width(level) * 3, (UINT8*)data.data(), 24, map);
-				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+				pgfImg->GetBitmap(pgfImg->Width(level) * 3, (UINT8*)data.data(), 24, map);
+				m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 				int imgDcount = 0;
-				for (uint y = 0; y < pgfImg.Height(); y++)
+				for (uint y = 0; y < pgfImg->Height(); y++)
 				{
 					QRgb *q = (QRgb*)(m_image.scanLine(y));
-					for (uint x = 0; x < pgfImg.Width(); x++)
+					for (uint x = 0; x < pgfImg->Width(); x++)
 					{
 						uchar r = data[imgDcount++];
 						uchar g = data[imgDcount++];
@@ -130,36 +132,36 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					}
 				}
 			}
-			else if (pgfImg.Channels() == 4)
+			else if (pgfImg->Channels() == 4)
 			{
-				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+				m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 				int map[] = {3, 2, 1, 0};
-				pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
+				pgfImg->GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
 			}
 		}
 		else
 		{
-			if (pgfImg.Channels() == 1)
+			if (pgfImg->Channels() == 1)
 			{
-				if (pgfImg.BPP() == 1)
+				if (pgfImg->BPP() == 1)
 				{
-					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_Mono);
+					m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_Mono);
 					int map[] = {0};
-					pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), 1, map);
+					pgfImg->GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), 1, map);
 					m_image.invertPixels();
 				}
-				else if (pgfImg.BPP() == 8)
+				else if (pgfImg->BPP() == 8)
 				{
 					QByteArray data;
-					data.resize(pgfImg.Width(level) * pgfImg.Height(level));
+					data.resize(pgfImg->Width(level) * pgfImg->Height(level));
 					int map[] = {0};
-					pgfImg.GetBitmap(pgfImg.Width(level), (UINT8*)data.data(), 8, map);
-					m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+					pgfImg->GetBitmap(pgfImg->Width(level), (UINT8*)data.data(), 8, map);
+					m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 					int imgDcount = 0;
-					for (uint y = 0; y < pgfImg.Height(level); y++)
+					for (uint y = 0; y < pgfImg->Height(level); y++)
 					{
 						QRgb *q = (QRgb*)(m_image.scanLine(y));
-						for (uint x = 0; x < pgfImg.Width(level); x++)
+						for (uint x = 0; x < pgfImg->Width(level); x++)
 						{
 							uchar r = data[imgDcount++];
 							*q++ = qRgba(r, r, r, 255);
@@ -167,18 +169,18 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					}
 				}
 			}
-			else if (pgfImg.Channels() == 3)
+			else if (pgfImg->Channels() == 3)
 			{
 				QByteArray data;
-				data.resize(pgfImg.Width(level) * pgfImg.Height(level) * 3);
+				data.resize(pgfImg->Width(level) * pgfImg->Height(level) * 3);
 				int map[] = {2, 1, 0};
-				pgfImg.GetBitmap(pgfImg.Width(level) * 3, (UINT8*)data.data(), 24, map);
-				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+				pgfImg->GetBitmap(pgfImg->Width(level) * 3, (UINT8*)data.data(), 24, map);
+				m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 				int imgDcount = 0;
-				for (uint y = 0; y < pgfImg.Height(level); y++)
+				for (uint y = 0; y < pgfImg->Height(level); y++)
 				{
 					QRgb *q = (QRgb*)(m_image.scanLine(y));
-					for (uint x = 0; x < pgfImg.Width(level); x++)
+					for (uint x = 0; x < pgfImg->Width(level); x++)
 					{
 						uchar r = data[imgDcount++];
 						uchar g = data[imgDcount++];
@@ -187,14 +189,14 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					}
 				}
 			}
-			else if (pgfImg.Channels() == 4)
+			else if (pgfImg->Channels() == 4)
 			{
-				m_image = QImage(pgfImg.Width(level), pgfImg.Height(level), QImage::Format_ARGB32);
+				m_image = QImage(pgfImg->Width(level), pgfImg->Height(level), QImage::Format_ARGB32);
 				int map[] = {0, 1, 2, 3};
-				pgfImg.GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
+				pgfImg->GetBitmap(m_image.bytesPerLine(), (UINT8*)m_image.bits(), m_image.depth(), map);
 			}
 		}
-		pgfImg.Destroy();
+		pgfImg.reset(nullptr);
 #ifdef WIN32
 		CloseHandle(fd);
 #else
