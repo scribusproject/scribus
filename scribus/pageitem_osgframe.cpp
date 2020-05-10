@@ -155,7 +155,7 @@ void PageItem_OSGFrame::applicableActions(QStringList & actionList)
 	}
 }
 
-QString PageItem_OSGFrame::infoDescription()
+QString PageItem_OSGFrame::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append( tr("3D Model") + "<br/>");
