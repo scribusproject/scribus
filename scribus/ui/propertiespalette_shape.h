@@ -47,14 +47,13 @@ protected:
 	PageItem *m_item {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 
-	Selection* m_tmpSelection;
+	Selection* m_tmpSelection {nullptr};
 
 private:
-
 	PageItem* currentItemFromSelection();
 
 protected:
-	ScribusMainWindow *m_ScMW;
+	ScribusMainWindow *m_ScMW {nullptr};
 	
 	void enableCustomShape();
 	void enableEditShape();
