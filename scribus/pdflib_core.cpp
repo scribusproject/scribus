@@ -1816,6 +1816,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = glyphmap.isEmpty()? Use_Embedded : Use_Subset;
 	result.encoding = glyphmap.isEmpty()? Encode_IdentityH : Encode_Subset;
 	result.glyphmap = glyphmap;
