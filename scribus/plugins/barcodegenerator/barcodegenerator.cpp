@@ -331,7 +331,7 @@ void BarcodeGenerator::updateOptions()
 {
 	QString enc=map[ui.bcCombo->currentText()].command;
 
-	ui.formatLabel->setText(resvlbl.contains(enc) ? resvlbl[enc]+":" : "Version:");
+	ui.formatLabel->setText(resvlbl.contains(enc) ? resvlbl[enc] + ":" : "Version:");
 	ui.formatCombo->blockSignals(true);
 	ui.formatCombo->clear();
 	ui.formatCombo->addItem("Auto");
@@ -760,10 +760,10 @@ void BarcodeGenerator::paintBarcode()
 	QString coloropts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
 	coloropts = coloropts.arg(lnColor.name().replace('#', ""), bgColor.name().replace('#', ""), txtColor.name().replace('#', ""));
 
-	QString opts=ui.optionsEdit->text()+" "+coloropts;
+	QString opts=ui.optionsEdit->text() + " " + coloropts;
 
 	// Assemble PS from encoder and requirement bodies
-	QString psCommand="%!PS-Adobe-2.0 EPSF-2.0\n";
+	QString psCommand = "%!PS-Adobe-2.0 EPSF-2.0\n";
 	QString req;
 	QString enc = map[ui.bcCombo->currentText()].command;
 	foreach (req, resreqs[enc].split(" "))
