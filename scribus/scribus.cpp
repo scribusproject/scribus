@@ -9711,10 +9711,10 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 				label += " in " + currItem->firstInChain()->itemName();
 			break;
 		case MARKIndexType:
-				return false;
+			return false;
 			break;
 		default:
-				return false;
+			return false;
 			break;
 		}
 		if (mrk == nullptr)
