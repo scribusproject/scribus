@@ -53,14 +53,16 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 
 	// Extract the version information from BWIPP
 	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
-	if(f.open(QIODevice::ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream ts(&f);
 		QString bwipp = ts.read(150);
 		f.close();
 		QRegExp rx("\\n% Barcode Writer in Pure PostScript - Version ([\\d-]+)\\n");
-		rx.indexIn(bwipp);
-		about->version = "Backend: "+rx.cap(1);
+		if (rx.indexIn(bwipp) >= 0)
+			about->version = "Backend: " + rx.cap(1);
+		else
+			about->version = "Backend: Unknown";
 	}
 	else
 		about->version = "Unable to open backend file";
