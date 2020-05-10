@@ -1786,6 +1786,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeUnlinkFrames:
 				case modeRotation:
 					view->deselectItems(false);
+					/* fall through */
 				case modeEditWeldPoint:
 				case modeEyeDropper:
 				case modeImportObject:
