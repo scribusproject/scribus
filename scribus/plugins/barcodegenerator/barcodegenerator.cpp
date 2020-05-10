@@ -70,7 +70,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	int pos = 0;
 	while ( (pos = rx.indexIn(bwipp, pos)) != -1 )
 	{
-		int len=rx.matchedLength();
+		int len = rx.matchedLength();
 		QString restype=rx.cap(1);
 		QString resname=rx.cap(2);
 		QString reshead=rx.cap(3);
@@ -87,15 +87,17 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 						"% --EXOP:(.*)[\\r\\n]+"
 						"% --RNDR:(.*)[\\r\\n]+"
 						);
-			rxhead.indexIn(reshead);
-			resreqs[resname]=rxhead.cap(1).trimmed();
-			resdescs[resname]=rxhead.cap(2).trimmed();
-			resexams[resname]=rxhead.cap(3).trimmed();
-			resexops[resname]=rxhead.cap(4).trimmed();
-			resrndrs[resname]=rxhead.cap(5).trimmed();
-			encoderlist.append(resname);
+			if (rxhead.indexIn(reshead) >= 0)
+			{
+				resreqs[resname] = rxhead.cap(1).trimmed();
+				resdescs[resname] = rxhead.cap(2).trimmed();
+				resexams[resname] = rxhead.cap(3).trimmed();
+				resexops[resname] = rxhead.cap(4).trimmed();
+				resrndrs[resname] = rxhead.cap(5).trimmed();
+				encoderlist.append(resname);
+			}
 		}
-		pos+=len;
+		pos += len;
 	}
 
 	foreach (const QString& enc, encoderlist)
