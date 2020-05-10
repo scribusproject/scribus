@@ -1916,6 +1916,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = isEmbedded? Use_Embedded : Use_System;
 	result.encoding = Encode_224;
 	
