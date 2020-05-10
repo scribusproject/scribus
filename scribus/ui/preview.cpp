@@ -73,6 +73,8 @@ for which a new license (GPL+exception) is in place.
 extern bool printDinUse;
 
 PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent ),
+	doc(docu),
+	view(vin),
 	prefsManager(PrefsManager::instance())
 {
 	setModal(true);
@@ -86,24 +88,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 	else
 		caption += " (GDI)";
 #endif
-	setWindowTitle( caption );
-	doc = docu;
-	view = vin;
+	setWindowTitle(caption);
+
 	HavePngAlpha = ScCore->havePNGAlpha();
 	HaveTiffSep  = postscriptPreview ? ScCore->haveTIFFSep() : false;
-	APage = -1;
-	CMode = false;
-	GsAl = false;
-	Trans = false;
-	GMode = true;
-	mHor = false;
-	mVer = false;
-	fClip = false;
-	fSpot = true;
-	fGray = false;
-	scaleFactor = 1.0;
-	SMode = 1;
-	getNumericGSVersion(GsVersion);
+	getNumericGSVersion(m_gsVersion);
+
 	PLayout = new QVBoxLayout(this);
 	PLayout->setMargin(0);
 	PLayout->setSpacing(0);
@@ -146,7 +136,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 		QStringList spots = usedSpots.keys();
 
 		Table = new QTableWidget(spots.count()+4, 2, devTitle );
-		inkMax = (spots.count()+4) * 255;
+		m_inkMax = (spots.count() + 4) * 255;
 		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
 		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 		QHeaderView *header = Table->horizontalHeader();
@@ -303,7 +293,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 	setValues();
 	Anz = new QLabel(this);
 	Anz->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-//	APage = doc->currentPage()->pageNr();
+//	m_currentPage = doc->currentPage()->pageNr();
 	Anz->setPixmap(CreatePreview(doc->currentPage()->pageNr(), 72));
 	Anz->resize(Anz->pixmap()->size());
 	Anzeige->setWidget(Anz);
@@ -370,7 +360,7 @@ void PPreview::setValues()
 void PPreview::ToSeite(int num)
 {
 	int n = num-1;
-	if (n == APage)
+	if (n == m_currentPage)
 		return;
 	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
@@ -378,7 +368,7 @@ void PPreview::ToSeite(int num)
 
 void PPreview::redisplay()
 {
-	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
 }
 
@@ -393,7 +383,7 @@ void PPreview::ToggleCMYK()
 			CoverThresholdValue->setEnabled(c);
 	}
 		
-	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
 }
 
@@ -407,7 +397,7 @@ void PPreview::ToggleCMYK_Colour()
 			CoverThresholdValue->setEnabled(false);
 	}
 	if (EnableCMYK->isChecked())
-		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+		Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
 }
 
@@ -422,7 +412,7 @@ void PPreview::doSpotTable(int row)
 		}
 		((QCheckBox*)(Table->cellWidget(row, 0)))->setChecked(true);
 		if (EnableCMYK->isChecked())
-			Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+			Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 		Anz->resize(Anz->pixmap()->size());
 	}
 }
@@ -437,7 +427,7 @@ void PPreview::toggleAllfromHeader()
 			sepit.value()->setChecked(true);
 		}
 		if (EnableCMYK->isChecked())
-			Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+			Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 		Anz->resize(Anz->pixmap()->size());
 	}
 }
@@ -459,19 +449,19 @@ void PPreview::scaleBox_valueChanged(int value)
 			scaleFactor = 2.0;
 			break;
 		case 4:
-			scaleFactor = Anzeige->viewport()->width() / doc->Pages->at(APage)->width();
+			scaleFactor = Anzeige->viewport()->width() / doc->Pages->at(m_currentPage)->width();
 			break;
 		case 5:
-			scaleFactor = Anzeige->viewport()->height() / doc->Pages->at(APage)->height();
+			scaleFactor = Anzeige->viewport()->height() / doc->Pages->at(m_currentPage)->height();
 			break;
 		case 6:
-			scaleFactor = qMin(Anzeige->viewport()->height() / doc->Pages->at(APage)->height(), Anzeige->viewport()->width() / doc->Pages->at(APage)->width());
+			scaleFactor = qMin(Anzeige->viewport()->height() / doc->Pages->at(m_currentPage)->height(), Anzeige->viewport()->width() / doc->Pages->at(m_currentPage)->width());
 			break;
 		default:
 			scaleFactor = 1.0;
 			break;
 	}
-	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
+	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
 }
 
@@ -506,9 +496,9 @@ int PPreview::RenderPreview(int pageIndex, int res)
 	}
 #endif
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((pageIndex != APage)  || (EnableGCR->isChecked() != GMode)  || (useGray->isChecked() != fGray)
-		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
-		|| (spotColors->isChecked() != fSpot))
+	if ((pageIndex != m_currentPage)  || (EnableGCR->isChecked() != m_useGCR)  || (useGray->isChecked() != m_useGray)
+		|| (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV) || (ClipMarg->isChecked() != m_clipToMargins)
+		|| (spotColors->isChecked() != m_convertSpots))
 	{
 		PrintOptions options;
 		options.pageNumbers.push_back(pageIndex + 1);
@@ -567,7 +557,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
 	}
-	if ((doc->HasCMS) && (GsVersion >= 900))
+	if ((doc->HasCMS) && (m_gsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		if (EnableCMYK->isChecked())
@@ -575,7 +565,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsVersion >= 900))
+	else if (ScCore->haveCMS() && (m_gsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		if (EnableCMYK->isChecked())
@@ -615,9 +605,9 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 	QString cmd;
 	QStringList args, args1, args2, args3;
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((pageIndex != APage)  || (EnableGCR->isChecked() != GMode) || (useGray->isChecked() != fGray)
-		|| (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip)
-		|| (spotColors->isChecked() != fSpot))
+	if ((pageIndex != m_currentPage)  || (EnableGCR->isChecked() != m_useGCR) || (useGray->isChecked() != m_useGray)
+		|| (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV) || (ClipMarg->isChecked() != m_clipToMargins)
+		|| (spotColors->isChecked() != m_convertSpots))
 	{
 		PrintOptions options;
 		options.pageNumbers.push_back(pageIndex + 1);
@@ -662,12 +652,12 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
 	}
-	if ((doc->HasCMS) && (GsVersion >= 900))
+	if ((doc->HasCMS) && (m_gsVersion >= 900))
 	{
 		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 	}
-	else if (ScCore->haveCMS() && (GsVersion >= 900))
+	else if (ScCore->haveCMS() && (m_gsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
@@ -850,11 +840,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
 	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	if ((pageIndex != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
-	        || (AntiAlias->isChecked() != GsAl) || (((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode))
+	if ((pageIndex != m_currentPage) || (EnableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
+	        || (AntiAlias->isChecked() != m_useAntialiasing) || (((AliasTr->isChecked() != m_showTransparency) || (EnableGCR->isChecked() != m_useGCR))
 			&& (!EnableCMYK->isChecked()))
-			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
-			 || (ClipMarg->isChecked() != fClip) || (spotColors->isChecked() != fSpot))
+			 || (useGray->isChecked() != m_useGray) || (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV)
+			 || (ClipMarg->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
 	{
 		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
 		{
@@ -873,10 +863,10 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 		int cyan, magenta, yellow, black;
 		if (HaveTiffSep)
 		{
-			if ((pageIndex != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
-	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
-	       	 || (useGray->isChecked() != fGray)  || (MirrorHor->isChecked() != mHor)|| (MirrorVert->isChecked() != mVer)
-	       	 || (ClipMarg->isChecked() != fClip) || (spotColors->isChecked() != fSpot))
+			if ((pageIndex != m_currentPage) || (EnableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
+	       	 || (AntiAlias->isChecked() != m_useAntialiasing) || (AliasTr->isChecked() != m_showTransparency) || (EnableGCR->isChecked() != m_useGCR)
+	       	 || (useGray->isChecked() != m_useGray)  || (MirrorHor->isChecked() != m_mirrorH)|| (MirrorVert->isChecked() != m_mirrorV)
+	       	 || (ClipMarg->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
 			{
 				ret = RenderPreviewSep(pageIndex, res);
 				if (ret > 0)
@@ -906,9 +896,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			cms.allowColorManagement(false);
 			if (flagsVisible["Cyan"]->isChecked())
 			{
-				if (GsVersion < 854)
+				if (m_gsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (GsVersion <= 905)
+				else if (m_gsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -924,9 +914,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
-				if (GsVersion < 854)
+				if (m_gsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (GsVersion <= 905)
+				else if (m_gsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -942,9 +932,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
-				if (GsVersion < 854)
+				if (m_gsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (GsVersion <= 905)
+				else if (m_gsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -967,9 +957,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 					if (checkBox && checkBox->isChecked())
 					{
 						QString fnam;
-						if (GsVersion < 854)
+						if (m_gsVersion < 854)
 							fnam = QString(ScPaths::tempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
-						else if (GsVersion <= 905)
+						else if (m_gsVersion <= 905)
 							fnam = QString(ScPaths::tempFileDir()+"/sc.s%1.tif").arg(sepit.value());
 						else
 							fnam = QString(ScPaths::tempFileDir()+"/sc(%1).tif").arg(sepit.key());
@@ -989,9 +979,9 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			{
 				CMSettings cms(doc, "", Intent_Perceptual);
 				cms.allowColorManagement(false);
-				if (GsVersion < 854)
+				if (m_gsVersion < 854)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (GsVersion <= 905)
+				else if (m_gsVersion <= 905)
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
 					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
@@ -1019,12 +1009,12 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 							if (limitVal == 0)
 							{
 								QColor tmpC;
-								tmpC.setHsv((greyVal * 359) / inkMax, 255, 255);
+								tmpC.setHsv((greyVal * 359) / m_inkMax, 255, 255);
 								*q = tmpC.rgba();
 							}
 							else
 							{
-								int col = qMin(255 - static_cast<int>(((greyVal * 128) / inkMax) * 2), 255);
+								int col = qMin(255 - static_cast<int>(((greyVal * 128) / m_inkMax) * 2), 255);
 								if ((*q > 0) && (*q < limitVal))
 									*q = qRgba(col, col, col, 255);
 								else
@@ -1167,17 +1157,17 @@ bool PPreview::usePostscriptPreview(const QString& printerName, PrintEngine engi
 
 void PPreview::getUserSelection(int page)
 {
-	APage = page;
-	CMode = EnableCMYK->isChecked();
-	GsAl = AntiAlias->isChecked();
-	Trans = AliasTr->isChecked();
-	GMode = EnableGCR->isChecked();
-	SMode = scaleBox->currentIndex();
-	mHor = MirrorHor->isChecked();
-	mVer = MirrorVert->isChecked();
-	fClip = ClipMarg->isChecked();
-	fSpot = spotColors->isChecked();
-	fGray = useGray->isChecked();
+	m_currentPage = page;
+	m_colorMode = EnableCMYK->isChecked();
+	m_useAntialiasing = AntiAlias->isChecked();
+	m_showTransparency = AliasTr->isChecked();
+	m_useGCR = EnableGCR->isChecked();
+	m_scaleMode = scaleBox->currentIndex();
+	m_mirrorH = MirrorHor->isChecked();
+	m_mirrorV = MirrorVert->isChecked();
+	m_clipToMargins = ClipMarg->isChecked();
+	m_convertSpots = spotColors->isChecked();
+	m_useGray = useGray->isChecked();
 }
 
 void PPreview::imageLoadError(QPixmap &pixmap, int page)
@@ -1194,9 +1184,9 @@ void PPreview::resizeEvent(QResizeEvent * event)
 	// repaint only for "fit to" options in the combo box
 	if (cx > 3)
 	{
-		// HACK: SMode is reset to insane value to force redraw
+		// HACK: m_scaleMode is reset to insane value to force redraw
 		// as the value is checked for change.
-		SMode = -1;
+		m_scaleMode = -1;
 		scaleBox_valueChanged(cx);
 	}
 }
