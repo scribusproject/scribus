@@ -211,10 +211,8 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, const FPoint& ip)
 	}
 	if (m_ClRe > 0)
 	{
-		for (uint n2 = m_ClRe; n2 > 0; n2--)
+		for (int n2 = m_ClRe; n2 > 0; n2--)
 		{
-			if (n2 == 0)
-				break;
 			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
@@ -448,10 +446,8 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	}
 	if (m_ClRe > 0)
 	{
-		for (uint n2 = m_ClRe; n2 > 0; n2--)
+		for (int n2 = m_ClRe; n2 > 0; n2--)
 		{
-			if (n2 == 0)
-				break;
 			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
