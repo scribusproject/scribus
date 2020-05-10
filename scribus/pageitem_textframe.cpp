@@ -3969,7 +3969,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
 						ip->set("INSERT_FRAMEPARA");
-						ip->set("ETEA", "insert_framepara");
+						ip->set("ETEA", QString("insert_framepara"));
 						ip->set("START", cursorPos);
 						ip->setItem(itemText.paragraphStyle(cursorPos));
 						if (isNoteFrame())
@@ -4461,7 +4461,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
 					ip->set("INSERT_FRAMEPARA");
-					ip->set("ETEA", "insert_framepara");
+					ip->set("ETEA", QString("insert_framepara"));
 					ip->set("START", cursorPos);
 					ip->setItem(itemText.paragraphStyle(cursorPos));
 					if (isNoteFrame())
@@ -4709,7 +4709,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					undoTarget = m_Doc;
 				ip = new ScItemState<ParagraphStyle>(Um::DeleteText, "", Um::IDelete);
 				ip->set("DELETE_FRAMEPARA");
-				ip->set("ETEA", "delete_framepara");
+				ip->set("ETEA", QString("delete_framepara"));
 				ip->set("START", start);
 				ip->setItem(itemText.paragraphStyle(i));
 				lastPos = i + 1;
