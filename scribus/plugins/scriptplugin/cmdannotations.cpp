@@ -504,11 +504,11 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 	}
 	else
 	{
-		bool hasosg=false;
+		bool hasOSG = false;
 	#ifdef HAVE_OSG
-		hasosg=true;
+		hasOSG = true;
 	#endif
-		if (hasosg)
+		if (hasOSG)
 		{
 			i = m_doc->itemAdd(PageItem::OSGFrame, 
 			                   PageItem::Unspecified, 
@@ -520,7 +520,8 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 			                   m_doc->itemToolPrefs().imageFillColor, 
 			                   m_doc->itemToolPrefs().imageStrokeColor);
 		}
-		else{
+		else
+		{
 			PyErr_SetString(PyExc_RuntimeError,
 			QObject::tr("Doesn't have OSG can't create 3DAnnotation", "python error").toLocal8Bit().constData());
 			return nullptr;
