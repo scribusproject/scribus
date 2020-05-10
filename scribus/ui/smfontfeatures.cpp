@@ -472,7 +472,7 @@ void SMFontFeatures::enableFontFeatures(const QStringList& fontFeatures)
 	stylisticSetsButton->setVisible(featureFlags & FontFeatures::StyleSetsMask);
 
 	if (ligaturesGroupBox->isHidden() && capitalsGroupBox->isHidden()
-			&& numeralsGroupBox && stylisticSetsButton->isHidden())
+			&& numeralsGroupBox->isHidden() && stylisticSetsButton->isHidden())
 	{
 		statusLabel->show();
 	}
