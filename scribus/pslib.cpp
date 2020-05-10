@@ -84,7 +84,6 @@ class PSPainter:public TextLayoutPainter
 		ScribusDoc* m_Doc;
 		uint m_argh;
 		ScPage* m_page;
-		bool m_farb;
 		bool m_master;
 		PSLib* m_ps;
 
