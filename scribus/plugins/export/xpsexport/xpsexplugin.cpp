@@ -218,75 +218,80 @@ bool XPSExPlug::doExport(const QString& fName)
 	ScZipHandler zip(true);
 	if (!zip.open(fName))
 		return false;
+
 	QTemporaryDir dir;
-	if (dir.isValid())
+	if (!dir.isValid())
 	{
-		imageCounter = 0;
-		fontCounter = 0;
-		xps_fontMap.clear();
-		baseDir = dir.path();
-		// Create directory tree
-		QDir outDir(baseDir);
-		outDir.mkdir("_rels");
-		outDir.mkdir("docProps");
-		outDir.mkdir("Documents");
-		outDir.cd("Documents");
-		outDir.mkdir("1");
-		outDir.cd("1");
-		outDir.mkdir("_rels");
-		outDir.mkdir("Pages");
-		outDir.cd("Pages");
-		outDir.mkdir("_rels");
-		outDir.cdUp();
-		outDir.mkdir("Structure");
-		outDir.cdUp();
-		outDir.cdUp();
-		outDir.mkdir("Resources");
-		outDir.cd("Resources");
-		outDir.mkdir("Images");
-		outDir.mkdir("Fonts");
-		outDir.cdUp();
-		writeBaseRel();
-		writeContentType();
-		writeCore();
-		writeDocRels();
-		// Write Thumbnail
-		QImage thumb = m_Doc->view()->PageToPixmap(0, 256, Pixmap_DrawBackground);
-		thumb.save(baseDir + "/docProps/thumbnail.jpeg", "JPG");
-		// Write required DocStructure.struct
-		QFile fts(baseDir + "/Documents/1/Structure/DocStructure.struct");
-		if (fts.open(QIODevice::WriteOnly))
-		{
-			fts.write(QByteArray("<DocumentStructure xmlns=\"http://schemas.microsoft.com/xps/2005/06/documentstructure\">\n</DocumentStructure>"));
-			fts.close();
-		}
-		// Write required FixedDocSeq.fdseq
-		QFile ft(baseDir + "/FixedDocSeq.fdseq");
-		if (ft.open(QIODevice::WriteOnly))
-		{
-			ft.write(QByteArray("<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">\n\t<DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>\n</FixedDocumentSequence>"));
-			ft.close();
-		}
-		// Write required FixedDoc.fdoc
-		f_docu = QDomDocument("xpsdoc");
-		QString st = "<FixedDocument></FixedDocument>";
-		f_docu.setContent(st);
-		QDomElement root  = f_docu.documentElement();
-		root.setAttribute("xmlns", "http://schemas.microsoft.com/xps/2005/06");
-		f_docu.appendChild(root);
-		writePages(root);
-		QFile fdo(baseDir + "/Documents/1/FixedDoc.fdoc");
-		if (fdo.open(QIODevice::WriteOnly))
-		{
-			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
-			QDataStream s(&fdo);
-			vo += f_docu.toString();
-			QByteArray utf8wr = vo.toUtf8();
-			s.writeRawData(utf8wr.data(), utf8wr.length());
-			fdo.close();
-		}
-		zip.write(baseDir);
+		zip.close();
+		QFile::remove(fName);
+		return false;
 	}
+
+	imageCounter = 0;
+	fontCounter = 0;
+	xps_fontMap.clear();
+	baseDir = dir.path();
+	// Create directory tree
+	QDir outDir(baseDir);
+	outDir.mkdir("_rels");
+	outDir.mkdir("docProps");
+	outDir.mkdir("Documents");
+	outDir.cd("Documents");
+	outDir.mkdir("1");
+	outDir.cd("1");
+	outDir.mkdir("_rels");
+	outDir.mkdir("Pages");
+	outDir.cd("Pages");
+	outDir.mkdir("_rels");
+	outDir.cdUp();
+	outDir.mkdir("Structure");
+	outDir.cdUp();
+	outDir.cdUp();
+	outDir.mkdir("Resources");
+	outDir.cd("Resources");
+	outDir.mkdir("Images");
+	outDir.mkdir("Fonts");
+	outDir.cdUp();
+	writeBaseRel();
+	writeContentType();
+	writeCore();
+	writeDocRels();
+	// Write Thumbnail
+	QImage thumb = m_Doc->view()->PageToPixmap(0, 256, Pixmap_DrawBackground);
+	thumb.save(baseDir + "/docProps/thumbnail.jpeg", "JPG");
+	// Write required DocStructure.struct
+	QFile fts(baseDir + "/Documents/1/Structure/DocStructure.struct");
+	if (fts.open(QIODevice::WriteOnly))
+	{
+		fts.write(QByteArray("<DocumentStructure xmlns=\"http://schemas.microsoft.com/xps/2005/06/documentstructure\">\n</DocumentStructure>"));
+		fts.close();
+	}
+	// Write required FixedDocSeq.fdseq
+	QFile ft(baseDir + "/FixedDocSeq.fdseq");
+	if (ft.open(QIODevice::WriteOnly))
+	{
+		ft.write(QByteArray("<FixedDocumentSequence xmlns=\"http://schemas.microsoft.com/xps/2005/06\">\n\t<DocumentReference Source=\"/Documents/1/FixedDoc.fdoc\"/>\n</FixedDocumentSequence>"));
+		ft.close();
+	}
+	// Write required FixedDoc.fdoc
+	f_docu = QDomDocument("xpsdoc");
+	QString st = "<FixedDocument></FixedDocument>";
+	f_docu.setContent(st);
+	QDomElement root  = f_docu.documentElement();
+	root.setAttribute("xmlns", "http://schemas.microsoft.com/xps/2005/06");
+	f_docu.appendChild(root);
+	writePages(root);
+	QFile fdo(baseDir + "/Documents/1/FixedDoc.fdoc");
+	if (fdo.open(QIODevice::WriteOnly))
+	{
+		QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
+		QDataStream s(&fdo);
+		vo += f_docu.toString();
+		QByteArray utf8wr = vo.toUtf8();
+		s.writeRawData(utf8wr.data(), utf8wr.length());
+		fdo.close();
+	}
+	zip.write(baseDir);
 	zip.close();
 	return true;
 }
