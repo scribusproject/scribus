@@ -8762,9 +8762,9 @@ void ScribusMainWindow::setDefaultPrinter(const QString& name, const QString& fi
 
 void ScribusMainWindow::getDefaultPrinter(QString& name, QString& file, QString& command)
 {
-	name=PDef.Pname;
-	file=PDef.Dname;
-	command=PDef.Command;
+	name = PDef.Pname;
+	file = PDef.Dname;
+	command = PDef.Command;
 }
 
 void ScribusMainWindow::closeActiveWindowMasterPageEditor()
