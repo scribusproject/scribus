@@ -80,7 +80,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void);
+			ItemInfo(void) {}
 			PageItem* item {nullptr};
 			int groupLastItem {0};
 			int nextItem {0};
