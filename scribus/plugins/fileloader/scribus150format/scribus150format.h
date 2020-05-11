@@ -80,16 +80,16 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownWeld = ownNr = itemID = 0; item = nullptr; isGroupFlag = isWeldFlag = false; };
-			PageItem* item;
-			int groupLastItem;
-			int nextItem;
-			int ownLink;
-			int ownWeld;
-			int ownNr;
-			int itemID;
-			bool isGroupFlag;
-			bool isWeldFlag;
+			ItemInfo(void);
+			PageItem* item {nullptr};
+			int groupLastItem {0};
+			int nextItem {0};
+			int ownLink {0};
+			int ownWeld {0};
+			int ownNr {0};
+			int itemID {0};
+			bool isGroupFlag {false};
+			bool isWeldFlag {false};
 		};
 
 		class ReadObjectParams
@@ -220,17 +220,17 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		QList<PageItem*> FrameItems;
 		QMap<PageItem*, QString> itemsWeld;  //item* and master name
 
-		int itemCount;
-		int itemCountM;
-		bool layerFound;
-		int LayerToPaste;
-		double Xp;
-		double GrX;
-		double Yp;
-		double GrY;
-		QString clipPath;
-		bool isNewFormat;
 		QFile aFile;
+		QString clipPath;
+		bool isNewFormat {false};
+		bool layerFound {false};
+		double GrX {0.0};
+		double GrY {0.0};
+		double Xp {0.0};
+		double Yp {0.0};
+		int LayerToPaste {0};
+		int itemCount {0};
+		int itemCountM {0};
 };
 
 extern "C" PLUGIN_API int scribus150format_getPluginAPIVersion();

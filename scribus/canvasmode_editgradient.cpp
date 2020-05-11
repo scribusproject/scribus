@@ -228,7 +228,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 	}
 }
 
-void CanvasMode_EditGradient::enterEvent(QEvent *)
+void CanvasMode_EditGradient::enterEvent(QEvent */*e*/)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -236,7 +236,7 @@ void CanvasMode_EditGradient::enterEvent(QEvent *)
 	}
 }
 
-void CanvasMode_EditGradient::leaveEvent(QEvent *e)
+void CanvasMode_EditGradient::leaveEvent(QEvent */*e*/)
 {
 }
 

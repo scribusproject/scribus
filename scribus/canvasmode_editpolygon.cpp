@@ -61,7 +61,9 @@
 #include "util_math.h"
 
 
-CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) :
+	CanvasMode(view),
+	m_ScMW(view->m_ScMW)
 {
 }
 

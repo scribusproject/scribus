@@ -242,11 +242,8 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 		str += "\n";
 		return true;
 	}
-	else
-	{
-		qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
-		return false;
-	}
+	qDebug("%s", QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
+	return false;
 }
 
 ScFace_PFA::ScFace_PFA(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features) :

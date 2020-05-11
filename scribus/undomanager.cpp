@@ -41,43 +41,43 @@ for which a new license (GPL+exception) is in place.
 #include "undostack.h"
 #include "undotransaction.h"
 
-UndoManager* UndoManager::instance_          = nullptr;
-bool         UndoManager::undoEnabled_       = true;
-int          UndoManager::undoEnabledCounter_ = 0;
+UndoManager* UndoManager::m_instance          = nullptr;
+bool         UndoManager::m_undoEnabled       = true;
+int          UndoManager::m_undoEnabledCounter = 0;
 
 UndoManager* UndoManager::instance()
 {
-	if (instance_ == nullptr)
-		instance_ = new UndoManager();
+	if (m_instance == nullptr)
+		m_instance = new UndoManager();
 
-	return instance_;
+	return m_instance;
 }
 
 void UndoManager::setUndoEnabled(bool isEnabled)
 {
-	if (isEnabled && undoEnabledCounter_ == 0)
+	if (isEnabled && m_undoEnabledCounter == 0)
 		return; // nothing to do undo is already enabled.
-	if (isEnabled && undoEnabledCounter_ > 0)
-		--undoEnabledCounter_;
+	if (isEnabled && m_undoEnabledCounter > 0)
+		--m_undoEnabledCounter;
 	else if (!isEnabled)
-		++undoEnabledCounter_;
+		++m_undoEnabledCounter;
 
-	undoEnabled_ = undoEnabledCounter_ == 0;
-	if (undoEnabled_)
+	m_undoEnabled = m_undoEnabledCounter == 0;
+	if (m_undoEnabled)
 		connectGuis();
-	else if (undoEnabledCounter_ == 1)
+	else if (m_undoEnabledCounter == 1)
 		disconnectGuis(); // disconnect only once when setUndoEnabled(false) has been called
 	// no need to call again if next setUndoEnabled() call will also be false.
 }
 
 bool UndoManager::undoEnabled()
 {
-	return undoEnabled_;
+	return m_undoEnabled;
 }
 
 UndoManager::UndoManager()
 {
-	currentUndoObjectId_ = -1;
+	m_currentUndoObjectId = -1;
 	if (!UndoManager::IGuides)
 		initIcons();
 	prefs_ = PrefsManager::instance().prefsFile->getContext("undo");
@@ -97,7 +97,7 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 											  const QString &description,
 											  QPixmap *actionPixmap)
 {
-	if (!undoEnabled_)
+	if (!m_undoEnabled)
 		return UndoTransaction(nullptr);
 	
 	/** @brief Dummy object for storing transaction target's name */
@@ -117,10 +117,10 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 	TransactionData *transaction = new TransactionData();
 	transaction->transactionObject = transactionTarget_;
 	transaction->transactionState = transactionState_;
-	transaction->stackLevel = transactions_.size();
+	transaction->stackLevel = m_transactions.size();
 	transaction->UM = this;
 	
-	transactions_.push_back(transaction);
+	m_transactions.push_back(transaction);
 	
 //	qDebug() << "UndoManager::beginTransaction" << targetName << name << transaction;
 	return UndoTransaction(transaction);
@@ -128,7 +128,7 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 
 bool UndoManager::isTransactionMode()
 {
-	return !transactions_.empty();
+	return !m_transactions.empty();
 }
 
 void UndoManager::registerGui(UndoGui* gui)
@@ -138,7 +138,7 @@ void UndoManager::registerGui(UndoGui* gui)
 
 	setUndoEnabled(false);
 	setState(gui);
-	undoGuis_.push_back(gui);
+	m_undoGuis.push_back(gui);
 	setUndoEnabled(true);
 }
 
@@ -146,10 +146,10 @@ void UndoManager::setState(UndoGui* gui, int uid)
 {
 	gui->clear();
 
-	if ( stacks_[currentDoc_].size() == 0 )
+	if ( m_stacks[m_currentDoc].size() == 0 )
 		return;
 
-	UndoStack& currentStack = stacks_[currentDoc_];
+	UndoStack& currentStack = m_stacks[m_currentDoc];
 
 	StateList::iterator itstartU = currentStack.m_undoActions_.begin(); // undo actions
 	StateList::iterator itendU   = currentStack.m_undoActions_.end();
@@ -221,9 +221,9 @@ void UndoManager::setState(UndoGui* gui, int uid)
 
 void UndoManager::connectGuis()
 {
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
-		UndoGui *gui = undoGuis_[i];
+		UndoGui *gui = m_undoGuis[i];
 
 		connect(gui, SIGNAL(undo(int)), this, SLOT(undo(int)));
 		connect(gui, SIGNAL(redo(int)), this, SLOT(redo(int)));
@@ -239,9 +239,9 @@ void UndoManager::connectGuis()
 
 void UndoManager::disconnectGuis()
 {
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
-		UndoGui *gui = undoGuis_[i];
+		UndoGui *gui = m_undoGuis[i];
 
 		disconnect(gui, SIGNAL(undo(int)), this, SLOT(undo(int)));
 		disconnect(gui, SIGNAL(redo(int)), this, SLOT(redo(int)));
@@ -257,11 +257,11 @@ void UndoManager::disconnectGuis()
 
 void UndoManager::removeGui(UndoGui* gui)
 {
-	std::vector<UndoGui*>::iterator it = undoGuis_.begin();
-	while (it != undoGuis_.end())
+	std::vector<UndoGui*>::iterator it = m_undoGuis.begin();
+	while (it != m_undoGuis.end())
 	{
 		if (*it == gui)
-			it = undoGuis_.erase(it);
+			it = m_undoGuis.erase(it);
 		else  
 			++it;
 	}
@@ -270,58 +270,58 @@ void UndoManager::removeGui(UndoGui* gui)
 
 void UndoManager::switchStack(const QString& stackName)
 {
-	if (stackName == currentDoc_)
+	if (stackName == m_currentDoc)
 		return; // already current stack
-	currentDoc_ = stackName;
-	if (!stacks_.contains(currentDoc_))
-		stacks_[currentDoc_] = UndoStack();
+	m_currentDoc = stackName;
+	if (!m_stacks.contains(m_currentDoc))
+		m_stacks[m_currentDoc] = UndoStack();
 
-	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 100));
-	for (size_t i = 0; i < undoGuis_.size(); ++i)
-		setState(undoGuis_[i]);
+	m_stacks[m_currentDoc].setMaxSize(prefs_->getInt("historylength", 100));
+	for (size_t i = 0; i < m_undoGuis.size(); ++i)
+		setState(m_undoGuis[i]);
 
 	setTexts();
 }
 
 void UndoManager::renameStack(const QString& newName)
 {
-	if (currentDoc_ == newName)
+	if (m_currentDoc == newName)
 		return;
 
-	if (stacks_[currentDoc_].size() == 0)
+	if (m_stacks[m_currentDoc].size() == 0)
 	{
-		currentDoc_ = newName;
+		m_currentDoc = newName;
 		return;
 	}
 	
-	UndoStack tmp(stacks_[currentDoc_]);
-	stacks_.remove(currentDoc_);
-	stacks_[newName] = tmp;
-	currentDoc_ = newName;
+	UndoStack tmp(m_stacks[m_currentDoc]);
+	m_stacks.remove(m_currentDoc);
+	m_stacks[newName] = tmp;
+	m_currentDoc = newName;
 }
 
 void UndoManager::removeStack(const QString& stackName)
 {
-	if (stacks_.contains(stackName))
+	if (m_stacks.contains(stackName))
 	{
-		stacks_[stackName].clear();
-		stacks_.remove(stackName);
-		if (currentDoc_ == stackName)
+		m_stacks[stackName].clear();
+		m_stacks.remove(stackName);
+		if (m_currentDoc == stackName)
 		{
-			for (size_t i = 0; i < undoGuis_.size(); ++i)
-				undoGuis_[i]->clear();
-			currentDoc_ = "__no_name__";
+			for (size_t i = 0; i < m_undoGuis.size(); ++i)
+				m_undoGuis[i]->clear();
+			m_currentDoc = "__no_name__";
 		}
 	}
 }
 
 void UndoManager::clearStack()
 {
-	stacks_[currentDoc_].clear();
-	for (size_t i = 0; i < undoGuis_.size(); ++i)
+	m_stacks[m_currentDoc].clear();
+	for (size_t i = 0; i < m_undoGuis.size(); ++i)
 	{
-		undoGuis_[i]->clear();
-		setState(undoGuis_[i]);
+		m_undoGuis[i]->clear();
+		setState(m_undoGuis[i]);
 	}
 }
 
@@ -334,7 +334,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 		target->setUPixmap(targetPixmap);
 	}
 
-	if (!undoEnabled_) // if so flush down the state
+	if (!m_undoEnabled) // if so flush down the state
 	{
 		TransactionState *ts = dynamic_cast<TransactionState*>(state);
 		if (ts) // flush the TransactionObject too
@@ -344,7 +344,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	}
 
 	if (!isTransactionMode() &&
-        (currentUndoObjectId_ == -1 || currentUndoObjectId_ == static_cast<long>(target->getUId())))
+		(m_currentUndoObjectId == -1 || m_currentUndoObjectId == static_cast<long>(target->getUId())))
 	{
 //		qDebug() << "UndoManager: new Action" << state->getName() << "for" << currentUndoObjectId_;
 		emit newAction(target, state); // send action to the guis
@@ -356,13 +356,13 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if (isTransactionMode())
 	{
 //		qDebug() << "UndoManager: Action stored for transaction:" << transactions_.back() << target->getUName() << state->getName();
-		transactions_.back()->transactionState->pushBack(target, state);
+		m_transactions.back()->transactionState->pushBack(target, state);
 	}
 	else
 	{
 //		qDebug() << "UndoManager: Action executed:" << target->getUName() << state->getName();
 		state->setUndoObject(target);
-		if (stacks_[currentDoc_].action(state))
+		if (m_stacks[m_currentDoc].action(state))
 			emit popBack();
 	}
 	if (targetPixmap)
@@ -381,19 +381,20 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 	target->setUName(oldName);
 }
 
-UndoState* UndoManager::getLastUndo(){
-	UndoState* state = stacks_[currentDoc_].getNextUndo(Um::GLOBAL_UNDO_MODE);
+UndoState* UndoManager::getLastUndo()
+{
+	UndoState* state = m_stacks[m_currentDoc].getNextUndo(Um::GLOBAL_UNDO_MODE);
 	return state;
 }
 
 void UndoManager::undo(int steps)
 {
-	if (!undoEnabled_)
+	if (!m_undoEnabled)
 		return;
 
 	emit undoRedoBegin();
 	setUndoEnabled(false);
-	stacks_[currentDoc_].undo(steps, currentUndoObjectId_);
+	m_stacks[m_currentDoc].undo(steps, m_currentUndoObjectId);
 	setUndoEnabled(true);
 	emit undoSignal(steps);
 	emit undoRedoDone();
@@ -402,12 +403,12 @@ void UndoManager::undo(int steps)
 
 void UndoManager::redo(int steps)
 {
-	if (!undoEnabled_)
+	if (!m_undoEnabled)
 		return;
 
 	emit undoRedoBegin();
 	setUndoEnabled(false);
-	stacks_[currentDoc_].redo(steps, currentUndoObjectId_);
+	m_stacks[m_currentDoc].redo(steps, m_currentUndoObjectId);
 	setUndoEnabled(true);
 	emit redoSignal(steps);
 	emit undoRedoDone();
@@ -417,27 +418,27 @@ void UndoManager::redo(int steps)
 bool UndoManager::hasUndoActions(int )
 {
 	// TODO Needs to fixed for object specific mode
-	return stacks_[currentDoc_].undoItems() > 0;
+	return m_stacks[m_currentDoc].undoItems() > 0;
 }
 
 bool UndoManager::hasRedoActions(int )
 {
 	// TODO Needs to be fixed for object specific mode
-	return stacks_[currentDoc_].redoItems() > 0;
+	return m_stacks[m_currentDoc].redoItems() > 0;
 }
 
 void UndoManager::showObject(int uid)
 {
-	if (currentUndoObjectId_ == uid)
+	if (m_currentUndoObjectId == uid)
 		return;
 	setUndoEnabled(false);
-	currentUndoObjectId_ = uid;
-	for (uint i = 0; i < undoGuis_.size(); ++i)
+	m_currentUndoObjectId = uid;
+	for (uint i = 0; i < m_undoGuis.size(); ++i)
 	{
 		if (uid == -2)
-			undoGuis_[i]->clear();
+			m_undoGuis[i]->clear();
 		else
-			setState(undoGuis_[i], currentUndoObjectId_);
+			setState(m_undoGuis[i], m_currentUndoObjectId);
 	}
 	setUndoEnabled(true);
 	setTexts();
@@ -447,11 +448,11 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
 	UndoObject *tmp = nullptr;
 	TransactionState* transaction_ = nullptr;
-	if (!transactions_.empty())
-		transaction_ = transactions_.at(transactions_.size()-1)->transactionState;
-	for (uint i = 0; i < stacks_[currentDoc_].m_undoActions_.size(); ++i)
+	if (!m_transactions.empty())
+		transaction_ = m_transactions.at(m_transactions.size()-1)->transactionState;
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_undoActions_.size(); ++i)
 	{
-		UndoState *tmpState = stacks_[currentDoc_].m_undoActions_[i];
+		UndoState *tmpState = m_stacks[m_currentDoc].m_undoActions_[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
 		if (ts)
 			tmp = ts->replace(uid, newUndoObject);
@@ -461,9 +462,9 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 			tmpState->setUndoObject(newUndoObject);
 		}
 	}
-	for (uint i = 0; i < stacks_[currentDoc_].m_redoActions_.size(); ++i)
+	for (uint i = 0; i < m_stacks[m_currentDoc].m_redoActions_.size(); ++i)
 	{
-		UndoState *tmpState = stacks_[currentDoc_].m_redoActions_[i];
+		UndoState *tmpState = m_stacks[m_currentDoc].m_redoActions_[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
 		if (ts)
 			tmp = ts->replace(uid, newUndoObject);
@@ -482,8 +483,8 @@ void UndoManager::setHistoryLength(int steps)
 {
 	if (steps >= 0)
 	{
-		stacks_[currentDoc_].setMaxSize(static_cast<uint>(steps));
-		prefs_->set("historylength", stacks_[currentDoc_].maxSize());
+		m_stacks[m_currentDoc].setMaxSize(static_cast<uint>(steps));
+		prefs_->set("historylength", m_stacks[m_currentDoc].maxSize());
 	}
 }
 
@@ -491,7 +492,7 @@ void UndoManager::setAllHistoryLengths(int steps)
 {
 	if (steps >= 0)
 	{
-		for (StackMap::Iterator it = stacks_.begin(); it != stacks_.end(); ++it )
+		for (StackMap::Iterator it = m_stacks.begin(); it != m_stacks.end(); ++it )
 		{
 			it.value().setMaxSize(static_cast<uint>(steps));
 		}
@@ -501,24 +502,24 @@ void UndoManager::setAllHistoryLengths(int steps)
 
 int UndoManager::getHistoryLength()
 {
-	if (!stacks_.empty() && stacks_[currentDoc_].redoItems() > 0)
+	if (!m_stacks.empty() && m_stacks[m_currentDoc].redoItems() > 0)
 		return -1;
-	return static_cast<int>(stacks_[currentDoc_].maxSize());
+	return static_cast<int>(m_stacks[m_currentDoc].maxSize());
 }
 
 bool UndoManager::isGlobalMode()
 {
-	return currentUndoObjectId_ == -1;
+	return m_currentUndoObjectId == -1;
 }
 
 void UndoManager::setTexts()
 {
 	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
-	UndoStack& currentStack = stacks_[currentDoc_];
+	UndoStack& currentStack = m_stacks[m_currentDoc];
 
 	if (currentStack.undoItems() > 0)
 	{
-		UndoState *state = currentStack.getNextUndo(currentUndoObjectId_);
+		UndoState *state = currentStack.getNextUndo(m_currentUndoObjectId);
 		if (state)
 			scMW->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
 		else
@@ -529,7 +530,7 @@ void UndoManager::setTexts()
 
 	if (currentStack.redoItems() > 0)
 	{
-		UndoState *state = currentStack.getNextRedo(currentUndoObjectId_);
+		UndoState *state = currentStack.getNextRedo(m_currentUndoObjectId);
 		if (state)
 			scMW->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
 		else
@@ -541,21 +542,21 @@ void UndoManager::setTexts()
 
 void UndoManager::deleteInstance()
 {
-	delete instance_;
-	instance_ = nullptr;
+	delete m_instance;
+	m_instance = nullptr;
 }
 
 UndoManager::~UndoManager()
 {
 	StackMap::iterator it;
-	for (it = stacks_.begin(); it != stacks_.end(); ++it)
+	for (it = m_stacks.begin(); it != m_stacks.end(); ++it)
 	{
 		for (uint i = 0; i < (*it).size(); ++i)
 		{
 			(*it).clear();
 		}
 	}
-	stacks_.clear();
+	m_stacks.clear();
 }
 
 /*************************************************************************************/

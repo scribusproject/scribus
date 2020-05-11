@@ -63,7 +63,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		bool newReplacement {false};
 		QMap<QString,QString> ReplacedFonts;
 		QMap<uint,QString> DoVorl;
-		uint VorlC;
+		uint VorlC {0};
 		QList<PDFPresentationData> EffVal;
 };
 

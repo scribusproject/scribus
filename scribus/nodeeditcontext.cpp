@@ -73,8 +73,7 @@ FPointArray NodeEditContext::beginTransaction(PageItem* currItem)
 	if (nodeTransaction)
 		return (oldClip ? FPointArray(*oldClip) : Clip);
 
-	if (oldClip)
-		delete oldClip;
+	delete oldClip;
 	oldClip = new FPointArray(Clip);
 
 	m_oldItemX = currItem->xPos();

@@ -72,7 +72,7 @@ public:
 	void applyFrameStyle(gtFrameStyle* fstyle);
 	void createParagraphStyle(gtParagraphStyle* pstyle);
 	void setCharStyleAttributes(gtFont *font, CharStyle& style);
-	void setParaStyleAttributes(gtParagraphStyle *gtstyle, ParagraphStyle& style);
+	void setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& style);
 	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
 	void removeParagraphStyle(const QString& name);
 	void removeParagraphStyle(int index);

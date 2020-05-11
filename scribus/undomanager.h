@@ -52,13 +52,13 @@ typedef QMap<QString, UndoStack> StackMap;
 class SCRIBUS_API TransactionSettings
 {
 public:
-	QString  targetName;
-	QPixmap *targetPixmap;
-	QString  actionName;
-	QString  description;
-	QPixmap *actionPixmap;
+	QPixmap* actionPixmap {nullptr};
+	QPixmap* targetPixmap {nullptr};
+	QString actionName;
+	QString description;
+	QString targetName;
 
-	TransactionSettings(void) { targetPixmap = actionPixmap = nullptr; }
+	TransactionSettings(void) {}
 };
 
 /**
@@ -272,10 +272,10 @@ private:
 	 * UndoManager is singleton and the instance can be queried with the method
 	 * instance().
 	 */
-	static UndoManager* instance_;
+	static UndoManager* m_instance;
 
 	/** @brief Should undo states be stored or ignored */
-	static bool undoEnabled_;
+	static bool m_undoEnabled;
 
 	/**
 	 * @brief Tracks the state of _undoEnabled.
@@ -286,24 +286,24 @@ private:
 	 * calls this way guarantees that undo is not enabled accidentally calling
 	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
 	 */
-	static int undoEnabledCounter_;
+	static int m_undoEnabledCounter;
 
 	PrefsContext *prefs_;
 
 	/** @brief Doc to which the currently active stack belongs */
-	QString currentDoc_;
+	QString m_currentDoc;
 
 	/**
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
-	int currentUndoObjectId_;
+	int m_currentUndoObjectId;
 
 	/**
 	 * @brief Stores the transactions which are currently started but not
 	 * @brief canceled or committed.
 	 */
-	std::vector<TransactionData*> transactions_;
+	std::vector<TransactionData*> m_transactions;
 
 	/**
 	 * @brief UndoGuis attached to this UndoManager
@@ -311,14 +311,14 @@ private:
 	 * @sa UndoWidget
 	 * @sa UndoPalette
 	 */
-	std::vector<UndoGui*> undoGuis_;
+	std::vector<UndoGui*> m_undoGuis;
 
 	/**
 	 * @brief Undo stacks for all open document
 	 *
 	 * Whenever current stack is used it's referred with <code>stacks_[currentDoc_]</code>
 	 */
-	StackMap stacks_;
+	StackMap m_stacks;
 
 	/**
 	 * @brief Initializes the UndoGui.
@@ -784,14 +784,16 @@ typedef UndoManager Um;
 
 class SCRIBUS_API UndoBlocker
 {
-public:
-	UndoBlocker() {
-		UndoManager::instance()->setUndoEnabled(false);
-	}
+	public:
+		UndoBlocker()
+		{
+			UndoManager::instance()->setUndoEnabled(false);
+		}
 
-	~UndoBlocker() {
-		UndoManager::instance()->setUndoEnabled(true);
-	}
+		~UndoBlocker()
+		{
+			UndoManager::instance()->setUndoEnabled(true);
+		}
 };
 
 #endif

@@ -408,7 +408,7 @@ private:
 
 	friend class SCFonts;
 
-	ScFace(ScFaceData* md);
+	ScFace(ScFaceData* data);
 	ScFaceData* m_m;
 	QString m_replacedName;
 	QString m_replacedInDoc;

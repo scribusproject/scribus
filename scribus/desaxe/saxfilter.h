@@ -48,7 +48,7 @@ public:
 	virtual void end(const Xml_string& tag);
 	Xml_string openTag();
 private:
-	int m_level;
+int m_level {0};
 	Xml_string m_tag;
 };
 
@@ -64,7 +64,7 @@ public:
 	virtual void begin(const Xml_string& tag, Xml_attr attr);
 	virtual void end(const Xml_string& tag);
 private:
-	int m_level;
+int m_level {0};
 	Xml_string m_old;
 	Xml_string m_new;
 };
@@ -78,7 +78,7 @@ public:
 	AddAttributes(SaxHandler* delegate, Xml_attr add);
 	virtual void begin(const Xml_string& tag, Xml_attr attr);
 private:
-	bool m_oneshot;
+bool m_oneshot {false};
 	Xml_attr m_attributes;
 };
 

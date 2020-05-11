@@ -107,9 +107,7 @@ private:
 	QString MatrixToStr(QTransform &mat, double factor);
 	int hex2int(char hex);
 	bool checkForFallback(PageItem *Item);
-	ScribusDoc* m_Doc;
-	ScZipHandler *zip;
-	QTemporaryDir *dir;
+	ScribusDoc* m_Doc {nullptr};
 	QString baseDir;
 	QDomDocument f_docu;
 	QDomDocument p_docu;
@@ -121,13 +119,13 @@ private:
 	struct txtRunItem
 	{
 		QChar chr;
-		GlyphLayout* glyphs;
+		GlyphLayout* glyphs {nullptr};
 		CharStyle style;
-		int index;
-		double CurX;
-		PageItem* embItem;
+		int index {0};
+		double CurX {0.0};
+		PageItem* embItem {nullptr};
 	};
-	double m_dpi;
+	double m_dpi {0.0};
 };
 
 #endif

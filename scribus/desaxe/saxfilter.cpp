@@ -28,7 +28,7 @@ void SaxFilter::chars(const Xml_string& text)
 }
 
 
-KeepOpen::KeepOpen(SaxHandler* delegate) : SaxFilter(delegate), m_level(0) {}
+KeepOpen::KeepOpen(SaxHandler* delegate) : SaxFilter(delegate) {}
 
 void KeepOpen::begin(const Xml_string& tag, Xml_attr attr)
 {
@@ -51,10 +51,10 @@ Xml_string KeepOpen::openTag()
 }
 
 RenameElem::RenameElem(SaxHandler* delegate, const Xml_string& oldname, const Xml_string& newname)
-: SaxFilter(delegate), m_level(0), m_old(oldname), m_new(newname) {}
+: SaxFilter(delegate), m_old(oldname), m_new(newname) {}
 
 RenameElem::RenameElem(SaxHandler* delegate, const Xml_string& newname)
-: SaxFilter(delegate), m_level(0), m_new(newname) {}
+: SaxFilter(delegate), m_new(newname) {}
 
 void RenameElem::begin(const Xml_string& tag, Xml_attr attr)
 {
@@ -76,7 +76,7 @@ void RenameElem::end(const Xml_string& tag)
 
 
 AddAttributes::AddAttributes(SaxHandler* delegate, Xml_attr add) 
-: SaxFilter(delegate), m_oneshot(false), m_attributes(add) {}
+: SaxFilter(delegate), m_attributes(add) {}
 
 
 void AddAttributes::begin(const Xml_string& tag, Xml_attr attr)

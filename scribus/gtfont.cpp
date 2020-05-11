@@ -69,31 +69,7 @@ const QString gtFont::fontWidths[FontWidthMAX] =
 
 gtFont::gtFont()
 {
-	m_setflags = 0;
 	noEffects();
-	m_name        = "";
-	m_family      = "";
-	m_weight      = "";
-	m_slant       = "";
-	m_width       = "";
-	m_append      = "";
-	m_size        = 120;
-	m_color       = "Black";
-	m_shade       = 100;
-	m_strokeColor = "Black";
-	m_strokeShade = 100;
-	m_hscale      = 1000;
-	m_kerning     = 0;
-	m_useFullName = true;
-	m_weightIndex = 0;
-	m_slantIndex  = 1;
-	m_widthIndex  = 2;
-	m_smallestIndex = -1;
-	m_biggestIndex = - 1;
-	m_index = -1;
-	m_tmpWeightIndex = -1;
-	m_tmpSlantIndex = -1;
-	m_tmpWidthIndex = -1;
 }
 
 gtFont::gtFont(const gtFont& f)

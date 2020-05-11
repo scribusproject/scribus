@@ -215,19 +215,16 @@ XPSExPlug::XPSExPlug(ScribusDoc* doc, int output_res)
 
 bool XPSExPlug::doExport(const QString& fName)
 {
-	zip = new ScZipHandler(true);
-	if (!zip->open(fName))
-	{
-		delete zip;
+	ScZipHandler zip(true);
+	if (!zip.open(fName))
 		return false;
-	}
-	dir = new QTemporaryDir();
-	if (dir->isValid())
+	QTemporaryDir dir;
+	if (dir.isValid())
 	{
 		imageCounter = 0;
 		fontCounter = 0;
 		xps_fontMap.clear();
-		baseDir = dir->path();
+		baseDir = dir.path();
 		// Create directory tree
 		QDir outDir(baseDir);
 		outDir.mkdir("_rels");
@@ -288,11 +285,9 @@ bool XPSExPlug::doExport(const QString& fName)
 			s.writeRawData(utf8wr.data(), utf8wr.length());
 			fdo.close();
 		}
-		zip->write(baseDir);
+		zip.write(baseDir);
 	}
-	zip->close();
-	delete zip;
-	delete dir;
+	zip.close();
 	return true;
 }
 
