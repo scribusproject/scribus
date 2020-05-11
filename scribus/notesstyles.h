@@ -80,8 +80,8 @@ private:
 	bool m_autoNotesWidth {true}; //change width of notes frames automaticaly if width of master frame changes?
 	bool m_autoRemoveEmptyNotesFrames {true};
 	bool m_autoWeldNotesFrames {true};
-	bool m_superscriptInNote;
-	bool m_superscriptInMaster;
+	bool m_superscriptInNote {true};
+	bool m_superscriptInMaster {true};
 	QString m_marksCharStyle;
 	QString m_notesParaStyle;
 };
