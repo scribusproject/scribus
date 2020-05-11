@@ -291,9 +291,12 @@ bool XPSExPlug::doExport(const QString& fName)
 		s.writeRawData(utf8wr.data(), utf8wr.length());
 		fdo.close();
 	}
-	zip.write(baseDir);
+	
+	bool written = zip.write(baseDir);
 	zip.close();
-	return true;
+	if (!written)
+		QFile::remove(fName);
+	return written;
 }
 
 void XPSExPlug::writePages(QDomElement &root)
