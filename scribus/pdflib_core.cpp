@@ -1431,6 +1431,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 {
 	PdfFont result;
 	result.name = Pdf::toName(name);
+	result.usage = Used_in_Content;
 	result.method = Use_Type3;
 	result.encoding = Encode_256;
 
