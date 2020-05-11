@@ -90,42 +90,10 @@ enum FontWidth {
 */
 class SCRIBUS_API gtFont
 {
-private:
-	int m_setflags {0};
-	QString m_name;
-	QString m_family;
-	QString m_weight;
-	QString m_slant;
-	QString m_width;
-	QString m_append;
-	int m_size {120};
-	bool m_fontEffects[FontEffectMAX];
-	QString m_color {"Black"};
-	int m_shade {100};
-	QString m_strokeColor {"Black"};
-	int m_strokeShade {100};
-	/* Width of a character in percentages to it's "real width" */
-	int m_hscale {1000};
-	int m_kerning {0};
-	bool m_useFullName {true};
-	int m_weightIndex {0};
-	int m_slantIndex {1};
-	int m_widthIndex {2};
-	int m_smallestIndex {-1};
-	int m_biggestIndex {-1};
-	int m_index {-1};
-	int m_tmpWeightIndex {-1};
-	int m_tmpSlantIndex {-1};
-	int m_tmpWidthIndex {-1};
-	void initArrays();
-	void parseName();
-	void parseWeight();
-	void parseSlant();
-	void parseWidth();
-	void parseFamily();
-	int find(const QString& where, const QString& what);
-
 public:
+	gtFont();
+	gtFont(const gtFont& f);
+	~gtFont();
 
 	typedef enum
 	{
@@ -182,9 +150,42 @@ public:
 	void setHscale(int newHscale);
 	int getKerning();
 	void setKerning(int newKerning);
-	gtFont();
-	gtFont(const gtFont& f);
-	~gtFont();
+
+private:
+	int m_setflags {0};
+	QString m_name;
+	QString m_family;
+	QString m_weight;
+	QString m_slant;
+	QString m_width;
+	QString m_append;
+	int m_size {120};
+	bool m_fontEffects[FontEffectMAX];
+	QString m_color {"Black"};
+	int m_shade {100};
+	QString m_strokeColor {"Black"};
+	int m_strokeShade {100};
+	/* Width of a character in percentages to it's "real width" */
+	int m_hscale {1000};
+	int m_kerning {0};
+	bool m_useFullName {true};
+	int m_weightIndex {0};
+	int m_slantIndex {1};
+	int m_widthIndex {2};
+	int m_smallestIndex {-1};
+	int m_biggestIndex {-1};
+	int m_index {-1};
+	int m_tmpWeightIndex {-1};
+	int m_tmpSlantIndex {-1};
+	int m_tmpWidthIndex {-1};
+
+	void initArrays();
+	void parseName();
+	void parseWeight();
+	void parseSlant();
+	void parseWidth();
+	void parseFamily();
+	int find(const QString& where, const QString& what);
 };
 
 #endif // GTFONT_H
