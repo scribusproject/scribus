@@ -9852,9 +9852,10 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	try
 	{
 		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
-		PoDoFo::PdfObject* contents  = page? page->GetContents() : nullptr;
-		PoDoFo::PdfObject* resources = page? page->GetResources() : nullptr;
-		for (PoDoFo::PdfObject* par = page->GetObject(); par && !resources; par = par->GetIndirectKey("Parent"))
+		PoDoFo::PdfObject* pageObj   = page ? page->GetObject() : nullptr;
+		PoDoFo::PdfObject* contents  = page ? page->GetContents() : nullptr;
+		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
+		for (PoDoFo::PdfObject* par = pageObj; par && !resources; par = par->GetIndirectKey("Parent"))
 		{
 			resources = par->GetIndirectKey("Resources");
 		}
