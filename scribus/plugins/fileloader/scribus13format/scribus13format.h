@@ -27,6 +27,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus13Format();
 		virtual ~Scribus13Format();
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -44,7 +45,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
 		bool readColors(const QString& fileName, ColorList & colors) override;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) override;
-		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString, QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
 
 	private:
 		void registerFormats();
@@ -54,15 +55,14 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
-		QString AskForFont(const QString& fStr, ScribusDoc *doc);
 		
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QList<PageItem*> FrameItems;
 		int itemCount {0};
 		bool newReplacement {false};
-		QMap<QString,QString> ReplacedFonts;
-		QMap<uint,QString> DoVorl;
+		QMap<QString, QString> ReplacedFonts;
+		QMap<uint, QString> DoVorl;
 		uint VorlC {0};
 		QList<PDFPresentationData> EffVal;
 };

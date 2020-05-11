@@ -160,10 +160,10 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
+void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString, QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=newReplacement;
-	getReplacedFonts=ReplacedFonts;
+	getNewReplacement = newReplacement;
+	getReplacedFonts = ReplacedFonts;
 }
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -2566,35 +2566,6 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			++VorlC;
 		}
 	}
-}
-
-QString Scribus13Format::AskForFont(const QString& fStr, ScribusDoc *doc)
-{
-	PrefsManager& prefsManager=PrefsManager::instance();
-//	QFont fo;
-	QString tmpf = fStr;
-	if ((!(*m_AvailableFonts).contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-	{
-		if ((!prefsManager.appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager.appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
-		{
-			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
-			MissingFont *dia = new MissingFont(nullptr, tmpf, doc);
-			dia->exec();
-			tmpf = dia->getReplacementFont();
-			delete dia;
-			qApp->restoreOverrideCursor();
-			prefsManager.appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
-		}
-		else
-			tmpf = prefsManager.appPrefs.fontPrefs.GFontSub[tmpf];
-		ReplacedFonts[fStr] = tmpf;
-	}
-	if (!doc->UsedFonts.contains(tmpf))
-	{
-		doc->AddFont(tmpf);
-	}
-// 	DoFonts[fStr] = tmpf;
-	return tmpf;
 }
 
 bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
