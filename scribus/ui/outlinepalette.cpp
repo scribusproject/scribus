@@ -701,78 +701,68 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
 
-QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
+QTreeWidgetItem* OutlinePalette::getListItem(int pageNr, PageItem *pageItem)
 {
 	OutlineTreeItem *item = nullptr;
 	QTreeWidgetItem *retVal = nullptr;
 	if (currDoc->masterPageMode())
 	{
-		if (Nr == nullptr)
+		if (pageItem == nullptr)
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if ((item->type == 0) && (item->PageObject->pageNr() == SNr))
+				if (item && (item->type == 0) && (item->PageObject->pageNr() == pageNr))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 		else
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if ((item->type == 1) && (item->PageItemObject == Nr))
+				if (item && (item->type == 1) && (item->PageItemObject == pageItem))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 	}
 	else
 	{
-		if (Nr == nullptr)
+		if (pageItem == nullptr)
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if (!item)
-					qFatal("OutlinePalette::getListItem !item");
-				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
+				if (item && (item->type == 2) && (item->PageObject->pageNr() == pageNr))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 		else
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if (((item->type == 3) || (item->type == 4)) && (item->PageItemObject == Nr))
+				if (item && ((item->type == 3) || (item->type == 4)) && (item->PageItemObject == pageItem))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 	}
 	return retVal;
 }
 
-void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
+void OutlinePalette::slotShowSelect(int pageNr, PageItem *pageItem)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
@@ -799,7 +789,7 @@ void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
 	}
 	else
 	{
-		QTreeWidgetItem *retVal = getListItem(SNr, Nr);
+		QTreeWidgetItem *retVal = getListItem(pageNr, pageItem);
 		if (retVal != nullptr && !retVal->isHidden())
 			retVal->setSelected(true);
 	}
