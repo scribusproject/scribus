@@ -564,70 +564,70 @@ void XPSExPlug::handleImageFallBack(PageItem *Item, QDomElement &parentElem, QDo
 
 void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
 {
-	if (((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None)) || ((Item->GrTypeStroke != 0) || (Item->lineColor() != CommonStrings::None) || !Item->NamedLStyle.isEmpty()))
-	{
-		if (Item->GrType == 14)
-			processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
-		bool closedPath;
-		closedPath = ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon) || (Item->itemType() == PageItem::Arc));
+	if (((Item->GrType == 0) && (Item->fillColor() == CommonStrings::None)) && ((Item->GrTypeStroke == 0) && (Item->lineColor() == CommonStrings::None) && Item->NamedLStyle.isEmpty()))
+		return;
 
-		QDomElement ob = p_docu.createElement("Path");
-		FPointArray path = Item->PoLine.copy();
-		QTransform mpx;
-		if (Item->rotation() != 0.0)
+	if (Item->GrType == 14)
+		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
+	bool closedPath;
+	closedPath = ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon) || (Item->itemType() == PageItem::Arc));
+
+	QDomElement ob = p_docu.createElement("Path");
+	FPointArray path = Item->PoLine.copy();
+	QTransform mpx;
+	if (Item->rotation() != 0.0)
+	{
+		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+		mpx.rotate(Item->rotation());
+		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
+	}
+	path.translate(xOffset, yOffset);
+	path.scale(conversionFactor, conversionFactor);
+	QString pa = SetClipPath(&path, closedPath);
+	if (Item->fillRule)
+		pa.prepend("F 0 ");
+	else
+		pa.prepend("F 1 ");
+	ob.setAttribute("Data", pa);
+	if (Item->GrType != 14)
+	{
+		if (Item->GrMask > 0)
+			handleMask(3, Item, ob, rel_root, xOffset, yOffset);
+		getFillStyle(Item, ob, rel_root, xOffset, yOffset);
+	}
+	if (Item->NamedLStyle.isEmpty())
+	{
+		if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
 		{
-			mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
-			mpx.rotate(Item->rotation());
-			mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
-		}
-		path.translate(xOffset, yOffset);
-		path.scale(conversionFactor, conversionFactor);
-		QString pa = SetClipPath(&path, closedPath);
-		if (Item->fillRule)
-			pa.prepend("F 0 ");
-		else
-			pa.prepend("F 1 ");
-		ob.setAttribute("Data", pa);
-		if (Item->GrType != 14)
-		{
-			if (Item->GrMask > 0)
-				handleMask(3, Item, ob, rel_root, xOffset, yOffset);
-			getFillStyle(Item, ob, rel_root, xOffset, yOffset);
-		}
-		if (Item->NamedLStyle.isEmpty())
-		{
-			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
-			{
-				processSymbolStroke(xOffset, yOffset, Item, parentElem, rel_root);
-			}
-			else
-			{
-				getStrokeStyle(Item, ob, rel_root, xOffset, yOffset);
-				if (Item->rotation() != 0.0)
-					ob.setAttribute("RenderTransform", MatrixToStr(mpx));
-				parentElem.appendChild(ob);
-			}
+			processSymbolStroke(xOffset, yOffset, Item, parentElem, rel_root);
 		}
 		else
 		{
-			QDomElement grp2 = p_docu.createElement("Canvas");
-			multiLine ml = m_Doc->docLineStyles[Item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-				{
-					QDomElement ob3 = p_docu.createElement("Path");
-					ob3.setAttribute("Data", pa);
-					GetMultiStroke(&ml[it], ob3);
-					grp2.appendChild(ob3);
-				}
-			}
-			if (Item->lineTransparency() != 0)
-				grp2.setAttribute("Opacity", FToStr(1.0 - Item->lineTransparency()));
+			getStrokeStyle(Item, ob, rel_root, xOffset, yOffset);
 			if (Item->rotation() != 0.0)
-				grp2.setAttribute("RenderTransform", MatrixToStr(mpx));
-			parentElem.appendChild(grp2);
+				ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+			parentElem.appendChild(ob);
 		}
+	}
+	else
+	{
+		QDomElement grp2 = p_docu.createElement("Canvas");
+		multiLine ml = m_Doc->docLineStyles[Item->NamedLStyle];
+		for (int it = ml.size()-1; it > -1; it--)
+		{
+			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+			{
+				QDomElement ob3 = p_docu.createElement("Path");
+				ob3.setAttribute("Data", pa);
+				GetMultiStroke(&ml[it], ob3);
+				grp2.appendChild(ob3);
+			}
+		}
+		if (Item->lineTransparency() != 0)
+			grp2.setAttribute("Opacity", FToStr(1.0 - Item->lineTransparency()));
+		if (Item->rotation() != 0.0)
+			grp2.setAttribute("RenderTransform", MatrixToStr(mpx));
+		parentElem.appendChild(grp2);
 	}
 }
 
