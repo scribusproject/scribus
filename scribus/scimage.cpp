@@ -758,7 +758,7 @@ void ScImage::sharpen(double radius, double sigma)
 	{
 		QRgb *s = (QRgb*) dest.scanLine(yi);
 		QRgb *d = (QRgb*) scanLine(yi);
-		for (int xi=0; xi < dest.width(); ++xi)
+		for (int xi = 0; xi < dest.width(); ++xi)
 		{
 			(*d) = (*s);
 			s++;
