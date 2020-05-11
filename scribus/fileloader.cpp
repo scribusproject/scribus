@@ -440,7 +440,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	if (!dia.exec())
 		return false;
 
-	QMap<QString,QString>::Iterator itfsu;
+	QMap<QString, QString>::Iterator itfsu;
 	for (itfsu = m_ReplacedFonts.begin(); itfsu != m_ReplacedFonts.end(); ++itfsu)
 	{
 		if (dia.stickyReplacements->isChecked())
@@ -460,7 +460,7 @@ void FileLoader::informReplacementFonts()
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
-		QMap<QString,QString>::Iterator it;
+		QMap<QString, QString>::Iterator it;
 		for (it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
 		{
 			mess += it.key() + tr(" was replaced by: ")+ it.value() +"\n";

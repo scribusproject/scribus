@@ -55,6 +55,7 @@ public:
 	const FileFormat * const formatSLA150;
 
 	static const QString getLoadFilterString();
+
 private:
 	QMap<QString, QString> m_ReplacedFonts;
 	bool m_newReplacement;
