@@ -1110,7 +1110,9 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		}
 	}
 
-//	parentElem.appendChild(grp);
+	if (grp.hasChildNodes())
+		parentElem.appendChild(grp);
+
 	if (Item->itemText.length() != 0)
 	{
 		QDomElement grp2 = p_docu.createElement("Canvas");
