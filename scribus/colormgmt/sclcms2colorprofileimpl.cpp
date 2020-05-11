@@ -63,8 +63,9 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 			if (descSize > 0)
 			{
 				wchar_t* descData = (wchar_t*) malloc(descSize + sizeof(wchar_t));
-				descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
+				if (descData)
+					descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 				{
 					uint stringLen = descSize / sizeof(wchar_t);
 					descData[stringLen] = 0;
@@ -73,20 +74,19 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 					} else {
 						m_productDescription = QString::fromUcs4((uint *) descData);
 					}
-					free(descData);
 				}
+				free(descData);
 			}
 #else
 			cmsUInt32Number descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
 			if (descSize > 0)
 			{
 				char* descData = (char*) malloc(descSize + sizeof(char));
-				descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
-				{
+				if (descData)
+					descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 					m_productDescription = QString(descData);
-					free(descData);
-				}
+				free(descData);
 			}
 #endif
 		}
