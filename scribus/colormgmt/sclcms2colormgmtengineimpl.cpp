@@ -94,11 +94,7 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 				{
 					uint stringLen = descSize / sizeof(wchar_t);
 					descData[stringLen] = 0;
-					if (sizeof(wchar_t) == sizeof(QChar)) {
-						profileInfo.description = QString::fromUtf16((ushort *) descData);
-					} else {
-						profileInfo.description = QString::fromUcs4((uint *) descData);
-					}
+					profileInfo.description = QString::fromWCharArray(descData);
 				}
 				free(descData);
 			}

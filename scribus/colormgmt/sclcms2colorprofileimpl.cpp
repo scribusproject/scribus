@@ -69,11 +69,7 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 				{
 					uint stringLen = descSize / sizeof(wchar_t);
 					descData[stringLen] = 0;
-					if (sizeof(wchar_t) == sizeof(QChar)) {
-						m_productDescription = QString::fromUtf16((ushort *) descData);
-					} else {
-						m_productDescription = QString::fromUcs4((uint *) descData);
-					}
+					m_productDescription = QString::fromWCharArray(descData);
 				}
 				free(descData);
 			}
