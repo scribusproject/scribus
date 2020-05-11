@@ -156,7 +156,7 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	else
 		return QString();
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-		docText.truncate(docText.length()-1);
+		docText.truncate(docText.length() - 1);
 	return docText;
 }
 
@@ -484,7 +484,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->appendToPageSets(pageS);
-						if (m_Doc->pageSets().count()-1 == m_Doc->pagePositioning())
+						if (m_Doc->pageSets().count() - 1 == m_Doc->pagePositioning())
 						{
 							m_Doc->setPageGapHorizontal(ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0));
 							m_Doc->setPageGapVertical(ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 0.0));
@@ -1378,7 +1378,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	if (calign >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 //	qDebug() << QString("par style at end: %1/%2 (%3) calign %4").arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign);
-	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
+	obj->itemText.applyStyle(obj->itemText.length() - 1, pstyle);
 	//last->StyleStart = obj->itemText.length();
 }
 
