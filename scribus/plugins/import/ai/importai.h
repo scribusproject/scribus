@@ -178,7 +178,7 @@ private:
 	double meshNode2Control2X = 0.0, meshNode2Control2Y = 0.0;
 	double meshNode3PointX = 0.0, meshNode3PointY = 0.0;
 	double meshNode3Control1X = 0.0, meshNode3Control1Y = 0.0;
-	double meshNode3Control2X, meshNode3Control2Y;
+	double meshNode3Control2X = 0.0, meshNode3Control2Y = 0.0;
 	double meshNode4PointX = 0.0, meshNode4PointY = 0.0;
 	double meshNode4Control1X = 0.0, meshNode4Control1Y = 0.0;
 	double meshNode4Control2X = 0.0, meshNode4Control2Y = 0.0;
