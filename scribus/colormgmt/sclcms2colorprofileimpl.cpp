@@ -113,7 +113,7 @@ bool ScLcms2ColorProfileImpl::save(QByteArray& profileData) const
 
 	// Allocate array for profile data
 	profileData.resize(bytesNeeded);
-	if (profileData.size() != bytesNeeded)
+	if (profileData.size() != static_cast<int>(bytesNeeded))
 		return false;
 	done = cmsSaveProfileToMem(m_profileHandle, profileData.data(), &bytesNeeded);
 
