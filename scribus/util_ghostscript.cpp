@@ -349,13 +349,13 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	QMap<int, QString> gsVersions;
 #if defined _WIN32
 	// Try to locate GhostScript thanks to the registry
-	DWORD size;
+	DWORD size, regVersionSize;
 	HKEY hKey1, hKey2;
 	DWORD regType = REG_SZ;
 	REGSAM flags  = KEY_READ;
-	WCHAR regVersion[MAX_PATH];
-	WCHAR regPath[MAX_PATH];
-	WCHAR gsPath[MAX_PATH];
+	WCHAR regVersion[MAX_PATH] = {};
+	WCHAR regPath[MAX_PATH] = {};
+	WCHAR gsPath[MAX_PATH] = {};
 	QString gsVersion, gsExeName, gsName;
 
 	bool isWin64Api = false;
@@ -372,9 +372,9 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 
 	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), 0, flags, &hKey1) == ERROR_SUCCESS)
 	{
-		size = sizeof(regVersion) / sizeof(WCHAR) - 1;
+		regVersionSize = sizeof(regVersion) / sizeof(WCHAR) - 1;
 		DWORD keyIndex = 0;
-		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
+		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &regVersionSize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
 		{
 			int gsNumericVer, gsMajor, gsMinor;
 			wcscpy(regPath, (const wchar_t*) regKey.utf16());
@@ -382,7 +382,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 			wcscat(regPath, regVersion);
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, regPath, 0, flags, &hKey2) == ERROR_SUCCESS)
 			{
-				size = sizeof(gsPath) - 1;
+				size = sizeof(gsPath) - 2;
 				if (RegQueryValueExW(hKey2, L"GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
 				{
 					// We now have GhostScript dll path, but we want gswin32c.exe
