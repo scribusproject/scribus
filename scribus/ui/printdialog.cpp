@@ -72,6 +72,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	BleedTop->setMinimum(0);
 	BleedTop->setMaximum(3000 * m_unitRatio);
 	previewButton->setEnabled(!previewDinUse);
+
 	// Fill printer list
 	QString printerName;
 	QStringList printerNames = PrinterUtil::getPrinterNames();
@@ -80,14 +81,17 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	{
 		printerName = printerNames[i];
 		PrintDest->addItem(printerName);
-		if (printerName == printOptions.printer)
-		{
-			PrintDest->setCurrentIndex(PrintDest->count()-1);
-			prefs->set("CurrentPrn", PrintDest->currentText());
-		}
 	}
-
 	PrintDest->addItem( tr("File"));
+
+	int prnIndex = PrintDest->findText(printOptions.printer);
+	if (prnIndex < 0)
+		prnIndex = PrintDest->findText(PrinterUtil::getDefaultPrinterName());
+	if (prnIndex >= 0)
+	{
+		PrintDest->setCurrentIndex(prnIndex);
+		prefs->set("CurrentPrn", PrintDest->currentText());
+	}
 
 	// Fill Separation list
 	QString sep[] =

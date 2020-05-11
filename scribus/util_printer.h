@@ -23,6 +23,8 @@ class SCRIBUS_API PrinterUtil
 	public:
 		PrinterUtil() = default;
 		~PrinterUtil() = default;
+
+		QString static getDefaultPrinterName();
 		QStringList static getPrinterNames();
 
 #if defined(_WIN32)
