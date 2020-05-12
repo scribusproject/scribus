@@ -517,7 +517,7 @@ bool PSLib::PS_set_file(const QString& fn)
 	bool ret = Spool.open(QIODevice::WriteOnly);
 	if (!ret)
 	{
-		PS_Error( tr("Failed to openfile for writing : %1").arg(fn) );
+		PS_Error( tr("Failed to open file for writing : %1").arg(fn) );
 		return false;
 	}
 	spoolStream.setDevice(&Spool);
