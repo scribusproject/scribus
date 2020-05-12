@@ -392,7 +392,7 @@ void TextAPI::linkToTextFrame(QString name2)
 	PageItem *toitem = GetUniqueItem(name2);
 	if (toitem == nullptr)
 		return;
-	if (!(toitem->asTextFrame()))
+	if (!(toitem->isTextFrame()))
 	{
 		RAISE("Can only link text frames.");
 	}

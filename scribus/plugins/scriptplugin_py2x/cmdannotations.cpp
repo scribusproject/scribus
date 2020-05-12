@@ -657,7 +657,7 @@ static bool testPageItem(PageItem *item)
 {
 	if (item == nullptr)
 		return false;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, 
 				QObject::tr("Can't set annotation on a non-text frame", "python error").toLocal8Bit().constData());

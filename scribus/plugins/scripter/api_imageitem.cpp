@@ -69,7 +69,7 @@ void ImageAPI::setGrayscale()
         RAISE("No document open");
 	if (item == nullptr)
         return;
-    if (! item->asImageFrame())
+	if (! item->isImageFrame())
     {
         RAISE("Specified item not an image frame.");
         return;
@@ -90,7 +90,7 @@ void ImageAPI::load(QString filename)
 		RAISE("No document open");
 	if (item == nullptr)
 		return;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		RAISE("Target is not an image frame.");
 		return;
@@ -104,7 +104,7 @@ void ImageAPI::scale(double x, double y)
 		RAISE("No document open");
 	if (item == nullptr)
 		return;
-	if (! item->asImageFrame())
+	if (! item->isImageFrame())
 	{
 		RAISE("Specified item not an image frame.");
 		return;
@@ -132,7 +132,7 @@ void ImageAPI::offset(double x, double y)
 		RAISE("No document open");
 	if (item == nullptr)
 		return;
-	if (! item->asImageFrame())
+	if (! item->isImageFrame())
 	{
 		RAISE("Specified item not an image frame.");
 		return;
@@ -167,7 +167,7 @@ void ImageAPI::setBrightness(double n)
 		RAISE("No document open");
 	if (item == nullptr)
 		return ;
-	if (! item->asImageFrame())
+	if (! item->isImageFrame())
 	{
 		RAISE("Specified item not an image frame.");
 		return;
@@ -190,7 +190,7 @@ void ImageAPI::scaleToFrame(bool scaleToFrame, bool proportional)
 		RAISE("No document open.");
 	if (item == nullptr)
 		return;
-	if (! item->asImageFrame())
+	if (! item->isImageFrame())
 	{
 		RAISE("Specified item not an image frame.");
 		return;

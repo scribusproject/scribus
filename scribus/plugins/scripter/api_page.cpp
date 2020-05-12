@@ -92,7 +92,7 @@ QList<QVariant> PageAPI::items()
 			 * it onto TextWrapper class, which can effectively perform all
 			 * the text operations
 			 */
-			if (item->asTextFrame())
+			if (item->isTextFrame())
 			{
 				l.append(qVariantFromValue((QObject *)(new TextAPI(item->asTextFrame()))));
 			}
@@ -123,7 +123,7 @@ QList<QVariant> PageAPI::selection()
 		PageItem *item = sel->itemAt(i);
 		if (num == item->OwnPage)
 		{
-			if (item->asTextFrame())
+			if (item->isTextFrame())
 			{
 				l.append(qVariantFromValue((QObject*)(new TextAPI(item->asTextFrame()))));
 			}

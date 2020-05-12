@@ -369,7 +369,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 		doUnGroup->setEnabled(m_item->isGroup());
 	if ((m_doc->appMode == modeEditClip) && (m_item->isGroup()))
 		doUnGroup->setEnabled(false);
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(true);
 		rotationSpin->setEnabled(false);

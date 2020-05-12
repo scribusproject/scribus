@@ -195,12 +195,12 @@ QObject *DocumentAPI::activeItem()
 	else
 	{
 		PageItem* item = ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
-		if(item->asTextFrame())
+		if(item->isTextFrame())
 		{
 			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			return textItem;
 		}
-		else if(item->asImageFrame())
+		else if(item->isImageFrame())
 		{
 			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			return imageItem;
@@ -238,12 +238,12 @@ QList<QVariant> DocumentAPI::selection()
 		 * the text operations
 		 */
 		PageItem *item = sel->itemAt(i);
-		if (item->asTextFrame())
+		if (item->isTextFrame())
 		{
 			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			l.append(qVariantFromValue((QObject *)(textItem)));
 		}
-		else if(item->asImageFrame())
+		else if(item->isImageFrame())
 		{
 			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			l.append(qVariantFromValue((QObject *)(imageItem)));
@@ -281,12 +281,12 @@ QList<QVariant> DocumentAPI::items()
 	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
 	{
 		PageItem *item = ScCore->primaryMainWindow()->doc->Items->at(i);
-		if (item->asTextFrame())
+		if (item->isTextFrame())
 		{
 			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			l.append(qVariantFromValue((QObject *)(textItem)));
 		}
-		else if(item->asImageFrame())
+		else if(item->isImageFrame())
 		{
 			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			l.append(qVariantFromValue((QObject *)(imageItem)));

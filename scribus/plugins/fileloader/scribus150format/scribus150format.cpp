@@ -4167,7 +4167,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			currentView.addedTransparency = tAtt.valueAsDouble("trans");
 			currentView.colorAC = QColor(tAtt.valueAsString("colorAC"));
 			currentView.colorFC = QColor(tAtt.valueAsString("colorFC"));
-			if (newItem->asOSGFrame())
+			if (newItem->isOSGFrame())
 				newItem->asOSGFrame()->viewMap.insert(tAtt.valueAsString("viewName"), currentView);
 		}
 #endif
@@ -4191,7 +4191,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if (tName == "LATEX")
 		{
-			if (newItem->asLatexFrame())
+			if (newItem->isLatexFrame())
 			{
 				readLatexInfo(newItem->asLatexFrame(), reader);
 			}
@@ -4207,7 +4207,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if ((tName == "PAGEOBJECT") || (tName == "ITEM"))
 		{
-			if (newItem->asGroupFrame())
+			if (newItem->isGroup())
 			{
 			//	bool success = true;
 				QList<PageItem*>* docItems = doc->Items;
@@ -5004,7 +5004,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageXYScale(imageXScale, imageYScale);
 		currItem->setImageXYOffset(imageXOffset, imageYOffset);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
-//		if (!currItem->asLatexFrame())
+//		if (!currItem->isLatexFrame())
 #ifdef HAVE_OSG
 		if ((currItem->isImageFrame() || currItem->isOSGFrame()) && (!currItem->isLatexFrame()))
 #else

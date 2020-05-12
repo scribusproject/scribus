@@ -2095,7 +2095,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		}
 		if (tName == "LATEX")
 		{
-			if (newItem->asLatexFrame())
+			if (newItem->isLatexFrame())
 			{
 				readLatexInfo(newItem->asLatexFrame(), reader);
 			}
@@ -2596,7 +2596,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT", 0));
-		if (!currItem->asLatexFrame())
+		if (!currItem->isLatexFrame())
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
 			QString dat  = attrs.valueAsString("ImageData", "");

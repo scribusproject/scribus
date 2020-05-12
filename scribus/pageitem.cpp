@@ -2531,7 +2531,7 @@ QImage PageItem::DrawObj_toImage(double maxSize, int options)
 	delete painter;
 	m_Doc->guidesPrefs().framesShown = savedFlag;
 	isEmbedded = isEmbedded_Old;
-	if ((isEmbedded_Old != isEmbedded) && (asTextFrame() || asPathText()))
+	if ((isEmbedded_Old != isEmbedded) && (isTextFrame() || isPathText()))
 	{
 		invalid = true;
 		layout();

@@ -207,7 +207,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->asLatexFrame()))
+			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->isLatexFrame()))
 			{
 				QString itemText;
 				if (pItem->imageIsAvailable)
@@ -230,7 +230,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->asLatexFrame()))
+			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->isLatexFrame()))
 			{
 				QString itemText;
 				if (pItem->imageIsAvailable)
@@ -615,7 +615,7 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int column)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->asLatexFrame()))
+			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->isLatexFrame()))
 			{
 				if ((id == 0) || ((id - 1) == pItem->OwnPage))
 				{
@@ -635,7 +635,7 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int column)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->asLatexFrame()))
+			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->isLatexFrame()))
 			{
 				if ((id == 0) || ((id - 1) == pItem->OwnPage))
 				{

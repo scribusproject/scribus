@@ -357,7 +357,7 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		colorPalette->handleSelectionChanged();
 	}
 
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);

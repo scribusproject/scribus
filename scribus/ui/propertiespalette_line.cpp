@@ -330,9 +330,9 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	showLineWidth(m_item->lineWidth());
 	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
 
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 		setEnabled(false);
-	if (m_item->asSymbol())
+	if (m_item->isSymbol())
 		setEnabled(false);
 }
 

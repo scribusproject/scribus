@@ -1149,7 +1149,7 @@ public:
 					bool fvo = item->imageFlippedV();
 					if (m_applyNewRes)
 						item->pixm.imgInfo.lowResType = m_lowResType;
-					if (item->asLatexFrame())
+					if (item->isLatexFrame())
 						item->asLatexFrame()->rerunApplication(false);
 					else
 						item->loadImage(item->Pfile, true, -1, false);

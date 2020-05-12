@@ -1144,7 +1144,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	while (!gpL.isEmpty())
 	{
 		PageItem* item = gpL.takeFirst();
-		if (item->asTextFrame())
+		if (item->isTextFrame())
 			item->dropLinks();
 		delete item;
 	}

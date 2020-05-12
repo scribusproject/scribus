@@ -354,9 +354,9 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 		switch (pgItem->itemType())
 		{
 			case PageItem::ImageFrame:
-				if (pgItem->asLatexFrame())
+				if (pgItem->isLatexFrame())
 					tipText += CommonStrings::itemType_LatexFrame;
-				else if (pgItem->asOSGFrame())
+				else if (pgItem->isOSGFrame())
 					tipText += CommonStrings::itemType_OSGFrame;
 				else
 					tipText += CommonStrings::itemType_ImageFrame;
@@ -804,9 +804,9 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 	switch (pgItem->itemType())
 	{
 	case PageItem::ImageFrame:
- 		if (pgItem->asLatexFrame())
+		if (pgItem->isLatexFrame())
 			item->setIcon( 0, latexIcon );
-		else if (pgItem->asOSGFrame())
+		else if (pgItem->isOSGFrame())
 			item->setIcon( 0, annot3DIcon );
  		else
 			item->setIcon( 0, imageIcon );

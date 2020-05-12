@@ -152,7 +152,7 @@ void PicStatus::fillTable()
 				Iname = tr("Embedded Image");
 			else
 				Iname = fi.fileName();
-			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()))
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 			if (firstItem == nullptr)
 				firstItem = tempItem;
@@ -176,7 +176,7 @@ void PicStatus::fillTable()
 				Iname = tr("Embedded Image");
 			else
 				Iname = fi.fileName();
-			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()))
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 			// if an image is selected in a doc, Manage Pictures should
 			// display the selected image and its values

@@ -363,7 +363,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		roundRect->setEnabled(true);
 	else
 	{
-		roundRect->setEnabled ((m_item->asPolygon()) &&  (!m_item->ClipEdited)  && ((m_item->FrameType == 0) || (m_item->FrameType == 2)));
+		roundRect->setEnabled ((m_item->isPolygon()) &&  (!m_item->ClipEdited)  && ((m_item->FrameType == 0) || (m_item->FrameType == 2)));
 	}
 	if (m_item->isOSGFrame())
 	{

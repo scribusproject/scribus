@@ -2555,7 +2555,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				PageItem* item = allItems.at(ii);
-				if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()) && (!item->asOSGFrame()))
+				if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()) && (!item->isOSGFrame()))
 				{
 					enablePicManager = true;
 					break;
@@ -3485,7 +3485,7 @@ bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, cons
 	for (int i = oldItemsCount; i < docItemsCount; ++i)
 	{
 		PageItem *ite = doc->Items->at(i);
-		if ((ite->asTextFrame()) && (ite->isBookmark))
+		if ((ite->isTextFrame()) && (ite->isBookmark))
 			AddBookMark(ite);
 	}
 	propertiesPalette->updateColorList();
@@ -4050,7 +4050,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 
-	if (!currItem->asTextFrame())
+	if (!currItem->isTextFrame())
 		return; // not a text frame
 
 	ScGTPluginManager::instance()->run();
@@ -6580,12 +6580,12 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 		if (doc->m_Selection->itemAt(0) != ite)
 			selectItemsFromOutlines(ite, ite->isGroup());
 	}
-	if (ite->asLatexFrame())
+	if (ite->isLatexFrame())
 	{
 		if (ite->imageVisible())
 			view->requestMode(modeEdit);
 	}
-	else if (ite->asOSGFrame())
+	else if (ite->isOSGFrame())
 		view->requestMode(submodeEditExternal);
 	else if ((ite->itemType() == PageItem::Polygon) || (ite->itemType() == PageItem::PolyLine) || (ite->itemType() == PageItem::Group) || (ite->itemType() == PageItem::ImageFrame) || (ite->itemType() == PageItem::PathText))
 	{

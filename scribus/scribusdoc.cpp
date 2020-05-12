@@ -6455,7 +6455,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (removedFromSelection)
 		m_Selection->addItem(newItem);
 	// If converting a text frame to another object, drop links
-	if (oldItem->asTextFrame() && (newType != PageItem::TextFrame))
+	if (oldItem->isTextFrame() && (newType != PageItem::TextFrame))
 		oldItem->dropLinks();
 	// If converting text to path, delete the bezier
 	if (newType == PageItem::PathText)
@@ -11401,7 +11401,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			int id = Items->indexOf(currItem) - 1;
 			for (int tIdx = id; tIdx >= 0; --tIdx)
 			{
-				if ( (Items->at(tIdx)->asTextFrame())
+				if ( (Items->at(tIdx)->isTextFrame())
 					&& (!itemSelection->containsItem(Items->at(tIdx)))
 					&& (currItem->getBoundingRect().intersects(Items->at(tIdx)->getBoundingRect()))
 					&& (!textInteractionItems.contains(Items->at(tIdx))) )
@@ -16431,7 +16431,7 @@ void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelec
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (!currItem || !currItem->asTextFrame())
+		if (!currItem || !currItem->isTextFrame())
 			continue;
 		if (currItem->nextInChain() || currItem->prevInChain())
 			currItem->unlinkWithText();

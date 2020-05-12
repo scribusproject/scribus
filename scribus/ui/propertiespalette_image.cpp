@@ -473,7 +473,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		bool setter = m_item->ScaleType;
 		freeScale->setChecked(setter);
 		frameScale->setChecked(!setter);
-		if ((m_item->asLatexFrame()) || (m_item->asOSGFrame()))
+		if ((m_item->isLatexFrame()) || (m_item->isOSGFrame()))
 		{
 			freeScale->setEnabled(false);
 			frameScale->setEnabled(false);

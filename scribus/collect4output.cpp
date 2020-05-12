@@ -263,7 +263,7 @@ bool CollectForOutput::collectItems()
 
 void CollectForOutput::processItem(PageItem *ite)
 {
-	if (ite->asImageFrame())
+	if (ite->isImageFrame())
 	{
 		/* hack for subsequent c4o "./" -> "/doc/full/path" */
 		if (!ite->isInlineImage)
@@ -286,7 +286,7 @@ void CollectForOutput::processItem(PageItem *ite)
 		}
 	}
 #ifdef HAVE_OSG
-	if (ite->asOSGFrame())
+	if (ite->isOSGFrame())
 	{
 		PageItem_OSGFrame *osgframe = ite->asOSGFrame();
 		QString ofName(osgframe->modelFile);
@@ -303,7 +303,7 @@ void CollectForOutput::processItem(PageItem *ite)
 		}
 	}
 #endif
-	if (ite->asTextFrame())
+	if (ite->isTextFrame())
 	{
 		if (ite->isAnnotation())
 		{

@@ -959,7 +959,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			cmdText += "DRW Colortable";
 			if (currentItem != nullptr)
 			{
-				if (currentItem->asImageFrame())
+				if (currentItem->isImageFrame())
 				{
 					QString fileName = currentItem->Pfile;
 					if (!fileName.isEmpty())

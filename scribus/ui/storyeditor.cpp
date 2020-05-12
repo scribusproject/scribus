@@ -3068,7 +3068,7 @@ void StoryEditor::updateTextFrame()
 	Editor->saveItemText(nextItem);
 	// #9180 : force relayout here, it appears that relayout is sometime disabled
 	// to speed up selection, but re layout() cannot be avoided here
-	if (nextItem->asTextFrame())
+	if (nextItem->isTextFrame())
 		nextItem->asTextFrame()->invalidateLayout(true);
 	nextItem->layout();
 #if 0
