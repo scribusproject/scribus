@@ -230,7 +230,7 @@ void TextPalette::setCurrentItem(PageItem *item)
 	{
 		textPal->setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->isSymbol())
 	{
 		textPal->setEnabled(false);
 	}
