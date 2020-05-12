@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-QPixmap SCRIBUS_API LoadPDF(const QString& fn, int Page, int Size, int *w, int *h);
+QPixmap SCRIBUS_API loadPDF(const QString& fn, int page, int size, int *w, int *h);
 /**
  * @brief Call GhostScript synchronously and store output
    *

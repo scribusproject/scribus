@@ -8187,7 +8187,7 @@ void ScribusMainWindow::ModifyAnnot()
 		int AnActType = currItem->annotation().ActionType();
 		QString AnAction = currItem->annotation().Action();
 		QString An_Extern = currItem->annotation().Extern();
-		Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), view);
+		Annota *dia = new Annota(this, currItem, doc, view);
 		if (dia->exec())
 			slotDocCh();
 		else
@@ -8201,7 +8201,7 @@ void ScribusMainWindow::ModifyAnnot()
 	}
 	else
 	{
-		ScAnnot *dia = new ScAnnot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
+		ScAnnot *dia = new ScAnnot(this, currItem, doc, view);
 		if (dia->exec())
 			slotDocCh();
 		delete dia;

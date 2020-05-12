@@ -6,28 +6,28 @@ for which a new license (GPL+exception) is in place.
 */
 #include "annot.h"
 
+#include <QCheckBox>
+#include <QComboBox>
+#include <QDateTime>
+#include <QFrame>
+#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include <QStackedWidget>
-#include <QGroupBox>
-#include <QTextEdit>
 #include <QLabel>
-#include <QFrame>
-#include <QComboBox>
 #include <QLineEdit>
-#include <QCheckBox>
+#include <QList>
+#include <QPixmap>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QTabWidget>
-#include <QWidget>
-#include <QRadioButton>
-#include <QList>
-#include <QStringList>
-#include <QSpacerItem>
+#include <QTextEdit>
 #include <QToolTip>
-#include <QDateTime>
-#include <QPixmap>
+#include <QRadioButton>
+#include <QSpacerItem>
+#include <QStackedWidget>
+#include <QStringList>
+#include <QWidget>
 
 #include "annotation.h"
 #include "buttonicon.h"
@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scimage.h"
 #include "scribusstructs.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selfield.h"
 #include "ui/customfdialog.h"
@@ -52,29 +53,29 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
-		: QDialog( parent )
+ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view) : QDialog(parent),
+	m_item(it),
+	m_doc(doc),
+	m_view(view)
 {
+	m_prefsCtxt = PrefsManager::instance().prefsFile->getContext("dirs");
 	m_annotation = it->annotation();
 
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr( "Field Properties" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	item = it;
-	Width = b;
-	Height = h;
-	OriWidth = b;
-	OriHeight = h;
-	view = vie;
-	MaxSeite = Seite;
-	QStringList tl;
-	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 
-	Annotation& annotation = m_annotation;
-	if ((annotation.ActionType() == Annotation::Action_GoTo) || (annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
+	Width = static_cast<int>(m_doc->pageWidth());
+	Height = static_cast<int>(m_doc->pageHeight());
+	OriWidth = static_cast<int>(m_doc->pageWidth());
+	OriHeight = static_cast<int>(m_doc->pageHeight());
+	MaxPages = m_doc->DocPages.count();
+
+	QStringList tl;
+	if ((m_annotation.ActionType() == Annotation::Action_GoTo) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
-		QString tm = annotation.Action();
+		QString tm = m_annotation.Action();
 		tl = tm.split(" ", QString::SkipEmptyParts);
 	}
 	else
@@ -83,56 +84,56 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 		tl.append("0");
 	}
 
-	if (annotation.Type() != Annotation::RadioButton)
-		ComboBox1->setCurrentIndex(annotation.Type()-2);
+	if (m_annotation.Type() != Annotation::RadioButton)
+		ComboBox1->setCurrentIndex(m_annotation.Type() - 2);
 	else
 		ComboBox1->setCurrentIndex(5);
 
 	PropertiesGroup->layout()->setAlignment(Qt::AlignTop);
 
-	Tip->setText(annotation.ToolTip());
-	Name->setText(item->itemName());
-	OldName = item->itemName();
+	Tip->setText(m_annotation.ToolTip());
+	Name->setText(m_item->itemName());
+	OldName = m_item->itemName();
 
 	TextGroup->layout()->setAlignment(Qt::AlignTop);
-	Schrift->setCurrentIndex(annotation.Font());
+	Schrift->setCurrentIndex(m_annotation.Font());
 
 	BorderGroup->layout()->setAlignment(Qt::AlignTop);
 
 	ColorList::Iterator cit;
 	BorderC->setPixmapType(ColorCombo::fancyPixmaps);
-	BorderC->setColors(Farben, true);
-	if (annotation.borderColor() == CommonStrings::None)
+	BorderC->setColors(m_doc->PageColors, true);
+	if (m_annotation.borderColor() == CommonStrings::None)
 		BorderC->setCurrentIndex(0);
 	else
-		BorderC->setCurrentText(annotation.borderColor());
+		BorderC->setCurrentText(m_annotation.borderColor());
 
 	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
-	QString borders[] = {CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
+	QString borders[] = { CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide") };
 	size_t bordersArray = sizeof(borders) / sizeof(*borders);
 	BorderW->clear();
 	for (uint propagate = 0; propagate < bordersArray; ++propagate)
 		BorderW->addItem(borders[propagate]);
-	BorderW->setCurrentIndex(annotation.borderWidth());
+	BorderW->setCurrentIndex(m_annotation.borderWidth());
 
-	BorderS->setCurrentIndex(annotation.borderStyle());
+	BorderS->setCurrentIndex(m_annotation.borderStyle());
 
 	OtherGroup->layout()->setAlignment(Qt::AlignTop);
 
-	ReadOnly->setEnabled(annotation.Type() != Annotation::Button);
-	ReadOnly->setChecked(annotation.Flag() & Annotation::Flag_ReadOnly);
-	Required->setEnabled(annotation.Type() != Annotation::Button);
-	Required->setChecked(annotation.Flag() & Annotation::Flag_Required);
-	NoExport->setEnabled(annotation.Type() != Annotation::Button);
-	NoExport->setChecked(annotation.Flag() & Annotation::Flag_NoExport);
-	Visib->setCurrentIndex(annotation.Vis());
+	ReadOnly->setEnabled(m_annotation.Type() != Annotation::Button);
+	ReadOnly->setChecked(m_annotation.Flag() & Annotation::Flag_ReadOnly);
+	Required->setEnabled(m_annotation.Type() != Annotation::Button);
+	Required->setChecked(m_annotation.Flag() & Annotation::Flag_Required);
+	NoExport->setEnabled(m_annotation.Type() != Annotation::Button);
+	NoExport->setChecked(m_annotation.Flag() & Annotation::Flag_NoExport);
+	Visib->setCurrentIndex(m_annotation.Vis());
 
 	TextOptionGroup->layout()->setAlignment(Qt::AlignTop);
-	DownT->setText(annotation.Down());
-	TextO->setText(annotation.RollOver());
+	DownT->setText(m_annotation.Down());
+	TextO->setText(m_annotation.RollOver());
 
 	IconOptionGroup->layout()->setAlignment(Qt::AlignTop);
-	UseIcons->setChecked(annotation.UseIcons());
+	UseIcons->setChecked(m_annotation.UseIcons());
 	IconNR->setEnabled(false);
 	IconPR->setEnabled(false);
 	IconRR->setEnabled(false);
@@ -150,25 +151,25 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	{
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->m_doc, "", Intent_Perceptual);
+		CMSettings cms(m_view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
-		if (!item->Pfile.isEmpty())
+		if (!m_item->Pfile.isEmpty())
 		{
-			im.loadPicture(item->Pfile, 1, cms, ScImage::RGBData, 72);
+			im.loadPicture(m_item->Pfile, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
-		if (!item->Pfile2.isEmpty())
+		if (!m_item->Pfile2.isEmpty())
 		{
-			im.loadPicture(item->Pfile2, 1, cms, ScImage::RGBData, 72);
+			im.loadPicture(m_item->Pfile2, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
-		if (!item->Pfile3.isEmpty())
+		if (!m_item->Pfile3.isEmpty())
 		{
-			im.loadPicture(item->Pfile3, 1, cms, ScImage::RGBData, 72);
+			im.loadPicture(m_item->Pfile3, 1, cms, ScImage::RGBData, 72);
 			pmI1=QPixmap::fromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -176,26 +177,26 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	}
 
 	HighlightOptionGroup->layout()->setAlignment(Qt::AlignTop);
-	ComboBox7_2->setCurrentIndex(annotation.Feed());
+	ComboBox7_2->setCurrentIndex(m_annotation.Feed());
 
-	MultiL->setChecked(annotation.Flag() & Annotation::Flag_Multiline);
-	Passwd->setChecked(annotation.Flag() & Annotation::Flag_Password);
+	MultiL->setChecked(m_annotation.Flag() & Annotation::Flag_Multiline);
+	Passwd->setChecked(m_annotation.Flag() & Annotation::Flag_Password);
 	MaxChars->setMinimum(0);
 	MaxChars->setMaximum(32768);
-	bool setter = annotation.MaxChar() != -1;
-	MaxChars->setValue(setter ? annotation.MaxChar() : 0);
+	bool setter = m_annotation.MaxChar() != -1;
+	MaxChars->setValue(setter ? m_annotation.MaxChar() : 0);
 	Limit->setChecked(setter);
 	MaxChars->setEnabled(setter);
-	NoScroll->setChecked(annotation.Flag() & Annotation::Flag_DoNotScroll);
-	NoSpell->setChecked(annotation.Flag() & Annotation::Flag_DoNotSpellCheck);
+	NoScroll->setChecked(m_annotation.Flag() & Annotation::Flag_DoNotScroll);
+	NoSpell->setChecked(m_annotation.Flag() & Annotation::Flag_DoNotSpellCheck);
 
-	ChkStil->setCurrentIndex(annotation.ChkStil());
-	isChkd->setChecked(annotation.IsChk());
+	ChkStil->setCurrentIndex(m_annotation.ChkStil());
+	isChkd->setChecked(m_annotation.IsChk());
 
-	CanEdit->setChecked(annotation.Flag() & Annotation::Flag_Edit);
+	CanEdit->setChecked(m_annotation.Flag() & Annotation::Flag_Edit);
 
-	int tmpac = annotation.ActionType();
-	if (annotation.ActionType() < 0)
+	int tmpac = m_annotation.ActionType();
+	if (m_annotation.ActionType() < 0)
 		tmpac = 1;
 	if ((tmpac == 7) || (tmpac == 9))
 		tmpac = 2;
@@ -205,8 +206,8 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 
 	QPalette palTxt = EditJava->palette();
 	palTxt.setColor(QPalette::Base, palette().color(QPalette::Window));
-	if ((annotation.ActionType() == Annotation::Action_JavaScript) || (annotation.AAact()))
-		EditJava->setPlainText(annotation.Action());
+	if ((m_annotation.ActionType() == Annotation::Action_JavaScript) || (m_annotation.AAact()))
+		EditJava->setPlainText(m_annotation.Action());
 	ScrEdited = Annotation::Java_ReleaseButton;
 	SelAction->setCurrentIndex(0);
 	EditJava->setReadOnly(true);
@@ -216,36 +217,36 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	EditJava->setFocusPolicy(Qt::NoFocus);
 
 	GroupBoxDestination->layout()->setAlignment(Qt::AlignTop);
-	Destfile->setText(annotation.Extern());
+	Destfile->setText(m_annotation.Extern());
 	Destfile->setReadOnly(true);
-	if (annotation.ActionType() == Annotation::Action_GoToR_FileRel)
+	if (m_annotation.ActionType() == Annotation::Action_GoToR_FileRel)
 		useAbsolute->setChecked(false);
-	else if (annotation.ActionType() == Annotation::Action_GoToR_FileAbs)
+	else if (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs)
 		useAbsolute->setChecked(true);
 	SpinBox11->setMinimum(1);
-	SpinBox11->setMaximum(((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs)) ? 1000 : Seite);
-	SpinBox11->setValue(qMin(annotation.Ziel()+1, Seite));
+	SpinBox11->setMaximum(((m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs)) ? 1000 : MaxPages);
+	SpinBox11->setValue(qMin(m_annotation.Ziel() + 1, MaxPages));
 
-	if ((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
-		Pg1 = new Navigator( GroupBoxDestination, 100, annotation.Ziel()+1, view, annotation.Extern());
+	if ((m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
+		m_navig = new Navigator( GroupBoxDestination, 100, m_annotation.Ziel()+1, m_view, m_annotation.Extern());
 	else
-		Pg1 = new Navigator( GroupBoxDestination, 100, qMin(annotation.Ziel(), Seite-1), view);
-	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
-	GroupBoxDestinationLayout->addWidget(Pg1, 2, 2, 3, 1);
+		m_navig = new Navigator( GroupBoxDestination, 100, qMin(m_annotation.Ziel(), MaxPages - 1), m_view);
+	m_navig->setMinimumSize(QSize(m_navig->pmx.width(), m_navig->pmx.height()));
+	GroupBoxDestinationLayout->addWidget(m_navig, 2, 2, 3, 1);
 
 	SpinBox21->setSuffix( tr( " pt" ) );
 	SpinBox21->setMaximum(Width);
 	SpinBox21->setValue(tl[0].toInt());
 	SpinBox31->setMaximum(Height);
 	SpinBox31->setSuffix( tr( " pt" ) );
-	SpinBox31->setValue(Height-tl[1].toInt());
+	SpinBox31->setValue(Height - tl[1].toInt());
 
-	if (annotation.ActionType() == Annotation::Action_SubmitForm)
-		SubURL->setText(annotation.Action());
-	SelAsHtml->setCurrentIndex(annotation.HTML());
+	if (m_annotation.ActionType() == Annotation::Action_SubmitForm)
+		SubURL->setText(m_annotation.Action());
+	SelAsHtml->setCurrentIndex(m_annotation.HTML());
 
-	if (annotation.ActionType() == Annotation::Action_ImportData)
-		SubURLa->setText(annotation.Action());
+	if (m_annotation.ActionType() == Annotation::Action_ImportData)
+		SubURLa->setText(m_annotation.Action());
 
 	nameActionCombo->addItem( tr("First Page"), QString("FirstPage"));
 	nameActionCombo->addItem( tr("Previous Page"), QString("PrevPage"));
@@ -300,13 +301,13 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	nameActionCombo->addItem( tr("Show/Hide Model Tree"), QString("ShowHideModelTree"));
 	nameActionCombo->addItem( tr("Show/Hide Signatures"), QString("ShowHideSignatures"));
 
-	if ((annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
+	if ((m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		LExtern->setChecked(true);
 		if (!Destfile->text().isEmpty())
 		{
-			Width = Pg1->Width;
-			Height = Pg1->Height;
+			Width = m_navig->Width;
+			Height = m_navig->Height;
 		}
 		else
 		{
@@ -323,7 +324,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	}
 
 	// Format tab settings
-	TxFormat->setCurrentIndex(annotation.Format());
+	TxFormat->setCurrentIndex(m_annotation.Format());
 
 	NumbGroup->layout()->setAlignment( Qt::AlignTop );
 	Decim->setMinimum(0);
@@ -342,24 +343,24 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 
 	GroupCust->layout()->setAlignment(Qt::AlignTop);
 	EditFormat->setAutoDefault(false);
-	if (annotation.Format() != 5)
+	if (m_annotation.Format() != 5)
 		EditFormat->setEnabled( false );
-	if (annotation.Format() == 5)
-		FormatScript->setPlainText( annotation.F_act() );
+	if (m_annotation.Format() == 5)
+		FormatScript->setPlainText( m_annotation.F_act() );
 	FormatScript->setReadOnly(true);
 	FormatScript->setAutoFillBackground(true);
 	FormatScript->setPalette(palTxt);
 	FormatScript->setMaximumSize(QSize(32000,50));
 	FormatScript->setFocusPolicy(Qt::NoFocus);
 	EditKeystr->setAutoDefault( false );
-	if (annotation.Format() != 5)
+	if (m_annotation.Format() != 5)
 		EditKeystr->setEnabled( false );
-	if (annotation.Format() == 5)
-		KeyScript->setPlainText( annotation.K_act() );
+	if (m_annotation.Format() == 5)
+		KeyScript->setPlainText( m_annotation.K_act() );
 	KeyScript->setReadOnly(true);
 	KeyScript->setAutoFillBackground(true);
 	KeyScript->setPalette(palTxt);
-	KeyScript->setMaximumSize(QSize(32000,50));
+	KeyScript->setMaximumSize(QSize(32000, 50));
 	KeyScript->setFocusPolicy(Qt::NoFocus);
 
 	DecodeNum();
@@ -390,10 +391,10 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	TabWidget2->setTabEnabled(TabWidget2->indexOf(tabCalculate), false);
 	SetCalc();
 
-	if (annotation.Type() == Annotation::RadioButton)
+	if (m_annotation.Type() == Annotation::RadioButton)
 		SetAnnotationType(5);
 	else
-		SetAnnotationType(annotation.Type()-2);
+		SetAnnotationType(m_annotation.Type()-2);
 
 	PushButton1->setDefault( true );
 
@@ -410,7 +411,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetAnnotationType(int)));
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActionType(int)));
 	connect(SelAction, SIGNAL(activated(int)), this, SLOT(SetActionScript(int)));
-	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	connect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	connect(SpinBox21, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 	connect(SpinBox31, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
@@ -451,7 +452,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	CalcFields->setToolTip( tr( "Enter a comma separated list of fields here" ) );
 	IconNR->setToolTip( tr("You need at least the Icon for Normal to use Icons for Buttons"));
 
-	SetPage(qMin(SpinBox11->value(), MaxSeite));
+	SetPage(qMin(SpinBox11->value(), MaxPages));
 	SetCross();
 	//resize( minimumSizeHint() );
 }
@@ -469,17 +470,17 @@ void ScAnnot::NewName()
 	}
 	bool found = false;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < view->m_doc->Items->count(); ++a)
+	for (int i = 0; i < m_view->m_doc->Items->count(); ++i)
 	{
-		PageItem *currItem = view->m_doc->Items->at(a);
+		PageItem *currItem = m_view->m_doc->Items->at(i);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			PageItem* ite = allItems.at(ii);
-			if ((NameNew == ite->itemName()) && (ite != item))
+			PageItem* ite = allItems.at(j);
+			if ((NameNew == ite->itemName()) && (ite != m_item))
 			{
 				found = true;
 				break;
@@ -496,31 +497,28 @@ void ScAnnot::NewName()
 
 void ScAnnot::IPlace()
 {
-	ButtonIcon* dia = new ButtonIcon(this, item);
+	ButtonIcon* dia = new ButtonIcon(this, m_item);
 	if (dia->exec())
 	{
-		int w = item->pixm.width();
-		int h = item->pixm.height();
-		double sw = item->width() / w;
-		double sh = item->height() / h;
+		int w = m_item->pixm.width();
+		int h = m_item->pixm.height();
+		double sw = m_item->width() / w;
+		double sh = m_item->height() / h;
 		double sc = qMin(sw, sh);
 		if (dia->IcScaleH == 3)
 		{
-			item->setImageXYScale(1.0, 1.0);
-			item->setImageXYOffset((item->width()-w)*dia->IcPlaceX, (item->height()-h)*dia->IcPlaceY);
+			m_item->setImageXYScale(1.0, 1.0);
+			m_item->setImageXYOffset((m_item->width() - w) * dia->IcPlaceX, (m_item->height() - h) * dia->IcPlaceY);
+		}
+		else if (dia->ScaleH->currentIndex() == 0)
+		{
+			m_item->setImageXYScale(sc, sc);
+			m_item->setImageXYOffset(((m_item->width() - w * sc) / sc) / 2.0 / sc, ((m_item->height() - h * sc) / sc) / 2.0 / sc);
 		}
 		else
 		{
-			if (dia->ScaleH->currentIndex() == 0)
-			{
-				item->setImageXYScale(sc, sc);
-				item->setImageXYOffset(((item->width()-w*sc)/sc)/2.0/ sc, ((item->height()-h*sc)/sc)/2.0/sc);
-			}
-			else
-			{
-				item->setImageXYScale(sw, sh);
-				item->setImageXYOffset(0.0, 0.0);
-			}
+			m_item->setImageXYScale(sw, sh);
+			m_item->setImageXYOffset(0.0, 0.0);
 		}
 		m_annotation.setIPlace(dia->Place->currentIndex());
 		m_annotation.setScaleW(dia->ScaleW->currentIndex());
@@ -531,22 +529,22 @@ void ScAnnot::IPlace()
 void ScAnnot::RemoveNIcon()
 {
 	NiconPrev->clear();
-	item->Pfile = "";
-	item->imageIsAvailable = false;
+	m_item->Pfile.clear();
+	m_item->imageIsAvailable = false;
 	IconNR->setEnabled(false);
 }
 
 void ScAnnot::RemovePIcon()
 {
 	PiconPrev->clear();
-	item->Pfile2 = "";
+	m_item->Pfile2.clear();
 	IconPR->setEnabled(false);
 }
 
 void ScAnnot::RemoveRIcon()
 {
 	RiconPrev->clear();
-	item->Pfile3 = "";
+	m_item->Pfile3.clear();
 	IconRR->setEnabled(false);
 }
 
@@ -561,16 +559,16 @@ void ScAnnot::IconsEin()
 	PiconPrev->setEnabled(setter);
 	RiconPrev->setEnabled(setter);
 	PlaceIcon->setEnabled(setter);
-	IconNR->setEnabled(!item->Pfile.isEmpty());
-	IconPR->setEnabled(!item->Pfile2.isEmpty());
-	IconRR->setEnabled(!item->Pfile3.isEmpty());
+	IconNR->setEnabled(!m_item->Pfile.isEmpty());
+	IconPR->setEnabled(!m_item->Pfile2.isEmpty());
+	IconRR->setEnabled(!m_item->Pfile3.isEmpty());
 	m_annotation.setUseIcons(UseIcons->isChecked());
 }
 
 void ScAnnot::GetNIcon()
 {
 	QString fileName;
-	QString wdir = dirs->get("icon", ".");
+	QString wdir = m_prefsCtxt->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
 					  tr("Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS)), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
@@ -579,22 +577,22 @@ void ScAnnot::GetNIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
+		m_prefsCtxt->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
-		CMSettings cms(view->m_doc, "", Intent_Perceptual);
+		CMSettings cms(m_view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
-		item->pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
-		pmI1=QPixmap::fromImage(item->pixm.qImage());
+		m_item->pixm.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
+		pmI1=QPixmap::fromImage(m_item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
-		item->Pfile = fileName;
-		item->imageIsAvailable = true;
-		int w = item->pixm.width();
-		int h = item->pixm.height();
-		double sw = item->width() / w;
-		double sh = item->height() / h;
+		m_item->Pfile = fileName;
+		m_item->imageIsAvailable = true;
+		int w = m_item->pixm.width();
+		int h = m_item->pixm.height();
+		double sw = m_item->width() / w;
+		double sh = m_item->height() / h;
 		double sc = qMin(sw,sh);
-		item->setImageXYScale(sc, sc);
-		item->setImageXYOffset(((item->width()-(w*sc))/2)/sc, ((item->height()-(h*sc))/2)/sc);
+		m_item->setImageXYScale(sc, sc);
+		m_item->setImageXYOffset(((m_item->width() - (w * sc)) / 2) / sc, ((m_item->height() - (h * sc)) / 2) / sc);
 		IconNR->setEnabled(true);
 	}
 }
@@ -602,7 +600,7 @@ void ScAnnot::GetNIcon()
 void ScAnnot::GetPIcon()
 {
 	QString fileName;
-	QString wdir = dirs->get("icon", ".");
+	QString wdir = m_prefsCtxt->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
 	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
@@ -611,15 +609,15 @@ void ScAnnot::GetPIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
+		m_prefsCtxt->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->m_doc, "", Intent_Perceptual);
+		CMSettings cms(m_view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
-		pmI1=QPixmap::fromImage(im.qImage());
+		pmI1 = QPixmap::fromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
-		item->Pfile2 = fileName;
+		m_item->Pfile2 = fileName;
 		IconPR->setEnabled(true);
 	}
 }
@@ -627,7 +625,7 @@ void ScAnnot::GetPIcon()
 void ScAnnot::GetRIcon()
 {
 	QString fileName;
-	QString wdir = dirs->get("icon", ".");
+	QString wdir = m_prefsCtxt->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
 	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
@@ -636,22 +634,22 @@ void ScAnnot::GetRIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
+		m_prefsCtxt->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
-		CMSettings cms(view->m_doc, "", Intent_Perceptual);
+		CMSettings cms(m_view->m_doc, "", Intent_Perceptual);
 		cms.allowColorManagement(false);
 		im.loadPicture(fileName, 1, cms, ScImage::RGBData, 72);
-		pmI1=QPixmap::fromImage(im.qImage());
+		pmI1 = QPixmap::fromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);
-		item->Pfile3 = fileName;
+		m_item->Pfile3 = fileName;
 		IconRR->setEnabled(true);
 	}
 }
 
 void ScAnnot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), view->m_doc, 3);
+	SelectFields* dia = new SelectFields(this, CalcFields->text(), m_item->itemName(), m_view->m_doc, 3);
 	if (dia->exec())
 		CalcFields->setText(dia->S_Fields);
 	delete dia;
@@ -659,7 +657,7 @@ void ScAnnot::SelectFelder()
 
 void ScAnnot::editKeySc()
 {
-	Editor* dia = new Editor(this, m_annotation.K_act(), view);
+	Editor* dia = new Editor(this, m_annotation.K_act(), m_view);
 	if (dia->exec())
 	{
 		m_annotation.setK_act(dia->EditTex->toPlainText());
@@ -670,7 +668,7 @@ void ScAnnot::editKeySc()
 
 void ScAnnot::editFormatSc()
 {
-	Editor* dia = new Editor(this, m_annotation.F_act(), view);
+	Editor* dia = new Editor(this, m_annotation.F_act(), m_view);
 	if (dia->exec())
 	{
 		m_annotation.setF_act(dia->EditTex->toPlainText());
@@ -681,7 +679,7 @@ void ScAnnot::editFormatSc()
 
 void ScAnnot::editValidSc()
 {
-	Editor* dia = new Editor(this, m_annotation.V_act(), view);
+	Editor* dia = new Editor(this, m_annotation.V_act(), m_view);
 	if (dia->exec())
 	{
 		m_annotation.setV_act(dia->EditTex->toPlainText());
@@ -692,7 +690,7 @@ void ScAnnot::editValidSc()
 
 void ScAnnot::editCalcSc()
 {
-	Editor* dia = new Editor(this, m_annotation.C_act(), view);
+	Editor* dia = new Editor(this, m_annotation.C_act(), m_view);
 	if (dia->exec())
 	{
 		m_annotation.setC_act(dia->EditTex->toPlainText());
@@ -703,7 +701,7 @@ void ScAnnot::editCalcSc()
 
 void ScAnnot::editJavaSc()
 {
-	Editor* dia = new Editor(this, EditJava->toPlainText(), view);
+	Editor* dia = new Editor(this, EditJava->toPlainText(), m_view);
 	if (dia->exec())
 		EditJava->setPlainText(dia->EditTex->toPlainText());
 	delete dia;
@@ -1045,19 +1043,19 @@ void ScAnnot::SetPage(int v)
 	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPage(int)));
 	if ((m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == 9))
 	{
-		if (!Pg1->SetSeite(v, 100, Destfile->text()))
+		if (!m_navig->setPage(v, 100, Destfile->text()))
 		{
 			SpinBox11->setValue(1);
-			Pg1->SetSeite(1, 100, Destfile->text());
+			m_navig->setPage(1, 100, Destfile->text());
 		}
-		Width = Pg1->Width;
-		Height = Pg1->Height;
+		Width = m_navig->Width;
+		Height = m_navig->Height;
 		//		SetCoords(0,0);
 	}
 	else
 	{
-		Pg1->SetSeite(qMin(v-1, MaxSeite-1), 100);
-		SpinBox11->setValue(qMin(v, MaxSeite));
+		m_navig->setPage(qMin(v-1, MaxPages - 1), 100);
+		SpinBox11->setValue(qMin(v, MaxPages));
 		Width = OriWidth;
 		Height = OriHeight;
 		//		SetCoords(0,0);
@@ -1069,12 +1067,12 @@ void ScAnnot::SetPage(int v)
 
 void ScAnnot::SetCross()
 {
-	int x,y;
-	disconnect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
-	x = static_cast<int>(static_cast<double>(SpinBox21->value())/static_cast<double>(Width)*Pg1->pmx.width());
-	y = static_cast<int>(static_cast<double>(SpinBox31->value())/static_cast<double>(Height)*Pg1->pmx.height());
-	Pg1->drawMark(x, y);
-	connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	int x, y;
+	disconnect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
+	x = static_cast<int>(static_cast<double>(SpinBox21->value()) / static_cast<double>(Width) * m_navig->pmx.width());
+	y = static_cast<int>(static_cast<double>(SpinBox31->value()) / static_cast<double>(Height) * m_navig->pmx.height());
+	m_navig->drawMark(x, y);
+	connect(m_navig, SIGNAL(Coords(double, double)), this, SLOT(SetCoords(double, double)));
 }
 
 void ScAnnot::SetValues()
@@ -1083,7 +1081,7 @@ void ScAnnot::SetValues()
 	QString tmp, tmp2;
 	QString Nfo("");
 	
-	Annotation& annotation = item->annotation();
+	Annotation& annotation = m_item->annotation();
 	annotation = m_annotation;
 
 	if (ComboBox1->currentIndex() == 5)
@@ -1091,7 +1089,7 @@ void ScAnnot::SetValues()
 	else
 		annotation.setType(ComboBox1->currentIndex()+2);
 	if (Name->text() != OldName)
-		item->setItemName(Name->text());
+		m_item->setItemName(Name->text());
 	annotation.setToolTip(Tip->text());
 	annotation.setRollOver(TextO->text());
 	annotation.setDown(DownT->text());
@@ -1111,7 +1109,7 @@ void ScAnnot::SetValues()
 	if (annotation.Type() == Annotation::Button)
 	{
 		annotation.addToFlag(Annotation::Flag_PushButton);
-		if (item->Pfile.isEmpty())
+		if (m_item->Pfile.isEmpty())
 			annotation.setUseIcons(false);
 		annotation.setFormat(0);
 		annotation.setF_act(QString());
@@ -1469,7 +1467,7 @@ void ScAnnot::SetExternLink()
 		enable = false;
 		//		Destfile->setEnabled(false);
 		//		ChFile->setEnabled(false);
-		SetPage(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxPages));
 	}
 	else
 	{
@@ -1492,7 +1490,7 @@ void ScAnnot::SetExternLink()
 				LExtern->setChecked(false);
 			}
 		}
-		SetPage(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxPages));
 	}
 	Destfile->setEnabled(enable);
 	ChFile->setEnabled(enable);
@@ -1526,7 +1524,7 @@ void ScAnnot::SetActionType(int it)
 		setter = (m_annotation.ActionType() != Annotation::Action_GoToR_FileRel);
 		Destfile->setEnabled(setter);
 		ChFile->setEnabled(setter);
-		SetPage(qMin(SpinBox11->value(), MaxSeite));
+		SetPage(qMin(SpinBox11->value(), MaxPages));
 		break;
 	case 1:
 		Fram2->setCurrentIndex(1);
@@ -1594,21 +1592,19 @@ void ScAnnot::SetActionScript(int it)
 
 void ScAnnot::GetFile()
 {
-	QString fn;
-	QString wdir = dirs->get("annot_getfile", ".");
+	QString wdir = m_prefsCtxt->get("annot_getfile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF Files (*.pdf);;All Files (*)"));
 	if (!Destfile->text().isEmpty())
 		dia.setSelection(Destfile->text());
-	if (dia.exec() == QDialog::Accepted)
-	{
-		fn = dia.selectedFile();
-		if (!fn.isEmpty())
-		{
-			dirs->set("annot_getfile", fn.left(fn.lastIndexOf("/")));
-			Destfile->setText(fn);
-			SpinBox11->setValue(1);
-			SpinBox11->setMaximum(1000);
-			SetPage(1);
-		}
-	}
+	if (dia.exec() != QDialog::Accepted)
+		return;
+
+	QString fn = dia.selectedFile();
+	if (fn.isEmpty())
+		return;
+	m_prefsCtxt->set("annot_getfile", fn.left(fn.lastIndexOf("/")));
+	Destfile->setText(fn);
+	SpinBox11->setValue(1);
+	SpinBox11->setMaximum(1000);
+	SetPage(1);
 }

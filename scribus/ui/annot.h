@@ -16,9 +16,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_annot.h"
 
-class PageItem;
-class Navigator;
 class ColorCombo;
+class Navigator;
+class PageItem;
+class ScribusDoc;
 class ScribusView;
 class PrefsContext;
 
@@ -27,17 +28,13 @@ class SCRIBUS_API ScAnnot : public QDialog, Ui::ScAnnot
 	Q_OBJECT
 
 public:
-	ScAnnot ( QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie );
+	ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view);
 	~ScAnnot();
 
 	void DecodeNum();
 	void DecodeVali();
 	void DecodeCalc();
 
-	Navigator* Pg1;
-
-	PageItem* item;
-	ScribusView* view;
 	int Width;
 	int Height;
 	int OriWidth;
@@ -45,7 +42,7 @@ public:
 	int ScrEdited;
 	int FormNum;
 	QString JavaScr;
-	int MaxSeite;
+	int MaxPages;
 	QString OldName;
 
 public slots:
@@ -84,7 +81,12 @@ public slots:
 	void SetExternLink();
 
 protected:
-	PrefsContext* dirs;
+	Navigator* m_navig { nullptr };
+	PageItem* m_item { nullptr };
+	ScribusDoc* m_doc { nullptr };
+	ScribusView* m_view { nullptr };
+
+	PrefsContext* m_prefsCtxt{ nullptr };
 	Annotation m_annotation;
 };
 

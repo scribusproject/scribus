@@ -33,6 +33,7 @@ class QCheckBox;
 
 class PageItem;
 class Navigator;
+class ScribusDoc;
 class ScribusView;
 
 class SCRIBUS_API Annota : public QDialog
@@ -40,36 +41,8 @@ class SCRIBUS_API Annota : public QDialog
 	Q_OBJECT
 
 public:
-	Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie);
+	Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vie);
 	~Annota() {};
-	QStackedWidget* Fram;
-	QLabel* TextLabel1;
-	QComboBox* ComboBox1;
-	QGroupBox* GroupBox1;
-	QLabel* TextLabel3;
-	QLabel* TextLabel4;
-	QLabel* TextLabel5;
-	QLineEdit* Destfile;
-	QPushButton* ChFile;
-	QCheckBox* useAbsolute;
-	Navigator* Pg;
-	ScrSpinBox* SpinBox1;
-	ScrSpinBox* SpinBox2;
-	ScrSpinBox* SpinBox3;
-//	QFrame* Frame9;
-	QPushButton* PushButton1;
-	QPushButton* PushButton2;
-	QGroupBox* GroupBox2;
-	QLabel* TextLabelG1;
-	QComboBox* ComboBox2;
-	QCheckBox* textIsOpen;
-	PageItem* item;
-	ScribusView* view;
-	int Width;
-	int Height;
-	int OriWidth;
-	int OriHeight;
-	int MaxSeite;
 
 public slots:
 	void SetCoords(double x, double y);
@@ -80,11 +53,44 @@ public slots:
 	void GetFile();
 
 protected:
-	QVBoxLayout* AnnotLayout;
-	QHBoxLayout* Layout1;
-	QGridLayout* GroupBox1Layout;
-	QGridLayout* GroupBox2Layout;
-	QHBoxLayout* Layout1_2;
+	PageItem* m_item { nullptr };
+	ScribusDoc* m_doc { nullptr };
+	ScribusView* m_view { nullptr };
+
+	int m_pageCount;
+	int m_width;
+	int m_height;
+	int m_oriWidth;
+	int m_oriHeight;
+
+protected:
+	QVBoxLayout* AnnotLayout { nullptr };
+	QHBoxLayout* Layout1 { nullptr };
+	QGridLayout* GroupBox1Layout { nullptr };
+	QGridLayout* GroupBox2Layout { nullptr };
+	QHBoxLayout* Layout1_2 { nullptr };
+	
+	QStackedWidget* Fram { nullptr };
+	QLabel* TextLabel1 { nullptr };
+	QComboBox* ComboBox1 { nullptr };
+	QGroupBox* GroupBox1 { nullptr };
+	QLabel* TextLabel3 { nullptr };
+	QLabel* TextLabel4 { nullptr };
+	QLabel* TextLabel5 { nullptr };
+	QLineEdit* Destfile { nullptr };
+	QPushButton* ChFile { nullptr };
+	QCheckBox* useAbsolute { nullptr };
+	Navigator* navigator { nullptr };
+	ScrSpinBox* SpinBox1 { nullptr };
+	ScrSpinBox* SpinBox2 { nullptr };
+	ScrSpinBox* SpinBox3 { nullptr };
+//	QFrame* Frame9;
+	QPushButton* PushButton1 { nullptr };
+	QPushButton* PushButton2 { nullptr };
+	QGroupBox* GroupBox2 { nullptr };
+	QLabel* TextLabelG1 { nullptr };
+	QComboBox* ComboBox2 { nullptr };
+	QCheckBox* textIsOpen { nullptr };
 };
 
 #endif // ANNOT_H
