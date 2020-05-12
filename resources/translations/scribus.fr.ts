@@ -2148,12 +2148,12 @@
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="14"/>
         <source>Action Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher une action</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="20"/>
         <source>Search for action...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cherchez les actions disponibles...</translation>
     </message>
 </context>
 <context>
@@ -3583,7 +3583,7 @@ vous avez des photos dans votre composition.</translation>
         <location filename="../../scribus/ui/cmykfw.cpp" line="99"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1117"/>
         <source>Color Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Carte des couleurs</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="102"/>
@@ -4783,7 +4783,7 @@ actuellement %2 x %3 PPP (dpi)</translation>
     <message>
         <location filename="../../scribus/ui/clockwidget.cpp" line="79"/>
         <source>A</source>
-        <translation type="unfinished">A</translation>
+        <translation>A</translation>
     </message>
 </context>
 <context>
