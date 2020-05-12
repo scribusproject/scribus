@@ -5085,7 +5085,7 @@ void ScribusDoc::recalculateColors()
 				cstops = ite->mask_gradient.colorStops();
 				for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-				if (ite->asImageFrame())
+				if (ite->isImageFrame())
 					loadPict(ite->Pfile, ite, true, false);
 				if (ite->GrType == 13)
 					ite->createConicalMesh();
@@ -9959,7 +9959,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (!currItem->asImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
+			if (!currItem->isImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
 				continue;
 			QFileInfo fi(currItem->Pfile);
 			if ((fi.absolutePath() != name) || !fi.exists())
@@ -9988,7 +9988,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (!currItem->asImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
+			if (!currItem->isImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
 				continue;
 			QFileInfo fi(currItem->Pfile);
 			if ((fi.absolutePath() != name) || !fi.exists())
@@ -10017,7 +10017,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (!currItem->asImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
+			if (!currItem->isImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
 				continue;
 			QFileInfo fi(currItem->Pfile);
 			if ((fi.absolutePath() != name) || !fi.exists())
@@ -10052,7 +10052,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				currItem = allItems.at(ii);
-				if (!currItem->asImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
+				if (!currItem->isImageFrame() || currItem->imageIsAvailable || currItem->Pfile.isEmpty())
 					continue;
 				QFileInfo fi(currItem->Pfile);
 				if ((fi.absolutePath() != name) || !fi.exists())
@@ -10618,7 +10618,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 		m_updateManager.setUpdatesDisabled();
 		for (int a = 0; a < m_Selection->count(); ++a)
 		{
-			PageItem_ImageFrame* imageItem=m_Selection->itemAt(a)->asImageFrame();
+			PageItem_ImageFrame* imageItem = m_Selection->itemAt(a)->asImageFrame();
 			if (imageItem == nullptr)
 				continue;
 			imageItem->setImageVisible(!imageItem->imageVisible());
@@ -15924,7 +15924,7 @@ void ScribusDoc::itemSelection_AdjustFrametoImageSize( Selection *customSelectio
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (!currItem)
 			continue;
-		if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+		if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 			continue;
 
 		double w = currItem->OrigW * currItem->imageXScale();

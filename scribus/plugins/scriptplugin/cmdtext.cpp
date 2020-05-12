@@ -277,7 +277,7 @@ PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -535,7 +535,7 @@ PyObject *scribus_setalignment(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -570,7 +570,7 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -1143,7 +1143,7 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot unlink a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;

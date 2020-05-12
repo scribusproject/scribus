@@ -337,7 +337,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 		parEffectWidgets->handleSelectionChanged();
 	}
 
-	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)

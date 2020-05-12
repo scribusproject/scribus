@@ -3010,7 +3010,7 @@ void StoryEditor::updateTextFrame()
 		return;
 	PageItem *nextItem = m_item;
 //#if 0
-	if (m_item->asTextFrame())
+	if (m_item->isTextFrame())
 	{
 		while (nextItem != nullptr)
 		{
@@ -3025,7 +3025,7 @@ void StoryEditor::updateTextFrame()
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
 #if 0
-	if (m_item->asTextFrame())
+	if (m_item->isTextFrame())
 	{
 		while (nb2 != 0)
 		{

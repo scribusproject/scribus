@@ -281,7 +281,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->setTBvals(currItem);
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
-				if (currItem != nullptr && currItem->asTextFrame())
+				if (currItem != nullptr && currItem->isTextFrame())
 				{
 					scmw->charPalette->setEnabled(true, currItem);
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
@@ -445,7 +445,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	}
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
 	bool isImageFrame = SelectedType==PageItem::ImageFrame;
-	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->asLatexFrame()));
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->isLatexFrame()));
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
 	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
 	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->pixm.imgInfo.valid);
@@ -469,7 +469,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["itemPreviewLow"]->setChecked(false);
 	}
 
-	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
+	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->isTextFrame()))
 		enableTextActions(false);
 	(*a_scrActions)["insertSampleText"]->setEnabled(false);
 
@@ -833,7 +833,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		for (int i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem* it = doc->m_Selection->itemAt(i);
-			if ((!it->asPolygon()) && (!it->asPolyLine()))
+			if ((!it->isPolygon()) && (!it->isPolyLine()))
 				hPoly = false;
 		}
 		(*a_scrActions)["itemCombinePolygons"]->setEnabled(hPoly);
@@ -851,9 +851,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			bool canAttachTextToPath = false;
 			PageItem* item1 = doc->m_Selection->itemAt(0);
 			PageItem* item2 = doc->m_Selection->itemAt(1);
-			if (!item1->asTextFrame() || !(item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
+			if (!item1->isTextFrame() || !(item2->isPolygon() || item2->isPolyLine() || item2->isSpiral() || item2->isArc() || item2->isRegularPolygon()))
 				std::swap(item1, item2);
-			if (item1->asTextFrame() && (item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
+			if (item1->isTextFrame() && (item2->isPolygon() || item2->isPolyLine() || item2->isSpiral() || item2->isArc() || item2->isRegularPolygon()))
 			{
 				canAttachTextToPath  = true;
 				canAttachTextToPath &= (item1->nextInChain() == nullptr);

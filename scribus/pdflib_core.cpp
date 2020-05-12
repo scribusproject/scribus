@@ -3872,7 +3872,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 		QByteArray name = QByteArray("/master_page_obj_%1_%2")
 			                            .replace("%1", Pdf::toPdf(mPageIndex))
 			                            .replace("%2", Pdf::toPdf(qHash(ite)));
-		if ((!ite->asTextFrame()) && (!ite->asPathText()) && (!ite->asTable()))
+		if ((!ite->isTextFrame()) && (!ite->isPathText()) && (!ite->isTable()))
 		{
 			if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
 				content += (name + " Do\n");
@@ -4493,7 +4493,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-			if (ite->asOSGFrame())
+			if (ite->isOSGFrame())
 			{
 				if (Options.Version != PDFVersion::PDF_X3)
 				{
@@ -10296,7 +10296,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ImInfo2 = SharedImages[fn];
 	if ((!SharedImages.contains(fn))
 		 || (fromAN)
-		 || (c->asLatexFrame())
+		 || (c->isLatexFrame())
 		 || (c->effectsInUse.count() != 0)
 		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
 		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps)
@@ -10893,7 +10893,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			embedPre  = "0 g 0 G";
 			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
 		}
-		if (c->asLatexFrame())
+		if (c->isLatexFrame())
 		{
 			ImInfo.sxa *= 1.0 / c->imageXScale();
 			ImInfo.sya *= 1.0 / c->imageYScale();
@@ -11175,7 +11175,7 @@ void PDFLibCore::PDF_End_Articles()
 	for (int ele = 0; ele < doc.Items->count(); ++ele)
 	{
 		PageItem* tel = doc.Items->at(ele);
-		if ((tel->asTextFrame()) && (tel->prevInChain() == nullptr) && (tel->nextInChain() != nullptr) && (!tel->inPdfArticle))
+		if ((tel->isTextFrame()) && (tel->prevInChain() == nullptr) && (tel->nextInChain() != nullptr) && (!tel->inPdfArticle))
 		{
 			Beads.clear();
 			PdfBead bd;

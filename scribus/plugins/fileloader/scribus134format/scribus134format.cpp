@@ -2129,7 +2129,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (newItem->asPathText())
 		newItem->updatePolyClip();
-	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame())
 	{
 		if (!newItem->Pfile.isEmpty())
 		{

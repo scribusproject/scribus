@@ -332,7 +332,7 @@ void CanvasMode_EditWeldPoint::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->asTextFrame()))
+		if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->isTextFrame()))
 		{
 			mousePressEvent(m);
 			return;

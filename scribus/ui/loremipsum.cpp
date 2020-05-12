@@ -295,7 +295,7 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 		PageItem *i2 = currItem;
 		if (m_Doc->appMode == modeEditTable)
 			i2 = currItem->asTable()->activeCell().textFrame();
-		if (!i2->asTextFrame())
+		if (!i2->isTextFrame())
 			continue;
 		UndoTransaction activeTransaction;
 		if (!appendCheckBox->isChecked() && i2->itemText.length() != 0)

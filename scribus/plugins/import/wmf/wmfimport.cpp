@@ -757,7 +757,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 	QTransform gcm  = m_context.worldMatrix();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
 	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
-	if (item->asImageFrame())
+	if (item->isImageFrame())
 	{
 		item->moveBy(gcm.dx(), gcm.dy());
 		item->setWidthHeight(item->width() * gcm.m11(), item->height() * gcm.m22());
@@ -765,7 +765,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 		if (item->imageIsAvailable)
 			item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
 	}
-	else if (item->asTextFrame())
+	else if (item->isTextFrame())
 	{
 		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 	}

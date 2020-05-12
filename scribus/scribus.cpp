@@ -5744,7 +5744,7 @@ void ScribusMainWindow::toggleImageVisibility()
 		for (int j = 0; j < allItems.count(); j++)
 		{
 			PageItem* item = allItems.at(j);
-			if (item->asImageFrame())
+			if (item->isImageFrame())
 				item->setImageVisible(doc->guidesPrefs().showPic);
 		}
 	}
@@ -5758,7 +5758,7 @@ void ScribusMainWindow::toggleImageVisibility()
 		for (int j = 0; j < allItems.count(); j++)
 		{
 			PageItem* item = allItems.at(j);
-			if (item->asImageFrame())
+			if (item->isImageFrame())
 				item->setImageVisible(doc->guidesPrefs().showPic);
 		}
 	}
@@ -8937,7 +8937,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 	if (contentsBuffer.sourceType != PageItem::ImageFrame || currItem->itemType() != PageItem::ImageFrame)
 		return;
 
-	PageItem_ImageFrame* imageItem=currItem->asImageFrame();
+	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
 	int i=QMessageBox::Yes;
 	if (imageItem->imageIsAvailable)
 		i = ScMessageBox::warning(this, CommonStrings::trWarning,

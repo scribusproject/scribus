@@ -446,7 +446,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	if (m_item->asImageFrame())
+	if (m_item->isImageFrame())
 	{
 		imagePageNumber->blockSignals(true);
 		if(m_item->imageIsAvailable)
@@ -523,15 +523,15 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		rrR = 360 - rrR;
 	imageRotation->showValue(fabs(rrR));
 
-	if (m_item->asImageFrame())
+	if (m_item->isImageFrame())
 	{
 		updateProfileList();
 	}
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(false);
 	}
-	if (m_item->asSymbol())
+	if (m_item->isSymbol())
 	{
 		setEnabled(false);
 	}

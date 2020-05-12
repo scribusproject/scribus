@@ -169,7 +169,7 @@ void PropertyWidget_Hyphenation::configureWidgets()
 	bool enabled = false;
 	if (m_item && m_doc)
 	{
-		if (m_item->asPathText() || m_item->asTextFrame() || m_item->asTable())
+		if (m_item->isPathText() || m_item->isTextFrame() || m_item->isTable())
 			enabled = true;
 		if ((m_item->isGroup()) && (!m_item->isSingleSel))
 			enabled = false;
@@ -196,7 +196,7 @@ void PropertyWidget_Hyphenation::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+		if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 		{
 			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 			if (m_doc->appMode == modeEdit)

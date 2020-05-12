@@ -287,7 +287,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	PageItem * it(nullptr);
 	if (GetItem(&it))
 	{
-		if (it->asTextFrame())
+		if (it->isTextFrame())
 		{
 			m_canvas->setupEditHRuler(it, true);
 			if (m_doc->appMode == modeEdit)
@@ -318,7 +318,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	PageItem *currItem = nullptr;
-	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
+	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->isTextFrame())
 	{
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
@@ -577,7 +577,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	if (GetItem(&currItem))
 	{
 //		m_view->slotDoCurs(false);
-		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->asLine())
+		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->isLine())
 		{
 			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
@@ -706,7 +706,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (!currItem->asImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
+		else if (!currItem->isImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
 			m_view->deselectItems(true);
 			if (SeleItem(m))
@@ -941,7 +941,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-	if (GetItem(&currItem) && currItem->asTextFrame())
+	if (GetItem(&currItem) && currItem->isTextFrame())
 		m_ScMW->setCopyCutEnabled(currItem->itemText.isSelected());
 }
 

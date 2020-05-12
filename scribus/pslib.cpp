@@ -646,7 +646,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		for (int j = 0; j < pa.items.count(); ++j)
 		{
 			PageItem* item = pa.items.at(j);
-			if ((item->asImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
+			if ((item->isImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
 			{
 				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->ImageProfile, item->UseEmbedded))
 					return false;
@@ -728,7 +728,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 					continue;
 				if ((it->OwnPage != m_Doc->MasterPages.at(ap)->pageNr()) && (it->OwnPage != -1))
 					continue;
-				if ((m_optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!Options.outputSeparations) && Options.useColor)
+				if ((m_optimization == OptimizeSize) && it->isImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!Options.outputSeparations) && Options.useColor)
 				{
 					errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->ImageProfile, it->UseEmbedded);
 					if (errorOccured) break;
@@ -2608,13 +2608,13 @@ void PSLib::ProcessPage(ScPage* page, uint PNr)
 				ScQApp->processEvents();
 			if (item->m_layerID != ll.ID)
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asTextFrame()))
+			if ((!page->pageNameEmpty()) && (item->isTextFrame()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asPathText()))
+			if ((!page->pageNameEmpty()) && (item->isPathText()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asTable()))
+			if ((!page->pageNameEmpty()) && (item->isTable()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
+			if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 				continue;
 			//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 			if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
@@ -2656,19 +2656,19 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				ScQApp->processEvents();
 			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if (!(ite->asTextFrame()) && !(ite->asImageFrame()) && !(ite->asPathText()) && !(ite->asTable()))
+			if (!(ite->asTextFrame()) && !(ite->isImageFrame()) && !(ite->isPathText()) && !(ite->isTable()))
 			{
 				int mpIndex = m_Doc->MasterNames[page->masterPageName()];
 				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
 			}
-			else if (ite->asImageFrame())
+			else if (ite->isImageFrame())
 			{
 				PS_save();
 				// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
 				success &= ProcessItem(mPage, ite, PNr, false, false, true);
 				PS_restore();
 			}
-			else if (ite->asTable())
+			else if (ite->isTable())
 			{
 				PS_save();
 				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
@@ -3032,13 +3032,13 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			ScQApp->processEvents();
 		if (item->m_layerID != layer.ID)
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asTextFrame()))
+		if ((!page->pageNameEmpty()) && (item->isTextFrame()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asPathText()))
+		if ((!page->pageNameEmpty()) && (item->isPathText()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asTable()))
+		if ((!page->pageNameEmpty()) && (item->isTable()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
+		if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 			continue;
 		//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 		if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))

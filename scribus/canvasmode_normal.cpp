@@ -424,7 +424,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			}
 			else
 			{
-				if (hoveredItem->asTextFrame() && hoveredItem->frameOverflows())
+				if (hoveredItem->isTextFrame() && hoveredItem->frameOverflows())
 				{
 					if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
 					{
@@ -988,7 +988,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem = nullptr;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
-	if (clickedItem && clickedItem->asTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
+	if (clickedItem && clickedItem->isTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
 	{
 		if (clickedItem->frameOverflows())
 		{
@@ -1022,7 +1022,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			PageItem* underItem( m_canvas->itemUnderItem(currItem, itemIndex) );
 			while (underItem)
 			{
-				if (underItem->asTextFrame())
+				if (underItem->isTextFrame())
 					underItem->asTextFrame()->invalidateLayout(false);
 				else
 					underItem->invalidateLayout();

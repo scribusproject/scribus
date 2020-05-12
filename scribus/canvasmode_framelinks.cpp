@@ -95,8 +95,8 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 			{
 				PageItem* item1 = m_doc->m_Selection->itemAt(i);
 				PageItem* item2 = m_doc->m_Selection->itemAt(i+1);
-				if ((item1 != nullptr && item1->asTextFrame()) &&
-					(item2 != nullptr && item2->asTextFrame()) &&
+				if ((item1 != nullptr && item1->isTextFrame()) &&
+					(item2 != nullptr && item2->isTextFrame()) &&
 				     item1->canBeLinkedTo(item2))
 				{
 					item1->link(item2);
@@ -196,7 +196,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&bb) && (bb->asTextFrame()))
+			if (GetItem(&bb) && (bb->isTextFrame()))
 			{
 				PageItem* bblast = bb;
 				while (bblast->nextInChain())

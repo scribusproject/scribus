@@ -4236,7 +4236,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if (tName == "MARK")
 		{
-			if (newItem->asTextFrame())
+			if (newItem->isTextFrame())
 			{
 				QString l = tAtt.valueAsString("label");
 				MarkType t = (MarkType) tAtt.valueAsInt("type");
@@ -4341,12 +4341,12 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		newItem->createConicalMesh();
 	}
 
-	if (newItem->asPathText())
+	if (newItem->isPathText())
 		newItem->updatePolyClip();
 #ifdef HAVE_OSG
-	if (newItem->asImageFrame() || newItem->asLatexFrame() || newItem->asOSGFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame() || newItem->isOSGFrame())
 #else
-	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame())
 #endif
 	{
 		if (!newItem->Pfile.isEmpty())
@@ -5043,7 +5043,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 #ifdef HAVE_OSG
 			if (currItem->isOSGFrame())
 			{
-				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
+				PageItem_OSGFrame *osgframe = currItem->isOSGFrame();
 				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
 				osgframe->currentView = attrs.valueAsString("currentViewName", "");
 				osgframe->loadModel();
@@ -5611,7 +5611,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
 
-	if (!currItem->asLine())
+	if (!currItem->isLine())
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{

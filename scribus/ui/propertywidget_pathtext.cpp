@@ -96,7 +96,7 @@ void PropertyWidget_PathText::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		if (m_item->asPathText())
+		if (m_item->isPathText())
 		{
 			pathTextType->setCurrentIndex(m_item->textPathType);
 			flippedPathText->setChecked(m_item->textPathFlipped);

@@ -104,10 +104,10 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 
 	if (m_item == nullptr)
 		return;
-	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->asPathText())
+	if (!m_item->isTable() && !m_item->isTextFrame() && !m_item->isPathText())
 		return;
 
-	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
@@ -160,7 +160,7 @@ void PropertyWidget_TextColor::configureWidgets()
 	bool enabled = false;
 	if (m_item && m_doc)
 	{
-		if (m_item->asPathText() || m_item->asTextFrame() || m_item->asTable())
+		if (m_item->isPathText() || m_item->isTextFrame() || m_item->isTable())
 			enabled = true;
 		if ((m_item->isGroup()) && (!m_item->isSingleSel))
 			enabled = false;

@@ -2693,7 +2693,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 				itemList = currItem->getChildren() + itemList;
 				continue;
 			}
-			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->pixm.imgInfo.lowResType == 0)
 				continue;
@@ -2730,7 +2730,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 			QRectF boundingRect = currItem->getTransform().mapRect(QRectF(x, y, w, h));
 			if (!cullingArea.intersects(boundingRect.adjusted(0.0, 0.0, 1.0, 1.0)))
 				continue;
-			if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
+			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
 				continue;
 			if (currItem->pixm.imgInfo.lowResType == 0)
 				continue;
