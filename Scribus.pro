@@ -551,8 +551,8 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/prefs_tableofcontents.h \
            scribus/ui/prefs_typography.h \
            scribus/ui/prefs_userinterface.h \
-           scribus/ui/preview.h \
            scribus/ui/printdialog.h \
+           scribus/ui/printpreview.h \
            scribus/ui/propertiespalette.h \
            scribus/ui/propertiespalette_group.h \
            scribus/ui/propertiespalette_image.h \
@@ -1678,8 +1678,8 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/prefs_tableofcontents.cpp \
            scribus/ui/prefs_typography.cpp \
            scribus/ui/prefs_userinterface.cpp \
-           scribus/ui/preview.cpp \
            scribus/ui/printdialog.cpp \
+           scribus/ui/printpreview.cpp \
            scribus/ui/propertiespalette.cpp \
            scribus/ui/propertiespalette_group.cpp \
            scribus/ui/propertiespalette_image.cpp \

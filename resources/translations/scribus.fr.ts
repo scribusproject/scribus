@@ -13763,174 +13763,174 @@ Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichi
     </message>
 </context>
 <context>
-    <name>PPreview</name>
+    <name>PrintPreview</name>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="84"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="84"/>
         <source>Print Preview</source>
         <translation>Aperçu avant impression</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="123"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="123"/>
         <source>Display Trans&amp;parency</source>
         <translation>Afficher les trans&amp;parences</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="244"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="244"/>
         <source>&amp;Under Color Removal</source>
         <translation>Retrait des &amp;sous-couleurs (UCR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="128"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="128"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Afficher en CMJN</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="141"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="141"/>
         <source>Separation Name</source>
         <translation>Nom de la séparation</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="152"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="152"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="159"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="159"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="166"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="166"/>
         <source>Yellow</source>
         <translation>Jaune</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="173"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="173"/>
         <source>Black</source>
         <translation>Noir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="226"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="226"/>
         <source>Preview Settings</source>
         <translation>Paramètres de l&apos;aperçu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="260"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="260"/>
         <source>Scaling:</source>
         <translation>Mise à l&apos;échelle :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="285"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="285"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="288"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="288"/>
         <source>Print...</source>
         <translation>Imprimer...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="311"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="311"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>L&apos;aperçu simule les encres CMJN, au lieu des couleurs RVB</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="312"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="312"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>L&apos;UCR (Under Color Removal en anglais) consiste à n&apos;utiliser que de l&apos;encre noire pour le rendu des teintes grises composées par les trois couleurs primaires. L&apos;UCR est plus efficace sur les zones de l&apos;image dans des tons neutres ou sombres, proches du gris. Cette fonction peut permettre une meilleure qualité d&apos;impression, mais des tests au cas par cas sont nécessaires.L&apos;UCR réduit les risques de saturation avec les encres CMJ.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="1144"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="1144"/>
         <source>File</source>
         <translation>Fichier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="118"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="118"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Activer l&apos;&amp;anti-crénelage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="272"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="272"/>
         <source>Fit to Width</source>
         <translation>Ajuster à la largeur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="273"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="273"/>
         <source>Fit to Height</source>
         <translation>Ajuster à la hauteur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="274"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="274"/>
         <source>Fit to Page</source>
         <translation>Ajuster à la page</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="309"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="309"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Procure un affichage plus agréable des polices Type 1, TrueType et Opentype, ainsi que des graphiques EPS, PDF et vectoriels, en contrepartie d&apos;une légère perte de performance de l&apos;affichage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="112"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="112"/>
         <source>Display Settings</source>
         <translation>Paramètres d&apos;affichage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="232"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="232"/>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Miroir horizontal des pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="235"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="235"/>
         <source>Mirror Page(s) Vertical</source>
         <translation>Miroir vertical des pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="241"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="241"/>
         <source>Print in Grayscale</source>
         <translation>Imprimer en niveaux de gris</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="247"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="247"/>
         <source>Convert Spot Colors</source>
         <translation>Conversion des tons directs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="310"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="310"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation>Affiche les transparences et les éléments transparents dans votre document. Nécessite Ghostscript 7.07 ou version ultérieure.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="313"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="313"/>
         <source>Resize the scale of the page</source>
         <translation>Redimensionner l&apos;échelle de la page</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="314"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="314"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Cette fonction permet de convertir les tons directs en un équivalent quadrichromique. Cochez cette option à moins de savoir exactement ce que vous faites.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="238"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="238"/>
         <source>Clip to Printer Margins</source>
         <translation>Cadrer aux marges de l&apos;imprimante</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="194"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="194"/>
         <source>Display Ink Coverage</source>
         <translation>Affiche le taux d&apos;encrage</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="202"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="202"/>
         <source>Threshold:</source>
         <translation>Seuil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="205"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="205"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preview.cpp" line="210"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="210"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>

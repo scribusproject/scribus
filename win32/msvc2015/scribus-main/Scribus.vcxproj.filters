@@ -1606,10 +1606,10 @@
     <ClCompile Include="..\..\..\scribus\prefstable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\preview.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp">
@@ -3665,10 +3665,10 @@
     <moc Include="..\..\..\scribus\prefsmanager.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\preview.h">
+    <moc Include="..\..\..\scribus\ui\printdialog.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\printdialog.h">
+    <moc Include="..\..\..\scribus\ui\printpreview.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette.h">

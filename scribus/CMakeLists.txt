@@ -464,8 +464,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/prefs_pdfexport.h
 	ui/prefs_tableofcontents.h
 	ui/prefs_documentitemattributes.h
-	ui/preview.h
 	ui/printdialog.h
+	ui/printpreview.h
 	ui/propertiespalette.h
 	ui/propertiespalette_group.h
 	ui/propertiespalette_image.h
@@ -966,8 +966,8 @@ set(SCRIBUS_SOURCES
 	ui/prefs_pdfexport.cpp
 	ui/prefs_tableofcontents.cpp
 	ui/prefs_documentitemattributes.cpp
-	ui/preview.cpp
 	ui/printdialog.cpp
+	ui/printpreview.cpp
 	ui/propertiespalette.cpp
 	ui/propertiespalette_image.cpp
 	ui/propertiespalette_group.cpp

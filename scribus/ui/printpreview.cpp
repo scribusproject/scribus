@@ -20,30 +20,30 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "preview.h"
+#include "printpreview.h"
 
-#include <QImage>
 #include <QApplication>
+#include <QColor>
+#include <QComboBox>
+#include <QCursor>
 #include <QDesktopWidget>
+#include <QFile>
+#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QGroupBox>
 #include <QHeaderView>
+#include <QImage>
+#include <QLabel>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
+#include <QScrollArea>
+#include <QSpacerItem>
+#include <QSpinBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QLabel>
-#include <QScrollArea>
-#include <QPushButton>
-#include <QComboBox>
-#include <QPixmap>
-#include <QCursor>
-#include <QPainter>
-#include <QColor>
-#include <QToolTip>
-#include <QFile>
 #include <QTextStream>
-#include <QSpinBox>
+#include <QToolTip>
 
 #include <cstdlib>
 #include <algorithm>
@@ -72,7 +72,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent ),
+PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent ),
 	doc(docu),
 	view(vin),
 	prefsManager(PrefsManager::instance())
@@ -152,28 +152,28 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 		Table->setItem(0, 1, new QTableWidgetItem( tr("Cyan")));
 		QCheckBox *cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Table->setCellWidget(0, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_C);
 		flagsVisible.insert("Cyan", cp);
 		Table->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Table->setCellWidget(1, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_M);
 		flagsVisible.insert("Magenta", cp);
 		Table->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Table->setCellWidget(2, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_Y);
 		flagsVisible.insert("Yellow", cp);
 		Table->setItem(3, 1, new QTableWidgetItem( tr("Black")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
-		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_K);
 		flagsVisible.insert("Black", cp);
@@ -182,7 +182,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 			Table->setItem(sp+4, 1, new QTableWidgetItem(spots[sp]));
 			cp = new QCheckBox(this);
 			cp->setFocusPolicy(Qt::NoFocus);
-			connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+			connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 			Table->setCellWidget(sp+4, 0, cp);
 			cp->setChecked(true);
 			flagsVisible.insert(spots[sp], cp);
@@ -195,7 +195,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 		EnableInkCover->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage);
 		EnableInkCover->setEnabled( postscriptPreview );
 		Layout2->addWidget(EnableInkCover);
-		connect(EnableInkCover, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
+		connect(EnableInkCover, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Layout7 = new QHBoxLayout;
 		Layout7->setSpacing(3);
 		Layout7->setMargin(0);
@@ -213,7 +213,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 			CoverThresholdValue->setEnabled(true);
 		else
 			CoverThresholdValue->setEnabled(false);
-		connect(CoverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(ToggleCMYK_Colour()));
+		connect(CoverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(toggleCMYK_Colour()));
 		Layout7->addWidget(CoverThresholdValue);
 		Layout2->addLayout(Layout7);
 		connect(Table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
@@ -316,20 +316,34 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const Q
 	//signals and slots
 	connect(AntiAlias, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
+	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(toggleCMYK()));
 	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(MirrorHor, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(MirrorVert, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(ClipMarg, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(spotColors, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(useGray, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
+	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(jumpToPage(int)));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
 	connect(scaleBox, SIGNAL(activated(int)), this, SLOT(scaleBox_valueChanged(int)));
 }
 
-void PPreview::setValues()
+PrintPreview::~PrintPreview()
+{
+	// Cleanup temporary files
+	QString tempFileDir = ScPaths::tempFileDir();
+	QFile::remove(tempFileDir + "/tmp.ps");
+	QFile::remove(tempFileDir + "/sc.png");
+	QDir d(tempFileDir + "/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
+	{
+		for (uint i = 0; i < d.count(); i++)
+			QFile::remove(prefsManager.preferencesLocation() + "/" + d[i]);
+	}
+}
+
+void PrintPreview::setValues()
 {
 	if ((printDinUse) || (!doc->Print_Options.firstUse))
 	{
@@ -357,7 +371,7 @@ void PPreview::setValues()
 	}
 }
 
-void PPreview::ToSeite(int num)
+void PrintPreview::jumpToPage(int num)
 {
 	int n = num-1;
 	if (n == m_currentPage)
@@ -366,13 +380,13 @@ void PPreview::ToSeite(int num)
 	Anz->resize(Anz->pixmap()->size());
 }
 
-void PPreview::redisplay()
+void PrintPreview::redisplay()
 {
 	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
 	Anz->resize(Anz->pixmap()->size());
 }
 
-void PPreview::ToggleCMYK()
+void PrintPreview::toggleCMYK()
 {
 	bool c = EnableCMYK->isChecked();
 	if (HaveTiffSep)
@@ -387,7 +401,7 @@ void PPreview::ToggleCMYK()
 	Anz->resize(Anz->pixmap()->size());
 }
 
-void PPreview::ToggleCMYK_Colour()
+void PrintPreview::toggleCMYK_Colour()
 {
 	if (HaveTiffSep)
 	{
@@ -401,7 +415,7 @@ void PPreview::ToggleCMYK_Colour()
 	Anz->resize(Anz->pixmap()->size());
 }
 
-void PPreview::doSpotTable(int row)
+void PrintPreview::doSpotTable(int row)
 {
 	if (HaveTiffSep)
 	{
@@ -417,7 +431,7 @@ void PPreview::doSpotTable(int row)
 	}
 }
 
-void PPreview::toggleAllfromHeader()
+void PrintPreview::toggleAllfromHeader()
 {
 	if (HaveTiffSep)
 	{
@@ -432,7 +446,7 @@ void PPreview::toggleAllfromHeader()
 	}
 }
 
-void PPreview::scaleBox_valueChanged(int value)
+void PrintPreview::scaleBox_valueChanged(int value)
 {
 	switch (value)
 	{
@@ -465,7 +479,7 @@ void PPreview::scaleBox_valueChanged(int value)
 	Anz->resize(Anz->pixmap()->size());
 }
 
-int PPreview::RenderPreview(int pageIndex, int res)
+int PrintPreview::RenderPreview(int pageIndex, int res)
 {
 	int ret = -1;
 	QString cmd1;
@@ -585,12 +599,12 @@ int PPreview::RenderPreview(int pageIndex, int res)
 		args.append( cmd1 );
 	// then add any final args and call gs
 	if (EnableCMYK->isChecked())
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")) );
 	else if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.png")) );
+		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.png")) );
 	else
 		args.append(QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")));
-	args.append( QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps") );
+	args.append( QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps") );
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "-c" );
@@ -599,7 +613,7 @@ int PPreview::RenderPreview(int pageIndex, int res)
 	return ret;
 }
 
-int PPreview::RenderPreviewSep(int pageIndex, int res)
+int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 {
 	int ret = -1;
 	QString cmd;
@@ -672,9 +686,9 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
 	if (!cmd.isEmpty())
 		args1.append(cmd);
-	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif")) );
+	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")) );
 
-	args2.append( QDir::toNativeSeparators(ScPaths::tempFileDir()+"/tmp.ps") );
+	args2.append( QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps") );
 	args2.append("-c");
 	args2.append("quit");
 
@@ -692,7 +706,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 	}
 	allSeps += "]";
 	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
-	QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
+	QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
 	if (fx.open(QIODevice::WriteOnly))
 	{
 		QTextStream tsx(&fx);
@@ -700,14 +714,14 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		fx.close();
 	}
 //	args3.append("-f");
-//	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+//	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir() + "/sep.ps"));
 //	args3.append(cmd);
 
 //	args3.append("-f");
 	QString gsExe(getShortPathName(prefsManager.ghostscriptExecutable()));
-	ret = System(gsExe, args1 + args3 + args2, ScPaths::tempFileDir()+"/sc.tif.txt" );
+	ret = System(gsExe, args1 + args3 + args2, ScPaths::tempFileDir() + "/sc.tif.txt" );
 
-	QFile sepInfo(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sc.tif.txt"));
+	QFile sepInfo(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif.txt"));
 	sepsToFileNum.clear();
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
@@ -736,7 +750,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 		{
 			args3.clear();
 			args3.append("-sDEVICE=tiffsep");
-			QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
+			QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
 			if (fx.open(QIODevice::WriteOnly))
 			{
 				QTextStream tsx(&fx);
@@ -744,7 +758,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 				fx.close();
 			}
 			args3.append("-f");
-			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
+			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
 	//		args3.append("-c");
 	//		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//		args3.append("-f");
@@ -757,7 +771,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 	{
 		args3.clear();
 		args3.append("-sDEVICE=tiffsep");
-		QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
+		QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
 		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
@@ -765,7 +779,7 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 			fx.close();
 		}
 		args3.append("-f");
-		args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir()+"/sep.ps"));
+		args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
 	//	args3.append("-c");
 	//	args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 	//	args3.append("-f");
@@ -775,23 +789,23 @@ int PPreview::RenderPreviewSep(int pageIndex, int res)
 }
 
 // this should move to scimage.cpp!
-void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
+void PrintPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 {
 	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
 	
 	//FIXME: if source and target have different sizesomething went wrong.
 	// eg. loadPicture() failed and returned a 1x1 image
 	CMYKColor cmykValues;
-	int h = qMin(target.height(),source.height());
-	int w = qMin(target.width(),source.width());
+	int h = qMin(target.height(), source.height());
+	int w = qMin(target.width(), source.width());
 	int cyan, c, m, yc, k, cc, mm, yy, kk;
 	ScColorEngine::getCMYKValues(col, doc, cmykValues);
 	cmykValues.getValues(c, m, yc, k);
-	for (int y=0; y < h; ++y )
+	for (int y = 0; y < h; ++y )
 	{
-		QRgb *p = (QRgb *)target.scanLine( y );
-		QRgb *pq = (QRgb *)source.scanLine( y );
-		for (int x=0; x < w; ++x )
+		QRgb *p = (QRgb *) target.scanLine(y);
+		QRgb *pq = (QRgb *) source.scanLine(y);
+		for (int x = 0; x < w; ++x )
 		{
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
@@ -808,19 +822,19 @@ void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 	}
 }
 
-void PPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
+void PrintPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
 {
 	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
 	//FIXME: if source and target have different sizesomething went wrong.
 	// eg. loadPicture() failed and returned a 1x1 image
-	int h = qMin(target.height(),source.height());
-	int w = qMin(target.width(),source.width());
+	int h = qMin(target.height(), source.height());
+	int w = qMin(target.width(), source.width());
 	int cyan;
-	for (int y=0; y < h; ++y )
+	for (int y = 0; y < h; ++y )
 	{
-		uint *p = (QRgb *)target.scanLine( y );
-		QRgb *pq = (QRgb *)source.scanLine( y );
-		for (int x=0; x < w; ++x )
+		uint *p = (QRgb *) target.scanLine(y);
+		QRgb *pq = (QRgb *) source.scanLine(y);
+		for (int x = 0; x < w; ++x )
 		{
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
@@ -833,7 +847,7 @@ void PPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
 	}
 }
 
-QPixmap PPreview::CreatePreview(int pageIndex, int res)
+QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 {
 	int ret = -1;
 	QPixmap pixmap;
@@ -883,10 +897,10 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 				std::swap(w, h2);
 			image = QImage(w, h2, QImage::Format_ARGB32);
 			QRgb clean = qRgba(0, 0, 0, 0);
-			for (int yi=0; yi < h2; ++yi)
+			for (int yi = 0; yi < h2; ++yi)
 			{
-				QRgb *q = (QRgb*)(image.scanLine( yi ));
-				for (int xi=0; xi < w; ++xi)
+				QRgb *q = (QRgb*) image.scanLine(yi);
+				for (int xi = 0; xi < w; ++xi)
 				{
 					*q = clean;
 					q++;
@@ -897,11 +911,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(pixmap, pageIndex);
@@ -915,11 +929,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(pixmap, pageIndex);
@@ -933,11 +947,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(pixmap, pageIndex);
@@ -958,11 +972,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 					{
 						QString fnam;
 						if (m_gsVersion < 854)
-							fnam = QString(ScPaths::tempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
+							fnam = QString(ScPaths::tempFileDir() + "/sc.tif.s%1.tif").arg(sepit.value());
 						else if (m_gsVersion <= 905)
-							fnam = QString(ScPaths::tempFileDir()+"/sc.s%1.tif").arg(sepit.value());
+							fnam = QString(ScPaths::tempFileDir() + "/sc.s%1.tif").arg(sepit.value());
 						else
-							fnam = QString(ScPaths::tempFileDir()+"/sc(%1).tif").arg(sepit.key());
+							fnam = QString(ScPaths::tempFileDir() + "/sc(%1).tif").arg(sepit.key());
 						if (!im.loadPicture(fnam, 1, cms, ScImage::RGBData, 72, &mode))
 						{
 							imageLoadError(pixmap, pageIndex);
@@ -980,11 +994,11 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 				CMSettings cms(doc, "", Intent_Perceptual);
 				cms.allowColorManagement(false);
 				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
 				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir()+"/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
+					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(pixmap, pageIndex);
@@ -998,10 +1012,10 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 			if (EnableInkCover->isChecked())
 			{
 				uint limitVal = (CoverThresholdValue->value() * 255) / 100;
-				for (int yi=0; yi < h2; ++yi)
+				for (int yi = 0; yi < h2; ++yi)
 				{
-					QRgb *q = (QRgb*)(image.scanLine( yi ));
-					for (int xi=0; xi < w; ++xi)
+					QRgb *q = (QRgb*) image.scanLine(yi);
+					for (int xi = 0; xi < w; ++xi)
 					{
 						uint greyVal = *q;
 						if (greyVal != 0)
@@ -1040,7 +1054,7 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
 					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
 					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
-					for (int yi=0; yi < h2; ++yi)
+					for (int yi = 0; yi < h2; ++yi)
 					{
 						uchar* ptr = image.scanLine( yi );
 						transCMYK.apply(ptr, ptr, image.width());
@@ -1064,17 +1078,17 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 				}
 				else
 				{
-					for (int yi=0; yi < h2; ++yi)
+					for (int yi = 0; yi < h2; ++yi)
 					{
-						QRgb *q = (QRgb*)(image.scanLine( yi ));
-						for (int xi=0; xi < w; ++xi)
+						QRgb *q = (QRgb*) image.scanLine(yi);
+						for (int xi = 0; xi < w; ++xi)
 						{
 							cyan = qRed(*q);
 							magenta = qGreen(*q);
 							yellow = qBlue(*q);
 							black = qAlpha(*q);
 							if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-								*q = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), 255);
+								*q = qRgba(255 - qMin(255, cyan+black), 255 - qMin(255, magenta+black), 255 - qMin(255, yellow+black), 255);
 							else
 							{
 								if (!AliasTr->isChecked())
@@ -1104,10 +1118,10 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 		{
 			int wi = image.width();
 			int hi = image.height();
-			for (int yi=0; yi < hi; ++yi)
+			for (int yi = 0; yi < hi; ++yi)
 			{
-				QRgb *s = (QRgb*)(image.scanLine( yi ));
-				for (int xi=0; xi < wi; ++xi)
+				QRgb *s = (QRgb*) image.scanLine(yi);
+				for (int xi = 0; xi < wi; ++xi)
 				{
 					if ((*s) == 0xffffffff)
 						(*s) &= 0x00ffffff;
@@ -1138,7 +1152,7 @@ QPixmap PPreview::CreatePreview(int pageIndex, int res)
 
 //-------------------------------------------------------------------------------------------------
 
-bool PPreview::usePostscriptPreview(const QString& printerName, PrintEngine engine)
+bool PrintPreview::usePostscriptPreview(const QString& printerName, PrintEngine engine)
 {
 #ifdef _WIN32
 	if (printerName == tr("File"))
@@ -1155,7 +1169,7 @@ bool PPreview::usePostscriptPreview(const QString& printerName, PrintEngine engi
 
 //-------------------------------------------------------------------------------------------------
 
-void PPreview::getUserSelection(int page)
+void PrintPreview::getUserSelection(int page)
 {
 	m_currentPage = page;
 	m_colorMode = EnableCMYK->isChecked();
@@ -1170,14 +1184,14 @@ void PPreview::getUserSelection(int page)
 	m_useGray = useGray->isChecked();
 }
 
-void PPreview::imageLoadError(QPixmap &pixmap, int page)
+void PrintPreview::imageLoadError(QPixmap &pixmap, int page)
 {
 	pixmap = QPixmap(1,1);
 	qApp->restoreOverrideCursor();
 	getUserSelection(page);
 }
 
-void PPreview::resizeEvent(QResizeEvent * event)
+void PrintPreview::resizeEvent(QResizeEvent * event)
 {
 	QDialog::resizeEvent(event);
 	int cx = scaleBox->currentIndex();

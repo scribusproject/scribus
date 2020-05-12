@@ -576,8 +576,8 @@
     <ClInclude Include="..\..\..\scribus\prefsreader.h" />
     <ClInclude Include="..\..\..\scribus\prefsstructs.h" />
     <ClInclude Include="..\..\..\scribus\prefstable.h" />
-    <moc Include="..\..\..\scribus\ui\preview.h" />
     <moc Include="..\..\..\scribus\ui\printdialog.h" />
+    <moc Include="..\..\..\scribus\ui\printpreview.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_group.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_image.h" />
@@ -1254,8 +1254,8 @@
     <ClCompile Include="..\..\..\scribus\prefsmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp" />
     <ClCompile Include="..\..\..\scribus\prefstable.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\preview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_image.cpp" />

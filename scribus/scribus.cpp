@@ -223,8 +223,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui/picstatus.h"
 #include "ui/polygonwidget.h"
 #include "ui/preferencesdialog.h"
-#include "ui/preview.h"
 #include "ui/printdialog.h"
+#include "ui/printpreview.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_line.h"
 #include "ui/propertiespalette_shape.h"
@@ -6970,40 +6970,32 @@ void ScribusMainWindow::doPrintPreview()
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 	QString currentPrinter(prefs->get("CurrentPrn"));
 	PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
-	if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
+	if (PrintPreview::usePostscriptPreview(currentPrinter, currentEngine) && (!ScCore->haveGS()) )
 	{
 		QString mess(tr("Ghostscript is missing : PostScript Print Preview is not available")+"\n\n");
 		ScMessageBox::warning(this, CommonStrings::trWarning, mess);
 		return;
 	}
-	PPreview *dia = new PPreview(this, view, doc, currentPrinter, currentEngine);
+	PrintPreview *dia = new PrintPreview(this, view, doc, currentPrinter, currentEngine);
 	previewDinUse = true;
 	connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	dia->exec();
-	PrefsManager& prefsManager=PrefsManager::instance();
-	prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-	prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
-	prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-	if (ScCore->haveTIFFSep() && dia->postscriptPreview)
+	PrefsManager& prefsManager = PrefsManager::instance();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode = dia->isCMYKPreviewEnabled();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->isAntialiasingEnabled();
+	prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency = dia->isTransparencyEnabled();
+	if (ScCore->haveTIFFSep() && dia->usePostScriptPreview())
 	{
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
-		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_C = dia->isInkChannelVisible("Cyan");
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_M = dia->isInkChannelVisible("Magenta");
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_Y = dia->isInkChannelVisible("Yellow");
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_K = dia->isInkChannelVisible("Black");
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->isInkCoverageEnabled();
+		prefsManager.appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->inkCoverageThreshold();
 	}
 	disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	previewDinUse = false;
 	delete dia;
-	QFile::remove(prefsManager.preferencesLocation()+"/tmp.ps");
-	QFile::remove(prefsManager.preferencesLocation()+"/sc.png");
-	QDir d(prefsManager.preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
-	{
-		for (uint i = 0; i < d.count(); i++)
-			QFile::remove(prefsManager.preferencesLocation() +"/" + d[i]);
-	}
 }
 
 void ScribusMainWindow::printPreview()
