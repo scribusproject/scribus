@@ -2584,7 +2584,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="440"/>
         <source>%1;;All Files (*)</source>
-        <translation>%1;Tous les fichiers (*)</translation>
+        <translation>%1;;Tous les fichiers (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="155"/>
