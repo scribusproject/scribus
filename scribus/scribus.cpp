@@ -6618,18 +6618,18 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 			view->requestMode(modeEdit);
 		}
 	}
-	else if (ite->asSymbol())
+	else if (ite->isSymbol())
 	{
 		if (!doc->symbolEditMode())
 			view->requestMode(submodeEditSymbol);
 	}
-	else if (ite->asArc())
+	else if (ite->isArc())
 		view->requestMode(modeEditArc);
-	else if (ite->asRegularPolygon())
+	else if (ite->isRegularPolygon())
 		view->requestMode(modeEditPolygon);
-	else if (ite->asSpiral())
+	else if (ite->isSpiral())
 		view->requestMode(modeEditSpiral);
-	else if (ite->asTable())
+	else if (ite->isTable())
 		view->requestMode(modeEditTable);
 }
 

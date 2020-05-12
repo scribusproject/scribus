@@ -1116,7 +1116,7 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 			parseCharStyle(newStyle, n.isElement() ? e : elm);
 			item->itemText.applyCharStyle(pos, chars.length(), newStyle);
 		}
-		if (!item->asPolyLine() && !item->isTextFrame())
+		if (!item->isPolyLine() && !item->isTextFrame())
 			item = m_Doc->convertItemTo(item, PageItem::TextFrame);
 		firstSpan = false;
 	}

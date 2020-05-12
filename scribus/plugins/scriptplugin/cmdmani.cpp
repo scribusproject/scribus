@@ -635,7 +635,7 @@ PyObject *scribus_combinepolygons(PyObject * /* self */)
 	for (int i = 0; i < curSelection->count(); ++i)
 	{
 		PageItem* it = currentDoc->m_Selection->itemAt(i);
-		if ((!it->asPolygon()) || (!it->asPolyLine()))
+		if ((!it->isPolygon()) || (!it->isPolyLine()))
 			canUniteItems = false;
 	}
 

@@ -634,7 +634,7 @@ void PropertyWidget_FontFeatures::configureWidgets()
 			enabled = true;
 		if ((m_item->isGroup()) && (!m_item->isSingleSel))
 			enabled = false;
-		if (m_item->isOSGFrame() || m_item->asSymbol())
+		if (m_item->isOSGFrame() || m_item->isSymbol())
 			enabled = false;
 		if (m_doc->m_Selection->count() > 1)
 			enabled = false;
