@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "util_math.h"
 
-NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraphicsEllipseItem(geom)
+NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent) : QGraphicsEllipseItem(geom)
 {
 	dialog = parent;
 	handle = num;
@@ -55,18 +55,18 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraph
 	mousePressed = false;
 }
 
-void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget)
 {
 	Q_UNUSED(widget);
-	if (option->state & QStyle::State_Selected)
+	if (item->state & QStyle::State_Selected)
 	{
 		painter->setBrush(Qt::red);
-		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / option->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.1, 1.0 / item->levelOfDetail)));
 	}
 	else
 	{
 		painter->setBrush(Qt::NoBrush);
-		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / option->levelOfDetail)));
+		painter->setPen(QPen(Qt::red, qMax(0.2, 2.0 / item->levelOfDetail)));
 	}
 	painter->drawEllipse(rect());
 }

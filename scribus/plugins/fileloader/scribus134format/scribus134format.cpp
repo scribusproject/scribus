@@ -72,7 +72,7 @@ void Scribus134Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus134Format::fullTrName() const
+QString Scribus134Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.3.4+ Support");
 }
@@ -363,7 +363,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "Bookmark")
@@ -3290,17 +3290,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-			if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
-			{
-				while (m_Doc->MLineStyles.contains(mlName2))
-				{
-					mlName2 = QObject::tr("Copy #%1 of ").arg(copyC)+mlName;
-					copyC++;
-				}
-			}
-			m_Doc->MLineStyles.insert(mlName2, ml);
+			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
+			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
 		{
@@ -3849,8 +3842,8 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
 			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = styles->find(mlName2);
-			if (mlit != styles->end() && ml != mlit.value())
+			QHash<QString,multiLine>::ConstIterator mlit = styles->constFind(mlName2);
+			if (mlit != styles->constEnd() && ml != mlit.value())
 			{
 				while (styles->contains(mlName2))
 				{

@@ -69,7 +69,7 @@ public:
 	void showColors(const QList<CellStyle*> &cellStyles);
 
 private:
-	ScribusDoc * m_Doc;
+	ScribusDoc * m_Doc = nullptr;
 
 private slots:
 	void handleUpdateRequest(int);

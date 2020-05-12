@@ -35,12 +35,12 @@ MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_star
 	connect( m_palette, SIGNAL(paletteShown(bool)), this, SLOT(setActive(bool)));
 }
 
-void MeasurementsMode::enterEvent(QEvent *)
+void MeasurementsMode::enterEvent(QEvent *e)
 {
 	m_view->setCursor(QCursor(Qt::CrossCursor));
 }
 
-void MeasurementsMode::leaveEvent(QEvent *)
+void MeasurementsMode::leaveEvent(QEvent *e)
 {
 }
 

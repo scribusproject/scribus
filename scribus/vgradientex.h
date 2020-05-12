@@ -86,18 +86,18 @@ class SCRIBUS_API VGradientEx
 public:
 	enum Type
 	{
-	    linear = 0,
-	    radial = 1,
-	    fourcolor  = 2,
-	    diamond = 3,
+		linear = 0,
+		radial = 1,
+		fourcolor  = 2,
+		diamond = 3,
 		mesh = 4,
 		freemesh = 5
 	};
 
 	enum RepeatMethod
 	{
-	    none    = 0,
-	    reflect = 1,
+		none    = 0,
+		reflect = 1,
 		repeat  = 2,
 		pad     = 3
 	};
@@ -117,11 +117,11 @@ public:
 
 	const QList<VColorStopEx*> colorStops() const;
 	void addStop(const VColorStopEx& colorStop);
-	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = "", int shade = 100);
+	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void removeStop(VColorStopEx& colorStop);
 	void removeStop(int n);
 	void clearStops();
-	int  stops() const { return m_colorStops.count(); }
+	int stops() const { return m_colorStops.count(); }
 
 	FPoint origin() const { return m_origin; }
 	void setOrigin(const FPoint &origin) { m_origin = origin; }
@@ -135,14 +135,14 @@ public:
 	void transform(const QTransform& m);
 
 protected:
-	QList<VColorStopEx*>        m_colorStops;
+	QList<VColorStopEx*> m_colorStops;
 
 	int  compareItems(const VColorStopEx* item1, const VColorStopEx* item2) const;
 	void inSort(VColorStopEx* d);
 
 private:
-	VGradientEx::Type         m_type;
-	VGradientEx::RepeatMethod m_repeatMethod	: 3;
+	VGradientEx::Type m_type;
+	VGradientEx::RepeatMethod m_repeatMethod : 3;
 
 	// coordinates:
 	FPoint m_origin;

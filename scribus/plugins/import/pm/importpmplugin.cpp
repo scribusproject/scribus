@@ -61,7 +61,7 @@ ImportPmPlugin::~ImportPmPlugin()
 	unregisterAll();
 }
 
-const QString ImportPmPlugin::fullTrName() const
+QString ImportPmPlugin::fullTrName() const
 {
 	return QObject::tr("Pagemaker Importer");
 }

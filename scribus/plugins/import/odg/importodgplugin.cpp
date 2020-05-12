@@ -70,7 +70,7 @@ ImportOdgPlugin::~ImportOdgPlugin()
 	unregisterAll();
 }
 
-const QString ImportOdgPlugin::fullTrName() const
+QString ImportOdgPlugin::fullTrName() const
 {
 	return QObject::tr("Open Document Importer");
 }

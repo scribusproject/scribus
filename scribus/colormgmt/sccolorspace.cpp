@@ -74,8 +74,8 @@ void ScColorSpace::flattenAlpha(void* dataIn, uint numElems)
 		m_data->flattenAlpha(dataIn, numElems);
 }
 
-ScColorTransform ScColorSpace::createTransform(const ScColorSpace& outputSpace, eRenderIntent renderIntent, 
-	                                 long transformFlags)
+ScColorTransform ScColorSpace::createTransform(const ScColorSpace& outputSpace, eRenderIntent renderIntent,
+											   long transformFlags)
 {
 	if (m_data && outputSpace.m_data)
 		return m_data->createTransform(*outputSpace.m_data, renderIntent, transformFlags);
@@ -83,16 +83,16 @@ ScColorTransform ScColorSpace::createTransform(const ScColorSpace& outputSpace, 
 }
 
 ScColorTransform ScColorSpace::createTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
-	                                 eRenderIntent renderIntent, long transformFlags)
+											   eRenderIntent renderIntent, long transformFlags)
 {
 	if (m_data)
 		return m_data->createTransform(outputProfile, outputFormat, renderIntent, transformFlags);
 	return ScColorTransform();
 }
 
-ScColorTransform ScColorSpace::createProofingTransform(const ScColorSpace& outputSpace, const ScColorProfile& proofing, 
-	                                         eRenderIntent renderIntent,  eRenderIntent proofingIntent, 
-											 long transformFlags)
+ScColorTransform ScColorSpace::createProofingTransform(const ScColorSpace& outputSpace, const ScColorProfile& proofing,
+													   eRenderIntent renderIntent,  eRenderIntent proofingIntent,
+													   long transformFlags)
 {
 	if (m_data && outputSpace.m_data)
 		return m_data->createProofingTransform(*outputSpace.m_data, proofing, renderIntent, proofingIntent, transformFlags);
@@ -100,24 +100,24 @@ ScColorTransform ScColorSpace::createProofingTransform(const ScColorSpace& outpu
 }
 
 ScColorTransform ScColorSpace::createProofingTransform(const ScColorProfile& outputProfile, eColorFormat outputFormat,
-											 const ScColorProfile& proofing, eRenderIntent renderIntent, 
-	                                         eRenderIntent proofingIntent, long transformFlags)
+													   const ScColorProfile& proofing, eRenderIntent renderIntent,
+													   eRenderIntent proofingIntent, long transformFlags)
 {
 	if (m_data)
 		return m_data->createProofingTransform(outputProfile, outputFormat, proofing, renderIntent, proofingIntent, transformFlags);
 	return ScColorTransform();
 }
 
-bool ScColorSpace::convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
-	             void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans)
+bool ScColorSpace::convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags,
+						   void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans)
 {
 	if (m_data && data.m_data)
 		return m_data->convert(*data.m_data, renderIntent, transformFlags, dataIn, dataOut, numElems, lastTrans);
 	return false;
 }
 
-bool ScColorSpace::convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags, 
-	             void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans)
+bool ScColorSpace::convert(ScColorSpace& data, eRenderIntent renderIntent, long transformFlags,
+						   void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans)
 {
 	if (m_data && data.m_data)
 		return m_data->convert(*data.m_data, renderIntent, transformFlags, dataIn, device, numElems, lastTrans);

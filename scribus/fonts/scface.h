@@ -178,7 +178,7 @@ public:
 
 		// dummy implementations
 		virtual qreal ascent(qreal sz)           const { return sz; }
-		virtual QString pdfAscentAsString()      const { return "0" ; }
+		virtual QString pdfAscentAsString()      const { return "0"; }
 		virtual QString pdfDescentAsString()     const { return "0"; }
 		virtual QString pdfCapHeightAsString()   const { return "0"; }
 		virtual QString pdfFontBBoxAsString()    const { return "0 0 0 0"; }
@@ -397,7 +397,7 @@ public:
 	/// translate unicode to glyph index
 	gid_type char2CMap(uint ch)   const;
 
-	gid_type emulateGlyph(uint u) const;
+	gid_type emulateGlyph(uint ch) const;
 
 	gid_type hyphenGlyph() const;
 	gid_type hyphenGlyph(const CharStyle& style) const;
@@ -408,7 +408,7 @@ private:
 
 	friend class SCFonts;
 
-	ScFace(ScFaceData* md);
+	ScFace(ScFaceData* data);
 	ScFaceData* m_m;
 	QString m_replacedName;
 	QString m_replacedInDoc;

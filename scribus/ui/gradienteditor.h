@@ -46,7 +46,7 @@ public:
 	GradientEditor(QWidget *pa);
 	~GradientEditor() {};
 	void setGradient(const VGradient& grad);
-	const VGradient gradient();
+	const VGradient &gradient();
 	void setColors(ColorList &colorList);
 	QColor setColor(const QString& colorName, int shad);
 	void setGradientEditable(bool val);

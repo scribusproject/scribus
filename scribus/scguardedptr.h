@@ -139,7 +139,7 @@ ScGuardedObject<T>::ScGuardedObject(T* ptr) : ScGuardedPtr<T>(ptr)
 template<typename T>
 ScGuardedObject<T>::ScGuardedObject(const ScGuardedObject& other)
 {
-	this->data = 0;
+	this->data = nullptr;
 	// Must never be used
 	assert(false);
 };

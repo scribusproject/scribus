@@ -69,7 +69,7 @@ double SCRIBUS_API pts2in(double pts);
 double SCRIBUS_API pts2p(double pts);
 double SCRIBUS_API pts2cm(double pts);
 double SCRIBUS_API pts2c(double pts);
-double SCRIBUS_API pts2value(double Val, int unit);
+double SCRIBUS_API pts2value(double unitValue, int unit);
 double SCRIBUS_API value2pts(double unitValue, int unit);
 double SCRIBUS_API value2value(double unitValue, int primaryUnit, int secondaryUnit);
 QString SCRIBUS_API value2String(double unitValue, int unitIndex, bool round2Precision, bool appendSuffix);

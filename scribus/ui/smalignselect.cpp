@@ -9,11 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMAlignSelect::SMAlignSelect(QWidget *parent)
-: AlignSelect(parent),
-  m_hasParent(false),
-  m_useParentStyle(false),
-  m_pStyle(0),
-  m_pDirection(0)
+	: AlignSelect(parent)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize( QSize( 22, 22 ) );

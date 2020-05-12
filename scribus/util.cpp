@@ -205,15 +205,15 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 
 QString CompressStr(QString *in)
 {
-	QString out = "";
+	QString out;
 	QByteArray bb(in->length(), ' ');
 	if (bb.size() == in->length())
 	{
-		for (int ax = 0; ax < in->length(); ++ax)
+		for (int i = 0; i < in->length(); ++i)
 		{
 			// bb.insert(ax, in->at(ax)); JG monstruously inefficient due to frequent memory reallocation
-			bb[ax] = in->at(ax).cell();
-			assert(in->at(ax).row() == 0);
+			bb[i] = in->at(i).cell();
+			assert(in->at(i).row() == 0);
 		}
 		uLong exlen = (uLong)(bb.size() * 0.001 + 16) + bb.size();
 		QByteArray bc(exlen, ' ');
@@ -736,8 +736,8 @@ void parsePagesString(const QString& pages, std::vector<int>* pageNs, int source
 		}
 		else if (token.indexOf("-") != -1) // import a range of source doc pages
 		{
-			int from = QString(token.left(token.indexOf("-"))).toInt();
-			int to = QString(token.right(token.length() - token.indexOf("-") - 1)).toInt();
+			int from = QStringRef(token.leftRef(token.indexOf("-"))).toInt();
+			int to = QStringRef(token.rightRef(token.length() - token.indexOf("-") - 1)).toInt();
 			if ((from != 0) && (to != 0))
 			{
 				if (from > sourcePageCount)

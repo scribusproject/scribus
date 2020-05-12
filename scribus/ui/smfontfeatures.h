@@ -51,8 +51,6 @@ public:
 	void setParentValue(const QString& val);
 	bool useParentValue();
 
-	StylisticSetsMenu *styleSetsMenu;
-
 protected:
 	void connectSignals();
 	void disconnectSignals();
@@ -67,9 +65,11 @@ private:
 
 	QStringList comboboxFeatures(QComboBox* combo);
 
-	bool m_hasParent;
-	bool m_useParentValue;
+	bool m_hasParent = false;
+	bool m_useParentValue = false;
 	QString m_pValue;
+
+	StylisticSetsMenu *styleSetsMenu = nullptr;
 
 private slots:
 	void slotChange();

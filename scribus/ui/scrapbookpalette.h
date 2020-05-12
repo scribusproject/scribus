@@ -82,8 +82,8 @@ public:
 	void adjustReferencesGroups(const QDomElement& elem, const QFileInfo& fid);
 	void cleanUpTemp();
 	void setScrapbookFileName(const QString&);
-	const QString getScrapbookFileName();
-	const int objectCount();
+	const QString &getScrapbookFileName();
+	int objectCount();
 	bool tempHasContents();
 	void readContents(const QString&);
 	void readTempContents(const QString&);

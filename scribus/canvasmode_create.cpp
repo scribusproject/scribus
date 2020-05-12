@@ -57,16 +57,11 @@
 #include "util.h"
 #include "util_math.h"
 
-
-
-
-
 CreateMode::CreateMode(ScribusView* view) : CanvasMode(view) 
 {
 	canvasPressCoord.setXY(-1.0, -1.0);
 	mouseGlobalCoord.setXY(-1.0, -1.0);
 }
-
 
 void CreateMode::drawControls(QPainter* p) 
 {
@@ -177,7 +172,7 @@ inline bool CreateMode::GetItem(PageItem** pi)
 // the following code was moved from scribusview.cpp:
 
 
-void CreateMode::enterEvent(QEvent *)
+void CreateMode::enterEvent(QEvent *e)
 {
 	if (!m_MouseButtonPressed)
 	{
@@ -235,7 +230,6 @@ void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 }
 
-
 void CreateMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
@@ -254,84 +248,80 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 		return;
 	if (GetItem(&currItem))
 	{
-		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
-		
-		if (m_doc->DragP)
-			return;
+//		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
+//		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
+		return;
+	}
+	if ((!m_MouseButtonPressed) || !(m->buttons() & Qt::LeftButton))
+	{
+		m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+		return;
+	}
+
+	newX = mousePointDoc.x();
+	newY = mousePointDoc.y();
+	if (createObjectMode == modeDrawLine)
+	{
+		if (m_doc->SnapGrid)
+		{
+			newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
+			newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
+		}
+		if (m->modifiers() & Qt::ControlModifier)
+		{
+			QRectF bounds(QPointF(createObjectPos.x(), createObjectPos.y()), QPointF(newX, newY));
+			double newRot = xy2Deg(bounds.width(), bounds.height());
+			if (newRot < 0.0)
+				newRot += 360;
+			newRot = constrainAngle(newRot, m_doc->opToolPrefs().constrain);
+			double len = qMax(0.01, distance(bounds.width(), bounds.height()));
+			bounds.setSize(len * QSizeF(cosd(newRot), sind(newRot)));
+			newX = bounds.right();
+			newY = bounds.bottom();
+		}
+	}
+	//CB: #8099: Readd snapping for drag creation of lines by commenting this else..
+	//else
+	//{
+		FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
+		double nx = np2.x();
+		double ny = np2.y();
+		m_doc->ApplyGuides(&nx, &ny);
+		m_doc->ApplyGuides(&nx, &ny,true);
+		if (nx != np2.x())
+			xSnap = nx;
+		if (ny != np2.y())
+			ySnap = ny;
+		// #8959 : suppress qRound here as this prevent drawing line with angle constrain
+		// precisely and does not allow to stick precisely to grid or guides
+		newX = /*qRound(*/nx/*)*/;
+		newY = /*qRound(*/ny/*)*/;
+	//}
+
+	canvasCurrCoord.setXY(newX, newY);
+	m_view->HaveSelRect = true;
+
+	double wSize = canvasCurrCoord.x() - createObjectPos.x();
+	double hSize = canvasCurrCoord.y() - createObjectPos.y();
+	QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
+	createObjectRect = createObjectRect.normalized();
+	if (createObjectMode != modeDrawLine)
+	{
+		if (modifiers == Qt::ControlModifier)
+			hSize = wSize;
+		m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
 	}
 	else
 	{
-		if ((m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
-		{
-			newX = mousePointDoc.x();
-			newY = mousePointDoc.y();
-			if (createObjectMode == modeDrawLine)
-			{
-				if (m_doc->SnapGrid)
-				{
-					newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
-					newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
-				}
-				if (m->modifiers() & Qt::ControlModifier)
-				{
-					QRectF bounds(QPointF(createObjectPos.x(), createObjectPos.y()), QPointF(newX, newY));
-					double newRot = xy2Deg(bounds.width(), bounds.height());
-					if (newRot < 0.0)
-						newRot += 360;
-					newRot = constrainAngle(newRot, m_doc->opToolPrefs().constrain);
-					double len = qMax(0.01, distance(bounds.width(), bounds.height()));
-					bounds.setSize(len * QSizeF(cosd(newRot), sind(newRot)));
-					newX = bounds.right();
-					newY = bounds.bottom();
-				}
-			}
-			//CB: #8099: Readd snapping for drag creation of lines by commenting this else..
-			//else
-			//{
-				FPoint np2 = m_doc->ApplyGridF(FPoint(newX, newY));
-				double nx = np2.x();
-				double ny = np2.y();
-				m_doc->ApplyGuides(&nx, &ny);
-				m_doc->ApplyGuides(&nx, &ny,true);
-				if (nx!=np2.x())
-					xSnap = nx;
-				if (ny!=np2.y())
-					ySnap = ny;
-				// #8959 : suppress qRound here as this prevent drawing line with angle constrain
-				// precisely and does not allow to stick precisely to grid or guides
-				newX = /*qRound(*/nx/*)*/;
-				newY = /*qRound(*/ny/*)*/;
-			//}
-
-			canvasCurrCoord.setXY(newX, newY);
-			m_view->HaveSelRect = true;
-
-			double wSize = canvasCurrCoord.x() - createObjectPos.x();
-			double hSize = canvasCurrCoord.y() - createObjectPos.y();
-			QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
-			createObjectRect = createObjectRect.normalized();
-			if (createObjectMode != modeDrawLine)
-			{
-				if (modifiers == Qt::ControlModifier)
-					hSize = wSize;
-				m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
-			}
-			else
-			{
-				double angle = -xy2Deg(wSize, hSize);
-				if (angle < 0.0)
-					angle = angle + 360;
-				double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
-				m_canvas->displaySizeHUD(m->globalPos(), trueLength, angle, true);
-			}
-
-			// Necessary for drawControls to be called
-			m_canvas->repaint();
-		}
-		else
-			m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
+		double angle = -xy2Deg(wSize, hSize);
+		if (angle < 0.0)
+			angle = angle + 360;
+		double trueLength = sqrt(pow(createObjectRect.width(), 2) + pow(createObjectRect.height(), 2));
+		m_canvas->displaySizeHUD(m->globalPos(), trueLength, angle, true);
 	}
+
+	// Necessary for drawControls to be called
+	m_canvas->repaint();
 }
 
 void CreateMode::mousePressEvent(QMouseEvent *m)
@@ -392,8 +382,6 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	inItemCreation = true;
 }
 
-
-
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	modifiers = m->modifiers();
@@ -437,8 +425,6 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	inItemCreation = false;
 }
-
-
 
 void CreateMode::selectPage(QMouseEvent *m)
 {

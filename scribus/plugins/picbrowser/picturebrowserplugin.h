@@ -23,17 +23,17 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		//! \brief Standard plugin implementation
 		PictureBrowserPlugin();
 		virtual ~PictureBrowserPlugin();
-		virtual bool cleanupPlugin();
+		bool cleanupPlugin() override;
 		//! \brief main method to run the plug
-		virtual bool run ( ScribusDoc* doc, const QString& target = QString() );
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData ( const AboutData* about ) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu ( ScribusMainWindow * ) {};
-		virtual void setDoc ( ScribusDoc* doc );
-		virtual void unsetDoc();
-		virtual void changedDoc ( ScribusDoc* doc );
+		bool run ( ScribusDoc* doc, const QString& target = QString() ) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData ( const AboutData* about ) const override;
+		void languageChange() override;
+		void addToMainWindowMenu ( ScribusMainWindow * ) override {};
+		void setDoc ( ScribusDoc* doc ) override;
+		void unsetDoc() override;
+		void changedDoc ( ScribusDoc* doc ) override;
 
 	public slots:
 		void closePictureBrowser();

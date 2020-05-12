@@ -80,7 +80,7 @@ void ShapePlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 	mw->scrMenuMgr->addMenuItemStringsToMenuBar("Windows", m_actions);
 }
 
-const QString ShapePlugin::fullTrName() const
+QString ShapePlugin::fullTrName() const
 {
 	return QObject::tr("Custom Shapes");
 }

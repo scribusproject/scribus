@@ -43,7 +43,7 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*page*/, int /*re
 		s >> patternWidth;
 		s >> patternHeight;
 		s >> patternType;
-		QString magic = "";
+		QString magic;
 		for (int i = 0; i < 4; i++)
 		{
 			s >> magicKey[i];

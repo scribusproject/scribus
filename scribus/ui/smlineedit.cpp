@@ -7,10 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "smlineedit.h"
 
 SMLineEdit::SMLineEdit(QWidget *parent)
-	: QLineEdit(parent),
-	  m_hasParent(false),
-	  m_useParentValue(false),
-	  m_pValue("")
+	: QLineEdit(parent)
 {
 
 }
@@ -19,7 +16,7 @@ void SMLineEdit::setValue(const QString& val)
 {
 	disconnect(this, SIGNAL(textChanged(QString)), this, SLOT(slotValueChanged()));
 	m_hasParent = false;
-	m_pValue = "";
+	m_pValue.clear();
 	setFont(false);
 
 	QLineEdit::setText(val);

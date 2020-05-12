@@ -154,27 +154,27 @@ void MovePages::mvWherePageDataDisable(int index)
 }
 
 
-const int MovePages::getFromPage()
+int MovePages::getFromPage()
 {
 	return static_cast<int>(fromPageData->value());
 }
 
-const int MovePages::getToPage()
+int MovePages::getToPage()
 {
 	return static_cast<int>(toPageData->value());
 }
 
-const int MovePages::getWhere()
+int MovePages::getWhere()
 {
 	return mvWhereData->currentIndex();
 }
 
-const int MovePages::getWherePage()
+int MovePages::getWherePage()
 {
 	return static_cast<int>(mvWherePageData->value());
 }
 
-const int MovePages::getCopyCount()
+int MovePages::getCopyCount()
 {
 	return static_cast<int>(numberOfCopiesData->value());
 }

@@ -52,14 +52,14 @@ public:
 
 private:
 	QList<ParagraphStyle::TabRecord> m_pTabs;
-	int  m_unitIndex;
-	QToolButton *m_parentButton;
-	bool m_hasParent;
-	bool m_tabsChanged;
-	bool m_useParentTabs;
-	bool m_isSetupRight;
-	bool m_isSetupLeft;
-	bool m_isSetupFirst;
+	int  m_unitIndex = 0;
+	QToolButton *m_parentButton = nullptr;
+	bool m_hasParent = false;
+	bool m_tabsChanged = false;
+	bool m_useParentTabs = false;
+	bool m_isSetupRight = false;
+	bool m_isSetupLeft = false;
+	bool m_isSetupFirst = false;
 
 private slots:
 	void slotTabsChanged();

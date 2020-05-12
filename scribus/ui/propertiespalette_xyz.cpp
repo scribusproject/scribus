@@ -1034,7 +1034,6 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 		m_doc->setRotationMode(m);
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{

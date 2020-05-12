@@ -326,7 +326,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		psx->setPen(m_pen["selection-group"]);
 		double lineAdjust(psx->pen().width() / m_canvas->scale());
 		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
 
 		psx->translate(x,y);
@@ -438,9 +437,9 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 						psx->setRenderHint(QPainter::Antialiasing);
 						psx->setBrush(Qt::white);
 						psx->setPen(m_pen["handle"]);
-						handleRect.moveCenter(QPointF(x, y+h/2.0));
+						handleRect.moveCenter(QPointF(x, y + h / 2.0));
 						psx->drawRect(handleRect);
-						handleRect.moveCenter(QPointF(x+w, y+h/2.0));
+						handleRect.moveCenter(QPointF(x + w, y + h / 2.0));
 						psx->drawRect(handleRect);
 					}
 					else
@@ -577,7 +576,6 @@ void CanvasMode::drawOutline(QPainter* p, double deltax, double deltay)
 	else if (m_doc->m_Selection->count() > 1)
 	{
 		double x, y, w, h;
-		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 		int docSelectionCount = m_doc->m_Selection->count();
 		if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)

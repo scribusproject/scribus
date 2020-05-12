@@ -61,11 +61,10 @@ ImportQxpPlugin::~ImportQxpPlugin()
 	unregisterAll();
 }
 
-const QString ImportQxpPlugin::fullTrName() const
+QString ImportQxpPlugin::fullTrName() const
 {
 	return QObject::tr("QuarkXPress Importer");
 }
-
 
 const ScActionPlugin::AboutData* ImportQxpPlugin::getAboutData() const
 {

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 #include "linkbutton.h"
 #include "marginpresetlayout.h"
+
 class QCheckBox;
 class QPushButton;
 class QLabel;
@@ -46,7 +47,7 @@ public:
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by width */
 	void setPageWidth(double width);
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by height */
-	void setPageHeight(double heigth);
+	void setPageHeight(double height);
 	/*! \brief Setup the widgets by new options */
 	void setNewUnit(int newUnitIndex);
 	/*! \brief Set the page size for margin getting from cups */
@@ -104,50 +105,42 @@ public:
 
 private:
 	/*! Tabs */
-	QWidget *marginPage;
-	QWidget* bleedPage;
+	QWidget *marginPage { nullptr };
+	QWidget* bleedPage { nullptr };
 	/*! Spinboxes */
-	ScrSpinBox* topR;
-	ScrSpinBox* bottomR;
-	ScrSpinBox* rightR;
-	ScrSpinBox* leftR;
-	ScrSpinBox* BleedBottom;
-	ScrSpinBox* BleedLeft;
-	ScrSpinBox* BleedRight;
-	ScrSpinBox* BleedTop;
-	PresetLayout* presetCombo;
+	ScrSpinBox* topR { nullptr };
+	ScrSpinBox* bottomR { nullptr };
+	ScrSpinBox* rightR { nullptr };
+	ScrSpinBox* leftR { nullptr };
+	ScrSpinBox* BleedBottom { nullptr };
+	ScrSpinBox* BleedLeft { nullptr };
+	ScrSpinBox* BleedRight { nullptr };
+	ScrSpinBox* BleedTop { nullptr };
+	PresetLayout* presetCombo { nullptr };
 	/*! Labels */
-	QLabel* lText;
-	QLabel* rText;
-	QLabel* tText;
-	QLabel* bText;
-	QLabel* presetLabel;
-	QLabel* marginsForPages;
-	QLabel* BleedTxt1;
-	QLabel* BleedTxt2;
-	QLabel* BleedTxt3;
-	QLabel* BleedTxt4;
-	QCheckBox* marginsForAllPages;
-	QCheckBox* marginsForAllMasterPages;
-	QPushButton* usePrinterMarginsButton;
-	LinkButton* linkBleeds;
-	LinkButton* linkMargins;
+	QLabel* lText { nullptr };
+	QLabel* rText { nullptr };
+	QLabel* tText { nullptr };
+	QLabel* bText { nullptr };
+	QLabel* presetLabel { nullptr };
+	QLabel* marginsForPages { nullptr };
+	QLabel* BleedTxt1 { nullptr };
+	QLabel* BleedTxt2 { nullptr };
+	QLabel* BleedTxt3 { nullptr };
+	QLabel* BleedTxt4 { nullptr };
+	QCheckBox* marginsForAllPages { nullptr };
+	QCheckBox* marginsForAllMasterPages { nullptr };
+	QPushButton* usePrinterMarginsButton { nullptr };
+	LinkButton* linkBleeds { nullptr };
+	LinkButton* linkMargins { nullptr };
+
 	/*! \brief Margin values converted by unitRatio */
 	MarginStruct marginData;
-	/*
-	//! \brief Top margin value converted by unitRatio
-	double RandT;
-	//! \brief Bottom margin value converted by unitRatio
-	double RandB;
-	//! \brief Left margin value converted by unitRatio
-	double RandL;
-	//! \brief Right margin value converted by unitRatio
-	double RandR;
-	*/
+
 	/*! \brief Internally used page width */
-	double m_pageWidth;
+	double m_pageWidth { 0.0 };
 	/*! \brief Internally used page height */
-	double m_pageHeight;
+	double m_pageHeight { 0.0 };
 
 public slots:
 	/*! \brief Recompute the values after spinbox change */
@@ -167,19 +160,19 @@ protected slots:
 protected:
 	void updateMarginSpinValues();
 
-	QGridLayout* GroupLayout;
-	QHBoxLayout* marginsForPagesLayout;
-	QGridLayout* BleedGroupLayout;
+	QGridLayout* GroupLayout { nullptr };
+	QHBoxLayout* marginsForPagesLayout { nullptr };
+	QGridLayout* BleedGroupLayout { nullptr };
 
 	QString m_pageSize;
-	int     m_unitIndex;
-	double  m_unitRatio;
+	int     m_unitIndex { 0 };
+	double  m_unitRatio { 1.0 };
 	//! \brief if the outer facing palette points to the facing pages item
-	bool m_facingPages;
-	bool m_useBleeds;
-	int  m_pageType;
+	bool m_facingPages { false };
+	bool m_useBleeds { false };
+	int  m_pageType { 0 };
 	MarginStruct m_savedMargins;
-	int m_savedPresetItem;
+	int m_savedPresetItem { PresetLayout::none };
 };
 
 #endif

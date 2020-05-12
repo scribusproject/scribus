@@ -7,12 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "smstyleselect.h"
 
-
 SMStyleSelect::SMStyleSelect(QWidget *parent)
-: StyleSelect(parent),
-  m_hasParent(false),
-  m_useParentStyle(false),
-  m_pStyle(0)
+	: StyleSelect(parent)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize(QSize(22, 22));

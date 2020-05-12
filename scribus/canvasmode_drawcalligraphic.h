@@ -31,29 +31,29 @@ class ScribusView;
 */
 class CalligraphicMode : public CanvasMode
 {
-public:
-	explicit CalligraphicMode(ScribusView* view);
-	~CalligraphicMode() override = default;
+	public:
+		explicit CalligraphicMode(ScribusView* view);
+		~CalligraphicMode() override = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void drawControls(QPainter* p) override;
-	
-private:
-	inline bool GetItem(PageItem** pi); 
-	void selectPage(QMouseEvent *m);
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-	FPointArray m_poly;
-	bool m_mouseButtonPressed {false};
-	double m_xp {-1.0};
-	double m_yp {-1.0};
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter* p) override;
+
+	private:
+		inline bool GetItem(PageItem** pi);
+		void selectPage(QMouseEvent *m);
+
+		FPointArray m_poly;
+		bool m_mouseButtonPressed {false};
+		double m_xp {-1.0};
+		double m_yp {-1.0};
 };
 
 

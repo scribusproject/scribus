@@ -41,7 +41,7 @@ void CanvasMode_Panning::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_Panning::enterEvent(QEvent *)
+void CanvasMode_Panning::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

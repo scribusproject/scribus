@@ -3,6 +3,7 @@
 #include <harfbuzz/hb.h>
 #include <harfbuzz/hb-ft.h>
 #include <harfbuzz/hb-icu.h>
+#include <unicode/brkiter.h>
 #include <unicode/ubidi.h>
 
 #include "scrptrun.h"
@@ -180,7 +181,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 	
 	for (int i = fromPos; i < toPos; ++i)
 	{
-		QString str = m_story.text(i,1);
+		QString str(m_story.text(i,1));
 		
 		if (m_singlePar)
 		{
@@ -448,13 +449,12 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			if (effects & ScStyle_UnderlineWords && !ch.isSpace())
 				run.setFlag(ScLayout_Underlined);
 
-			if (firstChar != 0 &&
-			    SpecialChars::isCJK(m_story.text(firstChar).unicode()) &&
-			    SpecialChars::isCJK(m_story.text(firstChar - 1).unicode()))
+			if (firstChar != 0 && SpecialChars::isImplicitSpace(m_story.text(firstChar - 1).unicode(), m_story.text(firstChar).unicode()))
 				run.setFlag(ScLayout_ImplicitSpace);
 
 			int firstStat = SpecialChars::getCJKAttr(m_story.text(firstChar));
 			int currStat  = (firstChar != lastChar) ? SpecialChars::getCJKAttr(m_story.text(lastChar)) : firstStat;
+			int prevStat  = (firstChar > 0) ? SpecialChars::getCJKAttr(m_story.text(firstChar - 1)) : 0;
 
 			if (firstStat & SpecialChars::CJK_NOBREAK_BEFORE)
 				run.setFlag(ScLayout_NoBreakBefore);
@@ -464,7 +464,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 			if ((firstChar > 0) && (firstStat != 0) && ((firstStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0))
 			{
-				int prevStat = SpecialChars::getCJKAttr(m_story.text(firstChar - 1));
 				if (prevStat != 0 && ((prevStat & SpecialChars::CJK_NOBREAK_AFTER) == 0))
 					run.setFlag(ScLayout_LineBoundary);
 			}
@@ -541,7 +540,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 					m_contextNeeded = true;
 					if (m_context != nullptr)
 					{
-						
 						double smallcapsScale = m_context->typographicPrefs().valueSmallCaps / 100.0;
 						run.setScaleH(run.scaleH() * smallcapsScale);
 						run.setScaleV(run.scaleV() * smallcapsScale);
@@ -559,49 +557,52 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			}
 
 			// Apply CJK spacing according to JIS X4051
-			if (lastChar + 1 < m_story.length())
+			// https://www.w3.org/TR/jlreq/
+
+			// 1. add 1/4 aki (space) between a CJK letter and
+			//    - a latin letter
+			//    - an ASCII digit
+			if (firstChar > 0)
 			{
-				double halfEM = run.style().fontSize() / 10 / 2;
-				double quarterEM = run.style().fontSize() / 10 / 4;
-
-				int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
-
-				// 1. add 1/4 aki (space) between a CJK letter and
-				//    - a latin letter
-				//    - an ASCII Digits
-				if (currStat != 0)
+				if (prevStat == 0)
 				{
-					// current char is CJK
-					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(lastChar + 1).unicode()))
+					// <Latin> <<CJK>>
+					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(firstChar - 1).unicode()))
 					{
 						switch (currStat & SpecialChars::CJK_CHAR_MASK)
 						{
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								run.extraWidth += quarterEM;
+								run.setFlag(ScLayout_CJKLatinSpace);
 						}
 					}
 				}
 				else
 				{
-					// current char is not CJK
-					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(lastChar).unicode()))
+					// <CJK> <<Latin>>
+					if (SpecialChars::isLetterRequiringSpaceAroundCJK(m_story.text(firstChar).unicode()))
 					{
-						switch (nextStat & SpecialChars::CJK_CHAR_MASK)
+						switch (prevStat & SpecialChars::CJK_CHAR_MASK)
 						{
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
 							case SpecialChars::CJK_NOTOP:
-								// use the size of the current char instead of the next one
-								run.extraWidth += quarterEM;
+								// use the size of the current Latin char
+								// instead of the previous CJK char
+								run.setFlag(ScLayout_CJKLatinSpace);
 						}
 					}
 				}
+			}
 
-				// 2. remove spaces from glyphs with the following CJK attributes
+			// 2. remove spaces from glyphs with the following CJK attributes
+			if (lastChar + 1 < m_story.length())
+			{
 				if (currStat != 0)
 				{	// current char is CJK
+					double halfEM = run.style().fontSize() / 10 / 2;
+					int nextStat = SpecialChars::getCJKAttr(m_story.text(lastChar + 1));
 					switch (currStat & SpecialChars::CJK_CHAR_MASK)
 					{
 						case SpecialChars::CJK_FENCE_END:
@@ -635,7 +636,6 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 							break;
 
 						case SpecialChars::CJK_FENCE_BEGIN:
-							int prevStat = SpecialChars::getCJKAttr(m_story.text(lastChar - 1));
 							if ((prevStat & SpecialChars::CJK_CHAR_MASK) == SpecialChars::CJK_FENCE_BEGIN)
 							{
 								run.extraWidth -= halfEM;

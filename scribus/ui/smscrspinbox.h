@@ -25,16 +25,16 @@ public:
 	void clear();
 
 	void setParentValue(double val);
-
 	bool useParentValue();
 
 protected:
 	void interpretText();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	double m_pValue;
+	bool   m_hasParent = false;
+	bool   m_useParentValue = false;
+	double m_pValue = 0.0;
+
 	void setFont(bool wantBold);
 
 private slots:

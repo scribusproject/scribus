@@ -177,13 +177,13 @@ void PageSize::generateSizeList()
 	};
 	*/
 
-	double width, height, tmp;
+//	double width, height, tmp;
 	int format;
 	QString name;
 	struct PageSizeInfo info;
 	/* A series */
-	width  = floor(1000.0 / sqrt(sqrt(2.0)) + 0.5);
-	height = floor(sqrt(sqrt(2.0))*1000.0 + 0.5);
+//	width  = floor(1000.0 / sqrt(sqrt(2.0)) + 0.5);
+//	height = floor(sqrt(sqrt(2.0))*1000.0 + 0.5);
 	//4A0
 	info.width = mm2pts(1682.0);
 	info.height = mm2pts(2378.0);
@@ -289,9 +289,11 @@ void PageSize::generateSizeList()
 	}
 */
 	/* PA series */
-	width  = 840;
-	height = 1120;
-	for (format = 0; format <= 10; format++) {
+	double tmp;
+	double width  = 840;
+	double height = 1120;
+	for (format = 0; format <= 10; format++)
+	{
 		info.width=mm2pts(width);
 		info.height=mm2pts(height);
 		info.pageUnitIndex=SC_MM;

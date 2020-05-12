@@ -78,7 +78,7 @@ void Scribus150Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus150Format::fullTrName() const
+QString Scribus150Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.5.0+ Support");
 }
@@ -183,7 +183,7 @@ QIODevice* Scribus150Format::slaReader(const QString & fileName)
 
 void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=false;
+	getNewReplacement = false;
 	getReplacedFonts.clear();
 }
 
@@ -224,6 +224,14 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	itemRemapF.clear();
 	itemNextF.clear();
 	FrameItems.clear();
+	LinkID.clear();
+
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
 
 	bool firstElement = true;
 	bool success = true;
@@ -321,7 +329,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if ((tagName == "ITEM") || (tagName == "PAGEOBJECT") || (tagName == "FRAMEOBJECT"))
@@ -491,6 +499,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 		}
+
+		//update names to pointers
+		updateNames2Ptr();
+
 		if (itemNext.count() != 0)
 		{
 			QMap<int,int>::Iterator lc;
@@ -595,6 +607,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 		}
+
+		//update names to pointers
+		updateNames2Ptr();
+
 		// reestablish textframe links
 		if (itemNext.count() != 0)
 		{
@@ -852,7 +868,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "PAGEOBJECT" || tagName == "MASTEROBJECT" || tagName == "FRAMEOBJECT")
@@ -1512,7 +1528,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			if (!mlName.isEmpty())
 			{
-				m_Doc->MLineStyles.insert(mlName, ml);
+				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
 		if (tagName == "Bookmark")
@@ -4378,9 +4394,9 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
-	QMap<int,PageItem*> TableID2;
+	QMap<int, PageItem*> TableID2;
 	QList<PageItem*> TableItems2;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 
 	pat.setDoc(doc);
@@ -6137,9 +6153,9 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 
 	ScPage* newPage = nullptr;
 	
-	QMap<int,PageItem*> TableID;
+	QMap<int, PageItem*> TableID;
 	QList<PageItem*> TableItems;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
@@ -6175,6 +6191,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	FrameItems.clear();
 	WeldItems.clear();
 	WeldID.clear();
+	LinkID.clear();
 
 	markeredItemsMap.clear();
 	markeredMarksMap.clear();
@@ -6271,17 +6288,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			int copyC = 1;
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(mlName2);
-			if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
-			{
-				while (m_Doc->MLineStyles.contains(mlName2))
-				{
-					mlName2 = QObject::tr("Copy #%1 of ").arg(copyC)+mlName;
-					copyC++;
-				}
-			}
-			m_Doc->MLineStyles.insert(mlName2, ml);
+			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+			if (mlit != m_Doc->docLineStyles.end() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
 		{
@@ -7121,43 +7131,44 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 		for (int i = 0; i < notesFramesData.count(); ++i)
 		{
 			NoteFrameData eF = notesFramesData.at(i);
-			NotesStyle* NS = m_Doc->getNotesStyle(eF.NSname);
-			if (NS != nullptr)
+			NotesStyle* ns = m_Doc->getNotesStyle(eF.NSname);
+			if (ns == nullptr)
+				continue;
+
+			PageItem* item = LinkID.value(eF.myID);
+			if (item == nullptr || !item->isNoteFrame())
 			{
-				PageItem* item = LinkID.value(eF.myID);
-				if ((item != nullptr) && item->isNoteFrame())
+				qDebug() << "Scribus150Format::updateNames2Ptr() : update end frames pointers - item is not note frame or name is wrong";
+				continue;
+			}
+
+			PageItem_NoteFrame* noteFrame = item->asNoteFrame();
+			noteFrame->setNoteStyle(ns);
+			if (ns->isEndNotes())
+			{
+				if (eF.NSrange == NSRdocument)
+					m_Doc->setEndNoteFrame(noteFrame, (void*) nullptr);
+				else if (eF.NSrange == NSRstory)
+					m_Doc->setEndNoteFrame(noteFrame, (void*) LinkID.value(eF.itemID));
+			}
+			else
+			{
+				PageItem* master = LinkID.value(eF.itemID);
+				if (master == nullptr)
+					continue;
+				noteFrame->setMaster(master);
+				master->asTextFrame()->setNoteFrame(noteFrame);
+				//FIX welding with note frame
+				PageItem::WeldingInfo wInf;
+				for (int i = 0 ; i < master->weldList.count(); i++)
 				{
-					item->asNoteFrame()->setNS(NS);
-					if (NS->isEndNotes())
+					wInf = master->weldList.at(i);
+					if (wInf.weldID == eF.myID)
 					{
-						if (eF.NSrange == NSRdocument)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) nullptr);
-						else if (eF.NSrange == NSRstory)
-							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) LinkID.value(eF.itemID));
-					}
-					else
-					{
-						PageItem* master = LinkID.value(eF.itemID);
-						if (master != nullptr)
-						{
-							item->asNoteFrame()->setMaster(master);
-							master->asTextFrame()->setNoteFrame(item->asNoteFrame());
-						//FIX welding with note frame
-							PageItem::WeldingInfo wInf;
-							for (int i = 0 ; i < master->weldList.count(); i++)
-							{
-								wInf = master->weldList.at(i);
-								if (wInf.weldID == eF.myID)
-								{
-									master->weldList[i].weldItem = item;
-									break;
-								}
-							}
-						}
+						master->weldList[i].weldItem = item;
+						break;
 					}
 				}
-				else
-					qDebug() << "Scribus150Format::updateNames2Ptr() : update end frames pointers - item is not note frame or name is wrong";
 			}
 		}
 	}

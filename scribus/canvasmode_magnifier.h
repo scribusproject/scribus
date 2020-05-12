@@ -36,31 +36,30 @@ class ScribusView;
 
 class CanvasMode_Magnifier :  public CanvasMode
 {
-public:
-	explicit CanvasMode_Magnifier(ScribusView* view);
-	~CanvasMode_Magnifier() override = default;
+	public:
+		explicit CanvasMode_Magnifier(ScribusView* view);
+		~CanvasMode_Magnifier() override = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void drawControls(QPainter* p) override;
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-// protected:
-// 	void setResizeCursor(int);
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter* p) override;
 
-private:
+		// protected:
+		// 	void setResizeCursor(int);
 
-	double m_Mxp {-1.0};
-	double m_Myp {-1.0};
-	double m_SeRx {0.0};
-	double m_SeRy {0.0};
-	bool  m_lastPosWasOverGuide {false};
+	private:
+		double m_Mxp {-1.0};
+		double m_Myp {-1.0};
+		double m_SeRx {0.0};
+		double m_SeRy {0.0};
+		bool  m_lastPosWasOverGuide {false};
 };
 
 

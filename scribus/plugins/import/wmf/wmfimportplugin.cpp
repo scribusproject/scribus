@@ -80,7 +80,7 @@ void WMFImportPlugin::languageChange()
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);
 }
 
-const QString WMFImportPlugin::fullTrName() const
+QString WMFImportPlugin::fullTrName() const
 {
 	return QObject::tr("WMF Import");
 }

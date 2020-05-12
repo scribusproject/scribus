@@ -102,7 +102,7 @@ void SVGExportPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString SVGExportPlugin::fullTrName() const
+QString SVGExportPlugin::fullTrName() const
 {
 	return QObject::tr("SVG Export");
 }
@@ -964,7 +964,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 				ob2.setAttribute("style", "fill:none;" + drS);
 		}
 		ob.appendChild(ob2);
-		multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
 		{
 			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -993,7 +993,7 @@ QDomElement SVGExPlug::processLineItem(PageItem *item, const QString& trans, con
 	{
 		ob = m_domDoc.createElement("g");
 		ob.setAttribute("transform", trans);
-		multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 		for (int i = ml.size()-1; i > -1; i--)
 		{
 			if ((ml[i].Color != CommonStrings::None) && (ml[i].Width != 0))
@@ -1128,7 +1128,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 	}
 	else
 	{
-		multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
 		{
 			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1318,7 +1318,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1356,7 +1356,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -1517,7 +1517,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			}
 			else
 			{
-				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				if (ml[ml.size()-1].Width != 0.0)
 					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 			}
@@ -1542,7 +1542,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 					}
 					else
 					{
-						multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+						multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 						if (ml[ml.size()-1].Width != 0.0)
 							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 					}
@@ -1640,7 +1640,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			if (ml[0].Color != CommonStrings::None)
 			{
 				ob = m_domDoc.createElement("path");
@@ -1683,7 +1683,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			}
 			else
 			{
-				multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+				multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 				if (ml[ml.size()-1].Width != 0.0)
 					arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 			}
@@ -1707,7 +1707,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 					}
 					else
 					{
-						multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+						multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 						if (ml[ml.size() - 1].Width != 0.0)
 							arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 					}
@@ -1805,7 +1805,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[item->NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
 			if (ml[0].Color != CommonStrings::None)
 			{
 				ob = m_domDoc.createElement("path");

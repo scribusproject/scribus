@@ -172,7 +172,6 @@ void ResizeGesture::drawControls(QPainter* p)
 		else if (m_doc->m_Selection->isMultipleSelection())
 		{
 			double x, y, w, h;
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			double scx = localRect.width() / w;
 			double scy = localRect.height() / h;

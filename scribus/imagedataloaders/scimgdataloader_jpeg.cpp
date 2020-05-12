@@ -532,11 +532,13 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					break;
 				case 4:
 					M = flip;
+					/* fall through */
 				case 3:
 					M.rotate (180);
 					break;
 				case 5:
 					M = flip;
+					/* fall through */
 				case 6:
 					M.rotate(90);
 					oxres = m_imageInfoRecord.xres;
@@ -546,6 +548,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					break;
 				case 7:
 					M = flip;
+					/* fall through */
 				case 8:
 					M.rotate(270);
 					oxres = m_imageInfoRecord.xres;
@@ -553,7 +556,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					m_imageInfoRecord.xres = oyres;
 					m_imageInfoRecord.yres = oxres;
 					break;
-				default: break; // should never happen
+				default:
+					break; // should never happen
 			}
 			m_image = m_image.transformed(M);
 		}

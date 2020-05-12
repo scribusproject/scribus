@@ -73,21 +73,21 @@ public:
 
 public slots:
 	//! \brief as setOrientation for orientationQComboBox current item
-	virtual void setPageSize();
+	void setPageSize();
 	/*! \brief Sets page size and enables/disables size widgets.
 	\param gr A QString with name of the page size or "Custom" */
-	virtual void setSize(const QString & gr);
+	void setSize(const QString & gr);
 	/*! \brief Sets page orientation and sizes regarding the given value
 	\param  ori integer from orientationQComboBox item index */
-	virtual void setOrientation(int ori);
+	void setOrientation(int ori);
 	/*! \brief Recompute the page width for current unit.
 	It's called from width spinbox.
 	\param v new width */
-	virtual void setPageWidth(double v);
+	void setPageWidth(double v);
 	/*! \brief Recompute the page height for current unit.
 	It's called from width spinbox.
 	\param v new height */
-	virtual void setPageHeight(double v);
+	void setPageHeight(double v);
 
 private:
 	MarginWidget* marginWidget;

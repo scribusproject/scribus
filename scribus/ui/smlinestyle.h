@@ -53,15 +53,15 @@ signals:
 	void selectionDirty();
 
 private:
-	ScribusDoc               *m_doc;
-	SMLineStyleWidget        *m_widget;
-	QTabWidget               *m_twidget;
+	ScribusDoc               *m_doc = nullptr;
+	SMLineStyleWidget        *m_widget = nullptr;
+	QTabWidget               *m_twidget = nullptr;
 	QHash<QString, multiLine> m_tmpLines;
-	bool                      m_selectionIsDirty;
-	double m_unitRatio;
+	bool                      m_selectionIsDirty = false;
+	double                    m_unitRatio = 1.0;
 	QHash<QString, multiLine*> m_selection;
 	QList<RemoveItem>         m_deleted;
-	int                       m_currentLine;
+	int                       m_currentLine = -1;
 
 	void setSelection(const QString& styleName);
 	void setMultiSelection(const QStringList& styles);

@@ -530,10 +530,23 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_gettextflowmode(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+
+	return PyLong_FromLong(static_cast<int>(item->textFlowMode()));
+};
 
 /* 03/21/2004 - exception raises by non existent name (subik)
  */
-PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
+PyObject *scribus_settextflowmode(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	int state = -1;
@@ -579,12 +592,47 @@ PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(static_cast<long>(false));
 }
 
+PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character style of a non-text frame.", "python error").toLocal8Bit().constData());
+		return NULL;
+	}
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	StoryText&  itemText = item->itemText;
+
+	int selectionLength = itemText.selectionLength();	
+	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
+	{
+		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
+		const CharStyle& currentStyle = itemText.charStyle(cursorPos);
+		if (currentStyle.hasParent())
+			return PyUnicode_FromString(currentStyle.parentStyle()->name().toUtf8());
+	}
+	else
+	{
+		const CharStyle& itemDefaultStyle = itemText.defaultStyle().charStyle();
+		if (itemDefaultStyle.hasParent())
+			return PyUnicode_FromString(itemDefaultStyle.parentStyle()->name().toUtf8());
+	}
+	Py_RETURN_NONE;
+};
 
 /*
  * Vaclav Smilauer, 2017-21-21
  * Return style name of the object (or currently selected object)
  */
-PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -600,11 +648,14 @@ PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	int selectionLength = item->itemText.selectionLength();	
-	if (selectionLength > 0)
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	StoryText&  itemText = item->itemText;
+
+	int selectionLength = itemText.selectionLength();	
+	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
 	{
-		int selectionStart = item->itemText.startOfSelection();
-		const ParagraphStyle& currentStyle = item->itemText.paragraphStyle(selectionStart);
+		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
+		const ParagraphStyle& currentStyle = itemText.paragraphStyle(cursorPos);
 		if (currentStyle.hasParent())
 			return PyUnicode_FromString(currentStyle.parentStyle()->name().toUtf8());
 	}
@@ -624,7 +675,7 @@ PyObject *scribus_getstyle(PyObject* /* self */, PyObject* args)
  * Apply the named style to the currently selected object.
  * pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 {
 	char *style = const_cast<char*>("");
 	char *name = const_cast<char*>("");
@@ -640,64 +691,52 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-
-	// First, find the style number associated with the requested style
-	// by scanning through the styles looking for the name. If
-	// we can't find it, raise PyExc_Exception.
-	// FIXME: Should use a more specific exception.
-	bool found = false;
-	QString paraStyleName = QString::fromUtf8(style);
-	// We start at zero here because it's OK to match an internal name
+	
 	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
-	const StyleSet<ParagraphStyle> &docParagraphStyles = currentDoc->paragraphStyles();
-	int docParagraphStylesCount = docParagraphStyles.count();
-	for (int i=0; i < docParagraphStylesCount; ++i)
+
+	// First, check if style name provided by user is available in document
+	QString paraStyleName = QString::fromUtf8(style);
+	if (!currentDoc->paragraphStyles().contains(paraStyleName))
 	{
-		if (docParagraphStyles[i].name() == paraStyleName) {
-			found = true;
-			break;
-		}
-	}
-	if (!found) {
 		// whoops, the user specified an invalid style, complain loudly.
+		// FIXME: Should use a more specific exception.
 		PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	// for current item only
-	if (currentDoc->m_Selection->isEmpty() || (strlen(name) > 0))
-	{
-		// Store text selection as clearing object selection
-		// will also clear text selection
-		int selectionStart = -1;
-		int selectionLength = item->itemText.selectionLength();
-		if (selectionLength > 0)
-			selectionStart = item->itemText.startOfSelection();
-		// quick hack to always apply on the right frame - pv
-		currentView->deselectItems(true);
-		//CB I dont think we need to draw here. Its faster if we dont.
-		currentView->selectItem(item, false);
-		// Restore text selection if necessary
-		if (selectionStart >= 0)
-		{
-			item->itemText.deselectAll();
-			item->itemText.select(selectionStart, selectionLength);
-			item->HasSel = true;
-		}
-		// Now apply the style.
-		int mode = currentDoc->appMode;
-		currentDoc->appMode = modeEdit;
-		currentWin->setNewParStyle(paraStyleName);
-		currentDoc->appMode = mode;
-	}
-	else // for multiple selection
+
+	// For multiple selections or if current item has no text selected, we apply style in normal mode
+	if (currentDoc->m_Selection->isMultipleSelection() || (item->itemText.selectionLength() <= 0))
 	{
 		int mode = currentDoc->appMode;
 		currentDoc->appMode = modeNormal;
 		currentDoc->itemSelection_SetNamedParagraphStyle(paraStyleName);
 		currentDoc->appMode = mode;
+		Py_RETURN_NONE;
 	}
+
+	// For single items which have a text selection, we apply style in edit mode
+	// Store text selection as clearing object selection
+	// will also clear text selection
+	int selectionStart =  item->itemText.startOfSelection();
+	int selectionLength = item->itemText.selectionLength();
+	// Quick hack to always apply on the right frame - pv
+	currentView->deselectItems(true);
+	//CB I dont think we need to draw here. Its faster if we dont.
+	currentView->selectItem(item, false);
+	// Restore text selection if necessary
+	if (selectionStart >= 0)
+	{
+		item->itemText.deselectAll();
+		item->itemText.select(selectionStart, selectionLength);
+		item->HasSel = true;
+	}
+	// Now apply the style.
+	int mode = currentDoc->appMode;
+	currentDoc->appMode = modeEdit;
+	currentWin->setNewParStyle(paraStyleName);
+	currentDoc->appMode = mode;
 
 	Py_RETURN_NONE;
 }
@@ -723,108 +762,55 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character style on a non-text frame.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-
-	// First, find the style number associated with the requested style
-	// by scanning through the styles looking for the name. If
-	// we can't find it, raise PyExc_Exception.
-	// FIXME: Should use a more specific exception.
-	bool found = false;
-	QString charStyleName = QString::fromUtf8(style);
-	// We start at zero here because it's OK to match an internal name
+	
 	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
-	const StyleSet<CharStyle> &docCharStyles = currentDoc->charStyles();
-	int docCharacterStylesCount = docCharStyles.count();
-	for (int i = 0; i < docCharacterStylesCount; ++i)
+
+	// First, check if style name provided by user is available in document
+	QString charStyleName = QString::fromUtf8(style);
+	if (!currentDoc->charStyles().contains(charStyleName))
 	{
-		if (docCharStyles[i].name() == charStyleName) {
-			found = true;
-			break;
-		}
-	}
-	if (!found) {
 		// whoops, the user specified an invalid style, complain loudly.
+		// FIXME: Should use a more specific exception.
 		PyErr_SetString(NotFoundError, QObject::tr("Character style not found.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	// for current item only
-	if (currentDoc->m_Selection->isEmpty() || (strlen(name) > 0))
-	{
-		// Store text selection as clearing object selection
-		// will also clear text selection
-		int selectionStart = -1;
-		int selectionLength = item->itemText.selectionLength();
-		if (selectionLength > 0)
-			selectionStart = item->itemText.startOfSelection();
-		// quick hack to always apply on the right frame - pv
-		currentView->deselectItems(true);
-		//CB I dont think we need to draw here. Its faster if we dont.
-		currentView->selectItem(item, false);
-		// Restore text selection if necessary
-		if (selectionStart >= 0)
-		{
-			item->itemText.deselectAll();
-			item->itemText.select(selectionStart, selectionLength);
-			item->HasSel = true;
-		}	
-		// Now apply the style.
-		int mode = ScCore->primaryMainWindow()->doc->appMode;
-		currentDoc->appMode = modeEdit;
-		currentWin->setNewCharStyle(charStyleName);
-		currentDoc->appMode = mode;
-	}
-	else // for multiple selection
+
+	// For multiple selections or if current item has no text selected, we apply style in normal mode
+	if (currentDoc->m_Selection->isMultipleSelection() || (item->itemText.selectionLength() <= 0))
 	{
 		int mode = currentDoc->appMode;
 		currentDoc->appMode = modeNormal;
 		currentDoc->itemSelection_SetNamedCharStyle(charStyleName);
 		currentDoc->appMode = mode;
+		Py_RETURN_NONE;
 	}
+
+	// For single items which have a text selection, we apply style in edit mode
+	// Store text selection as clearing object selection
+	// will also clear text selection
+	int selectionStart =  item->itemText.startOfSelection();
+	int selectionLength = item->itemText.selectionLength();
+
+	// Quick hack to always apply on the right frame - pv
+	currentView->deselectItems(true);
+	//CB I dont think we need to draw here. Its faster if we dont.
+	currentView->selectItem(item, false);
+	// Restore text selection if necessary
+	if (selectionStart >= 0)
+	{
+		item->itemText.deselectAll();
+		item->itemText.select(selectionStart, selectionLength);
+		item->HasSel = true;
+	}	
+	// Now apply the style.
+	int mode = ScCore->primaryMainWindow()->doc->appMode;
+	currentDoc->appMode = modeEdit;
+	currentWin->setNewCharStyle(charStyleName);
+	currentDoc->appMode = mode;
 
 	Py_RETURN_NONE;
-}
-
-/*
- * Craig Ringer, 2004-09-09
- * Enumerate all known paragraph styles
- */
-PyObject *scribus_getstylenames(PyObject* /* self */)
-{
-	PyObject *styleList;
-	if (!checkHaveDocument())
-		return nullptr;
-	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
-
-	styleList = PyList_New(0);
-	for (int i = 0; i < paragraphStyles.count(); ++i)
-	{
-		if (PyList_Append(styleList, PyUnicode_FromString(paragraphStyles[i].name().toUtf8())))
-		{
-			// An exception will have already been set by PyList_Append apparently.
-			return nullptr;
-		}
-	}
-	return styleList;
-}
-
-PyObject *scribus_getcharstylenames(PyObject* /* self */)
-{
-	PyObject *charStyleList;
-	if (!checkHaveDocument())
-		return nullptr;
-	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
-
-	charStyleList = PyList_New(0);
-	for (int i = 0; i < charStyles.count(); ++i)
-	{
-		if (PyList_Append(charStyleList, PyUnicode_FromString(charStyles[i].name().toUtf8())))
-		{
-			// An exception will have already been set by PyList_Append apparently.
-			return nullptr;
-		}
-	}
-	return charStyleList;
 }
 
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
@@ -900,9 +886,9 @@ void cmdobjdocwarnings()
 	  << scribus_copyobject__doc__
 	  << scribus_deleteobj__doc__
 	  << scribus_duplicateobject__doc__
-	  << scribus_getcharstylenames__doc__
+	  << scribus_getcharacterstyle__doc__
+	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
-	  << scribus_getstylenames__doc__
 	  << scribus_newellipse__doc__
 	  << scribus_newimage__doc__
 	  << scribus_newline__doc__
@@ -915,6 +901,8 @@ void cmdobjdocwarnings()
 	  << scribus_polygon__doc__
 	  << scribus_polyline__doc__
 	  << scribus_setcharstyle__doc__
+	  << scribus_setparagraphstyle__doc__
 	  << scribus_setstyle__doc__
-	  << scribus_textflow__doc__;
+	  << scribus_settextflowmode__doc__
+	  << scribus_textflowmode__doc__;
 }

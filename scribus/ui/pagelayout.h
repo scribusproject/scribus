@@ -68,7 +68,7 @@ protected:
 	QVBoxLayout* layoutGroupLayout;
 
 protected slots:
-	virtual void languageChange();
+	void languageChange();
 
 };
 

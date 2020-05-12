@@ -61,7 +61,9 @@
 #include "util_math.h"
 
 
-CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) :
+	CanvasMode(view),
+	m_ScMW(view->m_ScMW)
 {
 }
 
@@ -128,7 +130,7 @@ void CanvasMode_EditPolygon::drawControlsPolygon(QPainter* psx, PageItem* currIt
 	}
 }
 
-void CanvasMode_EditPolygon::enterEvent(QEvent *)
+void CanvasMode_EditPolygon::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		setModeCursor();

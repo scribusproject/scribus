@@ -27,12 +27,12 @@ class PLUGIN_API ColorWheelPlugin : public ScActionPlugin
 		// Standard plugin implementation
 		ColorWheelPlugin();
 		virtual ~ColorWheelPlugin();
-		virtual bool run(ScribusDoc* doc, const QString& target = QString());
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool run(ScribusDoc* doc, const QString& target = QString()) override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features (none)
 };

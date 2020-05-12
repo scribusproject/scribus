@@ -44,12 +44,12 @@ public:
 	\param filename a file to export to
 	\retval bool true
 	*/
-	virtual bool run(ScribusDoc* doc=nullptr, const QString& filename = QString());
-	virtual const QString fullTrName() const;
-	virtual const AboutData* getAboutData() const;
-	virtual void deleteAboutData(const AboutData* about) const;
-	virtual void languageChange();
-	virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+	bool run(ScribusDoc* doc=nullptr, const QString& filename = QString()) override;
+	QString fullTrName() const override;
+	const AboutData* getAboutData() const override;
+	void deleteAboutData(const AboutData* about) const override;
+	void languageChange() override;
+	void addToMainWindowMenu(ScribusMainWindow *) override {};
 };
 
 extern "C" PLUGIN_API int xpsexplugin_getPluginAPIVersion();
@@ -107,9 +107,7 @@ private:
 	QString MatrixToStr(QTransform &mat, double factor);
 	int hex2int(char hex);
 	bool checkForFallback(PageItem *Item);
-	ScribusDoc* m_Doc;
-	ScZipHandler *zip;
-	QTemporaryDir *dir;
+	ScribusDoc* m_Doc {nullptr};
 	QString baseDir;
 	QDomDocument f_docu;
 	QDomDocument p_docu;
@@ -121,13 +119,13 @@ private:
 	struct txtRunItem
 	{
 		QChar chr;
-		GlyphLayout* glyphs;
+		GlyphLayout* glyphs {nullptr};
 		CharStyle style;
-		int index;
-		double CurX;
-		PageItem* embItem;
+		int index {0};
+		double CurX {0.0};
+		PageItem* embItem {nullptr};
 	};
-	double m_dpi;
+	double m_dpi {0.0};
 };
 
 #endif

@@ -24,13 +24,21 @@ public:
 	//overloaded text frame layouting
 	void layout() override;
 
+	void getNamedResources(ResourceCollection& lists) const override;
+	void replaceNamedResources(ResourceCollection& newNames) override;
+
 	//indicate if noteframe should be deleted
-	bool deleteIt;
+	bool deleteIt { false };
 
 	//used while reading SLA file
-	void setNS(NotesStyle* nStyle, PageItem_TextFrame* master = nullptr);
+	void setNoteStyle(NotesStyle* nStyle, PageItem_TextFrame* master = nullptr);
 	//returns Notes Style
 	NotesStyle* notesStyle() { return m_nstyle; }
+
+	//return list of notes in noteframe
+	const QList<TextNote*>& notesList() const { return m_notes; }
+	//remove note from list
+	void removeNote(TextNote* note) { m_notes.removeOne(note); }
 
 	//insert notes content into notesframe
 	void updateNotes(const QList<TextNote*>& nList, bool clear = true);
@@ -44,11 +52,6 @@ public:
 	bool isAutoHeight()  const { return m_nstyle->isAutoNotesHeight(); }
 	bool isAutoWidth()  const { return m_nstyle->isAutoNotesWidth(); }
 
-	//return list of notes in noteframe
-	QList<TextNote*> notesList() { return l_notes; }
-	//remove note from list
-	void removeNote(TextNote* note) { l_notes.removeOne(note); }
-
 	void restoreDeleteNoteText(SimpleState *state, bool isUndo);
 	void restoreDeleteNoteParagraph(SimpleState *state, bool isUndo);
 	void restoreInsertNoteText(SimpleState *state, bool isUndo);
@@ -57,9 +60,9 @@ public:
 	void unWeld(bool doUndo=true);
 	
 private:
-	QList<TextNote*> l_notes;
-	NotesStyle* m_nstyle;
-	PageItem_TextFrame *m_masterFrame;
+	QList<TextNote*> m_notes;
+	NotesStyle* m_nstyle {nullptr};
+	PageItem_TextFrame *m_masterFrame {nullptr};
 
 	//insert note at end of text in noteframe
 	void insertNote(TextNote* note);

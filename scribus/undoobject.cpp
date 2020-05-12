@@ -35,15 +35,14 @@ UndoObject::UndoObject()
 {
 	m_id = m_nextId;
 	++m_nextId;
-	m_uname = "";
 	m_upixmap = nullptr;
 }
 
 UndoObject::UndoObject(const UndoObject& other)
-		  : m_objectPtr(this)
+	: m_objectPtr(this)
 {
-	m_id      = other.m_id;
-	m_uname   = other.m_uname;
+	m_id = other.m_id;
+	m_uname = other.m_uname;
 	m_upixmap = other.m_upixmap;
 }
 

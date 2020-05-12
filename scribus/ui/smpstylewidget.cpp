@@ -27,15 +27,9 @@ static bool isEqual(double a, double b)
 
 
 SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) :
-	m_hasParent(false),
-	m_parentDC(false),
-	m_parentBul(false),
-	m_parentNum(false),
 	m_Doc(doc),
-	m_currPStyle(nullptr)
+	m_cstyles(cstyles)
 {
-	m_cstyles = cstyles;
-
 	setupUi(this);
 
 	//Not used yet

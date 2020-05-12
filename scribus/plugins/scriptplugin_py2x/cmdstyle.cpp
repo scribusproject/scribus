@@ -392,7 +392,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 		ml.push_back(sl);
 	}
 	if (!ml.empty())
-		currentDoc->MLineStyles[Name] = ml;
+		currentDoc->docLineStyles[Name] = ml;
 	Py_RETURN_NONE;
 }
 

@@ -67,7 +67,7 @@ class Imposition : public QDialog,Ui::ImpositionBase
 		void booklet16p(QList<int>*);
  			
 	protected slots:
-		virtual void languageChange();
+		void languageChange() override;
 		void setPageSize(const QString &);
 		void customizeSize();
 		void change2SidesBox(int);

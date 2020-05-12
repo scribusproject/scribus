@@ -102,7 +102,7 @@ void ScrSpinBox::setParameters( int s )
 
 void ScrSpinBox::setNewUnit(int unitIndex)
 {
-	double oldUnitRatio=unitGetRatioFromIndex(m_unitIndex);
+	double oldUnitRatio = unitGetRatioFromIndex(m_unitIndex);
 	double oldVal = value() / oldUnitRatio;
 	double oldMax = maximum() / oldUnitRatio;
 	double oldMin = minimum() / oldUnitRatio;
@@ -112,7 +112,7 @@ void ScrSpinBox::setNewUnit(int unitIndex)
 	setMinimum(oldMin * newUnitRatio);
 	setMaximum(oldMax * newUnitRatio);
 	setSingleStep(1.0);
-	m_unitIndex=unitIndex;
+	m_unitIndex = unitIndex;
  	setValue(oldVal * newUnitRatio);
 }
 

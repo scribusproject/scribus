@@ -281,7 +281,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else
 		{ //argument is not a known option, but either positional parameter or invalid.
-			if (arg.left(1) == "-")
+			if (arg.at(0) == "-")
 			{
 				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);

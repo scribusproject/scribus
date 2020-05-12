@@ -36,7 +36,7 @@ public:
 
 public slots:
 	void runScriptDialog();
-	void StdScript(const QString& filebasename);
+	void StdScript(const QString& baseFilename);
 	void RecentScript(const QString& fn);
 	void slotRunScriptFile(const QString& fileName, bool inMainInterpreter = false);
 	void slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter = false);

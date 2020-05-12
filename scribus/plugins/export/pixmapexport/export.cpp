@@ -37,7 +37,7 @@ ScPlugin* scribusexportpixmap_getPlugin()
 
 void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 {
-	PixmapExportPlugin* plug = dynamic_cast<PixmapExportPlugin*>(plugin);
+	PixmapExportPlugin* plug = qobject_cast<PixmapExportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -69,7 +69,7 @@ void PixmapExportPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString PixmapExportPlugin::fullTrName() const
+QString PixmapExportPlugin::fullTrName() const
 {
 	return tr("Export As Image");
 }

@@ -152,7 +152,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 			if (m_noteStory->text(m_noteStory->length() -1) == SpecialChars::PARSEP)
 				m_noteStory->removeChars(m_noteStory->length() -1, 1);
 			m_note->setSaxedText(saxedText(m_noteStory));
-			mrk->setString("");
+			mrk->clearString();
 			mrk->OwnPage = m_it->OwnPage;
 			m_it->itemText.insertMark(mrk);
 			if (UndoManager::undoEnabled())
@@ -298,7 +298,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 			mrk->setType(MARKNoteMasterType);
 			mrk->setNotePtr(m_note);
 			m_note->setMasterMark(mrk);
-			mrk->setString("");
+			mrk->clearString();
 			mrk->OwnPage = m_it->OwnPage;
 			m_it->itemText.insertMark(mrk);
 			story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);

@@ -63,7 +63,7 @@ ImportCdrPlugin::~ImportCdrPlugin()
 	unregisterAll();
 }
 
-const QString ImportCdrPlugin::fullTrName() const
+QString ImportCdrPlugin::fullTrName() const
 {
 	return QObject::tr("Corel Draw Importer");
 }

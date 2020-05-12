@@ -442,7 +442,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 				{
 					QString gradientStrokeVal = item->strokeGradient();
 					if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-						gradientStrokeVal = "";
+						gradientStrokeVal.clear();
 					if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 						painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 					if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -482,7 +482,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 			}
 			else
 			{
-				multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+				multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					const SingleLine& sl = ml[it];
@@ -850,7 +850,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -891,7 +891,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	else
 	{
 		painter->setStrokeMode(ScPainterExBase::Solid);
-		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
@@ -1191,7 +1191,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -1231,7 +1231,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	}
 	else
 	{
-		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
@@ -1358,7 +1358,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 		{
 			QString gradientStrokeVal = item->strokeGradient();
 			if ((!gradientStrokeVal.isEmpty()) && (!m_doc->docGradients.contains(gradientStrokeVal)))
-				gradientStrokeVal = "";
+				gradientStrokeVal.clear();
 			if (!(gradientStrokeVal.isEmpty()) && (m_doc->docGradients.contains(gradientStrokeVal)))
 				painter->m_strokeGradient = VGradientEx(m_doc->docGradients[gradientStrokeVal], *m_doc);
 			if (painter->m_strokeGradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -1398,7 +1398,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 	}
 	else
 	{
-		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 		for (int it = ml.size() - 1; it > -1; it--)
 		{
 			const SingleLine& sl = ml[it];
@@ -1475,7 +1475,7 @@ void ScPageOutput::drawItem_Text( PageItem* item, ScPainterExBase* painter, QRec
 		}
 		else
 		{
-			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+			multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 			for (int it = ml.size() - 1; it > -1; it--)
 			{
 				const SingleLine& sl = ml[it];
@@ -1526,7 +1526,7 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 	}
 	else
 	{
-		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 		if (ml[ml.size() - 1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
@@ -1546,7 +1546,7 @@ void ScPageOutput::drawArrow(ScPainterExBase* painter, PageItem* item, QTransfor
 	}
 	else
 	{
-		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		multiLine ml = m_doc->docLineStyles[item->NamedLStyle];
 		if (ml[0].Color != CommonStrings::None)
 		{
 			ScColorShade tmp(m_doc->PageColors[ml[0].Color], ml[0].Shade);

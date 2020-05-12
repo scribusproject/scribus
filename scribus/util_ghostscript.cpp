@@ -210,7 +210,7 @@ bool testGSAvailability( const QString& gsPath )
 	if (!proc.waitForStarted(5000))
 		return false;
 	proc.waitForFinished(5000);
-	return (proc.exitCode()==0);
+	return (proc.exitCode() == 0);
 }
 
 bool testGSDeviceAvailability( const QString& device )
@@ -225,7 +225,7 @@ bool testGSDeviceAvailability( const QString& device )
 	if (!proc.waitForStarted(5000))
 		return false;
 	proc.waitForFinished(5000);
-	return (proc.exitCode()==0);
+	return (proc.exitCode() == 0);
 }
 
 // Return the GhostScript version string, or QString() if it couldn't be retrived.
@@ -240,7 +240,7 @@ QString getGSVersion()
 		while (!proc.waitForFinished(5000))
 			qApp->processEvents();
 	QString gsVer;
-	if (proc.exitStatus()==QProcess::NormalExit)
+	if (proc.exitStatus() == QProcess::NormalExit)
 		gsVer = proc.readAllStandardOutput();
 	return gsVer;
 }
@@ -349,13 +349,13 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	QMap<int, QString> gsVersions;
 #if defined _WIN32
 	// Try to locate GhostScript thanks to the registry
-	DWORD size;
+	DWORD size, regVersionSize;
 	HKEY hKey1, hKey2;
 	DWORD regType = REG_SZ;
 	REGSAM flags  = KEY_READ;
-	WCHAR regVersion[MAX_PATH];
-	WCHAR regPath[MAX_PATH];
-	WCHAR gsPath[MAX_PATH];
+	WCHAR regVersion[MAX_PATH] = {};
+	WCHAR regPath[MAX_PATH] = {};
+	WCHAR gsPath[MAX_PATH] = {};
 	QString gsVersion, gsExeName, gsName;
 
 	bool isWin64Api = false;
@@ -372,9 +372,9 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 
 	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), 0, flags, &hKey1) == ERROR_SUCCESS)
 	{
-		size = sizeof(regVersion)/sizeof(WCHAR) - 1;
+		regVersionSize = sizeof(regVersion) / sizeof(WCHAR) - 1;
 		DWORD keyIndex = 0;
-		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
+		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &regVersionSize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
 		{
 			int gsNumericVer, gsMajor, gsMinor;
 			wcscpy(regPath, (const wchar_t*) regKey.utf16());
@@ -382,7 +382,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 			wcscat(regPath, regVersion);
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, regPath, 0, flags, &hKey2) == ERROR_SUCCESS)
 			{
-				size = sizeof(gsPath) - 1;
+				size = sizeof(gsPath) - 2;
 				if (RegQueryValueExW(hKey2, L"GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
 				{
 					// We now have GhostScript dll path, but we want gswin32c.exe
@@ -409,7 +409,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	}
 #else
 	int gsNumericVer, gsMajor, gsMinor;
-	PrefsManager& prefsManager=PrefsManager::instance();
+	PrefsManager& prefsManager = PrefsManager::instance();
 	if (getNumericGSVersion(gsMajor, gsMinor))
 	{
 		gsNumericVer = gsMajor * 100 + gsMinor;
@@ -419,44 +419,47 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	return gsVersions;
 }
 
-QPixmap LoadPDF(const QString& fn, int Page, int Size, int *w, int *h)
+QPixmap loadPDF(const QString& fn, int page, int size, int *w, int *h)
 {
 	QString tmp;
 	QString pdfFile = QDir::toNativeSeparators(fn);
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
-	QPixmap pm;
-	int ret = -1;
-	tmp.setNum(Page);
+
+	tmp.setNum(page);
 	QStringList args;
 	args.append("-r72");
-//	args.append("-sOutputFile=\""+tmpFile+"\"");
-	args.append("-sOutputFile="+tmpFile);
-	args.append("-dFirstPage="+tmp);
-	args.append("-dLastPage="+tmp);
-//	args.append("\""+pdfFile+"\"");
+//	args.append("-sOutputFile=\"" + tmpFile + "\"");
+	args.append("-sOutputFile=" + tmpFile);
+	args.append("-dFirstPage=" + tmp);
+	args.append("-dLastPage=" + tmp);
+//	args.append("\"" + pdfFile + "\"");
 	args.append(pdfFile);
-	ret = callGS(args);
-	if (ret == 0)
-	{
-		QImage image;
-		image.load(tmpFile);
-		QFile::remove(tmpFile);
-		QImage im2;
-		*h = image.height();
-		*w = image.width();
-		double sx = image.width() / static_cast<double>(Size);
-		double sy = image.height() / static_cast<double>(Size);
-		double t = (sy < sx ? sx : sy);
-		im2 = image.scaled(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-		pm=QPixmap::fromImage(im2);
-		QPainter p;
-		p.begin(&pm);
-		p.setBrush(Qt::NoBrush);
-		p.setPen(Qt::black);
-		p.drawRect(0, 0, pm.width(), pm.height());
-		p.end();
-		im2.detach();
-	}
+
+	int ret = callGS(args);
+	if (ret != 0)
+		return QPixmap();
+
+	QImage image;
+	image.load(tmpFile);
+	QFile::remove(tmpFile);
+	*w = image.width();
+	*h = image.height();
+	if ((*w <= 0) || (*h <= 0))
+		return QPixmap();
+
+	double sx = image.width() / static_cast<double>(size);
+	double sy = image.height() / static_cast<double>(size);
+	double t = (sy < sx ? sx : sy);
+	QImage im2 = image.scaled(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	QPixmap pm = QPixmap::fromImage(im2);
+	QPainter p;
+	p.begin(&pm);
+	p.setBrush(Qt::NoBrush);
+	p.setPen(Qt::black);
+	p.drawRect(0, 0, pm.width(), pm.height());
+	p.end();
+	im2.detach();
+
 	return pm;
 }
 

@@ -255,7 +255,6 @@ PageItem *Selection::itemAt_(int index)
 		//If not nullptr return it, otherwise remove from the list and return nullptr
 		if (!pi.isNull())
 			return pi;
-//		SelectionList::Iterator it=m_SelList.at(index);
 		m_SelList.removeAt(index);
 	}
 	return nullptr;
@@ -385,9 +384,8 @@ PageItem* Selection::takeItem(int itemIndex)
 QStringList Selection::getSelectedItemsByName() const
 {
 	QStringList names;
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
-	for ( ; it!=itend ; ++it)
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
 }
@@ -398,10 +396,10 @@ double Selection::width() const
 		return 0.0;
 	double minX =  std::numeric_limits<double>::max();
 	double maxX = -std::numeric_limits<double>::max();
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
-	for ( ; it != itend ; ++it)
+
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 	{
 		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
 		if (x1 < minX)
@@ -409,7 +407,7 @@ double Selection::width() const
 		if (x2 > maxX)
 			maxX = x2;
 	}
-	return maxX-minX;
+	return maxX - minX;
 }
 
 double Selection::height() const
@@ -418,10 +416,10 @@ double Selection::height() const
 		return 0.0;
 	double minY =  std::numeric_limits<double>::max();
 	double maxY = -std::numeric_limits<double>::max();
-	SelectionList::ConstIterator it=m_SelList.begin();
-	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1 = 0.0, x2 = 0.0, y1 = 0.0, y2 = 0.0;
-	for ( ; it != itend ; ++it)
+
+	SelectionList::ConstIterator itend = m_SelList.end();
+	for (auto it = m_SelList.begin(); it != itend ; ++it)
 	{
 		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
 		if (y1 < minY)
@@ -429,7 +427,7 @@ double Selection::height() const
 		if (y2 > maxY)
 			maxY = y2;
 	}
-	return maxY-minY;
+	return maxY - minY;
 }
 
 void Selection::setGroupRect()
@@ -506,7 +504,7 @@ QRectF Selection::getGroupRect()
 {
 	double x, y, w, h;
 	getGroupRect(&x, &y, &w, &h);
-	return QRectF(x,y,w,h);
+	return QRectF(x, y, w, h);
 }
 
 void Selection::getVisualGroupRect(double * x, double * y, double * w, double * h)
@@ -522,7 +520,7 @@ QRectF Selection::getVisualGroupRect()
 {
 	double x, y, w, h;
 	getGroupRect(&x, &y, &w, &h);
-	return QRectF(x,y,w,h);
+	return QRectF(x, y, w, h);
 }
 
 bool Selection::containsItemType(PageItem::ItemType type) const
@@ -549,7 +547,7 @@ bool Selection::itemsAreSameType() const
 	SelectionList::ConstIterator it = m_SelList.begin();
 	SelectionList::ConstIterator itend = m_SelList.end();
 	PageItem::ItemType itemType = (*it)->itemType();
-	for ( ; it!=itend ; ++it)
+	for ( ; it != itend ; ++it)
 	{
 		if ((*it)->isGroup())		// ignore GroupControl items
 			continue;
@@ -569,7 +567,7 @@ bool Selection::itemsAreOnSamePage() const
 	auto it = m_SelList.begin();
 	auto itend = m_SelList.end();
 	auto ownPage = (*it)->OwnPage;
-	for ( ; it!=itend ; ++it)
+	for ( ; it != itend ; ++it)
 	{
 		if ((*it)->OwnPage != ownPage)
 			return false;
@@ -601,9 +599,9 @@ bool Selection::objectsHaveSameParent() const
 
 	bool haveSameParent = true;
 	const PageItem *firstItem = itemAt(0);
-	for (int a = 1; a < selectedItemCount; ++a)
+	for (int i = 1; i < selectedItemCount; ++i)
 	{
-		if (itemAt(a)->Parent != firstItem->Parent)
+		if (itemAt(i)->Parent != firstItem->Parent)
 		{
 			haveSameParent = false;
 			break;

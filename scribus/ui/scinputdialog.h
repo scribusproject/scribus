@@ -48,7 +48,7 @@ protected:
 	QHBoxLayout* buttonLayout;
 
 protected slots:
-	virtual void languageChange();
+	void languageChange();
 };
 
 #endif // SCINPUTDIALOG_H

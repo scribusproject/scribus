@@ -23,6 +23,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribuscore.h"
 
+QString PrinterUtil::getDefaultPrinterName()
+{
+	return QPrinterInfo::defaultPrinterName();
+}
+
 QStringList PrinterUtil::getPrinterNames()
 {
 	return QPrinterInfo::availablePrinterNames();

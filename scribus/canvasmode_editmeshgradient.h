@@ -39,45 +39,45 @@ class MeshPoint;
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
 
 class CanvasMode_EditMeshGradient :  public CanvasMode
-{	
-public:
-	explicit CanvasMode_EditMeshGradient(ScribusView* view);
-	~CanvasMode_EditMeshGradient() override;
+{
+	public:
+		explicit CanvasMode_EditMeshGradient(ScribusView* view);
+		~CanvasMode_EditMeshGradient() override;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void keyPressEvent(QKeyEvent *e) override;
-	bool handleKeyEvents() const override { return true; }
-	void drawControls(QPainter* p) override;
-	void drawControlsMeshGradient(QPainter* psx, PageItem* currItem);
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-private:
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void keyPressEvent(QKeyEvent *e) override;
+		bool handleKeyEvents() const override { return true; }
+		void drawControls(QPainter* p) override;
+		void drawControlsMeshGradient(QPainter* psx, PageItem* currItem);
 
-	typedef enum 
-	{
-		noPointDefined,
-		useControlT,
-		useControlB,
-		useControlL,
-		useControlR
-	} eMGradientPoint;
+	private:
 
-	inline bool GetItem(PageItem** pi);
+		typedef enum
+		{
+			noPointDefined,
+			useControlT,
+			useControlB,
+			useControlL,
+			useControlR
+		} eMGradientPoint;
 
-	MeshPoint *m_old_mesh {nullptr};
-	QList<QPair<int, int> > m_selectedMeshPoints;
-	ScribusMainWindow* m_ScMW {nullptr};
-	bool m_keyRepeat {false};
-	double m_Mxp {-1.0};
-	double m_Myp {-1.0};
-	eMGradientPoint m_gradientPoint {noPointDefined};
+		inline bool GetItem(PageItem** pi);
+
+		MeshPoint *m_old_mesh {nullptr};
+		QList<QPair<int, int> > m_selectedMeshPoints;
+		ScribusMainWindow* m_ScMW {nullptr};
+		bool m_keyRepeat {false};
+		double m_Mxp {-1.0};
+		double m_Myp {-1.0};
+		eMGradientPoint m_gradientPoint {noPointDefined};
 };
 
 

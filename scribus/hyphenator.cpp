@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QCheckBox>
 #include <QByteArray>
+#include <unicode/brkiter.h>
 
 #include "langmgr.h"
 #include "scpaths.h"
@@ -36,6 +37,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+
+using namespace icu;
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	m_doc(dok),

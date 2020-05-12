@@ -59,13 +59,14 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 		printerName = printerNames[i];
 		destinationComboBox->addItem(printerName);
 	}
-
 	destinationComboBox->addItem( tr("File"));
 
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 
 	QString selectedDest = prefs->get("CurrentPrn", "");
 	int prnIndex = destinationComboBox->findText(selectedDest);
+	if (prnIndex < 0)
+		prnIndex = destinationComboBox->findText(PrinterUtil::getDefaultPrinterName());
 	if ((prnIndex > -1) && (prnIndex < destinationComboBox->count()))
 		destinationComboBox->setCurrentIndex(prnIndex);
 	useAltPrinterCmdCheckBox->setChecked(prefs->getBool("OtherCom", false));

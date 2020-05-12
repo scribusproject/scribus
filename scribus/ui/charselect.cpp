@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "iconmanager.h"
 
-CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), m_doc(nullptr), m_enhanced(nullptr), m_Item(nullptr)
+CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect")
 {
 	setupUi(this);
 

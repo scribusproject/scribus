@@ -44,6 +44,9 @@ public:
 	~ParaStyleComboBox() {};
 
 	QString currentStyle() const;
+
+	const QString& defaultStyle() const { return m_defaultStyle; }
+	void setDefaultStyle(const QString& defStyle);
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
@@ -52,6 +55,9 @@ public slots:
 
 protected:
 	ScribusDoc *m_doc { nullptr };
+	QString m_defaultStyle;
+
+	QString firstItemString();
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -72,6 +78,9 @@ public:
 	~CharStyleComboBox() {};
 
 	QString currentStyle() const;
+
+	const QString& defaultStyle() const { return m_defaultStyle; }
+	void setDefaultStyle(const QString& defStyle);
 	
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
@@ -80,6 +89,9 @@ public slots:
 
 protected:
 	ScribusDoc *m_doc { nullptr };
+	QString m_defaultStyle;
+
+	QString firstItemString();
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -101,6 +113,9 @@ public:
 
 	QString currentStyle() const;
 
+	const QString& defaultStyle() const { return m_defaultStyle; }
+	void setDefaultStyle(const QString& defStyle);
+
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
 	void setStyle(const QString& name);
@@ -108,6 +123,9 @@ public slots:
 
 protected:
 	ScribusDoc *m_doc { nullptr };
+	QString m_defaultStyle;
+
+	QString firstItemString();
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();
@@ -129,6 +147,9 @@ public:
 
 	QString currentStyle() const;
 
+	const QString& defaultStyle() const { return m_defaultStyle; }
+	void setDefaultStyle(const QString& defStyle);
+
 public slots:
 	void setDoc(ScribusDoc *newCurrentDoc);
 	void setStyle(const QString& name);
@@ -136,6 +157,9 @@ public slots:
 
 protected:
 	ScribusDoc *m_doc { nullptr };
+	QString m_defaultStyle;
+
+	QString firstItemString();
 
 	void changeEvent(QEvent *e) override;
 	void languageChange();

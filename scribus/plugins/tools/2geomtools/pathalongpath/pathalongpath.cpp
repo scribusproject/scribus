@@ -108,7 +108,7 @@ void PathAlongPathPlugin::languageChange()
 	m_actionInfo.secondObjectType.append(PageItem::Polygon);
 }
 
-const QString PathAlongPathPlugin::fullTrName() const
+QString PathAlongPathPlugin::fullTrName() const
 {
 	return QObject::tr("PathAlongPath");
 }

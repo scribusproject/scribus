@@ -38,8 +38,8 @@ public:
 	explicit CreateMode(ScribusView* view);
 	~CreateMode() override  = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
+	void enterEvent(QEvent *e) override;
+	void leaveEvent(QEvent *e) override;
 	
 	void activate(bool) override;
 	void deactivate(bool) override;

@@ -7,18 +7,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef PRVIEW_H
 #define PRVIEW_H
 
-#include <QDialog>
 #include <QCheckBox>
+#include <QDialog>
 #include <QMap>
 
+class QComboBox;
 class QHBoxLayout;
 class QVBoxLayout;
 class QGroupBox;
-class QTableWidget;
-class QScrollArea;
 class QLabel;
 class QPushButton;
-class QComboBox;
+class QScrollArea;
+class QTableWidget;
+
 #include "ui/scrspinbox.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -29,9 +30,6 @@ class ScribusView;
 class ScImage;
 class ScColor;
 class PrefsManager;
-// enum  PrintEngine;
-
-
 
 //! \brief Print Preview dialog
 class SCRIBUS_API PPreview : public QDialog
@@ -70,50 +68,38 @@ public:
 	\retval pixmap QPixmap print preview
 	*/
 	QPixmap CreatePreview(int pageIndex, int res);
-	PageSelector *PGSel;
-	QCheckBox* AntiAlias;
-	QCheckBox* AliasTr;
-	QCheckBox* EnableCMYK;
-	QCheckBox* EnableGCR;
-	QCheckBox* MirrorHor;
-	QCheckBox* MirrorVert;
-	QCheckBox* ClipMarg;
-	QCheckBox* spotColors;
-	QCheckBox* useGray;
-	QCheckBox* EnableInkCover;
-	ScrSpinBox* CoverThresholdValue;
-	QLabel* ThresLabel;
-	QScrollArea* Anzeige;
-	QLabel* Anz;
-	QGroupBox* devTitle;
-	QGroupBox* jobTitle;
-	QPushButton *closeButton;
-	QPushButton *printButton;
+
+	PageSelector *PGSel { nullptr };
+	QCheckBox* AntiAlias { nullptr };
+	QCheckBox* AliasTr { nullptr };
+	QCheckBox* EnableCMYK { nullptr };
+	QCheckBox* EnableGCR { nullptr };
+	QCheckBox* MirrorHor { nullptr };
+	QCheckBox* MirrorVert { nullptr };
+	QCheckBox* ClipMarg { nullptr };
+	QCheckBox* spotColors { nullptr };
+	QCheckBox* useGray { nullptr };
+	QCheckBox* EnableInkCover { nullptr };
+	ScrSpinBox* CoverThresholdValue { nullptr };
+	QLabel* ThresLabel { nullptr };
+	QScrollArea* Anzeige { nullptr };
+	QLabel* Anz { nullptr };
+	QGroupBox* devTitle { nullptr };
+	QGroupBox* jobTitle { nullptr };
+	QPushButton *closeButton { nullptr };
+	QPushButton *printButton { nullptr };
 	/*! scaling GUI */
-	QLabel* scaleLabel;
-	QComboBox* scaleBox;
-	ScribusView *view;
-	ScribusDoc *doc;
-	bool HavePngAlpha;
-	bool HaveTiffSep;
-	int APage;
-	int MPage;
-	int SMode;
-	int GsVersion;
-	int inkMax;
-	bool CMode;
-	bool GsAl;
-	bool Trans;
-	bool GMode;
-	bool mHor;
-	bool mVer;
-	bool fClip;
-	bool fSpot;
-	bool fGray;
-	bool postscriptPreview;
+	QLabel* scaleLabel { nullptr };
+	QComboBox* scaleBox { nullptr };
+
+	ScribusView *view { nullptr };
+	ScribusDoc *doc { nullptr };
+	bool HavePngAlpha { false };
+	bool HaveTiffSep { false };
+	bool postscriptPreview { true };
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
-	QTableWidget* Table;
+	QTableWidget* Table { nullptr };
 
 public slots:
 	/*!
@@ -151,15 +137,30 @@ signals:
 	void doPrint();
 
 protected:
+	int m_currentPage { -1 };
+	int m_scaleMode { 1 };
+	int m_gsVersion;
+	int m_inkMax { 1020 }; // 4 * 255
+	bool m_colorMode { false };
+	bool m_useAntialiasing { false };
+	bool m_showTransparency { false };
+	bool m_useGCR { true };
+	bool m_mirrorH { false };
+	bool m_mirrorV { false };
+	bool m_clipToMargins { false };
+	bool m_convertSpots { true };
+	bool m_useGray { false };
+
 	/*! \brief Percentage value of the scaling widget */
-	double scaleFactor;
-	QVBoxLayout* PLayout;
-	QVBoxLayout* Layout1;
-	QVBoxLayout* Layout2;
-	QHBoxLayout* Layout5;
-	QHBoxLayout* Layout6;
-	QHBoxLayout* Layout7;
-	QVBoxLayout* settingsBarLayout;
+	double scaleFactor { 1.0 };
+
+	QVBoxLayout* PLayout { nullptr };
+	QVBoxLayout* Layout1 { nullptr };
+	QVBoxLayout* Layout2 { nullptr };
+	QHBoxLayout* Layout5 { nullptr };
+	QHBoxLayout* Layout6 { nullptr };
+	QHBoxLayout* Layout7 { nullptr };
+	QVBoxLayout* settingsBarLayout { nullptr };
 	PrefsManager& prefsManager;
 
 	void setValues();

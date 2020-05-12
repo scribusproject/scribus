@@ -25,10 +25,10 @@ public:
 	TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double wid);
 	~TabManager() = default;
 
+	QList<ParagraphStyle::TabRecord> tabList() const;
+
 public slots:
 	void exitOK();
-
-	QList<ParagraphStyle::TabRecord> tabList() const;
 	void setTabList(const QList<ParagraphStyle::TabRecord>& tabList);
 
 	private:

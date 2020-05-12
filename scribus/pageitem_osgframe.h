@@ -85,7 +85,7 @@ class SCRIBUS_API PageItem_OSGFrame : public PageItem_ImageFrame
 		void setExternalModelFile(QString val);
 		void loadModel();
 		void applicableActions(QStringList& actionList) override;
-		virtual QString infoDescription();
+		QString infoDescription() const override;
 		double getDistance(osg::Vec3d pos1, osg::Vec3d pos2);
 		QString getPDFMatrix(QString viewName);
 

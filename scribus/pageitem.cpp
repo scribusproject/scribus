@@ -326,7 +326,6 @@ PageItem::PageItem(const PageItem & other)
 	m_textFlowMode(other.m_textFlowMode),
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
-	tagged(other.tagged),
 	m_fillQColor(other.m_fillQColor),
 	m_strokeQColor(other.m_strokeQColor),
 	m_grQColorP1(other.m_grQColorP1),
@@ -482,7 +481,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStrokeFocalY = 0;
 	GrStrokeScale = 1;
 	GrStrokeSkew = 0;
-	gradientStrokeVal = "";
+	gradientStrokeVal.clear();
 	m_patternName = "";
 	patternScaleX = 100;
 	patternScaleY = 100;
@@ -890,14 +889,13 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	hatchBackgroundQ = QColor();
 	hatchForeground = "Black";
 	hatchForegroundQ = qcol;
-	selectedMeshControlPoint=0;
-	snapToPatchGrid=false;
-	FrameOnly=false;
-	inlineCharID=0;
-	GrStrokeExtend=VGradient::none;
-	tagged=false;
-	no_fill=false;
-	no_stroke=false;
+	selectedMeshControlPoint = 0;
+	snapToPatchGrid = false;
+	FrameOnly = false;
+	inlineCharID = 0;
+	GrStrokeExtend = VGradient::none;
+	no_fill = false;
+	no_stroke = false;
 }
 
 PageItem::~PageItem()
@@ -2092,7 +2090,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					else if (GrTypeStroke > 0)
 					{
 						if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-							gradientStrokeVal = "";
+							gradientStrokeVal.clear();
 						if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 							stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 						if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -2136,7 +2134,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				else
 				{
 					p->setStrokeMode(ScPainter::Solid);
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
@@ -7646,11 +7644,6 @@ QString PageItem::generateUniqueCopyName(const QString& originalName, bool prepe
 	return newname;
 }
 
-void PageItem::setTagged(bool tag)
-{
-	tagged=tag;
-}
-
 void PageItem::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString, QString>::ConstIterator it;
@@ -8853,7 +8846,7 @@ QRectF PageItem::getBoundingRect() const
 {
 	double x,y,x2,y2;
 	getBoundingRect(&x, &y, &x2, &y2);
-	return QRectF(x,y,x2-x,y2-y);
+	return QRectF(x, y, x2 - x, y2 - y);
 }
 
 QRectF PageItem::getCurrentBoundingRect(double moreSpace) const
@@ -9034,7 +9027,7 @@ double PageItem::visualLineWidth() const
 	}
 	else
 	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 		const SingleLine& sl = ml.last();
 		if (sl.Color != CommonStrings::None)
 		{
@@ -9071,7 +9064,7 @@ QRectF PageItem::getStartArrowBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9113,7 +9106,7 @@ QRectF PageItem::getStartArrowOldBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9155,7 +9148,7 @@ QRectF PageItem::getEndArrowBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9197,7 +9190,7 @@ QRectF PageItem::getEndArrowOldBoundingRect() const
 				}
 				else
 				{
-					const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 					const SingleLine& sl = ml.last();
 					if (sl.Width != 0.0)
 						arrowTrans.scale(sl.Width, sl.Width);
@@ -9284,7 +9277,7 @@ QRegion PageItem::textInteractionRegion(double xOffset, double yOffset) const
 			}
 			else
 			{
-				multiLine ml = doc()->MLineStyles[NamedLStyle];
+				multiLine ml = doc()->docLineStyles[NamedLStyle];
 				int ind = ml.size()-1;
 				if ((ml[ind].Color != CommonStrings::None) && (ml[ind].Width != 0))
 				{
@@ -9693,7 +9686,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+		multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 		if (ml[ml.size()-1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
 	}
@@ -9715,7 +9708,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 			else if (GrTypeStroke > 0)
 			{
 				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-					gradientStrokeVal = "";
+					gradientStrokeVal.clear();
 				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -9752,7 +9745,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 		}
 		else
 		{
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			QColor tmp;
 			if (ml[0].Color != CommonStrings::None)
 			{
@@ -9958,17 +9951,26 @@ PageItem* PageItem::lastInChainSamePage()
 
 QRect PageItem::getRedrawBounding(double viewScale) const
 {
-	int x = qRound(floor(BoundingX - m_oldLineWidth / 2.0 - 5) * viewScale);
-	int y = qRound(floor(BoundingY - m_oldLineWidth / 2.0 - 5) * viewScale);
-	int w = qRound(ceil(BoundingW + m_oldLineWidth + 10) * viewScale);
-	int h = qRound(ceil(BoundingH + m_oldLineWidth + 10) * viewScale);
-	QRect ret = QRect(0, 0, w - x, h - y);
+	double maxLineWidth = qMax(m_lineWidth, m_oldLineWidth);
+	QRectF boundingRect(-maxLineWidth / 2.0 - 5 / viewScale,
+	                    -maxLineWidth / 2.0 - 5 / viewScale,
+	                    BoundingW + maxLineWidth + 10 / viewScale,
+	                    BoundingH + maxLineWidth + 10 / viewScale);
 	QTransform t = getTransform();
-	ret = t.mapRect(ret);
-	ret.translate(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
-	return ret;
-}
+	boundingRect = t.mapRect(boundingRect);
 
+	QRectF redrawBoundingF((boundingRect.x() - m_Doc->minCanvasCoordinate.x()) * viewScale,
+	                       (boundingRect.y() - m_Doc->minCanvasCoordinate.y()) * viewScale,
+	                        boundingRect.width() * viewScale,
+	                        boundingRect.height() * viewScale);
+	redrawBoundingF = redrawBoundingF.normalized();
+
+	int x = floor(redrawBoundingF.left());
+	int y = floor(redrawBoundingF.top());
+	int w = ceil(redrawBoundingF.right()) - x;
+	int h = ceil(redrawBoundingF.bottom()) - y;
+	return QRect(x, y, w, h);
+}
 
 void PageItem::setRedrawBounding()
 {
@@ -10271,7 +10273,7 @@ void PageItem::updateClip(bool updateWelded)
 		return;
 	if (ContourLine.empty())
 		ContourLine = PoLine.copy();
-	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
+//	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
 	bool clipBackup = ClipEdited;
 	switch (itemType())
 	{

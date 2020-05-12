@@ -77,12 +77,12 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
-	virtual void keyPressEvent(QKeyEvent* e);	
+	virtual void keyPressEvent(QKeyEvent* e);
 	
+	QListWidgetItem *m_currItem {nullptr};
 	QPoint m_mousePos;
-	bool   m_mousePressed;
-	QListWidgetItem *m_currItem;
-	bool   m_thumb;
+	bool m_mousePressed {false};
+	bool m_thumb {false};
 
 };
 
@@ -113,20 +113,20 @@ protected:
 	virtual void dragEnterEvent(QDragEnterEvent *e);
 	virtual void dragLeaveEvent(QDragLeaveEvent *e);
 	virtual void dragMoveEvent(QDragMoveEvent *e);
-	virtual void mouseReleaseEvent(QMouseEvent *m);
+	virtual void mouseReleaseEvent(QMouseEvent *e);
 	virtual void mousePressEvent(QMouseEvent* e);
 	virtual void mouseMoveEvent(QMouseEvent* e);
 	virtual void keyPressEvent(QKeyEvent* e);
 	
 	QPoint m_mousePos;
-	bool   m_mousePressed;
-	int    m_pageCount;
-	int    m_colmult;
-	int    m_rowmult;
-	int    m_coladd;
-	int    m_rowadd;
-	int    m_cols;
-	int    m_firstPage;
+	bool m_mousePressed {false};
+	int m_coladd {0};
+	int m_colmult {1};
+	int m_cols {1};
+	int m_firstPage {0};
+	int m_pageCount {0};
+	int m_rowadd {1};
+	int m_rowmult {2};
 };
 
 class SCRIBUS_API TrashBin : public QLabel

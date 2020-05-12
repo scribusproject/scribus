@@ -28,9 +28,7 @@ typedef union
 class SCRIBUS_API NotesStyle
 {
 public:
-	NotesStyle() : m_nameStr ("Default"), m_startNum(1), m_endNotesStyle(false), m_numeration(), m_numRange(NSRdocument), m_suffixStr(")"),
-		m_autoNotesHeight(true), m_autoNotesWidth(true), m_autoRemoveEmptyNotesFrames(true), m_autoWeldNotesFrames(true),
-		m_superscriptInNote(true), m_superscriptInMaster(true) {}
+	NotesStyle() {}
 	~NotesStyle() {}
 	bool operator!=(const NotesStyle& n2);
 
@@ -70,20 +68,20 @@ public:
 	void setEndNotes(bool);
 
 private:
-	QString m_nameStr;		//unique name of notes style
-	int m_startNum;			//numeration starts with that number
+	QString m_nameStr {"Default"}; //unique name of notes style
+	int m_startNum {1}; //numeration starts with that number
 
-	bool m_endNotesStyle;		//if not true this is set of footnotes
+	bool m_endNotesStyle {false}; //if not true this is set of footnotes
 	Numeration m_numeration;
-	NumerationRange m_numRange;	//range of numeration for current set
+	NumerationRange m_numRange {NSRdocument}; //range of numeration for current set
 	QString m_prefixStr;
-	QString m_suffixStr;
-	bool m_autoNotesHeight;				//change height of notes frames to its content automaticaly?
-	bool m_autoNotesWidth;				//change width of notes frames automaticaly if width of master frame changes?
-	bool m_autoRemoveEmptyNotesFrames;
-	bool m_autoWeldNotesFrames;
-	bool m_superscriptInNote;
-	bool m_superscriptInMaster;
+	QString m_suffixStr {")"};
+	bool m_autoNotesHeight {true}; //change height of notes frames to its content automaticaly?
+	bool m_autoNotesWidth {true}; //change width of notes frames automaticaly if width of master frame changes?
+	bool m_autoRemoveEmptyNotesFrames {true};
+	bool m_autoWeldNotesFrames {true};
+	bool m_superscriptInNote {true};
+	bool m_superscriptInMaster {true};
 	QString m_marksCharStyle;
 	QString m_notesParaStyle;
 };
@@ -95,29 +93,30 @@ class SCRIBUS_API TextNote : public QObject
 
 private:
 	//only ScribusDoc can create and delete notes
-	TextNote(NotesStyle *nStyle) : textLen(0), m_notesStyle(nStyle), m_noteMasterMark(NULL), m_noteFrameMark(NULL), m_number(0) { }
+	TextNote(NotesStyle *nStyle) : m_notesStyle(nStyle) { }
 	~TextNote() {}
 public:
 	void setNotesStyle (NotesStyle* ns) { m_notesStyle = ns; }
 	NotesStyle* notesStyle() { return m_notesStyle; }
-	int num() { return  m_number; }
+	int num() { return m_number; }
 	void setNum(const int i) { m_number = i; }
-	const QString numString();
+	QString numString();
 	Mark* masterMark() { return m_noteMasterMark; }
 	void setMasterMark(Mark* m) { m_noteMasterMark = m; }
 	Mark* noteMark() { return m_noteFrameMark; }
 	void setNoteMark(Mark* m) { m_noteFrameMark = m; }
 	const QString saxedText() { return m_noteSaxedText; }
 	void setSaxedText(const QString& string) { m_noteSaxedText = string; }
+	void clearSaxedText() { m_noteSaxedText.clear(); textLen = 0; }
 	bool isEndNote() { return m_notesStyle->isEndNotes(); }
-	int textLen;
+	int textLen {0};
 
 protected:
-	NotesStyle *m_notesStyle;
+	NotesStyle *m_notesStyle {nullptr};
 	QString m_noteSaxedText;
-	Mark *m_noteMasterMark;
-	Mark *m_noteFrameMark;
-	int m_number;
+	Mark *m_noteMasterMark {nullptr};
+	Mark *m_noteFrameMark {nullptr};
+	int m_number {0};
 };
 
 #endif // NOTESSTYLES_H

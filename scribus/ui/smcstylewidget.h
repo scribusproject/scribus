@@ -35,7 +35,7 @@ public:
 
 private:
 	//QMap<QString, QString> m_langMap;
-	ScribusDoc * m_Doc;
+	ScribusDoc * m_Doc = nullptr;
 
 	void showSizeAndPosition(const QList<CharStyle*> &cstyles);
 	void showEffects(const QList<CharStyle*> &cstyles);

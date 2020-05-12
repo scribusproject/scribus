@@ -393,17 +393,16 @@ QString About::parseAuthorFile(const QString& fileName)
 				if (isTitle)
 				{
 					startTitle = false;
-					result += "<tr><td><b>"+About::trAuthorTitle(lineTS)+"</b></td><td></td></tr>";
-
-				} // if is title
+					result += "<tr><td><b>" + About::trAuthorTitle(lineTS) + "</b></td><td></td></tr>";
+				}
 				else
 				{
 					startText = false;
 					fieldTS = lineTS.split(" ");
-					contact = (fieldTS.isEmpty() ? "" : fieldTS.takeLast());
-					name = (fieldTS.isEmpty() ? "" : fieldTS.join(" "));
-					result += "<tr><td>"+name+"</td><td>"+(contact == "@" ? "" : contact)+"</td></tr>";
-				} // else is title
+					contact = fieldTS.isEmpty() ? QString() : fieldTS.takeLast();
+					name = fieldTS.isEmpty() ? QString() : fieldTS.join(" ");
+					result += "<tr><td>" +name + "</td><td>" + (contact == "@" ? "" : contact) + "</td></tr>";
+				}
 			} // if is empty line
 			else
 			{

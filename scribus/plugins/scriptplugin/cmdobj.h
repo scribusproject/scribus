@@ -195,9 +195,24 @@ selected item is deleted.\n\
  deleted else the active object erased. */
 PyObject *scribus_deleteobj(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_gettextflowmode__doc__,
+QT_TR_NOOP("getTextFlowMode([\"name\"]) -> integer\n\
+\n\
+Return the current text flow mode used by item \"name\" as an integer.\n\
+If \"name\" is not given, the currently selected object is used.\n\
+\n\
+The function will return one of the following value:\n\
+- 0 : text flow around frame is disabled\n\
+- 1 : text flow around frame shape\n\
+- 2 : text flow around frame bounding box\n\
+- 3 : text flow around frame contour line\n\
+- 4 : text flow around image clip path\n\
+"));
+PyObject *scribus_gettextflowmode(PyObject * /*self*/, PyObject* args);
+
 /*! docstring */
-PyDoc_STRVAR(scribus_textflow__doc__,
-QT_TR_NOOP("textFlowMode(\"name\" [, state])\n\
+PyDoc_STRVAR(scribus_settextflowmode__doc__,
+QT_TR_NOOP("setTextFlowMode(\"name\" [, state])\n\
 \n\
 Enables/disables \"Text Flows Around Frame\" feature for object \"name\".\n\
 Called with parameters string name and optional int \"state\" (0 <= state <= 3).\n\
@@ -207,6 +222,11 @@ Setting \"state\" to 2 will make text flow around bounding box.\n\
 Setting \"state\" to 3 will make text flow around contour line.\n\
 If \"state\" is not passed, text flow is toggled.\n\
 "));
+PyDoc_STRVAR(scribus_textflowmode__doc__,
+QT_TR_NOOP("textFlowMode(\"name\" [, state])\n\
+\n\
+Deprecated. Use setTextFlowMode() instead.\n\
+"));
 /**
 Enables/disables "Text Flows Around Object" feature for object.
 Called with params string objectName and state 0|1|2|3.
@@ -215,7 +235,7 @@ When set to 0 disable flowing, 1 text flows around frame,
 empty flowing is reverted.
 02/28/2004 petr vanek
  */
-PyObject *scribus_textflow(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settextflowmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_objectexists__doc__,
@@ -234,73 +254,77 @@ ObjectName is now optional. When none set, search for selection...
 */
 PyObject *scribus_objectexists(PyObject * /*self*/, PyObject* args);
 
-
+/*! docstring */
+PyDoc_STRVAR(scribus_getcharacterstyle__doc__,
+QT_TR_NOOP("getCharacterStyle([\"name\"])\n\
+\n\
+Return name of character style applied to object named \"name\". If \"name\" is not given,\n\
+the currently selected object is used. If current object has a text selection, \n\
+the name of style applied to start of selection is returned. Otherwise the name \n\
+of the item default character style is returned.\n\
+"));
+PyObject *scribus_getcharacterstyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getstyle__doc__,
-QT_TR_NOOP("getStyle([\"name\"])\n\
+PyDoc_STRVAR(scribus_getparagraphstyle__doc__,
+QT_TR_NOOP("getParagraphStyle([\"name\"])\n\
 \n\
-Return name of style applied to object named \"name\". If \"name\" is not given,\n\
+Return name of paragraph style applied to object named \"name\". If \"name\" is not given,\n\
 the currently selected object is used. If current object has a text selection, \n\
 the name of style applied to start of selection is returned. Otherwise the name \n\
 of the item default style is returned.\n\
+"));
+
+PyDoc_STRVAR(scribus_getstyle__doc__,
+QT_TR_NOOP("getStyle([\"name\"])\n\
+\n\
+Deprecated. Use getParagraphStyle() instead.\n\
 "));
 /**
  Vaclav Smilauer, 2017-12-21
  Return style name of the object (or currently selected object)
  */
-PyObject *scribus_getstyle(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getparagraphstyle(PyObject * /*self*/, PyObject* args);
 
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setparagraphstyle__doc__,
+QT_TR_NOOP("setParagraphStyle(\"style\" [, \"name\"])\n\
+\n\
+Apply the named paragraph \"style\" to the object named \"name\".\n\
+If  object name is not provided, style is applied on current object selection.\n\
+If multiple objects are selected or if selected object has no text selection,\n\
+style is applied on selected objects. Otherwise style is applied to the current\n\
+text selection.\n\
+"));
+
 PyDoc_STRVAR(scribus_setstyle__doc__,
 QT_TR_NOOP("setStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named \"style\" to the object named \"name\". If object name is\n\
-given, style is applied to the current text selection in object \"name\".\n\
-If no object name is given, style is applied on selected object.\n\
+Deprecated. Use setParagraphStyle() instead.\n\
 "));
 /**
  Craig Ringer, 2004-09-09
  Apply the named style to the currently selected object.
  pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setparagraphstyle(PyObject * /*self*/, PyObject* args);
 
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcharstyle__doc__,
-	QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
+QT_TR_NOOP("setCharacterStyle(\"style\" [, \"name\"])\n\
 \n\
-Apply the named character \"style\" to the object named \"name\". If object name is\n\
-given, style is applied to the current text selection in object \"name\".\n\
-If no object name is given, style is applied on selected object.\n\
+Apply the named character \"style\" to the object named \"name\".\n\
+If  object name is not provided, style is applied on current object selection.\n\
+If multiple objects are selected or if selected object has no text selection,\n\
+style is applied on selected objects. Otherwise style is applied to the current\n\
+text selection.\n\
 "));
 /**
 Apply the named character style to the currently selected object.
 */
 PyObject *scribus_setcharstyle(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getstylenames__doc__,
-QT_TR_NOOP("getAllStyles() -> list\n\
-\n\
-Return a list of the names of all paragraph styles in the current document.\n\
-"));
-/**
- Craig Ringer, 2004-09-09
- Enumerate all known paragraph styles
-*/
-PyObject *scribus_getstylenames(PyObject * /*self*/);
-
-/*! docstring */
-PyDoc_STRVAR(scribus_getcharstylenames__doc__,
-QT_TR_NOOP("getCharStyles() -> list\n\
-\n\
-Return a list of the names of all character styles in the current document.\n\
-"));
-PyObject *scribus_getcharstylenames(PyObject * /*self*/);
-
 
 /*! docstring */
 PyDoc_STRVAR(scribus_duplicateobject__doc__,

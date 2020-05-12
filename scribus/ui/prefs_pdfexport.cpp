@@ -351,7 +351,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			QStringList docFonts = m_doc->usedFonts().keys();
 			embeddedFontsListWidget->clear();
 			subsettedFontsListWidget->clear();
-			for (int fe = 0; fe < docFonts.count(); ++ fe)
+			for (int fe = 0; fe < docFonts.count(); ++fe)
 			{
 				const QString& fontName = docFonts.at(fe);
 				const ScFace fontFace = AllFonts[fontName];

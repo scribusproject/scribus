@@ -317,7 +317,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 	if (!item)
 		return QTreeWidget::viewportEvent(event);
 
- 	QString tipText("");
+	QString tipText;
 	if (item->type == 5)
 	{
 		tipText += "<b>" + tr("Layer is:") + "</b><br><br>";
@@ -335,7 +335,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 			tipText += "<br>" + tr("locked");
 	}
 	else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
- 	{
+	{
 		PageItem *pgItem = item->PageItemObject;
 		QPainter p;
 		QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
@@ -351,80 +351,80 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 		QByteArray ba = buffer.buffer().toBase64();
 		buffer.close();
 		tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p><p>";
- 		switch (pgItem->itemType())
- 		{
- 			case PageItem::ImageFrame:
- 				if (pgItem->asLatexFrame())
+		switch (pgItem->itemType())
+		{
+			case PageItem::ImageFrame:
+				if (pgItem->asLatexFrame())
 					tipText += CommonStrings::itemType_LatexFrame;
- 				else if (pgItem->asOSGFrame())
+				else if (pgItem->asOSGFrame())
 					tipText += CommonStrings::itemType_OSGFrame;
- 				else
+				else
 					tipText += CommonStrings::itemType_ImageFrame;
- 				break;
- 			case PageItem::TextFrame:
- 				switch (pgItem->annotation().Type())
- 				{
+				break;
+			case PageItem::TextFrame:
+				switch (pgItem->annotation().Type())
+				{
 					case Annotation::Button:
 						tipText += CommonStrings::itemSubType_PDF_PushButton;
- 						break;
+						break;
 					case Annotation::Textfield:
 						tipText += CommonStrings::itemSubType_PDF_TextField;
- 						break;
+						break;
 					case Annotation::Checkbox:
 						tipText += CommonStrings::itemSubType_PDF_CheckBox;
- 						break;
+						break;
 					case Annotation::Combobox:
 						tipText += CommonStrings::itemSubType_PDF_ComboBox;
- 						break;
+						break;
 					case Annotation::Listbox:
 						tipText += CommonStrings::itemSubType_PDF_ListBox;
- 						break;
+						break;
 					case Annotation::Text:
 						tipText += CommonStrings::itemSubType_PDF_TextAnnotation;
- 						break;
+						break;
 					case Annotation::Link:
 						tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
 						break;
 					case Annotation::RadioButton:
 						tipText += CommonStrings::itemSubType_PDF_RadioButton;
- 						break;
- 					default:
+						break;
+					default:
 						tipText += CommonStrings::itemType_TextFrame;
- 						break;
- 				}
- 				break;
- 			case PageItem::Line:
+						break;
+				}
+				break;
+			case PageItem::Line:
 				tipText += CommonStrings::itemType_Line;
- 				break;
- 			case PageItem::Arc:
+				break;
+			case PageItem::Arc:
 				tipText += CommonStrings::itemType_Arc;
 				break;
- 			case PageItem::Polygon:
+			case PageItem::Polygon:
 				tipText += CommonStrings::itemType_Polygon;
 				break;
 			case PageItem::RegularPolygon:
 				tipText += CommonStrings::itemType_RegularPolygon;
- 				break;
- 			case PageItem::PolyLine:
+				break;
+			case PageItem::PolyLine:
 				tipText += CommonStrings::itemType_Polyline;
 				break;
 			case PageItem::Spiral:
 				tipText += CommonStrings::itemType_Spiral;
- 				break;
- 			case PageItem::PathText:
+				break;
+			case PageItem::PathText:
 				tipText += CommonStrings::itemType_PathText;
- 				break;
- 			case PageItem::Symbol:
+				break;
+			case PageItem::Symbol:
 				tipText += CommonStrings::itemType_Symbol;
- 				break;
+				break;
 			case PageItem::Group:
 				tipText += CommonStrings::itemType_Group;
 				break;
 			case PageItem::Table:
 				tipText += CommonStrings::itemType_Table;
 				break;
- 			default:
- 				break;
+			default:
+				break;
 		}
 		tipText +="<br>" + tr("X-Pos:") + " ";
 		if (pgItem->OwnPage != -1)
@@ -701,78 +701,68 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 	connect(reportDisplay, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 }
 
-QTreeWidgetItem* OutlinePalette::getListItem(int SNr, PageItem *Nr)
+QTreeWidgetItem* OutlinePalette::getListItem(int pageNr, PageItem *pageItem)
 {
 	OutlineTreeItem *item = nullptr;
 	QTreeWidgetItem *retVal = nullptr;
 	if (currDoc->masterPageMode())
 	{
-		if (Nr == nullptr)
+		if (pageItem == nullptr)
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if ((item->type == 0) && (item->PageObject->pageNr() == SNr))
+				if (item && (item->type == 0) && (item->PageObject->pageNr() == pageNr))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 		else
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if ((item->type == 1) && (item->PageItemObject == Nr))
+				if (item && (item->type == 1) && (item->PageItemObject == pageItem))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 	}
 	else
 	{
-		if (Nr == nullptr)
+		if (pageItem == nullptr)
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if (!item)
-					qFatal("OutlinePalette::getListItem !item");
-				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
+				if (item && (item->type == 2) && (item->PageObject->pageNr() == pageNr))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 		else
 		{
-			QTreeWidgetItemIterator it( reportDisplay );
-			while ( (*it) )
+			for (QTreeWidgetItemIterator it(reportDisplay); *it; ++it)
 			{
 				item = dynamic_cast<OutlineTreeItem*>(*it);
-				if (((item->type == 3) || (item->type == 4)) && (item->PageItemObject == Nr))
+				if (item && ((item->type == 3) || (item->type == 4)) && (item->PageItemObject == pageItem))
 				{
 					retVal = (*it);
 					break;
 				}
-				++it;
 			}
 		}
 	}
 	return retVal;
 }
 
-void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
+void OutlinePalette::slotShowSelect(int pageNr, PageItem *pageItem)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
@@ -799,7 +789,7 @@ void OutlinePalette::slotShowSelect(int SNr, PageItem *Nr)
 	}
 	else
 	{
-		QTreeWidgetItem *retVal = getListItem(SNr, Nr);
+		QTreeWidgetItem *retVal = getListItem(pageNr, pageItem);
 		if (retVal != nullptr && !retVal->isHidden())
 			retVal->setSelected(true);
 	}

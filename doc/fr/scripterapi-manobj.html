@@ -11,7 +11,7 @@
 <dt><a name="-combinePolygons"><strong>combinePolygons()</strong></a></dt>
 <dd><code>combinePolygons()</code>
 <p>Combine deux polygones ou plus.</p>
-<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
 
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
 <dd><code>copyObject(["nom"]) -&gt; chaîne</code>
@@ -21,11 +21,34 @@
 <dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
 <p>Crée une copie du ou des objects sélectionnés dans le document courant.</p></dd>
 
+<dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
+<dd><code>getCharacterStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style de caractère appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant possède une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style de caractère appliqué par défaut.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
+<dt><a name="-getParagraphStyle"><strong>getParagraphStyle</strong></a>(...)</dt>
+<dd><code>getParagraphStyle(["nom"])  -&gt; chaîne</code>
+<p>Retourne le nom du style de paragraphe appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
+<p>Si l'objet courant possède une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
+
 <dt><a name="-getStyle"><strong>getStyle</strong></a>(...)</dt>
 <dd><code>getStyle(["nom"])  -&gt; chaîne</code>
-<p>Retourne le nom du style appliqué à l'objet "nom". Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p> 
-<p>Si l'objet courant poss&egrave;de une sélection de texte, le nom retourné est celui du style appliqué au début de la sélection. Sinon le nom retourné est celui du style appliqué par défaut.</p>
-<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+<p>Obsolète. Veuillez utiliser getParagraphStyle() en lieu et place.</p></dd>
+
+<dt><a name="-getTextFlowMode"><strong>getTextFlowMode</strong></a>(...)</dt>
+<dd><code>getTextFlowMode(["nom"]) -&gt; entier</code>
+<p>Return le mode d'habillage du texte appliqué à l'objet "nom" sous forme d'un entier. Si aucun nom d'objet n'est fourni, l'élément sélectionné est utilisé.</p>
+<p>La fonction retournera une des valeurs suivantes:
+<ul>
+	<li>0 : l'habillage du texte est désactivé</li>
+	<li>1 : l'habillage du texte suit la forme du cadre</li>
+	<li>2 : l'habillage du texte suit la bounding box du cadre</li>
+	<li>3 : l'habillage du texte suit la ligne de contour du cadre</li>
+	<li>4 : l'habillage du texte suit le tracé de découpage de l'image</li>
+</ul>
+</p></dd>
 
 <dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
 <dd><code>groupObjects(liste)  -&gt; chaîne</code>
@@ -63,30 +86,48 @@ constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est util
 <p>&Eacute;tablit la rotation de l'objet "nom" à "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 
 <dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
-<dd><code>scaleGroup(facteur
-[,"nom"])</code>
+<dd><code>scaleGroup(facteur [,"nom"])</code>
 <p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs supérieures à 1 agrandissent le groupe, les valeurs inférieures à 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe à 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe à 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre supérieure à 0. Si le "nom" n'est pas fourni, l'élément sélectionné courant est utilisé.</p>
-<p>Peut générer ValueError si le facteur de redimensionnement n'est
-pas valide.</p></dd>
+<p>Peut générer ValueError si le facteur de redimensionnement n'est pas valide.</p></dd>
 
 <dt><a name="-setCharacterStyle"><strong>setCharacterStyle</strong></a>(...)</dt>
 <dd><code>setCharacterStyle("style" [, "nom"])</code>
-<p>Applique le "style" de caract&egrave;re désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
+<p>Applique le "style" de caractère spécifié à l'objet "nom".</p>
+<p>Si le nom d'objet "nom" n'est pas spécifié, le style est appliqué à la sélection d'objets courante.</p>
+<p>Si de multiples objets sont sélectionnés ou si l'objet sélectionné ne comporte aucune sélection de texte, le style est appliqué aux objets sélectionnés. Dans le cas contraire, le style est appliqué à la sélection de texte courante.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si l'objet cible n'est pas un cadre de texte.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le nom de style spécifié n'appartient pas au document courant.</p></dd>
+
+<dt><a name="-setParagraphStyle"><strong>setParagraphStyle</strong></a>(...)</dt>
+<dd><code>setParagraphStyle("style" [, "nom"])</code>
+<p>Applique le "style" de paragraphe  spécifié à l'objet "nom".</p>
+<p>Si le nom d'objet "nom" n'est pas spécifié, le style est appliqué à la sélection d'objets courante.</p>
+<p>Si de multiples objets sont sélectionnés ou si l'objet sélectionné ne comporte aucune sélection de texte, le style est appliqué aux objets sélectionnés. Dans le cas contraire, le style est appliqué à la sélection de texte courante.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si l'objet cible n'est pas un cadre de texte.</p>
+<p>Peut générer l'exception <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le nom de style spécifié n'appartient pas au document courant.</p></dd>
 
 <dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
 <dd><code>setScaleFrameToImage([nom])</code>
 <p>Redimensionne l'objet "nom" aux dimensions de l'image. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé</p>
-<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
 
 <dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
 <dd><code>setScaleImageToFrame(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code>
 <p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image sélectionné, ou spécifié dans 'redimAuCadre'. 
 Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont booléens.</p>
-<p>Peut générer l'exception WrongFrameTypeError.</p></dd>
+<p>Peut générer l'exception <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a>.</p></dd>
 
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code>setStyle("style" [, "nom"])</code>
-<p>Applique le "style" désigné à l'objet "nom". Si un nom d'objet est fourni, le style est appliqué à la sélection de texte courante de l'objet donné. Si aucun objet n'est fourni, le style est appliqué à l'objet sélectionné.</p></dd>
+<p>Obsolète. Veuillez utiliser setParagraphStyle() en lieu et place.</p></dd>
+
+<dt><a name="-setTextFlowMode"><strong>setTextFlowMode</strong></a>(...)</dt>
+<dd><code>setTextFlowMode("nom" [, etat])</code>
+<p>Active ou désactive l'habillage du texte pour l'objet "nom".</p>
+<p>Appelé avec les paramètres chaîne "nom" et l'entier optionnel "état" (0 &lt;= "état" &lt;= 3).
+Paramétrer "état" à la valeur 0 désactivera l'habillage du texte. Paramétrer "état" à la valeur 1 habillera le texte selon le cadre de l'objet.
+Paramétrer "état" à la valeur 2 habillera le texte selon la bounding box de l'objet. Paramétrer "état" à la valeur 3 habillera le texte selon la ligne de contourde l'objet.
+Si l'argument"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
 
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code>sizeObject(largeur, hauteur [, "nom"])</code>
@@ -96,11 +137,9 @@ Si 'proportionnel' est spécifié, établit le redimensionnement en maintenant d
 <dd><code>unGroupObjects("nom")</code>
 <p>Détruit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
-<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
-<dd><code>textFlowsAroundFrame("nom" [, etat])</code>
-<p>Active ou désactive l'"habillage" (le texte défile autour de l'objet) pour l'objet "nom". 
-Appelé avec les param&egrave;tres chaîne "nom" et le booléen optionnel "état". Si
-"état" n'est pas passé, cette fonctionnalité change de valeur (activée si inactive ou désactivée si active).</p></dd>
+<dt><a name="-textFlowMode"><strong>textFlowMode</strong></a>(...)</dt>
+<dd><code>textFlowMode("nom" [, etat])</code>
+<p>Obsolète. Veuillez utiliser setTextFlowMode() en lieu et place.</p></dd>
 
 </dl>
 </body>

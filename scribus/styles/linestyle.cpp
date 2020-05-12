@@ -15,7 +15,6 @@
 #include "linestyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
-#include "prefsmanager.h"
 #include "util_math.h"
 
 

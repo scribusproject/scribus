@@ -67,10 +67,10 @@ bool UndoTransaction::cancel()
 			delete data->transactionState;
 			data->transactionState = nullptr;
 			//brutal for now:
-			assert (stackLevel + 1 == signed(UM->transactions_.size()));
-			if (stackLevel < signed(UM->transactions_.size()))
+			assert (stackLevel + 1 == signed(UM->m_transactions.size()));
+			if (stackLevel < signed(UM->m_transactions.size()))
 			{
-				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
+				UM->m_transactions.erase(UM->m_transactions.begin() + stackLevel);
 			}
 			return true;
 		default:
@@ -112,14 +112,14 @@ bool UndoTransaction::commit()
 	UndoManager* UM = data->UM;
 	int stackLevel = data->stackLevel;
 
-	if (!UM->undoEnabled_)
+	if (!UM->m_undoEnabled)
 	{
 		cancel();
 		return false;
 	}
 	
-	UndoObject *tmpu = UM->transactions_.at(stackLevel)->transactionObject;
-	TransactionState *tmps = UM->transactions_.at(stackLevel)->transactionState;
+	UndoObject *tmpu = UM->m_transactions.at(stackLevel)->transactionObject;
+	TransactionState *tmps = UM->m_transactions.at(stackLevel)->transactionState;
 	
 	switch (m_data->m_status)
 	{
@@ -128,11 +128,11 @@ bool UndoTransaction::commit()
 			m_data->m_status = Transaction::STATE_COMMITTED;
 
 			// brutal for now:
-			assert (stackLevel + 1 == signed(UM->transactions_.size()));
+			assert (stackLevel + 1 == signed(UM->m_transactions.size()));
 			
-			if (stackLevel < signed(UM->transactions_.size()))
+			if (stackLevel < signed(UM->m_transactions.size()))
 			{
-				UM->transactions_.erase(UM->transactions_.begin() + stackLevel);
+				UM->m_transactions.erase(UM->m_transactions.begin() + stackLevel);
 			}
 				
 			if (tmps->sizet() > 0) // are there any actions inside the committed transaction

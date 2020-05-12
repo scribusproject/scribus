@@ -94,7 +94,7 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.secondObjectType.append(PageItem::Polygon);
 }
 
-const QString PathCutPlugin::fullTrName() const
+QString PathCutPlugin::fullTrName() const
 {
 	return QObject::tr("PathCutter");
 }

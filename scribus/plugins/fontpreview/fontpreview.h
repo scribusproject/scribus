@@ -79,7 +79,7 @@ protected:
 protected slots:
 	/*! \brief Sets the strings of the subwidgets using the current
 	language. */
-	virtual void languageChange();
+	void languageChange();
 
 	/** \brief Called after each text change.
 	It calls paintSample().

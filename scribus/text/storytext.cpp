@@ -22,6 +22,8 @@ pageitem.cpp  -  description
 ***************************************************************************/
 
 //#include <QDebug>
+#include <unicode/brkiter.h>
+
 //FIXME: this include must go to sctextstruct.h !
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
@@ -40,6 +42,7 @@ pageitem.cpp  -  description
 #include "desaxe/simple_actions.h"
 #include "shapedtextcache.h"
 
+using namespace icu;
 
 StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 {
@@ -52,8 +55,8 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	else
 		d = new ScText_Shared(nullptr);
 
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 	
 	m_shapedTextCache = new ShapedTextCache();
 	
@@ -65,8 +68,8 @@ StoryText::StoryText() : m_doc(nullptr)
 {
 	d = new ScText_Shared(nullptr);
 
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 	m_shapedTextCache = nullptr;
 }
 
@@ -81,8 +84,8 @@ StoryText::StoryText(const StoryText & other) : m_doc(other.m_doc)
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
 	
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 	m_shapedTextCache = nullptr;
 
 	invalidateLayout();
@@ -198,8 +201,8 @@ StoryText& StoryText::operator= (const StoryText & other)
 		m_doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
 	
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 
 	invalidateLayout();
 	return *this;
@@ -336,8 +339,8 @@ void StoryText::moveCursorWordRight()
 
 void StoryText::clear()
 {
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 	
 	d->defaultStyle.erase();
 	d->trailingStyle.erase();
@@ -621,12 +624,12 @@ void StoryText::removeChars(int pos, uint len)
 		d->takeAt(i);
 		d->len--;
 		delete it;
-		// #9592 : adjust m_selFirst and m_selLast, those values have to be
+		// #9592 : adjust d->selFirst and d->selLast, those values have to be
 		// consistent in functions such as select()
-		if (i <= m_selLast)
-			--m_selLast;
-		if (i < m_selFirst)
-			--m_selFirst;
+		if (i <= d->selLast)
+			--d->selLast;
+		if (i < d->selFirst)
+			--d->selFirst;
 		if (static_cast<uint>(i + 1) <= d->cursorPosition && d->cursorPosition > 0)
 			d->cursorPosition -= 1;
 	}
@@ -636,10 +639,10 @@ void StoryText::removeChars(int pos, uint len)
 
 	d->len = d->count();
 	d->cursorPosition = qMin(d->cursorPosition, d->len);
-	if (m_selFirst > m_selLast)
+	if (d->selFirst > d->selLast)
 	{
-		m_selFirst =  0;
-		m_selLast  = -1;
+		d->selFirst =  0;
+		d->selLast  = -1;
 	}
 	invalidate(pos, length());
 }
@@ -998,7 +1001,7 @@ QString StoryText::text(int pos, uint len) const
 
 bool StoryText::isBlockStart(int pos) const 
 {
-	return pos  == 0 || text(pos-1) == SpecialChars::PARSEP;
+	return pos == 0 || text(pos-1) == SpecialChars::PARSEP;
 }
 
 
@@ -1104,6 +1107,21 @@ PageItem* StoryText::getItem(int pos) const
 	return that->d->at(pos)->getItem(m_doc);
 }
 
+int StoryText::findMark(const Mark* mrk, int startPos) const
+{
+	assert(startPos >= 0);
+
+	int len = d->len;
+	for (int i = startPos; i < len; ++i)
+	{
+		if (d->at(i)->ch != SpecialChars::OBJECT)
+			continue;
+		if (d->at(i)->hasMark(mrk))
+			return i;
+	}
+
+	return -1;
+}
 
 bool StoryText::hasMark(int pos, const Mark* mrk) const
 {
@@ -1845,23 +1863,23 @@ int StoryText::prevParagraph(int pos)
 
 int StoryText::startOfSelection() const
 {
-	return m_selFirst <= m_selLast? m_selFirst : 0;
+	return d->selFirst <= d->selLast? d->selFirst : 0;
 }
 
 int StoryText::endOfSelection() const
 {
-	return m_selFirst <= m_selLast? m_selLast + 1 : -1;
+	return d->selFirst <= d->selLast? d->selLast + 1 : -1;
 }
 
 int StoryText::selectionLength() const
 {
 	//FIX ME - sometimes I saw values equal or greater than length of text
-	int last = m_selLast;
-	if (m_selFirst >= length())
+	int last = d->selLast;
+	if (d->selFirst >= length())
 		return 0;
-	if (m_selLast >= length())
+	if (d->selLast >= length())
 		last = length() -1;
-	return m_selFirst <= last? last - m_selFirst + 1 : 0;
+	return d->selFirst <= last? last - d->selFirst + 1 : 0;
 }
 
 bool StoryText::isSelected() const
@@ -1872,7 +1890,7 @@ bool StoryText::isSelected() const
 
 bool StoryText::selected(int pos) const
 {
-	return (m_selFirst <= pos && pos <= m_selLast) 
+	return (d->selFirst <= pos && pos <= d->selLast) 
 //	       || (pos >= 0 && pos < length() && const_cast<StoryText*>(this)->d->at(pos)->cselect)
 	;
 }
@@ -1919,7 +1937,7 @@ void StoryText::select(int pos, int len, bool on)
 	assert( pos >= 0 );
 	assert( pos + signed(len) <= length() );
 
-//	qDebug("old selection: %d - %d", m_selFirst, m_selLast);
+//	qDebug("old selection: %d - %d", d->selFirst, d->selLast);
 
 //	StoryText* that = const_cast<StoryText *>(this);
 //	for (int i=pos; i < pos+signed(len); ++i)
@@ -1928,45 +1946,45 @@ void StoryText::select(int pos, int len, bool on)
 	if (on) {
 		// extend if possible
 		if (selected(pos - 1))
-			m_selLast = qMax(m_selLast, pos + static_cast<int>(len) - 1);
+			d->selLast = qMax(d->selLast, pos + len - 1);
 		else if (selected(pos + len))
-			m_selFirst = qMin(m_selFirst, pos);
+			d->selFirst = qMin(d->selFirst, pos);
 		else {
-			m_selFirst = pos;
-			m_selLast = pos + len - 1;
+			d->selFirst = pos;
+			d->selLast = pos + len - 1;
 		}
 	}
 	else {
-		if (pos <= m_selFirst && m_selLast < pos + signed(len))
+		if (pos <= d->selFirst && d->selLast < pos + signed(len))
 			deselectAll();
 		// shrink
 		else if (!selected(pos - 1) && selected(pos + len - 1))
-			m_selFirst = pos + len;
+			d->selFirst = pos + len;
 		else if (selected(pos) && !selected(pos + len))
-			m_selLast = pos - 1;
+			d->selLast = pos - 1;
 		else if (selected(pos) || selected(pos + len - 1))
 			// Grr, deselection splits selection
-			m_selLast = pos - 1;
+			d->selLast = pos - 1;
 	}
 
 	fixSurrogateSelection();
 	
-//	qDebug("new selection: %d - %d", m_selFirst, m_selLast);
+//	qDebug("new selection: %d - %d", d->selFirst, d->selLast);
 }
 
 void StoryText::extendSelection(int oldPos, int newPos)
 {
-	if (m_selFirst <= m_selLast)
+	if (d->selFirst <= d->selLast)
 	{
 		// have selection
-		if (m_selLast == oldPos - 1)
+		if (d->selLast == oldPos - 1)
 		{
-			m_selLast = newPos - 1;
+			d->selLast = newPos - 1;
 			return;
 		}
-		if (m_selFirst == oldPos)
+		if (d->selFirst == oldPos)
 		{
-			m_selFirst = newPos;
+			d->selFirst = newPos;
 			return;
 		}
 		// can't extend, fall through
@@ -1974,13 +1992,13 @@ void StoryText::extendSelection(int oldPos, int newPos)
 	// no previous selection
 	if (newPos > oldPos)
 	{
-		m_selFirst = oldPos;
-		m_selLast = newPos - 1;
+		d->selFirst = oldPos;
+		d->selLast = newPos - 1;
 	}
 	else
 	{
-		m_selFirst = newPos;
-		m_selLast = oldPos - 1;
+		d->selFirst = newPos;
+		d->selLast = oldPos - 1;
 	}
 
 	fixSurrogateSelection();
@@ -1989,10 +2007,10 @@ void StoryText::extendSelection(int oldPos, int newPos)
 
 void StoryText::fixSurrogateSelection()
 {
-	if (isLowSurrogate(m_selFirst) && isHighSurrogate(m_selFirst - 1))
-		m_selFirst -= 1;
-	if (isHighSurrogate(m_selLast) && isLowSurrogate(m_selLast + 1))
-		m_selLast += 1;
+	if (isLowSurrogate(d->selFirst) && isHighSurrogate(d->selFirst - 1))
+		d->selFirst -= 1;
+	if (isHighSurrogate(d->selLast) && isLowSurrogate(d->selLast + 1))
+		d->selLast += 1;
 }
 
 BreakIterator* StoryText::m_graphemeIterator = nullptr;
@@ -2071,8 +2089,8 @@ void StoryText::selectAll()
 		that->next();
 	}
 */
-	m_selFirst = 0;
-	m_selLast = length() - 1;
+	d->selFirst = 0;
+	d->selLast = length() - 1;
 }
 
 void StoryText::deselectAll()
@@ -2084,20 +2102,20 @@ void StoryText::deselectAll()
 		that->next();
 	}
 */	
-	m_selFirst = 0;
-	m_selLast = -1;
+	d->selFirst = 0;
+	d->selLast = -1;
 }
 
 void StoryText::removeSelection()
 {
-//	qDebug("removeSelection: %d - %d", m_selFirst, m_selLast);
-	if (m_selFirst > m_selLast)
+//	qDebug("removeSelection: %d - %d", d->selFirst, d->selLast);
+	if (d->selFirst > d->selLast)
 		return;
 
-	assert( m_selFirst >= 0 );
-	assert( m_selLast < length() );
+	assert( d->selFirst >= 0 );
+	assert( d->selLast < length() );
 
-	removeChars(m_selFirst, m_selLast - m_selFirst+1);
+	removeChars(d->selFirst, d->selLast - d->selFirst+1);
 	deselectAll();
 }
 

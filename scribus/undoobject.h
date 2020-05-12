@@ -145,7 +145,7 @@ private:
 	 * When used together with an UndoAction that has an image is this image
 	 * drawn first then the action image is drawn on top of this.
 	 */
-	QPixmap *m_upixmap;
+	QPixmap *m_upixmap {nullptr};
 
 	/**
 	 * @brief Guarded pointer

@@ -517,9 +517,6 @@ public:
 
 	int firstLayerID() const;
 
-	//Items
-	bool deleteTaggedItems();
-
 	/*!
 		* @brief Builds a qmap of the icc profiles used within the document
 	 */
@@ -537,7 +534,9 @@ public:
 	const StyleSet<ParagraphStyle>& paragraphStyles()  const { return m_docParagraphStyles; }
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return m_docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return m_docCharStyles.isDefault(c); }
-// 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
+// 	bool isDefaultStyle( LineStyle& l ) const { return docLineStyles......; }
+
+	const QHash<QString, multiLine>& lineStyles() const { return docLineStyles; }
 
 	/**
 	 * Returns the table style named @a name.
@@ -764,6 +763,14 @@ public:
 	void restoreLevelDown(SimpleState* ss, bool isUndo);
 	void restoreLevelBottom(SimpleState* ss, bool isUndo);
 	void restoreGuideLock(SimpleState* ss, bool isUndo);
+
+	/**
+	 * @brief Undo functions for marks / notes
+	 */
+	void restoreMarks(UndoState* ss, bool isUndo);
+	void restoreNoteStyle(SimpleState* ss, bool isUndo);
+	void restoreDeleteNote(UndoState* ss, bool isUndo);
+
 	/**
 	 * @brief Save function
 	 */
@@ -1395,7 +1402,7 @@ public:
 	bool isConverted {false};
 	QTimer * const autoSaveTimer;
 	QList<QString> autoSaveFiles;
-	QHash<QString,multiLine> MLineStyles;
+	QHash<QString, multiLine> docLineStyles;
 	QHash<QString, ScPattern> docPatterns;
 	QHash<QString, VGradient> docGradients;
 	QWidget* WinHan {nullptr};
@@ -1714,8 +1721,8 @@ private:
 	void multipleDuplicateByPage(const ItemMultipleDuplicateData& mdData, Selection& selection, QString& tooltip);
 
 public:
-	const QList<Mark*> marksList() { return m_docMarksList; }
-	const QList<TextNote*> notesList() { return m_docNotesList; }
+	const QList<Mark*>& marksList() { return m_docMarksList; }
+	const QList<TextNote*>& notesList() { return m_docNotesList; }
 	QList<NotesStyle*> m_docNotesStylesList;
 	QMap<PageItem_NoteFrame*, rangeItem> m_docEndNotesFramesMap;
 	QList<NotesStyle*> ns2Update; //list of notes styles to update

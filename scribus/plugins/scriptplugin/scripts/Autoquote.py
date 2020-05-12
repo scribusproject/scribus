@@ -115,15 +115,16 @@ for item in pageitems:
         if (item[1] != 4):
             scribus.messageBox('Scribus - Usage Error', "This is not a textframe. Try again.", scribus.ICON_WARNING, scribus.BUTTON_OK)
             sys.exit(2)
+
 contents = scribus.getTextLength(textbox)
 while c <= (contents -1):
     if ((c + 1) > contents - 1):
         nextchar = ' '
     else:
         scribus.selectText(c+1, 1, textbox)
-        nextchar = scribus.getText(textbox)
+        nextchar = scribus.getAllText(textbox)
     scribus.selectText(c, 1, textbox)
-    char = scribus.getText(textbox)
+    char = scribus.getAllText(textbox)
     if (len(char) != 1):
         c += 1
         continue

@@ -80,7 +80,7 @@ void DelColor::ReplaceColor(int id)
 	replacementColor = replacementColData->itemText(id);
 }
 
-const QString DelColor::getReplacementColor()
+const QString& DelColor::getReplacementColor()
 {
 	return replacementColor;
 }

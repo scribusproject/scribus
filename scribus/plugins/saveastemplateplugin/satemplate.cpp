@@ -63,7 +63,7 @@ void SaveAsTemplatePlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString SaveAsTemplatePlugin::fullTrName() const
+QString SaveAsTemplatePlugin::fullTrName() const
 {
 	return QObject::tr("Save As Template");
 }

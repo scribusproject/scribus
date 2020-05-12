@@ -757,37 +757,45 @@ struct LineControl {
 		imSpace /= 2;
 
 		// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
-
 		if (lineData.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
 		{
 			glyphExtension = style.minGlyphExtension() - 1;
-			spaceExtension = (lineData.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+			spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension) ) / spaceNatural - 1;
 			imSpace = 0;
 		}
 		else if (lineData.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
 		{
 			spaceExtension = 0;
-			glyphExtension = (lineData.width - spaceNatural) / glyphNatural  - 1;
+			glyphExtension = (lineData.width - spaceNatural) / glyphNatural - 1;
 			imSpace = 0;
 		}
 		else
 		{
 			glyphExtension = style.maxGlyphExtension() - 1;
-			if (spaceInsertion) {
+			if (spaceInsertion)
+			{
 				double remaining = lineData.width - glyphNatural * (1 + glyphExtension) - spaceNatural;
-				if (imSpace > 0) {
-					if (remaining / spaceInsertion < imSpace) {
+				if (imSpace > 0)
+				{
+					if (remaining / spaceInsertion < imSpace)
+					{
 						imSpace = remaining / spaceInsertion;
 						spaceExtension = 0;
-					} else {
+					} 
+					else
+					{
 						spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
 						imSpace *= spaceExtension + 1;
 					}
-				} else {
+				}
+				else
+				{
 					imSpace = remaining / spaceInsertion;
 					spaceExtension = 0;
 				}
-			} else {
+			} 
+			else
+			{
 				if (spaceNatural > 0)
 					spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension)) / spaceNatural - 1;
 				else
@@ -1537,7 +1545,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
-				if ( current.isEmpty && (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a).isSpace()))
+				if (current.isEmpty && (SpecialChars::isBreakingSpace(itemText.text(a)) || itemText.text(a).isSpace()))
 				{
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
@@ -1635,6 +1643,14 @@ void PageItem_TextFrame::layout()
 
 //			glyphs->yadvance = 0;
 
+			// adjust space between CJK and Latin letter
+			if (!current.glyphs[currentIndex].hasFlag(ScLayout_StartOfLine) && current.glyphs[currentIndex].hasFlag(ScLayout_CJKLatinSpace))
+			{
+				double quaterEM = charStyle.fontSize() / 10 / 4;
+				current.glyphs[currentIndex].extraWidth += quaterEM;
+				current.glyphs[currentIndex].xoffset += quaterEM;
+			}
+
 			if (i == current.lineData.firstCluster && current.glyphs[currentIndex].hasFlag(ScLayout_CJKFence))
 			{
 				current.glyphs[currentIndex].extraWidth -= (charStyle.fontSize() / 10 / 2);
@@ -1678,7 +1694,7 @@ void PageItem_TextFrame::layout()
 						realAsce = qMax(realAsce, gm.ascent + gm.descent);
 						wide += gm.width;
 					}
-					wide = (wide* scaleH) + (1 - scaleH);
+					wide = (wide * scaleH) + (1 - scaleH);
 					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -1806,11 +1822,10 @@ void PageItem_TextFrame::layout()
 					{
 						if (style.direction() == ParagraphStyle::RTL)
 						{
-							//use rightIndent to not miss with old behavior
+							// use rightIndent to not mess with old behavior
 							current.rightIndent = style.firstIndent();
 							// line width should consider RTL indent when it breaks the line.
-							current.mustLineEnd = current.colRight - style.firstIndent();
-
+							current.mustLineEnd = current.colRight - current.rightIndent;
 						}
 						else
 							current.leftIndent += style.firstIndent();
@@ -2163,8 +2178,10 @@ void PageItem_TextFrame::layout()
 				const GlyphCluster& nextCluster = glyphClusters[i + 1];
 				if (nextCluster.hasFlag(ScLayout_LineBoundary))
 				{
-					if (!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
-						&& !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
+					// #16100: why preventing possible line break when there are two
+					// consecutive line break opportunities? This is bad for CJK. /
+					if (/*!current.glyphs[currentIndex].hasFlag(ScLayout_LineBoundary)
+						&&*/ !current.glyphs[currentIndex].hasFlag(ScLayout_HyphenationPossible)
 						&& (itemText.text(a) != '-')
 						&& (itemText.text(a) != SpecialChars::SHYPHEN))
 					{
@@ -2408,11 +2425,13 @@ void PageItem_TextFrame::layout()
 			if ((itemText.text(a) == SpecialChars::COLBREAK) && (m_columns > 1))
 				goNextColumn = true;
 
-			if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
+			// #16100: this block is useless now that we allow remembering break in case of consecutive line break opportunities
+			// Anyway this block has a bug : it potentially remember break for a lower indice than upper code
+			/*if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
 			{
 //				qDebug() << "rememberBreak implicitbreak @" << i-1;
 				current.rememberBreak(i - 1, breakPos);
-			}
+			}*/
 			current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 
 			if (tabs.active)
@@ -2560,8 +2579,14 @@ void PageItem_TextFrame::layout()
 					current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 					if (current.addLine && !current.isEmpty)
 					{
-						if (itemText.text(a) == ' ') {
-							current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
+						int supSpace = currentIndex;
+						while (supSpace > 0)
+						{
+							GlyphCluster& cluster = current.glyphs[supSpace];
+							if (cluster.glyphs().count() != 1 || !itemText.text(cluster.firstChar()).isSpace())
+								break;
+							cluster.setFlag(ScLayout_SuppressSpace);
+							--supSpace;
 						}
 
 						current.updateHeightMetrics();
@@ -3621,7 +3646,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				else if (GrTypeStroke > 0)
 				{
 					if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-						gradientStrokeVal = "";
+						gradientStrokeVal.clear();
 					if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 						stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 					if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -3662,7 +3687,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			else
 			{
 				p->setStrokeMode(ScPainter::Solid);
-				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+				multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
@@ -3944,7 +3969,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
 						ip->set("INSERT_FRAMEPARA");
-						ip->set("ETEA", "insert_framepara");
+						ip->set("ETEA", QString("insert_framepara"));
 						ip->set("START", cursorPos);
 						ip->setItem(itemText.paragraphStyle(cursorPos));
 						if (isNoteFrame())
@@ -4436,7 +4461,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					ip = new ScItemState<ParagraphStyle>(Um::InsertText, "", Um::ICreate);
 					ip->set("INSERT_FRAMEPARA");
-					ip->set("ETEA", "insert_framepara");
+					ip->set("ETEA", QString("insert_framepara"));
 					ip->set("START", cursorPos);
 					ip->setItem(itemText.paragraphStyle(cursorPos));
 					if (isNoteFrame())
@@ -4536,6 +4561,8 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	}
 	int start = itemText.startOfSelection();
 	int stop = itemText.endOfSelection();
+	int savedStart = itemText.startOfSelection();
+	int savedStop = itemText.endOfSelection();
 	int marksNum = 0;
 	if (UndoManager::undoEnabled()) 
 	{
@@ -4561,7 +4588,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		{
 			//find and delete notes
 			//if marks are in notes then they will be deleted further while note is physically deleted
-			for (int i=start; i < stop; ++i)
+			for (int i = start; i < stop; ++i)
 			{
 				if (i == itemText.length())
 					break;
@@ -4577,12 +4604,12 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 			stop -= marksNum;
 		}
 		//delete text
-		for (int i=start; i <= stop; ++i)
+		for (int i = start; i <= stop; ++i)
 		{
 			Mark* mark = i < itemText.length() && itemText.hasMark(i) ? itemText.mark(i) : nullptr;
 			const CharStyle& curParent = itemText.charStyle(i);
 			bool needParaAction = ((i < stop) && (itemText.text(i) == SpecialChars::PARSEP));
-			if (i==stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
+			if (i == stop || !curParent.equiv(lastParent) || (mark && mark->isType(MARKNoteFrameType)) || needParaAction)
 			{
 				added = false;
 				lastIsDelete = false;
@@ -4627,26 +4654,29 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 						if (is)
 							is->set("noteframeName", getUName());
 						//remove marks from notes
-						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
+						for (int ii = notes2DEL.count() - 1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
 							Q_ASSERT(note != nullptr);
-							if (note->textLen > 0)
-							{
-								itemText.deselectAll();
-								itemText.select(notes2DEL.at(ii).second + 1, note->textLen);
-								removeMarksFromText(true);
-							}
+							if (note->textLen <= 0)
+								continue;
+							int oldTextLen = itemText.length();
+							itemText.deselectAll();
+							itemText.select(notes2DEL.at(ii).second + 1, note->textLen);
+							removeMarksFromText(true);
+							marksNum += oldTextLen - itemText.length();
 						}
 						asNoteFrame()->updateNotesText();
 						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
 						{
 							TextNote* note = notes2DEL.at(ii).first;
 							Q_ASSERT(note != nullptr);
+							int oldTextLen = itemText.length();
 							m_Doc->setUndoDelNote(note);
 							if (note->isEndNote())
 								m_Doc->flag_updateEndNotes = true;
 							m_Doc->deleteNote(note);
+							marksNum += oldTextLen - itemText.length();
 						}
 						if (is)
 						{
@@ -4679,7 +4709,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					undoTarget = m_Doc;
 				ip = new ScItemState<ParagraphStyle>(Um::DeleteText, "", Um::IDelete);
 				ip->set("DELETE_FRAMEPARA");
-				ip->set("ETEA", "delete_framepara");
+				ip->set("ETEA", QString("delete_framepara"));
 				ip->set("START", start);
 				ip->setItem(itemText.paragraphStyle(i));
 				lastPos = i + 1;
@@ -4705,12 +4735,11 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	else //remove marks without undo
 		marksNum = removeMarksFromText(false);
 
-	start = itemText.startOfSelection();
-	stop = itemText.endOfSelection();
-
-	itemText.setCursorPosition(start);
-	//for sure text is still selected
-	itemText.select(start, stop - start - marksNum);
+	// We have to use saved selection because mark removal may clear selection
+	// so that we cannot get it back from itemText
+	itemText.deselectAll();
+	itemText.setCursorPosition(savedStart);
+	itemText.select(savedStart, savedStop - savedStart - marksNum);
 	itemText.removeSelection();
 	HasSel = false;
 //	m_Doc->updateFrameItems();
@@ -5568,7 +5597,6 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 					return nullptr;
 			}
 		}
-
 	}
 	else //in whole text
 		stop = itemText.length();

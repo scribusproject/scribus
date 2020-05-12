@@ -108,7 +108,7 @@ void CanvasMode_EditWeldPoint::drawControlsWeldPoint(QPainter* psx, PageItem* cu
 	}
 }
 
-void CanvasMode_EditWeldPoint::enterEvent(QEvent *)
+void CanvasMode_EditWeldPoint::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

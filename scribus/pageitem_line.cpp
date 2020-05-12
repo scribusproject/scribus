@@ -83,7 +83,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			else if (GrTypeStroke > 0)
 			{
 				if ((!gradientStrokeVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientStrokeVal)))
-					gradientStrokeVal = "";
+					gradientStrokeVal.clear();
 				if (!(gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 					stroke_gradient = m_Doc->docGradients[gradientStrokeVal];
 				if (stroke_gradient.stops() < 2) // fall back to solid stroking if there are not enough colorstops in the gradient.
@@ -121,7 +121,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		else
 		{
 			p->setStrokeMode(ScPainter::Solid);
-			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
@@ -161,12 +161,12 @@ QString PageItem_Line::infoDescription() const
 	return QString();
 }
 
-QPointF PageItem_Line::startPoint()
+QPointF PageItem_Line::startPoint() const
 {
 	return QPointF(m_xPos, m_yPos);
 }
 
-QPointF PageItem_Line::endPoint()
+QPointF PageItem_Line::endPoint() const
 {
 	double rot = this->rotation();
 	double x = m_xPos + m_width * cos(rot * M_PI / 180.0);
@@ -346,7 +346,7 @@ QRectF PageItem_Line::getStartArrowBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -379,7 +379,7 @@ QRectF PageItem_Line::getStartArrowOldBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -412,7 +412,7 @@ QRectF PageItem_Line::getEndArrowBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);
@@ -444,7 +444,7 @@ QRectF PageItem_Line::getEndArrowOldBoundingRect() const
 		}
 		else
 		{
-			const multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+			const multiLine ml = m_Doc->docLineStyles[NamedLStyle];
 			const SingleLine& sl = ml.last();
 			if (sl.Width != 0.0)
 				arrowTrans.scale(sl.Width, sl.Width);

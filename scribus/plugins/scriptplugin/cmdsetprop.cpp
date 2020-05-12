@@ -190,7 +190,7 @@ PyObject *scribus_setcustomlinestyle(PyObject* /* self */, PyObject* args)
 	if (it == nullptr)
 		return nullptr;
 	QString qStyle = QString::fromUtf8(Style);
-	if (! ScCore->primaryMainWindow()->doc->MLineStyles.contains(qStyle))
+	if (! ScCore->primaryMainWindow()->doc->docLineStyles.contains(qStyle))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line Style not found.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -396,7 +396,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == nullptr)
 		return nullptr;
-	if (!ScCore->primaryMainWindow()->doc->MLineStyles.contains(QString::fromUtf8(Style)))
+	if (!ScCore->primaryMainWindow()->doc->docLineStyles.contains(QString::fromUtf8(Style)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error").toLocal8Bit().constData());
 		return nullptr;

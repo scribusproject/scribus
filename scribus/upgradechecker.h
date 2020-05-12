@@ -36,7 +36,6 @@ private slots:
 	void downloadReadyRead();
 	
 protected:
-	void init();
 	virtual void outputText(const QString& text, bool noLineFeed=false);
 	void reportError(const QString& s);
 	QFile *m_file {nullptr};

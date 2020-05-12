@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 class QCheckBox;
 class QComboBox;
-class QFormLayout;
 class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
@@ -74,42 +73,43 @@ public:
 	void createOpenDocPage();
 	void createRecentDocPage();
 	void setSize(const QString& gr);
-	QTabWidget* tabWidget;
-	QFrame* newDocFrame;
-	PageLayoutsWidget* layoutsView;
-	QLabel* layoutLabel1;
-	QComboBox* firstPage;
-	QGroupBox* pageSizeGroupBox;
-	MarginWidget* marginGroup;
-	QGroupBox* optionsGroupBox;
-	QLabel* TextLabel1;
-	QLabel* TextLabel2;
-	QLabel* TextLabel3;
-	QLabel* TextLabel4;
-	QLabel* TextLabel1_2;
-	QLabel* TextLabel1_3;
-	QLabel* pageCountLabel;
-	QLabel* TextLabel2_2;
-	QLabel* unitOfMeasureLabel;
-	QComboBox* pageSizeComboBox;
-	QComboBox* pageOrientationComboBox;
-	QComboBox* unitOfMeasureComboBox;
-	QCheckBox* startUpDialog;
-	QCheckBox* autoTextFrame;
-	QCheckBox* startDocSetup;
-	ScrSpinBox* Distance;
-	QSpinBox* numberOfCols;
-	QSpinBox* pageCountSpinBox;
-	ScrSpinBox* widthSpinBox;
-	ScrSpinBox* heightSpinBox;
-	QFrame* openDocFrame;
-	QFileDialog *fileDialog;
-	QFrame* newFromTempFrame;
-	nftwidget *nftGui;
-	QFrame* recentDocFrame;
-	QListWidget* recentDocListBox;
-	QPushButton* OKButton;
-	QPushButton* CancelB;
+
+	QTabWidget* tabWidget {nullptr};
+	QFrame* newDocFrame {nullptr};
+	PageLayoutsWidget* layoutsView {nullptr};
+	QLabel* layoutLabel1 {nullptr};
+	QComboBox* firstPage {nullptr};
+	QGroupBox* pageSizeGroupBox {nullptr};
+	MarginWidget* marginGroup {nullptr};
+	QGroupBox* optionsGroupBox {nullptr};
+	QLabel* TextLabel1 {nullptr};
+	QLabel* TextLabel2 {nullptr};
+	QLabel* TextLabel3 {nullptr};
+	QLabel* TextLabel4 {nullptr};
+	QLabel* TextLabel1_2 {nullptr};
+	QLabel* TextLabel1_3 {nullptr};
+	QLabel* pageCountLabel {nullptr};
+	QLabel* TextLabel2_2 {nullptr};
+	QLabel* unitOfMeasureLabel {nullptr};
+	QComboBox* pageSizeComboBox {nullptr};
+	QComboBox* pageOrientationComboBox {nullptr};
+	QComboBox* unitOfMeasureComboBox {nullptr};
+	QCheckBox* startUpDialog {nullptr};
+	QCheckBox* autoTextFrame {nullptr};
+	QCheckBox* startDocSetup {nullptr};
+	ScrSpinBox* Distance {nullptr};
+	QSpinBox* numberOfCols {nullptr};
+	QSpinBox* pageCountSpinBox {nullptr};
+	ScrSpinBox* widthSpinBox {nullptr};
+	ScrSpinBox* heightSpinBox {nullptr};
+	QFrame* openDocFrame {nullptr};
+	QFileDialog *fileDialog {nullptr};
+	QFrame* newFromTempFrame {nullptr};
+	nftwidget *nftGui {nullptr};
+	QFrame* recentDocFrame {nullptr};
+	QListWidget* recentDocListBox {nullptr};
+	QPushButton* OKButton {nullptr};
+	QPushButton* CancelB {nullptr};
 
 	bool onStartup() const { return m_onStartup;}
 	int  tabSelected() const { return m_tabSelected;}
@@ -120,7 +120,6 @@ public:
 	double unitRatio()   const { return m_unitRatio; }
 
 	int    orientation() const { return m_orientation;}
-	int    precision() const { return m_precision;}
 	int    choosenLayout() const { return m_choosenLayout;}
 	double pageWidth() const { return m_pageWidth;}
 	double pageHeight() const { return m_pageHeight;}
@@ -156,33 +155,32 @@ public slots:
 	void openFileDialogFileClicked(const QString &path);
 
 protected:
-	QVBoxLayout* TabbedNewDocLayout;
-	QHBoxLayout* Layout1;
-	QGridLayout* NewDocLayout;
-	QGridLayout* pageSizeGroupBoxLayout;
-	QFormLayout* optionsGroupBoxLayout;
-	QVBoxLayout* openDocLayout;
-	QVBoxLayout* recentDocLayout;
-	QVBoxLayout *verticalLayout;
+	QVBoxLayout* TabbedNewDocLayout {nullptr};
+	QHBoxLayout* Layout1 {nullptr};
+	QGridLayout* NewDocLayout {nullptr};
+	QGridLayout* pageSizeGroupBoxLayout {nullptr};
+	QGridLayout* optionsGroupBoxLayout {nullptr};
+	QVBoxLayout* openDocLayout {nullptr};
+	QVBoxLayout* recentDocLayout {nullptr};
+	QVBoxLayout *verticalLayout {nullptr};
 	PrefsManager& prefsManager;
 	QStringList recentDocList;
 
-	double m_unitRatio;
-	int m_orientation;
-	int m_precision;
-	int m_choosenLayout;
+	double m_unitRatio { 1.0 };
+	int m_orientation { 0 };
+	int m_choosenLayout { 0 };
 	double m_pageWidth;
 	double m_pageHeight;
-	double m_distance;
+	double m_distance { 11.0 };
 	QString m_unitSuffix;
 	QString m_selectedFile;
-	int m_unitIndex;
-	int m_tabSelected;
+	int m_unitIndex { 0 };
+	int m_tabSelected { 0 };
 	bool m_onStartup;
-	double m_bleedBottom;
-	double m_bleedTop;
-	double m_bleedLeft;
-	double m_bleedRight;
+	double m_bleedBottom { 0.0 };
+	double m_bleedTop { 0.0 };
+	double m_bleedLeft { 0.0 };
+	double m_bleedRight { 0.0 };
 };
 
 #endif // NEWDOC_H

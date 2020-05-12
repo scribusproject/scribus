@@ -26,13 +26,13 @@ class PLUGIN_API ShapePlugin : public ScPersistentPlugin
 		// Standard plugin implementation
 		ShapePlugin();
 		virtual ~ShapePlugin();
-		virtual bool initPlugin();
-		virtual bool cleanupPlugin();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
-		virtual void addToMainWindowMenu(ScribusMainWindow *);
+		bool initPlugin() override;
+		bool cleanupPlugin() override;
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
+		void addToMainWindowMenu(ScribusMainWindow *) override;
 		ShapePalette* sc_palette;
 
 	protected:

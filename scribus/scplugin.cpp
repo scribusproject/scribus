@@ -78,30 +78,6 @@ void ScPlugin::changedDoc(ScribusDoc* )
 
 ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
-	m_Doc = nullptr;
-
-	m_actionInfo.name = "";
-	m_actionInfo.text = "";
-	m_actionInfo.helpText = "";
-	m_actionInfo.keySequence = "";
-	m_actionInfo.menu = "";
-	m_actionInfo.menuAfterName = "";
-	m_actionInfo.parentMenu = "";
-	m_actionInfo.subMenuName = "";
-	m_actionInfo.toolbar = "";
-	m_actionInfo.toolBarName = "";
-	m_actionInfo.iconPath1 = QString();
-	m_actionInfo.iconPath2 = QString();
-	m_actionInfo.notSuitableFor.clear();
-	m_actionInfo.forAppMode.clear();
-	m_actionInfo.needsNumObjects = -1;
-	m_actionInfo.firstObjectType.clear();
-	m_actionInfo.secondObjectType.clear();
-	m_actionInfo.enabledOnStartup = false;
-	m_actionInfo.enabledForStoryEditor = false;
-	m_actionInfo.seMenu = "";
-	m_actionInfo.seParentMenu = "";
-	m_actionInfo.seKeySequence = "";
 }
 
 ScActionPlugin::~ScActionPlugin()

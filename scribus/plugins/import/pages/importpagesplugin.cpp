@@ -67,7 +67,7 @@ ImportPagesPlugin::~ImportPagesPlugin()
 	unregisterAll();
 }
 
-const QString ImportPagesPlugin::fullTrName() const
+QString ImportPagesPlugin::fullTrName() const
 {
 	return QObject::tr("Pages Importer");
 }

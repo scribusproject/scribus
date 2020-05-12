@@ -67,7 +67,7 @@ public:
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
 	void reopenTree();
-	QTreeWidgetItem* getListItem(int SNr, PageItem *Nr);
+	QTreeWidgetItem* getListItem(int pageNr, PageItem *pageItem);
 	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
 	void parseSubGroup(OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType, ScPage *a);
 	void buildReopenVals();
@@ -77,7 +77,7 @@ public slots:
 	void filterTree(const QString& keyword);
 	void iconSetChange();
 	void languageChange();
-	void slotShowSelect(int SNr, PageItem *Nr);
+	void slotShowSelect(int pageNr, PageItem *pageItem);
 	void setPaletteShown(bool);
 	void slotRightClick(QPoint point);
 	void setActiveLayer(int layerID);

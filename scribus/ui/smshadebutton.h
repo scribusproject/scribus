@@ -21,13 +21,12 @@ public:
 	void setValue(int i, bool isParentValue);
 
 	void setParentValue(int i);
-
 	bool useParentValue();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	int    m_pValue;
+	bool   m_hasParent = false;
+	bool   m_useParentValue = false;
+	int    m_pValue = 0;
 
 	QString useParentValueText();
 	void setFont(bool wantBold);

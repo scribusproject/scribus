@@ -63,7 +63,7 @@ public:
 	bool  issuedWarningMsg(void)    const { return (m_msgType == warningMsg); }
 	const QString& getMessage(void) const { return m_message; }
 
-	virtual void initialize(void);
+	void initialize(void);
 
 //	virtual void preloadAlphaChannel(const QString& fn, int res) = 0;
 	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) = 0;

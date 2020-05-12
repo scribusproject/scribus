@@ -61,7 +61,7 @@ ImportFhPlugin::~ImportFhPlugin()
 	unregisterAll();
 }
 
-const QString ImportFhPlugin::fullTrName() const
+QString ImportFhPlugin::fullTrName() const
 {
 	return QObject::tr("Freehand Importer");
 }

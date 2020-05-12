@@ -26,7 +26,7 @@ public:
 	MissingFont(QWidget* parent, const QString& fon, ScribusDoc* doc);
 	~MissingFont() = default;
 	
-	const QString getReplacementFont();
+	const QString &getReplacementFont();
 
 public slots:
 	virtual void newFont(const QString& replacement);

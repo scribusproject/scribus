@@ -412,17 +412,17 @@ void PDFExportDialog::updateDocOptions()
 	}
 }
 
-const QString PDFExportDialog::cmsDescriptor()
+const QString& PDFExportDialog::cmsDescriptor()
 {
 	return m_cmsDescriptor;
 }
 
-const int PDFExportDialog::colorSpaceComponents()
+int PDFExportDialog::colorSpaceComponents()
 {
 	return m_components;
 }
 
-const QString PDFExportDialog::getPagesString()
+QString PDFExportDialog::getPagesString()
 {
 	if (Options->AllPages->isChecked())
 		return "*";

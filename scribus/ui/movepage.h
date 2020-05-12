@@ -27,11 +27,11 @@ public:
 	MovePages( QWidget* parent, int currentPage, int maxPages, bool moving );
 	~MovePages() = default;
 
-	const int getFromPage();
-	const int getToPage();
-	const int getWhere();
-	const int getWherePage();
-	const int getCopyCount();
+	int getFromPage();
+	int getToPage();
+	int getWhere();
+	int getWherePage();
+	int getCopyCount();
 
 
 private:

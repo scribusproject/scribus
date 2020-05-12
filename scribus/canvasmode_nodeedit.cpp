@@ -241,7 +241,7 @@ inline bool CanvasMode_NodeEdit::GetItem(PageItem** pi)
 
 
 
-void CanvasMode_NodeEdit::enterEvent(QEvent *)
+void CanvasMode_NodeEdit::enterEvent(QEvent *e)
 {
 }
 
@@ -495,7 +495,7 @@ void CanvasMode_NodeEdit::keyReleaseEvent(QKeyEvent *e)
 	commonkeyReleaseEvent(e);
 }
 
-void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
+void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 {
 	FPoint npf2;
 	bool edited = false;
@@ -959,7 +959,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 
 
 
-bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* currItem, const QTransform&)
+bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageItem* currItem, const QTransform& /*t*/)
 {
 	QTransform itemPos = currItem->getTransform();
 	if ((currItem->isSymbol() || currItem->isGroup()) && (!m_doc->nodeEdit.isContourLine()))

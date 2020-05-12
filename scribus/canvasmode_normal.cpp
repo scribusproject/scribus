@@ -90,7 +90,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 		drawSelection(p, !m_doc->drawAsPreview);
 }
 
-void CanvasMode_Normal::enterEvent(QEvent *)
+void CanvasMode_Normal::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -286,7 +286,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	
 	bool wasLastPostOverGuide = m_lastPosWasOverGuide;
 	m_lastPosWasOverGuide = false;
-	double newX, newY;
 	PageItem *currItem=nullptr;
 	bool erf = false;
 	m->accept();
@@ -309,7 +308,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		if (m_doc->m_Selection->count() > 0)
 		{
 			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}
@@ -457,8 +455,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	m_mouseCurrentPoint = mousePointDoc;
 	if ((GetItem(&currItem)) && (!m_shiftSelItems))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		// #0007865
 		if (/*(((m_view->dragTimerElapsed()) && (m->buttons() & Qt::LeftButton)) ||*/
 			(m_view->moveTimerElapsed())
@@ -607,7 +605,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						}
 						if (m_doc->SnapGrid)
 						{
-							m_doc->m_Selection->setGroupRect();
 							double gx, gy, gh, gw, gxo, gyo;
 							m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 							gx += m_objectDeltaPos.x();
@@ -625,7 +622,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				else
 				{
 					double gx, gy, gh, gw;
-					m_doc->m_Selection->setGroupRect();
 					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 					int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
 					erf = true;
@@ -802,8 +798,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x());
-			newY = qRound(mousePointDoc.y());
+			double newX = qRound(mousePointDoc.x());
+			double newY = qRound(mousePointDoc.y());
 			m_mouseSavedPoint.setXY(newX, newY);
 			QPoint startP = m_canvas->canvasToGlobal(m_mousePressPoint);
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
@@ -1042,7 +1038,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
 				m_doc->moveGroup(m_objectDeltaPos.x(), m_objectDeltaPos.y());
-				m_doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
@@ -1053,13 +1048,12 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					nx = nr.x();
 					ny = nr.y();
 				}
-				m_doc->moveGroup(nx-gx, ny-gy);
-				m_doc->m_Selection->setGroupRect();
+				m_doc->moveGroup(nx - gx, ny - gy);
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				nx = gx+gw;
-				ny = gy+gh;
+				nx = gx + gw;
+				ny = gy + gh;
 				if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
-					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
+					m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
 				m_doc->m_Selection->setGroupRect();
 			}
 			else
@@ -1072,7 +1066,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					double ny = currItem->yPos();
 					if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					{
-						m_doc->m_Selection->setGroupRect();
 						double gx, gy, gh, gw, gxo, gyo;
 						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 						gxo = gx;
@@ -1181,7 +1174,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->m_Selection->delaySignalsOff();
 			if (m_doc->m_Selection->count() > 1)
 			{
-				m_doc->m_Selection->setGroupRect();
 				double x, y, w, h;
 				m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 				m_view->getGroupRectScreen(&x, &y, &w, &h);
@@ -1206,7 +1198,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_canvas->m_viewMode.operItemMoving = false;
@@ -1582,7 +1573,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		if (m_doc->m_Selection->count() > 0)
 		{
 			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}
@@ -1726,7 +1716,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				bb->update();
 			}
 			m_doc->endUpdate();
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
@@ -1753,7 +1742,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		if (m_doc->m_Selection->count() > 0)
 		{
 			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}

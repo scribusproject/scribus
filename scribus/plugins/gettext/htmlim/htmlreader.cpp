@@ -268,12 +268,12 @@ bool HTMLReader::characters(const QString &ch)
 			if (tmp.isEmpty())
 				return true;
 		}
-		QString chl = tmp.left(1), chr = tmp.right(1);
+		QString chl(tmp.at(0)), chr(tmp.right(1));
 		bool fcis = (chl.length() > 0 && chl[0].isSpace());
 		bool lcis = (chr.length() > 0 && chr[0].isSpace());
 		if (inPre)
 		{
-			if (tmp.left(1) == "\n")
+			if (tmp.at(0) == "\n")
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else

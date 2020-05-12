@@ -3858,12 +3858,12 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 	}
 	else if (brushType == U_BT_PathGradient)
 	{
-		quint32 gFlags, wrap, startCol, cCount, endCol;
+		quint32 gFlags {0}, wrap {0}, startCol {0}, cCount {0}, endCol {0};
 		ds >> gFlags >> wrap;
 		ds >> startCol;
 		QPointF p1 = getEMFPPoint(ds, false);
 		ds >> cCount;
-		for (quint32 a = 0; a < cCount; a++)
+		for (quint32 i = 0; i < cCount; i++)
 		{
 			ds >> endCol;
 		}

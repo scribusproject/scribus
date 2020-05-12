@@ -65,7 +65,7 @@ void Scribus13Format::languageChange()
 	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
-const QString Scribus13Format::fullTrName() const
+QString Scribus13Format::fullTrName() const
 {
 	return QObject::tr("Scribus 1.3.0->1.3.3.x Support");
 }
@@ -156,14 +156,14 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	else
 		return QString();
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-		docText.truncate(docText.length()-1);
+		docText.truncate(docText.length() - 1);
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
+void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString, QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=newReplacement;
-	getReplacedFonts=ReplacedFonts;
+	getNewReplacement = newReplacement;
+	getReplacedFonts = ReplacedFonts;
 }
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -484,7 +484,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							PGSN = PGSN.nextSibling();
 						}
 						m_Doc->appendToPageSets(pageS);
-						if (m_Doc->pageSets().count()-1 == m_Doc->pagePositioning())
+						if (m_Doc->pageSets().count() - 1 == m_Doc->pagePositioning())
 						{
 							m_Doc->setPageGapHorizontal(ScCLocale::toDoubleC(PgsAttr.attribute("GapHorizontal"), 0.0));
 							m_Doc->setPageGapVertical(ScCLocale::toDoubleC(PgsAttr.attribute("GapBelow"), 0.0));
@@ -590,7 +590,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				m_Doc->MLineStyles.insert(pg.attribute("Name"), ml);
+				m_Doc->docLineStyles.insert(pg.attribute("Name"), ml);
 			}
 			if (pg.tagName() == "Arrows")
 			{
@@ -1378,7 +1378,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	if (calign >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 //	qDebug() << QString("par style at end: %1/%2 (%3) calign %4").arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign);
-	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
+	obj->itemText.applyStyle(obj->itemText.length() - 1, pstyle);
 	//last->StyleStart = obj->itemText.length();
 }
 
@@ -2159,19 +2159,12 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
-				QString Nam = pg.attribute("Name");
-				QString Nam2 = Nam;
-				int copyC = 1;
-				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
-				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
-				{
-					while (m_Doc->MLineStyles.contains(Nam2))
-					{
-						Nam2 = QObject::tr("Copy #%1 of ").arg(copyC)+Nam;
-						copyC++;
-					}
-				}
-				m_Doc->MLineStyles.insert(Nam2, ml);
+				QString mlName = pg.attribute("Name");
+				QString mlName2 = mlName;
+				QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+				if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
+					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+				m_Doc->docLineStyles.insert(mlName2, ml);
 			}
 			if (pg.tagName() == "Arrows")
 			{
@@ -2575,35 +2568,6 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 }
 
-QString Scribus13Format::AskForFont(const QString& fStr, ScribusDoc *doc)
-{
-	PrefsManager& prefsManager=PrefsManager::instance();
-//	QFont fo;
-	QString tmpf = fStr;
-	if ((!(*m_AvailableFonts).contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-	{
-		if ((!prefsManager.appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager.appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
-		{
-			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
-			MissingFont *dia = new MissingFont(nullptr, tmpf, doc);
-			dia->exec();
-			tmpf = dia->getReplacementFont();
-			delete dia;
-			qApp->restoreOverrideCursor();
-			prefsManager.appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
-		}
-		else
-			tmpf = prefsManager.appPrefs.fontPrefs.GFontSub[tmpf];
-		ReplacedFonts[fStr] = tmpf;
-	}
-	if (!doc->UsedFonts.contains(tmpf))
-	{
-		doc->AddFont(tmpf);
-	}
-// 	DoFonts[fStr] = tmpf;
-	return tmpf;
-}
-
 bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle pstyle;
@@ -2676,7 +2640,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QHash<QString,mult
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QHash<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
-				if (mlit != Sty->end() && ml != mlit.value())
+				if (mlit != Sty->constEnd() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))
 					{

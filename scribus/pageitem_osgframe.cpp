@@ -141,7 +141,7 @@ void PageItem_OSGFrame::clearContents()
 	currentView = tr("Default");
 	loadedModel = nullptr;
 	distanceToObj = 0.0;
-	modelFile = "";
+	modelFile.clear();
 	PageItem_ImageFrame::clearContents();
 }
 
@@ -155,7 +155,7 @@ void PageItem_OSGFrame::applicableActions(QStringList & actionList)
 	}
 }
 
-QString PageItem_OSGFrame::infoDescription()
+QString PageItem_OSGFrame::infoDescription() const
 {
 	QString htmlText;
 	htmlText.append( tr("3D Model") + "<br/>");
@@ -167,19 +167,19 @@ QString PageItem_OSGFrame::infoDescription()
 
 double PageItem_OSGFrame::getDistance(osg::Vec3d pos1, osg::Vec3d pos2)
 {
-	double dist2D = sqrt((pos1[0]-pos2[0])*(pos1[0]-pos2[0]) + (pos1[1]-pos2[1])*(pos1[1]-pos2[1]));
-	return sqrt(dist2D*dist2D + (pos1[2]-pos2[2])*(pos1[2]-pos2[2]));
+	double dist2D = sqrt((pos1[0] - pos2[0]) * (pos1[0] - pos2[0]) + (pos1[1] - pos2[1]) * (pos1[1] - pos2[1]));
+	return sqrt(dist2D * dist2D + (pos1[2] - pos2[2]) * (pos1[2] - pos2[2]));
 }
 
 #define normalized(x, y, z)		\
 {					\
 	double modulo;			\
-	modulo = sqrtf(x*x + y*y + z*z);	\
+	modulo = sqrtf(x * x + y * y + z * z);	\
 	if (modulo != 0.0)			\
 	{					\
-		x = x/modulo;			\
-		y = y/modulo;			\
-		z = z/modulo;			\
+		x = x / modulo;			\
+		y = y / modulo;			\
+		z = z / modulo;			\
 	}					\
 }
 
@@ -226,9 +226,9 @@ QString PageItem_OSGFrame::getPDFMatrix(QString viewName)
 		upx = cameraUp[0];
 		upy = cameraUp[1];
 		upz = cameraUp[2];
-		leftx = viewz*upy - viewy*upz;
-		lefty = viewx*upz - viewz*upx;
-		leftz = viewy*upx - viewx*upy;
+		leftx = viewz * upy - viewy * upz;
+		lefty = viewx * upz - viewz * upx;
+		leftz = viewy * upx - viewx * upy;
 		normalized(leftx, lefty, leftz);
 	}
 	/* apply camera roll*/
@@ -236,14 +236,14 @@ QString PageItem_OSGFrame::getPDFMatrix(QString viewName)
 		double leftxprime, leftyprime, leftzprime;
 		double upxprime, upyprime, upzprime;
 		double sinroll, cosroll;
-		sinroll =  sin((roll/180.0f)*M_PI);
-		cosroll =  cos((roll/180.0f)*M_PI);
-		leftxprime = leftx*cosroll + upx*sinroll;
-		leftyprime = lefty*cosroll + upy*sinroll;
-		leftzprime = leftz*cosroll + upz*sinroll;
-		upxprime = upx*cosroll + leftx*sinroll;
-		upyprime = upy*cosroll + lefty*sinroll;
-		upzprime = upz*cosroll + leftz*sinroll;
+		sinroll =  sin((roll / 180.0f) * M_PI);
+		cosroll =  cos((roll / 180.0f) * M_PI);
+		leftxprime = leftx * cosroll + upx * sinroll;
+		leftyprime = lefty * cosroll + upy * sinroll;
+		leftzprime = leftz * cosroll + upz * sinroll;
+		upxprime = upx * cosroll + leftx * sinroll;
+		upyprime = upy * cosroll + lefty * sinroll;
+		upzprime = upz * cosroll + leftz * sinroll;
 		leftx = leftxprime;
 		lefty = leftyprime;
 		leftz = leftzprime;
@@ -257,9 +257,9 @@ QString PageItem_OSGFrame::getPDFMatrix(QString viewName)
 	{
 		roo = 0.000000000000000001;
 	}
-	transx = trackerCenter[0] - roo*viewx;
-	transy = trackerCenter[1] - roo*viewy;
-	transz = trackerCenter[2] - roo*viewz;
+	transx = trackerCenter[0] - roo * viewx;
+	transy = trackerCenter[1] - roo * viewy;
+	transz = trackerCenter[2] - roo * viewz;
 	if (fabs(leftx) < 0.0000001)
 		leftx = 0.0;
 	if (fabs(lefty) < 0.0000001)

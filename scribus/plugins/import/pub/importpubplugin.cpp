@@ -61,7 +61,7 @@ ImportPubPlugin::~ImportPubPlugin()
 	unregisterAll();
 }
 
-const QString ImportPubPlugin::fullTrName() const
+QString ImportPubPlugin::fullTrName() const
 {
 	return QObject::tr("PUB Importer");
 }

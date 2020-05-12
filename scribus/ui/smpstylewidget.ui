@@ -1337,7 +1337,7 @@
   </customwidget>
   <customwidget>
    <class>SMScrSpinBox</class>
-   <extends>QSpinBox</extends>
+   <extends>QDoubleSpinBox</extends>
    <header>ui/smscrspinbox.h</header>
   </customwidget>
   <customwidget>

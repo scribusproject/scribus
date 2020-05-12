@@ -41,59 +41,59 @@ class ScribusView;
 
 class CanvasMode_EditMeshPatch :  public CanvasMode
 {
-public:
-	explicit CanvasMode_EditMeshPatch(ScribusView* view);
-	~CanvasMode_EditMeshPatch() override;
+	public:
+		explicit CanvasMode_EditMeshPatch(ScribusView* view);
+		~CanvasMode_EditMeshPatch() override;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
 
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mouseReleaseEvent(QMouseEvent *m) override;
-	void mouseMoveEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void keyPressEvent(QKeyEvent *e) override;
-	bool handleKeyEvents() const override { return true; }
-	void drawControls(QPainter* p) override;
-	void drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected);
-	void drawControlsMeshPatch(QPainter* psx, PageItem* currItem);
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mouseReleaseEvent(QMouseEvent *m) override;
+		void mouseMoveEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void keyPressEvent(QKeyEvent *e) override;
+		bool handleKeyEvents() const override { return true; }
+		void drawControls(QPainter* p) override;
+		void drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected);
+		void drawControlsMeshPatch(QPainter* psx, PageItem* currItem);
 
-private:
-	void snapToOtherPatch(double &x, double &y);
-	typedef enum
-	{
-		noPointDefined,
-		useTL,
-		useTR,
-		useBR,
-		useBL
-	} eMPatchPoint;
+	private:
+		void snapToOtherPatch(double &x, double &y);
+		typedef enum
+		{
+			noPointDefined,
+			useTL,
+			useTR,
+			useBR,
+			useBL
+		} eMPatchPoint;
 
-	typedef enum
-	{
-		noControlPointDefined,
-		useControlT,
-		useControlB,
-		useControlL,
-		useControlR,
-		useControlC
-	} eMGradientPoint;
+		typedef enum
+		{
+			noControlPointDefined,
+			useControlT,
+			useControlB,
+			useControlL,
+			useControlR,
+			useControlC
+		} eMGradientPoint;
 
-	inline bool GetItem(PageItem** pi);
+		inline bool GetItem(PageItem** pi);
 
-	MeshPoint* m_old_mesh {nullptr};
-	PageItem *m_currItem {nullptr};
-	QPointF m_currentPoint;
-	QPolygonF m_clickPointPolygon;
-	ScribusMainWindow* m_ScMW {nullptr};
-	bool m_keyRepeat {false};
-	double m_Mxp {-1.0};
-	double m_Myp {-1.0};
-	eMGradientPoint m_gradientPoint {noControlPointDefined};
-	eMPatchPoint m_patchPoint {noPointDefined};
-	int m_click_count {0};
+		MeshPoint* m_old_mesh {nullptr};
+		PageItem *m_currItem {nullptr};
+		QPointF m_currentPoint;
+		QPolygonF m_clickPointPolygon;
+		ScribusMainWindow* m_ScMW {nullptr};
+		bool m_keyRepeat {false};
+		double m_Mxp {-1.0};
+		double m_Myp {-1.0};
+		eMGradientPoint m_gradientPoint {noControlPointDefined};
+		eMPatchPoint m_patchPoint {noPointDefined};
+		int m_click_count {0};
 };
 
 #endif

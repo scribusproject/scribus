@@ -53,7 +53,7 @@ void ColorWheelPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString ColorWheelPlugin::fullTrName() const
+QString ColorWheelPlugin::fullTrName() const
 {
 	return QObject::tr("Color Wheel");
 }
@@ -82,11 +82,12 @@ void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 bool ColorWheelPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	Q_ASSERT(target.isNull());
-	ScribusDoc* currDoc=doc;
-	if (currDoc==nullptr)
-		currDoc=ScCore->primaryMainWindow()->doc;
-	if (currDoc==nullptr)
+	ScribusDoc* currDoc = doc;
+	if (currDoc == nullptr)
+		currDoc = ScCore->primaryMainWindow()->doc;
+	if (currDoc == nullptr)
 		return false;
+
 	auto *dlg = new CWDialog(currDoc->scMW(), currDoc, "dlg", true);
 	if (dlg)
 	{

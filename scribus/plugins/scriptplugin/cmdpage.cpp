@@ -27,8 +27,7 @@ PyObject *scribus_redraw(PyObject* /* self */)
 		return nullptr;
 	ScCore->primaryMainWindow()->view->DrawNew();
 	qApp->processEvents();
- //	Py_INCREF(Py_None);
- //	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -314,8 +313,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 		}
 		currentDoc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
- 	Py_INCREF(Py_None);
- 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -367,8 +365,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 		}
 		currentDoc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 

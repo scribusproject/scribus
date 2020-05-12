@@ -873,12 +873,12 @@ void Biblio::setScrapbookFileName(const QString& fileName)
 	activeBView->ScFilename=fileName;
 }
 
-const QString Biblio::getScrapbookFileName()
+const QString& Biblio::getScrapbookFileName()
 {
 	return activeBView->ScFilename;
 }
 
-const int Biblio::objectCount()
+int Biblio::objectCount()
 {
 	return activeBView->objectMap.count();
 }

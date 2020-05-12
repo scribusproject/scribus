@@ -73,7 +73,7 @@ protected:
 	
 protected slots:
 	virtual void iconSetChange();
-	virtual void languageChange();
+	void languageChange();
 	
 	void alignLeftOut();
 	void alignRightOut();

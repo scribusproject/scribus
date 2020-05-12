@@ -72,7 +72,7 @@ void UniconvImportPlugin::languageChange()
 	fmt->filter = name + " (" +  FormatsManager::instance()->extensionListForFormat( FormatsManager::UNICONV, 0)+")";
 }
 
-const QString UniconvImportPlugin::fullTrName() const
+QString UniconvImportPlugin::fullTrName() const
 {
 	return QObject::tr("Uniconvertor Import");
 }

@@ -126,7 +126,7 @@ private:
 	/** @brief Detailed description of the state (operation). */
 	QString m_actionDescription;
 	/** @brief Icon related to the state (operation) */
-	QPixmap *m_actionPixmap;
+	QPixmap *m_actionPixmap {nullptr};
 	/** @brief UndoObject this state belongs to */
 	UndoObjectPtr m_undoObject;
 };
@@ -175,7 +175,7 @@ public:
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	QString get(const QString& key, const QString& def = "");
+	QString get(const QString& key, const QString& def = QString());
 
 	/**
 	 * @brief Returns the int value attached to the key.

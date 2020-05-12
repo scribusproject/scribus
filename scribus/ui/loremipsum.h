@@ -52,13 +52,13 @@ public:
 	~LoremParser(){};
 
 	//! Is the LI correct?
-	bool correct;
+	bool correct {false};
 	//! Name to display
-	QString name;
+	QString name {"n/a"};
 	//! Author of the LI
-	QString author;
+	QString author {"n/a"};
 	//! Website of the LI
-	QString url;
+	QString url {"n/a"};
 	//! Paragraphs of the LI
 	QStringList loremIpsum;
 
@@ -109,22 +109,22 @@ public:
 
 
 private:
-	ScribusDoc* m_Doc;
-	QTreeWidget* loremList;
-	QLabel* paraLabel;
-	QSpinBox* paraBox;
-	QCheckBox* randomCheckBox;
-	QCheckBox* appendCheckBox;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	QGridLayout* LoremManagerLayout;
-	QVBoxLayout* layout3;
-	QHBoxLayout* layout2;
-	QSpacerItem* paraSpacer;
-	QHBoxLayout* layout1;
-	QSpacerItem* buttonSpacer;
+	QCheckBox* appendCheckBox {nullptr};
+	QCheckBox* randomCheckBox {nullptr};
+	QGridLayout* LoremManagerLayout {nullptr};
+	QHBoxLayout* layout1 {nullptr};
+	QHBoxLayout* layout2 {nullptr};
+	QLabel* paraLabel {nullptr};
+	QPushButton* cancelButton {nullptr};
+	QPushButton* okButton {nullptr};
+	QSpacerItem* buttonSpacer {nullptr};
+	QSpacerItem* paraSpacer {nullptr};
+	QSpinBox* paraBox {nullptr};
 	QString standardloremtext;
-	UndoManager* undoManager;
+	QTreeWidget* loremList {nullptr};
+	QVBoxLayout* layout3 {nullptr};
+	ScribusDoc* m_Doc {nullptr};
+	UndoManager* undoManager {nullptr};
 
 	//! all lorems with Public Name -> filename structure
 	QMap<QString,QString> availableLorems;
@@ -132,7 +132,7 @@ private:
 	virtual void changeEvent(QEvent *e);
 
 protected slots:
-	virtual void languageChange();
+	void languageChange();
 
 };
 

@@ -98,7 +98,7 @@ void BezierMode::finalizeItem(PageItem* currItem)
 
 // the following code was moved from scribusview.cpp:
 
-void BezierMode::enterEvent(QEvent *)
+void BezierMode::enterEvent(QEvent *e)
 {
 	if (!m_mouseButtonPressed)
 	{

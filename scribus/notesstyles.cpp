@@ -23,7 +23,7 @@ bool NotesStyle::operator!=(const NotesStyle& n2)
 }
 
 
-const QString TextNote::numString()
+QString TextNote::numString()
 {
 	return notesStyle()->numString(m_number);
 }

@@ -46,9 +46,7 @@ public:
 	const QString & getCharacters();
 
 	//! Used for StoryEditor
-	CharTableModel * userTableModel() {
-		return m_userTableModel;
-	};
+	CharTableModel * userTableModel() { return m_userTableModel; }
 
 	virtual void changeEvent(QEvent *e);
 
@@ -62,19 +60,16 @@ signals:
 
 
 private:
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc {nullptr};
 	//! \brief m_userTable model
-	CharTableModel * m_userTableModel;
-	UnicodeSearchModel *m_unicodeSearchModel;
-
-	CharSelectEnhanced * m_enhanced;
+	CharTableModel * m_userTableModel {nullptr};
+	UnicodeSearchModel *m_unicodeSearchModel {nullptr};
+	CharSelectEnhanced * m_enhanced {nullptr};
 
 	//! Hold the "glyphs to insert" here.
 	QString chToIns;
-
 	QString paletteFileMask;
-
-	PageItem *m_Item;
+	PageItem *m_Item {nullptr};
 
 	void saveUserContent(const QString& f);
 	void loadUserContent(const QString& f);

@@ -271,7 +271,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 	}
 }
 
-void CanvasMode_EditMeshPatch::enterEvent(QEvent *)
+void CanvasMode_EditMeshPatch::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{

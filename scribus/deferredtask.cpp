@@ -8,15 +8,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTimer>
 #include "deferredtask.h"
 
-enum FileSearchStatus
-{
-	Status_NotStarted,
-	Status_Running,
-	Status_Cancelled,
-	Status_Failed,
-	Status_Finished,
-};
-
 DeferredTask::DeferredTask(QObject* parent) : QObject(parent)
 {
 	init();

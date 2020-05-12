@@ -67,7 +67,7 @@ ImportVivaPlugin::~ImportVivaPlugin()
 	unregisterAll();
 }
 
-const QString ImportVivaPlugin::fullTrName() const
+QString ImportVivaPlugin::fullTrName() const
 {
 	return QObject::tr("Viva Importer");
 }

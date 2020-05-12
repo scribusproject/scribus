@@ -95,7 +95,7 @@ bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
    *
 */
 int SCRIBUS_API System(const QString& exename, const QStringList & args,
-					   const QString& fileStdErr = "", const QString& fileStdOut = "",
+					   const QString& fileStdErr = QString(), const QString& fileStdOut = QString(),
 					   const bool* cancel = nullptr);
 
 /*!
@@ -198,6 +198,6 @@ QString getUniqueName(const QString& name, const STRINGLIST& list)
  * check if name exists in list
  * if exist then seprator and numbers are pre/append to name while it will be unique
 */
-void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = "", bool prepend = false);
+void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = QString(), bool prepend = false);
 
 #endif

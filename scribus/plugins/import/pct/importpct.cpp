@@ -63,7 +63,10 @@ QImage PctPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	double b, h, x, y;
+	double b {0.0};
+	double h {0.0};
+	double x {0.0};
+	double y {0.0};
 	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -2084,7 +2087,7 @@ QRect PctPlug::readRect(QDataStream &ts)
 	return QRect(QPoint(RectY, RectX), QPoint(RectH, RectW));
 }
 
-QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte)
+QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte)
 {
 	QByteArray ret = QByteArray(bytesPerLine, ' ');
 	uchar *ptrOut, *ptrIn;
@@ -2102,13 +2105,13 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 		{
 			// Copy next len+1 bytes literally.
 			len++;
-			len *= multByte;
+			len *= twoByte;
 			while (len != 0)
 			{
 				*ptrOut++ = *ptrIn++;
 				len--;
 				count++;
-				if (multByte == 2)
+				if (twoByte == 2)
 				{
 					*ptrOut++ = *ptrIn++;
 					len--;
@@ -2122,8 +2125,8 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte
 			// (Interpret len as a negative 8-bit int.)
 			len ^= 0xFF;
 			len += 2;
-			len *= multByte;
-			if (multByte == 2)
+			len *= twoByte;
+			if (twoByte == 2)
 			{
 				c = *ptrIn++;
 				count++;

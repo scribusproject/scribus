@@ -62,10 +62,10 @@ class QStyleOptionGraphicsItem;
 class PLUGIN_API NodeItem : public QGraphicsEllipseItem
 {
 public:
-	NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent);
+	NodeItem(QRectF geom, uint num, MeshDistortionDialog* parent);
 	~NodeItem() {};
 	
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget);
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget* widget);
 	uint handle;
 	bool mouseMoving;
 	bool mousePressed;

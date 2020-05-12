@@ -73,28 +73,27 @@ private:
 	double GetMaxFactor();
 	double getUserValFromFactor(double factor);
 
-	double m_Mxp {-1.0};
-	double m_Myp {-1.0};
-	ScribusMainWindow* m_ScMW {nullptr};
-	QPointF m_startPoint;
-	QPointF m_endPoint;
+	PolyVectorDialog *m_VectorDialog {nullptr};
 	QPointF m_centerPoint;
+	QPointF m_endPoint;
 	QPointF m_innerCPoint;
 	QPointF m_outerCPoint;
-	int m_polyCorners {0};
+	QPointF m_startPoint;
+	ScribusMainWindow* m_ScMW {nullptr};
+	UndoTransaction m_transaction;
 	bool m_polyUseFactor {false};
-	double m_polyFactor {0.0};
-	double m_polyRotation {0.0};
+	double m_Mxp {-1.0};
+	double m_Myp {-1.0};
 	double m_polyCurvature {0.0};
+	double m_polyFactor {0.0};
 	double m_polyInnerRot {0.0};
 	double m_polyOuterCurvature {0.0};
+	double m_polyRotation {0.0};
 	ePolygonPoint m_polygonPoint {noPointDefined};
-	PolyVectorDialog *m_VectorDialog;
-	UndoTransaction m_transaction;
-
-	int    m_blockUpdateFromItem;
-	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
-	bool   updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
+	int m_blockUpdateFromItem {0};
+	int m_polyCorners {0};
+	void blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }
+	bool updateFromItemBlocked() { return (m_blockUpdateFromItem > 0); }
 
 public slots:
 	void applyValues(int polyC, double polyF, bool polyUseCF, double polyR, double polyCur, double polyIRot, double polyOCur);

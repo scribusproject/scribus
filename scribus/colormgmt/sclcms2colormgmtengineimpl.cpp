@@ -23,7 +23,7 @@ QSharedPointer<ScColorProfileCache>  ScLcms2ColorMgmtEngineImpl::m_profileCache;
 QSharedPointer<ScColorTransformPool> ScLcms2ColorMgmtEngineImpl::m_transformPool;
 
 ScLcms2ColorMgmtEngineImpl::ScLcms2ColorMgmtEngineImpl()
-                         : ScColorMgmtEngineData("Littlecms v2", 1)
+	: ScColorMgmtEngineData("Littlecms v2", 1)
 {
 	if (!m_profileCache)
 		m_profileCache = QSharedPointer<ScColorProfileCache>(new ScColorProfileCache());
@@ -88,30 +88,26 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 			if (descSize > 0)
 			{
 				wchar_t* descData = (wchar_t*) malloc(descSize + sizeof(wchar_t));
-				descSize = cmsGetProfileInfo(hIn, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
+				if (descData)
+					descSize = cmsGetProfileInfo(hIn, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 				{
 					uint stringLen = descSize / sizeof(wchar_t);
 					descData[stringLen] = 0;
-					if (sizeof(wchar_t) == sizeof(QChar)) {
-						profileInfo.description = QString::fromUtf16((ushort *) descData);
-					} else {
-						profileInfo.description = QString::fromUcs4((uint *) descData);
-					}
-					free(descData);
+					profileInfo.description = QString::fromWCharArray(descData);
 				}
+				free(descData);
 			}
 #else
 			cmsUInt32Number descSize = cmsGetProfileInfoASCII(hIn, cmsInfoDescription, "en", "US", nullptr, 0);
 			if (descSize > 0)
 			{
 				char* descData = (char*) malloc(descSize + sizeof(char));
-				descSize = cmsGetProfileInfoASCII(hIn, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
-				{
+				if (descData)
+					descSize = cmsGetProfileInfoASCII(hIn, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 					profileInfo.description = QString(descData);
-					free(descData);
-				}
+				free(descData);
 			}
 #endif
 			if (profileInfo.description.isEmpty())

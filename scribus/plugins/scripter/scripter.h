@@ -19,13 +19,13 @@ class PLUGIN_API Scripter : public ScPersistentPlugin
 public:
     Scripter();
     virtual ~Scripter();
-    virtual bool initPlugin();
-    virtual bool cleanupPlugin();
-    virtual const QString fullTrName() const;
-    virtual const AboutData* getAboutData() const;
-    virtual void deleteAboutData(const AboutData* about) const;
-    virtual void languageChange();
-    virtual void addToMainWindowMenu(ScribusMainWindow *);
+    bool initPlugin() override;
+    bool cleanupPlugin() override;
+    QString fullTrName() const override;
+    const AboutData* getAboutData() const override;
+    void deleteAboutData(const AboutData* about) const override;
+    void languageChange() override;
+    void addToMainWindowMenu(ScribusMainWindow *) override;
 
 private:
     ScripterImpl *scripterImpl;

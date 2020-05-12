@@ -94,14 +94,15 @@ public:
 	void setMinMaxValues(int min, int max);
 	void setMinMaxValues(double min, double max);
 	void setColorList(const ColorList& colors);
+
 	int m_type;
-	int m_unit;
-	int m_decimals;
-	double m_fmin;
-	double m_fmax;
-	int m_min;
-	int m_max;
-	int m_comboIndex;
+	int m_unit = 0;
+	int m_decimals = 0;
+	double m_fmin = 0.0;
+	double m_fmax = 0.0;
+	int m_min = 0;
+	int m_max = 0;
+	int m_comboIndex = -1;
 	ColorList m_colors;
 
 signals:

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 
 ScLcms2ColorProfileImpl::ScLcms2ColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile)
-                      : ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
+	: ScColorProfileImplBase(engine), m_profileHandle(lcmsProfile)
 {
 
 }
@@ -48,12 +48,8 @@ bool ScLcms2ColorProfileImpl::isSuitableForOutput() const
 		return true;
 
 	cmsUInt32Number defaultIntent = cmsGetHeaderRenderingIntent(m_profileHandle);
-	if (cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_INPUT) &&
-		cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_OUTPUT))
-	{
-		return true;
-	}
-	return false;
+	return (cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_INPUT) &&
+			cmsIsCLUT(m_profileHandle, defaultIntent, LCMS_USED_AS_OUTPUT));
 }
 
 QString ScLcms2ColorProfileImpl::productDescription() const
@@ -67,30 +63,26 @@ QString ScLcms2ColorProfileImpl::productDescription() const
 			if (descSize > 0)
 			{
 				wchar_t* descData = (wchar_t*) malloc(descSize + sizeof(wchar_t));
-				descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
+				if (descData)
+					descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 				{
 					uint stringLen = descSize / sizeof(wchar_t);
 					descData[stringLen] = 0;
-					if (sizeof(wchar_t) == sizeof(QChar)) {
-						m_productDescription = QString::fromUtf16((ushort *) descData);
-					} else {
-						m_productDescription = QString::fromUcs4((uint *) descData);
-					}
-					free(descData);
+					m_productDescription = QString::fromWCharArray(descData);
 				}
+				free(descData);
 			}
 #else
 			cmsUInt32Number descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
 			if (descSize > 0)
 			{
 				char* descData = (char*) malloc(descSize + sizeof(char));
-				descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descSize > 0)
-				{
+				if (descData)
+					descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+				if (descData && (descSize > 0))
 					m_productDescription = QString(descData);
-					free(descData);
-				}
+				free(descData);
 			}
 #endif
 		}
@@ -121,7 +113,7 @@ bool ScLcms2ColorProfileImpl::save(QByteArray& profileData) const
 
 	// Allocate array for profile data
 	profileData.resize(bytesNeeded);
-	if (profileData.size() != bytesNeeded)
+	if (profileData.size() != static_cast<int>(bytesNeeded))
 		return false;
 	done = cmsSaveProfileToMem(m_profileHandle, profileData.data(), &bytesNeeded);
 

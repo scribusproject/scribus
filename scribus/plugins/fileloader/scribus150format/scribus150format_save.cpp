@@ -92,6 +92,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 		}
 	}
 
+	// Write paragraph styles
 	QList<QString>::Iterator it;
 	QList<QString> names = lists.styleNames();
 	QList<int> styleList = m_Doc->getSortedStyleList();
@@ -102,6 +103,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 			putPStyle(writer, paragraphStyle, "STYLE");
 	}
 
+	// Write character styles
 	names = lists.charStyleNames();
 	styleList = m_Doc->getSortedCharStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
@@ -115,6 +117,36 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	}
 
 	writeLineStyles(writer);
+
+	// TODO Write used marks
+	// writeMarks(writer);
+
+	// Write note styles
+	names = lists.noteStyleNames();
+	writeNotesStyles(writer, names);
+
+	// Write note frames
+	QList<PageItem_NoteFrame*> nfList;
+	for (int i = 0; i < selection->count(); ++i)
+	{
+		PageItem* item = selection->itemAt(i);
+		if (!item->isNoteFrame())
+			continue;
+		nfList.append(dynamic_cast<PageItem_NoteFrame*>(item));
+	}
+	writeNotesFrames(writer, nfList);
+
+	// TODO Write text notes (once marks are also written)
+	// Do not uncomment before otherwise pasting note frame
+	// will trigger a crash
+	/*QList<TextNote*> textNotes;
+	for (int i = 0; i < nfList.count(); ++i)
+	{
+		PageItem_NoteFrame* noteFrame = nfList.at(i);
+		textNotes.append(noteFrame->notesList());
+	}
+	writeNotes(writer, textNotes);*/
+
 	writePatterns(writer, fileDir, true, selection);
 	if (!emF.isEmpty())
 		WriteObjects(m_Doc, writer, fileDir, nullptr, 0, ItemSelectionFrame, &emF);
@@ -483,7 +515,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu) 
 {
 	QHash<QString,multiLine>::Iterator itMU;
-	for (itMU = m_Doc->MLineStyles.begin(); itMU != m_Doc->MLineStyles.end(); ++itMU)
+	for (itMU = m_Doc->docLineStyles.begin(); itMU != m_Doc->docLineStyles.end(); ++itMU)
 	{
 		docu.writeStartElement("MultiLine");
 		docu.writeAttribute("Name",itMU.key());
@@ -1300,8 +1332,9 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 	//write list of definied marks to SLA
 	if (m_Doc->marksList().isEmpty())
 		return;
+
 	docu.writeStartElement("Marks");
-	foreach(Mark* mrk, m_Doc->marksList())
+	for (Mark* mrk : m_Doc->marksList())
 	{
 		if (mrk->isType(MARKNoteFrameType))
 			continue;
@@ -1331,18 +1364,39 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 
 void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 {
+	if (m_Doc->m_docNotesStylesList.isEmpty())
+		return;
+
+	//write notes styles
+	QStringList noteStyleNames; 
+	QList<NotesStyle*>::ConstIterator end = m_Doc->m_docNotesStylesList.constEnd();
+	for (auto itNS = m_Doc->m_docNotesStylesList.constBegin(); itNS != end; ++itNS)
+	{
+		const NotesStyle* noteStyle = (*itNS);
+		noteStyleNames.append(noteStyle->name());
+	}
+	writeNotesStyles(docu, noteStyleNames);
+}
+
+void  Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection)
+{
+	if (styleSelection.isEmpty())
+		return;
+
 	//write notes styles
 	docu.writeStartElement("NotesStyles");
 	QList<NotesStyle*>::Iterator itNS;
 	QList<NotesStyle*>::Iterator end = m_Doc->m_docNotesStylesList.end();
 	for (itNS = m_Doc->m_docNotesStylesList.begin(); itNS != end; ++itNS)
 	{
-		NotesStyle* NS = (*itNS);
+		NotesStyle* noteStyle = (*itNS);
+		if (!styleSelection.contains(noteStyle->name()))
+			continue;
 		docu.writeEmptyElement("notesStyle");
-		docu.writeAttribute("Name", NS->name());
-		docu.writeAttribute("Start", NS->start());
-		docu.writeAttribute("Endnotes", NS->isEndNotes());
-		switch (NS->getType())
+		docu.writeAttribute("Name", noteStyle->name());
+		docu.writeAttribute("Start", noteStyle->start());
+		docu.writeAttribute("Endnotes", noteStyle->isEndNotes());
+		switch (noteStyle->getType())
 		{
 			case Type_1_2_3:
 				docu.writeAttribute("Type", "Type_1_2_3");
@@ -1381,54 +1435,58 @@ void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 				docu.writeAttribute("Type", "Type_None");
 				break;
 		}
-		docu.writeAttribute("Range", (int) NS->range());
-		docu.writeAttribute("Prefix", NS->prefix());
-		docu.writeAttribute("Suffix", NS->suffix());
-		docu.writeAttribute("AutoHeight", NS->isAutoNotesHeight());
-		docu.writeAttribute("AutoWidth", NS->isAutoNotesWidth());
-		docu.writeAttribute("AutoRemove", NS->isAutoRemoveEmptyNotesFrames());
-		docu.writeAttribute("AutoWeld", NS->isAutoWeldNotesFrames());
-		docu.writeAttribute("SuperNote", NS->isSuperscriptInNote());
-		docu.writeAttribute("SuperMaster", NS->isSuperscriptInMaster());
-		docu.writeAttribute("MarksStyle", NS->marksChStyle());
-		docu.writeAttribute("NotesStyle", NS->notesParStyle());
+		docu.writeAttribute("Range", (int) noteStyle->range());
+		docu.writeAttribute("Prefix", noteStyle->prefix());
+		docu.writeAttribute("Suffix", noteStyle->suffix());
+		docu.writeAttribute("AutoHeight", noteStyle->isAutoNotesHeight());
+		docu.writeAttribute("AutoWidth", noteStyle->isAutoNotesWidth());
+		docu.writeAttribute("AutoRemove", noteStyle->isAutoRemoveEmptyNotesFrames());
+		docu.writeAttribute("AutoWeld", noteStyle->isAutoWeldNotesFrames());
+		docu.writeAttribute("SuperNote", noteStyle->isSuperscriptInNote());
+		docu.writeAttribute("SuperMaster", noteStyle->isSuperscriptInMaster());
+		docu.writeAttribute("MarksStyle", noteStyle->marksChStyle());
+		docu.writeAttribute("NotesStyle", noteStyle->notesParStyle());
 	}
 	docu.writeEndElement();
 }
 
 void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 {
+	QList<PageItem_NoteFrame*> nfList;
+	for (NotesStyle* noteStyle : m_Doc->m_docNotesStylesList)
+		nfList.append(m_Doc->listNotesFrames(noteStyle));
+
+	writeNotesFrames(docu, nfList);
+}
+
+void Scribus150Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& itemList)
+{
+	if (itemList.isEmpty())
+		return;
+
 	docu.writeStartElement("NotesFrames");
 
-	QList<PageItem_NoteFrame*> NFList;
-	foreach (NotesStyle* NS, m_Doc->m_docNotesStylesList)
-		NFList.append(m_Doc->listNotesFrames(NS));
-
-	for (int it = 0; it < NFList.count(); ++it)
+	for (int i = 0; i < itemList.count(); ++i)
 	{
-		PageItem_NoteFrame* nF = NFList.at(it);
-		NotesStyle* NS = nF->notesStyle();
-		if (NS->isEndNotes())
+		PageItem_NoteFrame* noteFrame = itemList.at(i);
+		NotesStyle* noteStyle = noteFrame->notesStyle();
+		if (noteStyle->isEndNotes())
 		{
 			docu.writeEmptyElement("ENDNOTEFRAME");
-			docu.writeAttribute("NSname", NS->name());
-			docu.writeAttribute("range", (int) NS->range());
-			docu.writeAttribute("myID", qHash(nF) & 0x7FFFFFFF);
-			//docu.writeAttribute("name", nF->itemName());
+			docu.writeAttribute("NSname", noteStyle->name());
+			docu.writeAttribute("range", (int) noteStyle->range());
+			docu.writeAttribute("myID", qHash(noteFrame) & 0x7FFFFFFF);
 			
-			rangeItem rI = m_Doc->m_docEndNotesFramesMap.value(nF);
-			if (NS->range() == NSRstory)
+			rangeItem rI = m_Doc->m_docEndNotesFramesMap.value(noteFrame);
+			if (noteStyle->range() == NSRstory)
 				docu.writeAttribute("ItemID", qHash(rI.firstStoryFrame) & 0x7FFFFFFF);
-				//docu.writeAttribute("item", rI.firstStoryFrame->itemName());
 		}
 		else //footnotes frame
 		{
 			docu.writeEmptyElement("FOOTNOTEFRAME");
-			docu.writeAttribute("NSname", NS->name());
-			docu.writeAttribute("myID", qHash(nF) & 0x7FFFFFFF);
-			//docu.writeAttribute("name", nF->itemName());
-			docu.writeAttribute("MasterID", qHash(nF->masterFrame()) & 0x7FFFFFFF);
-			//docu.writeAttribute("master",nF->masterFrame()->itemName());
+			docu.writeAttribute("NSname", noteStyle->name());
+			docu.writeAttribute("myID", qHash(noteFrame) & 0x7FFFFFFF);
+			docu.writeAttribute("MasterID", qHash(noteFrame->masterFrame()) & 0x7FFFFFFF);
 		}
 	}
 	docu.writeEndElement();
@@ -1439,18 +1497,26 @@ void Scribus150Format::writeNotes(ScXmlStreamWriter & docu)
 	//write notes
 	if (m_Doc->notesList().isEmpty())
 		return;
+
+	const QList<TextNote*>& noteList = m_Doc->notesList();
+	writeNotes(docu, noteList);
+}
+
+void Scribus150Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList)
+{
+	if (noteList.isEmpty())
+		return;
+
 	docu.writeStartElement("Notes");
-	QList<TextNote*>::const_iterator itTN;
-	QList<TextNote*>::const_iterator end = m_Doc->notesList().end();
-	for (itTN = m_Doc->notesList().begin(); itTN != end; ++itTN)
+	for (int i = 0; i < noteList.count(); ++i)
 	{
-		TextNote* TN = (*itTN);
-		if (TN->masterMark() == nullptr)
+		TextNote* textNote = noteList.at(i);
+		if (textNote->masterMark() == nullptr)
 			continue;
 		docu.writeEmptyElement("Note");
-		docu.writeAttribute("Master", TN->masterMark()->label);
-		docu.writeAttribute("NStyle", TN->notesStyle()->name());
-		docu.writeAttribute("Text", TN->saxedText());
+		docu.writeAttribute("Master", textNote->masterMark()->label);
+		docu.writeAttribute("NStyle", textNote->notesStyle()->name());
+		docu.writeAttribute("Text", textNote->saxedText());
 	}
 	docu.writeEndElement();
 }

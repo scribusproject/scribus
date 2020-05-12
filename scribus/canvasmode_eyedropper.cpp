@@ -67,7 +67,7 @@ void CanvasMode_EyeDropper::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_EyeDropper::enterEvent(QEvent *)
+void CanvasMode_EyeDropper::enterEvent(QEvent *e)
 {
 	setModeCursor();
 }

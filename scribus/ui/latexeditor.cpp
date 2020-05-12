@@ -678,14 +678,14 @@ class SCRIBUS_API XmlSpinBox : public XmlWidget, public QSpinBox
 			m_description = xml->readI18nText();
 		}
 		
-		QString toString() const
+		QString toString() const override
 		{
 			if (value() == minimum() && !specialValueText().isEmpty())
 				return specialValueText();
 			return QString::number(value());
 		}
 		
-		void fromString(QString str)
+		void fromString(QString str) override
 		{
 			if (str == specialValueText())
 				setValue(minimum());
@@ -711,14 +711,14 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 			m_description = xml->readI18nText();
 		}
 		
-		QString toString() const
+		QString toString() const override
 		{
 			if (value() == minimum() && !specialValueText().isEmpty())
 				return specialValueText();
 			return QString::number(value());
 		}
 		
-		void fromString(QString str)
+		void fromString(QString str) override
 		{
 			if (str == specialValueText())
 				setValue(minimum());
@@ -734,11 +734,11 @@ class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const {
+		QString toString() const override {
 			return text();
 		}
 		
-		void fromString(QString str) {
+		void fromString(QString str) override {
 			setText(str);
 		}
 };
@@ -750,11 +750,11 @@ class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const {
+		QString toString() const override {
 			return toPlainText();
 		}
 		
-		void fromString(QString str) {
+		void fromString(QString str) override {
 			setPlainText(str);
 		}
 };
@@ -769,11 +769,11 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const {
+		QString toString() const override {
 			return "Not implemented!";
 		}
 		
-		void fromString(QString str) {
+		void fromString(QString str) override {
 			qDebug() << "Color pickers are not implemented yet!";
 		}
 };
@@ -809,7 +809,7 @@ class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 			}
 		}
 		
-		QString toString() const {
+		QString toString() const override {
 			return itemData(currentIndex()).toString();
 		}
 		

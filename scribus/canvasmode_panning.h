@@ -33,18 +33,18 @@ class ScribusView;
 
 class CanvasMode_Panning :  public CanvasMode
 {
-public:
-	explicit CanvasMode_Panning(ScribusView* view);
-	~CanvasMode_Panning() override = default;
+	public:
+		explicit CanvasMode_Panning(ScribusView* view);
+		~CanvasMode_Panning() override = default;
 
-	void enterEvent(QEvent *) override;
-	void leaveEvent(QEvent *) override;
-	
-	void activate(bool) override;
-	void deactivate(bool) override;
-	void mouseDoubleClickEvent(QMouseEvent *m) override;
-	void mousePressEvent(QMouseEvent *m) override;
-	void drawControls(QPainter* p) override;
+		void enterEvent(QEvent *) override;
+		void leaveEvent(QEvent *) override;
+
+		void activate(bool) override;
+		void deactivate(bool) override;
+		void mouseDoubleClickEvent(QMouseEvent *m) override;
+		void mousePressEvent(QMouseEvent *m) override;
+		void drawControls(QPainter* p) override;
 };
 
 

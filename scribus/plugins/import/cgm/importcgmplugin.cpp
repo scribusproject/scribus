@@ -68,7 +68,7 @@ ImportCgmPlugin::~ImportCgmPlugin()
 	unregisterAll();
 }
 
-const QString ImportCgmPlugin::fullTrName() const
+QString ImportCgmPlugin::fullTrName() const
 {
 	return QObject::tr("Cgm Importer");
 }

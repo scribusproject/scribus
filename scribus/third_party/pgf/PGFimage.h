@@ -32,10 +32,6 @@
 #include "PGFstream.h"
 
 //////////////////////////////////////////////////////////////////////
-// types
-enum ProgressMode { PM_Relative, PM_Absolute };
-
-//////////////////////////////////////////////////////////////////////
 // prototypes
 class CDecoder;
 class CEncoder;
@@ -45,46 +41,40 @@ class CWaveletTransform;
 /// PGF image class is the main class. You always need a PGF object
 /// for encoding or decoding image data.
 /// Decoding:
-///		pgf.Open(...)
-///		pgf.Read(...)
-///		pgf.GetBitmap(...)
+///		Open()
+///		Read()
+///		GetBitmap()
 /// Encoding:
-///		pgf.SetHeader(...)
-///		pgf.ImportBitmap(...)
-///		pgf.Write(...)
+///		SetHeader()
+///		ImportBitmap()
+///		Write()
 /// @author C. Stamm, R. Spuler
 /// @brief PGF main class
 class CPGFImage {
 public:
 	
 	//////////////////////////////////////////////////////////////////////
-	/// Standard constructor: It is used to create a PGF instance for opening and reading.
+	/// Standard constructor
 	CPGFImage();
 
 	//////////////////////////////////////////////////////////////////////
-	/// Destructor: Destroy internal data structures.
+	/// Destructor
 	virtual ~CPGFImage();
 
 	//////////////////////////////////////////////////////////////////////
-	/// Close PGF image after opening and reading.
-	/// Destructor calls this method during destruction.
-	virtual void Close();
-
-	//////////////////////////////////////////////////////////////////////
-	/// Destroy internal data structures.
-	/// Destructor calls this method during destruction.
-	virtual void Destroy();
+	// Destroy internal data structures. Object state after this is the same as after CPGFImage().
+	void Destroy();
 
 	//////////////////////////////////////////////////////////////////////
 	/// Open a PGF image at current stream position: read pre-header, header, and ckeck image type.
 	/// Precondition: The stream has been opened for reading.
 	/// It might throw an IOException.
 	/// @param stream A PGF stream
-	void Open(CPGFStream* stream) THROW_;
+	void Open(CPGFStream* stream);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Returns true if the PGF has been opened and not closed.
-	bool IsOpen() const	{ return m_decoder != NULL; }
+	/// Returns true if the PGF has been opened for reading.
+	bool IsOpen() const	{ return m_decoder != nullptr; }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Read and decode some levels of a PGF image at current stream position.
@@ -98,7 +88,7 @@ public:
 	/// @param level [0, nLevels) The image level of the resulting image in the internal image buffer.
 	/// @param cb A pointer to a callback procedure. The procedure is called after reading a single level. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void Read(int level = 0, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	void Read(int level = 0, CallbackPtr cb = nullptr, void *data = nullptr);
 
 #ifdef __PGFROISUPPORT__
 	//////////////////////////////////////////////////////////////////////
@@ -106,11 +96,11 @@ public:
 	/// The origin of the coordinate axis is the top-left corner of the image.
 	/// All coordinates are measured in pixels.
 	/// It might throw an IOException.
-	/// @param rect [inout] Rectangular region of interest (ROI). The rect might be cropped.
+	/// @param rect [inout] Rectangular region of interest (ROI) at level 0. The rect might be cropped.
 	/// @param level [0, nLevels) The image level of the resulting image in the internal image buffer.
 	/// @param cb A pointer to a callback procedure. The procedure is called after reading a single level. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void Read(PGFRect& rect, int level = 0, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	void Read(PGFRect& rect, int level = 0, CallbackPtr cb = nullptr, void *data = nullptr);
 #endif
 
 	//////////////////////////////////////////////////////////////////////
@@ -118,14 +108,14 @@ public:
 	/// For details, please refert to Read(...)
 	/// Precondition: The PGF image has been opened with a call of Open(...).
 	/// It might throw an IOException.
-	void ReadPreview() THROW_										{ Read(Levels() - 1); }
+	void ReadPreview()										{ Read(Levels() - 1); }
 
 	//////////////////////////////////////////////////////////////////////
 	/// After you've written a PGF image, you can call this method followed by GetBitmap/GetYUV
 	/// to get a quick reconstruction (coded -> decoded image).
 	/// It might throw an IOException.
 	/// @param level The image level of the resulting image in the internal image buffer.
-	void Reconstruct(int level = 0) THROW_;
+	void Reconstruct(int level = 0);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Get image data in interleaved format: (ordering of RGB data is BGR[A])
@@ -144,7 +134,7 @@ public:
 	/// @param channelMap A integer array containing the mapping of PGF channel ordering to expected channel ordering.
 	/// @param cb A pointer to a callback procedure. The procedure is called after each copied buffer row. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void GetBitmap(int pitch, UINT8* buff, BYTE bpp, int channelMap[] = NULL, CallbackPtr cb = NULL, void *data = NULL) const THROW_; // throws IOException
+	void GetBitmap(int pitch, UINT8* buff, BYTE bpp, int channelMap[] = nullptr, CallbackPtr cb = nullptr, void *data = nullptr) const; // throws IOException
 
 	//////////////////////////////////////////////////////////////////////
 	/// Get YUV image data in interleaved format: (ordering is YUV[A])
@@ -161,7 +151,7 @@ public:
 	/// @param channelMap A integer array containing the mapping of PGF channel ordering to expected channel ordering.
 	/// @param cb A pointer to a callback procedure. The procedure is called after each copied buffer row. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void GetYUV(int pitch, DataT* buff, BYTE bpp, int channelMap[] = NULL, CallbackPtr cb = NULL, void *data = NULL) const THROW_; // throws IOException
+	void GetYUV(int pitch, DataT* buff, BYTE bpp, int channelMap[] = nullptr, CallbackPtr cb = nullptr, void *data = nullptr) const; // throws IOException
 
 	//////////////////////////////////////////////////////////////////////
 	/// Import an image from a specified image buffer.
@@ -179,7 +169,7 @@ public:
 	/// @param channelMap A integer array containing the mapping of input channel ordering to expected channel ordering.
 	/// @param cb A pointer to a callback procedure. The procedure is called after each imported buffer row. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void ImportBitmap(int pitch, UINT8 *buff, BYTE bpp, int channelMap[] = NULL, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	void ImportBitmap(int pitch, UINT8 *buff, BYTE bpp, int channelMap[] = nullptr, CallbackPtr cb = nullptr, void *data = nullptr);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Import a YUV image from a specified image buffer.
@@ -196,10 +186,10 @@ public:
 	/// @param channelMap A integer array containing the mapping of input channel ordering to expected channel ordering.
 	/// @param cb A pointer to a callback procedure. The procedure is called after each imported buffer row. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void ImportYUV(int pitch, DataT *buff, BYTE bpp, int channelMap[] = NULL, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	void ImportYUV(int pitch, DataT *buff, BYTE bpp, int channelMap[] = nullptr, CallbackPtr cb = nullptr, void *data = nullptr);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Encode and write a entire PGF image (header and image) at current stream position.
+	/// Encode and write an entire PGF image (header and image) at current stream position.
 	/// A PGF image is structered in levels, numbered between 0 and Levels() - 1.
 	/// Each level can be seen as a single image, containing the same content
 	/// as all other levels, but in a different size (width, height).
@@ -211,7 +201,7 @@ public:
 	/// @param nWrittenBytes [in-out] The number of bytes written into stream are added to the input value.
 	/// @param cb A pointer to a callback procedure. The procedure is called after writing a single level. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
-	void Write(CPGFStream* stream, UINT32* nWrittenBytes = NULL, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	void Write(CPGFStream* stream, UINT32* nWrittenBytes = nullptr, CallbackPtr cb = nullptr, void *data = nullptr);
 
 	//////////////////////////////////////////////////////////////////
 	/// Create wavelet transform channels and encoder. Write header at current stream position.
@@ -220,10 +210,10 @@ public:
 	/// It might throw an IOException.
 	/// @param stream A PGF stream
 	/// @return The number of bytes written into stream.
-	UINT32 WriteHeader(CPGFStream* stream) THROW_;
+	UINT32 WriteHeader(CPGFStream* stream);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Encode and write the one and only image at current stream position.
+	/// Encode and write an image at current stream position.
 	/// Call this method after WriteHeader(). In case you want to write uncached metadata, 
 	/// then do that after WriteHeader() and before WriteImage(). 
 	/// This method is called inside of Write(stream, ...).
@@ -232,7 +222,7 @@ public:
 	/// @param cb A pointer to a callback procedure. The procedure is called after writing a single level. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
 	/// @return The number of bytes written into stream.
-	UINT32 WriteImage(CPGFStream* stream, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	UINT32 WriteImage(CPGFStream* stream, CallbackPtr cb = nullptr, void *data = nullptr);
 
 #ifdef __PGFROISUPPORT__
 	//////////////////////////////////////////////////////////////////
@@ -250,7 +240,7 @@ public:
 	/// @param cb A pointer to a callback procedure. The procedure is called after writing a single level. If cb returns true, then it stops proceeding.
 	/// @param data Data Pointer to C++ class container to host callback procedure.
 	/// @return The number of bytes written into stream.
-	UINT32 Write(int level, CallbackPtr cb = NULL, void *data = NULL) THROW_;
+	UINT32 Write(int level, CallbackPtr cb = nullptr, void *data = nullptr);
 #endif
 
 	/////////////////////////////////////////////////////////////////////
@@ -262,12 +252,18 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	/// Configures the decoder.
 	/// @param useOMP Use parallel threading with Open MP during decoding. Default value: true. Influences the decoding only if the codec has been compiled with OpenMP support.
-	/// @param skipUserData The file might contain user data (metadata). User data ist usually read during Open and stored in memory. Set this flag to false when storing in memory is not needed.
-	void ConfigureDecoder(bool useOMP = true, bool skipUserData = false) { m_useOMPinDecoder = useOMP; m_skipUserData = skipUserData; }
+	/// @param policy The file might contain user data (e.g. metadata). The policy defines the behaviour during Open(). 
+	///               UP_CacheAll:    User data is read and stored completely in a new allocated memory block. It can be accessed by GetUserData().
+	///               UP_CachePrefix: Only prefixSize bytes at the beginning of the user data are stored in a new allocated memory block. It can be accessed by GetUserData().
+	///               UP_Skip:        User data is skipped and nothing is cached. 
+	/// @param prefixSize Is only used in combination with UP_CachePrefix. It defines the number of bytes cached.
+	void ConfigureDecoder(bool useOMP = true, UserdataPolicy policy = UP_CacheAll, UINT32 prefixSize = 0) { ASSERT(prefixSize <= MaxUserDataSize);  m_useOMPinDecoder = useOMP; m_userDataPolicy = (UP_CachePrefix) ? prefixSize : 0xFFFFFFFF - policy; }
 
 	////////////////////////////////////////////////////////////////////
-	/// Reset stream position to start of PGF pre-header
-	void ResetStreamPos() THROW_;
+	/// Reset stream position to start of PGF pre-header or start of data. Must not be called before Open() or before Write(). 
+	/// Use this method after Read() if you want to read the same image several times, e.g. reading different ROIs.
+	/// @param startOfData true: you want to read the same image several times. false: resets stream position to the initial position
+	void ResetStreamPos(bool startOfData);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Set internal PGF image buffer channel.
@@ -277,13 +273,13 @@ public:
 
 	//////////////////////////////////////////////////////////////////////
 	/// Set PGF header and user data.
-	/// Precondition: The PGF image has been closed with Close(...) or never opened with Open(...).
+	/// Precondition: The PGF image has been never opened with Open(...).
 	/// It might throw an IOException.
 	/// @param header A valid and already filled in PGF header structure
 	/// @param flags A combination of additional version flags. In case you use level-wise encoding then set flag = PGFROI.
 	/// @param userData A user-defined memory block containing any kind of cached metadata.
 	/// @param userDataLength The size of user-defined memory block in bytes
-	void SetHeader(const PGFHeader& header, BYTE flags = 0, UINT8* userData = 0, UINT32 userDataLength = 0) THROW_; // throws IOException
+	void SetHeader(const PGFHeader& header, BYTE flags = 0, const UINT8* userData = 0, UINT32 userDataLength = 0); // throws IOException
 
 	//////////////////////////////////////////////////////////////////////
 	/// Set maximum intensity value for image modes with more than eight bits per channel.
@@ -312,7 +308,7 @@ public:
 	/// @param iFirstColor The color table index of the first entry to set.
 	/// @param nColors The number of color table entries to set.
 	/// @param prgbColors A pointer to the array of RGBQUAD structures to set the color table entries.
-	void SetColorTable(UINT32 iFirstColor, UINT32 nColors, const RGBQUAD* prgbColors) THROW_;
+	void SetColorTable(UINT32 iFirstColor, UINT32 nColors, const RGBQUAD* prgbColors);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return an internal YUV image channel.
@@ -326,7 +322,7 @@ public:
 	/// @param iFirstColor The color table index of the first entry to retrieve.
 	/// @param nColors The number of color table entries to retrieve.
 	/// @param prgbColors A pointer to the array of RGBQUAD structures to retrieve the color table entries.
-	void GetColorTable(UINT32 iFirstColor, UINT32 nColors, RGBQUAD* prgbColors) const THROW_;
+	void GetColorTable(UINT32 iFirstColor, UINT32 nColors, RGBQUAD* prgbColors) const;
 
 	//////////////////////////////////////////////////////////////////////
 	// Returns address of internal color table
@@ -352,9 +348,10 @@ public:
 	//////////////////////////////////////////////////////////////////////
 	/// Return user data and size of user data.
 	/// Precondition: The PGF image has been opened with a call of Open(...).
-	/// @param size [out] Size of user data in bytes.
-	/// @return A pointer to user data or NULL if there is no user data.
-	const UINT8* GetUserData(UINT32& size) const;
+	/// @param cachedSize [out] Size of returned user data in bytes.
+	/// @param pTotalSize [optional out] Pointer to return the size of user data stored in image header in bytes.
+	/// @return A pointer to user data or nullptr if there is no user data available.
+	const UINT8* GetUserData(UINT32& cachedSize, UINT32* pTotalSize = nullptr) const;
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return the length of all encoded headers in bytes.
@@ -370,13 +367,13 @@ public:
 	UINT32 GetEncodedLevelLength(int level) const					{ ASSERT(level >= 0 && level < m_header.nLevels); return m_levelLength[m_header.nLevels - level - 1]; }
 
 	//////////////////////////////////////////////////////////////////////
-	/// Reads the encoded PGF headers and copies it to a target buffer.
+	/// Reads the encoded PGF header and copies it to a target buffer.
 	/// Precondition: The PGF image has been opened with a call of Open(...).
 	/// It might throw an IOException.
 	/// @param target The target buffer
 	/// @param targetLen The length of the target buffer in bytes
 	/// @return The number of bytes copied to the target buffer
-	UINT32 ReadEncodedHeader(UINT8* target, UINT32 targetLen) const THROW_;
+	UINT32 ReadEncodedHeader(UINT8* target, UINT32 targetLen) const;
 
 	//////////////////////////////////////////////////////////////////////
 	/// Reads the data of an encoded PGF level and copies it to a target buffer 
@@ -387,7 +384,7 @@ public:
 	/// @param target The target buffer
 	/// @param targetLen The length of the target buffer in bytes
 	/// @return The number of bytes copied to the target buffer
-	UINT32 ReadEncodedData(int level, UINT8* target, UINT32 targetLen) const THROW_;
+	UINT32 ReadEncodedData(int level, UINT8* target, UINT32 targetLen) const;
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return current image width of given channel in pixels.
@@ -406,21 +403,21 @@ public:
 	//////////////////////////////////////////////////////////////////////
 	/// Return bits per channel of the image's encoder.
 	/// @return Bits per channel
-	BYTE ChannelDepth() const										{ return CurrentChannelDepth(m_preHeader.version); }
+	BYTE ChannelDepth() const										{ return MaxChannelDepth(m_preHeader.version); }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return image width of channel 0 at given level in pixels.
 	/// The returned width is independent of any Read-operations and ROI.
 	/// @param level A level
 	/// @return Image level width in pixels
-	UINT32 Width(int level = 0) const								{ ASSERT(level >= 0); return LevelWidth(m_header.width, level); }
+	UINT32 Width(int level = 0) const								{ ASSERT(level >= 0); return LevelSizeL(m_header.width, level); }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return image height of channel 0 at given level in pixels.
 	/// The returned height is independent of any Read-operations and ROI.
 	/// @param level A level
 	/// @return Image level height in pixels
-	UINT32 Height(int level = 0) const								{ ASSERT(level >= 0); return LevelHeight(m_header.height, level); }
+	UINT32 Height(int level = 0) const								{ ASSERT(level >= 0); return LevelSizeL(m_header.height, level); }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return current image level. 
@@ -433,6 +430,10 @@ public:
 	/// Return the number of image levels. 
 	/// @return Number of image levels
 	BYTE Levels() const												{ return m_header.nLevels; }
+
+	//////////////////////////////////////////////////////////////////////
+	/// Return true if all levels have been read 
+	bool IsFullyRead() const										{ return m_currentLevel == 0; }
 
 	//////////////////////////////////////////////////////////////////////
 	/// Return the PGF quality. The quality is inbetween 0 and MaxQuality.
@@ -464,6 +465,13 @@ public:
 	/// @return true if the pgf image supports ROI.
 	bool ROIisSupported() const										{ return (m_preHeader.version & PGFROI) == PGFROI; }
 
+#ifdef __PGFROISUPPORT__
+	/// Return ROI of channel 0 at current level in pixels.
+	/// The returned rect is only valid after reading a ROI.
+	/// @return ROI in pixels
+	PGFRect ComputeLevelROI() const;
+#endif
+
 	//////////////////////////////////////////////////////////////////////
 	/// Returns number of used bits per input/output image channel.
 	/// Precondition: header must be initialized.
@@ -471,9 +479,9 @@ public:
 	BYTE UsedBitsPerChannel() const;
 
 	//////////////////////////////////////////////////////////////////////
-	/// Returns images' PGF version
-	/// @return PGF codec version of the image
-	BYTE Version() const											{ return CurrentVersion(m_preHeader.version); }
+	/// Returns the used codec major version of a pgf image
+	/// @return PGF codec major version of this image
+	BYTE Version() const											{ BYTE ver = CodecMajorVersion(m_preHeader.version); return (ver <= 7) ? ver : (BYTE)m_header.version.major; }
 
 	//class methods
 
@@ -484,28 +492,30 @@ public:
 	static bool ImportIsSupported(BYTE mode);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Compute and return image width at given level.
-	/// @param width Original image width (at level 0)
+	/// Compute and return image width/height of LL subband at given level.
+	/// @param size Original image size (e.g. width or height at level 0)
 	/// @param level An image level
-	/// @return Image level width in pixels
-	static UINT32 LevelWidth(UINT32 width, int level)				{ ASSERT(level >= 0); UINT32 w = (width >> level); return ((w << level) == width) ? w : w + 1; }
+	/// @return Image width/height at given level in pixels
+	static UINT32 LevelSizeL(UINT32 size, int level)				{ ASSERT(level >= 0); UINT32 d = 1 << level; return (size + d - 1) >> level; }
 
 	//////////////////////////////////////////////////////////////////////
-	/// Compute and return image height at given level.
-	/// @param height Original image height (at level 0)
+	/// Compute and return image width/height of HH subband at given level.
+	/// @param size Original image size (e.g. width or height at level 0)
 	/// @param level An image level
-	/// @return Image level height in pixels
-	static UINT32 LevelHeight(UINT32 height, int level)				{ ASSERT(level >= 0); UINT32 h = (height >> level); return ((h << level) == height) ? h : h + 1; }
+	/// @return high pass size at given level in pixels
+	static UINT32 LevelSizeH(UINT32 size, int level)				{ ASSERT(level >= 0); UINT32 d = 1 << (level - 1); return (size + d - 1) >> level; }
 
 	//////////////////////////////////////////////////////////////////////
-	/// Compute and return codec version.
-	/// @return current PGF codec version
-	static BYTE CurrentVersion(BYTE version = PGFVersion);
+	/// Return codec major version.
+	/// @param version pgf pre-header version number
+	/// @return PGF major of given version
+	static BYTE CodecMajorVersion(BYTE version = PGFVersion);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Compute and return codec version.
-	/// @return current PGF codec version
-	static BYTE CurrentChannelDepth(BYTE version = PGFVersion)		{ return (version & PGF32) ? 32 : 16; }
+	/// Return maximum channel depth.
+	/// @param version pgf pre-header version number
+	/// @return maximum channel depth in bit of given version (16 or 32 bit)
+	static BYTE MaxChannelDepth(BYTE version = PGFVersion)			{ return (version & PGF32) ? 32 : 16; }
 
 protected:
 	CWaveletTransform* m_wtChannel[MaxChannels];	///< wavelet transformed color channels
@@ -520,12 +530,12 @@ protected:
 	PGFPostHeader m_postHeader;		///< PGF post-header
 	UINT64 m_userDataPos;			///< stream position of user data
 	int m_currentLevel;				///< transform level of current image
+	UINT32 m_userDataPolicy;		///< user data (metadata) policy during open
 	BYTE m_quant;					///< quantization parameter
 	bool m_downsample;				///< chrominance channels are downsampled
 	bool m_favorSpeedOverSize;		///< favor encoding speed over compression ratio
 	bool m_useOMPinEncoder;			///< use Open MP in encoder
 	bool m_useOMPinDecoder;			///< use Open MP in decoder
-	bool m_skipUserData;			///< skip user data (metadata) during open
 #ifdef __PGFROISUPPORT__
 	bool m_streamReinitialized;		///< stream has been reinitialized
 	PGFRect m_roi;					///< region of interest
@@ -537,14 +547,16 @@ private:
 	double m_percent;				///< progress [0..1]
 	ProgressMode m_progressMode;	///< progress mode used in Read and Write; PM_Relative is default mode
 
+	void Init();
 	void ComputeLevels();
-	void CompleteHeader();
-	void RgbToYuv(int pitch, UINT8* rgbBuff, BYTE bpp, int channelMap[], CallbackPtr cb, void *data) THROW_;
+	bool CompleteHeader();
+	void RgbToYuv(int pitch, UINT8* rgbBuff, BYTE bpp, int channelMap[], CallbackPtr cb, void *data);
 	void Downsample(int nChannel);
-	UINT32 UpdatePostHeaderSize() THROW_;
-	void WriteLevel() THROW_;
+	UINT32 UpdatePostHeaderSize();
+	void WriteLevel();
 
 #ifdef __PGFROISUPPORT__
+	PGFRect GetAlignedROI(int c = 0) const;
 	void SetROI(PGFRect rect);
 #endif
 

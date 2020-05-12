@@ -184,7 +184,7 @@ protected:
 	int initPlugin(const QString& fileName);
 
 	/*! \brief Reads available info and fills PluginData structure */
-	bool loadPlugin(PluginData & pluginData);
+	bool loadPlugin(PluginData& pluginData);
 
 	/*! \brief Determines the plugin name from the file name and returns it. */
 	static QString getPluginName(const QString& fileName);

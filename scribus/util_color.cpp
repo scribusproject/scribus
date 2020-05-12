@@ -745,14 +745,12 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 		{
 			QByteArray docBytes("");
 			loadRawText(fileName, docBytes);
-			QString docText("");
-			docText = QString::fromUtf8(docBytes);
+			QString docText(QString::fromUtf8(docBytes));
 			QDomDocument docu("scridoc");
 			docu.setContent(docText);
 			ScColor lf = ScColor();
 			QDomElement elem = docu.documentElement();
-			QString dTag = "";
-			dTag = elem.tagName();
+			QString dTag(elem.tagName());
 			QString nameMask = "%1";
 			nameMask = elem.attribute("mask", "%1");
 			QDomNode PAGE = elem.firstChild();

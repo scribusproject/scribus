@@ -224,10 +224,10 @@ while c <= (textlen -1):
     else:
         alafin = 0
         scribus.selectText(c+1, 1, textbox)
-        nextchar = scribus.getText(textbox)
+        nextchar = scribus.getAllText(textbox)
         
     scribus.selectText(c, 1, textbox)
-    char = scribus.getText(textbox)
+    char = scribus.getAllText(textbox)
 
 #    scribus.messageBox("ce qui est", "position:"+str(c) +'\nchar'+char+'\nPrec:'+prevchar+'\nsuiv:'+nextchar, 
 #           scribus.ICON_WARNING, scribus.BUTTON_OK)

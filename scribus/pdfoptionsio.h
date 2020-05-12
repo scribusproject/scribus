@@ -73,10 +73,10 @@ public:
 	 *
 	 * @warning on failure, struct contents are undefined.
 	 *
-	 * @param inStream QIODevice to settings data from.
+	 * @param inDevice QIODevice to settings data from.
 	 * @return True for success.
 	 */
-	bool readFrom(QIODevice& inStream);
+	bool readFrom(QIODevice& inDevice);
 	bool readFrom(const QString& inFileName);
 
 	/**

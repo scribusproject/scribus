@@ -8,10 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "smspinbox.h"
 
 SMSpinBox::SMSpinBox(QWidget *parent)
-: QSpinBox(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(0)
+	: QSpinBox(parent)
 {
 
 }

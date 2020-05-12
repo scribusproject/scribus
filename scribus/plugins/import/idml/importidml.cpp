@@ -213,18 +213,18 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	return tmp;
 }
 
-bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
+bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 {
 	bool success = false;
 	importedColors.clear();
 
 	QByteArray f;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi = QFileInfo(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
 		m_zip = new ScZipHandler();
-		if (!m_zip->open(fNameIn))
+		if (!m_zip->open(fileName))
 		{
 			delete m_zip;
 			m_zip = nullptr;
@@ -235,7 +235,7 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	}
 	else if (ext == "idms")
 	{
-		loadRawText(fNameIn, f);
+		loadRawText(fileName, f);
 	}
 
 	if (f.isEmpty())

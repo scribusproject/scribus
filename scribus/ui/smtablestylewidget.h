@@ -68,7 +68,7 @@ public:
 	void showColors(const QList<TableStyle*> &tableStyles);
 
 private:
-	ScribusDoc * m_Doc;
+	ScribusDoc * m_Doc = nullptr;
 
 private slots:
 	void handleUpdateRequest(int);

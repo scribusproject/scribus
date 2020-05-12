@@ -61,11 +61,10 @@ ImportZmfPlugin::~ImportZmfPlugin()
 	unregisterAll();
 }
 
-const QString ImportZmfPlugin::fullTrName() const
+QString ImportZmfPlugin::fullTrName() const
 {
 	return QObject::tr("Zoner Draw Importer");
 }
-
 
 const ScActionPlugin::AboutData* ImportZmfPlugin::getAboutData() const
 {

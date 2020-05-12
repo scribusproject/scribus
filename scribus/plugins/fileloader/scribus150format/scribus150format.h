@@ -24,6 +24,7 @@ class QIODevice;
 
 class  ColorList;
 class  multiLine;
+class  PageItem_NoteFrame;
 class  ScLayer;
 class  ScribusDoc;
 //struct ScribusDoc::BookMa;
@@ -31,6 +32,7 @@ class  ScXmlStreamAttributes;
 class  ScXmlStreamReader;
 class  ScXmlStreamWriter;
 class  StoryText;
+class  TextNote;
 
 class PLUGIN_API Scribus150Format : public LoadSavePlugin
 {
@@ -40,29 +42,29 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus150Format();
 		virtual ~Scribus150Format();
-		virtual const QString fullTrName() const;
-		virtual const AboutData* getAboutData() const;
-		virtual void deleteAboutData(const AboutData* about) const;
-		virtual void languageChange();
+		QString fullTrName() const override;
+		const AboutData* getAboutData() const override;
+		void deleteAboutData(const AboutData* about) const override;
+		void languageChange() override;
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
-		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const;
+		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
 
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
-		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
-		virtual bool savePalette(const QString & fileName);
-		virtual QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData);
-		virtual bool loadPalette(const QString & fileName);
-		virtual bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc);
-		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
+		bool saveFile(const QString & fileName, const FileFormat & fmt) override;
+		bool savePalette(const QString & fileName) override;
+		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) override;
+		bool loadPalette(const QString & fileName) override;
+		bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) override;
+		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
-		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString());
-		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
-		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
-		virtual bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty);
-		virtual bool readColors(const QString& fileName, ColorList & colors);
-		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
+		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, const QString& renamedPageName=QString()) override;
+		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) override;
+		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) override;
+		bool readLineStyles(const QString& fileName, QHash<QString, multiLine> *Sty) override;
+		bool readColors(const QString& fileName, ColorList & colors) override;
+		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) override;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces) override;
 
 	private:
 
@@ -78,16 +80,16 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		class ItemInfo
 		{
 		public:
-			ItemInfo(void) { groupLastItem = nextItem = ownLink = ownWeld = ownNr = itemID = 0; item = nullptr; isGroupFlag = isWeldFlag = false; };
-			PageItem* item;
-			int groupLastItem;
-			int nextItem;
-			int ownLink;
-			int ownWeld;
-			int ownNr;
-			int itemID;
-			bool isGroupFlag;
-			bool isWeldFlag;
+			ItemInfo(void) {}
+			PageItem* item {nullptr};
+			int groupLastItem {0};
+			int nextItem {0};
+			int ownLink {0};
+			int ownWeld {0};
+			int ownNr {0};
+			int itemID {0};
+			bool isGroupFlag {false};
+			bool isWeldFlag {false};
 		};
 
 		class ReadObjectParams
@@ -192,8 +194,11 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeTOC(ScXmlStreamWriter& docu);
 		void writeMarks(ScXmlStreamWriter & docu);
 		void writeNotesStyles(ScXmlStreamWriter & docu);
+		void writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection);
 		void writeNotesFrames(ScXmlStreamWriter & docu);
+		void writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& nfList);
 		void writeNotes(ScXmlStreamWriter & docu);
+		void writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList);
 		void writePageSets(ScXmlStreamWriter& docu);
 		void writeSections(ScXmlStreamWriter& docu);
 		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir, bool part = false, Selection* selection = 0);
@@ -211,21 +216,21 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		QMap<int, int> itemNextF;
 		QMap<int, int> itemRemapM;
 		QMap<int, int> itemNextM;
-		QMap<int,PageItem*> LinkID;
+		QMap<int, PageItem*> LinkID;
 		QList<PageItem*> FrameItems;
 		QMap<PageItem*, QString> itemsWeld;  //item* and master name
 
-		int itemCount;
-		int itemCountM;
-		bool layerFound;
-		int LayerToPaste;
-		double Xp;
-		double GrX;
-		double Yp;
-		double GrY;
-		QString clipPath;
-		bool isNewFormat;
 		QFile aFile;
+		QString clipPath;
+		bool isNewFormat {false};
+		bool layerFound {false};
+		double GrX {0.0};
+		double GrY {0.0};
+		double Xp {0.0};
+		double Yp {0.0};
+		int LayerToPaste {0};
+		int itemCount {0};
+		int itemCountM {0};
 };
 
 extern "C" PLUGIN_API int scribus150format_getPluginAPIVersion();

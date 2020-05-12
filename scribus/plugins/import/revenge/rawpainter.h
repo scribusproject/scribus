@@ -107,57 +107,60 @@ public:
 	void recolorItem(PageItem* ite, const QString& efVal);
 	void applyArrows(PageItem* ite);
 	void finishItem(PageItem* ite);
+
 private:
-	RawPainterPrivate *m_pImpl;
-	ScribusDoc* m_Doc;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	QList<PageItem*> *Elements;
-	QStringList *importedColors;
-	QStringList *importedPatterns;
-	Selection* tmpSel;
+	RawPainterPrivate *m_pImpl { nullptr };
+	ScribusDoc* m_Doc { nullptr };
+	double m_baseX;
+	double m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	QList<PageItem*> *m_elements { nullptr };
+	QStringList *m_importedColors { nullptr };
+	QStringList *m_importedPatterns { nullptr };
+	Selection* m_tmpSel { nullptr };
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
 		FPointArray clip;
 	};
-	QStack<groupEntry> groupStack;
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	double CurrStrokeTrans;
-	double CurrFillTrans;
-	FPointArray Coords;
-	bool fillrule;
-	double gradientAngle;
-	bool isGradient;
-	VGradient currentGradient;
-	QString gradColor1Str;
-	QColor gradColor1;
-	double gradColor1Trans;
-	QString gradColor2Str;
-	QColor gradColor2;
-	double gradColor2Trans;
-	QVector<double> dashArray;
-	Qt::PenJoinStyle lineJoin;
-	Qt::PenCapStyle lineEnd;
-	bool firstPage;
-	QString baseLayer;
-	int actPage;
+	QStack<groupEntry> m_groupStack;
+
+	double m_lineWidth { 1.0 };
+	QString m_currColorFill { "Black" };
+	QString m_currColorStroke { "Black" };
+	double  m_currStrokeShade { 100.0 };
+	double m_currFillShade { 100.0 };
+	double m_currStrokeTrans { 0.0 };
+	double m_currFillTrans { 0.0 };
+	FPointArray m_coords;
+	bool m_fillRule { true };
+	double m_gradientAngle { 0.0 };
+	bool m_isGradient { false };
+	VGradient m_currentGradient;
+	QString m_gradColor1Str;
+	QColor m_gradColor1;
+	double m_gradColor1Trans { 1.0 };
+	QString m_gradColor2Str;
+	QColor m_gradColor2;
+	double m_gradColor2Trans { 1.0 };
+	QVector<double> m_dashArray;
+	Qt::PenJoinStyle m_lineJoin { Qt::MiterJoin };
+	Qt::PenCapStyle m_lineEnd { Qt::FlatCap };
+	bool m_firstPage { true };
+	int  m_currentPage { 0 };
+	QString m_baseLayer;
 	librevenge::RVNGPropertyList m_style;
-	PageItem *actTextItem;
-	ParagraphStyle textStyle;
-	CharStyle textCharStyle;
-	double m_linespace;
-	double m_maxFontSize;
-	bool lineSpSet;
-	bool lineSpIsPT;
-	int importerFlags;
-	bool doProcessing;
-	QString fileType;
+	PageItem *m_currTextItem { nullptr };
+	ParagraphStyle m_textStyle;
+	CharStyle m_textCharStyle;
+	double m_linespace { 1.0 };
+	double m_maxFontSize { 1.0 };
+	bool m_lineSpSet { false };
+	bool m_lineSpIsPT { false };
+	int m_importerFlags;
+	bool m_doProcessing { true };
+	QString m_fileType;
 };
 
 class RawPainterPres : public librevenge::RVNGRawTextGenerator
@@ -165,6 +168,7 @@ class RawPainterPres : public librevenge::RVNGRawTextGenerator
 public:
 	RawPainterPres(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp);
 	~RawPainterPres();
+
 	void startDocument(const librevenge::RVNGPropertyList &propList);
 	void endDocument();
 	void setDocumentMetaData(const librevenge::RVNGPropertyList &propList);
@@ -243,6 +247,7 @@ class RawPainter : public libwpg::WPGPaintInterface
 {
 public:
 	RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, QString fTyp);
+
 	void startGraphics(const ::WPXPropertyList &propList);
 	void endGraphics();
 	void startLayer(const ::WPXPropertyList &propList);
@@ -276,55 +281,57 @@ public:
 	void applyArrows(PageItem* ite);
 	void finishItem(PageItem* ite);
 
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	QList<PageItem*> *Elements;
+	ScribusDoc* m_Doc { nullptr };
+	Selection* m_tmpSel { nullptr };
+	QList<PageItem*> *m_elements { nullptr };
+	QStringList *m_importedColors { nullptr };
+	QStringList *m_importedPatterns { nullptr };
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
 		FPointArray clip;
 	};
-	QStack<groupEntry> groupStack;
-	QStringList *importedColors;
-	QStringList *importedPatterns;
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	double CurrStrokeTrans;
-	double CurrFillTrans;
-	FPointArray Coords;
-	bool fillrule;
-	double gradientAngle;
-	bool isGradient;
-	VGradient currentGradient;
-	QString gradColor1Str;
-	QColor gradColor1;
-	double gradColor1Trans;
-	QString gradColor2Str;
-	QColor gradColor2;
-	double gradColor2Trans;
-	QVector<double> dashArray;
-	Qt::PenJoinStyle lineJoin;
-	Qt::PenCapStyle lineEnd;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	int importerFlags;
-	bool firstPage;
-	QString baseLayer;
-	int actPage;
+	QStack<groupEntry> m_groupStack;
+
+	double m_lineWidth { 1.0 };
+	QString m_currColorFill { "Black" };
+	QString m_currColorStroke { "Black" };
+	double m_currStrokeShade { 100.0 };
+	double m_currFillShade { 100.0 };
+	double m_currStrokeTrans { 0.0 };
+	double m_currFillTrans { 0.0 };
+	FPointArray m_coords;
+	bool m_fillRule { true };
+	double m_gradientAngle { 0.0 };
+	bool m_isGradient { false };
+	VGradient m_currentGradient;
+	QString m_gradColor1Str;
+	QColor m_gradColor1;
+	double m_gradColor1Trans { 1.0 };
+	QString m_gradColor2Str;
+	QColor m_gradColor2;
+	double m_gradColor2Trans { 1.0 };
+	QVector<double> m_dashArray;
+	Qt::PenJoinStyle m_lineJoin { Qt::MiterJoin };
+	Qt::PenCapStyle m_lineEnd { Qt::FlatCap };
+	double m_baseX;
+	double m_baseY;
+	double m_docWidth;
+	double m_docHeight;
+	int m_importerFlags;
+	bool m_firstPage { true };
+	int  m_currentPage { 0 };
+	QString m_baseLayer;
 	WPXPropertyList m_style;
-	PageItem *actTextItem;
-	ParagraphStyle textStyle;
-	CharStyle textCharStyle;
-	double m_linespace;
-	double m_maxFontSize;
-	bool lineSpSet;
-	bool lineSpIsPT;
-	bool doProcessing;
-	QString fileType;
+	PageItem *m_currTextItem { nullptr };
+	ParagraphStyle m_textStyle;
+	CharStyle m_textCharStyle;
+	double m_linespace { 1.0 };
+	double m_maxFontSize { 1.0 };
+	bool m_lineSpSet { false };
+	bool m_lineSpIsPT { false };
+	bool m_doProcessing { true };
+	QString m_fileType;
 };
 #endif
 

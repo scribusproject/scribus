@@ -61,7 +61,7 @@ ImportCvgPlugin::~ImportCvgPlugin()
 	unregisterAll();
 }
 
-const QString ImportCvgPlugin::fullTrName() const
+QString ImportCvgPlugin::fullTrName() const
 {
 	return QObject::tr("Calamus Vector Graphics Importer");
 }

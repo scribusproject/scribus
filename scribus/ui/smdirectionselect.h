@@ -14,15 +14,15 @@ public:
 	void setStyle(int i, bool isParentValue);
 
 	void setParentItem(int i);
-
 	bool useParentValue();
 
 	QToolButton *parentButton;
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentStyle;
-	int    m_pStyle;
+	bool   m_hasParent = false;
+	bool   m_useParentStyle = false;
+	int    m_pStyle = 0;
+
 	void setFont(bool wantBold);
 
 private slots:

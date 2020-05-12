@@ -83,7 +83,7 @@ void LensEffectsPlugin::languageChange()
 	m_actionInfo.needsNumObjects = 3;
 }
 
-const QString LensEffectsPlugin::fullTrName() const
+QString LensEffectsPlugin::fullTrName() const
 {
 	return QObject::tr("Lens Effects");
 }

@@ -61,7 +61,7 @@ ImportWpgPlugin::~ImportWpgPlugin()
 	unregisterAll();
 }
 
-const QString ImportWpgPlugin::fullTrName() const
+QString ImportWpgPlugin::fullTrName() const
 {
 	return QObject::tr("WPG Importer");
 }

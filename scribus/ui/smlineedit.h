@@ -22,13 +22,14 @@ public:
 	void clear();
 
 	void setParentValue(const QString& val);
-
 	bool useParentValue();
+
 private:
-	void setFont(bool wantBold);
-	bool m_hasParent;
-	bool m_useParentValue;
+	bool m_hasParent = false;
+	bool m_useParentValue = false;
 	QString m_pValue;
+
+	void setFont(bool wantBold);
 
 private slots:
 	void slotValueChanged();

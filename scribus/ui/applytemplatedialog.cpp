@@ -155,13 +155,13 @@ ApplyMasterPageDialog::~ApplyMasterPageDialog()
 	// no need to delete child widgets, Qt does it all for us
 }
 
-void ApplyMasterPageDialog::setup(ScribusDoc *doc, QString Nam)
+void ApplyMasterPageDialog::setup(ScribusDoc *doc, const QString& Nam)
 {
-	QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
+	QString na = (Nam == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : Nam, in;
 	int cc = 0;
 	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
 	{
-		in = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
+		in = (it.key() == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : it.key();
 		masterPageComboBox->addItem(in, it.key());
 		if (in == na)
 			masterPageComboBox->setCurrentIndex(cc);

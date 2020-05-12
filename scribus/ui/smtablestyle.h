@@ -78,13 +78,13 @@ signals:
 	void selectionDirty();
 
 private:
-	QTabWidget *m_widget;
-	SMTableStyleWidget *m_page;
-	ScribusDoc *m_doc;
+	QTabWidget *m_widget = nullptr;
+	SMTableStyleWidget *m_page = nullptr;
+	ScribusDoc *m_doc = nullptr;
 	StyleSet<TableStyle> m_cachedStyles;
 	QList<TableStyle*> m_selection;
 	QList<RemoveItem> m_deleted;
-	bool m_selectionIsDirty;
+	bool m_selectionIsDirty = false;
 
 	void updateStylesCache();
 	void setupConnections();

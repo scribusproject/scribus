@@ -61,7 +61,7 @@ ImportShapePlugin::~ImportShapePlugin()
 	unregisterAll();
 }
 
-const QString ImportShapePlugin::fullTrName() const
+QString ImportShapePlugin::fullTrName() const
 {
 	return QObject::tr("Shape Importer");
 }

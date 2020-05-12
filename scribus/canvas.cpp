@@ -464,7 +464,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	if (m_doc->Items->count() == 0)
 		return nullptr;
 
-	int currNr = itemAbove? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
+	int currNr = itemAbove ? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
 	while (currNr >= 0)
 	{
 		currItem = m_doc->Items->at(currNr);
@@ -1169,9 +1169,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 	if (selectedItemCount >= moveWithBoxesOnlyThreshold)
 	{
 		double gx, gy, gw, gh;
-		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		//QPoint out = contentsToViewport(QPoint(0, 0));
 		pp->translate(gx, gy);
 		pp->drawRect(QRectF(0.0, 0.0, gw, gh));
 		return;
@@ -1215,7 +1213,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 							}
 							else
 							{
-								multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+								multiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
 								lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 								lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 								le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
@@ -1249,7 +1247,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				}
 				else
 				{
-					multiLine ml = m_doc->MLineStyles[currItem->NamedLStyle];
+					multiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
 					lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 					lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
@@ -2427,7 +2425,6 @@ void Canvas::displayXYHUD(QPoint m)
 	double gx, gy, gh, gw, r;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		r = 0.0;
 	}

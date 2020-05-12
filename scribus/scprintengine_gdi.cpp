@@ -640,46 +640,11 @@ void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, 
 QString ScPrintEngine_GDI::getDefaultPrinter(void)
 {
 	QString defPrinter;
-	OSVERSIONINFO osvi;
-	DWORD returned, buffSize;
 	WCHAR szPrinter[512] = { 0 };
-	WCHAR* p;
-	
-	buffSize = 512;
-	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-	GetVersionEx(&osvi);
+	DWORD buffSize = 512;
 
-	if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion >= 5) // Win2k and later
-	{
-		if (GetDefaultPrinterW(szPrinter, &buffSize))
-			defPrinter = QString::fromUtf16((const ushort*) szPrinter);
-	}
-	else if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion < 5) // NT4 or earlier
-	{
-		if (GetProfileStringW(L"windows",L"device",L"", szPrinter, buffSize) < (buffSize - 1))
-		{
-			p = szPrinter;
-			while (*p != 0 && *p != ',')
-				++p;
-			*p = 0;
-			defPrinter = QString::fromUtf16((const ushort*) szPrinter);
-		}
-	}
-	else
-	{
-		DWORD numPrinters;
-		PRINTER_INFO_2W* printerInfos = nullptr;
-		EnumPrintersW (PRINTER_ENUM_DEFAULT, nullptr, 2, nullptr, 0, &buffSize, &numPrinters);
-		printerInfos = (PRINTER_INFO_2W*) malloc(buffSize);
-		if (EnumPrintersW (PRINTER_ENUM_LOCAL, nullptr, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned))
-		{
-			if (returned > 0)
-			{
-				defPrinter = QString::fromUtf16((const ushort*) printerInfos->pPrinterName);
-			}
-		}
-		if (printerInfos) free(printerInfos);
-	}
+	if (GetDefaultPrinterW(szPrinter, &buffSize))
+		defPrinter = QString::fromUtf16((const ushort*) szPrinter);
 	return defPrinter;
 }
 

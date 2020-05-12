@@ -18,7 +18,6 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nStyle;
-	m_masterFrame = nullptr;
 	itemText.clear();
 
 	m_itemName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
@@ -28,16 +27,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	//set default style for note frame
 	ParagraphStyle newStyle;
 	if (nStyle->notesParStyle().isEmpty() || (nStyle->notesParStyle() == tr("No Style")))
-	{
-		if (nStyle->isEndNotes())
-			//set default doc style
-			newStyle.setParent(m_Doc->paragraphStyles()[0].name());
-		else
-		{
-			newStyle.setParent(m_masterFrame->itemText.defaultStyle().parent());
-			newStyle.applyStyle(m_masterFrame->currentStyle());
-		}
-	}
+		newStyle.setParent(m_Doc->paragraphStyles()[0].name()); // set default doc style
 	else
 		newStyle.setParent(nStyle->notesParStyle());
 	itemText.blockSignals(true);
@@ -59,16 +49,12 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 		m_SizeLocked = true;
 	else
 		m_SizeLocked = false;
-	deleteIt = false;
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
     : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
-	m_nstyle = nullptr;
-	m_masterFrame = nullptr;
 	m_textFlowMode = TextFlowUsesFrameShape;
-	deleteIt = false;
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle) : PageItem_TextFrame(inFrame->doc(),inFrame->xPos(), inFrame->yPos(),inFrame->width(), inFrame->height(),inFrame->lineWidth(), inFrame->fillColor(), inFrame->lineColor())
@@ -130,10 +116,33 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 		m_SizeLocked = true;
 	else
 		m_SizeLocked = false;
-	deleteIt = false;
 }
 
-void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
+void PageItem_NoteFrame::getNamedResources(ResourceCollection& lists) const
+{
+	PageItem_TextFrame::getNamedResources(lists);
+
+	if (m_nstyle)
+		lists.collectNoteStyle(m_nstyle->name());
+}
+
+void PageItem_NoteFrame::replaceNamedResources(ResourceCollection& newNames)
+{
+	PageItem_TextFrame::replaceNamedResources(newNames);
+
+	if (m_nstyle)
+	{
+		const auto& rsrcNoteStyles = newNames.noteStyles();
+		auto it = rsrcNoteStyles.find(m_nstyle->name());
+		if ((it != rsrcNoteStyles.end()) && (*it != m_nstyle->name()))
+		{
+			NotesStyle* newStyle = m_Doc->getNotesStyle(*it);
+			setNoteStyle(newStyle);
+		}
+	}
+}
+
+void PageItem_NoteFrame::setNoteStyle(NotesStyle *nStyle, PageItem_TextFrame* master)
 {
 	m_nstyle = nStyle;
 	if (master != nullptr)
@@ -180,13 +189,13 @@ void PageItem_NoteFrame::setNS(NotesStyle *nStyle, PageItem_TextFrame* master)
 
 void PageItem_NoteFrame::layout()
 {
-	if (!invalid || l_notes.isEmpty())
+	if (!invalid || m_notes.isEmpty())
 		return;
 	if (!m_Doc->flag_layoutNotesFrames)
 		return;
 	if (itemText.length() == 0)
 		return;
-	if ((masterFrame() != nullptr) && masterFrame()->invalid)
+	if ((m_masterFrame != nullptr) && m_masterFrame->invalid)
 		return;
 
 	//while layouting notes frames undo should be disabled
@@ -272,7 +281,7 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 
 void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 {
-	if (nList == l_notes && !clear)
+	if (nList == m_notes && !clear)
 		return;
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc->setNotesChanged(true);
@@ -282,9 +291,9 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 	{
 		itemText.selectAll();
 		deleteSelectedTextFromFrame();
-		l_notes = nList;
-		for (int a=0; a < l_notes.count(); ++a)
-			insertNote(l_notes.at(a));
+		m_notes = nList;
+		for (int a=0; a < m_notes.count(); ++a)
+			insertNote(m_notes.at(a));
 	}
 	else
 	{
@@ -295,9 +304,9 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 			for (int i=0; i< count; ++i)
 			{
 				TextNote* note = nList.at(i);
-				if (!l_notes.contains(note))
+				if (!m_notes.contains(note))
 				{
-					l_notes.append(note);
+					m_notes.append(note);
 					insertNote(note);
 				}
 			}
@@ -311,7 +320,7 @@ void PageItem_NoteFrame::updateNotes(const QList<TextNote*>& nList, bool clear)
 void PageItem_NoteFrame::updateNotesText()
 {
 	//read texts from notes frame and copy it to note`s data
-	if (l_notes.isEmpty() || (itemText.length() == 0))
+	if (m_notes.isEmpty() || (itemText.length() == 0))
 		return;
 
 	int oldSelStart = itemText.startOfSelection();
@@ -337,10 +346,12 @@ void PageItem_NoteFrame::updateNotesText()
 							++offset;
 						int len = pos - startPos -offset;
 						if (len <= 0)
-							note->setSaxedText("");
+							note->clearSaxedText();
 						else
+						{
 							note->setSaxedText(getItemTextSaxed(startPos, len));
-						note->textLen = len;
+							note->textLen = len;
+						}
 						itemText.deselectAll();
 					}
 				}
@@ -360,10 +371,7 @@ void PageItem_NoteFrame::updateNotesText()
 			note->textLen = pos - startPos;
 		}
 		else //empty note text (only note marker)
-		{
-			note->setSaxedText("");
-			note->textLen = 0;
-		}
+			note->clearSaxedText();
 	}
 	if (oldSelLen > 0)
 		itemText.select(oldSelStart, oldSelLen);

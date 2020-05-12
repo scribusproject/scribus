@@ -70,7 +70,6 @@ void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QStr
 		d.url=s;
 		d.downloadLocation=downloadLocation;
 		d.destinationLocation=destinationLocation;
-		d.destinationName="";
 		d.state=DownloadData::New;
 		m_fileList.append(d);
 	}

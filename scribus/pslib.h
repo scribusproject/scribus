@@ -185,14 +185,14 @@ class SCRIBUS_API PSLib : public QObject
 		int  PageIndex { 0 };
 		QString FillColor;
 		QString StrokeColor;
-		double LineW;
+		double LineW { 1.0 };
 		QString FontDesc;
 		QMap<QString, QString> FontSubsetMap;
 		QFile Spool;
 		QDataStream spoolStream;
-		int  Plate;
+		int  Plate { -1 };
 		bool DoSep { false };
-		bool fillRule;
+		bool fillRule { true };
 		ScColorTransform solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;

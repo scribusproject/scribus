@@ -108,6 +108,8 @@ Digester::~Digester() {
 
 Digester& Digester::operator=(const Digester& other)
 {
+	if (&other == this)
+		return *this;
 	delete m_state;
 	m_state = new RuleState(*other.m_state);
 	m_objects = other.m_objects;
@@ -123,7 +125,7 @@ int Digester::nrOfErrors() const
 	return m_errors.size();
 }
 
-const Xml_string Digester::getError(int i) const
+const Xml_string& Digester::getError(int i) const
 {
 	return m_errors[i];
 }

@@ -29,8 +29,7 @@ pageitem.cpp  -  description
 #include <QObject>
 #include <QString>
 #include <QList>
-
-#include <unicode/brkiter.h>
+#include <unicode/uversion.h>
 
 #include "itextsource.h"
 #include "marks.h"
@@ -50,7 +49,9 @@ class ScText_Shared;
 class ResourceCollection;
 class ShapedTextCache;
 
-using namespace icu;
+U_NAMESPACE_BEGIN
+class BreakIterator;
+U_NAMESPACE_END
 
 /**
  * This class holds the text of a Scribus textframe and pointers to its
@@ -171,6 +172,7 @@ public:
 
 	bool hasObject(int pos) const;
 	PageItem* getItem(int pos) const; // deprecated
+	int  findMark(const Mark* mrk, int startPos = 0) const;
 	bool hasMark(int pos, const Mark* mrk = nullptr) const;
 	Mark *mark(int pos) const;
 	void replaceMark(int pos, Mark* mrk);
@@ -258,10 +260,10 @@ public:
 	bool isSelected() const;
 	
 	// break iterators
-	static BreakIterator* getGraphemeIterator();
-	static BreakIterator* getWordIterator();
-	static BreakIterator* getSentenceIterator();
-	static BreakIterator* getLineIterator();
+	static icu::BreakIterator* getGraphemeIterator();
+	static icu::BreakIterator* getWordIterator();
+	static icu::BreakIterator* getSentenceIterator();
+	static icu::BreakIterator* getLineIterator();
 
 // layout helpers
 
@@ -292,13 +294,12 @@ private:
 	void fixSurrogateSelection();
 	
 private:
-	ScribusDoc * m_doc; 
-	int m_selFirst, m_selLast;
+	ScribusDoc * m_doc;
 	ShapedTextCache* m_shapedTextCache;
-	static BreakIterator* m_graphemeIterator;
-	static BreakIterator* m_wordIterator;
-	static BreakIterator* m_sentenceIterator;
-	static BreakIterator* m_lineIterator;
+	static icu::BreakIterator* m_graphemeIterator;
+	static icu::BreakIterator* m_wordIterator;
+	static icu::BreakIterator* m_sentenceIterator;
+	static icu::BreakIterator* m_lineIterator;
 
 	QString textWithSoftHyphens (int pos, uint len) const;
 	void    insertCharsWithSoftHyphens(int pos, const QString& txt, bool applyNeighbourStyle = false);

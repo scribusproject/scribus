@@ -60,7 +60,7 @@ void CanvasMode_Magnifier::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_Magnifier::enterEvent(QEvent *)
+void CanvasMode_Magnifier::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		setModeCursor();

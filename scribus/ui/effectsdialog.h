@@ -176,8 +176,8 @@ public slots:
 	virtual void selectAvailEffectDbl(QListWidgetItem* c);
 
 protected:
-	ScribusDoc* m_doc;
-	PageItem*   m_item;
+	ScribusDoc* m_doc {nullptr};
+	PageItem* m_item {nullptr};
 
 	ScImage m_image;
 	double  m_imageScale;

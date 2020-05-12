@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include "commonstrings.h"
 #include "scribusdoc.h"
 #include "stylecombos.h"
 
@@ -32,6 +33,9 @@ for which a new license (GPL+exception) is in place.
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	m_defaultStyle = CommonStrings::DefaultParagraphStyle;
+
+	addItem( firstItemString() );
 	addItem( CommonStrings::trDefaultParagraphStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -45,6 +49,16 @@ QString ParaStyleComboBox::currentStyle() const
 	if (currStyleName == CommonStrings::trDefaultParagraphStyle)
 		currStyleName = CommonStrings::DefaultParagraphStyle;
 	return currStyleName;
+}
+
+QString ParaStyleComboBox::firstItemString()
+{
+	QString itemString;
+	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultParagraphStyle)
+		itemString = "[" + CommonStrings::trDefaultParagraphStyle + "]";
+	else
+		itemString = "[" + m_defaultStyle + "]";
+	return itemString;
 }
 
 void ParaStyleComboBox::changeEvent(QEvent *e)
@@ -75,12 +89,23 @@ void ParaStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateStyleList();
 }
 
+void ParaStyleComboBox::setDefaultStyle(const QString& defStyle)
+{
+	QString defStyleName = defStyle;
+	if (defStyle == CommonStrings::trDefaultParagraphStyle)
+		defStyleName = CommonStrings::DefaultParagraphStyle;
+	m_defaultStyle = defStyleName;
+
+	if (this->count() > 0)
+		setItemText(0, firstItemString());
+}
+
 void ParaStyleComboBox::setStyle(const QString& name)
 {
 	QString parStyleName = name;
 	if (parStyleName == CommonStrings::DefaultParagraphStyle)
 		parStyleName = CommonStrings::trDefaultParagraphStyle;
-	setCurrentComboItem(this, parStyleName.isEmpty() ? CommonStrings::trDefaultParagraphStyle : parStyleName);
+	setCurrentComboItem(this, parStyleName.isEmpty() ? firstItemString()  : parStyleName);
 }
 
 void ParaStyleComboBox::updateStyleList()
@@ -94,6 +119,7 @@ void ParaStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( firstItemString()  );
 		addItem( CommonStrings::trDefaultParagraphStyle );
 		for (int i = 0; i < m_doc->paragraphStyles().count(); ++i)
 		{
@@ -138,6 +164,9 @@ void ParaStyleComboBox::selectedStyle(int index)
 CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	m_defaultStyle = CommonStrings::DefaultCharacterStyle;
+
+	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultCharacterStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -151,6 +180,16 @@ QString CharStyleComboBox::currentStyle() const
 	if (currStyleName == CommonStrings::trDefaultCharacterStyle)
 		currStyleName = CommonStrings::DefaultCharacterStyle;
 	return currStyleName;
+}
+
+QString CharStyleComboBox::firstItemString()
+{
+	QString itemString;
+	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultCharacterStyle)
+		itemString = "[" + CommonStrings::trDefaultCharacterStyle + "]";
+	else
+		itemString = "[" + m_defaultStyle + "]";
+	return itemString;
 }
 
 void CharStyleComboBox::changeEvent(QEvent *e)
@@ -181,12 +220,23 @@ void CharStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateStyleList();
 }
 
+void CharStyleComboBox::setDefaultStyle(const QString& defStyle)
+{
+	QString defStyleName = defStyle;
+	if (defStyle == CommonStrings::trDefaultCharacterStyle)
+		defStyleName = CommonStrings::DefaultCharacterStyle;
+	m_defaultStyle = defStyleName;
+
+	if (this->count() > 0)
+		setItemText(0, firstItemString());
+}
+
 void CharStyleComboBox::setStyle(const QString& name)
 {
 	QString charStyleName = name;
 	if (charStyleName == CommonStrings::DefaultCharacterStyle)
 		charStyleName = CommonStrings::trDefaultCharacterStyle;
-	setCurrentComboItem(this, charStyleName.isEmpty() ? CommonStrings::trDefaultCharacterStyle : charStyleName);
+	setCurrentComboItem(this, charStyleName.isEmpty() ? firstItemString()  : charStyleName);
 }
 
 void CharStyleComboBox::updateStyleList()
@@ -200,6 +250,7 @@ void CharStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( firstItemString()  );
 		addItem( CommonStrings::trDefaultCharacterStyle );
 		for (int i = 0; i < m_doc->charStyles().count(); ++i)
 		{
@@ -244,6 +295,9 @@ void CharStyleComboBox::selectedStyle(int index)
 CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	m_defaultStyle = CommonStrings::DefaultCellStyle;
+
+	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultCellStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -257,6 +311,16 @@ QString CellStyleComboBox::currentStyle() const
 	if (currStyleName == CommonStrings::trDefaultCellStyle)
 		currStyleName = CommonStrings::DefaultCellStyle;
 	return currStyleName;
+}
+
+QString CellStyleComboBox::firstItemString()
+{
+	QString itemString;
+	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultCellStyle)
+		itemString = "[" + CommonStrings::trDefaultCellStyle + "]";
+	else
+		itemString = "[" + m_defaultStyle + "]";
+	return itemString;
 }
 
 void CellStyleComboBox::changeEvent(QEvent *e)
@@ -287,12 +351,23 @@ void CellStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateStyleList();
 }
 
+void CellStyleComboBox::setDefaultStyle(const QString& defStyle)
+{
+	QString defStyleName = defStyle;
+	if (defStyle == CommonStrings::trDefaultCellStyle)
+		defStyleName = CommonStrings::DefaultCellStyle;
+	m_defaultStyle = defStyleName;
+
+	if (this->count() > 0)
+		setItemText(0, firstItemString());
+}
+
 void CellStyleComboBox::setStyle(const QString& name)
 {
 	QString cellStyleName = name;
 	if (cellStyleName == CommonStrings::DefaultCellStyle)
 		cellStyleName = CommonStrings::trDefaultCellStyle;
-	setCurrentComboItem(this, cellStyleName.isEmpty() ? CommonStrings::trDefaultCellStyle : cellStyleName);
+	setCurrentComboItem(this, cellStyleName.isEmpty() ? firstItemString()  : cellStyleName);
 }
 
 void CellStyleComboBox::updateStyleList()
@@ -306,6 +381,7 @@ void CellStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( firstItemString()  );
 		addItem( CommonStrings::trDefaultCellStyle  );
 		for (int i = 0; i < m_doc->cellStyles().count(); ++i)
 		{
@@ -323,10 +399,14 @@ void CellStyleComboBox::updateStyleList()
 				setCurrentIndex(newIndex);
 		}
 	}
+
 	QListView *tmpView = dynamic_cast<QListView*>(view());
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
+	if (tmpView)
+	{
+		int tmpWidth = tmpView->sizeHintForColumn(0);
+		if (tmpWidth > 0)
+			tmpView->setMinimumWidth(tmpWidth + 24);
+	}
 	this->blockSignals(sigBlocked);
 }
 
@@ -347,6 +427,9 @@ void CellStyleComboBox::selectedStyle(int index)
 TableStyleComboBox::TableStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 	setEditable(false);
+	m_defaultStyle = CommonStrings::DefaultTableStyle;
+
+	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultTableStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
 }
@@ -360,6 +443,16 @@ QString TableStyleComboBox::currentStyle() const
 	if (currStyleName == CommonStrings::trDefaultTableStyle)
 		currStyleName = CommonStrings::DefaultTableStyle;
 	return currStyleName;
+}
+
+QString TableStyleComboBox::firstItemString()
+{
+	QString itemString;
+	if (m_defaultStyle.isEmpty() || m_defaultStyle == CommonStrings::DefaultTableStyle)
+		itemString = "[" + CommonStrings::trDefaultTableStyle + "]";
+	else
+		itemString = "[" + m_defaultStyle + "]";
+	return itemString;
 }
 
 void TableStyleComboBox::changeEvent(QEvent *e)
@@ -390,12 +483,23 @@ void TableStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 	updateStyleList();
 }
 
+void TableStyleComboBox::setDefaultStyle(const QString& defStyle)
+{
+	QString defStyleName = defStyle;
+	if (defStyle == CommonStrings::trDefaultTableStyle)
+		defStyleName = CommonStrings::DefaultTableStyle;
+	m_defaultStyle = defStyleName;
+
+	if (this->count() > 0)
+		setItemText(0, firstItemString());
+}
+
 void TableStyleComboBox::setStyle(const QString& name)
 {
 	QString tableStyleName = name;
 	if (tableStyleName == CommonStrings::DefaultTableStyle)
 		tableStyleName = CommonStrings::trDefaultTableStyle;
-	setCurrentComboItem(this, tableStyleName.isEmpty() ? CommonStrings::trDefaultTableStyle : tableStyleName);
+	setCurrentComboItem(this, tableStyleName.isEmpty() ? firstItemString()  : tableStyleName);
 }
 
 void TableStyleComboBox::updateStyleList()
@@ -409,6 +513,7 @@ void TableStyleComboBox::updateStyleList()
 	if (m_doc != nullptr)
 	{
 		QStringList st;
+		addItem( firstItemString()  );
 		addItem( CommonStrings::trDefaultTableStyle );
 		for (int i = 0; i < m_doc->tableStyles().count(); ++i)
 		{
@@ -427,9 +532,12 @@ void TableStyleComboBox::updateStyleList()
 		}
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
+	if (tmpView)
+	{
+		int tmpWidth = tmpView->sizeHintForColumn(0);
+		if (tmpWidth > 0)
+			tmpView->setMinimumWidth(tmpWidth + 24);
+	}
 	this->blockSignals(sigBlocked);
 }
 

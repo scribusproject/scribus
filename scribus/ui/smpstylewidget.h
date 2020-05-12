@@ -37,13 +37,15 @@ public:
 	void setDoc(ScribusDoc* doc);
 
 private:
-	bool m_hasParent;
-	bool m_parentDC, m_parentBul, m_parentNum;
-	CharSelectEnhanced * m_enhanced;
-	ScribusDoc * m_Doc;
+	bool m_hasParent = false;
+	bool m_parentDC = false;
+	bool m_parentBul = false;
+	bool m_parentNum = false;
+	CharSelectEnhanced * m_enhanced = nullptr;
+	ScribusDoc * m_Doc = nullptr;
 	QString m_currFontName;
-	ParagraphStyle* m_currPStyle;
-	StyleSet<CharStyle> *m_cstyles;
+	ParagraphStyle* m_currPStyle = nullptr;
+	StyleSet<CharStyle> *m_cstyles = nullptr;
 
 	void fillColorCombo(ColorList &colors);
 	void fillBulletStrEditCombo();

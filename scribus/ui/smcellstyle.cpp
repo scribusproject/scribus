@@ -15,11 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstylewidget.h"
 #include "ui/scmessagebox.h"
 
-SMCellStyle::SMCellStyle() :
-	m_widget(nullptr),
-	m_page(nullptr),
-	m_doc(nullptr),
-	m_selectionIsDirty(false)
+SMCellStyle::SMCellStyle()
 {
 	m_widget = new QTabWidget();
 	Q_CHECK_PTR(m_widget);

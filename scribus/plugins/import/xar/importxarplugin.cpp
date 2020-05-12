@@ -61,7 +61,7 @@ ImportXarPlugin::~ImportXarPlugin()
 	unregisterAll();
 }
 
-const QString ImportXarPlugin::fullTrName() const
+QString ImportXarPlugin::fullTrName() const
 {
 	return QObject::tr("Xara Importer");
 }
@@ -168,7 +168,7 @@ QImage ImportXarPlugin::readThumbnail(const QString& fileName)
 	return ret;
 }
 
-bool ImportXarPlugin::readColors(const QString& fileName, ColorList &colors)
+bool ImportXarPlugin::readColors(const QString& fileName, ColorList & colors)
 {
 	if (fileName.isEmpty())
 		return false;

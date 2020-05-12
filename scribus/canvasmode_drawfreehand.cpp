@@ -54,7 +54,7 @@ inline bool FreehandMode::GetItem(PageItem** pi)
 	return (*pi) != nullptr;
 }
 
-void FreehandMode::enterEvent(QEvent *)
+void FreehandMode::enterEvent(QEvent *e)
 {
 	if (!m_mouseButtonPressed)
 	{

@@ -35,7 +35,7 @@
 //////////////////////////////////////////////////////////////////////
 // CPGFFileStream
 //////////////////////////////////////////////////////////////////////
-void CPGFFileStream::Write(int *count, void *buffPtr) THROW_ {
+void CPGFFileStream::Write(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -45,7 +45,7 @@ void CPGFFileStream::Write(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFFileStream::Read(int *count, void *buffPtr) THROW_ {
+void CPGFFileStream::Read(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -54,14 +54,14 @@ void CPGFFileStream::Read(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFFileStream::SetPos(short posMode, INT64 posOff) THROW_ {
+void CPGFFileStream::SetPos(short posMode, INT64 posOff) {
 	ASSERT(IsValid());
 	OSError err;
 	if ((err = SetFPos(m_hFile, posMode, posOff)) != NoError) ReturnWithError(err);
 }
 
 //////////////////////////////////////////////////////////////////////
-UINT64 CPGFFileStream::GetPos() const THROW_ {
+UINT64 CPGFFileStream::GetPos() const {
 	ASSERT(IsValid());
 	OSError err;
 	UINT64 pos = 0;
@@ -75,7 +75,7 @@ UINT64 CPGFFileStream::GetPos() const THROW_ {
 //////////////////////////////////////////////////////////////////////
 /// Allocate memory block of given size
 /// @param size Memory size
-CPGFMemoryStream::CPGFMemoryStream(size_t size) THROW_ 
+CPGFMemoryStream::CPGFMemoryStream(size_t size) 
 : m_size(size)
 , m_allocated(true) {
 	m_buffer = m_pos = m_eos = new(std::nothrow) UINT8[m_size];
@@ -86,7 +86,7 @@ CPGFMemoryStream::CPGFMemoryStream(size_t size) THROW_
 /// Use already allocated memory of given size
 /// @param pBuffer Memory location
 /// @param size Memory size
-CPGFMemoryStream::CPGFMemoryStream(UINT8 *pBuffer, size_t size) THROW_ 
+CPGFMemoryStream::CPGFMemoryStream(UINT8 *pBuffer, size_t size) 
 : m_buffer(pBuffer)
 , m_pos(pBuffer)
 , m_eos(pBuffer + size)
@@ -99,7 +99,7 @@ CPGFMemoryStream::CPGFMemoryStream(UINT8 *pBuffer, size_t size) THROW_
 /// Use already allocated memory of given size
 /// @param pBuffer Memory location
 /// @param size Memory size
-void CPGFMemoryStream::Reinitialize(UINT8 *pBuffer, size_t size) THROW_ {
+void CPGFMemoryStream::Reinitialize(UINT8 *pBuffer, size_t size) {
 	if (!m_allocated) {
 		m_buffer = m_pos = pBuffer;
 		m_size = size;
@@ -108,7 +108,7 @@ void CPGFMemoryStream::Reinitialize(UINT8 *pBuffer, size_t size) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFMemoryStream::Write(int *count, void *buffPtr) THROW_ {
+void CPGFMemoryStream::Write(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -165,7 +165,7 @@ void CPGFMemoryStream::Read(int *count, void *buffPtr) {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFMemoryStream::SetPos(short posMode, INT64 posOff) THROW_ {
+void CPGFMemoryStream::SetPos(short posMode, INT64 posOff) {
 	ASSERT(IsValid());
 	switch(posMode) {
 	case FSFromStart:
@@ -189,7 +189,7 @@ void CPGFMemoryStream::SetPos(short posMode, INT64 posOff) THROW_ {
 // CPGFMemFileStream
 #ifdef _MFC_VER
 //////////////////////////////////////////////////////////////////////
-void CPGFMemFileStream::Write(int *count, void *buffPtr) THROW_ {
+void CPGFMemFileStream::Write(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -197,7 +197,7 @@ void CPGFMemFileStream::Write(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFMemFileStream::Read(int *count, void *buffPtr) THROW_ {
+void CPGFMemFileStream::Read(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -205,13 +205,13 @@ void CPGFMemFileStream::Read(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFMemFileStream::SetPos(short posMode, INT64 posOff) THROW_ {
+void CPGFMemFileStream::SetPos(short posMode, INT64 posOff) {
 	ASSERT(IsValid());
 	m_memFile->Seek(posOff, posMode); 
 }
 
 //////////////////////////////////////////////////////////////////////
-UINT64 CPGFMemFileStream::GetPos() const THROW_ {
+UINT64 CPGFMemFileStream::GetPos() const {
 	return (UINT64)m_memFile->GetPosition();
 }
 #endif // _MFC_VER
@@ -220,7 +220,7 @@ UINT64 CPGFMemFileStream::GetPos() const THROW_ {
 // CPGFIStream
 #if defined(WIN32) || defined(WINCE)
 //////////////////////////////////////////////////////////////////////
-void CPGFIStream::Write(int *count, void *buffPtr) THROW_ {
+void CPGFIStream::Write(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -232,7 +232,7 @@ void CPGFIStream::Write(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFIStream::Read(int *count, void *buffPtr) THROW_ {
+void CPGFIStream::Read(int *count, void *buffPtr) {
 	ASSERT(count);
 	ASSERT(buffPtr);
 	ASSERT(IsValid());
@@ -244,20 +244,20 @@ void CPGFIStream::Read(int *count, void *buffPtr) THROW_ {
 }
 
 //////////////////////////////////////////////////////////////////////
-void CPGFIStream::SetPos(short posMode, INT64 posOff) THROW_ {
+void CPGFIStream::SetPos(short posMode, INT64 posOff) {
 	ASSERT(IsValid());
 	
 	LARGE_INTEGER li;
 	li.QuadPart = posOff;
 
-	HRESULT hr = m_stream->Seek(li, posMode, NULL); 
+	HRESULT hr = m_stream->Seek(li, posMode, nullptr); 
 	if (FAILED(hr)) {
 		ReturnWithError(hr);
 	}
 }
 
 //////////////////////////////////////////////////////////////////////
-UINT64 CPGFIStream::GetPos() const THROW_ {
+UINT64 CPGFIStream::GetPos() const {
 	ASSERT(IsValid());
 	
 	LARGE_INTEGER n;

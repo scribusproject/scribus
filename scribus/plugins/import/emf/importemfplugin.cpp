@@ -66,7 +66,7 @@ ImportEmfPlugin::~ImportEmfPlugin()
 	unregisterAll();
 }
 
-const QString ImportEmfPlugin::fullTrName() const
+QString ImportEmfPlugin::fullTrName() const
 {
 	return QObject::tr("EMF Importer");
 }

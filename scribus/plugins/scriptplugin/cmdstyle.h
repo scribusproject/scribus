@@ -107,5 +107,55 @@ one subline within style. Dictionary can have those keys:\n\n\
 "));
 PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_getparagraphstyles__doc__,
+QT_TR_NOOP("getParagraphStyles() -> list\n\
+\n\
+Return a list of the names of all paragraph styles in the current document.\n\
+"));
+
+PyDoc_STRVAR(scribus_getallstyles__doc__,
+QT_TR_NOOP("getAllStyles() -> list\n\
+\n\
+Deprecated. Use getParagraphStyles() instead.\n\
+"));
+/**
+ Craig Ringer, 2004-09-09
+ Enumerate all known paragraph styles
+*/
+PyObject *scribus_getparagraphstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcharstylenames__doc__,
+QT_TR_NOOP("getCharStyles() -> list\n\
+\n\
+Return a list of the names of all character styles in the current document.\n\
+"));
+PyObject *scribus_getcharstylenames(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinestyles__doc__,
+QT_TR_NOOP("getLineStyles() -> list\n\
+\n\
+Return a list of the names of all line styles in the current document.\n\
+"));
+PyObject *scribus_getlinestyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getcellstyles__doc__,
+QT_TR_NOOP("getCellStyles() -> list\n\
+\n\
+Return a list of the names of all cell styles in the current document.\n\
+"));
+PyObject *scribus_getcellstyles(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettablestyles__doc__,
+QT_TR_NOOP("getTableStyles() -> list\n\
+\n\
+Return a list of the names of all table styles in the current document.\n\
+"));
+PyObject *scribus_gettablestyles(PyObject * /*self*/);
+
 #endif
 

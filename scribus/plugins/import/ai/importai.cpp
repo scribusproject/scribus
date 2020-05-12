@@ -62,55 +62,10 @@ for which a new license (GPL+exception) is in place.
 	#include <podofo/podofo.h>
 #endif
 
-AIPlug::AIPlug(ScribusDoc* doc, int flags) :
-	progressDialog(nullptr),
-	meshMode(false),
-	meshXSize(0),
-	meshYSize(0),
-	currentMeshXPos(0),
-	currentMeshYPos(0),
-	meshNodeCounter(0),
-	meshColorMode(0),
-	meshNode1PointX(0.0),
-	meshNode1PointY(0.0),
-	meshNode1Control1X(0.0),
-	meshNode1Control1Y(0.0),
-	meshNode1Control2X(0.0),
-	meshNode1Control2Y(0.0),
-	meshNode2PointX(0.0),
-	meshNode2PointY(0.0),
-	meshNode2Control1X(0.0),
-	meshNode2Control1Y(0.0),
-	meshNode2Control2X(0.0),
-	meshNode2Control2Y(0.0),
-	meshNode3PointX(0.0),
-	meshNode3PointY(0.0),
-	meshNode3Control1X(0.0),
-	meshNode3Control1Y(0.0),
-	meshNode3Control2X(0.0),
-	meshNode3Control2Y(0.0),
-	meshNode4PointX(0.0),
-	meshNode4PointY(0.0),
-	meshNode4Control1X(0.0),
-	meshNode4Control1Y(0.0),
-	meshNode4Control2X(0.0),
-	meshNode4Control2Y(0.0),
-	textMode(0),
-	textSize(0.0),
-	maxWidth(0.0),
-	tempW(0.0),
-	maxHeight(0.0),
-	textKern(0.0),
-	textScaleH(0.0),
-	textScaleV(0.0),
-	startCurrentTextRange(0.0),
-	endCurrentTextRange(0.0),
-	symbolMode(false),
-	dataMode(false),
-	fObjectMode(false)
+AIPlug::AIPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
-	m_Doc=doc;
+	tmpSel = new Selection(this, false);
+	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
@@ -239,9 +194,9 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 	return tmpImage;
 }
 
-bool AIPlug::readColors(const QString& fNameIn, ColorList & colors)
+bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 {
-	QString fName = fNameIn;
+	QString fName(fileName);
 	bool success = false;
 	cancel = false;
 	double x, y, b, h;
@@ -1922,7 +1877,7 @@ void AIPlug::processData(const QString& data)
 				m1.rotate(-currentGradientAngle);
 				ite->GrStartX = currentGradientOrigin.x() - ite->xPos() + m_Doc->currentPage()->xOffset();
 				ite->GrStartY = currentGradientOrigin.y() - ite->yPos() + m_Doc->currentPage()->yOffset();
-				QPointF target = m1.map(QPointF(currentGradientLenght, 0.0));
+				QPointF target = m1.map(QPointF(currentGradientLength, 0.0));
 				ite->GrEndX = target.x();
 				ite->GrEndY = target.y();
 				if (wasBC)
@@ -1933,7 +1888,7 @@ void AIPlug::processData(const QString& data)
 					QTransform m2;
 					m2.rotate(-currentGradientAngle);
 					m2 *= endMatrix;
-					QPointF target = m2.map(QPointF(currentGradientLenght, 0.0));
+					QPointF target = m2.map(QPointF(currentGradientLength, 0.0));
 					ite->GrEndX = target.x();
 					ite->GrEndY = target.y();
 				}
@@ -1942,7 +1897,7 @@ void AIPlug::processData(const QString& data)
 			currentGradientMatrix = QTransform();
 			currentGradientOrigin = QPointF(0.0, 0.0);
 			currentGradientAngle = 0.0;
-			currentGradientLenght = 1.0;
+			currentGradientLength = 1.0;
 			itemRendered = false;
 		}
 		else if (command == "Bg")
@@ -1954,7 +1909,7 @@ void AIPlug::processData(const QString& data)
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			double xOrig, yOrig, m1, m2, m3, m4, m5, m6;
-			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLenght >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
+			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLength >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			currentGradientOrigin = QPointF(xOrig - docX, docHeight - (yOrig - docY));
 			currentGradientMatrix = QTransform(m1, m2, m3, m4, m5, m6);
 		}
@@ -2151,8 +2106,8 @@ void AIPlug::processData(const QString& data)
 			}
 			if (mKey == "N")
 			{
-				double cVal, mVal, yVal, kVal, coorX1, coorY1, coorX2, coorY2, coorX3, coorY3;
-				int dummy;
+				double cVal {0.0}, mVal {0.0}, yVal {0.0}, kVal {0.0}, coorX1 {0.0}, coorY1 {0.0}, coorX2 {0.0}, coorY2 {0.0}, coorX3 {0.0}, coorY3 {0.0};
+				int dummy {0};
 				meshNodeCounter++;
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
@@ -3387,7 +3342,7 @@ bool AIPlug::convert(const QString& fn)
 	meshMode = false;
 	dataMode = false;
 	fObjectMode = false;
-	dataString = "";
+	dataString.clear();
 	itemLocked = false;
 	patternX1 = 0.0;
 	patternY1 = 0.0;
@@ -3408,8 +3363,8 @@ bool AIPlug::convert(const QString& fn)
 	currentGradientMatrix = QTransform();
 	currentGradientOrigin = QPointF(0.0, 0.0);
 	currentGradientAngle = 0.0;
-	currentGradientLenght = 1.0;
-	currentPatternName = "";
+	currentGradientLength = 1.0;
+	currentPatternName.clear();
 	currentPatternX = 0.0;
 	currentPatternY = 0.0;
 	currentPatternXScale = 1.0;

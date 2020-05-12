@@ -67,7 +67,7 @@ void CanvasMode_FrameLinks::drawControls(QPainter* p)
 	commonDrawControls(p, false);
 }
 
-void CanvasMode_FrameLinks::enterEvent(QEvent *)
+void CanvasMode_FrameLinks::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -489,7 +489,6 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 				PageItem *bb = m_doc->m_Selection->itemAt(aa);
 				bb->update();
 			}
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);

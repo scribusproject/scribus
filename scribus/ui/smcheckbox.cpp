@@ -8,10 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcheckbox.h"
 
 SMCheckBox::SMCheckBox(QWidget *parent)
-: QCheckBox(parent),
-  m_hasParent(false),
-  m_useParentValue(false),
-  m_pValue(false)
+	: QCheckBox(parent)
 {
 
 }

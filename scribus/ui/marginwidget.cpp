@@ -20,15 +20,11 @@ for which a new license (GPL+exception) is in place.
 
 
 MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
-	m_pageWidth(0.0),
-	m_pageHeight(0.0),
-	m_pageType(0)
+	m_useBleeds(showBleeds)
 {
 	marginData = *margs;
 	m_savedMargins = *margs;
 	m_savedPresetItem = PresetLayout::none; //we don't recheck if we are using a layout but always start at none
-	m_facingPages = false;
-	m_useBleeds = showBleeds;
 	marginPage = new QWidget(this);
 
 	presetCombo = new PresetLayout(marginPage);

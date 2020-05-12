@@ -25,11 +25,13 @@ public:
 
 	ParagraphStyle defaultStyle;
 	StyleContextProxy pstyleContext;
-	uint refs;
-	uint len;
-	uint cursorPosition;
-	uint marksCount;
-	bool marksCountChanged;
+	uint refs { 1 };
+	uint len { 0 };
+	uint cursorPosition { 0 };
+	int  selFirst { 0 };
+	int  selLast { -1 };
+	uint marksCount { 0 };
+	bool marksCountChanged { false };
 	ParagraphStyle trailingStyle;
 	CharStyle orphanedCharStyle;
 

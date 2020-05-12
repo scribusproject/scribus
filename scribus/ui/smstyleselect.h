@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "styleselect.h"
 
-
 class SMStyleSelect  : public StyleSelect
 {
 	Q_OBJECT
@@ -21,15 +20,15 @@ public:
 	void setStyle(int i, bool isParentValue);
 
 	void setParentItem(int i);
-
 	bool useParentValue();
 
-	QToolButton *parentButton;
-
 private:
-	bool   m_hasParent;
-	bool   m_useParentStyle;
-	int    m_pStyle;
+	bool   m_hasParent = false;
+	bool   m_useParentStyle = false;
+	int    m_pStyle = 0;
+
+	QToolButton *parentButton = nullptr;
+
 	void setFont(bool wantBold);
 
 private slots:

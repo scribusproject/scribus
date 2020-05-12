@@ -54,7 +54,7 @@ void FontPreviewPlugin::languageChange()
 	m_actionInfo.needsNumObjects = -1;
 }
 
-const QString FontPreviewPlugin::fullTrName() const
+QString FontPreviewPlugin::fullTrName() const
 {
 	return QObject::tr("Font Preview");
 }

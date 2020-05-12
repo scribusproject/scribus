@@ -11,11 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "scclocale.h"
 
-const Xml_string SaxIO::saxxDefaultElem("");
+const Xml_string SaxIO::saxxDefaultElem;
 
 Xml_string mkXMLName(const QString& any)
 {
-	QString result("");
+	QString result;
 	for (int i=0; i < any.length(); ++i)
 	{
 		unsigned int ch = any[i].unicode();
@@ -136,7 +136,7 @@ Xml_string toXMLString(const Xml_string& val)
 
 Xml_string toXMLString(const QList<double>& doublelist)
 {
-	QString result = "";
+	QString result;
 	QList<double>::const_iterator dax;
 	for (dax = doublelist.begin(); dax != doublelist.end(); ++dax)
 		result += toXMLString(*dax) + " ";
@@ -145,7 +145,7 @@ Xml_string toXMLString(const QList<double>& doublelist)
 
 Xml_string toXMLString(const QList<float>& floatlist)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = floatlist.cbegin(); dax != floatlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
@@ -162,7 +162,7 @@ QList<double> parseDoubleList(const Xml_string& str)
 
 Xml_string toXMLString(const QVector<double>& doublelist)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = doublelist.cbegin(); dax != doublelist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
@@ -170,7 +170,7 @@ Xml_string toXMLString(const QVector<double>& doublelist)
 
 Xml_string toXMLString(const QVector<float>& floatlist)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = floatlist.cbegin(); dax != floatlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
@@ -188,7 +188,7 @@ QVector<double> parseDoubleVector(const Xml_string& str)
 
 Xml_string toXMLString(const QList<int>& intlist)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = intlist.cbegin(); dax != intlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
@@ -206,7 +206,7 @@ QList<int> parseIntList(const Xml_string& str)
 
 Xml_string toXMLString(const QVector<int>& intlist)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = intlist.cbegin(); dax != intlist.cend(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
@@ -235,7 +235,7 @@ QStack<int> parseIntStack(const Xml_string& str)
 
 Xml_string toXMLString(const QStringList& list)
 {
-	QString result = "";
+	QString result;
 	for (auto dax = list.cbegin(); dax != list.cend(); ++dax)
 		result += *dax + " ";
 	return result;

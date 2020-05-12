@@ -21,13 +21,13 @@ public:
 	void setCurrentFormat(NumFormat format, bool isParentValue);
 	
 	void setParentFormat(NumFormat format);
-
 	bool useParentFormat();
 
 private:
-	bool   m_hasParent;
-	bool   m_useParentValue;
-	NumFormat m_parentFormat;
+	bool   m_hasParent = false;
+	bool   m_useParentValue = false;
+	NumFormat m_parentFormat = Type_1_2_3;
+
 	void setFont(bool wantBold);
 
 private slots:

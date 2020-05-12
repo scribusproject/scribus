@@ -41,7 +41,7 @@
      <item row="3" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QToolButton" name="textFlowUsesBoundingBox">
+        <widget class="QToolButton" name="textFlowDisabled">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -55,10 +55,10 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Text flow around bounding box</string>
+          <string>Text flow around frame disabled</string>
          </property>
          <property name="text">
-          <string>Use &amp;Bounding Box</string>
+          <string>Disabled</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -109,7 +109,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="textFlowDisabled">
+        <widget class="QToolButton" name="textFlowUsesBoundingBox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -123,10 +123,10 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Text flow around frame disabled</string>
+          <string>Text flow around bounding box</string>
          </property>
          <property name="text">
-          <string>Disabled</string>
+          <string>Use &amp;Bounding Box</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -389,7 +389,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="fillRuleBtnGroup"/>
   <buttongroup name="textFlowBtnGroup"/>
+  <buttongroup name="fillRuleBtnGroup"/>
  </buttongroups>
 </ui>

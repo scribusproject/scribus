@@ -81,6 +81,8 @@ public:
 	bool isNoteType() const;
 	bool isType(const MarkType t) const;
 
+	void clearString();
+
     virtual ~Mark() {}
 
 protected:

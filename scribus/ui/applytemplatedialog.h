@@ -58,7 +58,7 @@ public:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 
-	virtual void setup( ScribusDoc * view, QString Nam );
+	virtual void setup(ScribusDoc* doc, const QString& Nam);
 	virtual QString getMasterPageName();
 	virtual int getPageSelection();
 	virtual bool usingRange();

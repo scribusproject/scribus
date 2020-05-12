@@ -35,12 +35,12 @@ public:
 
 protected:
 
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	double    m_unitRatio;
-	int       m_unitIndex;
+	bool      m_haveDoc = false;
+	bool      m_haveItem = false;
+	double    m_unitRatio = 1.0;
+	int       m_unitIndex = 0;
 
-	ScribusMainWindow*       m_ScMW;
+	ScribusMainWindow*       m_ScMW = nullptr;
 	ScGuardedPtr<ScribusDoc> m_doc;
 
 	void setLabelText();

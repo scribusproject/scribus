@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-QPixmap SCRIBUS_API LoadPDF(const QString& fn, int Page, int Size, int *w, int *h);
+QPixmap SCRIBUS_API loadPDF(const QString& fn, int page, int size, int *w, int *h);
 /**
  * @brief Call GhostScript synchronously and store output
    *
@@ -38,8 +38,8 @@ QPixmap SCRIBUS_API LoadPDF(const QString& fn, int Page, int Size, int *w, int *
    * @param args_in Custom arguments to GhostScript
    * @param device GS device to use (defaults to an image device if omitted)
  */
-int     SCRIBUS_API callGS(const QStringList& args_in, const QString& device="", const QString& fileStdErr = "", const QString& fileStdOut = "");
-int     SCRIBUS_API callGS(const QString& args_in, const QString& device="");
+int     SCRIBUS_API callGS(const QStringList& args_in, const QString& device = QString(), const QString& fileStdErr = QString(), const QString& fileStdOut = QString());
+int     SCRIBUS_API callGS(const QString& args_in, const QString& device = QString());
 int     SCRIBUS_API convertPS2PS(const QString& in, const QString& out, const QStringList& opts, int level);
 int     SCRIBUS_API convertPS2PDF(const QString& in, const QString& out, const QStringList& opts);
 bool    SCRIBUS_API testGSAvailability();

@@ -76,7 +76,7 @@ ImportPdfPlugin::~ImportPdfPlugin()
 	unregisterAll();
 }
 
-const QString ImportPdfPlugin::fullTrName() const
+QString ImportPdfPlugin::fullTrName() const
 {
 	return QObject::tr("PDF Importer");
 }

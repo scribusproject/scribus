@@ -41,6 +41,7 @@ class CRoiIndices;
 /// @brief Wavelet channel class
 class CSubband {
 	friend class CWaveletTransform;
+	friend class CRoiIndices;
 
 public:
 	//////////////////////////////////////////////////////////////////////
@@ -68,7 +69,7 @@ public:
 	/// @param tile True if just a rectangular region is extracted, false if the entire subband is extracted.
 	/// @param tileX Tile index in x-direction
 	/// @param tileY Tile index in y-direction
-	void ExtractTile(CEncoder& encoder, bool tile = false, UINT32 tileX = 0, UINT32 tileY = 0) THROW_;
+	void ExtractTile(CEncoder& encoder, bool tile = false, UINT32 tileX = 0, UINT32 tileY = 0);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Decoding and dequantization of this subband.
@@ -78,7 +79,7 @@ public:
 	/// @param tile True if just a rectangular region is placed, false if the entire subband is placed.
 	/// @param tileX Tile index in x-direction
 	/// @param tileY Tile index in y-direction
-	void PlaceTile(CDecoder& decoder, int quantParam, bool tile = false, UINT32 tileX = 0, UINT32 tileY = 0) THROW_;
+	void PlaceTile(CDecoder& decoder, int quantParam, bool tile = false, UINT32 tileX = 0, UINT32 tileY = 0);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Perform subband quantization with given quantization parameter.
@@ -152,9 +153,10 @@ private:
 #ifdef __PGFROISUPPORT__
 	UINT32 BufferWidth() const			{ return m_ROI.Width(); }
 	void TilePosition(UINT32 tileX, UINT32 tileY, UINT32& left, UINT32& top, UINT32& w, UINT32& h) const;
-	const PGFRect& GetROI() const		{ return m_ROI; }
+	void TileIndex(bool topLeft, UINT32 xPos, UINT32 yPos, UINT32& tileX, UINT32& tileY, UINT32& x, UINT32& y) const;
+	const PGFRect& GetAlignedROI() const { return m_ROI; }
 	void SetNTiles(UINT32 nTiles)		{ m_nTiles = nTiles; }
-	void SetROI(const PGFRect& roi)		{ ASSERT(roi.right <= m_width); ASSERT(roi.bottom <= m_height); m_ROI = roi; }
+	void SetAlignedROI(const PGFRect& roi);
 	void InitBuffPos(UINT32 left = 0, UINT32 top = 0)	{ m_dataPos = top*BufferWidth() + left; ASSERT(m_dataPos < m_size); }
 #else
 	void InitBuffPos()					{ m_dataPos = 0; }
@@ -170,7 +172,7 @@ private:
 	DataT* m_data;					///< buffer
 
 #ifdef __PGFROISUPPORT__
-	PGFRect m_ROI;					///< region of interest
+	PGFRect m_ROI;					///< region of interest (block aligned)
 	UINT32	m_nTiles;				///< number of tiles in one dimension in this subband
 #endif
 };

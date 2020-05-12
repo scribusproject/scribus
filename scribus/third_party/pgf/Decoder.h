@@ -52,12 +52,9 @@ class CDecoder {
 	public:
 		//////////////////////////////////////////////////////////////////////
 		/// Constructor: Initializes new macro block.
-		/// @param decoder Pointer to outer class.
 		CMacroBlock()
 		: m_header(0)								// makes sure that IsCompletelyRead() returns true for an empty macro block
-#if defined(WIN32) || defined(WINCE) || defined(WIN64)
 #pragma warning( suppress : 4351 )
-#endif
 		, m_value()
 		, m_codeBuffer()
 		, m_valuePos(0)
@@ -102,10 +99,10 @@ public:
 	/// @param levelLength The location of the levelLength array. The array is allocated in this method. The caller has to delete this array.
 	/// @param userDataPos The stream position of the user data (metadata)
 	/// @param useOMP If true, then the decoder will use multi-threading based on openMP
-	/// @param skipUserData If true, then user data is not read. In case of available user data, the file position is still returned in userDataPos.
-	CDecoder(CPGFStream* stream, PGFPreHeader& preHeader, PGFHeader& header, 
+	/// @param userDataPolicy Policy of user data (meta-data) handling while reading PGF headers.
+	CDecoder(CPGFStream* stream, PGFPreHeader& preHeader, PGFHeader& header,
 		     PGFPostHeader& postHeader, UINT32*& levelLength, UINT64& userDataPos, 
-			 bool useOMP, bool skipUserData) THROW_; // throws IOException
+			 bool useOMP, UINT32 userDataPolicy); // throws IOException
 
 	/////////////////////////////////////////////////////////////////////
 	/// Destructor
@@ -122,7 +119,7 @@ public:
 	/// @param height The height of the rectangle
 	/// @param startPos The relative subband position of the top left corner of the rectangular region
 	/// @param pitch The number of bytes in row of the subband
-	void Partition(CSubband* band, int quantParam, int width, int height, int startPos, int pitch) THROW_;
+	void Partition(CSubband* band, int quantParam, int width, int height, int startPos, int pitch);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Deccoding and dequantization of HL and LH subband (interleaved) using partitioning scheme.
@@ -131,25 +128,25 @@ public:
 	/// @param wtChannel A wavelet transform channel containing the HL and HL band
 	/// @param level Wavelet transform level
 	/// @param quantParam Dequantization value
-	void DecodeInterleaved(CWaveletTransform* wtChannel, int level, int quantParam) THROW_;
+	void DecodeInterleaved(CWaveletTransform* wtChannel, int level, int quantParam);
 
 	//////////////////////////////////////////////////////////////////////
-	/// Return the length of all encoded headers in bytes.
+	/// Returns the length of all encoded headers in bytes.
 	/// @return The length of all encoded headers in bytes
 	UINT32 GetEncodedHeaderLength() const			{ return m_encodedHeaderLength; }
 
 	////////////////////////////////////////////////////////////////////
-	/// Reset stream position to beginning of PGF pre-header
-	void SetStreamPosToStart() THROW_				{ ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPos); }
+	/// Resets stream position to beginning of PGF pre-header
+	void SetStreamPosToStart()				{ ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPos); }
 
 	////////////////////////////////////////////////////////////////////
-	/// Reset stream position to beginning of data block
-	void SetStreamPosToData() THROW_				{ ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPos + m_encodedHeaderLength); }
+	/// Resets stream position to beginning of data block
+	void SetStreamPosToData()				{ ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPos + m_encodedHeaderLength); }
 
 	////////////////////////////////////////////////////////////////////
-	/// Skip a given number of bytes in the open stream.
+	/// Skips a given number of bytes in the open stream.
 	/// It might throw an IOException.
-	void Skip(UINT64 offset) THROW_;
+	void Skip(UINT64 offset);
 
 	/////////////////////////////////////////////////////////////////////
 	/// Dequantization of a single value at given position in subband.
@@ -157,7 +154,7 @@ public:
 	/// @param band A subband
 	/// @param bandPos A valid position in subband band
 	/// @param quantParam The quantization parameter
-	void DequantizeValue(CSubband* band, UINT32 bandPos, int quantParam) THROW_;
+	void DequantizeValue(CSubband* band, UINT32 bandPos, int quantParam);
 
 	//////////////////////////////////////////////////////////////////////
 	/// Copies data from the open stream to a target buffer.
@@ -165,31 +162,28 @@ public:
 	/// @param target The target buffer
 	/// @param len The number of bytes to read
 	/// @return The number of bytes copied to the target buffer
-	UINT32 ReadEncodedData(UINT8* target, UINT32 len) const THROW_;
+	UINT32 ReadEncodedData(UINT8* target, UINT32 len) const;
 
 	/////////////////////////////////////////////////////////////////////
-	/// Reads stream and decodes tile buffer
+	/// Reads next block(s) from stream and decodes them
 	/// It might throw an IOException.
-	void DecodeBuffer() THROW_;
+	void DecodeBuffer();
 
 	/////////////////////////////////////////////////////////////////////
 	/// @return Stream
 	CPGFStream* GetStream()							{ return m_stream; }
 
 	/////////////////////////////////////////////////////////////////////
-	/// @return True if decoded macro blocks are available for processing
-	bool MacroBlocksAvailable() const				{ return m_macroBlocksAvailable > 1; }
+	/// Gets next macro block
+	/// It might throw an IOException.
+	void GetNextMacroBlock();
 
 #ifdef __PGFROISUPPORT__
 	/////////////////////////////////////////////////////////////////////
-	/// Reads stream and decodes tile buffer
-	/// It might throw an IOException.
-	void DecodeTileBuffer() THROW_;
-
-	/////////////////////////////////////////////////////////////////////
 	/// Resets stream position to next tile.
+	/// Used with ROI encoding scheme only.
 	/// It might throw an IOException.
-	void SkipTileBuffer() THROW_;
+	void SkipTileBuffer();
 
 	/////////////////////////////////////////////////////////////////////
 	/// Enables region of interest (ROI) status.
@@ -201,7 +195,7 @@ public:
 #endif
 
 private:
-	void ReadMacroBlock(CMacroBlock* block) THROW_; ///< throws IOException
+	void ReadMacroBlock(CMacroBlock* block); ///< throws IOException
 
 	CPGFStream *m_stream;						///< input PGF stream
 	UINT64 m_startPos;							///< stream position at the beginning of the PGF pre-header

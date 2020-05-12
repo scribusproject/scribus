@@ -16,10 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 
 SMFontFeatures::SMFontFeatures(QWidget *parent)
-	: QWidget(parent),
-	  m_hasParent(false),
-	  m_useParentValue(false),
-	  m_pValue("")
+	: QWidget(parent)
 {
 	setupUi(this);
 	styleSetsMenu = new StylisticSetsMenu(this);
@@ -111,7 +108,7 @@ void SMFontFeatures::setFontFeatures(const QString& s, QStringList fontFeaturesL
 {
 	disconnectSignals();
 	m_hasParent = false;
-	m_pValue = "";
+	m_pValue.clear();
 
 	resetFontFeatures();
 	enableFontFeatures(fontFeaturesList);
@@ -475,7 +472,7 @@ void SMFontFeatures::enableFontFeatures(const QStringList& fontFeatures)
 	stylisticSetsButton->setVisible(featureFlags & FontFeatures::StyleSetsMask);
 
 	if (ligaturesGroupBox->isHidden() && capitalsGroupBox->isHidden()
-			&& numeralsGroupBox && stylisticSetsButton->isHidden())
+			&& numeralsGroupBox->isHidden() && stylisticSetsButton->isHidden())
 	{
 		statusLabel->show();
 	}

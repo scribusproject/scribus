@@ -1431,6 +1431,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 {
 	PdfFont result;
 	result.name = Pdf::toName(name);
+	result.usage = Used_in_Content;
 	result.method = Use_Type3;
 	result.encoding = Encode_256;
 
@@ -1650,6 +1651,7 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = Use_XForm;
 	result.encoding = Encode_224;
 
@@ -1816,6 +1818,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = glyphmap.isEmpty()? Use_Embedded : Use_Subset;
 	result.encoding = glyphmap.isEmpty()? Encode_IdentityH : Encode_Subset;
 	result.glyphmap = glyphmap;
@@ -1915,6 +1918,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
+	result.usage = Used_in_Content;
 	result.method = isEmbedded? Use_Embedded : Use_System;
 	result.encoding = Encode_224;
 	
@@ -2862,7 +2866,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -2921,7 +2925,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					}
 					else
 					{
-						multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+						multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 						for (int it = ml.size() - 1; it > -1; it--)
 						{
 							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -3036,7 +3040,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -3138,7 +3142,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -4604,7 +4608,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4726,7 +4730,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4784,7 +4788,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			}
 			else
 			{
-				multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+				multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -4900,7 +4904,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5002,7 +5006,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				else
 				{
-					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+					multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5098,7 +5102,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						}
 						else
 						{
-							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+							multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 							for (int it = ml.size() - 1; it > -1; it--)
 							{
 								if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -5521,7 +5525,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	else
 	{
-		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 		if (ml[ml.size() - 1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
@@ -5565,7 +5569,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	}
 	else
 	{
-		multiLine ml = doc.MLineStyles[ite->NamedLStyle];
+		multiLine ml = doc.docLineStyles[ite->NamedLStyle];
 		if (ml[0].Color != CommonStrings::None)
 		{
 			tmp += putColor(ml[0].Color, ml[0].Shade, true);
@@ -9848,9 +9852,10 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	try
 	{
 		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
-		PoDoFo::PdfObject* contents  = page? page->GetContents() : nullptr;
-		PoDoFo::PdfObject* resources = page? page->GetResources() : nullptr;
-		for (PoDoFo::PdfObject* par = page->GetObject(); par && !resources; par = par->GetIndirectKey("Parent"))
+		PoDoFo::PdfObject* pageObj   = page ? page->GetObject() : nullptr;
+		PoDoFo::PdfObject* contents  = page ? page->GetContents() : nullptr;
+		PoDoFo::PdfObject* resources = page ? page->GetResources() : nullptr;
+		for (PoDoFo::PdfObject* par = pageObj; par && !resources; par = par->GetIndirectKey("Parent"))
 		{
 			resources = par->GetIndirectKey("Resources");
 		}
@@ -10264,7 +10269,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ext = getImageType(fn);
 	ScImage img;
 	QString BBox;
-	QChar  tc;
+//	QChar  tc;
 	bool   found = false;
 	bool   alphaM = false;
 	bool   realCMYK = false;

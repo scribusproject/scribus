@@ -182,7 +182,7 @@ void CanvasMode_Rotate::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
-void CanvasMode_Rotate::enterEvent(QEvent *)
+void CanvasMode_Rotate::enterEvent(QEvent *e)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
@@ -190,7 +190,7 @@ void CanvasMode_Rotate::enterEvent(QEvent *)
 	}
 }
 
-void CanvasMode_Rotate::leaveEvent(QEvent *)
+void CanvasMode_Rotate::leaveEvent(QEvent *e)
 {
 }
 
@@ -352,7 +352,6 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (m_doc->m_Selection->count() > 1)
 		{
-			m_doc->m_Selection->setGroupRect();
 			double x, y, w, h;
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
@@ -443,6 +442,14 @@ void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
 {
 	if (e->isAutoRepeat())
 		return;
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->requestMode(modeNormal);
+		return;
+	}
+
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		double gx, gy, gh, gw;
@@ -514,7 +521,6 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 			double x, y, w, h;
 			m_doc->setRotationMode(m_oldRotMode);
 			m_view->RCenter = m_oldRotCenter;
-			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->updateContents(QRect(static_cast<int>(x - 5), static_cast<int>(y - 5), static_cast<int>(w + 10), static_cast<int>(h + 10)));
 		}

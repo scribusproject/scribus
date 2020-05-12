@@ -129,14 +129,16 @@
 // MFC
 //-------------------------------------------------------------------------------
 #ifdef _MFC_VER
-
+#ifndef _WIN32_WINNT            // Specifies that the minimum required platform is Windows Vista.
+#define _WIN32_WINNT 0x0600     // Change this to the appropriate value to target other versions of Windows.
+#endif
+#include <afx.h>
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 #include <afxdtctl.h>		// MFC support for Internet Explorer 4 Common Controls
 #ifndef _AFX_NO_AFXCMN_SUPPORT
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
-#include <afx.h>
 
 #else
 
@@ -213,14 +215,6 @@ typedef bool (__cdecl *CallbackPtr)(double percent, bool escapeAllowed, void *da
 	#define ReturnWithError2(err, ret) throw IOException(err)
 #endif //NEXCEPTIONS
 
-#if _MSC_VER >= 1300
-	//#define THROW_ throw(...)
-	#pragma warning( disable : 4290 )
-	#define THROW_ throw(IOException)
-#else
-	#define THROW_
-#endif
-
 //-------------------------------------------------------------------------------
 // constants
 //-------------------------------------------------------------------------------
@@ -235,10 +229,10 @@ typedef bool (__cdecl *CallbackPtr)(double percent, bool escapeAllowed, void *da
 //-------------------------------------------------------------------------------
 #define NoError				ERROR_SUCCESS		///< no error
 #define AppError			0x20000000			///< all application error messages must be larger than this value
-#define InsufficientMemory	0x20000001			///< memory allocation wasn't successfull
+#define InsufficientMemory	0x20000001			///< memory allocation was not successfull
 #define InvalidStreamPos	0x20000002			///< invalid memory stream position
 #define EscapePressed		0x20000003			///< user break by ESC
-#define WrongVersion		0x20000004			///< wrong pgf version 
+#define WrongVersion		0x20000004			///< wrong PGF version 
 #define FormatCannotRead	0x20000005			///< wrong data file format
 #define ImageTooSmall		0x20000006			///< image is too small
 #define ZlibError			0x20000007			///< error in zlib functions
@@ -250,7 +244,7 @@ typedef bool (__cdecl *CallbackPtr)(double percent, bool escapeAllowed, void *da
 // methods
 //-------------------------------------------------------------------------------
 inline OSError FileRead(HANDLE hFile, int *count, void *buffPtr) {
-	if (ReadFile(hFile, buffPtr, *count, (ULONG *)count, NULL)) {
+	if (ReadFile(hFile, buffPtr, *count, (ULONG *)count, nullptr)) {
 		return NoError;
 	} else {
 		return GetLastError();
@@ -258,7 +252,7 @@ inline OSError FileRead(HANDLE hFile, int *count, void *buffPtr) {
 }
 
 inline OSError FileWrite(HANDLE hFile, int *count, void *buffPtr) {
-	if (WriteFile(hFile, buffPtr, *count, (ULONG *)count, NULL)) {
+	if (WriteFile(hFile, buffPtr, *count, (ULONG *)count, nullptr)) {
 		return NoError;
 	} else {
 		return GetLastError();
@@ -305,7 +299,7 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 #else
 	LARGE_INTEGER li;
 	li.QuadPart = posOff;
-	if (SetFilePointerEx(hFile, li, NULL, posMode)) {
+	if (SetFilePointerEx(hFile, li, nullptr, posMode)) {
 		return NoError;
 	} else {
 		return GetLastError();
@@ -367,6 +361,8 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 #include <errno.h>
 #include <stdint.h>		// for int64_t and uint64_t
 #include <string.h>		// memcpy()
+
+#undef major
 
 //-------------------------------------------------------------------------------
 // unsigned number type definitions

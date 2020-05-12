@@ -26,7 +26,7 @@ public:
 	Query(QWidget* parent=0, const char* name=nullptr, bool modal = false, const QString& text=0, const QString& titel=0 );
 	~Query() {};
 
-	const QString getEditText();
+	QString getEditText() const;
 	void setEditText(const QString& newText, bool setSelected);
 	void setTestList(const QStringList& tList);
 	void setForbiddenList(const QStringList& tList);

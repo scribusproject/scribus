@@ -500,52 +500,52 @@ bool PluginManager::DLLexists(const QString& name, bool includeDisabled) const
 	return false;
 }
 
-bool PluginManager::loadPlugin(PluginData & pda)
+bool PluginManager::loadPlugin(PluginData& pluginData)
 {
 	typedef int (*getPluginAPIVersionPtr)();
 	typedef ScPlugin* (*getPluginPtr)();
 	getPluginAPIVersionPtr getPluginAPIVersion;
 	getPluginPtr getPlugin;
 
-	Q_ASSERT(pda.plugin == nullptr);
-	Q_ASSERT(pda.pluginDLL == nullptr);
-	Q_ASSERT(!pda.enabled);
-	pda.plugin = nullptr;
+	Q_ASSERT(pluginData.plugin == nullptr);
+	Q_ASSERT(pluginData.pluginDLL == nullptr);
+	Q_ASSERT(!pluginData.enabled);
+	pluginData.plugin = nullptr;
 
-	pda.pluginDLL = loadDLL(pda.pluginFile);
-	if (!pda.pluginDLL)
+	pluginData.pluginDLL = loadDLL(pluginData.pluginFile);
+	if (!pluginData.pluginDLL)
 		return false;
 
 	getPluginAPIVersion = (getPluginAPIVersionPtr)
-		resolveSym(pda.pluginDLL, QString(pda.pluginName + "_getPluginAPIVersion").toLocal8Bit().data());
+		resolveSym(pluginData.pluginDLL, QString(pluginData.pluginName + "_getPluginAPIVersion").toLocal8Bit().data());
 	if (getPluginAPIVersion)
 	{
 		int gotVersion = (*getPluginAPIVersion)();
 		if ( gotVersion != PLUGIN_API_VERSION )
 		{
 			qDebug("API version mismatch when loading %s: Got %i, expected %i",
-					pda.pluginFile.toLocal8Bit().data(), gotVersion, PLUGIN_API_VERSION);
+					pluginData.pluginFile.toLocal8Bit().data(), gotVersion, PLUGIN_API_VERSION);
 		}
 		else
 		{
 			getPlugin = (getPluginPtr)
-				resolveSym(pda.pluginDLL, QString(pda.pluginName + "_getPlugin").toLocal8Bit().data());
+				resolveSym(pluginData.pluginDLL, QString(pluginData.pluginName + "_getPlugin").toLocal8Bit().data());
 			if (getPlugin)
 			{
-				pda.plugin = (*getPlugin)();
-				if (!pda.plugin)
+				pluginData.plugin = (*getPlugin)();
+				if (!pluginData.plugin)
 				{
 					qDebug("Unable to get ScPlugin when loading %s",
-							pda.pluginFile.toLocal8Bit().data());
+							pluginData.pluginFile.toLocal8Bit().data());
 				}
 				else
 					return true;
 			}
 		}
 	}
-	unloadDLL(pda.pluginDLL);
-	pda.pluginDLL = nullptr;
-	Q_ASSERT(!pda.plugin);
+	unloadDLL(pluginData.pluginDLL);
+	pluginData.pluginDLL = nullptr;
+	Q_ASSERT(!pluginData.plugin);
 	return false;
 }
 

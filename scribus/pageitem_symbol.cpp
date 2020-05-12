@@ -57,7 +57,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	if (m_Doc->RePos)
 		return;
 	if (!m_Doc->docPatterns.contains(m_patternName))
-		m_patternName = "";
+		m_patternName.clear();
 	if (m_patternName.isEmpty())
 	{
 		if (m_Doc->guidesPrefs().framesShown)
@@ -98,7 +98,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		else
 			p->setMaskMode(3);
 		if ((!gradientMask().isEmpty()) && (!m_Doc->docGradients.contains(gradientMask())))
-			gradientMaskVal = "";
+			gradientMaskVal.clear();
 		if (!(gradientMask().isEmpty()) && (m_Doc->docGradients.contains(gradientMask())))
 			mask_gradient = m_Doc->docGradients[gradientMask()];
 		p->mask_gradient = mask_gradient;

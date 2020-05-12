@@ -32,7 +32,7 @@ def main():
         if sel_count > 1: source += "s" #plural
         for i in range(sel_count):
             try:
-                text = getText(getSelectedObject(i))
+                text = getFrameText(getSelectedObject(i))
                 words += len(wordsplit(text))
             except WrongFrameTypeError:
                 if sel_count == 1:
@@ -48,7 +48,7 @@ def main():
             gotoPage(page)
             for obj in getAllObjects():
                 try:
-                    text = getText(obj)
+                    text = getFrameText(obj)
                     words += len(wordsplit(text))
                 except WrongFrameTypeError:
                     pass # ignore the error, it just wasn't a frame we can count

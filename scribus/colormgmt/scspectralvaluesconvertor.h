@@ -28,7 +28,7 @@ public:
 	/**
 	* Construct spectral values to CIEXYZ convertor with specified E308 table
 	*/
-	ScSpectralValuesConvertor(const ScE308Table& e380table);
+	ScSpectralValuesConvertor(const ScE308Table& e308table);
 
 	/**
 	 * Retrieve CIE XYZ values of illuminant white

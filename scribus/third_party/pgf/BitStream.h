@@ -31,6 +31,7 @@
 
 #include "PGFtypes.h"
 
+//////////////////////////////////////////////////////////////////////
 // constants
 //static const WordWidth = 32;
 //static const WordWidthLog = 5;
@@ -38,7 +39,20 @@ static const UINT32 Filled = 0xFFFFFFFF;
 
 /// @brief Make 64 bit unsigned integer from two 32 bit unsigned integers
 #define MAKEU64(a, b) ((UINT64) (((UINT32) (a)) | ((UINT64) ((UINT32) (b))) << 32)) 
- 
+
+/*
+static UINT8 lMask[] = {
+	0x00,                       // 00000000
+	0x80,                       // 10000000 
+	0xc0,                       // 11000000
+	0xe0,                       // 11100000
+	0xf0,                       // 11110000
+	0xf8,                       // 11111000
+	0xfc,                       // 11111100
+	0xfe,                       // 11111110
+	0xff,                       // 11111111
+};
+*/
 // these procedures have to be inlined because of performance reasons
 
 //////////////////////////////////////////////////////////////////////
@@ -252,7 +266,61 @@ inline UINT32 SeekBit1Range(UINT32* stream, UINT32 pos, UINT32 len) {
 	}
 	return count;
 }
+/*
+//////////////////////////////////////////////////////////////////////
+/// BitCopy: copies k bits from source to destination
+/// Note: only 8 bits are copied at a time, if speed is an issue, a more
+/// complicated but faster 64 bit algorithm should be used.
+inline void BitCopy(const UINT8 *sStream, UINT32 sPos, UINT8 *dStream, UINT32 dPos, UINT32 k) {
+	ASSERT(k > 0);
 
+	div_t divS = div(sPos, 8);
+	div_t divD = div(dPos, 8);
+	UINT32 sOff = divS.rem;
+	UINT32 dOff = divD.rem;
+	INT32 tmp = div(dPos + k - 1, 8).quot;
+
+	const UINT8 *sAddr = sStream + divS.quot;
+	UINT8 *dAddrS = dStream + divD.quot;
+	UINT8 *dAddrE = dStream + tmp;
+	UINT8 eMask;
+
+	UINT8 destSB = *dAddrS;
+	UINT8 destEB = *dAddrE;
+	UINT8 *dAddr;
+	UINT8 prec;
+	INT32 shiftl, shiftr;
+
+	if (dOff > sOff) {
+		prec = 0;
+		shiftr = dOff - sOff;
+		shiftl = 8 - dOff + sOff;
+	} else {
+		prec = *sAddr << (sOff - dOff);
+		shiftr = 8 - sOff + dOff;
+		shiftl = sOff - dOff;
+		sAddr++;
+	}
+
+	for (dAddr = dAddrS; dAddr < dAddrE; dAddr++, sAddr++) {
+		*dAddr = prec | (*sAddr >> shiftr);
+		prec = *sAddr << shiftl;
+	}
+
+	if ((sPos + k)%8 == 0) {
+		*dAddr = prec;
+	} else {
+		*dAddr = prec | (*sAddr >> shiftr);
+	}
+
+	eMask = lMask[dOff];
+	*dAddrS = (destSB & eMask) | (*dAddrS & (~eMask));
+
+	INT32 mind = (dPos + k) % 8;
+	eMask = (mind) ? lMask[mind] : lMask[8];
+	*dAddrE = (destEB & (~eMask)) | (*dAddrE & eMask);
+}
+*/
 //////////////////////////////////////////////////////////////////////
 /// Compute bit position of the next 32-bit word
 /// @param pos current bit stream position
@@ -269,4 +337,5 @@ inline UINT32 AlignWordPos(UINT32 pos) {
 inline UINT32 NumberOfWords(UINT32 pos) {
 	return (pos + WordWidth - 1) >> WordWidthLog;
 }
+
 #endif //PGF_BITSTREAM_H

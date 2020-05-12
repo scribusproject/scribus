@@ -17,12 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 
 ContentPalette_Default::ContentPalette_Default( QWidget* parent)
-	: QWidget(parent),
-	  m_haveDoc(false),
-	  m_haveItem(false),
-	  m_unitRatio(1.0),
-	  m_unitIndex(SC_PT),
-	  m_doc(nullptr)
+	: QWidget(parent)
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));

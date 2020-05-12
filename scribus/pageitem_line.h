@@ -46,8 +46,8 @@ public:
 	void applicableActions(QStringList& actionList) override;
 	QString infoDescription() const override;
 
-	QPointF startPoint();
-	QPointF endPoint();
+	QPointF startPoint() const;
+	QPointF endPoint() const;
 
 	void setLineClip();
 
