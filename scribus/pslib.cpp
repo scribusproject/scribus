@@ -1330,7 +1330,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 	cms.allowColorManagement(true);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	int resolution = 300;
-	if (item->asLatexFrame())
+	if (item->isLatexFrame())
 		resolution = item->asLatexFrame()->realDpi();
 	else if (item->pixm.imgInfo.type == ImageType7)
 		resolution = 72;
@@ -1347,7 +1347,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 	PutStream("0 " + ToStr(h*scaley) + " tr\n");
 	PutStream(ToStr(-item->imageRotation()) + " ro\n");
 	PutStream("0 " + ToStr(-h*scaley) + " tr\n");
-	if ((extensionIndicatesPDF(ext)) && (!item->asLatexFrame()))
+	if ((extensionIndicatesPDF(ext)) && (!item->isLatexFrame()))
 	{
 		scalex *= PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / 300.0;
 		scaley *= PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / 300.0;
@@ -2656,7 +2656,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				ScQApp->processEvents();
 			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if (!(ite->asTextFrame()) && !(ite->isImageFrame()) && !(ite->isPathText()) && !(ite->isTable()))
+			if (!(ite->isTextFrame()) && !(ite->isImageFrame()) && !(ite->isPathText()) && !(ite->isTable()))
 			{
 				int mpIndex = m_Doc->MasterNames[page->masterPageName()];
 				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
@@ -2868,7 +2868,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				}
 				PS_restore();
 			}
-			else if (ite->asTextFrame())
+			else if (ite->isTextFrame())
 			{
 				PS_save();
 				if (ite->doOverprint)

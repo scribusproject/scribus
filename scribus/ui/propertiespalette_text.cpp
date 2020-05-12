@@ -344,7 +344,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 			m_item->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(false);
 	}
