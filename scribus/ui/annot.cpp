@@ -1087,7 +1087,7 @@ void ScAnnot::SetValues()
 	if (ComboBox1->currentIndex() == 5)
 		annotation.setType(Annotation::RadioButton);
 	else
-		annotation.setType(ComboBox1->currentIndex()+2);
+		annotation.setType(ComboBox1->currentIndex() + 2);
 	if (Name->text() != OldName)
 		m_item->setItemName(Name->text());
 	annotation.setToolTip(Tip->text());
