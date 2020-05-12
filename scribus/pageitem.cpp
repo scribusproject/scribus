@@ -4591,7 +4591,7 @@ void PageItem::convertTo(ItemType newType)
 	switch (m_itemType)
 	{
 		case ImageFrame:
-			if (asLatexFrame())
+			if (isLatexFrame())
 				fromType = Um::LatexFrame;
 			else
 				fromType = Um::ImageFrame;
