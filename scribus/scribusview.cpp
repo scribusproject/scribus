@@ -1240,7 +1240,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					{
 						bb = pasted.at(dre);
 						currItem = m_doc->m_Selection->itemAt(dre);
-						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
+						if ((currItem->isTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
 						{
 							PageItem* before = currItem->prevInChain();
 							PageItem* after = currItem->nextInChain();
@@ -1642,7 +1642,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
 	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
 	m_doc->moveItem(x-oldPos.x(), y-oldPos.y(), currItem);
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	m_doc->setRedrawBounding(currItem);
 	m_doc->regionsChanged()->update(QRect());
@@ -1851,7 +1851,7 @@ void ScribusView::deselectItems(bool /*prop*/)
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		currItem = m_doc->m_Selection->itemAt(i);
-		if ((currItem->asTextFrame()) && (currItem->isBookmark))
+		if ((currItem->isTextFrame()) && (currItem->isBookmark))
 			emit ChBMText(currItem);
 	}
 	if (!m_doc->m_Selection->isMultipleSelection())
@@ -2911,7 +2911,7 @@ void ScribusView::ToPathText()
 
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	PageItem *polyLineItem;
-	if (currItem->asTextFrame())
+	if (currItem->isTextFrame())
 		polyLineItem = m_doc->m_Selection->itemAt(1);
 	else
 	{
@@ -3138,7 +3138,7 @@ void ScribusView::TextToPath()
 	{
 		PageItem *currItem = tmpSelection.itemAt(offset);
 		bool cont = false;
-		if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->locked()) || currItem->itemText.length() == 0)
+		if ((!((currItem->isTextFrame()) || (currItem->isPathText()))) || (currItem->locked()) || currItem->itemText.length() == 0)
 			cont = true;
 		if (currItem == m_ScMW->storyEditor->currentItem() && m_doc == m_ScMW->storyEditor->currentDocument())
 		{
@@ -3162,7 +3162,7 @@ void ScribusView::TextToPath()
 		if (textLen > 1)
 			undoManager->setUndoEnabled(true);
 
-		if ((currItem->asPathText()) && (currItem->PoShow))
+		if ((currItem->isPathText()) && (currItem->PoShow))
 		{
 			int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor());
 			PageItem *bb = m_doc->Items->at(z);
@@ -3177,7 +3177,7 @@ void ScribusView::TextToPath()
 			undoManager->setUndoEnabled(true);
 			newGroupedItems.append(m_doc->Items->takeAt(z));
 		}
-		if (currItem->asTextFrame())
+		if (currItem->isTextFrame())
 		{
 			if ((!currItem->NamedLStyle.isEmpty()) || (currItem->lineColor() != CommonStrings::None) || (!currItem->strokePattern().isEmpty()) || (!currItem->strokeGradient().isEmpty()))
 			{

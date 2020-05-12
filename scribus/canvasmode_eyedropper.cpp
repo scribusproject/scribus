@@ -200,7 +200,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			PageItem *currItem = m_doc->m_Selection->itemAt(i);
 			if (!currItem)
 				continue;
-			if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
+			if ((m->modifiers() & Qt::ControlModifier) && (currItem->isTextFrame() || currItem->asPathText()))
 				m_doc->itemSelection_SetFillColor(colorName); //Text colour
 			else if (m->modifiers() & Qt::AltModifier) //Line colour
 				m_doc->itemSelection_SetItemPen(colorName);

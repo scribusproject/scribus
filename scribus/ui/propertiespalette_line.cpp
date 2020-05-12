@@ -332,7 +332,7 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 
 	if (m_item->asOSGFrame())
 		setEnabled(false);
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 		setEnabled(false);
 }
 

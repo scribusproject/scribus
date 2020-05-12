@@ -480,7 +480,7 @@ ScribusDoc::~ScribusDoc()
 			currItem = allItems.at(j);
 			if (currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
-			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			if ((currItem->isImageFrame()) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
@@ -500,7 +500,7 @@ ScribusDoc::~ScribusDoc()
 			currItem = allItems.at(j);
 			if (currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
-			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			if ((currItem->isImageFrame()) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
@@ -520,7 +520,7 @@ ScribusDoc::~ScribusDoc()
 			currItem = allItems.at(ii);
 			if (currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
-			if ((currItem->asImageFrame()) && (!currItem->Pfile.isEmpty()))
+			if ((currItem->isImageFrame()) && (!currItem->Pfile.isEmpty()))
 			{
 				QFileInfo fi(currItem->Pfile);
 				ScCore->fileWatcher->removeDir(fi.absolutePath());
@@ -7729,9 +7729,9 @@ void ScribusDoc::itemSelection_SetLineWidth(double w, Selection* customSelection
 		//cb moved to setlinewidth
 		//currItem->m_oldLineWidth = currItem->lineWidth();
 		currItem->setLineWidth(w);
-		if (currItem->asPolyLine() || currItem->asSpiral())
+		if (currItem->isPolyLine() || currItem->isSpiral())
 			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
-		if (currItem->asLine())
+		if (currItem->isLine())
 			currItem->asLine()->setLineClip();
 		QRectF newRect = currItem->getVisualBoundingRect();
 		//currItem->update();
@@ -7943,7 +7943,7 @@ void ScribusDoc::itemSelection_SetItemPen(QString color, Selection* customSelect
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);
-		if ((currItem->asLine()) && (color == CommonStrings::None))
+		if ((currItem->isLine()) && (color == CommonStrings::None))
 			continue;
 
 		currItem->setLineColor(color);
@@ -8910,7 +8910,7 @@ void ScribusDoc::itemSelection_ToggleBookMark(Selection *customSelection)
 		if (UndoManager::undoEnabled())
 			activeTransaction = m_undoManager->beginTransaction();
 		PageItem* currItem = itemSelection->itemAt(i);
-		if (currItem->asTextFrame())
+		if (currItem->isTextFrame())
 		{
 			if (currItem->OwnPage != -1)
 			{
@@ -8954,7 +8954,7 @@ void ScribusDoc::itemSelection_ToggleAnnotation(Selection *customSelection)
 		if (UndoManager::undoEnabled())
 			activeTransaction = m_undoManager->beginTransaction();
 		PageItem* currItem = itemSelection->itemAt(i);
-		if (currItem->asTextFrame())
+		if (currItem->isTextFrame())
 		{
 			bool old = currItem->isBookmark;
 			currItem->setIsAnnotation(!currItem->isAnnotation());
@@ -9028,7 +9028,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 			else 
 			currItem->itemText.setDefaultStyle(newStyle);
 		}
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 	}
 	if (activeTransaction)
@@ -9116,7 +9116,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 				setNotesChanged(true);
 		}
 		currItem->invalid = true;
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
@@ -9274,7 +9274,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 			currItem->itemText.applyStyle(stop, newStyle, rmDirectFormatting);
 			currItem->invalid = true;
 		}
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
@@ -9414,7 +9414,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			else if (currItem->isTextFrame())
 				updateItemNotesFramesStyles(currItem, dstyle);
 		}
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
@@ -9494,7 +9494,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			else if (currItem->isTextFrame())
 				updateItemNotesFramesStyles(currItem, dstyle);
 		}
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
@@ -9599,7 +9599,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 			else if (currItem->isTextFrame())
 				updateItemNotesFramesStyles(currItem, defStyle);
 		}
-		if (currItem->asPathText())
+		if (currItem->isPathText())
 			currItem->updatePolyClip();
 		if (currItem->isNoteFrame())
 			currItem->asNoteFrame()->updateNotesText();
@@ -9638,7 +9638,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 	ma.scale(-1, 1);
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(currItem->width(), 0);
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	else
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
@@ -9681,7 +9681,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 	ma.scale(1, -1);
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(0, currItem->height());
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	else
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
@@ -10183,7 +10183,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			double imgY = currItem->imageYOffset();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
-			if (currItem->asLatexFrame())
+			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
 			else
 				loadPict(currItem->Pfile, currItem, true);
@@ -10217,7 +10217,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			double imgY = currItem->imageYOffset();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
-			if (currItem->asLatexFrame())
+			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
 			else
 				loadPict(currItem->Pfile, currItem, true);
@@ -10252,7 +10252,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			double imgY = currItem->imageYOffset();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
-			if (currItem->asLatexFrame())
+			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
 			else
 				loadPict(currItem->Pfile, currItem, true);
@@ -10291,7 +10291,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				double imgY = currItem->imageYOffset();
 				if (applyNewRes)
 					currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
-				if (currItem->asLatexFrame())
+				if (currItem->isLatexFrame())
 					currItem->asLatexFrame()->rerunApplication(false);
 				else
 					loadPict(currItem->Pfile, currItem, true);
@@ -10453,13 +10453,13 @@ void ScribusDoc::updatePic()
 		if (!currItem)
 			continue;
 		m_updateManager.setUpdatesDisabled();
-		if (currItem->asLatexFrame())
+		if (currItem->isLatexFrame())
 		{
 			PageItem_LatexFrame *latexframe = currItem->asLatexFrame();
 			latexframe->rerunApplication();
 			toUpdate = true;
 		}
-		else if ((currItem->asImageFrame()) || (currItem->asOSGFrame()))
+		else if ((currItem->isImageFrame()) || (currItem->isOSGFrame()))
 		{
 			if (currItem->imageIsAvailable)
 			{
@@ -11152,7 +11152,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 			currItem = allItems.at(ii);
 			if (currItem != nullptr)
 			{
-				if (currItem->asImageFrame())
+				if (currItem->isImageFrame())
 				{
 					currItem->pixm.imgInfo.lowResType = id;
 					if (!found)
@@ -11174,7 +11174,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 			currItem = allItems.at(ii);
 			if (currItem != nullptr)
 			{
-				if (currItem->asImageFrame())
+				if (currItem->isImageFrame())
 				{
 					currItem->pixm.imgInfo.lowResType = id;
 					if (!found)
@@ -11196,7 +11196,7 @@ void ScribusDoc::allItems_ChangePreviewResolution(int id)
 			currItem = allItems.at(ii);
 			if (currItem != nullptr)
 			{
-				if (currItem->asImageFrame())
+				if (currItem->isImageFrame())
 				{
 					currItem->pixm.imgInfo.lowResType = id;
 					if (!found)
@@ -11308,7 +11308,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWar
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (currItem->asImageFrame())
+		if (currItem->isImageFrame())
 		{
 			if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable))
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
@@ -11385,7 +11385,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		if(currItem->isGroupChild())
 			continue;
 		//CB FIXME remove this and include of storyeditor.h too
-		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
+		if ((currItem->isTextFrame() || currItem->isPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
 		{
 			if (forceDeletion)
 				m_ScMW->storyEditor->setCurrentDocumentAndItem(this, nullptr);
@@ -11432,7 +11432,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		itemList = groupOfItem(Items, currItem);
 		if (itemList == nullptr)
 			continue;
-		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable)))
+		if ((currItem->isImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable)))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		//delete marks pointed to that item
 		for (int a=0; a < m_docMarksList.count(); a++)
@@ -11463,14 +11463,14 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 		else
 		{
-			if (currItem->asTextFrame() && !currItem->isInChain())
+			if (currItem->isTextFrame() && !currItem->isInChain())
 			{
 				currItem->itemText.selectAll();
 				currItem->asTextFrame()->removeMarksFromText(true);
 				currItem->asTextFrame()->delAllNoteFrames(false);
 				currItem->itemText.deselectAll();
 			}
-			if (currItem->asTextFrame())
+			if (currItem->isTextFrame())
 				currItem->dropLinks();
 		}
 		if (currItem->isWelded())
@@ -13807,7 +13807,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
+		if (!(currItem->isLine() || currItem->asPolyLine() || currItem->asSpiral()))
 			continue;
 		updateRect = updateRect.united(currItem->getBoundingRect());
 		if (startArrowID != -1)
@@ -13858,7 +13858,7 @@ void ScribusDoc::itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc,
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
-		if (!(currItem->asLine() || currItem->asPolyLine() || currItem->asSpiral()))
+		if (!(currItem->isLine() || currItem->isPolyLine() || currItem->isSpiral()))
 			continue;
 		if (startArrowSc !=  -1)
 			currItem->setStartArrowScale(startArrowSc);
@@ -14162,7 +14162,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	getClosestGuides(0, currItem->yPos(), &xout, &yout);
 	if (currItem->yPos() != yout)
 		currItem->setYPos(yout);
-	if (currItem->asLine())
+	if (currItem->isLine())
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -14181,7 +14181,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	getClosestGuides(currItem->xPos(), 0, &xout, &yout);
 	if (currItem->xPos() != xout)
 		currItem->setXPos(xout);
-	if (currItem->asLine())
+	if (currItem->isLine())
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -14393,11 +14393,11 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 //	currItem->setWidthHeight(newW, newH, true);
 	currItem->setWidthHeight(newW, newH);
 
-	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
+	if ((currItem->isImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
 	{
 		currItem->adjustPictScale();
 	}
-	if (currItem->asLine())
+	if (currItem->isLine())
 	{
 		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		if (!fromMP)
@@ -14500,7 +14500,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 bool ScribusDoc::moveSizeItem(const FPoint& newX, const FPoint& newY, PageItem* currItem, bool fromMP, bool constrainRotation)
 {
 	QRectF oldR(currItem->getBoundingRect());
-	if (currItem->asLine())
+	if (currItem->isLine())
 	{
 		QTransform ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
@@ -14621,9 +14621,9 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 	currItem->ClipEdited = true;
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
-	if (currItem->asPolyLine() || currItem->asSpiral())
+	if (currItem->isPolyLine() || currItem->asSpiral())
 		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
-	else if (currItem->asPathText())
+	else if (currItem->isPathText())
 		currItem->updatePolyClip();
 	else
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
@@ -15991,7 +15991,7 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem != nullptr)
 		{
-			if (currItem->asImageFrame() && currItem->imageIsAvailable)
+			if (currItem->isImageFrame() && currItem->imageIsAvailable)
 				currItem->setImageScalingMode(false, true);
 		}
 	}
@@ -16016,7 +16016,7 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem != nullptr)
 		{
-			if (currItem->asTextFrame() && (currItem->itemText.length() > 0) && !currItem->isTableItem)
+			if (currItem->isTextFrame() && (currItem->itemText.length() > 0) && !currItem->isTableItem)
 				currItem ->asTextFrame()->setTextFrameHeight();
 		}
 	}

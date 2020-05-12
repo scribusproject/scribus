@@ -1193,11 +1193,11 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				for (int cg = 0; cg < itemCountG; cg++)
 				{
 					currItem = gItem->groupItemList.at(cg);
-					if (!(currItem->asLine()))
+					if (!(currItem->isLine()))
 						currItem->DrawPolyL(pp, currItem->Clip);
 					else
 					{
-						if (currItem->asLine())
+						if (currItem->isLine())
 						{
 							int lw2 = 1;
 							int lw = 1;
@@ -1515,7 +1515,7 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 				currItem->DrawObj_Decoration(painter);
 			}
 			getLinkedFrames(currItem);
-/*			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
+/*			if ((currItem->isTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 			{
 				PageItem *nextItem = currItem;
 				while (nextItem != 0)
@@ -1687,7 +1687,7 @@ void Canvas::getLinkedFrames(PageItem* currItem)
 		}
 
 	}
-	else if ((currItem->asTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
+	else if ((currItem->isTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
 	{
 		PageItem *nextItem = currItem;
 		while (nextItem != nullptr)

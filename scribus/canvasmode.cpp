@@ -430,7 +430,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				}
 				if (drawHandles && !currItem->locked())
 				{
-					if (currItem->asLine())
+					if (currItem->isLine())
 					{
 						const double markWidth = 4.0 / m_canvas->scale();
 						QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
@@ -1140,7 +1140,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			double radRotation = rotationFC * M_PI / 180.0;
 
 			bool moveImage = false;
-			if ((currItem->asImageFrame() || currItem->asLatexFrame() || currItem->asOSGFrame()) && currItem->imageIsAvailable && !currItem->fitImageToFrame())
+			if ((currItem->isImageFrame() || currItem->asLatexFrame() || currItem->asOSGFrame()) && currItem->imageIsAvailable && !currItem->fitImageToFrame())
 				moveImage = true;
 
 			switch (kk)

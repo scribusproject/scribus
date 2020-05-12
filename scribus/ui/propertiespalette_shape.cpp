@@ -232,7 +232,7 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				setEnabled(false);
 				roundRect->setEnabled(false);
@@ -372,7 +372,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		editShape->setEnabled(false);
 		customShape->setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 	{
 		setEnabled(false);
 	}

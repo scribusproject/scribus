@@ -248,7 +248,7 @@ public: // Start public functions
 	virtual PageItem_Polygon * asPolygon()					{ return nullptr; } ///< Return self if Polygon item, otherwise null
 	virtual PageItem_RegularPolygon * asRegularPolygon()	{ return nullptr; } ///< Return self if Regular Polygon item, otherwise null
 	virtual PageItem_Spiral * asSpiral()					{ return nullptr; } ///< Return self if Spiral item, otherwise null
-	virtual PageItem_Symbol * asSymbolFrame()				{ return nullptr; } ///< Return self if Symbol item, otherwise null
+	virtual PageItem_Symbol * asSymbol()				{ return nullptr; } ///< Return self if Symbol item, otherwise null
 	virtual PageItem_Table * asTable()						{ return nullptr; } ///< Return self if Table item, otherwise null
 	virtual PageItem_TextFrame * asTextFrame()				{ return nullptr; } ///< Return self if Text item, otherwise null
 

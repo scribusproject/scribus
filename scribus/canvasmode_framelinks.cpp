@@ -301,7 +301,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&currItem) && (currItem->asTextFrame()))
+			if (GetItem(&currItem) && (currItem->isTextFrame()))
 			{
 				if (currItem->prevInChain() != nullptr)
 				{

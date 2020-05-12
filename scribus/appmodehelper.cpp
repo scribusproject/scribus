@@ -141,7 +141,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (currItem != nullptr)
 				{
 					currItem->update();
-					if (currItem->asTextFrame())
+					if (currItem->isTextFrame())
 						enableTextActions(false);
 					//		scrMenuMgr->setMenuEnabled("Item", true);
 					setTextEditMode(false);
@@ -289,7 +289,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{
-					bool textFrameEditMode = ((currItem != nullptr) && (currItem->asTextFrame()));
+					bool textFrameEditMode = ((currItem != nullptr) && (currItem->isTextFrame()));
 					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
 				}
 				setTextEditMode(true);
@@ -350,7 +350,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 					// #11938: Paste is not correctly enabled in modeEditTable
 					if (ScMimeData::clipboardHasScribusData())
-						(*a_scrActions)["editPaste"]->setEnabled(currItem->asTable());
+						(*a_scrActions)["editPaste"]->setEnabled(currItem->isTable());
 				}
 			}
 			break;
@@ -459,7 +459,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	(*a_scrActions)["editPasteContents"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->isRaster);
-	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->isLatexFrame() || currItem->isOSGFrame()));
 	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
 	if (!isImageFrame)
 	{
@@ -650,7 +650,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			{
 				(*a_scrActions)["editSelectAll"]->setEnabled(true);
 				(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(false);
-				if (currItem->asTextFrame())
+				if (currItem->isTextFrame())
 				{
 					enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
 				}
@@ -890,7 +890,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		{
 			(*a_scrActions)["itemUngroup"]->setEnabled(false);
 			(*a_scrActions)["itemGroupAdjust"]->setEnabled(false);
-			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
+			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->isPolygon()) && (currItem->Segments.count() != 0) );
 		}
 		bool levelEnabled = true;
 		if (currItem->locked())

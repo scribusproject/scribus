@@ -5006,9 +5006,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 //		if (!currItem->asLatexFrame())
 #ifdef HAVE_OSG
-		if ((currItem->asImageFrame() || currItem->asOSGFrame()) && (!currItem->asLatexFrame()))
+		if ((currItem->isImageFrame() || currItem->isOSGFrame()) && (!currItem->isLatexFrame()))
 #else
-		if ((currItem->asImageFrame()) && (!currItem->asLatexFrame()))
+		if ((currItem->isImageFrame()) && (!currItem->isLatexFrame()))
 #endif
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
@@ -5041,7 +5041,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			else
 				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
 #ifdef HAVE_OSG
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
 				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
@@ -5379,7 +5379,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setIcon(attrs.valueAsInt("ANITYP", 0));
 	currItem->annotation().setAnOpen(attrs.valueAsBool("ANOPEN", false) );
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -5405,7 +5405,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(true);
 	}
 
-	if (currItem->asTable())
+	if (currItem->isTable())
 	{
 		doc->dontResize = true;
 		PageItem_Table *tableitem = currItem->asTable();
@@ -5527,7 +5527,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->DashValues.clear();
 	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
 
-	if (currItem->asRegularPolygon())
+	if (currItem->isRegularPolygon())
 	{
 		PageItem_RegularPolygon *regitem = currItem->asRegularPolygon();
 		regitem->polyCorners      = attrs.valueAsInt("POLYC", 4);
@@ -5539,7 +5539,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
 		regitem->recalcPath();
 	}
-	else if (currItem->asArc())
+	else if (currItem->isArc())
 	{
 		PageItem_Arc *arcitem = currItem->asArc();
 		arcitem->arcHeight     = attrs.valueAsDouble("arcHeight", 1.0);
@@ -5548,7 +5548,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
 		arcitem->recalcPath();
 	}
-	else if (currItem->asSpiral())
+	else if (currItem->isSpiral())
 	{
 		PageItem_Spiral *arcitem = currItem->asSpiral();
 		arcitem->FrameType = 3; // Workaround for old docs, otherwise undo breaks spirals
@@ -5621,7 +5621,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->asLine()->setLineClip();
 	}
 
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;

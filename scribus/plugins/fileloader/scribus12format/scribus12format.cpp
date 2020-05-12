@@ -567,9 +567,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		}
 		currItem->ClipEdited = true;
 	}
-	if (currItem->asImageFrame())
+	if (currItem->isImageFrame())
 		currItem->adjustPictScale();
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 	{
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;

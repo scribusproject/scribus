@@ -348,7 +348,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 	{
 		setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 	{
 		setEnabled(false);
 	}

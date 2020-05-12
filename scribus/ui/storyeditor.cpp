@@ -3086,7 +3086,7 @@ void StoryEditor::updateTextFrame()
 	FrameItemsDel.clear();
 #endif
 #if 0
-	if (currItem->asTextFrame())
+	if (currItem->isTextFrame())
 	{
 		nextItem->layout();
 		nb2 = nextItem;

@@ -181,7 +181,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
-		if (currItem->asLatexFrame()) 
+		if (currItem->isLatexFrame())
 		{
 			if (currItem->locked()) // || (!currItem->ScaleType))
 			{
@@ -190,7 +190,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			if (currItem->imageVisible())
 				m_view->requestMode(modeEdit);
 		}
-		else if (currItem->asOSGFrame())
+		else if (currItem->isOSGFrame())
 		{
 			m_view->requestMode(submodeEditExternal);
 		}
@@ -250,24 +250,24 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 //				mousePressEvent(m);
 			}
 		}
-		else if (currItem->asSymbolFrame())
+		else if (currItem->isSymbol())
 		{
 			if (!m_doc->symbolEditMode())
 				m_view->requestMode(submodeEditSymbol);
 		}
-		else if (currItem->asArc())
+		else if (currItem->isArc())
 		{
 			m_view->requestMode(modeEditArc);
 		}
-		else if (currItem->asRegularPolygon())
+		else if (currItem->isRegularPolygon())
 		{
 			m_view->requestMode(modeEditPolygon);
 		}
-		else if (currItem->asSpiral())
+		else if (currItem->isSpiral())
 		{
 			m_view->requestMode(modeEditSpiral);
 		}
-		else if (currItem->asTable())
+		else if (currItem->isTable())
 		{
 			m_view->requestMode(modeEditTable);
 			m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
@@ -522,7 +522,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					erf = true;
 					currItem = m_doc->m_Selection->itemAt(0);
 					//Control Alt drag image in frame without being in edit mode
-					if ((currItem->asImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
+					if ((currItem->isImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
 					{
 						QTransform mm1 = currItem->getTransform();
 						QTransform mm2 = mm1.inverted();
@@ -771,7 +771,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				if (how > 0)
 				{
-					if (currItem->asLine())
+					if (currItem->isLine())
 						m_view->setCursor(QCursor(Qt::SizeAllCursor));
 					else if (!currItem->locked() && !currItem->sizeLocked())
 					{
@@ -837,7 +837,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 
 	if ((GetItem(&currItem)) && (!m_lastPosWasOverGuide))
 	{
-		if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()) && (!m_doc->drawAsPreview))
+		if ((currItem->isLine()) && (!m_doc->m_Selection->isMultipleSelection()) && (!m_doc->drawAsPreview))
 		{
 			if (!m_lineMoveGesture)
 				m_lineMoveGesture = new LineMove(this);
@@ -1011,7 +1011,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			m_canvas->m_viewMode.operItemResizing = false;
-			if (currItem->asLine())
+			if (currItem->isLine())
 				m_view->updateContents();
 		}
 		if (m_canvas->m_viewMode.operItemMoving)

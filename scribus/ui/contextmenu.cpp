@@ -107,7 +107,7 @@ void ContextMenu::createMenuItems_Selection()
 	{
 		QAction *act = addMenu(menuInfo);
 		act->setText( tr("In&fo"));
-		if (currItem->asImageFrame())
+		if (currItem->isImageFrame())
 		{
 			QLabel* menuLabel = new QLabel("<html>" + currItem->infoDescription() + "</html>", this);
 			menuLabel->setFrameShape(QFrame::NoFrame);
@@ -185,7 +185,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuEditContent->addAction(m_ScMW->scrActions["editCopyContents"]);
 		if (m_actionList.contains("editPasteContents"))
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteContents"]);
-		if (currItem->asImageFrame() && m_actionList.contains("editPasteContentsAbs"))
+		if (currItem->isImageFrame() && m_actionList.contains("editPasteContentsAbs"))
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
 	}
 	if (m_actionList.contains("editClearContents"))

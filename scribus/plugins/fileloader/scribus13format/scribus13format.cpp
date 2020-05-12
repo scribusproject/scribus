@@ -1812,7 +1812,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->annotation().setIPlace(obj->attribute("ANPLACE", "1").toInt());
 	currItem->annotation().setScaleW(obj->attribute("ANSCALE", "0").toInt());
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -1945,9 +1945,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setHeight(1.0);
 		currItem->asLine()->setLineClip();
 	}
-	if (currItem->asImageFrame())
+	if (currItem->isImageFrame())
 		currItem->adjustPictScale();
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;

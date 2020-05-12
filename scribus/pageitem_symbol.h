@@ -40,7 +40,7 @@ public:
 	PageItem_Symbol(const PageItem & p) : PageItem(p) {}
 	~PageItem_Symbol() {};
 
-	PageItem_Symbol * asSymbolFrame() override { return this; }
+	PageItem_Symbol* asSymbol() override { return this; }
 	bool isSymbol() const override { return true; }
 	ItemType realItemType() const override { return PageItem::Symbol; }
 	void applicableActions(QStringList& actionList) override;

@@ -816,7 +816,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 			cc = currItem->ContourLine.size();
 		else
 			cc = currItem->PoLine.size();
-		if (currItem->asPolyLine())
+		if (currItem->isPolyLine())
 		{
 			if (cc < 5)
 				leaveEd = true;

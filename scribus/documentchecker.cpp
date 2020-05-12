@@ -281,7 +281,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				itemError.insert(Transparency, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 				itemError.insert(ObjectNotOnPage, 0);
-			if (currItem->asImageFrame() && !currItem->asOSGFrame())
+			if (currItem->isImageFrame() && !currItem->isOSGFrame())
 			{
 
 				// check image vs. frame sizes
@@ -387,7 +387,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					}
 				}
 			}
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			if ((currItem->isTextFrame()) || (currItem->isPathText()))
 			{
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);
@@ -545,7 +545,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				itemError.insert(PDFAnnotField, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 				itemError.insert(ObjectNotOnPage, 0);
-			if (currItem->asImageFrame() && !currItem->asOSGFrame())
+			if (currItem->isImageFrame() && !currItem->isOSGFrame())
 			{
 
 				// check image vs. frame sizes
@@ -651,7 +651,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					}
 				}
 			}
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
+			if ((currItem->isTextFrame()) || (currItem->isPathText()))
 			{
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);

@@ -2862,7 +2862,7 @@ void ScribusMainWindow::HaveNewSel()
 		{
 			setTBvals(currItem);
 			charPalette->setEnabled(true, currItem);
-			if (currItem->asTextFrame())
+			if (currItem->isTextFrame())
 			{
 				appModeHelper->enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
 				currItem->asTextFrame()->toggleEditModeActions();
@@ -3982,7 +3982,7 @@ void ScribusMainWindow::slotGetContent()
 				cii->setImageList(fileNames);
 		}
 	}
-	else if (currItem->asTextFrame())
+	else if (currItem->isTextFrame())
 	{
 		gtGetText* gt = new gtGetText(doc);
 		ImportSetup impsetup=gt->run();
@@ -4632,7 +4632,7 @@ void ScribusMainWindow::slotEditCut()
 	for (int i = 0; i < docSelectionCount; ++i)
 	{
 		currItem = doc->m_Selection->itemAt(i);
-		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
+		if ((currItem->isTextFrame() || currItem->isPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
 		{
 				ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
 				return;
@@ -5221,7 +5221,7 @@ void ScribusMainWindow::deselectAll()
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (doc->appMode == modeEditTable)
 			currItem = currItem->asTable()->activeCell().textFrame();
-		if (currItem->asTextFrame())
+		if (currItem->isTextFrame())
 		{
 			currItem->itemText.deselectAll();
 			doc->regionsChanged()->update(currItem->getBoundingRect());
@@ -5246,8 +5246,8 @@ void ScribusMainWindow::ClipChange()
 	{
 		PageItem *currItem = nullptr;
 		currItem = doc->m_Selection->itemAt(0);
-		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->asTextFrame()));
-		tableEditMode = ((doc->appMode == modeEditTable) && (currItem->asTable()));
+		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->isTextFrame()));
+		tableEditMode = ((doc->appMode == modeEditTable) && (currItem->isTable()));
 	}
 	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
 }
@@ -6053,7 +6053,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		nodePalette->ResetContClip->setEnabled(false);
 		nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 		nodePalette->setDefaults(currItem);
-		if ((currItem->asImageFrame()) && (!currItem->imageClip.empty()))
+		if ((currItem->isImageFrame()) && (!currItem->imageClip.empty()))
 		{
 			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 			nodePalette->ResetContClip->show();
@@ -6618,7 +6618,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 			view->requestMode(modeEdit);
 		}
 	}
-	else if (ite->asSymbolFrame())
+	else if (ite->asSymbol())
 	{
 		if (!doc->symbolEditMode())
 			view->requestMode(submodeEditSymbol);
@@ -8555,13 +8555,13 @@ void ScribusMainWindow::callImageEditor()
 	// - IMHO ScribusMainWindow has way to many slots already
 	// - my code here is short and without sideeffects
 	PageItem *currItem = doc->m_Selection->itemAt(0);
-	if (currItem->asLatexFrame())
+	if (currItem->isLatexFrame())
 	{
 		currItem->asLatexFrame()->runEditor();
 		return; //Don't process the functions for imageframes!
 	}
 #ifdef HAVE_OSG
-	if (currItem->asOSGFrame())
+	if (currItem->isOSGFrame())
 	{
 		OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), m_osgFilterString);
 		dia->exec();

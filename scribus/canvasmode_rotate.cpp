@@ -335,7 +335,7 @@ void CanvasMode_Rotate::mouseReleaseEvent(QMouseEvent *m)
 		{
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
-			if (currItem->asLine())
+			if (currItem->isLine())
 				m_view->updateContents();
 		}
 	}
@@ -528,7 +528,7 @@ void CanvasMode_Rotate::keyReleaseEvent(QKeyEvent *e)
 		{
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
-			if (currItem->asLine())
+			if (currItem->isLine())
 				m_view->updateContents();
 		}
 	}

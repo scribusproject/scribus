@@ -366,7 +366,7 @@ void PropertiesPalette::setCurrentItem(PageItem *item)
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 	{
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idShadowItem, true);
@@ -420,7 +420,7 @@ void PropertiesPalette::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				TabStack->setItemEnabled(idXYZItem, true);
 				TabStack->setItemEnabled(idShadowItem, true);

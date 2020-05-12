@@ -446,7 +446,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	currItem->OldH2 = currItem->height();
 	if ((Doc->nodeEdit.clre() == StartInd) || (Doc->nodeEdit.clre() == EndInd - 2))
 	{
-		if (currItem->asPolyLine())
+		if (currItem->isPolyLine())
 		{
 			if (Doc->nodeEdit.clre() == StartInd)
 				Clip.setPoint(StartInd + 1, np);

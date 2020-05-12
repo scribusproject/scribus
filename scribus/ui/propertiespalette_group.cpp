@@ -197,7 +197,7 @@ void PropertiesPalette_Group::setCurrentItem(PageItem *item)
 
 	clipGroups->setChecked(m_item->groupClipping());
 
-	if (((m_item->isGroup()) && (!m_item->isSingleSel)) || m_item->asSymbolFrame())
+	if (((m_item->isGroup()) && (!m_item->isSingleSel)) || m_item->asSymbol())
 		setEnabled(true);
 	else
 		setEnabled(false);

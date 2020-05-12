@@ -2634,7 +2634,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
 		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
-		if (currItem->asLatexFrame())
+		if (currItem->isLatexFrame())
 		{
 			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX") * scx, attrs.valueAsDouble("LOCALY") * scy);
 	//		currItem->setImageXYScale(1.0, 1.0);
@@ -2883,7 +2883,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
 	currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -3047,7 +3047,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->asLine()->setLineClip();
 	}
 
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;

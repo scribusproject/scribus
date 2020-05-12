@@ -678,7 +678,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 		}
 		if (m_doc->nodeEdit.hasNodeSelected())
 		{
-			if (currItem->asPolygon())
+			if (currItem->isPolygon())
 			{
 				if ((m_doc->nodeEdit.clre() != 0) && (m_doc->nodeEdit.clre() != (EndInd - 2)))
 				{
@@ -735,7 +735,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 			}
 			else
 			{
-				if ((currItem->asPolyLine()) || (currItem->asPathText()))
+				if ((currItem->isPolyLine()) || (currItem->isPathText()))
 				{
 					if ((m_doc->nodeEdit.clre() > 1) && (m_doc->nodeEdit.clre() < (Clip.size() - 2)))
 					{
