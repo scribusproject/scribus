@@ -19,6 +19,7 @@ PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options
 	{
 		State state = { itemList, 0 };
 		m_stateStack.push(state);
+		m_current = next();
 	}
 }
 
@@ -69,6 +70,7 @@ PageItem* PageItemIterator::next()
 					State tableState = { cellItems, 0 };
 					m_stateStack.push(tableState);
 				}
+				break;
 			}
 		}
 

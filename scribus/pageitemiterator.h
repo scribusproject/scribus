@@ -25,7 +25,7 @@ public:
 	};
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
 
-	bool hasCurrent() const { return (m_current != 0); }
+	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }
 	PageItem* next();
 

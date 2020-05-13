@@ -85,8 +85,7 @@ void TOCGenerator::generateDefault()
 		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
-		PageItemIterator itemIter(m_doc->DocItems);
-		while (itemIter.next())
+		for (PageItemIterator itemIter(m_doc->DocItems); *itemIter; ++itemIter)
 		{
 			currentDocItem = itemIter.current();
 			if (currentDocItem == nullptr)
