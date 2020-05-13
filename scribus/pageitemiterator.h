@@ -18,7 +18,12 @@ class PageItem;
 class SCRIBUS_API PageItemIterator
 {
 public:
-	PageItemIterator(const QList<PageItem*>& itemList);
+	enum Options
+	{
+		IterateInGroups = 1,
+		IterateInTables = 2
+	};
+	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
 
 	bool hasCurrent() const { return (m_current != 0); }
 	PageItem* current() const { return m_current; }
@@ -31,11 +36,12 @@ public:
 protected:
 	struct State
 	{
-		const QList<PageItem*> *pItemList;
+		QList<PageItem*> itemList;
 		int   currentIndex;
 	};
 
-	PageItem* m_current;
+	int m_options { 0 };
+	PageItem* m_current { nullptr };
 	QStack<State> m_stateStack;
 };
 
