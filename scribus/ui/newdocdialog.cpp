@@ -88,7 +88,7 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 	return QSize(maxX, maxY);
 }
 
-NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent ),
+NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog(parent),
 	prefsManager(PrefsManager::instance())
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
