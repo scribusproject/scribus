@@ -10483,21 +10483,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				ImInfo.reso = 1;
 			}
-			bool hasColorEffect = false;
-			if (c->effectsInUse.count() != 0)
-			{
-				for (int a = 0; a < c->effectsInUse.count(); ++a)
-				{
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_COLORIZE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_DUOTONE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_TRITONE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_QUADTONE)
-						hasColorEffect = true;
-				}
-			}
+			bool hasColorEffect = c->effectsInUse.useColorEffect();
 			if ((doc.HasCMS) && (Options.UseProfiles2))
 			{
 				if (!ICCProfiles.contains(Profil))

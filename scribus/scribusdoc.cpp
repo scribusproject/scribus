@@ -4624,6 +4624,152 @@ bool ScribusDoc::useAnnotations() const
 	return false;
 }
 
+bool ScribusDoc::useImageEffects() const
+{
+	QList<PageItem*> allItems;
+	const QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
+
+	for (int i = 0; i < 2; ++i)
+	{
+		const auto& itemList = *(itemLists[i]);
+		for (int j = 0; j < itemList.count(); ++j)
+		{
+			PageItem *currItem = itemList.at(j);
+			if (currItem->isGroup())
+				allItems = currItem->getAllChildren();
+			else
+				allItems.append(currItem);
+			for (int k = 0; k < allItems.count(); k++)
+			{
+				currItem = allItems.at(k);
+				if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+					continue;
+				if (currItem->effectsInUse.count() > 0)
+					return true;
+			}
+			allItems.clear();
+		}
+	}
+
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	{
+		PageItem *currItem = it.value();
+		if (currItem->isGroup())
+			allItems = currItem->getAllChildren();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			currItem = allItems.at(ii);
+			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+				continue;
+			if (currItem->effectsInUse.count() > 0)
+				return true;
+		}
+		allItems.clear();
+	}
+
+	QStringList patterns = docPatterns.keys();
+	for (int i = 0; i < patterns.count(); ++i)
+	{
+		ScPattern pa = docPatterns[patterns[i]];
+		for (int j = 0; j < pa.items.count(); j++)
+		{
+			PageItem *currItem = pa.items.at(j);
+			if (currItem->isGroup())
+				allItems = currItem->getAllChildren();
+			else
+				allItems.append(currItem);
+
+			for (int k = 0; k < allItems.count(); k++)
+			{
+				currItem = allItems.at(k);
+				if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+					continue;
+				if (currItem->effectsInUse.count() > 0)
+					return true;
+			}
+			allItems.clear();
+		}
+	}
+
+	return false;
+}
+
+bool ScribusDoc::useImageColorEffects() const
+{
+	QList<PageItem*> allItems;
+	const QList<PageItem*>* itemLists[] = { &MasterItems, &DocItems };
+
+	for (int i = 0; i < 2; ++i)
+	{
+		const auto& itemList = *(itemLists[i]);
+		for (int j = 0; j < itemList.count(); ++j)
+		{
+			PageItem *currItem = itemList.at(j);
+			if (currItem->isGroup())
+				allItems = currItem->getAllChildren();
+			else
+				allItems.append(currItem);
+
+			for (int k = 0; k < allItems.count(); k++)
+			{
+				currItem = allItems.at(k);
+				if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+					continue;
+				if (currItem->effectsInUse.useColorEffect())
+					return true;
+			}
+			allItems.clear();
+		}
+	}
+
+	for (auto it = FrameItems.begin(); it != FrameItems.end(); ++it)
+	{
+		PageItem *currItem = it.value();
+		if (currItem->isGroup())
+			allItems = currItem->getAllChildren();
+		else
+			allItems.append(currItem);
+
+		for (int j = 0; j < allItems.count(); j++)
+		{
+			currItem = allItems.at(j);
+			if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+				continue;
+			if (currItem->effectsInUse.useColorEffect())
+				return true;
+		}
+		allItems.clear();
+	}
+
+	QStringList patterns = docPatterns.keys();
+	for (int i = 0; i < patterns.count(); ++i)
+	{
+		ScPattern pa = docPatterns[patterns[i]];
+		for (int j = 0; j < pa.items.count(); j++)
+		{
+			PageItem *currItem = pa.items.at(j);
+			if (currItem->isGroup())
+				allItems = currItem->getAllChildren();
+			else
+				allItems.append(currItem);
+
+			for (int k = 0; k < allItems.count(); k++)
+			{
+				currItem = allItems.at(k);
+				if (!currItem->isImageFrame() || !currItem->imageIsAvailable)
+					continue;
+				if (currItem->effectsInUse.useColorEffect())
+					return true;
+			}
+			allItems.clear();
+		}
+	}
+
+	return false;
+}
+
 void ScribusDoc::setUnitIndex(int newIndex)
 {
 	m_docPrefsData.docSetupPrefs.docUnitIndex=newIndex;
@@ -10092,7 +10238,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 }
 
 //CB Same as updatePict apart from the name checking, this should be able to be removed
-void ScribusDoc::recalcPicturesRes(bool applyNewRes)
+void ScribusDoc::recalcPicturesRes(int recalcFlags)
 {
 	int ca = 0;
 	ScGuardedPtr<ScribusDoc> docPtr = guardedPtr();
@@ -10164,7 +10310,9 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			allItems.clear();
 		}
 	}
+
 	m_ScMW->mainWindowProgressBar->setMaximum((cc > 0) ? cc : 1);
+
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
@@ -10177,11 +10325,21 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem = allItems.at(ii);
 			if (!currItem->imageIsAvailable)
 				continue;
+			if (recalcFlags & (RecalcPicRes_ImageWithEffectsOnly | RecalcPicRes_ImageWithColorEffectsOnly))
+			{
+				if (currItem->effectsInUse.count() <= 0)
+					continue;
+			}
+			if (recalcFlags & RecalcPicRes_ImageWithColorEffectsOnly)
+			{
+				if (!currItem->effectsInUse.useColorEffect())
+					continue;
+			}
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			double imgX = currItem->imageXOffset();
 			double imgY = currItem->imageYOffset();
-			if (applyNewRes)
+			if (recalcFlags & RecalcPicRes_ApplyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
 			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
@@ -10199,6 +10357,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
+
 	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
@@ -10211,11 +10370,21 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem = allItems.at(ii);
 			if (!currItem->imageIsAvailable)
 				continue;
+			if (recalcFlags & (RecalcPicRes_ImageWithEffectsOnly | RecalcPicRes_ImageWithColorEffectsOnly))
+			{
+				if (currItem->effectsInUse.count() <= 0)
+					continue;
+			}
+			if (recalcFlags & RecalcPicRes_ImageWithColorEffectsOnly)
+			{
+				if (!currItem->effectsInUse.useColorEffect())
+					continue;
+			}
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			double imgX = currItem->imageXOffset();
 			double imgY = currItem->imageYOffset();
-			if (applyNewRes)
+			if (recalcFlags & RecalcPicRes_ApplyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
 			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
@@ -10246,11 +10415,21 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem = allItems.at(ii);
 			if (!currItem->imageIsAvailable)
 				continue;
+			if (recalcFlags & (RecalcPicRes_ImageWithEffectsOnly | RecalcPicRes_ImageWithColorEffectsOnly))
+			{
+				if (currItem->effectsInUse.count() <= 0)
+					continue;
+			}
+			if (recalcFlags & RecalcPicRes_ImageWithColorEffectsOnly)
+			{
+				if (!currItem->effectsInUse.useColorEffect())
+					continue;
+			}
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
 			double imgX = currItem->imageXOffset();
 			double imgY = currItem->imageYOffset();
-			if (applyNewRes)
+			if (recalcFlags & RecalcPicRes_ApplyNewRes)
 				currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
 			if (currItem->isLatexFrame())
 				currItem->asLatexFrame()->rerunApplication(false);
@@ -10285,11 +10464,21 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				currItem = allItems.at(ii);
 				if (!currItem->imageIsAvailable)
 					continue;
+				if (recalcFlags & (RecalcPicRes_ImageWithEffectsOnly | RecalcPicRes_ImageWithColorEffectsOnly))
+				{
+					if (currItem->effectsInUse.count() <= 0)
+						continue;
+				}
+				if (recalcFlags & RecalcPicRes_ImageWithColorEffectsOnly)
+				{
+					if (!currItem->effectsInUse.useColorEffect())
+						continue;
+				}
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
 				double imgX = currItem->imageXOffset();
 				double imgY = currItem->imageYOffset();
-				if (applyNewRes)
+				if (recalcFlags & RecalcPicRes_ApplyNewRes)
 					currItem->pixm.imgInfo.lowResType = m_docPrefsData.itemToolPrefs.imageLowResType;
 				if (currItem->isLatexFrame())
 					currItem->asLatexFrame()->rerunApplication(false);

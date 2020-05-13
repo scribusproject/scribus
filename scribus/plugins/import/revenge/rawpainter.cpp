@@ -2146,7 +2146,7 @@ void RawPainter::applyFill(PageItem* ite)
 					efVal += "\n";
 					struct ImageEffect ef;
 					efVal += "100";
-					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectCode = ImageEffect::EF_COLORIZE;
 					ef.effectParameters = efVal;
 					ite->effectsInUse.append(ef);
 				}
@@ -3361,7 +3361,7 @@ void RawPainter::applyFill(PageItem* ite)
 					efVal += "\n";
 					struct ImageEffect ef;
 					efVal += "100";
-					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectCode = ImageEffect::EF_COLORIZE;
 					ef.effectParameters = efVal;
 					ite->effectsInUse.append(ef);
 				}
@@ -3539,7 +3539,7 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 			efVal += "\n";
 			struct ImageEffect ef;
 			efVal += "100";
-			ef.effectCode = ScImage::EF_COLORIZE;
+			ef.effectCode = ImageEffect::EF_COLORIZE;
 			ef.effectParameters = efVal;
 			ite->effectsInUse.append(ef);
 		}
@@ -3547,7 +3547,7 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 		{
 			double per = m_style["draw:luminance"]->getDouble();
 			struct ImageEffect ef;
-			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 			ef.effectParameters = QString("%1").arg(qRound((per - 0.5) * 255));
 			ite->effectsInUse.append(ef);
 		}

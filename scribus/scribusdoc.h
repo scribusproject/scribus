@@ -733,6 +733,16 @@ public:
 	*/
 	bool useAnnotations() const;
 
+	/*!
+	* @brief Check if document use effects on images
+	*/
+	bool useImageEffects() const;
+
+	/*!
+	* @brief Check if document use effects on images
+	*/
+	bool useImageColorEffects() const;
+
 	/**
 	 * @brief Set and get the document's unit index
 	 */
@@ -1164,7 +1174,15 @@ public:
 		bool m_applyNewRes;
 		int m_lowResType;
 	};
-	void recalcPicturesRes(bool applyNewRes = false);
+
+	enum RecalcPictureResFlags
+	{
+		RecalcPicRes_ApplyNewRes = 1,
+		RecalcPicRes_ImageWithEffectsOnly = 2,
+		RecalcPicRes_ImageWithColorEffectsOnly = 4,
+	};
+	void recalcPicturesRes(int recalcFlags = 0);
+
 	int previewQuality();
 	void connectDocSignals();
 	void disconnectDocSignals();

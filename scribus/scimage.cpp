@@ -132,15 +132,16 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 		return;
 	ScribusDoc* doc = colors.document();
 
-	for (int a = 0; a < effectsList.count(); ++a)
+	for (int i = 0; i < effectsList.count(); ++i)
 	{
-		if (effectsList.at(a).effectCode == EF_INVERT)
+		const ImageEffect& effect = effectsList.at(i);
+		if (effect.effectCode == ImageEffect::EF_INVERT)
 			invert(cmyk);
-		if (effectsList.at(a).effectCode == EF_GRAYSCALE)
+		if (effect.effectCode == ImageEffect::EF_GRAYSCALE)
 			toGrayscale(cmyk);
-		if (effectsList.at(a).effectCode == EF_COLORIZE)
+		if (effect.effectCode == ImageEffect::EF_COLORIZE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			QString col = CommonStrings::None;
 			int shading = 100;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -149,51 +150,51 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			fp >> shading;
 			colorize(doc, colors[col], shading, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_BRIGHTNESS)
+		if (effect.effectCode == ImageEffect::EF_BRIGHTNESS)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			int brightnessValue = 0;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> brightnessValue;
 			brightness(brightnessValue, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_CONTRAST)
+		if (effect.effectCode == ImageEffect::EF_CONTRAST)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			int contrastValue = 0;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> contrastValue;
 			contrast(contrastValue, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_SHARPEN)
+		if (effect.effectCode == ImageEffect::EF_SHARPEN)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			double radius, sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			sharpen(radius, sigma);
 		}
-		if (effectsList.at(a).effectCode == EF_BLUR)
+		if (effect.effectCode == ImageEffect::EF_BLUR)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			double radius, sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			blur(static_cast<int>(radius));
 		}
-		if (effectsList.at(a).effectCode == EF_SOLARIZE)
+		if (effect.effectCode == ImageEffect::EF_SOLARIZE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			double sigma;
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> sigma;
 			solarize(sigma, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_DUOTONE)
+		if (effect.effectCode == ImageEffect::EF_DUOTONE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			QString col1 = CommonStrings::None;
 			int shading1 = 100;
 			QString col2 = CommonStrings::None;
@@ -229,9 +230,9 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			fp >> lin2;
 			duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_TRITONE)
+		if (effect.effectCode == ImageEffect::EF_TRITONE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			QString col1 = CommonStrings::None;
 			QString col2 = CommonStrings::None;
 			QString col3 = CommonStrings::None;
@@ -282,9 +283,9 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			fp >> lin3;
 			tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_QUADTONE)
+		if (effect.effectCode == ImageEffect::EF_QUADTONE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			QString col1 = CommonStrings::None;
 			QString col2 = CommonStrings::None;
 			QString col3 = CommonStrings::None;
@@ -350,9 +351,9 @@ void ScImage::applyEffect(const ScImageEffectList& effectsList, ColorList& color
 			fp >> lin4;
 			quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
 		}
-		if (effectsList.at(a).effectCode == EF_GRADUATE)
+		if (effect.effectCode == ImageEffect::EF_GRADUATE)
 		{
-			QString tmpstr = effectsList.at(a).effectParameters;
+			QString tmpstr = effect.effectParameters;
 			int numVals;
 			double xval, yval;
 			FPointArray curve;

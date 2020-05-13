@@ -4070,7 +4070,7 @@ void SvmPlug::handleEMFPSerializableObject(QDataStream &ds)
 		float edge;
 		ds >> edge;
 		ImageEffect ef;
-		ef.effectCode = ScImage::EF_BLUR;
+		ef.effectCode = ImageEffect::EF_BLUR;
 		ef.effectParameters = QString("%1 1.0").arg(edge / 255.0 * 30.0);
 		m_Effects.append(ef);
 	}
@@ -4082,14 +4082,14 @@ void SvmPlug::handleEMFPSerializableObject(QDataStream &ds)
 		if (brightness != 0)
 		{
 			ImageEffect ef;
-			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 			ef.effectParameters = QString("%1").arg(brightness);
 			m_Effects.append(ef);
 		}
 		if (contrast != 0)
 		{
 			ImageEffect ef;
-			ef.effectCode = ScImage::EF_CONTRAST;
+			ef.effectCode = ImageEffect::EF_CONTRAST;
 			ef.effectParameters = QString("%1").arg(qMin(qMax(qRound(contrast * 1.27), -127), 127));
 			m_Effects.append(ef);
 		}
@@ -4116,7 +4116,7 @@ void SvmPlug::handleEMFPSerializableObject(QDataStream &ds)
 		double amo = amount;
 		double rad = radius;
 		ImageEffect ef;
-		ef.effectCode = ScImage::EF_SHARPEN;
+		ef.effectCode = ImageEffect::EF_SHARPEN;
 		ef.effectParameters = QString("%1 %2").arg(qMin(rad, 10.0)).arg(qMin(amo / 100.0 * 5.0, 5.0));
 		m_Effects.append(ef);
 	}

@@ -6849,7 +6849,7 @@ void ScribusMainWindow::slotDocSetup()
 		mainWindowProgressBar->reset();
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		qApp->processEvents();
-		doc->recalcPicturesRes(true);
+		doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ApplyNewRes);
 		qApp->restoreOverrideCursor();
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
@@ -9366,7 +9366,8 @@ void ScribusMainWindow::manageColorsAndFills()
 				doc->replaceLineStyleColors(dia->replaceColorMap);
 			}
 			doc->recalculateColors();
-			doc->recalcPicturesRes();
+			if (doc->useImageColorEffects())
+				doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 			doc->setGradients(dia->dialogGradients);
 			if (!dia->replaceMap.isEmpty())
 			{
@@ -9438,7 +9439,8 @@ void ScribusMainWindow::slotReplaceColors()
 	doc->replaceNamedResources(colorrsc);
 	doc->replaceLineStyleColors(dia2->replaceMap);
 	doc->recalculateColors();
-	doc->recalcPicturesRes();
+	if (doc->useImageColorEffects())
+		doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 	requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
 	m_styleManager->updateColorList();
 	if (!doc->m_Selection->isEmpty())

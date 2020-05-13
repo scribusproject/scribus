@@ -7741,7 +7741,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			switch (effectsInUse.at(a).effectCode)
 			{
-				case ScImage::EF_QUADTONE:
+				case ImageEffect::EF_QUADTONE:
 					col1 = fp.readLine();
 					col2 = fp.readLine();
 					col3 = fp.readLine();
@@ -7788,7 +7788,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 						tmpstr2 += col4 + "\n";
 					tmpstr2 += fp.readAll();
 					break;
-				case ScImage::EF_TRITONE:
+				case ImageEffect::EF_TRITONE:
 					col1 = fp.readLine();
 					col2 = fp.readLine();
 					col3 = fp.readLine();
@@ -7824,7 +7824,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 						tmpstr2 += col3 + "\n";
 					tmpstr2 += fp.readAll();
 					break;
-				case ScImage::EF_DUOTONE:
+				case ImageEffect::EF_DUOTONE:
 					col1 = fp.readLine();
 					col2 = fp.readLine();
 					it = newNames.colors().find(col1);
@@ -7849,7 +7849,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 						tmpstr2 += col2 + "\n";
 					tmpstr2 += fp.readAll();
 					break;
-				case ScImage::EF_COLORIZE:
+				case ImageEffect::EF_COLORIZE:
 					col1 = fp.readLine();
 					it = newNames.colors().find(col1);
 					if (it != newNames.colors().end())
@@ -8596,13 +8596,13 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			ScTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			switch (effectsInUse.at(a).effectCode)
 			{
-				case ScImage::EF_QUADTONE:
+				case ImageEffect::EF_QUADTONE:
 					lists.collectColor(fp.readLine());
-				case ScImage::EF_TRITONE:
+				case ImageEffect::EF_TRITONE:
 					lists.collectColor(fp.readLine());
-				case ScImage::EF_DUOTONE:
+				case ImageEffect::EF_DUOTONE:
 					lists.collectColor(fp.readLine());
-				case ScImage::EF_COLORIZE:
+				case ImageEffect::EF_COLORIZE:
 					lists.collectColor(fp.readLine());
 					break;
 				default:
@@ -9482,7 +9482,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			{
 				if (!m_Doc->PageColors.contains(pixm.imgInfo.duotoneColors[cc].Name))
 					m_Doc->PageColors.insert(pixm.imgInfo.duotoneColors[cc].Name, pixm.imgInfo.duotoneColors[cc].Color);
-				efVal += pixm.imgInfo.duotoneColors[cc].Name+"\n";
+				efVal += pixm.imgInfo.duotoneColors[cc].Name + "\n";
 			}
 			m_Doc->scMW()->propertiesPalette->updateColorList();
 			m_Doc->scMW()->contentPalette->updateColorList();
@@ -9490,7 +9490,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			if (pixm.imgInfo.duotoneColors.count() == 1)
 			{
 				efVal += "100";
-				ef.effectCode = ScImage::EF_COLORIZE;
+				ef.effectCode = ImageEffect::EF_COLORIZE;
 				ef.effectParameters = efVal;
 			}
 			else if (pixm.imgInfo.duotoneColors.count() == 2)
@@ -9515,7 +9515,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
-				ef.effectCode = ScImage::EF_DUOTONE;
+				ef.effectCode = ImageEffect::EF_DUOTONE;
 				ef.effectParameters = efVal;
 			}
 			else if (pixm.imgInfo.duotoneColors.count() == 3)
@@ -9549,7 +9549,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
-				ef.effectCode = ScImage::EF_TRITONE;
+				ef.effectCode = ImageEffect::EF_TRITONE;
 				ef.effectParameters = efVal;
 			}
 			else if (pixm.imgInfo.duotoneColors.count() == 4)
@@ -9592,7 +9592,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 				}
 				efVal += " 0";
-				ef.effectCode = ScImage::EF_QUADTONE;
+				ef.effectCode = ImageEffect::EF_QUADTONE;
 				ef.effectParameters = efVal;
 			}
 			effectsInUse.append(ef);

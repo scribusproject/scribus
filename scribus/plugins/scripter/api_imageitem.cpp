@@ -76,7 +76,7 @@ void ImageAPI::setGrayscale()
     }
 
     ImageEffect ef;
-    ef.effectCode = ScImage::EF_GRAYSCALE;
+    ef.effectCode = ImageEffect::EF_GRAYSCALE;
 
     item->effectsInUse.append(ef);
     item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
@@ -174,7 +174,7 @@ void ImageAPI::setBrightness(double n)
 	}
 
 	ImageEffect ef;
-	ef.effectCode = ScImage::EF_BRIGHTNESS;
+	ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 	ScTextStream fp(&ef.effectParameters, QIODevice::WriteOnly);
 	fp << n;
 
