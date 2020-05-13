@@ -19,11 +19,6 @@ for which a new license (GPL+exception) is in place.
 QList<FileFormat> LoadSavePlugin::formats;
 
 LoadSavePlugin::LoadSavePlugin() :
-	m_Doc(nullptr),
-	m_View(nullptr),
-	m_ScMW(nullptr),
-	m_mwProgressBar(nullptr),
-	m_AvailableFonts(nullptr),
 	undoManager(UndoManager::instance())
 {
 }
@@ -291,10 +286,8 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 	// If we don't find one, we insert before the end iterator, ie append.
 	if (fmt.formatId == 0) // only for custom plugins
 	{
-		uint id;
-		if (formats.isEmpty())
-			id = FORMATID_FIRSTUSER;
-		else
+		uint id = FORMATID_FIRSTUSER;
+		if (!formats.isEmpty())
 		{
 			QList<FileFormat>::iterator it(formats.begin());
 			QList<FileFormat>::iterator itEnd(formats.end());
@@ -305,12 +298,9 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 				++it;
 			}
 			id++;
-
-//			id = qMax(static_cast<int>(formats.last().formatId), FORMATID_FIRSTUSER-1);
-//			id++;
 		}
 		fmt.formatId = id;
-		formats.insert(id, fmt);
+		formats.append(fmt);
 	}
 	else
 	{
@@ -388,11 +378,11 @@ LoadSavePlugin::findFormat(const QString& extension, LoadSavePlugin* plug, QList
 
 void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
 {
-	m_Doc=targetDoc;
-	m_View=targetView;
-	m_ScMW=targetMW;
-	m_mwProgressBar=targetMWPRogressBar;
-	m_AvailableFonts=targetAvailableFonts;
+	m_Doc = targetDoc;
+	m_View = targetView;
+	m_ScMW = targetMW;
+	m_mwProgressBar = targetMWPRogressBar;
+	m_AvailableFonts = targetAvailableFonts;
 }
 
 void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, QList<ScFace> &/*getDummyScFaces*/)
@@ -471,26 +461,11 @@ QString FileFormat::saveElements(double xp, double yp, double wp, double hp, Sel
 	return (plug && save) ? plug->saveElements(xp, yp, wp, hp, selection, prevData) : "";
 }
 
-FileFormat::FileFormat() :
-	formatId(0),
-	load(false),
-	save(false),
-	thumb(false),
-	colorReading(false),
-	nativeScribus(false),
-	priority(0),
-	plug(nullptr)
+FileFormat::FileFormat()
 {
 }
 
 FileFormat::FileFormat(LoadSavePlugin* plug) :
-	formatId(0),
-	load(false),
-	save(false),
-	thumb(false),
-	colorReading(false),
-	nativeScribus(false),
-	priority(0),
 	plug(plug)
 {
 }

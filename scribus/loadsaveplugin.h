@@ -136,13 +136,13 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Set standard message for dom style errors with line and column
 		virtual void setDomParsingError(const QString& msg, int line, int column);
 
-		ScribusDoc*        m_Doc;
-		ScribusView*       m_View; //For 1.2.x loader at the moment
-		ScribusMainWindow* m_ScMW; //For plugins when required
-		QProgressBar*      m_mwProgressBar;
-		SCFonts*           m_AvailableFonts;
+		ScribusDoc*        m_Doc { nullptr };
+		ScribusView*       m_View { nullptr }; //For 1.2.x loader at the moment
+		ScribusMainWindow* m_ScMW { nullptr }; //For plugins when required
+		QProgressBar*      m_mwProgressBar { nullptr };
+		SCFonts*           m_AvailableFonts { nullptr };
 		QString            m_lastSavedFile;
-		UndoManager * const undoManager;
+		UndoManager * const undoManager { nullptr };
 
 	private:
 		// A list of all supported formats. This is maintained by plugins
@@ -225,7 +225,7 @@ class SCRIBUS_API FileFormat
 		// priorities to control what order they're tried in when a user
 		// tries to open a file).
 		// Note that dialog box options are sorted in descending `id' order.
-		uint formatId;
+		uint formatId { 0 };
 		// The human-readable, translated name of this file format.
 		QString trName;
 		// A filter in the format used by QFileDialog that should be used to
@@ -238,26 +238,25 @@ class SCRIBUS_API FileFormat
 		// Extension list supported by format
 		QStringList fileExtensions;
 		// Can we load it?
-		bool load;
+		bool load { false };
 		// Can we save it?
-		bool save;
+		bool save { false };
 		// Do we support thumbnails
-		bool thumb;
+		bool thumb { false };
 		// Can we load colors?
-		bool colorReading;
+		bool colorReading { false };
 		//Native Scribus format (for putting at the top of the file loader lists)
-		bool nativeScribus;
+		bool nativeScribus { false };
 		// Priority of this format from 0 (lowest, tried last) to
 		// 255 (highest, tried first). 64-128 recommended in general.
 		// Priority controls the order options are displayed in when a file
 		// of a given type is selected in a dialog, and controls the order
 		// loaders are tried in when multiple plugins support the same file
 		// type.
-		unsigned short int priority;
+		unsigned short int priority { 0 };
 		// For convenience, a pointer back to the plugin to use to open
 		// this format.
-		LoadSavePlugin * plug;
-//		LoadSavePlugin * const plug;
+		LoadSavePlugin * plug { nullptr };
 };
 
 
