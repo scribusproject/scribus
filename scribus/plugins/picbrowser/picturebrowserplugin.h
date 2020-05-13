@@ -39,7 +39,7 @@ class PLUGIN_API PictureBrowserPlugin : public ScActionPlugin
 		void closePictureBrowser();
 
 	private:
-		PictureBrowser *pictureBrowser { nullptr };
+		PictureBrowser *m_pictureBrowser { nullptr };
 
 	private slots:
 		//only called on auto delete on close, resets ptr
