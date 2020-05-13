@@ -5043,7 +5043,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 #ifdef HAVE_OSG
 			if (currItem->isOSGFrame())
 			{
-				PageItem_OSGFrame *osgframe = currItem->isOSGFrame();
+				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
 				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
 				osgframe->currentView = attrs.valueAsString("currentViewName", "");
 				osgframe->loadModel();
