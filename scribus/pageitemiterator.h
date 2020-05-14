@@ -23,10 +23,13 @@ public:
 		IterateInGroups = 1,
 		IterateInTables = 2
 	};
+	PageItemIterator(int options = IterateInGroups);
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
 
 	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }
+	
+	PageItem* begin(const QList<PageItem*>& itemList);
 	PageItem* next();
 
 	inline PageItem*  operator*() const { return m_current; }

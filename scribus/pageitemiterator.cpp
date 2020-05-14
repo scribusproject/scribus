@@ -10,10 +10,27 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_table.h"
 
+PageItemIterator::PageItemIterator(int options) :
+	m_options(options)
+{
+
+}
+
 PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options) :
 	m_options(options)
 {
+	if (itemList.count() > 0)
+	{
+		State state = { itemList, 0 };
+		m_stateStack.push(state);
+		m_current = next();
+	}
+}
+
+PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
+{
 	m_current = nullptr;
+	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
 
 	if (itemList.count() > 0)
 	{
@@ -21,6 +38,8 @@ PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options
 		m_stateStack.push(state);
 		m_current = next();
 	}
+
+	return m_current;
 }
 
 PageItem* PageItemIterator::next()
