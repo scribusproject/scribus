@@ -22,16 +22,21 @@ public:
 	enum Options
 	{
 		IterateInGroups = 1,
-		IterateInTables = 2
+		IterateInTables = 2,
+		IterateInDocItems = 4,
+		IterateInMasterItems = 8,
+		IterateInFrameItems = 16,
+		IterateInDocPatterns = 32,
+		IterateInDocDefaults = IterateInGroups + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns
 	};
 	PageItemIterator(int options = IterateInGroups);
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
-	PageItemIterator(ScribusDoc* doc, int options = IterateInGroups);
+	PageItemIterator(ScribusDoc* doc, int options = IterateInDocDefaults);
 
 	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }
 	
-	PageItem* begin(ScribusDoc* doc);
+	PageItem* begin(ScribusDoc* doc, int options = IterateInDocDefaults);
 	PageItem* begin(const QList<PageItem*>& itemList);
 	PageItem* next();
 

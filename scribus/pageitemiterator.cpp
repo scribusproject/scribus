@@ -35,7 +35,7 @@ PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
 	int stackItemCount = doc->docPatterns.count() + 3;
 	m_stateStack.reserve(stackItemCount);
 
-	if (doc->docPatterns.count() > 0)
+	if ((m_options & IterateInDocPatterns) && (doc->docPatterns.count() > 0))
 	{
 		auto docPatternEnd = doc->docPatterns.constEnd();
 		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
@@ -49,20 +49,20 @@ PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
 		}
 	}
 
-	if (doc->FrameItems.count() > 0)
+	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
 	{
 		QList<PageItem*> frameItems = doc->FrameItems.values();
 		State state = { frameItems, 0 };
 		m_stateStack.push(state);
 	}
 
-	if (doc->MasterItems.count() > 0)
+	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
 	{
 		State state = { doc->MasterItems, 0 };
 		m_stateStack.push(state);
 	}
 
-	if (doc->DocItems.count() > 0)
+	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
 	{
 		State state = { doc->DocItems, 0 };
 		m_stateStack.push(state);
@@ -72,16 +72,17 @@ PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
 		m_current = next();
 }
 
-PageItem* PageItemIterator::begin(ScribusDoc* doc)
+PageItem* PageItemIterator::begin(ScribusDoc* doc, int options)
 {
 	m_current = nullptr;
+	m_options = options;
 	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
 
 	int stackItemCount = doc->docPatterns.count() + 3;
 	if (m_stateStack.capacity() < stackItemCount)
 		m_stateStack.reserve(stackItemCount);
 
-	if (doc->docPatterns.count() > 0)
+	if ((m_options & IterateInDocPatterns) && (doc->docPatterns.count() > 0))
 	{
 		auto docPatternEnd = doc->docPatterns.constEnd();
 		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
@@ -95,20 +96,20 @@ PageItem* PageItemIterator::begin(ScribusDoc* doc)
 		}
 	}
 
-	if (doc->FrameItems.count() > 0)
+	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
 	{
 		QList<PageItem*> frameItems = doc->FrameItems.values();
 		State state = { frameItems, 0 };
 		m_stateStack.push(state);
 	}
 
-	if (doc->MasterItems.count() > 0)
+	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
 	{
 		State state = { doc->MasterItems, 0 };
 		m_stateStack.push(state);
 	}
 
-	if (doc->DocItems.count() > 0)
+	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
 	{
 		State state = { doc->DocItems, 0 };
 		m_stateStack.push(state);
