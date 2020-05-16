@@ -72,6 +72,53 @@ PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
 		m_current = next();
 }
 
+PageItem* PageItemIterator::begin(ScribusDoc* doc)
+{
+	m_current = nullptr;
+	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
+
+	int stackItemCount = doc->docPatterns.count() + 3;
+	if (m_stateStack.capacity() < stackItemCount)
+		m_stateStack.reserve(stackItemCount);
+
+	if (doc->docPatterns.count() > 0)
+	{
+		auto docPatternEnd = doc->docPatterns.constEnd();
+		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
+		{
+			const ScPattern& pattern = it.value();
+			if (pattern.items.count() > 0)
+			{
+				State state = { pattern.items, 0 };
+				m_stateStack.push(state);
+			}
+		}
+	}
+
+	if (doc->FrameItems.count() > 0)
+	{
+		QList<PageItem*> frameItems = doc->FrameItems.values();
+		State state = { frameItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (doc->MasterItems.count() > 0)
+	{
+		State state = { doc->MasterItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (doc->DocItems.count() > 0)
+	{
+		State state = { doc->DocItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (m_stateStack.count() > 0)
+		m_current = next();
+	return m_current;
+}
+
 PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
 {
 	m_current = nullptr;

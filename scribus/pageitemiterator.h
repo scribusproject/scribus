@@ -31,6 +31,7 @@ public:
 	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }
 	
+	PageItem* begin(ScribusDoc* doc);
 	PageItem* begin(const QList<PageItem*>& itemList);
 	PageItem* next();
 
