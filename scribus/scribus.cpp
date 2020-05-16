@@ -9365,9 +9365,6 @@ void ScribusMainWindow::manageColorsAndFills()
 				// Temporary code until LineStyle is effectively used
 				doc->replaceLineStyleColors(dia->replaceColorMap);
 			}
-			doc->recalculateColors();
-			if (doc->useImageColorEffects())
-				doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 			doc->setGradients(dia->dialogGradients);
 			if (!dia->replaceMap.isEmpty())
 			{
@@ -9382,6 +9379,9 @@ void ScribusMainWindow::manageColorsAndFills()
 				colorrsc.mapPatterns(dia->replaceMapPatterns);
 				doc->replaceNamedResources(colorrsc);
 			}
+			doc->recalculateColors();
+			if (doc->useImageColorEffects())
+				doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 			symbolPalette->updateSymbolList();
 			updateColorLists();
 			if (!doc->m_Selection->isEmpty())
