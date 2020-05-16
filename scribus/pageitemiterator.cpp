@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_table.h"
+#include "scpattern.h"
+#include "scribusdoc.h"
 
 PageItemIterator::PageItemIterator(int options) :
 	m_options(options)
@@ -25,6 +27,49 @@ PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options
 		m_stateStack.push(state);
 		m_current = next();
 	}
+}
+
+PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
+	m_options(options)
+{
+	int stackItemCount = doc->docPatterns.count() + 3;
+	m_stateStack.reserve(stackItemCount);
+
+	if (doc->docPatterns.count() > 0)
+	{
+		auto docPatternEnd = doc->docPatterns.constEnd();
+		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
+		{
+			const ScPattern& pattern = it.value();
+			if (pattern.items.count() > 0)
+			{
+				State state = { pattern.items, 0 };
+				m_stateStack.push(state);
+			}
+		}
+	}
+
+	if (doc->FrameItems.count() > 0)
+	{
+		QList<PageItem*> frameItems = doc->FrameItems.values();
+		State state = { frameItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (doc->MasterItems.count() > 0)
+	{
+		State state = { doc->MasterItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (doc->DocItems.count() > 0)
+	{
+		State state = { doc->DocItems, 0 };
+		m_stateStack.push(state);
+	}
+
+	if (m_stateStack.count() > 0)
+		m_current = next();
 }
 
 PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)

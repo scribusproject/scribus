@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 class PageItem;
+class ScribusDoc;
 
 class SCRIBUS_API PageItemIterator
 {
@@ -25,6 +26,7 @@ public:
 	};
 	PageItemIterator(int options = IterateInGroups);
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
+	PageItemIterator(ScribusDoc* doc, int options = IterateInGroups);
 
 	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }
