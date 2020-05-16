@@ -529,10 +529,10 @@ ScribusDoc::~ScribusDoc()
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int i = 0; i < patterns.count(); ++i)
+	auto patternEnd = docPatterns.end();
+	for (auto it = docPatterns.begin(); it != patternEnd; ++it)
 	{
-		ScPattern pa = docPatterns[patterns[i]];
+		ScPattern& pa = it.value();
 		for (int j = 0; j < pa.items.count(); j++)
 		{
 			PageItem *currItem = pa.items.at(j);
@@ -3688,10 +3688,10 @@ void ScribusDoc::removePattern(const QString& name)
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	auto patternEnd = docPatterns.end();
+	for (auto it = docPatterns.begin(); it != patternEnd; ++it)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		ScPattern& pa = it.value();
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -3843,11 +3843,12 @@ QStringList ScribusDoc::getUsedPatterns() const
 		}
 		allItems.clear();
 	}
-	for (QHash<QString, ScPattern>::const_iterator it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	for (auto it = docPatterns.constBegin(); it != docPatterns.constEnd(); ++it)
 	{
-		for (int i = 0; i < it.value().items.count(); ++i)
+		const ScPattern& pattern = it.value();
+		for (int i = 0; i < pattern.items.count(); ++i)
 		{
-			PageItem* currItem = it.value().items.at(i);
+			PageItem* currItem = pattern.items.at(i);
 			if (currItem->isGroup())
 				allItems = currItem->getAllChildren();
 			else
@@ -4075,9 +4076,10 @@ QStringList ScribusDoc::getUsedSymbols() const
 	}
 	for (auto it = docPatterns.cbegin(); it != docPatterns.cend(); ++it)
 	{
-		for (int i = 0; i < it.value().items.count(); ++i)
+		const ScPattern& pattern = it.value();
+		for (int i = 0; i < pattern.items.count(); ++i)
 		{
-			PageItem* currItem = it.value().items.at(i);
+			PageItem* currItem = pattern.items.at(i);
 			if (currItem->isGroup())
 				allItems = currItem->getAllChildren();
 			else
@@ -4201,8 +4203,8 @@ QMap<QString,int> ScribusDoc::reorganiseFonts()
 		}
 	}
 
-	QHash<QString, ScPattern>::const_iterator patIter;
-	for (patIter = docPatterns.begin(); patIter != docPatterns.end(); ++patIter)
+	auto patternEnd = docPatterns.cend();
+	for (auto patIter = docPatterns.cbegin(); patIter != patternEnd; ++patIter)
 	{
 		const ScPattern& pat = patIter.value();
 		allItems = pat.items;
@@ -4644,10 +4646,10 @@ bool ScribusDoc::useImageEffects() const
 		}
 	}
 
-	QStringList patterns = docPatterns.keys();
-	for (int i = 0; i < patterns.count(); ++i)
+	auto patternEnd = docPatterns.constEnd();
+	for (auto patIter = docPatterns.constBegin(); patIter != patternEnd; ++patIter)
 	{
-		ScPattern pa = docPatterns[patterns[i]];
+		const ScPattern& pa = patIter.value();
 		for (it.begin(pa.items); *it; ++it)
 		{
 			PageItem *currItem = *it;
@@ -4680,10 +4682,10 @@ bool ScribusDoc::useImageColorEffects() const
 		}
 	}
 
-	QStringList patterns = docPatterns.keys();
-	for (int i = 0; i < patterns.count(); ++i)
+	auto patternEnd = docPatterns.constEnd();
+	for (auto patIter = docPatterns.constBegin(); patIter != patternEnd; ++patIter)
 	{
-		ScPattern pa = docPatterns[patterns[i]];
+		const ScPattern& pa = patIter.value();
 		for (it.begin(pa.items); *it; ++it)
 		{
 			PageItem *currItem = *it;
@@ -4709,12 +4711,10 @@ int ScribusDoc::unitIndex() const
 	return m_docPrefsData.docSetupPrefs.docUnitIndex;
 }
 
-
 double ScribusDoc::unitRatio() const
 {
 	return m_docUnitRatio;
 }
-
 
 bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 {
@@ -5113,10 +5113,10 @@ void ScribusDoc::recalculateColors()
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	auto patternEnd = docPatterns.end();
+	for (auto patIter = docPatterns.begin(); patIter != patternEnd; ++patIter)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		ScPattern& pa = patIter.value();
 		if (pa.items.count() <= 0)
 			continue;
 		for (int o = 0; o < pa.items.count(); o++)
@@ -5176,7 +5176,7 @@ void ScribusDoc::recalculateColors()
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pa.pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 
 	m_undoManager->setUndoEnabled(true);
@@ -6060,8 +6060,7 @@ void  ScribusDoc::fixItemPageOwner()
 
 	// #11274: Scribus crash when opening .sla document
 	// OwnPage is not meaningful for pattern items
-	QHash<QString, ScPattern>::iterator patternIt;
-	for (patternIt = docPatterns.begin(); patternIt != docPatterns.end(); ++patternIt)
+	for (auto patternIt = docPatterns.begin(); patternIt != docPatterns.end(); ++patternIt)
 	{
 		QList<PageItem*> patternItems = patternIt->items;
 		while (patternItems.count() > 0)
@@ -9890,7 +9889,7 @@ void ScribusDoc::disconnectDocSignals()
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
 void ScribusDoc::updatePict(const QString& name)
 {
-	bool updated=false;
+	bool updated = false;
 	QList<PageItem*> allItems;
 	for (int i = 0; i < DocItems.count(); ++i)
 	{
@@ -9967,10 +9966,10 @@ void ScribusDoc::updatePict(const QString& name)
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int i = 0; i < patterns.count(); ++i)
+	auto patternEnd = docPatterns.end();
+	for (auto it = docPatterns.begin(); it != patternEnd; ++it)
 	{
-		ScPattern pa = docPatterns[patterns[i]];
+		ScPattern& pa = it.value();
 		if (pa.items.count() <= 0)
 			continue;
 		for (int j = 0; j < pa.items.count(); j++)
@@ -10009,7 +10008,7 @@ void ScribusDoc::updatePict(const QString& name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[i]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pa.pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10109,10 +10108,10 @@ void ScribusDoc::updatePictDir(const QString& name)
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	auto patternEnd = docPatterns.end();
+	for (auto it = docPatterns.begin(); it != patternEnd; ++it)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		ScPattern& pa = it.value();
 		if (pa.items.count() <= 0)
 			continue;
 		for (int o = 0; o < pa.items.count(); o++)
@@ -10155,7 +10154,7 @@ void ScribusDoc::updatePictDir(const QString& name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pa.pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10172,7 +10171,6 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 	PageItemIterator itemIt;
 	ScGuardedPtr<ScribusDoc> docPtr = guardedPtr();
 	QList<PageItem*> frameItemList = FrameItems.values();
-	QStringList patterns = docPatterns.keys();
 
 	for (itemIt.begin(DocItems); *itemIt; ++itemIt)
 	{
@@ -10192,9 +10190,10 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		if (currItem->imageIsAvailable)
 			imageCount++;
 	}
-	for (int c = 0; c < patterns.count(); ++c)
+	auto patternConstEnd = docPatterns.constEnd();
+	for (auto patIt = docPatterns.constBegin(); patIt != patternConstEnd; ++patIt)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		const ScPattern& pa = patIt.value();
 		for (itemIt.begin(pa.items); *itemIt; ++itemIt)
 		{
 			PageItem *currItem = *itemIt;
@@ -10317,9 +10316,10 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		if (!docPtr) return;
 	}
 
-	for (int i = 0; i < patterns.count(); ++i)
+	auto patternEnd = docPatterns.end();
+	for (auto patIt = docPatterns.begin(); patIt != patternEnd; ++patIt)
 	{
-		ScPattern pa = docPatterns[patterns[i]];
+		ScPattern& pa = patIt.value();
 		if (pa.items.count() <= 0)
 			continue;
 		for (itemIt.begin(pa.items); *itemIt; ++itemIt)
@@ -10368,7 +10368,7 @@ void ScribusDoc::recalcPicturesRes(int recalcFlags)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[i]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pa.pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	regionsChanged()->update(QRectF());
 	changed();
@@ -10383,7 +10383,7 @@ int ScribusDoc::previewQuality()
 
 void ScribusDoc::removePict(const QString& name)
 {
-	bool updated=false;
+	bool updated = false;
 	QList<PageItem*> allItems;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -10399,7 +10399,7 @@ void ScribusDoc::removePict(const QString& name)
 			{
 				currItem->imageIsAvailable = false;
 				currItem->pixm = ScImage();
-				updated=true;
+				updated = true;
 			}
 		}
 		allItems.clear();
@@ -10418,7 +10418,7 @@ void ScribusDoc::removePict(const QString& name)
 			{
 				currItem->imageIsAvailable = false;
 				currItem->pixm = ScImage();
-				updated=true;
+				updated = true;
 			}
 		}
 		allItems.clear();
@@ -10437,15 +10437,15 @@ void ScribusDoc::removePict(const QString& name)
 			{
 				currItem->imageIsAvailable = false;
 				currItem->pixm = ScImage();
-				updated=true;
+				updated = true;
 			}
 		}
 		allItems.clear();
 	}
-	QStringList patterns = docPatterns.keys();
-	for (int c = 0; c < patterns.count(); ++c)
+	auto patternEnd = docPatterns.end();
+	for (auto it = docPatterns.begin(); it != patternEnd; ++it)
 	{
-		ScPattern pa = docPatterns[patterns[c]];
+		ScPattern& pa = it.value();
 		if (pa.items.count() <= 0)
 			continue;
 		for (int o = 0; o < pa.items.count(); o++)
@@ -10462,7 +10462,7 @@ void ScribusDoc::removePict(const QString& name)
 				{
 					currItem->imageIsAvailable = false;
 					currItem->pixm = ScImage();
-					updated=true;
+					updated = true;
 				}
 			}
 			allItems.clear();
@@ -10478,7 +10478,7 @@ void ScribusDoc::removePict(const QString& name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pa.pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10496,7 +10496,7 @@ void ScribusDoc::updatePic()
 	if (docSelectionCount <= 0)
 		return;
 
-	bool toUpdate=false;
+	bool toUpdate = false;
 	for (uint i = 0; i < docSelectionCount; ++i)
 	{
 		PageItem* currItem = m_Selection->itemAt(i);
