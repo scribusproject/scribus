@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "pluginapi.h"
+#include "pageitemiterator.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_table.h"
 #include "prefsmanager.h"
@@ -643,9 +644,9 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	{
 		QString patternName = patterns.at(i);
 		ScPattern pa = m_Doc->docPatterns[patternName];
-		for (int j = 0; j < pa.items.count(); ++j)
+		for (PageItemIterator it(pa.items); *it; ++it)
 		{
-			PageItem* item = pa.items.at(j);
+			PageItem* item = *it;
 			if ((item->isImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
 			{
 				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->ImageProfile, item->UseEmbedded))
@@ -2319,7 +2320,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 				PageItem* embed = pat.items.at(em);
 				PS_save();
 				PS_translate(embed->gXpos, item->height() - embed->gYpos);
-				ProcessItem(page, embed, PNr, master, true);
+				ProcessItem(page, embed, PNr, master, true, useTemplate);
 				PS_restore();
 			}
 			PS_restore();
@@ -2346,7 +2347,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			PageItem* embed = item->groupItemList.at(em);
 			PS_save();
 			PS_translate(embed->gXpos, item->height() - embed->gYpos);
-			ProcessItem(page, embed, PNr, master, true);
+			ProcessItem(page, embed, PNr, master, true, useTemplate);
 			PS_restore();
 		}
 		PS_restore();
