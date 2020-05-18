@@ -11361,26 +11361,26 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoadSavePlugin</name>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="216"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="211"/>
         <source>All Files (*)</source>
         <translation>Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="248"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="243"/>
         <source>An error occurred while opening file or file is damaged</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="253"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="248"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="103"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="139"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="175"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="194"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="98"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="134"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="170"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="189"/>
         <source>No File Loader Plugins Found</source>
         <translation>Faililaadija pluginaid ei leitud</translation>
     </message>
@@ -12331,8 +12331,8 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     <name>NewDocDialog</name>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="103"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="666"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="674"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="673"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="681"/>
         <source>New Document</source>
         <translation>Uus dokument</translation>
     </message>
@@ -12487,22 +12487,22 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
         <translation>Dokumendi seadistuste näitamine loomise järel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="367"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="373"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="668"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="675"/>
         <source>New from Template</source>
         <translation>Uus mallist</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="670"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="677"/>
         <source>Open Existing Document</source>
         <translation>Olemasoleva dokumendi avamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="672"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="679"/>
         <source>Open Recent Document</source>
         <translation>Viimati kasutatud dokumendi avamine</translation>
     </message>
@@ -13703,27 +13703,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11519"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11505"/>
         <source>Failed to load an image : %1</source>
         <translation>Pildi laadimine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11524"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11510"/>
         <source>Failed to write an image : %1</source>
         <translation>Pildi kirjutamine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11529"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11515"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Pildimaski laadimine nurjus: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11534"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11520"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Pildi töötlemiseks jääb mälu napiks</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11500"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Kirjutamisel tekkis viga, palun kontrolli kettaruumi saadavust</translation>
     </message>
@@ -16550,7 +16550,7 @@ Palun vali mõni muu kataloog.</translation>
 <context>
     <name>PictureBrowserPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="39"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="38"/>
         <source>&amp;Picture Browser...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21923,174 +21923,174 @@ a range of pages or a single page number</source>
 <context>
     <name>PrintPreview</name>
     <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="84"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="83"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Trükkimise eelvaatlus</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="112"/>
-        <source>Display Settings</source>
-        <translation type="unfinished">Vaateseadistused</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="118"/>
-        <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished">&amp;Antialiase lubamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="123"/>
-        <source>Display Trans&amp;parency</source>
-        <translation type="unfinished">Lä&amp;bipaistvuse näitamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="128"/>
-        <source>&amp;Display CMYK</source>
-        <translation type="unfinished">CMYK-i &amp;näitamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="141"/>
-        <source>Separation Name</source>
-        <translation type="unfinished">Värvi nimi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="152"/>
-        <source>Cyan</source>
-        <translation type="unfinished">Tsüaan</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="159"/>
-        <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="166"/>
-        <source>Yellow</source>
-        <translation type="unfinished">Kollane</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="173"/>
-        <source>Black</source>
-        <translation type="unfinished">Must</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="194"/>
-        <source>Display Ink Coverage</source>
-        <translation type="unfinished">Trükivärvi mahtuvuse näitamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="202"/>
-        <source>Threshold:</source>
-        <translation type="unfinished">Lävi:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="205"/>
-        <source> %</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="210"/>
-        <source>None</source>
-        <translation type="unfinished">Puudub</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="226"/>
-        <source>Preview Settings</source>
-        <translation type="unfinished">Eelvaatluse seadistused</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="232"/>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished">Lehekülgede peegeldamine rõhtsalt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="235"/>
-        <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished">Lehekülgede peegeldamine püstiselt</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="238"/>
-        <source>Clip to Printer Margins</source>
-        <translation type="unfinished">Kärpimine printeri veeriste järgi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="241"/>
-        <source>Print in Grayscale</source>
-        <translation type="unfinished">Halltoonides trükk</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="244"/>
-        <source>&amp;Under Color Removal</source>
-        <translation type="unfinished">Al&amp;usvärvi eemaldamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="247"/>
-        <source>Convert Spot Colors</source>
-        <translation type="unfinished">Spot-värvidesse teisendamine</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="260"/>
-        <source>Scaling:</source>
-        <translation type="unfinished">Skaala:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="272"/>
-        <source>Fit to Width</source>
-        <translation type="unfinished">Mahutamine laiusele</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="273"/>
-        <source>Fit to Height</source>
-        <translation type="unfinished">Mahutamine kõrgusele</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="274"/>
-        <source>Fit to Page</source>
-        <translation type="unfinished">Mahutamine leheküljele</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="285"/>
-        <source>Close</source>
-        <translation type="unfinished">Sulge</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="288"/>
-        <source>Print...</source>
-        <translation type="unfinished">Trüki...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="309"/>
-        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished">Võimaldab Type 1 fontide, TrueType fontide, OpenType fontide, EPS-i, PDF-i ja vektorgraafika ilusamat esitamist aknas, seda küll mõningase eelvaatluse aeglustumisega</translation>
+        <translation>Trükkimise eelvaatlus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="310"/>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation>Trükkimise eelvaatlusel simuleeritakse RGB-värvide asemel CMYK-värve</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="122"/>
+        <source>Display Trans&amp;parency</source>
+        <translation>Lä&amp;bipaistvuse näitamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="127"/>
+        <source>&amp;Display CMYK</source>
+        <translation>CMYK-i &amp;näitamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="243"/>
+        <source>&amp;Under Color Removal</source>
+        <translation>Al&amp;usvärvi eemaldamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="140"/>
+        <source>Separation Name</source>
+        <translation>Värvi nimi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="151"/>
+        <source>Cyan</source>
+        <translation>Tsüaan</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="158"/>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="165"/>
+        <source>Yellow</source>
+        <translation>Kollane</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="172"/>
+        <source>Black</source>
+        <translation>Must</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="225"/>
+        <source>Preview Settings</source>
+        <translation>Eelvaatluse seadistused</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="259"/>
+        <source>Scaling:</source>
+        <translation>Skaala:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="287"/>
+        <source>Print...</source>
+        <translation>Trüki...</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="311"/>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Asendab tsüaanist, kollasest ja magentast koosnevad halltoonid mustaga. UCR mõjutab eelkõige piltide neid osi, kus on valitsevad neutraalsed või hallilähedased tumedad toonid. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab CMY värvide üleküllastuse võimalust.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="284"/>
+        <source>Close</source>
+        <translation>Sulge</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="1157"/>
+        <source>File</source>
+        <translation>Fail</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="117"/>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>&amp;Antialiase lubamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="271"/>
+        <source>Fit to Width</source>
+        <translation>Mahutamine laiusele</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="272"/>
+        <source>Fit to Height</source>
+        <translation>Mahutamine kõrgusele</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="273"/>
+        <source>Fit to Page</source>
+        <translation>Mahutamine leheküljele</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="308"/>
+        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Võimaldab Type 1 fontide, TrueType fontide, OpenType fontide, EPS-i, PDF-i ja vektorgraafika ilusamat esitamist aknas, seda küll mõningase eelvaatluse aeglustumisega</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="111"/>
+        <source>Display Settings</source>
+        <translation>Vaateseadistused</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="231"/>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Lehekülgede peegeldamine rõhtsalt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="234"/>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Lehekülgede peegeldamine püstiselt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="240"/>
+        <source>Print in Grayscale</source>
+        <translation>Halltoonides trükk</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="246"/>
+        <source>Convert Spot Colors</source>
+        <translation>Spot-värvidesse teisendamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="313"/>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="237"/>
+        <source>Clip to Printer Margins</source>
+        <translation>Kärpimine printeri veeriste järgi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="193"/>
+        <source>Display Ink Coverage</source>
+        <translation>Trükivärvi mahtuvuse näitamine</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="201"/>
+        <source>Threshold:</source>
+        <translation>Lävi:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="204"/>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="209"/>
+        <source>None</source>
+        <translation>Puudub</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="309"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="311"/>
-        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation type="unfinished">Trükkimise eelvaatlusel simuleeritakse RGB-värvide asemel CMYK-värve</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="312"/>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Asendab tsüaanist, kollasest ja magentast koosnevad halltoonid mustaga. UCR mõjutab eelkõige piltide neid osi, kus on valitsevad neutraalsed või hallilähedased tumedad toonid. Selle valiku kasutamisel võib paraneda mõningate piltide trükikvaliteet, kuid alati tuleb seda katse-eksituse meetodil ise järele proovida. UCR vähendab CMY värvide üleküllastuse võimalust.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="313"/>
         <source>Resize the scale of the page</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="314"/>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="1158"/>
-        <source>File</source>
-        <translation type="unfinished">Fail</translation>
     </message>
 </context>
 <context>
@@ -30813,7 +30813,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18228"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18278"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34608,66 +34608,66 @@ Kui salvestad selle praeguses versioonis, ei saa seda enam Scribuse vanemates ve
 <context>
     <name>ScribusDoc</name>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="211"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="243"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16690"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="206"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="212"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="244"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16740"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="443"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="444"/>
         <source>Background</source>
         <translation>Taust</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11394"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11444"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa kustutada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11394"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11444"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Kustutamisoperatsioon katkestatakse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11999"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12049"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11995"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12045"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11996"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12046"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Jäta lukustatud objektid vahele</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="937"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="938"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>ICC-profiilide avamisel tekkis viga, värvihaldus on välja lülitatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="946"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16278"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="947"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
         <source>Adjusting Colors</source>
         <translation>Värvide kohandamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9049"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9121"/>
         <source>remove direct paragraph formatting</source>
         <translation>lõigu otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9518"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9590"/>
         <source>remove direct char formatting</source>
         <translation>märgi otsevorminduse eemaldamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13653"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34678,7 +34678,7 @@ Nihe püstsuunas: %3
 Pööramine: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13638"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13688"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34686,41 +34686,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13808"/>
         <source>Copied %1 items on %2 pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15004"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15059"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15213"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15054"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15109"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15263"/>
         <source>Group%1</source>
         <translation>Grupp%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1522"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1523"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Imporditud </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16706"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16756"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17894"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17905"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17944"/>
         <source>No Style</source>
         <translation>Stiil puudub</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18272"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11301"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11351"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35111,31 +35111,31 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Märgid</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9646"/>
+        <location filename="../../scribus/scribus.cpp" line="9648"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9663"/>
-        <location filename="../../scribus/scribus.cpp" line="9891"/>
+        <location filename="../../scribus/scribus.cpp" line="9665"/>
+        <location filename="../../scribus/scribus.cpp" line="9893"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9671"/>
-        <location filename="../../scribus/scribus.cpp" line="9904"/>
+        <location filename="../../scribus/scribus.cpp" line="9673"/>
+        <location filename="../../scribus/scribus.cpp" line="9906"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9679"/>
-        <location filename="../../scribus/scribus.cpp" line="9942"/>
+        <location filename="../../scribus/scribus.cpp" line="9681"/>
+        <location filename="../../scribus/scribus.cpp" line="9944"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9689"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9691"/>
+        <location filename="../../scribus/scribus.cpp" line="9965"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35307,7 +35307,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Aktiivse ühiku valimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9873"/>
+        <location filename="../../scribus/scribus.cpp" line="9875"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>

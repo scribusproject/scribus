@@ -11383,27 +11383,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LoadSavePlugin</name>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="216"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="211"/>
         <source>All Files (*)</source>
         <translation>Todos os arquivos (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="248"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="243"/>
         <source>An error occurred while opening file or file is damaged</source>
         <translation>Ocorreu um erro ao abrir o arquivo ou o arquivo está corrompido</translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="253"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="248"/>
         <source>An error occurred while parsing file at line %1, column %2 :
 %3</source>
         <translation>Ocorreu um erro ao processar o arquivo na linha %1, coluna %2:
 %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="103"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="139"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="175"/>
-        <location filename="../../scribus/loadsaveplugin.cpp" line="194"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="98"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="134"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="170"/>
+        <location filename="../../scribus/loadsaveplugin.cpp" line="189"/>
         <source>No File Loader Plugins Found</source>
         <translation>Nenhum plugin para carregamento de arquivos foi encontrado</translation>
     </message>
@@ -12354,8 +12354,8 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <name>NewDocDialog</name>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="103"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="666"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="674"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="673"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="681"/>
         <source>New Document</source>
         <translation>Novo documento</translation>
     </message>
@@ -12510,22 +12510,22 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
         <translation>Mostrar configurações do documento depois da sua criação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="367"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="373"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="668"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="675"/>
         <source>New from Template</source>
         <translation>Novo a partir do modelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="670"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="677"/>
         <source>Open Existing Document</source>
         <translation>Abrir documento existente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="672"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="679"/>
         <source>Open Recent Document</source>
         <translation>Abrir documento recente</translation>
     </message>
@@ -13728,27 +13728,27 @@ Please disable experimental PDF and PS embedding and try again.</source>
 Favor desativar incorporação experimental PDF e PS e tentar novamente.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11519"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11505"/>
         <source>Failed to load an image : %1</source>
         <translation>Não foi possível abrir a imagem: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11524"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11510"/>
         <source>Failed to write an image : %1</source>
         <translation>Não foi possível salvar a imagem: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11529"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11515"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Falha ao carregar uma máscara de imagem : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11534"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11520"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memória insuficiente para processar a imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11514"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11500"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Um erro de gravação ocorreu, favor checar o espaço disponível em disco</translation>
     </message>
@@ -16577,7 +16577,7 @@ Favor selecionar outra.</translation>
 <context>
     <name>PictureBrowserPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="39"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="38"/>
         <source>&amp;Picture Browser...</source>
         <translation>&amp;Navegador de imagens...</translation>
     </message>
@@ -21961,174 +21961,174 @@ um intervalo de páginas, ou uma única página</translation>
 <context>
     <name>PrintPreview</name>
     <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="84"/>
+        <location filename="../../scribus/ui/printpreview.cpp" line="83"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Pré-visualizar impressão</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="112"/>
-        <source>Display Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="118"/>
-        <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished">Ativar &amp;suavização de texto (antialiasing)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="123"/>
-        <source>Display Trans&amp;parency</source>
-        <translation type="unfinished">Mostrar trans&amp;parência</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="128"/>
-        <source>&amp;Display CMYK</source>
-        <translation type="unfinished">&amp;Mostrar CMYK</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="141"/>
-        <source>Separation Name</source>
-        <translation type="unfinished">Nome da separação</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="152"/>
-        <source>Cyan</source>
-        <translation type="unfinished">Ciano</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="159"/>
-        <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="166"/>
-        <source>Yellow</source>
-        <translation type="unfinished">Amarelo</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="173"/>
-        <source>Black</source>
-        <translation type="unfinished">Preto</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="194"/>
-        <source>Display Ink Coverage</source>
-        <translation type="unfinished">Exibir rendimento de tinta</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="202"/>
-        <source>Threshold:</source>
-        <translation type="unfinished">Limite:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="205"/>
-        <source> %</source>
-        <translation type="unfinished"> %</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="210"/>
-        <source>None</source>
-        <translation type="unfinished">Nenhum</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="226"/>
-        <source>Preview Settings</source>
-        <translation type="unfinished">Configurações de pré-visualização</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="232"/>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished">Espelhar página(s) horizontalmente</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="235"/>
-        <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished">Espelhar página(s) verticalmente</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="238"/>
-        <source>Clip to Printer Margins</source>
-        <translation type="unfinished">Recortar para as margens da impressora</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="241"/>
-        <source>Print in Grayscale</source>
-        <translation type="unfinished">Imprimir em tons de cinza</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="244"/>
-        <source>&amp;Under Color Removal</source>
-        <translation type="unfinished">&amp;Under Color Removal</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="247"/>
-        <source>Convert Spot Colors</source>
-        <translation type="unfinished">Converter cores spot (especiais)</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="260"/>
-        <source>Scaling:</source>
-        <translation type="unfinished">Escala:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="272"/>
-        <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="273"/>
-        <source>Fit to Height</source>
-        <translation type="unfinished">Ajustar à altura</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="274"/>
-        <source>Fit to Page</source>
-        <translation type="unfinished">Ajustar à página</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="285"/>
-        <source>Close</source>
-        <translation type="unfinished">Fechar</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="288"/>
-        <source>Print...</source>
-        <translation type="unfinished">Imprimir...</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="309"/>
-        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished">Oferece uma visão mais agradável das fontes Type 1 True Type e Open Type, EPS, PDF e imagens vetoriais na pré-visualização, ao custo de uma ligeira lentidão na visualização</translation>
+        <translation>Pré-visualizar impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="310"/>
-        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
-        <translation type="unfinished">Exibe transparência e itens transparentes no seu documento. Requer Ghostscript 7.07 ou mais recente.</translation>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation>Oferece uma visualização da impressão usando simulações de tintas CMYK genéricas, ao invés de cores RGB</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="122"/>
+        <source>Display Trans&amp;parency</source>
+        <translation>Mostrar trans&amp;parência</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="127"/>
+        <source>&amp;Display CMYK</source>
+        <translation>&amp;Mostrar CMYK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="243"/>
+        <source>&amp;Under Color Removal</source>
+        <translation>&amp;Under Color Removal</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="140"/>
+        <source>Separation Name</source>
+        <translation>Nome da separação</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="151"/>
+        <source>Cyan</source>
+        <translation>Ciano</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="158"/>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="165"/>
+        <source>Yellow</source>
+        <translation>Amarelo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="172"/>
+        <source>Black</source>
+        <translation>Preto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="225"/>
+        <source>Preview Settings</source>
+        <translation>Configurações de pré-visualização</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="259"/>
+        <source>Scaling:</source>
+        <translation>Escala:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="287"/>
+        <source>Print...</source>
+        <translation>Imprimir...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="311"/>
-        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation type="unfinished">Oferece uma visualização da impressão usando simulações de tintas CMYK genéricas, ao invés de cores RGB</translation>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Uma forma de substituir alguns dos tons de cinza que são compostos de ciano, amarelo e magenta, usando preto no lugar. A UCR afeta mais as partes da imagem que são neutras ou em tons escuros, mais próximos do cinza. O uso disso pode melhorar a impressão de algumas imagens,mas recomenda-se que se façam testes para definir um melhor resultado para cada caso. A UCR reduz a possibilidade de supersaturação com tintas CMY.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="312"/>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Uma forma de substituir alguns dos tons de cinza que são compostos de ciano, amarelo e magenta, usando preto no lugar. A UCR afeta mais as partes da imagem que são neutras ou em tons escuros, mais próximos do cinza. O uso disso pode melhorar a impressão de algumas imagens,mas recomenda-se que se façam testes para definir um melhor resultado para cada caso. A UCR reduz a possibilidade de supersaturação com tintas CMY.</translation>
+        <location filename="../../scribus/ui/printpreview.cpp" line="284"/>
+        <source>Close</source>
+        <translation>Fechar</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="1157"/>
+        <source>File</source>
+        <translation>Arquivo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="117"/>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Ativar &amp;suavização de texto (antialiasing)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="271"/>
+        <source>Fit to Width</source>
+        <translation>Ajustar à largura</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="272"/>
+        <source>Fit to Height</source>
+        <translation>Ajustar à altura</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="273"/>
+        <source>Fit to Page</source>
+        <translation>Ajustar à página</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="308"/>
+        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Oferece uma visão mais agradável das fontes Type 1 True Type e Open Type, EPS, PDF e imagens vetoriais na pré-visualização, ao custo de uma ligeira lentidão na visualização</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="111"/>
+        <source>Display Settings</source>
+        <translation>Exibir configurações</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="231"/>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Espelhar página(s) horizontalmente</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="234"/>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Espelhar página(s) verticalmente</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="240"/>
+        <source>Print in Grayscale</source>
+        <translation>Imprimir em tons de cinza</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="246"/>
+        <source>Convert Spot Colors</source>
+        <translation>Converter cores spot (especiais)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="313"/>
-        <source>Resize the scale of the page</source>
-        <translation type="unfinished">Redimensionar a escala da página</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="314"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
+        <translation>Ativa a conversão de cores spot (especiais) para cores compostas (de escala/quadricromia). A menos que planeje imprimir cores spot numa impressora comercial, provavelmente é melhor deixar essa opção ativada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreview.cpp" line="1158"/>
-        <source>File</source>
-        <translation type="unfinished">Arquivo</translation>
+        <location filename="../../scribus/ui/printpreview.cpp" line="237"/>
+        <source>Clip to Printer Margins</source>
+        <translation>Recortar para as margens da impressora</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="193"/>
+        <source>Display Ink Coverage</source>
+        <translation>Exibir rendimento de tinta</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="201"/>
+        <source>Threshold:</source>
+        <translation>Limite:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="204"/>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="209"/>
+        <source>None</source>
+        <translation>Nenhum</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="309"/>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
+        <translation>Exibe transparência e itens transparentes no seu documento. Requer Ghostscript 7.07 ou mais recente.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreview.cpp" line="312"/>
+        <source>Resize the scale of the page</source>
+        <translation>Redimensionar a escala da página</translation>
     </message>
 </context>
 <context>
@@ -30858,7 +30858,7 @@ A imagem portanto pode não estar correta</translation>
         <translation>&lt;p&gt;Você está tentando importar mais páginas do que estão disponíveis no documento atual contando a partir da página selecionada.&lt;/p&gt;Escolha uma das opções a seguir:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Criar&lt;/b&gt; as páginas que faltam&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; as páginas que vão até a última página&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18228"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18278"/>
         <source>Unacceptable settings for note style</source>
         <translation>Configurações inaceitáveis para estilo de notas</translation>
     </message>
@@ -34655,66 +34655,66 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
 <context>
     <name>ScribusDoc</name>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="211"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="243"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16690"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="206"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="212"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="244"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16740"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="443"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="444"/>
         <source>Background</source>
         <translation>Fundo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11394"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11444"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Não é possível apagar um item em uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11394"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11444"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>O item %1 está atualmente a ser editado pelo Editor de História. A operação de apagar será cancelada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11999"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12049"/>
         <source>Some objects are locked.</source>
         <translation>Alguns objetos estão bloqueados.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11995"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12045"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloquear todos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11996"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12046"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Pular os objetos bloqueados</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="937"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="938"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Ocorreu um erro ao abrir os perfis ICC, o gerenciamento de cores não está ativado.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="946"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16278"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="947"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
         <source>Adjusting Colors</source>
         <translation>Ajustando as cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9049"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9121"/>
         <source>remove direct paragraph formatting</source>
         <translation>remover formatação direta de parágrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9518"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9590"/>
         <source>remove direct char formatting</source>
         <translation>remover formatação direta de caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13603"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13653"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34724,7 +34724,7 @@ Deslocamento horizontal: %2
 Deslocamento vertical: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13638"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13688"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34732,41 +34732,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13758"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13808"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>Copiado %1 itens em %2 páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15004"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15059"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15213"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15054"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15109"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15263"/>
         <source>Group%1</source>
         <translation>Agrupar%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1522"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1523"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16706"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16756"/>
         <source>File %1 autosaved</source>
         <translation>Arquivo %1 salvo automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17894"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17905"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17944"/>
         <source>No Style</source>
         <translation>Sem estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18222"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18272"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11301"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11351"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Você realmente deseja apagar o conteúdo de todos os quadros selecionados?</translation>
     </message>
@@ -35157,31 +35157,31 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
         <translation>Marcas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9646"/>
+        <location filename="../../scribus/scribus.cpp" line="9648"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9663"/>
-        <location filename="../../scribus/scribus.cpp" line="9891"/>
+        <location filename="../../scribus/scribus.cpp" line="9665"/>
+        <location filename="../../scribus/scribus.cpp" line="9893"/>
         <source>Anchor mark</source>
         <translation>Marca de ancoragem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9671"/>
-        <location filename="../../scribus/scribus.cpp" line="9904"/>
+        <location filename="../../scribus/scribus.cpp" line="9673"/>
+        <location filename="../../scribus/scribus.cpp" line="9906"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Marcar com a variável de texto &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9679"/>
-        <location filename="../../scribus/scribus.cpp" line="9942"/>
+        <location filename="../../scribus/scribus.cpp" line="9681"/>
+        <location filename="../../scribus/scribus.cpp" line="9944"/>
         <source>Mark to %1 item</source>
         <translation>Marca para o item %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9689"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9691"/>
+        <location filename="../../scribus/scribus.cpp" line="9965"/>
         <source>Mark to %1 mark</source>
         <translation>Marca para a marca %1</translation>
     </message>
@@ -35353,7 +35353,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
         <translation>Selecionar a unidade atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9873"/>
+        <location filename="../../scribus/scribus.cpp" line="9875"/>
         <source>Edit %1</source>
         <translation>Editar %1</translation>
     </message>
