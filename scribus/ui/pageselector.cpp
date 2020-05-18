@@ -166,7 +166,7 @@ void PageSelector::setMaximum(int i)
 	m_validator->setRange(1, m_lastPage);
 	for (int b = 0; b < m_lastPage; ++b)
 	{
-		m_pageCombo->addItem(QString::number(b+1));
+		m_pageCombo->addItem(QString::number(b + 1));
 	}
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
 	pageCountLabel->setText(pageCountString.arg(m_lastPage));
