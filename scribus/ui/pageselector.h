@@ -29,8 +29,6 @@ public:
 	PageSelector( QWidget* parent, int maxPg = 0 );
 	~PageSelector() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	bool hasFocus();
 	void focusPolicy(Qt::FocusPolicy policy);
 	void setFont ( const QFont & );
@@ -43,29 +41,30 @@ public slots:
 	void clearFocus();
 
 private slots:
-	virtual void GotoPgE(int);
-	virtual void GotoPage();
+	virtual void gotoPage(int);
 	virtual void goToStart();
 	virtual void goToEnd();
 	virtual void goBackward();
 	virtual void goForward();
 
 protected:
-	QPushButton* startButton;
-	QPushButton* backButton;
-	QPushButton* forwardButton;
-	QPushButton* lastButton;
-	QHBoxLayout *PageSelectorLayout;
-	QLabel *pageCountLabel;
-	QString PageCountString;
-	QComboBox *m_pageCombo;
-	QIntValidator *m_validator;
-	int m_lastPage;
-	int m_currentPage;
+	QPushButton* startButton { nullptr };
+	QPushButton* backButton { nullptr };
+	QPushButton* forwardButton { nullptr };
+	QPushButton* lastButton { nullptr };
+	QHBoxLayout *pageSelectorLayout { nullptr };
+	QLabel *pageCountLabel { nullptr };
+	QComboBox *m_pageCombo { nullptr };
+	QIntValidator *m_validator { nullptr };
+
+	int m_lastPage { 1 };
+	int m_currentPage { 1 };
+	QString pageCountString;
+	
+	void changeEvent(QEvent *e) override;
 
 signals:
-	void GotoPage(int);
-
+	void pageChanged(int);
 };
 
 #endif // PAGESELECTOR_H

@@ -2646,7 +2646,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		viewToolBar->setDoc(doc);
 		pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 		slotSetCurrentPage(doc->currentPageNumber());
-		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
+		connect(pageSelector, SIGNAL(pageChanged(int)), this, SLOT(setCurrentPage(int)));
 		pageSelector->setEnabled(true);
 	}
 	if (view != nullptr)

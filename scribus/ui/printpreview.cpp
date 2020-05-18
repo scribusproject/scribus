@@ -90,8 +90,8 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 #endif
 	setWindowTitle(caption);
 
-	HavePngAlpha = ScCore->havePNGAlpha();
-	HaveTiffSep  = postscriptPreview ? ScCore->haveTIFFSep() : false;
+	havePngAlpha = ScCore->havePNGAlpha();
+	haveTiffSep  = postscriptPreview ? ScCore->haveTIFFSep() : false;
 	getNumericGSVersion(m_gsVersion);
 
 	PLayout = new QVBoxLayout(this);
@@ -101,9 +101,9 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 	Layout5 = new QHBoxLayout;
 	Layout5->setSpacing(3);
 	Layout5->setMargin(0);
-	Anzeige = new QScrollArea(this);
-	Anzeige->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	Layout5->addWidget(Anzeige);
+	previewArea = new QScrollArea(this);
+	previewArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	Layout5->addWidget(previewArea);
 	settingsBarLayout = new QVBoxLayout;
 	settingsBarLayout->setSpacing(3);
 	settingsBarLayout->setMargin(0);
@@ -114,109 +114,109 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 	Layout2->setSpacing(5);
 	Layout2->setMargin(5);
 	Layout2->setAlignment( Qt::AlignTop );
-	AntiAlias = new QCheckBox(devTitle);
-	AntiAlias->setText( tr("Enable &Antialiasing"));
-	AntiAlias->setChecked(postscriptPreview ? prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing : false);
-	AntiAlias->setEnabled(postscriptPreview);
-	Layout2->addWidget(AntiAlias);
-	AliasTr = new QCheckBox(devTitle);
-	AliasTr->setText( tr("Display Trans&parency"));
-	AliasTr->setChecked(postscriptPreview ? prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency : false);
-	AliasTr->setEnabled(postscriptPreview);
-	Layout2->addWidget(AliasTr);
-	EnableCMYK = new QCheckBox(devTitle);
-	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked((HaveTiffSep && postscriptPreview) ? prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode : false);
-	EnableCMYK->setEnabled(HaveTiffSep && postscriptPreview);
-	Layout2->addWidget(EnableCMYK);
-	if (HaveTiffSep)
+	antiAliasing = new QCheckBox(devTitle);
+	antiAliasing->setText( tr("Enable &Antialiasing"));
+	antiAliasing->setChecked(postscriptPreview ? prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing : false);
+	antiAliasing->setEnabled(postscriptPreview);
+	Layout2->addWidget(antiAliasing);
+	showTransparency = new QCheckBox(devTitle);
+	showTransparency->setText( tr("Display Trans&parency"));
+	showTransparency->setChecked(postscriptPreview ? prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency : false);
+	showTransparency->setEnabled(postscriptPreview);
+	Layout2->addWidget(showTransparency);
+	enableCMYK = new QCheckBox(devTitle);
+	enableCMYK->setText( tr("&Display CMYK"));
+	enableCMYK->setChecked((haveTiffSep && postscriptPreview) ? prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode : false);
+	enableCMYK->setEnabled(haveTiffSep && postscriptPreview);
+	Layout2->addWidget(enableCMYK);
+	if (haveTiffSep)
 	{
 		ColorList usedSpots;
 		doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
 
-		Table = new QTableWidget(spots.count()+4, 2, devTitle );
+		inkTable = new QTableWidget(spots.count()+4, 2, devTitle );
 		m_inkMax = (spots.count() + 4) * 255;
-		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
-		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
-		QHeaderView *header = Table->horizontalHeader();
+		inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
+		inkTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
+		QHeaderView *header = inkTable->horizontalHeader();
 		header->setStretchLastSection(true);
 		header->setSectionsMovable(false);
 		header->setSectionResizeMode(QHeaderView::Fixed);
-		Table->setColumnWidth(0, 24);
-		Table->verticalHeader()->hide();
-		Table->setSelectionMode( QAbstractItemView::NoSelection );
-		Table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		Table->setFocusPolicy(Qt::NoFocus);
+		inkTable->setColumnWidth(0, 24);
+		inkTable->verticalHeader()->hide();
+		inkTable->setSelectionMode( QAbstractItemView::NoSelection );
+		inkTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		inkTable->setFocusPolicy(Qt::NoFocus);
 		flagsVisible.clear();
-		Table->setItem(0, 1, new QTableWidgetItem( tr("Cyan")));
+		inkTable->setItem(0, 1, new QTableWidgetItem( tr("Cyan")));
 		QCheckBox *cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-		Table->setCellWidget(0, 0, cp);
+		inkTable->setCellWidget(0, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_C);
 		flagsVisible.insert("Cyan", cp);
-		Table->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
+		inkTable->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-		Table->setCellWidget(1, 0, cp);
+		inkTable->setCellWidget(1, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_M);
 		flagsVisible.insert("Magenta", cp);
-		Table->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
+		inkTable->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-		Table->setCellWidget(2, 0, cp);
+		inkTable->setCellWidget(2, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_Y);
 		flagsVisible.insert("Yellow", cp);
-		Table->setItem(3, 1, new QTableWidgetItem( tr("Black")));
+		inkTable->setItem(3, 1, new QTableWidgetItem( tr("Black")));
 		cp = new QCheckBox(this);
 		cp->setFocusPolicy(Qt::NoFocus);
 		connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-		Table->setCellWidget(3, 0, cp);
+		inkTable->setCellWidget(3, 0, cp);
 		cp->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_K);
 		flagsVisible.insert("Black", cp);
 		for (int sp = 0; sp < spots.count(); ++sp)
 		{
-			Table->setItem(sp+4, 1, new QTableWidgetItem(spots[sp]));
+			inkTable->setItem(sp+4, 1, new QTableWidgetItem(spots[sp]));
 			cp = new QCheckBox(this);
 			cp->setFocusPolicy(Qt::NoFocus);
 			connect(cp, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
-			Table->setCellWidget(sp+4, 0, cp);
+			inkTable->setCellWidget(sp + 4, 0, cp);
 			cp->setChecked(true);
 			flagsVisible.insert(spots[sp], cp);
 		}
-		Layout2->addWidget(Table);
-		tbWidth = Table->columnWidth(1);
+		Layout2->addWidget(inkTable);
+		tbWidth = inkTable->columnWidth(1);
 
-		EnableInkCover = new QCheckBox(devTitle);
-		EnableInkCover->setText( tr("Display Ink Coverage"));
-		EnableInkCover->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage);
-		EnableInkCover->setEnabled( postscriptPreview );
-		Layout2->addWidget(EnableInkCover);
-		connect(EnableInkCover, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
+		enableInkCover = new QCheckBox(devTitle);
+		enableInkCover->setText( tr("Display Ink Coverage"));
+		enableInkCover->setChecked(prefsManager.appPrefs.printPreviewPrefs.PrPr_InkCoverage);
+		enableInkCover->setEnabled( postscriptPreview );
+		Layout2->addWidget(enableInkCover);
+		connect(enableInkCover, SIGNAL(clicked()), this, SLOT(toggleCMYK_Colour()));
 		Layout7 = new QHBoxLayout;
 		Layout7->setSpacing(3);
 		Layout7->setMargin(0);
-		ThresLabel = new QLabel( tr("Threshold:"), devTitle);
-		Layout7->addWidget(ThresLabel);
-		CoverThresholdValue = new ScrSpinBox(devTitle);
-		CoverThresholdValue->setSuffix( tr(" %"));
-		CoverThresholdValue->setMaximum(600);
-		CoverThresholdValue->setDecimals(0);
-		CoverThresholdValue->setMinimum(0);
-		CoverThresholdValue->setSingleStep(10);
-		CoverThresholdValue->setSpecialValueText( tr("None"));
-		CoverThresholdValue->setValue(prefsManager.appPrefs.printPreviewPrefs.PrPr_InkThreshold);
-		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
-			CoverThresholdValue->setEnabled(true);
+		thresholdLabel = new QLabel( tr("Threshold:"), devTitle);
+		Layout7->addWidget(thresholdLabel);
+		coverThresholdValue = new ScrSpinBox(devTitle);
+		coverThresholdValue->setSuffix( tr(" %"));
+		coverThresholdValue->setMaximum(600);
+		coverThresholdValue->setDecimals(0);
+		coverThresholdValue->setMinimum(0);
+		coverThresholdValue->setSingleStep(10);
+		coverThresholdValue->setSpecialValueText( tr("None"));
+		coverThresholdValue->setValue(prefsManager.appPrefs.printPreviewPrefs.PrPr_InkThreshold);
+		if ((enableCMYK->isChecked()) && (enableInkCover->isChecked()))
+			coverThresholdValue->setEnabled(true);
 		else
-			CoverThresholdValue->setEnabled(false);
-		connect(CoverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(toggleCMYK_Colour()));
-		Layout7->addWidget(CoverThresholdValue);
+			coverThresholdValue->setEnabled(false);
+		connect(coverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(toggleCMYK_Colour()));
+		Layout7->addWidget(coverThresholdValue);
 		Layout2->addLayout(Layout7);
-		connect(Table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
+		connect(inkTable, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(doSpotTable(int)));
 		connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader()));
 	}
 	
@@ -229,20 +229,20 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 	Layout1->setMargin( 5 );
 	Layout1->setAlignment( Qt::AlignTop );
 
-	MirrorHor = new QCheckBox( tr( "Mirror Page(s) Horizontal" ), jobTitle );
-	Layout1->addWidget( MirrorHor );
+	mirrorHor = new QCheckBox( tr( "Mirror Page(s) Horizontal" ), jobTitle );
+	Layout1->addWidget( mirrorHor );
 
-	MirrorVert = new QCheckBox( tr( "Mirror Page(s) Vertical" ), jobTitle );
-	Layout1->addWidget( MirrorVert );
+	mirrorVert = new QCheckBox( tr( "Mirror Page(s) Vertical" ), jobTitle );
+	Layout1->addWidget( mirrorVert );
 
-	ClipMarg = new QCheckBox( tr( "Clip to Printer Margins" ), jobTitle );
-	Layout1->addWidget( ClipMarg );
+	clipMargins = new QCheckBox( tr( "Clip to Printer Margins" ), jobTitle );
+	Layout1->addWidget( clipMargins );
 
 	useGray = new QCheckBox( tr("Print in Grayscale"), jobTitle);
 	Layout1->addWidget(useGray);
 
-	EnableGCR = new QCheckBox( tr("&Under Color Removal"), jobTitle);
-	Layout1->addWidget(EnableGCR);
+	enableGCR = new QCheckBox( tr("&Under Color Removal"), jobTitle);
+	Layout1->addWidget(enableGCR);
 
 	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle );
 	Layout1->addWidget( spotColors );
@@ -277,9 +277,9 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
-	PGSel = new PageSelector(this, doc->DocPages.count());
-	PGSel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-	Layout6->addWidget(PGSel);
+	pageSelector = new PageSelector(this, doc->DocPages.count());
+	pageSelector->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+	Layout6->addWidget(pageSelector);
 	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer2 );
 	closeButton = new QPushButton( tr("Close"), this);
@@ -291,39 +291,38 @@ PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu,
 	Layout6->addWidget( printButton );
 	PLayout->addLayout(Layout6);
 	setValues();
-	Anz = new QLabel(this);
-	Anz->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-//	m_currentPage = doc->currentPage()->pageNr();
-	Anz->setPixmap(CreatePreview(doc->currentPage()->pageNr(), 72));
-	Anz->resize(Anz->pixmap()->size());
-	Anzeige->setWidget(Anz);
-	int w = Anz->width() + tbWidth + 50;
+	previewLabel = new QLabel(this);
+	previewLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+	previewLabel->setPixmap(CreatePreview(doc->currentPage()->pageNr(), 72));
+	previewLabel->resize(previewLabel->pixmap()->size());
+	previewArea->setWidget(previewLabel);
+	int w = previewLabel->width() + tbWidth + 50;
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
 	if (!PrefsManager::instance().appPrefs.printPreviewPrefs.PrPr_Mode)
 	{
-		if (HaveTiffSep)
-			Table->setEnabled(false);
+		if (haveTiffSep)
+			inkTable->setEnabled(false);
 	}
-	PGSel->setGUIForPage(doc->currentPage()->pageNr());
+	pageSelector->setGUIForPage(doc->currentPage()->pageNr());
 	// tooltips
-	AntiAlias->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
-	AliasTr->setToolTip( "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later." ) + "</qt>");
-	EnableCMYK->setToolTip( "<qt>" + tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) + "</qt>");
-	EnableGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
+	antiAliasing->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
+	showTransparency->setToolTip( "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later." ) + "</qt>");
+	enableCMYK->setToolTip( "<qt>" + tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) + "</qt>");
+	enableGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 	scaleBox->setToolTip( "<qt>" + tr("Resize the scale of the page") + "</qt>");
 	spotColors->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 
 	//signals and slots
-	connect(AntiAlias, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(AliasTr, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(toggleCMYK()));
-	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(MirrorHor, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(MirrorVert, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(ClipMarg, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(antiAliasing, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(showTransparency, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(enableCMYK, SIGNAL(clicked()), this, SLOT(toggleCMYK()));
+	connect(enableGCR, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(mirrorHor, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(mirrorVert, SIGNAL(clicked()), this, SLOT(redisplay()));
+	connect(clipMargins, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(spotColors, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(useGray, SIGNAL(clicked()), this, SLOT(redisplay()));
-	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(jumpToPage(int)));
+	connect(pageSelector, SIGNAL(pageChanged(int)), this, SLOT(jumpToPage(int)));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
 	connect(scaleBox, SIGNAL(activated(int)), this, SLOT(scaleBox_valueChanged(int)));
@@ -347,22 +346,22 @@ void PrintPreview::setValues()
 {
 	if ((printDinUse) || (!doc->Print_Options.firstUse))
 	{
-		EnableGCR->setChecked( postscriptPreview ? doc->Print_Options.doGCR : false);
-		EnableGCR->setEnabled( postscriptPreview );
-		MirrorHor->setChecked(doc->Print_Options.mirrorH);
-		MirrorVert->setChecked(doc->Print_Options.mirrorV);
-		ClipMarg->setChecked(doc->Print_Options.doClip);
+		enableGCR->setChecked( postscriptPreview ? doc->Print_Options.doGCR : false);
+		enableGCR->setEnabled( postscriptPreview );
+		mirrorHor->setChecked(doc->Print_Options.mirrorH);
+		mirrorVert->setChecked(doc->Print_Options.mirrorV);
+		clipMargins->setChecked(doc->Print_Options.doClip);
 		spotColors->setChecked(!doc->Print_Options.useSpotColors);
 		useGray->setChecked(!doc->Print_Options.useColor);
 	}
 	else
 	{
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
-		EnableGCR->setChecked( postscriptPreview ? prefs->getBool("DoGCR", false) : false);
-		EnableGCR->setEnabled( postscriptPreview );
-		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
-		ClipMarg->setChecked(prefs->getBool("Clip", false));
+		enableGCR->setChecked( postscriptPreview ? prefs->getBool("DoGCR", false) : false);
+		enableGCR->setEnabled( postscriptPreview );
+		mirrorHor->setChecked(prefs->getBool("MirrorH", false));
+		mirrorVert->setChecked(prefs->getBool("MirrorV", false));
+		clipMargins->setChecked(prefs->getBool("Clip", false));
 		spotColors->setChecked(!prefs->getBool("doSpot", true));
 		if (prefs->getInt("PrintColor", 0) == 1)
 			useGray->setChecked(true);
@@ -376,73 +375,74 @@ void PrintPreview::jumpToPage(int num)
 	int n = num-1;
 	if (n == m_currentPage)
 		return;
-	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
-	Anz->resize(Anz->pixmap()->size());
+	QPixmap previewPix = CreatePreview(n, qRound(72 * scaleFactor));
+	previewLabel->setPixmap(previewPix);
+	previewLabel->resize(previewPix.size());
 }
 
 void PrintPreview::redisplay()
 {
-	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-	Anz->resize(Anz->pixmap()->size());
+	QPixmap previewPix = CreatePreview(m_currentPage, qRound(72 * scaleFactor));
+	previewLabel->setPixmap(previewPix);
+	previewLabel->resize(previewPix.size());
 }
 
 void PrintPreview::toggleCMYK()
 {
-	bool c = EnableCMYK->isChecked();
-	if (HaveTiffSep)
+	bool c = enableCMYK->isChecked();
+	if (haveTiffSep)
 	{
-		Table->setEnabled(c);
-		EnableInkCover->setEnabled(c);
-		if (EnableInkCover->isChecked())
-			CoverThresholdValue->setEnabled(c);
+		inkTable->setEnabled(c);
+		enableInkCover->setEnabled(c);
+		if (enableInkCover->isChecked())
+			coverThresholdValue->setEnabled(c);
 	}
 		
-	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-	Anz->resize(Anz->pixmap()->size());
+	redisplay();
 }
 
 void PrintPreview::toggleCMYK_Colour()
 {
-	if (HaveTiffSep)
+	if (haveTiffSep)
 	{
-		if ((EnableCMYK->isChecked()) && (EnableInkCover->isChecked()))
-			CoverThresholdValue->setEnabled(true);
+		if ((enableCMYK->isChecked()) && (enableInkCover->isChecked()))
+			coverThresholdValue->setEnabled(true);
 		else
-			CoverThresholdValue->setEnabled(false);
+			coverThresholdValue->setEnabled(false);
 	}
-	if (EnableCMYK->isChecked())
-		Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-	Anz->resize(Anz->pixmap()->size());
+	if (enableCMYK->isChecked())
+		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
 void PrintPreview::doSpotTable(int row)
 {
-	if (HaveTiffSep)
+	if (haveTiffSep)
 	{
 		QMap<QString, QCheckBox*> ::Iterator sepit;
 		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
 		{
 			sepit.value()->setChecked(false);
 		}
-		((QCheckBox*)(Table->cellWidget(row, 0)))->setChecked(true);
-		if (EnableCMYK->isChecked())
-			Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-		Anz->resize(Anz->pixmap()->size());
+		((QCheckBox*)(inkTable->cellWidget(row, 0)))->setChecked(true);
+		if (enableCMYK->isChecked())
+			previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+		previewLabel->resize(previewLabel->pixmap()->size());
 	}
 }
 
 void PrintPreview::toggleAllfromHeader()
 {
-	if (HaveTiffSep)
+	if (haveTiffSep)
 	{
 		QMap<QString, QCheckBox*> ::Iterator sepit;
 		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
 		{
 			sepit.value()->setChecked(true);
 		}
-		if (EnableCMYK->isChecked())
-			Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-		Anz->resize(Anz->pixmap()->size());
+		if (enableCMYK->isChecked())
+			previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+		previewLabel->resize(previewLabel->pixmap()->size());
 	}
 }
 
@@ -463,20 +463,19 @@ void PrintPreview::scaleBox_valueChanged(int value)
 			scaleFactor = 2.0;
 			break;
 		case 4:
-			scaleFactor = Anzeige->viewport()->width() / doc->Pages->at(m_currentPage)->width();
+			scaleFactor = previewArea->viewport()->width() / doc->Pages->at(m_currentPage)->width();
 			break;
 		case 5:
-			scaleFactor = Anzeige->viewport()->height() / doc->Pages->at(m_currentPage)->height();
+			scaleFactor = previewArea->viewport()->height() / doc->Pages->at(m_currentPage)->height();
 			break;
 		case 6:
-			scaleFactor = qMin(Anzeige->viewport()->height() / doc->Pages->at(m_currentPage)->height(), Anzeige->viewport()->width() / doc->Pages->at(m_currentPage)->width());
+			scaleFactor = qMin(previewArea->viewport()->height() / doc->Pages->at(m_currentPage)->height(), previewArea->viewport()->width() / doc->Pages->at(m_currentPage)->width());
 			break;
 		default:
 			scaleFactor = 1.0;
 			break;
 	}
-	Anz->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-	Anz->resize(Anz->pixmap()->size());
+	redisplay();
 }
 
 int PrintPreview::RenderPreview(int pageIndex, int res)
@@ -494,8 +493,8 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 		options.copies = 1;
 		options.doGCR = false;
 		//options.mirrorH = options.mirrorV = false;
-		options.mirrorH = MirrorHor->isChecked();
-		options.mirrorV = MirrorVert->isChecked();
+		options.mirrorH = mirrorHor->isChecked();
+		options.mirrorV = mirrorVert->isChecked();
 		options.outputSeparations = false;
 		options.pageNumbers.push_back(pageIndex);
 		options.prnEngine = WindowsGDI;
@@ -510,8 +509,8 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	}
 #endif
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((pageIndex != m_currentPage)  || (EnableGCR->isChecked() != m_useGCR)  || (useGray->isChecked() != m_useGray)
-		|| (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV) || (ClipMarg->isChecked() != m_clipToMargins)
+	if ((pageIndex != m_currentPage)  || (enableGCR->isChecked() != m_useGCR)  || (useGray->isChecked() != m_useGray)
+		|| (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV) || (clipMargins->isChecked() != m_clipToMargins)
 		|| (spotColors->isChecked() != m_convertSpots))
 	{
 		PrintOptions options;
@@ -521,11 +520,11 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 		options.allSeparations = QStringList();
 		options.useSpotColors = !spotColors->isChecked();
 		options.useColor = !useGray->isChecked();
-		options.mirrorH = MirrorHor->isChecked();
-		options.mirrorV = MirrorVert->isChecked();
-		options.doGCR = EnableGCR->isChecked();
+		options.mirrorH = mirrorHor->isChecked();
+		options.mirrorV = mirrorVert->isChecked();
+		options.doGCR = enableGCR->isChecked();
 		options.setDevParam = false;
-		options.doClip = ClipMarg->isChecked();
+		options.doClip = clipMargins->isChecked();
 		options.cropMarks = false;
 		options.bleedMarks = false;
 		options.registrationMarks = false;
@@ -552,21 +551,21 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	args.append( "-dPARANOIDSAFER" );
 	args.append( QString("-r%1").arg(tmp.setNum(res)) );
 	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
-	if (EnableCMYK->isChecked())
+	if (enableCMYK->isChecked())
 	{
-		if (HaveTiffSep)
+		if (haveTiffSep)
 			args.append( "-sDEVICE=tiffsep" );
 		else
 			return 1;
 	}
 	else
 	{
-		if (AliasTr->isChecked() && HavePngAlpha)
+		if (showTransparency->isChecked() && havePngAlpha)
 			args.append("-sDEVICE=pngalpha");
 		else
 			args.append("-sDEVICE=tiff24nc");	
 	}
-	if (AntiAlias->isChecked())
+	if (antiAliasing->isChecked())
 	{
 		args.append( "-dTextAlphaBits=4" );
 		args.append( "-dGraphicsAlphaBits=4" );
@@ -574,7 +573,7 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	if ((doc->HasCMS) && (m_gsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-		if (EnableCMYK->isChecked())
+		if (enableCMYK->isChecked())
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
@@ -582,7 +581,7 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	else if (ScCore->haveCMS() && (m_gsVersion >= 900))
 	{
 		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-		if (EnableCMYK->isChecked())
+		if (enableCMYK->isChecked())
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
 		else
 			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultRGBProfile.profilePath()));
@@ -598,9 +597,9 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	if (!cmd1.isEmpty())
 		args.append( cmd1 );
 	// then add any final args and call gs
-	if (EnableCMYK->isChecked())
+	if (enableCMYK->isChecked())
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")) );
-	else if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
+	else if ((showTransparency->isChecked() && havePngAlpha) || !postscriptPreview)
 		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.png")) );
 	else
 		args.append(QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")));
@@ -619,8 +618,8 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 	QString cmd;
 	QStringList args, args1, args2, args3;
 	// Recreate Postscript-File only when the actual Page has changed
-	if ((pageIndex != m_currentPage)  || (EnableGCR->isChecked() != m_useGCR) || (useGray->isChecked() != m_useGray)
-		|| (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV) || (ClipMarg->isChecked() != m_clipToMargins)
+	if ((pageIndex != m_currentPage)  || (enableGCR->isChecked() != m_useGCR) || (useGray->isChecked() != m_useGray)
+		|| (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV) || (clipMargins->isChecked() != m_clipToMargins)
 		|| (spotColors->isChecked() != m_convertSpots))
 	{
 		PrintOptions options;
@@ -630,11 +629,11 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 		options.allSeparations = QStringList();
 		options.useSpotColors = !spotColors->isChecked();
 		options.useColor = !useGray->isChecked();
-		options.mirrorH = MirrorHor->isChecked();
-		options.mirrorV = MirrorVert->isChecked();
-		options.doGCR = EnableGCR->isChecked();
+		options.mirrorH = mirrorHor->isChecked();
+		options.mirrorV = mirrorVert->isChecked();
+		options.doGCR = enableGCR->isChecked();
 		options.setDevParam = false;
-		options.doClip = ClipMarg->isChecked();
+		options.doClip = clipMargins->isChecked();
 		options.cropMarks = false;
 		options.bleedMarks = false;
 		options.registrationMarks = false;
@@ -661,7 +660,7 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 	args1.append( "-dPARANOIDSAFER" );
 	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
 	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
-	if (AntiAlias->isChecked())
+	if (antiAliasing->isChecked())
 	{
 		args1.append("-dTextAlphaBits=4");
 		args1.append("-dGraphicsAlphaBits=4");
@@ -854,13 +853,13 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
 	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	if ((pageIndex != m_currentPage) || (EnableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
-	        || (AntiAlias->isChecked() != m_useAntialiasing) || (((AliasTr->isChecked() != m_showTransparency) || (EnableGCR->isChecked() != m_useGCR))
-			&& (!EnableCMYK->isChecked()))
-			 || (useGray->isChecked() != m_useGray) || (MirrorHor->isChecked() != m_mirrorH) || (MirrorVert->isChecked() != m_mirrorV)
-			 || (ClipMarg->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
+	if ((pageIndex != m_currentPage) || (enableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
+	        || (antiAliasing->isChecked() != m_useAntialiasing) || (((showTransparency->isChecked() != m_showTransparency) || (enableGCR->isChecked() != m_useGCR))
+			&& (!enableCMYK->isChecked()))
+			 || (useGray->isChecked() != m_useGray) || (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV)
+			 || (clipMargins->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
 	{
-		if (!EnableCMYK->isChecked() || (!HaveTiffSep))
+		if (!enableCMYK->isChecked() || (!haveTiffSep))
 		{
 			ret = RenderPreview(pageIndex, res);
 			if (ret > 0)
@@ -871,16 +870,16 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 		}
 	}
 	QImage image;
-	if (EnableCMYK->isChecked())
+	if (enableCMYK->isChecked())
 	{
 		bool loaderror;
 		int cyan, magenta, yellow, black;
-		if (HaveTiffSep)
+		if (haveTiffSep)
 		{
-			if ((pageIndex != m_currentPage) || (EnableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
-	       	 || (AntiAlias->isChecked() != m_useAntialiasing) || (AliasTr->isChecked() != m_showTransparency) || (EnableGCR->isChecked() != m_useGCR)
-	       	 || (useGray->isChecked() != m_useGray)  || (MirrorHor->isChecked() != m_mirrorH)|| (MirrorVert->isChecked() != m_mirrorV)
-	       	 || (ClipMarg->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
+			if ((pageIndex != m_currentPage) || (enableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
+	       	 || (antiAliasing->isChecked() != m_useAntialiasing) || (showTransparency->isChecked() != m_showTransparency) || (enableGCR->isChecked() != m_useGCR)
+	       	 || (useGray->isChecked() != m_useGray)  || (mirrorHor->isChecked() != m_mirrorH)|| (mirrorVert->isChecked() != m_mirrorV)
+	       	 || (clipMargins->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
 			{
 				ret = RenderPreviewSep(pageIndex, res);
 				if (ret > 0)
@@ -921,7 +920,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 					imageLoadError(pixmap, pageIndex);
 					return pixmap;
 				}
-				if (EnableInkCover->isChecked())
+				if (enableInkCover->isChecked())
 					blendImagesSumUp(image, im);
 				else
 					blendImages(image, im, ScColor(255, 0, 0, 0));
@@ -939,7 +938,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 					imageLoadError(pixmap, pageIndex);
 					return pixmap;
 				}
-				if (EnableInkCover->isChecked())
+				if (enableInkCover->isChecked())
 					blendImagesSumUp(image, im);
 				else
 					blendImages(image, im, ScColor(0, 255, 0, 0));
@@ -957,7 +956,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 					imageLoadError(pixmap, pageIndex);
 					return pixmap;
 				}
-				if (EnableInkCover->isChecked())
+				if (enableInkCover->isChecked())
 					blendImagesSumUp(image, im);
 				else
 					blendImages(image, im, ScColor(0, 0, 255, 0));
@@ -982,7 +981,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 							imageLoadError(pixmap, pageIndex);
 							return pixmap;
 						}
-						if (EnableInkCover->isChecked())
+						if (enableInkCover->isChecked())
 							blendImagesSumUp(image, im);
 						else
 							blendImages(image, im, doc->PageColors[sepit.key()]);
@@ -1004,14 +1003,14 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 					imageLoadError(pixmap, pageIndex);
 					return pixmap;
 				}
-				if (EnableInkCover->isChecked())
+				if (enableInkCover->isChecked())
 					blendImagesSumUp(image, im);
 				else
 					blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
-			if (EnableInkCover->isChecked())
+			if (enableInkCover->isChecked())
 			{
-				uint limitVal = (CoverThresholdValue->value() * 255) / 100;
+				uint limitVal = (coverThresholdValue->value() * 255) / 100;
 				for (int yi = 0; yi < h2; ++yi)
 				{
 					QRgb *q = (QRgb*) image.scanLine(yi);
@@ -1037,7 +1036,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 						}
 						else
 						{
-							if (!AliasTr->isChecked())
+							if (!showTransparency->isChecked())
 								*q = qRgba(255, 255, 255, 255);
 						}
 						q++;
@@ -1061,7 +1060,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 						QRgb *q = (QRgb *) ptr;
 						for (int xi = 0; xi < image.width(); xi++, q++)
 						{
-							if (AliasTr->isChecked())
+							if (showTransparency->isChecked())
 							{
 								cyan = qRed(*q);
 								magenta = qGreen(*q);
@@ -1091,7 +1090,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 								*q = qRgba(255 - qMin(255, cyan+black), 255 - qMin(255, magenta+black), 255 - qMin(255, yellow+black), 255);
 							else
 							{
-								if (!AliasTr->isChecked())
+								if (!showTransparency->isChecked())
 									*q = qRgba(255, 255, 255, 255);
 							}
 							q++;
@@ -1104,7 +1103,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 	else
 	{
 		QString previewFile;
-		if ((AliasTr->isChecked() && HavePngAlpha) || !postscriptPreview)
+		if ((showTransparency->isChecked() && havePngAlpha) || !postscriptPreview)
 			previewFile = ScPaths::tempFileDir() + "/sc.png";
 		else
 			previewFile = ScPaths::tempFileDir() + "/sc.tif";
@@ -1114,7 +1113,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 			return pixmap;
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
-		if ((AliasTr->isChecked()) && (HavePngAlpha))
+		if ((showTransparency->isChecked()) && (havePngAlpha))
 		{
 			int wi = image.width();
 			int hi = image.height();
@@ -1133,7 +1132,7 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 	const ScPage* page = doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
 		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
-	if (AliasTr->isChecked())
+	if (showTransparency->isChecked())
 	{
 		pixmap = QPixmap(image.width(), image.height());
 		QPainter p;
@@ -1172,14 +1171,14 @@ bool PrintPreview::usePostscriptPreview(const QString& printerName, PrintEngine 
 void PrintPreview::getUserSelection(int page)
 {
 	m_currentPage = page;
-	m_colorMode = EnableCMYK->isChecked();
-	m_useAntialiasing = AntiAlias->isChecked();
-	m_showTransparency = AliasTr->isChecked();
-	m_useGCR = EnableGCR->isChecked();
+	m_colorMode = enableCMYK->isChecked();
+	m_useAntialiasing = antiAliasing->isChecked();
+	m_showTransparency = showTransparency->isChecked();
+	m_useGCR = enableGCR->isChecked();
 	m_scaleMode = scaleBox->currentIndex();
-	m_mirrorH = MirrorHor->isChecked();
-	m_mirrorV = MirrorVert->isChecked();
-	m_clipToMargins = ClipMarg->isChecked();
+	m_mirrorH = mirrorHor->isChecked();
+	m_mirrorV = mirrorVert->isChecked();
+	m_clipToMargins = clipMargins->isChecked();
 	m_convertSpots = spotColors->isChecked();
 	m_useGray = useGray->isChecked();
 }

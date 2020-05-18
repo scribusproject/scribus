@@ -49,14 +49,14 @@ public:
 	PrintPreview(QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine );
 	~PrintPreview();
 
-	bool isCMYKPreviewEnabled() const { return EnableCMYK->isChecked(); }
-	bool isAntialiasingEnabled() const { return AntiAlias->isChecked(); }
-	bool isTransparencyEnabled() const { return AliasTr->isChecked();  }
+	bool isCMYKPreviewEnabled() const { return enableCMYK->isChecked(); }
+	bool isAntialiasingEnabled() const { return antiAliasing->isChecked(); }
+	bool isTransparencyEnabled() const { return showTransparency->isChecked();  }
 	bool isInkChannelVisible(const QString& ink) { return (flagsVisible.contains(ink) ? flagsVisible[ink]->isChecked() : false); }
-	bool isInkCoverageEnabled() const { return EnableInkCover->isChecked(); }
+	bool isInkCoverageEnabled() const { return enableInkCover->isChecked(); }
 	bool usePostScriptPreview() const { return postscriptPreview; }
 
-	double inkCoverageThreshold() const { return CoverThresholdValue->value(); }
+	double inkCoverageThreshold() const { return coverThresholdValue->value(); }
 
 	/*!
 	\author Franz Schmid
@@ -117,12 +117,12 @@ signals:
 protected:
 	ScribusView *view { nullptr };
 	ScribusDoc *doc { nullptr };
-	bool HavePngAlpha { false };
-	bool HaveTiffSep { false };
+	bool havePngAlpha { false };
+	bool haveTiffSep { false };
 	bool postscriptPreview { true };
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
-	QTableWidget* Table { nullptr };
+	QTableWidget* inkTable { nullptr };
 
 	int m_currentPage { -1 };
 	int m_scaleMode { 1 };
@@ -141,21 +141,21 @@ protected:
 	/*! \brief Percentage value of the scaling widget */
 	double scaleFactor { 1.0 };
 
-	PageSelector *PGSel { nullptr };
-	QCheckBox* AntiAlias { nullptr };
-	QCheckBox* AliasTr { nullptr };
-	QCheckBox* EnableCMYK { nullptr };
-	QCheckBox* EnableGCR { nullptr };
-	QCheckBox* MirrorHor { nullptr };
-	QCheckBox* MirrorVert { nullptr };
-	QCheckBox* ClipMarg { nullptr };
+	PageSelector *pageSelector { nullptr };
+	QCheckBox* antiAliasing { nullptr };
+	QCheckBox* showTransparency { nullptr };
+	QCheckBox* enableCMYK { nullptr };
+	QCheckBox* enableGCR { nullptr };
+	QCheckBox* mirrorHor { nullptr };
+	QCheckBox* mirrorVert { nullptr };
+	QCheckBox* clipMargins { nullptr };
 	QCheckBox* spotColors { nullptr };
 	QCheckBox* useGray { nullptr };
-	QCheckBox* EnableInkCover { nullptr };
-	ScrSpinBox* CoverThresholdValue { nullptr };
-	QLabel* ThresLabel { nullptr };
-	QScrollArea* Anzeige { nullptr };
-	QLabel* Anz { nullptr };
+	QCheckBox* enableInkCover { nullptr };
+	ScrSpinBox* coverThresholdValue { nullptr };
+	QLabel* thresholdLabel { nullptr };
+	QScrollArea* previewArea { nullptr };
+	QLabel* previewLabel { nullptr };
 	QGroupBox* devTitle { nullptr };
 	QGroupBox* jobTitle { nullptr };
 	QPushButton *closeButton { nullptr };
@@ -178,8 +178,7 @@ protected:
 	void imageLoadError(QPixmap &, int);
 
 	//! \brief repaint sample on the dialog change
-	void resizeEvent(QResizeEvent * event);
-
+	void resizeEvent(QResizeEvent * event) override;
 };
 
 #endif
