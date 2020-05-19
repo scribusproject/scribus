@@ -52,7 +52,7 @@ double SCRIBUS_API unitGetRatioFromIndex(const int index);
 int SCRIBUS_API unitGetBaseFromIndex(const int index);
 QString SCRIBUS_API unitGetStrFromIndex(const int index);
 QString SCRIBUS_API unitGetUntranslatedStrFromIndex(const int index);
-QString unitGetSuffixFromIndex(const int index);
+QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
 int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
 int SCRIBUS_API unitGetPrecisionFromIndex(const int index);
 double SCRIBUS_API unitValueFromString(const QString& value);

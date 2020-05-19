@@ -372,7 +372,7 @@ QPixmap PagePalette_Pages::createIcon(int number, QString masterPage, const QPix
 		//QString tmp = tmp.setNum(nr+1);
 		QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
 		if (tmp.isEmpty())
-			tmp = tmp.setNum(number+1);
+			tmp = tmp.setNum(number + 1);
 		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
 		if (Exp.indexIn(masterPage) != -1)
 			masterPage = Exp.cap(1);

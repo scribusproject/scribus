@@ -121,7 +121,7 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 	bool softProofing = doc ? doc->SoftProofing : false;
 	if (cmsUse && softProofing)
 	{
-		int outheight=out.height();
+		int outheight = out.height();
 		for (int i=0; i < outheight; ++i)
 		{
 			uchar* ptr = out.scanLine(i);
@@ -149,7 +149,7 @@ QColor SetColor(ScribusDoc *currentDoc, const QString& color, int shad)
 		return {0, 0, 0, 0};
 	const ScColor& col = currentDoc->PageColors[color];
 	return ScColorEngine::getShadeColorProof(col, currentDoc, shad);
-		}
+}
 
 /**
  * QPixmaps are really slow with Qt/Mac 3.3.4. Really, *really*, slow.

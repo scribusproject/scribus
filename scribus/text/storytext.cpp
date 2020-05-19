@@ -126,7 +126,7 @@ bool StoryText::hasBulletOrNum() const
 	}
 
 	const ParagraphStyle& trailingStyle = d->trailingStyle;
-	return trailingStyle.hasBullet() || trailingStyle.hasNum();
+	return (trailingStyle.hasBullet() || trailingStyle.hasNum());
 }
 
 bool StoryText::hasTextMarks() const

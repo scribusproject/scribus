@@ -77,7 +77,7 @@ bool SpecialChars::isImplicitSpace(uint c1, uint c2)
 	if (isLatin1 && isCJK2)
 		return true;
 	bool isLatin2 = SpecialChars::isLetterRequiringSpaceAroundCJK(c2);
-	return isCJK1 && isLatin2;
+	return (isCJK1 && isLatin2);
 }
 
 bool SpecialChars::isBreak(QChar c, bool includeColBreak)

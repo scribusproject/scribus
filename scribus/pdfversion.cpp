@@ -60,5 +60,5 @@ bool PDFVersion::supportsTransparency() const
 
 bool PDFVersion::supportsPDF15PresentationEffects() const
 {
-	return m_version == PDF_15 || m_version == PDF_16;
+	return (m_version == PDF_15 || m_version == PDF_16);
 }
