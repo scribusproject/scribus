@@ -115,7 +115,7 @@ public:
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod(VGradientEx::RepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
-	const QList<VColorStopEx*> colorStops() const;
+	QList<VColorStopEx*> colorStops() const;
 	void addStop(const VColorStopEx& colorStop);
 	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void removeStop(VColorStopEx& colorStop);

@@ -111,7 +111,7 @@ private:
 	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint>& glyphmap);
 	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);
 	PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
-	PdfId PDF_EmbedFontObject(const QByteArray& ttf, const QByteArray& subtype);
+	PdfId PDF_EmbedFontObject(const QByteArray& font, const QByteArray& subtype);
 	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
 	PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
 

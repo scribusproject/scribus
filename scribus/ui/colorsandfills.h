@@ -57,8 +57,8 @@ class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 		void keyPressEvent(QKeyEvent *k);
 
 
-		ScribusDoc *m_doc;
-		ScribusMainWindow *mainWin;
+		ScribusDoc *m_doc {nullptr};
+		ScribusMainWindow *mainWin {nullptr};
 		QHash<QString, VGradient> dialogGradients;
 		QMap<QString,QString> replaceMap;
 		QMap<QString,QString> origNames;
@@ -67,7 +67,7 @@ class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 		QMap<QString,QString> replaceColorMap;
 		//! \brief Custom user's color set
 		QStringList customColSet;
-		bool hasImportedColors;
+		bool hasImportedColors {false};
 		QHash<QString, ScPattern> dialogPatterns;
 		QMap<QString,QString> replaceMapPatterns;
 		QMap<QString,QString> origNamesPatterns;

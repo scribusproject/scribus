@@ -43,7 +43,7 @@ public:
 
 	bool save(QByteArray& profileData) const;
 
-	bool operator==(const ScColorProfile& prof) const;
+	bool operator==(const ScColorProfile& other) const;
 	
 protected:
 	QSharedPointer<ScColorProfileData> m_data;

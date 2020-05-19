@@ -354,18 +354,18 @@ void PropertiesPalette_Line::updateLineStyles()
 	updateLineStyles(m_doc);
 }
 
-void PropertiesPalette_Line::updateLineStyles(ScribusDoc *dd)
+void PropertiesPalette_Line::updateLineStyles(ScribusDoc *doc)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	
 	lineStyles->blockSignals(true);
 	lineStyles->clear();
-	if (dd != nullptr)
+	if (doc != nullptr)
 	{
 		QHash<QString,multiLine>::Iterator it;
-		for (it = dd->docLineStyles.begin(); it != dd->docLineStyles.end(); ++it)
-			lineStyles->addItem( new LineFormatItem(dd, it.value(), it.key()) );
+		for (it = doc->docLineStyles.begin(); it != doc->docLineStyles.end(); ++it)
+			lineStyles->addItem( new LineFormatItem(doc, it.value(), it.key()) );
 		lineStyles->sortItems();
 		lineStyles->insertItem( 0, tr("No Style"));
 		if (lineStyles->currentItem())

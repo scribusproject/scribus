@@ -68,7 +68,7 @@ protected:
 	QList<SeItem*>    pageList;
 	QPixmap pix;
 
-	QPixmap createIcon(int nr, QString mp, const QPixmap& pixin);
+	QPixmap createIcon(int number, QString masterPage, const QPixmap& pixin);
 };
 
 #endif // SEITENPAL_H

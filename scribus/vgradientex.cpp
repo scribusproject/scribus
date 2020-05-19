@@ -135,7 +135,7 @@ VGradientEx::~VGradientEx()
 	clearStops();
 }
 
-const QList<VColorStopEx*> VGradientEx::colorStops() const
+QList<VColorStopEx*> VGradientEx::colorStops() const
 {
 	return m_colorStops;
 }

@@ -110,16 +110,16 @@ public slots:
 	void languageChange();
 
 protected:
-	ShapeView *ShapeViewWidget;
-	QToolBox* Frame3;
-	QWidget* containerWidget;
-	QVBoxLayout* vLayout;
-	QHBoxLayout* buttonLayout;
-	QToolButton* importButton;
-	QToolButton* closeButton;
+	ShapeView *ShapeViewWidget {nullptr};
+	QToolBox* Frame3 {nullptr};
+	QWidget* containerWidget {nullptr};
+	QVBoxLayout* vLayout {nullptr};
+	QHBoxLayout* buttonLayout {nullptr};
+	QToolButton* importButton {nullptr};
+	QToolButton* closeButton {nullptr};
 
-	ScribusDoc *m_doc;
-	ScribusMainWindow *m_scMW;
+	ScribusDoc *m_doc {nullptr};
+	ScribusMainWindow *m_scMW {nullptr};
 };
 
 #endif

@@ -49,7 +49,7 @@ ScrPopupMenu::~ScrPopupMenu()
 	delete localPopupMenu;
 }
 
-const QString ScrPopupMenu::getMenuText()
+QString ScrPopupMenu::getMenuText()
 {
 	return menuText;
 }
@@ -60,7 +60,7 @@ void ScrPopupMenu::setText(const QString& pMenuText)
 	localPopupMenu->menuAction()->setText(menuText);
 }
 
-const QIcon ScrPopupMenu::getMenuIcon()
+QIcon ScrPopupMenu::getMenuIcon()
 {
 	return menuIcon;
 }
@@ -70,12 +70,12 @@ void ScrPopupMenu::setMenuIcon(const QIcon& pMenuIcon)
 	menuIcon=pMenuIcon;
 }
 
-const QString ScrPopupMenu::getMenuName()
+QString ScrPopupMenu::getMenuName()
 {
 	return menuName;
 }
 
-const QString ScrPopupMenu::getParentMenuName()
+QString ScrPopupMenu::getParentMenuName()
 {
 	return parentMenuName;
 }

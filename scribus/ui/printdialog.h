@@ -76,11 +76,11 @@ protected:
 	QByteArray m_devMode; // Buffer for storing storing printer options on Windows
 
 	QString getOptions();
-	void    getDefaultPrintOptions(PrintOptions& options, bool gcr);
-	void    storeValues();
-	void    refreshPrintEngineBox();
-	void    setPrintEngine(PrintEngine engine);
-	void    setStoredValues(const QString& fileName, bool gcr);
+	void getDefaultPrintOptions(PrintOptions& options, bool gcr);
+	void storeValues();
+	void refreshPrintEngineBox();
+	void setPrintEngine(PrintEngine engine);
+	void setStoredValues(const QString& fileName, bool gcr);
 };
 
 #endif // PRINTDIALOG_H

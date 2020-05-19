@@ -356,7 +356,8 @@ QString ContentReader::getName()
 
 void ContentReader::getStyle()
 {
-	gtStyle *style = nullptr, *tmp = nullptr;
+	gtStyle *style = nullptr;
+	gtStyle *tmp = nullptr;
 	if (styleNames.empty())
 		style = sreader->getStyle("default-style");
 	else

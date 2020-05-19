@@ -129,7 +129,6 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 {
-	double Rxp = 0, Ryp = 0;
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m_canvas->PaintSizeRect(QRect());
@@ -142,9 +141,9 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	m_Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
 	m_Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	double Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
 	m_Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	double Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
 	m_Myp = qRound(Ryp);
 	m_SeRx = m_Mxp;
 	m_SeRy = m_Myp;

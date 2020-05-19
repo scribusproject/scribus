@@ -126,10 +126,7 @@ bool StoryText::hasBulletOrNum() const
 	}
 
 	const ParagraphStyle& trailingStyle = d->trailingStyle;
-	if (trailingStyle.hasBullet() || trailingStyle.hasNum())
-		return true;
-
-	return false;
+	return trailingStyle.hasBullet() || trailingStyle.hasNum();
 }
 
 bool StoryText::hasTextMarks() const
@@ -2161,16 +2158,16 @@ void StoryText::validate()
 }
 */
 
-ScText*  StoryText::item(int itm)
+ScText*  StoryText::item(int index)
 {
-	assert( itm < length() );
-	return const_cast<StoryText *>(this)->d->at(itm);
+	assert( index < length() );
+	return const_cast<StoryText *>(this)->d->at(index);
 }
 
-const ScText*  StoryText::item(int itm) const
+const ScText*  StoryText::item(int index) const
 {
-	assert( itm < length() );
-	return const_cast<StoryText *>(this)->d->at(itm);
+	assert( index < length() );
+	return const_cast<StoryText *>(this)->d->at(index);
 }
 
 

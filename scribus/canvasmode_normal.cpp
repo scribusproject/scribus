@@ -307,7 +307,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		Canvas::FrameHandle frameResizeHandle(Canvas::OUTSIDE);
 		if (m_doc->m_Selection->count() > 0)
 		{
-			double gx(0.0), gy(0.0), gw(0.0), gh(0.0);
+			double gx = 0.0;
+			double gy = 0.0;
+			double gw = 0.0;
+			double gh = 0.0;
 			m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		}

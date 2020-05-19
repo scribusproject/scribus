@@ -139,7 +139,7 @@ scUnit unitIndexFromString(const QString& value)
 /*!
  * @brief Returns the suffix used in GUI widgets
  */
-const QString unitGetSuffixFromIndex(const int index)
+QString unitGetSuffixFromIndex(const int index)
 {
 	if (index==SC_P)
 		return "";
@@ -149,7 +149,7 @@ const QString unitGetSuffixFromIndex(const int index)
 /*!
  * @brief Returns a general suffix for each of the units
  */
-const QString unitGetStrFromIndex(const int index)
+QString unitGetStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
@@ -169,7 +169,7 @@ const QString unitGetStrFromIndex(const int index)
 /*!
  * @brief Returns a general untranslated suffix for each of the units
  */
-const QString unitGetUntranslatedStrFromIndex(const int index)
+QString unitGetUntranslatedStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
@@ -203,7 +203,7 @@ int unitGetPrecisionFromIndex(const int index)
 /*!
  * @brief Returns a QStringList of the units for use in QComboBoxes etc
  */
-const QStringList unitGetTextUnitList()
+QStringList unitGetTextUnitList()
 {
 	QStringList suffixList;
 	suffixList.append( QObject::tr( "Points (pt)" ) );

@@ -72,9 +72,8 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-PrintPreview::PrintPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent ),
+PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& printer, PrintEngine engine ) : QDialog( parent ),
 	doc(docu),
-	view(vin),
 	prefsManager(PrefsManager::instance())
 {
 	setModal(true);

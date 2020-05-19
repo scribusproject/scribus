@@ -362,9 +362,8 @@ void CanvasMode_EditWeldPoint::mouseMoveEvent(QMouseEvent *m)
 			if (m_selectedPoint != -1)
 			{
 				m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
-				FPoint mp, mp_orig;
-				mp_orig = m_currItem->weldList[m_selectedPoint].weldPoint;
-				mp = mp_orig - npx;
+				FPoint mp_orig = m_currItem->weldList[m_selectedPoint].weldPoint;
+				FPoint mp = mp_orig - npx;
 				double xx = mp.x();
 				double yy = mp.y();
 				snapToEdgePoints(xx, yy);

@@ -30,7 +30,7 @@ public:
 	
 	// functions for opening icc profiles
 	ScColorProfile openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath) override;
-	ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& array) override;
+	ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& data) override;
 	
 	// functions for creating profiles
 	ScColorProfile createProfile_sRGB(ScColorMgmtEngine& engine) override;
@@ -38,16 +38,16 @@ public:
 	
 	// functions for creating transforms
 	ScColorTransform createTransform(ScColorMgmtEngine& colorManagementEngine,
-	                                 const ScColorProfile& inputProfile , eColorFormat inputFormat,
-	                                 const ScColorProfile& outputProfile, eColorFormat outputFormat,
-	                                 eRenderIntent renderIntent, long transformFlags) override;
-	ScColorTransform createProofingTransform(ScColorMgmtEngine& colorManagementEngine,
-	                                  const ScColorProfile& inputProfile , eColorFormat inputFormat,
-	                                  const ScColorProfile& outputProfile, eColorFormat outputFormat,
-	                                  const ScColorProfile& proofing, eRenderIntent renderIntent, 
-	                                  eRenderIntent proofingIntent, long transformFlags) override;
+									 const ScColorProfile& inputProfile , eColorFormat inputFormat,
+									 const ScColorProfile& outputProfile, eColorFormat outputFormat,
+									 eRenderIntent renderIntent, long transformFlags) override;
+	ScColorTransform createProofingTransform(ScColorMgmtEngine& engine,
+											 const ScColorProfile& inputProfile , eColorFormat inputFormat,
+											 const ScColorProfile& outputProfile, eColorFormat outputFormat,
+											 const ScColorProfile& proofProfile , eRenderIntent renderIntent,
+											 eRenderIntent proofingIntent, long transformFlags) override;
 
-protected:
+	protected:
 
 	// Color profile cache
 	static QSharedPointer<ScColorProfileCache> m_profileCache;
@@ -57,7 +57,7 @@ protected:
 
 	static cmsUInt32Number translateFlagsToLcmsFlags(long flags);
 	static cmsUInt32Number translateFormatToLcmsFormat(eColorFormat format);
-	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
+	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defIntent = Intent_Relative_Colorimetric);
 	static eColorSpaceType translateLcmsColorSpaceType(cmsColorSpaceSignature);
 	static eProfileClass   translateLcmsProfileClass(cmsProfileClassSignature);
 

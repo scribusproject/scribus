@@ -937,9 +937,9 @@ void ResourceManager::updateDownloadLists()
 	downloadProgressBar->setVisible(true);
 	dataReceivedLabel->setVisible(true);
 	downloadProgressBar->setRange(0, m_dataFiles.count());
-	for (QString f : qAsConst(m_dataFiles))
+	for (const QString& f : qAsConst(m_dataFiles))
 		ScQApp->dlManager()->addURL("http://services.scribus.net/"+f, true, ScPaths::downloadDir(), ScPaths::downloadDir());
-	for (QString f : qAsConst(m_dataFiles))
+	for (const QString& f : qAsConst(m_dataFiles))
 		ScQApp->dlManager()->addURL("http://services.scribus.net/"+f+".sha256", true, ScPaths::downloadDir(), ScPaths::downloadDir());
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadListFinished()));
 	connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));

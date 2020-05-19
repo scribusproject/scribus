@@ -745,9 +745,9 @@ void PrintDialog::refreshPrintEngineBox()
 	printEngines->setCurrentIndex(oldPDLIndex);
 }
 
-void PrintDialog::setPrintEngine(PrintEngine pdl)
+void PrintDialog::setPrintEngine(PrintEngine engine)
 {
-	QString pdlString = m_printEngineMap.key(pdl, "");
+	QString pdlString(m_printEngineMap.key(engine, ""));
 	int itemIndex = printEngines->findText(pdlString);
 	if (itemIndex >= 0)
 		printEngines->setCurrentIndex(itemIndex);

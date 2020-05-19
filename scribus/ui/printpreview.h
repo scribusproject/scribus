@@ -46,7 +46,7 @@ public:
 	\param printer a name of the printer
 	\param engine a printer engine
 	*/
-	PrintPreview(QWidget* parent, ScribusView *vin, ScribusDoc *docu, const QString& printer, PrintEngine engine );
+	PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& printer, PrintEngine engine );
 	~PrintPreview();
 
 	bool isCMYKPreviewEnabled() const { return enableCMYK->isChecked(); }
@@ -115,7 +115,6 @@ signals:
 	void doPrint();
 
 protected:
-	ScribusView *view { nullptr };
 	ScribusDoc *doc { nullptr };
 	bool havePngAlpha { false };
 	bool haveTiffSep { false };

@@ -218,7 +218,6 @@ void PageItem_Spiral::recalcPath()
 	double endAngleK = spiralEndAngle;
 	double spiralHeight = height();
 	double spiralWidth = width();
-	QPainterPath path, path2;
 	double sh = spiralHeight / (spiralFactor + 1.0);
 	double sw = 0.0;
 	double ww = spiralWidth;
@@ -230,6 +229,8 @@ void PageItem_Spiral::recalcPath()
 	bool segPart = true;
 	bool draw = false;
 	QPointF tp;
+	QPainterPath path;
+	QPainterPath path2;
 	path2.moveTo(sw, sh);
 	while (segStart < endAngleK)
 	{

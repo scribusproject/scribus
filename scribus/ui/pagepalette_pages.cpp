@@ -354,7 +354,7 @@ void PagePalette_Pages::selMasterPage()
 	emit gotoMasterPage(pageVar.toString());
 }
 
-QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, const QPixmap& pixin)
+QPixmap PagePalette_Pages::createIcon(int number, QString masterPage, const QPixmap& pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
@@ -370,9 +370,9 @@ QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, const QPixmap&
 		p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		//p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		//QString tmp = tmp.setNum(nr+1);
-		QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(nr));
+		QString tmp(currView->m_doc->getSectionPageNumberForPageIndex(number));
 		if (tmp.isEmpty())
-			tmp = tmp.setNum(nr+1);
+			tmp = tmp.setNum(number+1);
 		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
 		if (Exp.indexIn(masterPage) != -1)
 			masterPage = Exp.cap(1);

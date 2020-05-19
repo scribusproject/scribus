@@ -136,7 +136,6 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
-	double Rxp = 0, Ryp = 0;
 	m_canvas->PaintSizeRect(QRect());
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
@@ -148,9 +147,9 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	m_Mxp = mousePointDoc.x();
 	m_Myp = mousePointDoc.y();
-	Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
+	double Rxp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).x();
 	m_Mxp = qRound(Rxp);
-	Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
+	double Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
 	m_Myp = qRound(Ryp);
 	if (m->button() == Qt::MidButton)
 	{

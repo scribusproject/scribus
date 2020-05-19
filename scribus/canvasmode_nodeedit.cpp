@@ -45,7 +45,6 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
-	double x, y;
 	if (m_doc->m_Selection->isEmpty())
 		return;
 	if (m_doc->nodeEdit.previewMode())
@@ -102,6 +101,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
 	}
+	double x = 0.0;
+	double y = 0.0;
 	// draw points
 	for (int i = 0; i < cli.size() - 1; i += 2)
 	{

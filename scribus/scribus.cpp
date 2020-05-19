@@ -6976,7 +6976,7 @@ void ScribusMainWindow::doPrintPreview()
 		ScMessageBox::warning(this, CommonStrings::trWarning, mess);
 		return;
 	}
-	PrintPreview *dia = new PrintPreview(this, view, doc, currentPrinter, currentEngine);
+	PrintPreview *dia = new PrintPreview(this, doc, currentPrinter, currentEngine);
 	previewDinUse = true;
 	connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 	dia->exec();

@@ -414,10 +414,9 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 
 // set to print all pages
 	PyObject *pages = nullptr;
-	int num = 0;
 	// which one should I use ???
 	// new = ScCore->primaryMainWindow()->view->Pages.count()
-	num = currentDoc->Pages->count();
+	int num = currentDoc->Pages->count();
 	pages = PyList_New(num);
 	if (!pages){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
@@ -485,7 +484,6 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->presentation = pdfOptions.PresentMode;
 	// set effects values for all pages
 	PyObject *effval = nullptr;
-	num = 0;
 	// which one should I use ???
 	// new = ScCore->primaryMainWindow()->view->Pages.count();
 	num = currentDoc->Pages->count();

@@ -42,22 +42,22 @@ for which a new license (GPL+exception) is in place.
 
 
 TagTable ProcessTable[] =
-    {
-        TagTable ( M_SOF0,   "Baseline" ),
-        TagTable ( M_SOF1,   "Extended sequential" ),
-        TagTable ( M_SOF2,   "Progressive" ),
-        TagTable ( M_SOF3,   "Lossless" ),
-        TagTable ( M_SOF5,   "Differential sequential" ),
-        TagTable ( M_SOF6,   "Differential progressive" ),
-        TagTable ( M_SOF7,   "Differential lossless" ),
-        TagTable ( M_SOF9,   "Extended sequential, arithmetic coding" ),
-        TagTable ( M_SOF10,  "Progressive, arithmetic coding" ),
-        TagTable ( M_SOF11,  "Lossless, arithmetic coding" ),
-        TagTable ( M_SOF13,  "Differential sequential, arithmetic coding" ),
-        TagTable ( M_SOF14,  "Differential progressive, arithmetic coding" ),
-        TagTable ( M_SOF15,  "Differential lossless, arithmetic coding" ),
-        TagTable ( 0,        "Unknown" )
-    };
+	{
+		TagTable ( M_SOF0,   "Baseline" ),
+		TagTable ( M_SOF1,   "Extended sequential" ),
+		TagTable ( M_SOF2,   "Progressive" ),
+		TagTable ( M_SOF3,   "Lossless" ),
+		TagTable ( M_SOF5,   "Differential sequential" ),
+		TagTable ( M_SOF6,   "Differential progressive" ),
+		TagTable ( M_SOF7,   "Differential lossless" ),
+		TagTable ( M_SOF9,   "Extended sequential, arithmetic coding" ),
+		TagTable ( M_SOF10,  "Progressive, arithmetic coding" ),
+		TagTable ( M_SOF11,  "Lossless, arithmetic coding" ),
+		TagTable ( M_SOF13,  "Differential sequential, arithmetic coding" ),
+		TagTable ( M_SOF14,  "Differential progressive, arithmetic coding" ),
+		TagTable ( M_SOF15,  "Differential lossless, arithmetic coding" ),
+		TagTable ( 0,        "Unknown" )
+	};
 
 //--------------------------------------------------------------------------
 // Describes format descriptor
@@ -856,8 +856,8 @@ int ExifData::Exif2tm ( struct tm * timeptr, char * ExifTime )
 
 	// Check for format: YYYY:MM:DD HH:MM:SS format.
 	a = sscanf ( ExifTime, "%d:%d:%d %d:%d:%d",
-	             &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
-	             &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec );
+				 &timeptr->tm_year, &timeptr->tm_mon, &timeptr->tm_mday,
+				 &timeptr->tm_hour, &timeptr->tm_min, &timeptr->tm_sec );
 
 	if ( a == 6 )
 	{

@@ -114,7 +114,6 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//contains how many icons are visible at once, is calculated from QListView height/width and previewIconSize
 		int previewIconsVisible;
 		int currentRow;
-		bool saveSettings;
 
 	signals:
 		//signal which posts a new job to the imageloading thread

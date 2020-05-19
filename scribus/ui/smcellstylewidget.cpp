@@ -76,7 +76,7 @@ void SMCellStyleWidget::setDoc(ScribusDoc* doc)
 	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
-void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles, const QString &defLang, int unitIndex)
+void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles, const QString &defaultLanguage, int unitIndex)
 {
 	Q_ASSERT(cellStyle);
 	if (!cellStyle)

@@ -667,10 +667,10 @@ private:
 	 */
 
 	/// The logical active row.
-	int m_activeRow;
+	int m_activeRow {0};
 
 	/// The logical active column.
-	int m_activeColumn;
+	int m_activeColumn {0};
 	//>>End of live working variables/data
 };
 

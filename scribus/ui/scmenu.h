@@ -39,11 +39,11 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		ScrPopupMenu ( QWidget * parent = nullptr, const QString& pMenuName = QString(), const QString& pMenuText = QString(), const QString& parentName = QString(), bool checkable = false);
 		~ScrPopupMenu ();
 		
-		const QString getMenuName();
-		const QString getParentMenuName();
-		const QString getMenuText();
+		QString getMenuName();
+		QString getParentMenuName();
+		QString getMenuText();
 		void setText(const QString& pMenuText);
-		const QIcon getMenuIcon();
+		QIcon getMenuIcon();
 		void setMenuIcon(const QIcon& pMenuIcon);
 		void setEnabled(bool menuEnabled);
 		QMenu *getLocalPopupMenu();

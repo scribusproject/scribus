@@ -642,7 +642,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int i = 0; i < patterns.count(); ++i)
 	{
-		QString patternName = patterns.at(i);
+		QString patternName(patterns.at(i));
 		ScPattern pa = m_Doc->docPatterns[patternName];
 		for (PageItemIterator it(pa.items); *it; ++it)
 		{

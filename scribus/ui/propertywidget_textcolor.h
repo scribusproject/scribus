@@ -52,7 +52,7 @@ public slots:
 	void showOutlineW(double x);
 	void showShadowOffset(double x, double y);
 	void showStrikeThru(double p, double w);
-	void showTextColors(const QString& strokeCol, const QString& fillCol, const QString& backCol, double strokeShade, double fillShade, double backShade);
+	void showTextColors(const QString& strokeCol, const QString& fillCol, const QString& backCol, double strokeShd, double fillShd, double backShd);
 	void showTextEffects(int s);
 	void showUnderline(double p, double w);
 
