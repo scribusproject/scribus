@@ -34,18 +34,17 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QVBoxLayout>
 
-
-#include "ui/createrange.h"
+#include "iconmanager.h"
+#include "pageitemiterator.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scribuscore.h"
 #include "scribusview.h"
-#include "scconfig.h"
+#include "ui/createrange.h"
+#include "ui/scrspinbox.h"
 #include "units.h"
 #include "usertaskstructs.h"
-#include "ui/scrspinbox.h"
-#include "iconmanager.h"
-#include "scribuscore.h"
 #include "util.h"
 
 TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
@@ -389,67 +388,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	FromSubset->setEnabled(false); // Will be enabled when user select a font in appropriate list
 
 //	Build a list of all Fonts used in Annotations;
-	PageItem *pgit;
-	QList<PageItem*> allItems;
-	for (QHash<int, PageItem*>::iterator it = m_Doc->FrameItems.begin(); it != m_Doc->FrameItems.end(); ++it)
+	int pageItOptions = PageItemIterator::IterateInGroups | PageItemIterator::IterateInDocItems | PageItemIterator::IterateInMasterItems | PageItemIterator::IterateInFrameItems;
+	for (PageItemIterator it(m_Doc, pageItOptions); *it; ++it)
 	{
-		PageItem *currItem = it.value();
-		if (currItem->isGroup())
-			allItems = currItem->getAllChildren();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		PageItem *currItem = *it;
+		if (((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText)) && (currItem->isAnnotation()))
 		{
-			pgit = allItems.at(ii);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-				if (pgit->itemText.length() > 0 || mustEmbed)
-					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
+			int annotType  = currItem->annotation().Type();
+			bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
+			if (currItem->itemText.length() > 0 || mustEmbed)
+				m_annotationFonts.insert(currItem->itemText.defaultStyle().charStyle().font().replacementName(), QString());
 		}
-		allItems.clear();
-	}
-	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = m_Doc->MasterItems.at(a);
-		if (currItem->isGroup())
-			allItems = currItem->getAllChildren();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			pgit = allItems.at(ii);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-				if (pgit->itemText.length() > 0 || mustEmbed)
-					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
-		}
-		allItems.clear();
-	}
-	for (int a = 0; a < m_Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = m_Doc->DocItems.at(a);
-		if (currItem->isGroup())
-			allItems = currItem->getAllChildren();
-		else
-			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
-		{
-			pgit = allItems.at(ii);
-			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-			{
-				int annotType  = pgit->annotation().Type();
-				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-				if (pgit->itemText.length() > 0 || mustEmbed)
-					m_annotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
-		}
-		allItems.clear();
 	}
 	ToSubset->setEnabled(false);
 	FromSubset->setEnabled(false);
