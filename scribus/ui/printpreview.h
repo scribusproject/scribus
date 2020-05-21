@@ -125,7 +125,7 @@ protected:
 
 	int m_currentPage { -1 };
 	int m_scaleMode { 1 };
-	int m_gsVersion;
+	int m_gsVersion { 0 };
 	int m_inkMax { 1020 }; // 4 * 255
 	bool m_colorMode { false };
 	bool m_useAntialiasing { false };

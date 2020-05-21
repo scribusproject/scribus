@@ -296,13 +296,14 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	previewLabel->resize(previewLabel->pixmap()->size());
 	previewArea->setWidget(previewLabel);
 	int w = previewLabel->width() + tbWidth + 50;
-	resize(qMin(QApplication::desktop()->width()-30,w), 500);
+	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
 	if (!PrefsManager::instance().appPrefs.printPreviewPrefs.PrPr_Mode)
 	{
 		if (haveTiffSep)
 			inkTable->setEnabled(false);
 	}
 	pageSelector->setGUIForPage(doc->currentPage()->pageNr());
+
 	// tooltips
 	antiAliasing->setToolTip( "<qt>" + tr( "Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
 	showTransparency->setToolTip( "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later." ) + "</qt>");
@@ -337,7 +338,7 @@ PrintPreview::~PrintPreview()
 	if ((d.exists()) && (d.count() != 0))
 	{
 		for (uint i = 0; i < d.count(); i++)
-			QFile::remove(prefsManager.preferencesLocation() + "/" + d[i]);
+			QFile::remove(tempFileDir + "/" + d[i]);
 	}
 }
 
@@ -1192,13 +1193,12 @@ void PrintPreview::imageLoadError(QPixmap &pixmap, int page)
 void PrintPreview::resizeEvent(QResizeEvent * event)
 {
 	QDialog::resizeEvent(event);
-	int cx = scaleBox->currentIndex();
-	// repaint only for "fit to" options in the combo box
-	if (cx > 3)
-	{
-		// HACK: m_scaleMode is reset to insane value to force redraw
-		// as the value is checked for change.
-		m_scaleMode = -1;
-		scaleBox_valueChanged(cx);
-	}
+	int scaleIndex = scaleBox->currentIndex();
+	// Repaint only for "fit to" options in the combo box
+	if (scaleIndex <= 3)
+		return;
+	// HACK: m_scaleMode is reset to insane value to force redraw
+	// as the value is checked for change.
+	m_scaleMode = -1;
+	scaleBox_valueChanged(scaleIndex);
 }
