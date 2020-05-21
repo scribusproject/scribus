@@ -147,7 +147,7 @@ void PageSelector::gotoPage(int i)
 
 void PageSelector::setGUIForPage(int i)
 {
-	m_pageCombo->blockSignals(true);
+	bool sigBlocked = m_pageCombo->blockSignals(true);
 	m_pageCombo->setCurrentIndex(i);
 	setCurrentComboItem(m_pageCombo, QString::number(i + 1));
 	m_currentPage = i + 1;
@@ -155,12 +155,12 @@ void PageSelector::setGUIForPage(int i)
 	startButton->setEnabled(i != 0);
 	forwardButton->setEnabled(i != m_lastPage - 1);
 	lastButton->setEnabled(i != m_lastPage - 1);
-	m_pageCombo->blockSignals(false);
+	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::setMaximum(int i)
 {
-	m_pageCombo->blockSignals(true);
+	bool sigBlocked = m_pageCombo->blockSignals(true);
 	m_pageCombo->clear();
 	m_lastPage = i;
 	m_validator->setRange(1, m_lastPage);
@@ -170,7 +170,7 @@ void PageSelector::setMaximum(int i)
 	}
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
 	pageCountLabel->setText(pageCountString.arg(m_lastPage));
-	m_pageCombo->blockSignals(false);
+	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::goToStart()
