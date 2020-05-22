@@ -27,11 +27,13 @@ public:
 		IterateInMasterItems = 8,
 		IterateInFrameItems = 16,
 		IterateInDocPatterns = 32,
-		IterateInDocDefaults = IterateInGroups + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns
+		IterateInDocNoPatterns = IterateInGroups + IterateInDocItems + IterateInMasterItems + IterateInFrameItems,
+		IterateInDocDefaults = IterateInGroups + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns,
+		IterateAll = IterateInGroups + IterateInTables + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns
 	};
 	PageItemIterator(int options = IterateInGroups);
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
-	PageItemIterator(ScribusDoc* doc, int options = IterateInDocDefaults);
+	PageItemIterator(const ScribusDoc* doc, int options = IterateInDocDefaults);
 
 	bool isNull() const { return (m_current == nullptr); }
 	PageItem* current() const { return m_current; }

@@ -29,7 +29,7 @@ PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options
 	}
 }
 
-PageItemIterator::PageItemIterator(ScribusDoc* doc, int options) :
+PageItemIterator::PageItemIterator(const ScribusDoc* doc, int options) :
 	m_options(options)
 {
 	int stackItemCount = doc->docPatterns.count() + 3;
