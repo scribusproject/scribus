@@ -16204,10 +16204,10 @@ void ScribusDoc::removeInlineFrame(int fIndex)
 
 void ScribusDoc::checkItemForFrames(PageItem *it, int fIndex)
 {
-	QList<int> deleteList;
-	deleteList.clear();
 	if (!it->isTextFrame() && !it->isPathText())
 		return;
+	QList<int> deleteList;
+
 	int start = 0;
 	int stop  = it->itemText.length();
 	for (int e = start; e < stop; ++e)
