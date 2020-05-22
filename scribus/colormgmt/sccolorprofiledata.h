@@ -30,7 +30,12 @@ public:
 
 	virtual bool isNull() const = 0;
 	virtual eColorSpaceType colorSpace()  const = 0;
+	virtual eColorSpaceType connectionSpace() const = 0;
 	virtual eProfileClass   deviceClass() const = 0;
+
+	virtual int channelsOfColorSpace() const = 0;
+	virtual int channelsOfConnectionSpace() const = 0;
+
 	virtual bool    isSuitableForOutput() const = 0;
 	virtual QString productDescription() const = 0;
 	virtual bool    save(QByteArray& profileData) const = 0;

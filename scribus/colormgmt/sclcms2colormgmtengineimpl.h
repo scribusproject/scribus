@@ -47,7 +47,7 @@ public:
 											 const ScColorProfile& proofProfile , eRenderIntent renderIntent,
 											 eRenderIntent proofingIntent, long transformFlags) override;
 
-	protected:
+protected:
 
 	// Color profile cache
 	static QSharedPointer<ScColorProfileCache> m_profileCache;

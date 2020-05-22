@@ -26,11 +26,32 @@ eColorSpaceType ScColorProfile::colorSpace() const
 	return ColorSpace_Unknown;
 }
 
+eColorSpaceType ScColorProfile::connectionSpace() const
+{
+	if (m_data)
+		return m_data->connectionSpace();
+	return ColorSpace_Unknown;
+}
+
 eProfileClass ScColorProfile::deviceClass() const
 {
 	if (m_data)
 		return m_data->deviceClass();
 	return Class_Unknown;
+}
+
+int ScColorProfile::channelsOfColorSpace() const
+{
+	if (m_data)
+		return m_data->channelsOfColorSpace();
+	return 0;
+}
+
+int ScColorProfile::channelsOfConnectionSpace() const
+{
+	if (m_data)
+		return m_data->channelsOfConnectionSpace();
+	return 0;
 }
 
 QString ScColorProfile::dataHash() const

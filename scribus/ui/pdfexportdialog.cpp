@@ -56,8 +56,6 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	m_doc(currView->m_doc),
 	m_opts(pdfOptions),
 	m_unitRatio(currView->m_doc->unitRatio()),
-	m_cmsDescriptor(""),
-	m_components(3),
 	m_printerProfiles(printerProfiles)
 {
 	setModal(true);
@@ -386,14 +384,6 @@ void PDFExportDialog::updateDocOptions()
 				m_opts.PrintProf = Options->PrintProfC->currentText();
 				if ((m_opts.Version == PDFVersion::PDF_X3) || (m_opts.Version == PDFVersion::PDF_X1a) || (m_opts.Version == PDFVersion::PDF_X4))
 				{
-					ScColorProfile hIn = m_doc->colorEngine.openProfileFromFile( m_printerProfiles[m_opts.PrintProf] );
-					m_cmsDescriptor = hIn.productDescription();
-					if (hIn.colorSpace() == ColorSpace_Rgb)
-						m_components = 3;
-					if (hIn.colorSpace() == ColorSpace_Cmyk)
-						m_components = 4;
-					if (hIn.colorSpace() == ColorSpace_Cmy)
-						m_components = 3;
 					m_opts.Info = Options->InfoString->text();
 					m_opts.Encrypt = false;
 					m_opts.MirrorH = false;
@@ -410,16 +400,6 @@ void PDFExportDialog::updateDocOptions()
 			}
 		}
 	}
-}
-
-const QString& PDFExportDialog::cmsDescriptor()
-{
-	return m_cmsDescriptor;
-}
-
-int PDFExportDialog::colorSpaceComponents()
-{
-	return m_components;
 }
 
 QString PDFExportDialog::getPagesString()

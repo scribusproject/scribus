@@ -32,11 +32,38 @@ eColorSpaceType ScLcms2ColorProfileImpl::colorSpace()  const
 	return ColorSpace_Unknown;
 }
 
+eColorSpaceType ScLcms2ColorProfileImpl::connectionSpace()  const
+{
+	if (m_profileHandle)
+		return ScLcms2ColorMgmtEngineImpl::translateLcmsColorSpaceType( cmsGetPCS(m_profileHandle) );
+	return ColorSpace_Unknown;
+}
+
 eProfileClass ScLcms2ColorProfileImpl::deviceClass() const
 {
 	if (m_profileHandle)
 		return ScLcms2ColorMgmtEngineImpl::translateLcmsProfileClass( cmsGetDeviceClass(m_profileHandle) );
 	return Class_Unknown;
+}
+
+int ScLcms2ColorProfileImpl::channelsOfColorSpace() const
+{
+	if (m_profileHandle)
+	{
+		eColorSpaceType colorspace = ScLcms2ColorMgmtEngineImpl::translateLcmsColorSpaceType( cmsGetColorSpace(m_profileHandle) );
+		return ScLcms2ColorMgmtEngineImpl::channelsOfColorspace(colorspace);
+	}
+	return 0;
+}
+
+int ScLcms2ColorProfileImpl::channelsOfConnectionSpace() const
+{
+	if (m_profileHandle)
+	{
+		eColorSpaceType colorspace = ScLcms2ColorMgmtEngineImpl::translateLcmsColorSpaceType( cmsGetPCS(m_profileHandle) );
+		return ScLcms2ColorMgmtEngineImpl::channelsOfColorspace(colorspace);
+	}
+	return 0;
 }
 
 bool ScLcms2ColorProfileImpl::isSuitableForOutput() const

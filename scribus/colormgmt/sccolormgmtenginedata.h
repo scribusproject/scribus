@@ -64,6 +64,8 @@ public:
 	                                         eRenderIntent proofingIntent, long transformFlags) = 0;
 
 	virtual ScColorSpace createColorSpace(ScColorProfile& profile, eColorFormat colorFormat);
+
+	static int channelsOfColorspace(eColorSpaceType colorspace);
 };
 
 #endif

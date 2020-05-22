@@ -7156,13 +7156,13 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 }
 
-bool ScribusMainWindow::getPDFDriver(const QString &filename, const QString &name, int components, const std::vector<int> & pageNumbers,
+bool ScribusMainWindow::getPDFDriver(const QString &filename, const std::vector<int> & pageNumbers,
 									 const QMap<int, QImage>& thumbs, QString& error, bool* cancelled)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	PDFlib pdflib(*doc);
-	bool ret = pdflib.doExport(filename, name, components, pageNumbers, thumbs);
+	bool ret = pdflib.doExport(filename, pageNumbers, thumbs);
 	if (!ret)
 		error = pdflib.errorMessage();
 	if (cancelled)
@@ -7248,8 +7248,6 @@ void ScribusMainWindow::doSaveAsPDF()
 	std::vector<int> pageNs;
 	uint pageNumbersSize;
 	QMap<int, QImage> allThumbs, thumbs;
-	int components = dia.colorSpaceComponents();
-	QString nam(dia.cmsDescriptor());
 	QString fileName = doc->pdfOptions().fileName;
 	QString errorMsg;
 	parsePagesString(pageString, &pageNs, doc->DocPages.count());
@@ -7305,8 +7303,8 @@ void ScribusMainWindow::doSaveAsPDF()
 			if (doc->pdfOptions().Thumbnails)
 				thumb = allThumbs[pageNs[aa]];
 			thumbs.insert(1, thumb);
-			QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
-			if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
+			QString realName = QDir::toNativeSeparators(path + "/" + name + tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0')) + "." + ext);
+			if (!getPDFDriver(realName, pageNs2, thumbs, errorMsg, &cancelled))
 			{
 				qApp->restoreOverrideCursor();
 				QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);
@@ -7320,7 +7318,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 	else
 	{
-		if (!getPDFDriver(fileName, nam, components, pageNs, allThumbs, errorMsg))
+		if (!getPDFDriver(fileName, pageNs, allThumbs, errorMsg))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			QString message = tr("Cannot write the file: \n%1").arg(doc->pdfOptions().fileName);

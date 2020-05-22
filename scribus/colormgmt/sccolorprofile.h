@@ -36,7 +36,11 @@ public:
 	QString productDescription() const;
 	
 	eColorSpaceType colorSpace()  const;
+	eColorSpaceType connectionSpace()  const;
 	eProfileClass   deviceClass() const;
+
+	int channelsOfColorSpace() const;
+	int channelsOfConnectionSpace() const;
 	
 	const ScColorProfileData* data() const { return m_data.data(); }
 	QString dataHash() const;

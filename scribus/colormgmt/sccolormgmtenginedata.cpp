@@ -68,3 +68,33 @@ ScColorSpace ScColorMgmtEngineData::createColorSpace(ScColorProfile& profile, eC
 	}
 	return colorSpace;
 }
+
+int ScColorMgmtEngineData::channelsOfColorspace(eColorSpaceType colorspace)
+{
+	if (colorspace == ColorSpace_Unknown)
+		return 0;
+	if (colorspace == ColorSpace_XYZ)
+		return 3;
+	if (colorspace == ColorSpace_Lab)
+		return 3;
+	if (colorspace == ColorSpace_Luv)
+		return 3;
+	if (colorspace == ColorSpace_YCbCr)
+		return 3;
+	if (colorspace == ColorSpace_Yxy)
+		return 3;
+	if (colorspace == ColorSpace_Rgb)
+		return 3;
+	if (colorspace == ColorSpace_Gray)
+		return 1;
+	if (colorspace == ColorSpace_Hsv)
+		return 3;
+	if (colorspace == ColorSpace_Hls)
+		return 3;
+	if (colorspace == ColorSpace_Cmyk)
+		return 4;
+	if (colorspace == ColorSpace_Cmy)
+		return 3;
+
+	return 0;
+}

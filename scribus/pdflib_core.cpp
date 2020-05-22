@@ -525,10 +525,16 @@ public:
 };
 
 PDFLibCore::PDFLibCore(ScribusDoc & docu)
+	: PDFLibCore(docu, docu.pdfOptions())
+{
+	
+}
+
+PDFLibCore::PDFLibCore(ScribusDoc & docu, const PDFOptions& options)
 	: QObject(&docu),
 	doc(docu),
 	ActPageP(nullptr),
-	Options(doc.pdfOptions()),
+	Options(options),
 	Bvie(nullptr),
 	ucs2Codec(nullptr),
 	ResNam("RE"),
@@ -543,11 +549,6 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	bleedDisplacementX(0),
 	bleedDisplacementY(0)
 {
-//	KeyGen.resize(32);
-//	OwnerKey.resize(32);
-//	UserKey.resize(32);
-//	FileID.resize(16);
-//	EncryKey.resize(5);
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
@@ -556,11 +557,7 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Outlines.Count = 0;
 	pageData.ObjNum = 0;
 	pageData.Thumb = 0;
-//	int kg_array[] = {0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41, 0x64, 0x00, 0x4e, 0x56, 0xff, 0xfa,
-//			  0x01, 0x08, 0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80, 0x2f, 0x0c, 0xa9, 0xfe,
-//			  0x64, 0x53, 0x69, 0x7a};
-//	for (int a = 0; a < 32; ++a)
-//		KeyGen[a] = kg_array[a];
+
 	if (usingGUI)
 	{
 		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW());
@@ -603,8 +600,7 @@ bool PDFLibCore::PDF_IsPDFX(const PDFVersion& ver)
 	return false;
 }
 
-bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
-					  const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs)
+bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs)
 {
 	QImage thumb;
 	bool ret = false, error = false;
@@ -687,7 +683,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		if (!abortExport)
 		{
 			if (PDF_IsPDFX(doc.pdfOptions().Version))
-				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf], nam, Components);
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf]);
 			else
 				ret = PDF_End_Doc();
 		}
@@ -1004,8 +1000,6 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpace
 	delete rc4Encode;
 	return (succeed ? bytesWritten : 0);
 }
-
-
 
 bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi)
 {
@@ -10911,7 +10905,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	return true;
 }
 
-bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
+bool PDFLibCore::PDF_End_Doc(const QString& outputProfilePath)
 {
 	PDF_End_Bookmarks();
 	PDF_End_Resources();
@@ -10922,7 +10916,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	PDF_End_JavaScripts();
 	PDF_End_Articles();
 	PDF_End_Layers();
-	PDF_End_OutputProfile(PrintPr, Name, Components);
+	bool success = PDF_End_OutputProfile(outputProfilePath);
+	if (!success)
+		return false;
 	PDF_End_Metadata();
 	return PDF_End_XRefAndTrailer();
 }
@@ -11304,51 +11300,50 @@ void PDFLibCore::PDF_End_Layers()
 	}
 }
 
-void PDFLibCore::PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components)
+bool PDFLibCore::PDF_End_OutputProfile(const QString& profilePath)
 {
-	if (PDF_IsPDFX())
+	if (!PDF_IsPDFX())
+		return true;
+
+	PdfId profileObj = writer.startObj();
+	QByteArray dataP;
+	if (!loadRawBytes(profilePath, dataP))
+		return false;
+
+	ScColorProfile colorProfile = doc.colorEngine.openProfileFromMem(dataP);
+	if (colorProfile.isNull())
+		return false;
+	QString profileDesc = colorProfile.productDescription();
+	int components = colorProfile.channelsOfColorSpace();
+
+	PutDoc("<<\n");
+	if (Options.Compress)
 	{
-		PdfId profileObj =writer.startObj();
-		QByteArray dataP;
-		loadRawBytes(PrintPr, dataP);
-		PutDoc("<<\n");
-		if (Options.Compress)
+		QByteArray compData = CompressArray(dataP);
+		if (compData.size() > 0)
 		{
-			QByteArray compData = CompressArray(dataP);
-			if (compData.size() > 0)
-			{
-				PutDoc("/Filter /FlateDecode\n");
-				dataP = compData;
-			}
+			PutDoc("/Filter /FlateDecode\n");
+			dataP = compData;
 		}
-		PutDoc("/Length " + Pdf::toPdf(dataP.size() + 1) + "\n");
-		PutDoc("/N " + Pdf::toPdf(Components) + "\n");
-		PutDoc(">>\nstream\n");
-		PutDoc(dataP);
-		PutDoc("\nendstream");
-		writer.endObj(profileObj);
-
-//		if ((Options.Version == PDFVersion::PDF_X4) && (Options.useLayers))
-//		{
-//			XRef[9] = bytesWritten();
-//			PutDoc("10 0 obj\n");
-//		}
-//		if ((Options.Version == PDFVersion::PDF_X3) || (Options.Version == PDFVersion::PDF_X1a) || ((Options.Version == PDFVersion::PDF_X4) && !(Options.useLayers)))
-//		{
-//			XRef[8] = bytesWritten();
-//			PutDoc("9 0 obj\n");
-//		}
-		
-		writer.startObj(writer.OutputIntentObj);
-
-		PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
-		PutDoc("/DestOutputProfile " + Pdf::toObjRef(profileObj) + "\n");
-		PutDoc("/OutputConditionIdentifier (Custom)\n");
-		PutDoc("/Info " + Pdf::toLiteralString(Options.Info) + "\n");
-		PutDoc("/OutputCondition " + Pdf::toLiteralString(Name) + "\n");
-		PutDoc(">>");
-		writer.endObj(writer.OutputIntentObj);
 	}
+	PutDoc("/Length " + Pdf::toPdf(dataP.size() + 1) + "\n");
+	PutDoc("/N " + Pdf::toPdf(components) + "\n");
+	PutDoc(">>\nstream\n");
+	PutDoc(dataP);
+	PutDoc("\nendstream");
+	writer.endObj(profileObj);
+		
+	writer.startObj(writer.OutputIntentObj);
+
+	PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
+	PutDoc("/DestOutputProfile " + Pdf::toObjRef(profileObj) + "\n");
+	PutDoc("/OutputConditionIdentifier (Custom)\n");
+	PutDoc("/Info " + Pdf::toLiteralString(Options.Info) + "\n");
+	PutDoc("/OutputCondition " + Pdf::toLiteralString(profileDesc) + "\n");
+	PutDoc(">>");
+	writer.endObj(writer.OutputIntentObj);
+
+	return true;
 }
 
 void PDFLibCore::PDF_End_Metadata()

@@ -65,8 +65,10 @@ friend class PdfPainter;
 
 public:
 	explicit PDFLibCore(ScribusDoc & docu);
+	explicit PDFLibCore(ScribusDoc & docu, const PDFOptions& options);
 	~PDFLibCore();
-	bool doExport(const QString& fn, const QString& nam, int Components, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs);
+
+	bool doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs);
 
 	const QString& errorMessage() const;
 	bool  exportAborted() const;
@@ -125,7 +127,7 @@ private:
 	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	bool PDF_ProcessPageElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	
-	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	bool PDF_End_Doc(const QString& outputProfilePath = QString());
 	void PDF_End_Bookmarks();
 	void PDF_End_Resources();
 	void PDF_End_Outlines();
@@ -135,7 +137,7 @@ private:
 	void PDF_End_JavaScripts();
 	void PDF_End_Articles();
 	void PDF_End_Layers();
-	void PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components);
+	bool PDF_End_OutputProfile(const QString& profilePath);
 	void PDF_End_Metadata();
 	bool PDF_End_XRefAndTrailer();
 	bool closeAndCleanup();

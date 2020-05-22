@@ -336,7 +336,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QString tf = pdfOptions.fileName;
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(currentDoc->documentFileName());
-		tf = fi.path()+"/"+fi.baseName()+".pdf";
+		tf = fi.path() + "/" + fi.baseName() + ".pdf";
 	}
 	PyObject *file = nullptr;
 	file = PyString_FromString(tf.toLatin1());
@@ -414,10 +414,9 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 
 // set to print all pages
 	PyObject *pages = nullptr;
-	int num = 0;
 	// which one should I use ???
 	// new = ScCore->primaryMainWindow()->view->Pages.count()
-	num = currentDoc->Pages->count();
+	int num = currentDoc->Pages->count();
 	pages = PyList_New(num);
 	if (!pages){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
@@ -485,7 +484,6 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->presentation = pdfOptions.PresentMode;
 	// set effects values for all pages
 	PyObject *effval = nullptr;
-	num = 0;
 	// which one should I use ???
 	// new = ScCore->primaryMainWindow()->view->Pages.count();
 	num = currentDoc->Pages->count();
@@ -933,7 +931,7 @@ static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void * /*closur
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
-	if (n!=0 && (n<35 || n>PyInt_AsLong(self->resolution))) {
+	if (n != 0 && (n < 35 || n > PyInt_AsLong(self->resolution))) {
 		PyErr_SetString(PyExc_TypeError, "'downsample' value must be 0 or in interval from 35 to value of 'resolution'");
 		return -1;
 	}
@@ -1263,8 +1261,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 // copied from file scribus.cpp
 //void ScribusMainWindow::SaveAsPDF()
-	int Components = 3;
-	QString nam = "";
 	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		pdfOptions.Bookmarks = false;
 
@@ -1330,7 +1326,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.fileName = fn;
 // apply pages attribute
 	std::vector<int> pageNs;
-	int nn=PyList_Size(self->pages);
+	int nn = PyList_Size(self->pages);
 	for (int i = 0; i < nn; ++i) {
 		pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
@@ -1404,8 +1400,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 //			return nullptr;
 //		}
 //		pdfOptions.LPISettings[QString(s)]=lpi;
-		QString st;
-		st = QString(PyString_AsString(PyList_GetItem(t,0)));
+		QString st = QString(PyString_AsString(PyList_GetItem(t,0)));
 		lpi.Frequency = PyInt_AsLong(PyList_GetItem(t, 1));
 		lpi.Angle = PyInt_AsLong(PyList_GetItem(t, 2));
 		lpi.SpotFunc = PyInt_AsLong(PyList_GetItem(t, 3));
@@ -1460,15 +1455,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 				pdfOptions.Version == PDFVersion::PDF_X3 ||
 				pdfOptions.Version == PDFVersion::PDF_X4)
 			{
-				ScColorProfile profile;
-				profile = ScCore->defaultEngine.openProfileFromFile(ScCore->PrinterProfiles[pdfOptions.PrintProf]);
-				nam = profile.productDescription();
-				if (profile.colorSpace() == ColorSpace_Rgb)
-					Components = 3;
-				if (profile.colorSpace() == ColorSpace_Cmyk)
-					Components = 4;
-				if (profile.colorSpace() == ColorSpace_Cmy)
-					Components = 3;
 				pdfOptions.Info = PyString_AsString(self->info);
 				pdfOptions.Encrypt = false;
 				pdfOptions.PresentMode = false;
@@ -1526,7 +1512,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.firstUse = false;
 
 	QString errorMessage;
-	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage);
+	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, pageNs, thumbs, errorMessage);
 	if (!success) {
 		fn  = "Cannot write the File: " + fn;
 		if (!errorMessage.isEmpty())

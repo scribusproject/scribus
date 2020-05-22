@@ -1261,8 +1261,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 // copied from file scribus.cpp
 //void ScribusMainWindow::SaveAsPDF()
-	int Components = 3;
-	QString nam = "";
 	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		pdfOptions.Bookmarks = false;
 
@@ -1457,15 +1455,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 				pdfOptions.Version == PDFVersion::PDF_X3 ||
 				pdfOptions.Version == PDFVersion::PDF_X4)
 			{
-				ScColorProfile profile;
-				profile = ScCore->defaultEngine.openProfileFromFile(ScCore->PrinterProfiles[pdfOptions.PrintProf]);
-				nam = profile.productDescription();
-				if (profile.colorSpace() == ColorSpace_Rgb)
-					Components = 3;
-				if (profile.colorSpace() == ColorSpace_Cmyk)
-					Components = 4;
-				if (profile.colorSpace() == ColorSpace_Cmy)
-					Components = 3;
 				pdfOptions.Info = PyUnicode_asQString(self->info);
 				pdfOptions.Encrypt = false;
 				pdfOptions.PresentMode = false;
@@ -1523,7 +1512,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.firstUse = false;
 
 	QString errorMessage;
-	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage);
+	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, pageNs, thumbs, errorMessage);
 	if (!success) {
 		fn  = "Cannot write the File: " + fn;
 		if (!errorMessage.isEmpty())

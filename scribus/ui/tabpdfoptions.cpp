@@ -462,10 +462,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	hideToolBar->setChecked(Opts.hideToolBar);
 	hideMenuBar->setChecked(Opts.hideMenuBar);
 	fitWindow->setChecked(Opts.fitWindow);
-	QMap<QString,QString>::Iterator itja;
 	actionCombo->clear();
 	actionCombo->addItem( tr("No Script"));
-	for (itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
+	for (auto itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
 		actionCombo->addItem(itja.key());
 	if (m_Doc->JavaScripts.contains(Opts.openAction))
 		setCurrentComboItem(actionCombo, Opts.openAction);
