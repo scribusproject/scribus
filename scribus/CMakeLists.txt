@@ -134,6 +134,8 @@ set(SCRIBUS_UI_SRC
 	ui/nftdialog.ui
 	ui/nftwidget.ui
 	ui/notesstyleseditor.ui
+	ui/outputpreview_pdf.ui
+	ui/outputpreviewbase.ui
 	ui/pageitemattributes.ui
 	ui/pagepalette_pagesbase.ui
 	ui/pagepalette_masterpagesbase.ui
@@ -419,6 +421,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/notesstyleseditor.h
 	ui/numformatcombo.h
 	ui/outlinepalette.h
+	ui/outputpreview_pdf.h
+	ui/outputpreviewbase.h
 	ui/pageitemattributes.h
 	ui/pagelayout.h
 	ui/pagepalette.h
@@ -922,6 +926,8 @@ set(SCRIBUS_SOURCES
 	ui/notesstyleseditor.cpp
 	ui/numformatcombo.cpp
 	ui/outlinepalette.cpp
+	ui/outputpreview_pdf.cpp
+	ui/outputpreviewbase.cpp
 	ui/pageitemattributes.cpp
 	ui/pagelayout.cpp
 	ui/pagepalette.cpp

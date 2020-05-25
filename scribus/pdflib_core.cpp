@@ -657,7 +657,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 		}
 		for (uint a = 0; a < pageNs.size() && !abortExport; ++a)
 		{
-			if (doc.pdfOptions().Thumbnails)
+			if (Options.Thumbnails)
 				thumb = thumbs[pageNs[a]];
 			qApp->processEvents();
 			if (abortExport) break;
@@ -666,7 +666,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 			qApp->processEvents();
 			if (abortExport) break;
 
-			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.pdfOptions().doClip))
+			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, Options.doClip))
 				error = abortExport = true;
 			qApp->processEvents();
 			if (abortExport) break;
@@ -682,8 +682,8 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 		ret = true;//Even when aborting we return true. Don't want that "couldnt write msg"
 		if (!abortExport)
 		{
-			if (PDF_IsPDFX(doc.pdfOptions().Version))
-				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf]);
+			if (PDF_IsPDFX(Options.Version))
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[Options.PrintProf]);
 			else
 				ret = PDF_End_Doc();
 		}

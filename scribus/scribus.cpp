@@ -212,6 +212,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/nodeeditpalette.h"
 #include "ui/notesstyleseditor.h"
 #include "ui/outlinepalette.h"
+#include "ui/outputpreview_pdf.h"
 #include "ui/pageitemattributes.h"
 #include "ui/pagelayout.h"
 #include "ui/pagepalette.h"
@@ -901,13 +902,21 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("filePreferences150", "File");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	scrMenuMgr->addMenuItemString("filePrint", "File");
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+	if (ScCore->haveGS() || ScCore->isWinGUI())
 		scrMenuMgr->addMenuItemString("PrintPreview", "File");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
+	if (ScCore->haveGS())
+	{
+		scrMenuMgr->addMenuItemString("FileOutputPreview", "File");
+		scrMenuMgr->createMenu("FileOutputPreview", tr("&Output Preview"), "File");
+		scrMenuMgr->addMenuItemString("OutputPreviewPDF", "FileOutputPreview");
+		scrMenuMgr->addMenuItemString("SEPARATOR", "File");
+	}
 	scrMenuMgr->addMenuItemString("fileQuit", "File");
 
 	scrMenuMgr->setMenuEnabled("FileImport", false);
 	scrMenuMgr->setMenuEnabled("FileExport", false);
+	scrMenuMgr->setMenuEnabled("FileOutputPreview", false);
 
 	scrMenuMgr->createMenu("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 	scrMenuMgr->addMenuItemString("editUndoAction", "Edit");
@@ -6953,6 +6962,38 @@ int ScribusMainWindow::ShowSubs()
 	return 0;
 }
 
+void ScribusMainWindow::printPreview()
+{
+	const CheckerPrefs& checkerProfile = doc->checkerProfiles()[doc->curCheckProfile()];
+	if (checkerProfile.autoCheck)
+	{
+		if (scanDocument())
+		{
+			if (checkerProfile.ignoreErrors)
+			{
+				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											QMessageBox::Abort | QMessageBox::Ignore,
+											QMessageBox::NoButton,	// GUI default
+											QMessageBox::Ignore);	// batch default
+				if (i == QMessageBox::Abort)
+					return;
+			}
+			else
+			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
+				docCheckerPalette->setIgnoreEnabled(true);
+				docCheckerPalette->checkMode = CheckDocument::checkPrintPreview;
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
+				scrActions["toolsPreflightVerifier"]->setChecked(true);
+				return;
+			}
+		}
+	}
+	doPrintPreview();
+}
+
 void ScribusMainWindow::doPrintPreview()
 {
 	if (!HaveDoc)
@@ -6998,13 +7039,14 @@ void ScribusMainWindow::doPrintPreview()
 	delete dia;
 }
 
-void ScribusMainWindow::printPreview()
+void ScribusMainWindow::outputPreviewPDF()
 {
-	if (doc->checkerProfiles()[doc->curCheckProfile()].autoCheck)
+	const CheckerPrefs& checkerProfile = doc->checkerProfiles()[doc->curCheckProfile()];
+	if (checkerProfile.autoCheck)
 	{
 		if (scanDocument())
 		{
-			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
+			if (checkerProfile.ignoreErrors)
 			{
 				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
@@ -7016,9 +7058,9 @@ void ScribusMainWindow::printPreview()
 			}
 			else
 			{
-				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPDF()));
 				docCheckerPalette->setIgnoreEnabled(true);
-				docCheckerPalette->checkMode = CheckDocument::checkPrintPreview;
+				docCheckerPalette->checkMode = CheckDocument::checkOutputPreviewPDF;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setChecked(true);
@@ -7026,7 +7068,47 @@ void ScribusMainWindow::printPreview()
 			}
 		}
 	}
-	doPrintPreview();
+	doOutputPreviewPDF();
+}
+
+void ScribusMainWindow::doOutputPreviewPDF()
+{
+	if (!HaveDoc)
+		return;
+	if (!ScCore->haveGS())
+		return;
+
+	if (docCheckerPalette->isIgnoreEnabled())
+	{
+		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = CheckDocument::checkNULL;
+		docCheckerPalette->setIgnoreEnabled(false);
+		scrActions["toolsPreflightVerifier"]->setChecked(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPDF()));
+	}
+
+	OutputPreview_PDF *dia = new OutputPreview_PDF(this, doc);
+	previewDinUse = true;
+	connect(dia, SIGNAL(doExport()), this, SLOT(doSaveAsPDF()));
+	dia->exec();
+	disconnect(dia, SIGNAL(doExport()), this, SLOT(doSaveAsPDF()));
+	previewDinUse = false;
+
+	PrefsManager& prefsManager = PrefsManager::instance();
+	prefsManager.appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode = dia->isCMYKPreviewEnabled();
+	prefsManager.appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing = dia->isAntialiasingEnabled();
+	prefsManager.appPrefs.pdfOutputPreviewPrefs.showTransparency = dia->isTransparencyEnabled();
+	if (ScCore->haveTIFFSep())
+	{
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.isCyanVisible = dia->isInkChannelVisible("Cyan");
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.isMagentaVisible = dia->isInkChannelVisible("Magenta");
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.isYellowVisible = dia->isInkChannelVisible("Yellow");
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.isBlackVisible = dia->isInkChannelVisible("Black");
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = dia->isInkCoverageEnabled();
+		prefsManager.appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = dia->inkCoverageThreshold();
+	}
+
+	delete dia;
 }
 
 bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
@@ -7625,6 +7707,8 @@ void ScribusMainWindow::editSymbolEnd()
 
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
+	if ( ScCore->haveGS() )
+		scrActions["OutputPrevewPDF"]->setEnabled(true);
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(m_storedViewScale);
@@ -8409,6 +8493,8 @@ void ScribusMainWindow::docCheckToggle(bool visible)
 			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
 		if (docCheckerPalette->checkMode == CheckDocument::checkPrintPreview)
 			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
+		if (docCheckerPalette->checkMode == CheckDocument::checkOutputPreviewPDF)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPDF()));
 		docCheckerPalette->setIgnoreEnabled(false);
 		docCheckerPalette->checkMode = CheckDocument::checkNULL;
 	}

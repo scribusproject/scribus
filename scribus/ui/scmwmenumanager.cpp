@@ -42,6 +42,7 @@ void ScMWMenuManager::languageChange()
 	setText("EditPasteRecent", tr("Paste Recent"));
 	setText("FileImport", tr("&Import"));
 	setText("FileExport", tr("&Export"));
+	setText("FileOutputPreview", tr("&Output Preview"));
 	setText("Edit", ActionManager::defaultMenuNameEntryTranslated("Edit"));
 	setText("EditContents", tr("Contents"));
 	setText("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));

@@ -496,6 +496,8 @@ public slots:
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();
+	void doOutputPreviewPDF();
+	void outputPreviewPDF();
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();

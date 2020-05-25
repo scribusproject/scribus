@@ -345,9 +345,9 @@ void PrefsManager::initDefaults()
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
 	appPrefs.pathPrefs.documentTemplates = "";
+
 	appPrefs.printPreviewPrefs.PrPr_Mode = false;
-	//appPrefs.Gcr_Mode = true;
-	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = false;
+	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = true;
 	appPrefs.printPreviewPrefs.PrPr_Transparency = false;
 	appPrefs.printPreviewPrefs.PrPr_C = true;
 	appPrefs.printPreviewPrefs.PrPr_M = true;
@@ -355,6 +355,17 @@ void PrefsManager::initDefaults()
 	appPrefs.printPreviewPrefs.PrPr_K = true;
 	appPrefs.printPreviewPrefs.PrPr_InkCoverage = false;
 	appPrefs.printPreviewPrefs.PrPr_InkThreshold = 250;
+
+	appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing = true;
+	appPrefs.pdfOutputPreviewPrefs.showTransparency = false;
+	appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode = false ;
+	appPrefs.pdfOutputPreviewPrefs.isCyanVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isMagentaVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isYellowVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isBlackVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = false;
+	appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = 250;
+
 	appPrefs.extToolPrefs.imageEditorExecutable = ScPaths::defaultImageEditorApp();
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
@@ -368,8 +379,10 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_AntiAliasText = true;
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
+
 	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor(Qt::white);
 	appPrefs.storyEditorPrefs.smartTextSelection=false;
+
 	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = "";
 	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = "";
@@ -382,6 +395,7 @@ void PrefsManager::initDefaults()
 	appPrefs.colorPrefs.DCMSset.BlackPoint = true;
 	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = Intent_Relative_Colorimetric;
 	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = Intent_Perceptual;
+
 	appPrefs.fontPrefs.GFontSub.clear();
 	appPrefs.displayPrefs.scratch.setLeft(100);
 	appPrefs.displayPrefs.scratch.setRight(100);
@@ -1699,7 +1713,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcColorManagement.setAttribute("DefaultIntentImages",appPrefs.colorPrefs.DCMSset.DefaultIntentImages);
 	elem.appendChild(dcColorManagement);
 
-	QDomElement dcPrinter=docu.createElement("Printer");
+	QDomElement dcPrinter = docu.createElement("Printer");
 	dcPrinter.setAttribute("Name",appPrefs.printerPrefs.PrinterName);
 	dcPrinter.setAttribute("File",appPrefs.printerPrefs.PrinterFile);
 	dcPrinter.setAttribute("Command",appPrefs.printerPrefs.PrinterCommand);
@@ -1707,9 +1721,8 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcPrinter.setAttribute("GCRMode", static_cast<int>(appPrefs.printerPrefs.GCRMode));
 	elem.appendChild(dcPrinter);
 
-	QDomElement dc8Pr=docu.createElement("PrintPreview");
+	QDomElement dc8Pr = docu.createElement("PrintPreview");
 	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Mode));
-	//dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
 	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_AntiAliasing));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Transparency));
 	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_C));
@@ -1719,6 +1732,19 @@ bool PrefsManager::WritePref(const QString& ho)
 	dc8Pr.setAttribute("InkCoverage", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_InkCoverage));
 	dc8Pr.setAttribute("InkThreshold", appPrefs.printPreviewPrefs.PrPr_InkThreshold);
 	elem.appendChild(dc8Pr);
+
+	QDomElement dcPdfOutputPrev = docu.createElement("PDFOutputPreview");
+	dcPdfOutputPrev.setAttribute("AntiAliasing", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing));
+	dcPdfOutputPrev.setAttribute("Transparency", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.showTransparency));
+	dcPdfOutputPrev.setAttribute("CMYKMode", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode));
+	dcPdfOutputPrev.setAttribute("Cyan", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isCyanVisible));
+	dcPdfOutputPrev.setAttribute("Magenta", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isMagentaVisible));
+	dcPdfOutputPrev.setAttribute("Yellow", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isYellowVisible));
+	dcPdfOutputPrev.setAttribute("Black", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isBlackVisible));
+	dcPdfOutputPrev.setAttribute("InkCoverage", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.displayInkCoverage));
+	dcPdfOutputPrev.setAttribute("InkThreshold", appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold);
+	elem.appendChild(dcPdfOutputPrev);
+
 	QDomElement dcExternalTools = docu.createElement("ExternalTools");
 	dcExternalTools.setAttribute("ImageEditor", imageEditorExecutable());
 	dcExternalTools.setAttribute("Ghostscript", ghostscriptExecutable());
@@ -2414,8 +2440,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 		if (dc.tagName()=="PrintPreview")
 		{
 			appPrefs.printPreviewPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
-			//appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
-			appPrefs.printPreviewPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
+			appPrefs.printPreviewPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
 			appPrefs.printPreviewPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
@@ -2423,6 +2448,18 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.printPreviewPrefs.PrPr_K = static_cast<bool>(dc.attribute("Black", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_InkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
 			appPrefs.printPreviewPrefs.PrPr_InkThreshold = dc.attribute("InkThreshold", "250").toInt();
+		}
+		if (dc.tagName() == "PDFOutputPreview")
+		{
+			appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.showTransparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode = static_cast<bool>(dc.attribute("CMYKMode", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isCyanVisible = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isMagentaVisible = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isYellowVisible = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isBlackVisible = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = dc.attribute("InkThreshold", "250").toInt();
 		}
 		if (dc.tagName()=="ExternalTools")
 		{

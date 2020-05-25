@@ -164,6 +164,8 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction("16/document-print.png", "22/document-print.png", "", defaultKey(name), mainWindow));
 	name = "PrintPreview";
 	scrActions->insert(name, new ScrAction("16/document-print-preview.png", "22/document-print-preview.png", "", defaultKey(name), mainWindow));
+	name = "OutputPreviewPDF";
+	scrActions->insert(name, new ScrAction(QString(), defaultKey(name), mainWindow));
 	name = "fileQuit";
 	scrActions->insert(name, new ScrAction("exit.png", QString(), "", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::QuitRole);
@@ -176,6 +178,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileClose"], SIGNAL(triggered()), mainWindow, SLOT(slotFileClose()) );
 	connect( (*scrActions)["filePrint"], SIGNAL(triggered()), mainWindow, SLOT(slotFilePrint()) );
 	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );
+	connect( (*scrActions)["OutputPreviewPDF"], SIGNAL(triggered()), mainWindow, SLOT(outputPreviewPDF()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
 	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
@@ -1504,6 +1507,7 @@ void ActionManager::languageChange()
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w..."));
+	(*scrActions)["OutputPreviewPDF"]->setTexts( tr("PDF..."));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
@@ -2077,6 +2081,7 @@ void ActionManager::createDefaultMenus()
 		<< "filePreferences150"
 		<< "filePrint"
 		<< "PrintPreview"
+		<< "OutputPreviewPDF"
 		<< "fileQuit";
 	++itmenu;
 	//Edit
