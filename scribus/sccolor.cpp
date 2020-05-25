@@ -162,7 +162,7 @@ void ScColor::fromQColor(QColor color)
 	}
 }
 
-void  ScColor::getRawRGBColor(RGBColorF* rgb) const
+void ScColor::getRawRGBColor(RGBColorF* rgb) const
 {
 	if (m_Model == colorModelRGB)
 	{
@@ -469,10 +469,19 @@ void ColorList::ensureBlack()
 		colorModel model = black.getColorModel();
 		if (model == colorModelCMYK)
 		{
-			int c, m, y, k;
+			double c, m, y, k;
 			black.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 255)
-				addBlack = false;
+			if (c != 0.0 || m != 0.0 || y != 0.0 || k != 1.0)
+				black.setCmykColorF(0.0, 0.0, 0.0, 1.0);
+			addBlack = false;
+		}
+		else if (model == colorModelRGB)
+		{
+			double r, g, b;
+			black.getRGB(&r, &g, &b);
+			if (r != 0.0 || g != 0.0 || b != 0.0)
+				black.setRgbColorF(0.0, 0.0, 0.0);
+			addBlack = false;
 		}
 	}
 	if (addBlack)
@@ -489,10 +498,19 @@ void ColorList::ensureWhite()
 		colorModel model = white.getColorModel();
 		if (model == colorModelCMYK)
 		{
-			int c, m, y, k;
+			double c, m, y, k;
 			white.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 0)
-				addWhite = false;
+			if (c != 0.0 || m != 0.0 || y != 0.0 || k != 0.0)
+				white.setCmykColorF(0.0, 0.0, 0.0, 0.0);
+			addWhite = false;
+		}
+		else if (model == colorModelRGB)
+		{
+			double r, g, b;
+			white.getRGB(&r, &g, &b);
+			if (r != 1.0 || g != 1.0 || b != 1.0)
+				white.setRgbColorF(1.0, 1.0, 1.0);
+			addWhite = false;
 		}
 	}
 	if (addWhite)
