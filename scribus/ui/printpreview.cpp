@@ -389,15 +389,14 @@ void PrintPreview::redisplay()
 
 void PrintPreview::toggleCMYK()
 {
+	if (!haveTiffSep)
+		return;
+
 	bool c = enableCMYK->isChecked();
-	if (haveTiffSep)
-	{
-		inkTable->setEnabled(c);
-		enableInkCover->setEnabled(c);
-		if (enableInkCover->isChecked())
-			coverThresholdValue->setEnabled(c);
-	}
-		
+	inkTable->setEnabled(c);
+	enableInkCover->setEnabled(c);
+	if (enableInkCover->isChecked())
+		coverThresholdValue->setEnabled(c);
 	redisplay();
 }
 
@@ -417,33 +416,29 @@ void PrintPreview::toggleCMYK_Colour()
 
 void PrintPreview::doSpotTable(int row)
 {
-	if (haveTiffSep)
-	{
-		QMap<QString, QCheckBox*> ::Iterator sepit;
-		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
-		{
-			sepit.value()->setChecked(false);
-		}
-		((QCheckBox*)(inkTable->cellWidget(row, 0)))->setChecked(true);
-		if (enableCMYK->isChecked())
-			previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-		previewLabel->resize(previewLabel->pixmap()->size());
-	}
+	if (!haveTiffSep)
+		return;
+
+	for (auto sepIt = flagsVisible.begin(); sepIt != flagsVisible.end(); ++sepIt)
+		sepIt.value()->setChecked(false);
+	((QCheckBox*)(inkTable->cellWidget(row, 0)))->setChecked(true);
+
+	if (enableCMYK->isChecked())
+		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
 void PrintPreview::toggleAllfromHeader()
 {
-	if (haveTiffSep)
-	{
-		QMap<QString, QCheckBox*> ::Iterator sepit;
-		for (sepit = flagsVisible.begin(); sepit != flagsVisible.end(); ++sepit)
-		{
-			sepit.value()->setChecked(true);
-		}
-		if (enableCMYK->isChecked())
-			previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
-		previewLabel->resize(previewLabel->pixmap()->size());
-	}
+	if (!haveTiffSep)
+		return;
+
+	for (auto sepIt = flagsVisible.begin(); sepIt != flagsVisible.end(); ++sepIt)
+		sepIt.value()->setChecked(true);
+
+	if (enableCMYK->isChecked())
+		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
 void PrintPreview::scaleBox_valueChanged(int value)
@@ -701,7 +696,7 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
 	for (int sp = 0; sp < spots.count(); ++sp)
 	{
-		allSeps += "("+spots[sp]+") ";
+		allSeps += "(" + spots[sp] + ") ";
 	}
 	allSeps += "]";
 	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
@@ -753,7 +748,7 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 			if (fx.open(QIODevice::WriteOnly))
 			{
 				QTextStream tsx(&fx);
-				tsx << QString("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+				tsx << QString("<< /SeparationColorNames " + allSeps + " /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
 				fx.close();
 			}
 			args3.append("-f");
@@ -774,7 +769,7 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
-			tsx << QString("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
+			tsx << QString("<< /SeparationColorNames " + allSeps+" /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
 			fx.close();
 		}
 		args3.append("-f");
@@ -852,7 +847,9 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 	QPixmap pixmap;
 	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
 	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
+
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+
 	if ((pageIndex != m_currentPage) || (enableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
 	        || (antiAliasing->isChecked() != m_useAntialiasing) || (((showTransparency->isChecked() != m_showTransparency) || (enableGCR->isChecked() != m_useGCR))
 			&& (!enableCMYK->isChecked()))
@@ -895,16 +892,8 @@ QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
 			if (doc->Pages->at(pageIndex)->orientation() == 1)
 				std::swap(w, h2);
 			image = QImage(w, h2, QImage::Format_ARGB32);
-			QRgb clean = qRgba(0, 0, 0, 0);
-			for (int yi = 0; yi < h2; ++yi)
-			{
-				QRgb *q = (QRgb*) image.scanLine(yi);
-				for (int xi = 0; xi < w; ++xi)
-				{
-					*q = clean;
-					q++;
-				}
-			}
+			image.fill(qRgba(0, 0, 0, 0));
+
 			CMSettings cms(doc, "", Intent_Perceptual);
 			cms.allowColorManagement(false);
 			if (flagsVisible["Cyan"]->isChecked())

@@ -493,13 +493,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 
 	if (Opts.UseRGB)
 		OutCombo->setCurrentIndex(0);
+	else if (Opts.isGrayscale)
+		OutCombo->setCurrentIndex(2);
 	else
-	{
-		if (Opts.isGrayscale)
-			OutCombo->setCurrentIndex(2);
-		else
-			OutCombo->setCurrentIndex(1);
-	}
+		OutCombo->setCurrentIndex(1);
 	useSpot->setChecked(!Opts.UseSpotColors);
 	UseLPI->setChecked(Opts.UseLPI);
 	QMap<QString,LPIData>::Iterator itlp;
@@ -711,30 +708,27 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 		pdfOptions.UseProfiles = false;
 		pdfOptions.UseProfiles2 = false;
 	}
+	else if (OutCombo->currentIndex() == 2)
+	{
+		pdfOptions.isGrayscale = true;
+		pdfOptions.UseRGB = false;
+		pdfOptions.UseProfiles = false;
+		pdfOptions.UseProfiles2 = false;
+	}
 	else
 	{
-		if (OutCombo->currentIndex() == 2)
+		pdfOptions.isGrayscale = false;
+		pdfOptions.UseRGB = false;
+		if (/*CMSuse*/ ScCore->haveCMS())
 		{
-			pdfOptions.isGrayscale = true;
-			pdfOptions.UseRGB = false;
-			pdfOptions.UseProfiles = false;
-			pdfOptions.UseProfiles2 = false;
-		}
-		else
-		{
-			pdfOptions.isGrayscale = false;
-			pdfOptions.UseRGB = false;
-			if (/*CMSuse*/ ScCore->haveCMS())
-			{
-				pdfOptions.UseProfiles = EmbedProfs->isChecked();
-				pdfOptions.UseProfiles2 = EmbedProfs2->isChecked();
-				pdfOptions.Intent = IntendS->currentIndex();
-				pdfOptions.Intent2 = IntendI->currentIndex();
-				pdfOptions.EmbeddedI = NoEmbedded->isChecked();
-				pdfOptions.SolidProf = SolidPr->currentText();
-				pdfOptions.ImageProf = ImageP->currentText();
-				pdfOptions.PrintProf = PrintProfC->currentText();
-			}
+			pdfOptions.UseProfiles = EmbedProfs->isChecked();
+			pdfOptions.UseProfiles2 = EmbedProfs2->isChecked();
+			pdfOptions.Intent = IntendS->currentIndex();
+			pdfOptions.Intent2 = IntendI->currentIndex();
+			pdfOptions.EmbeddedI = NoEmbedded->isChecked();
+			pdfOptions.SolidProf = SolidPr->currentText();
+			pdfOptions.ImageProf = ImageP->currentText();
+			pdfOptions.PrintProf = PrintProfC->currentText();
 		}
 	}
 }
