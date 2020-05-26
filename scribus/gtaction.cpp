@@ -395,7 +395,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	m_textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	m_textFrame->setFillShade(fstyle->getBgShade());
 	ParagraphStyle newTabs(m_textFrame->itemText.defaultStyle());
-	newTabs.setTabValues(QList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
+	newTabs.setTabValues(fstyle->getTabValues());
 	m_textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
@@ -576,7 +576,7 @@ void gtAction::setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& 
 	if (flags & gtParagraphStyle::spaceBelowWasSet)
 		style.setGapAfter(pstyle->getSpaceBelow());
 	if (flags & gtParagraphStyle::tabValueWasSet)
-		style.setTabValues(*pstyle->getTabValues());
+		style.setTabValues(pstyle->getTabValues());
 	if (flags & gtParagraphStyle::dropCapWasSet)
 		style.setHasDropCap(pstyle->hasDropCap());
 	if (flags & gtParagraphStyle::dropCapHeightWasSet)

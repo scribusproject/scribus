@@ -88,17 +88,17 @@ void gtParagraphStyle::init()
 	flags           = 0;
 }
 
-QString gtParagraphStyle::target()
+QString gtParagraphStyle::target() const
 {
 	return QString("paragraph");
 }
 
-int gtParagraphStyle::getFlags()
+int gtParagraphStyle::getFlags() const
 {
 	return flags;
 }
 
-bool gtParagraphStyle::isDefaultStyle()
+bool gtParagraphStyle::isDefaultStyle() const
 {
 	return defaultStyle;
 }
@@ -108,7 +108,7 @@ void gtParagraphStyle::setDefaultStyle(bool defStyle)
 	defaultStyle = defStyle;
 }
 
-double gtParagraphStyle::getLineSpacing()
+double gtParagraphStyle::getLineSpacing() const
 {
 	return lineSpacing;
 }
@@ -119,7 +119,7 @@ void gtParagraphStyle::setLineSpacing(double newLineSpacing)
 	flags |= lineSpacingWasSet;
 }
 
-bool gtParagraphStyle::getAutoLineSpacing()
+bool gtParagraphStyle::getAutoLineSpacing() const
 {
 	return autoLineSpacing;
 }
@@ -130,7 +130,7 @@ void gtParagraphStyle::setAutoLineSpacing(bool newALS)
 	flags |= autoLineSpacingWasSet;
 }
 
-int gtParagraphStyle::getAlignment()
+int gtParagraphStyle::getAlignment() const
 {
 	return alignment;
 }
@@ -150,7 +150,7 @@ void gtParagraphStyle::setAlignment(int newAlignment)
 	}
 }
 
-double gtParagraphStyle::getIndent()
+double gtParagraphStyle::getIndent() const
 {
 	return indent;
 }
@@ -161,7 +161,7 @@ void gtParagraphStyle::setIndent(double newIndent)
 	flags |= indentWasSet;
 }
 
-double gtParagraphStyle::getFirstLineIndent()
+double gtParagraphStyle::getFirstLineIndent() const
 {
 	return firstLineIndent;
 }
@@ -172,7 +172,7 @@ void gtParagraphStyle::setFirstLineIndent(double newFirstLineIndent)
 	flags |= firstIndentWasSet;
 }
 
-double gtParagraphStyle::getSpaceAbove()
+double gtParagraphStyle::getSpaceAbove() const
 {
 	return spaceAbove;
 }
@@ -183,7 +183,7 @@ void gtParagraphStyle::setSpaceAbove(double newSpaceAbove)
 	flags |= spaceAboveWasSet;
 }
 
-double gtParagraphStyle::getSpaceBelow()
+double gtParagraphStyle::getSpaceBelow() const
 {
 	return spaceBelow;
 }
@@ -194,9 +194,9 @@ void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 	flags |= spaceBelowWasSet;
 }
 
-QList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
+const QList<ParagraphStyle::TabRecord>& gtParagraphStyle::getTabValues() const
 {
-	return &tabValues;
+	return tabValues;
 }
 
 void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
@@ -209,7 +209,7 @@ void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 	flags |= tabValueWasSet;
 }
 
-bool gtParagraphStyle::hasDropCap()
+bool gtParagraphStyle::hasDropCap() const
 {
 	return dropCap;
 }
@@ -227,7 +227,7 @@ void gtParagraphStyle::setDropCap(int newHeight)
 	flags |= dropCapHeightWasSet;
 }
 
-int gtParagraphStyle::getDropCapHeight()
+int gtParagraphStyle::getDropCapHeight() const
 {
 	return dropCapHeight;
 }
@@ -238,12 +238,12 @@ void   gtParagraphStyle::setDropCapHeight(int newHeight)
 	flags |= dropCapHeightWasSet;
 }
 
-bool gtParagraphStyle::hasBullet()
+bool gtParagraphStyle::hasBullet() const
 {
 	return m_bullet;
 }
 
-QString  gtParagraphStyle::getBullet()
+QString  gtParagraphStyle::getBullet() const
 {
 	return m_bulletStr;
 }
@@ -258,7 +258,7 @@ void gtParagraphStyle::setBullet(bool newBullet, const QString& str)
 	flags |= bulletWasSet;
 }
 
-bool gtParagraphStyle::hasNum()
+bool gtParagraphStyle::hasNum() const
 {
 	return m_numeration;
 }
@@ -277,32 +277,32 @@ void gtParagraphStyle::setNum(bool newNum, int format, int level, int start, con
 	flags |= numWasSet;
 }
 
-int gtParagraphStyle::getNumLevel()
+int gtParagraphStyle::getNumLevel() const
 {
 	return m_numLevel;
 }
 
-int gtParagraphStyle::getNumFormat()
+int gtParagraphStyle::getNumFormat() const
 {
 	return m_numFormat;
 }
 
-int gtParagraphStyle::getNumStart()
+int gtParagraphStyle::getNumStart() const
 {
 	return m_numStart;
 }
 
-QString gtParagraphStyle::getNumPrefix()
+QString gtParagraphStyle::getNumPrefix() const
 {
 	return m_numPrefix;
 }
 
-QString gtParagraphStyle::getNumSuffix()
+QString gtParagraphStyle::getNumSuffix() const
 {
 	return m_numSuffix;
 }
 
-bool gtParagraphStyle::isAdjToBaseline()
+bool gtParagraphStyle::isAdjToBaseline() const
 {
 	return adjToBaseline;
 }
@@ -316,9 +316,4 @@ void gtParagraphStyle::setAdjToBaseline(bool newAdjToBaseline)
 void gtParagraphStyle::getStyle(gtStyle* style)
 {
 	*style = gtStyle(*this);
-}
-
-gtParagraphStyle::~gtParagraphStyle()
-{
-
 }

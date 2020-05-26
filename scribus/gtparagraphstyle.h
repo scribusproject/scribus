@@ -50,32 +50,11 @@ enum TabType {
 
 class SCRIBUS_API gtParagraphStyle : public gtStyle
 {
-private:
-	void init();
-protected:
-	int    flags;
-	bool   defaultStyle;
-	double lineSpacing;
-	int    alignment;
-	double indent;
-	double firstLineIndent;
-	double spaceAbove;
-	double spaceBelow;
-	QList<ParagraphStyle::TabRecord> tabValues;
-	bool dropCap;
-	int  dropCapHeight;
-	bool m_bullet; ///< Is style using bullet?
-	QString m_bulletStr; ///< String used as bullet
-	bool m_numeration; ///< Is style using numeration?
-	int m_numLevel; ///< Level in hierarchical numbering
-	int m_numFormat; ///< 1_2_3, i_ii_ii, a_b_c
-	int m_numStart; ///< Numeration starts at number
-	QString m_numPrefix; ///< Numeration prefix of style
-	QString m_numSuffix; ///< Numeration sufffix of style
-	bool adjToBaseline;
-	bool autoLineSpacing;
-	bool isVisible;
 public:
+	gtParagraphStyle(const QString& name);
+	gtParagraphStyle(const gtParagraphStyle& p);
+	gtParagraphStyle(const gtStyle& s);
+	~gtParagraphStyle() {};
 
 	typedef enum
 	{
@@ -95,49 +74,73 @@ public:
 		numWasSet = 8192
 	} wasSetFlags;
 
-	int    getFlags();
-	bool   isDefaultStyle();
+	QString target() const override;
+
+	int    getFlags() const;
+	bool   isDefaultStyle() const;
 	void   setDefaultStyle(bool defStyle);
-	double getLineSpacing();
+	double getLineSpacing() const;
 	void   setLineSpacing(double newLineSpacing);
-	bool   getAutoLineSpacing();
+	bool   getAutoLineSpacing() const;
 	void   setAutoLineSpacing(bool newALS);
-	int    getAlignment();
+	int    getAlignment() const;
 	void   setAlignment(Alignment newAlignment);
 	void   setAlignment(int newAlignment);
-	double getIndent();
+	double getIndent() const;
 	void   setIndent(double newIndent);
-	double getFirstLineIndent();
+	double getFirstLineIndent() const;
 	void   setFirstLineIndent(double newFirstLineIndent);
-	double getSpaceAbove();
+	double getSpaceAbove() const;
 	void   setSpaceAbove(double newSpaceAbove);
-	double getSpaceBelow();
+	double getSpaceBelow() const;
 	void   setSpaceBelow(double newSpaceBelow);
-	QList<ParagraphStyle::TabRecord>* getTabValues();
+	const QList<ParagraphStyle::TabRecord>& getTabValues() const;
 	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
-	bool   hasDropCap();
+	bool   hasDropCap() const;
 	void   setDropCap(bool newDropCap);
 	void   setDropCap(int newHeight);
-	int    getDropCapHeight();
+	int    getDropCapHeight() const;
 	void   setDropCapHeight(int newHeight);
-	bool   isAdjToBaseline();
+	bool   isAdjToBaseline() const;
 	void   setAdjToBaseline(bool newAdjToBaseline);
 	void   getStyle(gtStyle* style);
-	gtParagraphStyle(const QString& name);
-	gtParagraphStyle(const gtParagraphStyle& p);
-	gtParagraphStyle(const gtStyle& s);
-	~gtParagraphStyle();
-	QString target();
-	bool hasBullet();
+	bool hasBullet() const;
 	void setBullet(bool newBullet, const QString& str);
-	QString getBullet();
-	bool hasNum();
+	QString getBullet() const;
+	bool hasNum() const;
 	void setNum(bool newNum, int format=0, int level=0, int start = 1, const QString& prefix = "", const QString& suffix = "");
-	int getNumLevel();
-	int getNumFormat();
-	int getNumStart();
-	QString getNumPrefix();
-	QString getNumSuffix();
+	int getNumLevel() const;
+	int getNumFormat() const;
+	int getNumStart() const;
+	QString getNumPrefix() const;
+	QString getNumSuffix() const;
+
+protected:
+	int    flags { 0 };
+	bool   defaultStyle { false };
+	double lineSpacing { 15 };
+	int    alignment { LEFT };
+	double indent { 0.0 };
+	double firstLineIndent { 0.0 };
+	double spaceAbove { 0.0 };
+	double spaceBelow { 0.0 };
+	QList<ParagraphStyle::TabRecord> tabValues;
+	bool dropCap { false };
+	int  dropCapHeight { 2 };
+	bool m_bullet { false }; ///< Is style using bullet?
+	QString m_bulletStr { QChar(0x2022) }; ///< String used as bullet
+	bool m_numeration { false }; ///< Is style using numeration?
+	int m_numLevel { 0 }; ///< Level in hierarchical numbering
+	int m_numFormat { 0 }; ///< 1_2_3, i_ii_ii, a_b_c
+	int m_numStart { 1 }; ///< Numeration starts at number
+	QString m_numPrefix; ///< Numeration prefix of style
+	QString m_numSuffix; ///< Numeration sufffix of style
+	bool adjToBaseline { false };
+	bool autoLineSpacing { false };
+	bool isVisible { true };
+
+private:
+	void init();
 };
 
 #endif // GTPARAGRAPHSTYLE_H

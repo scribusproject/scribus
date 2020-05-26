@@ -32,28 +32,32 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API gtFrameStyle : public gtParagraphStyle
 {
-private:
-	int     m_columns;
-	double  m_columnsGap;
-	QString m_bgColor;
-	int     m_bgShade;
-	void init();
 public:
 	gtFrameStyle(const QString& name);
 	gtFrameStyle(const gtFrameStyle& f);
 	gtFrameStyle(const gtParagraphStyle& p);
 	gtFrameStyle(const gtStyle& s);
-	~gtFrameStyle();
-	int getColumns();
+	~gtFrameStyle() {};
+	
+	QString target() const override;
+
+	int getColumns() const;
 	void setColumns(int newColumns);
-	double getColumnsGap();
+	double getColumnsGap() const;
 	void setColumnsGap(double newColumnsGap);
-	QString getBgColor();
+	QString getBgColor() const;
 	void setBgColor(const QString& newBgColor);
-	int getBgShade();
+	int getBgShade() const;
 	void setBgShade(int newBgShade);
 	void getParagraphStyle(gtParagraphStyle* pstyle);
-	QString target();
+
+private:
+	int     m_columns { 1 };
+	double  m_columnsGap { 0.0 };
+	QString m_bgColor { "White" };
+	int     m_bgShade { 100 };
+
+	void init();
 };
 
 #endif // GTFRAMESTYLE_H

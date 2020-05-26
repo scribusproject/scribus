@@ -33,18 +33,21 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API gtStyle 
 {
-protected:
-	QString name;
-	gtFont font;
 public:
 	gtStyle(const QString& name);
 	gtStyle(const gtStyle& s);
+	virtual ~gtStyle();
+
 	void setFont(const gtFont& newFont);
 	gtFont* getFont();
 	QString getName();
 	void setName(const QString& newName);
-	virtual ~gtStyle();
-	virtual QString target();
+
+	virtual QString target() const;
+
+protected:
+	QString name;
+	gtFont font;
 };
 
 #endif // STYLE_H

@@ -59,7 +59,7 @@ void gtFrameStyle::init()
 	m_bgShade    = 100;
 }
 
-int gtFrameStyle::getColumns()
+int gtFrameStyle::getColumns() const
 {
 	return m_columns;
 }
@@ -69,7 +69,7 @@ void gtFrameStyle::setColumns(int newColumns)
 	m_columns = newColumns;
 }
 
-double gtFrameStyle::getColumnsGap()
+double gtFrameStyle::getColumnsGap() const
 {
 	return m_columnsGap;
 }
@@ -79,7 +79,7 @@ void gtFrameStyle::setColumnsGap(double newColumnsGap)
 	m_columnsGap = newColumnsGap;
 }
 
-QString gtFrameStyle::getBgColor()
+QString gtFrameStyle::getBgColor() const
 {
 	return m_bgColor;
 }
@@ -89,7 +89,7 @@ void gtFrameStyle::setBgColor(const QString& newBgColor)
 	m_bgColor = newBgColor;
 }
 
-int gtFrameStyle::getBgShade()
+int gtFrameStyle::getBgShade() const
 {
 	return m_bgShade;
 }
@@ -99,7 +99,7 @@ void gtFrameStyle::setBgShade(int newBgShade)
 	m_bgShade = newBgShade;
 }
 
-QString gtFrameStyle::target()
+QString gtFrameStyle::target() const
 {
 	return QString("frame");
 }
@@ -107,9 +107,4 @@ QString gtFrameStyle::target()
 void gtFrameStyle::getParagraphStyle(gtParagraphStyle* pstyle)
 {
 	*pstyle = gtParagraphStyle(*this);
-}
-
-gtFrameStyle::~gtFrameStyle()
-{
-
 }
