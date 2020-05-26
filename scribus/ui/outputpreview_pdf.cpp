@@ -122,10 +122,9 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 
 		inkTableWidth = m_optionsUi->inkTable->columnWidth(1);
 
-		if ((m_optionsUi->enableCMYK->isChecked()) && (m_optionsUi->displayInkCoverage->isChecked()))
-			m_optionsUi->coverThresholdValue->setEnabled(true);
-		else
-			m_optionsUi->coverThresholdValue->setEnabled(false);
+		bool inkCoverageEnabled = (m_optionsUi->enableCMYK->isChecked()) && (m_optionsUi->displayInkCoverage->isChecked());
+		m_optionsUi->coverThresholdLabel->setEnabled(inkCoverageEnabled);
+		m_optionsUi->coverThresholdValue->setEnabled(inkCoverageEnabled);
 		m_optionsUi->coverThresholdValue->setSuffix( tr(" %"));
 		
 		connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllFromHeader()));
@@ -148,6 +147,7 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 	m_optionsUi->inkTable->setEnabled(cmykEnabled);
 	m_optionsUi->displayInkCoverage->setEnabled(cmykEnabled);
 	bool isInkCoverageEnabled = m_optionsUi->displayInkCoverage->isChecked();
+	m_optionsUi->coverThresholdLabel->setEnabled(cmykEnabled && isInkCoverageEnabled);
 	m_optionsUi->coverThresholdValue->setEnabled(cmykEnabled && isInkCoverageEnabled);
 
 	if (m_optionsUi->inkTable->isVisible())
@@ -964,6 +964,17 @@ void OutputPreview_PDF::setPDFOptionsToUi(PDFOptions& pdfOptions)
 	m_optionsUi->mirrorV->setChecked(pdfOptions.MirrorV);
 	m_optionsUi->clipToMargins->setChecked(pdfOptions.doClip);
 	m_optionsUi->convertSpots->setChecked(!pdfOptions.UseSpotColors);
+
+	bool cmykEnabled = (m_optionsUi->outputModeCombo->currentIndex() > 0);
+	bool cmykUserEnabled = m_optionsUi->enableCMYK->isChecked();
+
+	m_optionsUi->enableCMYK->setEnabled(cmykEnabled);
+	m_optionsUi->enableCMYK->setChecked(cmykEnabled && cmykUserEnabled);
+	m_optionsUi->inkTable->setEnabled(cmykEnabled && cmykUserEnabled);
+	m_optionsUi->displayInkCoverage->setEnabled(cmykEnabled && cmykUserEnabled);
+	bool isInkCoverageEnabled = m_optionsUi->displayInkCoverage->isChecked();
+	m_optionsUi->coverThresholdLabel->setEnabled(cmykEnabled && cmykUserEnabled && isInkCoverageEnabled);
+	m_optionsUi->coverThresholdValue->setEnabled(cmykEnabled && cmykUserEnabled && isInkCoverageEnabled);
 }
 
 void OutputPreview_PDF::setUiOptionsToPDFOptions(PDFOptions& pdfOptions)
@@ -1063,16 +1074,18 @@ void OutputPreview_PDF::onPdfVersionChanged(int index)
 	redisplay();
 }
 
-void OutputPreview_PDF::onPdfOutputModeChanged(int index)
+void OutputPreview_PDF::onPdfOutputModeChanged(int /*index*/)
 {
 	bool cmykEnabled = (m_optionsUi->outputModeCombo->currentIndex() > 0);
+	bool cmykUserEnabled = m_optionsUi->enableCMYK->isChecked();
 
 	m_optionsUi->enableCMYK->setEnabled(cmykEnabled);
-	m_optionsUi->enableCMYK->setChecked(cmykEnabled && m_optionsUi->enableCMYK->isChecked());
-	m_optionsUi->inkTable->setEnabled(cmykEnabled);
-	m_optionsUi->displayInkCoverage->setEnabled(cmykEnabled);
+	m_optionsUi->enableCMYK->setChecked(cmykEnabled && cmykUserEnabled);
+	m_optionsUi->inkTable->setEnabled(cmykEnabled && cmykUserEnabled);
+	m_optionsUi->displayInkCoverage->setEnabled(cmykEnabled && cmykUserEnabled);
 	bool isInkCoverageEnabled = m_optionsUi->displayInkCoverage->isChecked();
-	m_optionsUi->coverThresholdValue->setEnabled(cmykEnabled && isInkCoverageEnabled);
+	m_optionsUi->coverThresholdLabel->setEnabled(cmykEnabled && cmykUserEnabled && isInkCoverageEnabled);
+	m_optionsUi->coverThresholdValue->setEnabled(cmykEnabled && cmykUserEnabled && isInkCoverageEnabled);
 
 	redisplay();
 }
@@ -1113,6 +1126,7 @@ void OutputPreview_PDF::toggleCMYK()
 	m_optionsUi->inkTable->setEnabled(cmykEnabled);
 	m_optionsUi->displayInkCoverage->setEnabled(cmykEnabled);
 	bool isInkCoverageEnabled = m_optionsUi->displayInkCoverage->isChecked();
+	m_optionsUi->coverThresholdLabel->setEnabled(cmykEnabled && isInkCoverageEnabled);
 	m_optionsUi->coverThresholdValue->setEnabled(cmykEnabled && isInkCoverageEnabled);
 
 	redisplay();
@@ -1122,10 +1136,9 @@ void OutputPreview_PDF::toggleCMYK_Colour()
 {
 	if (m_haveTiffSep)
 	{
-		if ((m_optionsUi->enableCMYK->isChecked()) && (m_optionsUi->displayInkCoverage->isChecked()))
-			m_optionsUi->coverThresholdValue->setEnabled(true);
-		else
-			m_optionsUi->coverThresholdValue->setEnabled(false);
+		bool inkCoverageEnabled = (m_optionsUi->enableCMYK->isChecked()) && (m_optionsUi->displayInkCoverage->isChecked());
+		m_optionsUi->coverThresholdLabel->setEnabled(inkCoverageEnabled);
+		m_optionsUi->coverThresholdValue->setEnabled(inkCoverageEnabled);
 	}
 	if (m_optionsUi->enableCMYK->isChecked())
 		m_previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * m_scaleFactor)));
