@@ -213,7 +213,7 @@
   <customwidget>
    <class>PdfVersionCombo</class>
    <extends>QComboBox</extends>
-   <header>pdfversioncombo.h</header>
+   <header>ui/pdfversioncombo.h</header>
   </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
