@@ -608,6 +608,7 @@
     <moc Include="..\..\..\scribus\ui\contentpalette_page.h" />
     <moc Include="..\..\..\scribus\ui\contentpalette_default.h" />
     <moc Include="..\..\..\scribus\ui\outputpreviewbase.h" />
+    <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -1197,6 +1198,7 @@
     <ClCompile Include="..\..\..\scribus\pageitem_table.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitem_textframe.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\outputpreviewbase.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pageitemattributes.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitempointer.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagelayout.cpp" />
@@ -1579,6 +1581,7 @@
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui" />
     <uic Include="..\..\..\scribus\ui\osgeditor.ui" />
     <uic Include="..\..\..\scribus\ui\outputpreviewbase.ui" />
+    <uic Include="..\..\..\scribus\ui\outputpreview_pdf.ui" />
     <uic Include="..\..\..\scribus\ui\pageitemattributes.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_masterpagesbase.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_pagesbase.ui" />
