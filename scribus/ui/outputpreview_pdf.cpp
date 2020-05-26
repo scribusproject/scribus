@@ -495,7 +495,6 @@ QPixmap OutputPreview_PDF::createPreview(int pageIndex, int res)
 		}
 	}
 
-	const ScPage* page = m_doc->Pages->at(pageIndex);
 	if (m_optionsUi->showTransparency->isChecked())
 	{
 		pixmap = QPixmap(image.width(), image.height());
@@ -528,7 +527,6 @@ bool OutputPreview_PDF::createPreviewFile(int pageIndex)
 	m_pdfOptions.Encrypt = false; // Disable PDF encryption for preview
 	m_pdfOptions.Thumbnails = false; //Disable thumbnails too
 
-	int components = 3;
 	QString profileDescription;
 	if ((m_pdfOptions.Version == PDFVersion::PDF_X3) || (m_pdfOptions.Version == PDFVersion::PDF_X1a) || (m_pdfOptions.Version == PDFVersion::PDF_X4))
 	{
@@ -554,7 +552,6 @@ bool OutputPreview_PDF::createPreviewFile(int pageIndex)
 	m_pdfOptions.bleeds.set(0, 0, 0, 0);
 
 	// Generate PDF
-	ScribusMainWindow* mainWindow = ScCore->primaryMainWindow();
 	QString errorString;
 	QString pdfFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".pdf";
 	
