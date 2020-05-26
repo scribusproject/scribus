@@ -1003,12 +1003,12 @@ static int PDFfile_setlpival(PDFfile *self, PyObject *value, void * /*closure*/)
 	for (int i=0; i<n; ++i) {
 		PyObject *tmp = PyList_GetItem(value, i);
 		if (!PyList_Check(tmp)) {
-			PyErr_SetString(PyExc_TypeError, "elemets of 'lpival' must be list of five integers.");
+			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must be list of five integers.");
 			return -1;
 		}
 		int j = PyList_Size(tmp);
 		if (j != 4) {
-			PyErr_SetString(PyExc_TypeError, "elemets of 'lpival' must have exactly four members.");
+			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must have exactly four members.");
 			return -1;
 		}
 		for ( --j; j > 0; --j) {

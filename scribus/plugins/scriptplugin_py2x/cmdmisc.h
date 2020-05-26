@@ -73,7 +73,7 @@ Returns a list with the names of all defined layers.\n\
 PyObject *scribus_getlayers(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setactlayer__doc__,
+PyDoc_STRVAR(scribus_setactivelayer__doc__,
 QT_TR_NOOP("setActiveLayer(\"name\")\n\
 \n\
 Sets the active layer to the layer named \"name\".\n\
@@ -82,7 +82,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Move into layer */
-PyObject *scribus_setactlayer(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setactivelayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getactlayer__doc__,
@@ -107,7 +107,7 @@ May raise ValueError if the layer name isn't acceptable.\n\
 PyObject *scribus_senttolayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layervisible__doc__,
+PyDoc_STRVAR(scribus_setlayervisible__doc__,
 QT_TR_NOOP("setLayerVisible(\"layer\", visible)\n\
 \n\
 Sets the layer \"layer\" to be visible or not. If is the visible set to false\n\
@@ -117,10 +117,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_layervisible(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayervisible(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layerprint__doc__,
+PyDoc_STRVAR(scribus_setlayerprintable__doc__,
 QT_TR_NOOP("setLayerPrintable(\"layer\", printable)\n\
 \n\
 Sets the layer \"layer\" to be printable or not. If is the\n\
@@ -130,10 +130,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layerprint(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayerprintable(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layerlock__doc__,
+PyDoc_STRVAR(scribus_setlayerlocked__doc__,
 QT_TR_NOOP("setLayerLocked(\"layer\", locked)\n\
 \n\
 Sets the layer \"layer\" to be locked or not. If locked is set to\n\
@@ -143,10 +143,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layerlock(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayerlocked(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layeroutline__doc__,
+PyDoc_STRVAR(scribus_setlayeroutlined__doc__,
 QT_TR_NOOP("setLayerOutlined(\"layer\", outline)\n\
 \n\
 Sets the layer \"layer\" to be locked or not. If outline is set to\n\
@@ -156,10 +156,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layeroutline(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayeroutlined(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layerflow__doc__,
+PyDoc_STRVAR(scribus_setlayerflow__doc__,
 QT_TR_NOOP("setLayerFlow(\"layer\", flow)\n\
 \n\
 Sets the layers \"layer\"  flowcontrol to flow. If flow is set to\n\
@@ -169,10 +169,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layerflow(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayerflow(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layerblend__doc__,
+PyDoc_STRVAR(scribus_setlayerblendmode__doc__,
 QT_TR_NOOP("setLayerBlendmode(\"layer\", blend)\n\
 \n\
 Sets the layers \"layer\"  blendmode to blend.\n\
@@ -181,10 +181,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layerblend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayerblendmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_layertrans__doc__,
+PyDoc_STRVAR(scribus_setlayertransparency__doc__,
 QT_TR_NOOP("setLayerTransparency(\"layer\", trans)\n\
 \n\
 Sets the layers \"layer\"  transparency to trans.\n\
@@ -193,10 +193,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layertrans(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlayertransparency(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayervisib__doc__,
+PyDoc_STRVAR(scribus_islayervisible__doc__,
 QT_TR_NOOP("isLayerVisible(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is visible or not, a value of True means\n\
@@ -207,10 +207,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayervisib(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_islayervisible(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayerprint__doc__,
+PyDoc_STRVAR(scribus_islayerprintable__doc__,
 QT_TR_NOOP("isLayerPrintable(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is printable or not, a value of True means\n\
@@ -221,10 +221,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_glayerprint(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_islayerprintable(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayerlock__doc__,
+PyDoc_STRVAR(scribus_islayerlocked__doc__,
 QT_TR_NOOP("isLayerLocked(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is locked or not, a value of True means\n\
@@ -235,10 +235,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayerlock(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_islayerlocked(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayeroutline__doc__,
+PyDoc_STRVAR(scribus_islayeroutlined__doc__,
 QT_TR_NOOP("isLayerOutlined(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is outlined or not, a value of True means\n\
@@ -249,10 +249,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayeroutline(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_islayeroutlined(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayerflow__doc__,
+PyDoc_STRVAR(scribus_islayerflow__doc__,
 QT_TR_NOOP("isLayerFlow(\"layer\") -> bool\n\
 \n\
 Returns whether text flows around objects on layer \"layer\", a value of True means\n\
@@ -262,10 +262,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayerflow(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_islayerflow(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayerblend__doc__,
+PyDoc_STRVAR(scribus_getlayerblendmode__doc__,
 QT_TR_NOOP("getLayerBlendmode(\"layer\") -> int\n\
 \n\
 Returns the \"layer\" layer blendmode,\n\
@@ -274,10 +274,10 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayerblend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlayerblendmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_glayertrans__doc__,
+PyDoc_STRVAR(scribus_getlayertransparency__doc__,
 QT_TR_NOOP("getLayerTransparency(\"layer\") -> float\n\
 \n\
 Returns the \"layer\" layer transparency,\n\
@@ -286,7 +286,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayertrans(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlayertransparency(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_removelayer__doc__,

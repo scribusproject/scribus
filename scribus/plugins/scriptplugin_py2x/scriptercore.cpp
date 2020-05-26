@@ -17,17 +17,18 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <cstdlib>
 
+#include "cmdutil.h"
 #include "runscriptdialog.h"
 #include "ui/helpbrowser.h"
 #include "ui/marksmanager.h"
 #include "ui/notesstyleseditor.h"
 #include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
+#include "ui/contentpalette.h" //TODO Move the calls to this to a signal
 #include "ui/pagepalette.h" //TODO Move the calls to this to a signal
 #include "ui/layers.h" //TODO Move the calls to this to a signal
 #include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
 #include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
-#include "ui/contentpalette.h"
 #include "pconsole.h"
 #include "scraction.h"
 #include "scribuscore.h"
@@ -199,12 +200,12 @@ void ScripterCore::runScriptDialog()
 	finishScriptRun();
 }
 
-void ScripterCore::StdScript(const QString& basefilename)
+void ScripterCore::StdScript(const QString& baseFilename)
 {
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
 	pfad2 = QDir::toNativeSeparators(pfad);
-	QString fn = pfad2+basefilename+".py";
+	QString fn = pfad2+baseFilename+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;

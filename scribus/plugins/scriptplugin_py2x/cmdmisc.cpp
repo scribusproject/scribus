@@ -110,8 +110,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		// User specified no format, so use the historical default of PPM format.
 		format =  const_cast<char*>("PPM");
 	QPixmap pm = FontSample(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
-	// If the user specified an empty filename, return the image data as
-	// a string. Otherwise, save it to disk.
+	// If the user specified an empty filename, return the image data as bytes. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName).isEmpty())
 	{
 		QByteArray buffer_string = "";
@@ -150,14 +149,14 @@ PyObject *scribus_getlayers(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
-	PyObject *l;
-	l = PyList_New(ScCore->primaryMainWindow()->doc->Layers.count());
-	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
-		PyList_SetItem(l, lam, PyString_FromString(ScCore->primaryMainWindow()->doc->Layers[lam].Name.toUtf8()));
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	PyObject *l = PyList_New(doc->Layers.count());
+	for (int i = 0; i < doc->Layers.count(); i++)
+		PyList_SetItem(l, i, PyString_FromString(doc->Layers[i].Name.toUtf8()));
 	return l;
 }
 
-PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setactivelayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -229,7 +228,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayervisible(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -260,7 +259,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayerprintable(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -291,7 +290,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayerlocked(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -322,7 +321,7 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayeroutlined(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -353,7 +352,7 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayerflow(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -384,7 +383,7 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayerblendmode(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 0;
@@ -415,7 +414,7 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlayertransparency(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double vis = 1.0;
@@ -446,7 +445,7 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
+PyObject *scribus_islayervisible(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -477,7 +476,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
+PyObject *scribus_islayerprintable(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -508,7 +507,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
+PyObject *scribus_islayerlocked(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -539,7 +538,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
+PyObject *scribus_islayeroutlined(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -570,7 +569,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
+PyObject *scribus_islayerflow(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -601,7 +600,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlayerblendmode(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -632,7 +631,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlayertransparency(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -792,19 +791,34 @@ PV */
 void cmdmiscdocwarnings()
 {
 	QStringList s;
-	s << scribus_setredraw__doc__ << scribus_fontnames__doc__ 
-	  << scribus_xfontnames__doc__ << scribus_renderfont__doc__ 
-	  << scribus_getlayers__doc__ << scribus_setactlayer__doc__ 
-	  << scribus_getactlayer__doc__ << scribus_senttolayer__doc__ 
-	  << scribus_layervisible__doc__ << scribus_layerprint__doc__ 
-	  << scribus_layerlock__doc__ << scribus_layeroutline__doc__ 
-	  << scribus_layerflow__doc__ << scribus_layerblend__doc__ 
-	  << scribus_layertrans__doc__ << scribus_glayervisib__doc__ 
-	  << scribus_glayerprint__doc__ << scribus_glayerlock__doc__ 
-	  << scribus_glayeroutline__doc__ << scribus_glayerflow__doc__ 
-	  << scribus_glayerblend__doc__ << scribus_glayertrans__doc__ 
-	  << scribus_removelayer__doc__ << scribus_createlayer__doc__ 
-	  << scribus_getlanguage__doc__ << scribus_moveselectiontofront__doc__
-	  << scribus_moveselectiontoback__doc__ << scribus_filequit__doc__
-	  << scribus_savepdfoptions__doc__ << scribus_readpdfoptions__doc__;
+	s << scribus_createlayer__doc__
+	  << scribus_filequit__doc__
+	  << scribus_fontnames__doc__
+	  << scribus_getactlayer__doc__ 
+	  << scribus_getlanguage__doc__
+	  << scribus_getlayerblendmode__doc__
+	  << scribus_getlayers__doc__
+	  << scribus_getlayertransparency__doc__
+	  << scribus_islayerflow__doc__
+	  << scribus_islayerlocked__doc__
+	  << scribus_islayeroutlined__doc__
+	  << scribus_islayerprintable__doc__
+	  << scribus_islayervisible__doc__
+	  << scribus_moveselectiontoback__doc__ 
+	  << scribus_moveselectiontofront__doc__
+	  << scribus_readpdfoptions__doc__
+	  << scribus_removelayer__doc__
+	  << scribus_renderfont__doc__
+	  << scribus_savepdfoptions__doc__
+	  << scribus_senttolayer__doc__
+	  << scribus_setactivelayer__doc__
+	  << scribus_setlayerblendmode__doc__
+	  << scribus_setlayerflow__doc__ 
+	  << scribus_setlayerlocked__doc__
+	  << scribus_setlayeroutlined__doc__
+	  << scribus_setlayerprintable__doc__
+	  << scribus_setlayertransparency__doc__
+	  << scribus_setlayervisible__doc__ 
+	  << scribus_setredraw__doc__  
+	  << scribus_xfontnames__doc__;
 }

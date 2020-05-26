@@ -28,14 +28,14 @@ May raise IndexError if the page number is out of range\n\
 PyObject *scribus_newpage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_actualpage__doc__,
+PyDoc_STRVAR(scribus_currentpage__doc__,
 QT_TR_NOOP("currentPage() -> integer\n\
 \n\
 Returns the number of the current working page. Page numbers are counted from 1\n\
 upwards, no matter what the displayed first page number of your document is.\n\
 "));
 /*! get actual page */
-PyObject *scribus_actualpage(PyObject * /*self*/);
+PyObject *scribus_currentpage(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_redraw__doc__,
@@ -47,13 +47,13 @@ Redraws all pages.\n\
 PyObject *scribus_redraw(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pageposition__doc__,
+PyDoc_STRVAR(scribus_getpagetype__doc__,
 QT_TR_NOOP("getPageType() -> integer\n\
 \n\
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page\n\
 "));
 /*! Go to page */
-PyObject *scribus_pageposition(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getpagetype(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savepageeps__doc__,
@@ -157,7 +157,7 @@ e.g. when is the doc in picas returns picas ;)
 PyObject *scribus_pagedimension(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pagensize__doc__,
+PyDoc_STRVAR(scribus_getpagensize__doc__,
 QT_TR_NOOP("getPageNSize(nr) -> tuple\n\
 \n\
 Returns a tuple with a particular page's size measured in the document's current units.\n\
@@ -167,7 +167,7 @@ See UNIT_<type> constants and getPageMargins()\n\
 returns a tuple with a particular page's size  in used system
 e.g. when is the doc in picas returns picas ;)
 */
-PyObject *scribus_pagensize(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getpagensize(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getpagemargins__doc__,
@@ -183,7 +183,7 @@ Craig Ringer, Petr Vanek 09/25/2004
 PyObject *scribus_getpagemargins(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pagenmargins__doc__,
+PyDoc_STRVAR(scribus_getpagenmargins__doc__,
 QT_TR_NOOP("getPageNMargins(nr) -> tuple\n\
 \n\
 Returns a tuple with a particular page's margins measured in the document's current units.\n\
@@ -193,7 +193,7 @@ See UNIT_<type> constants and getPageMargins()\n\
 returns a tuple with a particular page's size  in used system
 e.g. when is the doc in picas returns picas ;)
 */
-PyObject *scribus_pagenmargins(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getpagenmargins(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getpageitems__doc__,
