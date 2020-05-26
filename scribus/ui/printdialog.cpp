@@ -12,14 +12,13 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 
 #include "scconfig.h"
-#include "scpaths.h"
-#include "scribusdoc.h"
-#include "ui/createrange.h"
+
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "customfdialog.h"
 #include "cupsoptions.h"	
 #if defined(_WIN32)
 	#include <windows.h>
@@ -27,12 +26,15 @@ for which a new license (GPL+exception) is in place.
 #elif defined(HAVE_CUPS) // Haiku doesn't have it
 	#include <cups/cups.h>
 #endif
-#include "util_printer.h"
-#include "iconmanager.h"
-#include "util.h"
+#include "ui/createrange.h"
+#include "scpaths.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scrspinbox.h"
 #include "units.h"
 #include "usertaskstructs.h"
-#include "scrspinbox.h"
+#include "util.h"
+#include "util_printer.h"
 
 extern bool previewDinUse;
 
@@ -71,7 +73,14 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	BleedTop->setNewUnit(m_unit);
 	BleedTop->setMinimum(0);
 	BleedTop->setMaximum(3000 * m_unitRatio);
-	previewButton->setEnabled(!previewDinUse);
+
+	if (ScCore->haveGS() || ScCore->isWinGUI())
+		previewButton->setEnabled(!previewDinUse);
+	else
+	{
+		previewButton->setVisible(false);
+		previewButton->setEnabled(false);
+	}
 
 	// Fill printer list
 	QString printerName;
@@ -126,9 +135,10 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
+
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
-	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( CancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
 	connect( printEngines, SIGNAL(activated(const QString&)), this, SLOT(SelEngine(const QString&)));
 	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));

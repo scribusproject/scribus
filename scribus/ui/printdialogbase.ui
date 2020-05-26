@@ -654,7 +654,7 @@ a range of pages or a single page number</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="OKButton_2">
+      <widget class="QPushButton" name="CancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -712,7 +712,7 @@ a range of pages or a single page number</string>
   <tabstop>BleedLeft</tabstop>
   <tabstop>previewButton</tabstop>
   <tabstop>OKButton</tabstop>
-  <tabstop>OKButton_2</tabstop>
+  <tabstop>CancelButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
