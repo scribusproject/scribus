@@ -87,8 +87,6 @@ int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 	return 0;
 }
 
-
-
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
 {
 	auto* scribus = new ScribusMainWindow();
@@ -289,7 +287,6 @@ bool ScribusCore::initFonts(bool showFontInfo)
 		setSplashStatus( tr("Font System Initialized") );
 	return haveFonts;
 }
-
 
 void ScribusCore::getCMSProfiles(bool showInfo)
 {
