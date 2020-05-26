@@ -55,13 +55,13 @@ signals:
 protected slots:
 	void doDocBleeds();
 	void createPageNumberRange();
-	void SetOptions();
-	void SelEngine(const QString& eng);
-	void SelPrinter(const QString& prn);
-	void SelRange(bool e);
-	void SelMode(int e);
-	void SelFile();
-	void SelComm();
+	void selectOptions();
+	void selectEngine(const QString& eng);
+	void selectPrinter(const QString& prn);
+	void selectRange(bool e);
+	void selectSepMode(int e);
+	void selectFile();
+	void selectCommand();
 	void okButtonClicked();
 	void previewButtonClicked();
 
