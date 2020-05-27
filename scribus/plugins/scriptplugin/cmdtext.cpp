@@ -1383,11 +1383,20 @@ PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	QLineF box = actual->textLayout.positionToPoint(pos);
+	// Can't use docUnitXToPageX and docUnitYToPageY because it might not
+	// be on the current page.
+	ScPage* actual_page
+	  = ScCore->primaryMainWindow()->doc->Pages->at(actual->OwnPage);
+	double page_x
+	  = PointToValue(actual->xPos() + box.x1() - actual_page->xOffset());
+	double page_y
+	  = PointToValue(actual->yPos() + box.y1() - actual_page->yOffset());
+
 	return Py_BuildValue("(idddd)",
 			     // Scripter API page starts at 1, not 0.
 			     actual->OwnPage + 1,
-			     docUnitXToPageX(actual->xPos() + box.x1()),
-			     docUnitYToPageY(actual->yPos() + box.y1()),
+			     page_x,
+			     page_y,
 			     PointToValue(box.x2() - box.x1()),
 			     PointToValue(box.y2() - box.y1()));
 }
