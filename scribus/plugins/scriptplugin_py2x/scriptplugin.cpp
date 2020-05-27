@@ -131,7 +131,7 @@ void ScriptPlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 		scripterCore->addToMainWindowMenu(mw);
 }
 
-const QString ScriptPlugin::fullTrName() const
+QString ScriptPlugin::fullTrName() const
 {
 	return QObject::tr("Scripter");
 }

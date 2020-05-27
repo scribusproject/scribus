@@ -78,7 +78,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		QString cursorTemplate;
 
 	protected slots:
-		void languageChange() override;
+		void languageChange();
 		void documentChanged(bool state);
 
 };
