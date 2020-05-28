@@ -59,7 +59,7 @@ protected:
 	bool m_mirrorH { false };
 	bool m_mirrorV { false };
 	bool m_clipToMargins { false };
-	bool m_convertSpots { true };
+	bool m_convertSpots { false };
 
 	bool m_fontEmbeddingWasSet { false };
 	PDFOptions m_pdfOptions;

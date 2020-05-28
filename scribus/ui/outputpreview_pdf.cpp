@@ -572,13 +572,13 @@ int OutputPreview_PDF::renderPreview(int pageIndex, int res)
 
 	QStringList args;
 	QString tmp, tmp2, tmp3;
-	double b = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
+	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
 	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(w)), tmp3.setNum(qRound(h))) );
 	if (m_optionsUi->enableCMYK->isChecked())
 	{
 		if (!m_haveTiffSep)
@@ -928,7 +928,6 @@ bool OutputPreview_PDF::pdfOptionsHaveChanged(int pageIndex) const
 
 void OutputPreview_PDF::setPDFOptionsToOptions(PDFOptions& pdfOptions)
 {
-	// TODO : finish
 	m_pdfVersion = pdfOptions.Version;
 
 	if (pdfOptions.UseRGB)
@@ -946,7 +945,6 @@ void OutputPreview_PDF::setPDFOptionsToOptions(PDFOptions& pdfOptions)
 
 void OutputPreview_PDF::setPDFOptionsToUi(PDFOptions& pdfOptions)
 {
-	// TODO : finish
 	m_optionsUi->pdfVersionCombo->setPDFXEnabled(m_doc->HasCMS && !ScCore->PDFXProfiles.isEmpty());
 	m_optionsUi->pdfVersionCombo->setVersion(pdfOptions.Version);
 
@@ -976,7 +974,6 @@ void OutputPreview_PDF::setPDFOptionsToUi(PDFOptions& pdfOptions)
 
 void OutputPreview_PDF::setUiOptionsToPDFOptions(PDFOptions& pdfOptions)
 {
-	// TODO : finish
 	pdfOptions.Version = m_optionsUi->pdfVersionCombo->version();
 	if (!pdfOptions.Version.supportsOCGs())
 		pdfOptions.useLayers = false;
@@ -1041,7 +1038,6 @@ void OutputPreview_PDF::setUiOptionsToPDFOptions(PDFOptions& pdfOptions)
 
 void OutputPreview_PDF::updateOptionsFromUI()
 {
-	// TODO : finish
 	m_pdfVersion = m_optionsUi->pdfVersionCombo->version();
 	m_pdfOutputMode = m_optionsUi->outputModeCombo->currentIndex();
 	m_mirrorH = m_optionsUi->mirrorH->isChecked();
