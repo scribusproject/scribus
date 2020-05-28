@@ -807,7 +807,7 @@ namespace crc32
     inline crc32_t update(crc32_t crc, unsigned/* char */b) // __attribute__((pure))
     {
         // Four values of the table
-        #define B4(n) b8<n>::res,b8<n+1>::res,b8<n+2>::res,b8<n+3>::res
+        #define B4(n) (crc32_t)b8<n>::res,(crc32_t)b8<n+1>::res,(crc32_t)b8<n+2>::res,(crc32_t)b8<n+3>::res
         // Sixteen values of the table
         #define R(n) B4(n),B4(n+4),B4(n+8),B4(n+12)
         // The whole table, index by steps of 16
