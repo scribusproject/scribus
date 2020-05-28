@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include <QDialog>
+#include <QStringList>
 #include "ui_printdialogbase.h"
 
 class PrefsContext;
@@ -24,7 +25,7 @@ class SCRIBUS_API PrintDialog : public QDialog, Ui::PrintDialogBase
 	Q_OBJECT
 
 public:
-	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, const QStringList& spots);
+	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions);
 	~PrintDialog();
 
 	QString printerName();
@@ -72,15 +73,15 @@ protected:
 	CupsOptions*   m_cupsOptions { nullptr };
 	int            m_unit { 0 };
 	double         m_unitRatio { 1 };
+	QStringList    m_spotColors;
 	
 	QByteArray m_devMode; // Buffer for storing storing printer options on Windows
 
 	QString getOptions();
-	void getDefaultPrintOptions(PrintOptions& options, bool gcr);
 	void storeValues();
 	void refreshPrintEngineBox();
 	void setPrintEngine(PrintEngine engine);
-	void setStoredValues(const QString& fileName, bool gcr);
+	void setStoredValues(const QString& fileName);
 };
 
 #endif // PRINTDIALOG_H

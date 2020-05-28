@@ -9,6 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <algorithm>
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+// #include <QDebug>
+#include <QFileInfo>
+#include <QIODevice>
+#include <QList>
+#include <QScopedPointer>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
@@ -25,24 +34,15 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
 #include "util_color.h"
 #include "util_layer.h"
-
-#include <QApplication>
-#include <QByteArray>
-#include <QCursor>
-// #include <QDebug>
-#include <QFileInfo>
-#include <QIODevice>
-#include <QList>
-#include <QScopedPointer>
+#include "util_math.h"
+#include "util_printer.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -1691,6 +1691,15 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	doc->Print_Options.firstUse = attrs.valueAsBool("firstUse");
+	if (doc->Print_Options.firstUse)
+	{
+		// Formerly we were writing uninitialized structure values in documents
+		// so set these uninitialized values to something more meaningful
+		PrinterUtil::getDefaultPrintOptions(doc->Print_Options, doc->bleedsVal());
+		reader.readToElementEnd();
+		return !reader.hasError();
+	}
+
 	doc->Print_Options.toFile   = attrs.valueAsBool("toFile");
 	doc->Print_Options.useAltPrintCommand = attrs.valueAsBool("useAltPrintCommand");
 	doc->Print_Options.outputSeparations  = attrs.valueAsBool("outputSeparations");

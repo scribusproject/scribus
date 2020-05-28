@@ -487,7 +487,6 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 		page = doc->Pages->at(pageIndex);
 		options.copies = 1;
 		options.doGCR = false;
-		//options.mirrorH = options.mirrorV = false;
 		options.mirrorH = mirrorHor->isChecked();
 		options.mirrorV = mirrorVert->isChecked();
 		options.outputSeparations = false;

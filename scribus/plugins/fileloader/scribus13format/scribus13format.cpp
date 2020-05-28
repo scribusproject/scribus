@@ -326,7 +326,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->cmsSettings().DefaultSolidColorCMYKProfile = dc.attribute("DPPr","");
 		m_Doc->cmsSettings().DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
 		m_Doc->cmsSettings().DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
-		layerToSetActive=dc.attribute("ALAYER", "0").toInt();
+		layerToSetActive = dc.attribute("ALAYER", "0").toInt();
 		//m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
 		static const QString LANGUAGE("LANGUAGE");
 		QString l(dc.attribute(LANGUAGE, "en"));

@@ -366,6 +366,17 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = false;
 	appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = 250;
 
+	appPrefs.psOutputPreviewPrefs.psLevel = 3;
+	appPrefs.psOutputPreviewPrefs.enableAntiAliasing = true;
+	appPrefs.psOutputPreviewPrefs.showTransparency = false;
+	appPrefs.psOutputPreviewPrefs.cmykPreviewMode = false ;
+	appPrefs.psOutputPreviewPrefs.isCyanVisible = true;
+	appPrefs.psOutputPreviewPrefs.isMagentaVisible = true;
+	appPrefs.psOutputPreviewPrefs.isYellowVisible = true;
+	appPrefs.psOutputPreviewPrefs.isBlackVisible = true;
+	appPrefs.psOutputPreviewPrefs.displayInkCoverage = false;
+	appPrefs.psOutputPreviewPrefs.inkCoverageThreshold = 250;
+
 	appPrefs.extToolPrefs.imageEditorExecutable = ScPaths::defaultImageEditorApp();
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
@@ -1745,6 +1756,19 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcPdfOutputPrev.setAttribute("InkThreshold", appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold);
 	elem.appendChild(dcPdfOutputPrev);
 
+	QDomElement dcPSOutputPrev = docu.createElement("PSOutputPreview");
+	dcPSOutputPrev.setAttribute("PSLevel", static_cast<int>(appPrefs.psOutputPreviewPrefs.psLevel));
+	dcPSOutputPrev.setAttribute("AntiAliasing", static_cast<int>(appPrefs.psOutputPreviewPrefs.enableAntiAliasing));
+	dcPSOutputPrev.setAttribute("Transparency", static_cast<int>(appPrefs.psOutputPreviewPrefs.showTransparency));
+	dcPSOutputPrev.setAttribute("CMYKMode", static_cast<int>(appPrefs.psOutputPreviewPrefs.cmykPreviewMode));
+	dcPSOutputPrev.setAttribute("Cyan", static_cast<int>(appPrefs.psOutputPreviewPrefs.isCyanVisible));
+	dcPSOutputPrev.setAttribute("Magenta", static_cast<int>(appPrefs.psOutputPreviewPrefs.isMagentaVisible));
+	dcPSOutputPrev.setAttribute("Yellow", static_cast<int>(appPrefs.psOutputPreviewPrefs.isYellowVisible));
+	dcPSOutputPrev.setAttribute("Black", static_cast<int>(appPrefs.psOutputPreviewPrefs.isBlackVisible));
+	dcPSOutputPrev.setAttribute("InkCoverage", static_cast<int>(appPrefs.psOutputPreviewPrefs.displayInkCoverage));
+	dcPSOutputPrev.setAttribute("InkThreshold", appPrefs.psOutputPreviewPrefs.inkCoverageThreshold);
+	elem.appendChild(dcPSOutputPrev);
+
 	QDomElement dcExternalTools = docu.createElement("ExternalTools");
 	dcExternalTools.setAttribute("ImageEditor", imageEditorExecutable());
 	dcExternalTools.setAttribute("Ghostscript", ghostscriptExecutable());
@@ -2460,6 +2484,19 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.pdfOutputPreviewPrefs.isBlackVisible = static_cast<bool>(dc.attribute("Black", "1").toInt());
 			appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
 			appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = dc.attribute("InkThreshold", "250").toInt();
+		}
+		if (dc.tagName() == "PSOutputPreview")
+		{
+			appPrefs.psOutputPreviewPrefs.psLevel = qMax(1, qMin(dc.attribute("PSLevel", "3").toInt(), 3));
+			appPrefs.psOutputPreviewPrefs.enableAntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.showTransparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.cmykPreviewMode = static_cast<bool>(dc.attribute("CMYKMode", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.isCyanVisible = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isMagentaVisible = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isYellowVisible = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isBlackVisible = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.displayInkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.inkCoverageThreshold = dc.attribute("InkThreshold", "250").toInt();
 		}
 		if (dc.tagName()=="ExternalTools")
 		{

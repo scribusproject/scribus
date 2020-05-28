@@ -498,6 +498,8 @@ public slots:
 	void printPreview();
 	void doOutputPreviewPDF();
 	void outputPreviewPDF();
+	void doOutputPreviewPS();
+	void outputPreviewPS();
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();

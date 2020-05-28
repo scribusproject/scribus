@@ -117,6 +117,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
+#include "util_printer.h"
 
 
 // static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
@@ -221,15 +222,12 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	m_itemCreationTransaction(nullptr),
 	m_alignTransaction(nullptr)
 {
-	m_docUnitRatio=unitGetRatioFromIndex(m_docPrefsData.docSetupPrefs.docUnitIndex);
-	m_docPrefsData.docSetupPrefs.pageHeight=0;
-	m_docPrefsData.docSetupPrefs.pageWidth=0;
-	m_docPrefsData.docSetupPrefs.pagePositioning=0;
-	maxCanvasCoordinate=(FPoint(m_docPrefsData.displayPrefs.scratch.left() + m_docPrefsData.displayPrefs.scratch.right(), m_docPrefsData.displayPrefs.scratch.top() + m_docPrefsData.displayPrefs.scratch.bottom())),
+	m_docUnitRatio = unitGetRatioFromIndex(m_docPrefsData.docSetupPrefs.docUnitIndex);
+	m_docPrefsData.docSetupPrefs.pageHeight = 0;
+	m_docPrefsData.docSetupPrefs.pageWidth = 0;
+	m_docPrefsData.docSetupPrefs.pagePositioning = 0;
+	maxCanvasCoordinate = FPoint(m_docPrefsData.displayPrefs.scratch.left() + m_docPrefsData.displayPrefs.scratch.right(), m_docPrefsData.displayPrefs.scratch.top() + m_docPrefsData.displayPrefs.scratch.bottom());
 	init();
-	m_docPrefsData.pdfPrefs.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
-	m_docPrefsData.pdfPrefs.useDocBleeds = true;
-	Print_Options.firstUse = true;
 	//create default numeration
 	auto* numS = new NumStruct;
 	numS->m_name = "default";
@@ -260,19 +258,16 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_itemCreationTransaction(nullptr),
 	m_alignTransaction(nullptr)
 {
-	m_docPrefsData.docSetupPrefs.docUnitIndex=unitindex;
-	m_docPrefsData.docSetupPrefs.pageHeight=pagesize.height();
-	m_docPrefsData.docSetupPrefs.pageWidth=pagesize.width();
-	m_docPrefsData.docSetupPrefs.pageSize=pagesize.name();
-	m_docPrefsData.docSetupPrefs.margins=margins;
-	maxCanvasCoordinate=(FPoint(m_docPrefsData.displayPrefs.scratch.left() + m_docPrefsData.displayPrefs.scratch.right(), m_docPrefsData.displayPrefs.scratch.top() + m_docPrefsData.displayPrefs.scratch.bottom())),
+	m_docPrefsData.docSetupPrefs.docUnitIndex = unitindex;
+	m_docPrefsData.docSetupPrefs.pageHeight = pagesize.height();
+	m_docPrefsData.docSetupPrefs.pageWidth = pagesize.width();
+	m_docPrefsData.docSetupPrefs.pageSize = pagesize.name();
+	m_docPrefsData.docSetupPrefs.margins = margins;
+	maxCanvasCoordinate = FPoint(m_docPrefsData.displayPrefs.scratch.left() + m_docPrefsData.displayPrefs.scratch.right(), m_docPrefsData.displayPrefs.scratch.top() + m_docPrefsData.displayPrefs.scratch.bottom());
 	setPageSetFirstPage(pagesSetup.pageArrangement, pagesSetup.firstPageLocation);
 	init();
-	m_docPrefsData.pdfPrefs.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
-	m_docPrefsData.pdfPrefs.useDocBleeds = true;
-	m_docPrefsData.docSetupPrefs.pageOrientation=pagesSetup.orientation;
-	m_docPrefsData.docSetupPrefs.pagePositioning=pagesSetup.pageArrangement;
-	Print_Options.firstUse = true;
+	m_docPrefsData.docSetupPrefs.pageOrientation = pagesSetup.orientation;
+	m_docPrefsData.docSetupPrefs.pagePositioning = pagesSetup.pageArrangement;
 }
 
 
@@ -300,11 +295,21 @@ void ScribusDoc::init()
 
 	PrefsManager& prefsManager = PrefsManager::instance();
 	m_docPrefsData.colorPrefs.DCMSset = prefsManager.appPrefs.colorPrefs.DCMSset;
+
+	Print_Options.firstUse = true;
+	PrinterUtil::getDefaultPrintOptions(Print_Options, m_docPrefsData.docSetupPrefs.bleeds);
+	Print_Options.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
+	Print_Options.useDocBleeds = true;
+
+	m_docPrefsData.pdfPrefs.firstUse = true;
+	m_docPrefsData.pdfPrefs.Version = m_appPrefsData.pdfPrefs.Version;
 	m_docPrefsData.pdfPrefs.SolidProf = m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	m_docPrefsData.pdfPrefs.ImageProf = m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile;
 	m_docPrefsData.pdfPrefs.PrintProf = m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile;
 	m_docPrefsData.pdfPrefs.Intent  = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentColors;
 	m_docPrefsData.pdfPrefs.Intent2 = m_docPrefsData.colorPrefs.DCMSset.DefaultIntentImages;
+	m_docPrefsData.pdfPrefs.useDocBleeds = true;
+	m_docPrefsData.pdfPrefs.bleeds = m_docPrefsData.docSetupPrefs.bleeds;
 
 	AddFont(m_appPrefsData.itemToolPrefs.textFont);//, prefsData.AvailFonts[prefsData.itemToolPrefs.textFont]->Font);
 	//FIXME: aren't we doing this now anyway with prefs struct copy?
@@ -346,7 +351,6 @@ void ScribusDoc::init()
 		PageColors.insert(m_appPrefsData.itemToolPrefs.calligraphicPenFillColor, m_appPrefsData.colorPrefs.DColors[m_appPrefsData.itemToolPrefs.calligraphicPenFillColor]);
 	if (m_appPrefsData.itemToolPrefs.calligraphicPenLineColor != CommonStrings::None)
 		PageColors.insert(m_appPrefsData.itemToolPrefs.calligraphicPenLineColor, m_appPrefsData.colorPrefs.DColors[m_appPrefsData.itemToolPrefs.calligraphicPenLineColor]);
-
 	
 	ParagraphStyle pstyle;
 	pstyle.setDefaultStyle(true);
@@ -444,16 +448,13 @@ void ScribusDoc::init()
 	Layers.addLayer( tr("Background") );
 	// FIXME: Check PDF version input
 	//TODO: Check if this is needed now we ue appPrefsData --> docPrefsData
-	pdfOptions().Version = m_appPrefsData.pdfPrefs.Version;
-
-	pdfOptions().firstUse = true;
 	docPatterns.clear();
 	docGradients.clear();
 
 	if (autoSave() && ScCore->usingGUI())
 		autoSaveTimer->start(autoSaveTime());
 	//Do this after all the collections have been created and cleared!
-	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
+	m_masterPageMode = true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
 	//for loading old documents where default notes style is not saved

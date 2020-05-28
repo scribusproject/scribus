@@ -503,6 +503,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/osgeditor.h \
            scribus/ui/outlinepalette.h \
            scribus/ui/outputpreview_pdf.h \
+           scribus/ui/outputpreview_ps.h \
            scribus/ui/outputpreviewbase.h \
            scribus/ui/pageitemattributes.h \
            scribus/ui/pageitempositionsetter.h \
@@ -1068,6 +1069,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/notesstyleseditor.ui \
          scribus/ui/osgeditor.ui \
          scribus/ui/outputpreview_pdf.ui \
+         scribus/ui/outputpreview_ps.ui \
          scribus/ui/outputpreviewbase.ui \
          scribus/ui/pageitemattributes.ui \
          scribus/ui/pagepalette_masterpagesbase.ui \
@@ -1635,6 +1637,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/osgeditor.cpp \
            scribus/ui/outlinepalette.cpp \
            scribus/ui/outputpreview_pdf.cpp \
+           scribus/ui/outputpreview_ps.cpp \
            scribus/ui/outputpreviewbase.cpp \
            scribus/ui/pageitemattributes.cpp \
            scribus/ui/pageitempositionsetter.cpp \

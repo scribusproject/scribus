@@ -26,11 +26,12 @@ for which a new license (GPL+exception) is in place.
 #elif defined(HAVE_CUPS) // Haiku doesn't have it
 	#include <cups/cups.h>
 #endif
-#include "ui/createrange.h"
+#include "sccolor.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
+#include "ui/createrange.h"
 #include "units.h"
 #include "usertaskstructs.h"
 #include "util.h"
@@ -38,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 extern bool previewDinUse;
 
-PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, const QStringList& spots)
+PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions)
 		: QDialog( parent )
 {
 	setupUi(this);
@@ -103,15 +104,19 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	}
 
 	// Fill Separation list
-	QString sep[] =
-	    {
-	        tr("All"), tr("Cyan"), tr("Magenta"), tr("Yellow"),
-	        tr("Black")
-	    };
-	size_t sepArray = sizeof(sep) / sizeof(*sep);
-	for (uint prop = 0; prop < sepArray; ++prop)
-		separationsCombo->addItem(sep[prop]);
-	separationsCombo->addItems(spots);
+	ColorList usedSpots;
+	doc->getUsedColors(usedSpots, true);
+	m_spotColors = usedSpots.keys();
+
+	separationsCombo->addItem( tr("All"), "All" );
+	separationsCombo->addItem( tr("Cyan"), "Cyan" );
+	separationsCombo->addItem( tr("Magenta"), "Magenta" );
+	separationsCombo->addItem( tr("Yellow"), "Yellow" );
+	for (int i = 0; i < m_spotColors.count(); ++i)
+	{
+		const QString& spotName = m_spotColors.at(i);
+		separationsCombo->addItem(spotName, spotName);
+	}
 
 	if (m_doc->pagePositioning() != 0)
 	{
@@ -151,7 +156,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	connect( docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 	connect( optionsButton, SIGNAL( clicked() ), this, SLOT( selectOptions() ) );
 
-	setStoredValues(printOptions.filename, gcr);
+	setStoredValues(printOptions.filename);
 #if defined(_WIN32)
 	if (!outputToFile())
 	{
@@ -473,42 +478,10 @@ void PrintDialog::previewButtonClicked()
 	emit doPreview();
 }
 
-void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
-{
-	QStringList spots;
-	options.firstUse = true;
-	options.printer  = prefs->get("CurrentPrn", "");
-	options.useAltPrintCommand = prefs->getBool("OtherCom", false);
-	options.printerCommand = prefs->get("Command", "");
-	options.outputSeparations = prefs->getInt("Separations", 0);
-	options.useColor = (prefs->getInt("PrintColor", 0) == 0);
-	spots << tr("All") << tr("Cyan") << tr("Magenta") << tr("Yellow") << tr("Black");
-	int selectedSep  = prefs->getInt("SepArt", 0);
-	if ((selectedSep < 0) || (selectedSep > 4))
-		selectedSep = 0;
-	options.separationName = spots.at(selectedSep);
-	options.prnEngine = (PrintEngine) prefs->getInt("PSLevel", PostScript3);
-	options.mirrorH = prefs->getBool("MirrorH", false);
-	options.mirrorV = prefs->getBool("MirrorV", false);
-	options.setDevParam = prefs->getBool("doDev", false);
-	options.doGCR   = prefs->getBool("DoGCR", gcr);
-	options.doClip  = prefs->getBool("Clip", false);
-	options.useSpotColors = prefs->getBool("doSpot", true);
-	options.useDocBleeds  = true;
-	options.bleeds = *m_doc->bleeds();
-	options.markLength = prefs->getDouble("markLength", 20.0);
-	options.markOffset = prefs->getDouble("markOffset", 0.0);
-	options.cropMarks  = prefs->getBool("cropMarks", false);
-	options.bleedMarks = prefs->getBool("bleedMarks", false);
-	options.registrationMarks = prefs->getBool("registrationMarks", false);
-	options.colorMarks = prefs->getBool("colorMarks", false);
-	options.includePDFMarks = prefs->getBool("includePDFMarks", true);
-}
-
-void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
+void PrintDialog::setStoredValues(const QString& fileName)
 {
 	if (m_doc->Print_Options.firstUse)
-		getDefaultPrintOptions(m_doc->Print_Options, gcr);
+		PrinterUtil::getDefaultPrintOptions(m_doc->Print_Options, m_doc->bleedsVal());
 	
 	int selectedDest = PrintDest->findText(m_doc->Print_Options.printer);
 	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
@@ -534,17 +507,8 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	Copies->setValue(1);
 	printSepCombo->setCurrentIndex(m_doc->Print_Options.outputSeparations);
 	colorType->setCurrentIndex(m_doc->Print_Options.useColor ? 0 : 1);
-	ColorList usedSpots;
-	m_doc->getUsedColors(usedSpots, true);
-	QStringList spots = usedSpots.keys();
-	spots.prepend( tr("Black"));
-	spots.prepend( tr("Yellow"));
-	spots.prepend( tr("Magenta"));
-	spots.prepend( tr("Cyan"));
-	spots.prepend( tr("All"));
-	int selectedSep = spots.indexOf(m_doc->Print_Options.separationName);
-	if ((selectedSep > -1) && (selectedSep < separationsCombo->count()))
-		separationsCombo->setCurrentIndex(selectedSep);
+	int selectedSep = separationsCombo->findData(m_doc->Print_Options.separationName);
+	separationsCombo->setCurrentIndex((selectedSep >= 0) ? selectedSep : 0);
 	if (printSepCombo->currentIndex() == 1)
 		separationsCombo->setEnabled(true);
 	setPrintEngine(m_doc->Print_Options.prnEngine);

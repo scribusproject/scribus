@@ -160,7 +160,7 @@ QString CheckDocument::bestCheckerProfileForCheckMode(CheckMode mode, const QStr
 {
 	QString bestProfile = defaultProfile;
 
-	if (mode == CheckDocument::checkPDF)
+	if (mode == CheckDocument::checkPDF || mode == CheckDocument::checkOutputPreviewPDF)
 	{
 		PDFVersion pdfVersion = m_Doc->pdfOptions().Version;
 		if (pdfVersion == PDFVersion::PDF_13)
@@ -178,7 +178,7 @@ QString CheckDocument::bestCheckerProfileForCheckMode(CheckMode mode, const QStr
 		else if (pdfVersion == PDFVersion::PDF_X4)
 			bestProfile = CommonStrings::PDF_X4;
 	}
-	else if (mode == CheckDocument::checkEPS)
+	else if (mode == CheckDocument::checkEPS || mode == CheckDocument::checkOutputPreviewPS)
 		bestProfile = CommonStrings::PostScript;
 
 	const auto& checkerProfiles = m_Doc->checkerProfiles();

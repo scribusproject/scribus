@@ -96,6 +96,7 @@ public:
 	ScribusDoc();
 	ScribusDoc(const QString& docName, int unitIndex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup);
 	~ScribusDoc();
+
 	void init();
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
@@ -130,7 +131,6 @@ public:
 	void invalidateAll();
 	void invalidateLayer(int layerID);
 	void invalidateRegion(QRectF region);
-
 
 	MarginStruct* scratch() { return &m_docPrefsData.displayPrefs.scratch; }
 	MarginStruct* bleeds() { return &m_docPrefsData.docSetupPrefs.bleeds; }

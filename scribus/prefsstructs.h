@@ -430,6 +430,20 @@ struct PDFOutputPreviewPrefs
 	int  inkCoverageThreshold { 250 };
 };
 
+struct PSOutputPreviewPrefs
+{
+	int  psLevel { 3 };
+	bool enableAntiAliasing { true };
+	bool showTransparency { false };
+	bool cmykPreviewMode { false };
+	bool isCyanVisible { true };
+	bool isMagentaVisible { true };
+	bool isYellowVisible { true };
+	bool isBlackVisible { true };
+	bool displayInkCoverage { false };
+	int  inkCoverageThreshold { 250 };
+};
+
 struct PluginPrefs
 {
 };
@@ -472,6 +486,7 @@ struct ApplicationPrefs
 	PrinterPrefs printerPrefs;
 	PrintPreviewPrefs printPreviewPrefs;
 	PDFOutputPreviewPrefs pdfOutputPreviewPrefs;
+	PSOutputPreviewPrefs  psOutputPreviewPrefs;
 	ScrapbookPrefs scrapbookPrefs;
 	ScripterPrefs scripterPrefs;
 	ShortWordPrefs shortwordPrefs;

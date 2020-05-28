@@ -213,6 +213,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/notesstyleseditor.h"
 #include "ui/outlinepalette.h"
 #include "ui/outputpreview_pdf.h"
+#include "ui/outputpreview_ps.h"
 #include "ui/pageitemattributes.h"
 #include "ui/pagelayout.h"
 #include "ui/pagepalette.h"
@@ -910,6 +911,7 @@ void ScribusMainWindow::initMenuBar()
 		scrMenuMgr->addMenuItemString("FileOutputPreview", "File");
 		scrMenuMgr->createMenu("FileOutputPreview", tr("&Output Preview"), "File");
 		scrMenuMgr->addMenuItemString("OutputPreviewPDF", "FileOutputPreview");
+		scrMenuMgr->addMenuItemString("OutputPreviewPS", "FileOutputPreview");
 		scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	}
 	scrMenuMgr->addMenuItemString("fileQuit", "File");
@@ -4526,10 +4528,8 @@ void ScribusMainWindow::slotReallyPrint()
 		}
 	}
 	doc->Print_Options.copies = 1;
-	ColorList usedSpots;
-	doc->getUsedColors(usedSpots, true);
-	QStringList spots = usedSpots.keys();
-	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options, m_prefsManager.appPrefs.printerPrefs.GCRMode, spots);
+
+	PrintDialog *printer = new PrintDialog(this, doc, doc->Print_Options);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -7111,6 +7111,79 @@ void ScribusMainWindow::doOutputPreviewPDF()
 	delete dia;
 }
 
+void ScribusMainWindow::outputPreviewPS()
+{
+	const CheckerPrefs& checkerProfile = doc->checkerProfiles()[doc->curCheckProfile()];
+	if (checkerProfile.autoCheck)
+	{
+		if (scanDocument())
+		{
+			if (checkerProfile.ignoreErrors)
+			{
+				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											QMessageBox::Abort | QMessageBox::Ignore,
+											QMessageBox::NoButton,	// GUI default
+											QMessageBox::Ignore);	// batch default
+				if (i == QMessageBox::Abort)
+					return;
+			}
+			else
+			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPS()));
+				docCheckerPalette->setIgnoreEnabled(true);
+				docCheckerPalette->checkMode = CheckDocument::checkOutputPreviewPS;
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
+				scrActions["toolsPreflightVerifier"]->setChecked(true);
+				return;
+			}
+		}
+	}
+	doOutputPreviewPS();
+}
+
+void ScribusMainWindow::doOutputPreviewPS()
+{
+	if (!HaveDoc)
+		return;
+	if (!ScCore->haveGS())
+		return;
+
+	if (docCheckerPalette->isIgnoreEnabled())
+	{
+		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = CheckDocument::checkNULL;
+		docCheckerPalette->setIgnoreEnabled(false);
+		scrActions["toolsPreflightVerifier"]->setChecked(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPS()));
+	}
+
+	OutputPreview_PS *dia = new OutputPreview_PS(this, doc);
+	previewDinUse = true;
+	connect(dia, SIGNAL(doExport()), this, SLOT(slotReallyPrint()));
+	dia->exec();
+	disconnect(dia, SIGNAL(doExport()), this, SLOT(slotReallyPrint()));
+	previewDinUse = false;
+
+	PrefsManager& prefsManager = PrefsManager::instance();
+	prefsManager.appPrefs.psOutputPreviewPrefs.psLevel = dia->postscriptLevel();
+	prefsManager.appPrefs.psOutputPreviewPrefs.cmykPreviewMode = dia->isCMYKPreviewEnabled();
+	prefsManager.appPrefs.psOutputPreviewPrefs.enableAntiAliasing = dia->isAntialiasingEnabled();
+	prefsManager.appPrefs.psOutputPreviewPrefs.showTransparency = dia->isTransparencyEnabled();
+	if (ScCore->haveTIFFSep())
+	{
+		prefsManager.appPrefs.psOutputPreviewPrefs.isCyanVisible = dia->isInkChannelVisible("Cyan");
+		prefsManager.appPrefs.psOutputPreviewPrefs.isMagentaVisible = dia->isInkChannelVisible("Magenta");
+		prefsManager.appPrefs.psOutputPreviewPrefs.isYellowVisible = dia->isInkChannelVisible("Yellow");
+		prefsManager.appPrefs.psOutputPreviewPrefs.isBlackVisible = dia->isInkChannelVisible("Black");
+		prefsManager.appPrefs.psOutputPreviewPrefs.displayInkCoverage = dia->isInkCoverageEnabled();
+		prefsManager.appPrefs.psOutputPreviewPrefs.inkCoverageThreshold = dia->inkCoverageThreshold();
+	}
+
+	delete dia;
+}
+
 bool ScribusMainWindow::DoSaveAsEps(const QString& fn, QString& error)
 {
 	QStringList spots;
@@ -8495,6 +8568,8 @@ void ScribusMainWindow::docCheckToggle(bool visible)
 			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
 		if (docCheckerPalette->checkMode == CheckDocument::checkOutputPreviewPDF)
 			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPDF()));
+		if (docCheckerPalette->checkMode == CheckDocument::checkOutputPreviewPS)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doOutputPreviewPS()));
 		docCheckerPalette->setIgnoreEnabled(false);
 		docCheckerPalette->checkMode = CheckDocument::checkNULL;
 	}
