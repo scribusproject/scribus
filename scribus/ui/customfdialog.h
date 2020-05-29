@@ -106,27 +106,31 @@ public:
 	void setExtension(const QString& e);
 	/*! \brief Get the file extension
 	\retval QString see setExtension(QString e) */
-	QString extension();
+	const QString& extension() const;
+
 	/*! \brief Set the "compress" extension of the resulting file name.
 	\param e string extension without any "."
 	*/
 	void setZipExtension(const QString& e);
 	/*! \brief Get the zipped file extension
 	\retval QString see setZipExtension(QString e) */
-	QString zipExtension();
+	const QString& zipExtension() const;
 
-	QCheckBox* saveZip;
-	QCheckBox* withFonts;
-	QCheckBox* withProfiles;
-	QFrame* Layout;
-	QFrame* LayoutC;
-	QComboBox *optionCombo;
-	QLabel *optionLabel;
-	ScFileWidget *fileDialog;
-	FDialogPreview *filePreview;
-	QCheckBox *showPreview;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	void setTextCodec(const QString& textCodec);
+	QString textCodec() const;
+
+	QCheckBox* saveZip { nullptr };
+	QCheckBox* withFonts { nullptr };
+	QCheckBox* withProfiles { nullptr };
+	QFrame* Layout { nullptr };
+	QFrame* LayoutC { nullptr };
+	QComboBox *optionCombo { nullptr };
+	QLabel *optionLabel { nullptr };
+	ScFileWidget *fileDialog { nullptr };
+	FDialogPreview *filePreview { nullptr };
+	QCheckBox *showPreview { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 
 	void setSelection(const QString& );
 	QString selectedFile();

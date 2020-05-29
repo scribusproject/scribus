@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include <QShowEvent>
 #include <QSignalBlocker>
 #include <QScopedPointer>
+#include <QScopedValueRollback>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
@@ -3484,26 +3485,26 @@ void StoryEditor::LoadTextFile()
 
 void StoryEditor::SaveTextFile()
 {
-	m_blockUpdate = true;
-	PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
-	QString wdir = dirs->get("story_save", prefsManager.appPrefs.pathPrefs.documents);
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
-	qApp->processEvents();
+	QScopedValueRollback<bool> blockUpdateRollback(m_blockUpdate);
+	PrefsContext* dirsContext = prefsManager.prefsFile->getContext("dirs");
+	PrefsContext* textContext = prefsManager.prefsFile->getContext("textsave_dialog");
+	QString prefsDocDir = prefsManager.documentDir();
+	QString workingDir = dirsContext->get("save_text", prefsDocDir.isEmpty() ? "." : prefsDocDir);
+	QString textEncoding = textContext->get("encoding");
+
+	CustomFDialog dia(this, workingDir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
+	dia.setTextCodec(textEncoding);
 	if (dia.exec() != QDialog::Accepted)
-	{
-		m_blockUpdate = false;
 		return;
-	}
-	QString loadEnc = dia.optionCombo->currentText();
-	if (loadEnc == "UTF-16")
-		loadEnc = "ISO-10646-UCS-2";
+	
 	QString fileName = dia.selectedFile();
-	if (!fileName.isEmpty())
-	{
-		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
-		Serializer::writeWithEncoding(fileName, loadEnc, Editor->StyledText.plainText());
-	}
-	m_blockUpdate = false;
+	if (fileName.isEmpty())
+		return;
+	textEncoding = dia.textCodec();
+
+	dirsContext->set("save_text", fileName.left(fileName.lastIndexOf("/")));
+	textContext->set("encoding", dia.textCodec());
+	Serializer::writeWithEncoding(fileName, textEncoding, Editor->StyledText.plainText());
 }
 
 bool StoryEditor::textDataChanged() const

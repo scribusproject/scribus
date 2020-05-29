@@ -593,7 +593,7 @@ void CustomFDialog::setExtension(const QString& e)
 	m_ext = e;
 }
 
-QString CustomFDialog::extension()
+const QString&  CustomFDialog::extension() const
 {
 	return m_ext;
 }
@@ -603,7 +603,33 @@ void CustomFDialog::setZipExtension(const QString& e)
 	m_extZip = e;
 }
 
-QString CustomFDialog::zipExtension()
+const QString& CustomFDialog::zipExtension() const
 {
 	return m_extZip;
+}
+
+void CustomFDialog::setTextCodec(const QString& textCodec)
+{
+	if ((m_optionFlags & fdShowCodecs) == 0)
+		return;
+	if (!optionCombo)
+		return;
+
+	QString textEncoding = textCodec;
+	if (textCodec.isEmpty())
+		textEncoding = "System";
+
+	int index = optionCombo->findText(textEncoding, Qt::MatchFixedString);
+	if (index < 0)
+		return;
+	optionCombo->setCurrentIndex(index);
+}
+
+QString CustomFDialog::textCodec() const
+{
+	if ((m_optionFlags & fdShowCodecs) == 0)
+		return QString();
+	if (optionCombo)
+		return optionCombo->currentText();
+	return QString();
 }

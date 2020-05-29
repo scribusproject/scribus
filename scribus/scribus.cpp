@@ -5361,20 +5361,25 @@ void ScribusMainWindow::ToggleMouseTips()
 void ScribusMainWindow::SaveText()
 {
 	PrefsContext* dirsContext = m_prefsManager.prefsFile->getContext("dirs");
+	PrefsContext* textContext = m_prefsManager.prefsFile->getContext("textsave_dialog");
 	QString prefsDocDir = m_prefsManager.documentDir();
 	QString workingDir = dirsContext->get("save_text", prefsDocDir.isEmpty() ? "." : prefsDocDir);
+	QString textEncoding = textContext->get("encoding");
 
 	CustomFDialog dia(this, workingDir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
+	dia.setTextCodec(textEncoding);
 	if (dia.exec() != QDialog::Accepted)
 		return;
-	QString fn = dia.selectedFile();
-	if (fn.isEmpty())
-		return;
-	QString loadEnc = dia.optionCombo->currentText();
 
-	m_prefsManager.prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	textEncoding = dia.textCodec();
+
+	dirsContext->set("save_text", fileName.left(fileName.lastIndexOf("/")));
+	textContext->set("encoding", dia.textCodec());
 	const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
-	Serializer::writeWithEncoding(fn, loadEnc, story.plainText());
+	Serializer::writeWithEncoding(fileName, textEncoding, story.plainText());
 }
 
 void ScribusMainWindow::applyNewMaster(const QString& name)
