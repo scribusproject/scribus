@@ -185,6 +185,8 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	if (!codec) return false;
+
 	QByteArray dec = codec->fromUnicode( txt );
 	QFile f(filename);
 	if (f.open(QIODevice::WriteOnly))
