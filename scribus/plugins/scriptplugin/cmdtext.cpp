@@ -314,7 +314,6 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	QString text = "";
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
@@ -323,16 +322,20 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+	
+	const StoryText& story = item->itemText;
+	QString text;
+	text.reserve(story.isSelected() ? story.selectionLength() : story.length());
 	for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
 	{
 		if (item->HasSel)
 		{
-			if (item->itemText.selected(i))
-				text += item->itemText.text(i);
+			if (story.selected(i))
+				text += story.text(i);
 		}
 		else
 		{
-			text += item->itemText.text(i);
+			text += story.text(i);
 		}
 	}
 	return PyUnicode_FromString(text.toUtf8());
@@ -345,7 +348,6 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	QString text = "";
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
@@ -356,18 +358,21 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 	}
 
 	// collect all chars from a storytext
-	for (int i = 0; i < item->itemText.length(); i++)
+	const StoryText& story = item->itemText;
+	QString text;
+	text.reserve(story.isSelected() ? story.selectionLength() : story.length());
+	for (int i = 0; i < story.length(); i++)
 	{
 		if (item->HasSel)
 		{
-			if (item->itemText.selected(i))
-				text += item->itemText.text(i);
+			if (story.selected(i))
+				text += story.text(i);
 		}
 		else
 		{
-			text += item->itemText.text(i);
+			text += story.text(i);
 		}
-	} // for
+	}
 	return PyUnicode_FromString(text.toUtf8());
 }
 
