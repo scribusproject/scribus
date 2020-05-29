@@ -16,7 +16,7 @@ before_install:
   - sudo apt-get update -qq
       
 install:
-  - sudo apt-get install --force-yes cmake libboost-python-dev libcairo2-dev libcups2-dev libharfbuzz-dev libharfbuzz-icu0 libhunspell-dev libhyphen-dev liblcms2-dev libpng-dev libpodofo-dev libpoppler-dev libpoppler-cpp-dev libtiff-dev libxml2-dev qt514base qt514declarative qt514tools python3-all-dev python3-tk zlib1g-dev libgraphicsmagick++1-dev libopenscenegraph-dev libcdr-dev libmspub-dev libwpg-dev libvisio-dev coreutils binutils poppler-data libpoppler-private-dev libfreehand-dev libpagemaker-dev libqxp-dev libzmf-dev
+  - sudo apt-get install --force-yes cmake libboost-python-dev libcairo2-dev libcdr-dev libcups2-dev libfreehand-dev libharfbuzz-dev libharfbuzz-icu0 libgraphicsmagick++1-dev libhunspell-dev libhyphen-dev liblcms2-dev libmspub-dev libopenscenegraph-dev libpagemaker-dev libpng-dev libpodofo-dev libpoppler-dev libpoppler-cpp-dev libpoppler-private-dev libqxp-dev libtiff-dev libvisio-dev libwpg-dev libxml2-dev libzmf-dev python3-all-dev python3-tk qt514base qt514declarative qt514tools zlib1g-dev coreutils binutils poppler-data
       
 script:
   - source /opt/qt514/bin/qt514-env.sh
