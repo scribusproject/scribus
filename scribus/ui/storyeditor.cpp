@@ -3485,8 +3485,6 @@ void StoryEditor::LoadTextFile()
 void StoryEditor::SaveTextFile()
 {
 	m_blockUpdate = true;
-	QString loadEnc;
-	QString fileName;
 	PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
 	QString wdir = dirs->get("story_save", prefsManager.appPrefs.pathPrefs.documents);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
@@ -3496,10 +3494,10 @@ void StoryEditor::SaveTextFile()
 		m_blockUpdate = false;
 		return;
 	}
-	loadEnc = dia.optionCombo->currentText();
+	QString loadEnc = dia.optionCombo->currentText();
 	if (loadEnc == "UTF-16")
 		loadEnc = "ISO-10646-UCS-2";
-	fileName = dia.selectedFile();
+	QString fileName = dia.selectedFile();
 	if (!fileName.isEmpty())
 	{
 		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
