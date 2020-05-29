@@ -7293,27 +7293,25 @@ void ScribusMainWindow::reallySaveAsEps()
 			filename = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	filename = QDir::toNativeSeparators(filename);
-	QString wdir = ".";
-	QString prefsDocDir=m_prefsManager.documentDir();
-	if (!prefsDocDir.isEmpty())
-		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("eps", prefsDocDir);
-	else
-		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save As"), tr("%1;;All Files (*)").arg(m_formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
-	if (!fn.isEmpty())
+
+	PrefsContext* dirsContext = m_prefsManager.prefsFile->getContext("dirs");
+	QString prefsDocDir = m_prefsManager.documentDir();
+	QString workingDir = dirsContext->get("eps", prefsDocDir.isEmpty() ? "." : prefsDocDir);
+	QString fn = CFileDialog(workingDir, tr("Save As"), tr("%1;;All Files (*)").arg(m_formatsManager->extensionsForFormat(FormatsManager::EPS)), filename, fdHidePreviewCheckBox | fdNone);
+	if (fn.isEmpty())
+		return;
+
+	m_prefsManager.prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
+	if (!overwrite(this, fn))
+		return;
+
+	QString epsError;
+	if (!DoSaveAsEps(fn, epsError))
 	{
-		m_prefsManager.prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
-		if (overwrite(this, fn))
-		{
-			QString epsError;
-			if (!DoSaveAsEps(fn, epsError))
-			{
-				QString message = tr("Cannot write the file: \n%1").arg(fn);
-				if (!epsError.isEmpty())
-					message += QString("\n%1").arg(epsError);
-				ScMessageBox::warning(this, CommonStrings::trWarning, message);
-			}
-		}
+		QString message = tr("Cannot write the file: \n%1").arg(fn);
+		if (!epsError.isEmpty())
+			message += QString("\n%1").arg(epsError);
+		ScMessageBox::warning(this, CommonStrings::trWarning, message);
 	}
 }
 
