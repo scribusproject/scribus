@@ -436,7 +436,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	options2.pageNumbers.push_back(page->pageNr() + 1);
 	options2.includePDFMarks = false;
 
-	tempFilePath = PrefsManager::instance().preferencesLocation() + "/tmp.ps";
+	tempFilePath = ScPaths::tempFileDir() + "/tmp.ps";
 	PSLib *dd = new PSLib(doc, options2, PSLib::OutputEPS);
 	ret = dd->createPS(tempFilePath);
 	delete dd;
@@ -446,7 +446,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	{
 		QString tmp;
 		QStringList opts;
-		QString tempFilePath2 = PrefsManager::instance().preferencesLocation() + "/tmp2.ps";
+		QString tempFilePath2 = ScPaths::tempFileDir() + "/tmp2.ps";
 		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())));
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())));
 		if (QFile::exists(tempFilePath2))

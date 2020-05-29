@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
@@ -24,7 +25,7 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 		return false;
 
 	if (!options.toFile)
-		filename = prefsManager.preferencesLocation() + "/tmp.ps";
+		filename = ScPaths::tempFileDir() + "/tmp.ps";
 
 	// Write the PS to a file
 	filename = QDir::toNativeSeparators(filename);
