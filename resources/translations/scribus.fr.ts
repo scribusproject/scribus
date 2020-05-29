@@ -13616,62 +13616,62 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="85"/>
         <source>Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mise à l&apos;échelle :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="98"/>
         <source>Resize the scale of the page</source>
-        <translation type="unfinished">Redimensionner l&apos;échelle de la page</translation>
+        <translation>Redimensionner l&apos;échelle de la page</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="102"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="107"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="112"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="117"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="122"/>
         <source>Fit to Width</source>
-        <translation type="unfinished">Ajuster à la largeur</translation>
+        <translation>Ajuster à la largeur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="127"/>
         <source>Fit to Height</source>
-        <translation type="unfinished">Ajuster à la hauteur</translation>
+        <translation>Ajuster à la hauteur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="132"/>
         <source>Fit to Page</source>
-        <translation type="unfinished">Ajuster à la page</translation>
+        <translation>Ajuster à la page</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="179"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="189"/>
         <source>Export...</source>
-        <translation type="unfinished">Exporter...</translation>
+        <translation>Exporter...</translation>
     </message>
 </context>
 <context>
@@ -13679,132 +13679,132 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="38"/>
         <source>Preview Settings</source>
-        <translation type="unfinished">Paramètres de l&apos;aperçu</translation>
+        <translation>Paramètres de l&apos;aperçu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="51"/>
         <source>Screen / Web</source>
-        <translation type="unfinished">Écran / Web</translation>
+        <translation>Écran / Web</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="56"/>
         <source>Printer</source>
-        <translation type="unfinished">Imprimante</translation>
+        <translation>Imprimante</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="61"/>
         <source>Grayscale</source>
-        <translation type="unfinished">Niveaux de gris</translation>
+        <translation>Niveaux de gris</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="69"/>
         <source>Mirror Page(s) Horizontally</source>
-        <translation type="unfinished">Miroir horizontal des pages</translation>
+        <translation>Miroir horizontal des pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="76"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Miroir vertical des pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="83"/>
         <source>Clip to Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadrer aux marges de l&apos;imprimante</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="90"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Cette fonction permet de convertir les tons directs en un équivalent quadrichromique. Cochez cette option à moins de savoir exactement ce que vous faites.</translation>
+        <translation>Cette fonction permet de convertir les tons directs en un équivalent quadrichromique. Cochez cette option à moins de savoir exactement ce que vous faites.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="93"/>
         <source>Convert Spot Colors</source>
-        <translation type="unfinished">Conversion des tons directs</translation>
+        <translation>Conversion des tons directs</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="103"/>
         <source>Display Settings</source>
-        <translation type="unfinished">Paramètres d&apos;affichage</translation>
+        <translation>Paramètres d&apos;affichage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="124"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished">Procure un affichage plus agréable des polices Type 1, TrueType et Opentype, ainsi que des graphiques EPS, PDF et vectoriels, en contrepartie d&apos;une légère perte de performance de l&apos;affichage</translation>
+        <translation>Procure un affichage plus agréable des polices Type 1, TrueType et Opentype, ainsi que des graphiques EPS, PDF et vectoriels, en contrepartie d&apos;une légère perte de performance de l&apos;affichage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="127"/>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished">Activer l&apos;&amp;anti-crénelage</translation>
+        <translation>Activer l&apos;&amp;anti-crénelage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="134"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
-        <translation type="unfinished">Affiche les transparences et les éléments transparents dans votre document. Nécessite Ghostscript 7.07 ou version ultérieure.</translation>
+        <translation>Affiche les transparences et les éléments transparents dans votre document. Nécessite Ghostscript 7.07 ou version ultérieure.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="137"/>
         <source>Display Trans&amp;parency</source>
-        <translation type="unfinished">Afficher les trans&amp;parences</translation>
+        <translation>Afficher les trans&amp;parences</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="144"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation type="unfinished">L&apos;aperçu simule les encres CMJN, au lieu des couleurs RVB</translation>
+        <translation>L&apos;aperçu simule les encres CMJN, au lieu des couleurs RVB</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="147"/>
         <source>&amp;Display CMYK</source>
-        <translation type="unfinished">&amp;Afficher en CMJN</translation>
+        <translation>&amp;Afficher en CMJN</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="176"/>
         <source>Display Ink Coverage</source>
-        <translation type="unfinished">Affiche le taux d&apos;encrage</translation>
+        <translation>Affiche le taux d&apos;encrage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="188"/>
         <source>Threshold:</source>
-        <translation type="unfinished">Seuil:</translation>
+        <translation>Seuil:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="45"/>
         <source>PDF Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu de la sortie PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="67"/>
         <source>Separation Name</source>
-        <translation type="unfinished">Nom de la séparation</translation>
+        <translation>Nom de la séparation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="79"/>
         <source>Cyan</source>
-        <translation type="unfinished">Cyan</translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="87"/>
         <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="95"/>
         <source>Yellow</source>
-        <translation type="unfinished">Jaune</translation>
+        <translation>Jaune</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="103"/>
         <source>Black</source>
-        <translation type="unfinished">Noir</translation>
+        <translation>Noir</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="128"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
@@ -16783,7 +16783,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowserplugin.cpp" line="38"/>
         <source>&amp;Picture Browser...</source>
-        <translation type="unfinished">Navigateur d&apos;image...</translation>
+        <translation>&amp;Navigateur d&apos;image...</translation>
     </message>
 </context>
 <context>
