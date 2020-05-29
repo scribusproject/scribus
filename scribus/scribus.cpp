@@ -5360,20 +5360,21 @@ void ScribusMainWindow::ToggleMouseTips()
 
 void ScribusMainWindow::SaveText()
 {
-	LoadEnc = "";
-	QString wdir = ".";
-	QString prefsDocDir=m_prefsManager.documentDir();
-	if (!prefsDocDir.isEmpty())
-		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
-	else
-		wdir = m_prefsManager.prefsFile->getContext("dirs")->get("save_text", ".");
-	QString fn = CFileDialog( wdir, tr("Save As"), tr("Text Files (*.txt);;All Files (*)"), "", fdShowCodecs|fdHidePreviewCheckBox);
-	if (!fn.isEmpty())
-	{
-		m_prefsManager.prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
-		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
-		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));
-	}
+	PrefsContext* dirsContext = m_prefsManager.prefsFile->getContext("dirs");
+	QString prefsDocDir = m_prefsManager.documentDir();
+	QString workingDir = dirsContext->get("save_text", prefsDocDir.isEmpty() ? "." : prefsDocDir);
+
+	CustomFDialog dia(this, workingDir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
+	if (dia.exec() != QDialog::Accepted)
+		return;
+	QString fn = dia.selectedFile();
+	if (fn.isEmpty())
+		return;
+	QString loadEnc = dia.optionCombo->currentText();
+
+	m_prefsManager.prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
+	const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
+	Serializer::writeWithEncoding(fn, loadEnc, story.plainText());
 }
 
 void ScribusMainWindow::applyNewMaster(const QString& name)
@@ -8284,10 +8285,10 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 	QString retval("");
 	if (dia->exec() == QDialog::Accepted)
 	{
-		LoadEnc = "";
+		LoadEnc.clear();
 		if (!(optionFlags & fdDirectoriesOnly))
 		{
-			LoadEnc = (optionFlags & fdShowCodecs) ? dia->optionCombo->currentText() : QString("");
+			LoadEnc = (optionFlags & fdShowCodecs) ? dia->optionCombo->currentText() : QString();
 			if (optionFlags & fdCompressFile)
 			{
 				if (dia->saveZip->isChecked())
