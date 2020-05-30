@@ -2,7 +2,7 @@ language: cpp
 
 os: linux
       
-dist: focal
+dist: bionic
       
 compiler: 
   - clang
@@ -12,7 +12,7 @@ env:
   - NPROC=2
 
 before_install:
-  - sudo apt-add-repository ppa:beineri/opt-qt-5.14.2-focal -y
+  - sudo apt-add-repository ppa:beineri/opt-qt-5.14.2-bionic -y
   - sudo apt-get update -qq
       
 install:

@@ -73,7 +73,7 @@ mkdir -p etc/fonts/
 cp /etc/fonts/fonts.conf etc/fonts/
 
 # Bundle Python
-apt-get download python3.8 python3.8-minimal libpython3.8-minimal libpython3.8-stdlib python3-tk
+apt-get download python3.6 python3.6-minimal libpython3.6-minimal libpython3.6-stdlib python3-tk
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
 cd -
@@ -123,6 +123,6 @@ wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/contin
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
                                                -appimage -unsupported-bundle-everything \
-                                               -executable=appdir/usr/bin/python3.8 \
-                                               -executable=appdir/usr/lib/python3.8/lib-dynload/_tkinter.cpython-38-x86_64-linux-gnu.so \
+                                               -executable=appdir/usr/bin/python3.6 \
+                                               -executable=appdir/usr/lib/python3.6/lib-dynload/_tkinter.cpython-36m-x86_64-linux-gnu.so \
                                                -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
