@@ -3970,12 +3970,9 @@ void ScribusMainWindow::slotGetContent()
 	{
 		QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
 
-		QString docDir = ".";
-		QString prefsDocDir=m_prefsManager.documentDir();
-		if (!prefsDocDir.isEmpty())
-			docDir = m_prefsManager.prefsFile->getContext("dirs")->get("images", prefsDocDir);
-		else
-			docDir = m_prefsManager.prefsFile->getContext("dirs")->get("images", ".");
+		QString prefsDocDir = m_prefsManager.documentDir();
+		PrefsContext *dirsContext = m_prefsManager.prefsFile->getContext("dirs");
+		QString docDir = dirsContext->get("images", prefsDocDir.isEmpty() ? "." : prefsDocDir);
 
 		QStringList fileNames;
 		CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
@@ -3985,9 +3982,9 @@ void ScribusMainWindow::slotGetContent()
 		//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
 		if (!fileNames.isEmpty())
 		{
-			m_prefsManager.prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
+			dirsContext->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
 			view->requestMode(modeImportImage);
-			CanvasMode_ImageImport* cii=dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
+			CanvasMode_ImageImport* cii = dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
 			if (cii)
 				cii->setImageList(fileNames);
 		}
