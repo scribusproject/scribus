@@ -3978,10 +3978,9 @@ void ScribusMainWindow::slotGetContent()
 			docDir = m_prefsManager.prefsFile->getContext("dirs")->get("images", ".");
 
 		QStringList fileNames;
-		fileNames.clear();
 		CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI | fdDisableOk);
 		if (dia->exec() == QDialog::Accepted)
-			fileNames = dia->fileDialog->selectedFiles();
+			fileNames = dia->selectedFiles();
 		delete dia;
 		//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
 		if (!fileNames.isEmpty())
@@ -8273,46 +8272,46 @@ QString ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QS
 		dia->setExtension(f.suffix());
 		dia->setZipExtension(f.suffix() + ".gz");
 		dia->setSelection(defaultFilename);
-		if (useCompression != nullptr && dia->saveZip != nullptr)
-			dia->saveZip->setChecked(*useCompression);
+		if (useCompression != nullptr)
+			dia->setSaveZipFile(*useCompression);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
-		if (useCompression != nullptr && dia->saveZip != nullptr)
-			dia->saveZip->setChecked(*useCompression);
+		if (useCompression != nullptr)
+			dia->setSaveZipFile(*useCompression);
 		if (useFonts != nullptr)
-			dia->withFonts->setChecked(*useFonts);
+			dia->setIncludeFonts(*useFonts);
 		if (useProfiles != nullptr)
-			dia->withProfiles->setChecked(*useProfiles);
+			dia->setIncludeProfiles(*useProfiles);
 	}
-	QString retval("");
+	QString retVal;
 	if (dia->exec() == QDialog::Accepted)
 	{
 		LoadEnc.clear();
 		if (!(optionFlags & fdDirectoriesOnly))
 		{
-			LoadEnc = (optionFlags & fdShowCodecs) ? dia->optionCombo->currentText() : QString();
+			LoadEnc = (optionFlags & fdShowCodecs) ? dia->textCodec() : QString();
 			if (optionFlags & fdCompressFile)
 			{
-				if (dia->saveZip->isChecked())
+				if (dia->saveZipFile())
 					dia->handleCompress();
 			}
 		}
 		else
 		{
-			if (useCompression != nullptr && dia->saveZip != nullptr)
-				*useCompression = dia->saveZip->isChecked();
+			if (useCompression != nullptr && dia->isSaveZipFileShown())
+				*useCompression = dia->saveZipFile();
 			if (useFonts != nullptr)
-				*useFonts = dia->withFonts->isChecked();
+				*useFonts = dia->includeFonts();
 			if (useProfiles != nullptr)
-				*useProfiles = dia->withProfiles->isChecked();
+				*useProfiles = dia->includeProfiles();
 		}
 		this->repaint();
-		retval = dia->selectedFile();
+		retVal = dia->selectedFile();
 		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	}
 	delete dia;
-	return retval;
+	return retVal;
 }
 
 

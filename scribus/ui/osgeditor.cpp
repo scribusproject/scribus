@@ -574,10 +574,9 @@ void OSGEditorDialog::openFile()
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("models", ".");
 	CustomFDialog dia(this, wdir, tr("Import 3-D Model"), filterString, fdHidePreviewCheckBox);
-	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
-	else
+	if (dia.exec() != QDialog::Accepted)
 		return;
+	fileName = dia.selectedFile();
 	if (loadedModel)
 	{
 		if (rootnode->getNumChildren() > 1)

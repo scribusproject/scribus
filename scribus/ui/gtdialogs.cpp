@@ -143,8 +143,6 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 		if (!m_fileName.isEmpty())
 			accepted = true;
 		m_encoding = m_fdia->encodingCombo->currentText();
-//		if (encoding == "UTF-16")
-//			encoding = "ISO-10646-UCS-2";
 		m_importer = m_fdia->importerCombo->currentIndex() - 1;
 		dirs->set("get_text", m_fileName.left(m_fileName.lastIndexOf("/")));
 	}

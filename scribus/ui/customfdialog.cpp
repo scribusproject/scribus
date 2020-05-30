@@ -331,13 +331,6 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	hboxLayout1->addWidget( cancelButton );
 	vboxLayout->addLayout(hboxLayout1);
 
-	saveZip = nullptr;
-	withFonts = nullptr;
-	withProfiles = nullptr;
-	optionCombo = nullptr;
-	optionLabel = nullptr;
-	Layout = LayoutC = nullptr;
-	Layout1 = Layout1C = nullptr;
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
@@ -495,6 +488,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	resize(minimumSizeHint());
 }
 
+CustomFDialog::~CustomFDialog()
+{
+}
 
 void CustomFDialog::fileClicked(const QString &path)
 {
@@ -537,14 +533,14 @@ void CustomFDialog::togglePreview()
 	repaint();
 }
 
-void CustomFDialog::setSelection(const QString& sel)
+void CustomFDialog::setSelection(const QString& fileName)
 {
-	fileDialog->selectFile( QFileInfo(sel).fileName() );
+	fileDialog->selectFile( QFileInfo(fileName).fileName() );
 	if (m_previewIsShown)
-		filePreview->genPreview(sel);
+		filePreview->genPreview(fileName);
 }
 
-QString CustomFDialog::selectedFile()
+QString CustomFDialog::selectedFile() const
 {
 	QStringList sel = fileDialog->selectedFiles();
 	if (!sel.isEmpty())
@@ -552,13 +548,14 @@ QString CustomFDialog::selectedFile()
 	return QString();
 }
 
+QStringList CustomFDialog::selectedFiles() const
+{
+	return fileDialog->selectedFiles();
+}
+
 void CustomFDialog::addWidgets(QWidget *widgets)
 {
 	vboxLayout->addWidget(widgets);
-}
-
-CustomFDialog::~CustomFDialog()
-{
 }
 
 void CustomFDialog::handleCompress()
@@ -608,6 +605,15 @@ const QString& CustomFDialog::zipExtension() const
 	return m_extZip;
 }
 
+bool CustomFDialog::isTextCodecShown() const
+{
+	if ((m_optionFlags & fdShowCodecs) == 0)
+		return false;
+	if (optionCombo)
+		return optionCombo->isVisible();
+	return false;
+}
+
 void CustomFDialog::setTextCodec(const QString& textCodec)
 {
 	if ((m_optionFlags & fdShowCodecs) == 0)
@@ -632,4 +638,74 @@ QString CustomFDialog::textCodec() const
 	if (optionCombo)
 		return optionCombo->currentText();
 	return QString();
+}
+
+bool CustomFDialog::isSaveZipFileShown() const
+{
+	if (saveZip)
+		return saveZip->isVisible();
+	return false;
+}
+
+void CustomFDialog::setSaveZipFile(bool value)
+{
+	if (!saveZip)
+		return;
+	saveZip->setChecked(value);
+}
+
+bool CustomFDialog::saveZipFile() const
+{
+	if (saveZip)
+		return saveZip->isChecked();
+	return false;
+}
+
+bool CustomFDialog::isIncludeFontsShown() const
+{
+	if (withFonts)
+		return withFonts->isVisible();
+	return false;
+}
+
+void CustomFDialog::setIncludeFonts(bool value)
+{
+	if (!withFonts)
+		return;
+	withFonts->setChecked(value);
+}
+
+bool CustomFDialog::includeFonts() const
+{
+	if (withFonts)
+		return withFonts->isChecked();
+	return false;
+}
+
+bool CustomFDialog::isIncludeProfilesShown() const
+{
+	if (withProfiles)
+		return withProfiles->isVisible();
+	return false;
+}
+
+void CustomFDialog::setIncludeProfiles(bool value)
+{
+	if (!withProfiles)
+		return;
+	withProfiles->setChecked(value);
+}
+
+bool CustomFDialog::includeProfiles() const
+{
+	if (withProfiles)
+		return withProfiles->isChecked();
+	return false;
+}
+
+int CustomFDialog::currentOptionIndex() const
+{
+	if (optionCombo)
+		return optionCombo->currentIndex();
+	return -1;
 }

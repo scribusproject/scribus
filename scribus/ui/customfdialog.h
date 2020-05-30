@@ -69,7 +69,8 @@ public:
 	void genPreview(const QString& name);
 };
 
-typedef enum {
+enum fdFlags
+{
 	fdNone = 0,
 	fdShowPreview = 1, // display text/image previewer
 	fdExistingFiles = 2, // When set, set to the QFileDialog::ExistingFile mode when true, QFileDialog::AnyFile otherwise
@@ -80,7 +81,7 @@ typedef enum {
 	fdExistingFilesI = 64, // For multiple files
 	fdShowImportOptions = 128, // Show Vector Images Import Options
 	fdDisableOk = 256 // Disable Ok button, used for file open, import etc
-} fdFlags;
+};
 
 /*! \brief A Scribus own file dialog.
 Used almost everywhere. You can see extension handling
@@ -100,6 +101,10 @@ public:
 	CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption = "",  const QString& filter = "", int flags = fdExistingFiles);
 	~CustomFDialog();
 
+	void setSelection(const QString& fileName);
+	QString selectedFile() const;
+	QStringList selectedFiles() const;
+
 	/*! \brief Set the default extension of the resulting file name.
 	\param e string extension without any "."
 	*/
@@ -116,24 +121,24 @@ public:
 	\retval QString see setZipExtension(QString e) */
 	const QString& zipExtension() const;
 
+	bool isTextCodecShown() const;
 	void setTextCodec(const QString& textCodec);
 	QString textCodec() const;
 
-	QCheckBox* saveZip { nullptr };
-	QCheckBox* withFonts { nullptr };
-	QCheckBox* withProfiles { nullptr };
-	QFrame* Layout { nullptr };
-	QFrame* LayoutC { nullptr };
-	QComboBox *optionCombo { nullptr };
-	QLabel *optionLabel { nullptr };
-	ScFileWidget *fileDialog { nullptr };
-	FDialogPreview *filePreview { nullptr };
-	QCheckBox *showPreview { nullptr };
-	QPushButton* okButton { nullptr };
-	QPushButton* cancelButton { nullptr };
+	bool isSaveZipFileShown() const;
+	void setSaveZipFile(bool value);
+	bool saveZipFile() const;
 
-	void setSelection(const QString& );
-	QString selectedFile();
+	bool isIncludeFontsShown() const;
+	void setIncludeFonts(bool value);
+	bool includeFonts() const;
+
+	bool isIncludeProfilesShown() const;
+	void setIncludeProfiles(bool value);
+	bool includeProfiles() const;
+
+	int currentOptionIndex() const;
+
 	void addWidgets(QWidget *widgets);
 
 private slots:
@@ -147,11 +152,24 @@ public slots:
 	void handleCompress();
 
 protected:
-	QVBoxLayout *vboxLayout;
-	QVBoxLayout *vboxLayout1;
-	QHBoxLayout *hboxLayout;
-	QHBoxLayout* Layout1;
-	QHBoxLayout* Layout1C;
+	QVBoxLayout *vboxLayout { nullptr };
+	QVBoxLayout *vboxLayout1 { nullptr };
+	QHBoxLayout *hboxLayout { nullptr };
+	QFrame*      Layout { nullptr };
+	QFrame*      LayoutC { nullptr };
+	QHBoxLayout* Layout1 { nullptr };
+	QHBoxLayout* Layout1C { nullptr };
+
+	QCheckBox* saveZip { nullptr };
+	QCheckBox* withFonts { nullptr };
+	QCheckBox* withProfiles { nullptr };
+	QComboBox *optionCombo { nullptr };
+	QLabel *optionLabel { nullptr };
+	ScFileWidget *fileDialog { nullptr };
+	FDialogPreview *filePreview { nullptr };
+	QCheckBox *showPreview { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 
 	//! \brief Property with default extension
 	QString m_ext;

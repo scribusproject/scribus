@@ -3451,22 +3451,18 @@ void StoryEditor::LoadTextFile()
 	if (Do_new())
 	{
 		EditorBar->setRepaint(false);
-		QString loadEnc;
-		QString fileName;
 		PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
 		QString wdir = dirs->get("story_load", prefsManager.documentDir());
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files (*)"), fdExistingFiles | fdShowCodecs | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
 			return;
-		loadEnc = dia.optionCombo->currentText();
-		if (loadEnc == "UTF-16")
-			loadEnc = "ISO-10646-UCS-2";
-		fileName =  dia.selectedFile();
+		QString textEncoding = dia.textCodec();
+		QString fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
 			dirs->set("story_load", fileName.left(fileName.lastIndexOf("/")));
 			QString txt;
-			if (Serializer::readWithEncoding(fileName, loadEnc, txt))
+			if (Serializer::readWithEncoding(fileName, textEncoding, txt))
 			{
 				txt.replace(QRegExp("\r"), "");
 				txt.replace(QRegExp("\n"), QChar(13));
