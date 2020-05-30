@@ -61,7 +61,7 @@ void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	hyphSuggestionsCheckBox->setChecked(!prefsData->hyphPrefs.Automatic);
 	hyphAutoCheckBox->setChecked(prefsData->hyphPrefs.AutoCheck);
-	ignoreListWidget->addItems(prefsData->hyphPrefs.ignoredWords.toList());
+	ignoreListWidget->addItems(prefsData->hyphPrefs.ignoredWords.values());
 	ignoreListWidget->sortItems();
 	exceptionListWidget->addItems(prefsData->hyphPrefs.specialWords.values());
 	exceptionListWidget->sortItems();

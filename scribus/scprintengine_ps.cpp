@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
-#include "prefsmanager.h"
 #include "pslib.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
@@ -19,7 +18,6 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 {
 	bool retw = false;
 	QString filename(options.filename);
-	PrefsManager& prefsManager = PrefsManager::instance();
 	PSLib *dd = new PSLib(&doc, options, PSLib::OutputPS);
 	if (dd == nullptr)
 		return false;

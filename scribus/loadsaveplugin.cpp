@@ -170,7 +170,7 @@ const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
 	// Avoid duplicate entries in the list
 	QSet<QString> fSet = filterList.toSet();
-	filterList = fSet.toList();
+	filterList = fSet.values();
 	std::sort(filterList.begin(), filterList.end());
 	return filterList;
 }

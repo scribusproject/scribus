@@ -18,7 +18,7 @@ public:
 	void setValues(const QString label, const QString text) override;
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 private slots:
 	void onLabelList_currentIndexChanged(int index);

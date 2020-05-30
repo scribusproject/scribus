@@ -889,6 +889,7 @@ void cmdobjdocwarnings()
 	  << scribus_getcharacterstyle__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
+	  << scribus_gettextflowmode__doc__
 	  << scribus_newellipse__doc__
 	  << scribus_newimage__doc__
 	  << scribus_newline__doc__

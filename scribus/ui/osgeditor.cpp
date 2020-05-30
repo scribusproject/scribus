@@ -73,10 +73,10 @@ OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame, QStr
 	QPixmap pm(54, 14);
 	pm.fill(currentView.colorAC);
 	buttonACcolor->setIcon(pm);
-	buttonACcolor->setText( QString::null );
+	buttonACcolor->setText( QString() );
 	pm.fill(currentView.colorFC);
 	buttonFCcolor->setIcon(pm);
-	buttonFCcolor->setText( QString::null );
+	buttonFCcolor->setText( QString() );
 	transpSpin->setValue(qRound(currentView.addedTransparency * 100));
 	transpSpin->setDecimals(0);
 	rootnode = new osg::Group;
@@ -205,10 +205,10 @@ void OSGEditorDialog::changeView(QString viewName)
 	QPixmap pm(54, 14);
 	pm.fill(currentView.colorAC);
 	buttonACcolor->setIcon(pm);
-	buttonACcolor->setText( QString::null );
+	buttonACcolor->setText( QString:() );
 	pm.fill(currentView.colorFC);
 	buttonFCcolor->setIcon(pm);
-	buttonFCcolor->setText( QString::null );
+	buttonFCcolor->setText( QString() );
 	osgGA::TrackballManipulator *trb = dynamic_cast<osgGA::TrackballManipulator*>(drawingarea->getCameraManipulator());
 	trb->setByMatrix(currentView.trackerMatrix);
 	trb->setCenter(currentView.trackerCenter);

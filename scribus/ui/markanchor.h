@@ -16,7 +16,7 @@ public:
 	void setValues(const QString label) override;
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 };
 
 #endif // MARKANCHOR_H

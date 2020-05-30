@@ -485,9 +485,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->addItem( tr("Posterize"));
 	availableEffects->addItem( tr("Sharpen"));
 
-	availableEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
-	layout2->addWidget( availableEffects );
-	layout10->addLayout( layout2, 0, 0 );
+	QFontMetrics ftMetrics = this->fontMetrics();
+	int availableEffectsAdvance = ftMetrics.horizontalAdvance( tr("Available Effects"));
+
+	availableEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
+	layout2->addWidget(availableEffects);
+	layout10->addLayout(layout2, 0, 0);
 
 	layout1 = new QVBoxLayout;
 	layout1->setMargin(0);
@@ -513,7 +516,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2->setText( tr( "Applied Effects" ) );
 	layout8->addWidget( textLabel2 );
 	usedEffects = new QListWidget( this );
-	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
+	usedEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
 	usedEffects->clear();
 	m_effectValMap.clear();
 	for (int i = 0; i < effectsList.count(); ++i)

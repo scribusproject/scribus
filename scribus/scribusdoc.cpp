@@ -8435,7 +8435,7 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 	else
 	{
 		// Remove selected row(s).
-		QList<int> selectedRows = table->selectedRows().toList();
+		QList<int> selectedRows = table->selectedRows().values();
 		std::sort(selectedRows.begin(), selectedRows.end(), std::greater<int>());
 
 		int index = 0;
@@ -8491,7 +8491,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 	else
 	{
 		// Remove selected column(s).
-		QList<int> selectedColumns = table->selectedColumns().toList();
+		QList<int> selectedColumns = table->selectedColumns().values();
 		std::sort(selectedColumns.begin(), selectedColumns.end(), std::greater<int>());
 
 		int index = 0;
@@ -8537,8 +8537,8 @@ void ScribusDoc::itemSelection_MergeTableCells()
 	if (table->selectedCells().size() < 2)
 		return;
 
-	QList<int> selectedRows = table->selectedRows().toList();
-	QList<int> selectedColumns = table->selectedColumns().toList();
+	QList<int> selectedRows = table->selectedRows().values();
+	QList<int> selectedColumns = table->selectedColumns().values();
 	std::sort(selectedRows.begin(), selectedRows.end());
 	std::sort(selectedColumns.begin(), selectedColumns.end());
 
@@ -8668,7 +8668,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	if (appMode == modeEditTable && !table->selectedRows().isEmpty())
 	{
 		// Distribute each contigous range of selected rows.
-		QList<int> selectedRows = table->selectedRows().toList();
+		QList<int> selectedRows = table->selectedRows().values();
 		std::sort(selectedRows.begin(), selectedRows.end());
 		int startRow = selectedRows.first();
 		int endRow = startRow;
@@ -8711,7 +8711,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	if (appMode == modeEditTable && !table->selectedColumns().isEmpty())
 	{
 		// Distribute each contigous range of selected columns.
-		QList<int> selectedColumns = table->selectedColumns().toList();
+		QList<int> selectedColumns = table->selectedColumns().values();
 		std::sort(selectedColumns.begin(), selectedColumns.end());
 		int startColumn = selectedColumns.first();
 		int endColumn = startColumn;

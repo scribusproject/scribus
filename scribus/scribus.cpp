@@ -2168,7 +2168,7 @@ QStringList ScribusMainWindow::findRecoverableFile()
 	for (int i = 0; i < hList2.count(); i++)
 		foundFiles.insert(hList2[i].absoluteFilePath());
 
-	return foundFiles.toList();
+	return foundFiles.values();
 }
 
 bool ScribusMainWindow::recoverFile(const QStringList& foundFiles)
