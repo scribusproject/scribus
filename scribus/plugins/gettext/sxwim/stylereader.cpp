@@ -41,16 +41,10 @@ StyleReader::StyleReader(const QString& documentName, gtWriter *w, bool textOnly
 {
 	sreader      = this;
 	docname      = documentName;
-	readProperties = false;
 	writer       = w;
 	importTextOnly = textOnly;
 	usePrefix    = prefix;
 	packStyles   = combineStyles;
-	currentStyle = nullptr;
-	parentStyle  = nullptr;
-	inList       = false;
-	currentList  = "";
-	defaultStyleCreated = false;
 }
 
 bool StyleReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)

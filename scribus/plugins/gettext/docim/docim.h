@@ -29,20 +29,23 @@ extern "C" PLUGIN_API QStringList FileExtensions();
 class DocIm : public QObject
 {
 	Q_OBJECT
+
 public:
 	DocIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
 	~DocIm();
+
 	void write();
 	bool isRunning();
+
 private:
 	QString filename;
 	QString encoding;
 	QBuffer textBuffer;
 	QBuffer errorBuffer;
-	gtWriter *writer;
-	QProcess *proc;
-	bool failed;
-	bool textOnly;
+	gtWriter *writer { nullptr };
+	QProcess *proc { nullptr };
+	bool failed { false };
+	bool textOnly { false };
 };
 
 #endif // DOCIM_H

@@ -49,6 +49,6 @@ public:
 	bool import(const QString& fileName);
 
 protected:
-	XtgScanner* m_scanner;
+	XtgScanner* m_scanner { nullptr };
 };
 #endif			/* XTGIM_H */

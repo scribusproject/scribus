@@ -45,16 +45,7 @@ XtgScanner::XtgScanner(PageItem *item, bool textOnly, bool prefix, bool append)
     : m_item(item),
     m_importTextOnly(textOnly),
     m_prefixName(prefix),
-    m_append(append),
-    m_newlineFlag(false),
-    m_xflag(false),
-    m_inDef(false),
-	m_bufferIndex(0),
-    m_textIndex(0),
-    m_define(0),
-    m_isBold(false),
-    m_isItalic(false),
-	m_decoder(nullptr)
+    m_append(append)
 {
 	m_doc = item->doc();
 	initTagMode();

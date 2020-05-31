@@ -37,168 +37,88 @@ class ScZipHandler;
 class ObjStyle
 {
 public:
-	ObjStyle() :
-	  markerViewBox(),
-	  markerPath(),
-	  startMarkerName(""),
-	  startMarkerWidth(0.0),
-	  startMarkerCentered(false),
-	  endMarkerName(""),
-	  endMarkerWidth(0.0),
-	  endMarkerCentered(false),
-	  stroke_dash_distance(0.0),
-	  stroke_dash_dots1(1),
-	  stroke_dash_dots1_length(0.0),
-	  stroke_dash_dots2(1),
-	  stroke_dash_dots2_length(0.0),
-	  stroke_dash_style("solid"),
-	  dashName(""),
-	  CurrColorFill(CommonStrings::None),
-	  CurrColorStroke(CommonStrings::None),
-	  CurrColorText("Black"),
-	  CurrColorBText(CommonStrings::None),
-	  CurrColorShadow("Black"),
-	  fillOpacity(0.0),
-	  strokeOpacity(0.0),
-	  LineW(0.0),
-	  fontName(""),
-	  fontSize(10.0),
-	  textIndent(0.0),
-	  textAlign(ParagraphStyle::LeftAligned),
-	  textPos(""),
-	  textOutline(""),
-	  textUnderline(false),
-	  textUnderlineWords(false),
-	  textUnderlineColor(CommonStrings::None),
-	  textStrikeThrough(false),
-	  textShadow(false),
-	  lineHeight(1.0),
-	  absLineHeight(false),
-	  margin_top(0.0),
-	  margin_bottom(0.0),
-	  margin_left(0.0),
-	  margin_right(0.0),
-	  verticalAlignment(0),
-	  page_width(595.0),
-	  page_height(841.0),
-	  page_layout_name(""),
-	  fill_type(0),
-	  stroke_type(0),
-	  gradientAngle(0.0),
-	  gradientBorder(0.0),
-	  gradientEndColor(CommonStrings::None),
-	  gradientEndShade(100.0),
-	  gradientStartColor(CommonStrings::None),
-	  gradientStartShade(100.0),
-	  gradientCenterX(0.0),
-	  gradientCenterY(0.0),
-	  gradientType("linear"),
-	  gradientName(""),
-	  hasShadow(false),
-	  shadowX(0.0),
-	  shadowY(0.0),
-	  shadowTrans(0.0),
-	  measureDist(0.0),
-	  patternName(""),
-	  patternPath(""),
-	  patternData(),
-	  patternWidth(0.0),
-	  patternHeight(0.0),
-	  patternX(0.0),
-	  patternY(0.0),
-	  patternDim_W_in_Percent(false),
-	  patternDim_H_in_Percent(false),
-	  patternStretch(""),
-	  hatchName(""),
-	  hatchColor(""),
-	  hatchDistance(0.0),
-	  hatchRotation(0.0),
-	  hatchStyle(""),
-	  hatchSolidFill(false),
-	  opacityName(""),
-	  opacityEnd(1.0),
-	  opacityStart(0.0)
-	  {}
+	ObjStyle() {}
+
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
 	QString							startMarkerName;
-	double							startMarkerWidth;
-	bool							startMarkerCentered;
+	double							startMarkerWidth { 0.0 };
+	bool							startMarkerCentered { false };
 	QString							endMarkerName;
-	double							endMarkerWidth;
-	bool							endMarkerCentered;
-	double							stroke_dash_distance;
-	int								stroke_dash_dots1;
-	double							stroke_dash_dots1_length;
-	int								stroke_dash_dots2;
-	double							stroke_dash_dots2_length;
-	QString							stroke_dash_style;
+	double							endMarkerWidth { 0.0 };
+	bool							endMarkerCentered { false };
+	double							stroke_dash_distance { 0.0 };
+	int								stroke_dash_dots1 { 1 };
+	double							stroke_dash_dots1_length { 0.0 };
+	int								stroke_dash_dots2 { 1 };
+	double							stroke_dash_dots2_length { 0.0 };
+	QString							stroke_dash_style { "solid" };
 	QString							dashName;
-	QString							CurrColorFill;
-	QString							CurrColorStroke;
-	QString							CurrColorText;
-	QString							CurrColorBText;
-	QString							CurrColorShadow;
-	double							fillOpacity;
-	double							strokeOpacity;
-	double							LineW;
+	QString							currColorFill { CommonStrings::None };
+	QString							currColorStroke { CommonStrings::None };
+	QString							currColorText { "Black" };
+	QString							currColorBText { CommonStrings::None };
+	QString							currColorShadow { "Black" };
+	double							fillOpacity { 0.0 };
+	double							strokeOpacity { 0.0 };
+	double							LineW { 0.0 };
 	QString							fontName;
-	double							fontSize;
-	double							textIndent;
-	ParagraphStyle::AlignmentType	textAlign;    // 0 = left
+	double							fontSize{ 10.0 };
+	double							textIndent { 0.0 };
+	ParagraphStyle::AlignmentType	textAlign { ParagraphStyle::LeftAligned };    // 0 = left
 	QString							textPos;
 	QString							textOutline;
-	bool							textUnderline;
-	bool							textUnderlineWords;
-	QString							textUnderlineColor;
-	bool							textStrikeThrough;
-	bool							textShadow;
-	double							lineHeight;
-	bool							absLineHeight;
-	double							margin_top;
-	double							margin_bottom;
-	double							margin_left;
-	double							margin_right;
-	int								verticalAlignment;
-	double							page_width;
-	double							page_height;
+	bool							textUnderline { false };
+	bool							textUnderlineWords { false };
+	QString							textUnderlineColor { CommonStrings::None };
+	bool							textStrikeThrough { false };
+	bool							textShadow { false };
+	double							lineHeight { 1.0 };
+	bool							absLineHeight { false };
+	double							margin_top { 0.0 };
+	double							margin_bottom { 0.0 };
+	double							margin_left { 0.0 };
+	double							margin_right { 0.0 };
+	int								verticalAlignment{ 0 };
+	double							page_width { 595.0 };
+	double							page_height { 841.0 };
 	QString							page_layout_name;
-	int								fill_type;		// 0 = none, 1 = solid, 2 = gradient, 3 = bitmap 4 = hatch
-	int								stroke_type;	// 0 = none, 1 = solid, 2 = dashed
-	double							gradientAngle;
-	double							gradientBorder;
-	QString							gradientEndColor;
-	double							gradientEndShade;
-	QString							gradientStartColor;
-	double							gradientStartShade;
-	double							gradientCenterX;
-	double							gradientCenterY;
-	QString							gradientType;
+	int								fill_type { 0 };		// 0 = none, 1 = solid, 2 = gradient, 3 = bitmap 4 = hatch
+	int								stroke_type { 0 };	// 0 = none, 1 = solid, 2 = dashed
+	double							gradientAngle { 0.0 };
+	double							gradientBorder { 0.0 };
+	QString							gradientEndColor { CommonStrings::None };
+	double							gradientEndShade { 100.0 };
+	QString							gradientStartColor { CommonStrings::None };
+	double							gradientStartShade { 100.0 };
+	double							gradientCenterX { 0.0 };
+	double							gradientCenterY { 0.0 };
+	QString							gradientType { "linear" };
 	QString							gradientName;
-	bool							hasShadow;
-	double							shadowX;
-	double							shadowY;
-	double							shadowTrans;
-	double							measureDist;
+	bool							hasShadow { false };
+	double							shadowX { 0.0 };
+	double							shadowY { 0.0 };
+	double							shadowTrans { 0.0 };
+	double							measureDist { 0.0 };
 	QString							patternName;
 	QString							patternPath;
 	QByteArray						patternData;
-	double							patternWidth;
-	double							patternHeight;
-	double							patternX;
-	double							patternY;
-	bool							patternDim_W_in_Percent;
-	bool							patternDim_H_in_Percent;
+	double							patternWidth { 0.0 };
+	double							patternHeight { 0.0 };
+	double							patternX { 0.0 };
+	double							patternY { 0.0 };
+	bool							patternDim_W_in_Percent { false };
+	bool							patternDim_H_in_Percent { false };
 	QString							patternStretch;
 	QString							hatchName;
 	QString							hatchColor;
-	double							hatchDistance;
-	double							hatchRotation;
+	double							hatchDistance { 0.0 };
+	double							hatchRotation { 0.0 };
 	QString							hatchStyle;
-	bool							hatchSolidFill;
+	bool							hatchSolidFill { false };
 	QString							opacityName;
-	double							opacityEnd;
-	double							opacityStart;
+	double							opacityEnd { 1.0 };
+	double							opacityStart { 0.0 };
 };
 
 class OdgPlug : public QObject
@@ -251,11 +171,11 @@ private:
 		AttributeValue stroke_dash_style;
 		AttributeValue dashName;
 		AttributeValue fillMode;
-		AttributeValue CurrColorFill;
+		AttributeValue currColorFill;
 		AttributeValue strokeMode;
-		AttributeValue CurrColorStroke;
+		AttributeValue currColorStroke;
 		AttributeValue fontColor;
-		AttributeValue CurrColorShadow;
+		AttributeValue currColorShadow;
 		AttributeValue fillOpacity;
 		AttributeValue strokeOpacity;
 		AttributeValue LineW;

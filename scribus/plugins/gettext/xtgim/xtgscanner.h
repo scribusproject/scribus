@@ -58,73 +58,6 @@ enum scannerMode
 
 class XtgScanner
 {
-private:
-	/**
-	 \variable Variables based on which scanner works in different modes
-	 */
-	scannerMode m_mode;
-	scannerMode m_prevMode;
-	/**
-	 \variable Variables of the importer
-	 */
-	PageItem* m_item;
-	bool m_importTextOnly;
-	bool m_prefixName;
-	bool m_append;
-	/**
-	 \variable Flag variables used in the scanner
-	 */
-	bool m_newlineFlag;
-	bool m_xflag;
-	bool m_inDef;
-	 /**
-	 \variable Input buffer to which properly encoded file is loaded
-	 */
-	QByteArray m_inputBuffer;
-	int m_bufferIndex;
-
-	QString m_decodedText;
-	int m_textIndex;
-
-	ScribusDoc* m_doc;
-	/**
-	 \variable current Character and paragraph styles
-	 */
-	CharStyle m_currentCharStyle;
-	ParagraphStyle m_currentParagraphStyle;
-	StyleFlag m_styleEffects;
-
-	/** To store unsupported attributes */
-	QSet<QString> m_unsupported;
-	/** 
-	\brief m_textToAppend will be the QString used by the function TextWriter::append(QString& )
-	*/ 
-	QString m_textToAppend;
-	QString m_token;
-	QString m_sfcName; // Name of Style/Fontset/Color to be defined, hence named m_sfcName
-
-	QHash<QString,void (XtgScanner::*)(void)> m_tagModeHash;
-	QHash<QString,void (XtgScanner::*)(void)> m_textModeHash;
-	QHash<QString,void (XtgScanner::*)(void)> m_nameModeHash;
-	QHash<int,QString> languages;
-
-	/** m_define variable will take the following values : 
-	 \brief
-		0	Not a definition
-		1	Character Stylesheet Definition
-		2	Paragraph Stylesheet Definition
-	 */
-	int  m_define;
-	bool m_isBold;
-	bool m_isItalic;
-
-	QTextDecoder *m_decoder;
-
-	/**
-	 \brief Decode text from input buffer until specified index
-	 */
-	bool decodeText(int index);
-	
 public:
 	XtgScanner(PageItem* item, bool textOnly, bool prefix, bool append);
 	~XtgScanner();
@@ -268,9 +201,75 @@ public:
 	void defAtRate();
 	void defColon();
 
-
 protected:
 	void (XtgScanner::*funPointer)(void);
+
+private:
+	/**
+	 \variable Variables based on which scanner works in different modes
+	 */
+	scannerMode m_mode;
+	scannerMode m_prevMode;
+	/**
+	 \variable Variables of the importer
+	 */
+	PageItem* m_item { nullptr };
+	bool m_importTextOnly { false};
+	bool m_prefixName { false};
+	bool m_append { false};
+	/**
+	 \variable Flag variables used in the scanner
+	 */
+	bool m_newlineFlag { false };
+	bool m_xflag { false };
+	bool m_inDef { false };
+	 /**
+	 \variable Input buffer to which properly encoded file is loaded
+	 */
+	QByteArray m_inputBuffer;
+	int m_bufferIndex { 0 };
+
+	QString m_decodedText;
+	int m_textIndex { 0 };
+
+	ScribusDoc* m_doc { nullptr };
+	/**
+	 \variable current Character and paragraph styles
+	 */
+	CharStyle m_currentCharStyle;
+	ParagraphStyle m_currentParagraphStyle;
+	StyleFlag m_styleEffects;
+
+	/** To store unsupported attributes */
+	QSet<QString> m_unsupported;
+	/** 
+	\brief m_textToAppend will be the QString used by the function TextWriter::append(QString& )
+	*/ 
+	QString m_textToAppend;
+	QString m_token;
+	QString m_sfcName; // Name of Style/Fontset/Color to be defined, hence named m_sfcName
+
+	QHash<QString,void (XtgScanner::*)(void)> m_tagModeHash;
+	QHash<QString,void (XtgScanner::*)(void)> m_textModeHash;
+	QHash<QString,void (XtgScanner::*)(void)> m_nameModeHash;
+	QHash<int,QString> languages;
+
+	/** m_define variable will take the following values : 
+	 \brief
+		0	Not a definition
+		1	Character Stylesheet Definition
+		2	Paragraph Stylesheet Definition
+	 */
+	int  m_define { 0 };
+	bool m_isBold { false };
+	bool m_isItalic { false };
+
+	QTextDecoder *m_decoder { nullptr };
+
+	/**
+	 \brief Decode text from input buffer until specified index
+	 */
+	bool decodeText(int index);
 };
 	
 #endif
