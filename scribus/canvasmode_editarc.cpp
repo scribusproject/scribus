@@ -266,20 +266,20 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	{
 		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
 		ss->set("ARC");
-		ss->set("OLD_WIDTH",item->arcWidth);
-		ss->set("NEW_WIDTH",width);
-		ss->set("OLD_XPOS",oldX);
-		ss->set("OLD_YPOS",oldY);
-		ss->set("OLD_HEIGHT",item->arcHeight);
-		ss->set("NEW_HEIGHT",height);
-		ss->set("OLD_START",item->arcStartAngle);
-		ss->set("NEW_START",m_startAngle);
-		ss->set("OLD_SWEEP",item->arcSweepAngle);
-		ss->set("NEW_SWEEP",nSweep);
-		ss->setItem(qMakePair(old,item->PoLine));
-		ss->set("NEW_XPOS",item->xPos());
-		ss->set("NEW_YPOS",item->yPos());
-		undoManager->action(currItem,ss);
+		ss->set("OLD_WIDTH", item->arcWidth);
+		ss->set("NEW_WIDTH", width);
+		ss->set("OLD_XPOS", oldX);
+		ss->set("OLD_YPOS", oldY);
+		ss->set("OLD_HEIGHT", item->arcHeight);
+		ss->set("NEW_HEIGHT", height);
+		ss->set("OLD_START", item->arcStartAngle);
+		ss->set("NEW_START", m_startAngle);
+		ss->set("OLD_SWEEP", item->arcSweepAngle);
+		ss->set("NEW_SWEEP", nSweep);
+		ss->setItem(qMakePair(old, item->PoLine));
+		ss->set("NEW_XPOS", item->xPos());
+		ss->set("NEW_YPOS", item->yPos());
+		undoManager->action(currItem, ss);
 	}
 	item->arcStartAngle = m_startAngle;
 	item->arcSweepAngle = nSweep;
