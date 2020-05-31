@@ -205,7 +205,7 @@ void OSGEditorDialog::changeView(QString viewName)
 	QPixmap pm(54, 14);
 	pm.fill(currentView.colorAC);
 	buttonACcolor->setIcon(pm);
-	buttonACcolor->setText( QString:() );
+	buttonACcolor->setText( QString() );
 	pm.fill(currentView.colorFC);
 	buttonFCcolor->setIcon(pm);
 	buttonFCcolor->setText( QString() );
