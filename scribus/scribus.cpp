@@ -8849,6 +8849,7 @@ void ScribusMainWindow::iconSetChange()
 	IconManager& iconManager = IconManager::instance();
 
 	setWindowIcon(iconManager.loadIcon("AppIcon.png"));
+	setStyleSheet();
 
 	zoomDefaultToolbarButton->setIcon(iconManager.loadIcon("16/zoom-original.png"));
 	zoomOutToolbarButton->setIcon(iconManager.loadIcon("16/zoom-out.png"));

@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 
 #include "scpaths.h"
+#include "scribusapp.h"
 #include "iconmanager.h"
 #include "util.h"
 
@@ -105,6 +106,8 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	languageChange();
 
 	// signals and slots connections
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
 	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( gotoPage(int) ) );
 	connect( backButton, SIGNAL( clicked() ), this, SLOT( goBackward()) );
 	connect( startButton, SIGNAL( clicked() ), this, SLOT( goToStart() ) );
@@ -209,6 +212,19 @@ void PageSelector::changeEvent(QEvent *e)
 		languageChange();
 	else
 		QWidget::changeEvent(e);
+}
+
+void PageSelector::iconSetChange()
+{
+	QByteArray stylesheet;
+	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
+		QByteArray da;
+		da.append(downArrow);
+		stylesheet.replace("___downArrow___", da);
+		setStyleSheet(QString(stylesheet));
+	}
 }
 
 void PageSelector::languageChange()

@@ -37,6 +37,7 @@ public:
 public slots:
 	virtual void setGUIForPage(int i);
 	virtual void setMaximum(int i);
+	void iconSetChange();
 	void languageChange();
 	void clearFocus();
 
