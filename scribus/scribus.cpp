@@ -1113,6 +1113,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("InsertSpace", tr("S&paces && Breaks"), "Insert");
 	scrMenuMgr->addMenuItemString("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItemString("unicodeNonBreakingSpace", "InsertSpace");
+	scrMenuMgr->addMenuItemString("unicodeNarrowNoBreakSpace", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceEN", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceEM", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceThin", "InsertSpace");

@@ -33,6 +33,7 @@ QChar SpecialChars::FRAMEBREAK   = QChar(27);
 QChar SpecialChars::SHYPHEN      = QChar(0xAD);
 QChar SpecialChars::NBHYPHEN     = QChar(0x2011);
 QChar SpecialChars::NBSPACE      = QChar(0xA0);
+QChar SpecialChars::NNBSPACE      = QChar(0x202F);
 QChar SpecialChars::OLD_NBHYPHEN = QChar(24);
 QChar SpecialChars::OLD_NBSPACE  = QChar(29);
 QChar SpecialChars::ZWNBSPACE    = QChar(0x2060);

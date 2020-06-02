@@ -1879,6 +1879,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->createMenu("InsertSpace", tr("Spaces && Breaks"), "Insert");
 	seMenuMgr->addMenuItemString("InsertSpace", "Insert");
 	seMenuMgr->addMenuItemString("unicodeNonBreakingSpace", "InsertSpace");
+	seMenuMgr->addMenuItemString("unicodeNarrowNoBreakSpace", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceEN", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceEM", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceThin", "InsertSpace");
