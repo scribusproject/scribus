@@ -21,6 +21,10 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QEvent>
+#include <QPalette>
+#include <QSignalBlocker>
+
 #include "linecombo.h"
 #include "util.h"
 
@@ -40,12 +44,31 @@ LineCombo::LineCombo(QWidget* pa) : QComboBox(pa)
 	updateList();
 }
 
+void LineCombo::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::StyleChange)
+		styleChange();
+	else if (e->type() == QEvent::ThemeChange)
+		themeChange();
+	QComboBox::changeEvent(e);
+}
+
+void LineCombo::styleChange()
+{
+	QSignalBlocker sigBlocker(this);
+	for (int i = 0; i < 37; ++i)
+		setItemData(i, QIcon(createIcon(i)), Qt::DecorationRole);
+}
+
+void LineCombo::themeChange()
+{
+	styleChange();
+}
+
 void LineCombo::updateList()
 {
-	for (int a = 0; a < 37; a++)
-	{
-		addItem(QIcon(createIcon(a)), "");
-	}
+	for (int i = 0; i < 37; i++)
+		addItem(QIcon(createIcon(i)), QString());
 }
 
 QPixmap LineCombo::createIcon(int type)
@@ -63,7 +86,8 @@ QPixmap LineCombo::createIcon(int type)
 		getDashArray(type + 1, 1, m_array);
 		pen.setDashPattern(m_array);
 	}
-	pen.setColor(Qt::black);
+	const QPalette& pal = this->palette();
+	pen.setColor(pal.text().color());
 	pen.setWidth(3);
 	pen.setCapStyle(Qt::FlatCap);
 	p.setPen(pen);

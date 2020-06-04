@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QPixmap>
 
+class QEvent;
+
 #include "scribusapi.h"
 #include "sclistboxpixmap.h"
 
@@ -37,11 +39,19 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API LineCombo : public QComboBox
 {
 	Q_OBJECT
+
 public: 
 	LineCombo(QWidget* pa);
 	~LineCombo() {}
+
 	void updateList();
+
+protected:
 	QPixmap createIcon(int type);
+
+	void changeEvent(QEvent *e) override;
+	void styleChange();
+	void themeChange();
 };
 
 #endif
