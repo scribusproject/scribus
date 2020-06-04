@@ -442,8 +442,8 @@ static PyObject *Printer_print(Printer *self)
 		bool printDone = false;
 		if (PrinterUtil::getDefaultSettings(prn, options.devMode))
 		{
-			ScPrintEngine_GDI winPrint;
-			printDone = winPrint.print(*currentDoc, options);
+			ScPrintEngine_GDI winPrint(*currentDoc);
+			printDone = winPrint.print(options);
 		}
 		if (!printDone)
 			PyErr_SetString(PyExc_SystemError, "Printing failed");

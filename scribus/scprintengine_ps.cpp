@@ -14,11 +14,16 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_ghostscript.h"
 
-bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
+ScPrintEngine_PS::ScPrintEngine_PS(ScribusDoc& doc)
+	: ScPrintEngine(doc)
 {
-	bool retw = false;
+
+}
+
+bool ScPrintEngine_PS::print(PrintOptions& options)
+{
 	QString filename(options.filename);
-	PSLib *dd = new PSLib(&doc, options, PSLib::OutputPS);
+	PSLib *dd = new PSLib(&m_doc, options, PSLib::OutputPS);
 	if (dd == nullptr)
 		return false;
 
@@ -42,39 +47,38 @@ bool ScPrintEngine_PS::print(ScribusDoc& doc, PrintOptions& options)
 		// use gs to convert our PS to a lower version
 		QString tmp;
 		QStringList opts;
-		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc.pageWidth())) );
-		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc.pageHeight())) );
+		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(m_doc.pageWidth())) );
+		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(m_doc.pageHeight())) );
 		convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
 		moveFile(filename + ".tmp", filename);
 	}
-	if (!options.toFile)
-	{
-		// print and delete the PS file
-		QByteArray cmd;
-		if (options.useAltPrintCommand)
-		{
-			cmd += options.printerCommand;
-			cmd += " ";
-			cmd += filename;
-			system(cmd.data());
-		}
-		else
-		{
-			QByteArray cc;
-			cmd += "lpr -P '";
-			cmd += options.printer;
-			cmd += "'";
-			if (options.copies > 1)
-				cmd += " -#" + cc.setNum(options.copies);
-			cmd += options.printerOptions;
-			cmd += " "+filename;
-			system(cmd.data());
-		}
-		// Disabled that for now, as kprinter won't work otherwise
-		// leaving that file around doesn't harm, as it will be overwritten the next time.
-		// unlink(filename);
-	}
+	if (options.toFile)
+		return true;
 
-	retw = true;
-	return retw;
+	// Print and delete the PS file
+	QByteArray cmd;
+	if (options.useAltPrintCommand)
+	{
+		cmd += options.printerCommand;
+		cmd += " ";
+		cmd += filename;
+		system(cmd.data());
+	}
+	else
+	{
+		QByteArray cc;
+		cmd += "lpr -P '";
+		cmd += options.printer;
+		cmd += "'";
+		if (options.copies > 1)
+			cmd += " -#" + cc.setNum(options.copies);
+		cmd += options.printerOptions;
+		cmd += " " + filename;
+		system(cmd.data());
+	}
+	// Disabled that for now, as kprinter won't work otherwise
+	// leaving that file around doesn't harm, as it will be overwritten the next time.
+	// unlink(filename);
+
+	return true;
 }

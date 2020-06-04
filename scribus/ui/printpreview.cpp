@@ -482,7 +482,7 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 	{
 		QImage image;
 		ScPage* page;
-		ScPrintEngine_GDI winPrint;
+		ScPrintEngine_GDI winPrint(*doc);
 		PrintOptions options;
 		page = doc->Pages->at(pageIndex);
 		options.copies = 1;
@@ -496,7 +496,7 @@ int PrintPreview::RenderPreview(int pageIndex, int res)
 		options.toFile = false;
 		options.useColor = !useGray->isChecked();
 		options.useSpotColors = false;
-		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, res / 72.0);
+		bool done = winPrint.gdiPrintPreview(page, &image, options, res / 72.0);
 		if (done)
 			image.save( ScPaths::tempFileDir() + "/sc.png", "PNG" );
 		return (done ? 0 : 1);

@@ -12,8 +12,10 @@ for which a new license (GPL+exception) is in place.
 class ScPrintEngine_PS : public ScPrintEngine
 {
 public:
+	ScPrintEngine_PS(ScribusDoc& doc);
 	~ScPrintEngine_PS() {}
-	virtual bool print(ScribusDoc& doc, PrintOptions& options);
+
+	bool print(PrintOptions& options) override;
 };
 
 #endif

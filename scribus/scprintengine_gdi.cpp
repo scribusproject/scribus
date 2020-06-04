@@ -62,7 +62,7 @@ typedef struct
 	BYTE  data[32768];
 } sPSPassthrough;
 
-ScPrintEngine_GDI::ScPrintEngine_GDI(void) : ScPrintEngine()
+ScPrintEngine_GDI::ScPrintEngine_GDI(ScribusDoc& doc) : ScPrintEngine(doc)
 {
 	m_abort = false;
 	m_forceGDI = false;
@@ -79,7 +79,7 @@ void ScPrintEngine_GDI::resetData(void)
 	//m_forceGDI = false;
 }
 
-bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
+bool ScPrintEngine_GDI::print(PrintOptions& options)
 {
 	bool toFile;
 	bool success;
@@ -96,7 +96,7 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 	toFile = printerUseFilePort(options.printer);
 	if (toFile)
 	{
-		QString docName = doc.documentFileName();
+		QString docName = m_doc.documentFileName();
 		diaSelection = docName.right(docName.length() - docName.lastIndexOf("/") - 1);
 		diaSelection = diaSelection.left(diaSelection.indexOf("."));
 		diaSelection += ".prn";
@@ -106,12 +106,12 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 			docDir = dirs->get("winprn", prefsDocDir);
 		else
 			docDir = ".";
-		CustomFDialog dia(doc.scMW()->view, docDir, QObject::tr("Save As"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
+		CustomFDialog dia(m_doc.scMW()->view, docDir, QObject::tr("Save As"), "Spool Files (*.prn *.ps);;All Files (*)", fdNone);
 		dia.setSelection(diaSelection);
 		if (dia.exec() == QDialog::Accepted)
 		{
 			QString selectedFile = dia.selectedFile();
-			if (overwrite(doc.scMW()->view, selectedFile))
+			if (overwrite(m_doc.scMW()->view, selectedFile))
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.lastIndexOf("/")));
 				fileName = QDir::toNativeSeparators(selectedFile);
@@ -122,13 +122,13 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 	}
 
 	// Set user options in the DEVmode structure
-	setDeviceParams(&doc, options, (DEVMODEW*) devMode.data());
+	setDeviceParams(options, (DEVMODEW*) devMode.data());
 		
 	// Create the device context
 	printerDC = CreateDCW(nullptr, (LPCWSTR) printerName.utf16(), nullptr, (DEVMODEW*) devMode.data());
 	if (printerDC)
 	{
-		success = printPages(&doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName);
+		success = printPages(options, printerDC, (DEVMODEW*) devMode.data(), fileName);
 		DeleteDC(printerDC);
 	}
 	else
@@ -140,7 +140,7 @@ bool ScPrintEngine_GDI::print(ScribusDoc& doc, PrintOptions& options)
 	return success;
 }
 
-bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* image, PrintOptions& options, double scale)
+bool ScPrintEngine_GDI::gdiPrintPreview(ScPage* page, QImage* image, PrintOptions& options, double scale)
 {
 	bool success = true;
 	HCOLORSPACE hColorSpace  = nullptr;
@@ -148,7 +148,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* i
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
 
-	if (!doc || !page || !image)
+	if (!page || !image)
 		return false;
 	resetData();
 
@@ -174,7 +174,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* i
 	if (options.mirrorV) dy += cliph;
 	 
 	// Create the GDI painters
-	ScPageOutput pageOutput(doc, false);
+	ScPageOutput pageOutput(&m_doc, false);
 	QRect drawRect(0, 0, imagew, imageh);
 
 	cairo_surface_t* surface = cairo_image_surface_create_for_data(image->bits(), CAIRO_FORMAT_ARGB32, imagew, imageh, imagew*4);
@@ -186,7 +186,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* i
 		cairo_surface_destroy(surface);
 		return false;
 	}
-	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor);
+	ScPainterEx_Cairo painter(context, drawRect, &m_doc, !options.useColor);
 	
 	scalex *= scale;
 	scaley *= scale;
@@ -203,7 +203,7 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScribusDoc* doc, ScPage* page, QImage* i
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName)
+bool ScPrintEngine_GDI::printPages(PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName)
 {
 	int  jobId;
 	QScopedPointer<MultiProgressDialog> progress;
@@ -220,7 +220,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS;
 
 	// Setup document infos structure
-	wcsncpy (docName, (const WCHAR*) doc->documentFileName().utf16(), 511);
+	wcsncpy (docName, (const WCHAR*) m_doc.documentFileName().utf16(), 511);
 	ZeroMemory(&docInfo, sizeof(docInfo));
 	docInfo.cbSize = sizeof(docInfo);
 	docInfo.lpszDocName = docName;
@@ -255,7 +255,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	bool usingGui = ScCore->usingGUI();
 	if (usingGui)
 	{
-		progress.reset(new MultiProgressDialog(QObject::tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW()));
+		progress.reset(new MultiProgressDialog(QObject::tr("Printing..."), CommonStrings::tr_Cancel, m_doc.scMW()));
 		progress->setOverallTotalSteps(options.pageNumbers.size());
 		progress->setOverallProgress(0);
 		connect(progress.data(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
@@ -266,8 +266,8 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	{
 		if (usingGui)
 			progress->setOverallProgress(index);
-		docPage = doc->Pages->at(options.pageNumbers[index] - 1);
-		success = (this->*printPageFunc)(doc, docPage, options, printerDC, context);
+		docPage = m_doc.Pages->at(options.pageNumbers[index] - 1);
+		success = (this->*printPageFunc)(docPage, options, printerDC, context);
 		ScQApp->processEvents();
 		if (!success || m_abort)
 			break;
@@ -288,7 +288,7 @@ bool ScPrintEngine_GDI::printPages(ScribusDoc* doc, PrintOptions& options, HDC p
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
+bool ScPrintEngine_GDI::printPage_GDI(ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -311,8 +311,8 @@ bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOption
 	if (isPostscriptPrinter(printerDC))
 	{
 		success = false;
-		QString mProf = doc->prefsData().colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-		QString pProf = doc->prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
+		QString mProf = m_doc.prefsData().colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
+		QString pProf = m_doc.prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
 		if (ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf))
 		{
 			inputProfile   = QDir::toNativeSeparators(ScCore->InputProfiles[mProf]);
@@ -400,11 +400,11 @@ bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOption
 	 
 	// Create the GDI painter
 	MarksOptions marksOptions(options);
-	ScPageOutput pageOutput(doc, true, 300, true);
+	ScPageOutput pageOutput(&m_doc, true, 300, true);
 	pageOutput.setMarksOptions(marksOptions);
 	
 	QRect drawRect(0, 0, physicalWidth, physicalHeight);
-	ScPainterEx_Cairo painter(context, drawRect, doc, !options.useColor);
+	ScPainterEx_Cairo painter(context, drawRect, &m_doc, !options.useColor);
 	painter.clear();
 	
 	scalex *= (logPixelsX / 72.0);
@@ -425,7 +425,7 @@ bool ScPrintEngine_GDI::printPage_GDI(ScribusDoc* doc, ScPage* page, PrintOption
 	return success;
 }
 
-bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/)
+bool ScPrintEngine_GDI::printPage_PS(ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* /*context*/)
 {
 	bool succeed = false;
 	PrintOptions options2 = options;
@@ -437,7 +437,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	options2.includePDFMarks = false;
 
 	tempFilePath = ScPaths::tempFileDir() + "/tmp.ps";
-	PSLib *dd = new PSLib(doc, options2, PSLib::OutputEPS);
+	PSLib *dd = new PSLib(&m_doc, options2, PSLib::OutputEPS);
 	ret = dd->createPS(tempFilePath);
 	delete dd;
 	if (ret != 0) return false;
@@ -447,8 +447,8 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 		QString tmp;
 		QStringList opts;
 		QString tempFilePath2 = ScPaths::tempFileDir() + "/tmp2.ps";
-		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth())));
-		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight())));
+		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(m_doc.pageWidth())));
+		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(m_doc.pageHeight())));
 		if (QFile::exists(tempFilePath2))
 			QFile::remove(tempFilePath2);
 		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.prnEngine);
@@ -476,7 +476,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScribusDoc* doc, ScPage* page, PrintOptions
 	return succeed;
 }
 
-bool ScPrintEngine_GDI::printPage_PS_Sep(ScribusDoc* doc, ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
+bool ScPrintEngine_GDI::printPage_PS_Sep(ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context)
 {
 	bool succeed = true;
 	QStringList separations;
@@ -488,7 +488,7 @@ bool ScPrintEngine_GDI::printPage_PS_Sep(ScribusDoc* doc, ScPage* page, PrintOpt
 	{
 		PrintOptions tempOptions = options;
 		tempOptions.separationName = separations.at(i);
-		succeed &= printPage_PS(doc, page, tempOptions, printerDC, context);
+		succeed &= printPage_PS(page, tempOptions, printerDC, context);
 		if (!succeed) break;
 	}
 	return succeed;
@@ -616,7 +616,7 @@ bool ScPrintEngine_GDI::sendPSFile(QString filePath, HDC printerDC, int pageWidt
 	return ((fileSize == bw) && (br >= 0));
 }
 
-void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode)
+void ScPrintEngine_GDI::setDeviceParams(PrintOptions& options, DEVMODEW* devMode)
 {
 	HANDLE handle;
 	QString printer = options.printer;
@@ -633,7 +633,7 @@ void ScPrintEngine_GDI::setDeviceParams(ScribusDoc* doc, PrintOptions& options, 
 	}
 
 	OpenPrinterW((LPWSTR) printer.utf16(), &handle, nullptr);
-	DocumentPropertiesW((HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+	DocumentPropertiesW((HWND) m_doc.scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 	ClosePrinter(handle);
 }
 

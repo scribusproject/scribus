@@ -4595,10 +4595,10 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 	SHORT shiftState = GetKeyState( VK_SHIFT );
 	bool  forceGDI = ( shiftState & 0x8000 ) ? true : false;
 	if (doc->Print_Options.toFile)
-		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS());
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 	else
 	{
-		ScPrintEngine_GDI* gdiEngine = new ScPrintEngine_GDI();
+		ScPrintEngine_GDI* gdiEngine = new ScPrintEngine_GDI(*doc);
 		gdiEngine->setForceGDI( forceGDI );
 		prnEngine = dynamic_cast<ScPrintEngine*>(gdiEngine);
 	}
@@ -4607,7 +4607,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 #endif
 	if (prnEngine)
 	{
-		printDone = prnEngine->print(*doc, options);
+		printDone = prnEngine->print(options);
 		if (!printDone)
 			error = prnEngine->errorMessage();
 		delete prnEngine;
