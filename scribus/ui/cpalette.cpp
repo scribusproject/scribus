@@ -1181,8 +1181,8 @@ void ColorPalette::slotGrad(int number)
 		else if (gradientType->currentIndex() == 5)
 		{
 			stackedWidget_2->setCurrentIndex(2);
-			if ((currentItem->selectedMeshPointX > -1) &&
-				(currentItem->selectedMeshPointY > -1L)) {
+			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1L))
+			{
 				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
