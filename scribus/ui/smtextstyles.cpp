@@ -1102,11 +1102,10 @@ void SMParagraphStyle::slotNumeration(bool isOn)
 
 void SMParagraphStyle::slotNumName(const QString &str)
 {
-	QString bstr(str);
 	if (!str.isEmpty())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setNumName(bstr);
+			m_selection[i]->setNumName(str);
 		m_pwidget->numComboBox->setCurrentItem(m_pwidget->numComboBox->findText(m_selection[0]->numName()));
 		m_pwidget->numLevelSpin->setValue(m_selection[0]->numLevel()+1);
 		NumStruct * numS = m_doc->numerations.value(m_selection[0]->numName());

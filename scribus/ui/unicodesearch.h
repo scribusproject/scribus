@@ -31,7 +31,7 @@ public:
 	/*! \brief QDialog like constructor
 	\param parent standard qt widget
 	*/
-	UnicodeSearch(QWidget* parent = 0);
+	UnicodeSearch(QWidget* parent = nullptr);
 	~UnicodeSearch();
 
 signals:
@@ -71,7 +71,7 @@ class UnicodeSearchModel : public QAbstractTableModel
 	Q_OBJECT
 
 	public:
-		UnicodeSearchModel(QObject * parent = 0);
+		UnicodeSearchModel(QObject* parent = nullptr);
 		~UnicodeSearchModel();
 
 		int rowCount(const QModelIndex & parent = QModelIndex()) const;

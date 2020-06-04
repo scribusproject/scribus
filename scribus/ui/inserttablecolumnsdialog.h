@@ -29,7 +29,7 @@ public:
 
 public:
 	/// Constructs a new dialog for inserting columns. @a appMode is the current application mode.
-	explicit InsertTableColumnsDialog(int appMode, QWidget *parent = 0);
+	explicit InsertTableColumnsDialog(int appMode, QWidget* parent = nullptr);
 
 	/// Returns the number of columns the user entered.
 	int numberOfColumns() const { return numColumns->value(); }

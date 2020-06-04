@@ -41,7 +41,7 @@ class Imposition : public QDialog,Ui::ImpositionBase
   Q_OBJECT
 
 	public:
-		Imposition(QWidget* parent = 0, ScribusDoc* doc = 0);
+		Imposition(QWidget* parent = nullptr, ScribusDoc* doc = 0);
 		virtual ~Imposition();
 		
 		double unitRatio;

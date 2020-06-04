@@ -19,7 +19,7 @@ class SMCStyleWidget : public QWidget, public Ui::SMCStyleWidget
 {
 	Q_OBJECT
 public:
-	SMCStyleWidget(QWidget *parent = 0);
+	SMCStyleWidget(QWidget* parent = nullptr);
 	~SMCStyleWidget();
 	
 	virtual void changeEvent(QEvent *e);

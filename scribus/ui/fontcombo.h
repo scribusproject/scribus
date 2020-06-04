@@ -137,7 +137,7 @@ class FontComboValidator : public QValidator
 	Q_OBJECT
 
 public:
-	FontComboValidator(QObject* parent = 0);
+	FontComboValidator(QObject* parent = nullptr);
 	virtual State validate(QString & input, int & pos) const;
 };
 #endif

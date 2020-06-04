@@ -18,8 +18,8 @@ class ScTableWidget : public QTableWidget
 	Q_OBJECT
 
 	public:
-		ScTableWidget ( QWidget * parent = 0 );
-		ScTableWidget ( int rows, int columns, QWidget * parent = 0 );
+		ScTableWidget ( QWidget* parent = nullptr );
+		ScTableWidget ( int rows, int columns, QWidget* parent = nullptr );
 		~ScTableWidget ();
 		void setCellWidget ( int row, int column, QWidget * widget );
 		void removeCellWidget ( int row, int column );

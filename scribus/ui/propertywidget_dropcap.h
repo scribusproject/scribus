@@ -14,7 +14,7 @@ class PropertyWidget_DropCap : public QFrame, private Ui::PropertyWidget_DropCap
     Q_OBJECT
 
 public:
-	PropertyWidget_DropCap(QWidget *parent = 0);
+	PropertyWidget_DropCap(QWidget* parent = nullptr);
 	~PropertyWidget_DropCap() {}
 
 	void updateStyle(const ParagraphStyle& newCurrent);

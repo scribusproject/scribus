@@ -64,12 +64,12 @@ namespace sfnt {
 		putWord16(bb, pos, val);
 	}
 	
-	const QByteArray tag(const QByteArray& bb, uint pos)
+	QByteArray tag(const QByteArray& bb, uint pos)
 	{
 		return QByteArray::fromRawData(bb.constData() + pos, 4);
 	}
 	
-	const QByteArray tag(uint word)
+	QByteArray tag(uint word)
 	{
 		QByteArray result;
 		result.resize(4);
@@ -522,7 +522,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	}
 
 
-	const QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag)
+	QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag)
 	{
 		uint pos = getTableDirEntry(ttf, ttfTag);
 		if (pos <= 0)
@@ -619,7 +619,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		return result;
 	}
 
-	const QByteArray writeLoca(const QList<uint>& loca, bool longFormat)
+	QByteArray writeLoca(const QList<uint>& loca, bool longFormat)
 	{
 		QByteArray result;
 		if (longFormat)
@@ -808,7 +808,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 
 
 
-	const QByteArray writeCMap(const QMap<uint, uint>& cmap)
+	QByteArray writeCMap(const QMap<uint, uint>& cmap)
 	{
 		// we always write only one table: platform=3(MS), encoding=1(Unicode 16bit)
 		QByteArray result;

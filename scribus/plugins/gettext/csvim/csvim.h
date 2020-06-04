@@ -43,14 +43,15 @@ private:
 	bool useVDelim { true };
 	QString filename;
 	QString encoding;
-	gtWriter *writer { nullptr };
+	gtWriter *writer {nullptr};
+
 	QString header;
 	QString data;
-	int rowNumber { 0 };
-	int colIndex { 0 };
-	int colCount { 0 };
-	gtParagraphStyle *pstyleData { nullptr };
-	gtParagraphStyle *pstyleHeader { nullptr };
+	int rowNumber {0};
+	int colIndex {0};
+	int colCount {0};
+	gtParagraphStyle *pstyleData {nullptr};
+	gtParagraphStyle *pstyleHeader {nullptr};
 
 	void loadFile();
 	void parseLine(const QString& line, bool isHeader);

@@ -33,8 +33,8 @@ class ScProgressBar : public QProgressBar
 	Q_OBJECT
 	
 	public:
-		ScProgressBar( bool showNumbers, QWidget *parent=0);
-		ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent=0);
+		ScProgressBar( bool showNumbers, QWidget* parent=nullptr);
+		ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent=nullptr);
 		virtual bool setIndicator( QString & indicator, int progress, int totalSteps );
 
 		~ScProgressBar();

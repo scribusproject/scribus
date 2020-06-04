@@ -25,7 +25,7 @@ class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::StyleManager
 {
 	Q_OBJECT
 public:
-	StyleManager(QWidget *parent = 0, const char *name = "StyleManager");
+	StyleManager(QWidget* parent = nullptr, const char *name = "StyleManager");
 	~StyleManager();
 	
 	virtual void changeEvent(QEvent *e);

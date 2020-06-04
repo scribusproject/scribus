@@ -63,7 +63,7 @@ class BarcodeGenerator : public QDialog
 		/*! \brief Create modal BC dialog.
 		\param parent Parent of the dialog.
 		\param name name od the QObject to debug */
-		BarcodeGenerator(QWidget* parent = 0, const char* name = 0);
+		BarcodeGenerator(QWidget* parent = nullptr, const char* name = 0);
 		//! \brief Erase the temporary files here.
 		~BarcodeGenerator();
 

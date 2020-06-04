@@ -18,7 +18,7 @@ class multiComboboxModel : public QStandardItemModel
 {
 	Q_OBJECT
 	public:
-		multiComboboxModel ( QObject* parent = 0 );
+		multiComboboxModel ( QObject* parent = nullptr );
 		Qt::ItemFlags flags ( const QModelIndex& index ) const;
 };
 
@@ -27,7 +27,7 @@ class multiView : public QListView
 {
 	Q_OBJECT
 	public:
-		multiView ( QWidget* parent = 0 );
+		multiView ( QWidget* parent = nullptr );
 		multiView ( multiCombobox* parent );
 		bool eventFilter ( QObject* object, QEvent* event );
 
@@ -40,7 +40,7 @@ class multiCombobox : public QComboBox
 {
 	Q_OBJECT
 	public:
-		multiCombobox ( QWidget *parent = 0 );
+		multiCombobox ( QWidget* parent = nullptr );
 
 		void setCheckstate ( int index, int checked );
 		int checkstate ( int index );

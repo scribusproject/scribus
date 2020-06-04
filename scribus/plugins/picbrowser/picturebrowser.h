@@ -99,7 +99,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		Q_OBJECT
 
 	public:
-		PictureBrowser ( ScribusDoc* doc, QWidget *parent = 0 );
+		PictureBrowser ( ScribusDoc* doc, QWidget* parent = nullptr );
 		~PictureBrowser();
 		void closeEvent(QCloseEvent *e);
 		void changedDocument ( ScribusDoc* doc );

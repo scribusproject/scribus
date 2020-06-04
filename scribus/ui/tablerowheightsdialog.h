@@ -21,7 +21,7 @@ class TableRowHeightsDialog : public QDialog, private Ui::TableRowHeightsDialog
 	Q_OBJECT
 public:
 	/// Constructs a new dialog. The dialog will use the unit of @a doc.
-	explicit TableRowHeightsDialog(ScribusDoc* doc, QWidget *parent = 0);
+	explicit TableRowHeightsDialog(ScribusDoc* doc, QWidget* parent = nullptr);
 
 	/// Returns the row height the user entered.
 	double rowHeight() const;

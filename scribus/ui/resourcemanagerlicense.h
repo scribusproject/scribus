@@ -37,7 +37,7 @@ class SCRIBUS_API ResourceManagerLicense : public QDialog, Ui::ResourceManagerLi
 	Q_OBJECT
 
 	public:
-		ResourceManagerLicense(QWidget * parent = 0, Qt::WindowFlags f = 0);
+		ResourceManagerLicense(QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 		~ResourceManagerLicense() {};
 
 		void setText(const QString& s);

@@ -35,7 +35,7 @@ class PageItemPositionSetter : public PageItemSetterBase, private Ui::PositionSe
 	Selection* m_select;
 
 public:
-	PageItemPositionSetter(QWidget * parent = 0);
+	PageItemPositionSetter(QWidget* parent = nullptr);
 
 	void changeItem(Selection* sel);
 	PageItemSetterBase* clone();

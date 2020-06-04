@@ -19,7 +19,7 @@ class XpsImportOptions : public QDialog
 	Q_OBJECT
 	
 public:
-	explicit XpsImportOptions(QWidget *parent = 0);
+	explicit XpsImportOptions(QWidget* parent = nullptr);
 	~XpsImportOptions();
 	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact);
 	QString getPagesString();

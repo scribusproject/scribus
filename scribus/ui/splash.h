@@ -24,7 +24,7 @@ class SCRIBUS_API ScSplashScreen : public QSplashScreen
 		\author Franz Schmid
 		\brief Constructor for SplashScreen
 		 */
-		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0 );
+		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = Qt::WindowFlags() );
 		~ScSplashScreen() {}
 		/*!
 		\author Franz Schmid

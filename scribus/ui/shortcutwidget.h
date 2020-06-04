@@ -23,7 +23,7 @@ class ShortcutWidget : public QWidget, public Ui::ShortcutWidget
 	Q_OBJECT
 
 public:
-	ShortcutWidget(QWidget *parent = 0);
+	ShortcutWidget(QWidget* parent = nullptr);
 	~ShortcutWidget();
 	
 	

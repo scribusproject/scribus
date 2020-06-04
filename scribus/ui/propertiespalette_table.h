@@ -32,7 +32,7 @@ class SCRIBUS_API PropertiesPalette_Table : public QWidget, Ui::PropertiesPalett
 	Q_OBJECT
 
 public:
-	explicit PropertiesPalette_Table(QWidget *parent = 0);
+	explicit PropertiesPalette_Table(QWidget* parent = nullptr);
 	~PropertiesPalette_Table() {}
 
 	/// Update the list of colors.

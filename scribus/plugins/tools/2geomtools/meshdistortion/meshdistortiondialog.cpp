@@ -171,7 +171,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}
@@ -495,7 +495,7 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}

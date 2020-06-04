@@ -29,7 +29,7 @@ public:
 
 public:
 	/// Constructs a new dialog for inserting rows. @a appMode is the current application mode.
-	explicit InsertTableRowsDialog(int appMode, QWidget *parent = 0);
+	explicit InsertTableRowsDialog(int appMode, QWidget* parent = nullptr);
 
 	/// Returns the number of rows the user entered.
 	int numberOfRows() const { return numRows->value(); }

@@ -20,7 +20,7 @@ class SCRIBUS_API FontEmbeddingModel : public QAbstractItemModel
 
 public:
 	//! Constructor
-	FontEmbeddingModel(QObject *parent = 0);
+	FontEmbeddingModel(QObject* parent = nullptr);
 
 	//! Remove all colors from list;
 	void clear();

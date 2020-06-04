@@ -35,21 +35,16 @@ void GetText(const QString& filename, const QString& encoding, bool /* textOnly 
 
 /******* Class CsvIm **************************************************************/
 
-CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w, 
-             const QString& fdelim, const QString& vdelim, bool hasheader, bool usevdelim)
+CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w,
+			 const QString& fdelim, const QString& vdelim, bool hasheader, bool usevdelim) :
+	fieldDelimiter(fdelim),
+	valueDelimiter(vdelim),
+	hasHeader(hasheader),
+	useVDelim(usevdelim),
+	filename(fname),
+	encoding(enc),
+	writer(w)
 {
-	fieldDelimiter = fdelim;
-	valueDelimiter = vdelim;
-	hasHeader = hasheader;
-	useVDelim = usevdelim;
-	filename = fname;
-	encoding = enc;
-	writer = w;
-	header = "";
-	data = "";
-	rowNumber = 0;
-	colIndex = 0;
-	colCount = 0;
 	setupPStyles();
 	loadFile();
 	setupTabulators();
@@ -59,18 +54,15 @@ void CsvIm::setupPStyles()
 {
 	pstyleData = new gtParagraphStyle(*(writer->getDefaultStyle()));
 	pstyleData->setName(writer->getFrameName() + "-" + QObject::tr("CSV_data"));
-	if (hasHeader)
-	{
-		pstyleHeader = new gtParagraphStyle(*pstyleData);
-		pstyleHeader->setName(writer->getFrameName() + "-" + QObject::tr("CSV_header"));
-		pstyleHeader->setSpaceBelow(7.0);
-		int size = pstyleData->getFont()->getSize();
-		size += 10;
-		pstyleHeader->getFont()->setSize(size);
-		pstyleHeader->getFont()->setWeight(BOLD);
-	}
-	else
-		pstyleHeader = nullptr;
+	if (!hasHeader)
+		return;
+	pstyleHeader = new gtParagraphStyle(*pstyleData);
+	pstyleHeader->setName(writer->getFrameName() + "-" + QObject::tr("CSV_header"));
+	pstyleHeader->setSpaceBelow(7.0);
+	int size = pstyleData->getFont()->getSize();
+	size += 10;
+	pstyleHeader->getFont()->setSize(size);
+	pstyleHeader->getFont()->setWeight(BOLD);
 }
 
 void CsvIm::setFieldDelimiter(const QString& fdelim)

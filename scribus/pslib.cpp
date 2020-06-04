@@ -207,13 +207,16 @@ void PSPainter::drawRect(QRectF rect)
 
 void PSPainter::drawLine(QPointF start, QPointF end)
 {
-	double h, s, v, k;
 	QVector<double> dum;
 	dum.clear();
 	m_ps->PS_save();
 	applyTransform();
 	if (fillColor().color != CommonStrings::None)
 	{
+		double h = 0.0;
+		double s = 0.0;
+		double v = 0.0;
+		double k = 0.0;
 		m_ps->PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
 		m_ps->SetColor(fillColor().color,fillColor().shade, &h, &s, &v, &k);

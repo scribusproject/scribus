@@ -39,7 +39,7 @@ class ScImageCacheFile : public QObject
 	Q_OBJECT
 
 public:
-	ScImageCacheFile(const QString & name, ScImageCacheDir *parent = 0);
+	ScImageCacheFile(const QString & name, ScImageCacheDir* parent = nullptr);
 	~ScImageCacheFile();
 
 	QString path(bool relative = false) const;

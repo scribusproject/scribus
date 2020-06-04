@@ -18,7 +18,7 @@ class PropertyWidget_ParEffect : public QFrame, private Ui::PropertyWidget_ParEf
 	Q_OBJECT
 
 public:
-	PropertyWidget_ParEffect(QWidget *parent = 0);
+	PropertyWidget_ParEffect(QWidget* parent = nullptr);
 	~PropertyWidget_ParEffect() {}
 
 	void updateStyle(const ParagraphStyle& newPStyle);

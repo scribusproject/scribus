@@ -41,7 +41,7 @@ class PageItemSettersManager : public QObject
 	static PageItemSettersManager * instance;
 	static PageItemSettersManager * that();
 
-	PageItemSettersManager(QObject * parent = 0);
+	PageItemSettersManager(QObject* parent = nullptr);
 
 	QList<PageItemSetterBase*> setters;
 	Selection * selection;

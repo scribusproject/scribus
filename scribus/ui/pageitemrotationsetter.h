@@ -32,7 +32,7 @@ class PageItemRotationSetter : public PageItemSetterBase, private Ui::RotationWi
 	Selection * m_select;
 
 public:
-	PageItemRotationSetter(QWidget * parent = 0);
+	PageItemRotationSetter(QWidget* parent = nullptr);
 
 	void changeItem(Selection* sel);
 	PageItemSetterBase * clone();

@@ -1024,7 +1024,7 @@ void ColorPalette::showGradient(int number)
 		else if (number == 11)
 		{
 			stackedWidget_2->setCurrentIndex(2);
-			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1L))
 			{
 				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
@@ -1181,8 +1181,8 @@ void ColorPalette::slotGrad(int number)
 		else if (gradientType->currentIndex() == 5)
 		{
 			stackedWidget_2->setCurrentIndex(2);
-			if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
-			{
+			if ((currentItem->selectedMeshPointX > -1) &&
+				(currentItem->selectedMeshPointY > -1L)) {
 				MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 				setCurrentComboItem(colorMeshPoint, mp.colorName);
 				shadeMeshPoint->setValue(mp.shade);
@@ -1276,7 +1276,7 @@ void ColorPalette::slotGradType(int type)
 	else if (type == 5)
 	{
 		stackedWidget_2->setCurrentIndex(2);
-		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1l))
+		if ((currentItem->selectedMeshPointX > -1) && (currentItem->selectedMeshPointY > -1L))
 		{
 			MeshPoint mp = currentItem->meshGradientArray[currentItem->selectedMeshPointX][currentItem->selectedMeshPointY];
 			setCurrentComboItem(colorMeshPoint, mp.colorName);

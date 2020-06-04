@@ -20,7 +20,7 @@ class SCRIBUS_API PdfVersionModel : public QAbstractItemModel
 
 public:
 	//! Constructor
-	PdfVersionModel(QObject *parent = 0);
+	PdfVersionModel(QObject* parent = nullptr);
 	
 	enum PdfVersionItem
 	{
