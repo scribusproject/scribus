@@ -272,8 +272,6 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if ((m_mouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 			{
-				double newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-				double newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 				QPoint startP = m_canvas->canvasToGlobal(QPointF(m_xp, m_yp));
 				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 				m_view->setRedrawMarkerShown(true);

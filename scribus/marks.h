@@ -69,7 +69,7 @@ public:
 	void setMark(const QString& l, MarkType t);
 	MarkType getMarkType() const { return m_data.markType; }
 	void setMarkType(MarkType t) { m_data.markType = t; }
-	const QString getString() const;
+	QString getString() const;
 	void setString(const QString& str );
 	TextNote* getNotePtr() const { return m_data.notePtr; }
 	void setNotePtr(TextNote *note);

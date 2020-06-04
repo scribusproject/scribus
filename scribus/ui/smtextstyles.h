@@ -208,6 +208,7 @@ private slots:
 	void slotFont(const QString& s);
 	void slotParentChanged(const QString &parent);
 	void slotFontFeatures();
+	void slotSelectionDirty();
 };
 
 #endif

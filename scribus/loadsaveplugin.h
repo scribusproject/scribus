@@ -56,19 +56,19 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Static functions:
 
 		// Return a list of file extensions
-		static const QStringList getExtensionsForColors(const int id = 47);
+		static QStringList getExtensionsForColors(const int id = 47);
 		// Return a list of file extensions
-		static const QStringList getExtensionsForImport(const int id = 47);
+		static QStringList getExtensionsForImport(const int id = 47);
 		// Return a list of file extensions
-		static const QStringList getExtensionsForPreview(const int id = 47);
+		static QStringList getExtensionsForPreview(const int id = 47);
 
 		// Return a list of format descriptions suitable for use with
 		// QFileDialog.  You can convert it to QString form with
 		// fileDialogSaveFilter().join(";;")
-		static const QStringList fileDialogLoadFilter();
+		static QStringList fileDialogLoadFilter();
 
 		// Same deal but for save
-		static const QStringList fileDialogSaveFilter();
+		static QStringList fileDialogSaveFilter();
 
 		// Get the highest priority format of a given id, or 0 if
 		// not found / not available.

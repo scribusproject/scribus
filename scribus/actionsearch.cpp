@@ -17,7 +17,7 @@
 #include <QStringList>
 
 ActionSearch::ActionSearch(QMenuBar *menuBar)
-            : menuBar{menuBar}
+	: menuBar{menuBar}
 {
 
 }
@@ -55,7 +55,7 @@ void ActionSearch::readMenuActions(QMenu* menu)
 		menus.prepend(title);
 		currentMenu = dynamic_cast<QMenu*>(currentMenu->parentWidget());
 	}
-	QString menuName = menus.join(" > ");
+	QString menuName(menus.join(" > "));
 
 	for (auto action: menu->actions())
 	{

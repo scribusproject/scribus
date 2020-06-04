@@ -14098,7 +14098,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 	}
 	if (currItem->isLine())
 	{
-		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
+		//int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		if (!fromMP)
 		{
 			FPoint g(currItem->xPos(), currItem->yPos());

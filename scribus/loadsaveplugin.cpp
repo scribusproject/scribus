@@ -57,17 +57,17 @@ FileFormat* LoadSavePlugin::getFormatByExt(const QString& ext)
 	return &(*it);
 }
 
-const QStringList LoadSavePlugin::fileDialogLoadFilter()
+QStringList LoadSavePlugin::fileDialogLoadFilter()
 {
 	return getDialogFilter(true);
 }
 
-const QStringList LoadSavePlugin::fileDialogSaveFilter()
+QStringList LoadSavePlugin::fileDialogSaveFilter()
 {
 	return getDialogFilter(false);
 }
 
-const QStringList LoadSavePlugin::getExtensionsForColors(const int id)
+QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
 	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
@@ -103,7 +103,7 @@ const QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 	return filterList;
 }
 
-const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
+QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
 	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
@@ -139,7 +139,7 @@ const QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 	return filterList;
 }
 
-const QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
+QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 {
 	QList<FileFormat>::const_iterator it(findFormat(id));
 	QList<FileFormat>::const_iterator itEnd(formats.constEnd());

@@ -296,9 +296,9 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	m_unitRatio = m_doc->unitRatio();
 
 	// signals and slots connections
-	connect( insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
+	connect(okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
@@ -348,10 +348,10 @@ void InsPage::setOrientation(int ori)
 QStringList InsPage::getMasterPages() const
 {
 	QStringList ret;
-	for (int n = 0; n < masterPageCombos.count(); ++n)
+	for (int i = 0; i < masterPageCombos.count(); ++i)
 	{
-		int currentIndex = masterPageCombos.at(n)->currentIndex();
-		QVariant pageVar = masterPageCombos.at(n)->itemData(currentIndex);
+		int currentIndex = masterPageCombos.at(i)->currentIndex();
+		QVariant pageVar = masterPageCombos.at(i)->itemData(currentIndex);
 		ret.append(pageVar.toString());
 	}
 	return ret;

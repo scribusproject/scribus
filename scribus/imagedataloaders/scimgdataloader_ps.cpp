@@ -671,7 +671,6 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			{
 				m_image.load(tmpFile);
 				x = 0;
-				y = 0;
 				b = m_image.width() / gsRes * 72.0;
 				h = m_image.height() / gsRes * 72.0;
 			}
@@ -904,7 +903,6 @@ void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, const QString& tmp)
 					psdata.resize(psdata.size()+1);
 					psdata[psdata.size()-1] = data;
 				}
-				quintet = 0;
 			}
 			break;
 		}
