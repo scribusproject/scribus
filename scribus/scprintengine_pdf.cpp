@@ -81,6 +81,9 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	PDFOptions pdfOptions;
 
 	pdfOptions.Version = PDFVersion::PDF_14;
+	pdfOptions.FontEmbedding = PDFOptions::EmbedFonts;
+	setupFontEmbedding(pdfOptions);
+
 	pdfOptions.doClip = options.doClip;
 	pdfOptions.MirrorH = options.mirrorH;
 	pdfOptions.MirrorV = options.mirrorV;
@@ -114,6 +117,8 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	pdfOptions.markLength = options.markLength;
 	pdfOptions.markOffset = options.markOffset;
 	pdfOptions.bleeds = options.bleeds;
+
+	// Embed all fonts
 
 	// Generate PDF
 	QString errorString;
