@@ -4603,7 +4603,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 		prnEngine = dynamic_cast<ScPrintEngine*>(gdiEngine);
 	}
 #else
-	prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS());
+	prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 #endif
 	if (prnEngine)
 	{
