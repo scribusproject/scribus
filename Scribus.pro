@@ -200,6 +200,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/scpreview.h \
            scribus/scprintengine.h \
            scribus/scprintengine_gdi.h \
+           scribus/scprintengine_pdf.h \
            scribus/scprintengine_ps.h \
            scribus/scraction.h \
            scribus/scribus.h \
@@ -1359,6 +1360,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/scplugin.cpp \
            scribus/scpreview.cpp \
            scribus/scprintengine_gdi.cpp \
+           scribus/scprintengine_pdf.cpp \
            scribus/scprintengine_ps.cpp \
            scribus/scraction.cpp \
            scribus/scribus.cpp \

@@ -806,13 +806,7 @@
     <ClInclude Include="..\..\..\scribus\pdfversion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\outputpreviewbase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\outputpreview_pdf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\outputpreview_ps.h">
+    <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -2524,6 +2518,9 @@
     <ClCompile Include="..\..\..\scribus\ui\outputpreview_ps.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4167,6 +4164,15 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\contentpalette_default.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreviewbase.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_ps.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

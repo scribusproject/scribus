@@ -743,6 +743,7 @@ set(SCRIBUS_SOURCES
 	scpattern.cpp
 	scplugin.cpp
 	scpreview.cpp
+	scprintengine_pdf.cpp
 	scprintengine_ps.cpp
 	scraction.cpp
 	scribus.cpp
