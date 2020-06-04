@@ -4592,16 +4592,10 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 	ScCore->fileWatcher->stop();
 	ScPrintEngine* prnEngine = nullptr;
 #if defined(_WIN32)
-	SHORT shiftState = GetKeyState( VK_SHIFT );
-	bool  forceGDI = ( shiftState & 0x8000 ) ? true : false;
 	if (doc->Print_Options.toFile)
 		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 	else
-	{
-		ScPrintEngine_GDI* gdiEngine = new ScPrintEngine_GDI(*doc);
-		gdiEngine->setForceGDI( forceGDI );
-		prnEngine = dynamic_cast<ScPrintEngine*>(gdiEngine);
-	}
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_GDI(*doc));
 #else
 	prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 #endif
