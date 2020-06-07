@@ -153,6 +153,73 @@ private:
 	QStringList *m_importedColors;
 };
 
+/* PDF TextBox Framework */
+/*
+* Holds all the dtails for each glyph in the text imported from the pdf file.
+*
+*/
+struct PdfGlyph {
+	QPointF position;    // Absolute glyph coords
+	double dx;  // X advance value
+	double dy;  // Y advance value
+	double rise;    // Text rise parameter
+	QString code;   // UTF-16 coded character but we only store and use UTF-8, the slternstive is const char * for utf8 so far as qt is concerned
+	bool is_space;
+};
+
+
+class TextRegionLine
+{
+public:
+	qreal maxHeight = -1;
+	qreal modeHeigth = -1;
+	qreal width = -1;
+	int glyphIndex = -1;
+	QPointF baseOrigin = QPointF(-1, -1);
+	std::vector<TextRegionLine> segments = std::vector<TextRegionLine>();
+
+};
+
+class TextRegion {
+public:
+	enum FRAMEWORKLINETESTS {
+		FIRSTPOINT,
+		SAMELINE,
+		STYLESUPERSCRIPT,
+		STYLENORMALRETURN,
+		STYLEBELOWBASELINE,
+		NEWLINE,
+		ENDOFLINE, //TODO: Implement an end of line test
+		FAIL
+	};
+
+	QPointF textRegioBasenOrigin = QPointF(-1, -1);
+	qreal maxHeight = -1;
+	qreal modeHeigth = -1;
+	qreal lineSpacing = -1;
+	std::vector<TextRegionLine> textRegionLines = std::vector<TextRegionLine>();
+	qreal maxWidth = -1;
+	QPointF lineBaseXY = QPointF(-1, -1); //updated with the best match left value from all the textRegionLines and the best bottom value from the textRegionLines.segments;
+	QPointF lastXY = QPointF(-1, -1);
+	static bool coLinera(qreal a, qreal b);
+	bool closeToX(qreal x1, qreal x2);
+	bool closeToY(qreal y1, qreal y2);
+	bool adjunctLesser(qreal testY, qreal lastY, qreal baseY);
+	bool adjunctGreater(qreal testY, qreal lastY, qreal baseY);
+	TextRegion::FRAMEWORKLINETESTS linearTest(QPointF point, bool xInLimits, bool yInLimits);
+	TextRegion::FRAMEWORKLINETESTS isRegionConcurrent(QPointF newPoint);
+	TextRegion::FRAMEWORKLINETESTS moveToPoint(QPointF newPoint);
+	TextRegion::FRAMEWORKLINETESTS addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
+	void renderToTextFrame(PageItem* textNode, ParagraphStyle& pStyle);	
+	std::vector<PdfGlyph> glyphs; //this may replace some of the other settings or it may not, certainly not font as text gets flushed if the font changes
+};
+
+class AddCharInterface
+{
+public:
+	// Pure Virtual Function 
+	virtual void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) = 0;
+};
 
 class SlaOutputDev : public OutputDev
 {
@@ -232,6 +299,7 @@ public:
 	void endMarkedContent(GfxState *state) override;
 	void markPoint(POPPLER_CONST char *name) override;
 	void markPoint(POPPLER_CONST char *name, Dict *properties) override;
+	
 
 	//----- image drawing
 	void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg) override;
@@ -262,7 +330,8 @@ public:
 
 	void updateFillColor(GfxState *state) override;
 	void updateStrokeColor(GfxState *state) override;
-	void updateFont(GfxState *state) override;
+	void updateFontForVector(GfxState* state);
+	bool importTextAsVectors;
 
 	//----- text drawing
 	void  beginTextObject(GfxState *state) override;
@@ -272,6 +341,21 @@ public:
 	void  endType3Char(GfxState * /*state*/) override;
 	void  type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
+
+	//text as text
+	
+	AddCharInterface* addChar = nullptr;
+
+	enum ADDCHARMODE {
+		ADDFIRSTCHAR,
+		ADDBASICCHAR,
+		ADDCHARWITHNEWSTYLE,
+		ADDCHARWITHPREVIOUSSTYLE
+	};
+
+	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
+
+	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 
 	//----- form XObjects
 	void drawForm(Ref /*id*/) override { qDebug() << "Draw Form"; }
@@ -305,6 +389,13 @@ private:
 	void createFillItem(GfxState *state, Qt::FillRule fillRule);
 
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
+
+	//PDF Textbox framework	
+	void setFillAndStrokeForPDF(GfxState* state, PageItem* text_node);
+	void updateTextPos(GfxState* state) override;
+	void renderTextFrame();
+
+	void finishItem(PageItem* item);
 
 	bool pathIsClosed {false};
 	QString CurrColorFill;
@@ -371,6 +462,63 @@ private:
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
+
+	//PDF Textbox framework
+	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();	
+};
+
+class AddFirstChar : public AddCharInterface
+{
+
+public:
+	AddFirstChar(SlaOutputDev *slaOutputDev)
+	{
+		m_slaOutputDev = slaOutputDev;
+	}
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
+private:
+	SlaOutputDev* m_slaOutputDev = nullptr;
+};
+
+class AddBasicChar : public AddCharInterface
+{
+
+public:
+	AddBasicChar(SlaOutputDev* slaOutputDev)
+	{
+		m_slaOutputDev = slaOutputDev;
+	}
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
+private:
+	SlaOutputDev* m_slaOutputDev = nullptr;
+};
+
+// TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
+class AddCharWithNewStyle : public AddCharInterface
+{
+
+public:
+	AddCharWithNewStyle(SlaOutputDev* slaOutputDev)
+	{
+		m_slaOutputDev = slaOutputDev;
+	}
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
+private:
+	SlaOutputDev* m_slaOutputDev = nullptr;
+};
+
+// TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
+class AddCharWithPreviousStyle : public AddCharInterface
+{
+
+public:
+	AddCharWithPreviousStyle(SlaOutputDev* slaOutputDev)
+	{
+		m_slaOutputDev = slaOutputDev;
+	}
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
+private:
+	SlaOutputDev* m_slaOutputDev = nullptr;
 };
 
 #endif
