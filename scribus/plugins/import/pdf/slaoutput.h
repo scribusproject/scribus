@@ -159,12 +159,10 @@ private:
 *
 */
 struct PdfGlyph {
-	QPointF position;    // Absolute glyph coords
 	double dx;  // X advance value
 	double dy;  // Y advance value
 	double rise;    // Text rise parameter
 	QString code;   // UTF-16 coded character but we only store and use UTF-8, the slternstive is const char * for utf8 so far as qt is concerned
-	bool is_space;
 };
 
 
@@ -172,6 +170,7 @@ class TextRegionLine
 {
 public:
 	qreal maxHeight = -1;
+	//we can probably use maxHeight for this.
 	qreal modeHeigth = -1;
 	qreal width = -1;
 	int glyphIndex = -1;
@@ -195,6 +194,7 @@ public:
 
 	QPointF textRegioBasenOrigin = QPointF(-1, -1);
 	qreal maxHeight = -1;
+	//we can probably use maxHeight for this.
 	qreal modeHeigth = -1;
 	qreal lineSpacing = -1;
 	std::vector<TextRegionLine> textRegionLines = std::vector<TextRegionLine>();
