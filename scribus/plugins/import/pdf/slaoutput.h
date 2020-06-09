@@ -359,9 +359,6 @@ public:
 	void  type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
 
-	//PDF Textbox framework
-	TextFramework* textFramework = nullptr;
-
 	//----- form XObjects
 	void drawForm(Ref /*id*/) override { qDebug() << "Draw Form"; }
 
@@ -467,6 +464,8 @@ private:
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
+	//PDF Textbox framework
+	TextFramework* m_textFramework = nullptr;
 };
 
 class AddFirstChar : public AddCharInterface
