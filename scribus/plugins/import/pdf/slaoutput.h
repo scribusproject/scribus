@@ -158,7 +158,8 @@ private:
 * Holds all the dtails for each glyph in the text imported from the pdf file.
 *
 */
-struct PdfGlyph {
+struct PdfGlyph 
+{
 	double dx;  // X advance value
 	double dy;  // Y advance value
 	double rise;    // Text rise parameter
@@ -178,9 +179,11 @@ public:
 
 };
 
-class TextRegion {
+class TextRegion
+{
 public:
-	enum class FrameworkLineTests {
+	enum class FrameworkLineTests 
+	{
 		FIRSTPOINT,
 		SAMELINE,
 		STYLESUPERSCRIPT,
@@ -224,7 +227,8 @@ class TextFramework
 public:
 	TextFramework();
 	~TextFramework();
-	enum class AddCharMode {
+	enum class AddCharMode 
+	{
 		ADDFIRSTCHAR,
 		ADDBASICCHAR,
 		ADDCHARWITHNEWSTYLE,
