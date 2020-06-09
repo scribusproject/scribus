@@ -287,7 +287,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	importTextAsVectors = true;
 
 	m_textFramework = new TextFramework();
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -3447,7 +3447,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		// Add the last glyph to the textregion
 		QPointF glyphXY = m_textFramework->activeTextRegion.lastXY;
 		m_textFramework->activeTextRegion.lastXY.setX(m_textFramework->activeTextRegion.lastXY.x() - m_textFramework->activeTextRegion.glyphs.back().dx);
-		if (m_textFramework->activeTextRegion.addGlyphAtPoint(glyphXY, m_textFramework->activeTextRegion.glyphs.back()) == TextRegion::FAIL) {
+		if (m_textFramework->activeTextRegion.addGlyphAtPoint(glyphXY, m_textFramework->activeTextRegion.glyphs.back()) == TextRegion::FrameworkLineTests::FAIL) {
 			qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
 		}
 		renderTextFrame();		
@@ -3455,7 +3455,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		qDebug("FIXME:Rogue textblock");
 	}
 	
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -3963,17 +3963,17 @@ bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 		&& lastY != baseY);
 }
 
-TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
+TextRegion::FrameworkLineTests TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
 	//TODO: add a FIRSTPOINT result as well
-	FRAMEWORKLINETESTS pass = FAIL;
+	FrameworkLineTests pass = FrameworkLineTests::FAIL;
 
 	//FIXME: I think thjis should be using baseXY not lastXY
 	if (coLinera(point.y(), lastXY.y()))
 	{
 		if (coLinera(point.x(), lastXY.x())) 
 		{
-			pass = FIRSTPOINT;
+			pass = FrameworkLineTests::FIRSTPOINT;
 #ifdef DEBUG_TEXT_IMPORT
 			qDebug() << "FIRSTPOINT";
 #endif
@@ -3983,7 +3983,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 			// this is for item ##16
 			// ok, this should only happen when a new glyph is added not when the cursor position is set, but in both cases we can call extend by the point and set the glyph to the current glyph checking that it's not a duplicate
 			//TODO: textRegionLines.end().extend(point).setGlyph(newGlyph);
-			pass = SAMELINE;
+			pass = FrameworkLineTests::SAMELINE;
 #ifdef DEBUG_TEXT_IMPORT
 			qDebug() << "SAMELINE " << point << " lastxy:"<< lastXY;
 #endif
@@ -3992,7 +3992,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 	else if (adjunctLesser(point.y(), lastXY.y(), lineBaseXY.y())) 
 	{
 		//TODO: character has gone suprtscript
-		pass = STYLESUPERSCRIPT;
+		pass = FrameworkLineTests::STYLESUPERSCRIPT;
 		qDebug() << "STYLESUPERSCRIPT point:" << point << " lastXY:" << lastXY << " lineBaseXY:" << lineBaseXY;
 	}
 	else if (adjunctGreater(point.y(),lastXY.y(),lineBaseXY.y()))
@@ -4000,13 +4000,13 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 		if (coLinera(point.y(), lineBaseXY.y())) //PDF never deviates from the line when it comes to colenear
 		{
 			// were back on track
-			pass = STYLENORMALRETURN;
+			pass = FrameworkLineTests::STYLENORMALRETURN;
 			qDebug() << "STYLENORMALRETURN";
 		}
 		else
 		{
 			//TODO: this character has overflowed the height, or is still superscript just not so much
-			pass = STYLESUPERSCRIPT; //could be STYLEBELOWBASELINE
+			pass = FrameworkLineTests::STYLESUPERSCRIPT; //could be STYLEBELOWBASELINE
 			qDebug() << "STYLESUBSCRIPT point:" << point << " lastXY:" << lastXY << " lineBaseXY:" << lineBaseXY;
 			//qDebug() << "STYLESUBSCRIPT: ";
 		}
@@ -4020,7 +4020,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 				if ((textRegionLines.size() >= 2)) //TODO: Need to setup some parameters replating to width matching, they mainly relate to justfication  && closeToX(textRegionLines[textRegionLines.size() - 2].baseOrigin.x() +  textRegionLines[textRegionLines.size() - 2].width, maxWidth))
 				{
 					//TODO: add a new line and update the deltas
-					pass = NEWLINE;
+					pass = FrameworkLineTests::NEWLINE;
 #ifdef DEBUG_TEXT_IMPORT
 					qDebug() << "NEWLINE1 point:" << point << " _lastXY:" << lastXY << " origin: " << textRegioBasenOrigin <<  " this:" << this << " linespacing: " << lineSpacing;
 
@@ -4028,7 +4028,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 				}   // we only have the first line so far, so pass without much of a test.
 				else if (textRegionLines.size() == 1) 
 				{
-					pass = NEWLINE;
+					pass = FrameworkLineTests::NEWLINE;
 #ifdef DEBUG_TEXT_IMPORT
 					qDebug() << "NEWLINE2 point:" << point << " _lastXY:" << lastXY << " origin: " << textRegioBasenOrigin << " this:" << this << " linespacing: " << lineSpacing;
 #endif
@@ -4046,7 +4046,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 }
 
 // Just perform some basic checks to see if newPoint can reasonably be asscribed to the current textframe.
-TextRegion::FRAMEWORKLINETESTS TextRegion::isRegionConcurrent(QPointF newPoint)
+TextRegion::FrameworkLineTests TextRegion::isRegionConcurrent(QPointF newPoint)
 {	
 	if (glyphs.empty())
 	{
@@ -4069,12 +4069,12 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::isRegionConcurrent(QPointF newPoint)
 	{
 		yInLimits = true;
 	}
-	FRAMEWORKLINETESTS pass = linearTest(newPoint, xInLimits, yInLimits);
+	FrameworkLineTests pass = linearTest(newPoint, xInLimits, yInLimits);
 	return pass;
 }
 
 
-TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
+TextRegion::FrameworkLineTests TextRegion::moveToPoint(QPointF newPoint)
 {
 	//
 	//qDebug() << "moveToPoint: " << newPoint;
@@ -4102,17 +4102,17 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
 		yInLimits = true;
 	}
 	//qDebug() << "newPoint8: " << newPoint;
-	FRAMEWORKLINETESTS pass = linearTest(newPoint, xInLimits, yInLimits);
+	FrameworkLineTests pass = linearTest(newPoint, xInLimits, yInLimits);
 	//TODO: need to check to see if we are creating a new paragraph or not. basically if the cursor is returned to x origin before it reached x width. this could be returned as part of a matrix by linearTest that specifies exactly how the test ws passed. maybew return an enum with either the mode that passed or a failure value
-	if (pass != FRAMEWORKLINETESTS::FAIL)
+	if (pass != FrameworkLineTests::FAIL)
 	{
 		//create new lines and line segments depending upon the moide of the movement.
 		TextRegionLine *textRegionLine = nullptr;
 
-		if (pass == NEWLINE || pass == FIRSTPOINT)
+		if (pass == FrameworkLineTests::NEWLINE || pass == FrameworkLineTests::FIRSTPOINT)
 		{
 			//qDebug() << "Newline: ";
-			if (pass == FIRSTPOINT) {
+			if (pass == FrameworkLineTests::FIRSTPOINT) {
 				if (textRegionLines.empty()) {
 					textRegionLines.push_back(TextRegionLine());
 				}
@@ -4123,7 +4123,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
 			}
 			textRegionLine = &textRegionLines.back();
 			textRegionLine->baseOrigin = newPoint;
-			if (pass == NEWLINE)
+			if (pass == FrameworkLineTests::NEWLINE)
 			{
 				textRegionLine->maxHeight = abs(newPoint.y() - lastXY.y());
 				if (textRegionLines.size() == 2)
@@ -4135,14 +4135,14 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
 		}
 
 		textRegionLine = &textRegionLines.back();
-		if ((pass == FIRSTPOINT && textRegionLine->segments.empty()) || pass == NEWLINE ||  pass != FIRSTPOINT && textRegionLine->segments[0].glyphIndex != textRegionLine->glyphIndex)
+		if ((pass == FrameworkLineTests::FIRSTPOINT && textRegionLine->segments.empty()) || pass == FrameworkLineTests::NEWLINE ||  pass != FrameworkLineTests::FIRSTPOINT && textRegionLine->segments[0].glyphIndex != textRegionLine->glyphIndex)
 		{
 			TextRegionLine newSegment = TextRegionLine();
 			textRegionLine->segments.push_back(newSegment);
 		}
 		TextRegionLine* segment = &textRegionLine->segments.back();
 		segment->baseOrigin = newPoint;
-		if (pass == STYLESUPERSCRIPT) 
+		if (pass == FrameworkLineTests::STYLESUPERSCRIPT)
 		{
 			segment->maxHeight = abs(lineSpacing - (newPoint.y() - lastXY.y()));
 		
@@ -4152,7 +4152,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
 			segment->maxHeight = textRegionLines.back().maxHeight;
 		}
 
-		if (pass != NEWLINE && pass != FIRSTPOINT)
+		if (pass != FrameworkLineTests::NEWLINE && pass != FrameworkLineTests::FIRSTPOINT)
 		{
 			textRegionLines.back().segments.back().width = abs(textRegionLines.back().segments.back().baseOrigin.x() - newPoint.x());					
 			textRegionLine = &textRegionLines.back();
@@ -4171,7 +4171,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::moveToPoint(QPointF newPoint)
 }
 
 //TODO:, extract some font heights instesad of using dx all the time
-TextRegion::FRAMEWORKLINETESTS TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
+TextRegion::FrameworkLineTests TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
 {
 	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	//qDebug() << "addGlyphAtPoint start" << newGlyphPoint << " glyph:"<< new_glyph.code;
@@ -4194,14 +4194,14 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::addGlyphAtPoint(QPointF newGlyphPoint
 	{
 		yInLimits = true;
 	}
-	FRAMEWORKLINETESTS pass = linearTest(newGlyphPoint, xInLimits, yInLimits);
-	if (pass != FRAMEWORKLINETESTS::FAIL)
+	FrameworkLineTests pass = linearTest(newGlyphPoint, xInLimits, yInLimits);
+	if (pass != FrameworkLineTests::FAIL)
 	{
 		maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;
 		//moveto deals with setting newlines and segments, all we hve to do is populatit them with the parameters tyhe glyph gives us such as it's width and height and set the glyph index for the newlines and segments
 
 		TextRegionLine* textRegionLine = &textRegionLines.back();
-		if (pass == NEWLINE || pass == FIRSTPOINT) {
+		if (pass == FrameworkLineTests::NEWLINE || pass == FrameworkLineTests::FIRSTPOINT) {
 			textRegionLine->glyphIndex = glyphs.size() - 1;
 			textRegionLine->baseOrigin = QPointF(textRegioBasenOrigin.x(), newGlyphPoint.y());
 		}
@@ -4329,7 +4329,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 	)
 	{
 		activeTextRegion->textRegioBasenOrigin = newPosition;
-		m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+		m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
 	}
 	else
 	{
@@ -4338,7 +4338,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 		{
 			QPointF glyphPosition = activeTextRegion->lastXY;
 			activeTextRegion->lastXY.setX(activeTextRegion->lastXY.x() - activeTextRegion->glyphs.back().dx);
-			if (activeTextRegion->addGlyphAtPoint(glyphPosition, activeTextRegion->glyphs.back()) == TextRegion::FAIL) {
+			if (activeTextRegion->addGlyphAtPoint(glyphPosition, activeTextRegion->glyphs.back()) == TextRegion::FrameworkLineTests::FAIL) {
 				qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 			}
 			else
@@ -4347,8 +4347,8 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 			};
 		}
 	}
-	TextRegion::FRAMEWORKLINETESTS lineTestResult = activeTextRegion->moveToPoint(newPosition);
-	if (lineTestResult == TextRegion::FAIL)
+	TextRegion::FrameworkLineTests lineTestResult = activeTextRegion->moveToPoint(newPosition);
+	if (lineTestResult == TextRegion::FrameworkLineTests::FAIL)
 	{
 		// FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fixups can be put inplace first
 		renderTextFrame();
@@ -4513,7 +4513,7 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	newGlyph.dx = dx;
 	newGlyph.dy = dy;
 
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::ADDBASICCHAR];
+	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDBASICCHAR];
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding	
 	for (int i = 0; i < uLen; i++)
@@ -4526,7 +4526,7 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	m_textFramework->activeTextRegion.glyphs.push_back(newGlyph);
 
 	//only need to be called for the very first point
-	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FAIL)
+	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FrameworkLineTests::FAIL)
 	{
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the coursor should move before glyphs in new regions are added.");
 	}
@@ -4562,26 +4562,26 @@ TextFramework::TextFramework()
 {
 	m_textRegions.push_back(activeTextRegion);
 	//have a map of reusable addchar implementations instead of creating and deleting them all the time.
-	addCharModes[ADDCHARMODE::ADDFIRSTCHAR] = new AddFirstChar(this);
-	addCharModes[ADDCHARMODE::ADDBASICCHAR] = new AddBasicChar(this);
-	addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle(this);
-	addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle(this);
+	addCharModes[AddCharMode::ADDFIRSTCHAR] = new AddFirstChar(this);
+	addCharModes[AddCharMode::ADDBASICCHAR] = new AddBasicChar(this);
+	addCharModes[AddCharMode::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle(this);
+	addCharModes[AddCharMode::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle(this);
 }
 
 TextFramework::~TextFramework()
 {
 	//FIXME: could probably enumberate this
-	delete addCharModes[ADDCHARMODE::ADDFIRSTCHAR];
-	delete addCharModes[ADDCHARMODE::ADDBASICCHAR];
-	delete addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE];
-	delete addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE];
+	delete addCharModes[AddCharMode::ADDFIRSTCHAR];
+	delete addCharModes[AddCharMode::ADDBASICCHAR];
+	delete addCharModes[AddCharMode::ADDCHARWITHNEWSTYLE];
+	delete addCharModes[AddCharMode::ADDCHARWITHPREVIOUSSTYLE];
 }
 
 void TextFramework::addNewTextRegion()
 {
 	activeTextRegion = TextRegion();
 	m_textRegions.push_back(activeTextRegion);
-	addChar = addCharModes[TextFramework::ADDFIRSTCHAR];
+	addChar = addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
 }
 
 bool TextFramework::isNewLineOrRegion(QPointF newPosition)

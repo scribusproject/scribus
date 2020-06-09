@@ -180,7 +180,7 @@ public:
 
 class TextRegion {
 public:
-	enum FRAMEWORKLINETESTS {
+	enum class FrameworkLineTests {
 		FIRSTPOINT,
 		SAMELINE,
 		STYLESUPERSCRIPT,
@@ -203,10 +203,10 @@ public:
 	bool closeToY(qreal y1, qreal y2);
 	bool adjunctLesser(qreal testY, qreal lastY, qreal baseY);
 	bool adjunctGreater(qreal testY, qreal lastY, qreal baseY);
-	TextRegion::FRAMEWORKLINETESTS linearTest(QPointF point, bool xInLimits, bool yInLimits);
-	TextRegion::FRAMEWORKLINETESTS isRegionConcurrent(QPointF newPoint);
-	TextRegion::FRAMEWORKLINETESTS moveToPoint(QPointF newPoint);
-	TextRegion::FRAMEWORKLINETESTS addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
+	TextRegion::FrameworkLineTests linearTest(QPointF point, bool xInLimits, bool yInLimits);
+	TextRegion::FrameworkLineTests isRegionConcurrent(QPointF newPoint);
+	TextRegion::FrameworkLineTests moveToPoint(QPointF newPoint);
+	TextRegion::FrameworkLineTests addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
 	void renderToTextFrame(PageItem* textNode, ParagraphStyle& pStyle);	
 	std::vector<PdfGlyph> glyphs;
 	bool isNew();
@@ -224,13 +224,13 @@ class TextFramework
 public:
 	TextFramework();
 	~TextFramework();
-	enum ADDCHARMODE {
+	enum class AddCharMode {
 		ADDFIRSTCHAR,
 		ADDBASICCHAR,
 		ADDCHARWITHNEWSTYLE,
 		ADDCHARWITHPREVIOUSSTYLE
 	};
-	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
+	std::map<AddCharMode, AddCharInterface*> addCharModes;
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 	void addNewTextRegion();
 	AddCharInterface* addChar = nullptr;
