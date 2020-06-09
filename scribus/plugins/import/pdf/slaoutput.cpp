@@ -4672,14 +4672,14 @@ void AddCharWithNewStyle::addChar(GfxState* state, double x, double y, double dx
 {
 }
 
-TextFramework::TextFramework(SlaOutputDev *slaOutputDev)
+TextFramework::TextFramework(OutputDev *outputDev)
 {
 	m_textRegions.push_back(activeTextRegion);
 	//have a map of reusable addchar implementations instead of creating and deleting them all the time.
-	addCharModes[ADDCHARMODE::ADDFIRSTCHAR] = new AddFirstChar(slaOutputDev);
-	addCharModes[ADDCHARMODE::ADDBASICCHAR] = new AddBasicChar(slaOutputDev);
-	addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle(slaOutputDev);
-	addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle(slaOutputDev);
+	addCharModes[ADDCHARMODE::ADDFIRSTCHAR] = new AddFirstChar((SlaOutputDev*)outputDev);
+	addCharModes[ADDCHARMODE::ADDBASICCHAR] = new AddBasicChar((SlaOutputDev*)outputDev);
+	addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle((SlaOutputDev*)outputDev);
+	addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle((SlaOutputDev*)outputDev);
 }
 
 TextFramework::~TextFramework()

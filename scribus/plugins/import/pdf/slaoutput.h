@@ -222,7 +222,7 @@ public:
 class TextFramework
 {
 public:
-	TextFramework(SlaOutputDev* slaOutputDev);
+	TextFramework(OutputDev* outputDev);
 	~TextFramework();
 	enum ADDCHARMODE {
 		ADDFIRSTCHAR,
