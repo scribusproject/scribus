@@ -169,12 +169,12 @@ struct PdfGlyph {
 class TextRegionLine
 {
 public:
-	qreal maxHeight = -1;
+	qreal maxHeight = 0;
 	//we can probably use maxHeight for this.
-	qreal modeHeigth = -1;
-	qreal width = -1;
+	qreal modeHeigth = 0;
+	qreal width = 0;
 	int glyphIndex = -1;
-	QPointF baseOrigin = QPointF(-1, -1);
+	QPointF baseOrigin = QPointF(0, 0);
 	std::vector<TextRegionLine> segments = std::vector<TextRegionLine>();
 
 };
@@ -192,15 +192,13 @@ public:
 		FAIL
 	};
 
-	QPointF textRegioBasenOrigin = QPointF(-1, -1);
-	qreal maxHeight = -1;
-	//we can probably use maxHeight for this.
-	qreal modeHeigth = -1;
-	qreal lineSpacing = -1;
+	QPointF textRegioBasenOrigin = QPointF(0, 0);
+	qreal maxHeight = 0;
+	qreal lineSpacing = 1;
 	std::vector<TextRegionLine> textRegionLines = std::vector<TextRegionLine>();
-	qreal maxWidth = -1;
-	QPointF lineBaseXY = QPointF(-1, -1); //updated with the best match left value from all the textRegionLines and the best bottom value from the textRegionLines.segments;
-	QPointF lastXY = QPointF(-1, -1);
+	qreal maxWidth = 0;
+	QPointF lineBaseXY = QPointF(0, 0); //updated with the best match left value from all the textRegionLines and the best bottom value from the textRegionLines.segments;
+	QPointF lastXY = QPointF(0, 0);
 	static bool coLinera(qreal a, qreal b);
 	bool closeToX(qreal x1, qreal x2);
 	bool closeToY(qreal y1, qreal y2);
@@ -343,18 +341,14 @@ public:
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
 
 	//text as text
-	
 	AddCharInterface* addChar = nullptr;
-
 	enum ADDCHARMODE {
 		ADDFIRSTCHAR,
 		ADDBASICCHAR,
 		ADDCHARWITHNEWSTYLE,
 		ADDCHARWITHPREVIOUSSTYLE
 	};
-
 	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
-
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 
 	//----- form XObjects
@@ -469,7 +463,6 @@ private:
 
 class AddFirstChar : public AddCharInterface
 {
-
 public:
 	AddFirstChar(SlaOutputDev *slaOutputDev)
 	{
@@ -482,7 +475,6 @@ private:
 
 class AddBasicChar : public AddCharInterface
 {
-
 public:
 	AddBasicChar(SlaOutputDev* slaOutputDev)
 	{
@@ -496,7 +488,6 @@ private:
 // TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
 class AddCharWithNewStyle : public AddCharInterface
 {
-
 public:
 	AddCharWithNewStyle(SlaOutputDev* slaOutputDev)
 	{
@@ -510,7 +501,6 @@ private:
 // TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
 class AddCharWithPreviousStyle : public AddCharInterface
 {
-
 public:
 	AddCharWithPreviousStyle(SlaOutputDev* slaOutputDev)
 	{
