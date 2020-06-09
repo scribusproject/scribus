@@ -4205,7 +4205,6 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::addGlyphAtPoint(QPointF newGlyphPoint
 			textRegionLine->baseOrigin = QPointF(textRegioBasenOrigin.x(), newGlyphPoint.y());
 		}
 
-		// update the text line and segment widths,
 		TextRegionLine *segment = &textRegionLine->segments.back();
 		segment->width = abs(movedGlyphPoint.x() - segment->baseOrigin.x());
 		segment->glyphIndex = glyphs.size() - 1;
