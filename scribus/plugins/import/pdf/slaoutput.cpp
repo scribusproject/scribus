@@ -4485,7 +4485,6 @@ void SlaOutputDev::renderTextFrame()
 		m_groupStack.top().Items.append(textNode);
 		applyMask(textNode);
 	}
-
 }
 
 /*code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...*/
@@ -4517,26 +4516,26 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 		return;
 	}
 	*/
-	PdfGlyph new_glyph;
+	PdfGlyph newGlyph;
 	//new_glyph.is_space = false;
 	//new_glyph.position = QPointF(x - originX, y - originY);
-	new_glyph.dx = dx;
-	new_glyph.dy = dy;
+	newGlyph.dx = dx;
+	newGlyph.dy = dy;
 
 	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::ADDBASICCHAR];
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding	
 	for (int i = 0; i < uLen; i++)
 	{
-		new_glyph.code += (char16_t)u[i];
+		newGlyph.code = (char16_t)u[i];
 	}
 	
-	new_glyph.rise = state->getRise();
+	newGlyph.rise = state->getRise();
 	//m_slaOutputDev->activeTextRegion.lastXY = QPointF(x, y);
-	m_textFramework->activeTextRegion.glyphs.push_back(new_glyph);
+	m_textFramework->activeTextRegion.glyphs.push_back(newGlyph);
 
 	//only need to be called for the very first point
-	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), new_glyph) == TextRegion::FAIL)
+	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FAIL)
 	{
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
 	}
@@ -4555,21 +4554,21 @@ void AddBasicChar::addChar(GfxState* state, double x, double y, double dx, doubl
 		return;
 	}
 	*/
-	PdfGlyph new_glyph;
+	PdfGlyph newGlyph;
 	//new_glyph.is_space = is_space;
 	//new_glyph.position = QPoint(x - originX, y - originY);
-	new_glyph.dx = dx;
-	new_glyph.dy = dy;
+	newGlyph.dx = dx;
+	newGlyph.dy = dy;
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding
 	for (int i = 0; i < uLen; i++)
 	{
-		new_glyph.code += (char16_t)u[i];
+		newGlyph.code = (char16_t)u[i];
 	}
 
-	new_glyph.rise = state->getRise();
+	newGlyph.rise = state->getRise();
 	m_textFramework->activeTextRegion.lastXY = QPointF(x, y);
-	m_textFramework->activeTextRegion.glyphs.push_back(new_glyph);
+	m_textFramework->activeTextRegion.glyphs.push_back(newGlyph);
 }
 
 void AddCharWithPreviousStyle::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)

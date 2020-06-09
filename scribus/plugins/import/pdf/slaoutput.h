@@ -162,7 +162,7 @@ struct PdfGlyph {
 	double dx;  // X advance value
 	double dy;  // Y advance value
 	double rise;    // Text rise parameter
-	QString code;   // UTF-16 coded character but we only store and use UTF-8, the slternstive is const char * for utf8 so far as qt is concerned
+	QChar code;   // UTF-16 coded character
 };
 
 
