@@ -219,6 +219,24 @@ public:
 	virtual void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) = 0;
 };
 
+class TextFramework
+{
+public:
+	TextFramework(SlaOutputDev* slaOutputDev);
+	~TextFramework();
+	enum ADDCHARMODE {
+		ADDFIRSTCHAR,
+		ADDBASICCHAR,
+		ADDCHARWITHNEWSTYLE,
+		ADDCHARWITHPREVIOUSSTYLE
+	};
+	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
+	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
+	void addNewTextRegion();
+private:
+	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
+};
+
 class SlaOutputDev : public OutputDev
 {
 public:
@@ -340,16 +358,9 @@ public:
 	void  type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
 
-	//text as text
+	//PDF Textbox framework
 	AddCharInterface* addChar = nullptr;
-	enum ADDCHARMODE {
-		ADDFIRSTCHAR,
-		ADDBASICCHAR,
-		ADDCHARWITHNEWSTYLE,
-		ADDCHARWITHPREVIOUSSTYLE
-	};
-	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
-	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
+	TextFramework* textFramework = nullptr;
 
 	//----- form XObjects
 	void drawForm(Ref /*id*/) override { qDebug() << "Draw Form"; }
@@ -456,9 +467,6 @@ private:
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
-
-	//PDF Textbox framework
-	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();	
 };
 
 class AddFirstChar : public AddCharInterface
