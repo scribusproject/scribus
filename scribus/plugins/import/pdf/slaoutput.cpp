@@ -3968,6 +3968,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::linearTest(QPointF point, bool xInLim
 	//TODO: add a FIRSTPOINT result as well
 	FRAMEWORKLINETESTS pass = FAIL;
 
+	//FIXME: I think thjis should be using baseXY not lastXY
 	if (coLinera(point.y(), lastXY.y()))
 	{
 		if (coLinera(point.x(), lastXY.x())) 
@@ -4221,7 +4222,7 @@ TextRegion::FRAMEWORKLINETESTS TextRegion::addGlyphAtPoint(QPointF newGlyphPoint
 		textRegionLine->maxHeight = textRegionLine->maxHeight > thisHeight ? textRegionLine->maxHeight : thisHeight;
 		textRegionLine->width = abs(movedGlyphPoint.x() - textRegionLine->baseOrigin.x());
 
-		maxWidth = textRegionLine->width > maxWidth ? textRegionLine->width : maxWidth;		
+		maxWidth = textRegionLine->width > maxWidth ? textRegionLine->width : maxWidth;
 		if (textRegionLine->segments.size() == 1)
 		{
 			lineBaseXY = textRegionLine->baseOrigin;
@@ -4508,16 +4509,7 @@ void SlaOutputDev::finishItem(PageItem* item)
 void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "addChar() '" << u << " : " << uLen;	
-	/*
-	bool is_space = (uLen == 1 && u[0] == 32);
-	// Skip beginning space
-	if (is_space) {
-		return;
-	}
-	*/
 	PdfGlyph newGlyph;
-	//new_glyph.is_space = false;
-	//new_glyph.position = QPointF(x - originX, y - originY);
 	newGlyph.dx = dx;
 	newGlyph.dy = dy;
 
@@ -4536,26 +4528,14 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	//only need to be called for the very first point
 	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FAIL)
 	{
-		qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
+		qDebug("FIXME: Rogue glyph detected, this should never happen because the coursor should move before glyphs in new regions are added.");
 	}
 }
 
 void AddBasicChar::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "addChar() '" << u << " : " << uLen;
-	// TODO: Compleatly gut this function so all that it ends up doing is placing a character and some positioning information on a stack get rid of all the other junk as it's not needed
-	/*
-	bool is_space = (uLen == 1 && u[0] == 32);
-
-	// Allow only one space in a row
-	if (is_space &&
-		(m_slaOutputDev->activeTextRegion.glyphs[m_slaOutputDev->activeTextRegion.glyphs.size() - 1].code == QChar::SpecialCharacter::Space)) {
-		return;
-	}
-	*/
 	PdfGlyph newGlyph;
-	//new_glyph.is_space = is_space;
-	//new_glyph.position = QPoint(x - originX, y - originY);
 	newGlyph.dx = dx;
 	newGlyph.dy = dy;
 
