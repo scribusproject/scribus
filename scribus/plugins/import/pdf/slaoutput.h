@@ -209,7 +209,7 @@ public:
 	TextRegion::FRAMEWORKLINETESTS moveToPoint(QPointF newPoint);
 	TextRegion::FRAMEWORKLINETESTS addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
 	void renderToTextFrame(PageItem* textNode, ParagraphStyle& pStyle);	
-	std::vector<PdfGlyph> glyphs; //this may replace some of the other settings or it may not, certainly not font as text gets flushed if the font changes
+	std::vector<PdfGlyph> glyphs;
 };
 
 class AddCharInterface
@@ -222,7 +222,7 @@ public:
 class TextFramework
 {
 public:
-	TextFramework(OutputDev* outputDev);
+	TextFramework();
 	~TextFramework();
 	enum ADDCHARMODE {
 		ADDFIRSTCHAR,
@@ -233,6 +233,7 @@ public:
 	std::map<ADDCHARMODE, AddCharInterface*> addCharModes;
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 	void addNewTextRegion();
+	AddCharInterface* addChar = nullptr;
 private:
 	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
 };
@@ -359,7 +360,6 @@ public:
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
 
 	//PDF Textbox framework
-	AddCharInterface* addChar = nullptr;
 	TextFramework* textFramework = nullptr;
 
 	//----- form XObjects
@@ -472,51 +472,51 @@ private:
 class AddFirstChar : public AddCharInterface
 {
 public:
-	AddFirstChar(SlaOutputDev *slaOutputDev)
+	AddFirstChar(TextFramework* textFramework)
 	{
-		m_slaOutputDev = slaOutputDev;
+		m_textFramework = textFramework;
 	}
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
 private:
-	SlaOutputDev* m_slaOutputDev = nullptr;
+	TextFramework* m_textFramework = nullptr;
 };
 
 class AddBasicChar : public AddCharInterface
 {
 public:
-	AddBasicChar(SlaOutputDev* slaOutputDev)
+	AddBasicChar(TextFramework* textFramework)
 	{
-		m_slaOutputDev = slaOutputDev;
+		m_textFramework = textFramework;
 	}
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
 private:
-	SlaOutputDev* m_slaOutputDev = nullptr;
+	TextFramework* m_textFramework = nullptr;
 };
 
 // TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
 class AddCharWithNewStyle : public AddCharInterface
 {
 public:
-	AddCharWithNewStyle(SlaOutputDev* slaOutputDev)
+	AddCharWithNewStyle(TextFramework* textFramework)
 	{
-		m_slaOutputDev = slaOutputDev;
+		m_textFramework = textFramework;
 	}
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
 private:
-	SlaOutputDev* m_slaOutputDev = nullptr;
+	TextFramework* m_textFramework = nullptr;
 };
 
 // TODO: implement these addchar definitions so that they can handle changes in style, font, text micro positioning, scaling, matrix etc...
 class AddCharWithPreviousStyle : public AddCharInterface
 {
 public:
-	AddCharWithPreviousStyle(SlaOutputDev* slaOutputDev)
+	AddCharWithPreviousStyle(TextFramework* textFramework)
 	{
-		m_slaOutputDev = slaOutputDev;
+		m_textFramework = textFramework;
 	}
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) override;
 private:
-	SlaOutputDev* m_slaOutputDev = nullptr;
+	TextFramework* m_textFramework = nullptr;
 };
 
 #endif

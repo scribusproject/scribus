@@ -286,8 +286,8 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	layersSetByOCG = false;
 	importTextAsVectors = true;
 
-	textFramework = new TextFramework(this);
-	addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+	textFramework = new TextFramework();
+	textFramework->addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -3362,7 +3362,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			}
 		}
 		if (!importTextAsVectors) { // donm't render the char as vectors add it to an array so it can be rendred as a string			
-			addChar->addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+			textFramework->addChar->addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 		}
 	}
 }
@@ -3441,7 +3441,7 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 	else if (importTextAsVectors == false && textFramework->activeTextRegion.textRegionLines.empty()) {
 		qDebug("FIXME:Rogue textregion");
 	}
-	addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+	textFramework->addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
 }
 
 void SlaOutputDev::endTextObject(GfxState *state)
@@ -3457,7 +3457,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		qDebug("FIXME:Rogue textregion");
 	}
 	
-	addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+	textFramework->addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -4381,7 +4381,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 		// this ahould really get picked up by add first glyph, so check if that happens and if it does remove this. also we only want to call for the very first glyph of a new region, not every glyph for the begining of every line.
 		// don't make an arbitrary call to addGlyphAtPoint, instead pick the glyph up via addFirstGlyph
 		// we catch end of line glyphs further down anyway.
-		addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+		textFramework->addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
 #		/* FIXME: Do we need this here? is there a better test we can use before calling it, can't we just get it picked up by add first glyph		
 		if (glyphs.size() > 0)
 		{
@@ -4441,7 +4441,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 
 		//Create and initilize a new TextRegion
 		textFramework->addNewTextRegion();
-		addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
+		textFramework->addChar = textFramework->addCharModes[TextFramework::ADDFIRSTCHAR];
 		updateTextPos(state);
 
 		/*TOPDO: DXo we need to initlize thease
@@ -4615,7 +4615,7 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	new_glyph.dx = dx;
 	new_glyph.dy = dy;
 
-	m_slaOutputDev->addChar = m_slaOutputDev->textFramework->addCharModes[TextFramework::ADDBASICCHAR];
+	textFramework->addChar = m_slaOutputDev->textFramework->addCharModes[TextFramework::ADDBASICCHAR];
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding	
 	for (int i = 0; i < uLen; i++)
@@ -4625,10 +4625,10 @@ void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	
 	new_glyph.rise = state->getRise();
 	//m_slaOutputDev->activeTextRegion.lastXY = QPointF(x, y);
-	m_slaOutputDev->textFramework->activeTextRegion.glyphs.push_back(new_glyph);
+	textFramework->activeTextRegion.glyphs.push_back(new_glyph);
 
 	//only need to be called for the very first point
-	if (m_slaOutputDev->textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), new_glyph) == TextRegion::FAIL)
+	if (textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), new_glyph) == TextRegion::FAIL)
 	{
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
 	}
@@ -4660,8 +4660,8 @@ void AddBasicChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	}
 
 	new_glyph.rise = state->getRise();
-	m_slaOutputDev->textFramework->activeTextRegion.lastXY = QPointF(x, y);
-	m_slaOutputDev->textFramework->activeTextRegion.glyphs.push_back(new_glyph);
+	textFramework->activeTextRegion.lastXY = QPointF(x, y);
+	textFramework->activeTextRegion.glyphs.push_back(new_glyph);
 }
 
 void AddCharWithPreviousStyle::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
@@ -4672,14 +4672,14 @@ void AddCharWithNewStyle::addChar(GfxState* state, double x, double y, double dx
 {
 }
 
-TextFramework::TextFramework(OutputDev *outputDev)
+TextFramework::TextFramework()
 {
 	m_textRegions.push_back(activeTextRegion);
 	//have a map of reusable addchar implementations instead of creating and deleting them all the time.
-	addCharModes[ADDCHARMODE::ADDFIRSTCHAR] = new AddFirstChar((SlaOutputDev*)outputDev);
-	addCharModes[ADDCHARMODE::ADDBASICCHAR] = new AddBasicChar((SlaOutputDev*)outputDev);
-	addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle((SlaOutputDev*)outputDev);
-	addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle((SlaOutputDev*)outputDev);
+	addCharModes[ADDCHARMODE::ADDFIRSTCHAR] = new AddFirstChar(this);
+	addCharModes[ADDCHARMODE::ADDBASICCHAR] = new AddBasicChar(this);
+	addCharModes[ADDCHARMODE::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle(this);
+	addCharModes[ADDCHARMODE::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle(this);
 }
 
 TextFramework::~TextFramework()
