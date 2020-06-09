@@ -170,10 +170,9 @@ class TextRegionLine
 {
 public:
 	qreal maxHeight = 0;
-	//we can probably use maxHeight for this.
-	qreal modeHeigth = 0;
+	//we can probably use maxHeight for this.	
 	qreal width = 0;
-	int glyphIndex = -1;
+	int glyphIndex = 0;
 	QPointF baseOrigin = QPointF(0, 0);
 	std::vector<TextRegionLine> segments = std::vector<TextRegionLine>();
 
@@ -210,6 +209,7 @@ public:
 	TextRegion::FRAMEWORKLINETESTS addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
 	void renderToTextFrame(PageItem* textNode, ParagraphStyle& pStyle);	
 	std::vector<PdfGlyph> glyphs;
+	bool isNew();
 };
 
 class AddCharInterface
@@ -234,6 +234,7 @@ public:
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 	void addNewTextRegion();
 	AddCharInterface* addChar = nullptr;
+	bool isNewLineOrRegion(QPointF newPosition);
 private:
 	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
 };
