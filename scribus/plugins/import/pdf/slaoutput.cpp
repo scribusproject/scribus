@@ -286,8 +286,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	layersSetByOCG = false;
 	importTextAsVectors = true;
 
-	m_textFramework = new TextFramework();
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
+	m_textFramework = new TextFramework();	
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -2515,11 +2514,11 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
-	unsigned char * buffer = new unsigned char[width * height * 4];
+	unsigned char * buffer = new unsigned char[(long)width * (long)height * 4];
 	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
-		dest = (unsigned int *)(buffer + y * 4 * width);
+		dest = (unsigned int *)(buffer + y * 4 * (long)width);
 		Guchar * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
@@ -2534,11 +2533,11 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ImageStream *mskStr = new ImageStream(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 	mskStr->reset();
 	Guchar *mdest = nullptr;
-	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
-	memset(mbuffer, 0, maskWidth * maskHeight);
+	unsigned char * mbuffer = new unsigned char[(long)maskWidth * (long)maskHeight];
+	memset(mbuffer, 0, (long)maskWidth * (long)maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (Guchar *)(mbuffer + y * maskWidth);
+		mdest = (Guchar *)(mbuffer + y * (long)maskWidth);
 		Guchar * pix = mskStr->getLine();
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
@@ -2595,11 +2594,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = nullptr;
-	unsigned char * buffer = new unsigned char[width * height * 4];
+	unsigned char * buffer = new unsigned char[(long)width * (long)height * 4];
 	QImage * image = nullptr;
 	for (int y = 0; y < height; y++)
 	{
-		dest = (unsigned int *)(buffer + y * 4 * width);
+		dest = (unsigned int *)(buffer + y * 4 * (long)width);
 		Guchar * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
@@ -2615,11 +2614,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	mskStr->reset();
 	Guchar *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
-	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
-	memset(mbuffer, 0, maskWidth * maskHeight);
+	unsigned char * mbuffer = new unsigned char[(long)maskWidth * (long)maskHeight];
+	memset(mbuffer, 0, (long)maskWidth * (long)maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (Guchar *)(mbuffer + y * maskWidth);
+		mdest = (Guchar *)(mbuffer + y * (long)maskWidth);
 		Guchar * pix = mskStr->getLine();
 		for (int x = 0; x < maskWidth; x++)
 		{
@@ -2726,7 +2725,8 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		}
 	}
 
-	if (image != nullptr && !image->isNull()) {
+	if (image != nullptr && !image->isNull())
+	{
 		createImageFrame(*image, state, colorMap->getNumPixelComps());
 	}
 
@@ -3048,11 +3048,13 @@ void SlaOutputDev::updateFontForVector(GfxState *state)
 	tmpBuf = nullptr;
 	fontLoc = nullptr;
 
-	if (!(gfxFont = state->getFont())) {
+	if (!(gfxFont = state->getFont()))
+	{
 		goto err1;
 	}
 	fontType = gfxFont->getType();
-	if (fontType == fontType3) {
+	if (fontType == fontType3)
+	{
 		goto err1;
 	}
 
@@ -3092,7 +3094,8 @@ void SlaOutputDev::updateFontForVector(GfxState *state)
 			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
 
 		// load the font file
-		switch (fontType) {
+		switch (fontType)
+		{
 		case fontType1:
 			if (!(fontFile = m_fontEngine->loadType1Font(
 				id,
@@ -3362,7 +3365,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			}
 		}
 		if (!importTextAsVectors) { // donm't render the char as vectors add it to an array so it can be rendred as a string			
-			m_textFramework->addChar->addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+			(m_textFramework ->*(m_textFramework->addChar))(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 		}
 	}
 }
@@ -3455,7 +3458,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		qDebug("FIXME:Rogue textblock");
 	}
 	
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
+	m_textFramework->setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -4015,7 +4018,8 @@ TextRegion::FrameworkLineTests TextRegion::linearTest(QPointF point, bool xInLim
 		//TODO: We need to calculate things like new parargraphs and left hand justification
 		if (closeToX(point.x(), textRegioBasenOrigin.x()))
 		{
-			if (closeToY(point.y(), lastXY.y()) && !coLinera(point.y(), lastXY.y())) {
+			if (closeToY(point.y(), lastXY.y()) && !coLinera(point.y(), lastXY.y()))
+			{
 				//TODO: We need to calculate things like new parargraphs and left hand justification
 				if ((textRegionLines.size() >= 2)) //TODO: Need to setup some parameters replating to width matching, they mainly relate to justfication  && closeToX(textRegionLines[textRegionLines.size() - 2].baseOrigin.x() +  textRegionLines[textRegionLines.size() - 2].width, maxWidth))
 				{
@@ -4112,7 +4116,8 @@ TextRegion::FrameworkLineTests TextRegion::moveToPoint(QPointF newPoint)
 		if (pass == FrameworkLineTests::NEWLINE || pass == FrameworkLineTests::FIRSTPOINT)
 		{
 			//qDebug() << "Newline: ";
-			if (pass == FrameworkLineTests::FIRSTPOINT) {
+			if (pass == FrameworkLineTests::FIRSTPOINT)
+			{
 				if (textRegionLines.empty()) {
 					textRegionLines.push_back(TextRegionLine());
 				}
@@ -4329,7 +4334,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 	)
 	{
 		activeTextRegion->textRegioBasenOrigin = newPosition;
-		m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
+		m_textFramework->setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
 	}
 	else
 	{
@@ -4505,36 +4510,48 @@ void SlaOutputDev::finishItem(PageItem* item)
 	//item->setLineTransparency(1.0);
 }
 
-
-void AddFirstChar::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+TextFramework::TextFramework()
 {
-	//qDebug() << "addChar() '" << u << " : " << uLen;	
-	PdfGlyph newGlyph;
-	newGlyph.dx = dx;
-	newGlyph.dy = dy;
+	m_textRegions.push_back(activeTextRegion);
+	setCharMode(AddCharMode::ADDFIRSTCHAR);
+}
 
-	m_textFramework->addChar = m_textFramework->addCharModes[TextFramework::AddCharMode::ADDBASICCHAR];
+TextFramework::~TextFramework()
+{
+}
 
-	// Convert the character to UTF-16 since that's our SVG document's encoding	
-	for (int i = 0; i < uLen; i++)
-	{
-		newGlyph.code = (char16_t)u[i];
-	}
-	
-	newGlyph.rise = state->getRise();
-	//m_slaOutputDev->activeTextRegion.lastXY = QPointF(x, y);
-	m_textFramework->activeTextRegion.glyphs.push_back(newGlyph);
+void TextFramework::addNewTextRegion()
+{
+	activeTextRegion = TextRegion();
+	m_textRegions.push_back(activeTextRegion);
+	setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
+}
+
+bool TextFramework::isNewLineOrRegion(QPointF newPosition)
+{
+	return (activeTextRegion.coLinera(activeTextRegion.lastXY.y(), activeTextRegion.textRegionLines.back().baseOrigin.y()) &&
+		!activeTextRegion.coLinera(newPosition.y(), activeTextRegion.lastXY.y()))
+		|| (activeTextRegion.coLinera(newPosition.y(), activeTextRegion.lastXY.y())
+			&& !activeTextRegion.closeToX(newPosition.x(), activeTextRegion.lastXY.x()));
+}
+
+PdfGlyph TextFramework::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+{
+	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;	
+	auto newGlyph = AddBasicChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+
+	setCharMode(AddCharMode::ADDBASICCHAR);
 
 	//only need to be called for the very first point
-	if (m_textFramework->activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FrameworkLineTests::FAIL)
+	if (activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph) == TextRegion::FrameworkLineTests::FAIL)
 	{
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the coursor should move before glyphs in new regions are added.");
 	}
 }
 
-void AddBasicChar::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph TextFramework::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
-	//qDebug() << "addChar() '" << u << " : " << uLen;
+	//qDebug() << "AddBasicChar() '" << u << " : " << uLen;
 	PdfGlyph newGlyph;
 	newGlyph.dx = dx;
 	newGlyph.dy = dy;
@@ -4546,48 +4563,21 @@ void AddBasicChar::addChar(GfxState* state, double x, double y, double dx, doubl
 	}
 
 	newGlyph.rise = state->getRise();
-	m_textFramework->activeTextRegion.lastXY = QPointF(x, y);
-	m_textFramework->activeTextRegion.glyphs.push_back(newGlyph);
+	activeTextRegion.lastXY = QPointF(x, y);
+	activeTextRegion.glyphs.push_back(newGlyph);
+	return newGlyph;
 }
 
-void AddCharWithPreviousStyle::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph TextFramework::AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
+	//qDebug() << "AddCharWithNewStyle() '" << u << " : " << uLen;
+	auto newGlyph = AddBasicChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+	return newGlyph;
 }
 
-void AddCharWithNewStyle::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph TextFramework::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
-}
-
-TextFramework::TextFramework()
-{
-	m_textRegions.push_back(activeTextRegion);
-	//have a map of reusable addchar implementations instead of creating and deleting them all the time.
-	addCharModes[AddCharMode::ADDFIRSTCHAR] = new AddFirstChar(this);
-	addCharModes[AddCharMode::ADDBASICCHAR] = new AddBasicChar(this);
-	addCharModes[AddCharMode::ADDCHARWITHNEWSTYLE] = new AddCharWithNewStyle(this);
-	addCharModes[AddCharMode::ADDCHARWITHPREVIOUSSTYLE] = new AddCharWithPreviousStyle(this);
-}
-
-TextFramework::~TextFramework()
-{
-	//FIXME: could probably enumberate this
-	delete addCharModes[AddCharMode::ADDFIRSTCHAR];
-	delete addCharModes[AddCharMode::ADDBASICCHAR];
-	delete addCharModes[AddCharMode::ADDCHARWITHNEWSTYLE];
-	delete addCharModes[AddCharMode::ADDCHARWITHPREVIOUSSTYLE];
-}
-
-void TextFramework::addNewTextRegion()
-{
-	activeTextRegion = TextRegion();
-	m_textRegions.push_back(activeTextRegion);
-	addChar = addCharModes[TextFramework::AddCharMode::ADDFIRSTCHAR];
-}
-
-bool TextFramework::isNewLineOrRegion(QPointF newPosition)
-{
-	return (activeTextRegion.coLinera(activeTextRegion.lastXY.y(), activeTextRegion.textRegionLines.back().baseOrigin.y()) &&
-		!activeTextRegion.coLinera(newPosition.y(), activeTextRegion.lastXY.y()))
-		|| (activeTextRegion.coLinera(newPosition.y(), activeTextRegion.lastXY.y())
-			&& !activeTextRegion.closeToX(newPosition.x(), activeTextRegion.lastXY.x()));
+	//qDebug() << "AddCharWithPreviousStyle() '" << u << " : " << uLen;
+	auto newGlyph = AddBasicChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);	
+	return newGlyph;
 }
