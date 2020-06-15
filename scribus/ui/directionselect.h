@@ -29,17 +29,18 @@ public:
     int getStyle();
     int selectedId();
 
-    QButtonGroup* buttonGroup;
-    int selected;
-    QToolButton* RTL;
-    QToolButton* LTR;
+    QButtonGroup* buttonGroup { nullptr };
+    QToolButton* RTL { nullptr };
+    QToolButton* LTR { nullptr };
 
 public slots:
 	void iconSetChange();
     void languageChange();
 
 protected:
-    QHBoxLayout* GroupSelectLayout;
+    QHBoxLayout* groupSelectLayout { nullptr };
+	
+    int m_selected { 0 };
 
     void changeEvent(QEvent *e) override;
 
