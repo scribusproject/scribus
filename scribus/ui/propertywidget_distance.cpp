@@ -465,26 +465,20 @@ void PropertyWidget_Distance::unitChange()
 	if (!m_doc)
 		return;
 
+	QSignalBlocker columnGapBlocker(columnGap);
+	QSignalBlocker leftDistanceBlocker(leftDistance);
+	QSignalBlocker topDistanceBlocker(topDistance);
+	QSignalBlocker bottomDistanceBlocker(bottomDistance);
+	QSignalBlocker rightDistanceBlocker(rightDistance);
+
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	columnGap->blockSignals(true);
-	leftDistance->blockSignals(true);
-	topDistance->blockSignals(true);
-	bottomDistance->blockSignals(true);
-	rightDistance->blockSignals(true);
-
-	columnGap->setNewUnit( m_unitIndex );
-	leftDistance->setNewUnit( m_unitIndex );
-	topDistance->setNewUnit( m_unitIndex );
-	bottomDistance->setNewUnit( m_unitIndex );
-	rightDistance->setNewUnit( m_unitIndex );
-
-	columnGap->blockSignals(false);
-	leftDistance->blockSignals(false);
-	topDistance->blockSignals(false);
-	bottomDistance->blockSignals(false);
-	rightDistance->blockSignals(false);
+	columnGap->setNewUnit(m_unitIndex);
+	leftDistance->setNewUnit(m_unitIndex);
+	topDistance->setNewUnit(m_unitIndex);
+	bottomDistance->setNewUnit(m_unitIndex);
+	rightDistance->setNewUnit(m_unitIndex);
 }
 
 void PropertyWidget_Distance::localeChange()

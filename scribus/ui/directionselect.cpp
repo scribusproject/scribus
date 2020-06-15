@@ -77,7 +77,9 @@ void DirectionSelect::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		languageChange();
+		return;
 	}
+	QWidget::changeEvent(e);
 }
 
 void DirectionSelect::iconSetChange()

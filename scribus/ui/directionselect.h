@@ -29,26 +29,25 @@ public:
     int getStyle();
     int selectedId();
 
-    virtual void changeEvent(QEvent *e);
-
     QButtonGroup* buttonGroup;
     int selected;
     QToolButton* RTL;
     QToolButton* LTR;
 
-
 public slots:
 	void iconSetChange();
     void languageChange();
+
+protected:
+    QHBoxLayout* GroupSelectLayout;
+
+    void changeEvent(QEvent *e) override;
 
 private slots:
     void setTypeStyle(int a);
 
 signals:
     void State(int);
-
-protected:
-    QHBoxLayout* GroupSelectLayout;
 };
 
 #endif // DIRECTIONSELECT_H
