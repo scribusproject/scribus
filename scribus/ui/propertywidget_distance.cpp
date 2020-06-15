@@ -368,33 +368,33 @@ void PropertyWidget_Distance::handleVAlign()
 
 void PropertyWidget_Distance::handleTabs()
 {
-	if (m_doc && m_item)
+	if (!m_doc || !m_item)
+		return;
+
+	PageItem_TextFrame *tItem = m_item->asTextFrame();
+	if (tItem == nullptr)
+		return;
+	const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
+	TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
+	if (dia->exec())
 	{
-		PageItem_TextFrame *tItem = m_item->asTextFrame();
-		if (tItem == nullptr)
-			return;
-		const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
-		TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
-		if (dia->exec())
+		if (m_doc->appMode != modeEdit)
 		{
-			if (m_doc->appMode != modeEdit)
-			{
-				ParagraphStyle newStyle(m_item->itemText.defaultStyle());
-				newStyle.setTabValues(dia->tabList());
-				Selection tempSelection(this, false);
-				tempSelection.addItem(m_item, true);
-				m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
-			}
-			else
-			{
-				ParagraphStyle newStyle;
-				newStyle.setTabValues(dia->tabList());
-				m_doc->itemSelection_ApplyParagraphStyle(newStyle);
-			}
-			m_item->update();
+			ParagraphStyle newStyle(m_item->itemText.defaultStyle());
+			newStyle.setTabValues(dia->tabList());
+			Selection tempSelection(this, false);
+			tempSelection.addItem(m_item, true);
+			m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
 		}
-		delete dia;
+		else
+		{
+			ParagraphStyle newStyle;
+			newStyle.setTabValues(dia->tabList());
+			m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+		}
+		m_item->update();
 	}
+	delete dia;
 }
 
 void PropertyWidget_Distance::handleTextDistances()

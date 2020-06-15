@@ -388,14 +388,13 @@ void PropertiesPalette_Text::localeChange()
 
 void PropertiesPalette_Text::handleLineSpacingMode(int id)
 {
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(m_item, true);
-		m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
-	//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
-		m_doc->regionsChanged()->update(QRect());
-	}
+	if (!m_haveDoc || !m_haveItem)
+		return;
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
+//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::changeLang(int id)
