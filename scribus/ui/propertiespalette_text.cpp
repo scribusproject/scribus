@@ -244,7 +244,7 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		return;
 
 	PageItem* currItem = currentItemFromSelection();
-	if (m_doc->m_Selection->count() > 1 )
+	if (m_doc->m_Selection->count() > 1)
 	{
 		setEnabled(false);
 		flopBox->flopRealHeight->setChecked(true);
@@ -258,6 +258,7 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		{
 		case -1:
 			m_haveItem = false;
+			m_item = nullptr;
 			setEnabled(false);
 			break;
 		case PageItem::TextFrame:
