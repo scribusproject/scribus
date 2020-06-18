@@ -232,26 +232,17 @@ public:
 
 	void setCharMode(AddCharMode mode)
 	{
-		m_addChar = m_addCharModes[static_cast<int>(mode)];
+		m_addCharMode = mode;
 	}
 
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 	void addTextRegion();
-	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
+	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);
 private:
 
 	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
-
-	typedef PdfGlyph(PdfTextRecognition::* addCharFP)(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
-	const addCharFP m_addCharModes[4] =
-	{
-	 &PdfTextRecognition::AddFirstChar,
-	 &PdfTextRecognition::AddBasicChar,
-	 &PdfTextRecognition::AddCharWithNewStyle,
-	 &PdfTextRecognition::AddCharWithPreviousStyle
-	};
-	addCharFP m_addChar; // using function pointers over switch statements is roughly between 5% and 20% faster when tested with a standard load of other functionality	
+	AddCharMode m_addCharMode = AddCharMode::ADDFIRSTCHAR;
 	PdfGlyph AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen);
 	PdfGlyph AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
 	PdfGlyph AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);

@@ -3370,7 +3370,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			return;
 		if (textRenderingMode < 8)
 		{
-			m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+			m_textRecognition.addChar(state,x,y,dx,dy,originX, originY, code, nBytes, u, uLen)			
 		}
 	}
 }
@@ -4461,10 +4461,26 @@ void PdfTextRecognition::addTextRegion()
 	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 }
 
-void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
-	(this->*(m_addChar))(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+
+	switch (this->m_addCharMode)
+	{
+	case AddCharMode::ADDFIRSTCHAR:
+		AddFirstChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+		break;
+	case AddCharMode::ADDBASICCHAR:
+		AddBasicChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+		break;
+	case AddCharMode::ADDCHARWITHNEWSTYLE:
+		AddCharWithNewStyle(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+		break;
+	case AddCharMode::ADDCHARWITHPREVIOUSSTYLE:
+	    AddCharWithPreviousStyle(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+	break;
+	}
 }
+
 
 bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 {
