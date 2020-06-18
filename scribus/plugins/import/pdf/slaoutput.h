@@ -155,7 +155,7 @@ private:
 
 /* PDF TextBox Framework */
 /*
-* Holds all the dtails for each glyph in the text imported from the pdf file.
+* Holds all the details for each glyph in the text imported from the pdf file.
 *
 */
 struct PdfGlyph 
@@ -216,59 +216,42 @@ public:
 };
 
 
-class TextFramework
+class PdfTextRecognition
 {
 public:
-	TextFramework();
-	~TextFramework();
+	PdfTextRecognition();
+	~PdfTextRecognition();
 
 	enum class AddCharMode
 	{
-		ADDFIRSTCHAR,
-		ADDBASICCHAR,
-		ADDCHARWITHNEWSTYLE,
-		ADDCHARWITHPREVIOUSSTYLE
+		ADDFIRSTCHAR = 0,
+		ADDBASICCHAR = 1,
+		ADDCHARWITHNEWSTYLE = 2,
+		ADDCHARWITHPREVIOUSSTYLE = 3
 	};
 
 	void setCharMode(AddCharMode mode)
 	{
-		auto addCharModal = addCharModes[mode];
-		if (!addCharModal)
-		{
-			addCharModal = nullptr;
-			switch (mode)
-			{
-			case AddCharMode::ADDFIRSTCHAR:
-				addCharModal = &TextFramework::AddFirstChar;
-				break;
-			case AddCharMode::ADDBASICCHAR:
-				addCharModal = &TextFramework::AddBasicChar;
-				break;
-			case AddCharMode::ADDCHARWITHNEWSTYLE:
-				addCharModal = &TextFramework::AddCharWithNewStyle;
-				break;
-			case AddCharMode::ADDCHARWITHPREVIOUSSTYLE:
-				addCharModal = &TextFramework::AddCharWithPreviousStyle;
-				break;
-			default:
-				// FIXME: This should never happen, set to a default
-				addCharModal = &TextFramework::AddBasicChar;
-			}
-			addCharModes[mode] = addCharModal;
-		}
-		m_addChar = addCharModal;
+		m_addChar = m_addCharModes[static_cast<int>(mode)];
 	}
 
-
-
-	std::map<AddCharMode, PdfGlyph(TextFramework::*)(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)> addCharModes;
 	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
 	void addTextRegion();
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);
 private:
-	PdfGlyph(TextFramework::* m_addChar)(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen) = {};
+
 	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
+
+	typedef PdfGlyph(PdfTextRecognition::* addCharFP)(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
+	const addCharFP m_addCharModes[4] =
+	{
+	 &PdfTextRecognition::AddFirstChar,
+	 &PdfTextRecognition::AddBasicChar,
+	 &PdfTextRecognition::AddCharWithNewStyle,
+	 &PdfTextRecognition::AddCharWithPreviousStyle
+	};
+	addCharFP m_addChar; // using function pointers over switch statements is roughly between 5% and 20% faster when tested with a standard load of other functionality	
 	PdfGlyph AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen);
 	PdfGlyph AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
 	PdfGlyph AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
@@ -504,7 +487,7 @@ private:
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
 	//PDF Textbox framework
-	TextFramework m_textFramework = {};
+	PdfTextRecognition m_textRecognition = {};
 };
 
 #endif

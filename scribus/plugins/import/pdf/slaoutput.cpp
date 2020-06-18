@@ -3370,7 +3370,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			return;
 		if (textRenderingMode < 8)
 		{
-			m_textFramework.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+			m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 		}
 	}
 }
@@ -3443,27 +3443,27 @@ void SlaOutputDev::type3D1(GfxState *state, double wx, double wy, double llx, do
 void SlaOutputDev::beginTextObject(GfxState *state)
 {
 	pushGroup();
-	if (importTextAsVectors == false && !m_textFramework.activeTextRegion.textRegionLines.empty()) {
-		m_textFramework.addTextRegion();
+	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
+		m_textRecognition.addTextRegion();
 	}
 }
 
 void SlaOutputDev::endTextObject(GfxState *state)
 {
 
-	if (importTextAsVectors == false && !m_textFramework.activeTextRegion.textRegionLines.empty()) {
+	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
 		// Add the last glyph to the textregion
-		QPointF glyphXY = m_textFramework.activeTextRegion.lastXY;
-		m_textFramework.activeTextRegion.lastXY.setX(m_textFramework.activeTextRegion.lastXY.x() - m_textFramework.activeTextRegion.glyphs.back().dx);
-		if (m_textFramework.activeTextRegion.addGlyphAtPoint(glyphXY, m_textFramework.activeTextRegion.glyphs.back()) == TextRegion::FrameworkLineTests::FAIL) {
+		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
+		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
+		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::FrameworkLineTests::FAIL) {
 			qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
 		}
 		renderTextFrame();		
-	} else if (importTextAsVectors == false && !m_textFramework.activeTextRegion.textRegionLines.empty()) {
+	} else if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
 		qDebug("FIXME:Rogue textblock");
 	}
 	
-	m_textFramework.setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
+	m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -4275,18 +4275,18 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 void SlaOutputDev::updateTextPos(GfxState* state)
 {	
 	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
-	TextRegion* activeTextRegion = &m_textFramework.activeTextRegion;
+	TextRegion* activeTextRegion = &m_textRecognition.activeTextRegion;
 
 	if (activeTextRegion->isNew()
 	)
 	{
 		activeTextRegion->textRegioBasenOrigin = newPosition;
-		m_textFramework.setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
+		m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 	}
 	else
 	{
 		// if we've will move to a new line or new text region then update the current text region with the last glyph, this ensures all textlines and textregions have terminating glyphs.
-		if (m_textFramework.isNewLineOrRegion(newPosition))
+		if (m_textRecognition.isNewLineOrRegion(newPosition))
 		{
 			QPointF glyphPosition = activeTextRegion->lastXY;
 			activeTextRegion->lastXY.setX(activeTextRegion->lastXY.x() - activeTextRegion->glyphs.back().dx);
@@ -4305,7 +4305,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 		renderTextFrame();
 
 		//Create and initilize a new TextRegion
-		m_textFramework.addTextRegion();
+		m_textRecognition.addTextRegion();
 		updateTextPos(state);
 	}
 }
@@ -4315,7 +4315,7 @@ void SlaOutputDev::renderTextFrame()
 	//TODO: Implement, this should all in  based the framework 
 	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
 	// Ignore empty strings
-	auto activeTextRegion = &m_textFramework.activeTextRegion;
+	auto activeTextRegion = &m_textRecognition.activeTextRegion;
 	if (activeTextRegion->glyphs.empty())
 		// We don't clear the glyphs any more or at least until the whole page has been rendered glyphs.clear();
 		return;
@@ -4444,29 +4444,29 @@ void SlaOutputDev::finishItem(PageItem* item)
 	//item->setLineTransparency(1.0);
 }
 
-TextFramework::TextFramework()
+PdfTextRecognition::PdfTextRecognition()
 {
 	m_textRegions.push_back(activeTextRegion);
 	setCharMode(AddCharMode::ADDFIRSTCHAR);
 }
 
-TextFramework::~TextFramework()
+PdfTextRecognition::~PdfTextRecognition()
 {
 }
 
-void TextFramework::addTextRegion()
+void PdfTextRecognition::addTextRegion()
 {
 	activeTextRegion = TextRegion();
 	m_textRegions.push_back(activeTextRegion);
-	setCharMode(TextFramework::AddCharMode::ADDFIRSTCHAR);
+	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 }
 
-void TextFramework::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	(this->*(m_addChar))(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 }
 
-bool TextFramework::isNewLineOrRegion(QPointF newPosition)
+bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 {
 	return (activeTextRegion.collinear(activeTextRegion.lastXY.y(), activeTextRegion.textRegionLines.back().baseOrigin.y()) &&
 		!activeTextRegion.collinear(newPosition.y(), activeTextRegion.lastXY.y()))
@@ -4474,10 +4474,10 @@ bool TextFramework::isNewLineOrRegion(QPointF newPosition)
 			&& !activeTextRegion.isCloseToX(newPosition.x(), activeTextRegion.lastXY.x()));
 }
 
-PdfGlyph TextFramework::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;	
-	PdfGlyph newGlyph = TextFramework::AddCharCommon(state, x, y, dx, dy, u, uLen);
+	PdfGlyph newGlyph = PdfTextRecognition::AddCharCommon(state, x, y, dx, dy, u, uLen);
 	activeTextRegion.glyphs.push_back(newGlyph);
 	setCharMode(AddCharMode::ADDBASICCHAR);
 
@@ -4487,7 +4487,7 @@ PdfGlyph TextFramework::AddFirstChar(GfxState* state, double x, double y, double
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the coursor should move before glyphs in new regions are added.");
 	return newGlyph;
 }
-PdfGlyph TextFramework::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
+PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddBasicChar() '" << u << " : " << uLen;
 	PdfGlyph newGlyph;
@@ -4504,7 +4504,7 @@ PdfGlyph TextFramework::AddCharCommon(GfxState* state, double x, double y, doubl
 	return newGlyph;
 }
 
-PdfGlyph TextFramework::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	PdfGlyph newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
 	activeTextRegion.lastXY = QPointF(x, y);
@@ -4512,7 +4512,7 @@ PdfGlyph TextFramework::AddBasicChar(GfxState* state, double x, double y, double
 	return newGlyph;
 }
 /*TODO: Currently not implemented, just stub code*/
-PdfGlyph TextFramework::AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithNewStyle() '" << u << " : " << uLen;
 	auto newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
@@ -4521,7 +4521,7 @@ PdfGlyph TextFramework::AddCharWithNewStyle(GfxState* state, double x, double y,
 }
 
 /*TODO: Currently not implemented, just stub code*/
-PdfGlyph TextFramework::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
+PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithPreviousStyle() '" << u << " : " << uLen;
 	auto newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
