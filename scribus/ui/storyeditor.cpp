@@ -1588,50 +1588,10 @@ void SToolBFont::SetScaleV(double s)
 	charScaleV->setValue(s / 10.0);
 }
 
-/* Main Story Editor Class */
-// StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
-// 	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
-// {
-// 	prefsManager=PrefsManager::instance();
-// 	m_doc = docc;
-// 	seMenuMgr=nullptr;
-// 	buildGUI();
-// 	currItem = ite;
-// // 	charSelect = nullptr;
-// 	m_firstSet = false;
-// 	activFromApp = true;
-// 	Editor->loadItemText(ite);
-// 	Editor->getCursorPosition(&m_currPara, &m_currChar);
-// 	EditorBar->setRepaint(true);
-// 	EditorBar->doRepaint();
-// 	updateProps(m_currPara, m_currChar);
-// 	updateStatus();
-// 	m_textChanged = false;
-// 	disconnectSignals();
-// 	connectSignals();
-// 	Editor->setFocus();
-// 	Editor->setColor(false);
-// 	m_blockUpdate = false;
-// 	loadPrefs();
-// 	// hack to keep charPalette visible. See destructor too - PV
-// 	ScCore->primaryMainWindow()->charPalette->reparent(this, QPoint(0, 0));
-// }
-
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
-	activFromApp(true),
-	m_doc(nullptr),
-	m_item(nullptr),
-	m_textChanged(false),
-	m_firstSet(false),
-	m_blockUpdate(false),
-//	m_currPara(0),
-//	m_currChar(0),
-	charSelect(nullptr),
-	charSelectUsed(false),
 	prefsManager(PrefsManager::instance())
 {
-	m_spellActive=false;
 #ifdef Q_OS_MAC
 	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
@@ -1678,7 +1638,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 					this, SLOT(slot_insertSpecialChar()));
 		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)),
 					this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
-		delete charSelect;
+		charSelect->deleteLater();
 		charSelect = nullptr;
 	}
 	savePrefs();
@@ -2318,7 +2278,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			if ((m_item != nullptr) && (!m_blockUpdate))
 				updateTextFrame();
 			activFromApp = false;
-	//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		}
 		if ( ev->type() == QEvent::WindowActivate )
 		{
@@ -2341,7 +2300,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 					m_textChanged = false;
 					FontTools->Fonts->RebuildList(m_doc, m_item->isAnnotation());
 					Editor->loadItemText(m_item);
-	//				Editor->getCursorPosition(&m_currPara, &m_currChar);
 					updateStatus();
 					m_textChanged = false;
 					//Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
@@ -2940,7 +2898,6 @@ void StoryEditor::slotFileRevert()
 	if (Do_new())
 	{
 		Editor->loadItemText(m_item);
-//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		updateStatus();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();

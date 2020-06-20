@@ -416,9 +416,10 @@ public:
 
 	ScribusDoc* currentDocument() const;
 	PageItem* currentItem() const;
-	SEditor* Editor;
-	bool activFromApp;
-	MenuManager* seMenuMgr;
+
+	SEditor* Editor { nullptr };
+	bool activFromApp { true };
+	MenuManager* seMenuMgr { nullptr };
 	QMap<QString, QPointer<ScrAction> > seActions;
 
 public slots:
@@ -433,7 +434,6 @@ public slots:
 
 signals:
 	void DocChanged();
-	void EditSt();
 
 private:
 	//int exec();
@@ -442,18 +442,16 @@ private:
 	bool textDataChanged() const;
 
 	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
-	bool m_smartSelection;
+	bool m_smartSelection { false };
 
-	ScribusDoc* m_doc;
-	PageItem* m_item;
+	ScribusDoc* m_doc { nullptr };
+	PageItem* m_item { nullptr };
 
-	bool m_textChanged;
-	bool m_firstSet;
-	bool m_blockUpdate;
+	bool m_textChanged { false };
+	bool m_firstSet { false };
+	bool m_blockUpdate { false };
 	
-	int m_result;
-//	int m_currPara;
-//	int m_currChar;
+	int m_result { QDialog::Rejected };
 
 protected slots:
 	void setBackPref();
@@ -532,9 +530,9 @@ protected:
 	charSelect is created as a copy of the charPalette.
 	\author Petr Vanek <petr@scribus.info>
 	*/
-	CharSelect *charSelect;
+	CharSelect *charSelect { nullptr };
     //! True when there were some glyphs inserted via charSelect
-	bool charSelectUsed;
+	bool charSelectUsed { false };
 
 	void showEvent(QShowEvent *);
 	void hideEvent(QHideEvent *);
@@ -543,40 +541,40 @@ protected:
 	void keyPressEvent (QKeyEvent * e);
 	bool eventFilter( QObject* ob, QEvent* ev );
 
-	QHBoxLayout* StoryEd2Layout;
-	QGridLayout* ButtonGroup1Layout;
-	QGridLayout* ButtonGroup2Layout;
+	QHBoxLayout* StoryEd2Layout { nullptr };
+	QGridLayout* ButtonGroup1Layout { nullptr };
+	QGridLayout* ButtonGroup2Layout { nullptr };
 
 	PrefsManager& prefsManager;
-	PrefsContext* prefs;
+	PrefsContext* prefs { nullptr };
 
 	QStringList unicodeCharActionNames;
 	QPixmap noIcon;
 
-	QToolBar* FileTools;
-	SToolBFont* FontTools;
-	SToolBAlign* AlignTools;
-	SToolBColorF* FillTools;
-	SToolBColorS* StrokeTools;
-	SToolBStyle* StyleTools;
-	QSplitter* EdSplit;
-	SideBar* EditorBar;
-	QFrame* ButtonGroup1;
-	QFrame* ButtonGroup2;
-	QLabel* WordCT1;
-	QLabel* WordCT3;
-	QLabel* ParCT;
-	QLabel* ParC;
-	QLabel* WordCT;
-	QLabel* WordC;
-	QLabel* CharCT;
-	QLabel* CharC;
-	QLabel* WordCT2;
-	QLabel* WordC2;
-	QLabel* CharCT2;
-	QLabel* CharC2;
+	QToolBar* FileTools { nullptr };
+	SToolBFont* FontTools { nullptr };
+	SToolBAlign* AlignTools { nullptr };
+	SToolBColorF* FillTools { nullptr };
+	SToolBColorS* StrokeTools { nullptr };
+	SToolBStyle* StyleTools { nullptr };
+	QSplitter* EdSplit { nullptr };
+	SideBar* EditorBar { nullptr };
+	QFrame* ButtonGroup1 { nullptr };
+	QFrame* ButtonGroup2 { nullptr };
+	QLabel* WordCT1 { nullptr };
+	QLabel* WordCT3 { nullptr };
+	QLabel* ParCT { nullptr };
+	QLabel* ParC { nullptr };
+	QLabel* WordCT { nullptr };
+	QLabel* WordC { nullptr };
+	QLabel* CharCT { nullptr };
+	QLabel* CharC { nullptr };
+	QLabel* WordCT2 { nullptr };
+	QLabel* WordC2 { nullptr };
+	QLabel* CharCT2 { nullptr };
+	QLabel* CharC2 { nullptr };
 	
-	bool m_spellActive;
+	bool m_spellActive { false };
 };
 
 #endif
