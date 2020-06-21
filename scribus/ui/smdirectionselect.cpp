@@ -8,7 +8,7 @@ SMDirectionSelect::SMDirectionSelect(QWidget *parent)
 	parentButton->setCheckable( true );
 	parentButton->setText( tr("P", "P as in Parent"));
 	parentButton->setToolTip( tr("Use parent style's direction instead of overriding it"));
-	GroupSelectLayout->addWidget( parentButton );
+	groupSelectLayout->addWidget( parentButton );
 	resize(minimumSizeHint());
 	parentButton->hide();
 }

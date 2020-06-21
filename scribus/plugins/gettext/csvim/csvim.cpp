@@ -52,7 +52,7 @@ CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w,
 
 void CsvIm::setupPStyles()
 {
-	pstyleData = new gtParagraphStyle(*(writer->getDefaultStyle()));
+	pstyleData = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 	pstyleData->setName(writer->getFrameName() + "-" + QObject::tr("CSV_data"));
 	if (!hasHeader)
 		return;

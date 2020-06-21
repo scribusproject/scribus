@@ -1062,30 +1062,6 @@ private:
 	double lineCorr;
 };
 
-static bool allowedCJKBreakAfter(QChar ch) {
-	unsigned int code[] = {0x201C, 0x300C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
-	for (int i = 0; code[i]; ++i)
-		if (code[i] == ch.unicode())
-			return false;
-	return true;
-}
-
-static int allowedCJKBreakBefore(QChar ch) {
-	unsigned int code[] =
-	 {0x201D, 0x3001, 0x3002, 0x300D, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
-	  0xFF1B, 0xFF1F, 0xFF3D, 0xFF5D, 0xFF60, 0xFF63, 0xFF64, 0};
-	for (int i = 0; code[i]; ++i)
-		if (code[i] == ch.unicode())
-			return false;
-	return true;
-}
-
-static bool implicitBreak(QChar f, QChar s) {
-	if (SpecialChars::isCJK(f.unicode()) && SpecialChars::isCJK(s.unicode()))
-		return allowedCJKBreakAfter(f) && allowedCJKBreakBefore(s);
-	return false;
-}
-
 static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
 {
 	while (!regionContainsRect(shape, pt) && pt.right() < maxX)
@@ -2425,13 +2401,6 @@ void PageItem_TextFrame::layout()
 			if ((itemText.text(a) == SpecialChars::COLBREAK) && (m_columns > 1))
 				goNextColumn = true;
 
-			// #16100: this block is useless now that we allow remembering break in case of consecutive line break opportunities
-			// Anyway this block has a bug : it potentially remember break for a lower indice than upper code
-			/*if (i != 0 && implicitBreak(itemText.text(glyphClusters[i - 1].lastChar()), itemText.text(current.glyphs[currentIndex].firstChar())))
-			{
-//				qDebug() << "rememberBreak implicitbreak @" << i-1;
-				current.rememberBreak(i - 1, breakPos);
-			}*/
 			current.isEmpty = (i - current.lineData.firstCluster + 1) == 0;
 
 			if (tabs.active)
