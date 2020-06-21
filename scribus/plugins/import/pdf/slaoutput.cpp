@@ -20,6 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
+#ifndef DEBUG_TEXT_IMPORT
+	#define DEBUG_TEXT_IMPORT
+#endif
 namespace
 {
 	// Compute the intersection of two paths while considering the fillrule of each of them.
@@ -283,6 +286,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
 	layersSetByOCG = false;
+	importTextAsVectors = true;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -2573,9 +2577,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, 3);
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2642,9 +2646,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, colorMap->getNumPixelComps());
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2764,7 +2768,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 
     // Determine the width and height of the image by undoing the rotation part
 	// of the CTM and applying the result to the unit square.
-	QTransform without_rotation; 
+	QTransform without_rotation;
 	without_rotation = m_ctm * without_rotation.rotate(angle);
 	QRectF trect_wr = without_rotation.mapRect(QRectF(0, 0, 1, 1));
 
@@ -3016,7 +3020,7 @@ void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
 	beginMarkedContent(name, properties);
 }
 
-void SlaOutputDev::updateFont(GfxState *state)
+void SlaOutputDev::updateFontForVector(GfxState *state)
 {
 	GfxFont *gfxFont;
 	GfxFontLoc *fontLoc;
@@ -3252,11 +3256,11 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
+void SlaOutputDev::drawCharAsVector(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
-	updateFont(state);
+	updateFontForVector(state);
 	if (!m_font)
 		return;
 
@@ -3298,11 +3302,11 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
 				}
 				else
-					qPath.lineTo(x1,y1);
+					qPath.lineTo(x1, y1);
 				if (f & splashPathLast)
 					qPath.closeSubpath();
 			}
-			const double *ctm = state->getCTM();
+			const double * ctm = state->getCTM();
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
@@ -3319,48 +3323,48 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			}
 			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)) && (textRenderingMode != 7))
 			{
+				PageItem* textNode = nullptr;
+
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
-				PageItem* ite = m_doc->Items->at(z);
+				textNode = m_doc->Items->at(z);
+
+				// todo: merge this between vector and text implementations.
 				QTransform mm;
 				mm.scale(1, -1);
 				mm.translate(x, -y);
 				textPath.map(mm);
 				textPath.map(m_ctm);
-				ite->PoLine = textPath.copy();
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				ite->setLineEnd(PLineEnd);
-				ite->setLineJoin(PLineJoin);
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				textNode->PoLine = textPath.copy();
+				setFillAndStrokeForPDF(state, textNode);
 				// Fill text rendering modes. See above
-				if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
-				{
-					CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
-					ite->setFillColor(CurrColorFill);
-					ite->setFillShade(CurrFillShade);
-					ite->setFillEvenOdd(false);
-					ite->setFillTransparency(1.0 - state->getFillOpacity());
-					ite->setFillBlendmode(getBlendMode(state));
-				}
-				// Stroke text rendering modes. See above
-				if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
-				{
-					CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
-					ite->setLineColor(CurrColorStroke);
-					ite->setLineWidth(state->getTransformedLineWidth());
-					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
-					ite->setLineBlendmode(getBlendMode(state));
-					ite->setLineShade(CurrStrokeShade);
-				}
-				m_doc->adjustItemSize(ite);
-				m_Elements->append(ite);
+				m_doc->adjustItemSize(textNode);
+				m_Elements->append(textNode);
 				if (m_groupStack.count() != 0)
 				{
-					m_groupStack.top().Items.append(ite);
-					applyMask(ite);
+					m_groupStack.top().Items.append(textNode);
+					applyMask(textNode);
 				}
-				delete fontPath;
 			}
+			delete fontPath;
+
+		}
+	}
+}
+
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+{
+	if(importTextAsVectors)
+		drawCharAsVector(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+	else
+	{
+		// TODO Implement the clipping operations. At least the characters are shown.
+		int textRenderingMode = state->getRender();
+		// Invisible or only used for clipping
+		if (textRenderingMode == 3)
+			return;
+		if (textRenderingMode < 8)
+		{
+			m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 		}
 	}
 }
@@ -3368,6 +3372,8 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
+	if (importTextAsVectors == false)
+		return gTrue;
 	GfxFont *gfxFont;
 	if (!(gfxFont = state->getFont()))
 		return gTrue;
@@ -3383,6 +3389,8 @@ GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double d
 void SlaOutputDev::endType3Char(GfxState *state)
 {
 //	qDebug() << "endType3Char";
+	if (importTextAsVectors == false)
+		return;
 	F3Entry f3e = m_F3Stack.pop();
 	groupEntry gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
@@ -3429,10 +3437,37 @@ void SlaOutputDev::type3D1(GfxState *state, double wx, double wy, double llx, do
 void SlaOutputDev::beginTextObject(GfxState *state)
 {
 	pushGroup();
+	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
+	#ifdef DEBUG_TEXT_IMPORT
+		qDebug("beginTextObject: m_textRecognition.addTextRegion()");
+	#endif
+		m_textRecognition.addTextRegion();
+	}
 }
-
+/*
+ *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
+ *	TODO: Support merging of text boxes where beginTextObject and endTextObject have been called but really it's looking like it's just a new line
+ *		maybe do a second pass before rendering and implement a merge function in pdfTectRecognition &co.
+*/
 void SlaOutputDev::endTextObject(GfxState *state)
 {
+
+	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
+		// Add the last glyph to the textregion
+		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
+		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
+		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL) {
+			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
+		}
+		#ifdef DEBUG_TEXT_IMPORT
+		qDebug("endTextObject: renderTextFrame");
+		#endif
+		renderTextFrame();
+	} else if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
+		qDebug("FIXME:Rogue textblock");
+	}
+
+	m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -3895,4 +3930,223 @@ bool SlaOutputDev::checkClip()
 			ret = true;
 	}
 	return ret;
+}
+
+
+void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
+{
+
+	textNode->ClipEdited = true;
+	textNode->FrameType = 3;
+	textNode->setLineEnd(PLineEnd);
+	textNode->setLineJoin(PLineJoin);
+	textNode->setTextFlowMode(PageItem::TextFlowDisabled);
+
+	int textRenderingMode = state->getRender();
+	// Invisible or only used for clipping
+	if (textRenderingMode == 3)
+		return;
+
+	// Fill text rendering modes. See above
+	if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
+	{
+
+		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+		if (textNode->isTextFrame()) {
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity())); //fill colour sets the background colour for the frame not the fill colour fore  the text
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None);
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillShade(CurrFillShade);
+		}
+		else
+		{
+			textNode->setFillColor(CurrColorFill);
+			textNode->setFillShade(CurrFillShade);
+			textNode->setFillEvenOdd(false);
+			textNode->setFillTransparency(1.0 - state->getFillOpacity());
+			textNode->setFillBlendmode(getBlendMode(state));
+		}
+	}
+	// Stroke text rendering modes. See above
+	if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
+	{
+		CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
+		if (textNode->isTextFrame()) { //fill color sets the background color for the frame not the fill color fore  the text
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity()));
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None); //TODO: Check if we override the stroke color with the fill color when there is a choice
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillBlendmode(getBlendMode(state));
+			textNode->setFillShade(CurrFillShade);
+		}
+		else
+		{
+			textNode->setLineColor(CurrColorStroke);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillTransparency(1.0 - state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity());
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setLineBlendmode(getBlendMode(state));
+			textNode->setLineShade(CurrStrokeShade);
+		}
+	}
+}
+
+/*
+ *	Updates current text position and move to a position and or add a new glyph at the previous position.
+ *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
+ *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
+ *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
+ */
+void SlaOutputDev::updateTextPos(GfxState* state)
+{
+	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
+	TextRegion* activeTextRegion = &m_textRecognition.activeTextRegion;
+
+	if (activeTextRegion->isNew()
+	)
+	{
+		activeTextRegion->textRegioBasenOrigin = newPosition;
+		m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
+	}
+	else
+	{
+		// if we've will move to a new line or new text region then update the current text region with the last glyph, this ensures all textlines and textregions have terminating glyphs.
+		if (m_textRecognition.isNewLineOrRegion(newPosition))
+		{
+			QPointF glyphPosition = activeTextRegion->lastXY;
+			activeTextRegion->lastXY.setX(activeTextRegion->lastXY.x() - activeTextRegion->glyphs.back().dx);
+			if (activeTextRegion->addGlyphAtPoint(glyphPosition, activeTextRegion->glyphs.back()) == TextRegion::LineType::FAIL)
+				qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
+#ifdef DEBUG_TEXT_IMPORT
+			else
+				qDebug() << "Newline should be next";
+#endif
+		}
+	}
+	TextRegion::LineType lineTestResult = activeTextRegion->moveToPoint(newPosition);
+	if (lineTestResult == TextRegion::LineType::FAIL)
+	{
+		#ifdef DEBUG_TEXT_IMPORT
+		qDebug("updateTextPos: renderTextFrame() + m_textRecognition.addTextRegion()");
+		#endif
+		renderTextFrame();
+		m_textRecognition.addTextRegion();
+		updateTextPos(state);
+	}
+}
+/*
+*	render the textregion to a new PageItem::TextFrame, currently some hackjish defaults have been implemented there are a number of FIXMEs and TODOs
+*	FIXME: Paragraphs need to be implemented properly  this needs to be applied to the charstyle of the default pstyle
+*	FIXME xcord and ycord need to be set properly based on GfxState and the page transformation matrix
+*	TODO: Implement paragraph styles
+*	TODO: Implement character styles and fonts.
+*	TODO Decide if we should be setting the clipshape of the POoLine values as is the case with other import implementations
+*/
+void SlaOutputDev::renderTextFrame()
+{
+	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
+	auto activeTextRegion = &m_textRecognition.activeTextRegion;
+	if (activeTextRegion->glyphs.empty())
+		return;
+
+	qreal xCoor = m_doc->currentPage()->xOffset() + activeTextRegion->textRegioBasenOrigin.x();
+	qreal yCoor = m_doc->currentPage()->initialHeight() - (m_doc->currentPage()->yOffset() + (double)activeTextRegion->textRegioBasenOrigin.y() + activeTextRegion->lineSpacing); // don't know if y is top down or bottom up
+	qreal  lineWidth = 0.0;
+	#ifdef DEBUG_TEXT_IMPORT
+		qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activeTextRegion->lineSpacing << "Height:" << activeTextRegion->maxHeight << " Width:" << activeTextRegion->maxWidth;
+	#endif
+	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, 40, 40, 0, CommonStrings::None, CommonStrings::None );
+	PageItem* textNode = m_doc->Items->at(z);
+
+	ParagraphStyle& pStyle = (ParagraphStyle&)textNode->itemText.defaultStyle();
+	pStyle.setLineSpacingMode(pStyle.AutomaticLineSpacing);
+	pStyle.setHyphenationMode(pStyle.AutomaticHyphenation);
+	finishItem(textNode);
+	//_setFillAndStrokeForPdf(state, text_node);
+	textNode->ClipEdited = true;
+	textNode->FrameType = 3;
+	textNode->setLineEnd(PLineEnd);
+	textNode->setLineJoin(PLineJoin);
+	textNode->setTextFlowMode(PageItem::TextFlowDisabled);
+	textNode->setLineTransparency(1.0);
+	textNode->setFillColor(CommonStrings::None);
+	textNode->setLineColor(CommonStrings::None);
+	textNode->setLineWidth(0);
+	textNode->setFillShade(CurrFillShade);
+
+
+	/* Oliver Stieber 2020-06-11 Set text matrix... This need to be done so that the global world view that we rite out glyphs to is transformed correctly by the context matrix for each glyph, possibly anyhow.
+	needs the way in which we are handling transformations for the page to be more concrete before this code can be implemented either here or somewhere else
+	FIXME: Setting the text matrix isn't supported at the moment
+	QTransform text_transform(_text_matrix);
+	text_transform.setMatrix(text_transform.m11(), text_transform.m12(), 0,
+		text_transform.m21(), text_transform.m22(), 0,
+		first_glyph.position.x(), first_glyph.position.y(), 1);
+	gchar *transform = sp_svg_transform_write(text_transform);
+	text_node->setAttribute("transform", transform);
+	g_free(transform);
+	*/
+
+	int shade = 100;
+	/*
+	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used within PdfTextRecognition &co.
+	QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);
+	*/
+	CharStyle& cStyle = static_cast<CharStyle&>(pStyle.charStyle());
+	cStyle.setScaleH(1000.0);
+	cStyle.setScaleV(1000.0);
+	cStyle.setHyphenChar(SpecialChars::BLANK.unicode());
+
+	textNode->itemText.setDefaultStyle(pStyle);
+	textNode->invalid = true;
+	activeTextRegion->renderToTextFrame(textNode);
+	textNode->itemText.insertChars(SpecialChars::PARSEP, true);
+
+	/*
+	*	This code can be used to set PoLine instead of setting the FrameShape if setting the PoLine is the more correct way of doing things.
+	*	I have no idea of what the PoLine is at this time except for it changes when the shape is set and appears to be unit scales as opposed to percentage scaled
+	FPointArray boundingBoxShape;
+	boundingBoxShape.resize(0);
+	boundingBoxShape.svgInit();
+	//doubles to create a shape, it's 100% textframe width by 100% textframe height
+
+	boundingBoxShape.svgMoveTo(TextRegion::boundingBoxShape[0], TextRegion::boundingBoxShape[1]);
+	for (int a = 0; a < 16; a += 2)
+	{
+		boundingBoxShape.append(FPoint(TextRegion::boundingBoxShape[a * 2], TextRegion::boundingBoxShape[a * 2 + 1]));
+	}
+	boundingBoxShape.scale(textNode->width() / 100.0, textNode->height() / 100.0);
+	*/
+	textNode->SetFrameShape(32, TextRegion::boundingBoxShape);
+	textNode->ContourLine = textNode->PoLine.copy();
+
+	m_doc->Items->removeLast();
+	m_Elements->append(textNode);
+	if (m_groupStack.count() != 0)
+	{
+		m_groupStack.top().Items.append(textNode);
+		applyMask(textNode);
+	}
+}
+
+/*
+*	code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...
+*/
+void SlaOutputDev::finishItem(PageItem* item)
+{
+	item->ClipEdited = true;
+	item->FrameType = 3;
+	/*code can be enabled when PoLine is set or when the shape is set as that sets PoLine
+	FPoint wh = getMaxClipF(&item->PoLine);
+	item->setWidthHeight(wh.x(), wh.y());
+	item->Clip = flattenPath(item->PoLine, item->Segments);
+	*/
+	item->OldB2 = item->width();
+	item->OldH2 = item->height();
+	item->updateClip();
+	item->OwnPage = m_doc->OnPage(item);
 }

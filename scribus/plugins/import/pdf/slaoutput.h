@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "selection.h"
 #include "vgradient.h"
+#include "pdftextrecognition.h"
 
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 73, 0)
 #include <poppler/goo/gtypes.h>
@@ -154,6 +155,7 @@ private:
 };
 
 
+
 class SlaOutputDev : public OutputDev
 {
 public:
@@ -233,6 +235,7 @@ public:
 	void markPoint(POPPLER_CONST char *name) override;
 	void markPoint(POPPLER_CONST char *name, Dict *properties) override;
 
+
 	//----- image drawing
 	void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg) override;
 	void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, POPPLER_CONST_082 int *maskColors, GBool inlineImg) override;
@@ -262,12 +265,14 @@ public:
 
 	void updateFillColor(GfxState *state) override;
 	void updateStrokeColor(GfxState *state) override;
-	void updateFont(GfxState *state) override;
+	void updateFontForVector(GfxState* state);
+	bool importTextAsVectors;
 
 	//----- text drawing
 	void  beginTextObject(GfxState *state) override;
 	void  endTextObject(GfxState *state) override;
 	void  drawChar(GfxState *state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, POPPLER_CONST_082 Unicode * /*u*/, int /*uLen*/) override;
+	void  drawCharAsVector(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
 	GBool beginType3Char(GfxState * /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, POPPLER_CONST_082 Unicode * /*u*/, int /*uLen*/) override;
 	void  endType3Char(GfxState * /*state*/) override;
 	void  type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/) override;
@@ -305,6 +310,13 @@ private:
 	void createFillItem(GfxState *state, Qt::FillRule fillRule);
 
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
+
+	//PDF Textbox pdfTextRecognition
+	void setFillAndStrokeForPDF(GfxState* state, PageItem* text_node);
+	void updateTextPos(GfxState* state) override;
+	void renderTextFrame();
+
+	void finishItem(PageItem* item);
 
 	bool pathIsClosed {false};
 	QString CurrColorFill;
@@ -371,6 +383,8 @@ private:
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
+	//PDF Textbox framework
+	PdfTextRecognition m_textRecognition = {};
 };
 
 #endif
