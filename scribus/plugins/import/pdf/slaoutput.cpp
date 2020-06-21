@@ -3948,12 +3948,12 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 	}
 }
 
-TextOutputDev::TextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags) : SlaOutputDev(doc, Elements, importedColors, flags)
+PdfTextOutputDev::PdfTextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags) : SlaOutputDev(doc, Elements, importedColors, flags)
 {
 	// Nothing to do at the moment
 }
 
-TextOutputDev::~TextOutputDev()
+PdfTextOutputDev::~PdfTextOutputDev()
 {
 	// Nothing to do at the moment
 }
@@ -3964,7 +3964,7 @@ TextOutputDev::~TextOutputDev()
  *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
  *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
  */
-void TextOutputDev::updateTextPos(GfxState* state)
+void PdfTextOutputDev::updateTextPos(GfxState* state)
 {
 	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
 	TextRegion* activeTextRegion = &m_textRecognition.activeTextRegion;
@@ -4009,7 +4009,7 @@ void TextOutputDev::updateTextPos(GfxState* state)
 *	TODO: Implement character styles and fonts.
 *	TODO Decide if we should be setting the clipshape of the POoLine values as is the case with other import implementations
 */
-void TextOutputDev::renderTextFrame()
+void PdfTextOutputDev::renderTextFrame()
 {
 	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
 	auto activeTextRegion = &m_textRecognition.activeTextRegion;
@@ -4100,7 +4100,7 @@ void TextOutputDev::renderTextFrame()
 /*
 *	code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...
 */
-void TextOutputDev::finishItem(PageItem* item)
+void PdfTextOutputDev::finishItem(PageItem* item)
 {
 	item->ClipEdited = true;
 	item->FrameType = 3;
@@ -4115,7 +4115,7 @@ void TextOutputDev::finishItem(PageItem* item)
 	item->OwnPage = m_doc->OnPage(item);
 }
 
-void TextOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void PdfTextOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 	// TODO Implement the clipping operations. At least the characters are shown.
 	int textRenderingMode = state->getRender();
@@ -4128,7 +4128,7 @@ void TextOutputDev::drawChar(GfxState* state, double x, double y, double dx, dou
 	}
 }
 
-void TextOutputDev::beginTextObject(GfxState* state)
+void PdfTextOutputDev::beginTextObject(GfxState* state)
 {
 	pushGroup();
 	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
@@ -4140,7 +4140,7 @@ void TextOutputDev::beginTextObject(GfxState* state)
 	}
 }
 	
-void TextOutputDev::endTextObject(GfxState * state)
+void PdfTextOutputDev::endTextObject(GfxState * state)
 {
 	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
 	{
@@ -4168,7 +4168,7 @@ void TextOutputDev::endTextObject(GfxState * state)
 * update the font for the next block of glyphs. 
 * just a stub for now
 */
-void TextOutputDev::updateFont(GfxState* state)
+void PdfTextOutputDev::updateFont(GfxState* state)
 {
 	
 }
@@ -4176,20 +4176,20 @@ void TextOutputDev::updateFont(GfxState* state)
 * NOTE: Override these for now and do nothing so they don't get picked up and rendered as vectors by the base class,
 	though in the long run we may actually want that unless they can be implemented in a similar way to the text import getChar in which case overloading the makes perfect sense.
 */
-GBool TextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
+GBool PdfTextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 	//stub
 	return gTrue;
 }
-void  TextOutputDev::endType3Char(GfxState* state)
+void  PdfTextOutputDev::endType3Char(GfxState* state)
 {
 	//stub
 }
-void  TextOutputDev::type3D0(GfxState* state, double wx, double wy)
+void  PdfTextOutputDev::type3D0(GfxState* state, double wx, double wy)
 {
 	//stub
 }
-void  TextOutputDev::type3D1(GfxState* state, double wx, double wy, double ll, double lly, double urx, double ury)
+void  PdfTextOutputDev::type3D1(GfxState* state, double wx, double wy, double ll, double lly, double urx, double ury)
 {
 	//stub
 }

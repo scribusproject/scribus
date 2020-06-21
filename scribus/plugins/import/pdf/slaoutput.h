@@ -381,11 +381,11 @@ private:
 	int m_actPage;
 };
 
-class TextOutputDev : public SlaOutputDev
+class PdfTextOutputDev : public SlaOutputDev
 {
 public:
-	TextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags);
-	virtual ~TextOutputDev();
+	PdfTextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags);
+	virtual ~PdfTextOutputDev();
 
 	void updateFont(GfxState* state) override;
 

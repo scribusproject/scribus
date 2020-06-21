@@ -474,7 +474,7 @@ bool PdfPlug::convert(const QString& fn)
 				if (importTextAsVectors)
 					dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				else 
-					dev = new TextOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+					dev = new PdfTextOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 
 				if (dev->isOk())
 				{
