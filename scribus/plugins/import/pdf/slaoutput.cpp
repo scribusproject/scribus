@@ -175,6 +175,7 @@ QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 Gfx
 	QString fNam;
 	QString namPrefix = "FromPDF";
 	ScColor tmp;
+
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	*shade = 100;
@@ -2573,9 +2574,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, 3);
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2642,9 +2643,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, colorMap->getNumPixelComps());
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2762,9 +2763,9 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	if ((inPattern == 0) && (outline.isEmpty() || outline.boundingRect().isNull()))
 		return;
 
-    // Determine the width and height of the image by undoing the rotation part
+	// Determine the width and height of the image by undoing the rotation part
 	// of the CTM and applying the result to the unit square.
-	QTransform without_rotation; 
+	QTransform without_rotation;
 	without_rotation = m_ctm * without_rotation.rotate(angle);
 	QRectF trect_wr = without_rotation.mapRect(QRectF(0, 0, 1, 1));
 
@@ -3046,7 +3047,8 @@ void SlaOutputDev::updateFont(GfxState *state)
 		goto err1;
 	}
 	fontType = gfxFont->getType();
-	if (fontType == fontType3) {
+	if (fontType == fontType3)
+	{
 		goto err1;
 	}
 
@@ -3086,7 +3088,8 @@ void SlaOutputDev::updateFont(GfxState *state)
 			fontsrc->setBuf(tmpBuf, tmpBufLen, gTrue);
 
 		// load the font file
-		switch (fontType) {
+		switch (fontType)
+		{
 		case fontType1:
 			if (!(fontFile = m_fontEngine->loadType1Font(
 				id,
@@ -3252,7 +3255,7 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
@@ -3276,7 +3279,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 		return;
 	if (textRenderingMode < 8)
 	{
-		SplashPath * fontPath;
+		SplashPath* fontPath;
 		fontPath = m_font->getGlyphPath(code);
 		if (fontPath)
 		{
@@ -3287,7 +3290,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				Guchar f;
 				fontPath->getPoint(i, &x1, &y1, &f);
 				if (f & splashPathFirst)
-					qPath.moveTo(x1,y1);
+					qPath.moveTo(x1, y1);
 				else if (f & splashPathCurve)
 				{
 					double x3, y3;
@@ -3295,20 +3298,21 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					fontPath->getPoint(i, &x2, &y2, &f);
 					++i;
 					fontPath->getPoint(i, &x3, &y3, &f);
-					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
+					qPath.cubicTo(x1, y1, x2, y2, x3, y3);
 				}
 				else
-					qPath.lineTo(x1,y1);
+					qPath.lineTo(x1, y1);
 				if (f & splashPathLast)
 					qPath.closeSubpath();
 			}
-			const double *ctm = state->getCTM();
+			const double* ctm = state->getCTM();
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
 			FPointArray textPath;
 			textPath.fromQPainterPath(qPath);
 			FPoint wh = textPath.widthHeight();
+
 			if (textRenderingMode > 3)
 			{
 				QTransform mm;
