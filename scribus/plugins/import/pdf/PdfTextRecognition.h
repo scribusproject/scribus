@@ -57,6 +57,26 @@ public:
 		ENDOFLINE, //TODO: Implement an end of line test
 		FAIL
 	};
+#
+	/*
+* the bounding box shape splines in percentage of width and height. In this case 100% as we want to clip shape to be the full TextBox width and height. */
+	static constexpr double boundingBoxShape[32] = { 0.0,0.0
+							,0.0,0.0
+							,100.0,0.0
+							,100.0,0.0
+							,100.0,0.0
+							,100.0,0.0
+							,100.0,100.0
+							,100.0,100.0
+							,100.0,100.0
+							,100.0,100.0
+							,0.0,100.0
+							,0.0,100.0
+							,0.0,100.0
+							,0.0,100.0
+							,0.0,0.0
+							,0.0,0.0
+	};
 
 	QPointF textRegioBasenOrigin = QPointF({}, {});
 	qreal maxHeight = {};

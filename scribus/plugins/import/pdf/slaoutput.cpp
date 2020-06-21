@@ -3941,9 +3941,8 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 	int textRenderingMode = state->getRender();
 	// Invisible or only used for clipping
 	if (textRenderingMode == 3)
-	{
 		return;
-	}
+
 	// Fill text rendering modes. See above
 	if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
 	{
@@ -3970,10 +3969,10 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 	if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
 	{
 		CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
-		if (textNode->isTextFrame()) { //fill colour sets the background colour for the frame not the fill colour fore  the text			
+		if (textNode->isTextFrame()) { //fill color sets the background color for the frame not the fill color fore  the text			
 			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity()));
 			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it			
-			textNode->setFillColor(CommonStrings::None); //TODO: Check if we override the stroke colour with the fill colour when there is a choice
+			textNode->setFillColor(CommonStrings::None); //TODO: Check if we override the stroke color with the fill color when there is a choice
 			textNode->setLineColor(CommonStrings::None);
 			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
 			textNode->setFillBlendmode(getBlendMode(state));
@@ -3991,8 +3990,11 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 	}
 }
 
-/**
- * \brief Updates current text position
+/*
+ *	Updates current text position and move to a position and or add a new glyph at the previous position.
+ *	NOTE: If a rogue glyph is detected it means that the framework has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
+ *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
+ *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
  */
 void SlaOutputDev::updateTextPos(GfxState* state)
 {	
@@ -4022,63 +4024,56 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 	}
 	TextRegion::LineType lineTestResult = activeTextRegion->moveToPoint(newPosition);
 	if (lineTestResult == TextRegion::LineType::FAIL)
-	{
-		// FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
-		renderTextFrame();
-
-		//Create and initialize a new TextRegion
+	{		
+		renderTextFrame();		
 		m_textRecognition.addTextRegion();
 		updateTextPos(state);
 	}
 }
-
+/*
+*	render the textregion to a new PageItem::TextFrame, currently some hackjish defaults have been implemented there are a number of FIXMEs and TODOs 
+*	FIXME: Paragraphs need to be implemented properly  this needs to be applied to the charstyle of the default pstyle
+*	FIXME xcord and ycord need to be set properly based on GfxState and the page transformation matrix
+*	TODO: Implement paragraph styles
+*	TODO: Implement character styles and fonts.
+*	TODO Decide if we should be setting the clipshape of the POoLine values as is the case with other import implementations
+*/
 void SlaOutputDev::renderTextFrame()
 {
-	//TODO: Implement, this should all in  based the framework 
 	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
-	// Ignore empty strings
 	auto activeTextRegion = &m_textRecognition.activeTextRegion;
 	if (activeTextRegion->glyphs.empty())
-		// We don't clear the glyphs any more or at least until the whole page has been rendered glyphs.clear();
 		return;
 
 	qreal xCoor = m_doc->currentPage()->xOffset() + activeTextRegion->textRegioBasenOrigin.x();
 	qreal yCoor = m_doc->currentPage()->initialHeight() - (m_doc->currentPage()->yOffset() + (double)activeTextRegion->textRegioBasenOrigin.y() + activeTextRegion->lineSpacing); // don't know if y is top down or bottom up
 	qreal  lineWidth = 0.0;
-#ifdef DEBUG_TEXT_IMPORT
-	qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activeTextRegion->lineSpacing << "Height:" << activeTextRegion->maxHeight << " Width:" << activeTextRegion->maxWidth;
-#endif
-	/* colours don't get reset to CommonStrings::None often enough.*/
-	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, 40, 40, 0, CommonStrings::None, CommonStrings::None /* this->CurrColorStroke*/);//, PageItem::ItemKind::InlineItem);
+	#ifdef DEBUG_TEXT_IMPORT
+		qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activeTextRegion->lineSpacing << "Height:" << activeTextRegion->maxHeight << " Width:" << activeTextRegion->maxWidth;
+	#endif
+	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, 40, 40, 0, CommonStrings::None, CommonStrings::None );
 	PageItem* textNode = m_doc->Items->at(z);
 
 	ParagraphStyle& pStyle = (ParagraphStyle&)textNode->itemText.defaultStyle();
-	// set some hackish parameters up at first, line spacing can be calculated from the cursor position changes
 	pStyle.setLineSpacingMode(pStyle.AutomaticLineSpacing);
 	pStyle.setHyphenationMode(pStyle.AutomaticHyphenation);
-
-	// TODO: Implement these using the framework
-	finishItem(textNode);
-	// FIXME: Implement these using the framework
-	//_setFillAndStrokeForPdf(state, text_node);
-	//FIXME: Here's some dummy code for now with sensible defaults, looks like state wasn't even needed
-
+	finishItem(textNode);	
+	//_setFillAndStrokeForPdf(state, text_node);	
 	textNode->ClipEdited = true;
 	textNode->FrameType = 3;
 	textNode->setLineEnd(PLineEnd);
 	textNode->setLineJoin(PLineJoin);
 	textNode->setTextFlowMode(PageItem::TextFlowDisabled);
-	//textNode->setFillTransparency(1.0);
-	textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it			
+	textNode->setLineTransparency(1.0);
 	textNode->setFillColor(CommonStrings::None);
 	textNode->setLineColor(CommonStrings::None);
-	textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+	textNode->setLineWidth(0);
 	textNode->setFillShade(CurrFillShade);
 
 
-	// Oliver Stieber 2020-06-11 Set text matrix... This need to be done so that the global world view that we rite out glyphs to is transformed correctly by the context matrix for each glyph, possibly anyhow.
-	// needs the way in whicvh we are handeling transformations for the page to be more concrete beofre this code can be implemented either here or somewhere else
-	/* FIXME: Setting the text matrix isn't supported at the moment 
+	/* Oliver Stieber 2020-06-11 Set text matrix... This need to be done so that the global world view that we rite out glyphs to is transformed correctly by the context matrix for each glyph, possibly anyhow.
+	needs the way in whicvh we are handeling transformations for the page to be more concrete beofre this code can be implemented either here or somewhere else
+	FIXME: Setting the text matrix isn't supported at the moment 
 	QTransform text_transform(_text_matrix);
 	text_transform.setMatrix(text_transform.m11(), text_transform.m12(), 0,
 		text_transform.m21(), text_transform.m22(), 0,
@@ -4088,14 +4083,14 @@ void SlaOutputDev::renderTextFrame()
 	gchar *transform = sp_svg_transform_write(text_transform);
 	text_node->setAttribute("transform", transform);
 	g_free(transform);
-	*/
-	/*set the default charstyle to the style of the glyph, this needs fleshing out a little */
+	*/	
 
 	int shade = 100;
-	//TODO: This needs to come from the framework
+	/*
+	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used withing the PdfTextRecognition framework
 	//QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-	//TODO: replace this with the framework
 	//applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);	
+	*/
 	CharStyle& cStyle = static_cast<CharStyle&>(pStyle.charStyle());
 	cStyle.setScaleH(1000.0);
 	cStyle.setScaleV(1000.0);
@@ -4104,39 +4099,24 @@ void SlaOutputDev::renderTextFrame()
 	textNode->itemText.setDefaultStyle(pStyle);
 	textNode->invalid = true;
 	activeTextRegion->renderToTextFrame(textNode);
-	//FIXME: Paragraphs need to be implemented properly  this needs to be applied to the charstyle of the default pstyle
 	textNode->itemText.insertChars(SpecialChars::PARSEP, true);
 
-	//Set the shape so we don't clip all the text away.
+	/*
+	*	This code can be used to set PoLine instead of setting the FrameShape if setting the PoLine is the more correct way of doing things.
+	*	I have no idea of what the PoLine is at this time except for it changes when the shape is set and appears to be unit scales as opposed to percentage scaled
 	FPointArray boundingBoxShape;
 	boundingBoxShape.resize(0);
 	boundingBoxShape.svgInit();
 	//doubles to create a shape, it's 100% textframe width by 100% textframe height
-	double bbosdoubles[32] = { 0,0
-							,0,0
-							,100,0
-							,100,0
-							,100,0
-							,100,0
-							,100,100
-							,100,100
-							,100,100
-							,100,100
-							,0,100
-							,0,100
-							,0,100
-							,0,100
-							,0,0
-							,0,0
-	};
-	boundingBoxShape.svgMoveTo(bbosdoubles[0], bbosdoubles[1]);
+	
+	boundingBoxShape.svgMoveTo(TextRegion::boundingBoxShape[0], TextRegion::boundingBoxShape[1]);
 	for (int a = 0; a < 16; a += 2)
 	{
-		boundingBoxShape.append(FPoint(bbosdoubles[a * 2], bbosdoubles[a * 2 + 1]));
+		boundingBoxShape.append(FPoint(TextRegion::boundingBoxShape[a * 2], TextRegion::boundingBoxShape[a * 2 + 1]));
 	}
 	boundingBoxShape.scale(textNode->width() / 100.0, textNode->height() / 100.0);
-
-	textNode->SetFrameShape(32, bbosdoubles);
+	*/
+	textNode->SetFrameShape(32, TextRegion::boundingBoxShape);
 	textNode->ContourLine = textNode->PoLine.copy();
 
 	m_doc->Items->removeLast();
@@ -4148,13 +4128,14 @@ void SlaOutputDev::renderTextFrame()
 	}
 }
 
-/*code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...*/
-//FIXME: This needs to be implemented based on the framework
+/*
+*	code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...
+*/
 void SlaOutputDev::finishItem(PageItem* item)
 {
 	item->ClipEdited = true;
 	item->FrameType = 3;
-	//this requires that PoLine is set
+	//code can be enabled when PoLine is set or when the shape is set as that sets PoLine
 	//FPoint wh = getMaxClipF(&item->PoLine);
 	//item->setWidthHeight(wh.x(), wh.y());
 	//item->Clip = flattenPath(item->PoLine, item->Segments);
@@ -4162,6 +4143,4 @@ void SlaOutputDev::finishItem(PageItem* item)
 	item->OldH2 = item->height();
 	item->updateClip();
 	item->OwnPage = m_doc->OnPage(item);
-	//item->setFillTransparency(1.0 - state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity());
-	//item->setLineTransparency(1.0);
 }
