@@ -27,6 +27,8 @@ public:
 	void setStyle(int s, int d);
 	int getStyle();
 	int selectedId();
+	
+	virtual void changeEvent(QEvent *e);
 
 	QButtonGroup* buttonGroup;
 	int selected;
@@ -41,13 +43,12 @@ public slots:
 	void languageChange();
 	void setTypeStyle(int a);
 
+signals:
+	void State(int);
+
 protected:
 	QHBoxLayout* GroupAlignLayout;
 
-	void changeEvent(QEvent *e) override;
-
-signals:
-	void State(int);
 };
 
 #endif

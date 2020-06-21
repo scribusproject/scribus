@@ -74,9 +74,6 @@ public:
 		numWasSet = 8192
 	} wasSetFlags;
 
-	gtStyle& asGtStyle() { return dynamic_cast<gtStyle&>(*this); }
-	const gtStyle& asGtStyle() const { return dynamic_cast<const gtStyle&>(*this); }
-
 	QString target() const override;
 
 	int    getFlags() const;

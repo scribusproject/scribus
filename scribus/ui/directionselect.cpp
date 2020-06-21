@@ -15,26 +15,28 @@ for which a new license (GPL+exception) is in place.
 
 DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
 {
+	selected = 0;
+
 	buttonGroup = new QButtonGroup(this);
 
-	groupSelectLayout = new QHBoxLayout( this );
-	groupSelectLayout->setSpacing( 0 );
-	groupSelectLayout->setMargin( 5 );
-	groupSelectLayout->setAlignment(Qt::AlignRight);
+	GroupSelectLayout = new QHBoxLayout( this );
+	GroupSelectLayout->setSpacing( 0 );
+	GroupSelectLayout->setMargin( 5 );
+	GroupSelectLayout->setAlignment(Qt::AlignRight);
 
 	LTR = new QToolButton( this );
 	LTR->setMaximumSize( QSize( 22, 22 ) );
 	LTR->setIcon(IconManager::instance().loadIcon("16/text-direction-ltr.png"));
 	LTR->setCheckable( true );
 	LTR->setChecked( true );
-	groupSelectLayout->addWidget( LTR );
+	GroupSelectLayout->addWidget( LTR );
 	buttonGroup->addButton(LTR, 0);
 
 	RTL = new QToolButton( this );
 	RTL->setMaximumSize( QSize( 22, 22 ) );
 	RTL->setIcon(IconManager::instance().loadIcon("16/text-direction-rtl.png"));
 	RTL->setCheckable( true );
-	groupSelectLayout->addWidget( RTL );
+	GroupSelectLayout->addWidget( RTL );
 	buttonGroup->addButton(RTL, 1);
 
 	resize(minimumSizeHint());
@@ -61,13 +63,13 @@ int DirectionSelect::getStyle()
 
 void DirectionSelect::setTypeStyle(int a)
 {
-	m_selected = a;
+	selected = a;
 	emit State(a);
 }
 
 int DirectionSelect::selectedId()
 {
-	return m_selected;
+	return selected;
 }
 
 void DirectionSelect::changeEvent(QEvent *e)
@@ -75,9 +77,7 @@ void DirectionSelect::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		languageChange();
-		return;
 	}
-	QWidget::changeEvent(e);
 }
 
 void DirectionSelect::iconSetChange()

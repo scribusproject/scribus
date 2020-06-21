@@ -203,7 +203,6 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	{
 		m_doc->ElemToLink = nullptr;
 		m_view->requestMode(submodePaintingDone);
-		m_view->canvasMode()->mousePressEvent(m);
 	}
 }
 

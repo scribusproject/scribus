@@ -1976,9 +1976,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("GRCOLT3" , item->GrCol3transp);
 						docu.writeAttribute("GRCOLT4" , item->GrCol4transp);
 						docu.writeAttribute("GRCOLS1" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS2" , item->GrCol2Shade);
-						docu.writeAttribute("GRCOLS3" , item->GrCol3Shade);
-						docu.writeAttribute("GRCOLS4" , item->GrCol4Shade);
+						docu.writeAttribute("GRCOLS2" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS3" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS4" , item->GrCol1Shade);
 					}
 				}
 			}

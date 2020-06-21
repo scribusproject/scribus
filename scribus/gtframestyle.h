@@ -41,9 +41,6 @@ public:
 	
 	QString target() const override;
 
-	gtParagraphStyle& asGtParagraphStyle() { return dynamic_cast<gtParagraphStyle&>(*this); }
-	const gtParagraphStyle& asGtParagraphStyle() const { return dynamic_cast<const gtParagraphStyle&>(*this); }
-
 	int getColumns() const;
 	void setColumns(int newColumns);
 	double getColumnsGap() const;

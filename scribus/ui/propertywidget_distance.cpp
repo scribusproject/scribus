@@ -368,33 +368,33 @@ void PropertyWidget_Distance::handleVAlign()
 
 void PropertyWidget_Distance::handleTabs()
 {
-	if (!m_doc || !m_item)
-		return;
-
-	PageItem_TextFrame *tItem = m_item->asTextFrame();
-	if (tItem == nullptr)
-		return;
-	const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
-	TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
-	if (dia->exec())
+	if (m_doc && m_item)
 	{
-		if (m_doc->appMode != modeEdit)
+		PageItem_TextFrame *tItem = m_item->asTextFrame();
+		if (tItem == nullptr)
+			return;
+		const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
+		TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
+		if (dia->exec())
 		{
-			ParagraphStyle newStyle(m_item->itemText.defaultStyle());
-			newStyle.setTabValues(dia->tabList());
-			Selection tempSelection(this, false);
-			tempSelection.addItem(m_item, true);
-			m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+			if (m_doc->appMode != modeEdit)
+			{
+				ParagraphStyle newStyle(m_item->itemText.defaultStyle());
+				newStyle.setTabValues(dia->tabList());
+				Selection tempSelection(this, false);
+				tempSelection.addItem(m_item, true);
+				m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+			}
+			else
+			{
+				ParagraphStyle newStyle;
+				newStyle.setTabValues(dia->tabList());
+				m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+			}
+			m_item->update();
 		}
-		else
-		{
-			ParagraphStyle newStyle;
-			newStyle.setTabValues(dia->tabList());
-			m_doc->itemSelection_ApplyParagraphStyle(newStyle);
-		}
-		m_item->update();
+		delete dia;
 	}
-	delete dia;
 }
 
 void PropertyWidget_Distance::handleTextDistances()
@@ -465,20 +465,26 @@ void PropertyWidget_Distance::unitChange()
 	if (!m_doc)
 		return;
 
-	QSignalBlocker columnGapBlocker(columnGap);
-	QSignalBlocker leftDistanceBlocker(leftDistance);
-	QSignalBlocker topDistanceBlocker(topDistance);
-	QSignalBlocker bottomDistanceBlocker(bottomDistance);
-	QSignalBlocker rightDistanceBlocker(rightDistance);
-
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	columnGap->setNewUnit(m_unitIndex);
-	leftDistance->setNewUnit(m_unitIndex);
-	topDistance->setNewUnit(m_unitIndex);
-	bottomDistance->setNewUnit(m_unitIndex);
-	rightDistance->setNewUnit(m_unitIndex);
+	columnGap->blockSignals(true);
+	leftDistance->blockSignals(true);
+	topDistance->blockSignals(true);
+	bottomDistance->blockSignals(true);
+	rightDistance->blockSignals(true);
+
+	columnGap->setNewUnit( m_unitIndex );
+	leftDistance->setNewUnit( m_unitIndex );
+	topDistance->setNewUnit( m_unitIndex );
+	bottomDistance->setNewUnit( m_unitIndex );
+	rightDistance->setNewUnit( m_unitIndex );
+
+	columnGap->blockSignals(false);
+	leftDistance->blockSignals(false);
+	topDistance->blockSignals(false);
+	bottomDistance->blockSignals(false);
+	rightDistance->blockSignals(false);
 }
 
 void PropertyWidget_Distance::localeChange()

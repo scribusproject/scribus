@@ -244,7 +244,7 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		return;
 
 	PageItem* currItem = currentItemFromSelection();
-	if (m_doc->m_Selection->count() > 1)
+	if (m_doc->m_Selection->count() > 1 )
 	{
 		setEnabled(false);
 		flopBox->flopRealHeight->setChecked(true);
@@ -258,7 +258,6 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		{
 		case -1:
 			m_haveItem = false;
-			m_item = nullptr;
 			setEnabled(false);
 			break;
 		case PageItem::TextFrame:
@@ -388,13 +387,14 @@ void PropertiesPalette_Text::localeChange()
 
 void PropertiesPalette_Text::handleLineSpacingMode(int id)
 {
-	if (!m_haveDoc || !m_haveItem)
-		return;
-	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
-	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
-//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
-	m_doc->regionsChanged()->update(QRect());
+	if ((m_haveDoc) && (m_haveItem))
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(m_item, true);
+		m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
+	//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+		m_doc->regionsChanged()->update(QRect());
+	}
 }
 
 void PropertiesPalette_Text::changeLang(int id)
