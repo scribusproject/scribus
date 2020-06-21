@@ -286,7 +286,6 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
 	layersSetByOCG = false;
-	importTextAsVectors = true;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -3020,7 +3019,7 @@ void SlaOutputDev::markPoint(POPPLER_CONST char *name, Dict *properties)
 	beginMarkedContent(name, properties);
 }
 
-void SlaOutputDev::updateFontForVector(GfxState *state)
+void SlaOutputDev::updateFont(GfxState *state)
 {
 	GfxFont *gfxFont;
 	GfxFontLoc *fontLoc;
@@ -3256,11 +3255,11 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawCharAsVector(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
-	updateFontForVector(state);
+	updateFont(state);
 	if (!m_font)
 		return;
 
@@ -3351,29 +3350,10 @@ void SlaOutputDev::drawCharAsVector(GfxState* state, double x, double y, double 
 	}
 }
 
-void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
-{
-	if(importTextAsVectors)
-		drawCharAsVector(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
-	else
-	{
-		// TODO Implement the clipping operations. At least the characters are shown.
-		int textRenderingMode = state->getRender();
-		// Invisible or only used for clipping
-		if (textRenderingMode == 3)
-			return;
-		if (textRenderingMode < 8)
-		{
-			m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
-		}
-	}
-}
 
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
-	if (importTextAsVectors == false)
-		return gTrue;
 	GfxFont *gfxFont;
 	if (!(gfxFont = state->getFont()))
 		return gTrue;
@@ -3389,8 +3369,6 @@ GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double d
 void SlaOutputDev::endType3Char(GfxState *state)
 {
 //	qDebug() << "endType3Char";
-	if (importTextAsVectors == false)
-		return;
 	F3Entry f3e = m_F3Stack.pop();
 	groupEntry gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
@@ -3437,12 +3415,6 @@ void SlaOutputDev::type3D1(GfxState *state, double wx, double wy, double llx, do
 void SlaOutputDev::beginTextObject(GfxState *state)
 {
 	pushGroup();
-	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
-	#ifdef DEBUG_TEXT_IMPORT
-		qDebug("beginTextObject: m_textRecognition.addTextRegion()");
-	#endif
-		m_textRecognition.addTextRegion();
-	}
 }
 /*
  *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
@@ -3451,23 +3423,6 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 */
 void SlaOutputDev::endTextObject(GfxState *state)
 {
-
-	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
-		// Add the last glyph to the textregion
-		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
-		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
-		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL) {
-			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
-		}
-		#ifdef DEBUG_TEXT_IMPORT
-		qDebug("endTextObject: renderTextFrame");
-		#endif
-		renderTextFrame();
-	} else if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
-		qDebug("FIXME:Rogue textblock");
-	}
-
-	m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 //	qDebug() << "SlaOutputDev::endTextObject";
 	if (!m_clipTextPath.isEmpty())
 	{
@@ -3932,7 +3887,6 @@ bool SlaOutputDev::checkClip()
 	return ret;
 }
 
-
 void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 {
 
@@ -3994,13 +3948,23 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 	}
 }
 
+TextOutputDev::TextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags) : SlaOutputDev(doc, Elements, importedColors, flags)
+{
+	// Nothing to do at the moment
+}
+
+TextOutputDev::~TextOutputDev()
+{
+	// Nothing to do at the moment
+}
+
 /*
  *	Updates current text position and move to a position and or add a new glyph at the previous position.
  *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
  *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
  *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
  */
-void SlaOutputDev::updateTextPos(GfxState* state)
+void TextOutputDev::updateTextPos(GfxState* state)
 {
 	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
 	TextRegion* activeTextRegion = &m_textRecognition.activeTextRegion;
@@ -4045,7 +4009,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 *	TODO: Implement character styles and fonts.
 *	TODO Decide if we should be setting the clipshape of the POoLine values as is the case with other import implementations
 */
-void SlaOutputDev::renderTextFrame()
+void TextOutputDev::renderTextFrame()
 {
 	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
 	auto activeTextRegion = &m_textRecognition.activeTextRegion;
@@ -4136,7 +4100,7 @@ void SlaOutputDev::renderTextFrame()
 /*
 *	code mostly taken from importodg.cpp which also supports some line styles and more fill options etc...
 */
-void SlaOutputDev::finishItem(PageItem* item)
+void TextOutputDev::finishItem(PageItem* item)
 {
 	item->ClipEdited = true;
 	item->FrameType = 3;
@@ -4149,4 +4113,62 @@ void SlaOutputDev::finishItem(PageItem* item)
 	item->OldH2 = item->height();
 	item->updateClip();
 	item->OwnPage = m_doc->OnPage(item);
+}
+
+void TextOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+{
+	// TODO Implement the clipping operations. At least the characters are shown.
+	int textRenderingMode = state->getRender();
+	// Invisible or only used for clipping
+	if (textRenderingMode == 3)
+		return;
+	if (textRenderingMode < 8)
+	{
+		m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+	}
+}
+
+void TextOutputDev::beginTextObject(GfxState* state)
+{
+	pushGroup();
+	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+	{
+#ifdef DEBUG_TEXT_IMPORT
+		qDebug("beginTextObject: m_textRecognition.addTextRegion()");
+#endif
+		m_textRecognition.addTextRegion();
+	}
+}
+	
+void TextOutputDev::endTextObject(GfxState * state)
+{
+	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+	{
+		// Add the last glyph to the textregion
+		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
+		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
+		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL)
+		{
+			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
+		}
+		#ifdef DEBUG_TEXT_IMPORT
+		qDebug("endTextObject: renderTextFrame");
+		#endif
+		renderTextFrame();
+	}
+	else if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+		qDebug("FIXME:Rogue textblock");
+
+	m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
+
+	SlaOutputDev::endTextObject(state);
+}
+
+/*
+* update the font for the next block of glyphs. 
+* just a stub for now
+*/
+void TextOutputDev::updateFont(GfxState* state)
+{
+	
 }

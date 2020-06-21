@@ -470,10 +470,15 @@ bool PdfPlug::convert(const QString& fn)
 				}
 				parsePagesString(pageString, &pageNs, lastPage);
 				firstPage = pageNs[0];
-				SlaOutputDev *dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+				SlaOutputDev* dev = {};
+				if (importTextAsVectors)
+					dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+				else 
+					dev = new TextOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+
 				if (dev->isOk())
 				{
-					dev->importTextAsVectors = importTextAsVectors;
+					//dev->importTextAsVectors = importTextAsVectors;
 					OCGs* ocg = pdfDoc->getOptContentConfig();
 					if (ocg)
 					{
