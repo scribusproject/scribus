@@ -5,10 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "PdfTextRecognition.h"
+#include "pdftextrecognition.h"
 
 /*
-*	constructor, initialize the textRegions vector and set the addChar mode 
+*	constructor, initialize the textRegions vector and set the addChar mode
 */
 PdfTextRecognition::PdfTextRecognition()
 {
@@ -24,7 +24,7 @@ PdfTextRecognition::~PdfTextRecognition()
 }
 
 /*
-*	add a new text region and make it the active region 
+*	add a new text region and make it the active region
 */
 void PdfTextRecognition::addTextRegion()
 {
@@ -34,7 +34,7 @@ void PdfTextRecognition::addTextRegion()
 }
 
 /*
-*	function called via integration with poppler's addChar callback. It decides how to add the charter based on the mode that is set 
+*	function called via integration with poppler's addChar callback. It decides how to add the charter based on the mode that is set
 */
 void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
@@ -57,7 +57,7 @@ void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx,
 }
 
 /*
-*	basic test to see if the point lies in a new line or region 
+*	basic test to see if the point lies in a new line or region
 */
 bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 {
@@ -68,8 +68,8 @@ bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 }
 
 
-/* 
-*	basic functionality to be performed when addChar is called 
+/*
+*	basic functionality to be performed when addChar is called
 *	FIXME: what to do when uLen != 1
 */
 PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
@@ -87,13 +87,13 @@ PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, 
 	return newGlyph;
 }
 
-/* 
-*	Tell the text region to add a glyph so that line segments and regions be created 
+/*
+*	Tell the text region to add a glyph so that line segments and regions be created
 *	If the character being added is the first character in a textregion or after a change in positioning or styles or the end of a line
 */
 PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
-	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;	
+	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;
 	PdfGlyph newGlyph = PdfTextRecognition::AddCharCommon(state, x, y, dx, dy, u, uLen);
 	activeTextRegion.glyphs.push_back(newGlyph);
 	setCharMode(AddCharMode::ADDBASICCHAR);
@@ -105,7 +105,7 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 	return newGlyph;
 }
 
-/* 
+/*
 *	just add a character to the textregion without doing anything special
 */
 PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
@@ -116,7 +116,7 @@ PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, d
 	return newGlyph;
 }
 
-/* 
+/*
 *	Apply a new style to this glyph ands glyphs that follow and add it to the style stack
 *	TODO: Currently not implemented, just stub code
 */
@@ -128,9 +128,9 @@ PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, doub
 	return newGlyph;
 }
 
-/* 
+/*
 *	return to the previous style on the style stack
-*	TODO: Currently not implemented, just stub code 
+*	TODO: Currently not implemented, just stub code
 */
 PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
@@ -155,8 +155,8 @@ bool TextRegion::collinear(qreal a, qreal b)
 	return abs(a - b) < 1 ? true : false;
 }
 
-/* 
-*	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin 
+/*
+*	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin
 */
 bool TextRegion::isCloseToX(qreal x1, qreal x2)
 {
@@ -169,12 +169,12 @@ bool TextRegion::isCloseToX(qreal x1, qreal x2)
 */
 bool TextRegion::isCloseToY(qreal y1, qreal y2)
 {
-	
+
 	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;
 }
 
-/* 
-*	less than, page upwards, the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate 
+/*
+*	less than, page upwards, the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate
 */
 bool TextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 {
@@ -210,13 +210,13 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 		else if (xInLimits)
 			return LineType::SAMELINE;
 	else if (adjunctLesser(point.y(), lastXY.y(), lineBaseXY.y()))
-		return LineType::STYLESUPERSCRIPT;	
+		return LineType::STYLESUPERSCRIPT;
 	else if (adjunctGreater(point.y(), lastXY.y(), lineBaseXY.y()))
 		if (collinear(point.y(), lineBaseXY.y()))
 			return LineType::STYLENORMALRETURN;
 		else
 			return LineType::STYLESUPERSCRIPT;
-	else if(isCloseToX(point.x(), textRegioBasenOrigin.x()) && isCloseToY(point.y(), lastXY.y()))				
+	else if(isCloseToX(point.x(), textRegioBasenOrigin.x()) && isCloseToY(point.y(), lastXY.y()))
 				if (textRegionLines.size() >= 2)
 					return LineType::NEWLINE;
 				else if (textRegionLines.size() == 1)
@@ -225,8 +225,8 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 	return LineType::FAIL;
 }
 
-/* 
-*	Perform some fuzzy checks to see if newPoint can reasonably be ascribed to the current textframe. 
+/*
+*	Perform some fuzzy checks to see if newPoint can reasonably be ascribed to the current textframe.
 *	FIXME: It may be that move and addGlyph need different versions of isCloseToX and isCloseToY but keep them the same just for now
 */
 TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
@@ -245,12 +245,12 @@ TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
 
 /*
 *	Move the position of the cursor to a new point,
-*	test if that point is within the current textframe or within a new textframe. 
-*	initialize the textregion and setup lines and segments 
+*	test if that point is within the current textframe or within a new textframe.
+*	initialize the textregion and setup lines and segments
 *	TODO: iscloseto x and y may need to be different from addGlyph but use thge common isRegionbConcurrent for now
-*		need to check to see if we are creating a new paragraph or not. 
-*		basically if the cursor is returned to x origin before it reached x width. 
-*		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation 
+*		need to check to see if we are creating a new paragraph or not.
+*		basically if the cursor is returned to x origin before it reached x width.
+*		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation
 *		from calls to movepoint and addGlyph and instead rotating the whole text region as a block
 */
 TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
@@ -283,7 +283,7 @@ TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 	}
 
 	textRegionLine = &textRegionLines.back();
-	if ((mode == LineType::FIRSTPOINT && textRegionLine->segments.empty()) || mode == LineType::NEWLINE 
+	if ((mode == LineType::FIRSTPOINT && textRegionLine->segments.empty()) || mode == LineType::NEWLINE
 		|| mode != LineType::FIRSTPOINT && textRegionLine->segments[0].glyphIndex != textRegionLine->glyphIndex)
 	{
 		TextRegionLine newSegment = TextRegionLine();
@@ -311,28 +311,28 @@ TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 /*
 *	Add a new glyph to the current line segment, lines and segments should already have been setup by the
 *	moveto function which should generally be called prior to addGlyph to setup the lines and segments correctly.
-*	does some basic calculations to determine and save withs and heights and linespacings of texts etc... 
+*	does some basic calculations to determine and save withs and heights and linespacings of texts etc...
 *	FIXME: these need to be changed to use the mode average of all glyps added to the text frame instead of just picking the first ones we come accross
 *		the mode average can also be used to determine the base font style when fonts are added
-*		left and right hand margins however need to use the maximum and minimum, support for right hand justification 
+*		left and right hand margins however need to use the maximum and minimum, support for right hand justification
 *		and centered text needs to be added as we only support left and fully justified at the moment.
-*		Approximated heights and widths and linespaces need to use the correct font data when font support has been added, 
+*		Approximated heights and widths and linespaces need to use the correct font data when font support has been added,
 *		but for now just use the x advance value. using font data should also allow for the support of rotated text that may use a mixture of x and y advance
 */
 TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
 {
-	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);	
+	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	if (glyphs.size() == 1)
 	{
 		lineSpacing = newGlyph.dx * 2;
 		lastXY = newGlyphPoint;
 		lineBaseXY = newGlyphPoint;
-	}	
+	}
 	LineType mode = isRegionConcurrent(newGlyphPoint);
 	if (mode == LineType::FAIL)
 		return mode;
 
-	maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;	
+	maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;
 
 	TextRegionLine* textRegionLine = &textRegionLines.back();
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)

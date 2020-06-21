@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "selection.h"
 #include "vgradient.h"
-#include "PdfTextRecognition.h"
+#include "pdftextrecognition.h"
 
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 73, 0)
 #include <poppler/goo/gtypes.h>
@@ -234,7 +234,7 @@ public:
 	void endMarkedContent(GfxState *state) override;
 	void markPoint(POPPLER_CONST char *name) override;
 	void markPoint(POPPLER_CONST char *name, Dict *properties) override;
-	
+
 
 	//----- image drawing
 	void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, GBool invert, GBool interpolate, GBool inlineImg) override;
@@ -311,7 +311,7 @@ private:
 
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
 
-	//PDF Textbox framework	
+	//PDF Textbox framework
 	void setFillAndStrokeForPDF(GfxState* state, PageItem* text_node);
 	void updateTextPos(GfxState* state) override;
 	void renderTextFrame();
