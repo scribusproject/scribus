@@ -4172,3 +4172,24 @@ void TextOutputDev::updateFont(GfxState* state)
 {
 	
 }
+/*
+* NOTE: Override these for now and do nothing so they don't get picked up and rendered as vectors by the base class,
+	though in the long run we may actually want that unless they can be implemented in a similar way to the text import getChar in which case overloading the makes perfect sense.
+*/
+GBool TextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
+{
+	//stub
+	return gTrue;
+}
+void  TextOutputDev::endType3Char(GfxState* state)
+{
+	//stub
+}
+void  TextOutputDev::type3D0(GfxState* state, double wx, double wy)
+{
+	//stub
+}
+void  TextOutputDev::type3D1(GfxState* state, double wx, double wy, double ll, double lly, double urx, double ury)
+{
+	//stub
+}
