@@ -4074,14 +4074,12 @@ void SlaOutputDev::renderTextFrame()
 
 
 	/* Oliver Stieber 2020-06-11 Set text matrix... This need to be done so that the global world view that we rite out glyphs to is transformed correctly by the context matrix for each glyph, possibly anyhow.
-	needs the way in whicvh we are handeling transformations for the page to be more concrete beofre this code can be implemented either here or somewhere else
+	needs the way in which we are handling transformations for the page to be more concrete before this code can be implemented either here or somewhere else
 	FIXME: Setting the text matrix isn't supported at the moment 
 	QTransform text_transform(_text_matrix);
 	text_transform.setMatrix(text_transform.m11(), text_transform.m12(), 0,
 		text_transform.m21(), text_transform.m22(), 0,
-		first_glyph.position.x(), first_glyph.position.y(), 1);
-		*/
-	/* todo, set the global transform
+		first_glyph.position.x(), first_glyph.position.y(), 1);	
 	gchar *transform = sp_svg_transform_write(text_transform);
 	text_node->setAttribute("transform", transform);
 	g_free(transform);
@@ -4090,8 +4088,8 @@ void SlaOutputDev::renderTextFrame()
 	int shade = 100;
 	/*
 	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used within PdfTextRecognition &co.
-	//QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-	//applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);	
+	QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);	
 	*/
 	CharStyle& cStyle = static_cast<CharStyle&>(pStyle.charStyle());
 	cStyle.setScaleH(1000.0);
@@ -4137,10 +4135,11 @@ void SlaOutputDev::finishItem(PageItem* item)
 {
 	item->ClipEdited = true;
 	item->FrameType = 3;
-	//code can be enabled when PoLine is set or when the shape is set as that sets PoLine
-	//FPoint wh = getMaxClipF(&item->PoLine);
-	//item->setWidthHeight(wh.x(), wh.y());
-	//item->Clip = flattenPath(item->PoLine, item->Segments);
+	/*code can be enabled when PoLine is set or when the shape is set as that sets PoLine
+	FPoint wh = getMaxClipF(&item->PoLine);
+	item->setWidthHeight(wh.x(), wh.y());
+	item->Clip = flattenPath(item->PoLine, item->Segments);
+	*/
 	item->OldB2 = item->width();
 	item->OldH2 = item->height();
 	item->updateClip();
