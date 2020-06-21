@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QCheckBox>
 #include <QCloseEvent>
+#include <QDialog>
 #include <QEvent>
 #include <QFocusEvent>
 #include <QHideEvent>
