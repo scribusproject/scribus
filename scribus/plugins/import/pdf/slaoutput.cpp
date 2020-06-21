@@ -3447,7 +3447,9 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 		m_textRecognition.addTextRegion();
 	}
 }
-
+/*
+ *	NOTE: If a rogue glyph is detected it means that PdfTextRecognition &co. has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
+*/
 void SlaOutputDev::endTextObject(GfxState *state)
 {
 
@@ -3456,7 +3458,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
 		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
 		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL) {
-			qDebug("FIXME: Rogue glyph detected, this should never happen because the copuror should move before glyphs in new regions are added.");
+			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 		}
 		renderTextFrame();		
 	} else if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
@@ -3992,7 +3994,7 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 
 /*
  *	Updates current text position and move to a position and or add a new glyph at the previous position.
- *	NOTE: If a rogue glyph is detected it means that the framework has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
+ *	NOTE: If a rogue glyph is detected it means that PdfTextRecognition &co. has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
  *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
  *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
  */
@@ -4087,7 +4089,7 @@ void SlaOutputDev::renderTextFrame()
 
 	int shade = 100;
 	/*
-	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used withing the PdfTextRecognition framework
+	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used within PdfTextRecognition &co.
 	//QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	//applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);	
 	*/
