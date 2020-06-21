@@ -87,10 +87,11 @@ public:
 
 	enum class AddCharMode
 	{
-		ADDFIRSTCHAR = 0,
-		ADDBASICCHAR = 1,
-		ADDCHARWITHNEWSTYLE = 2,
-		ADDCHARWITHPREVIOUSSTYLE = 3
+		ADDFIRSTCHAR,
+		ADDBASICCHAR,
+		ADDCHARWITHNEWSTYLE,
+		ADDCHARWITHPREVIOUSSTYLE,
+		ADDCHARWITHBASESTLYE
 	};
 
 	void setCharMode(AddCharMode mode)
@@ -98,7 +99,7 @@ public:
 		m_addCharMode = mode;
 	}
 
-	TextRegion& activeTextRegion = TextRegion(); //faster than calling back on the vector all the time.
+	TextRegion&& activeTextRegion = TextRegion(); //faster and cleaner than calling back on the vector all the time.
 	void addTextRegion();
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);

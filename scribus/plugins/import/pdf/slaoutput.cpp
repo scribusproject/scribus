@@ -4026,7 +4026,7 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 		// FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
 		renderTextFrame();
 
-		//Create and initilize a new TextRegion
+		//Create and initialize a new TextRegion
 		m_textRecognition.addTextRegion();
 		updateTextPos(state);
 	}

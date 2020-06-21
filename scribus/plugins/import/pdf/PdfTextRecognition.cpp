@@ -116,7 +116,10 @@ PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, d
 	return newGlyph;
 }
 
-/* TODO: Currently not implemented, just stub code */
+/* 
+*	Apply a new style to this glyph ands glyphs that follow and add it to the style stack
+*	TODO: Currently not implemented, just stub code
+*/
 PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithNewStyle() '" << u << " : " << uLen;
@@ -125,7 +128,10 @@ PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, doub
 	return newGlyph;
 }
 
-/* TODO: Currently not implemented, just stub code */
+/* 
+*	return to the previous style on the style stack
+*	TODO: Currently not implemented, just stub code 
+*/
 PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithPreviousStyle() '" << u << " : " << uLen;
@@ -194,6 +200,7 @@ bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 *	tests are weaker if we are on the first and moving to the second lines of text because we don't have enough information about how the text in the region
 *	is formatted and in those cases the linespace is taken to be twice the glyph width.
 *	FIXME: This needs fixing when font support is added and the ascending and descending values for the font should be used instead of the glyphs width.
+*	TODO: support LineType::STYLESUBSCRIPT
 */
 TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
@@ -210,7 +217,7 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 		else
 			return LineType::STYLESUPERSCRIPT;
 	else if(isCloseToX(point.x(), textRegioBasenOrigin.x()) && isCloseToY(point.y(), lastXY.y()))				
-				if ((textRegionLines.size() >= 2))
+				if (textRegionLines.size() >= 2)
 					return LineType::NEWLINE;
 				else if (textRegionLines.size() == 1)
 					return LineType::NEWLINE;
@@ -353,6 +360,7 @@ TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph
 
 	return mode;
 }
+
 /*
 *	Render the text region to the frame,
 *	nothing clever for now, just apply the whole block of text to the textNode
