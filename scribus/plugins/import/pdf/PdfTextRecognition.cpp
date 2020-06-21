@@ -7,17 +7,25 @@ for which a new license (GPL+exception) is in place.
 
 #include "PdfTextRecognition.h"
 
-
+/*
+*	constructor, initialize the textRegions vector and set the addChar mode 
+*/
 PdfTextRecognition::PdfTextRecognition()
 {
 	m_textRegions.push_back(activeTextRegion);
 	setCharMode(AddCharMode::ADDFIRSTCHAR);
 }
 
+/*
+*	nothing to do in the destructor yet
+*/
 PdfTextRecognition::~PdfTextRecognition()
 {
 }
 
+/*
+*	add a new text region and make it the active region 
+*/
 void PdfTextRecognition::addTextRegion()
 {
 	activeTextRegion = TextRegion();
@@ -25,6 +33,9 @@ void PdfTextRecognition::addTextRegion()
 	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 }
 
+/*
+*	function called via integration with poppler's addChar callback. It decides how to add the charter based on the mode that is set 
+*/
 void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 
@@ -45,7 +56,9 @@ void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx,
 	}
 }
 
-
+/*
+*	basic test to see if the point lies in a new line or region 
+*/
 bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 {
 	return (activeTextRegion.collinear(activeTextRegion.lastXY.y(), activeTextRegion.textRegionLines.back().baseOrigin.y()) &&
@@ -54,6 +67,30 @@ bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 			&& !activeTextRegion.isCloseToX(newPosition.x(), activeTextRegion.lastXY.x()));
 }
 
+
+/* 
+*	basic functionality to be performed when addChar is called 
+*	FIXME: what to do when uLen != 1
+*/
+PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
+{
+	//qDebug() << "AddBasicChar() '" << u << " : " << uLen;
+	PdfGlyph newGlyph;
+	newGlyph.dx = dx;
+	newGlyph.dy = dy;
+
+	// Convert the character to UTF-16 since that's our SVG document's encoding
+	if (uLen > 1)
+		qDebug() << "AddBasicChar() '" << u << " : " << uLen;
+	newGlyph.code = static_cast<char16_t>(u[uLen - 1]);
+	newGlyph.rise = state->getRise();
+	return newGlyph;
+}
+
+/* 
+*	Tell the text region to add a glyph so that line segments and regions be created 
+*	If the character being added is the first character in a textregion or after a change in positioning or styles or the end of a line
+*/
 PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;	
@@ -67,23 +104,10 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 	return newGlyph;
 }
-PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
-{
-	//qDebug() << "AddBasicChar() '" << u << " : " << uLen;
-	PdfGlyph newGlyph;
-	newGlyph.dx = dx;
-	newGlyph.dy = dy;
 
-	// Convert the character to UTF-16 since that's our SVG document's encoding
-	if (uLen > 1)
-		qDebug() << "AddBasicChar() '" << u << " : " << uLen;
-	newGlyph.code = static_cast<char16_t>(u[uLen - 1]);
-
-
-	newGlyph.rise = state->getRise();
-	return newGlyph;
-}
-
+/* 
+*	just add a character to the textregion without doing anything special
+*/
 PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	PdfGlyph newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
@@ -92,7 +116,7 @@ PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, d
 	return newGlyph;
 }
 
-/*TODO: Currently not implemented, just stub code*/
+/* TODO: Currently not implemented, just stub code */
 PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithNewStyle() '" << u << " : " << uLen;
@@ -101,7 +125,7 @@ PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, doub
 	return newGlyph;
 }
 
-/*TODO: Currently not implemented, just stub code*/
+/* TODO: Currently not implemented, just stub code */
 PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	//qDebug() << "AddCharWithPreviousStyle() '" << u << " : " << uLen;
@@ -110,32 +134,42 @@ PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x,
 	return newGlyph;
 }
 
+/*
+*	functions to do fuzzy testing on the proximity of points to one another and in relation to the textregion
+*	FIXME: There should be a parameter in the UI to set the matching tolerance but hard code for now
+*/
 
 /*
-In geometry, collinearity of a set of points is the property of their lying on a single line. A set of points with this property is said to be collinear.
-In greater generality, the term has been used for aligned objects, that is, things being "in a line" or "in a row".
- PDF never deviates from the line when it comes to collinear, but allow for 1pixel of divergence
+*	In geometry, collinearity of a set of points is the property of their lying on a single line. A set of points with this property is said to be collinear.
+*	In greater generality, the term has been used for aligned objects, that is, things being "in a line" or "in a row".
+*	PDF never deviates from the line when it comes to collinear, but allow for 1pixel of divergence
 */
 bool TextRegion::collinear(qreal a, qreal b)
 {
 	return abs(a - b) < 1 ? true : false;
 }
 
-// like collinear but we allow a deviation of up to +-2 rejoin font text widths
+/* 
+*	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin 
+*/
 bool TextRegion::isCloseToX(qreal x1, qreal x2)
 {
 	//FIXME: This should use the char width not linespacing which is y
 	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->textRegioBasenOrigin.x()) <= lineSpacing);
 }
 
-// like collinear but we allow a deviation of up to 3 rejoin font linespaces, but in one direction and half a line space in the other direction
+/*
+*	like collinear but we allow a deviation of 3 text heights downwards but none upwards
+*/
 bool TextRegion::isCloseToY(qreal y1, qreal y2)
 {
-	//FIXME: Actually test the correct magnitudes not the abs value. There should be a parameter in the UI to set the matching tolerance but hard code to allow 3 linespaces difference before we say that the y is out of scope.
+	
 	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;
 }
 
-// less than the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate
+/* 
+*	less than, page upwards, the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate 
+*/
 bool TextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 {
 	return (testY > lastY
@@ -143,20 +177,23 @@ bool TextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 		&& lastY <= baseY + lineSpacing);
 }
 
-// less than the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate
+/*
+*	greater, page downwards, than the last y value but not more than 3/4 of a line space below baseline
+*/
 bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 {
 	return (testY <= lastY
 		&& testY >= baseY - lineSpacing * 0.75
 		&& lastY != baseY);
 }
+
 /*
-Test to see if the point is part of the current block of text or is part of a new block of text(FrameworkLineTests::FAIL).
-checks to see if it's the first point, on the same line, super and sub script, returning to baseline from super script or if we are on a new line.
-matching is fuzzy allowing for multiple linespaces and text indentation. right hand justifications still needs to be dealt with as well as identifying if we are on a new paragraph
-tests are weaker if we are on the first and moving to the second lines of text because we don't have enough information about how the text in the region
-is formatted and in those cases the linespace is taken to be twice the glyph width.
-FIXME: This needs fixing when font support is added and the ascending and descending values for the font should be used instead of the glyphs width.
+*	Test to see if the point is part of the current block of text or is part of a new block of text(FrameworkLineTests::FAIL).
+*	checks to see if it's the first point, on the same line, super and sub script, returning to baseline from super script or if we are on a new line.
+*	matching is fuzzy allowing for multiple linespaces and text indentation. right hand justifications still needs to be dealt with as well as identifying if we are on a new paragraph
+*	tests are weaker if we are on the first and moving to the second lines of text because we don't have enough information about how the text in the region
+*	is formatted and in those cases the linespace is taken to be twice the glyph width.
+*	FIXME: This needs fixing when font support is added and the ascending and descending values for the font should be used instead of the glyphs width.
 */
 TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
@@ -181,7 +218,10 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 	return LineType::FAIL;
 }
 
-// Just perform some basic checks to see if newPoint can reasonably be ascribed to the current textframe.
+/* 
+*	Perform some fuzzy checks to see if newPoint can reasonably be ascribed to the current textframe. 
+*	FIXME: It may be that move and addGlyph need different versions of isCloseToX and isCloseToY but keep them the same just for now
+*/
 TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
 {
 	if (glyphs.empty())
@@ -190,33 +230,35 @@ TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
 		lastXY = newPoint;
 	}
 
-	//TODO: I need to write down which ones we want so I can work it all out, for now just some basic fuzzy matching support.
 	bool xInLimits = isCloseToX(newPoint.x(), lastXY.x());
 	bool yInLimits = isCloseToY(newPoint.y(), lastXY.y());
 	LineType pass = linearTest(newPoint, xInLimits, yInLimits);
 	return pass;
 }
 
-
+/*
+*	Move the position of the cursor to a new point,
+*	test if that point is within the current textframe or within a new textframe. 
+*	initialize the textregion and setup lines and segments 
+*	TODO: iscloseto x and y may need to be different from addGlyph but use thge common isRegionbConcurrent for now
+*		need to check to see if we are creating a new paragraph or not. 
+*		basically if the cursor is returned to x origin before it reached x width. 
+*		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation 
+*		from calls to movepoint and addGlyph and instead rotating the whole text region as a block
+*/
 TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 {
 	//qDebug() << "moveToPoint: " << newPoint;
 
-	// Do some initialization if we are in a new text region
 	if (glyphs.empty())
 	{
 		lineBaseXY = newPoint;
 		lastXY = newPoint;
 	}
-
-	//TODO: I need to write down which ones we want so I can work it all out, for now just some basic fuzzy matching support.
-	//TODO: x limiting should be different for moving as opposed to adding a new glyph because moving is due to a discontinuity in glyphs
 	LineType mode = isRegionConcurrent(newPoint);
-	//TODO: need to check to see if we are creating a new paragraph or not. basically if the cursor is returned to x origin before it reached x width. this could be returned as part of a matrix by linearTest that specifies exactly how the test ws passed. maybew return an enum with either the mode that passed or a failure value
 	if (mode == LineType::FAIL)
 		return mode;
 
-	//create new lines and line segments depending upon the mode of the movement.
 	TextRegionLine* textRegionLine = nullptr;
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)
 	{
@@ -259,25 +301,31 @@ TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 	return mode;
 }
 
-//TODO:, extract some font heights instead of using dx all the time
+/*
+*	Add a new glyph to the current line segment, lines and segments should already have been setup by the
+*	moveto function which should generally be called prior to addGlyph to setup the lines and segments correctly.
+*	does some basic calculations to determine and save withs and heights and linespacings of texts etc... 
+*	FIXME: these need to be changed to use the mode average of all glyps added to the text frame instead of just picking the first ones we come accross
+*		the mode average can also be used to determine the base font style when fonts are added
+*		left and right hand margins however need to use the maximum and minimum, support for right hand justification 
+*		and centered text needs to be added as we only support left and fully justified at the moment.
+*		Approximated heights and widths and linespaces need to use the correct font data when font support has been added, 
+*		but for now just use the x advance value. using font data should also allow for the support of rotated text that may use a mixture of x and y advance
+*/
 TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
 {
-	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
-	//FIXME: There should be no need for testing the scope when adding a new glyph because move to should have been called first but leave it in for now to catch any errors in the logic
+	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);	
 	if (glyphs.size() == 1)
 	{
-		// FIXME: do a propper lookup of the height
 		lineSpacing = newGlyph.dx * 2;
 		lastXY = newGlyphPoint;
 		lineBaseXY = newGlyphPoint;
-	}
-	// TODO: add and move may want different versions of isCloseToX, but for now use the same generic function for both
+	}	
 	LineType mode = isRegionConcurrent(newGlyphPoint);
 	if (mode == LineType::FAIL)
 		return mode;
 
-	maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;
-	//move to deals with setting newlines and segments, all we have to do is populate them with the parameters the glyph gives us such as it's width and height and set the glyph index for the newlines and segments
+	maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;	
 
 	TextRegionLine* textRegionLine = &textRegionLines.back();
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)
@@ -305,10 +353,14 @@ TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph
 
 	return mode;
 }
-
+/*
+*	Render the text region to the frame,
+*	nothing clever for now, just apply the whole block of text to the textNode
+*	TODO: Add support for fonts and styles based on line segments
+*	add support for rotated text
+*/
 void TextRegion::renderToTextFrame(PageItem* textNode)
 {
-	// nothing clever, just get all the body text in one lump and update the text frame
 	textNode->setWidthHeight(this->maxWidth, this->maxHeight);
 	QString bodyText = "";
 	for (int glyphIndex = this->textRegionLines.begin()->glyphIndex; glyphIndex <= this->textRegionLines.back().segments.back().glyphIndex; glyphIndex++)
@@ -318,6 +370,9 @@ void TextRegion::renderToTextFrame(PageItem* textNode)
 	textNode->frameTextEnd();
 }
 
+/*
+*	Quick test to see if this is a virgin textregion
+*/
 bool TextRegion::isNew()
 {
 	return textRegionLines.empty() ||
