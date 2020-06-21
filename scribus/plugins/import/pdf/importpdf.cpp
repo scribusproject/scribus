@@ -430,6 +430,7 @@ bool PdfPlug::convert(const QString& fn)
 				else if (getCBox(Art_Box, 1) != mediaRect)
 					boxesAreDifferent = true;
 				bool cropped = false;
+				bool importTextAsVectors = true;
 				int contentRect = Media_Box;
 				if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && ((lastPage > 1) || boxesAreDifferent))
 				{
@@ -455,6 +456,7 @@ bool PdfPlug::convert(const QString& fn)
 					cropped = optImp->croppingEnabled();
 					if (!cropped)
 						crop = cropped;
+					importTextAsVectors = optImp->getImportAsVectors();
 					// When displaying  pages slices, we should always set useMediaBox to true
 					// in order to use MediaBox (x, y) as coordinate system
 					if (contentRect != Media_Box)
@@ -471,6 +473,7 @@ bool PdfPlug::convert(const QString& fn)
 				SlaOutputDev *dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				if (dev->isOk())
 				{
+					dev->importTextAsVectors = importTextAsVectors;
 					OCGs* ocg = pdfDoc->getOptContentConfig();
 					if (ocg)
 					{

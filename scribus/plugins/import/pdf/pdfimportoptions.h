@@ -25,6 +25,7 @@ public:
 	QString getPagesString();
 	int getCropBox();
 	bool croppingEnabled();
+	bool getImportAsVectors();
 	void paintEvent(QPaintEvent *e);
 
 protected:
