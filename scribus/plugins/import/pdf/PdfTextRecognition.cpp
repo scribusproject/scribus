@@ -7,6 +7,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "pdftextrecognition.h"
 
+#ifndef DEBUG_TEXT_IMPORT
+	#define DEBUG_TEXT_IMPORT
+#endif
+
 /*
 *	constructor, initialize the textRegions vector and set the addChar mode
 */
@@ -80,8 +84,9 @@ PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, 
 	newGlyph.dy = dy;
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding
+
 	if (uLen > 1)
-		qDebug() << "AddBasicChar() '" << u << " : " << uLen;
+		qDebug() << "FIXME: AddBasicChar() '" << u << " : " << uLen;
 	newGlyph.code = static_cast<char16_t>(u[uLen - 1]);
 	newGlyph.rise = state->getRise();
 	return newGlyph;
@@ -90,6 +95,7 @@ PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, 
 /*
 *	Tell the text region to add a glyph so that line segments and regions be created
 *	If the character being added is the first character in a textregion or after a change in positioning or styles or the end of a line
+*	The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
 */
 PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
@@ -157,10 +163,11 @@ bool TextRegion::collinear(qreal a, qreal b)
 
 /*
 *	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin
+*   FIXME: This should use the char width not linespacing which is y
 */
 bool TextRegion::isCloseToX(qreal x1, qreal x2)
 {
-	//FIXME: This should use the char width not linespacing which is y
+	
 	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->textRegioBasenOrigin.x()) <= lineSpacing);
 }
 
@@ -168,9 +175,8 @@ bool TextRegion::isCloseToX(qreal x1, qreal x2)
 *	like collinear but we allow a deviation of 3 text heights downwards but none upwards
 */
 bool TextRegion::isCloseToY(qreal y1, qreal y2)
-{
-
-	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;
+{	
+	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;	
 }
 
 /*
@@ -201,6 +207,8 @@ bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 *	is formatted and in those cases the linespace is taken to be twice the glyph width.
 *	FIXME: This needs fixing when font support is added and the ascending and descending values for the font should be used instead of the glyphs width.
 *	TODO: support LineType::STYLESUBSCRIPT
+*	TODO: support NEWLINE new paragraphs with multiple linespaces and indented x insteads of just ignoring the relative x position
+*	TODO: I don't know if the invariant qDebug cases should always report an error or only do so when DEBUG_TEXT_IMPORT is defined. My feeling is they should always report because it meanms something has happened that shouldn't have and it's useful feedback.
 */
 TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
@@ -209,6 +217,10 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 			return LineType::FIRSTPOINT;
 		else if (xInLimits)
 			return LineType::SAMELINE;
+		#ifdef DEBUG_TEXT_IMPORT
+		else
+			qDebug() << "FIRSTPOINT/SAMELINE oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textRegionLines.size:" << textRegionLines.size();
+		#endif
 	else if (adjunctLesser(point.y(), lastXY.y(), lineBaseXY.y()))
 		return LineType::STYLESUPERSCRIPT;
 	else if (adjunctGreater(point.y(), lastXY.y(), lineBaseXY.y()))
@@ -216,12 +228,23 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 			return LineType::STYLENORMALRETURN;
 		else
 			return LineType::STYLESUPERSCRIPT;
-	else if(isCloseToX(point.x(), textRegioBasenOrigin.x()) && isCloseToY(point.y(), lastXY.y()))
-				if (textRegionLines.size() >= 2)
-					return LineType::NEWLINE;
-				else if (textRegionLines.size() == 1)
-					return LineType::NEWLINE;
-		qDebug() << "NEWLINE2 oops:" << point << ":" << textRegioBasenOrigin << ":" << lineSpacing;
+	else if (isCloseToX(point.x(), textRegioBasenOrigin.x()))
+		if (isCloseToY(point.y(), lastXY.y()) && !collinear(point.y(), lastXY.y()))
+			if (textRegionLines.size() >= 2)
+				return LineType::NEWLINE;
+			else if (textRegionLines.size() == 1)
+				return LineType::NEWLINE;
+			#ifdef DEBUG_TEXT_IMPORT
+			else				
+			qDebug() << "NEWLINE oops2:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << "linespacing:" << lineSpacing << "textRegionLines.size:" << textRegionLines.size() << " textRegionLines[textRegionLines.size() - 2].width:" << textRegionLines[textRegionLines.size() - 2].width << " maxWidth:" << maxWidth;
+			#endif
+		#ifdef DEBUG_TEXT_IMPORT
+		else
+			qDebug() << "NEWLINE oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << "linespacing:" << lineSpacing << "textRegionLines.size:" << textRegionLines.size();
+		#endif
+	#ifdef DEBUG_TEXT_IMPORT //This isn't an invariant case like the others, we actually expect this to happen some of the time
+	qDebug() << "FAILED with oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY <<" lastXY:"<< lastXY << " linespacing:" << lineSpacing << " textRegionLines.size:" << textRegionLines.size();
+	#endif
 	return LineType::FAIL;
 }
 
@@ -324,10 +347,12 @@ TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph
 	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	if (glyphs.size() == 1)
 	{
-		lineSpacing = newGlyph.dx * 2;
+		lineSpacing = newGlyph.dx * 3;
 		lastXY = newGlyphPoint;
 		lineBaseXY = newGlyphPoint;
-	}
+	} else if (textRegionLines.size() == 1)
+		lineSpacing = maxWidth * 3;
+
 	LineType mode = isRegionConcurrent(newGlyphPoint);
 	if (mode == LineType::FAIL)
 		return mode;

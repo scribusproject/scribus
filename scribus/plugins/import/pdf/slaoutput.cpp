@@ -20,8 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
-
-#define DEBUG_TEXT_IMPORT
+#ifndef DEBUG_TEXT_IMPORT
+	#define DEBUG_TEXT_IMPORT
+#endif
 namespace
 {
 	// Compute the intersection of two paths while considering the fillrule of each of them.
@@ -3444,11 +3445,16 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 {
 	pushGroup();
 	if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
+	#ifdef DEBUG_TEXT_IMPORT
+		qDebug("beginTextObject: m_textRecognition.addTextRegion()");
+	#endif
 		m_textRecognition.addTextRegion();
 	}
 }
 /*
- *	NOTE: If a rogue glyph is detected it means that PdfTextRecognition &co. has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
+ *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
+ *	TODO: Support merging of text boxes where beginTextObject and endTextObject have been called but really it's looking like it's just a new line
+ *		maybe do a second pass before rendering and implement a merge function in pdfTectRecognition &co.
 */
 void SlaOutputDev::endTextObject(GfxState *state)
 {
@@ -3460,6 +3466,9 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL) {
 			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 		}
+		#ifdef DEBUG_TEXT_IMPORT
+		qDebug("endTextObject: renderTextFrame");
+		#endif
 		renderTextFrame();		
 	} else if (importTextAsVectors == false && !m_textRecognition.activeTextRegion.textRegionLines.empty()) {
 		qDebug("FIXME:Rogue textblock");
@@ -3994,7 +4003,7 @@ void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
 
 /*
  *	Updates current text position and move to a position and or add a new glyph at the previous position.
- *	NOTE: If a rogue glyph is detected it means that PdfTextRecognition &co. has a bug between the moveTo and addGlyphAtPoint function calls. in theory addGlyphAtPoint should never fail.
+ *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
  *	FIXME: render the textframe, this should be done after the document has finished loading the current page so all the layout fix-ups can be put in-place first
  *	FIXME: textRegion needs to support moveBackOneGlyph instead of my manual implementation in this function.
  */
@@ -4026,7 +4035,10 @@ void SlaOutputDev::updateTextPos(GfxState* state)
 	}
 	TextRegion::LineType lineTestResult = activeTextRegion->moveToPoint(newPosition);
 	if (lineTestResult == TextRegion::LineType::FAIL)
-	{		
+	{
+		#ifdef DEBUG_TEXT_IMPORT
+		qDebug("updateTextPos: renderTextFrame() + m_textRecognition.addTextRegion()");
+		#endif
 		renderTextFrame();		
 		m_textRecognition.addTextRegion();
 		updateTextPos(state);
