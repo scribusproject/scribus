@@ -262,9 +262,9 @@ public:
 	void endTransparencyGroup(GfxState *state) override;
 	void setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * /*bbox*/, GBool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/) override;
 	void clearSoftMask(GfxState * /*state*/) override;
-	void updateFont(GfxState* state) override;
 	void updateFillColor(GfxState *state) override;
 	void updateStrokeColor(GfxState *state) override;
+	void updateFont(GfxState* state) override;
 
 	//----- text drawing
 	void  beginTextObject(GfxState *state) override;
