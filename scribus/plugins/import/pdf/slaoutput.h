@@ -402,6 +402,6 @@ private:
 	void updateTextPos(GfxState* state) override;
 	void renderTextFrame();
 	void finishItem(PageItem* item);
-	PdfTextRecognition m_textRecognition = {};
+	PdfTextRecognition m_pdfTextRecognition = {};
 };
 #endif

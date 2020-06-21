@@ -3967,22 +3967,22 @@ PdfTextOutputDev::~PdfTextOutputDev()
 void PdfTextOutputDev::updateTextPos(GfxState* state)
 {
 	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
-	TextRegion* activeTextRegion = &m_textRecognition.activeTextRegion;
+	PdfTextRegion* activePdfTextRegion = &m_pdfTextRecognition.activePdfTextRegion;
 
-	if (activeTextRegion->isNew()
+	if (activePdfTextRegion->isNew()
 	)
 	{
-		activeTextRegion->textRegioBasenOrigin = newPosition;
-		m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
+		activePdfTextRegion->pdfTextRegionBasenOrigin = newPosition;
+		m_pdfTextRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 	}
 	else
 	{
 		// if we've will move to a new line or new text region then update the current text region with the last glyph, this ensures all textlines and textregions have terminating glyphs.
-		if (m_textRecognition.isNewLineOrRegion(newPosition))
+		if (m_pdfTextRecognition.isNewLineOrRegion(newPosition))
 		{
-			QPointF glyphPosition = activeTextRegion->lastXY;
-			activeTextRegion->lastXY.setX(activeTextRegion->lastXY.x() - activeTextRegion->glyphs.back().dx);
-			if (activeTextRegion->addGlyphAtPoint(glyphPosition, activeTextRegion->glyphs.back()) == TextRegion::LineType::FAIL)
+			QPointF glyphPosition = activePdfTextRegion->lastXY;
+			activePdfTextRegion->lastXY.setX(activePdfTextRegion->lastXY.x() - activePdfTextRegion->glyphs.back().dx);
+			if (activePdfTextRegion->addGlyphAtPoint(glyphPosition, activePdfTextRegion->glyphs.back()) == PdfTextRegion::LineType::FAIL)
 				qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 #ifdef DEBUG_TEXT_IMPORT
 			else
@@ -3990,14 +3990,14 @@ void PdfTextOutputDev::updateTextPos(GfxState* state)
 #endif
 		}
 	}
-	TextRegion::LineType lineTestResult = activeTextRegion->moveToPoint(newPosition);
-	if (lineTestResult == TextRegion::LineType::FAIL)
+	PdfTextRegion::LineType linePdfTestResult = activePdfTextRegion->moveToPoint(newPosition);
+	if (linePdfTestResult == PdfTextRegion::LineType::FAIL)
 	{
 		#ifdef DEBUG_TEXT_IMPORT
-		qDebug("updateTextPos: renderTextFrame() + m_textRecognition.addTextRegion()");
+		qDebug("updateTextPos: renderPdfTextFrame() + m_pdfTextRecognition.addPdfTextRegion()");
 		#endif
 		renderTextFrame();
-		m_textRecognition.addTextRegion();
+		m_pdfTextRecognition.addPdfTextRegion();
 		updateTextPos(state);
 	}
 }
@@ -4012,15 +4012,15 @@ void PdfTextOutputDev::updateTextPos(GfxState* state)
 void PdfTextOutputDev::renderTextFrame()
 {
 	//qDebug() << "_flushText()    m_doc->currentPage()->xOffset():" << m_doc->currentPage()->xOffset();
-	auto activeTextRegion = &m_textRecognition.activeTextRegion;
-	if (activeTextRegion->glyphs.empty())
+	auto activePdfTextRegion = &m_pdfTextRecognition.activePdfTextRegion;
+	if (activePdfTextRegion->glyphs.empty())
 		return;
 
-	qreal xCoor = m_doc->currentPage()->xOffset() + activeTextRegion->textRegioBasenOrigin.x();
-	qreal yCoor = m_doc->currentPage()->initialHeight() - (m_doc->currentPage()->yOffset() + (double)activeTextRegion->textRegioBasenOrigin.y() + activeTextRegion->lineSpacing); // don't know if y is top down or bottom up
+	qreal xCoor = m_doc->currentPage()->xOffset() + activePdfTextRegion->pdfTextRegionBasenOrigin.x();
+	qreal yCoor = m_doc->currentPage()->initialHeight() - (m_doc->currentPage()->yOffset() + (double)activePdfTextRegion->pdfTextRegionBasenOrigin.y() + activePdfTextRegion->lineSpacing); // don't know if y is top down or bottom up
 	qreal  lineWidth = 0.0;
 	#ifdef DEBUG_TEXT_IMPORT
-		qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activeTextRegion->lineSpacing << "Height:" << activeTextRegion->maxHeight << " Width:" << activeTextRegion->maxWidth;
+		qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activePdfTextRegion->lineSpacing << "Height:" << activePdfTextRegion->maxHeight << " Width:" << activePdfTextRegion->maxWidth;
 	#endif
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, 40, 40, 0, CommonStrings::None, CommonStrings::None );
 	PageItem* textNode = m_doc->Items->at(z);
@@ -4067,7 +4067,7 @@ void PdfTextOutputDev::renderTextFrame()
 
 	textNode->itemText.setDefaultStyle(pStyle);
 	textNode->invalid = true;
-	activeTextRegion->renderToTextFrame(textNode);
+	activePdfTextRegion->renderToTextFrame(textNode);
 	textNode->itemText.insertChars(SpecialChars::PARSEP, true);
 
 	/*
@@ -4085,7 +4085,7 @@ void PdfTextOutputDev::renderTextFrame()
 	}
 	boundingBoxShape.scale(textNode->width() / 100.0, textNode->height() / 100.0);
 	*/
-	textNode->SetFrameShape(32, TextRegion::boundingBoxShape);
+	textNode->SetFrameShape(32, PdfTextRegion::boundingBoxShape);
 	textNode->ContourLine = textNode->PoLine.copy();
 
 	m_doc->Items->removeLast();
@@ -4124,30 +4124,30 @@ void PdfTextOutputDev::drawChar(GfxState* state, double x, double y, double dx, 
 		return;
 	if (textRenderingMode < 8)
 	{
-		m_textRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
+		m_pdfTextRecognition.addChar(state, x, y, dx, dy, originX, originY, code, nBytes, u, uLen);
 	}
 }
 
 void PdfTextOutputDev::beginTextObject(GfxState* state)
 {
 	pushGroup();
-	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+	if (!m_pdfTextRecognition.activePdfTextRegion.pdfTextRegionLines.empty())
 	{
 #ifdef DEBUG_TEXT_IMPORT
 		qDebug("beginTextObject: m_textRecognition.addTextRegion()");
 #endif
-		m_textRecognition.addTextRegion();
+		m_pdfTextRecognition.addPdfTextRegion();
 	}
 }
 	
 void PdfTextOutputDev::endTextObject(GfxState * state)
 {
-	if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+	if (!m_pdfTextRecognition.activePdfTextRegion.pdfTextRegionLines.empty())
 	{
 		// Add the last glyph to the textregion
-		QPointF glyphXY = m_textRecognition.activeTextRegion.lastXY;
-		m_textRecognition.activeTextRegion.lastXY.setX(m_textRecognition.activeTextRegion.lastXY.x() - m_textRecognition.activeTextRegion.glyphs.back().dx);
-		if (m_textRecognition.activeTextRegion.addGlyphAtPoint(glyphXY, m_textRecognition.activeTextRegion.glyphs.back()) == TextRegion::LineType::FAIL)
+		QPointF glyphXY = m_pdfTextRecognition.activePdfTextRegion.lastXY;
+		m_pdfTextRecognition.activePdfTextRegion.lastXY.setX(m_pdfTextRecognition.activePdfTextRegion.lastXY.x() - m_pdfTextRecognition.activePdfTextRegion.glyphs.back().dx);
+		if (m_pdfTextRecognition.activePdfTextRegion.addGlyphAtPoint(glyphXY, m_pdfTextRecognition.activePdfTextRegion.glyphs.back()) == PdfTextRegion::LineType::FAIL)
 		{
 			qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 		}
@@ -4156,10 +4156,10 @@ void PdfTextOutputDev::endTextObject(GfxState * state)
 		#endif
 		renderTextFrame();
 	}
-	else if (!m_textRecognition.activeTextRegion.textRegionLines.empty())
+	else if (!m_pdfTextRecognition.activePdfTextRegion.pdfTextRegionLines.empty())
 		qDebug("FIXME:Rogue textblock");
 
-	m_textRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
+	m_pdfTextRecognition.setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 
 	SlaOutputDev::endTextObject(state);
 }

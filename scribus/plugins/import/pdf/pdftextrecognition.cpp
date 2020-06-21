@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 */
 PdfTextRecognition::PdfTextRecognition()
 {
-	m_textRegions.push_back(activeTextRegion);
+	m_pdfTextRegions.push_back(activePdfTextRegion);
 	setCharMode(AddCharMode::ADDFIRSTCHAR);
 }
 
@@ -30,10 +30,11 @@ PdfTextRecognition::~PdfTextRecognition()
 /*
 *	add a new text region and make it the active region
 */
-void PdfTextRecognition::addTextRegion()
+void PdfTextRecognition::addPdfTextRegion()
 {
-	activeTextRegion = TextRegion();
-	m_textRegions.push_back(activeTextRegion);
+	activePdfTextRegion = 
+		PdfTextRegion();
+	m_pdfTextRegions.push_back(activePdfTextRegion);
 	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 }
 
@@ -65,10 +66,10 @@ void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx,
 */
 bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 {
-	return (activeTextRegion.collinear(activeTextRegion.lastXY.y(), activeTextRegion.textRegionLines.back().baseOrigin.y()) &&
-		!activeTextRegion.collinear(newPosition.y(), activeTextRegion.lastXY.y()))
-		|| (activeTextRegion.collinear(newPosition.y(), activeTextRegion.lastXY.y())
-			&& !activeTextRegion.isCloseToX(newPosition.x(), activeTextRegion.lastXY.x()));
+	return (activePdfTextRegion.collinear(activePdfTextRegion.lastXY.y(), activePdfTextRegion.pdfTextRegionLines.back().baseOrigin.y()) &&
+		!activePdfTextRegion.collinear(newPosition.y(), activePdfTextRegion.lastXY.y()))
+		|| (activePdfTextRegion.collinear(newPosition.y(), activePdfTextRegion.lastXY.y())
+			&& !activePdfTextRegion.isCloseToX(newPosition.x(), activePdfTextRegion.lastXY.x()));
 }
 
 
@@ -101,12 +102,12 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 {
 	//qDebug() << "AddFirstChar() '" << u << " : " << uLen;
 	PdfGlyph newGlyph = PdfTextRecognition::AddCharCommon(state, x, y, dx, dy, u, uLen);
-	activeTextRegion.glyphs.push_back(newGlyph);
+	activePdfTextRegion.glyphs.push_back(newGlyph);
 	setCharMode(AddCharMode::ADDBASICCHAR);
 
 	//only need to be called for the very first point
-	auto success = activeTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph);
-	if (success == TextRegion::LineType::FAIL)
+	auto success = activePdfTextRegion.addGlyphAtPoint(QPointF(x, y), newGlyph);
+	if (success == PdfTextRegion::LineType::FAIL)
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 	return newGlyph;
 }
@@ -117,8 +118,8 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
 	PdfGlyph newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
-	activeTextRegion.lastXY = QPointF(x, y);
-	activeTextRegion.glyphs.push_back(newGlyph);
+	activePdfTextRegion.lastXY = QPointF(x, y);
+	activePdfTextRegion.glyphs.push_back(newGlyph);
 	return newGlyph;
 }
 
@@ -130,7 +131,7 @@ PdfGlyph PdfTextRecognition::AddCharWithNewStyle(GfxState* state, double x, doub
 {
 	//qDebug() << "AddCharWithNewStyle() '" << u << " : " << uLen;
 	auto newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
-	activeTextRegion.glyphs.push_back(newGlyph);
+	activePdfTextRegion.glyphs.push_back(newGlyph);
 	return newGlyph;
 }
 
@@ -142,7 +143,7 @@ PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x,
 {
 	//qDebug() << "AddCharWithPreviousStyle() '" << u << " : " << uLen;
 	auto newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
-	activeTextRegion.glyphs.push_back(newGlyph);
+	activePdfTextRegion.glyphs.push_back(newGlyph);
 	return newGlyph;
 }
 
@@ -156,7 +157,7 @@ PdfGlyph PdfTextRecognition::AddCharWithPreviousStyle(GfxState* state, double x,
 *	In greater generality, the term has been used for aligned objects, that is, things being "in a line" or "in a row".
 *	PDF never deviates from the line when it comes to collinear, but allow for 1pixel of divergence
 */
-bool TextRegion::collinear(qreal a, qreal b)
+bool PdfTextRegion::collinear(qreal a, qreal b)
 {
 	return abs(a - b) < 1 ? true : false;
 }
@@ -165,16 +166,16 @@ bool TextRegion::collinear(qreal a, qreal b)
 *	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin
 *   FIXME: This should use the char width not linespacing which is y
 */
-bool TextRegion::isCloseToX(qreal x1, qreal x2)
+bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
 {
 	
-	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->textRegioBasenOrigin.x()) <= lineSpacing);
+	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->pdfTextRegionBasenOrigin.x()) <= lineSpacing);
 }
 
 /*
 *	like collinear but we allow a deviation of 3 text heights downwards but none upwards
 */
-bool TextRegion::isCloseToY(qreal y1, qreal y2)
+bool PdfTextRegion::isCloseToY(qreal y1, qreal y2)
 {	
 	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;	
 }
@@ -182,7 +183,7 @@ bool TextRegion::isCloseToY(qreal y1, qreal y2)
 /*
 *	less than, page upwards, the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate
 */
-bool TextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
+bool PdfTextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 {
 	return (testY > lastY
 		&& testY <= baseY + lineSpacing
@@ -192,7 +193,7 @@ bool TextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 /*
 *	greater, page downwards, than the last y value but not more than 3/4 of a line space below baseline
 */
-bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
+bool PdfTextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 {
 	return (testY <= lastY
 		&& testY >= baseY - lineSpacing * 0.75
@@ -210,7 +211,7 @@ bool TextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 *	TODO: support NEWLINE new paragraphs with multiple linespaces and indented x insteads of just ignoring the relative x position
 *	TODO: I don't know if the invariant qDebug cases should always report an error or only do so when DEBUG_TEXT_IMPORT is defined. My feeling is they should always report because it meanms something has happened that shouldn't have and it's useful feedback.
 */
-TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
+PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
 	if (collinear(point.y(), lastXY.y()))
 		if (collinear(point.x(), lastXY.x()))
@@ -219,7 +220,7 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 			return LineType::SAMELINE;
 		#ifdef DEBUG_TEXT_IMPORT
 		else
-			qDebug() << "FIRSTPOINT/SAMELINE oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textRegionLines.size:" << textRegionLines.size();
+			qDebug() << "FIRSTPOINT/SAMELINE oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
 		#endif
 	else if (adjunctLesser(point.y(), lastXY.y(), lineBaseXY.y()))
 		return LineType::STYLESUPERSCRIPT;
@@ -228,22 +229,22 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 			return LineType::STYLENORMALRETURN;
 		else
 			return LineType::STYLESUPERSCRIPT;
-	else if (isCloseToX(point.x(), textRegioBasenOrigin.x()))
+	else if (isCloseToX(point.x(), pdfTextRegionBasenOrigin.x()))
 		if (isCloseToY(point.y(), lastXY.y()) && !collinear(point.y(), lastXY.y()))
-			if (textRegionLines.size() >= 2)
+			if (pdfTextRegionLines.size() >= 2)
 				return LineType::NEWLINE;
-			else if (textRegionLines.size() == 1)
+			else if (pdfTextRegionLines.size() == 1)
 				return LineType::NEWLINE;
 			#ifdef DEBUG_TEXT_IMPORT
 			else				
-			qDebug() << "NEWLINE oops2:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << "linespacing:" << lineSpacing << "textRegionLines.size:" << textRegionLines.size() << " textRegionLines[textRegionLines.size() - 2].width:" << textRegionLines[textRegionLines.size() - 2].width << " maxWidth:" << maxWidth;
+			qDebug() << "NEWLINE oops2:" << "point:" << point << " pdfTextRegionBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
 			#endif
 		#ifdef DEBUG_TEXT_IMPORT
 		else
-			qDebug() << "NEWLINE oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << "linespacing:" << lineSpacing << "textRegionLines.size:" << textRegionLines.size();
+			qDebug() << "NEWLINE oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textPdfRegionLines.size:" << pdfTextRegionLines.size();
 		#endif
 	#ifdef DEBUG_TEXT_IMPORT //This isn't an invariant case like the others, we actually expect this to happen some of the time
-	qDebug() << "FAILED with oops:" << "point:" << point << " textRegioBasenOrigin:" << textRegioBasenOrigin << " baseline:" << this->lineBaseXY <<" lastXY:"<< lastXY << " linespacing:" << lineSpacing << " textRegionLines.size:" << textRegionLines.size();
+	qDebug() << "FAILED with oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textPdfRegionLines.size:" << pdfTextRegionLines.size();
 	#endif
 	return LineType::FAIL;
 }
@@ -252,7 +253,7 @@ TextRegion::LineType TextRegion::linearTest(QPointF point, bool xInLimits, bool 
 *	Perform some fuzzy checks to see if newPoint can reasonably be ascribed to the current textframe.
 *	FIXME: It may be that move and addGlyph need different versions of isCloseToX and isCloseToY but keep them the same just for now
 */
-TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
+PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(QPointF newPoint)
 {
 	if (glyphs.empty())
 	{
@@ -276,7 +277,7 @@ TextRegion::LineType TextRegion::isRegionConcurrent(QPointF newPoint)
 *		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation
 *		from calls to movepoint and addGlyph and instead rotating the whole text region as a block
 */
-TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
+PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 {
 	//qDebug() << "moveToPoint: " << newPoint;
 
@@ -289,43 +290,43 @@ TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 	if (mode == LineType::FAIL)
 		return mode;
 
-	TextRegionLine* textRegionLine = nullptr;
+	PdfTextRegionLine* pdfTextRegionLine = nullptr;
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)
 	{
-		if (mode != LineType::FIRSTPOINT || textRegionLines.empty())
-			textRegionLines.push_back(TextRegionLine());
+		if (mode != LineType::FIRSTPOINT || pdfTextRegionLines.empty())
+			pdfTextRegionLines.push_back(PdfTextRegionLine());
 
-		textRegionLine = &textRegionLines.back();
-		textRegionLine->baseOrigin = newPoint;
+		pdfTextRegionLine = &pdfTextRegionLines.back();
+		pdfTextRegionLine->baseOrigin = newPoint;
 		if (mode == LineType::NEWLINE)
 		{
-			textRegionLine->maxHeight = abs(newPoint.y() - lastXY.y());
-			if (textRegionLines.size() == 2)
+			pdfTextRegionLine->maxHeight = abs(newPoint.y() - lastXY.y());
+			if (pdfTextRegionLines.size() == 2)
 				lineSpacing = abs(newPoint.y() - lastXY.y()) + 1;
 		}
 	}
 
-	textRegionLine = &textRegionLines.back();
-	if ((mode == LineType::FIRSTPOINT && textRegionLine->segments.empty()) || mode == LineType::NEWLINE
-		|| mode != LineType::FIRSTPOINT && textRegionLine->segments[0].glyphIndex != textRegionLine->glyphIndex)
+	pdfTextRegionLine = &pdfTextRegionLines.back();
+	if ((mode == LineType::FIRSTPOINT && pdfTextRegionLine->segments.empty()) || mode == LineType::NEWLINE
+		|| mode != LineType::FIRSTPOINT && pdfTextRegionLine->segments[0].glyphIndex != pdfTextRegionLine->glyphIndex)
 	{
-		TextRegionLine newSegment = TextRegionLine();
-		textRegionLine->segments.push_back(newSegment);
+		PdfTextRegionLine newSegment = PdfTextRegionLine();
+		pdfTextRegionLine->segments.push_back(newSegment);
 	}
-	TextRegionLine* segment = &textRegionLine->segments.back();
+	PdfTextRegionLine* segment = &pdfTextRegionLine->segments.back();
 	segment->baseOrigin = newPoint;
 	segment->maxHeight = (mode == LineType::STYLESUPERSCRIPT) ?
 		abs(lineSpacing - (newPoint.y() - lastXY.y())) :
-		textRegionLines.back().maxHeight;
+		pdfTextRegionLines.back().maxHeight;
 
 	if (mode != LineType::NEWLINE && mode != LineType::FIRSTPOINT)
 	{
-		textRegionLines.back().segments.back().width = abs(textRegionLines.back().segments.back().baseOrigin.x() - newPoint.x());
-		textRegionLine = &textRegionLines.back();
-		textRegionLine->width = abs(textRegionLine->baseOrigin.x() - newPoint.x());
+		pdfTextRegionLines.back().segments.back().width = abs(pdfTextRegionLines.back().segments.back().baseOrigin.x() - newPoint.x());
+		pdfTextRegionLine = &pdfTextRegionLines.back();
+		pdfTextRegionLine->width = abs(pdfTextRegionLine->baseOrigin.x() - newPoint.x());
 	}
 
-	maxHeight = abs(textRegioBasenOrigin.y() - newPoint.y()) > maxHeight ? abs(textRegioBasenOrigin.y() - newPoint.y()) : maxHeight;
+	maxHeight = abs(pdfTextRegionBasenOrigin.y() - newPoint.y()) > maxHeight ? abs(pdfTextRegionBasenOrigin.y() - newPoint.y()) : maxHeight;
 	lastXY = newPoint;
 
 	return mode;
@@ -342,7 +343,7 @@ TextRegion::LineType TextRegion::moveToPoint(QPointF newPoint)
 *		Approximated heights and widths and linespaces need to use the correct font data when font support has been added,
 *		but for now just use the x advance value. using font data should also allow for the support of rotated text that may use a mixture of x and y advance
 */
-TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
+PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
 {
 	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	if (glyphs.size() == 1)
@@ -350,36 +351,36 @@ TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph
 		lineSpacing = newGlyph.dx * 3;
 		lastXY = newGlyphPoint;
 		lineBaseXY = newGlyphPoint;
-	} else if (textRegionLines.size() == 1)
+	} else if (pdfTextRegionLines.size() == 1)
 		lineSpacing = maxWidth * 3;
 
 	LineType mode = isRegionConcurrent(newGlyphPoint);
 	if (mode == LineType::FAIL)
 		return mode;
 
-	maxHeight = abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(textRegioBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;
+	maxHeight = abs(pdfTextRegionBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing > maxHeight ? abs(pdfTextRegionBasenOrigin.y() - movedGlyphPoint.y()) + lineSpacing : maxHeight;
 
-	TextRegionLine* textRegionLine = &textRegionLines.back();
+	PdfTextRegionLine* pdfTextRegionLine = &pdfTextRegionLines.back();
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)
 	{
-		textRegionLine->glyphIndex = glyphs.size() - 1;
-		textRegionLine->baseOrigin = QPointF(textRegioBasenOrigin.x(), newGlyphPoint.y());
+		pdfTextRegionLine->glyphIndex = glyphs.size() - 1;
+		pdfTextRegionLine->baseOrigin = QPointF(pdfTextRegionBasenOrigin.x(), newGlyphPoint.y());
 	}
 
-	TextRegionLine* segment = &textRegionLine->segments.back();
+	PdfTextRegionLine* segment = &pdfTextRegionLine->segments.back();
 	segment->width = abs(movedGlyphPoint.x() - segment->baseOrigin.x());
 	segment->glyphIndex = glyphs.size() - 1;
-	qreal thisHeight = textRegionLines.size() > 1 ?
-		abs(newGlyphPoint.y() - textRegionLines[textRegionLines.size() - 2].baseOrigin.y()) :
+	qreal thisHeight = pdfTextRegionLines.size() > 1 ?
+		abs(newGlyphPoint.y() - pdfTextRegionLines[pdfTextRegionLines.size() - 2].baseOrigin.y()) :
 		newGlyph.dx;
 
 	segment->maxHeight = thisHeight > segment->maxHeight ? thisHeight : segment->maxHeight;
-	textRegionLine->maxHeight = textRegionLine->maxHeight > thisHeight ? textRegionLine->maxHeight : thisHeight;
-	textRegionLine->width = abs(movedGlyphPoint.x() - textRegionLine->baseOrigin.x());
+	pdfTextRegionLine->maxHeight = pdfTextRegionLine->maxHeight > thisHeight ? pdfTextRegionLine->maxHeight : thisHeight;
+	pdfTextRegionLine->width = abs(movedGlyphPoint.x() - pdfTextRegionLine->baseOrigin.x());
 
-	maxWidth = textRegionLine->width > maxWidth ? textRegionLine->width : maxWidth;
-	if (textRegionLine->segments.size() == 1)
-		lineBaseXY = textRegionLine->baseOrigin;
+	maxWidth = pdfTextRegionLine->width > maxWidth ? pdfTextRegionLine->width : maxWidth;
+	if (pdfTextRegionLine->segments.size() == 1)
+		lineBaseXY = pdfTextRegionLine->baseOrigin;
 
 	lastXY = movedGlyphPoint;
 
@@ -392,11 +393,11 @@ TextRegion::LineType TextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph
 *	TODO: Add support for fonts and styles based on line segments
 *	add support for rotated text
 */
-void TextRegion::renderToTextFrame(PageItem* textNode)
+void PdfTextRegion::renderToTextFrame(PageItem* textNode)
 {
 	textNode->setWidthHeight(this->maxWidth, this->maxHeight);
 	QString bodyText = "";
-	for (int glyphIndex = this->textRegionLines.begin()->glyphIndex; glyphIndex <= this->textRegionLines.back().segments.back().glyphIndex; glyphIndex++)
+	for (int glyphIndex = this->pdfTextRegionLines.begin()->glyphIndex; glyphIndex <= this->pdfTextRegionLines.back().segments.back().glyphIndex; glyphIndex++)
 		bodyText += glyphs[glyphIndex].code;
 
 	textNode->itemText.insertChars(bodyText);
@@ -406,8 +407,8 @@ void TextRegion::renderToTextFrame(PageItem* textNode)
 /*
 *	Quick test to see if this is a virgin textregion
 */
-bool TextRegion::isNew()
+bool PdfTextRegion::isNew()
 {
-	return textRegionLines.empty() ||
+	return pdfTextRegionLines.empty() ||
 		glyphs.empty();
 }

@@ -31,7 +31,7 @@ struct PdfGlyph
 };
 
 
-class TextRegionLine
+class PdfTextRegionLine
 {
 public:
 	qreal maxHeight = {};
@@ -39,11 +39,11 @@ public:
 	qreal width = {};
 	int glyphIndex = {};
 	QPointF baseOrigin = QPointF({}, {});
-	std::vector<TextRegionLine> segments = std::vector<TextRegionLine>();
+	std::vector<PdfTextRegionLine> segments = std::vector<PdfTextRegionLine>();
 
 };
 
-class TextRegion
+class PdfTextRegion
 {
 public:
 	enum class LineType
@@ -78,10 +78,10 @@ public:
 							,0.0,0.0
 	};
 
-	QPointF textRegioBasenOrigin = QPointF({}, {});
+	QPointF pdfTextRegionBasenOrigin = QPointF({}, {});
 	qreal maxHeight = {};
 	qreal lineSpacing = { 1 };
-	std::vector<TextRegionLine> textRegionLines = std::vector<TextRegionLine>();
+	std::vector<PdfTextRegionLine> pdfTextRegionLines = std::vector<PdfTextRegionLine>();
 	qreal maxWidth = {};
 	QPointF lineBaseXY = QPointF({ }, { }); //updated with the best match left value from all the textRegionLines and the best bottom value from the textRegionLines.segments;
 	QPointF lastXY = QPointF({}, {});
@@ -90,10 +90,10 @@ public:
 	bool isCloseToY(qreal y1, qreal y2);
 	bool adjunctLesser(qreal testY, qreal lastY, qreal baseY);
 	bool adjunctGreater(qreal testY, qreal lastY, qreal baseY);
-	TextRegion::LineType linearTest(QPointF point, bool xInLimits, bool yInLimits);
-	TextRegion::LineType isRegionConcurrent(QPointF newPoint);
-	TextRegion::LineType moveToPoint(QPointF newPoint);
-	TextRegion::LineType addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
+	PdfTextRegion::LineType linearTest(QPointF point, bool xInLimits, bool yInLimits);
+	PdfTextRegion::LineType isRegionConcurrent(QPointF newPoint);
+	PdfTextRegion::LineType moveToPoint(QPointF newPoint);
+	PdfTextRegion::LineType addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
 	void renderToTextFrame(PageItem* textNode);
 	std::vector<PdfGlyph> glyphs;
 	bool isNew();
@@ -119,12 +119,12 @@ public:
 		m_addCharMode = mode;
 	}
 
-	TextRegion&& activeTextRegion = TextRegion(); //faster and cleaner than calling back on the vector all the time.
-	void addTextRegion();
+	PdfTextRegion&& activePdfTextRegion = PdfTextRegion(); //faster and cleaner than calling back on the vector all the time.
+	void addPdfTextRegion();
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);
 private:
-	std::vector<TextRegion> m_textRegions = std::vector<TextRegion>();
+	std::vector<PdfTextRegion> m_pdfTextRegions = std::vector<PdfTextRegion>();
 	AddCharMode m_addCharMode = AddCharMode::ADDFIRSTCHAR;
 	PdfGlyph AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen);
 	PdfGlyph AddFirstChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
