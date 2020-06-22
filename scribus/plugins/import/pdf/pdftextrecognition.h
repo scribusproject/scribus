@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem.h"
 #include "importpdfconfig.h"
+#include "slaoutput.h"
 
 #include <poppler/GfxState.h>
 #include <poppler/CharCodeToUnicode.h>
@@ -131,5 +132,30 @@ private:
 	PdfGlyph AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
 	PdfGlyph AddCharWithNewStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
 	PdfGlyph AddCharWithPreviousStyle(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen);
+};
+
+
+class PdfTextOutputDev : public SlaOutputDev
+{
+public:
+	PdfTextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags);
+	virtual ~PdfTextOutputDev();
+
+	void updateFont(GfxState* state) override;
+
+	//----- text drawing
+	void  beginTextObject(GfxState* state) override;
+	void  endTextObject(GfxState* state) override;
+	void  drawChar(GfxState* state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, POPPLER_CONST_082 Unicode* /*u*/, int /*uLen*/) override;
+	GBool beginType3Char(GfxState* /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, POPPLER_CONST_082 Unicode* /*u*/, int /*uLen*/) override;
+	void  endType3Char(GfxState* /*state*/) override;
+	void  type3D0(GfxState* /*state*/, double /*wx*/, double /*wy*/) override;
+	void  type3D1(GfxState* /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
+private:
+	void setFillAndStrokeForPDF(GfxState* state, PageItem* text_node);
+	void updateTextPos(GfxState* state) override;
+	void renderTextFrame();
+	void finishItem(PageItem* item);
+	PdfTextRecognition m_pdfTextRecognition = {};
 };
 #endif

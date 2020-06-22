@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "importpdf.h"
 #include "importpdfconfig.h"
 #include "slaoutput.h"
+#include "pdftextrecognition.h"
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
