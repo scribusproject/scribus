@@ -121,13 +121,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	pal.setColor(QPalette::Window, QColor(255,255,255));
 	setAutoFillBackground(true);
 	setPalette(pal);
-	offs = 0;
-	currentPar = 0;
-	m_editor = nullptr;
-	noUpdt = true;
-	inRep = false;
 	pmen = new QMenu(this);
-	paraStyleAct = nullptr;
 	setMinimumWidth(fontMetrics().horizontalAdvance( tr("No Style") )+30);
 }
 
@@ -278,40 +272,16 @@ void SideBar::setRepaint(bool r)
 	noUpdt = r;
 }
 
-SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
+SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : 
+		QTextEdit(parent),
+		parentStoryEditor(parentSE)
 {
 	setCurrentDocument(docc);
-	parentStoryEditor = parentSE;
-	wasMod = false;
-	ready = false;
-	unicodeInputCount = 0;
-	CurrAlign = 0.0;
-	CurrDirection = 0.0;
-	CurrFontSize = 0.0;
-	CurrTextFillSh = 0.0;
-	CurrTextStrokeSh = 0.0;
-	CurrTextScaleH = 0.0;
-	CurrTextScaleV = 0.0;
-	CurrTextBase = 0.0;
-	CurrTextShadowX = 0.0;
-	CurrTextShadowY = 0.0;
-	CurrTextOutline = 0.0;
-	CurrTextUnderPos = 0.0;
-	CurrTextUnderWidth = 0.0;
-	CurrTextStrikePos = 0.0;
-	CurrTextStrikeWidth = 0.0;
-	CurrTextKern = 0.0;
-	SelCharStart = 0;
-	SelCharEnd = 0;
-	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
-	unicodeTextEditMode = false;
-	blockContentsChangeHook = 0;
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
-	SuspendContentsChange = 0;
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
