@@ -464,10 +464,11 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 	if (m_doc->Items->count() == 0)
 		return nullptr;
 
-	int currNr = itemAbove ? m_doc->Items->indexOf(itemAbove)-1 : m_doc->Items->count()-1;
+	QList<PageItem*> *itemList = (itemAbove && itemAbove->isGroupChild()) ? &itemAbove->parentGroup()->groupItemList : m_doc->Items;
+	int currNr = itemAbove ? itemList->indexOf(itemAbove) - 1 : itemList->count() - 1;
 	while (currNr >= 0)
 	{
-		currItem = m_doc->Items->at(currNr);
+		currItem = itemList->at(currNr);
 		if ((m_doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(m_doc->currentPage()->pageNr())))))
 		{
 			--currNr;
