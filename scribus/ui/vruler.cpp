@@ -110,7 +110,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	while (firstMark < cc)
 	{
 		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-		int textY = qRound(firstMark * sc)+10;
+		int textY = qRound(firstMark * sc) + 10;
 		switch (m_doc->unitIndex())
 		{
 			case SC_MM:
@@ -133,7 +133,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 				break;
 			case SC_P:
 			case SC_C:
-				tx = QString::number(markC * m_iter2 / (m_iter2 /5) / m_cor);
+				tx = QString::number(markC * m_iter2 / (m_iter2 / 5) / m_cor);
 				break;
 			case SC_CM:
 				tx = QString::number(markC * m_iter2 / m_iter2 / m_cor);
@@ -191,7 +191,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		p.translate(0, -m_view->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
-		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw+2, 0, m_whereToDraw-2);
+		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
 		p.drawPolygon(cr);
 #endif
 	}
@@ -219,7 +219,7 @@ void Vruler::draw(int where)
 	int currentCoor = where - m_view->contentsY();
 	m_whereToDraw = where;
 	m_drawMark = true;
-	repaint(0, m_oldMark-3, 17, 6);
+	repaint(0, m_oldMark - 3, 17, 6);
 //	m_drawMark = false;
 	m_oldMark = currentCoor;
 }
@@ -298,8 +298,8 @@ void Vruler::unitChange()
 			if (sc < 0.3)
 			{
 				m_cor = 0.25;
-				m_iter = 12.0*4;
-				m_iter2 = 60.0*4;
+				m_iter = 12.0 * 4;
+				m_iter2 = 60.0 * 4;
 			}
 			else if (sc < 1)
 			{
@@ -316,8 +316,8 @@ void Vruler::unitChange()
 			if (sc < 0.6)
 			{
 				m_cor = 0.1;
-				m_iter = 720.0/25.4;
-				m_iter2 = 7200.0/25.4;
+				m_iter = 720.0 / 25.4;
+				m_iter2 = 7200.0 / 25.4;
 			}
 			else
 			{
@@ -331,27 +331,27 @@ void Vruler::unitChange()
 			if (sc >= 1 && sc <= 4)
 			{
 				m_cor = 1;
-				m_iter = 72.0/25.4*4.512;
-				m_iter2 = 72.0/25.4*4.512*5.0;
+				m_iter = 72.0 / 25.4 * 4.512;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0;
 			}
 			if (sc > 4)
 			{
 				m_cor = 2;
-				m_iter = 72.0/25.4*4.512/2.0;
-				m_iter2 = 72.0/25.4*4.512;
+				m_iter = 72.0 / 25.4 * 4.512 / 2.0;
+				m_iter2 = 72.0 / 25.4 * 4.512;
 			}
 			if (sc < 0.3)
 			{
 				m_cor = 0.1;
-				m_iter = 72.0/25.4*4.512*10;
-				m_iter2 = 72.0/25.4*4.512*5.0*10;
+				m_iter = 72.0 / 25.4 * 4.512 * 10;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0 * 10;
 			}
 			else
 				if (sc < 1)
 			{
 				m_cor = 1;
-				m_iter = 72.0/25.4*4.512;
-				m_iter2 = 72.0/25.4*4.512*5.0;
+				m_iter = 72.0 / 25.4 * 4.512;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0;
 			}
 			break;
 		default:
