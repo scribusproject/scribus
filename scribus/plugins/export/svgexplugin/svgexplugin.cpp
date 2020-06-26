@@ -1856,7 +1856,7 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 			trans += " rotate(" + FToStr(item->rotation()) + ")";
 		ob.setAttribute("transform", trans);
 	}
-	if ((item->GrMask == 3) || (item->GrMask == 6))
+	if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha))
 	{
 		QString pattID = item->patternMask() + IToStr(m_pattCount);
 		m_pattCount++;
@@ -1885,9 +1885,9 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 		m_globalDefs.appendChild(patt);
 		ob.setAttribute("fill", "url(#" + pattID + ")");
 	}
-	else if ((item->GrMask == 1) || (item->GrMask == 2) || (item->GrMask == 4) || (item->GrMask == 5))
+	else if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial) || (item->GrMask == GradMask_LinearLumAlpha) || (item->GrMask == GradMask_RadialLumAlpha))
 	{
-		if ((item->GrMask == 1) || (item->GrMask == 4))
+		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_LinearLumAlpha))
 		{
 			grad = m_domDoc.createElement("linearGradient");
 			grad.setAttribute("x1", FToStr(item->GrMaskStartX));

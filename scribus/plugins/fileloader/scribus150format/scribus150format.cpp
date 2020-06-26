@@ -5760,6 +5760,20 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 //		currItem->updateGradientVectors();
 	}
+	switch (currItem->GrType)
+	{
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			currItem->GrType = Gradient_Linear;
+			break;
+		case Gradient_RadialLegacy5:
+			currItem->GrType = Gradient_Radial;
+			break;
+		default:
+			break;
+	}
 
 	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
 	double patternScaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
@@ -5808,11 +5822,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	QString GrNameM = "";
 	GrNameM = attrs.valueAsString("GRNAMEM","");
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 4))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);
-	else if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+	else if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::radial);
-	if (((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5)) && (GrNameM.isEmpty()))
+	if (((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha)) && (GrNameM.isEmpty()))
 		currItem->mask_gradient.clearStops();
 	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
 	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);

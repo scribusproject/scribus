@@ -352,13 +352,13 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	painter->setPenOpacity(1.0 - item->lineTransparency());
 	painter->setFillRule(item->fillRule);
 
-	if ((item->GrMask == 1) || (item->GrMask == 2) || (item->GrMask == 4) || (item->GrMask == 5))
+	if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial) || (item->GrMask == GradMask_LinearLumAlpha) || (item->GrMask == GradMask_RadialLumAlpha))
 	{
 		QString gradientMaskVal = item->gradientMaskVal;
 		FPoint fpMaskStart(item->GrMaskStartX, item->GrMaskStartY);
 		FPoint fpMaskEnd(item->GrMaskEndX, item->GrMaskEndY);
 		FPoint fpMaskFocal(item->GrMaskFocalX, item->GrMaskFocalY);
-		if ((item->GrMask == 1) || (item->GrMask == 2))
+		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 			painter->setMaskMode(1);
 		else
 			painter->setMaskMode(3);
@@ -366,12 +366,12 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			gradientMaskVal = "";
 		if (!(gradientMaskVal.isEmpty()) && (m_doc->docGradients.contains(gradientMaskVal)))
 			painter->m_maskGradient = VGradientEx(m_doc->docGradients[gradientMaskVal], *m_doc);
-		if ((item->GrMask == 1) || (item->GrMask == 4))
+		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_LinearLumAlpha))
 			painter->setGradientMask(VGradientEx::linear, fpMaskStart, fpMaskEnd, fpMaskStart, item->GrMaskScale, item->GrMaskSkew);
 		else
 			painter->setGradientMask(VGradientEx::radial, fpMaskStart, fpMaskEnd, fpMaskFocal, item->GrMaskScale, item->GrMaskSkew);
 	}
-	else if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
+	else if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha) || (item->GrMask == GradMask_PatternLumAlphaInverted) || (item->GrMask == GradMask_PatternInverted))
 	{
 		QString patternMaskVal = item->patternMaskVal;
 		ScPattern *patternMask = m_doc->checkedPattern(patternMaskVal);
@@ -379,11 +379,11 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 		{
 			painter->setPatternMask(patternMask, item->patternMaskScaleX, item->patternMaskScaleY, item->patternMaskOffsetX, item->patternMaskOffsetY,
 				                    item->patternMaskRotation, item->patternMaskSkewX, item->patternMaskSkewY, item->patternMaskMirrorX, item->patternMaskMirrorY);
-			if (item->GrMask == 3)
+			if (item->GrMask == GradMask_Pattern)
 				painter->setMaskMode(2);
-			else if (item->GrMask == 6)
+			else if (item->GrMask == GradMask_PatternLumAlpha)
 				painter->setMaskMode(4);
-			else if (item->GrMask == 7)
+			else if (item->GrMask == GradMask_PatternLumAlphaInverted)
 				painter->setMaskMode(5);
 			else
 				painter->setMaskMode(6);

@@ -120,6 +120,19 @@ enum
 	Gradient_Hatch = 14
 };
 
+enum
+{
+	GradMask_None = 0,
+	GradMask_Linear = 1,
+	GradMask_Radial = 2,
+	GradMask_Pattern = 3,
+	GradMask_LinearLumAlpha = 4,
+	GradMask_RadialLumAlpha = 5,
+	GradMask_PatternLumAlpha = 6,
+	GradMask_PatternLumAlphaInverted = 7,
+	GradMask_PatternInverted = 8
+};
+
 struct SingleLine
 {
 	double Width;

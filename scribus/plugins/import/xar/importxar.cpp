@@ -1478,7 +1478,7 @@ void XarPlug::endTextLine()
 					if (txDat.GradMask > 0)
 					{
 						item->GrMask = txDat.GradMask;
-						if ((item->GrMask == 1) || (item->GrMask == 2))
+						if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 						{
 							item->mask_gradient = txDat.MaskGradient;
 							item->setMaskVector(txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskX2 - item->xPos(), txDat.GradMaskY2 - item->yPos(), txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskScale, txDat.GradMaskSkew);
@@ -3754,7 +3754,7 @@ void XarPlug::popGraphicContext()
 			if (gc->GradMask > 0)
 			{
 				item->GrMask = gc->GradMask;
-				if ((item->GrMask == 1) || (item->GrMask == 2))
+				if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 				{
 					item->mask_gradient = gc->MaskGradient;
 					item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);

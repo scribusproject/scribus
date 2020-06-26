@@ -1968,9 +1968,9 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	p->setBrushOpacity(1.0 - fillTransparency());
 	p->setPenOpacity(1.0 - lineTransparency());
 	p->setFillRule(fillRule);
-	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+	if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial) || (GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha))
 	{
-		if ((GrMask == 1) || (GrMask == 2))
+		if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial))
 			p->setMaskMode(1);
 		else
 			p->setMaskMode(3);
@@ -1979,22 +1979,22 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
 			mask_gradient = m_Doc->docGradients[gradientMaskVal];
 		p->mask_gradient = mask_gradient;
-		if ((GrMask == 1) || (GrMask == 4))
+		if ((GrMask == GradMask_Linear) || (GrMask == GradMask_LinearLumAlpha))
 			p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
 		else
 			p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 	}
-	else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+	else if ((GrMask == GradMask_Pattern) || (GrMask == GradMask_PatternLumAlpha) || (GrMask == GradMask_PatternLumAlphaInverted) || (GrMask == GradMask_PatternInverted))
 	{
 		ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
 		if (patternMask)
 		{
 			p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-			if (GrMask == 3)
+			if (GrMask == GradMask_Pattern)
 				p->setMaskMode(2);
-			else if (GrMask == 6)
+			else if (GrMask == GradMask_PatternLumAlpha)
 				p->setMaskMode(4);
-			else if (GrMask == 7)
+			else if (GrMask == GradMask_PatternLumAlphaInverted)
 				p->setMaskMode(5);
 			else
 				p->setMaskMode(6);
@@ -8578,7 +8578,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+	if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial) || (GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
 		for (int cst = 0; cst < mask_gradient.stops(); ++cst)

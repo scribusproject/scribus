@@ -6180,7 +6180,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		scaleX = 1.0 / (currItem->width() / pat.width);
 		scaleY = 1.0 / (currItem->height() / pat.height);
 	}
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha))
 	{
 		QList<double> StopVec;
 		QList<double> TransVec;
@@ -6384,7 +6384,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
 	}
-	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6) || (currItem->GrMask == 7) || (currItem->GrMask == 8))
+	else if ((currItem->GrMask == GradMask_Pattern) || (currItem->GrMask == GradMask_PatternLumAlpha) || (currItem->GrMask == GradMask_PatternLumAlphaInverted) || (currItem->GrMask == GradMask_PatternInverted))
 	{
 		QByteArray tmpOut;
 		PDF_PatternFillStroke(tmpOut, currItem, 2);
@@ -6443,13 +6443,13 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		ResCount++;
 		GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
-		if (currItem->GrMask == 6)
+		if (currItem->GrMask == GradMask_PatternLumAlpha)
 			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		else if (currItem->GrMask == 7)
+		else if (currItem->GrMask == GradMask_PatternLumAlphaInverted)
 			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
-		else if (currItem->GrMask == 3)
+		else if (currItem->GrMask == GradMask_Pattern)
 			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		else if (currItem->GrMask == 8)
+		else if (currItem->GrMask == GradMask_PatternInverted)
 			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
 	}

@@ -152,7 +152,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
 		qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
 		qmatrix.scale(1, currItem->GrMaskScale);
-		if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+		if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY)));
 		QTransform m;
 		m.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
@@ -422,7 +422,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrMaskStartY -= np.y();
 				currItem->GrMaskFocalX -= np.x();
 				currItem->GrMaskFocalY -= np.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -461,7 +461,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrMaskFocalX = shRe.x();
 				currItem->GrMaskFocalY = shRe.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -497,7 +497,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrMaskEndX -= np.x();
 				currItem->GrMaskEndY -= np.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);

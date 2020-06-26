@@ -670,7 +670,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->GrStrokeSkew   = Buffer->GrStrokeSkew;
 	}
 	currItem->GrMask = Buffer->GrMask;
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha))
 	{
 		currItem->mask_gradient = Buffer->mask_gradient;
 		currItem->GrMaskStartX = Buffer->GrMaskStartX;
@@ -682,7 +682,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->GrMaskScale  = Buffer->GrMaskScale;
 		currItem->GrMaskSkew   = Buffer->GrMaskSkew;
 	}
-	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6))
+	else if ((currItem->GrMask == GradMask_Pattern) || (currItem->GrMask == GradMask_PatternLumAlpha))
 	{
 		currItem->setPatternMask(Buffer->patternMaskVal);
 		currItem->setMaskTransform(Buffer->patternMaskScaleX, Buffer->patternMaskScaleY, Buffer->patternMaskOffsetX, Buffer->patternMaskOffsetY, Buffer->patternMaskRotation, Buffer->patternMaskSkewX, Buffer->patternMaskSkewY);

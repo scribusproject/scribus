@@ -2255,7 +2255,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		ob = p_docu.createElement("Glyph.OpacityMask");
 	else
 		ob = p_docu.createElement("Path.OpacityMask");
-	if ((Item->GrMask == 1) || (Item->GrMask == 2))
+	if ((Item->GrMask == GradMask_Linear) || (Item->GrMask == GradMask_Radial))
 	{
 		QDomElement gr;
 		double GrStartX = (Item->GrMaskStartX + xOffset) * conversionFactor;
@@ -2264,7 +2264,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		double GrFocalY = (Item->GrMaskFocalY + yOffset) * conversionFactor;
 		double GrEndX = (Item->GrMaskEndX + xOffset) * conversionFactor;
 		double GrEndY = (Item->GrMaskEndY + yOffset) * conversionFactor;
-		if ((Item->GrMask == 1) || (Item->GrMask == 4))
+		if ((Item->GrMask == GradMask_Linear) || (Item->GrMask == GradMask_LinearLumAlpha))
 		{
 			gr = p_docu.createElement("LinearGradientBrush");
 			gr.setAttribute("MappingMode", "Absolute");
@@ -2293,7 +2293,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		else
 			gradientSkew = tan(M_PI / 180.0 * Item->GrMaskSkew);
 		QTransform qmatrix;
-		if (Item->GrMask == 1)
+		if (Item->GrMask == GradMask_Linear)
 		{
 			qmatrix.translate(GrStartX, GrStartY);
 			qmatrix.shear(-gradientSkew, 0);
@@ -2311,7 +2311,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		}
 		gr.setAttribute("Transform", MatrixToStr(qmatrix));
 		QDomElement grs;
-		if (Item->GrMask == 1)
+		if (Item->GrMask == GradMask_Linear)
 			grs = p_docu.createElement("LinearGradientBrush.GradientStops");
 		else
 			grs = p_docu.createElement("RadialGradientBrush.GradientStops");
@@ -2334,7 +2334,7 @@ void XPSExPlug::handleMask(int type, PageItem *Item, QDomElement &parentElem, QD
 		gr.appendChild(grs);
 		ob.appendChild(gr);
 	}
-	else if (Item->GrMask == 3)
+	else if (Item->GrMask == GradMask_Pattern)
 	{
 		ScPattern pa = m_Doc->docPatterns[Item->patternMask()];
 		QDomElement gr = p_docu.createElement("VisualBrush");
@@ -2651,7 +2651,7 @@ bool XPSExPlug::checkForFallback(PageItem *Item)
 	int GrMask = Item->GrMask;
 	if ((GrType == Gradient_4Colors) || (GrType == Gradient_Diamond) || (GrType == Gradient_Mesh) || (GrType == Gradient_PatchMesh) || (GrType == Gradient_Conical))
 		ret = true;
-	if ((GrMask == 4) || (GrMask == 5) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+	if ((GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha) || (GrMask == GradMask_PatternLumAlpha) || (GrMask == GradMask_PatternLumAlphaInverted) || (GrMask == GradMask_PatternInverted))
 		ret = true;
 	if (Item->fillBlendmode() != 0)
 		ret = true;

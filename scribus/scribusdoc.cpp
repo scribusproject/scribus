@@ -15168,7 +15168,7 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 		item->patternTransform(psx, psy, pox, poy, prot, pskx, psky);
 		item->setPatternTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
 	}
-	if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
+	if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha) || (item->GrMask == GradMask_PatternLumAlphaInverted) || (item->GrMask == GradMask_PatternInverted))
 	{
 		double psx, psy, pox, poy, prot, pskx, psky;
 		item->maskTransform(psx, psy, pox, poy, prot, pskx, psky);
