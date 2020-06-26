@@ -44,7 +44,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "iconmanager.h"
 
-
 #ifdef Q_OS_MAC
 #define topline 1
 #else
@@ -55,17 +54,12 @@ for which a new license (GPL+exception) is in place.
 #define midline (topline + rulerheight/2)
 #define tabline 7
 
-
-
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_doc(doc),
 	m_view(pa)
 {
 	setBackgroundRole(QPalette::Window);
-	setAutoFillBackground(true);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	setPalette(palette);
+	//setAutoFillBackground(true);
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
 	unitChange();
@@ -469,6 +463,8 @@ void Hruler::paintEvent(QPaintEvent *e)
 	{
 		int rectX1 = textPosToLocal(m_distLeft);
 		int rectX2 = textPosToLocal(m_itemEndPos - m_itemPos - m_distRight);
+		const QPalette& palette = this->palette();
+		const QColor& textColor = palette.color(QPalette::Text);
 		p.eraseRect(QRect(QPoint(rectX1, 1), QPoint(rectX2, 15)));
 		p.drawLine(rectX1, 16, rectX2, 16);
 		p.save();
@@ -515,7 +511,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 
 			if (m_tabValues.count() != 0)
 			{
-				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				for (int yg = 0; yg < signed(m_tabValues.count()); yg++)
 				{
 					xPos = textPosToLocal(pos + m_tabValues[yg].tabPosition);
@@ -600,7 +596,8 @@ void Hruler::drawMarker(QPainter& p)
 	static const QColor BACKGROUND(255, 255, 255);
 	static QPixmap pix( 4*SCALE, 16*SCALE );
 	static bool initpix = true;
-	if (initpix) {
+	if (initpix)
+	{
 		initpix = false;
 		QPainter pp( &pix );
 		pp.setBrush( BACKGROUND );
@@ -614,14 +611,16 @@ void Hruler::drawMarker(QPainter& p)
 	// draw pixmap
 	p.save();
 	p.translate(-m_view->contentsX(), 0);
-	p.scale(1.0/SCALE, 1.0/(SCALE+1));
-	p.drawPixmap((where-2)*SCALE, 1, pix);
+	p.scale(1.0 / SCALE, 1.0 / (SCALE + 1));
+	p.drawPixmap((m_whereToDraw - 2) * SCALE, 1, pix);
 	p.restore();
 	// restore marks
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	p.setBrush(textColor);
+	p.setPen(textColor);
 	p.setFont(font());
-	double sc = m_view->getScale();
+	double sc = m_view->scale();
 	double cc = width() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
@@ -643,9 +642,11 @@ void Hruler::drawMarker(QPainter& p)
 
 void Hruler::drawMarks(QPainter& p)
 {
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
-	//p.drawLine(0, 16, width(), 16);
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	p.setBrush(textColor);
+	p.setPen(textColor);
+
 	double sc = m_scaling;
 	double cc = width() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;

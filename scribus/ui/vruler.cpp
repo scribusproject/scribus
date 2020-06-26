@@ -46,10 +46,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_view(pa)
 {
 	setBackgroundRole(QPalette::Window);
-	setAutoFillBackground(true);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	setPalette(palette);
+	//setAutoFillBackground(true);
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::VERTICAL);
 	unitChange();
@@ -87,6 +84,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 		return;
 	QString tx;
 	double sc = m_view->scale();
+	
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	
 	QFont ff = font();
 	ff.setPointSize(6);
 	setFont(ff);
@@ -94,10 +95,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	p.save();
 	p.setClipRect(e->rect());
-//	p.drawLine(16, 0, 16, height());
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
+	p.setBrush(textColor);
+	p.setPen(textColor);
 	p.setFont(font());
+	
 	double cc = height() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
@@ -171,14 +172,14 @@ void Vruler::paintEvent(QPaintEvent *e)
 		// draw pixmap
 		p.save();
 		p.translate(0, -m_view->contentsY());
-		p.scale(1.0/(SCALE+1), 1.0/SCALE);
-		p.drawPixmap(0, (where-2)*SCALE, pix);
+		p.scale(1.0 / (SCALE + 1), 1.0 / SCALE);
+		p.drawPixmap(0, (m_whereToDraw - 2) * SCALE, pix);
 		p.restore();
 		// repaint marks
-		p.setBrush(Qt::black);
-		p.setPen(Qt::black);
+		p.setBrush(textColor);
+		p.setPen(textColor);
 		p.setFont(font());
-		double sc = m_view->getScale();
+		double sc = m_view->scale();
 		double cc = height() / sc;
 		double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 		while (firstMark < cc)
