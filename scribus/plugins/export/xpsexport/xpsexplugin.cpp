@@ -567,7 +567,7 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, 
 	if (((Item->GrType == 0) && (Item->fillColor() == CommonStrings::None)) && ((Item->GrTypeStroke == 0) && (Item->lineColor() == CommonStrings::None) && Item->NamedLStyle.isEmpty()))
 		return;
 
-	if (Item->GrType == 14)
+	if (Item->GrType == Gradient_Hatch)
 		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	bool closedPath;
 	closedPath = ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon) || (Item->itemType() == PageItem::Arc));
@@ -589,7 +589,7 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, 
 	else
 		pa.prepend("F 1 ");
 	ob.setAttribute("Data", pa);
-	if (Item->GrType != 14)
+	if (Item->GrType != Gradient_Hatch)
 	{
 		if (Item->GrMask > 0)
 			handleMask(3, Item, ob, rel_root, xOffset, yOffset);
@@ -671,7 +671,7 @@ void XPSExPlug::processLineItem(double xOffset, double yOffset, PageItem *Item, 
 
 void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
 {
-	if (Item->GrType == 14)
+	if (Item->GrType == Gradient_Hatch)
 		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
 	path.translate(xOffset, yOffset);
@@ -690,7 +690,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
 		grp.setAttribute("RenderTransform", MatrixToStr(mpx));
 	}
-	if (Item->GrType != 14)
+	if (Item->GrType != Gradient_Hatch)
 	{
 		if (Item->GrMask > 0)
 			handleMask(1, Item, grp, rel_root, xOffset, yOffset);
@@ -997,7 +997,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 {
 	if (Item->isAnnotation())
 		return;
-	if (Item->GrType == 14)
+	if (Item->GrType == Gradient_Hatch)
 		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
 	path.scale(conversionFactor, conversionFactor);
@@ -1029,7 +1029,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	grp.setAttribute("RenderTransform", MatrixToStr(mpx));
 	if (Item->isBookmark)
 		grp.setAttribute("Name", Item->itemName());
-	if (Item->GrType != 14)
+	if (Item->GrType != Gradient_Hatch)
 	{
 		if (Item->GrMask > 0)
 			handleMask(1, Item, grp, rel_root, xOffset, yOffset);
@@ -2016,7 +2016,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			ob.appendChild(gr);
 			parentElem.appendChild(ob);
 		}
-		else if ((Item->GrTypeStroke == 6) || (Item->GrTypeStroke == 7))
+		else if ((Item->GrTypeStroke == Gradient_Linear) || (Item->GrTypeStroke == Gradient_Radial))
 		{
 			QDomElement ob;
 			if (forArrow)
@@ -2030,7 +2030,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			double GrFocalY = (Item->GrStrokeFocalY + yOffset) * conversionFactor;
 			double GrEndX = (Item->GrStrokeEndX + xOffset) * conversionFactor;
 			double GrEndY = (Item->GrStrokeEndY + yOffset) * conversionFactor;
-			if (Item->GrTypeStroke == 6)
+			if (Item->GrTypeStroke == Gradient_Linear)
 			{
 				gr = p_docu.createElement("LinearGradientBrush");
 				gr.setAttribute("MappingMode", "Absolute");
@@ -2059,7 +2059,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			else
 				gradientSkew = tan(M_PI / 180.0 * Item->GrStrokeSkew);
 			QTransform qmatrix;
-			if (Item->GrTypeStroke == 6)
+			if (Item->GrTypeStroke == Gradient_Linear)
 			{
 				qmatrix.translate(GrStartX, GrStartY);
 				qmatrix.shear(-gradientSkew, 0);
@@ -2079,7 +2079,7 @@ void XPSExPlug::getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElem
 			if (Item->lineTransparency() != 0)
 				gr.setAttribute("Opacity", FToStr(1.0 - Item->lineTransparency()));
 			QDomElement grs;
-			if (Item->GrTypeStroke == 6)
+			if (Item->GrTypeStroke == Gradient_Linear)
 				grs = p_docu.createElement("LinearGradientBrush.GradientStops");
 			else
 				grs = p_docu.createElement("RadialGradientBrush.GradientStops");
@@ -2120,7 +2120,7 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 		return;
 	}
 
-	if ((Item->GrType == 6) || (Item->GrType == 7))
+	if ((Item->GrType == Gradient_Linear) || (Item->GrType == Gradient_Radial))
 	{
 		QDomElement ob = p_docu.createElement("Path.Fill");
 		QDomElement gr;
@@ -2130,7 +2130,7 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 		double GrFocalY = (Item->GrFocalY + yOffset) * conversionFactor;
 		double GrEndX = (Item->GrEndX + xOffset) * conversionFactor;
 		double GrEndY = (Item->GrEndY + yOffset) * conversionFactor;
-		if (Item->GrType == 6)
+		if (Item->GrType == Gradient_Linear)
 		{
 			gr = p_docu.createElement("LinearGradientBrush");
 			gr.setAttribute("MappingMode", "Absolute");
@@ -2159,7 +2159,7 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 		else
 			gradientSkew = tan(M_PI / 180.0 * Item->GrSkew);
 		QTransform qmatrix;
-		if (Item->GrType == 6)
+		if (Item->GrType == Gradient_Linear)
 		{
 			qmatrix.translate(GrStartX, GrStartY);
 			qmatrix.shear(-gradientSkew, 0);
@@ -2179,7 +2179,7 @@ void XPSExPlug::getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElemen
 		if ((Item->fillTransparency() != 0) && ((withTransparency) || (Item->GrMask == 0)))
 			gr.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
 		QDomElement grs;
-		if (Item->GrType == 6)
+		if (Item->GrType == Gradient_Linear)
 			grs = p_docu.createElement("LinearGradientBrush.GradientStops");
 		else
 			grs = p_docu.createElement("RadialGradientBrush.GradientStops");
@@ -2649,7 +2649,7 @@ bool XPSExPlug::checkForFallback(PageItem *Item)
 	bool ret = false;
 	int GrType = Item->GrType;
 	int GrMask = Item->GrMask;
-	if ((GrType == 9) || (GrType == 10) || (GrType == 11) || (GrType == 12) || (GrType == 13))
+	if ((GrType == Gradient_4Colors) || (GrType == Gradient_Diamond) || (GrType == Gradient_Mesh) || (GrType == Gradient_PatchMesh) || (GrType == Gradient_Conical))
 		ret = true;
 	if ((GrMask == 4) || (GrMask == 5) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
 		ret = true;

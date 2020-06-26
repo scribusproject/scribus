@@ -4343,7 +4343,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
-	if (newItem->GrType == 13)
+	if (newItem->GrType == Gradient_Conical)
 	{
 		if (!newItem->gradient().isEmpty())
 			newItem->fill_gradient = doc->docGradients[newItem->gradient()];
@@ -5639,7 +5639,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
-		if (currItem->GrType == 8)
+		if (currItem->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern( attrs.valueAsString("pattern", "") );
 			double patternScaleX   = attrs.valueAsDouble("pScaleX", 100.0);
@@ -5654,7 +5654,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
 			currItem->setPatternFlip(mirrorX, mirrorY);
 		}
-		else if (currItem->GrType == 11)
+		else if (currItem->GrType == Gradient_Mesh)
 		{
 			currItem->meshGradientArray.clear();
 			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
@@ -5670,7 +5670,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientArray.append(ml);
 			}
 		}
-		else if (currItem->GrType == 12)
+		else if (currItem->GrType == Gradient_PatchMesh)
 		{
 			currItem->meshGradientPatches.clear();
 			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
@@ -5680,7 +5680,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientPatches.append(patchM);
 			}
 		}
-		else if (currItem->GrType == 14)
+		else if (currItem->GrType == Gradient_Hatch)
 		{
 			int hatchType = attrs.valueAsInt("HatchMode", 0);
 			double hatchDistance = attrs.valueAsDouble("HatchDist", 2);
@@ -5711,7 +5711,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			GrName = attrs.valueAsString("GRNAME","");
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
-			if ((currItem->GrType == 9) || (currItem->GrType == 10))
+			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
 			{
 				currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
 				currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
@@ -5734,12 +5734,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 		}
 	}
-	if (((currItem->GrType != 0) && (currItem->GrType != 8) && (currItem->GrType != 14)) && (currItem->gradient().isEmpty()))
+	if (((currItem->GrType != 0) && (currItem->GrType != Gradient_Pattern) && (currItem->GrType != Gradient_Hatch)) && (currItem->gradient().isEmpty()))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
-			if (currItem->GrType == 5)
+			if (currItem->GrType == Gradient_RadialLegacy5)
 			{
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetQColor(&tmpc, GrColor, GrShade);
@@ -5760,6 +5760,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 //		currItem->updateGradientVectors();
 	}
+
 	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
 	double patternScaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
 	double patternScaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
@@ -5776,7 +5777,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setPatternFlip(mirrorX, mirrorY);
 	currItem->setStrokePatternToPath(atPath);
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
-	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != 8)) && (currItem->strokeGradient().isEmpty()))
+	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != Gradient_Pattern)) && (currItem->strokeGradient().isEmpty()))
 		currItem->stroke_gradient.clearStops();
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);

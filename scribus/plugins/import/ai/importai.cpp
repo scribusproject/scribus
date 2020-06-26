@@ -1584,14 +1584,14 @@ void AIPlug::processData(const QString& data)
 					{
 						ite->setPattern(currentPatternName);
 						ite->setPatternTransform(currentPatternXScale * 100, currentPatternYScale * 100, currentPatternX, currentPatternY, currentPatternRotation, 0.0, 0.0);
-						ite->GrType = 8;
-						currentPatternName = "";
+						ite->GrType = Gradient_Pattern;
+						currentPatternName.clear();
 					}
 					if (!currentStrokePatternName.isEmpty())
 					{
 						ite->setStrokePattern(currentStrokePatternName);
 						ite->setStrokePatternTransform(currentStrokePatternXScale * 100, currentStrokePatternYScale * 100, currentStrokePatternX, currentStrokePatternY, currentStrokePatternRotation, 0.0, 0.0, 1.0);
-						currentStrokePatternName = "";
+						currentStrokePatternName.clear();
 					}
 					ite->setLineEnd(CapStyle);
 					ite->setLineJoin(JoinStyle);
@@ -1868,9 +1868,9 @@ void AIPlug::processData(const QString& data)
 				ite->fill_gradient = m_gradients[currentGradientName];
 				ite->setGradient(currentGradientName);
 				if (ite->fill_gradient.type() == 0)
-					ite->GrType = 6;
+					ite->GrType = Gradient_Linear;
 				else
-					ite->GrType = 7;
+					ite->GrType = Gradient_Radial;
 				QTransform m1;
 				m1.translate(currentGradientOrigin.x() - ite->xPos(), currentGradientOrigin.y() - ite->yPos());
 				m1.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -1999,7 +1999,7 @@ void AIPlug::processData(const QString& data)
 						}
 					}
 					ite->meshGradientArray = meshGradientArray;
-					ite->GrType = 11;
+					ite->GrType = Gradient_Mesh;
 					ite->meshToShape();
 					for (int grow = 0; grow < ite->meshGradientArray.count(); grow++)
 					{

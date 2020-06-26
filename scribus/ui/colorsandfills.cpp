@@ -944,7 +944,7 @@ QStringList ColorsAndFillsDialog::getUsedPatternsHelper(const QString& pattern, 
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol))
+		if ((pat->items.at(c)->GrType == Gradient_Pattern) || (pat->items.at(c)->itemType() == PageItem::Symbol))
 		{
 			const QString& patName = pat->items.at(c)->pattern();
 			if (!patName.isEmpty() && !results.contains(patName))
@@ -969,7 +969,7 @@ QStringList ColorsAndFillsDialog::getUsedPatternsHelper(const QString& pattern, 
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if ((!results.contains(pat->items.at(c)->pattern())) && ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol)))
+		if ((!results.contains(pat->items.at(c)->pattern())) && ((pat->items.at(c)->GrType == Gradient_Pattern) || (pat->items.at(c)->itemType() == PageItem::Symbol)))
 			pats.append(pat->items.at(c)->pattern());
 	}
 	if (!pats.isEmpty())

@@ -207,7 +207,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			}
 			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 			{
-				if (currItem->GrType == 9)
+				if (currItem->GrType == Gradient_4Colors)
 				{
 					if (currItem->GrCol1transp != 1.0)
 						itemError.insert(Transparency, 0);
@@ -218,7 +218,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					else if (currItem->GrCol4transp != 1.0)
 						itemError.insert(Transparency, 0);
 				}
-				else if (currItem->GrType == 11)
+				else if (currItem->GrType == Gradient_Mesh)
 				{
 					for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 					{
@@ -229,7 +229,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 						}
 					}
 				}
-				else if (currItem->GrType == 12)
+				else if (currItem->GrType == Gradient_PatchMesh)
 				{
 					for (int grow = 0; grow < currItem->meshGradientPatches.count(); grow++)
 					{
@@ -469,7 +469,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 			}
 			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 			{
-				if (currItem->GrType == 9)
+				if (currItem->GrType == Gradient_4Colors)
 				{
 					if (currItem->GrCol1transp != 1.0)
 						itemError.insert(Transparency, 0);
@@ -480,7 +480,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					else if (currItem->GrCol4transp != 1.0)
 						itemError.insert(Transparency, 0);
 				}
-				else if (currItem->GrType == 11)
+				else if (currItem->GrType == Gradient_Mesh)
 				{
 					for (int grow = 0; grow < currItem->meshGradientArray.count(); grow++)
 					{
@@ -491,7 +491,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 						}
 					}
 				}
-				else if (currItem->GrType == 12)
+				else if (currItem->GrType == Gradient_PatchMesh)
 				{
 					for (int grow = 0; grow < currItem->meshGradientPatches.count(); grow++)
 					{

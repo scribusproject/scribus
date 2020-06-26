@@ -3403,7 +3403,7 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 				if (patternScaleY > -1)
 					patSY = patternScaleY / pat.height * 100;
 				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
-				ite->GrType = 8;
+				ite->GrType = Gradient_Pattern;
 			}
 		}
 		else if (fillType == 4)
@@ -3432,7 +3432,7 @@ PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType 
 				if (patternScaleY > -1)
 					patSY = patternScaleY / pat.height * 100;
 				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
-				ite->GrType = 8;
+				ite->GrType = Gradient_Pattern;
 			}
 		}
 		else

@@ -2765,12 +2765,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					{
 						if (ite->GrType != 0)
 						{
-							if (ite->GrType == 8)
+							if (ite->GrType == Gradient_Pattern)
 							{
 								if (!PDF_PatternFillStroke(tmpOut, ite))
 									return false;
 							}
-							else if (ite->GrType == 14)
+							else if (ite->GrType == Gradient_Hatch)
 							{
 								if (!PDF_HatchFill(tmpOut, ite))
 									return false;
@@ -2783,7 +2783,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							if (!tmpOut.isEmpty())
 							{
 								PutPage("q\n");
-								if (ite->GrType == 14)
+								if (ite->GrType == Gradient_Hatch)
 									PutPage(tmpOut);
 								else
 								{
@@ -2958,12 +2958,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					}
 					if (ite->GrType != 0)
 					{
-						if (ite->GrType == 8)
+						if (ite->GrType == Gradient_Pattern)
 						{
 							if (!PDF_PatternFillStroke(tmpOut, ite))
 								return false;
 						}
-						else if (ite->GrType == 14)
+						else if (ite->GrType == Gradient_Hatch)
 						{
 							if (!PDF_HatchFill(tmpOut, ite))
 								return false;
@@ -2975,7 +2975,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						if (!tmpOut.isEmpty())
 						{
-							if (ite->GrType == 14)
+							if (ite->GrType == Gradient_Hatch)
 								PutPage(tmpOut);
 							else
 							{
@@ -3058,12 +3058,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						if (ite->GrType != 0)
 						{
-							if (ite->GrType == 8)
+							if (ite->GrType == Gradient_Pattern)
 							{
 								if (!PDF_PatternFillStroke(tmpOut, ite))
 									return false;
 							}
-							else if (ite->GrType == 14)
+							else if (ite->GrType == Gradient_Hatch)
 							{
 								if (!PDF_HatchFill(tmpOut, ite))
 									return false;
@@ -3075,7 +3075,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							}
 							if (!tmpOut.isEmpty())
 							{
-								if (ite->GrType == 14)
+								if (ite->GrType == Gradient_Hatch)
 									PutPage(tmpOut);
 								else
 								{
@@ -4507,12 +4507,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			{
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4525,7 +4525,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					if (!tmpOut.isEmpty())
 					{
 						tmp += "q\n";
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -4636,12 +4636,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			{
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4654,7 +4654,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					if (!tmpOut.isEmpty())
 					{
 						tmp += "q\n";
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -4821,12 +4821,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			}
 			if (ite->GrType != 0)
 			{
-				if (ite->GrType == 8)
+				if (ite->GrType == Gradient_Pattern)
 				{
 					if (!PDF_PatternFillStroke(tmpOut, ite))
 						return false;
 				}
-				else if (ite->GrType == 14)
+				else if (ite->GrType == Gradient_Hatch)
 				{
 					if (!PDF_HatchFill(tmpOut, ite))
 						return false;
@@ -4838,7 +4838,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				if (!tmpOut.isEmpty())
 				{
-					if (ite->GrType == 14)
+					if (ite->GrType == Gradient_Hatch)
 						tmp += tmpOut;
 					else
 					{
@@ -4922,12 +4922,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4939,7 +4939,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					}
 					if (!tmpOut.isEmpty())
 					{
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -6455,7 +6455,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 	}
 	else
 	{
-		if (currItem->GrType == 14)
+		if (currItem->GrType == Gradient_Hatch)
 			Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - currItem->fillTransparency()) + "\n/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else
 			Transpar[ShName] = writeGState("/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
@@ -8190,13 +8190,13 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	else
 	{
 		GType = currItem->GrType;
-		if (GType == 9)
+		if (GType == Gradient_4Colors)
 			return PDF_TensorGradientFill(output, currItem);
-		if (GType == 10)
+		if (GType == Gradient_Diamond)
 			return PDF_DiamondGradientFill(output, currItem);
-		if ((GType == 11) || (GType == 13))
+		if ((GType == Gradient_Mesh) || (GType == Gradient_Conical))
 			return PDF_MeshGradientFill(output, currItem);
-		if (GType == 12)
+		if (GType == Gradient_PatchMesh)
 			return PDF_PatchMeshGradientFill(output, currItem);
 		StartX = currItem->GrStartX;
 		StartY = currItem->GrStartY;
@@ -8249,7 +8249,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 	{
 		mpa.translate(StartX, -StartY);
 		mpa.shear(Gskew, 0);
@@ -8319,7 +8319,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		QTransform mpM;
 		//#12058: cause problems with rotated objects
 		//mpM.rotate(-currItem->rotation());
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 		{
 			mpM.translate(StartX, -StartY);
 			mpM.shear(Gskew, 0);
@@ -8342,7 +8342,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		PutDoc("/Matrix [" + TransformToStr(mpM) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 			PutDoc("/ShadingType 2\n");
 		else
 			PutDoc("/ShadingType 3\n");
@@ -8351,7 +8351,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 			PutDoc("/Extend [false false]\n");
 		else
 			PutDoc("/Extend [true true]\n");
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 			PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 		else
 			PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
@@ -8445,7 +8445,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading\n");
 	PutDoc("<<\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutDoc("/ShadingType 2\n");
 	else
 		PutDoc("/ShadingType 3\n");
@@ -8479,7 +8479,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		PutDoc("/Extend [false false]\n");
 	else
 		PutDoc("/Extend [true true]\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 	else
 		PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");

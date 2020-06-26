@@ -230,7 +230,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 	painter->setLineWidth(item->lineWidth());
 	if (item->isGroup())
 		return;
-	if (item->GrType == 8)
+	if (item->GrType == Gradient_Pattern)
 	{
 		QString pat = item->pattern();
 		ScPattern *pattern = m_doc->checkedPattern(pat);
@@ -256,7 +256,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			painter->setFillMode(ScPainterExBase::Pattern);
 		}
 	}
-	else if (item->GrType == 9)
+	else if (item->GrType == Gradient_4Colors)
 	{
 		painter->setFillMode(ScPainterExBase::Gradient);
 		FPoint pG1 = FPoint(0, 0);
@@ -277,7 +277,7 @@ void ScPageOutput::drawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			gradientVal = "";
 		if (!(gradientVal.isEmpty()) && (m_doc->docGradients.contains(gradientVal)))
 			painter->m_fillGradient = VGradientEx(m_doc->docGradients[gradientVal], *m_doc);
-		if ((painter->m_fillGradient.stops() < 2) && (item->GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
+		if ((painter->m_fillGradient.stops() < 2) && (item->GrType < Gradient_4Colors)) // fall back to solid filling if there are not enough colorstops in the gradient.
 		{
 			if (item->fillColor() != CommonStrings::None)
 			{
@@ -463,7 +463,7 @@ void ScPageOutput::drawItem_Post( PageItem* item, ScPainterExBase* painter )
 						FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
 						painter->setStrokeMode(ScPainterExBase::Gradient);
 						painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
-						if (item->GrTypeStroke == 6)
+						if (item->GrTypeStroke == Gradient_Linear)
 							painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
 						else
 							painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
@@ -871,7 +871,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
 				painter->setStrokeMode(ScPainterExBase::Gradient);
 				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
-				if (item->GrTypeStroke == 6)
+				if (item->GrTypeStroke == Gradient_Linear)
 					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
 				else
 					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
@@ -1212,7 +1212,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
 				painter->setStrokeMode(ScPainterExBase::Gradient);
 				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
-				if (item->GrTypeStroke == 6)
+				if (item->GrTypeStroke == Gradient_Linear)
 					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
 				else
 					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);
@@ -1379,7 +1379,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 				FPoint fpFocal(item->GrStrokeFocalX, item->GrStrokeFocalY);
 				painter->setStrokeMode(ScPainterExBase::Gradient);
 				painter->m_strokeGradient = VGradientEx(item->stroke_gradient, *m_doc);
-				if (item->GrTypeStroke == 6)
+				if (item->GrTypeStroke == Gradient_Linear)
 					painter->setGradient(VGradientEx::linear, fpStart, fpEnd, fpStart, item->GrStrokeScale, item->GrStrokeSkew);
 				else
 					painter->setGradient(VGradientEx::radial, fpStart, fpEnd, fpFocal, item->GrStrokeScale, item->GrStrokeSkew);

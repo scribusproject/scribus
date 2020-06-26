@@ -578,13 +578,13 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	if (Buffer->GrType != 0)
 	{
 		currItem->GrType = Buffer->GrType;
-		if (Buffer->GrType == 8)
+		if (Buffer->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern(Buffer->pattern);
 			currItem->setPatternTransform(Buffer->patternScaleX, Buffer->patternScaleY, Buffer->patternOffsetX, Buffer->patternOffsetY, Buffer->patternRotation, Buffer->patternSkewX, Buffer->patternSkewY);
 			currItem->setPatternFlip(Buffer->patternMirrorX, Buffer->patternMirrorY);
 		}
-		else if (Buffer->GrType == 11)
+		else if (Buffer->GrType == Gradient_Mesh)
 		{
 			currItem->meshGradientArray = Buffer->meshGradientArray;
 		}
@@ -593,7 +593,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			if ((!Buffer->GrColor.isEmpty()) && (!Buffer->GrColor2.isEmpty()))
 			{
 				currItem->fill_gradient.clearStops();
-				if (Buffer->GrType == 5)
+				if (Buffer->GrType == Gradient_RadialLegacy5)
 				{
 					if ((Buffer->GrColor != CommonStrings::None) && (!Buffer->GrColor.isEmpty()))
 						currItem->SetQColor(&tmp, Buffer->GrColor, Buffer->GrShade);
@@ -640,6 +640,20 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			currItem->GrCol3Shade = Buffer->GrCol3Shade;
 			currItem->GrCol4Shade = Buffer->GrCol4Shade;
 			currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+		}
+		switch (currItem->GrType)
+		{
+			case Gradient_LinearLegacy1:
+			case Gradient_LinearLegacy2:
+			case Gradient_LinearLegacy3:
+			case Gradient_LinearLegacy4:
+				currItem->GrType = Gradient_Linear;
+				break;
+			case Gradient_RadialLegacy5:
+				currItem->GrType = Gradient_Radial;
+				break;
+			default:
+				break;
 		}
 	}
 	if (Buffer->GrTypeStroke > 0)
@@ -1431,7 +1445,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->fill_gradient.clearStops();
 	if (OB->GrType != 0)
 	{
-		if (OB->GrType == 8)
+		if (OB->GrType == Gradient_Pattern)
 		{
 			OB->pattern = obj->attribute("pattern", "");
 			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0);
@@ -1499,23 +1513,23 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 
 	switch (OB->GrType)
 	{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			OB->GrType = 6;
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			OB->GrType = Gradient_Linear;
 			break;
-		case 5:
-			OB->GrType = 7;
+		case Gradient_RadialLegacy5:
+			OB->GrType = Gradient_Radial;
 			break;
 		default:
 			break;
 	}
-	OB->Rot=ScCLocale::toDoubleC(obj->attribute("ROT"));
-	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());
-	OB->PLineEnd=Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
-	OB->PLineJoin=Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
-	OB->LineSp=ScCLocale::toDoubleC(obj->attribute("LINESP"));
+	OB->Rot = ScCLocale::toDoubleC(obj->attribute("ROT"));
+	OB->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
+	OB->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
+	OB->PLineJoin = Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
+	OB->LineSp = ScCLocale::toDoubleC(obj->attribute("LINESP"));
 	OB->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
 	OB->LocalScX   = ScCLocale::toDoubleC(obj->attribute("LOCALSCX"));
 	OB->LocalScY   = ScCLocale::toDoubleC(obj->attribute("LOCALSCY"));

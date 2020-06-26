@@ -287,7 +287,7 @@ void ColorPalette::setCurrentItem(PageItem* item)
 	}
 	if (currentItem->GrTypeStroke > 0)
 	{
-		if (currentItem->GrTypeStroke == 6)
+		if (currentItem->GrTypeStroke == Gradient_Linear)
 			gradientTypeStroke->setCurrentIndex(0);
 		else
 			gradientTypeStroke->setCurrentIndex(1);

@@ -99,7 +99,26 @@ struct CMSData
 	bool SoftProofFullOn;
 	bool GamutCheck;
 	bool BlackPoint;
-} ;
+};
+
+enum
+{
+	Gradient_None = 0,
+	Gradient_LinearLegacy1 = 1,
+	Gradient_LinearLegacy2 = 2,
+	Gradient_LinearLegacy3 = 3,
+	Gradient_LinearLegacy4 = 4,
+	Gradient_RadialLegacy5 = 5,
+	Gradient_Linear = 6,
+	Gradient_Radial = 7,
+	Gradient_Pattern = 8,
+	Gradient_4Colors = 9,
+	Gradient_Diamond = 10,
+	Gradient_Mesh = 11,
+	Gradient_PatchMesh = 12,
+	Gradient_Conical = 13,
+	Gradient_Hatch = 14
+};
 
 struct SingleLine
 {
@@ -235,7 +254,8 @@ public:
 	}
 };
 
-typedef enum {
+enum PreflightError
+{
 	MissingGlyph = 1,
 	TextOverflow = 2,
 	ObjectNotOnPage = 3,
@@ -257,7 +277,7 @@ typedef enum {
 	MarksChanged = 19,
 	AppliedMasterDifferentSide = 20,
 	EmptyTextFrame = 21
-} PreflightError;
+};
 
 typedef QMap<PreflightError, int> errorCodes;
 

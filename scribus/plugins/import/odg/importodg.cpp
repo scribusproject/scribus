@@ -3593,7 +3593,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			item->GrType = 7;
+			item->GrType = Gradient_Radial;
 			item->GrStartX = item->width() * gStyle.gradientCenterX;
 			item->GrStartY = item->height()* gStyle.gradientCenterY;
 			item->GrFocalX = item->width() * gStyle.gradientCenterX;
@@ -3619,7 +3619,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			item->GrType = 7;
+			item->GrType = Gradient_Radial;
 			item->GrStartX = item->width() * gStyle.gradientCenterX;
 			item->GrStartY = item->height()* gStyle.gradientCenterY;
 			item->GrFocalX = item->width() * gStyle.gradientCenterX;
@@ -3662,7 +3662,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 		}
 		else if (gStyle.gradientType == "rectangular")
 		{
@@ -3721,7 +3721,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			iLineP4.setLength(lineLen);
 			P4 = intersectBoundingRect(item, iLineP4);
 			item->setDiamondGeometry(FPoint(P1.x(), P1.y()), FPoint(P2.x(), P2.y()), FPoint(P3.x(), P3.y()), FPoint(P4.x(), P4.y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 */
 /*
 			item->meshGradientPatches.clear();
@@ -3773,7 +3773,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			patch1.BR = inner;
 			patch1.TR = inner;
 			item->meshGradientPatches.append(patch1);
-			item->GrType = 12;
+			item->GrType = Gradient_PatchMesh;
 */
 
 			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
@@ -3785,7 +3785,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 		}
 	}
 	else if (obState.fill_type == 3)
@@ -3828,7 +3828,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			}
 			item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
 			item->setPattern(patternName);
-			item->GrType = 8;
+			item->GrType = Gradient_Pattern;
 		}
 		else
 		{
@@ -3902,7 +3902,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 									dy = pat.height * obState.patternY;
 							}
 							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
-							item->GrType = 8;
+							item->GrType = Gradient_Pattern;
 						}
 					}
 					delete tempFile;
@@ -3998,7 +3998,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 									dy = pat.height * obState.patternY;
 							}
 							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
-							item->GrType = 8;
+							item->GrType = Gradient_Pattern;
 						}
 					}
 					delete tempFile;
@@ -4016,7 +4016,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 		else if (gStyle.hatchStyle == "triple")
 			hatchS = 2;
 		item->setHatchParameters(hatchS, gStyle.hatchDistance, gStyle.hatchRotation, obState.hatchSolidFill, obState.currColorFill, gStyle.hatchColor);
-		item->GrType = 14;
+		item->GrType = Gradient_Hatch;
 	}
 	if (!obState.opacityName.isEmpty())
 	{
