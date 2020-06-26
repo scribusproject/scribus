@@ -8134,7 +8134,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 		currItem->setGradientType(typ);
 		switch (currItem->gradientType())
 		{
-			case 0:
+			case Gradient_None:
 				if (currItem->fillColor() != CommonStrings::None)
 				{
 					if (!PageColors.contains(currItem->fillColor()))
@@ -8161,23 +8161,23 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 					}
 				}
 				break;
-			case 1:
+			case Gradient_LinearLegacy1:
 				currItem->setGradientStart(0.0, currItem->height() / 2.0);
 				currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
 				break;
-			case 2:
+			case Gradient_LinearLegacy2:
 				currItem->setGradientStart(currItem->width() / 2.0, 0.0);
 				currItem->setGradientEnd(currItem->width() / 2.0, currItem->height());
 				break;
-			case 3:
+			case Gradient_LinearLegacy3:
 				currItem->setGradientStart(0.0, 0.0);
 				currItem->setGradientEnd(currItem->width(), currItem->height());
 				break;
-			case 4:
+			case Gradient_LinearLegacy4:
 				currItem->setGradientStart(0.0, currItem->height());
 				currItem->setGradientEnd(currItem->width(), 0.0);
 				break;
-			case 5:
+			case Gradient_RadialLegacy5:	
 				currItem->setGradientStart(currItem->width() / 2.0, currItem->height() / 2.0);
 				if (currItem->width() >= currItem->height())
 					currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
@@ -8191,7 +8191,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 		}
 		if ((typ > 0) && (typ < 8))
 			currItem->updateGradientVectors();
-		if (currItem->gradientType() == 13)
+		if (currItem->gradientType() == Gradient_Conical)
 			currItem->createConicalMesh();
 		currItem->update();
 	}
@@ -11337,7 +11337,7 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
 		currItem->setFillGradient(newGradient);
-		if (currItem->gradientType() == 13)
+		if (currItem->gradientType() == Gradient_Conical)
 			currItem->createConicalMesh();
 		currItem->update();
 	}
