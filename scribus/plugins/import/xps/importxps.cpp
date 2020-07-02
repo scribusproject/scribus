@@ -1762,7 +1762,7 @@ void XpsPlug::finishItem(PageItem* item, ObjState &obState)
 	else if (!obState.patternName.isEmpty())
 	{
 		item->setPattern(obState.patternName);
-		item->GrType = 8;
+		item->GrType = Gradient_Pattern;
 	}
 	if (obState.maskTyp != 0)
 	{
@@ -1783,7 +1783,7 @@ void XpsPlug::finishItem(PageItem* item, ObjState &obState)
 	}
 	if (!obState.patternStroke.isEmpty())
 	{
-		item->GrTypeStroke = 8;
+		item->GrTypeStroke = Gradient_Pattern;
 		item->setStrokePattern(obState.patternStroke);
 	}
 	if (!obState.DashPattern.isEmpty())

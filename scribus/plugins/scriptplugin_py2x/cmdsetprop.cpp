@@ -405,7 +405,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setitemname(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *newName = const_cast<char*>("");

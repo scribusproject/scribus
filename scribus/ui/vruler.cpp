@@ -46,10 +46,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_view(pa)
 {
 	setBackgroundRole(QPalette::Window);
-	setAutoFillBackground(true);
-	QPalette palette;
-	palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	setPalette(palette);
+	//setAutoFillBackground(true);
 	setMouseTracking(true);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::VERTICAL);
 	unitChange();
@@ -87,6 +84,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 		return;
 	QString tx;
 	double sc = m_view->scale();
+	
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	
 	QFont ff = font();
 	ff.setPointSize(6);
 	setFont(ff);
@@ -94,10 +95,10 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	p.save();
 	p.setClipRect(e->rect());
-//	p.drawLine(16, 0, 16, height());
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
+	p.setBrush(textColor);
+	p.setPen(textColor);
 	p.setFont(font());
+	
 	double cc = height() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
@@ -110,7 +111,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	while (firstMark < cc)
 	{
 		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-		int textY = qRound(firstMark * sc)+10;
+		int textY = qRound(firstMark * sc) + 10;
 		switch (m_doc->unitIndex())
 		{
 			case SC_MM:
@@ -133,7 +134,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 				break;
 			case SC_P:
 			case SC_C:
-				tx = QString::number(markC * m_iter2 / (m_iter2 /5) / m_cor);
+				tx = QString::number(markC * m_iter2 / (m_iter2 / 5) / m_cor);
 				break;
 			case SC_CM:
 				tx = QString::number(markC * m_iter2 / m_iter2 / m_cor);
@@ -171,14 +172,14 @@ void Vruler::paintEvent(QPaintEvent *e)
 		// draw pixmap
 		p.save();
 		p.translate(0, -m_view->contentsY());
-		p.scale(1.0/(SCALE+1), 1.0/SCALE);
-		p.drawPixmap(0, (where-2)*SCALE, pix);
+		p.scale(1.0 / (SCALE + 1), 1.0 / SCALE);
+		p.drawPixmap(0, (m_whereToDraw - 2) * SCALE, pix);
 		p.restore();
 		// repaint marks
-		p.setBrush(Qt::black);
-		p.setPen(Qt::black);
+		p.setBrush(textColor);
+		p.setPen(textColor);
 		p.setFont(font());
-		double sc = m_view->getScale();
+		double sc = m_view->scale();
 		double cc = height() / sc;
 		double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 		while (firstMark < cc)
@@ -191,7 +192,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 		p.translate(0, -m_view->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
-		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw+2, 0, m_whereToDraw-2);
+		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
 		p.drawPolygon(cr);
 #endif
 	}
@@ -219,7 +220,7 @@ void Vruler::draw(int where)
 	int currentCoor = where - m_view->contentsY();
 	m_whereToDraw = where;
 	m_drawMark = true;
-	repaint(0, m_oldMark-3, 17, 6);
+	repaint(0, m_oldMark - 3, 17, 6);
 //	m_drawMark = false;
 	m_oldMark = currentCoor;
 }
@@ -298,8 +299,8 @@ void Vruler::unitChange()
 			if (sc < 0.3)
 			{
 				m_cor = 0.25;
-				m_iter = 12.0*4;
-				m_iter2 = 60.0*4;
+				m_iter = 12.0 * 4;
+				m_iter2 = 60.0 * 4;
 			}
 			else if (sc < 1)
 			{
@@ -316,8 +317,8 @@ void Vruler::unitChange()
 			if (sc < 0.6)
 			{
 				m_cor = 0.1;
-				m_iter = 720.0/25.4;
-				m_iter2 = 7200.0/25.4;
+				m_iter = 720.0 / 25.4;
+				m_iter2 = 7200.0 / 25.4;
 			}
 			else
 			{
@@ -331,27 +332,27 @@ void Vruler::unitChange()
 			if (sc >= 1 && sc <= 4)
 			{
 				m_cor = 1;
-				m_iter = 72.0/25.4*4.512;
-				m_iter2 = 72.0/25.4*4.512*5.0;
+				m_iter = 72.0 / 25.4 * 4.512;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0;
 			}
 			if (sc > 4)
 			{
 				m_cor = 2;
-				m_iter = 72.0/25.4*4.512/2.0;
-				m_iter2 = 72.0/25.4*4.512;
+				m_iter = 72.0 / 25.4 * 4.512 / 2.0;
+				m_iter2 = 72.0 / 25.4 * 4.512;
 			}
 			if (sc < 0.3)
 			{
 				m_cor = 0.1;
-				m_iter = 72.0/25.4*4.512*10;
-				m_iter2 = 72.0/25.4*4.512*5.0*10;
+				m_iter = 72.0 / 25.4 * 4.512 * 10;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0 * 10;
 			}
 			else
 				if (sc < 1)
 			{
 				m_cor = 1;
-				m_iter = 72.0/25.4*4.512;
-				m_iter2 = 72.0/25.4*4.512*5.0;
+				m_iter = 72.0 / 25.4 * 4.512;
+				m_iter2 = 72.0 / 25.4 * 4.512 * 5.0;
 			}
 			break;
 		default:

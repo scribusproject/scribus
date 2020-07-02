@@ -837,16 +837,14 @@ void PropertiesPalette_Image::unitChange()
 	if (!m_doc)
 		return;
 
+	QSignalBlocker imageXOffsetSpinBoxBlocker(imageXOffsetSpinBox);
+	QSignalBlocker imageYOffsetSpinBoxBlocker(imageYOffsetSpinBox);
+
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	imageXOffsetSpinBox->blockSignals(true);
-	imageXOffsetSpinBox->setNewUnit( m_unitIndex );
-	imageXOffsetSpinBox->blockSignals(false);
-
-	imageYOffsetSpinBox->blockSignals(true);
-	imageYOffsetSpinBox->setNewUnit( m_unitIndex );
-	imageYOffsetSpinBox->blockSignals(false);
+	imageXOffsetSpinBox->setNewUnit(m_unitIndex);
+	imageYOffsetSpinBox->setNewUnit(m_unitIndex);
 }
 
 void PropertiesPalette_Image::localeChange()

@@ -3716,7 +3716,7 @@ QStringList ScribusDoc::getUsedPatterns() const
 	for (PageItemIterator it(this, PageItemIterator::IterateInDocNoPatterns) ; *it; ++it)
 	{
 		PageItem* currItem = *it;
-		if ((!results.contains(currItem->pattern())) && ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol)))
+		if ((!results.contains(currItem->pattern())) && ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol)))
 			results.append(currItem->pattern());
 		if (!currItem->strokePattern().isEmpty())
 		{
@@ -3743,7 +3743,7 @@ QStringList ScribusDoc::getUsedPatterns() const
 			for (int j = 0; j < allItems.count(); j++)
 			{
 				currItem = allItems.at(j);
-				if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+				if ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol))
 				{
 					const QString& patName = currItem->pattern();
 					if (!patName.isEmpty() && !results.contains(patName))
@@ -3781,7 +3781,7 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection) con
 		for (int j = 0; j < allItems.count(); j++)
 		{
 			currItem = allItems.at(j);
-			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+			if ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol))
 			{
 				const QString& pat = currItem->pattern();
 				if (!pat.isEmpty() && !results.contains(pat))
@@ -3829,7 +3829,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(const QString& pattern, QStringLis
 		for (int j = 0; j < allItems.count(); j++)
 		{
 			PageItem *currItem = allItems.at(j);
-			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+			if ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol))
 			{
 				const QString& patName = currItem->pattern();
 				if (!patName.isEmpty() && !results.contains(patName))
@@ -4804,7 +4804,7 @@ void ScribusDoc::recalculateColorsList(QList<PageItem*> *itemList)
 			cstops = ite->mask_gradient.colorStops();
 			for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-			if (ite->GrType == 13)
+			if (ite->GrType == Gradient_Conical)
 				ite->createConicalMesh();
 		}
 		allItems.clear();
@@ -4849,7 +4849,7 @@ void ScribusDoc::recalculateColorItem(PageItem *item)
 		cstops = ite->mask_gradient.colorStops();
 		for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 			ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-		if (ite->GrType == 13)
+		if (ite->GrType == Gradient_Conical)
 			ite->createConicalMesh();
 	}
 	allItems.clear();
@@ -4924,7 +4924,7 @@ void ScribusDoc::recalculateColors()
 			cstops = ite->mask_gradient.colorStops();
 			for (int cst = 0; cst < ite->mask_gradient.stops(); ++cst)
 				ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
-			if (ite->GrType == 13)
+			if (ite->GrType == Gradient_Conical)
 				ite->createConicalMesh();
 		}
 		allItems.clear();
@@ -4976,7 +4976,7 @@ void ScribusDoc::recalculateColors()
 					ite->SetQColor(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 				if (ite->isImageFrame())
 					loadPict(ite->Pfile, ite, true, false);
-				if (ite->GrType == 13)
+				if (ite->GrType == Gradient_Conical)
 					ite->createConicalMesh();
 			}
 			allItems.clear();
@@ -8134,7 +8134,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 		currItem->setGradientType(typ);
 		switch (currItem->gradientType())
 		{
-			case 0:
+			case Gradient_None:
 				if (currItem->fillColor() != CommonStrings::None)
 				{
 					if (!PageColors.contains(currItem->fillColor()))
@@ -8161,23 +8161,23 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 					}
 				}
 				break;
-			case 1:
+			case Gradient_LinearLegacy1:
 				currItem->setGradientStart(0.0, currItem->height() / 2.0);
 				currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
 				break;
-			case 2:
+			case Gradient_LinearLegacy2:
 				currItem->setGradientStart(currItem->width() / 2.0, 0.0);
 				currItem->setGradientEnd(currItem->width() / 2.0, currItem->height());
 				break;
-			case 3:
+			case Gradient_LinearLegacy3:
 				currItem->setGradientStart(0.0, 0.0);
 				currItem->setGradientEnd(currItem->width(), currItem->height());
 				break;
-			case 4:
+			case Gradient_LinearLegacy4:
 				currItem->setGradientStart(0.0, currItem->height());
 				currItem->setGradientEnd(currItem->width(), 0.0);
 				break;
-			case 5:
+			case Gradient_RadialLegacy5:	
 				currItem->setGradientStart(currItem->width() / 2.0, currItem->height() / 2.0);
 				if (currItem->width() >= currItem->height())
 					currItem->setGradientEnd(currItem->width(), currItem->height() / 2.0);
@@ -8191,7 +8191,7 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ, Selection* customSelecti
 		}
 		if ((typ > 0) && (typ < 8))
 			currItem->updateGradientVectors();
-		if (currItem->gradientType() == 13)
+		if (currItem->gradientType() == Gradient_Conical)
 			currItem->createConicalMesh();
 		currItem->update();
 	}
@@ -11337,7 +11337,7 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
 		currItem->setFillGradient(newGradient);
-		if (currItem->gradientType() == 13)
+		if (currItem->gradientType() == Gradient_Conical)
 			currItem->createConicalMesh();
 		currItem->update();
 	}
@@ -15162,13 +15162,13 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 		item->setImageXScale(item->imageXScale() * grScXi);
 		item->setImageYScale(item->imageYScale() * grScYi);
 	}
-	if (item->GrType == 8)
+	if (item->GrType == Gradient_Pattern)
 	{
 		double psx, psy, pox, poy, prot, pskx, psky;
 		item->patternTransform(psx, psy, pox, poy, prot, pskx, psky);
 		item->setPatternTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
 	}
-	if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
+	if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha) || (item->GrMask == GradMask_PatternLumAlphaInverted) || (item->GrMask == GradMask_PatternInverted))
 	{
 		double psx, psy, pox, poy, prot, pskx, psky;
 		item->maskTransform(psx, psy, pox, poy, prot, pskx, psky);
@@ -15498,7 +15498,7 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 	for (int i = 0; i < allItems.count(); i++)
 	{
 		PageItem *item = allItems.at(i);
-		if ((!results.contains(item->pattern())) && ((item->GrType == 8) || (item->itemType() == PageItem::Symbol)))
+		if ((!results.contains(item->pattern())) && ((item->GrType == Gradient_Pattern) || (item->itemType() == PageItem::Symbol)))
 			results.append(item->pattern());
 		if (!item->strokePattern().isEmpty())
 		{

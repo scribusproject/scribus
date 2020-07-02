@@ -677,7 +677,7 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 		m_item->setGradientMaskFocal(fx / m_unitRatio, fy / m_unitRatio);
 		m_item->setGradientMaskScale(sg);
 		m_item->setGradientMaskSkew(sk);
-		if ((m_item->GrMask == 1) || (m_item->GrMask == 4))
+		if ((m_item->GrMask == GradMask_Linear) || (m_item->GrMask == GradMask_LinearLumAlpha))
 		{
 			m_item->setGradientMaskFocal(m_item->GrMaskStartX, m_item->GrMaskStartY);
 		}

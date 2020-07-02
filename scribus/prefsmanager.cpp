@@ -392,13 +392,13 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_Resolution = 72;
 
 	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor(Qt::white);
-	appPrefs.storyEditorPrefs.smartTextSelection=false;
+	appPrefs.storyEditorPrefs.smartTextSelection = false;
 
-	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = "";
+	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile.clear();
 	appPrefs.colorPrefs.DCMSset.CMSinUse = false;
 	appPrefs.colorPrefs.DCMSset.SoftProofOn = false;
 	appPrefs.colorPrefs.DCMSset.SoftProofFullOn = false;

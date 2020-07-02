@@ -287,7 +287,7 @@ void ColorPalette::setCurrentItem(PageItem* item)
 	}
 	if (currentItem->GrTypeStroke > 0)
 	{
-		if (currentItem->GrTypeStroke == 6)
+		if (currentItem->GrTypeStroke == Gradient_Linear)
 			gradientTypeStroke->setCurrentIndex(0);
 		else
 			gradientTypeStroke->setCurrentIndex(1);
@@ -756,7 +756,7 @@ void ColorPalette::setGradientColors()
 	double t4 = color4Alpha->value() / 100.0;
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill);
+		trans = undoManager->beginTransaction(Um::Selection, Um::IFill, Um::GradVal, QString(), Um::IFill);
 	currentItem->set4ColorShade(static_cast<int>(color1Shade->value()), static_cast<int>(color2Shade->value()), static_cast<int>(color3Shade->value()), static_cast<int>(color4Shade->value()));
 	currentItem->set4ColorTransparency(t1, t2, t3, t4);
 	currentItem->set4ColorColors(color1, color2, color3, color4);
@@ -780,20 +780,20 @@ void ColorPalette::setNamedGradient(const QString &name)
 		currentItem->setGradient(name);
 	}
 	if (gradientType->currentIndex() == 0)
-		emit NewGradient(6);
+		emit NewGradient(Gradient_Linear);
 	else if (gradientType->currentIndex() == 1)
-		emit NewGradient(7);
+		emit NewGradient(Gradient_Radial);
 	else if (gradientType->currentIndex() == 2)
-		emit NewGradient(13);
+		emit NewGradient(Gradient_Conical);
 	else if (gradientType->currentIndex() == 3)
 	{
 		setGradientColors();
-		emit NewGradient(9);
+		emit NewGradient(Gradient_4Colors);
 	}
 	else if (gradientType->currentIndex() == 4)
-		emit NewGradient(10);
+		emit NewGradient(Gradient_Diamond);
 	else if (gradientType->currentIndex() == 5)
-		emit NewGradient(11);
+		emit NewGradient(Gradient_Mesh);
 }
 
 void ColorPalette::setNamedGradientStroke(const QString &name)
@@ -811,9 +811,9 @@ void ColorPalette::setNamedGradientStroke(const QString &name)
 		currentItem->setStrokeGradient(name);
 	}
 	if (gradientTypeStroke->currentIndex() == 0)
-		emit NewGradientS(6);
+		emit NewGradientS(Gradient_Linear);
 	else
-		emit NewGradientS(7);
+		emit NewGradientS(Gradient_Radial);
 }
 
 void ColorPalette::updatePatternList()
@@ -949,20 +949,20 @@ void ColorPalette::slotGradStroke(int number)
 		}
 		emit NewPatternS("");
 		if (gradientTypeStroke->currentIndex() == 0)
-			emit NewGradientS(6);
+			emit NewGradientS(Gradient_Linear);
 		else
-			emit NewGradientS(7);
+			emit NewGradientS(Gradient_Radial);
 		namedGradientStroke->blockSignals(sigBlocked);
 	}
 	else if (number == 2)
 	{
-		emit NewGradientS(8);
+		emit NewGradientS(Gradient_Pattern);
 		if (patternBoxStroke->currentItem())
 			emit NewPatternS(patternBoxStroke->currentItem()->text());
 	}
 	else
 	{
-		emit NewGradientS(0);
+		emit NewGradientS(Gradient_None);
 		emit NewPatternS("");
 	}
 	strokeModeStack->setCurrentIndex(number);
@@ -1070,7 +1070,7 @@ void ColorPalette::showGradient(int number)
 		if (patternList->count() == 0)
 		{
 			fillModeCombo->setCurrentIndex(0);
-			emit NewGradient(0);
+			emit NewGradient(Gradient_None);
 		}
 		else
 			fillModeCombo->setCurrentIndex(3);
@@ -1101,7 +1101,7 @@ void ColorPalette::showGradientStroke(int number)
 		if (patternList->count() == 0)
 		{
 			strokeModeCombo->setCurrentIndex(0);
-			emit NewGradient(0);
+			emit NewGradient(Gradient_None);
 		}
 		else
 			strokeModeCombo->setCurrentIndex(2);
@@ -1132,17 +1132,17 @@ void ColorPalette::slotGrad(int number)
 		if (gradientType->currentIndex() == 0)
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			emit NewGradient(6);
+			emit NewGradient(Gradient_Linear);
 		}
 		else if (gradientType->currentIndex() == 1)
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			emit NewGradient(7);
+			emit NewGradient(Gradient_Radial);
 		}
 		else if (gradientType->currentIndex() == 2)
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			emit NewGradient(13);
+			emit NewGradient(Gradient_Conical);
 		}
 		else if (gradientType->currentIndex() == 3)
 		{
@@ -1171,12 +1171,12 @@ void ColorPalette::slotGrad(int number)
 			color2Shade->setValue(currentItem->GrCol2Shade);
 			color3Shade->setValue(currentItem->GrCol3Shade);
 			color4Shade->setValue(currentItem->GrCol4Shade);
-			emit NewGradient(9);
+			emit NewGradient(Gradient_4Colors);
 		}
 		else if (gradientType->currentIndex() == 4)
 		{
 			stackedWidget_2->setCurrentIndex(0);
-			emit NewGradient(10);
+			emit NewGradient(Gradient_Diamond);
 		}
 		else if (gradientType->currentIndex() == 5)
 		{
@@ -1188,12 +1188,12 @@ void ColorPalette::slotGrad(int number)
 				shadeMeshPoint->setValue(mp.shade);
 				transparencyMeshPoint->setValue(mp.transparency * 100);
 			}
-			emit NewGradient(11);
+			emit NewGradient(Gradient_Mesh);
 		}
 		else if (gradientType->currentIndex() == 6)
 		{
 			stackedWidget_2->setCurrentIndex(2);
-			emit NewGradient(12);
+			emit NewGradient(Gradient_PatchMesh);
 		}
 		gradEdit->blockSignals(sigBlocked1);
 		gradientType->blockSignals(sigBlocked2);
@@ -1213,12 +1213,12 @@ void ColorPalette::slotGrad(int number)
 		}
 		else
 			setCurrentComboItem(hatchBackground, CommonStrings::None);
-		emit NewGradient(14);
+		emit NewGradient(Gradient_Hatch);
 	}
 	else if (number == 3)
-		emit NewGradient(8);
+		emit NewGradient(Gradient_Pattern);
 	else
-		emit NewGradient(0);
+		emit NewGradient(Gradient_None);
 	fillModeStack->setCurrentIndex(number);
 }
 
@@ -1227,17 +1227,17 @@ void ColorPalette::slotGradType(int type)
 	if (type == 0)
 	{
 		stackedWidget_2->setCurrentIndex(0);
-		emit NewGradient(6);
+		emit NewGradient(Gradient_Linear);
 	}
 	else if (type == 1)
 	{
 		stackedWidget_2->setCurrentIndex(0);
-		emit NewGradient(7);
+		emit NewGradient(Gradient_Radial);
 	}
 	else if (type == 2)
 	{
 		stackedWidget_2->setCurrentIndex(0);
-		emit NewGradient(13);
+		emit NewGradient(Gradient_Conical);
 	}
 	else if (type == 3)
 	{
@@ -1266,12 +1266,12 @@ void ColorPalette::slotGradType(int type)
 		color2Shade->setValue(currentItem->GrCol2Shade);
 		color3Shade->setValue(currentItem->GrCol3Shade);
 		color4Shade->setValue(currentItem->GrCol4Shade);
-		emit NewGradient(9);
+		emit NewGradient(Gradient_4Colors);
 	}
 	else if (type == 4)
 	{
 		stackedWidget_2->setCurrentIndex(0);
-		emit NewGradient(10);
+		emit NewGradient(Gradient_Diamond);
 	}
 	else if (type == 5)
 	{
@@ -1283,21 +1283,21 @@ void ColorPalette::slotGradType(int type)
 			shadeMeshPoint->setValue(mp.shade);
 			transparencyMeshPoint->setValue(mp.transparency * 100);
 		}
-		emit NewGradient(11);
+		emit NewGradient(Gradient_Mesh);
 	}
 	else if (type == 6)
 	{
 		stackedWidget_2->setCurrentIndex(2);
-		emit NewGradient(12);
+		emit NewGradient(Gradient_PatchMesh);
 	}
 }
 
 void ColorPalette::slotGradTypeStroke(int type)
 {
 	if (type == 0)
-		emit NewGradientS(6);
+		emit NewGradientS(Gradient_Linear);
 	else
-		emit NewGradientS(7);
+		emit NewGradientS(Gradient_Radial);
 }
 
 void ColorPalette::editMeshPointColor()
@@ -1803,7 +1803,7 @@ void ColorPalette::changePatternProps()
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
 	fillModeCombo->setCurrentIndex(3);
-	emit NewGradient(8);
+	emit NewGradient(Gradient_Pattern);
 }
 
 void ColorPalette::changePatternPropsStroke()

@@ -1907,7 +1907,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pattern", item->pattern());
 		if (item->GrType != 0)
 		{
-			if (item->GrType == 8)
+			if (item->GrType == Gradient_Pattern)
 			{
 				docu.writeAttribute("pattern", item->pattern());
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
@@ -1926,16 +1926,16 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			else
 			{
-				if (item->GrType == 11)
+				if (item->GrType == Gradient_Mesh)
 				{
 					docu.writeAttribute("GMAY", item->meshGradientArray[0].count());
 					docu.writeAttribute("GMAX", item->meshGradientArray.count());
 				}
-				else if (item->GrType == 12)
+				else if (item->GrType == Gradient_PatchMesh)
 				{
 					docu.writeAttribute("GMAX", item->meshGradientPatches.count());
 				}
-				else if (item->GrType == 14)
+				else if (item->GrType == Gradient_Hatch)
 				{
 					docu.writeAttribute("HatchMode", item->hatchType);
 					docu.writeAttribute("HatchDist", item->hatchDistance);
@@ -1955,7 +1955,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GRSCALE" , item->GrScale);
 					docu.writeAttribute("GRSKEW" , item->GrSkew);
 					docu.writeAttribute("GRExt", item->getGradientExtend());
-					if ((item->GrType == 9) || (item->GrType == 10))
+					if ((item->GrType == Gradient_4Colors) || (item->GrType == Gradient_Diamond))
 					{
 						docu.writeAttribute("GRC1X"   , item->GrControl1.x());
 						docu.writeAttribute("GRC1Y"   , item->GrControl1.y());
@@ -1976,9 +1976,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("GRCOLT3" , item->GrCol3transp);
 						docu.writeAttribute("GRCOLT4" , item->GrCol4transp);
 						docu.writeAttribute("GRCOLS1" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS2" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS3" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS2" , item->GrCol2Shade);
+						docu.writeAttribute("GRCOLS3" , item->GrCol3Shade);
+						docu.writeAttribute("GRCOLS4" , item->GrCol4Shade);
 					}
 				}
 			}
@@ -2129,7 +2129,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Blend", it2.value().blend);
 			}
 		}
-		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11) && (item->GrType != 14)) && (item->gradient().isEmpty()))
+		if (((item->GrType > 0) && (item->GrType != Gradient_Pattern) && (item->GrType != Gradient_4Colors) && (item->GrType != Gradient_Mesh) && (item->GrType != Gradient_Hatch)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (int cst = 0; cst < item->fill_gradient.stops(); ++cst)
@@ -2165,7 +2165,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
 			}
 		}
-		if (item->GrType == 11)
+		if (item->GrType == Gradient_Mesh)
 		{
 			for (int grow = 0; grow < item->meshGradientArray.count(); grow++)
 			{
@@ -2192,7 +2192,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				}
 			}
 		}
-		if (item->GrType == 12)
+		if (item->GrType == Gradient_PatchMesh)
 		{
 			for (int grow = 0; grow < item->meshGradientPatches.count(); grow++)
 			{

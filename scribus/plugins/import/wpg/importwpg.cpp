@@ -359,7 +359,7 @@ void ScrPainter::finishItem(PageItem* ite)
 	if (isGradient)
 	{
 		ite->fill_gradient = currentGradient;
-		ite->GrType = 6;
+		ite->GrType = Gradient_Linear;
 		QTransform m1;
 		m1.rotate(-gradientAngle);
 		ite->GrStartX = 0;

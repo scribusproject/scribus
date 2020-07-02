@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QCheckBox>
 #include <QCloseEvent>
+#include <QDialog>
 #include <QEvent>
 #include <QFocusEvent>
 #include <QHideEvent>
@@ -125,7 +126,6 @@ protected:
 	void setDirection(QTextCursor& tCursor, int style);
 	void setEffects(QTextCursor& tCursor, int effects);
 
-	int  blockContentsChangeHook;
 	void keyPressEvent(QKeyEvent *k);
 	void inputMethodEvent(QInputMethodEvent *event);
 	void focusOutEvent(QFocusEvent *e);
@@ -134,32 +134,33 @@ protected:
 	virtual bool canInsertFromMimeData( const QMimeData * source ) const;
 	virtual QMimeData * createMimeDataFromSelection () const;
 	virtual void insertFromMimeData ( const QMimeData * source );
-	StoryEditor* parentStoryEditor;
 
 	QList<PageItem*> FrameItems;
-	ScribusDoc* doc;
-	bool unicodeTextEditMode;
-	bool wasMod;
-	bool ready;
-	int unicodeInputCount;
+	ScribusDoc* doc { nullptr };
+	StoryEditor* parentStoryEditor { nullptr };
+	int  blockContentsChangeHook { 0 };
+	bool unicodeTextEditMode { false };
+	bool wasMod { false };
+	bool ready { false };
+	int unicodeInputCount { 0 };
 	StyleFlag CurrentEffects;
 	QString currentParaStyle;
-	int CurrAlign;
-	int CurrDirection;
-	double CurrFontSize;
-	double CurrTextFillSh;
-	double CurrTextStrokeSh;
-	double CurrTextScaleH;
-	double CurrTextScaleV;
-	double CurrTextBase;
-	double CurrTextShadowX;
-	double CurrTextShadowY;
-	double CurrTextOutline;
-	double CurrTextUnderPos;
-	double CurrTextUnderWidth;
-	double CurrTextStrikePos;
-	double CurrTextStrikeWidth;
-	double CurrTextKern;
+	int CurrAlign { 0 };
+	int CurrDirection { 0 };
+	double CurrFontSize { 0.0 };
+	double CurrTextFillSh { 0.0 };
+	double CurrTextStrokeSh { 0.0 };
+	double CurrTextScaleH { 0.0 };
+	double CurrTextScaleV { 0.0 };
+	double CurrTextBase { 0.0 };
+	double CurrTextShadowX { 0.0 };
+	double CurrTextShadowY { 0.0 };
+	double CurrTextOutline { 0.0 };
+	double CurrTextUnderPos { 0.0 };
+	double CurrTextUnderWidth { 0.0 };
+	double CurrTextStrikePos { 0.0 };
+	double CurrTextStrikeWidth { 0.0 };
+	double CurrTextKern { 0.0 };
 	QString CurrTextStroke;
 	QString CurrTextFill;
 	QString prevFont;
@@ -168,9 +169,9 @@ protected:
 
 	QStack< std::tuple<int, int, int> > SelStack;
 
-	int SelCharStart;
-	int SelCharEnd;
-	int SuspendContentsChange;	// input method
+	int SelCharStart { 0 };
+	int SelCharEnd { 0 };
+	int SuspendContentsChange { 0 };	// input method
 
 protected slots:
 	void handleContentsChange(int position, int charsRemoved, int charsAdded); 
@@ -200,19 +201,19 @@ public:
 
 	void setEditor(SEditor* editor);
 
-	int offs;
-	int currentPar;
-	QMenu *pmen;
-	QWidgetAction* paraStyleAct;
-	bool noUpdt;
-	bool inRep;
+	int offs { 0 };
+	int currentPar { 0 };
+	QMenu *pmen { nullptr };
+	QWidgetAction* paraStyleAct { nullptr };
+	bool noUpdt { true };
+	bool inRep { false };
 
 protected:
 	void paintEvent(QPaintEvent *e);
 	void mouseReleaseEvent(QMouseEvent *m);
 
 private:
-	SEditor *m_editor;
+	SEditor *m_editor { nullptr };
 
 signals:
 	void ChangeStyle(int, const QString&);
@@ -239,12 +240,13 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	void setCurrentDocument(ScribusDoc *doc);
-	QLabel* FillIcon;
-	ColorCombo* TxFill;
-	ShadeButton *PM2;
-	QAction* pm2Action;
-	QAction* txFillAction;
-	QAction* fillIconAction;
+
+	QLabel* FillIcon { nullptr };
+	ColorCombo* TxFill { nullptr };
+	ShadeButton *PM2 { nullptr };
+	QAction* pm2Action { nullptr };
+	QAction* txFillAction { nullptr };
+	QAction* fillIconAction { nullptr };
 
 public slots:
 	void SetColor(int c);
@@ -268,12 +270,13 @@ public:
 	virtual void changeEvent(QEvent *e);
 	
 	void setCurrentDocument(ScribusDoc *doc);
-	QLabel* StrokeIcon;
-	ColorCombo* TxStroke;
-	ShadeButton *PM1;
-	QAction* strokeIconAction;
-	QAction* txStrokeAction;
-	QAction* pm1Action;
+
+	QLabel* StrokeIcon { nullptr };
+	ColorCombo* TxStroke { nullptr };
+	ShadeButton *PM1 { nullptr };
+	QAction* strokeIconAction { nullptr };
+	QAction* txStrokeAction { nullptr };
+	QAction* pm1Action { nullptr };
 
 
 public slots:
@@ -297,12 +300,12 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	StyleSelect* SeStyle;
-	QLabel* trackingLabel;
-	ScrSpinBox* Extra;
-	QAction* seStyleAction;
-	QAction* trackingLabelAction;
-	QAction* extraAction;
+	StyleSelect* SeStyle { nullptr };
+	QLabel* trackingLabel { nullptr };
+	ScrSpinBox* Extra { nullptr };
+	QAction* seStyleAction { nullptr };
+	QAction* trackingLabelAction { nullptr };
+	QAction* extraAction { nullptr };
 
 public slots:
 	void newStrikeHandler();
@@ -338,12 +341,12 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	AlignSelect* GroupAlign;
-	DirectionSelect* GroupDirection;
-	ParaStyleComboBox *paraStyleCombo;
-	QAction* groupAlignAction;
-	QAction* groupDirectionAction;
-	QAction* paraStyleComboAction;
+	AlignSelect* GroupAlign { nullptr };
+	DirectionSelect* GroupDirection { nullptr };
+	ParaStyleComboBox *paraStyleCombo { nullptr };
+	QAction* groupAlignAction { nullptr };
+	QAction* groupDirectionAction { nullptr };
+	QAction* paraStyleComboAction { nullptr };
 
 public slots:
 	void SetAlign(int s);
@@ -367,12 +370,12 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	FontCombo* Fonts;
-	ScrSpinBox* charScaleH;
-	ScrSpinBox* charScaleV;
-	QAction* fontsAction;
-	QAction* chScaleHAction;
-	QAction* chScaleVAction;
+	FontCombo* Fonts { nullptr };
+	ScrSpinBox* charScaleH { nullptr };
+	ScrSpinBox* charScaleV { nullptr };
+	QAction* fontsAction { nullptr };
+	QAction* chScaleHAction { nullptr };
+	QAction* chScaleVAction { nullptr };
 
 public slots:
 	void SetFont(const QString& f);
@@ -387,12 +390,12 @@ signals:
 	void newScaleV(double);
 
 private:
-	ScrSpinBox* Size;
-	QLabel*  lblScaleTxtH;
-	QLabel*  lblScaleTxtV;
-	QAction* sizeAction;
-	QAction* scaleTxtHAction;
-	QAction* scaleTxtVAction;
+	ScrSpinBox* Size { nullptr };
+	QLabel*  lblScaleTxtH { nullptr };
+	QLabel*  lblScaleTxtV { nullptr };
+	QAction* sizeAction { nullptr };
+	QAction* scaleTxtHAction { nullptr };
+	QAction* scaleTxtVAction { nullptr };
 
 private slots:
 	void iconSetChange();
@@ -416,9 +419,10 @@ public:
 
 	ScribusDoc* currentDocument() const;
 	PageItem* currentItem() const;
-	SEditor* Editor;
-	bool activFromApp;
-	MenuManager* seMenuMgr;
+
+	SEditor* Editor { nullptr };
+	bool activFromApp { true };
+	MenuManager* seMenuMgr { nullptr };
 	QMap<QString, QPointer<ScrAction> > seActions;
 
 public slots:
@@ -433,7 +437,6 @@ public slots:
 
 signals:
 	void DocChanged();
-	void EditSt();
 
 private:
 	//int exec();
@@ -442,18 +445,16 @@ private:
 	bool textDataChanged() const;
 
 	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
-	bool m_smartSelection;
+	bool m_smartSelection { false };
 
-	ScribusDoc* m_doc;
-	PageItem* m_item;
+	ScribusDoc* m_doc { nullptr };
+	PageItem* m_item { nullptr };
 
-	bool m_textChanged;
-	bool m_firstSet;
-	bool m_blockUpdate;
+	bool m_textChanged { false };
+	bool m_firstSet { false };
+	bool m_blockUpdate { false };
 	
-	int m_result;
-//	int m_currPara;
-//	int m_currChar;
+	int m_result { QDialog::Rejected };
 
 protected slots:
 	void setBackPref();
@@ -532,9 +533,9 @@ protected:
 	charSelect is created as a copy of the charPalette.
 	\author Petr Vanek <petr@scribus.info>
 	*/
-	CharSelect *charSelect;
+	CharSelect *charSelect { nullptr };
     //! True when there were some glyphs inserted via charSelect
-	bool charSelectUsed;
+	bool charSelectUsed { false };
 
 	void showEvent(QShowEvent *);
 	void hideEvent(QHideEvent *);
@@ -543,40 +544,40 @@ protected:
 	void keyPressEvent (QKeyEvent * e);
 	bool eventFilter( QObject* ob, QEvent* ev );
 
-	QHBoxLayout* StoryEd2Layout;
-	QGridLayout* ButtonGroup1Layout;
-	QGridLayout* ButtonGroup2Layout;
+	QHBoxLayout* StoryEd2Layout { nullptr };
+	QGridLayout* ButtonGroup1Layout { nullptr };
+	QGridLayout* ButtonGroup2Layout { nullptr };
 
 	PrefsManager& prefsManager;
-	PrefsContext* prefs;
+	PrefsContext* prefs { nullptr };
 
 	QStringList unicodeCharActionNames;
 	QPixmap noIcon;
 
-	QToolBar* FileTools;
-	SToolBFont* FontTools;
-	SToolBAlign* AlignTools;
-	SToolBColorF* FillTools;
-	SToolBColorS* StrokeTools;
-	SToolBStyle* StyleTools;
-	QSplitter* EdSplit;
-	SideBar* EditorBar;
-	QFrame* ButtonGroup1;
-	QFrame* ButtonGroup2;
-	QLabel* WordCT1;
-	QLabel* WordCT3;
-	QLabel* ParCT;
-	QLabel* ParC;
-	QLabel* WordCT;
-	QLabel* WordC;
-	QLabel* CharCT;
-	QLabel* CharC;
-	QLabel* WordCT2;
-	QLabel* WordC2;
-	QLabel* CharCT2;
-	QLabel* CharC2;
+	QToolBar* FileTools { nullptr };
+	SToolBFont* FontTools { nullptr };
+	SToolBAlign* AlignTools { nullptr };
+	SToolBColorF* FillTools { nullptr };
+	SToolBColorS* StrokeTools { nullptr };
+	SToolBStyle* StyleTools { nullptr };
+	QSplitter* EdSplit { nullptr };
+	SideBar* EditorBar { nullptr };
+	QFrame* ButtonGroup1 { nullptr };
+	QFrame* ButtonGroup2 { nullptr };
+	QLabel* WordCT1 { nullptr };
+	QLabel* WordCT3 { nullptr };
+	QLabel* ParCT { nullptr };
+	QLabel* ParC { nullptr };
+	QLabel* WordCT { nullptr };
+	QLabel* WordC { nullptr };
+	QLabel* CharCT { nullptr };
+	QLabel* CharC { nullptr };
+	QLabel* WordCT2 { nullptr };
+	QLabel* WordC2 { nullptr };
+	QLabel* CharCT2 { nullptr };
+	QLabel* CharC2 { nullptr };
 	
-	bool m_spellActive;
+	bool m_spellActive { false };
 };
 
 #endif

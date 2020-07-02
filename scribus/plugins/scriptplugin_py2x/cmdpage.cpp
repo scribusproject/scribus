@@ -31,7 +31,7 @@ PyObject *scribus_redraw(PyObject* /* self */)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getpagetype(PyObject* /* self */, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))

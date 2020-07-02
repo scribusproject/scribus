@@ -293,16 +293,16 @@ void TransparencyPalette::slotGrad(int number)
 		if (gradientType->currentIndex() == 0)
 		{
 			if (transpCalcGradient->isChecked())
-				emit NewGradient(4);
+				emit NewGradient(GradMask_LinearLumAlpha);
 			else
-				emit NewGradient(1);
+				emit NewGradient(GradMask_Linear);
 		}
 		else
 		{
 			if (transpCalcGradient->isChecked())
-				emit NewGradient(5);
+				emit NewGradient(GradMask_RadialLumAlpha);
 			else
-				emit NewGradient(2);
+				emit NewGradient(GradMask_Radial);
 		}
 		connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
 	}
@@ -311,20 +311,20 @@ void TransparencyPalette::slotGrad(int number)
 		if (transpCalcPattern->isChecked())
 		{
 			if (usePatternInverted->isChecked())
-				emit NewGradient(7);
+				emit NewGradient(GradMask_PatternLumAlphaInverted);
 			else
-				emit NewGradient(6);
+				emit NewGradient(GradMask_PatternLumAlpha);
 		}
 		else
 		{
 			if (usePatternInverted->isChecked())
-				emit NewGradient(8);
+				emit NewGradient(GradMask_PatternInverted);
 			else
-				emit NewGradient(3);
+				emit NewGradient(GradMask_Pattern);
 		}
 	}
 	else
-		emit NewGradient(0);
+		emit NewGradient(GradMask_None);
 }
 
 void TransparencyPalette::slotGradType(int type)
@@ -332,16 +332,16 @@ void TransparencyPalette::slotGradType(int type)
 	if (type == 0)
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(4);
+			emit NewGradient(GradMask_LinearLumAlpha);
 		else
-			emit NewGradient(1);
+			emit NewGradient(GradMask_Linear);
 	}
 	else
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(5);
+			emit NewGradient(GradMask_RadialLumAlpha);
 		else
-			emit NewGradient(2);
+			emit NewGradient(GradMask_Radial);
 	}
 }
 
@@ -362,16 +362,16 @@ void TransparencyPalette::setNamedGradient(const QString &name)
 	if (gradientType->currentIndex() == 0)
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(4);
+			emit NewGradient(GradMask_LinearLumAlpha);
 		else
-			emit NewGradient(1);
+			emit NewGradient(GradMask_Linear);
 	}
 	else
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(5);
+			emit NewGradient(GradMask_RadialLumAlpha);
 		else
-			emit NewGradient(2);
+			emit NewGradient(GradMask_Radial);
 	}
 }
 
@@ -380,16 +380,16 @@ void TransparencyPalette::switchGradientMode()
 	if (gradientType->currentIndex() == 0)
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(4);
+			emit NewGradient(GradMask_LinearLumAlpha);
 		else
-			emit NewGradient(1);
+			emit NewGradient(GradMask_Linear);
 	}
 	else
 	{
 		if (transpCalcGradient->isChecked())
-			emit NewGradient(5);
+			emit NewGradient(GradMask_RadialLumAlpha);
 		else
-			emit NewGradient(2);
+			emit NewGradient(GradMask_Radial);
 	}
 }
 
@@ -398,16 +398,16 @@ void TransparencyPalette::switchPatternMode()
 	if (transpCalcPattern->isChecked())
 	{
 		if (usePatternInverted->isChecked())
-			emit NewGradient(7);
+			emit NewGradient(GradMask_PatternLumAlphaInverted);
 		else
-			emit NewGradient(6);
+			emit NewGradient(GradMask_PatternLumAlpha);
 	}
 	else
 	{
 		if (usePatternInverted->isChecked())
-			emit NewGradient(8);
+			emit NewGradient(GradMask_PatternInverted);
 		else
-			emit NewGradient(3);
+			emit NewGradient(GradMask_Pattern);
 	}
 }
 
@@ -417,7 +417,7 @@ void TransparencyPalette::editGradientVector()
 	{
 		TGradDia->unitChange(currentDoc->unitIndex());
 		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
-		if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
+		if ((currentItem->GrMask == GradMask_Linear) || (currentItem->GrMask == GradMask_LinearLumAlpha))
 			TGradDia->selectLinear();
 		else
 			TGradDia->selectRadial();

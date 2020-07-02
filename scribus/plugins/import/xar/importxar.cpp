@@ -1347,21 +1347,21 @@ void XarPlug::endTextLine()
 							{
 								item->setPattern(txDat.fillPattern);
 								item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
-								item->GrType = 8;
+								item->GrType = Gradient_Pattern;
 							}
-							if ((txDat.FillGradientType == 6) || (txDat.FillGradientType == 7))
+							if ((txDat.FillGradientType == Gradient_Linear) || (txDat.FillGradientType == Gradient_Radial))
 							{
 								item->GrType = txDat.FillGradientType;
 								item->fill_gradient = txDat.FillGradient;
 								item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
 							}
-							if (txDat.FillGradientType == 9)
+							if (txDat.FillGradientType == Gradient_4Colors)
 							{
 								item->GrType = txDat.FillGradientType;
 								item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 								item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
 							}
-							if (txDat.FillGradientType == 10)
+							if (txDat.FillGradientType == Gradient_Diamond)
 							{
 								item->GrType = txDat.FillGradientType;
 								item->fill_gradient = txDat.FillGradient;
@@ -1454,21 +1454,21 @@ void XarPlug::endTextLine()
 					{
 						item->setPattern(txDat.fillPattern);
 						item->setPatternTransform(txDat.patternScaleX, txDat.patternScaleY, txDat.patternOffsetX, txDat.patternOffsetY, txDat.patternRotation, txDat.patternSkewX, txDat.patternSkewY);
-						item->GrType = 8;
+						item->GrType = Gradient_Pattern;
 					}
-					if ((txDat.FillGradientType == 6) || (txDat.FillGradientType == 7))
+					if ((txDat.FillGradientType == Gradient_Linear) || (txDat.FillGradientType == Gradient_Radial))
 					{
 						item->GrType = txDat.FillGradientType;
 						item->fill_gradient = txDat.FillGradient;
 						item->setGradientVector(txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GradFillX2 - item->xPos(), txDat.GradFillY2 - item->yPos(), txDat.GradFillX1 - item->xPos(), txDat.GradFillY1 - item->yPos(), txDat.GrScale, txDat.GrSkew);
 					}
-					if (txDat.FillGradientType == 9)
+					if (txDat.FillGradientType == Gradient_4Colors)
 					{
 						item->GrType = txDat.FillGradientType;
 						item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 						item->set4ColorColors(txDat.GrColorP1, txDat.GrColorP2, txDat.GrColorP3, txDat.GrColorP4);
 					}
-					if (txDat.FillGradientType == 10)
+					if (txDat.FillGradientType == Gradient_Diamond)
 					{
 						item->GrType = txDat.FillGradientType;
 						item->fill_gradient = txDat.FillGradient;
@@ -1478,7 +1478,7 @@ void XarPlug::endTextLine()
 					if (txDat.GradMask > 0)
 					{
 						item->GrMask = txDat.GradMask;
-						if ((item->GrMask == 1) || (item->GrMask == 2))
+						if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 						{
 							item->mask_gradient = txDat.MaskGradient;
 							item->setMaskVector(txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskX2 - item->xPos(), txDat.GradMaskY2 - item->yPos(), txDat.GradMaskX1 - item->xPos(), txDat.GradMaskY1 - item->yPos(), txDat.GradMaskScale, txDat.GradMaskSkew);
@@ -3730,21 +3730,21 @@ void XarPlug::popGraphicContext()
 			{
 				item->setPattern(gc->fillPattern);
 				item->setPatternTransform(gc->patternScaleX, gc->patternScaleY, gc->patternOffsetX, gc->patternOffsetY, gc->patternRotation, gc->patternSkewX, gc->patternSkewY);
-				item->GrType = 8;
+				item->GrType = Gradient_Pattern;
 			}
-			if ((gc->FillGradientType == 6) || (gc->FillGradientType == 7))
+			if ((gc->FillGradientType == Gradient_Linear) || (gc->FillGradientType == Gradient_Radial))
 			{
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
 				item->setGradientVector(gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GradFillX2 - item->xPos(), gc->GradFillY2 - item->yPos(), gc->GradFillX1 - item->xPos(), gc->GradFillY1 - item->yPos(), gc->GrScale, gc->GrSkew);
 			}
-			if (gc->FillGradientType == 9)
+			if (gc->FillGradientType == Gradient_4Colors)
 			{
 				item->GrType = gc->FillGradientType;
 				item->set4ColorGeometry(FPoint(0, 0), FPoint(item->width(), 0), FPoint(item->width(), item->height()), FPoint(0, item->height()));
 				item->set4ColorColors(gc->GrColorP1, gc->GrColorP2, gc->GrColorP3, gc->GrColorP4);
 			}
-			if (gc->FillGradientType == 10)
+			if (gc->FillGradientType == Gradient_Diamond)
 			{
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
@@ -3754,7 +3754,7 @@ void XarPlug::popGraphicContext()
 			if (gc->GradMask > 0)
 			{
 				item->GrMask = gc->GradMask;
-				if ((item->GrMask == 1) || (item->GrMask == 2))
+				if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial))
 				{
 					item->mask_gradient = gc->MaskGradient;
 					item->setMaskVector(gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskX2 - item->xPos(), gc->GradMaskY2 - item->yPos(), gc->GradMaskX1 - item->xPos(), gc->GradMaskY1 - item->yPos(), gc->GradMaskScale, gc->GradMaskSkew);

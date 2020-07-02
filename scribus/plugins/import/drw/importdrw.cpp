@@ -1804,14 +1804,14 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 			{
 				FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), qMin(grad.yOffset, 0.99), 0.5, 1.0, backColor, 100 );
 				FillGradient.addStop( ScColorEngine::getRGBColor(gradC1, m_Doc), 1.0, 0.5, 1.0, fillColor, 100 );
-				currentItem->GrType = 6;
+				currentItem->GrType = Gradient_Linear;
 				currentItem->fill_gradient = FillGradient;
 				currentItem->setGradientVector(bBox.width() / 2.0, 0, bBox.width() / 2.0, bBox.height(), 0, 0, 1, 0);
 			}
 			else
 			{
 				FillGradient.addStop( ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, backColor, 100 );
-				currentItem->GrType = 7;
+				currentItem->GrType = Gradient_Radial;
 				currentItem->fill_gradient = FillGradient;
 				currentItem->setGradientVector(xoff, yoff, qMax(bBox.width(), bBox.height()), qMax(bBox.width(), bBox.height()), xoff, yoff, 1, 0);
 			}
@@ -1907,7 +1907,7 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 			importedPatterns.append(patternName);
 			currentItem->setPattern(patternName);
 			currentItem->setPatternTransform(16.6666, 16.6666, 0, 0, 0, 0, 0);
-			currentItem->GrType = 8;
+			currentItem->GrType = Gradient_Pattern;
 		}
 	}
 }

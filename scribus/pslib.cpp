@@ -1844,7 +1844,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			SetClipPath(item->PoLine);
 			PS_closepath();
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
@@ -1961,7 +1961,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			SetClipPath(item->PoLine);
 			PS_closepath();
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
@@ -2109,7 +2109,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			SetClipPath(item->PoLine);
 			PS_closepath();
 			fillRule = item->fillRule;
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if (item->GrType != 0)
 				HandleGradientFillStroke(item, false);
@@ -2165,7 +2165,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			SetClipPath(item->PoLine);
 			PS_closepath();
 			fillRule = item->fillRule;
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if (item->GrType != 0)
 				HandleGradientFillStroke(item, false);
@@ -2892,7 +2892,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				{
 					SetClipPath(ite->PoLine);
 					PS_closepath();
-					if (ite->GrType == 14)
+					if (ite->GrType == Gradient_Hatch)
 						PS_HatchFill(ite);
 					else if (ite->GrType != 0)
 						HandleGradientFillStroke(ite, false);
@@ -3873,7 +3873,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		else
 			gradient = item->fill_gradient;
 		gradient.setRepeatMethod(item->getGradientExtend());
-		if (GType == 8)
+		if (GType == Gradient_Pattern)
 		{
 			QTransform patternMatrix;
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
@@ -3898,22 +3898,22 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 				PutStream("fill\n");
 			return;
 		}
-		if (GType == 9)
+		if (GType == Gradient_4Colors)
 		{
 			HandleTensorGradient(item);
 			return;
 		}
-		if (GType == 10)
+		if (GType == Gradient_Diamond)
 		{
 			HandleDiamondGradient(item);
 			return;
 		}
-		if ((GType == 11) || (GType == 13))
+		if ((GType == Gradient_Mesh) || (GType == Gradient_Conical))
 		{
 			HandleMeshGradient(item);
 			return;
 		}
-		if (GType == 12)
+		if (GType == Gradient_PatchMesh)
 		{
 			HandlePatchMeshGradient(item);
 			return;
@@ -3948,7 +3948,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 			colorShades.append(cstops.at(cst)->shade);
 		}
 	}
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutStream("/ShadingType 2\n");
 	else
 		PutStream("/ShadingType 3\n");
@@ -3991,7 +3991,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		PutStream("/Extend [false false]\n");
 	else
 		PutStream("/Extend [true true]\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutStream("/Coords [" + ToStr(StartX) + " " + ToStr(-StartY) + " " + ToStr(EndX) + " " + ToStr(-EndY) + "]\n");
 	else
 		PutStream("/Coords [" + ToStr(FocalX) + " " + ToStr(-FocalY) + " 0.0 " + ToStr(StartX) + " " + ToStr(-StartY) + " " + ToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
@@ -4115,7 +4115,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 	{
 		qmatrix.translate(StartX, -StartY);
 		qmatrix.shear(Gskew, 0);
