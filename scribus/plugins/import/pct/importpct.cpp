@@ -2218,7 +2218,7 @@ void PctPlug::setFillPattern(PageItem* ite)
 	else
 		patternName = patternMap[patNa];
 	ite->setPattern(patternName);
-	ite->GrType = 8;
+	ite->GrType = Gradient_Pattern;
 	m_Doc->TotalItems = oldNum;
 //	qDebug() << "Using Pattern" << patternName << "internal Name" << patNa;
 }

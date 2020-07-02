@@ -1229,31 +1229,31 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 				{
 					case U_HSP_Horizontal:
 						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_Vertical:
 						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_ForwardDiagonal:
 						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_BackwardDiagonal:
 						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_LargeGrid:
 						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_DiagonalCross:
 						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					default:
 						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 				}
 			}
@@ -1454,7 +1454,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 						}
 					}
 				}
-				ite->GrType = 12;
+				ite->GrType = Gradient_PatchMesh;
 			}
 			else if (currentDC.brushStyle == U_BT_TextureFill)
 			{
@@ -1483,7 +1483,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 						double sy = ite->height() / pat.height * 100;
 						ite->setPatternTransform(sx, sy, 0, 0, 0, 0, 0);
 					}
-					ite->GrType = 8;
+					ite->GrType = Gradient_Pattern;
 				}
 			}
 		}
@@ -2179,7 +2179,7 @@ void SvmPlug::handleHatch(QDataStream &ds, quint16 version)
 		finishItem(ite);
 		QString haColor = handleColor(colS);
 		ite->setHatchParameters(haStyle, convertLogical2Pts(haDist), haAngle / 10.0, false, CommonStrings::None, haColor);
-		ite->GrType = 14;
+		ite->GrType = Gradient_Hatch;
 	}
 }
 
@@ -2278,7 +2278,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		ite->fill_gradient.setRepeatMethod( VGradient::none );
 		ite->fill_gradient.addStop(colE, 0.0, 0.5, 1.0, gradientEndColor, gradientEndShade);
 		ite->fill_gradient.addStop(colS, 1.0 - (mnBorder / 100.0), 0.5, 1.0, gradientStartColor, gradientStartShade);
-		ite->GrType = 7;
+		ite->GrType = Gradient_Radial;
 		ite->GrStartX = ite->width() * gradientCenterX;
 		ite->GrStartY = ite->height()* gradientCenterY;
 		ite->GrFocalX = ite->width() * gradientCenterX;
@@ -2302,7 +2302,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		ite->fill_gradient.setRepeatMethod( VGradient::none );
 		ite->fill_gradient.addStop(colE, 0.0, 0.5, 1.0, gradientEndColor, gradientEndShade);
 		ite->fill_gradient.addStop(colS, 1.0 - (mnBorder / 100.0), 0.5, 1.0, gradientStartColor, gradientStartShade);
-		ite->GrType = 7;
+		ite->GrType = Gradient_Radial;
 		ite->GrStartX = ite->width() * gradientCenterX;
 		ite->GrStartY = ite->height()* gradientCenterY;
 		ite->GrFocalX = ite->width() * gradientCenterX;
@@ -2343,7 +2343,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
 		p4.setAngle(p4.angle() + gradientAngle);
 		ite->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-		ite->GrType = 10;
+		ite->GrType = Gradient_Diamond;
 	}
 	else if (meStyle == GradientStyle_RECT)
 	{
@@ -2390,7 +2390,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
 		p4.setAngle(p4.angle() + gradientAngle);
 		ite->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-		ite->GrType = 10;
+		ite->GrType = Gradient_Diamond;
 	}
 }
 

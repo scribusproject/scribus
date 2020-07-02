@@ -121,13 +121,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	pal.setColor(QPalette::Window, QColor(255,255,255));
 	setAutoFillBackground(true);
 	setPalette(pal);
-	offs = 0;
-	currentPar = 0;
-	m_editor = nullptr;
-	noUpdt = true;
-	inRep = false;
 	pmen = new QMenu(this);
-	paraStyleAct = nullptr;
 	setMinimumWidth(fontMetrics().horizontalAdvance( tr("No Style") )+30);
 }
 
@@ -278,40 +272,16 @@ void SideBar::setRepaint(bool r)
 	noUpdt = r;
 }
 
-SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
+SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : 
+		QTextEdit(parent),
+		parentStoryEditor(parentSE)
 {
 	setCurrentDocument(docc);
-	parentStoryEditor = parentSE;
-	wasMod = false;
-	ready = false;
-	unicodeInputCount = 0;
-	CurrAlign = 0.0;
-	CurrDirection = 0.0;
-	CurrFontSize = 0.0;
-	CurrTextFillSh = 0.0;
-	CurrTextStrokeSh = 0.0;
-	CurrTextScaleH = 0.0;
-	CurrTextScaleV = 0.0;
-	CurrTextBase = 0.0;
-	CurrTextShadowX = 0.0;
-	CurrTextShadowY = 0.0;
-	CurrTextOutline = 0.0;
-	CurrTextUnderPos = 0.0;
-	CurrTextUnderWidth = 0.0;
-	CurrTextStrikePos = 0.0;
-	CurrTextStrikeWidth = 0.0;
-	CurrTextKern = 0.0;
-	SelCharStart = 0;
-	SelCharEnd = 0;
-	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
-	unicodeTextEditMode = false;
-	blockContentsChangeHook = 0;
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
-	SuspendContentsChange = 0;
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -1588,50 +1558,10 @@ void SToolBFont::SetScaleV(double s)
 	charScaleV->setValue(s / 10.0);
 }
 
-/* Main Story Editor Class */
-// StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
-// 	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
-// {
-// 	prefsManager=PrefsManager::instance();
-// 	m_doc = docc;
-// 	seMenuMgr=nullptr;
-// 	buildGUI();
-// 	currItem = ite;
-// // 	charSelect = nullptr;
-// 	m_firstSet = false;
-// 	activFromApp = true;
-// 	Editor->loadItemText(ite);
-// 	Editor->getCursorPosition(&m_currPara, &m_currChar);
-// 	EditorBar->setRepaint(true);
-// 	EditorBar->doRepaint();
-// 	updateProps(m_currPara, m_currChar);
-// 	updateStatus();
-// 	m_textChanged = false;
-// 	disconnectSignals();
-// 	connectSignals();
-// 	Editor->setFocus();
-// 	Editor->setColor(false);
-// 	m_blockUpdate = false;
-// 	loadPrefs();
-// 	// hack to keep charPalette visible. See destructor too - PV
-// 	ScCore->primaryMainWindow()->charPalette->reparent(this, QPoint(0, 0));
-// }
-
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
-	activFromApp(true),
-	m_doc(nullptr),
-	m_item(nullptr),
-	m_textChanged(false),
-	m_firstSet(false),
-	m_blockUpdate(false),
-//	m_currPara(0),
-//	m_currChar(0),
-	charSelect(nullptr),
-	charSelectUsed(false),
 	prefsManager(PrefsManager::instance())
 {
-	m_spellActive=false;
 #ifdef Q_OS_MAC
 	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
@@ -1678,7 +1608,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 					this, SLOT(slot_insertSpecialChar()));
 		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)),
 					this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
-		delete charSelect;
+		charSelect->deleteLater();
 		charSelect = nullptr;
 	}
 	savePrefs();
@@ -2318,7 +2248,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			if ((m_item != nullptr) && (!m_blockUpdate))
 				updateTextFrame();
 			activFromApp = false;
-	//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		}
 		if ( ev->type() == QEvent::WindowActivate )
 		{
@@ -2341,7 +2270,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 					m_textChanged = false;
 					FontTools->Fonts->RebuildList(m_doc, m_item->isAnnotation());
 					Editor->loadItemText(m_item);
-	//				Editor->getCursorPosition(&m_currPara, &m_currChar);
 					updateStatus();
 					m_textChanged = false;
 					//Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
@@ -2940,7 +2868,6 @@ void StoryEditor::slotFileRevert()
 	if (Do_new())
 	{
 		Editor->loadItemText(m_item);
-//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		updateStatus();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();

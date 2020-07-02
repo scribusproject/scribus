@@ -112,7 +112,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		qmatrix.translate(0, currItem->GrStrokeStartY * (1.0 - currItem->GrStrokeScale));
 		qmatrix.translate(-currItem->GrStrokeStartX, -currItem->GrStrokeStartY);
 		qmatrix.scale(1, currItem->GrStrokeScale);
-		if (currItem->GrTypeStroke == 7)
+		if (currItem->GrTypeStroke == Gradient_Radial)
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrStrokeFocalX, currItem->GrStrokeFocalY)));
 		QTransform m;
 		m.translate(currItem->GrStrokeStartX, currItem->GrStrokeStartY);
@@ -152,7 +152,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		qmatrix.translate(0, currItem->GrMaskStartY * (1.0 - currItem->GrMaskScale));
 		qmatrix.translate(-currItem->GrMaskStartX, -currItem->GrMaskStartY);
 		qmatrix.scale(1, currItem->GrMaskScale);
-		if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+		if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrMaskFocalX, currItem->GrMaskFocalY)));
 		QTransform m;
 		m.translate(currItem->GrMaskStartX, currItem->GrMaskStartY);
@@ -177,7 +177,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		QTransform qmatrix;
 		qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 		qmatrix.rotate(rotEnd);
-		if (currItem->GrType != 13)
+		if (currItem->GrType != Gradient_Conical)
 		{
 			double mask_gradientSkew = 0.0;
 			if (currItem->GrSkew == 90)
@@ -195,7 +195,7 @@ void CanvasMode_EditGradient::drawControlsGradientVectors(QPainter* psx, PageIte
 		qmatrix.translate(0, currItem->GrStartY * (1.0 - currItem->GrScale));
 		qmatrix.translate(-currItem->GrStartX, -currItem->GrStartY);
 		qmatrix.scale(1, currItem->GrScale);
-		if ((currItem->GrType == 7) || (currItem->GrType == 13))
+		if ((currItem->GrType == Gradient_Radial) || (currItem->GrType == Gradient_Conical))
 			psx->drawPoint(qmatrix.map(QPointF(currItem->GrFocalX, currItem->GrFocalY)));
 		QTransform m;
 		m.translate(currItem->GrStartX, currItem->GrStartY);
@@ -422,7 +422,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrMaskStartY -= np.y();
 				currItem->GrMaskFocalX -= np.x();
 				currItem->GrMaskFocalY -= np.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -461,7 +461,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrMaskFocalX = shRe.x();
 				currItem->GrMaskFocalY = shRe.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -497,7 +497,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrMaskEndX -= np.x();
 				currItem->GrMaskEndY -= np.y();
-				if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+				if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 				{
 					double radEnd = distance(currItem->GrMaskEndX - currItem->GrMaskStartX, currItem->GrMaskEndY - currItem->GrMaskStartY);
 					double radFoc = distance(currItem->GrMaskFocalX - currItem->GrMaskStartX, currItem->GrMaskFocalY - currItem->GrMaskStartY);
@@ -536,7 +536,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QTransform qmatrix;
 				qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 				qmatrix.rotate(rotEnd);
-				if (currItem->GrType != 13)
+				if (currItem->GrType != Gradient_Conical)
 				{
 					double mask_gradientSkew = 0.0;
 					if (currItem->GrSkew == 90)
@@ -559,7 +559,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrFocalX = shRe.x();
 				currItem->GrFocalY = shRe.y();
-				if ((currItem->GrType == 7) || (currItem->GrType == 13))
+				if ((currItem->GrType == Gradient_Radial) || (currItem->GrType == Gradient_Conical))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -580,14 +580,14 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.translate(currItem->GrStartX, currItem->GrStartY);
 				m.rotate(rotEnd);
 				m.rotate(-90);
-				if (currItem->GrType != 13)
+				if (currItem->GrType != Gradient_Conical)
 					m.rotate(currItem->GrSkew);
 				m.translate(radEnd * currItem->GrScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
 				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY) + 90;
-				if (currItem->GrType != 13)
+				if (currItem->GrType != Gradient_Conical)
 					currItem->GrSkew = rotNew - rotEnd;
 				else
 					currItem->GrSkew = 0;
@@ -599,7 +599,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrEndX -= np.x();
 				currItem->GrEndY -= np.y();
-				if ((currItem->GrType == 7) || (currItem->GrType == 13))
+				if ((currItem->GrType == Gradient_Radial) || (currItem->GrType == Gradient_Conical))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -699,7 +699,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		QTransform itemMatrix = currItem->getTransform();
 		upRect = itemMatrix.mapRect(upRect);
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0)); */
-		if (currItem->GrType == 13)
+		if (currItem->GrType == Gradient_Conical)
 			currItem->createConicalMesh();
 		m_doc->regionsChanged()->update(QRectF());
 	}
@@ -812,7 +812,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 		QTransform qmatrix;
 		qmatrix.translate(currItem->GrStartX, currItem->GrStartY);
 		qmatrix.rotate(rotEnd);
-		if (currItem->GrType != 13)
+		if (currItem->GrType != Gradient_Conical)
 		{
 			double mask_gradientSkew = 0.0;
 			if (currItem->GrSkew == 90)

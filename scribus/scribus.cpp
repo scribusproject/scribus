@@ -9343,7 +9343,7 @@ void ScribusMainWindow::PutToPatterns()
 	for (int ii = 0; ii < allItems.count(); ii++)
 	{
 		PageItem *item = allItems.at(ii);
-		if ((!results.contains(item->pattern())) && ((item->GrType == 8) || (item->itemType() == PageItem::Symbol)))
+		if ((!results.contains(item->pattern())) && ((item->GrType == Gradient_Pattern) || (item->itemType() == PageItem::Symbol)))
 			results.append(item->pattern());
 		if (!item->strokePattern().isEmpty())
 		{

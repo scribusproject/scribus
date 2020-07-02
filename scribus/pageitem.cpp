@@ -1840,7 +1840,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	p->setLineWidth(lwCorr);
 	if (GrType != 0)
 	{
-		if (GrType == 8)
+		if (GrType == Gradient_Pattern)
 		{
 			ScPattern *pattern = m_Doc->checkedPattern(m_patternName);
 			if (!pattern)
@@ -1871,7 +1871,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		}
 		else
 		{
-			if (GrType == 9)
+			if (GrType == Gradient_4Colors)
 			{
 				p->setFillMode(ScPainter::Gradient);
 				FPoint pG1 = FPoint(0, 0);
@@ -1881,7 +1881,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 				p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
 				p->set4ColorColors(m_grQColorP1, m_grQColorP2, m_grQColorP3, m_grQColorP4);
 			}
-			else if (GrType == 14)
+			else if (GrType == Gradient_Hatch)
 			{
 				if (fillColor() != CommonStrings::None)
 					p->setBrush(m_fillQColor);
@@ -1894,7 +1894,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					m_gradientName = "";
 				if (!(m_gradientName.isEmpty()) && (m_Doc->docGradients.contains(m_gradientName)))
 					fill_gradient = m_Doc->docGradients[m_gradientName];
-				if ((fill_gradient.stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
+				if ((fill_gradient.stops() < 2) && (GrType < Gradient_4Colors)) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
 					if (fillColor() != CommonStrings::None)
 					{
@@ -1914,27 +1914,27 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					p->fill_gradient.setRepeatMethod(GrExtend);
 					switch (GrType)
 					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 6:
+						case Gradient_LinearLegacy1:
+						case Gradient_LinearLegacy2:
+						case Gradient_LinearLegacy3:
+						case Gradient_LinearLegacy4:
+						case Gradient_Linear:
 							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
 							break;
-						case 5:
-						case 7:
+						case Gradient_RadialLegacy5:
+						case Gradient_Radial:
 							p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
 							break;
-						case 10:
+						case Gradient_Diamond:
 							p->setFillMode(ScPainter::Gradient);
 							p->setDiamondGeometry(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
 							break;
-						case 11:
-						case 13:
+						case Gradient_Mesh:
+						case Gradient_Conical:
 							p->setFillMode(ScPainter::Gradient);
 							p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
 							break;
-						case 12:
+						case Gradient_PatchMesh:
 							p->setFillMode(ScPainter::Gradient);
 							p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientPatches);
 							break;
@@ -1968,9 +1968,9 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	p->setBrushOpacity(1.0 - fillTransparency());
 	p->setPenOpacity(1.0 - lineTransparency());
 	p->setFillRule(fillRule);
-	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+	if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial) || (GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha))
 	{
-		if ((GrMask == 1) || (GrMask == 2))
+		if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial))
 			p->setMaskMode(1);
 		else
 			p->setMaskMode(3);
@@ -1979,22 +1979,22 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
 			mask_gradient = m_Doc->docGradients[gradientMaskVal];
 		p->mask_gradient = mask_gradient;
-		if ((GrMask == 1) || (GrMask == 4))
+		if ((GrMask == GradMask_Linear) || (GrMask == GradMask_LinearLumAlpha))
 			p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
 		else
 			p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
 	}
-	else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+	else if ((GrMask == GradMask_Pattern) || (GrMask == GradMask_PatternLumAlpha) || (GrMask == GradMask_PatternLumAlphaInverted) || (GrMask == GradMask_PatternInverted))
 	{
 		ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
 		if (patternMask)
 		{
 			p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-			if (GrMask == 3)
+			if (GrMask == GradMask_Pattern)
 				p->setMaskMode(2);
-			else if (GrMask == 6)
+			else if (GrMask == GradMask_PatternLumAlpha)
 				p->setMaskMode(4);
-			else if (GrMask == 7)
+			else if (GrMask == GradMask_PatternLumAlphaInverted)
 				p->setMaskMode(5);
 			else
 				p->setMaskMode(6);
@@ -2109,7 +2109,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							p->setStrokeMode(ScPainter::Gradient);
 							p->stroke_gradient = stroke_gradient;
 							p->stroke_gradient.setRepeatMethod(GrStrokeExtend);
-							if (GrTypeStroke == 6)
+							if (GrTypeStroke == Gradient_Linear)
 								p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 							else
 								p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
@@ -5942,7 +5942,7 @@ void PageItem::restoreGradPos(SimpleState *state, bool isUndo)
 		GrMaskScale = is->getDouble("MARKSCALE");
 		GrMaskSkew = is->getDouble("MARKSKEW");
 	}
-	if (GrType == 13)
+	if (GrType == Gradient_Conical)
 		createConicalMesh();
 	update();
 }
@@ -8528,7 +8528,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 
 	if (GrType == 0)
 		lists.collectColor(fillColor());
-	else if ((GrType < 8) || (GrType == 10))
+	else if ((GrType < Gradient_Pattern) || (GrType == Gradient_Diamond))
 	{
 		if ((!m_gradientName.isEmpty()) && (m_Doc->docGradients.contains(m_gradientName)))
 			lists.collectGradient(m_gradientName);
@@ -8538,14 +8538,14 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	else if (GrType == 9)
+	else if (GrType == Gradient_4Colors)
 	{
 		lists.collectColor(GrColorP1);
 		lists.collectColor(GrColorP2);
 		lists.collectColor(GrColorP3);
 		lists.collectColor(GrColorP4);
 	}
-	else if (GrType == 11)
+	else if (GrType == Gradient_Mesh)
 	{
 		for (int grow = 0; grow < meshGradientArray.count(); grow++)
 		{
@@ -8556,7 +8556,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			}
 		}
 	}
-	else if (GrType == 12)
+	else if (GrType == Gradient_PatchMesh)
 	{
 		for (int col = 0; col < meshGradientPatches.count(); col++)
 		{
@@ -8568,7 +8568,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 	}
 	if (GrTypeStroke == 0)
 		lists.collectColor(lineColor());
-	else if (GrTypeStroke < 8)
+	else if (GrTypeStroke < Gradient_Pattern)
 	{
 		if ((!gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
 			lists.collectGradient(gradientStrokeVal);
@@ -8578,7 +8578,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 			lists.collectColor(cstops.at(cst)->name);
 		}
 	}
-	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+	if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial) || (GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha))
 	{
 		QList<VColorStop*> cstops = mask_gradient.colorStops();
 		for (int cst = 0; cst < mask_gradient.stops(); ++cst)
@@ -8619,7 +8619,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 void PageItem::SetFrameShape(int count, const double *vals)
 {
 	PoLine.resize(0);
-	for (int i = 0; i < count-3; i += 4)
+	for (int i = 0; i < count - 3; i += 4)
 	{
 		if (vals[i] < 0)
 		{
@@ -8627,9 +8627,9 @@ void PageItem::SetFrameShape(int count, const double *vals)
 			continue;
 		}
 		double x1 = m_width * vals[i] / 100.0;
-		double y1 = m_height * vals[i+1] / 100.0;
-		double x2 = m_width * vals[i+2] / 100.0;
-		double y2 = m_height * vals[i+3] / 100.0;
+		double y1 = m_height * vals[i + 1] / 100.0;
+		double x2 = m_width * vals[i + 2] / 100.0;
+		double y2 = m_height * vals[i + 3] / 100.0;
 		PoLine.addPoint(x1, y1);
 		PoLine.addPoint(x2, y2);
 	}
@@ -9725,7 +9725,7 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 				{
 					p->setFillMode(ScPainter::Gradient);
 					p->fill_gradient = stroke_gradient;
-					if (GrTypeStroke == 6)
+					if (GrTypeStroke == Gradient_Linear)
 						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 					else
 						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
@@ -9984,24 +9984,24 @@ void PageItem::updateGradientVectors()
 {
 	switch (GrType)
 	{
-		case 0:
-		case 1:
+		case Gradient_None:
+		case Gradient_LinearLegacy1:
 			setGradientStart(0.0, m_height / 2.0);
 			setGradientEnd(m_width, m_height / 2.0);
 			break;
-		case 2:
+		case Gradient_LinearLegacy2:
 			setGradientStart(m_width / 2.0, 0.0);
 			setGradientEnd(m_width / 2.0, m_height);
 			break;
-		case 3:
+		case Gradient_LinearLegacy3:
 			setGradientStart(0.0, 0.0);
 			setGradientEnd(m_width, m_height);
 			break;
-		case 4:
+		case Gradient_LinearLegacy4:
 			setGradientStart(0.0, m_height);
 			setGradientEnd(m_width, 0.0);
 			break;
-		case 5:
+		case Gradient_RadialLegacy5:
 			setGradientStart(m_width / 2.0, m_height / 2.0);
 			if (m_width >= m_height)
 				setGradientEnd(m_width, m_height / 2.0);

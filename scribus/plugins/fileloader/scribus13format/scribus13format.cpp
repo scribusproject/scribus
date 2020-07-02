@@ -1977,7 +1977,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
-			if (currItem->GrType == 5)
+			if (currItem->GrType == Gradient_RadialLegacy5)
 			{
 				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
@@ -2004,14 +2004,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	}
 	switch (currItem->GrType)
 	{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			currItem->GrType = 6;
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			currItem->GrType = Gradient_Linear;
 			break;
-		case 5:
-			currItem->GrType = 7;
+		case Gradient_RadialLegacy5:
+			currItem->GrType = Gradient_Radial;
 			break;
 		default:
 			break;
