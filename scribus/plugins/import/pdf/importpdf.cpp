@@ -474,12 +474,11 @@ bool PdfPlug::convert(const QString& fn)
 				SlaOutputDev* dev = {};
 				if (importTextAsVectors)
 					dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
-				else 
+				else
 					dev = new PdfTextOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 
 				if (dev->isOk())
 				{
-					//dev->importTextAsVectors = importTextAsVectors;
 					OCGs* ocg = pdfDoc->getOptContentConfig();
 					if (ocg)
 					{
@@ -908,7 +907,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 {
 	if (!m_pdfDoc)
 		return QImage();
-	
+
 	double h = m_pdfDoc->getPageMediaHeight(pgNum);
 	double w = m_pdfDoc->getPageMediaWidth(pgNum);
 	double scale = qMin(height / h, width / w);

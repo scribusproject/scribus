@@ -7,10 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "pdftextrecognition.h"
 
-#ifndef DEBUG_TEXT_IMPORT
-	#define DEBUG_TEXT_IMPORT
-#endif
-
 /*
 *	constructor, initialize the textRegions vector and set the addChar mode
 */
@@ -32,7 +28,7 @@ PdfTextRecognition::~PdfTextRecognition()
 */
 void PdfTextRecognition::addPdfTextRegion()
 {
-	activePdfTextRegion = 
+	activePdfTextRegion =
 		PdfTextRegion();
 	m_pdfTextRegions.push_back(activePdfTextRegion);
 	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
@@ -168,7 +164,7 @@ bool PdfTextRegion::collinear(qreal a, qreal b)
 */
 bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
 {
-	
+
 	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->pdfTextRegionBasenOrigin.x()) <= lineSpacing);
 }
 
@@ -176,8 +172,8 @@ bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
 *	like collinear but we allow a deviation of 3 text heights downwards but none upwards
 */
 bool PdfTextRegion::isCloseToY(qreal y1, qreal y2)
-{	
-	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;	
+{
+	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;
 }
 
 /*
@@ -214,6 +210,7 @@ bool PdfTextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
 {
 	if (collinear(point.y(), lastXY.y()))
+	{
 		if (collinear(point.x(), lastXY.x()))
 			return LineType::FIRSTPOINT;
 		else if (xInLimits)
@@ -222,27 +219,34 @@ PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits,
 		else
 			qDebug() << "FIRSTPOINT/SAMELINE oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
 		#endif
+	}
 	else if (adjunctLesser(point.y(), lastXY.y(), lineBaseXY.y()))
 		return LineType::STYLESUPERSCRIPT;
 	else if (adjunctGreater(point.y(), lastXY.y(), lineBaseXY.y()))
+	{
 		if (collinear(point.y(), lineBaseXY.y()))
 			return LineType::STYLENORMALRETURN;
 		else
 			return LineType::STYLESUPERSCRIPT;
+	}
 	else if (isCloseToX(point.x(), pdfTextRegionBasenOrigin.x()))
+	{
 		if (isCloseToY(point.y(), lastXY.y()) && !collinear(point.y(), lastXY.y()))
+		{
 			if (pdfTextRegionLines.size() >= 2)
 				return LineType::NEWLINE;
 			else if (pdfTextRegionLines.size() == 1)
 				return LineType::NEWLINE;
 			#ifdef DEBUG_TEXT_IMPORT
-			else				
-			qDebug() << "NEWLINE oops2:" << "point:" << point << " pdfTextRegionBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
-			#endif
-		#ifdef DEBUG_TEXT_IMPORT
+			else
+				qDebug() << "NEWLINE oops2:" << "point:" << point << " pdfTextRegionBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
+			#endif			
+		}
+			#ifdef DEBUG_TEXT_IMPORT
 		else
 			qDebug() << "NEWLINE oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textPdfRegionLines.size:" << pdfTextRegionLines.size();
-		#endif
+			#endif
+	}
 	#ifdef DEBUG_TEXT_IMPORT //This isn't an invariant case like the others, we actually expect this to happen some of the time
 	qDebug() << "FAILED with oops:" << "point:" << point << " pdfTextRegioBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " textPdfRegionLines.size:" << pdfTextRegionLines.size();
 	#endif
@@ -351,8 +355,7 @@ PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(QPointF newGlyphPoint, Pd
 		lineSpacing = newGlyph.dx * 3;
 		lastXY = newGlyphPoint;
 		lineBaseXY = newGlyphPoint;
-	} else if (pdfTextRegionLines.size() == 1)
-		lineSpacing = maxWidth * 3;
+	}
 
 	LineType mode = isRegionConcurrent(newGlyphPoint);
 	if (mode == LineType::FAIL)

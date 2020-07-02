@@ -3322,10 +3322,8 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 			}
 			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)) && (textRenderingMode != 7))
 			{
-				PageItem* textNode = nullptr;
-
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
-				textNode = m_doc->Items->at(z);
+				PageItem* ite = m_doc->Items->at(z);
 
 				// todo: merge this between vector and text implementations.
 				QTransform mm;
@@ -3333,15 +3331,15 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 				mm.translate(x, -y);
 				textPath.map(mm);
 				textPath.map(m_ctm);
-				textNode->PoLine = textPath.copy();
-				setFillAndStrokeForPDF(state, textNode);
+				ite->PoLine = textPath.copy();
+				setFillAndStrokeForPDF(state, ite);
 				// Fill text rendering modes. See above
-				m_doc->adjustItemSize(textNode);
-				m_Elements->append(textNode);
+				m_doc->adjustItemSize(ite);
+				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
 				{
-					m_groupStack.top().Items.append(textNode);
-					applyMask(textNode);
+					m_groupStack.top().Items.append(ite);
+					applyMask(ite);
 				}
 			}
 			delete fontPath;
@@ -3416,11 +3414,7 @@ void SlaOutputDev::beginTextObject(GfxState *state)
 {
 	pushGroup();
 }
-/*
- *	NOTE: The success == TextRegion::LineType::FAIL test is an invariant test that should never pass. if a rogue glyph is detected then it means there is a bug in the logic probably in TextRegion::addGlyphAtPoint or TextRegion::linearTest or TextRegion::moveToPoint
- *	TODO: Support merging of text boxes where beginTextObject and endTextObject have been called but really it's looking like it's just a new line
- *		maybe do a second pass before rendering and implement a merge function in pdfTectRecognition &co.
-*/
+
 void SlaOutputDev::endTextObject(GfxState *state)
 {
 //	qDebug() << "SlaOutputDev::endTextObject";

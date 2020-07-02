@@ -313,7 +313,6 @@ private:
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(POPPLER_CONST_083 GfxPath *path);
 	int getBlendMode(GfxState *state);
-
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	QString UnicodeParsedString(const std::string& s1);
 	bool checkClip();
@@ -330,7 +329,6 @@ private:
 
 	bool pathIsClosed {false};
 	QString CurrColorFill;
-
 	QString CurrColorStroke;
 	int CurrStrokeShade {100};
 	QVector<double> DashValues;
