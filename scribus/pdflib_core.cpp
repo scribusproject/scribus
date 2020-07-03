@@ -10730,51 +10730,45 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					exportToCMYK = true;
 					cm = PDFOptions::Compression_JPEG;
 				}*/
-				else
-				{
-					if (compress_method == PDFOptions::Compression_JPEG)
-					{
-						if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
-						{
-							exportToGrayscale = Options.isGrayscale;
-							if (exportToGrayscale)
-								exportToCMYK      = !Options.isGrayscale;
-							else
-								exportToCMYK      = !Options.UseRGB;
-						}
-						cm = PDFOptions::Compression_JPEG;
-					}
-					else
-						cm = PDFOptions::Compression_ZIP;
-				}
-			}
-			else
-			{
-				if ((compress_method == PDFOptions::Compression_JPEG) || (compress_method == PDFOptions::Compression_Auto))
+				else if (compress_method == PDFOptions::Compression_JPEG)
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
 						exportToGrayscale = Options.isGrayscale;
 						if (exportToGrayscale)
-							exportToCMYK      = !Options.isGrayscale;
+							exportToCMYK = !Options.isGrayscale;
 						else
-							exportToCMYK      = !Options.UseRGB;
+							exportToCMYK = !Options.UseRGB;
 					}
 					cm = PDFOptions::Compression_JPEG;
-					/*if (compress_method == PDFOptions::Compression_Auto)
-					{
-						QFileInfo fi(tmpFile);
-						if (fi.size() < im.size())
-						{
-							im.resize(0);
-							if (!loadRawBytes(tmpFile, im))
-								return false;
-							cm = PDFOptions::Compression_JPEG;
-						}
-						else
-							cm = PDFOptions::Compression_ZIP;
-					}*/
 				}
+				else
+					cm = PDFOptions::Compression_ZIP;
+			}
+			else if ((compress_method == PDFOptions::Compression_JPEG) || (compress_method == PDFOptions::Compression_Auto))
+			{
+				if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
+				{
+					exportToGrayscale = Options.isGrayscale;
+					if (exportToGrayscale)
+						exportToCMYK      = !Options.isGrayscale;
+					else
+						exportToCMYK      = !Options.UseRGB;
+				}
+				cm = PDFOptions::Compression_JPEG;
+				/*if (compress_method == PDFOptions::Compression_Auto)
+				{
+					QFileInfo fi(tmpFile);
+					if (fi.size() < im.size())
+					{
+						im.resize(0);
+						if (!loadRawBytes(tmpFile, im))
+							return false;
+						cm = PDFOptions::Compression_JPEG;
+					}
+					else
+						cm = PDFOptions::Compression_ZIP;
+				}*/
 			}
 			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
 				exportToGrayscale = true;
