@@ -240,7 +240,7 @@ PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits,
 			#ifdef DEBUG_TEXT_IMPORT
 			else
 				qDebug() << "NEWLINE oops2:" << "point:" << point << " pdfTextRegionBasenOrigin:" << pdfTextRegionBasenOrigin << " baseline:" << this->lineBaseXY << " lastXY:" << lastXY << " linespacing:" << lineSpacing << " pdfTextRegionLines.size:" << pdfTextRegionLines.size();
-			#endif			
+			#endif
 		}
 			#ifdef DEBUG_TEXT_IMPORT
 		else
@@ -556,14 +556,6 @@ void PdfTextOutputDev::renderTextFrame()
 	*/
 	textNode->SetFrameShape(32, PdfTextRegion::boundingBoxShape);
 	textNode->ContourLine = textNode->PoLine.copy();
-
-	m_doc->Items->removeLast();
-	m_Elements->append(textNode);
-	if (m_groupStack.count() != 0)
-	{
-		m_groupStack.top().Items.append(textNode);
-		applyMask(textNode);
-	}
 }
 
 /*
