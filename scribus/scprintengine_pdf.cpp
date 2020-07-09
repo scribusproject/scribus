@@ -81,6 +81,8 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	PDFOptions pdfOptions;
 
 	pdfOptions.Version = PDFVersion::PDF_14;
+	
+	// Embed all fonts
 	pdfOptions.FontEmbedding = PDFOptions::EmbedFonts;
 	setupFontEmbedding(pdfOptions);
 
@@ -114,11 +116,10 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	pdfOptions.bleedMarks = options.bleedMarks;
 	pdfOptions.registrationMarks = options.registrationMarks;
 	pdfOptions.colorMarks = options.colorMarks;
+	pdfOptions.docInfoMarks = false;
 	pdfOptions.markLength = options.markLength;
 	pdfOptions.markOffset = options.markOffset;
 	pdfOptions.bleeds = options.bleeds;
-
-	// Embed all fonts
 
 	// Generate PDF
 	QString errorString;
