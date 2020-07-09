@@ -84,18 +84,18 @@ class SCRIBUS_API VGradient
 public:
 	enum VGradientType
 	{
-	    linear = 0,
-	    radial = 1,
-	    fourcolor  = 2,
-	    diamond = 3,
+		linear = 0,
+		radial = 1,
+		fourcolor  = 2,
+		diamond = 3,
 		mesh = 4,
 		freemesh = 5
 	};
 
 	enum VGradientRepeatMethod
 	{
-	    none    = 0,
-	    reflect = 1,
+		none    = 0,
+		reflect = 1,
 		repeat  = 2,
 		pad     = 3
 	};

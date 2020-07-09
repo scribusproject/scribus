@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 // #define COLUMN_INFO 3
 
 CheckDocument::CheckDocument( QWidget* parent, bool modal )
-	: ScrPaletteBase( parent, "checkDocument", modal, nullptr )
+	: ScrPaletteBase( parent, "checkDocument", modal )
 {
 	showPagesWithoutErrors = PrefsManager::instance().appPrefs.verifierPrefs.showPagesWithoutErrors;
 	showNonPrintingLayerErrors = PrefsManager::instance().appPrefs.verifierPrefs.showNonPrintingLayerErrors;

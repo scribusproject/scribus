@@ -232,7 +232,7 @@ public:	// Start enumerator definitions
 
 public: // Start public functions
 
-	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
+	PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	~PageItem() override;
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
@@ -248,7 +248,7 @@ public: // Start public functions
 	virtual PageItem_Polygon * asPolygon()					{ return nullptr; } ///< Return self if Polygon item, otherwise null
 	virtual PageItem_RegularPolygon * asRegularPolygon()	{ return nullptr; } ///< Return self if Regular Polygon item, otherwise null
 	virtual PageItem_Spiral * asSpiral()					{ return nullptr; } ///< Return self if Spiral item, otherwise null
-	virtual PageItem_Symbol * asSymbol()				{ return nullptr; } ///< Return self if Symbol item, otherwise null
+	virtual PageItem_Symbol * asSymbol()					{ return nullptr; } ///< Return self if Symbol item, otherwise null
 	virtual PageItem_Table * asTable()						{ return nullptr; } ///< Return self if Table item, otherwise null
 	virtual PageItem_TextFrame * asTextFrame()				{ return nullptr; } ///< Return self if Text item, otherwise null
 
@@ -473,11 +473,11 @@ public: // Start public functions
 	PageItem* firstInChain();
 	PageItem* lastInChain();
 	PageItem* lastInChainSamePage();
-	PageItem* prevInChain() { return BackBox; }
-	PageItem* nextInChain() { return NextBox; }
-	const PageItem* prevInChain() const { return BackBox; }
-	const PageItem* nextInChain() const { return NextBox; }
-	bool isInChain() const { return ((BackBox != nullptr) || (NextBox != nullptr)); }
+	PageItem* prevInChain() { return m_backBox; }
+	PageItem* nextInChain() { return m_nextBox; }
+	const PageItem* prevInChain() const { return m_backBox; }
+	const PageItem* nextInChain() const { return m_nextBox; }
+	bool isInChain() const { return ((m_backBox != nullptr) || (m_nextBox != nullptr)); }
 
 	bool canBeLinkedTo(const PageItem* nextFrame) const;
 	void unlink(bool createUndo = true);
@@ -1268,21 +1268,21 @@ public: // Start public functions
 
 public:	// Start public variables
 	int maxCharsInFrame();
-	bool AutoName;
-	double gXpos;
-	double gYpos;
-	double gWidth;
-	double gHeight;
-	int GrType; ///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11,12,13 = mesh gradient, 14 = hatch
-	double GrStartX;
-	double GrStartY;
-	double GrEndX;
-	double GrEndY;
-	double GrFocalX;
-	double GrFocalY;
-	double GrScale;
-	double GrSkew;
-	VGradient::VGradientRepeatMethod GrExtend;
+	bool AutoName {true};
+	double gXpos {0.0};
+	double gYpos {0.0};
+	double gWidth {0.0};
+	double gHeight {0.0};
+	int GrType {0}; ///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11,12,13 = mesh gradient, 14 = hatch
+	double GrStartX {0.0};
+	double GrStartY {0.0};
+	double GrEndX {0.0};
+	double GrEndY {0.0};
+	double GrFocalX {0.0};
+	double GrFocalY {0.0};
+	double GrScale {1.0};
+	double GrSkew {0.0};
+	VGradient::VGradientRepeatMethod GrExtend {VGradient::pad};
 	FPoint GrControl1;
 	FPoint GrControl2;
 	FPoint GrControl3;
@@ -1292,20 +1292,20 @@ public:	// Start public variables
 	QString GrColorP2;
 	QString GrColorP3;
 	QString GrColorP4;
-	double GrCol1transp;
-	double GrCol2transp;
-	double GrCol3transp;
-	double GrCol4transp;
-	int GrCol1Shade;
-	int GrCol2Shade;
-	int GrCol3Shade;
-	int GrCol4Shade;
+	double GrCol1transp {1.0};
+	double GrCol2transp {1.0};
+	double GrCol3transp {1.0};
+	double GrCol4transp {1.0};
+	int GrCol1Shade {100};
+	int GrCol2Shade {100};
+	int GrCol3Shade {100};
+	int GrCol4Shade {100};
 	QList<meshGradientPatch> meshGradientPatches;
 	QList<QList<MeshPoint> > meshGradientArray;
-	int selectedMeshPointX;
-	int selectedMeshPointY;
-	int selectedMeshControlPoint;
-	bool snapToPatchGrid;
+	int selectedMeshPointX {-1};
+	int selectedMeshPointY {-1};
+	int selectedMeshControlPoint {0};
+	bool snapToPatchGrid {false};
 	int m_columns;
 	double m_columnGap;
 	Qt::PenStyle PLineArt; ///< Linestyle
@@ -1319,12 +1319,12 @@ public:	// Start public variables
 	FPointArray imageClip;
 	QList<uint> Segments;
 	ScImageEffectList effectsInUse;
-	bool PoShow;
-	double BaseOffs;
-	int textPathType;
-	bool textPathFlipped;
-	bool ClipEdited;
-	int FrameType; ///< Don't know exactly what this is, but it's not the same as itemType
+	bool PoShow {false};
+	double BaseOffs {0.0};
+	int textPathType {0};
+	bool textPathFlipped {false};
+	bool ClipEdited {false};
+	int FrameType {0}; ///< Don't know exactly what this is, but it's not the same as itemType
 	uint uniqueNr; ///< Internal unique Item-Number, used for the undo system
 	int OwnPage; ///< page this element belongs to
 	int oldOwnPage; ///< Old page number tracked for the move undo action
@@ -1334,87 +1334,87 @@ public:	// Start public variables
 	QString Pfile2;
 	QString Pfile3;
 	QString ImageProfile;
-	bool UseEmbedded;
+	bool UseEmbedded {true};
 	QString EmbeddedProfile;
 	eRenderIntent ImageIntent;
-	bool OverrideCompressionMethod;
-	int CompressionMethodIndex;
-	bool OverrideCompressionQuality;
-	int CompressionQualityIndex;
-	bool imageIsAvailable; ///< Flag to hold image file availability
-	int OrigW;
-	int OrigH;
-	double BBoxX; ///< Bounding Box-X
-	double BBoxH; ///< Bounding Box-H
-	double CurX; ///< Zeichen X-Position
-	double CurY; ///< Zeichen Y-Position
+	bool OverrideCompressionMethod {false};
+	int CompressionMethodIndex {0};
+	bool OverrideCompressionQuality {false};
+	int CompressionQualityIndex {0};
+	bool imageIsAvailable {false}; ///< Flag to hold image file availability
+	int OrigW {0};
+	int OrigH {0};
+	double BBoxX {0.0}; ///< Bounding Box-X
+	double BBoxH {0.0}; ///< Bounding Box-H
+	double CurX {0.0}; ///< Zeichen X-Position
+	double CurY {0.0}; ///< Zeichen Y-Position
 	StoryText itemText; ///< Text of element
 	TextLayout textLayout;
-	bool isBookmark; ///< Flag for PDF Bookmark
-	bool invalid; ///< Flag indicates that layout has changed (eg. for textlayout)
-	bool HasSel; ///< Flag for text selection
-	bool FrameOnly; ///< avoid artefacts while moving
-	bool isAutoText;
-	PageItem *Parent;
-	bool inPdfArticle;
-	bool isRaster;
+	bool isBookmark {false}; ///< Flag for PDF Bookmark
+	bool invalid {true}; ///< Flag indicates that layout has changed (eg. for textlayout)
+	bool HasSel {false}; ///< Flag for text selection
+	bool FrameOnly {false}; ///< avoid artefacts while moving
+	bool isAutoText {false};
+	PageItem *Parent {nullptr};
+	bool inPdfArticle {false};
+	bool isRaster {false};
 	double OldB;
 	double OldH;
 	double OldB2;
 	double OldH2;
-	bool Sizing;
+	bool Sizing {false};
 	int  m_layerID;
-	bool ScaleType;
-	bool AspectRatio;
+	bool ScaleType {true};
+	bool AspectRatio {true};
 	QVector<double> DashValues;
-	double DashOffset;
+	double DashOffset {0.0};
 	VGradient fill_gradient;
-	bool fillRule;
-	bool doOverprint;
+	bool fillRule {true};
+	bool doOverprint {false};
 
 	/* Additions for Table Support */
 	/* now deprecated with the new PageItem_Table */
-	PageItem* m_leftLink;
-	PageItem* m_rightLink;
-	PageItem* m_topLink;
-	PageItem* m_bottomLink;
-	int LeftLinkID;
-	int RightLinkID;
-	int TopLinkID;
-	int BottomLinkID;
-	bool LeftLine;
-	bool RightLine;
-	bool TopLine;
-	bool BottomLine;
-	bool isTableItem;
+	PageItem* m_leftLink {nullptr};
+	PageItem* m_rightLink {nullptr};
+	PageItem* m_topLink {nullptr};
+	PageItem* m_bottomLink {nullptr};
+	int LeftLinkID {0};
+	int RightLinkID {0};
+	int TopLinkID{0};
+	int BottomLinkID{0};
+	bool LeftLine {false};
+	bool RightLine {false};
+	bool TopLine {false};
+	bool BottomLine {false};
+	bool isTableItem {false};
 
 	/* end deprecated vars */
-	bool isSingleSel;
+	bool isSingleSel {false};
 	QList<PageItem*> groupItemList;
-	double groupWidth;
-	double groupHeight;
+	double groupWidth {1.0};
+	double groupHeight {1.0};
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;
 	double BoundingH;
-	bool ChangedMasterItem;
+	bool ChangedMasterItem {false};
 	QString OnMasterPage;
-	bool isEmbedded;
-	int inlineCharID;
+	bool isEmbedded {false};
+	int inlineCharID {0};
 	QString inlineExt;
 	/** Radius of rounded corners */
-	double m_roundedCornerRadius;
+	double m_roundedCornerRadius {0.0};
 
 	//Undo Data
-	double oldXpos; ///< Stores the old X-position for undo action. Is used to detect move actions.
-	double oldYpos; ///< Stores the old Y-position for undo action. Is used to detect move actions.
-	double oldWidth; ///< Stores the old width for undo action. Is used to detect resize actions.
-	double oldHeight; ///< Stores the old height for undo action. Is used to detect resize actions.
-	double oldRot; ///< Stores the old rotation value for undo action. Is used to detect rotation actions.
-	double oldLocalScX; ///< Stores the old LocalScX value for undo action. Is used to detect image scale actions.
-	double oldLocalScY; ///< Stores the old LocalScY value for undo action. Is used to detect image scale actions.
-	double oldLocalX; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
-	double oldLocalY; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
+	double oldXpos {0.0}; ///< Stores the old X-position for undo action. Is used to detect move actions.
+	double oldYpos {0.0}; ///< Stores the old Y-position for undo action. Is used to detect move actions.
+	double oldWidth {0.0}; ///< Stores the old width for undo action. Is used to detect resize actions.
+	double oldHeight {0.0}; ///< Stores the old height for undo action. Is used to detect resize actions.
+	double oldRot {0.0}; ///< Stores the old rotation value for undo action. Is used to detect rotation actions.
+	double oldLocalScX {1.0}; ///< Stores the old LocalScX value for undo action. Is used to detect image scale actions.
+	double oldLocalScY {1.0}; ///< Stores the old LocalScY value for undo action. Is used to detect image scale actions.
+	double oldLocalX {0.0}; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
+	double oldLocalY {0.0}; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
 
 	ScribusDoc *m_Doc; ///< Document this item belongs to
 
@@ -1429,18 +1429,17 @@ public:	// Start public variables
 	/**
 		* @brief Stroke pattern transformation matrix
 		*/
-	double patternStrokeScaleX;
-	double patternStrokeScaleY;
-	double patternStrokeOffsetX;
-	double patternStrokeOffsetY;
-	double patternStrokeRotation;
-	double patternStrokeSkewX;
-	double patternStrokeSkewY;
-	double patternStrokeSpace;
-	bool patternStrokeMirrorX;
-	bool patternStrokeMirrorY;
-	bool patternStrokePath;
-
+	double patternStrokeScaleX {100.0};
+	double patternStrokeScaleY {100.0};
+	double patternStrokeOffsetX {0};
+	double patternStrokeOffsetY {0};
+	double patternStrokeRotation {0};
+	double patternStrokeSkewX {0};
+	double patternStrokeSkewY {0};
+	double patternStrokeSpace {1.0};
+	bool patternStrokeMirrorX {false};
+	bool patternStrokeMirrorY {false};
+	bool patternStrokePath {false};
 
 	/**
 		* @brief Stroke gradient name
@@ -1452,57 +1451,57 @@ public:	// Start public variables
 	/**
 	* @brief Stroke gradient variables
 	*/
-	int GrTypeStroke;
-	double GrStrokeStartX;
-	double GrStrokeStartY;
-	double GrStrokeEndX;
-	double GrStrokeEndY;
-	double GrStrokeFocalX;
-	double GrStrokeFocalY;
-	double GrStrokeScale;
-	double GrStrokeSkew;
-	VGradient::VGradientRepeatMethod GrStrokeExtend;
+	int GrTypeStroke {0};
+	double GrStrokeStartX {0.0};
+	double GrStrokeStartY {0.0};
+	double GrStrokeEndX {0.0};
+	double GrStrokeEndY {0.0};
+	double GrStrokeFocalX {0.0};
+	double GrStrokeFocalY {0.0};
+	double GrStrokeScale {1.0};
+	double GrStrokeSkew {0.0};
+	VGradient::VGradientRepeatMethod GrStrokeExtend {VGradient::none};
 
 	/**
 	* @brief Mask gradient variables
 	*/
-	int GrMask;
-	double GrMaskStartX;
-	double GrMaskStartY;
-	double GrMaskEndX;
-	double GrMaskEndY;
-	double GrMaskFocalX;
-	double GrMaskFocalY;
-	double GrMaskScale;
-	double GrMaskSkew;
-	double patternMaskScaleX;
-	double patternMaskScaleY;
-	double patternMaskOffsetX;
-	double patternMaskOffsetY;
-	double patternMaskRotation;
-	double patternMaskSkewX;
-	double patternMaskSkewY;
-	bool patternMaskMirrorX;
-	bool patternMaskMirrorY;
+	int GrMask {0};
+	double GrMaskStartX {0.0};
+	double GrMaskStartY {0.0};
+	double GrMaskEndX {0.0};
+	double GrMaskEndY {0.0};
+	double GrMaskFocalX {0.0};
+	double GrMaskFocalY {0.0};
+	double GrMaskScale {1.0};
+	double GrMaskSkew {0.0};
+	double patternMaskScaleX {100.0};
+	double patternMaskScaleY {100.0};
+	double patternMaskOffsetX {0.0};
+	double patternMaskOffsetY {0.0};
+	double patternMaskRotation {0.0};
+	double patternMaskSkewX {0.0};
+	double patternMaskSkewY {0.0};
+	bool patternMaskMirrorX {false};
+	bool patternMaskMirrorY {false};
 	QString patternMaskVal;
 	QString gradientMaskVal;
 	VGradient mask_gradient;
 
 	/** Inline Image */
-	bool isInlineImage;
-	bool isTempFile;
+	bool isInlineImage {false};
+	bool isTempFile {false};
 	//items welding (item follows while item moves which they are connected with)
 	struct WeldingInfo
 	{
-		PageItem *weldItem;
+		PageItem *weldItem {nullptr};
 		FPoint weldPoint;
-		int weldID;
+		int weldID {0};
 	};
 	QList<WeldingInfo> weldList;
-	double hatchAngle;
-	double hatchDistance;
-	int hatchType;				// 0 = single 1 = double 2 = triple
-	bool hatchUseBackground;
+	double hatchAngle {0.0};
+	double hatchDistance {2.0};
+	int hatchType {0};				// 0 = single 1 = double 2 = triple
+	bool hatchUseBackground {false};
 	QString hatchBackground;
 	QString hatchForeground;
 	QColor  hatchBackgroundQ;
@@ -1682,13 +1681,13 @@ protected: // Start protected functions
 		// End protected functions
 
 protected: // Start protected variables
-	PageItem *BackBox;
-	PageItem *NextBox;
-	int  firstChar;
-	int  m_maxChars;
-	bool m_sampleItem; ///< Used to not draw the frame for sample items
+	PageItem *m_backBox {nullptr};
+	PageItem *m_nextBox {nullptr};
+	int  firstChar {0};
+	int  m_maxChars {0};
+	bool m_sampleItem {false}; ///< Used to not draw the frame for sample items
 	MarginStruct m_textDistanceMargins; ///< Left, Top, Bottom, Right distances of text from the frame
-	int verticalAlign;
+	int verticalAlign {0};
 	/**
 	 * @brief Frame Type, eg line, text frame, etc.
 	 *
@@ -1707,7 +1706,7 @@ protected: // Start protected variables
 	/**
 	 * Flag to tell if this item is a PDF annotation item
 	 */
-	bool m_isAnnotation; 
+	bool m_isAnnotation {false};
 
 	/**
 	 * PDF annotation data
@@ -1728,15 +1727,15 @@ protected: // Start protected variables
 	/**
 	 * @brief Fill pattern transformation matrix
 	 */
-	double patternScaleX;
-	double patternScaleY;
-	double patternOffsetX;
-	double patternOffsetY;
-	double patternRotation;
-	double patternSkewX;
-	double patternSkewY;
-	bool   patternMirrorX;
-	bool   patternMirrorY;
+	double patternScaleX {100.0};
+	double patternScaleY {100.0};
+	double patternOffsetX {0.0};
+	double patternOffsetY {0.0};
+	double patternRotation {0.0};
+	double patternSkewX {0.0};
+	double patternSkewY {0.0};
+	bool   patternMirrorX {false};
+	bool   patternMirrorY {false};
 
 	/**
 	 * @brief Fill color name
@@ -1766,62 +1765,62 @@ protected: // Start protected variables
 	 * @brief Fill transparency
 	 * @sa PageItem::fillTransparency(), PageItem::setFillTransparency()
 	 */
-	double m_fillTransparency;
+	double m_fillTransparency {0.0};
 
 	/**
 	 * @brief Line stroke transparency.
 	 * @sa PageItem::lineTransparency(), PageItem::setLineTransparency()
 	 */
-	double m_lineTransparency;
+	double m_lineTransparency {0.0};
 
 	/**
 	 * @brief Fill transparency blendmode
 	 * @sa PageItem::fillBlendmode(), PageItem::setFillBlendmode()
 	 */
-	int m_fillBlendMode;
+	int m_fillBlendMode {0};
 
 	/**
 	 * @brief Line stroke transparency blendmode.
 	 * @sa PageItem::lineBlendmode(), PageItem::setLineBlendmode()
 	 */
-	int m_lineBlendMode;
+	int m_lineBlendMode {0};
 
 	/**
 	 * @brief Is the image in this image item flipped horizontally?
 	 * @sa PageItem::isImageFlippedH(), PageItem::setImageFlippedH(),
 	 *     PageItem::flipImageH(), PageItem::flippedV
 	 */
-	bool m_ImageIsFlippedH;
+	bool m_ImageIsFlippedH {false};
 
 	/**
 	 * @brief Is the image in this image item flipped vertically?
 	 * @sa PageItem::isImageFlippedV(), PageItem::setImageFlippedV(),
 	 *     PageItem::flipImageV(), PageItem::flippedH
 	 */
-	bool m_ImageIsFlippedV;
+	bool m_ImageIsFlippedV {false};
 
 	/**
 	 * @brief Is the item locked (cannot be moved, resized, etc)?
 	 * @sa PageItem::locked(), PageItem::setLocked(), PageItem::toggleLock()
 	 */
-	bool m_Locked;
+	bool m_Locked {false};
 
 	/**
 	 * @brief Is the item's size locked?
 	 * @sa PageItem::sizeLocked(), PageItem::setSizeLocked(), PageItem::toggleSizeLock()
 	 */
-	bool m_SizeLocked;
+	bool m_SizeLocked {false};
 
 	/**
 	 * @for notes frames - locking horizontal or vertical size
 	**/
-	bool m_SizeHLocked;
-	bool m_SizeVLocked;
+	bool m_SizeHLocked {false};
+	bool m_SizeVLocked {false};
 	/**
 	 * @brief Should text flow around the item
 	 * @sa PageItem::textFlowMode(), PateItem::setTextFlowMode()
 	 */
-	TextFlowMode m_textFlowMode;
+	TextFlowMode m_textFlowMode {TextFlowDisabled};
 
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
@@ -1833,10 +1832,10 @@ protected: // Start protected variables
 	 * @brief Is this item set to be printed/exported
 	 * @sa PageItem::printable(), PageItem::setPrintable()
 	 */
-	bool m_PrintEnabled;
+	bool m_PrintEnabled {true};
 
-	bool no_fill;
-	bool no_stroke;
+	bool no_fill {false};
+	bool no_stroke {false};
 
 	QColor m_fillQColor;
 	QColor m_strokeQColor;
@@ -1845,36 +1844,36 @@ protected: // Start protected variables
 	QColor m_grQColorP3;
 	QColor m_grQColorP4;
 
-	double m_xPos; ///< X position on the page
-	double m_yPos; ///< Y position on the page
-	double m_width; ///< Width of the item
-	double m_height; ///<  Height of the item
-	double m_rotation; ///< Rotation of the item
-	bool   m_isSelected; ///< Is the item selected?
-	bool   m_imageVisible; ///< Darstellungsart Bild/Titel
-	double m_imageXScale; ///< Scaling X Factor for images
-	double m_imageYScale; ///< Scaling Y Factor for images
-	double m_imageXOffset; ///< Image X Offset to frame
-	double m_imageYOffset; ///< Image Y Offset to frame
-	double m_imageRotation; ///< Image rotation in frame
+	double m_xPos {0.0}; ///< X position on the page
+	double m_yPos {0.0}; ///< Y position on the page
+	double m_width {0.0}; ///< Width of the item
+	double m_height {0.0}; ///<  Height of the item
+	double m_rotation {0.0}; ///< Rotation of the item
+	bool   m_isSelected {false}; ///< Is the item selected?
+	bool   m_imageVisible {true}; ///< Darstellungsart Bild/Titel
+	double m_imageXScale {1.0}; ///< Scaling X Factor for images
+	double m_imageYScale {1.0}; ///< Scaling Y Factor for images
+	double m_imageXOffset {0.0}; ///< Image X Offset to frame
+	double m_imageYOffset {0.0}; ///< Image Y Offset to frame
+	double m_imageRotation {0.0}; ///< Image rotation in frame
 	FirstLineOffsetPolicy m_firstLineOffset;
-	bool   m_groupClips;
+	bool m_groupClips {true};
 
-	int m_startArrowIndex;
-	int m_endArrowIndex;
-	int m_startArrowScale;
-	int m_endArrowScale;
+	int m_startArrowIndex {0};
+	int m_endArrowIndex {0};
+	int m_startArrowScale {100};
+	int m_endArrowScale {100};
 
-	bool   m_hasSoftShadow;
-	QString m_softShadowColor;
-	int    m_softShadowShade;
-	double m_softShadowBlurRadius;
-	double m_softShadowXOffset;
-	double m_softShadowYOffset;
-	double m_softShadowOpacity;
-	int    m_softShadowBlendMode;
-	bool   m_softShadowErasedByObject;
-	bool   m_softShadowHasObjectTransparency;
+	bool    m_hasSoftShadow {false};
+	QString m_softShadowColor {"Black"};
+	int     m_softShadowShade {100};
+	double  m_softShadowBlurRadius {5.0};
+	double  m_softShadowXOffset {5.0};
+	double  m_softShadowYOffset {5.0};
+	double  m_softShadowOpacity {0.0};
+	int     m_softShadowBlendMode {0};
+	bool    m_softShadowErasedByObject {false};
+	bool    m_softShadowHasObjectTransparency {false};
 
 	// End protected variables
 

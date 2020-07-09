@@ -286,8 +286,6 @@ PageItem::PageItem(const PageItem & other)
 	hatchForegroundQ(other.hatchForegroundQ),
 	// protected
 	undoManager(other.undoManager),
-	BackBox(nullptr),  // otherwise other.BackBox->NextBox would be inconsistent
-	NextBox(nullptr),  // otherwise other.NextBox->BackBox would be inconsistent
 	firstChar(0),   // since this box is unlinked now
 	m_maxChars(0),   // since the layout is invalid now
 	m_sampleItem(false),
@@ -400,36 +398,16 @@ PageItem::PageItem(const PageItem & other)
 }
 
 
-PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
+PageItem::PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
 	// Initialize superclass(es)
-	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()), TextContext(this),
+	: QObject(doc), SingleObservable<PageItem>(doc->itemsChanged()), TextContext(this),
 	// Initialize member variables
-	OverrideCompressionMethod(false),
-	CompressionMethodIndex(0),
-	OverrideCompressionQuality(false),
-	CompressionQualityIndex(0),
-	itemText(pa),
+	itemText(doc),
 	textLayout(&itemText, this),
-	undoManager(UndoManager::instance()),
-	m_lineShade(100),
-	m_fillShade(100),
-	m_fillTransparency(0.0),
-	m_lineTransparency(0.0),
-	m_fillBlendMode(0),
-	m_lineBlendMode(0),
-	m_ImageIsFlippedH(false),
-	m_ImageIsFlippedV(false),
-	m_Locked(false),
-	m_SizeLocked(false),
-	m_SizeHLocked(false),
-	m_SizeVLocked(false),
-	m_textFlowMode(TextFlowDisabled)
+	undoManager(UndoManager::instance())
 {
-	Parent = nullptr;
-	m_Doc = pa;
+	m_Doc = doc;
 	QString tmp;
-	BackBox = nullptr;
-	NextBox = nullptr;
 	gXpos = oldXpos = m_xPos = x;
 	gYpos = oldYpos = m_yPos = y;
 	//CB Surely we can remove some of these?
@@ -440,100 +418,22 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BoundingW = w;
 	BoundingH = h;
 	m_itemType = newType;
-	oldRot = m_rotation = 0;
 	m_fillColor = fill;
 	m_lineColor = m_itemType == PageItem::TextFrame ? fill : outline;
-	gWidth = gHeight = 0;
-	GrType = 0;
-	GrStartX = 0;
-	GrStartY = 0;
 	GrEndX = w;
-	GrEndY = 0;
-	GrFocalX = 0;
-	GrFocalY = 0;
-	GrScale = 1;
-	GrSkew = 0;
-	GrExtend = VGradient::pad;
-	GrControl1 = FPoint(0,0);
+
 	GrControl2 = FPoint(w, 0);
 	GrControl3 = FPoint(w, h);
 	GrControl4 = FPoint(0, h);
 	GrControl5 = FPoint(w / 2.0, h / 2.0);
-	GrCol1transp = 1.0;
-	GrCol2transp = 1.0;
-	GrCol3transp = 1.0;
-	GrCol4transp = 1.0;
-	GrCol1Shade = 100;
-	GrCol2Shade = 100;
-	GrCol3Shade = 100;
-	GrCol4Shade = 100;
-	meshGradientPatches.clear();
-	meshGradientArray.clear();
-	selectedMeshPointX = -1;
-	selectedMeshPointY = -1;
-	m_gradientName = "";
-	GrTypeStroke = 0;
-	GrStrokeStartX = 0;
-	GrStrokeStartY = 0;
 	GrStrokeEndX = w;
-	GrStrokeEndY = 0;
-	GrStrokeFocalX = 0;
-	GrStrokeFocalY = 0;
-	GrStrokeScale = 1;
-	GrStrokeSkew = 0;
-	gradientStrokeVal.clear();
-	m_patternName = "";
-	patternScaleX = 100;
-	patternScaleY = 100;
-	patternOffsetX = 0;
-	patternOffsetY = 0;
-	patternRotation = 0;
-	patternSkewX = 0;
-	patternSkewY = 0;
-	patternMirrorX = false;
-	patternMirrorY = false;
-	patternStrokeVal = "";
-	patternStrokeScaleX = 100;
-	patternStrokeScaleY = 100;
-	patternStrokeOffsetX = 0;
-	patternStrokeOffsetY = 0;
-	patternStrokeRotation = 0;
-	patternStrokeSkewX = 0;
-	patternStrokeSkewY = 0;
-	patternStrokeSpace = 1.0;
-	patternStrokeMirrorX = false;
-	patternStrokeMirrorY = false;
-	patternStrokePath = false;
 	m_lineWidth = w2;
 	m_oldLineWidth = w2;
 	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs().shapeLineStyle);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
-	m_isSelected = false;
-	ClipEdited = false;
-	FrameType = 0;
-	CurX = 0;
-	CurY = 0;
 	m_textDistanceMargins=m_Doc->itemToolPrefs().textDistances;
-	verticalAlign = 0;
-	firstChar = 0;
-	m_maxChars = 0;
-	m_sampleItem = false;
-	Pfile = "";
-	pixm = ScImage();
 	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs().imageLowResType;
-	Pfile2 = "";
-	Pfile3 = "";
-	oldLocalScX = m_imageXScale = 1;
-	oldLocalScY = m_imageYScale = 1;
-	OrigW = 0;
-	OrigH = 0;
-	oldLocalX = m_imageXOffset = 0;
-	oldLocalY = m_imageYOffset = 0;
-	m_imageRotation = 0;
-	BBoxX = 0;
-	BBoxH = 0;
-	m_roundedCornerRadius = 0;
 	switch (m_itemType)
 	{
 		case Polygon:
@@ -544,83 +444,70 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			Clip.setPoints(4, 0, 0, static_cast<int>(w), 0, static_cast<int>(w), static_cast<int>(h), 0, static_cast<int>(h));
 			break;
 	}
-	PoLine.resize(0);
-	ContourLine.resize(0);
-	imageClip.resize(0);
-	Segments.clear();
-	PoShow = false;
-	BaseOffs = 0;
-	textPathType = 0;
-	textPathFlipped = false;
 	OwnPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageNr() : -1;
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
 	m_imageVisible = m_Doc->guidesPrefs().showPic;
-	imageIsAvailable = false;
-	m_PrintEnabled = true;
-	isBookmark = false;
-	m_isAnnotation = false;
-	weldList.clear();
 	
 	switch (m_itemType)
 	{
-	case ImageFrame:
-	case OSGFrame:
-	case LatexFrame:
-		//We can't determine if this is a latex frame here
-		// because c++'s typeinfos are still saying it's 
-		// a plain pageitem
-		// This is fixed in the PageItem_LatexFrame constructor
-		m_itemName = tr("Image");
-		setUPixmap(Um::IImageFrame);
-		break;
-	case TextFrame:
-		m_itemName = tr("Text");
-		setUPixmap(Um::ITextFrame);
-		break;
-	case Line:
-		m_itemName = tr("Line");
-		setUPixmap(Um::ILine);
-		break;
-	case Polygon:
-		m_itemName = tr("Polygon");
-		setUPixmap(Um::IPolygon);
-		break;
-	case PolyLine:
-		m_itemName = tr("Polyline");
-		setUPixmap(Um::IPolyline);
-		break;
-	case PathText:
-		m_itemName = tr("PathText");
-		setUPixmap(Um::IPathText);
-		break;
-	case Symbol:
-		m_itemName = tr("Symbol");
-		setUPixmap(Um::IPolygon);
-		break;
-	case Group:
-		m_itemName = tr("Group");
-		setUPixmap(Um::IPolygon);
-		break;
-	case RegularPolygon:
-		m_itemName = tr("RegularPolygon");
-		setUPixmap(Um::IPolygon);
-		break;
-	case Arc:
-		m_itemName = tr("Arc");
-		setUPixmap(Um::IPolygon);
-		break;
-	case Spiral:
-		m_itemName = tr("Spiral");
-		setUPixmap(Um::IPolygon);
-		break;
-	case Table:
-		m_itemName = tr("Table");
-		//setUPixmap(Um::IPolygon); // TODO: Fix this.
-		break;
-	default:
-		m_itemName = "Item";
-		break;
+		case ImageFrame:
+		case OSGFrame:
+		case LatexFrame:
+			//We can't determine if this is a latex frame here
+			// because c++'s typeinfos are still saying it's
+			// a plain pageitem
+			// This is fixed in the PageItem_LatexFrame constructor
+			m_itemName = tr("Image");
+			setUPixmap(Um::IImageFrame);
+			break;
+		case TextFrame:
+			m_itemName = tr("Text");
+			setUPixmap(Um::ITextFrame);
+			break;
+		case Line:
+			m_itemName = tr("Line");
+			setUPixmap(Um::ILine);
+			break;
+		case Polygon:
+			m_itemName = tr("Polygon");
+			setUPixmap(Um::IPolygon);
+			break;
+		case PolyLine:
+			m_itemName = tr("Polyline");
+			setUPixmap(Um::IPolyline);
+			break;
+		case PathText:
+			m_itemName = tr("PathText");
+			setUPixmap(Um::IPathText);
+			break;
+		case Symbol:
+			m_itemName = tr("Symbol");
+			setUPixmap(Um::IPolygon);
+			break;
+		case Group:
+			m_itemName = tr("Group");
+			setUPixmap(Um::IPolygon);
+			break;
+		case RegularPolygon:
+			m_itemName = tr("RegularPolygon");
+			setUPixmap(Um::IPolygon);
+			break;
+		case Arc:
+			m_itemName = tr("Arc");
+			setUPixmap(Um::IPolygon);
+			break;
+		case Spiral:
+			m_itemName = tr("Spiral");
+			setUPixmap(Um::IPolygon);
+			break;
+		case Table:
+			m_itemName = tr("Table");
+			//setUPixmap(Um::IPolygon); // TODO: Fix this.
+			break;
+		default:
+			m_itemName = "Item";
+			break;
 	}
 	m_Doc->TotalItems++;
 	
@@ -634,29 +521,11 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	
 	uniqueNr = m_Doc->TotalItems;
-	AutoName = true;
 	setUName(m_itemName);
 	m_annotation.setBorderColor(outline);
-	HasSel = false;
-	isAutoText = false;
-	inPdfArticle = false;
-	isRaster = false;
-	Sizing = false;
 //	toPixmap = false;
-	UseEmbedded = true;
 	ImageIntent = Intent_Relative_Colorimetric;
-	EmbeddedProfile.clear();
-	groupItemList.clear();
-	groupWidth = 1.0;
-	groupHeight = 1.0;
 	m_layerID = m_Doc->activeLayer();
-	ScaleType = true;
-	AspectRatio = true;
-	NamedLStyle = "";
-	DashValues.clear();
-	DashOffset = 0;
-	fillRule = true;
-	doOverprint = false;
 	stroke_gradient = VGradient(VGradient::linear);
 	stroke_gradient.clearStops();
 	if (m_lineColor != CommonStrings::None)
@@ -769,28 +638,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 		}
 	}
-	GrMask = 0;
-	GrMaskStartX = 0;
-	GrMaskStartY = 0;
 	GrMaskEndX = w;
-	GrMaskEndY = 0;
-	GrMaskFocalX = 0;
-	GrMaskFocalY = 0;
-	GrMaskScale = 1;
-	GrMaskSkew = 0;
-	patternMaskScaleX = 100;
-	patternMaskScaleY = 100;
-	patternMaskOffsetX = 0;
-	patternMaskOffsetY = 0;
-	patternMaskRotation = 0;
-	patternMaskSkewX = 0;
-	patternMaskSkewY = 0;
-	patternMaskMirrorX = false;
-	patternMaskMirrorY = false;
-	patternMaskVal = "";
-	gradientMaskVal = "";
 	mask_gradient = VGradient(VGradient::linear);
-	mask_gradient.clearStops();
 	const ScColor& col = m_Doc->PageColors["Black"];
 	QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 	mask_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
@@ -835,28 +684,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_firstLineOffset = FLOPRealGlyphHeight;
 	m_columns = m_Doc->itemToolPrefs().textColumns;
 	m_columnGap = m_Doc->itemToolPrefs().textColumnGap;
-	m_leftLink = nullptr;
-	m_rightLink = nullptr;
-	m_topLink = nullptr;
-	m_bottomLink = nullptr;
-	LeftLinkID = 0;
-	RightLinkID = 0;
-	TopLinkID = 0;
-	BottomLinkID = 0;
-	LeftLine = false;
-	RightLine = false;
-	TopLine = false;
-	BottomLine = false;
-	isTableItem = false;
-	isSingleSel = false;
-	invalid = true;
-	ChangedMasterItem = false;
-	isEmbedded = false;
+
 	OnMasterPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageName() : QString();
 	m_startArrowIndex = m_Doc->itemToolPrefs().lineStartArrow;
 	m_endArrowIndex = m_Doc->itemToolPrefs().lineEndArrow;
-	m_startArrowScale = 100;
-	m_endArrowScale = 100;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
@@ -867,35 +698,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
-	isInlineImage = false;
-	isTempFile = false;
-
-	m_hasSoftShadow = false;
-	m_softShadowColor = "Black";
-	m_softShadowShade = 100;
-	m_softShadowBlurRadius = 5.0;
-	m_softShadowXOffset = 5.0;
-	m_softShadowYOffset = 5.0;
-	m_softShadowOpacity = 0.0;
-	m_softShadowBlendMode = 0;
-	m_softShadowErasedByObject = false;
-	m_softShadowHasObjectTransparency = false;
-	m_groupClips = true;
-	hatchAngle = 0;
-	hatchDistance = 2;
-	hatchType = 0;
-	hatchUseBackground = false;
 	hatchBackground = CommonStrings::None;
 	hatchBackgroundQ = QColor();
 	hatchForeground = "Black";
 	hatchForegroundQ = qcol;
-	selectedMeshControlPoint = 0;
-	snapToPatchGrid = false;
-	FrameOnly = false;
-	inlineCharID = 0;
-	GrStrokeExtend = VGradient::none;
-	no_fill = false;
-	no_stroke = false;
 }
 
 PageItem::~PageItem()
@@ -1210,15 +1016,15 @@ PageItem* PageItem::frameOfChar(int textPos)
 PageItem * PageItem::frameTextEnd()
 {
 	PageItem * LastBox = this;
-	if (frameOverflows() && NextBox)
+	if (frameOverflows() && m_nextBox)
 	{ // text ending in some next frame
-		LastBox = NextBox;
+		LastBox = m_nextBox;
 		while (LastBox != nullptr && !LastBox->frameDisplays(itemText.length()-1))
 			LastBox = LastBox->nextInChain();
 	}
-	else if (frameUnderflows() && BackBox)
+	else if (frameUnderflows() && m_backBox)
 	{ //text ending in some previous frame
-		LastBox = BackBox;
+		LastBox = m_backBox;
 		while (LastBox != nullptr && !LastBox->frameDisplays(itemText.length()-1))
 			LastBox = LastBox->prevInChain();
 	}
@@ -1230,7 +1036,7 @@ bool PageItem::frameOverflows() const
 {
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == nullptr && itemText.length() > static_cast<int>(MaxChars);*/
-	return ( NextBox == nullptr )
+	return ( m_nextBox == nullptr )
 		   && ( firstChar < itemText.length() )
 		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
 		   /*&& ( firstChar < MaxChars )*/
@@ -1260,7 +1066,7 @@ int PageItem::maxCharsInFrame()
 /// returns true if text is ending before that frame
 bool PageItem::frameUnderflows() const
 {
-	if (BackBox == nullptr)
+	if (m_backBox == nullptr)
 		return false;
 	//FIX ME - I have found that condition if frame is empty
 	//and has been linked with previous frame
@@ -1280,7 +1086,7 @@ void PageItem::drawOverflowMarker(ScPainter *p)
 	QColor color(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor);
 	if ((isBookmark) || (m_isAnnotation))
 		color = PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor;
-	if ((BackBox != nullptr) || (NextBox != nullptr))
+	if ((m_backBox != nullptr) || (m_nextBox != nullptr))
 		color = PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor;
 	if (m_Locked)
 		color = PrefsManager::instance().appPrefs.displayPrefs.frameLockColor;
@@ -1354,8 +1160,8 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 	}
 	else
 		addPARSEP = false;
-	NextBox = nxt;
-	nxt->BackBox = this;
+	m_nextBox = nxt;
+	nxt->m_backBox = this;
 	// update AutoText
 	if (isAutoText)
 	{
@@ -1364,7 +1170,7 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 		{
 			after->isAutoText = true;
 			m_Doc->LastAuto = after;
-			after = after->NextBox;
+			after = after->m_nextBox;
 		}
 	}
 	else if (nxt->isAutoText)
@@ -1374,22 +1180,22 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 		{
 			before->isAutoText = true;
 			m_Doc->FirstAuto = before;
-			before = before->BackBox;
+			before = before->m_backBox;
 		}
 	}
 	invalid = true;
 	PageItem* prev = this;
-	while (prev->BackBox && !prev->BackBox->frameOverflows())
+	while (prev->m_backBox && !prev->m_backBox->frameOverflows())
 	{
-		prev->BackBox->invalid = true;
-		prev = prev->BackBox;
+		prev->m_backBox->invalid = true;
+		prev = prev->m_backBox;
 	}
 	while (nxt)
 	{
 		nxt->itemText = itemText;
 		nxt->invalid = true;
 		nxt->firstChar = 0;
-		nxt = nxt->NextBox;
+		nxt = nxt->m_nextBox;
 	}
 	if (UndoManager::undoEnabled() && createUndo) //addPARESEP is false only if linking is invoked from undo action for unlinkWithText
 	{
@@ -1398,16 +1204,16 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 		is->set("FIRST", first);
 		is->set("JOIN_POS", textLen);
 		is->set("ADDPARSEP", addPARSEP);
-		is->setItem(qMakePair(this, NextBox));
+		is->setItem(qMakePair(this, m_nextBox));
 		undoManager->action(this, is);
 	}
 }
 
 void PageItem::unlink(bool createUndo)
 {
-	if (NextBox)
+	if (m_nextBox)
 	{
-		PageItem *undoNextBox=NextBox;
+		PageItem *undoNextBox=m_nextBox;
 		// make sure lastInFrame is valid
 		layout();
 		/*
@@ -1430,22 +1236,22 @@ void PageItem::unlink(bool createUndo)
 			while (before) 
 			{
 				before->isAutoText = false;
-				before = before->BackBox;
+				before = before->m_backBox;
 			}
-			m_Doc->FirstAuto = NextBox;
+			m_Doc->FirstAuto = m_nextBox;
 		}
 		// link following frames to new text
-		NextBox->firstChar = 0;
-		NextBox->BackBox = nullptr;
-		while (NextBox)
+		m_nextBox->firstChar = 0;
+		m_nextBox->m_backBox = nullptr;
+		while (m_nextBox)
 		{
-			NextBox->itemText = follow;
-			NextBox->invalid = true;
-			NextBox->firstChar = 0;
-			NextBox = NextBox->NextBox;
+			m_nextBox->itemText = follow;
+			m_nextBox->invalid = true;
+			m_nextBox->firstChar = 0;
+			m_nextBox = m_nextBox->m_nextBox;
 		}
 		// NextBox == nullptr now
-		NextBox = nullptr;
+		m_nextBox = nullptr;
 		if (UndoManager::undoEnabled() && createUndo)
 		{
 			ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
@@ -1459,15 +1265,15 @@ void PageItem::unlink(bool createUndo)
 void PageItem::dropLinks()
 {
 	// update auto pointers
-	if (isAutoText && NextBox == nullptr)
-		m_Doc->LastAuto = BackBox;
-	if (isAutoText && BackBox == nullptr)
-		m_Doc->FirstAuto = NextBox;
+	if (isAutoText && m_nextBox == nullptr)
+		m_Doc->LastAuto = m_backBox;
+	if (isAutoText && m_backBox == nullptr)
+		m_Doc->FirstAuto = m_nextBox;
 	isAutoText = false;
 
 	// leave text in remaining chain
-	PageItem* before = BackBox;
-	PageItem* after = NextBox;
+	PageItem* before = m_backBox;
+	PageItem* after = m_nextBox;
 	if (after == nullptr && before == nullptr)
 		return;
 
@@ -1476,17 +1282,17 @@ void PageItem::dropLinks()
 	int afterChar = 0;
 	if (before)
 	{
-		before->NextBox = after;
+		before->m_nextBox = after;
 		afterChar = qMin((int) before->m_maxChars, before->itemText.length());
 	}
 	if (after) 
 	{
-		after->BackBox = before;
+		after->m_backBox = before;
 		while (after)
 		{ 
 			after->invalid = true;
 			after->firstChar = afterChar;
-			after = after->NextBox;
+			after = after->m_nextBox;
 		}
 	}
 
@@ -1494,20 +1300,20 @@ void PageItem::dropLinks()
 	{
 		ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
 		is->set("DROP_LINKS");
-		is->setItem(qMakePair(BackBox, NextBox));
+		is->setItem(qMakePair(m_backBox, m_nextBox));
 		undoManager->action(this, is);
 	}
 
 	// JG we should set BackBox and NextBox to nullptr at a point
-	BackBox = NextBox = nullptr;
+	m_backBox = m_nextBox = nullptr;
 }
 
 //unlink selected frame from text chain
 //but copy or cut its content from itemText
 void PageItem::unlinkWithText()
 {
-	PageItem* Next = NextBox;
-	PageItem* Prev = BackBox;
+	PageItem* Next = m_nextBox;
+	PageItem* Prev = m_backBox;
 	int length = itemText.length();
 
 	if (this->invalid)
@@ -2174,7 +1980,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameAnnotationColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				if ((BackBox != nullptr) || (NextBox != nullptr))
+				if ((m_backBox != nullptr) || (m_nextBox != nullptr))
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -7162,19 +6968,19 @@ void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
 		PageItem* prev = is->getItem().first;
 		PageItem* next = is->getItem().second;
 
-		BackBox = prev;
-		NextBox = next;
+		m_backBox = prev;
+		m_nextBox = next;
 		invalid = true;
 
 		if (prev)
 		{
 			this->itemText  = prev->itemText;
 			this->isAutoText |= prev->isAutoText;
-			prev->NextBox = this;
+			prev->m_nextBox = this;
 			while (prev)
 			{
 				prev->invalid = true;
-				prev = prev->BackBox;
+				prev = prev->m_backBox;
 			}
 		}
 		if (next)
@@ -7182,20 +6988,20 @@ void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
 			this->itemText = next->itemText;
 			this->isAutoText |= next->isAutoText;
 
-			next->BackBox = this;
+			next->m_backBox = this;
 			while (next)
 			{
 				next->invalid = true;
-				next = next->NextBox;
+				next = next->m_nextBox;
 			}
 		}
 
 		// update auto pointers
-		if (isAutoText && NextBox == nullptr)
+		if (isAutoText && m_nextBox == nullptr)
 		{
 			m_Doc->LastAuto = this;
 		}
-		if (isAutoText && BackBox == nullptr)
+		if (isAutoText && m_backBox == nullptr)
 		{
 			m_Doc->FirstAuto = this;
 		}
