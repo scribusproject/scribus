@@ -1327,7 +1327,7 @@ void PageItem::unlinkWithText()
 		if (lastInFrame() < length -1)
 		{
 			StoryText content(m_Doc);
-			itemText.select(lastInFrame() +1, length - (lastInFrame() +1));
+			itemText.select(lastInFrame() + 1, length - (lastInFrame() + 1));
 			content.insert(0, itemText, true);
 			itemText.removeSelection();
 			unlink(false);
