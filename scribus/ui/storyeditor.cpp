@@ -1767,8 +1767,10 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("InsertChar", "Insert");
 	seMenuMgr->addMenuItemString("unicodePageNumber", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodePageCount", "InsertChar");
-	//seMenuMgr->addMenuItemString("unicodeSoftHyphen", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeSoftHyphen", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeNonBreakingHyphen", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeZWJ", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeZWNJ", "InsertChar");
 	seMenuMgr->addMenuItemString("SEPARATOR", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeCopyRight", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeRegdTM", "InsertChar");
