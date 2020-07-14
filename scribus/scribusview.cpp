@@ -3697,6 +3697,35 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 	undoManager->setUndoEnabled(true);
 }
 
+void ScribusView::saveViewState()
+{
+	ViewState viewState;
+	viewState.currentPage = m_doc->currentPageNumber();
+	viewState.contentX = horizontalScrollBar()->value();
+	viewState.contentY = verticalScrollBar()->value();
+	viewState.canvasScale = m_canvas->scale();
+	viewState.minCanvasCoordinate = m_doc->minCanvasCoordinate;
+	viewState.maxCanvasCoordinate = m_doc->maxCanvasCoordinate;
+	m_viewStates.push(viewState);
+}
+
+void ScribusView::restoreViewState()
+{
+	if (m_viewStates.isEmpty())
+		return;
+
+	ViewState viewState = m_viewStates.pop();
+	m_doc->minCanvasCoordinate = viewState.minCanvasCoordinate;
+	m_doc->maxCanvasCoordinate = viewState.maxCanvasCoordinate;
+	setScale(viewState.canvasScale);
+
+	// #12857 : the number of pages may change when undoing/redoing
+	// page addition/deletion while in edit mode, so take some extra
+	// care so that storedPageNum is in appropriate range
+	int currentPage = qMin(viewState.currentPage, m_doc->DocPages.count() - 1);
+	m_doc->setCurrentPage(m_doc->DocPages.at(currentPage));
+	setContentsPos(viewState.contentX, viewState.contentY);
+}
 
 void ScribusView::stopAllDrags() // deprecated
 {

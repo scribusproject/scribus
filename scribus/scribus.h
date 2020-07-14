@@ -655,10 +655,7 @@ private:
 					QString Command;
 				} PDef ;
 	TOCGenerator *m_tocGenerator {nullptr};
-	int m_storedPageNum;
-	int m_storedViewXCoor;
-	int m_storedViewYCoor;
-	double m_storedViewScale;
+
 	StyleManager *m_styleManager {nullptr};
 	UndoManager *m_undoManager {nullptr};
 	PrefsManager& m_prefsManager;

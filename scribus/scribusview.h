@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 #include <QRectF>
 #include <QSize>
+#include <QStack>
 #include <QTimer>
 #include <QScrollArea>
 #include <QScrollBar>
@@ -52,6 +53,7 @@ class QMenu;
 class QMimeData;
 
 // application specific includes
+#include "fpoint.h"
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -105,6 +107,16 @@ public:
 	friend class CanvasMode_Normal;
 	friend class CanvasMode_ObjImport;
 	friend class CanvasMode_Rotate;
+
+	struct ViewState
+	{
+		int currentPage { 0 };
+		int contentX { 0 };
+		int contentY { 0 };
+		double canvasScale { 1.0 };
+		FPoint minCanvasCoordinate;
+		FPoint maxCanvasCoordinate;
+	};
 	
 	void requestMode(int appMode);
 //	void setCursorBasedOnAppMode(int appMode);
@@ -228,6 +240,10 @@ public: // for now
 	void zoom(double scale = 0.0);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
 
+	void saveViewState();
+	void restoreViewState();
+	const ViewState& topViewState() const { return m_viewStates.top(); }
+
 public slots: // Public slots
 	void iconSetChange();
 	void languageChange();
@@ -282,6 +298,7 @@ private: // Private attributes
 	bool _isGlobalMode {true};
 	bool linkAfterDraw {false};
 	bool ImageAfterDraw {false};
+	QStack<ViewState> m_viewStates;
 
 private slots:
 	void setZoom();
