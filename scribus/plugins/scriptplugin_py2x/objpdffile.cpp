@@ -1259,16 +1259,19 @@ static PyObject *PDFfile_save(PDFfile *self)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	PDFOptions& pdfOptions = currentDoc->pdfOptions();
 
-// copied from file scribus.cpp
-//void ScribusMainWindow::SaveAsPDF()
+	// Copied from file scribus.cpp
+	// void ScribusMainWindow::SaveAsPDF()
 	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		pdfOptions.Bookmarks = false;
 
-// get PDF version
+	// Get PDF version
 	self->version = minmaxi(self->version, PDFVersion::PDFVersion_Min, PDFVersion::PDFVersion_Max);
 	pdfOptions.Version = (PDFVersion::Version) self->version;
 
-// apply fonts attribute
+	// Update used fonts
+	currentDoc->reorganiseFonts();
+
+	// Apply fonts attribute
 	pdfOptions.EmbedList.clear();
 	int n = PyList_Size(self->fonts);
 	for (int i = 0; i < n; ++i)
@@ -1277,7 +1280,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->fonts, i)));
 		pdfOptions.EmbedList.append(tmpFon);
 	}
-// apply SubsetList attribute
+	// Apply SubsetList attribute
 	pdfOptions.SubsetList.clear();
 	n = PyList_Size(self->subsetList);
 	for (int i = 0; i < n; ++i)
@@ -1286,8 +1289,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->subsetList, i)));
 		pdfOptions.SubsetList.append(tmpFon);
 	}
-// apply font embedding mode
-	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyInt_AsLong(self->fontEmbedding);
+	// Apply font embedding mode
+	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyLong_AsLong(self->fontEmbedding);
 	if (pdfOptions.Version == PDFVersion::PDF_X1a ||
 	    pdfOptions.Version == PDFVersion::PDF_X3 ||
 	    pdfOptions.Version == PDFVersion::PDF_X4)
@@ -1320,52 +1323,52 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pdfOptions.SubsetList  = QStringList();
 		pdfOptions.OutlineList = QStringList();
 	}
-// apply file attribute
+	// Apply file attribute
 	QString fn;
 	fn = QString(PyString_AsString(self->file));
 	pdfOptions.fileName = fn;
-// apply pages attribute
+	// Apply pages attribute
 	std::vector<int> pageNs;
 	int nn = PyList_Size(self->pages);
 	for (int i = 0; i < nn; ++i) {
 		pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
-// apply thumbnails attribute
+	// Apply thumbnails attribute
 	pdfOptions.Thumbnails = self->thumbnails;
-// apply cropmarks attribute
+	// Apply cropmarks attribute
 	pdfOptions.cropMarks = self->cropMarks;
-// apply bleedmarks attribute
+	// Apply bleedmarks attribute
 	pdfOptions.bleedMarks = self->bleedMarks;
-// apply registrationmarks attribute
+	// Apply registrationmarks attribute
 	pdfOptions.registrationMarks = self->registrationMarks;
-// apply colormarks attribute
+	// Apply colormarks attribute
 	pdfOptions.colorMarks = self->colorMarks;
-// apply docInfoMark attribute
+	// Apply docInfoMark attribute
 	pdfOptions.docInfoMarks = self->docInfoMarks;
-// apply mark offset attribute
+	// Apply mark offset attribute
 	pdfOptions.markOffset = qMax(0.0, self->markOffset / currentDoc->unitRatio());
-// apply mark length attribute
+	// Apply mark length attribute
 	pdfOptions.markLength = qMax(0.0, self->markLength / currentDoc->unitRatio());
-// apply compress attribute
+	// Apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	pdfOptions.Compress = self->compress;
 	pdfOptions.CompressMethod = (PDFOptions::PDFCompression) self->compressmtd;
-// apply quality attribute
+	// Apply quality attribute
 	self->quality = minmaxi(self->quality, 0, 4);
 	pdfOptions.Quality = self->quality;
-// apply resolusion attribute
+	// Apply resolusion attribute
 	pdfOptions.Resolution = PyInt_AsLong(self->resolution);
-// apply downsample attribute
+	// Apply downsample attribute
 	pdfOptions.RecalcPic = PyInt_AsLong(self->downsample);
 	if (pdfOptions.RecalcPic)
 		pdfOptions.PicRes = PyInt_AsLong(self->downsample);
 	else
 		pdfOptions.PicRes = pdfOptions.Resolution;
-// apply bookmarks attribute
+	// Apply bookmarks attribute
 	pdfOptions.Bookmarks = self->bookmarks;
-// apply binding attribute
+	// Apply binding attribute
 	pdfOptions.Binding = self->binding;
-// apply presentation attribute
+	// Apply presentation attribute
 	pdfOptions.PresentMode = self->presentation;
 
 	int tmpnum = PyList_Size(self->effval);
@@ -1386,7 +1389,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 
 //	pdfOptions.PresentVals = PresentVals;
-// apply lpival
+	// Apply lpival
 	int n2 = PyList_Size(self->lpival);
 	for (int i = 0; i < n2; ++i)
 	{
