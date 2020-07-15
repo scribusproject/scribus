@@ -179,16 +179,15 @@ public:
 		m_naturalWidth = m_naturalHeight = 0;
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const;
-	QLineF positionToPoint(int pos, const StoryText& story) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
-	void render(TextLayoutPainter *p) const;
-	void render(ScreenPainter *p, ITextContext *ctx) const;
-	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
+	void render(TextLayoutPainter *p) const override;
+	void render(ScreenPainter *p, ITextContext *ctx) const override;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const override;
 
-
-	double naturalWidth() const { return m_naturalWidth; }
-	double naturalHeight() const;
+	double naturalWidth() const override { return m_naturalWidth; }
+	double naturalHeight() const override;
 
 //	void justify(const ParagraphStyle& style);
 
@@ -216,17 +215,17 @@ public:
 		m_type = T_Line;
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const;
-	QLineF positionToPoint(int pos, const StoryText& story) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
-	bool containsPoint(QPointF coord) const;
+	bool containsPoint(QPointF coord) const override;
 
-	void render(TextLayoutPainter *p) const;
-	void render(ScreenPainter *p, ITextContext *ctx) const;
-	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
+	void render(TextLayoutPainter *p) const override;
+	void render(ScreenPainter *p, ITextContext *ctx) const override;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const override;
 
-	double naturalWidth() const { return m_naturalWidth; }
-	double naturalHeight() const { return height(); }
+	double naturalWidth() const override{ return m_naturalWidth; }
+	double naturalHeight() const override{ return height(); }
 
 //	void justify(const ParagraphStyle& style);
 
@@ -249,7 +248,7 @@ public:
 
 protected:
 	void update();
-	void drawBackGround(TextLayoutPainter *p) const;
+	void drawBackGround(TextLayoutPainter *p) const override;
 };
 
 class GlyphBox: public Box
@@ -268,12 +267,12 @@ public:
 		m_naturalDescent = run.descent();
 	}
 
-	int pointToPosition(QPointF coord, const StoryText &story) const;
-	QLineF positionToPoint(int pos, const StoryText& story) const;
+	int pointToPosition(QPointF coord, const StoryText &story) const override;
+	QLineF positionToPoint(int pos, const StoryText& story) const override;
 
-	void render(TextLayoutPainter *p) const;
-	void render(ScreenPainter *p, ITextContext *ctx) const;
-	void drawSelection(ScreenPainter *p, ITextContext *ctx) const;
+	void render(TextLayoutPainter *p) const override;
+	void render(ScreenPainter *p, ITextContext *ctx) const override;
+	void drawSelection(ScreenPainter *p, ITextContext *ctx) const override;
 
 	GlyphCluster glyphRun() const { return m_glyphRun; }
 
@@ -295,8 +294,8 @@ public:
 		m_type = T_Object;
 	}
 
-	void render(TextLayoutPainter *p) const;
-	void render(ScreenPainter*, ITextContext *ctx) const;
+	void render(TextLayoutPainter *p) const override;
+	void render(ScreenPainter*, ITextContext *ctx) const override;
 
 private:
 	/* const */ PageItem* m_object;
