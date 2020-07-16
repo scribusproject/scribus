@@ -94,9 +94,17 @@ Insérer du texte &agrave; la position -1 l'ajoute &agrave; la fin du cadre. Si 
 <p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nommé "nomDepart" est lié au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
 <p>Peut générer <a href="#ScribusException">ScribusException</a> en cas d'infraction des règles de liens.</p></dd>
 
+
+<dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>
+<dd><code>selectFrameText(depart, compte, ["nom"])</code>
+<p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est égal &agrave; zéro, tout le texte sera effacé. Si "compte" est égal à -1, la sélection s'étendra jusqu'au dernier charactère du cadre. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
+<p>Cette fonction agit uniquement sur le texte visible dans le cadre spécifié. Si vous avez besoin de travailler sur le texte contenu dans une chaîne de texte, veuillez utiliser selectText() à la place.</p>
+<p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p>
+<p>Peut générer IndexError si la sélection dépasse les limites du texte.</p></dd>
+
 <dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
 <dd><code>selectText(depart, compte, ["nom"])</code>
-<p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est &agrave; zéro, tout le texte sera effacé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
+<p>Sélectionne le nombre ("compte") de caractères de texte dans le cadre de texte "nom" en partant du caractère "départ". Le décompte des caractères commence &agrave; 0. Si "compte" est égal &agrave; zéro, tout le texte sera effacé. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p>
 <p>Peut générer IndexError si la sélection dépasse les limites du texte.</p></dd>
 
 <dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>

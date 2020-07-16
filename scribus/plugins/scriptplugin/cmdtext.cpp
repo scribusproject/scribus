@@ -872,6 +872,49 @@ PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_selectframetext(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int start, selcount;
+	if (!PyArg_ParseTuple(args, "ii|es", &start, &selcount, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (selcount < -1)
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Count must be positive, 0 or -1", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (start < 0 || (selcount > 0 && ((item->lastInFrame() == -1) || (selcount + start > item->lastInFrame() - item->firstInFrame() + 1))))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	start += item->firstInFrame();
+	if (selcount == -1)
+		selcount = item->lastInFrame() + 1 - start;
+	item->itemText.deselectAll();
+	if (selcount == 0)
+	{
+		item->HasSel = false;
+		Py_RETURN_NONE;
+	}
+	item->itemText.select(start, selcount, true);
+	item->HasSel = true;
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -1391,6 +1434,7 @@ void cmdtextdocwarnings()
 	  << scribus_layouttextchain__doc__
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
+	  << scribus_selectframetext__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setalign__doc__
 	  << scribus_setcolumngap__doc__

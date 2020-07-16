@@ -388,6 +388,27 @@ May throw ValueError for an invalid direction constant.\n\
 PyObject *scribus_setdirection(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_selectframetext__doc__,
+QT_TR_NOOP("selectFrameText(start, count, [\"name\"])\n\
+\n\
+Selects \"count\" characters of text in the text frame \"name\" starting from the\n\
+character \"start\". Character counting starts at 0.\n\
+If \"count\" is zero, any text selection will be cleared.\n\
+If \"count\" is -1, the selection will extend to the end of the frame.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+This function only acts on the text visible in the specified frame. If you need to \n\
+work on the text contained in a text chain, use selectText() instead.\n\
+As this function depends on text layout being up-to-date, you may need to call \n\
+layoutText() or layoutTextChain() before calling this function in order to get \n\
+expected result.\n\
+\n\
+May throw IndexError if the selection is outside the bounds of the text.\n\
+"));
+/*! Select frame text */
+PyObject *scribus_selectframetext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_selecttext__doc__,
 QT_TR_NOOP("selectText(start, count, [\"name\"])\n\
 \n\

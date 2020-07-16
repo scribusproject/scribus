@@ -484,6 +484,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setImageOffset"), scribus_setimageoffset, METH_VARARGS, tr(scribus_setimageoffset__doc__)},
 	{const_cast<char*>("selectionCount"), (PyCFunction)scribus_selcount, METH_NOARGS, tr(scribus_selcount__doc__)},
 	{const_cast<char*>("selectObject"), scribus_selectobj, METH_VARARGS, tr(scribus_selectobj__doc__)},
+	{const_cast<char*>("selectFrameText"), scribus_selectframetext, METH_VARARGS, tr(scribus_selectframetext__doc__)},
 	{const_cast<char*>("selectText"), scribus_selecttext, METH_VARARGS, tr(scribus_selecttext__doc__)},
 	{const_cast<char*>("sentToLayer"), scribus_senttolayer, METH_VARARGS, tr(scribus_senttolayer__doc__)},
 	{const_cast<char*>("setActiveLayer"), scribus_setactivelayer, METH_VARARGS, tr(scribus_setactivelayer__doc__)},
