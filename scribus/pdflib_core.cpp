@@ -10724,12 +10724,12 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image
 				// dictionary, which we do not quite want as this argument is simply ignored by some rips and software
 				// amongst which photoshop and illustrator
-				else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
+				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
 				{
 					jpegUseOriginal = false;
 					exportToCMYK = true;
 					cm = PDFOptions::Compression_JPEG;
-				}
+				}*/
 				else if (compress_method == PDFOptions::Compression_JPEG)
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
