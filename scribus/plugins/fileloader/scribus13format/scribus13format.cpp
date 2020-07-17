@@ -1658,8 +1658,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->setEndArrowScale(obj->attribute("endArrowScale", "100").toInt());
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
-	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
-		doc->OldBM = true;
 	currItem->setImageFlippedH(obj->attribute("FLIPPEDH").toInt());
 	currItem->setImageFlippedV(obj->attribute("FLIPPEDV").toInt());
 	currItem->setCornerRadius(ScCLocale::toDoubleC(obj->attribute("RADRECT"), 0.0));

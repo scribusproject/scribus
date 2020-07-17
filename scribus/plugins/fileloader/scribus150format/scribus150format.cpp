@@ -5185,8 +5185,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
 	currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
 	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK", 0);
-	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
-		doc->OldBM = true;
 	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
 	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
 	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));

@@ -1413,7 +1413,6 @@ public:
 		bool operator<(const BookMa& other) const { return ItemNr < other.ItemNr; }
 	};
 	QList<BookMa> BookMarks;
-	bool OldBM {false};
 	bool hasName {false};
 	bool isConverted {false};
 	QTimer * const autoSaveTimer;

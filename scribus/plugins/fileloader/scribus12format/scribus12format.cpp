@@ -1028,11 +1028,9 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					}
 					GetItemProps(&obj, &OB, fileDir, newVersion);
 					OB.Xpos = ScCLocale::toDoubleC(obj.attribute("XPOS"))+m_Doc->Pages->at(a)->xOffset();
-					OB.Ypos=ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
+					OB.Ypos = ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
-					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
-					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
-						m_Doc->OldBM = true;
+					OB.isBookmark = obj.attribute("BOOKMARK").toInt();
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
@@ -2030,9 +2028,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					OB.endArrowIndex =  0;
 					OB.startArrowScale =  100;
 					OB.endArrowScale =  100;
-					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
-					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
-						m_Doc->OldBM = true;
+					OB.isBookmark = obj.attribute("BOOKMARK").toInt();
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					tmpf = obj.attribute("IFONT", m_Doc->itemToolPrefs().textFont);
 					if (tmpf.isEmpty())
