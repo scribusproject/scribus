@@ -10255,7 +10255,7 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
  * Add the image item to this.output
  * Returns false if the image can't be read or if it can't be added to this.output
 */
-bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
+bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
@@ -10281,25 +10281,25 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ImInfo.reso = Options.Resolution / 72.0;
 	ImInfo.xa = x;
 	ImInfo.ya = y;
-	ImInfo.origXsc = c->imageXScale();
-	ImInfo.origYsc = c->imageYScale();
+	ImInfo.origXsc = item->imageXScale();
+	ImInfo.origYsc = item->imageYScale();
 	ShIm   ImInfo2;
-	ImInfo2.origXsc = c->imageXScale();
-	ImInfo2.origYsc = c->imageYScale();
+	ImInfo2.origXsc = item->imageXScale();
+	ImInfo2.origYsc = item->imageYScale();
 	if (SharedImages.contains(fn))
 		ImInfo2 = SharedImages[fn];
 	if ((!SharedImages.contains(fn))
 		 || (fromAN)
-		 || (c->isLatexFrame())
-		 || (c->effectsInUse.count() != 0)
+		 || (item->isLatexFrame())
+		 || (item->effectsInUse.count() != 0)
 		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
-		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps)
-		 || (ImInfo2.Page != c->pixm.imgInfo.actualPageNumber))
+		 || (ImInfo2.RequestProps != item->pixm.imgInfo.RequestProps)
+		 || (ImInfo2.Page != item->pixm.imgInfo.actualPageNumber))
 	{
 		bool imageLoaded = false;
 		bool fatalError  = false;
 		QString pdfFile = fn;
-		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
+		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))) && item->effectsInUse.count() == 0)
 		{
 			if (extensionIndicatesEPSorPS(ext))
 			{
@@ -10318,17 +10318,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				opts.append( "-dAutoRotatePages=/None" ); // #14289: otherwise EPS might come out rotated
 				if (convertPS2PDF(fn, tmpFile, opts) == 0)
 				{
-					imageLoaded = PDF_EmbeddedPDF(c, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
+					imageLoaded = PDF_EmbeddedPDF(item, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
 					QFile::remove(tmpFile);
 				}
 				pdfFile = tmpFile;
 			}
 			else
-				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, ImInfo, fatalError);
+				imageLoaded = PDF_EmbeddedPDF(item, fn, sx, sy, x, y, fromAN, ImInfo, fatalError);
 			ImInfo.isEmbeddedPDF = true;
-			ImInfo.Page = c->pixm.imgInfo.actualPageNumber;
+			ImInfo.Page = item->pixm.imgInfo.actualPageNumber;
 		}
-		if (!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
+		if (!imageLoaded && extensionIndicatesPDF(ext) && item->effectsInUse.count() == 0 && Options.embedPDF)
 		{
 			if (fatalError)
 			{
@@ -10341,7 +10341,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		// no embedded PDF:
 		if (!imageLoaded)
 		{
-			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
+			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))
 			{
 				ImInfo.isBitmapFromGS = true;
 				if (Options.RecalcPic)
@@ -10353,20 +10353,20 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					afl = Options.Resolution;
 				if (ext == "pdf")
 				{
-					CMSettings cms(c->doc(), Profil, Intent);
+					CMSettings cms(item->doc(), Profil, Intent);
 					cms.setUseEmbeddedProfile(Embedded);
 					if (Options.UseRGB)
-						imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+						imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 					else
 					{
 						if ((doc.HasCMS) && (Options.UseProfiles2))
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 						else
 						{
 							if (Options.isGrayscale)
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 							else
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
 						}
 					}
 				}
@@ -10400,20 +10400,20 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						f.close();
 						if (found)
 						{
-							CMSettings cms(c->doc(), Profil, Intent);
+							CMSettings cms(item->doc(), Profil, Intent);
 							cms.setUseEmbeddedProfile(Embedded);
 							if (Options.UseRGB)
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 							else
 							{
 								if ((doc.HasCMS) && (Options.UseProfiles2))
-									imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+									imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 								else
 								{
 									if (Options.isGrayscale)
-										imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+										imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 									else
-										imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
+										imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
 								}
 							}
 						}
@@ -10437,22 +10437,22 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				img.imgInfo.clipPath.clear();
 				img.imgInfo.PDSpathData.clear();
 				img.imgInfo.layerInfo.clear();
-				img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-				img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-				CMSettings cms(c->doc(), Profil, Intent);
+				img.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+				img.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+				CMSettings cms(item->doc(), Profil, Intent);
 				cms.setUseEmbeddedProfile(Embedded);
 				if (Options.UseRGB)
-					imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
+					imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
 				else
 				{
 					if ((doc.HasCMS) && (Options.UseProfiles2))
-						imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RawData, 72, &realCMYK);
+						imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RawData, 72, &realCMYK);
 					else
 					{
 						if (Options.isGrayscale)
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
 						else
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 72, &realCMYK);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 72, &realCMYK);
 					}
 				}
 				if (!imageLoaded)
@@ -10460,7 +10460,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					PDF_Error_ImageLoadFailure(fn);
 					return false;
 				}
-				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
+				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))
 				{
 					double afl = Options.PicRes;
 					a2 = (72.0 / sx) / afl;
@@ -10477,7 +10477,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				ImInfo.reso = 1;
 			}
-			bool hasColorEffect = c->effectsInUse.useColorEffect();
+			bool hasColorEffect = item->effectsInUse.useColorEffect();
 			if ((doc.HasCMS) && (Options.UseProfiles2))
 			{
 				if (!ICCProfiles.contains(Profil))
@@ -10501,8 +10501,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfilesCMYK[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfilesCMYK[c->doc()->cmsSettings().DefaultImageCMYKProfile];
-								profInUse = c->doc()->cmsSettings().DefaultImageCMYKProfile;
+								profilePath = ScCore->InputProfilesCMYK[item->doc()->cmsSettings().DefaultImageCMYKProfile];
+								profInUse = item->doc()->cmsSettings().DefaultImageCMYKProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 4;
@@ -10519,8 +10519,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfiles[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile];
-								profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
+								profilePath = ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile];
+								profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 3;
@@ -10572,7 +10572,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					{
 						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
 						{
-							profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
+							profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							if (!ICCProfiles.contains(profInUse))
 							{
 								int components = 3;
@@ -10580,7 +10580,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								writer.startObj(embeddedProfile);
 								QByteArray dataP;
 								PdfICCD dataD;
-								loadRawBytes(ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
+								loadRawBytes(ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
 								components = 3;
 								PutDoc("<<\n");
 								if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
@@ -10620,15 +10620,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			img2.imgInfo.clipPath.clear();
 			img2.imgInfo.PDSpathData.clear();
 			img2.imgInfo.layerInfo.clear();
-			img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-			img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-			if (c->pixm.imgInfo.type == ImageType7)
+			img2.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+			img2.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+			if (item->pixm.imgInfo.type == ImageType7)
 				alphaM = false;
 			else
 			{
 				bool gotAlpha = false;
 				bool pdfVer14 = Options.supportsTransparency();
-				gotAlpha = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
+				gotAlpha = img2.getAlpha(fn, item->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
 				if (!gotAlpha)
 				{
 					PDF_Error_MaskLoadFailure(fn);
@@ -10643,8 +10643,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				imgE = !((Options.UseProfiles2) && (img.imgInfo.colorspace != ColorSpaceCMYK));
 			origWidth = img.width();
 			origHeight = img.height();
-			img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
-			if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
+			img.applyEffect(item->effectsInUse, item->doc()->PageColors, imgE);
+			if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale())))))
 			{
 				ImInfo.sxa = sx * (1.0 / ImInfo.reso);
 				ImInfo.sya = sy * (1.0 / ImInfo.reso);
@@ -10705,16 +10705,16 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				else
 					exportToCMYK      = !Options.UseRGB;
 			}
-			if (c->OverrideCompressionMethod)
-				compress_method = cm = (enum PDFOptions::PDFCompression) c->CompressionMethodIndex;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (c->effectsInUse.count() == 0))
+			if (item->OverrideCompressionMethod)
+				compress_method = cm = (enum PDFOptions::PDFCompression) item->CompressionMethodIndex;
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (item->effectsInUse.count() == 0))
 			{
 				compress_method = (compress_method != PDFOptions::Compression_None) ? PDFOptions::Compression_ZIP : compress_method;
 				cm = compress_method;
 			}
 			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
-				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
+				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))))
 				{
 					// #12961 : we must not rely on PDF viewers taking exif infos into account
 					// So if JPEG orientation is non default, do not use the original file
@@ -10724,12 +10724,12 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image
 				// dictionary, which we do not quite want as this argument is simply ignored by some rips and software
 				// amongst which photoshop and illustrator
-				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
+				else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
 				{
 					jpegUseOriginal = false;
 					exportToCMYK = true;
 					cm = PDFOptions::Compression_JPEG;
-				}*/
+				}
 				else if (compress_method == PDFOptions::Compression_JPEG)
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
@@ -10751,9 +10751,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				{
 					exportToGrayscale = Options.isGrayscale;
 					if (exportToGrayscale)
-						exportToCMYK      = !Options.isGrayscale;
+						exportToCMYK = !Options.isGrayscale;
 					else
-						exportToCMYK      = !Options.UseRGB;
+						exportToCMYK = !Options.UseRGB;
 				}
 				cm = PDFOptions::Compression_JPEG;
 				/*if (compress_method == PDFOptions::Compression_Auto)
@@ -10775,7 +10775,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			int bytesWritten = 0;
 			// Fixme: outType variable should be set directly in the if/else maze above.
 			ColorSpaceEnum outType;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && c->effectsInUse.count() == 0)
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && item->effectsInUse.count() == 0)
 				outType = ColorSpaceMonochrome;
 			else
 				outType = getOutputType(exportToGrayscale, exportToCMYK);
@@ -10821,8 +10821,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			PutDoc(">>\nstream\n");
 			if (cm == PDFOptions::Compression_JPEG) // Fixme: should not do this with monochrome images?
 			{
-				int quality = c->OverrideCompressionQuality ? c->CompressionQualityIndex : Options.Quality;
-				if (c->OverrideCompressionQuality)
+				int quality = item->OverrideCompressionQuality ? item->CompressionQualityIndex : Options.Quality;
+				if (item->OverrideCompressionQuality)
 					jpegUseOriginal = false;
 				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, quality, outType, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
 			}
@@ -10846,9 +10846,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			ImInfo.Height = img.height();
 			ImInfo.xa = sx;
 			ImInfo.ya = sy;
-			ImInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+			ImInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 		} // not embedded PDF
-		if ((c->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
+		if ((item->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
 			SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
@@ -10867,10 +10867,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			embedPre  = "0 g 0 G";
 			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
 		}
-		if (c->isLatexFrame())
+		if (item->isLatexFrame())
 		{
-			ImInfo.sxa *= 1.0 / c->imageXScale();
-			ImInfo.sya *= 1.0 / c->imageYScale();
+			ImInfo.sxa *= 1.0 / item->imageXScale();
+			ImInfo.sya *= 1.0 / item->imageYScale();
 		}
 		else
 		{
@@ -10880,18 +10880,18 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	}
 	if (!fromAN && output)
 	{
-		if (c->imageRotation())
+		if (item->imageRotation())
 		{
-			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height*ImInfo.sya+y*sy)) + " cm\n";
+			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
 			QTransform mpa;
-			mpa.rotate(-c->imageRotation());
-			embedPre += "1 0 0 1 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " cm\n";
+			mpa.rotate(-item->imageRotation());
+			embedPre += "1 0 0 1 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " cm\n";
 			embedPre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " 0 0 cm\n";
-			embedPre += "1 0 0 1 0 " + FToStr(-ImInfo.Height*ImInfo.sya) + " cm\n";
-			embedPre += FToStr(ImInfo.Width*ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " 0 0 cm\n";
+			embedPre += "1 0 0 1 0 " + FToStr(-ImInfo.Height * ImInfo.sya) + " cm\n";
+			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " 0 0 cm\n";
 		}
 		else
-			embedPre += FToStr(ImInfo.Width*ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height*ImInfo.sya+y*sy)) + " cm\n";
+			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " " + FToStr(x * sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
 		*output = embedPre + Pdf::toName(ResNam + "I" + Pdf::toPdf(ImInfo.ResNum)) + " Do\n";
 	}
 	else if (output)
