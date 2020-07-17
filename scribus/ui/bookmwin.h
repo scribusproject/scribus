@@ -33,7 +33,7 @@ class PageItem;
 /*! \brief Tree widget item for PDF Bookmarks.
 Secret items like Pare, First, Last etc. are PDF Outlines
 attributes. See PDF specification for more info.
-These attrs are recomputed in the BookMView::rebuildTree()
+These attrs are recomputed in the BookmarkView::rebuildTree()
 method.
 @author Franz Schmid
 */
@@ -72,13 +72,13 @@ MarkMoved() signal stores bookmarks in the ScribusDoc.
 @author Franz Schmid
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API BookMView : public QTreeWidget
+class SCRIBUS_API BookmarkView : public QTreeWidget
 {
 	Q_OBJECT
 
 public:
-	BookMView(QWidget* parent);
-	~BookMView() {};
+	BookmarkView(QWidget* parent);
+	~BookmarkView() {};
 
 	void addItem(const QString& text, const QString& Tit, PageItem *PageObject);
 	void deleteItem(PageItem *PageObject);
@@ -109,7 +109,7 @@ protected:
 	void getTextAndTitle(PageItem* item, QString& text, QString& title);
 
 private slots:
-	void setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * previous);
+	void selectPageItem(QTreeWidgetItem * current, int column);
 };
 
 #endif

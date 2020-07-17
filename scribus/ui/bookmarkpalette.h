@@ -54,7 +54,7 @@ public:
 	
 	virtual void changeEvent(QEvent *e);
 	
-	BookMView	*BView;
+	BookmarkView	*BView;
 	
 public slots:
 	void languageChange();

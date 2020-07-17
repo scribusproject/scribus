@@ -1001,7 +1001,7 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpace
 	return (succeed ? bytesWritten : 0);
 }
 
-bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi)
+bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookmarkView* vi)
 {
 	if (!writer.open(fn))
 		return false;

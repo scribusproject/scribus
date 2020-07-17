@@ -22,7 +22,7 @@ class QString;
 class QTextCodec;
 class PageItem;
 class BookMItem;
-class BookMView;
+class BookmarkView;
 class ScribusDoc;
 class ScPage;
 class PDFOptions;
@@ -95,7 +95,7 @@ private:
 	bool PDF_IsPDFX();
 	bool PDF_IsPDFX(const PDFVersion& ver);
 
-	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookmarkView* vi);
 	void PDF_Begin_Catalog();
 	void PDF_Begin_MetadataAndEncrypt();
 	QMap<QString, QMap<uint, FPointArray> >
@@ -257,7 +257,7 @@ private:
 	ScribusDoc & doc;
 	const ScPage * ActPageP;
 	const PDFOptions & Options;
-	BookMView* Bvie;
+	BookmarkView* Bvie;
 	//int Dokument;
 	QMap<QString,ShIm> SharedImages;
 	QList<PdfDest> NamedDest;
