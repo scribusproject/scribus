@@ -17,7 +17,7 @@ public:
 	MarkInsert(const Mark*, QWidget* parent = nullptr) : QDialog(parent) {}
 	MarkInsert(const QList<NotesStyle*>&, QWidget* parent = nullptr) : QDialog(parent) {}
 	MarkInsert(QWidget* parent = nullptr) : QDialog(parent) {}
-	~MarkInsert() {}
+	virtual ~MarkInsert() {}
 
 	virtual void values(QString &label) {}
 	virtual void values(QString &label, PageItem* &item) {}
