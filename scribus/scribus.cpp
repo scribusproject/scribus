@@ -324,7 +324,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
-	internalCopyBuffer = "";
+	internalCopyBuffer.clear();
 	m_doc = new ScribusDoc();
 	m_doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_doc->setPage(100, 100, 0, 0, 0, 0, 0, 0, false, false);
@@ -618,9 +618,9 @@ void ScribusMainWindow::initDefaultValues()
 	doc = nullptr;
 	m_DocNr = 1;
 	m_PrinterUsed = false;
-	PDef.Pname = "";
-	PDef.Dname = "";
-	PDef.Command = "";
+	PDef.Pname.clear();
+	PDef.Dname.clear();
+	PDef.Command.clear();
 	m_keyrep = false;
 	m__arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
@@ -980,11 +980,11 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemLower", "ItemLevel");
 	scrMenuMgr->addMenuItemString("itemRaiseToTop", "ItemLevel");
 	scrMenuMgr->addMenuItemString("itemLowerToBottom", "ItemLevel");
-	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"), "",false, true);
+	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"), QString(), false, true);
 	scrMenuMgr->addMenuItemString("ItemLayer", "Item");
 	scrMenuMgr->createMenu("SendTo", tr("Send to"), "Item");
 	scrMenuMgr->addMenuItemString("SendTo", "Item");
-	scrMenuMgr->createMenu("ItemSendToScrapbook", tr("Scrapbook"),"",false,true);
+	scrMenuMgr->createMenu("ItemSendToScrapbook", tr("Scrapbook"), QString(), false, true);
 	scrMenuMgr->addMenuItemString("ItemSendToScrapbook", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToPattern", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToInline", "SendTo");
@@ -1392,9 +1392,9 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowXPosLabel->setFont(fo);
 	mainWindowYPosLabel = new QLabel( tr("Y:"), statusBar());
 	mainWindowYPosLabel->setFont(fo);
-	mainWindowXPosDataLabel = new QLabel( "", statusBar());
+	mainWindowXPosDataLabel = new QLabel(QString(), statusBar());
 	mainWindowXPosDataLabel->setFont(fo);
-	mainWindowYPosDataLabel = new QLabel( "", statusBar());
+	mainWindowYPosDataLabel = new QLabel(QString(), statusBar());
 	mainWindowYPosDataLabel->setFont(fo);
 	mainWindowXPosDataLabel->setMinimumWidth(mainWindowXPosDataLabel->fontMetrics().horizontalAdvance("99999.999"));
 	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().horizontalAdvance("99999.999"));
@@ -1409,9 +1409,9 @@ void ScribusMainWindow::initStatusBar()
 
 	statusBar()->setFont(fo);
 	statusBar()->addPermanentWidget(m_mainWindowStatusLabel, 5);
-	QLabel *s=new QLabel("");
-	QLabel *s2=new QLabel("");
-	QLabel *s3=new QLabel("");
+	QLabel *s = new QLabel(QString());
+	QLabel *s2 = new QLabel(QString());
+	QLabel *s3 = new QLabel(QString());
 	statusBar()->addPermanentWidget(s,1);
 	statusBar()->addPermanentWidget(s2,1);
 	statusBar()->addPermanentWidget(zoomWidget,0);
@@ -1623,7 +1623,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 		if (currItem->HasSel)
 		{
 			if (UndoManager::undoEnabled())
-				activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete);
+				activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, QString(), Um::IDelete);
 			currItem->deleteSelectedTextFromFrame();
 		}
 		if (UndoManager::undoEnabled())
@@ -1634,7 +1634,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
 			else
 			{
-				ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+				ss = new SimpleState(Um::InsertText, QString(), Um::ICreate);
 				ss->set("INSERT_FRAMETEXT");
 				ss->set("ETEA", QString("insert_frametext"));
 				ss->set("TEXT_STR", QString(QChar(unicodevalue)));
@@ -1670,7 +1670,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				ss->set("TEXT_STR", ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
 			else
 			{
-				ss = new SimpleState(Um::InsertText,"", Um::ICreate);
+				ss = new SimpleState(Um::InsertText, QString(), Um::ICreate);
 				ss->set("INSERT_FRAMETEXT");
 				ss->set("ETEA", QString("insert_frametext"));
 				ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
@@ -3220,17 +3220,15 @@ void ScribusMainWindow::importVectorFile()
 	formats.append("Scribus Objects (*.sce *.SCE)");
 	formats.sort(Qt::CaseInsensitive);
 	allFormats += formats.join(";;");
+
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), allFormats, fdExistingFiles | fdDisableOk);
-	QString fileName("");
-	if (dia.exec() == QDialog::Accepted)
-	{
-		fileName = dia.selectedFile();
-		if (fileName.isEmpty())
-			return;
-	}
-	else
+	if (dia.exec() != QDialog::Accepted)
+		return;
+
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
 		return;
 
 	PrefsManager::instance().prefsFile->getContext("dirs")->set("pastefile", fileName.left(fileName.lastIndexOf("/")));
@@ -4315,7 +4313,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 			else if (!ret)
 				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg( QDir::toNativeSeparators(fn) ));
 			else
-				doc->pdfOptions().fileName = ""; // #1482 reset the pdf file name
+				doc->pdfOptions().fileName.clear(); // #1482 reset the pdf file name
 		}
 	}
 	m_mainWindowStatusLabel->setText( tr("Ready"));
@@ -4627,11 +4625,11 @@ void ScribusMainWindow::slotEditCut()
 	if (UndoManager::undoEnabled())
 	{
 		if (docSelectionCount > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
+			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut, QString(), Um::ICut);
 		else
 		{
 			PageItem* item = doc->m_Selection->itemAt(0);
-			activeTransaction = m_undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
+			activeTransaction = m_undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, QString(), Um::ICut);
 		}
 	}
 	currItem = doc->m_Selection->itemAt(0);
@@ -4785,7 +4783,7 @@ void ScribusMainWindow::slotEditPaste()
 	if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
 		return;
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(doc->currentPage()->getUName(), nullptr, Um::Paste, "", Um::IPaste);
+		activeTransaction = m_undoManager->beginTransaction(doc->currentPage()->getUName(), nullptr, Um::Paste, QString(), Um::IPaste);
 	PageItem* selItem = doc->m_Selection->itemAt(0);
 	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && selItem && (selItem->isTextFrame() || selItem->isTable()))
 	{
@@ -4903,7 +4901,7 @@ void ScribusMainWindow::slotEditPaste()
 			m_undoManager->setUndoEnabled(true);
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
+				SimpleState *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
 				is->set("PASTE_INLINE");
 				is->set("START", currItem->itemText.cursorPosition());
 				is->set("INDEX", fIndex);
@@ -4971,7 +4969,7 @@ void ScribusMainWindow::slotEditPaste()
 				m_undoManager->setUndoEnabled(true);
 				if (UndoManager::undoEnabled())
 				{
-					SimpleState *is = new SimpleState(Um::Paste, "", Um::IPaste);
+					SimpleState *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
 					is->set("PASTE_INLINE");
 					is->set("START", currItem->itemText.cursorPosition());
 					is->set("INDEX", fIndex);
@@ -4991,7 +4989,7 @@ void ScribusMainWindow::slotEditPaste()
 			text = text.replace('\n', SpecialChars::PARSEP);
 			if (UndoManager::undoEnabled())
 			{
-				SimpleState *is = new SimpleState(Um::Paste, "", Um::IPaste);
+				SimpleState *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
 				is->set("PASTE_PLAINTEXT");
 				is->set("START", currItem->itemText.cursorPosition());
 				is->set("TEXT", text);
@@ -5423,8 +5421,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
-		activeTransaction = m_undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate);
-		SimpleState *ss = new SimpleState(Um::AddPage, "", Um::ICreate);
+		activeTransaction = m_undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, QString(), Um::ICreate);
+		SimpleState *ss = new SimpleState(Um::AddPage, QString(), Um::ICreate);
 		ss->set("ADD_PAGE");
 		ss->set("PAGE", wo);
 		ss->set("WHERE", where);
@@ -6237,7 +6235,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	guidePalette->setDoc(nullptr);
 	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(doc->documentFileName(), Um::IDocument,
-														  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
+														  (from - to == 0) ? Um::DeletePage : Um::DeletePages, QString(),
 														  Um::IDelete);
 	PageItem* ite;
 	doc->m_Selection->clear();
@@ -6274,7 +6272,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	{
 		if (UndoManager::undoEnabled())
 		{
-			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
+			SimpleState *ss = new SimpleState(Um::DeletePage, QString(), Um::ICreate);
 			ss->set("DELETE_PAGE");
 			ss->set("PAGENR", a + 1);
 			ss->set("PAGENAME",   doc->Pages->at(a)->pageName());
@@ -6515,7 +6513,7 @@ void ScribusMainWindow::duplicateItem()
 
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Duplicate, "", Um::IMultipleDuplicate);
+		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Duplicate, QString(), Um::IMultipleDuplicate);
 
 	ItemMultipleDuplicateData mdData;
 	mdData.type = 0;
@@ -6541,7 +6539,7 @@ void ScribusMainWindow::duplicateItem()
 	doc->SnapGuides = savedAlignGuides;
 	doc->SnapElement = savedAlignElement;
 	internalCopy = false;
-	internalCopyBuffer = "";
+	internalCopyBuffer.clear();
 	view->DrawNew();
 }
 
@@ -7473,8 +7471,8 @@ void ScribusMainWindow::doSaveAsPDF()
 		{
 			pdfViewer = QFileDialog::getOpenFileName(this, tr("Locate your PDF viewer"), QString(), QString());
 			if (!QFileInfo::exists(pdfViewer))
-				pdfViewer="";
-			PrefsManager::instance().appPrefs.extToolPrefs.pdfViewerExecutable=pdfViewer;
+				pdfViewer.clear();
+			PrefsManager::instance().appPrefs.extToolPrefs.pdfViewerExecutable = pdfViewer;
 		}
 		if (!pdfViewer.isEmpty())
 		{
@@ -9011,7 +9009,7 @@ void ScribusMainWindow::slotEditCopyContents()
 	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
 	if (!imageItem->imageIsAvailable)
 		return;
-	contentsBuffer.contentsFileName = "";
+	contentsBuffer.contentsFileName.clear();
 	contentsBuffer.sourceType = PageItem::ImageFrame;
 	contentsBuffer.contentsFileName = imageItem->Pfile;
 	contentsBuffer.LocalScX = imageItem->imageXScale();
@@ -9105,7 +9103,7 @@ void ScribusMainWindow::slotItemTransform()
 		return;
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = m_undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove);
+		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Transform, QString(), Um::IMove);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	int count=td.getCount();
 	QTransform matrix(td.getTransformMatrix());
@@ -9657,7 +9655,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 		if (currItem->HasSel)
 		{
 			if (UndoManager::undoEnabled())
-				trans = m_undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
+				trans = m_undoManager->beginTransaction(Um::Selection, Um::IDelete, Um::Delete, QString(), Um::IDelete);
 			//inserting mark replace some selected text
 			currItem->asTextFrame()->deleteSelectedTextFromFrame();
 		}
@@ -9691,7 +9689,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 			is->set("MARK", QString("new"));
 			is->set("label", mrk->label);
 			is->set("type", (int) MARKNoteMasterType);
-			is->set("strtxt", QString(""));
+			is->set("strtxt", QString());
 			is->set("nStyle", nStyle->name());
 			is->set("at", currItem->itemText.cursorPosition() -1);
 			is->insertItem("inItem", currItem);
