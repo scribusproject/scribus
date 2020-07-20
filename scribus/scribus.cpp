@@ -9148,7 +9148,6 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
-	bool wasUndo = m_undoManager->undoEnabled();
 	m_undoManager->setUndoEnabled(false);
 	slotElemRead(buffer, 0, 0, false, true, doc, view);
 	doc->SnapGrid  = savedAlignGrid;
@@ -9184,7 +9183,7 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	*doc->m_Selection=tempSelection;
 	doc->minCanvasCoordinate = minSize;
 	doc->maxCanvasCoordinate = maxSize;
-	m_undoManager->setUndoEnabled(wasUndo);
+	m_undoManager->setUndoEnabled(true);
 	inlinePalette->unsetDoc();
 	inlinePalette->setDoc(doc);
 	if (outlinePalette->isVisible())
@@ -9208,7 +9207,6 @@ void ScribusMainWindow::PutToInline()
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
-	bool wasUndo = m_undoManager->undoEnabled();
 	m_undoManager->setUndoEnabled(false);
 	internalCopy = true;
 	slotEditCopy();
@@ -9247,7 +9245,7 @@ void ScribusMainWindow::PutToInline()
 	*doc->m_Selection=tempSelection;
 	doc->minCanvasCoordinate = minSize;
 	doc->maxCanvasCoordinate = maxSize;
-	m_undoManager->setUndoEnabled(wasUndo);
+	m_undoManager->setUndoEnabled(true);
 	inlinePalette->unsetDoc();
 	inlinePalette->setDoc(doc);
 	if (outlinePalette->isVisible())
