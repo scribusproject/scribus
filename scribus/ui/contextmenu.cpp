@@ -555,17 +555,18 @@ void ContextMenu::createMenuItems_Selection()
 
 void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 {
-	int selectedItemCount=m_Sel.count();
-	if (selectedItemCount!=0)
+	int selectedItemCount = m_Sel.count();
+	if (selectedItemCount != 0)
 		return;
+	bool layerLocked = m_doc->layerLocked(m_doc->activeLayer());
 	
-	if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() )
+	if (!layerLocked && (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()))
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;
 		addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
 	}
-	if (m_ScMW->scrRecentPasteActions.count()>0)
+	if (!layerLocked && m_ScMW->scrRecentPasteActions.count() > 0)
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;
@@ -578,9 +579,12 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 			menuPasteRecent->addAction(recentPasteAction);
 		addSeparator();
 	}
-	QAction *act = addAction( tr("Paste File..."));
-	connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
-	addSeparator();
+	if (!layerLocked)
+	{
+		QAction *act = addAction( tr("Paste File..."));
+		connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
+		addSeparator();
+	}
 
 	addAction(m_ScMW->scrActions["editUndoAction"]);
 	addAction(m_ScMW->scrActions["editRedoAction"]);
@@ -611,7 +615,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		if (m_ScMW->scrActions["pageDelete"]->isEnabled())
 		{
 			addSeparator();
-			pageDeletePrimaryString=m_ScMW->scrActions["pageDelete"]->text();
+			pageDeletePrimaryString = m_ScMW->scrActions["pageDelete"]->text();
 			m_ScMW->scrActions["pageDelete"]->setText(tr("Delete Page"));
 			addAction(m_ScMW->scrActions["pageDelete"]);
 		}
