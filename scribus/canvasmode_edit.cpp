@@ -379,7 +379,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 					currItem->itemText.selectWord(oldCp);
 				}
 			}
-			currItem->HasSel = currItem->itemText.isSelected();
+			currItem->HasSel = currItem->itemText.hasSelection();
 		}
 	}
 	else
@@ -640,7 +640,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				//<<CB Add in shift select to text frames
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					if (currItem->itemText.isSelected())
+					if (currItem->itemText.hasSelection())
 					{
 						if (currItem->itemText.cursorPosition() < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
 						{
@@ -942,7 +942,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
 	if (GetItem(&currItem) && currItem->isTextFrame())
-		m_ScMW->setCopyCutEnabled(currItem->itemText.isSelected());
+		m_ScMW->setCopyCutEnabled(currItem->itemText.hasSelection());
 }
 
 //CB-->Doc/Fix

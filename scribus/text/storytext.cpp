@@ -1854,10 +1854,7 @@ int StoryText::prevParagraph(int pos)
 	return pos;
 }
 
-
-
 // selection
-
 int StoryText::startOfSelection() const
 {
 	return d->selFirst <= d->selLast? d->selFirst : 0;
@@ -1879,7 +1876,7 @@ int StoryText::selectionLength() const
 	return d->selFirst <= last? last - d->selFirst + 1 : 0;
 }
 
-bool StoryText::isSelected() const
+bool StoryText::hasSelection() const
 {
 	return selectionLength() > 0;
 }

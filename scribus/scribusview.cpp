@@ -1725,7 +1725,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (textFrame->itemText.length() > 0)
 		{
 			int pos = qMax(0, qMin(textFrame->itemText.cursorPosition(), textFrame->itemText.length()));
-			if (textFrame->itemText.isSelected())
+			if (textFrame->itemText.hasSelection())
 			{
 				int firstSelected = textFrame->itemText.startOfSelection();
 				int lastSelected  = qMax(textFrame->itemText.endOfSelection() - 1, 0);

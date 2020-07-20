@@ -325,7 +325,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 	
 	const StoryText& story = item->itemText;
 	QString text;
-	text.reserve(story.isSelected() ? story.selectionLength() : story.length());
+	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
 	for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
 	{
 		if (item->HasSel)
@@ -360,7 +360,7 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 	// collect all chars from a storytext
 	const StoryText& story = item->itemText;
 	QString text;
-	text.reserve(story.isSelected() ? story.selectionLength() : story.length());
+	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
 	for (int i = 0; i < story.length(); i++)
 	{
 		if (item->HasSel)

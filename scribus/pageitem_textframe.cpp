@@ -3789,7 +3789,7 @@ void PageItem_TextFrame::truncateContents()
 	{
 		ParagraphStyle defaultStyle = this->itemText.defaultStyle();
 		int pos = itemText.cursorPosition();
-		if (!itemText.isSelected())
+		if (!itemText.hasSelection())
 		{
 			itemText.select(maxCharsInFrame(), itemText.length() - maxCharsInFrame(), true);
 			deleteSelectedTextFromFrame();
@@ -3924,7 +3924,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				UndoTransaction trans;
 				if (UndoManager::undoEnabled())
 					trans = undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete);
-				if (itemText.isSelected())
+				if (itemText.hasSelection())
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
 					conv = 32;
@@ -4232,7 +4232,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Delete:
 		if (itemText.cursorPosition() == itemText.length())
 		{
-			if (itemText.isSelected())
+			if (itemText.hasSelection())
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
@@ -4256,7 +4256,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			keyRepeat = false;
 			return;
 		}
-		if (!itemText.isSelected())
+		if (!itemText.hasSelection())
 		{
 			int pos1 = itemText.cursorPosition();
 			itemText.moveCursorForward();
@@ -4290,7 +4290,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_Backspace:
 		if (itemText.cursorPosition() == 0)
 		{
-			if (itemText.isSelected())
+			if (itemText.hasSelection())
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
@@ -4309,7 +4309,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if (itemText.length() == 0)
 			break;
-		if (!itemText.isSelected())
+		if (!itemText.hasSelection())
 		{
 			itemText.setCursorPosition(-1, true);
 			itemText.select(itemText.cursorPosition(), 1, true);
@@ -4357,7 +4357,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break; //avoid inserting chars before first note mark
 		bool doUpdate = false;
 		UndoTransaction activeTransaction;
-		if (itemText.isSelected()) //(kk < 0x1000)
+		if (itemText.hasSelection()) //(kk < 0x1000)
 		{
 			bool x11Hack=false;
 			bool controlCharHack=false;
@@ -4523,7 +4523,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 {
 	if (itemText.length() <= 0)
 		return;
-	if (!itemText.isSelected())
+	if (!itemText.hasSelection())
 	{
 		itemText.select(itemText.cursorPosition(), 1);
 		HasSel = true;
@@ -4874,7 +4874,7 @@ void PageItem_TextFrame::ExpandSel(int oldPos)
 	{
 		itemText.extendSelection(oldPos, itemText.cursorPosition());
 	}
-	HasSel = itemText.isSelected();
+	HasSel = itemText.hasSelection();
 	m_Doc->scMW()->setCopyCutEnabled(HasSel);
 	cursorBiasBackward = (oldPos > itemText.cursorPosition());
 
@@ -4885,7 +4885,7 @@ void PageItem_TextFrame::ExpandSel(int oldPos)
 
 void PageItem_TextFrame::deselectAll()
 {
-	if (itemText.isSelected())
+	if (itemText.hasSelection())
 	{
 		itemText.deselectAll();
 		PageItem *item = this;
@@ -5541,7 +5541,7 @@ Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
 	int stop = 0;
 	if (onlySelection)
 	{
-		if (itemText.isSelected())
+		if (itemText.hasSelection())
 		{
 			//only selection
 			start = itemText.startOfSelection();
@@ -5592,7 +5592,7 @@ TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection
 	int stop = itemText.length();
 	if (onlySelection)
 	{
-		if (itemText.isSelected())
+		if (itemText.hasSelection())
 		{
 			start = itemText.startOfSelection();
 			stop = start + itemText.selectionLength();

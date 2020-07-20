@@ -257,7 +257,7 @@ public:
 	int startOfSelection() const;
 	int endOfSelection() const;
 	int selectionLength() const;
-	bool isSelected() const;
+	bool hasSelection() const;
 	
 	// break iterators
 	static icu::BreakIterator* getGraphemeIterator();
