@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
+#include "scplugin.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -114,6 +115,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	if (newMode != modeNormal && newMode != modeStoryEditor)
 		scmw->activateWindow();
 
+	bool layerUnlocked = !doc->layerLocked(doc->activeLayer());
 
 	switch (oldMode)
 	{
@@ -217,7 +219,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				(*a_scrActions)["editCut"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editCopy"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editClearContents"]->setEnabled(currItem != nullptr);
-				(*a_scrActions)["editPaste"]->setEnabled(ScMimeData::clipboardHasScribusData());
+				(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && ScMimeData::clipboardHasScribusData());
 				(*a_scrActions)["editTruncateContents"]->setEnabled((currItem != nullptr) && currItem->isTextFrame());
 
 				scmw->propertiesPalette->setGradientEditMode(false);
@@ -1300,6 +1302,42 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 		(*a_scrActions)["ExportAsImage"]->setEnabled(b2);
 }
 
+void AppModeHelper::updateActionPluginsActions(ScribusDoc* doc)
+{
+	int selectedType = -1;
+	if (doc->m_Selection->count() > 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		selectedType = currItem->itemType();
+	}
+	bool isLayerLocked = doc->layerLocked(doc->activeLayer());
+
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	ScActionPlugin* actionPlug;
+	ScrAction* pluginAction = nullptr;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		if (!plugin->inherits("ScActionPlugin"))
+			continue;
+		actionPlug = dynamic_cast<ScActionPlugin*>(plugin);
+		Q_ASSERT(actionPlug);
+		ScActionPlugin::ActionInfo actionInfo(actionPlug->actionInfo());
+		pluginAction = ScCore->primaryMainWindow()->scrActions[actionInfo.name];
+		if (!pluginAction)
+			continue;
+		if (isLayerLocked && !actionInfo.enabledOnStartup)
+			pluginAction->setEnabled(false);
+		else
+			pluginAction->setEnabled(actionPlug->handleSelection(doc, selectedType));
+	}
+}
+
 void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
 {
 	// Determine state.
@@ -1387,10 +1425,14 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["toolsPDFListBox"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFAnnotLink"]->setEnabled(setter);
+
+	updateActionPluginsActions(doc);
 }
 
 void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 {
+	bool layerUnlocked = !doc->layerLocked(doc->activeLayer());
+
 	(*a_scrActions)["filePrint"]->setEnabled(true);
 	(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
 	(*a_scrActions)["fileClose"]->setEnabled(true);
@@ -1416,7 +1458,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 
 	(*a_scrActions)["editCut"]->setEnabled(false);
 	(*a_scrActions)["editCopy"]->setEnabled(false);
-	(*a_scrActions)["editPaste"]->setEnabled(clipScrapHaveData);
+	(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && clipScrapHaveData);
 	(*a_scrActions)["editCopyContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(false);

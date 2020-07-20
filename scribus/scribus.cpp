@@ -2787,6 +2787,12 @@ void ScribusMainWindow::SwitchWin()
 		pagePalette->enablePalette(true);
 		setPreviewToolbar();
 	}
+
+	bool setter = !doc->layerLocked( doc->activeLayer() );
+	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
+	scrMenuMgr->setMenuEnabled("Insert", setter);
+	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
+	appModeHelper->changeLayer(doc, (ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempHasContents())));
 }
 
 void ScribusMainWindow::HaveNewDoc()
@@ -2843,13 +2849,13 @@ void ScribusMainWindow::HaveNewSel()
 {
 	if (doc == nullptr)
 		return;
-	int SelectedType = -1;
+	int selectedType = -1;
 	PageItem *currItem = nullptr;
 	const int docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount > 0)
 	{
 		currItem = doc->m_Selection->itemAt(0);
-		SelectedType = currItem->itemType();
+		selectedType = currItem->itemType();
 	}
 	assert (docSelectionCount == 0 || currItem != nullptr); // help coverity analysis
 
@@ -2863,7 +2869,7 @@ void ScribusMainWindow::HaveNewSel()
 	if (!doc->inAnEditMode())
 		appModeHelper->enableActionsForSelection(this, doc);
 
-	switch (SelectedType)
+	switch (selectedType)
 	{
 	case -1: // None
 		outlinePalette->slotShowSelect(doc->currentPageNumber(), nullptr);
@@ -2927,33 +2933,13 @@ void ScribusMainWindow::HaveNewSel()
 		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 	}
 
-	if (SelectedType != -1)
+	if (selectedType != -1)
 	{
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem);
 		actionManager->connectNewSelectionActions(view, doc);
 	}
 
-	PluginManager& pluginManager(PluginManager::instance());
-	QStringList pluginNames(pluginManager.pluginNames(false));
-	ScPlugin* plugin;
-	ScActionPlugin* ixplug;
-	ScrAction* pluginAction = nullptr;
-	QString pName;
-	for (int i = 0; i < pluginNames.count(); ++i)
-	{
-		pName = pluginNames.at(i);
-		plugin = pluginManager.getPlugin(pName, true);
-		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
-		if (plugin->inherits("ScActionPlugin"))
-		{
-			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
-			Q_ASSERT(ixplug);
-			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-			pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
-			if (pluginAction != nullptr)
-				pluginAction->setEnabled(ixplug->handleSelection(doc, SelectedType));
-		}
-	}
+	appModeHelper->updateActionPluginsActions(doc);
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -3171,7 +3157,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 	{
 		UndoTransaction pasteAction;
 		if (UndoManager::undoEnabled())
-			pasteAction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
+			pasteAction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, QString(), Um::ICreate);
 		view->deselectItems(true);
 		int docItemCount = doc->Items->count();
 		bool savedAlignGrid = doc->SnapGrid;
