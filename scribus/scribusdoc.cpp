@@ -10917,10 +10917,10 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 	if ((item->itemType() == PageItem::PolyLine) || (item->itemType() == PageItem::PathText))
 			return;
 	UndoTransaction activeTransaction;
-	if (m_undoManager->undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(Um::Selection,Um::IImageFrame,Um::ChangeShapeType,"",Um::IBorder);
+	if (UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IImageFrame, Um::ChangeShapeType, QString(), Um::IBorder);
 
-	if (frameType!=0)
+	if (frameType != 0)
 		item->setCornerRadius(0);
 	if (UndoManager::undoEnabled())
 	{
