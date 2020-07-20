@@ -10696,14 +10696,16 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			PutDoc("/Height " + Pdf::toPdf(img.height()) + "\n");
 			enum PDFOptions::PDFCompression compress_method = Options.CompressMethod;
  			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
-			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
+			bool exportToCMYK = false;
+			bool exportToGrayscale = false;
+			bool jpegUseOriginal = false;
 			if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 			{
 				exportToGrayscale = Options.isGrayscale;
 				if (exportToGrayscale)
-					exportToCMYK      = !Options.isGrayscale;
+					exportToCMYK = !Options.isGrayscale;
 				else
-					exportToCMYK      = !Options.UseRGB;
+					exportToCMYK = !Options.UseRGB;
 			}
 			if (item->OverrideCompressionMethod)
 				compress_method = cm = (enum PDFOptions::PDFCompression) item->CompressionMethodIndex;
