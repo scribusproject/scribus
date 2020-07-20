@@ -4644,7 +4644,7 @@ void ScribusMainWindow::slotEditCut()
 			cItem = currItem->asTextFrame();
 		if (cItem->HasSel)
 		{
-			if ((cItem->itemText.length() == 0) || (!cItem->HasSel))
+			if (cItem->itemText.length() == 0)
 				return;
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
