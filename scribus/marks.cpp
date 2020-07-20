@@ -30,7 +30,7 @@ void Mark::setMark(Mark* mP)
 {
 	if (mP == nullptr)
 	{
-		m_data.destmarkName = "";
+		m_data.destmarkName.clear();
 		m_data.destmarkType = MARKNoType;
 	}
 	else

@@ -1439,7 +1439,7 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	if (currView==nullptr)
 		return;
 	PageItem* currItem = mainWindow->doc->m_Selection->itemAt(0);
-	if (currItem==nullptr)
+	if (currItem == nullptr)
 		return;
 
 	(*scrActions)["itemPDFIsBookmark"]->disconnect();
