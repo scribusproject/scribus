@@ -9821,12 +9821,12 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		if (mrkType == MARKNoteMasterType)
 		{
 			if (doc->getMark(label + "_1", mrkType) != nullptr)
-				getUniqueName(label,doc->marksLabelsList(mrkType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+				getUniqueName(label, doc->marksLabelsList(mrkType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
 		}
 		else
-			getUniqueName(label,doc->marksLabelsList(mrkType), "_");
+			getUniqueName(label, doc->marksLabelsList(mrkType), "_");
 		mrk = doc->newMark();
 		mrk->setValues(label, currItem->OwnPage, mrkType, markdata);
 	}
