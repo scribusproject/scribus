@@ -9589,7 +9589,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 		return;
 
 	UndoTransaction trans;
-	if (UndoManager::instance()->undoEnabled())
+	if (UndoManager::undoEnabled())
 		trans = m_undoManager->beginTransaction();
 
 	ScItemsState* is = nullptr;
@@ -9672,7 +9672,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 		UndoTransaction trans;
 		if (currItem->HasSel)
 		{
-			if (UndoManager::instance()->undoEnabled())
+			if (UndoManager::undoEnabled())
 				trans = m_undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
 			//inserting mark replace some selected text
 			currItem->asTextFrame()->deleteSelectedTextFromFrame();
@@ -9763,7 +9763,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 	UndoTransaction trans;
 	if (currItem->HasSel)
 	{
-		if (UndoManager::instance()->undoEnabled())
+		if (UndoManager::undoEnabled())
 			trans = m_undoManager->beginTransaction(Um::Selection, Um::IDelete, Um::Delete, QString(), Um::IDelete);
 		//inserting mark replace some selected text
 		currItem->asTextFrame()->deleteSelectedTextFromFrame();

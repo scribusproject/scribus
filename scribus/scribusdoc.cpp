@@ -17127,7 +17127,7 @@ void ScribusDoc::deleteNotesStyle(const QString& nsName)
 	if (noteStyle == m_docNotesStylesList.at(0))
 		return;
 	UndoTransaction activeTransaction;
-	if (UndoManager::instance()->undoEnabled())
+	if (UndoManager::undoEnabled())
 		activeTransaction = m_undoManager->beginTransaction(Um::DeleteNotesStyle, Um::IDelete, Um::Delete, "", Um::IDelete);
 	QList<TextNote*> toDel;
 	//search for notes to deleting
