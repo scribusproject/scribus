@@ -10923,61 +10923,61 @@ void PDFLibCore::PDF_End_Bookmarks()
 {
 	if (writer.OutlinesObj == 0)
 		return;
+
+	if ((Bvie->topLevelItemCount() <= 0) || (!Options.Bookmarks) || (!BookMinUse))
+		return;
 	
-	QByteArray Inhal;
-	QMap<int, QByteArray> Inha;
-	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
+	QByteArray content;
+	QMap<int, QByteArray> bookmarkMap;
+	BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
+	PdfId basis = writer.objectCounter() - 1;
+	Outlines.Count = Bvie->topLevelItemCount();
+	Outlines.First = ip->ItemNr + basis;
+	Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + basis;
+	QTreeWidgetItemIterator it(Bvie);
+	while (*it)
 	{
-		BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
-		PdfId Basis = writer.objectCounter() - 1;
-		Outlines.Count = Bvie->topLevelItemCount();
-		Outlines.First = ip->ItemNr + Basis;
-		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + Basis;
-		QTreeWidgetItemIterator it(Bvie);
-		while (*it)
+		ip = (BookMItem*)(*it);
+		QString encText = ip->text(0);
+		content.clear();
+		content += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr + basis) + "\n";
+		if (ip->Pare == 0)
+			content += "/Parent 3 0 R\n";
+		else
+			content += "/Parent " + Pdf::toPdf(ip->Pare + basis) + " 0 R\n";
+		if (ip->Prev != 0)
+			content += "/Prev " + Pdf::toPdf(ip->Prev + basis) + " 0 R\n";
+		if (ip->Next != 0)
+			content += "/Next " + Pdf::toPdf(ip->Next + basis) + " 0 R\n";
+		if (ip->First != 0)
+			content += "/First " + Pdf::toPdf(ip->First + basis) + " 0 R\n";
+		if (ip->Last != 0)
+			content += "/Last " + Pdf::toPdf(ip->Last + basis) + " 0 R\n";
+		if (ip->childCount())
+			content += "/Count -" + Pdf::toPdf(ip->childCount()) + "\n";
+		if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
 		{
-			ip = (BookMItem*)(*it);
-			QString encText = ip->text(0);
-			Inhal.clear();
-			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
-			if (ip->Pare == 0)
-				Inhal += "/Parent 3 0 R\n";
-			else
-				Inhal += "/Parent " + Pdf::toPdf(ip->Pare+Basis) + " 0 R\n";
-			if (ip->Prev != 0)
-				Inhal += "/Prev " + Pdf::toPdf(ip->Prev+Basis) + " 0 R\n";
-			if (ip->Next != 0)
-				Inhal += "/Next " + Pdf::toPdf(ip->Next+Basis) + " 0 R\n";
-			if (ip->First != 0)
-				Inhal += "/First " + Pdf::toPdf(ip->First+Basis) + " 0 R\n";
-			if (ip->Last != 0)
-				Inhal += "/Last " + Pdf::toPdf(ip->Last+Basis) + " 0 R\n";
-			if (ip->childCount())
-				Inhal += "/Count -" + Pdf::toPdf(ip->childCount()) + "\n";
-			if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
+			QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
+			if (action.isEmpty())
 			{
-				QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
-				if (action.isEmpty())
-				{
-					const ScPage* page = doc.DocPages.at(ip->PageObject->OwnPage);
-					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
-					action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
-				}
-				Inhal += "/Dest [" + Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage]) + " 0 R " + action + "]\n";
+				const ScPage* page = doc.DocPages.at(ip->PageObject->OwnPage);
+				double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
+				action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
 			}
-			Inhal += ">>";
-			Inha[ip->ItemNr] = Inhal;
-			++it;
+			content += "/Dest [" + Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage]) + " 0 R " + action + "]\n";
 		}
-		QMap<int,QByteArray> ::ConstIterator contentIt;
-		writer.reserveObjects(Inha.count());
-		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
-		{
-			int itemNr = contentIt.key();
-			writer.startObj(itemNr + Basis);
-			PutDoc(contentIt.value());
-			writer.endObj(itemNr + Basis);
-		}
+		content += ">>";
+		bookmarkMap[ip->ItemNr] = content;
+		++it;
+	}
+
+	writer.reserveObjects(bookmarkMap.count());
+	for (auto contentIt = bookmarkMap.begin(); contentIt != bookmarkMap.end(); ++contentIt)
+	{
+		int itemNr = contentIt.key();
+		writer.startObj(itemNr + basis);
+		PutDoc(contentIt.value());
+		writer.endObj(itemNr + basis);
 	}
 }
 
@@ -11235,65 +11235,65 @@ void PDFLibCore::PDF_End_Articles()
 
 void PDFLibCore::PDF_End_Layers()
 {
-	if (Options.exportsLayers())
+	if (!Options.exportsLayers())
+		return;
+
+	QList<QByteArray> lay;
+	writer.startObj(writer.OCPropertiesObj);
+	PutDoc("<<\n");
+	PutDoc("/D << /Order [ ");
+	ScLayer ll;
+	ll.isPrintable = false;
+	ll.ID = 0;
+	for (int la = 0; la < doc.Layers.count(); ++la)
 	{
-		QList<QByteArray> lay;
-		writer.startObj(writer.OCPropertiesObj);
-		PutDoc("<<\n");
-		PutDoc("/D << /Order [ ");
-		ScLayer ll;
-		ll.isPrintable = false;
-		ll.ID = 0;
-		for (int la = 0; la < doc.Layers.count(); ++la)
-		{
-			doc.Layers.levelToLayer(ll, la);
-			if (ll.isEditable)
-				lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + " ");
-		}
-		for (int layc = 0; layc < lay.count(); ++layc)
-		{
-			if (Options.Version != PDFVersion::PDF_X4)
-				PutDoc(lay[layc]);
-		}
-		PutDoc("]\n");
-		if (Options.Version == PDFVersion::PDF_X4)
-		{
-			PutDoc("/BaseState /ON\n");
-			QString occdName = "Default";
-			PutDoc("/Name " + Pdf::toLiteralString(occdName) + "\n");
-		}
-		PutDoc("/OFF [ ");
-		QHash<QString, PdfOCGInfo>::Iterator itoc;
-		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-		{
-			if (!itoc.value().visible)
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-		}
-		PutDoc("]\n");
+		doc.Layers.levelToLayer(ll, la);
+		if (ll.isEditable)
+			lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + " ");
+	}
+	for (int layc = 0; layc < lay.count(); ++layc)
+	{
 		if (Options.Version != PDFVersion::PDF_X4)
-		{
-			PutDoc("/AS [<</Event /Print /OCGs [ ");
-			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-			{
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-			}
-			PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
-			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-			{
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-			}
-			PutDoc("] /Category [/View]>>]\n");
-		}
-		PutDoc(">>\n");
-		PutDoc("/OCGs [ ");
+			PutDoc(lay[layc]);
+	}
+	PutDoc("]\n");
+	if (Options.Version == PDFVersion::PDF_X4)
+	{
+		PutDoc("/BaseState /ON\n");
+		QString occdName = "Default";
+		PutDoc("/Name " + Pdf::toLiteralString(occdName) + "\n");
+	}
+	PutDoc("/OFF [ ");
+	QHash<QString, PdfOCGInfo>::Iterator itoc;
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		if (!itoc.value().visible)
+			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+	}
+	PutDoc("]\n");
+	if (Options.Version != PDFVersion::PDF_X4)
+	{
+		PutDoc("/AS [<</Event /Print /OCGs [ ");
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
 			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
 		}
-		PutDoc("]\n");
-		PutDoc(">>");
-		writer.endObj(writer.OCPropertiesObj);
+		PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+		}
+		PutDoc("] /Category [/View]>>]\n");
 	}
+	PutDoc(">>\n");
+	PutDoc("/OCGs [ ");
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+	}
+	PutDoc("]\n");
+	PutDoc(">>");
+	writer.endObj(writer.OCPropertiesObj);
 }
 
 bool PDFLibCore::PDF_End_OutputProfile(const QString& profilePath)
