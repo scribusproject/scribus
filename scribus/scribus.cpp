@@ -4620,8 +4620,8 @@ void ScribusMainWindow::slotEditCut()
 		currItem = doc->m_Selection->itemAt(i);
 		if ((currItem->isTextFrame() || currItem->isPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
 		{
-				ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
-				return;
+			ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
+			return;
 		}
 	}
 	if (UndoManager::undoEnabled())
