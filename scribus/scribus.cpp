@@ -8370,11 +8370,11 @@ void ScribusMainWindow::slotSetCurrentPage(int Seite)
 {
 	if (scriptIsRunning())
 		return;
-	pageSelector->blockSignals(true);
+	bool blocked = pageSelector->blockSignals(true);
 	pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 	if ((!doc->isLoading()) && (!doc->masterPageMode()))
 		pageSelector->setGUIForPage(Seite);
-	pageSelector->blockSignals(false);
+	pageSelector->blockSignals(blocked);
 }
 
 void ScribusMainWindow::setCurrentPage(int p)
