@@ -1098,38 +1098,38 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		 */
 		if (m_doc->m_Selection->count() != 0)
 		{
-			double moveBy=1.0;
-			if (m_doc->unitIndex()!=SC_INCHES)
+			double moveBy = 1.0;
+			if (m_doc->unitIndex() != SC_INCHES)
 			{
 				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1;
+					moveBy = 0.1;
 				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=10.0;
+					moveBy = 10.0;
 				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01;
+					moveBy = 0.01;
 
-				moveBy/=m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+				moveBy /= m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			}
 			else
 			{
 				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1/m_doc->unitRatio();
+					moveBy = 0.1 / m_doc->unitRatio();
 				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=1.0/m_doc->unitRatio();
+					moveBy = 1.0 / m_doc->unitRatio();
 				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01/m_doc->unitRatio();
+					moveBy = 0.01 / m_doc->unitRatio();
 			}
-			bool resizing=((buttonModifiers & Qt::AltModifier) && !(buttonModifiers & Qt::ControlModifier));
-			bool resizingsmaller=(resizing && (buttonModifiers & Qt::ShiftModifier));
-			double resizeBy=1.0;
+			bool resizing = ((buttonModifiers & Qt::AltModifier) && !(buttonModifiers & Qt::ControlModifier));
+			bool resizingsmaller = (resizing && (buttonModifiers & Qt::ShiftModifier));
+			double resizeBy = 1.0;
 
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
 			//resizeby 10 units unless we move to supporting modifier keys that most people don't have.
 			//if (buttonModifiers & Qt::ControlModifier)
-			//	resizeBy*=10.0;
-			resizeBy/=m_doc->unitRatio();
+			//	resizeBy *= 10.0;
+			resizeBy /= m_doc->unitRatio();
 			if (resizingsmaller)
-				resizeBy*=-1.0;
+				resizeBy *= -1.0;
 
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
 
@@ -1147,7 +1147,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			{
 			case Qt::Key_Backspace:
 			case Qt::Key_Delete:
-					if (buttonModifiers==Qt::NoModifier)
+					if (buttonModifiers == Qt::NoModifier)
 						m_doc->itemSelection_DeleteItem();
 					else
 					{
@@ -1200,26 +1200,26 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
-							bool sav3 = m_doc->SnapElement;
 							bool sav2 = m_doc->SnapGrid;
+							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
-							m_doc->SnapGrid   = false;
+							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
-								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+								m_view->startGroupTransaction(Um::Move, QString(), Um::IMove);
 							m_doc->moveGroup(-moveBy, 0);
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
-							m_doc->SnapElement = sav3;
 							m_doc->SnapGuides = sav1;
 							m_doc->SnapGrid = sav2;
+							m_doc->SnapElement = sav3;
 						}
 					}
 					else
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if (m_doc->nodeEdit.isContourLine())
-							m_view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
+							m_view->TransformPoly(10, 0, resizeBy / unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
 							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
@@ -1300,7 +1300,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
-								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+								m_view->startGroupTransaction(Um::Move, QString(), Um::IMove);
 							m_doc->moveGroup(moveBy, 0);
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
@@ -1313,7 +1313,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if (m_doc->nodeEdit.isContourLine())
-							m_view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
+							m_view->TransformPoly(11, 0, resizeBy / unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
 							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
@@ -1394,7 +1394,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
-								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+								m_view->startGroupTransaction(Um::Move, QString(), Um::IMove);
 							m_doc->moveGroup(0, -moveBy);
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
@@ -1407,7 +1407,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if (m_doc->nodeEdit.isContourLine())
-							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
+							m_view->TransformPoly(12, 0, resizeBy / unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
 							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
@@ -1488,7 +1488,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
-								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
+								m_view->startGroupTransaction(Um::Move, QString(), Um::IMove);
 							m_doc->moveGroup(0, moveBy);
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
@@ -1501,7 +1501,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
 						if (m_doc->nodeEdit.isContourLine())
-							m_view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
+							m_view->TransformPoly(13, 0, resizeBy / unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
 							if ((rotationFC > 0.0 && rotationFC < 45.0) || (rotationFC >= 315.0 && rotationFC <= 360.0))
