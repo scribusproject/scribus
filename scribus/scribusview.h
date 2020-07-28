@@ -261,7 +261,7 @@ public slots: // Public slots
   /** Redraws everything */
 	void DrawNew();
 	void GotoPa(int pageNumber);
-	void GotoLa(int l);
+	void GotoLayer(int l);
 	void GotoPage(int pageIndex);
 	void ChgUnit(int art);
 

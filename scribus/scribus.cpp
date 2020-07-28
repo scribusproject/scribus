@@ -2642,7 +2642,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
 		connect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
 		connect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
-		connect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLa(int)));
+		connect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLayer(int)));
 		scrActions["viewPreviewMode"]->blockSignals(true);
 		scrActions["viewPreviewMode"]->setChecked(doc->drawAsPreview);
 		scrActions["viewPreviewMode"]->blockSignals(false);
@@ -7598,7 +7598,7 @@ void ScribusMainWindow::updateLayerMenu()
 }
 
 
-void ScribusMainWindow::GotoLa(int l)
+void ScribusMainWindow::gotoLayer(int l)
 {
 	if (!HaveDoc)
 		return;

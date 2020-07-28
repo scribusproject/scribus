@@ -2411,7 +2411,7 @@ void ScribusView::setCanvasPos(double x, double y)
 	setContentsPos(nx.x(), nx.y());
 }
 
-void ScribusView::GotoLa(int l)
+void ScribusView::GotoLayer(int l)
 {
 	int level = m_doc->layerCount()-l-1;
 	int layerID = m_doc->layerIDFromLevel(level);
