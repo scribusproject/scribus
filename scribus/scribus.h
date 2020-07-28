@@ -640,7 +640,7 @@ private:
 
 	bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
-	bool m__arrowKeyDown;
+	bool m_arrowKeyDown;
 	/** @brief tells the undo mode */
 	bool m_objectSpecificUndo;
 

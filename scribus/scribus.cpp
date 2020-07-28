@@ -622,7 +622,7 @@ void ScribusMainWindow::initDefaultValues()
 	PDef.Dname.clear();
 	PDef.Command.clear();
 	m_keyrep = false;
-	m__arrowKeyDown = false;
+	m_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
 	for (int i=0; i<PAL_MAX ; ++i)
 		m_palettesStatus[i] = false;
@@ -1969,7 +1969,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		case Qt::Key_Right:
 		case Qt::Key_Up:
 		case Qt::Key_Down:
-			m__arrowKeyDown = true;
+			m_arrowKeyDown = true;
 	}
 	m_keyrep = false;
 }
@@ -1985,7 +1985,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 		if (doc->appMode == modeMagnifier)
 			view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	}
-	if (k->isAutoRepeat() || !m__arrowKeyDown)
+	if (k->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch (k->key())
 	{
@@ -1993,7 +1993,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 		case Qt::Key_Right:
 		case Qt::Key_Up:
 		case Qt::Key_Down:
-			m__arrowKeyDown = false;
+			m_arrowKeyDown = false;
 			if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
 			{
 				int docSelectionCount = doc->m_Selection->count();
@@ -2124,7 +2124,7 @@ void ScribusMainWindow::requestUpdate(int val)
 
 bool ScribusMainWindow::arrowKeyDown()
 {
-	return m__arrowKeyDown;
+	return m_arrowKeyDown;
 }
 
 QStringList ScribusMainWindow::findRecoverableFile()
