@@ -354,8 +354,8 @@ protected: // Protected methods
 	int m_vhRulerHW;
 
 signals:
-	void changeUN(int);
-	void changeLA(int);
+	void unitChanged(int);
+	void layerChanged(int);
 	void HaveSel();
 	void DocChanged();
 	void ItemGeom();

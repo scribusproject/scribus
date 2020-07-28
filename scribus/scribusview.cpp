@@ -2420,12 +2420,12 @@ void ScribusView::GotoLayer(int l)
 	m_doc->setActiveLayer(layerID);
 	//CB TODO fix this to use view calls after 1.3.2 release
 	m_ScMW->changeLayer(m_doc->activeLayer());
-	emit changeLA(layerID);
+	emit layerChanged(layerID);
 }
 
-void ScribusView::ChgUnit(int art)
+void ScribusView::ChgUnit(int unitIndex)
 {
-	emit changeUN(art);
+	emit unitChanged(unitIndex);
 	unitChange();
 	vertRuler->update();
 	horizRuler->update();

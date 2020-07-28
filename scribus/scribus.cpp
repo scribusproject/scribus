@@ -2823,8 +2823,8 @@ void ScribusMainWindow::HaveNewDoc()
 	// #9275 : scripter must call HaveNewDoc() in case new doc has been created in a script
 	// We may consequently have to call HaveNewDoc several times for the same doc.
 	// Use Qt::UniqueConnection here to avoid multiple identical signal connections
-	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)), Qt::UniqueConnection);
-	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
+	connect(view, SIGNAL(unitChanged(int)), this, SLOT(slotChangeUnit(int)), Qt::UniqueConnection);
+	connect(view, SIGNAL(layerChanged(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
 	connect(this, SIGNAL(changeLayers(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double,double)), this, SLOT(setStatusBarTextPosition(double,double)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)), Qt::UniqueConnection);
