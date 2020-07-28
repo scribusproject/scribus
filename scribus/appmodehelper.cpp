@@ -1756,6 +1756,15 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
+
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	scMW->unitSwitcher->setEnabled(false);
+	scMW->zoomSpinBox->setEnabled(false);
+	scMW->zoomDefaultToolbarButton->setEnabled(false);
+	scMW->zoomOutToolbarButton->setEnabled(false);
+	scMW->zoomInToolbarButton->setEnabled(false);
+	scMW->pageSelector->setEnabled(false);
+	scMW->layerMenu->setEnabled(false);
 }
 
 void AppModeHelper::setPreviewMode(bool b)
@@ -1951,5 +1960,14 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
+
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	scMW->unitSwitcher->setEnabled(false);
+	scMW->zoomSpinBox->setEnabled(false);
+	scMW->zoomDefaultToolbarButton->setEnabled(false);
+	scMW->zoomOutToolbarButton->setEnabled(false);
+	scMW->zoomInToolbarButton->setEnabled(false);
+	scMW->pageSelector->setEnabled(false);
+	scMW->layerMenu->setEnabled(false);
 }
 

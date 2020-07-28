@@ -2618,11 +2618,17 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		disconnect(doc, SIGNAL(addBookmark(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 		disconnect(doc, SIGNAL(deleteBookmark(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 		unitSwitcher->disconnect();
+		unitSwitcher->setEnabled(false);
 		zoomSpinBox->disconnect();
+		zoomSpinBox->setEnabled(false);
 		zoomDefaultToolbarButton->disconnect();
+		zoomDefaultToolbarButton->setEnabled(false);
 		zoomOutToolbarButton->disconnect();
+		zoomDefaultToolbarButton->setEnabled(false);
 		zoomInToolbarButton->disconnect();
+		zoomInToolbarButton->setEnabled(false);
 		layerMenu->disconnect();
+		layerMenu->setEnabled(false);
 		disconnect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
 		disconnect(viewToolBar->visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
 		pageSelector->disconnect();
@@ -2638,11 +2644,17 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(doc, SIGNAL(addBookmark(PageItem*)), this, SLOT(AddBookMark(PageItem*)));
 		connect(doc, SIGNAL(deleteBookmark(PageItem*)), this, SLOT(DelBookMark(PageItem*)));
 		connect(unitSwitcher, SIGNAL(activated(int)), doc->view(), SLOT(ChgUnit(int)));
+		unitSwitcher->setEnabled(true);
 		connect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
+		zoomSpinBox->setEnabled(true);
 		connect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
+		zoomDefaultToolbarButton->setEnabled(true);
 		connect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
+		zoomOutToolbarButton->setEnabled(true);
 		connect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
+		zoomInToolbarButton->setEnabled(true);
 		connect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLayer(int)));
+		layerMenu->setEnabled(true);
 		scrActions["viewPreviewMode"]->blockSignals(true);
 		scrActions["viewPreviewMode"]->setChecked(doc->drawAsPreview);
 		scrActions["viewPreviewMode"]->blockSignals(false);
@@ -6209,7 +6221,7 @@ void ScribusMainWindow::deletePage2(int pg)
 	view->deselectItems(true);
 	if (doc->Pages->count() == 1)
 		return;
-	deletePage(pg+1, pg+1);
+	deletePage(pg + 1, pg + 1);
 }
 
 void ScribusMainWindow::deletePage()
