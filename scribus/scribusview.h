@@ -363,8 +363,6 @@ signals:
 	void ItemCharStyle(const CharStyle&);
 	void ItemTextAlign(int);
 	void ItemTextEffects(int);
-	void LoadPic();
-	void StatusPic();
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
 	void ChBMText(PageItem *);

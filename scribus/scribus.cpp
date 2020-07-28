@@ -2838,8 +2838,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemCharStyle(const CharStyle&)), contentPalette, SLOT(update(const CharStyle&)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextEffects(int)), this, SLOT(setStyleEffects(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextAlign(int)), this, SLOT(setAlignmentValue(int)), Qt::UniqueConnection);
-	connect(view, SIGNAL(LoadPic()), this, SLOT(slotGetContent()), Qt::UniqueConnection);
-	connect(view, SIGNAL(StatusPic()), this, SLOT(StatusPic()), Qt::UniqueConnection);
 	connect(view, SIGNAL(LoadElem(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), this, SLOT(slotElemRead(QString,double,double,bool,bool,ScribusDoc*,ScribusView*)), Qt::UniqueConnection);
 	connect(view, SIGNAL(AddBM(PageItem*)), this, SLOT(AddBookMark(PageItem*)), Qt::UniqueConnection);
 	connect(view, SIGNAL(DelBM(PageItem*)), this, SLOT(DelBookMark(PageItem*)), Qt::UniqueConnection);
