@@ -260,9 +260,9 @@ public slots: // Public slots
 	void slotZoomOut(int mx = 0, int my = 0, bool preservePoint = false);
   /** Redraws everything */
 	void DrawNew();
-	void GotoPa(int Seite);
+	void GotoPa(int pageNumber);
 	void GotoLa(int l);
-	void GotoPage(int Seite);
+	void GotoPage(int pageIndex);
 	void ChgUnit(int art);
 
 	void editExtendedImageProperties();

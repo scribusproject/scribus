@@ -2432,20 +2432,26 @@ void ScribusView::ChgUnit(int art)
 }
 
 
-void ScribusView::GotoPa(int Seite)
+void ScribusView::GotoPa(int pageNumber)
 {
 	deselectItems();
-	GotoPage(Seite-1);
+	GotoPage(pageNumber - 1);
 	setFocus();
 }
 
-void ScribusView::GotoPage(int Seite)
+void ScribusView::GotoPage(int pageIndex)
 {
-	m_doc->setCurrentPage(m_doc->Pages->at(Seite));
+	QRectF newTrimRect = m_doc->Pages->at(pageIndex)->trimRect();
+	QRectF oldTrimRect = m_doc->currentPage() ? m_doc->currentPage()->trimRect() : newTrimRect;
+	m_doc->setCurrentPage(m_doc->Pages->at(pageIndex));
 	if (m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->slotSetCurrentPage(Seite);
+	QRect updateRect = m_canvas->canvasToLocal(oldTrimRect.united(newTrimRect));
+	m_ScMW->slotSetCurrentPage(pageIndex);
+	m_canvas->setForcedRedraw(true);
+	m_canvas->resetRenderMode();
 	setCanvasPos(m_doc->currentPage()->xOffset() - 10, m_doc->currentPage()->yOffset() - 10);
+	updateContents(updateRect.adjusted(-5, -5, 10, 10));
 	m_ScMW->HaveNewSel();
 }
 
@@ -3538,7 +3544,7 @@ void ScribusView::updateContents(QRect box)
 
 void ScribusView::updateContents(int x, int y, int w, int h)
 {
-	updateContents(QRect(x,y,w,h));
+	updateContents(QRect(x, y, w, h));
 }
 
 void ScribusView::repaintContents(QRect box)
