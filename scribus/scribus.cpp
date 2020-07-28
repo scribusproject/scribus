@@ -9260,32 +9260,29 @@ void ScribusMainWindow::slotStoryEditor()
 
 void ScribusMainWindow::emergencySave()
 {
-	emergencyActivated=true;
+	emergencyActivated = true;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QWidgetList windows = wsp->windowList();
-	if (!windows.isEmpty())
+	if (windows.isEmpty())
+		return;
+
+	uint windowCount = windows.count();
+	for (uint i = 0; i < windowCount ; ++i)
 	{
-		uint windowCount=windows.count();
-		for (uint i=0; i<windowCount ; ++i)
+		ActWin = (ScribusWin*) windows.at(i);
+		doc = ActWin->doc();
+		view = ActWin->view();
+		doc->setModified(false);
+		if (doc->hasName)
 		{
-			ActWin = (ScribusWin*)windows.at(i);
-			doc = ActWin->doc();
-			view = ActWin->view();
-			doc->setModified(false);
-			if (doc->hasName)
-			{
-				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
-				doc->autoSaveTimer->stop();
-				FileLoader fl(doc->DocName+".emergency");
-				fl.saveFile(doc->DocName+".emergency", doc, 0);
-			}
-			view->close();
-			uint numPages=doc->Pages->count();
-			for (uint a=0; a<numPages; ++a)
-				delete doc->Pages->at(a);
-			delete doc;
-			ActWin->close();
+			std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
+			doc->autoSaveTimer->stop();
+			FileLoader fl(doc->DocName+".emergency");
+			fl.saveFile(doc->DocName+".emergency", doc, 0);
 		}
+		// ActWin->close() will trigger ScribusWin::closeEvent()
+		// so no need to manually close view or delete doc
+		ActWin->close();
 	}
 }
 
