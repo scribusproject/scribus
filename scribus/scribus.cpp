@@ -8565,7 +8565,7 @@ void ScribusMainWindow::slotStoryEditor(bool fromTable)
 
 void ScribusMainWindow::emergencySave()
 {
-	emergencyActivated=true;
+	emergencyActivated = true;
 	if (!m_prefsManager.appPrefs.miscPrefs.saveEmergencyFile)
 		return;
 	std::cout << "Calling Emergency Save" << std::endl;
@@ -8574,7 +8574,7 @@ void ScribusMainWindow::emergencySave()
 		return;
 
 	int windowCount = windows.count();
-	for (int i=0; i<windowCount ; ++i)
+	for (int i = 0; i < windowCount; ++i)
 	{
 		ActWin = dynamic_cast<ScribusWin*>(windows.at(i)->widget());
 		doc = ActWin->doc();
@@ -8598,12 +8598,9 @@ void ScribusMainWindow::emergencySave()
 		std::cout << "Saving: " << fileName.toStdString() << std::endl;
 		FileLoader fl(fileName);
 		fl.saveFile(fileName, doc, nullptr);
-		view->close();
-		int numPages = doc->Pages->count();
-		for (int j = 0; j < numPages; ++j)
-			delete doc->Pages->at(j);
-		delete doc;
-		ActWin->close();
+		// ActWin->close() will trigger ScribusWin::closeEvent()
+		// so no need to manually close view or delete doc
+		ActWin->getSubWin()->close();
 	}
 }
 
