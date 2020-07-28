@@ -56,6 +56,7 @@ private slots:
 	void pageView_applyMasterPage(const QString& masterpageName, int pageIndex);
 	void pageView_movePage(int r, int c);
 	void pageView_gotoPage(int r, int c, int b);
+	void pageView_deletePage(int pageIndex);
 
 signals:
 	void gotoMasterPage(QString);

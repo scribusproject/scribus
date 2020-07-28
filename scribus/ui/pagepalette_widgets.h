@@ -71,7 +71,7 @@ private slots:
 signals:
 	//! Emitted when user requests/disables the thumbnais for master pages.
 	void thumbnailChanged();
-	void DelMaster(QString);
+	void delMasterRequest(QString);
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *m);
@@ -106,7 +106,7 @@ signals:
 	void NewPage(int, QString);
 	void movePage(int, int);
 	void Click(int, int, int);
-	void DelPage(int);
+	void delPageRequest(int);
 
 protected:
 	virtual void dropEvent(QDropEvent * e);
@@ -149,8 +149,8 @@ protected slots:
 	void iconSetChange();
 	
 signals:
-	void DelPage(int);
-	void DelMaster(QString);
+	void delPageRequest(int);
+	void delMasterRequest(QString);
 };
 
 #endif

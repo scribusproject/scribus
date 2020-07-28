@@ -109,24 +109,18 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 
 void SeList::keyPressEvent(QKeyEvent * e)
 {
-	bool accepted = false;
 	int k = e->key();
 	if (k == Qt::Key_Delete)
 	{
 		if (currentItem())
 		{
 			e->accept();
-			if (ScMessageBox::question(this, tr("Delete Master Page?"),
-				"<qt>" + tr("Are you sure you want to delete this master page?") + "</qt>",
-				QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
-			{
-				emit DelMaster(currentItem()->text());
-			}
-			accepted = true;
+			emit delMasterRequest(currentItem()->text());
+			return;
 		}
 	}
-	if (!accepted)
-		QListWidget::keyPressEvent(e);
+	
+	QListWidget::keyPressEvent(e);
 }
 
 
@@ -350,23 +344,17 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 
 void SeView::keyPressEvent(QKeyEvent * e)
 {
-	bool accepted = false;
 	int k = e->key();
 	if (k == Qt::Key_Delete)
 	{
 		e->accept();
-		if (ScMessageBox::question(this, tr("Delete Page?"),
-			 "<qt>" + tr("Are you sure you want to delete this page?") + "</qt>",
-			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
-		{
-			bool dummy;
-			int pageToDelete = getPage(currentRow(), currentColumn(), &dummy);
-			emit DelPage(pageToDelete);
-		}
-		accepted = true;
+		bool dummy;
+		int pageToDelete = getPage(currentRow(), currentColumn(), &dummy);
+		emit delPageRequest(pageToDelete);
+		return;
 	}
-	if (!accepted)
-		QTableWidget::keyPressEvent(e);
+
+	QTableWidget::keyPressEvent(e);
 }
 
 void SeView::clearPix()
@@ -504,12 +492,12 @@ void TrashBin::dropEvent(QDropEvent * e)
 		{
 			int st = str.indexOf(" ");
 			int en = str.indexOf(" ", st+1);
-			emit DelPage(str.midRef(st, en-st).toInt());
+			emit delPageRequest(str.midRef(st, en - st).toInt());
 		}
 		if (str.startsWith("1"))
 		{
 			tmp = str.remove(0,1);
-			emit DelMaster(tmp);
+			emit delMasterRequest(tmp);
 		}
 	}
 }

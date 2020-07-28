@@ -71,17 +71,17 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 
 	connect(masterPageList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(thumbnailChanged()), this, SLOT(rebuildMasters()));
-	connect(masterPageList, SIGNAL(DelMaster(QString)), this, SLOT(deleteMasterPage(QString)));
+	connect(masterPageList, SIGNAL(delMasterRequest(QString)), this, SLOT(deleteMasterPage(QString)));
 
 	connect(pageLayout, SIGNAL(selectedLayout(int))   , this, SLOT(handlePageLayout(int)));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int)), this, SLOT(handleFirstPage(int)));
 	connect(pageView  , SIGNAL(Click(int,int,int))    , this, SLOT(pageView_gotoPage(int,int,int)));
 	connect(pageView  , SIGNAL(movePage(int,int))     , this, SLOT(pageView_movePage(int,int)));
-	connect(pageView  , SIGNAL(DelPage(int))          , m_scMW, SLOT(deletePage2(int)));
+	connect(pageView  , SIGNAL(delPageRequest(int))   , this, SLOT(pageView_deletePage(int)));
 	connect(pageView  , SIGNAL(UseTemp(QString,int))  , this, SLOT(pageView_applyMasterPage(QString,int)));
 	connect(pageView  , SIGNAL(NewPage(int,QString))  , m_scMW, SLOT(slotNewPageP(int,QString)));
-	connect(trash     , SIGNAL(DelPage(int))          , m_scMW, SLOT(deletePage2(int)));
-	connect(trash     , SIGNAL(DelMaster(QString))    , this, SLOT(deleteMasterPage(QString)));
+	connect(trash     , SIGNAL(delPageRequest(int))   , m_scMW, SLOT(deletePage2(int)));
+	connect(trash     , SIGNAL(delMasterRequest(QString))    , this, SLOT(deleteMasterPage(QString)));
 	
 	connect(this, SIGNAL(gotoPage(int))          , m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
@@ -158,6 +158,16 @@ void PagePalette_Pages::pageView_gotoPage(int r, int c, int b)
 		p = pageView->getPage(r, c, &dummy);
 		emit gotoPage(p);
 	}
+}
+
+void PagePalette_Pages::pageView_deletePage(int pageIndex)
+{
+	int exit = ScMessageBox::question(this, tr("Delete Page?"),
+			                          "<qt>" + tr("Are you sure you want to delete this page?") + "</qt>",
+			                          QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	if (exit != QMessageBox::Yes)
+		return;
+	m_scMW->deletePage2(pageIndex);
 }
 
 void PagePalette_Pages::enablePalette(const bool enabled)
