@@ -59,7 +59,7 @@ void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 
 	const ScColor& scCol1(doc->PageColors[colName]);
 	
-	if ((shade == 100) || (scCol1.getColorModel() != colorModelRGB) )
+	if ((shade == 100) || (scCol1.getColorModel() != colorModelRGB))
 		return;
 	scCol1.getRGB(&r, &g, &b);
 	QColor col1 = getOldColorShade(r, g, b, shade), col2;
@@ -202,16 +202,16 @@ static quint64 code64(const ScColor & col)
 	quint64 result = 0;
 	if (col.getColorModel() == colorModelRGB)
 	{
-		col.getRGB( &R, &G, &B );
+		col.getRGB(&R, &G, &B);
 		QColor color = QColor(R, G, B);
 		color.getCmyk(&C, &M, &Y, &K);
 	}
 	else if (col.getColorModel() == colorModelCMYK)
 	{
-		col.getCMYK( &C, &M, &Y, &K );
-		R = 255-qMin(255, C + K);
-		G = 255-qMin(255, M + K);
-		B = 255-qMin(255, Y + K);
+		col.getCMYK(&C, &M, &Y, &K);
+		R = 255 - qMin(255, C + K);
+		G = 255 - qMin(255, M + K);
+		B = 255 - qMin(255, Y + K);
 	}
 	else
 	{
@@ -253,7 +253,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 	static QPixmap regIcon;
 	static bool iconsInitialized = false;
 
-	if ( !iconsInitialized )
+	if (!iconsInitialized)
 	{
 		IconManager& im=IconManager::instance();
 		alertIcon = im.loadPixmap("alert.png");
@@ -317,13 +317,13 @@ void paintAlert(const QPixmap &toPaint, QPixmap &target, int x, int y, bool useM
 	p.end();
 }
 
-unsigned char INT_MULT ( unsigned char a, unsigned char b )
+unsigned char INT_MULT (unsigned char a, unsigned char b)
 {
 	int c = a * b + 0x80;
-	return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
+	return (unsigned char)(((c >> 8) + c) >> 8);
 }
 
-void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
+void RGBTOHSV (uchar& red, uchar& green, uchar& blue)
 {
 	int r, g, b;
 	double h, s, v;
@@ -332,46 +332,46 @@ void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
 	r = red;
 	g = green;
 	b = blue;
-	if ( r > g )
+	if (r > g)
 	{
-		max = qMax( r, b );
-		min = qMin( g, b );
+		max = qMax(r, b);
+		min = qMin(g, b);
 	}
 	else
 	{
-		max = qMax( g, b );
-		min = qMin( r, b );
+		max = qMax(g, b);
+		min = qMin(r, b);
 	}
 	v = max;
-	if ( max != 0 )
-		s = ( ( max - min ) * 255 ) / (double)max;
+	if (max != 0)
+		s = ((max - min) * 255) / (double)max;
 	else
 		s = 0;
-	if ( s == 0 )
+	if (s == 0)
 		h = 0;
 	else
 	{
 		int delta = max - min;
-		if ( r == max )
-			h = ( g - b ) / (double)delta;
-		else if ( g == max )
-			h = 2 + ( b - r ) / (double)delta;
-		else if ( b == max )
-			h = 4 + ( r - g ) / (double)delta;
+		if (r == max)
+			h = (g - b) / (double) delta;
+		else if (g == max)
+			h = 2 + (b - r) / (double) delta;
+		else if (b == max)
+			h = 4 + (r - g) / (double) delta;
 		h *= 42.5;
-		if ( h < 0 )
+		if (h < 0)
 			h += 255;
-		if ( h > 255 )
+		if (h > 255)
 			h -= 255;
 	}
-	red   = (uchar)h;
-	green = (uchar)s;
-	blue  = (uchar)v;
+	red   = (uchar) h;
+	green = (uchar) s;
+	blue  = (uchar) v;
 }
 
-void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
+void HSVTORGB (uchar& hue, uchar& saturation, uchar& value)
 {
-	if ( saturation == 0 )
+	if (saturation == 0)
 	{
 		hue        = value;
 		saturation = value;
@@ -383,84 +383,84 @@ void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
 		double s = saturation / 255.;
 		double v = value / 255.;
 
-		double f = h - (int)h;
-		double p = v * ( 1. - s );
-		double q = v * ( 1. - ( s * f ) );
-		double t = v * ( 1. - ( s * ( 1. - f ) ) );
+		double f = h - (int) h;
+		double p = v * (1. - s);
+		double q = v * (1. - (s * f));
+		double t = v * (1. - (s * (1. - f)));
 		// Worth a note here that gcc 2.96 will generate different results
 		// depending on optimization mode on i386.
 		switch ((int)h)
 		{
 		case 0:
-			hue        = (uchar)( v * 255 );
-			saturation = (uchar)( t * 255 );
-			value      = (uchar)( p * 255 );
+			hue        = (uchar)(v * 255);
+			saturation = (uchar)(t * 255);
+			value      = (uchar)(p * 255);
 			break;
 		case 1:
-			hue        = (uchar)( q * 255 );
-			saturation = (uchar)( v * 255 );
-			value      = (uchar)( p * 255 );
+			hue        = (uchar)(q * 255);
+			saturation = (uchar)(v * 255);
+			value      = (uchar)(p * 255);
 			break;
 		case 2:
-			hue        = (uchar)( p * 255 );
-			saturation = (uchar)( v * 255 );
-			value      = (uchar)( t * 255 );
+			hue        = (uchar)(p * 255);
+			saturation = (uchar)(v * 255);
+			value      = (uchar)(t * 255);
 			break;
 		case 3:
-			hue        = (uchar)( p * 255 );
-			saturation = (uchar)( q * 255 );
-			value      = (uchar)( v * 255 );
+			hue        = (uchar)(p * 255);
+			saturation = (uchar)(q * 255);
+			value      = (uchar)(v * 255);
 			break;
 		case 4:
-			hue        = (uchar)( t * 255 );
-			saturation = (uchar)( p * 255 );
-			value      = (uchar)( v * 255 );
+			hue        = (uchar)(t * 255);
+			saturation = (uchar)(p * 255);
+			value      = (uchar)(v * 255);
 			break;
 		case 5:
-			hue        = (uchar)( v * 255 );
-			saturation = (uchar)( p * 255 );
-			value      = (uchar)( q * 255 );
+			hue        = (uchar)(v * 255);
+			saturation = (uchar)(p * 255);
+			value      = (uchar)(q * 255);
 		}
 	}
 }
 
-void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
+void RGBTOHLS(uchar& red, uchar& green, uchar& blue)
 {
-	double var_R = ( red / 255.0 );
-	double var_G = ( green / 255.0 );
-	double var_B = ( blue / 255.0 );
-	double var_Min = qMin( var_R, qMin(var_G, var_B) );    //Min. value of RGB
-	double var_Max = qMax( var_R, qMax(var_G, var_B) );    //Max. value of RGB
+	double var_R = (red / 255.0);
+	double var_G = (green / 255.0);
+	double var_B = (blue / 255.0);
+	double var_Min = qMin(var_R, qMin(var_G, var_B));    //Min. value of RGB
+	double var_Max = qMax(var_R, qMax(var_G, var_B));    //Max. value of RGB
 	double del_Max = var_Max - var_Min;             //Delta RGB value
-	double L = ( var_Max + var_Min ) / 2.0;
+	double L = (var_Max + var_Min) / 2.0;
 	double H = 0;
 	double S = 0;
 	double del_R = 0;
 	double del_G = 0;
 	double del_B = 0;
-	if ( del_Max == 0 )
+	if (del_Max == 0)
 	{
 		H = 0;
 		S = 0;
 	}
 	else
 	{
-		if ( L < 0.5 )
-			S = del_Max / ( var_Max + var_Min );
+		if (L < 0.5)
+			S = del_Max / (var_Max + var_Min);
 		else
-			S = del_Max / ( 2 - var_Max - var_Min );
-		del_R = ( ( ( var_Max - var_R ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-		del_G = ( ( ( var_Max - var_G ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-		del_B = ( ( ( var_Max - var_B ) / 6.0 ) + ( del_Max / 2.0 ) ) / del_Max;
-		if ( var_R == var_Max )
+			S = del_Max / (2 - var_Max - var_Min);
+		del_R = (((var_Max - var_R) / 6.0) + (del_Max / 2.0)) / del_Max;
+		del_G = (((var_Max - var_G) / 6.0) + (del_Max / 2.0)) / del_Max;
+		del_B = (((var_Max - var_B) / 6.0) + (del_Max / 2.0)) / del_Max;
+		if (var_R == var_Max)
 			H = del_B - del_G;
-		else if ( var_G == var_Max )
-			H = ( 1.0 / 3.0 ) + del_R - del_B;
-		else if ( var_B == var_Max )
-			H = ( 2.0 / 3.0 ) + del_G - del_R;
-		if ( H < 0 )
+		else if (var_G == var_Max)
+			H = (1.0 / 3.0) + del_R - del_B;
+		else if (var_B == var_Max)
+			H = (2.0 / 3.0) + del_G - del_R;
+		if (H < 0)
 			H += 1;
-		if ( H > 1 )
+		if (H > 1)
 			H -= 1;
 	}
 	red = qRound(H * 255);
@@ -468,26 +468,26 @@ void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
 	blue = qRound(S * 255);
 }
 
-double HLSVALUE ( double n1, double n2, double hue )
+double HLSVALUE (double n1, double n2, double hue)
 {
-	if ( hue < 0 )
+	if (hue < 0)
 		hue += 1;
-	if ( hue > 1 )
+	if (hue > 1)
 		hue -= 1;
-	if ( ( 6 * hue ) < 1 )
-		return n1 + ( n2 - n1 ) * 6 * hue;
-	if ( ( 2 * hue ) < 1 )
+	if ((6 * hue) < 1)
+		return n1 + (n2 - n1) * 6 * hue;
+	if ((2 * hue) < 1)
 		return n2;
-	if ( ( 3 * hue ) < 2 )
-		return n1 + ( n2 - n1 ) * ( ( 2.0 / 3.0 ) - hue ) * 6;
+	if ((3 * hue) < 2)
+		return n1 + (n2 - n1) * ((2.0 / 3.0) - hue) * 6;
 	return n1;
 }
 
-void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
+void HLSTORGB (uchar& hue, uchar& lightness, uchar& saturation)
 {
-	double H = ( hue / 255.0 );
-	double L = ( lightness / 255.0 );
-	double S = ( saturation / 255.0 );
+	double H = (hue / 255.0);
+	double L = (lightness / 255.0);
+	double S = (saturation / 255.0);
 	if (S == 0)
 	{
 		hue = qRound(255 * L);
@@ -496,22 +496,22 @@ void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 	double var_1 = 0;
 	double var_2 = 0;
-	if ( L < 0.5 )
-		var_2 = L * ( 1 + S );
+	if (L < 0.5)
+		var_2 = L * (1 + S);
 	else
-		var_2 = ( L + S ) - ( S * L );
+		var_2 = (L + S) - (S * L);
 	var_1 = 2 * L - var_2;
-	hue = qRound(255 * HLSVALUE( var_1, var_2, H + ( 1.0 / 3.0 ) ));
-	lightness = qRound(255 * HLSVALUE( var_1, var_2, H ));
-	saturation = qRound(255 * HLSVALUE( var_1, var_2, H - ( 1.0 / 3.0 ) ));
+	hue = qRound(255 * HLSVALUE(var_1, var_2, H + (1.0 / 3.0)));
+	lightness = qRound(255 * HLSVALUE(var_1, var_2, H));
+	saturation = qRound(255 * HLSVALUE(var_1, var_2, H - (1.0 / 3.0)));
 }
 
 double getCurveYValue(FPointArray &curve, double x, bool linear)
 {
 	double t;
 	FPoint p;
-	FPoint p0,p1,p2,p3;
-	double c0,c1,c2,c3;
+	FPoint p0, p1, p2, p3;
+	double c0, c1, c2, c3;
 	double val = 0.5;
 	if (curve.isEmpty())
 		return 0.5;
@@ -555,11 +555,11 @@ double getCurveYValue(FPointArray &curve, double x, bool linear)
 	else
 	{
 		t = (x - p1.x()) / (p2.x() - p1.x());
-		c2 = (p2.y() - p0.y()) * (p2.x()-p1.x()) / (p2.x()-p0.x());
+		c2 = (p2.y() - p0.y()) * (p2.x() - p1.x()) / (p2.x() - p0.x());
 		c3 = p1.y();
-		c0 = -2*p2.y() + 2*c3 + c2 + (p3.y() - p1.y()) * (p2.x() - p1.x()) / (p3.x() - p1.x());
+		c0 = -2 * p2.y() + 2 * c3 + c2 + (p3.y() - p1.y()) * (p2.x() - p1.x()) / (p3.x() - p1.x());
 		c1 = p2.y() - c3 - c2 - c0;
-		val = ((c0*t + c1)*t + c2)*t + c3;
+		val = ((c0 * t + c1) * t + c2) * t + c3;
 	}
 	if (val < 0.0)
 		val = 0.0;
