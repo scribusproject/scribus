@@ -1013,33 +1013,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				m_keyRepeat = false;
 				return;
 				break;
-			case Qt::Key_Tab:
-				if (buttonModifiers == Qt::ControlModifier)
-				{
-					m_keyRepeat = false;
-					windows = mdiArea->subWindowList();
-					if (windows.count() > 1)
-					{
-						for (int i = 0; i < static_cast<int>(windows.count()); ++i)
-						{
-							if (mdiArea->activeSubWindow() == windows.at(i))
-							{
-								if (i == static_cast<int>(windows.count()-1))
-									w = windows.at(0);
-								else
-									w = windows.at(i+1);
-								break;
-							}
-						}
-						outlinePalette->buildReopenVals();
-						docCheckerPalette->clearErrorList();
-						if (w)
-							w->showNormal();
-						mainWindow->newActWin(w);
-					}
-					return;
-				}
-				break;
 			}
 		}
 		//Allow page up/down even when items are selected
