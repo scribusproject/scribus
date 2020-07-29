@@ -1696,8 +1696,9 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	if (e->type() == QEvent::ToolTip)
 		return (!m_prefsManager.appPrefs.displayPrefs.showToolTips);
+
 	bool retVal = false;
-	if ( e->type() == QEvent::KeyPress )
+	if (e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
 		if (!k)
@@ -1713,35 +1714,31 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		if (QString(currKeySeq.toString()).isNull())
 			return false;
-		retVal=true;
+		retVal = true;
 		//Palette actions
 		if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllPalettes"))
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
-		else
-		if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllGuides"))
+		else if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllGuides"))
 			scrActions["specialToggleAllGuides"]->activate(QAction::Trigger);
 		else
-			retVal=false;
+			retVal = false;
 	}
-	else
-	if ( e->type() == QEvent::KeyRelease )
+	else if (e->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
 		if (!k)
 			return false;
 #if defined(Q_OS_MAC)
-		if (k->key()==Qt::Key_QuoteLeft && k->modifiers() & Qt::ControlModifier)
+		if ((k->key() == Qt::Key_QuoteLeft) && (k->modifiers() & Qt::ControlModifier))
 		{
 			if (k->modifiers() & Qt::ShiftModifier)
 				mdiArea->activatePreviousSubWindow();
 			else
 				mdiArea->activateNextSubWindow();
-			retVal=true;
+			retVal = true;
 		}
 #endif
 	}
-	else
-		retVal=false;
 	//Return false to pass event to object
 	return retVal;
 }
