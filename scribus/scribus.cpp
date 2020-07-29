@@ -8663,7 +8663,7 @@ void ScribusMainWindow::callImageEditor()
 	if (currItem->imageIsAvailable)
 	{
 		bool startFailed=false;
-	#ifdef Q_OS_OSX
+	#ifdef Q_OS_MACOS
 		QString osxcmd(imageEditorExecutable);
 		if (osxcmd.endsWith(".app"))
 			osxcmd.prepend("open -a \"");

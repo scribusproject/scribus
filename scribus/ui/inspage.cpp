@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
-	: QDialog( parent, nullptr )
+	: QDialog( parent, Qt::WindowFlags() )
 {
 	m_doc = currentDoc;
 

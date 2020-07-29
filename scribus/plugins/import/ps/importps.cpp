@@ -64,7 +64,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 
 bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int flags, bool showProgress)
 {
-#ifdef Q_OS_OSX
+#ifdef Q_OS_MACOS
 	#if QT_VERSION >= 0x050300
 		showProgress = false;
 	#endif
@@ -278,7 +278,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 				ScElemMimeData* md = new ScElemMimeData();
 				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
 				delete ss;
-/*#ifndef Q_WS_MAC*/
+/*#ifndef Q_OS_MACOS */
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 /*#else

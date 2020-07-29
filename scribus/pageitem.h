@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPointF>
 #include <QRect>
 #include <QRectF>
+#include <QString>
 #include <QVector>
 #include <QTemporaryFile>
 
@@ -182,7 +183,7 @@ public:	// Start enumerator definitions
 		Arc				= 14,
 		Spiral			= 15,
 		Table			= 16,
-		NoteFrame       = 17,
+		NoteFrame		= 17,
 		Multiple		= 99
 	};
 

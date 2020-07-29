@@ -155,7 +155,7 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 
 bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-#ifdef Q_OS_OSX
+#ifdef Q_OS_MACOS
 	showProgress = false;
 #endif
 	bool success = false;

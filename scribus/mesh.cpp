@@ -24,12 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "mesh.h"
 #include "fpointarray.h"
 
-MeshPoint::MeshPoint()
-{
-	shade = 100;
-	transparency = 1.0;
-}
-
 void MeshPoint::moveRel(double dx, double dy)
 {
 	gridPoint += FPoint(dx, dy);
@@ -81,9 +75,15 @@ void MeshPoint::resetTo(const FPoint& p)
 
 bool MeshPoint::operator ==(const MeshPoint& p)
 {
-	return ((gridPoint == p.gridPoint) && (controlTop == p.controlTop) && (controlBottom == p.controlBottom)
-			&& (controlLeft == p.controlLeft) && (controlRight == p.controlRight) &&
-			(controlColor == p.controlColor) && (color == p.color) && (colorName == p.colorName) &&
-			(transparency == p.transparency) && (shade == p.shade));
+	return ((gridPoint == p.gridPoint) &&
+			(controlTop == p.controlTop) &&
+			(controlBottom == p.controlBottom) &&
+			(controlLeft == p.controlLeft) &&
+			(controlRight == p.controlRight) &&
+			(controlColor == p.controlColor) &&
+			(color == p.color) &&
+			(colorName == p.colorName) &&
+			(transparency == p.transparency) &&
+			(shade == p.shade));
 }
 

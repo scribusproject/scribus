@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 
 FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* doc)
-	: QDialog(parent, nullptr)
+	: QDialog(parent, Qt::WindowFlags())
 {
 	setupUi(this);
 	setModal(true);
