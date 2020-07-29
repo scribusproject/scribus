@@ -1694,10 +1694,9 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 
 bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
-	bool retVal;
 	if (e->type() == QEvent::ToolTip)
 		return (!m_prefsManager.appPrefs.displayPrefs.showToolTips);
-
+	bool retVal = false;
 	if ( e->type() == QEvent::KeyPress )
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
@@ -1725,6 +1724,23 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			retVal=false;
 	}
 	else
+	if ( e->type() == QEvent::KeyRelease )
+	{
+		QKeyEvent *k = dynamic_cast<QKeyEvent *>(e);
+		if (!k)
+			return false;
+#if defined(Q_OS_MAC)
+		if (k->key()==Qt::Key_QuoteLeft && k->modifiers() & Qt::ControlModifier)
+		{
+			if (k->modifiers() & Qt::ShiftModifier)
+				mdiArea->activatePreviousSubWindow();
+			else
+				mdiArea->activateNextSubWindow();
+			retVal=true;
+		}
+#endif
+	}
+	else
 		retVal=false;
 	//Return false to pass event to object
 	return retVal;
@@ -1745,8 +1761,6 @@ QVariant ScribusMainWindow::inputMethodQuery ( Qt::InputMethodQuery query ) cons
 //AV -> CanvasMode
 void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
-	QList<QMdiSubWindow *> windows;
-	QMdiSubWindow* w = nullptr;
 	int kk = k->key();
 	if (HaveDoc)
 	{
@@ -1932,33 +1946,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				view->scrollBy(0, wheelVal);
 				m_keyrep = false;
 				return;
-				break;
-			case Qt::Key_Tab:
-				if (buttonModifiers == Qt::ControlModifier)
-				{
-					m_keyrep = false;
-					windows = mdiArea->subWindowList();
-					if (windows.count() > 1)
-					{
-						for (int i = 0; i < static_cast<int>(windows.count()); ++i)
-						{
-							if (mdiArea->activeSubWindow() == windows.at(i))
-							{
-								if (i == static_cast<int>(windows.count()-1))
-									w = windows.at(0);
-								else
-									w = windows.at(i+1);
-								break;
-							}
-						}
-						outlinePalette->buildReopenVals();
-						docCheckerPalette->clearErrorList();
-						if ( w )
-							w->showNormal();
-						newActWin(w);
-					}
-					return;
-				}
 				break;
 			}
 		}
