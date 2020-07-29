@@ -1966,7 +1966,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 		if ((doc->appMode == modePanning) && (k->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 			view->requestMode(modeNormal);
 
-		if (doc->appMode == modeMagnifier)
+		if ((doc->appMode == modeMagnifier) && (k->key() == Qt::Key_Shift))
 			view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	}
 	if (k->isAutoRepeat() || !m_arrowKeyDown)

@@ -66,11 +66,9 @@ void CanvasMode_Magnifier::enterEvent(QEvent *e)
 		setModeCursor();
 }
 
-
 void CanvasMode_Magnifier::leaveEvent(QEvent *e)
 {
 }
-
 
 void CanvasMode_Magnifier::activate(bool fromGesture)
 {
@@ -104,7 +102,6 @@ void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
 }
-
 
 void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 {
@@ -171,8 +168,6 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_SeRy = m_Myp;
 	m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
 }
-
-
 
 void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 {

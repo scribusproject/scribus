@@ -1537,7 +1537,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	//Exit out of panning mode if Control is release while the right mouse button is pressed
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
-	if (m_doc->appMode == modeMagnifier)
+	if ((m_doc->appMode == modeMagnifier) && (e->key() == Qt::Key_Shift))
 		m_view->setCursor(IconManager::instance().loadCursor("lupez.png"));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
