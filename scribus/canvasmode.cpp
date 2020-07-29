@@ -869,6 +869,16 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 
 	p->save();
 	p->setTransform(textframe->getTransform(), true);
+	if (textframe->imageFlippedH())
+	{
+		p->translate(textframe->width(), 0);
+		p->scale(-1, 1);
+	}
+	if (textframe->imageFlippedV())
+	{
+		p->translate(0, textframe->height());
+		p->scale(1, -1);
+	}
 	p->setPen(cPen);
 	p->setRenderHint(QPainter::Antialiasing, true);
 	p->drawLine(cursor.translated(offset));
