@@ -889,7 +889,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 {
 	int kk = e->key();
 	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
-//	QString uc = e->text();
 	ScribusMainWindow* mainWindow = m_view->m_ScMW;
 	QList<QMdiSubWindow *> windows;
 	
@@ -903,13 +902,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 	if (m_keyRepeat)
 		return;
 	m_keyRepeat = true;
-//	int keyMod=0;
-//	if (e->modifiers() & Qt::ShiftModifier)
-//		keyMod |= Qt::SHIFT;
-//	if (e->modifiers() & Qt::ControlModifier)
-//		keyMod |= Qt::CTRL;
-//	if (e->modifiers() & Qt::AltModifier)
-//		keyMod |= Qt::ALT;
+
 	//User presses escape and we have a doc open, and we have an item selected
 	if (kk == Qt::Key_Escape)
 	{
