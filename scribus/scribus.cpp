@@ -1770,13 +1770,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	if (m_keyrep)
 		return;
 	m_keyrep = true;
-	int keyMod=0;
-	if (k->modifiers() & Qt::ShiftModifier)
-		keyMod |= Qt::SHIFT;
-	if (k->modifiers() & Qt::ControlModifier)
-		keyMod |= Qt::CTRL;
-	if (k->modifiers() & Qt::AltModifier)
-		keyMod |= Qt::ALT;
+
 	//User presses escape and we have a doc open, and we have an item selected
 	if ((kk == Qt::Key_Escape) && (HaveDoc))
 	{
