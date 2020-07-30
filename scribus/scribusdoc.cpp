@@ -3713,7 +3713,7 @@ QStringList ScribusDoc::getUsedPatterns() const
 	QList<PageItem*> allItems;
 	QStringList results;
 
-	for (PageItemIterator it(this, PageItemIterator::IterateInDocNoPatterns) ; *it; ++it)
+	for (PageItemIterator it(this, PageItemIterator::IterateInDocNoPatterns); *it; ++it)
 	{
 		PageItem* currItem = *it;
 		if ((!results.contains(currItem->pattern())) && ((currItem->GrType == Gradient_Pattern) || (currItem->itemType() == PageItem::Symbol)))
@@ -5460,7 +5460,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			break;
 	}
 
-	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame || itemType==PageItem::LatexFrame || itemType==PageItem::OSGFrame || itemType==PageItem::Symbol || itemType==PageItem::Group || itemType==PageItem::Table || itemType==PageItem::NoteFrame)
+	if (frameType == PageItem::Rectangle || itemType == PageItem::TextFrame || itemType == PageItem::ImageFrame || itemType == PageItem::LatexFrame || itemType == PageItem::OSGFrame || itemType == PageItem::Symbol || itemType == PageItem::Group || itemType == PageItem::Table || itemType == PageItem::NoteFrame)
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if (ScCore->usingGUI())
@@ -5477,7 +5477,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	}
 
 	//ItemType Polygon
-	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine || itemType==PageItem::Spiral || itemType == PageItem::RegularPolygon || itemType == PageItem::Arc)
+	if (itemType == PageItem::Polygon || itemType == PageItem::PolyLine || itemType == PageItem::Spiral || itemType == PageItem::RegularPolygon || itemType == PageItem::Arc)
 	{
 		newItem->PLineArt = Qt::PenStyle(m_docPrefsData.itemToolPrefs.shapeLineStyle);
 		newItem->setFillShade(m_docPrefsData.itemToolPrefs.shapeFillColorShade);
@@ -5511,6 +5511,8 @@ bool ScribusDoc::itemAddCommit(PageItem* item)
 
 int ScribusDoc::getItemNrfromUniqueID(uint unique)
 {
+	// FIXME : don't work for items inside groups
+	// Needs to fix group/ungroup undo first
 	int ret = 0;
 	for (int i = 0; i < Items->count(); ++i)
 	{
@@ -5525,13 +5527,13 @@ int ScribusDoc::getItemNrfromUniqueID(uint unique)
 
 PageItem* ScribusDoc::getItemFromName(const QString& name) const
 {
-	PageItem* ret = nullptr;
-	for (int i = 0; i < Items->count(); ++i)
+	PageItemIterator it(*Items, PageItemIterator::IterateInGroups);
+	for (PageItem* currItem = *it; currItem != nullptr; currItem = it.next())
 	{
-		if (Items->at(i)->itemName() == name)
-			return Items->at(i);
+		if (currItem->itemName() == name)
+			return currItem;
 	}
-	return ret;
+	return nullptr;
 }
 
 void ScribusDoc::rebuildItemLists()
@@ -16708,25 +16710,29 @@ TextNote *ScribusDoc::newNote(NotesStyle* noteStyle)
 	return newNote;
 }
 
-PageItem* ScribusDoc::findMarkItem(const Mark* mrk, int &lastItem) const
+PageItem* ScribusDoc::findMarkItem(const Mark* mrk, PageItem* &lastItem) const
 {
-	PageItem* item = nullptr;
-	for (int i = lastItem + 1; i < DocItems.count(); ++i)
+	PageItemIterator it(DocItems, PageItemIterator::IterateInGroups);
+	if (lastItem != nullptr)
+		it.movePast(lastItem);
+
+	for (PageItem* item = *it;  item != nullptr; item = it.next())
 	{
-		item = DocItems.at(i);
 		if (!item || !item->isTextFrame() || (item->itemText.length() <= 0))
+			continue;
+		if (item->prevInChain() != nullptr)
 			continue;
 	//	for (int j = item->firstInFrame(); j <= item->lastInFrame(); ++j)
 		for (int j = 0; j < item->itemText.length(); ++j)
 		{
 			if (item->itemText.hasMark(j, mrk))
 			{
-				lastItem = i;
+				lastItem = item;
 				return item;
 			}
 		}
 	}
-	lastItem = 0;
+	lastItem = nullptr;
 	return nullptr;
 }
 
@@ -16736,7 +16742,8 @@ int ScribusDoc::findMarkCPos(const Mark* mrk, PageItem* &currItem, int start) co
 		currItem = findFirstMarkItem(mrk);
 	if (currItem == nullptr)
 	{
-		for (PageItem* item : DocItems)
+		PageItemIterator it(DocItems, PageItemIterator::IterateInGroups);
+		for (PageItem* item = *it;  item != nullptr; item = it.next())
 		{
 			if (!item->isTextFrame() || (item->prevInChain() != nullptr))
 				continue;
@@ -16757,26 +16764,21 @@ int ScribusDoc::findMarkCPos(const Mark* mrk, PageItem* &currItem, int start) co
 
 bool ScribusDoc::isMarkUsed(const Mark* mrk, bool visible) const
 {
-	for (const PageItem* currItem : qAsConst(DocItems))
+	PageItemIterator it(DocItems, PageItemIterator::IterateInGroups);
+	for (PageItem* currItem = *it;  currItem != nullptr; currItem = it.next())
 	{
-		if (currItem->isTextFrame() && (currItem->itemText.length() > 0))
+		if (!currItem->isTextFrame() || (currItem->itemText.length() <= 0))
+			continue;
+		// Check in whole itemText only for first frames in chain
+		if (!visible && currItem->prevInChain() != nullptr)
+			continue;
+
+		int i = visible ? currItem->firstInFrame() : 0;
+		int end = visible ? (currItem->lastInFrame() + 1) : currItem->itemText.length();
+		for (; i < end; ++i)
 		{
-			if (!visible && currItem->prevInChain() != nullptr)
-				//check in whole itemText only for first frames in chain
-				continue;
-			int i = 0;
-			int end = currItem->itemText.length();
-			if (visible)
-			{
-				//search only in visible text
-				i = currItem->firstInFrame();
-				end = currItem->lastInFrame() +1;
-			}
-			for (; i < end; ++i)
-			{
-				if (currItem->itemText.hasMark(i, mrk))
-					return true;
-			}
+			if (currItem->itemText.hasMark(i, mrk))
+				return true;
 		}
 	}
 	return false;
@@ -16826,8 +16828,8 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 		{
 			//find and delete all mark`s apperences in text
 			int markPos = -1;
-			int itemIndex = -1;
-			item = findMarkItem(mrk, itemIndex);
+			PageItem* lastItem = nullptr;
+			item = findMarkItem(mrk, lastItem);
 			while (item != nullptr)
 			{
 				markPos = findMarkCPos(mrk, item);
@@ -16838,7 +16840,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 				}
 				found = true;
 				item->asTextFrame()->invalidateLayout(false);
-				item = findMarkItem(mrk, itemIndex);
+				item = findMarkItem(mrk, lastItem);
 			}
 		}
 	}
@@ -16901,9 +16903,9 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 		{
 			ims->set("MARK", QString("delNonUnique"));
 			int markPos = -1;
-			int itemIndex = -1;
+			PageItem* lastItem = nullptr;
 			//find all mark insertions
-			PageItem* item = findMarkItem(mrk, itemIndex);
+			PageItem* item = findMarkItem(mrk, lastItem);
 			while (item != nullptr)
 			{
 				int num = 0; //shift of insertion position for undo
@@ -16914,7 +16916,7 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 					//++num;
 					markPos = findMarkCPos(mrk, item, markPos + 1);
 				}
-				item = findMarkItem(mrk, itemIndex);
+				item = findMarkItem(mrk, lastItem);
 			}
 		}
 		ims->set("ETEA", mrk->label);
@@ -16929,16 +16931,16 @@ bool ScribusDoc::invalidateVariableTextFrames(Mark* mrk, bool forceUpdate)
 {
 	if (!mrk->isType(MARKVariableTextType))
 		return false;
-	int itemNo = -1;
 	bool found = false;
-	PageItem* mItem = findMarkItem(mrk, itemNo);
+	PageItem* lastItem = nullptr;
+	PageItem* mItem = findMarkItem(mrk, lastItem);
 	while (mItem != nullptr)
 	{
 		found = true;
 		mItem->asTextFrame()->invalidateLayout(false);
 		if (forceUpdate)
 			mItem->layout();
-		mItem = findMarkItem(mrk, itemNo);
+		mItem = findMarkItem(mrk, lastItem);
 	}
 	return found;
 }

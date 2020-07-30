@@ -1819,13 +1819,13 @@ public:
 	QList<PageItem_NoteFrame*> m_docEndNotesFramesChanged;
 
 	//finds item which holds given mark, start searching from next to lastItem index in DocItems
-	PageItem* findMarkItem(const Mark* mrk, int &lastItem) const;
+	PageItem* findMarkItem(const Mark* mrk, PageItem* &lastItem) const;
 	
 private:
 	//QMap<PageItem_NoteFrame*, QList<TextNote *> > map of notesframes and its list of notes
 	NotesInFrameMap m_docNotesInFrameMap;
 
-	PageItem* findFirstMarkItem(const Mark* mrk) const { int tmp = -1; return findMarkItem(mrk, tmp); }
+	PageItem* findFirstMarkItem(const Mark* mrk) const { PageItem* tmp = nullptr; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
 	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);

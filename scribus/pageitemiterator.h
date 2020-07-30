@@ -42,6 +42,9 @@ public:
 	PageItem* begin(const QList<PageItem*>& itemList);
 	PageItem* next();
 
+	PageItem* moveTo(PageItem* item);
+	PageItem* movePast(PageItem* item);
+
 	inline PageItem*  operator*() const { return m_current; }
 	inline PageItem*  operator->() const { return m_current; }
 	PageItemIterator& operator++() { next(); return *this; }

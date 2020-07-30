@@ -195,3 +195,29 @@ PageItem* PageItemIterator::next()
 		m_current = nullptr;
 	return m_current;
 }
+
+PageItem* PageItemIterator::moveTo(PageItem* item)
+{
+	if (current() == item)
+		return item;
+
+	PageItem* nextItem = next();
+	while (nextItem)
+	{
+		if (nextItem == item)
+			break;
+		nextItem = next();
+	}
+	return nextItem;
+}
+
+PageItem* PageItemIterator::movePast(PageItem* item)
+{
+	if (current() == nullptr)
+		return nullptr;
+
+	PageItem* nextItem = moveTo(item);
+	if (nextItem)
+		nextItem = next();
+	return nextItem;
+}
