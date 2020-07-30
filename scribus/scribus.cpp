@@ -8143,7 +8143,7 @@ void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 	view->deselectItems();
 	for (int i = 0; i < itemCount; ++i)
 	{
-		int itemNr = doc->getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		int itemNr = doc->getItemNrFromUniqueID(state->getUInt(QString("item%1").arg(i)));
 		if (doc->Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
 			view->selectItemByNumber(itemNr);
 	}
@@ -8159,7 +8159,7 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	view->deselectItems();
 	for (int i = 0; i < itemCount; ++i)
 	{
-		int itemNr = doc->getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		int itemNr = doc->getItemNrFromUniqueID(state->getUInt(QString("item%1").arg(i)));
 		if (doc->Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
 			view->selectItemByNumber(itemNr);
 	}

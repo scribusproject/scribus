@@ -5509,7 +5509,7 @@ bool ScribusDoc::itemAddCommit(PageItem* item)
 }
 
 
-int ScribusDoc::getItemNrfromUniqueID(uint unique)
+int ScribusDoc::getItemNrFromUniqueID(uint unique)
 {
 	// FIXME : don't work for items inside groups
 	// Needs to fix group/ungroup undo first

@@ -849,7 +849,7 @@ public:
 	 */
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem);
 
-	int getItemNrfromUniqueID(uint unique);
+	int getItemNrFromUniqueID(uint unique);
 	//return pointer to item
 	PageItem* getItemFromName(const QString& name) const;
 	//itemDelete
