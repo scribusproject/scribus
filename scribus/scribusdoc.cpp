@@ -15915,6 +15915,16 @@ bool ScribusDoc::textCanvasPosition(PageItem* item, int textPos, QPointF& canvas
 	QLineF charPos = charFrame->textLayout.positionToPoint(textPos);
 
 	QTransform itemTransform = charFrame->getTransform();
+	if (item->imageFlippedH())
+	{
+		itemTransform.translate(item->width(), 0);
+		itemTransform.scale(-1, 1);
+	}
+	if (item->imageFlippedV())
+	{
+		itemTransform.translate(0, item->height());
+		itemTransform.scale(1, -1);
+	}
 	canvasPos = itemTransform.map(QPointF(charPos.x1(), charPos.y1()));
 
 	return true;
