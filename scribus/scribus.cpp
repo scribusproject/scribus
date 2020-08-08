@@ -6892,6 +6892,8 @@ int ScribusMainWindow::ShowSubs()
 		{
 			QStringList actTab = m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].palettes;
 			QDockWidget *container = findChild<QDockWidget *>(actTab[0]);
+			if (!container)
+				continue;
 			QList<QTabBar *> bars = findChildren<QTabBar *>(QString());
 			bool found = false;
 			for (int j = 0; j < bars.count(); ++j)
@@ -6899,18 +6901,16 @@ int ScribusMainWindow::ShowSubs()
 				QTabBar *bar = bars[j];
 				for (int k = 0; k < bar->count(); k++)
 				{
-					QObject *obj = (QObject*)bar->tabData(k).toULongLong();
-					if (obj != nullptr)
+					QObject *obj = (QObject*) bar->tabData(k).toULongLong();
+					if (obj == nullptr)
+						continue;
+					if (obj->objectName() != container->objectName())
+						continue;
+					if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
 					{
-						if (obj->objectName() == container->objectName())
-						{
-							if (m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab > -1)
-							{
-								bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
-								found = true;
-								break;
-							}
-						}
+						bar->setCurrentIndex(m_prefsManager.appPrefs.uiPrefs.tabbedPalettes[i].activeTab);
+						found = true;
+						break;
 					}
 				}
 				if (found)
