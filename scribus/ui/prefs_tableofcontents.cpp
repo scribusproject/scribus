@@ -143,7 +143,7 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 	connect(itemAttrComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemAttributeSelected(const QString&)));
 }
 
-void Prefs_TableOfContents::selectToC( int numberSelected )
+void Prefs_TableOfContents::selectToC(int numberSelected)
 {
 	numSelected = numberSelected;
 	if (numSelected < 0)
@@ -151,7 +151,8 @@ void Prefs_TableOfContents::selectToC( int numberSelected )
 	if (localToCSetupVector.isEmpty())
 		return;
 	if (localToCSetupVector.count() < numSelected)
-		numSelected=0;
+		numSelected = 0;
+
 	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	disconnect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
@@ -159,20 +160,21 @@ void Prefs_TableOfContents::selectToC( int numberSelected )
 	disconnect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
 	disconnect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
 	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
+
 	if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
 		setCurrentComboItem(itemAttrComboBox, CommonStrings::tr_None);
 	else
 		setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
+
 	if (localToCSetupVector[numSelected].pageLocation == NotShown)
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNNotShown);
+	else if (localToCSetupVector[numSelected].pageLocation == Beginning)
+		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNBeginning);
 	else
-		if (localToCSetupVector[numSelected].pageLocation == Beginning)
-			setCurrentComboItem(itemNumberPlacementComboBox, trStrPNBeginning);
-		else
-			setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
+		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
-	if (m_Doc!=nullptr)
+	if (m_Doc != nullptr)
 	{
 		if (localToCSetupVector[numSelected].frameName == CommonStrings::None)
 			setCurrentComboItem(itemDestFrameComboBox, CommonStrings::tr_None);
@@ -203,15 +205,15 @@ void Prefs_TableOfContents::selectToC( int numberSelected )
 
 void Prefs_TableOfContents::addToC()
 {
-	bool found=false;
-	QString newName=tocNameLineEdit->text();
+	bool found = false;
+	QString newName = tocNameLineEdit->text();
 	for (ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
 	{
 		if ((*it).name == newName)
 			found = true;
 	}
 	if (found || newName.isEmpty())
-		newName=tr("Table of Contents %1").arg(localToCSetupVector.count()+1);
+		newName = tr("Table of Contents %1").arg(localToCSetupVector.count()+1);
 	ToCSetup newToCEntry;
 	newToCEntry.name = newName;
 	newToCEntry.itemAttrName = CommonStrings::None;
@@ -257,12 +259,13 @@ void Prefs_TableOfContents::updateParagraphStyleComboBox()
 
 void Prefs_TableOfContents::enableGUIWidgets()
 {
-	bool enabled=(localToCSetupVector.count()>0);
+	bool enabled = (localToCSetupVector.count() > 0);
 	tocListBox->setEnabled(enabled);
 	tocDeleteButton->setEnabled(enabled);
 	itemAttrComboBox->setEnabled(enabled);
 	itemNumberPlacementComboBox->setEnabled(enabled);
-	bool haveDoc=enabled && m_Doc!=nullptr;
+
+	bool haveDoc = (enabled && m_Doc != nullptr);
 	itemDestFrameComboBox->setEnabled(haveDoc);
 	itemParagraphStyleComboBox->setEnabled(haveDoc);
 }
@@ -329,77 +332,77 @@ void Prefs_TableOfContents::itemFrameSelected( const QString& frameName )
 
 void Prefs_TableOfContents::itemPageNumberPlacedSelected( const QString& pageLocation )
 {
-	int numberSelected=tocListBox->currentRow();
-	if (numberSelected>=0)
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	int i = 0;
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
 	{
-		int i=0;
-		ToCSetupVector::Iterator it=localToCSetupVector.begin();
-		while (it!= localToCSetupVector.end() && i<numberSelected)
-		{
-			++it;
-			++i;
-		}
-		if (pageLocation==trStrPNBeginning || pageLocation==strPNBeginning)
-			(*it).pageLocation=Beginning;
-		else
-		if (pageLocation==trStrPNEnd || pageLocation==strPNEnd)
-			(*it).pageLocation=End;
-		else
-			(*it).pageLocation=NotShown;
+		++it;
+		++i;
 	}
+	if (pageLocation == trStrPNBeginning || pageLocation == strPNBeginning)
+		(*it).pageLocation = Beginning;
+	else
+	if (pageLocation == trStrPNEnd || pageLocation == strPNEnd)
+		(*it).pageLocation = End;
+	else
+		(*it).pageLocation = NotShown;
 }
 
 
 void Prefs_TableOfContents::itemParagraphStyleSelected( const QString& itemStyle )
 {
-	int numberSelected=tocListBox->currentRow();
-	if (numberSelected>=0)
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	int i = 0;
+	ToCSetupVector::Iterator it=localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
 	{
-		int i=0;
-		ToCSetupVector::Iterator it=localToCSetupVector.begin();
-		while (it!= localToCSetupVector.end() && i<numberSelected)
-		{
-			++it;
-			++i;
-		}
-		if (itemStyle==CommonStrings::tr_None)
-			(*it).textStyle=CommonStrings::None;
-		else
-			(*it).textStyle=itemStyle;
+		++it;
+		++i;
 	}
+	if (itemStyle == CommonStrings::tr_None)
+		(*it).textStyle = CommonStrings::None;
+	else
+		(*it).textStyle = itemStyle;
 }
 
 void Prefs_TableOfContents::setToCName( const QString &newName )
 {
-	int numberSelected=tocListBox->currentRow();
-	if (numberSelected!=-1)
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	tocListBox->item(numberSelected)->setText(newName);
+	int i = 0;
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
 	{
-		tocListBox->item(numberSelected)->setText(newName);
-		int i=0;
-		ToCSetupVector::Iterator it=localToCSetupVector.begin();
-		while (it!= localToCSetupVector.end() && i<numberSelected)
-		{
-			++it;
-			++i;
-		}
-		(*it).name=newName;
+		++it;
+		++i;
 	}
+	(*it).name = newName;
 }
 
 
 void Prefs_TableOfContents::nonPrintingFramesSelected( bool showNonPrinting )
 {
-	int numberSelected=tocListBox->currentRow();
-	if (numberSelected>=0)
+	int numberSelected = tocListBox->currentRow();
+	if (numberSelected < 0)
+		return;
+
+	int i = 0;
+	ToCSetupVector::Iterator it = localToCSetupVector.begin();
+	while (it != localToCSetupVector.end() && i < numberSelected)
 	{
-		int i=0;
-		ToCSetupVector::Iterator it=localToCSetupVector.begin();
-		while (it!= localToCSetupVector.end() && i<numberSelected)
-		{
-			++it;
-			++i;
-		}
-		(*it).listNonPrintingFrames=showNonPrinting;
+		++it;
+		++i;
 	}
+	(*it).listNonPrintingFrames = showNonPrinting;
 }
 
