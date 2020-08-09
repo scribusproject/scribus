@@ -5,12 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QSignalBlocker>
+
+#include "commonstrings.h"
 #include "ui/prefs_tableofcontents.h"
 #include "pagestructs.h"
 #include "prefsstructs.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "commonstrings.h"
 #include "util.h"
 
 Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
@@ -38,6 +40,13 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&)));
 	connect( tocNameLineEdit, SIGNAL( textChanged(const QString&)), this, SLOT( setToCName(const QString&)));
 	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool)));
+
+	itemAttrComboBox->setEnabled(false);
+	itemDestFrameComboBox->setEnabled(false);
+	itemParagraphStyleComboBox->setEnabled(false);
+	itemNumberPlacementComboBox->setEnabled(false);
+	itemListNonPrintingCheckBox->setEnabled(false);
+
 	setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 	numSelected = 999;
 }
@@ -62,7 +71,7 @@ void Prefs_TableOfContents::restoreDefaults(struct ApplicationPrefs *prefsData)
 	{
 		updateToCListBox();
 		updateParagraphStyleComboBox();
-		tocListBox->setCurrentItem(nullptr);
+		tocListBox->setCurrentRow(0);
 		selectToC(0);
 	}
 	else
@@ -86,7 +95,7 @@ void Prefs_TableOfContents::languageChange()
 	strPNNotShown = "Not Shown";
 
 	disconnect(itemNumberPlacementComboBox, SIGNAL(activated(const QString&)), this, SLOT(itemPageNumberPlacedSelected(const QString&)));
-	int i=itemNumberPlacementComboBox->currentIndex();
+	int i = itemNumberPlacementComboBox->currentIndex();
 	itemNumberPlacementComboBox->clear();
 	itemNumberPlacementComboBox->addItem(trStrPNEnd);
 	itemNumberPlacementComboBox->addItem(trStrPNBeginning);
@@ -133,7 +142,7 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 	itemAttrComboBox->clear();
 	itemAttrComboBox->addItem(CommonStrings::tr_None);
 	itemAttrComboBox->addItems(newNames);
-	if (numSelected!=999 && numSelected != -1)
+	if (numSelected != 999 && numSelected != -1)
 	{
 		if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
 			setCurrentComboItem(itemAttrComboBox, CommonStrings::tr_None);
@@ -147,7 +156,10 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 {
 	numSelected = numberSelected;
 	if (numSelected < 0)
+	{
+		enableGUIWidgets();
 		return;
+	}
 	if (localToCSetupVector.isEmpty())
 		return;
 	if (localToCSetupVector.count() < numSelected)
@@ -261,11 +273,14 @@ void Prefs_TableOfContents::enableGUIWidgets()
 {
 	bool enabled = (localToCSetupVector.count() > 0);
 	tocListBox->setEnabled(enabled);
-	tocDeleteButton->setEnabled(enabled);
-	itemAttrComboBox->setEnabled(enabled);
-	itemNumberPlacementComboBox->setEnabled(enabled);
 
-	bool haveDoc = (enabled && m_Doc != nullptr);
+	bool haveCurrToc = (enabled && (tocListBox->currentRow() >=0));
+	tocDeleteButton->setEnabled(haveCurrToc);
+	itemAttrComboBox->setEnabled(haveCurrToc);
+	itemNumberPlacementComboBox->setEnabled(haveCurrToc);
+	itemListNonPrintingCheckBox->setEnabled(haveCurrToc);
+
+	bool haveDoc = (haveCurrToc && m_Doc != nullptr);
 	itemDestFrameComboBox->setEnabled(haveDoc);
 	itemParagraphStyleComboBox->setEnabled(haveDoc);
 }
@@ -285,7 +300,19 @@ void Prefs_TableOfContents::deleteToC()
 		++i;
 	}
 	localToCSetupVector.erase(it);
+
+	QSignalBlocker sigBlocker(tocListBox);
 	updateToCListBox();
+	if (numberSelected > 0)
+	{
+		tocListBox->setCurrentRow(numberSelected - 1);
+		selectToC(numberSelected - 1);
+	}
+	else if (numberSelected == 0 && localToCSetupVector.count() > 0)
+	{
+		tocListBox->setCurrentRow(0);
+		selectToC(0);
+	}
 	enableGUIWidgets();
 }
 
