@@ -303,15 +303,15 @@ void Prefs_TableOfContents::deleteToC()
 
 	QSignalBlocker sigBlocker(tocListBox);
 	updateToCListBox();
-	if (numberSelected > 0)
+	if (numberSelected < localToCSetupVector.count())
 	{
-		tocListBox->setCurrentRow(numberSelected - 1);
-		selectToC(numberSelected - 1);
+		tocListBox->setCurrentRow(numberSelected);
+		selectToC(numberSelected);
 	}
-	else if (numberSelected == 0 && localToCSetupVector.count() > 0)
+	else if (localToCSetupVector.count() > 0)
 	{
-		tocListBox->setCurrentRow(0);
-		selectToC(0);
+		tocListBox->setCurrentRow(localToCSetupVector.count() - 1);
+		selectToC(localToCSetupVector.count() - 1);
 	}
 	enableGUIWidgets();
 }
