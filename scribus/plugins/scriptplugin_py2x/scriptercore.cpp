@@ -286,6 +286,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 	{
 		// Path separators need to be escaped on Windows
 		QString escapedAbsPath  = QDir::toNativeSeparators(fi.absolutePath()).replace("\\", "\\\\");
+		QString escapedAbsFilePath  = QDir::toNativeSeparators(fi.absoluteFilePath()).replace("\\", "\\\\");
 		QString escapedFileName = QDir::toNativeSeparators(fileName).replace("\\", "\\\\");
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
@@ -301,6 +302,8 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
+		// Provide script path to the interpreter
+		cm        += QString("__file__ = \"%1\"\n").arg(escapedAbsFilePath);
 		// tell the script if it's running in the main intepreter or a subinterpreter
 		cm        += QString("import scribus\n");
 		if (inMainInterpreter)
