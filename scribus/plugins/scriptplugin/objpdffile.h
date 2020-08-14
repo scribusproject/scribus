@@ -28,4 +28,6 @@ pdf.thumbnails = 1 # generate thumbnails too\n\
 pdf.file = 'mypdf.pdf' \n\
 pdf.save()");
 
+PyDoc_STRVAR(pdffile_save__doc__, "save() -> void\n\nSave selected pages to pdf file.");
+
 #endif /* OBJPDFFILE_H */

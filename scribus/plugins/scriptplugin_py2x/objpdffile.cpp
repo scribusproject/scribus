@@ -1648,7 +1648,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 }
 
 static PyMethodDef PDFfile_methods[] = {
-	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, const_cast<char*>("Save selected pages to pdf file")},
+	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, pdffile_save__doc__},
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
 };
 
