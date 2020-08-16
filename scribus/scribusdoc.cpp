@@ -9095,7 +9095,6 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	itemSelection_ClearBulNumStrings(itemSelection);
 	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
@@ -9104,6 +9103,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		QPixmap* targetPixmap = (selectedItemCount > 1) ? Um::IGroup : currItem->getUPixmap();
 		activeTransaction = m_undoManager->beginTransaction(targetName, targetPixmap, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
 	}
+	itemSelection_ClearBulNumStrings(itemSelection);
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
