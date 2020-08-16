@@ -317,7 +317,7 @@ public:
 	virtual void changeEvent(QEvent *e);
 	void nativeGestureEvent(QNativeGestureEvent *e);
 	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
+//	void keyReleaseEvent(QKeyEvent *k);
 	void inputMethodEvent(QInputMethodEvent * event);
 	QVariant inputMethodQuery(Qt::InputMethodQuery query) const ;
 	

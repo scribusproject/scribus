@@ -1951,7 +1951,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	}
 	m_keyrep = false;
 }
-
+/*
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
 	//Exit out of panning mode if Control is release while the right mouse button is pressed
@@ -1993,7 +1993,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 			break;
 	}
 }
-
+*/
 void ScribusMainWindow::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)

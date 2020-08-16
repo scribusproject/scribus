@@ -150,7 +150,8 @@ public:
 	virtual CanvasMode* delegate() { return nullptr; }
 	ScribusView* view() const { return m_view; }
 	~CanvasMode() override;
-	
+	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
+	void commonkeyReleaseEvent(QKeyEvent *e);
 
 protected:
 	ScribusView* const m_view;
@@ -167,8 +168,7 @@ protected:
 	void commonDrawControls(QPainter* p, bool drawHandles);
 	/// Draws the text cursor for @a textframe, offset by @a offset.
 	void commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe, const QPointF& offset);
-	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
-	void commonkeyReleaseEvent(QKeyEvent *e);
+
 	
 private:
 	QMap<QString,QPen> m_pen;

@@ -3268,11 +3268,12 @@ void ScribusView::keyPressEvent(QKeyEvent *k)
 	else
 		m_ScMW->keyPressEvent(k);
 }
-
+/*
 void ScribusView::keyReleaseEvent(QKeyEvent *k)
 {
 	m_ScMW->keyReleaseEvent(k);
 }
+*/
 
 void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
 {
@@ -3491,7 +3492,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		if (m_canvasMode->handleKeyEvents())
 			m_canvasMode->keyReleaseEvent(m);
 		else
-			m_ScMW->keyReleaseEvent(m);
+			m_canvasMode->commonkeyReleaseEvent(m);
 		return true;
 	}
 	if (obj == widget() && event->type() == QEvent::DragEnter)
