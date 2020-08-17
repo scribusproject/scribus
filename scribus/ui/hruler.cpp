@@ -465,7 +465,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		int rectX2 = textPosToLocal(m_itemEndPos - m_itemPos - m_distRight);
 		const QPalette& palette = this->palette();
 		const QColor& textColor = palette.color(QPalette::Text);
-		p.eraseRect(QRect(QPoint(rectX1, 1), QPoint(rectX2, 15)));
+		p.fillRect(QRect(QPoint(rectX1, 1), QPoint(rectX2, 15)), palette.window());
 		p.drawLine(rectX1, 16, rectX2, 16);
 		p.save();
 		p.setRenderHints(QPainter::Antialiasing, true);
