@@ -701,12 +701,20 @@ void PropertiesPalette_Text::doClearPStyle()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
+
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item, true);
 	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
 	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
 	CharStyle emptyCStyle;
 	m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
+
+	if (activeTransaction)
+		activeTransaction.commit();
 }
 
 void PropertiesPalette_Text::updateColorList()
