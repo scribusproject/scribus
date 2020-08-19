@@ -589,54 +589,14 @@ void Hruler::paintEvent(QPaintEvent *e)
 
 void Hruler::drawMarker(QPainter& p)
 {
-	QPolygon cr;
-#ifdef OPTION_SMOOTH_MARKERS
-	// draw new marker to pixmap
-	static const int SCALE = 16;
-	static const QColor BACKGROUND(255, 255, 255);
-	static QPixmap pix( 4*SCALE, 16*SCALE );
-	static bool initpix = true;
-	if (initpix)
-	{
-		initpix = false;
-		QPainter pp( &pix );
-		pp.setBrush( BACKGROUND );
-		pp.drawRect( 0, 0, 4*SCALE, 16*SCALE );
-		
-		pp.setPen(Qt::red);
-		pp.setBrush(Qt::red);
-		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
-		pp.drawPolygon(cr);
-	}
-	// draw pixmap
-	p.save();
-	p.translate(-m_view->contentsX(), 0);
-	p.scale(1.0 / SCALE, 1.0 / (SCALE + 1));
-	p.drawPixmap((m_whereToDraw - 2) * SCALE, 1, pix);
-	p.restore();
-	// restore marks
-	const QPalette& palette = this->palette();
-	const QColor& textColor = palette.color(QPalette::Text);
-	p.setBrush(textColor);
-	p.setPen(textColor);
-	p.setFont(font());
-	double sc = m_view->scale();
-	double cc = width() / sc;
-	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
-	while (firstMark < cc)
-	{
-		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
-		firstMark += m_iter;
-	}
-#else
 	// draw slim marker
+	QPolygon cr;
 	p.resetTransform();
 	p.translate(-m_view->contentsX(), 0);
 	p.setPen(Qt::red);
 	p.setBrush(Qt::red);
-	cr.setPoints(5,  m_whereToDraw, 5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw-2, 0);
+	cr.setPoints(5,  m_whereToDraw, 5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw - 2, 0);
 	p.drawPolygon(cr);
-#endif
 }
 
 

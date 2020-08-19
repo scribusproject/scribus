@@ -150,51 +150,13 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.restore();
 	if (m_drawMark)
 	{
-		QPolygon cr;
-#ifdef OPTION_SMOOTH_MARKERS
-		// draw new marker to pixmap
-		static const int SCALE = 16;
-		static const QColor BACKGROUND(255, 255, 255);
-		static QPixmap pix( 16*SCALE, 4*SCALE );
-		static bool initpix = true;
-		if (initpix)
-		{
-			initpix = false;
-			QPainter pp( &pix );
-			pp.setBrush( BACKGROUND );
-			pp.drawRect( 0, 0, 16*SCALE, 4*SCALE );
-	
-			pp.setPen(Qt::red);
-			pp.setBrush(Qt::red);
-			cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
-			pp.drawPolygon(cr);
-		}
-		// draw pixmap
-		p.save();
-		p.translate(0, -m_view->contentsY());
-		p.scale(1.0 / (SCALE + 1), 1.0 / SCALE);
-		p.drawPixmap(0, (m_whereToDraw - 2) * SCALE, pix);
-		p.restore();
-		// repaint marks
-		p.setBrush(textColor);
-		p.setPen(textColor);
-		p.setFont(font());
-		double sc = m_view->scale();
-		double cc = height() / sc;
-		double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
-		while (firstMark < cc)
-		{
-			p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-			firstMark += m_iter;
-		}
-#else
 		// draw slim marker
+		QPolygon cr;
 		p.translate(0, -m_view->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
 		p.drawPolygon(cr);
-#endif
 	}
 	p.end();
 }
