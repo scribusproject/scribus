@@ -293,7 +293,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 				{
 					currentParagraphStyle = defaultParagraphStyle;
 					bool hasStyle = false;
-					QString currStyleName = "";
+					QString currStyleName;
 					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:pPr")

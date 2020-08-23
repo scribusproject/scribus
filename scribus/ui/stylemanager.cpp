@@ -1189,8 +1189,7 @@ void StyleManager::slotSetupWidget()
 	else if (m_widget && !m_widget->isEnabled())
 		m_widget->setEnabled(true);
 
-	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
-	           this, SLOT(slotNameChanged(const QString&)));
+	disconnect(nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(slotNameChanged(const QString&)));
 	if (!typeName.isEmpty())
 	{
 		m_item->selected(selection.second);

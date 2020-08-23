@@ -111,7 +111,7 @@ public:
 	void setBullet(bool newBullet, const QString& str);
 	QString getBullet() const;
 	bool hasNum() const;
-	void setNum(bool newNum, int format=0, int level=0, int start = 1, const QString& prefix = "", const QString& suffix = "");
+	void setNum(bool newNum, int format=0, int level=0, int start = 1, const QString& prefix = QString(), const QString& suffix = QString());
 	int getNumLevel() const;
 	int getNumFormat() const;
 	int getNumStart() const;

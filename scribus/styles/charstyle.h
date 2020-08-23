@@ -110,7 +110,7 @@ public:
 #undef ATTRDEF
 		m_isDefaultStyle=false;
 		setFont(font);
-        setFontSize(size);
+		setFontSize(size);
 		setEffects(style);
 	}
 	

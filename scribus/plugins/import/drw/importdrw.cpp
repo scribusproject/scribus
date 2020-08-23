@@ -928,7 +928,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					DRWParagraph para = paragraphList.at(paragraphCounter);
 					paragraphCounter++;
 					ParagraphStyle newStyle;
-					newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(1));
+					newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 					newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(para.paragraphAlignment));
 					newStyle.charStyle().setFontSize(fontSize * scaleFactor * 10.0 * 0.8);
 					QString fontN(m_Doc->itemToolPrefs().textFont);
