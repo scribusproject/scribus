@@ -88,7 +88,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>637</width>
+            <width>635</width>
             <height>680</height>
            </rect>
           </property>
@@ -126,19 +126,6 @@
               <enum>Qt::Horizontal</enum>
              </property>
             </widget>
-           </item>
-           <item row="0" column="2">
-            <spacer name="horizontalSpacer_13">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
            <item row="16" column="0">
             <spacer name="verticalSpacer_10">
@@ -261,112 +248,6 @@
              </item>
              <item row="0" column="2" rowspan="3">
               <spacer name="horizontalSpacer_9">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="0" rowspan="3" colspan="2">
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="0" column="0">
-              <widget class="QLabel" name="textFillColorLabel">
-               <property name="text">
-                <string>Fill Color:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="4">
-              <widget class="QSpinBox" name="textFrameFillShadingSpinBox">
-               <property name="suffix">
-                <string> %</string>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="4">
-              <widget class="QSpinBox" name="textFrameLineShadingSpinBox">
-               <property name="suffix">
-                <string> %</string>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="ColorCombo" name="textFrameFillColorComboBox"/>
-             </item>
-             <item row="0" column="3">
-              <widget class="QLabel" name="textFillColorShadingLabel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Shading:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="textLineColorLabel">
-               <property name="text">
-                <string>Line Color:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="TabWidthLabel">
-               <property name="text">
-                <string>Tab Width:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="TabFillCharacterLabel">
-               <property name="text">
-                <string>Tab Fill Character:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QComboBox" name="textTabFillCharComboBox"/>
-             </item>
-             <item row="1" column="3">
-              <widget class="QLabel" name="textLineColorShadingLabel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Shading:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="ScrSpinBox" name="textTabWidthSpinBox"/>
-             </item>
-             <item row="1" column="1">
-              <widget class="ColorCombo" name="textFrameLineColorComboBox"/>
-             </item>
-             <item row="0" column="2" rowspan="4">
-              <spacer name="horizontalSpacer_8">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -573,6 +454,146 @@
              </property>
             </spacer>
            </item>
+           <item row="0" column="0" rowspan="3" colspan="3">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="0">
+              <widget class="QLabel" name="textLineColorLabel">
+               <property name="text">
+                <string>Line Color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="ScrSpinBox" name="textTabWidthSpinBox"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="ColorCombo" name="textFrameLineColorComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="TabFillCharacterLabel">
+               <property name="text">
+                <string>Tab Fill Character:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QSpinBox" name="textFrameLineShadingSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLabel" name="textFillColorShadingLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Shading:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="ColorCombo" name="textFrameFillColorComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="TabWidthLabel">
+               <property name="text">
+                <string>Tab Width:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="textLineColorShadingLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Shading:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QSpinBox" name="textFrameFillShadingSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="textTabFillCharComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="textFillColorLabel">
+               <property name="text">
+                <string>Fill Color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="5">
+              <spacer name="horizontalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="2" rowspan="4">
+              <spacer name="horizontalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
         </widget>
@@ -615,101 +636,11 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>637</width>
+            <width>635</width>
             <height>680</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_6">
-           <item row="0" column="0">
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="1" column="4">
-              <widget class="QSpinBox" name="imageFrameLineShadingSpinBox">
-               <property name="suffix">
-                <string> %</string>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="imageLineColorLabel">
-               <property name="text">
-                <string>Line Color:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="3">
-              <widget class="QLabel" name="imageFillShadingLabel">
-               <property name="text">
-                <string>Shading:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="imageFillColorLabel">
-               <property name="text">
-                <string>Fill Color:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="ColorCombo" name="imageFrameFillColorComboBox"/>
-             </item>
-             <item row="1" column="3">
-              <widget class="QLabel" name="imageLineColorShadeLabel">
-               <property name="text">
-                <string>Shading:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="4">
-              <widget class="QSpinBox" name="imageFrameFillShadingSpinBox">
-               <property name="suffix">
-                <string> %</string>
-               </property>
-               <property name="maximum">
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="ColorCombo" name="imageFrameLineColorComboBox"/>
-             </item>
-             <item row="0" column="2" rowspan="2">
-              <spacer name="horizontalSpacer_16">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="1">
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item row="1" column="0">
             <widget class="QCheckBox" name="imageUseEmbeddedClippingPathCheckBox">
              <property name="text">
@@ -957,6 +888,107 @@
              </item>
             </layout>
            </item>
+           <item row="0" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="1" column="4">
+              <widget class="QSpinBox" name="imageFrameLineShadingSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="imageFillColorLabel">
+               <property name="text">
+                <string>Fill Color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="imageLineColorShadeLabel">
+               <property name="text">
+                <string>Shading:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="ColorCombo" name="imageFrameFillColorComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QSpinBox" name="imageFrameFillShadingSpinBox">
+               <property name="suffix">
+                <string> %</string>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="imageLineColorLabel">
+               <property name="text">
+                <string>Line Color:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="ColorCombo" name="imageFrameLineColorComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" rowspan="2">
+              <spacer name="horizontalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLabel" name="imageFillShadingLabel">
+               <property name="text">
+                <string>Shading:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="5">
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
         </widget>
@@ -968,33 +1000,23 @@
        <string>Shapes</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
+       <item row="1" column="0">
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="1">
-          <widget class="ColorCombo" name="shapeFrameFillColorComboBox"/>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="shapeFillColorLabel">
-           <property name="text">
-            <string>Fill Color:</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="3">
           <widget class="QLabel" name="shapeFillColorShadingLabel">
-           <property name="text">
-            <string>Shading:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QLabel" name="shapeLineColorShadingLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="text">
             <string>Shading:</string>
            </property>
@@ -1017,8 +1039,42 @@
            </property>
           </widget>
          </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="shapeLineStyleLabel">
+           <property name="text">
+            <string>Line Style:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="shapeLineWidthLabel">
+           <property name="text">
+            <string>Line Width:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="shapeLineColorShadingLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Shading:</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
-          <widget class="ColorCombo" name="shapeFrameLineColorComboBox"/>
+          <widget class="ColorCombo" name="shapeFrameLineColorComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
          <item row="1" column="4">
           <widget class="QSpinBox" name="shapeFrameLineShadingSpinBox">
@@ -1027,26 +1083,6 @@
            </property>
            <property name="maximum">
             <number>100</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="shapeLineStyleLabel">
-           <property name="text">
-            <string>Line Style:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="LineCombo" name="shapeFrameLineStyleComboBox"/>
-         </item>
-         <item row="3" column="1">
-          <widget class="ScrSpinBox" name="shapeLineWidthSpinBox"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="shapeLineWidthLabel">
-           <property name="text">
-            <string>Line Width:</string>
            </property>
           </widget>
          </item>
@@ -1066,33 +1102,50 @@
            </property>
           </spacer>
          </item>
+         <item row="2" column="1">
+          <widget class="LineCombo" name="shapeFrameLineStyleComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="ColorCombo" name="shapeFrameFillColorComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="shapeFillColorLabel">
+           <property name="text">
+            <string>Fill Color:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="ScrSpinBox" name="shapeLineWidthSpinBox"/>
+         </item>
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0">
-        <spacer name="verticalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -1148,25 +1201,21 @@
        <string>Lines</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
+       <item row="1" column="0">
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_10">
-         <item row="0" column="0">
-          <widget class="QLabel" name="lineColorLabel">
-           <property name="text">
-            <string>Line Color:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="endArrowLabel">
-           <property name="text">
-            <string>End Arrow:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="ScrSpinBox" name="lineWidthSpinBox"/>
-         </item>
          <item row="0" column="3">
           <widget class="QLabel" name="lineColorShadingLabel">
            <property name="text">
@@ -1175,7 +1224,44 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="ColorCombo" name="lineFillColorComboBox"/>
+          <widget class="ColorCombo" name="lineFillColorComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" rowspan="3">
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="endArrowLabel">
+           <property name="text">
+            <string>End Arrow:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="lineWidthLabel">
+           <property name="text">
+            <string>Line Width:</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="lineStyleLabel">
@@ -1201,31 +1287,8 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="lineWidthLabel">
-           <property name="text">
-            <string>Line Width:</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="1">
           <widget class="LineCombo" name="lineStyleComboBox"/>
-         </item>
-         <item row="0" column="2" rowspan="3">
-          <spacer name="horizontalSpacer_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item row="3" column="1" colspan="2">
           <widget class="ArrowChooser" name="lineStartArrowComboBox"/>
@@ -1233,23 +1296,40 @@
          <item row="4" column="1" colspan="2">
           <widget class="ArrowChooser" name="lineEndArrowComboBox"/>
          </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="lineColorLabel">
+           <property name="text">
+            <string>Line Color:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="ScrSpinBox" name="lineWidthSpinBox"/>
+         </item>
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer_10">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer_10">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Calligraphic Pen</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout_3">
        <item row="1" column="0">
-        <spacer name="verticalSpacer_7">
+        <spacer name="verticalSpacer_11">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -1261,21 +1341,20 @@
          </property>
         </spacer>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Calligraphic Pen</string>
-      </attribute>
-      <layout class="QFormLayout" name="formLayout_3">
-       <item row="0" column="0">
+       <item row="0" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout">
-         <item row="3" column="0">
-          <widget class="QLabel" name="calLineWidthLabel">
-           <property name="text">
-            <string>Line Width:</string>
+         <item row="0" column="4">
+          <widget class="QSpinBox" name="calPenFillShadingSpinBox">
+           <property name="suffix">
+            <string> %</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
            </property>
           </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="ScrSpinBox" name="calPenAngleSpinBox"/>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="calLineStyleLabel">
@@ -1284,20 +1363,13 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="calFillColorLabel">
-           <property name="text">
-            <string>Fill Color:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QSpinBox" name="calPenFillShadingSpinBox">
-           <property name="suffix">
-            <string> %</string>
-           </property>
-           <property name="maximum">
-            <number>100</number>
+         <item row="0" column="1">
+          <widget class="ColorCombo" name="calPenFillColorComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
           </widget>
          </item>
@@ -1315,44 +1387,8 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="ColorCombo" name="calPenFillColorComboBox"/>
-         </item>
-         <item row="2" column="3">
-          <widget class="QLabel" name="calPenAngleLabel">
-           <property name="text">
-            <string>Pen Angle:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="LineCombo" name="calPenStyleComboBox"/>
-         </item>
-         <item row="1" column="1">
-          <widget class="ColorCombo" name="calPenColorComboBox"/>
-         </item>
-         <item row="3" column="4">
-          <widget class="ScrSpinBox" name="calPenWidthSpinBox"/>
-         </item>
-         <item row="3" column="3">
-          <widget class="QLabel" name="calPenWidthLabel">
-           <property name="text">
-            <string>Pen Width:</string>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="1">
           <widget class="ScrSpinBox" name="calPenLineWidthSpinBox"/>
-         </item>
-         <item row="1" column="3">
-          <widget class="QLabel" name="calLineColorShadingLabel">
-           <property name="text">
-            <string>Shading:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="4">
-          <widget class="ScrSpinBox" name="calPenAngleSpinBox"/>
          </item>
          <item row="1" column="4">
           <widget class="QSpinBox" name="calPenLineShadingSpinBox">
@@ -1361,6 +1397,44 @@
            </property>
            <property name="maximum">
             <number>100</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="calPenAngleLabel">
+           <property name="text">
+            <string>Pen Angle:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="calLineWidthLabel">
+           <property name="text">
+            <string>Line Width:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="calFillColorLabel">
+           <property name="text">
+            <string>Fill Color:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="ColorCombo" name="calPenColorComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="calLineColorShadingLabel">
+           <property name="text">
+            <string>Shading:</string>
            </property>
           </widget>
          </item>
@@ -1380,33 +1454,40 @@
            </property>
           </spacer>
          </item>
+         <item row="2" column="1">
+          <widget class="LineCombo" name="calPenStyleComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
+          <widget class="ScrSpinBox" name="calPenWidthSpinBox"/>
+         </item>
+         <item row="3" column="3">
+          <widget class="QLabel" name="calPenWidthLabel">
+           <property name="text">
+            <string>Pen Width:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5">
+          <spacer name="horizontalSpacer_14">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer_14">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0">
-        <spacer name="verticalSpacer_11">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -1611,7 +1692,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="scalingButtonGroup"/>
   <buttongroup name="previewButtonGroup"/>
+  <buttongroup name="scalingButtonGroup"/>
  </buttongroups>
 </ui>
