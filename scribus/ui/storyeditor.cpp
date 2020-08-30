@@ -479,7 +479,10 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 			cursor.setPosition(position + charsAdded, QTextCursor::KeepAnchor);
 			QString addedChars = cursor.selectedText();
 			if (addedChars.length() > 0)
+			{
+				addedChars.replace(QString(0x2029), SpecialChars::PARSEP);
 				StyledText.insertChars(position, addedChars, true);
+			}
 			//qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
 		}	
 	}
@@ -1090,13 +1093,14 @@ bool SEditor::canInsertFromMimeData( const QMimeData * source ) const
 QMimeData* SEditor::createMimeDataFromSelection () const
 {
 	StyledTextMimeData* mimeData = new StyledTextMimeData();
-	int start = textCursor().selectionStart();
-	int end   = textCursor().selectionEnd();
+	QTextCursor cursor = textCursor();
+	int start = cursor.selectionStart();
+	int end   = cursor.selectionEnd();
 	if (start < 0 || end <= start)
 		return mimeData;
 	StoryText* that = const_cast<StoryText*> (&StyledText);
-	that->select(start, end-start);
-	QString selectedText = textCursor().selectedText();
+	that->select(start, end - start);
+	QString selectedText = cursor.selectedText();
 	selectedText.replace(QChar(0x2029), QChar('\n'));
 	mimeData->setText(selectedText);
 	mimeData->setStyledText(*that, doc);
@@ -2940,18 +2944,8 @@ void StoryEditor::updateTextFrame()
 	if (!m_textChanged)
 		return;
 	PageItem *nextItem = m_item;
-//#if 0
 	if (m_item->isTextFrame())
-	{
-		while (nextItem != nullptr)
-		{
-			if (nextItem->prevInChain() != nullptr)
-				nextItem = nextItem->prevInChain();
-			else
-				break;
-		}
-	}
-//#endif
+		nextItem = m_item->firstInChain();
 	m_item->invalidateLayout();
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
