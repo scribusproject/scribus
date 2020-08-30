@@ -122,10 +122,10 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 	QString textStr = text;
 	textStr.remove(ch0);
 	textStr.remove(ch13);
-	textStr.replace(ch10,ch13);
-	textStr.replace(ch5,ch13);
-	textStr.replace(QString(0x2028),SpecialChars::LINEBREAK);
-	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
+	textStr.replace(ch10, ch13);
+	textStr.replace(ch5, ch13);
+	textStr.replace(QString(0x2028), SpecialChars::LINEBREAK);
+	textStr.replace(QString(0x2029), SpecialChars::PARSEP);
 	if (isNote)
 	{
 		if (m_note == nullptr)
