@@ -106,6 +106,16 @@ void CanvasMode_EyeDropper::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_EyeDropper::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EyeDropper::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -113,7 +123,6 @@ void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
 }
-
 
 void CanvasMode_EyeDropper::mouseMoveEvent(QMouseEvent *m)
 {

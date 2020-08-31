@@ -71,7 +71,6 @@ void CalligraphicMode::leaveEvent(QEvent *e)
 {
 }
 
-
 void CalligraphicMode::activate(bool fromGesture)
 {
 	CanvasMode::activate(fromGesture);
@@ -87,6 +86,16 @@ void CalligraphicMode::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CalligraphicMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CalligraphicMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CalligraphicMode::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -94,7 +103,6 @@ void CalligraphicMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	mousePressEvent(m);
 }
-
 
 void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 {

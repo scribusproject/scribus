@@ -42,6 +42,8 @@ class CanvasMode_Panning :  public CanvasMode
 
 		void activate(bool) override;
 		void deactivate(bool) override;
+		void keyPressEvent(QKeyEvent *e) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
 		void mouseDoubleClickEvent(QMouseEvent *m) override;
 		void mousePressEvent(QMouseEvent *m) override;
 		void drawControls(QPainter* p) override;

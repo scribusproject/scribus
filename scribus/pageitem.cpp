@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "canvasmode.h"
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "desaxe/saxXML.h"
@@ -4529,7 +4530,7 @@ void PageItem::checkChanges(bool force)
 bool PageItem::shouldCheck()
 {
 	return ((!m_Doc->view()->mousePressed()) &&
-			(!ScCore->primaryMainWindow()->arrowKeyDown()) &&
+			(!m_Doc->view()->canvasMode()->arrowKeyDown()) &&
 			(!ScCore->primaryMainWindow()->propertiesPalette->userActionOn()));
 }
 

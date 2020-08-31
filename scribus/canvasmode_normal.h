@@ -47,16 +47,15 @@ public:
 	
 	void activate(bool) override;
 	void deactivate(bool) override;
+
+	void keyPressEvent(QKeyEvent *e) override;
+	void keyReleaseEvent(QKeyEvent *e) override;
+
 	void mouseDoubleClickEvent(QMouseEvent *m) override;
 	void mouseReleaseEvent(QMouseEvent *m) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
 	void mousePressEvent(QMouseEvent *m) override;
 	void drawControls(QPainter* p) override;
-
-	void keyPressEvent(QKeyEvent *e) override;
-	void keyReleaseEvent(QKeyEvent *e) override;
-
-	bool handleKeyEvents() const override { return true; }
 
 private:
 	const unsigned SELECT_IN_GROUP { Qt::AltModifier }; // Qt::MetaModifier;

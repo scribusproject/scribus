@@ -155,7 +155,7 @@ public:
 	void changeEvent(QEvent *e);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
-	//void keyReleaseEvent(QKeyEvent *k);
+	void keyReleaseEvent(QKeyEvent *k);
 	void inputMethodEvent (QInputMethodEvent *event);
 	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
 	void requestUpdate(int);
@@ -184,7 +184,8 @@ public:
 	 * @brief Returns true if an arrow key is pressed down.
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
-	bool arrowKeyDown();
+	//bool arrowKeyDown();
+
 	/**
 	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
 	 * @return true if application is in object specific undo mode, other wise returns false
@@ -638,9 +639,9 @@ private:
 	bool m_palettesStatus[13];
 	bool m_guidesStatus[13];
 
-	bool m_keyrep;
+	//bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
-	bool m_arrowKeyDown;
+	//bool m_arrowKeyDown;
 	/** @brief tells the undo mode */
 	bool m_objectSpecificUndo;
 

@@ -95,6 +95,16 @@ void CanvasMode_Magnifier::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_Magnifier::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_Magnifier::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();

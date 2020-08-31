@@ -82,6 +82,16 @@ void FreehandMode::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void FreehandMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void FreehandMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void FreehandMode::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -89,7 +99,6 @@ void FreehandMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	mousePressEvent(m);
 }
-
 
 void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 {

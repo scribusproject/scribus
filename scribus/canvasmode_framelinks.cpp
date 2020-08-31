@@ -130,6 +130,16 @@ void CanvasMode_FrameLinks::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_FrameLinks::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_FrameLinks::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();

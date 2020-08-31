@@ -40,6 +40,8 @@ class BezierMode : public CanvasMode
 
 		void activate(bool) override;
 		void deactivate(bool) override;
+		void keyPressEvent(QKeyEvent *e) override;
+		void keyReleaseEvent(QKeyEvent *e) override;
 		void mouseDoubleClickEvent(QMouseEvent *m) override;
 		void mouseReleaseEvent(QMouseEvent *m) override;
 		void mouseMoveEvent(QMouseEvent *m) override;

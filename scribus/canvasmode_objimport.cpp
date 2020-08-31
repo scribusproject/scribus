@@ -114,6 +114,16 @@ void CanvasMode_ObjImport::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_ObjImport::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_ObjImport::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();

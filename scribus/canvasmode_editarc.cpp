@@ -298,6 +298,16 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 //	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
+void CanvasMode_EditArc::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EditArc::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -305,7 +315,6 @@ void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m_view->requestMode(modeNormal);
 }
-
 
 void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 {

@@ -268,6 +268,16 @@ void CanvasMode_EditGradient::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_EditGradient::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EditGradient::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -303,7 +313,6 @@ void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
 		}
 	}
 }
-
 
 void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 {

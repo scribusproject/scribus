@@ -44,14 +44,13 @@ class SCRIBUS_API CanvasMode_Rotate : public CanvasMode
 		void drawControls(QPainter* p) override;
 		void activate(bool) override;
 		void deactivate(bool) override;
+		
+		void keyReleaseEvent(QKeyEvent *e) override;
+		void keyPressEvent(QKeyEvent *e) override;
 
 		void mousePressEvent(QMouseEvent *m) override;
 		void mouseReleaseEvent(QMouseEvent *m) override;
 		void mouseMoveEvent(QMouseEvent *m) override;
-		void keyReleaseEvent(QKeyEvent *e) override;
-		void keyPressEvent(QKeyEvent *e) override;
-
-		bool handleKeyEvents() const override { return true; }
 
 	private:
 		inline bool GetItem(PageItem** pi);

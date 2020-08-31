@@ -885,6 +885,206 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 	p->restore();
 }
 
+void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
+{
+	int kk = e->key();
+	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
+	ScribusMainWindow* mainWindow = m_view->m_ScMW;
+
+	PrefsManager& prefsManager = PrefsManager::instance();
+	QMap<QString, QPointer<ScrAction> >& scrActions(mainWindow->scrActions);
+
+	if ((m_doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
+	{
+		m_view->setCursor(IconManager::instance().loadCursor("lupezm.png"));
+		return;
+	}
+
+	if (m_keyRepeat)
+		return;
+	m_keyRepeat = true;
+
+	//User presses escape and we have a doc open, and we have an item selected
+	if (kk == Qt::Key_Escape)
+	{
+		m_keyRepeat = false;
+		PageItem *currItem;
+		if (!m_doc->m_Selection->isEmpty())
+		{
+			currItem = m_doc->m_Selection->itemAt(0);
+			switch (m_doc->appMode)
+			{
+				case modeNormal:
+				case modeEditClip:
+					currItem->Sizing = false;
+					if (m_doc->SubMode != -1)
+					{
+						m_view->deselectItems(false);
+						m_doc->Items->removeOne(currItem);
+					}
+					else
+						m_view->deselectItems(false);
+					m_view->cancelGroupTransaction();
+					break;
+				case modeEdit:
+					m_view->cancelGroupTransaction();
+					break;
+				case modeCopyProperties:
+				case modeEditGradientVectors:
+				case modeEditMeshGradient:
+				case modeLinkFrames:
+				case modeUnlinkFrames:
+				case modeRotation:
+					m_view->deselectItems(false);
+					/* fall through */
+				case modeEditWeldPoint:
+				case modeEyeDropper:
+				case modeImportObject:
+				case modeImportImage:
+				case modePanning:
+					m_view->requestMode(modeNormal);
+					break;
+				case modeDrawBezierLine:
+					break;
+				default:
+					if (currItem->Sizing)
+					{
+						m_view->deselectItems(false);
+						m_doc->Items->removeOne(currItem);
+					}
+					break;
+			}
+		}
+		m_doc->DragP = false;
+		m_doc->leaveDrag = false;
+		m_view->stopAllDrags();
+		m_doc->SubMode = -1;
+		m_doc->ElemToLink = nullptr;
+		mainWindow->slotSelect();
+		if (m_doc->m_Selection->isEmpty())
+			mainWindow->HaveNewSel();
+		prefsManager.appPrefs.uiPrefs.stickyTools = false;
+		scrActions["stickyTools"]->setChecked(false);
+		return;
+	}
+
+	/**If we have a doc and we are not changing the page or zoom level in the status bar */
+	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
+	{
+		//Show our context menu
+		if (mainWindow->actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "viewShowContextMenu"))
+		{
+			ContextMenu* cmen=nullptr;
+			if (m_doc->m_Selection->isEmpty())
+			{
+				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
+				QPoint p(QCursor::pos() - mainWindow->mapToGlobal(QPoint(0,0)));
+				FPoint fp(p.x() / m_view->scale() + m_doc->minCanvasCoordinate.x(),
+				p.y() / m_view->scale() + m_doc->minCanvasCoordinate.y());
+				cmen = new ContextMenu(mainWindow, m_doc, fp.x(), fp.y());
+			}
+			else
+				cmen = new ContextMenu(*(m_doc->m_Selection), mainWindow, m_doc);
+			if (cmen)
+			{
+				mainWindow->setUndoMode(true);
+				cmen->exec(QCursor::pos());
+				mainWindow->setUndoMode(false);
+			}
+			delete cmen;
+		}
+
+
+		/**
+		 * With no item selected we can:
+		 * - With space, get into panning mode (modePanning)
+		 * - With PageUp, scroll up
+		 * - With PageDown, scroll down
+		 * - With Tab, change active document windowActivated
+		 */
+
+		if ((m_doc->appMode != modeEdit) && (m_doc->m_Selection->isEmpty()))
+		{
+			int pg;
+			int wheelVal = prefsManager.mouseWheelJump();
+			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
+			switch (kk)
+			{
+			case Qt::Key_Space:
+				m_keyRepeat = false;
+				if (m_doc->appMode == modePanning)
+					m_view->requestMode(modeNormal);
+				else
+					m_view->requestMode(modePanning);
+				return;
+				break;
+			case Qt::Key_PageUp:
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode() || m_doc->inlineEditMode())
+					m_view->scrollBy(0, -prefsManager.mouseWheelJump());
+				else
+				{
+					pg = m_doc->currentPageNumber();
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+						pg--;
+					else
+						pg -= m_doc->pageSets()[m_doc->pagePositioning()].Columns;
+					if (pg > -1)
+						m_view->GotoPage(pg);
+				}
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_PageDown:
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode() || m_doc->inlineEditMode())
+					m_view->scrollBy(0, prefsManager.mouseWheelJump());
+				else
+				{
+					pg = m_doc->currentPageNumber();
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+						pg++;
+					else
+						pg += m_doc->pageSets()[m_doc->pagePositioning()].Columns;
+					if (pg < static_cast<int>(m_doc->Pages->count()))
+						m_view->GotoPage(pg);
+				}
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_Left:
+				m_view->scrollBy(-wheelVal, 0);
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_Right:
+				m_view->scrollBy(wheelVal, 0);
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_Up:
+				m_view->scrollBy(0, -wheelVal);
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_Down:
+				m_view->scrollBy(0, wheelVal);
+				m_keyRepeat = false;
+				return;
+				break;
+			}
+		}
+	}
+	switch (kk)
+	{
+		case Qt::Key_Left:
+		case Qt::Key_Right:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
+			m_arrowKeyDown = true;
+	}
+	m_keyRepeat = false;
+}
+
 void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 {
 	int kk = e->key();
@@ -943,7 +1143,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		//Show our context menu
 		if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "viewShowContextMenu"))
 		{
-			ContextMenu* cmen=nullptr;
+			ContextMenu* cmen = nullptr;
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			if (m_doc->m_Selection->isEmpty())
 			{

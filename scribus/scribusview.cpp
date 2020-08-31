@@ -3263,31 +3263,31 @@ void ScribusView::TextToPath()
 
 void ScribusView::keyPressEvent(QKeyEvent *k)
 {
-	if (m_canvasMode && m_canvasMode->handleKeyEvents())
+	if (m_canvasMode)
 		m_canvasMode->keyPressEvent(k);
-	else
-		m_ScMW->keyPressEvent(k);
 }
-/*
+
 void ScribusView::keyReleaseEvent(QKeyEvent *k)
 {
-	m_ScMW->keyReleaseEvent(k);
+	if (m_canvasMode)
+		m_canvasMode->keyReleaseEvent(k);
 }
-*/
 
-void ScribusView::inputMethodEvent ( QInputMethodEvent * event )
+void ScribusView::inputMethodEvent(QInputMethodEvent * event)
 {
 	//qDebug() << "IME" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
 	// #9682 : Avoid parameter type ambiguity in QKeyEvent constructor with Qt3Support enabled Qt builds
 	Qt::KeyboardModifiers modifiers = Qt::NoModifier;
-	for (int i = 0; i < event->commitString().length(); ++i)
+
+	const QString& commitString = event->commitString();
+	for (int i = 0; i < commitString.length(); ++i)
 	{
-		QKeyEvent ev( QEvent::KeyPress, 0, modifiers, event->commitString().mid(i,1));
+		QKeyEvent ev(QEvent::KeyPress, 0, modifiers, commitString.mid(i, 1));
 		keyPressEvent(&ev);
 	}
 }
 
-QVariant ScribusView::inputMethodQuery ( Qt::InputMethodQuery query ) const
+QVariant ScribusView::inputMethodQuery(Qt::InputMethodQuery query) const
 {
 	//	qDebug() << "IMQ" << query;
 	return QVariant();
@@ -3302,7 +3302,7 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		int dX = 0,dY = 0;
+		int dX = 0, dY = 0;
 		int moveBy = (w->delta() < 0) ? Prefs->uiPrefs.wheelJump : -Prefs->uiPrefs.wheelJump;
 		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() == Qt::ShiftModifier ))
 			dX = moveBy;
@@ -3480,19 +3480,13 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	if (event->type() == QEvent::KeyPress)
 	{
 		auto* k = dynamic_cast<QKeyEvent*> (event);
-		if (m_canvasMode->handleKeyEvents())
-			m_canvasMode->keyPressEvent(k);
-		else
-			m_ScMW->keyPressEvent(k);
+		m_canvasMode->keyPressEvent(k);
 		return true;
 	}
 	if (event->type() == QEvent::KeyRelease)
 	{
 		auto* m = dynamic_cast<QKeyEvent*> (event);
-		if (m_canvasMode->handleKeyEvents())
-			m_canvasMode->keyReleaseEvent(m);
-		else
-			m_canvasMode->commonkeyReleaseEvent(m);
+		m_canvasMode->keyReleaseEvent(m);
 		return true;
 	}
 	if (obj == widget() && event->type() == QEvent::DragEnter)

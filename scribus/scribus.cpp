@@ -621,8 +621,8 @@ void ScribusMainWindow::initDefaultValues()
 	PDef.Pname.clear();
 	PDef.Dname.clear();
 	PDef.Command.clear();
-	m_keyrep = false;
-	m_arrowKeyDown = false;
+	//m_keyrep = false;
+	//m_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
 	for (int i=0; i<PAL_MAX ; ++i)
 		m_palettesStatus[i] = false;
@@ -1758,248 +1758,32 @@ QVariant ScribusMainWindow::inputMethodQuery ( Qt::InputMethodQuery query ) cons
 //AV -> CanvasMode
 void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
-	int kk = k->key();
-	if (HaveDoc)
+	if (HaveDoc && view)
 	{
-		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
-		{
-			view->setCursor(IconManager::instance().loadCursor("lupezm.png"));
-			return;
-		}
-	}
-	if (m_keyrep)
-		return;
-	m_keyrep = true;
-
-	//User presses escape and we have a doc open, and we have an item selected
-	if ((kk == Qt::Key_Escape) && (HaveDoc))
-	{
-		m_keyrep = false;
-		PageItem *currItem;
-		if (!doc->m_Selection->isEmpty())
-		{
-			currItem = doc->m_Selection->itemAt(0);
-			switch (doc->appMode)
-			{
-				case modeNormal:
-				case modeEditClip:
-					currItem->Sizing = false;
-					if (doc->SubMode != -1)
-					{
-						view->deselectItems(false);
-						doc->Items->removeOne(currItem);
-					}
-					else
-						view->deselectItems(false);
-					view->cancelGroupTransaction();
-					break;
-				case modeEdit:
-					view->cancelGroupTransaction();
-					break;
-				case modeCopyProperties:
-				case modeEditGradientVectors:
-				case modeEditMeshGradient:
-				case modeLinkFrames:
-				case modeUnlinkFrames:
-				case modeRotation:
-					view->deselectItems(false);
-					/* fall through */
-				case modeEditWeldPoint:
-				case modeEyeDropper:
-				case modeImportObject:
-				case modeImportImage:
-				case modePanning:
-					view->requestMode(modeNormal);
-					break;
-				case modeDrawBezierLine:
-					break;
-				default:
-					if (currItem->Sizing)
-					{
-						view->deselectItems(false);
-						doc->Items->removeOne(currItem);
-					}
-					break;
-			}
-		}
-		doc->DragP = false;
-		doc->leaveDrag = false;
-		view->stopAllDrags();
-		doc->SubMode = -1;
-		doc->ElemToLink = nullptr;
-		slotSelect();
-		if (doc->m_Selection->isEmpty())
-			HaveNewSel();
-		m_prefsManager.appPrefs.uiPrefs.stickyTools = false;
-		scrActions["stickyTools"]->setChecked(false);
+		view->canvasMode()->keyPressEvent(k);
 		return;
 	}
-	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
-	/**If we have a doc and we are not changing the page or zoom level in the status bar */
-	if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
-	{
-		//Show our context menu
-		if (actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "viewShowContextMenu"))
-		{
-			ContextMenu* cmen=nullptr;
-			if (doc->m_Selection->isEmpty())
-			{
-				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
-				QPoint p(QCursor::pos() - mapToGlobal(QPoint(0,0)));
-				FPoint fp(p.x() / view->scale() + doc->minCanvasCoordinate.x(),
-				p.y() / view->scale() + doc->minCanvasCoordinate.y());
-				cmen = new ContextMenu(this, doc, fp.x(), fp.y());
-			}
-			else
-				cmen = new ContextMenu(*(doc->m_Selection), this, doc);
-			if (cmen)
-			{
-				setUndoMode(true);
-				cmen->exec(QCursor::pos());
-				setUndoMode(false);
-			}
-			delete cmen;
-		}
 
-
-		/**
-		 * With no item selected we can:
-		 * - With space, get into panning mode (modePanning)
-		 * - With PageUp, scroll up
-		 * - With PageDown, scroll down
-		 * - With Tab, change active document windowActivated
-		 */
-
-		if ((doc->appMode != modeEdit) && (doc->m_Selection->isEmpty()))
-		{
-			int pg;
-			int wheelVal = m_prefsManager.mouseWheelJump();
-			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
-			switch (kk)
-			{
-			case Qt::Key_Space:
-				m_keyrep = false;
-				if (doc->appMode == modePanning)
-					view->requestMode(modeNormal);
-				else
-					view->requestMode(modePanning);
-				return;
-				break;
-			case Qt::Key_PageUp:
-				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
-					view->scrollBy(0, -m_prefsManager.mouseWheelJump());
-				else
-				{
-					pg = doc->currentPageNumber();
-					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-						pg--;
-					else
-						pg -= doc->pageSets()[doc->pagePositioning()].Columns;
-					if (pg > -1)
-						view->GotoPage(pg);
-				}
-				m_keyrep = false;
-				return;
-				break;
-			case Qt::Key_PageDown:
-				if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
-					view->scrollBy(0, m_prefsManager.mouseWheelJump());
-				else
-				{
-					pg = doc->currentPageNumber();
-					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-						pg++;
-					else
-						pg += doc->pageSets()[doc->pagePositioning()].Columns;
-					if (pg < static_cast<int>(doc->Pages->count()))
-						view->GotoPage(pg);
-				}
-				m_keyrep = false;
-				return;
-				break;
-			case Qt::Key_Left:
-				view->scrollBy(-wheelVal, 0);
-				m_keyrep = false;
-				return;
-				break;
-			case Qt::Key_Right:
-				view->scrollBy(wheelVal, 0);
-				m_keyrep = false;
-				return;
-				break;
-			case Qt::Key_Up:
-				view->scrollBy(0, -wheelVal);
-				m_keyrep = false;
-				return;
-				break;
-			case Qt::Key_Down:
-				view->scrollBy(0, wheelVal);
-				m_keyrep = false;
-				return;
-				break;
-			}
-		}
-	}
-	switch (kk)
-	{
-		case Qt::Key_Left:
-		case Qt::Key_Right:
-		case Qt::Key_Up:
-		case Qt::Key_Down:
-			m_arrowKeyDown = true;
-	}
-	m_keyrep = false;
+	QMainWindow::keyPressEvent(k);
 }
-/*
+
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	//Exit out of panning mode if Control is release while the right mouse button is pressed
-	if (HaveDoc)
+	if (HaveDoc && view)
 	{
-		if ((doc->appMode == modePanning) && (k->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
-			view->requestMode(modeNormal);
-
-		if ((doc->appMode == modeMagnifier) && (k->key() == Qt::Key_Shift))
-			view->setCursor(IconManager::instance().loadCursor("lupez.png"));
-	}
-	if (k->isAutoRepeat() || !m_arrowKeyDown)
+		view->canvasMode()->keyReleaseEvent(k);
 		return;
-	switch (k->key())
-	{
-		case Qt::Key_Left:
-		case Qt::Key_Right:
-		case Qt::Key_Up:
-		case Qt::Key_Down:
-			m_arrowKeyDown = false;
-			if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
-			{
-				int docSelectionCount = doc->m_Selection->count();
-				if ((docSelectionCount != 0) && (doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
-				{
-					PageItem *currItem = doc->m_Selection->itemAt(0);
-					double xposOrig = currItem->xPos();
-					double yposOrig = currItem->yPos();
-					doc->adjustItemSize(currItem);
-					if (!doc->nodeEdit.isContourLine())
-						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
-					currItem->update();
-				}
-				for (int i = 0; i < docSelectionCount; ++i)
-					doc->m_Selection->itemAt(i)->checkChanges(true);
-				if (docSelectionCount > 1 && view->groupTransactionStarted())
-					view->endGroupTransaction();
-			}
-			break;
 	}
+
+	QMainWindow::keyReleaseEvent(k);
 }
-*/
+
 void ScribusMainWindow::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
 		languageChange();
 	else
-		QWidget::changeEvent(e);
+		QMainWindow::changeEvent(e);
 }
 
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
@@ -2017,7 +1801,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	disconnect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
 	if (!windows.isEmpty())
 	{
-		int windowCount=windows.count();
+		int windowCount = windows.count();
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			tw = dynamic_cast<ScribusWin *>(windows.at(i));
@@ -2099,11 +1883,12 @@ void ScribusMainWindow::requestUpdate(int val)
 // SLOT IMPLEMENTATION
 /////////////////////////////////////////////////////////////////////
 
-
+/*
 bool ScribusMainWindow::arrowKeyDown()
 {
 	return m_arrowKeyDown;
 }
+*/
 
 QStringList ScribusMainWindow::findRecoverableFile()
 {
@@ -5747,7 +5532,7 @@ void ScribusMainWindow::ToggleAllGuides()
 {
 	if (!doc)
 		return;
-	m_keyrep=false;
+	//m_keyrep=false;
 	if (m_guidesStatus[GS_ALL])
 	{
 		m_guidesStatus[GS_ALL] = false;
@@ -6093,7 +5878,7 @@ void ScribusMainWindow::slotSelect()
 
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
-	m_keyrep=false;
+	//m_keyrep=false;
 
 	if (newMode==modeDrawLatex && !m_prefsManager.renderFrameConfigured())
 	{

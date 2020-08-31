@@ -54,14 +54,9 @@
 #include "util.h"
 #include "util_math.h"
 
-
-
-
-
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
 }
-
 
 void BezierMode::drawControls(QPainter* p) 
 {
@@ -106,11 +101,9 @@ void BezierMode::enterEvent(QEvent *e)
 	}
 }
 
-
 void BezierMode::leaveEvent(QEvent *e)
 {
 }
-
 
 void BezierMode::activate(bool fromGesture)
 {
@@ -184,6 +177,16 @@ void BezierMode::deactivate(bool forGesture)
 			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
 		undoTrans.commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 	}
+}
+
+void BezierMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void BezierMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)

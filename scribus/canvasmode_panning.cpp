@@ -54,7 +54,6 @@ void CanvasMode_Panning::leaveEvent(QEvent *e)
 {
 }
 
-
 void CanvasMode_Panning::activate(bool fromGesture)
 {
 	CanvasMode::activate(fromGesture);
@@ -77,6 +76,16 @@ void CanvasMode_Panning::deactivate(bool forGesture)
 {
 	m_view->setRedrawMarkerShown(false);
 	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_Panning::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_Panning::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_Panning::mouseDoubleClickEvent(QMouseEvent *m)

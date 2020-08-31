@@ -43,7 +43,6 @@ public:
 	void activate(bool) override;
 	void deactivate(bool) override;
 	void keyPressEvent(QKeyEvent *e) override;
-	bool handleKeyEvents() const override { return true; }
 	void mouseDoubleClickEvent(QMouseEvent *m) override;
 	void mouseReleaseEvent(QMouseEvent *m) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
