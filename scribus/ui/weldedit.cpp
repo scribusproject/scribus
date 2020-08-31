@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "weldedit.h"
 
-WeldEditDialog::WeldEditDialog(QWidget* parent) : ScrPaletteBase( parent, "WeldEditDialog", false, nullptr )
+WeldEditDialog::WeldEditDialog(QWidget* parent) : ScrPaletteBase(parent, "WeldEditDialog", false, Qt::WindowFlags())
 {
 	setupUi(this);
 	moveWeldPoint->setChecked(true);
