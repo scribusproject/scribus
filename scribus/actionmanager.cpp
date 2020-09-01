@@ -1764,7 +1764,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpActionSearch"]->setTexts( tr("Action &Search"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize Value Indicator"));
-	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
+	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Help..."));
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
