@@ -439,7 +439,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1510"/>
         <source>PDF...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1544"/>
@@ -3454,7 +3454,7 @@ para mudar isso, selecione Relativa Colorimétrica ou Perceptiva.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmsprefsbase.ui" line="274"/>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation>Ativar uma &apos;previsão calculada&apos; de como as cores do seu documento 
 serão impressas, baseada no perfil de impressora selecionado.</translation>
@@ -5080,7 +5080,7 @@ atualmente %2 x %3 DPI</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
@@ -9440,7 +9440,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe Indesign&apos;s idml packages into Scribus
+        <source>Imports Adobe Indesign's idml packages into Scribus
  converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Importa os pacotes idml do Adobe InDesign para o Scribus
 convertendo objetos do InDesign em itens de página do Scribus; nem todos são suportados pelo Scribus, mas todos os suportados serão importados</translation>
@@ -10216,7 +10216,7 @@ convertendo seus dados vetoriais em objetos do Scribus.</translation>
         <location filename="../../scribus/plugins/imposition/impositionbase.ui" line="325"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Separate pages with a comma, ranges with a hyphen, e.g. 1,4,9-11 to get pages 1,4,9,10,11.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -13321,7 +13321,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="451"/>
         <source>Field of Vision</source>
-        <translation type="unfinished"></translation>
+        <translation>Campo de visão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="463"/>
@@ -13630,22 +13630,22 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="102"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="107"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="112"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="117"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="122"/>
@@ -13708,7 +13708,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="76"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Espelhar páginas verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="83"/>
@@ -13773,7 +13773,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="45"/>
         <source>PDF Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Pré-visualização de saída de PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="67"/>
@@ -13982,7 +13982,7 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
     <message>
         <location filename="../../scribus/pslib.cpp" line="521"/>
         <source>Failed to open file for writing : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível abrir o arquivo para escrita : %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1577"/>
@@ -15368,7 +15368,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="14"/>
         <source>PDF-Import</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Import</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="31"/>
@@ -15509,7 +15509,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15531,7 +15531,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -17143,7 +17143,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2500"/>
         <source>No valid renderframe config found. Using defaults!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhuma configuração de quadro de renderização válido encontrado. O padrão será usado.</translation>
     </message>
 </context>
 <context>
@@ -18238,7 +18238,7 @@ Deseja migrá-las para a nova versão do Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="262"/>
         <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Localização do editor gráfico no sistema de arquivos&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="303"/>
@@ -21655,7 +21655,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Use a definição ou do sistema ou da seleção de formatos numéricos para decimais nos números da interface</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
@@ -21673,8 +21673,8 @@ um intervalo de páginas, ou uma única página</translation>
         <translation>O tempo antes de redimensionar ou mover cria um pequeno atraso entre o momento do clique e a operação, o que permite evitar movimentos indesejáveis. Isso pode ser útil quando estiver lidando com configurações de sensibilidade do mouse ou problemas de acessibilidade relacionados a mouses ergonômicos, touchpads ou a capacidade de movimentação dos punhos e mãos.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="307"/>
@@ -23259,12 +23259,12 @@ do objeto</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="310"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Quaisquer auto-intersecções ou subcaminhos criam buracos no preenchimento (regra de preenchimento: evenodd)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="329"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
-        <translation type="unfinished"></translation>
+        <translation>O preenchimento é sólido a não ser que um subcaminho siga a direção oposta (regra de preenchimento: nonzero)</translation>
     </message>
 </context>
 <context>
@@ -24152,7 +24152,7 @@ do objeto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="165"/>
         <source>Unicase (unic)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unicase (unic)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="168"/>
@@ -24740,7 +24740,7 @@ Um valor 0 significa hifenizações ilimitadas.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>A cor do texto selecionado. Se a Decoração de contorno de texto estiver ativada, esta cor será a cor de preenchimento.&lt;br/&gt;Se o Sombreado estiver ativado, esta cor ficará no topo.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="127"/>
@@ -29233,7 +29233,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="607"/>
         <source>Cannot get character style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível recuperar o estilo de caracteres num quadro que não é de texto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="647"/>
@@ -29415,18 +29415,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Módulo de interface Python do Scribus
@@ -29819,7 +29819,7 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="201"/>
         <source>+fontfeatures %1</source>
-        <translation type="unfinished"></translation>
+        <translation>+fontfeatures %1</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="203"/>
@@ -29874,22 +29874,22 @@ fornecidos na documentação da função.
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="215"/>
         <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
+        <translation>+tracking %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="215"/>
         <source>-tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>-tracking</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="217"/>
         <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
+        <translation>+baseline %1  {1?}</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="219"/>
         <source>+stretch</source>
-        <translation type="unfinished"></translation>
+        <translation>+stretch</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="221"/>
@@ -30291,19 +30291,19 @@ fornecidos na documentação da função.
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="66"/>
         <source>hasdropcap is true but dropcaplines value is invalid</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O valor de hasdropcap é verdadeiro mas o de dropcaplines é inválido</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="72"/>
         <source>hasdropcap and bullet are not allowed to be specified together.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>hasdropcap e bullet não podem ser especificados ao mesmo tempo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="126"/>
         <source>invalid tab-position specified.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>posição de tab especificada inválida.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="218"/>
@@ -30583,7 +30583,7 @@ A imagem portanto pode não estar correta</translation>
     <message>
         <location filename="../../scribus/latexhelpers.cpp" line="73"/>
         <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro de realce: Índice inválido retornado pelo QString.indexOf() do Qt. Isto é uma incompatibilidade entre versões diferentes do Qt e só pode ser consertado recompilando o Scribus com a mesma versão do Qt que está instalada no seu sistema. O realce de sintaxe será desativado agora, porém quadros de renderização devem continuar a funcionar sem problemas.</translation>
     </message>
     <message>
         <location filename="../../scribus/util_formats.cpp" line="91"/>
@@ -30671,13 +30671,13 @@ A imagem portanto pode não estar correta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="108"/>
         <source>Cannot get cell row span from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível recuperar o intervalo da linha de células de um item que não é tabela.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="128"/>
         <source>Cannot get cell column span from non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível recuperar o intervalo da coluna de células de um item que não é tabela.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="148"/>
@@ -30695,13 +30695,13 @@ A imagem portanto pode não estar correta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="201"/>
         <source>Cannot set cell left border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível definir a margem esquerda da célula num ítem que não é tabela.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="235"/>
         <source>Cannot set cell right border on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível definir a margem direita de célula em um item que não seja tabela.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="269"/>
