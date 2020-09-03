@@ -4286,7 +4286,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 					}
 				}
 				if (mark == nullptr)
-					qDebug() << "Undefinied mark label ["<< l << "] type " << t;
+					qDebug() << "Undefined mark label ["<< l << "] type " << t;
 				else
 				{
 					//set pointer to item holds mark in his text
@@ -4793,7 +4793,7 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 				}
 			}
 			if (mark == nullptr)
-				qDebug() << "Undefinied mark label ["<< l << "] type " << t;
+				qDebug() << "Undefined mark label ["<< l << "] type " << t;
 			else
 			{
 				//set pointer to item holds mark in his text

@@ -12,7 +12,7 @@ class TextNote;
 
 enum MarkType
 {
-	MARKNoType = -1, //undefinied mark type (wrong situation!)
+	MARKNoType = -1, //undefined mark type (wrong situation!)
 	MARKAnchorType = 0, //empty anchor mark, useful for creating references to it
 	MARK2ItemType = 1, //reference to page item ID
 	MARK2MarkType = 2, //reference other mark
