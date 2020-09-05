@@ -63,7 +63,7 @@ void IconManager::readIconConfigFiles()
 {
 	QString baseIconDir(ScPaths::instance().iconDir());
 	QStringList locations;
-	locations<<baseIconDir;
+	locations << baseIconDir;
 	QStringList configNames;
 	for (QStringList::Iterator it = locations.begin(); it != locations.end(); ++it)
 	{
@@ -174,22 +174,22 @@ void IconManager::readIconConfigFiles()
 	}
 }
 
-QCursor IconManager::loadCursor(const QString& nam, int hotX, int hotY, bool forceUseColor)
+QCursor IconManager::loadCursor(const QString& name, int hotX, int hotY, bool forceUseColor)
 {
-	return QCursor(loadPixmap(nam, forceUseColor), hotX, hotY);
+	return QCursor(loadPixmap(name, forceUseColor), hotX, hotY);
 }
 
-QIcon IconManager::loadIcon(const QString& nam, bool forceUseColor)
+QIcon IconManager::loadIcon(const QString& name, bool forceUseColor)
 {
-	return QIcon(loadPixmap(nam, forceUseColor));
+	return QIcon(loadPixmap(name, forceUseColor));
 }
 
-QPixmap IconManager::loadPixmap(const QString& nam, bool forceUseColor, bool rtlFlip)
+QPixmap IconManager::loadPixmap(const QString& name, bool forceUseColor, bool rtlFlip)
 {
-	if (m_pxCache.contains(nam))
-		return *m_pxCache[nam];
+	if (m_pxCache.contains(name))
+		return *m_pxCache[name];
 
-	QString iconFilePath(pathForIcon(nam));
+	QString iconFilePath(pathForIcon(name));
 	QPixmap *pm = new QPixmap();
 	pm->load(iconFilePath);
 	if (pm->isNull())
@@ -204,7 +204,7 @@ QPixmap IconManager::loadPixmap(const QString& nam, bool forceUseColor, bool rtl
 		t.rotate(180);
 		*pm = pm->transformed(t);
 	}
-	m_pxCache.insert(nam, pm);
+	m_pxCache.insert(name, pm);
 	return *pm;
 }
 
@@ -252,18 +252,18 @@ QString IconManager::baseNameForTranslation(const QString& transName) const
 	return name;
 }
 
-QString IconManager::pathForIcon(const QString& nam)
+QString IconManager::pathForIcon(const QString& name)
 {
 	//QString iconset(PrefsManager::instance().appPrefs.uiPrefs.iconSet);
-	QString iconSubdir(m_iconSets[m_activeSetBasename].path+"/");
-	QString primaryIconSubdir(m_iconSets[m_backupSetBasename].path+"/");
+	QString iconSubdir(m_iconSets[m_activeSetBasename].path + "/");
+	QString primaryIconSubdir(m_iconSets[m_backupSetBasename].path + "/");
 
-	QString iconFilePath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, nam));
+	QString iconFilePath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, name));
 	if (QFile::exists(iconFilePath))
 		return iconFilePath;
 
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
-	iconFilePath=QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, nam);
+	iconFilePath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), primaryIconSubdir, name);
 
 	if (QFile::exists(iconFilePath))
 	{
@@ -273,7 +273,7 @@ QString IconManager::pathForIcon(const QString& nam)
 #ifdef WANT_DEBUG
 	qWarning("pathForIcon: Unable to load icon %s: File not found", iconFilePath.toLatin1().constData());
 #endif
-	return "";
+	return QString();
 }
 
 QStringList IconManager::pathList() const

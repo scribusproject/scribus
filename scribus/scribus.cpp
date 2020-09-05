@@ -6424,7 +6424,7 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int 
 
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	QTransform itemTrans = currItem->getTransform();
-	double xOffset=0.0,yOffset=0.0;
+	double xOffset = 0.0, yOffset = 0.0;
 	switch (position)
 	{
 		case 1: //top left
