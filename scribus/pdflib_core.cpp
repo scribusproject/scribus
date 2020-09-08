@@ -2484,7 +2484,7 @@ void PDFLibCore::PDF_Begin_Colors()
 		PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
 		PutDoc(">>");
 		writer.endObj(halftones);
-		HTName = ResNam+Pdf::toPdf(ResCount);
+		HTName = ResNam + Pdf::toPdf(ResCount);
 		Transpar[HTName] = writeGState("/HT " + Pdf::toPdf(halftones) + " 0 R\n");
 		ResCount++;
 	}
@@ -2513,7 +2513,7 @@ void PDFLibCore::PDF_Begin_Colors()
 		writer.endObj(iccProfileObject);
 		PdfId iccColorspace = writer.newObject();
 		writer.startObj(iccColorspace);
-		dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+		dataD.ResName = ResNam + Pdf::toPdf(ResCount);
 		dataD.ICCArray = "[ /ICCBased " + Pdf::toPdf(iccProfileObject) + " 0 R ]";
 		dataD.ResNum = iccColorspace;
 		dataD.components = Options.SComp;
@@ -2545,7 +2545,7 @@ void PDFLibCore::PDF_Begin_Colors()
 			PutDoc("/Length " + Pdf::toPdf(colorDesc.length() + 1) + "\n");
 			PutDoc(">>\nstream\n" + EncStream(colorDesc, separationFunction) + "\nendstream");
 			writer.endObj(separationFunction);
-			PdfId separationColorspace= writer.newObject();
+			PdfId separationColorspace = writer.newObject();
 			writer.startObj(separationColorspace);
 			PutDoc("[ /Separation ");
 			if (colorsToUse[itf.key()].isRegistrationColor())
@@ -2554,7 +2554,7 @@ void PDFLibCore::PDF_Begin_Colors()
 				PutDoc(Pdf::toName(itf.key().simplified()));
 			PutDoc(" /DeviceCMYK " + Pdf::toObjRef(separationFunction) + " ]");
 			writer.endObj(separationColorspace);
-			spotD.ResName = spotNam+Pdf::toPdf(spotCount);
+			spotD.ResName = spotNam + Pdf::toPdf(spotCount);
 			spotD.ResNum = separationColorspace;
 			spotMap.insert(itf.key(), spotD);
 			spotCount++;
@@ -2574,7 +2574,7 @@ void PDFLibCore::PDF_Begin_Colors()
 		PutDoc("/N 1\n");
 		PutDoc(">>\n]");
 		writer.endObj(registrationColorspace);
-		spotD.ResName = spotNam+Pdf::toPdf(spotCount);
+		spotD.ResName = spotNam + Pdf::toPdf(spotCount);
 		spotD.ResNum = registrationColorspace;
 		spotMapReg.insert("Register", spotD);
 		spotCount++;
@@ -3903,7 +3903,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 		PutDoc("/K false\n");
 		PutDoc(">>");
 		writer.endObj(Gobj);
-		QByteArray ShName = ResNam+QByteArray::number(ResCount);
+		QByteArray ShName = ResNam + QByteArray::number(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA " + FToStr(layer.transparency) + "\n"
 										+ "/ca " + FToStr(layer.transparency) + "\n"
@@ -3926,7 +3926,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 			PutDoc("\n/Filter /FlateDecode");
 		PutDoc(" >>\nstream\n" + EncStream(content, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		QByteArray name = ResNam+QByteArray::number(ResCount);
+		QByteArray name = ResNam + QByteArray::number(ResCount);
 		ResCount++;
 		pageData.XObjects[name] = formObject;
 		PutPage("q\n");
@@ -3982,7 +3982,7 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 		PutDoc("/K false\n");
 		PutDoc(">>");
 		writer.endObj(Gobj);
-		QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA " + FToStr(layer.transparency) + "\n"
 										+ "/ca " + FToStr(layer.transparency) + "\n"
@@ -4066,7 +4066,7 @@ QByteArray PDFLibCore::Write_FormXObject(QByteArray &data, PageItem *controlItem
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n" + EncStream(data, formObject) + "\nendstream");
 	writer.endObj(formObject);
-	QByteArray name = ResNam+QByteArray::number(ResCount);
+	QByteArray name = ResNam + QByteArray::number(ResCount);
 	ResCount++;
 	pageData.XObjects[name] = formObject;
 
@@ -4099,7 +4099,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 	}
 	else
 	{
-		ShName = ResNam+Pdf::toPdf(ResCount);
+		ShName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - trans) + "\n"
 									+ "/ca " + FToStr(1.0 - trans) + "\n"
@@ -4155,7 +4155,7 @@ QByteArray PDFLibCore::Write_TransparencyGroup(double trans, int blend, QByteArr
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n" + EncStream(data, formObject) + "\nendstream");
 	writer.endObj(formObject);
-	QByteArray name = ResNam+Pdf::toPdf(ResCount);
+	QByteArray name = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
 	pageData.XObjects[name] = formObject;
 	retString += Pdf::toName(name) + " Do\n";
@@ -4296,7 +4296,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 	PutDoc(">>");
 	writer.endObj(softMaskObj);
 
-	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+	QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
 	if (ite->softShadowHasObjectTransparency())
 	{
@@ -4394,7 +4394,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 	tmp += "q\n";
 	if ((ite->doOverprint) && (!Options.UseRGB))
 	{
-		QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/OP true\n"
 									   "/op true\n"
@@ -5526,7 +5526,7 @@ QByteArray PDFLibCore::drawArrow(PageItem *ite, QTransform &arrowTrans, int arro
 	arrow.map(arrowTrans);
 	if ((ite->lineTransparency() != 0) && Options.supportsTransparency())
 	{
-		QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - ite->lineTransparency()) + "\n"
 									   + "/ca " + FToStr(1.0 - ite->lineTransparency()) + "\n"
@@ -6377,9 +6377,9 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		GXName = ResNam+Pdf::toPdf(ResCount);
+		GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
@@ -6439,7 +6439,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
 		GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
@@ -6466,7 +6466,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 
 QByteArray PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 {
-	QByteArray ShName = ResNam+Pdf::toPdf(ResCount);
+	QByteArray ShName = ResNam + Pdf::toPdf(ResCount);
 	ResCount++;
 	Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - currItem->lineTransparency()) + "\n"
 								   + "/SMask /None\n/AIS false\n/OPM 1\n"
@@ -6906,9 +6906,9 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(shadeObjectT);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
@@ -7236,9 +7236,9 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QByteArray& output, PageItem *c)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
@@ -7596,9 +7596,9 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
@@ -7959,9 +7959,9 @@ bool PDFLibCore::PDF_TensorGradientFill(QByteArray& output, PageItem *c)
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /Normal\n");
 		TRes = GXName;
@@ -8429,9 +8429,9 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n" + EncStream(stre, formObject) + "\nendstream");
 		writer.endObj(formObject);
-		pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = formObject;
+		pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = formObject;
 		ResCount++;
-		QByteArray GXName = ResNam+Pdf::toPdf(ResCount);
+		QByteArray GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
 		int bmCode = stroke ? currItem->lineBlendmode() : currItem->fillBlendmode();
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(bmCode) + "\n");
@@ -9794,7 +9794,7 @@ void PDFLibCore::PDF_xForm(PdfId objNr, double w, double h, const QByteArray& im
 	PutDoc("/Length " + Pdf::toPdf(im.length()) + "\n");
 	PutDoc(">>\nstream\n" + EncStream(im, objNr) + "\nendstream");
 	writer.endObj(objNr);
-	pageData.XObjects[ResNam+Pdf::toPdf(ResCount)] = objNr;
+	pageData.XObjects[ResNam + Pdf::toPdf(ResCount)] = objNr;
 	ResCount++;
 }
 
@@ -10554,7 +10554,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 						writer.endObj(embeddedProfile);
 						PdfId profileResource = writer.newObject();
 						writer.startObj(profileResource);
-						dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+						dataD.ResName = ResNam + Pdf::toPdf(ResCount);
 						dataD.ICCArray = "[ /ICCBased " + Pdf::toPdf(embeddedProfile) + " 0 R ]";
 						dataD.ResNum = profileResource;
 						dataD.components = components;
@@ -10600,7 +10600,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 								writer.endObj(embeddedProfile);
 								PdfId profileResource = writer.newObject();
 								writer.startObj(profileResource);
-								dataD.ResName = ResNam+Pdf::toPdf(ResCount);
+								dataD.ResName = ResNam + Pdf::toPdf(ResCount);
 								dataD.ICCArray = "[ /ICCBased " + Pdf::toPdf(embeddedProfile) + " 0 R ]";
 								dataD.ResNum = profileResource;
 								dataD.components = components;
