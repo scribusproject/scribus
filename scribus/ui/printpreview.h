@@ -25,6 +25,7 @@ class QTableWidget;
 #include "scribusstructs.h"
 
 class PageSelector;
+class PrintPreviewCreator;
 class ScribusDoc;
 class ScribusView;
 class ScImage;
@@ -58,17 +59,6 @@ public:
 
 	double inkCoverageThreshold() const { return coverThresholdValue->value(); }
 
-	/*!
-	\author Franz Schmid
-	\brief Renders the Preview to a file on Disk
-	\param pageIndex int page number
-	\param res int resolution
-	\retval int Flag indicating error
-	*/
-	int RenderPreview(int pageIndex, int res);
-	int RenderPreviewSep(int pageIndex, int res);
-	void blendImages(QImage &target, ScImage &source, ScColor col);
-	void blendImagesSumUp(QImage &target, ScImage &scsource);
 	static bool usePostscriptPreview(const QString& printerName, PrintEngine engine);
 	/*!
 	\author Franz Schmid
@@ -77,7 +67,7 @@ public:
 	\param res int resolution
 	\retval pixmap QPixmap print preview
 	*/
-	QPixmap CreatePreview(int pageIndex, int res);
+	QPixmap createPreview(int pageIndex, int res);
 
 public slots:
 	/*!
@@ -119,14 +109,14 @@ protected:
 	bool havePngAlpha { false };
 	bool haveTiffSep { false };
 	bool postscriptPreview { true };
-	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
 	QTableWidget* inkTable { nullptr };
+
+	PrintPreviewCreator* m_previewCreator { nullptr };
 
 	int m_currentPage { -1 };
 	int m_scaleMode { 1 };
 	int m_gsVersion { 0 };
-	int m_inkMax { 1020 }; // 4 * 255
 	bool m_colorMode { false };
 	bool m_useAntialiasing { false };
 	bool m_showTransparency { false };
@@ -174,7 +164,6 @@ protected:
 
 	void setValues();
 	void getUserSelection(int);
-	void imageLoadError(QPixmap &, int);
 
 	//! \brief repaint sample on the dialog change
 	void resizeEvent(QResizeEvent * event) override;

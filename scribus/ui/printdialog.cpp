@@ -310,7 +310,7 @@ void PrintDialog::selectCommand()
 
 void PrintDialog::selectEngine(const QString& eng)
 {
-	prefs->set("CurrentPrnEngine", m_printEngineMap[printEngines->currentText()]);
+	prefs->set("CurrentPrnEngine", (int) m_printEngineMap[printEngines->currentText()]);
 	bool psSupported = outputToFile();
 	psSupported |= (eng == CommonStrings::trPostScript1);
 	psSupported |= (eng == CommonStrings::trPostScript2);
@@ -365,7 +365,7 @@ void PrintDialog::selectPrinter(const QString& prn)
 	refreshPrintEngineBox();
 
 	prefs->set("CurrentPrn", prn);
-	prefs->set("CurrentPrnEngine", m_printEngineMap[printEngines->currentText()]);
+	prefs->set("CurrentPrnEngine", (int) m_printEngineMap[printEngines->currentText()]);
 	
 	bool ps1Supported = m_printEngineMap.contains(CommonStrings::trPostScript1);
 	bool ps2Supported = m_printEngineMap.contains(CommonStrings::trPostScript2);
@@ -727,7 +727,7 @@ void PrintDialog::setPrintEngine(PrintEngine engine)
 		printEngines->setCurrentIndex(itemIndex);
 	else if (printEngines->count() > 0)
 	{
-		pdlString = m_printEngineMap.key(PostScript3, "");
+		pdlString = m_printEngineMap.key(PrintEngine::PostScript3, "");
 		itemIndex = printEngines->findText(pdlString);
 		if (itemIndex >= 0)
 			printEngines->setCurrentIndex(itemIndex);

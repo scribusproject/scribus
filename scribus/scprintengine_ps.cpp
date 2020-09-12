@@ -42,14 +42,14 @@ bool ScPrintEngine_PS::print(PrintOptions& options)
 		m_errorMessage = dd->errorMessage();
 		return false;
 	}
-	if (options.prnEngine != PostScript3 && ScCore->haveGS())
+	if (options.prnEngine != PrintEngine::PostScript3 && ScCore->haveGS())
 	{
 		// use gs to convert our PS to a lower version
 		QString tmp;
 		QStringList opts;
 		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(m_doc.pageWidth())) );
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(m_doc.pageHeight())) );
-		convertPS2PS(filename, filename + ".tmp", opts, options.prnEngine);
+		convertPS2PS(filename, filename + ".tmp", opts, (int) options.prnEngine);
 		moveFile(filename + ".tmp", filename);
 	}
 	if (options.toFile)

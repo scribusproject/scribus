@@ -469,7 +469,7 @@ static PyObject *Printer_print(Printer *self)
 		return nullptr;
 	}
 
-	if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
+	if (options.prnEngine == PrintEngine::PostScript1 || options.prnEngine == PrintEngine::PostScript2)
 	{
 		if (ScCore->haveGS())
 		{
@@ -477,7 +477,7 @@ static PyObject *Printer_print(Printer *self)
 			QStringList opts;
 			opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(currentDoc->pageWidth())) );
 			opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(currentDoc->pageHeight())) );
-			convertPS2PS(fna, fna+".tmp", opts, options.prnEngine);
+			convertPS2PS(fna, fna + ".tmp", opts, (int) options.prnEngine);
 			moveFile( fna + ".tmp", fna );
 		}
 		else

@@ -59,7 +59,7 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 		QStringList spots = usedSpots.keys();
 
 		m_inkMax = (spots.count() + 4) * 255;
-		m_optionsUi->coverThresholdValue->setMaximum(m_inkMax * 100.0);
+		m_optionsUi->coverThresholdValue->setMaximum((spots.count() + 4) * 100.0);
 
 		m_optionsUi->inkTable->setColumnCount(2);
 		m_optionsUi->inkTable->setRowCount(4 + spots.count());
@@ -205,6 +205,8 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 
 	connect(m_optionsUi->antiAliasing, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(m_optionsUi->showTransparency, SIGNAL(clicked()), this, SLOT(redisplay()));
+
+	connect(m_optionsUi->coverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(toggleCMYK_Colour()));
 }
 
 OutputPreview_PDF::~OutputPreview_PDF()

@@ -66,7 +66,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 		QStringList spots = usedSpots.keys();
 
 		m_inkMax = (spots.count() + 4) * 255;
-		m_optionsUi->coverThresholdValue->setMaximum(m_inkMax * 100.0);
+		m_optionsUi->coverThresholdValue->setMaximum((spots.count() + 4) * 100.0);
 
 		m_optionsUi->inkTable->setColumnCount(2);
 		m_optionsUi->inkTable->setRowCount(4 + spots.count());
@@ -189,7 +189,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 
 	if (m_printOptions.firstUse)
 		PrinterUtil::getDefaultPrintOptions(m_printOptions, m_doc->bleedsVal());
-	m_printOptions.prnEngine = PostScript3;
+	m_printOptions.prnEngine = PrintEngine::PostScript3;
 	m_printOptions.outputSeparations = false;
 	m_printOptions.separationName = "All";
 	m_printOptions.allSeparations = QStringList();
@@ -227,6 +227,8 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 
 	connect(m_optionsUi->antiAliasing, SIGNAL(clicked()), this, SLOT(redisplay()));
 	connect(m_optionsUi->showTransparency, SIGNAL(clicked()), this, SLOT(redisplay()));
+
+	connect(m_optionsUi->coverThresholdValue, SIGNAL(valueChanged(double)), this, SLOT(toggleCMYK_Colour()));
 }
 
 OutputPreview_PS::~OutputPreview_PS()
@@ -575,7 +577,7 @@ bool OutputPreview_PS::createPreviewFile(int pageIndex)
 	delete psLib;
 
 	// TODO : Postscript level < 3
-	if (success && (m_printOptions.prnEngine != PostScript3))
+	if (success && (m_printOptions.prnEngine != PrintEngine::PostScript3))
 	{
 		// use gs to convert our PS to a lower version
 		QStringList opts;
@@ -588,7 +590,7 @@ bool OutputPreview_PS::createPreviewFile(int pageIndex)
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(QString::number(pageHeight)) );
 
 		QString outFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".ps" + QString::number((int) m_printOptions.prnEngine);
-		success = (convertPS2PS(psFileName, outFileName, opts, m_printOptions.prnEngine) == 0);
+		success = (convertPS2PS(psFileName, outFileName, opts, (int) m_printOptions.prnEngine) == 0);
 		if (!success)
 			return false;
 		success &= QFile::remove(psFileName);

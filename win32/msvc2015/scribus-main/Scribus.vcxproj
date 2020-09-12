@@ -346,6 +346,11 @@
     <ClInclude Include="..\..\..\scribus\pdfstructs.h" />
     <ClInclude Include="..\..\..\scribus\pdfversion.h" />
     <ClInclude Include="..\..\..\scribus\pdfwriter.h" />
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator.h" />
+    <ClInclude Include="..\..\..\scribus\printpreviewcreatorfactory.h" />
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_gdi.h" />
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_pdf.h" />
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_ps.h" />
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
@@ -889,6 +894,11 @@
     <ClCompile Include="..\..\..\scribus\palettes\paletteloader_swatchbook.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfversion.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfwriter.cpp" />
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator.cpp" />
+    <ClCompile Include="..\..\..\scribus\printpreviewcreatorfactory.cpp" />
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_gdi.cpp" />
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_pdf.cpp" />
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp" />

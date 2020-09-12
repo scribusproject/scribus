@@ -216,7 +216,7 @@ bool ScPrintEngine_GDI::printPages(PrintOptions& options, HDC printerDC, DEVMODE
 	// Test printer for PostScript support and
 	// choose appropriate page printing function
 	bool psPrint  = isPostscriptPrinter(printerDC);
-	bool useGDI   = (!psPrint || m_forceGDI || (options.prnEngine == WindowsGDI));
+	bool useGDI   = (!psPrint || m_forceGDI || (options.prnEngine == PrintEngine::WindowsGDI));
 	printPageFunc = (useGDI) ? &ScPrintEngine_GDI::printPage_GDI : &ScPrintEngine_GDI::printPage_PS;
 
 	// Setup document infos structure
@@ -442,7 +442,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScPage* page, PrintOptions& options, HDC pr
 	delete dd;
 	if (ret != 0) return false;
 
-	if (options.prnEngine == PostScript1 || options.prnEngine == PostScript2)
+	if (options.prnEngine == PrintEngine::PostScript1 || options.prnEngine == PrintEngine::PostScript2)
 	{
 		QString tmp;
 		QStringList opts;
@@ -451,7 +451,7 @@ bool ScPrintEngine_GDI::printPage_PS(ScPage* page, PrintOptions& options, HDC pr
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(m_doc.pageHeight())));
 		if (QFile::exists(tempFilePath2))
 			QFile::remove(tempFilePath2);
-		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.prnEngine);
+		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, (int) options.prnEngine);
 		if (ret == 0)
 		{
 			QFile::remove(tempFilePath);

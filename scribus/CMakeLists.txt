@@ -707,6 +707,10 @@ set(SCRIBUS_SOURCES
 	prefsmanager.cpp
 	prefsreader.cpp
 	prefstable.cpp
+	printpreviewcreator.cpp
+	printpreviewcreator_pdf.cpp
+	printpreviewcreator_ps.cpp
+	printpreviewcreatorfactory.cpp
 	pslib.cpp
 	qtiocompressor.cpp
 	rawimage.cpp
@@ -1106,6 +1110,7 @@ endif()
 if(WIN32)
 	set(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
 	set(SCRIBUS_WIN32_ONLY_SOURCES
+		printpreviewcreator_gdi.cpp
 		scpainterex_cairo.cpp
 		scprintengine_gdi.cpp
 		)

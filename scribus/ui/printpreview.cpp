@@ -55,6 +55,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
+#include "printpreviewcreator.h"
+#include "printpreviewcreatorfactory.h"
 #include "pslib.h"
 #include "sccolor.h"
 #include "sccolorengine.h"
@@ -92,6 +94,8 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	havePngAlpha = ScCore->havePNGAlpha();
 	haveTiffSep  = postscriptPreview ? ScCore->haveTIFFSep() : false;
 	getNumericGSVersion(m_gsVersion);
+
+	m_previewCreator = PrintPreviewCreatorFactory::create(docu, postscriptPreview ? PrintEngine::PostScript3 : PrintEngine::WindowsGDI);
 
 	PLayout = new QVBoxLayout(this);
 	PLayout->setMargin(0);
@@ -134,8 +138,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 		doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
 
-		inkTable = new QTableWidget(spots.count()+4, 2, devTitle );
-		m_inkMax = (spots.count() + 4) * 255;
+		inkTable = new QTableWidget(spots.count() + 4, 2, devTitle );
 		inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
 		inkTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 		QHeaderView *header = inkTable->horizontalHeader();
@@ -292,7 +295,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	setValues();
 	previewLabel = new QLabel(this);
 	previewLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-	previewLabel->setPixmap(CreatePreview(doc->currentPage()->pageNr(), 72));
+	previewLabel->setPixmap(createPreview(doc->currentPage()->pageNr(), 72));
 	previewLabel->resize(previewLabel->pixmap()->size());
 	previewArea->setWidget(previewLabel);
 	int w = previewLabel->width() + tbWidth + 50;
@@ -340,6 +343,12 @@ PrintPreview::~PrintPreview()
 		for (uint i = 0; i < d.count(); i++)
 			QFile::remove(tempFileDir + "/" + d[i]);
 	}
+
+	if (m_previewCreator)
+	{
+		delete m_previewCreator;
+		m_previewCreator = nullptr;
+	}
 }
 
 void PrintPreview::setValues()
@@ -375,14 +384,14 @@ void PrintPreview::jumpToPage(int num)
 	int n = num-1;
 	if (n == m_currentPage)
 		return;
-	QPixmap previewPix = CreatePreview(n, qRound(72 * scaleFactor));
+	QPixmap previewPix = createPreview(n, qRound(72 * scaleFactor));
 	previewLabel->setPixmap(previewPix);
 	previewLabel->resize(previewPix.size());
 }
 
 void PrintPreview::redisplay()
 {
-	QPixmap previewPix = CreatePreview(m_currentPage, qRound(72 * scaleFactor));
+	QPixmap previewPix = createPreview(m_currentPage, qRound(72 * scaleFactor));
 	previewLabel->setPixmap(previewPix);
 	previewLabel->resize(previewPix.size());
 }
@@ -410,7 +419,7 @@ void PrintPreview::toggleCMYK_Colour()
 			coverThresholdValue->setEnabled(false);
 	}
 	if (enableCMYK->isChecked())
-		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+		previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * scaleFactor)));
 	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
@@ -424,7 +433,7 @@ void PrintPreview::doSpotTable(int row)
 	((QCheckBox*)(inkTable->cellWidget(row, 0)))->setChecked(true);
 
 	if (enableCMYK->isChecked())
-		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+		previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * scaleFactor)));
 	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
@@ -437,7 +446,7 @@ void PrintPreview::toggleAllfromHeader()
 		sepIt.value()->setChecked(true);
 
 	if (enableCMYK->isChecked())
-		previewLabel->setPixmap(CreatePreview(m_currentPage, qRound(72 * scaleFactor)));
+		previewLabel->setPixmap(createPreview(m_currentPage, qRound(72 * scaleFactor)));
 	previewLabel->resize(previewLabel->pixmap()->size());
 }
 
@@ -473,145 +482,16 @@ void PrintPreview::scaleBox_valueChanged(int value)
 	redisplay();
 }
 
-int PrintPreview::RenderPreview(int pageIndex, int res)
+QPixmap PrintPreview::createPreview(int pageIndex, int res)
 {
 	int ret = -1;
-	QString cmd1;
-#if defined _WIN32
-	if (!postscriptPreview)
-	{
-		QImage image;
-		ScPage* page;
-		ScPrintEngine_GDI winPrint(*doc);
-		PrintOptions options;
-		page = doc->Pages->at(pageIndex);
-		options.copies = 1;
-		options.doGCR = false;
-		options.mirrorH = mirrorHor->isChecked();
-		options.mirrorV = mirrorVert->isChecked();
-		options.outputSeparations = false;
-		options.pageNumbers.push_back(pageIndex);
-		options.prnEngine = WindowsGDI;
-		options.separationName = "All";
-		options.toFile = false;
-		options.useColor = !useGray->isChecked();
-		options.useSpotColors = false;
-		bool done = winPrint.gdiPrintPreview(page, &image, options, res / 72.0);
-		if (done)
-			image.save( ScPaths::tempFileDir() + "/sc.png", "PNG" );
-		return (done ? 0 : 1);
-	}
-#endif
-	// Recreate Postscript-File only when the actual Page has changed
-	if ((pageIndex != m_currentPage)  || (enableGCR->isChecked() != m_useGCR)  || (useGray->isChecked() != m_useGray)
-		|| (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV) || (clipMargins->isChecked() != m_clipToMargins)
-		|| (spotColors->isChecked() != m_convertSpots))
-	{
-		PrintOptions options;
-		options.pageNumbers.push_back(pageIndex + 1);
-		options.outputSeparations = false;
-		options.separationName = "All";
-		options.allSeparations = QStringList();
-		options.useSpotColors = !spotColors->isChecked();
-		options.useColor = !useGray->isChecked();
-		options.mirrorH = mirrorHor->isChecked();
-		options.mirrorV = mirrorVert->isChecked();
-		options.doGCR = enableGCR->isChecked();
-		options.setDevParam = false;
-		options.doClip = clipMargins->isChecked();
-		options.cropMarks = false;
-		options.bleedMarks = false;
-		options.registrationMarks = false;
-		options.colorMarks = false;
-		options.includePDFMarks = false;
-		options.markLength = 20.0;
-		options.markOffset = 0.0;
-		options.bleeds.set(0, 0, 0, 0);
-		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
-		if (!dd)
-			return ret;
-		ret = dd->createPS(ScPaths::tempFileDir() + "/tmp.ps");
-		delete dd;
-		if (ret != 0) return 1;
-	}
-	QStringList args;
-	QString tmp, tmp2, tmp3;
+	QPixmap pixmap;
 	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
 	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
-	if (doc->Pages->at(pageIndex)->orientation() == 1)
-		std::swap(b, h);
-	args.append( "-q" );
-	args.append( "-dNOPAUSE" );
-	args.append( "-dPARANOIDSAFER" );
-	args.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
-	if (enableCMYK->isChecked())
-	{
-		if (haveTiffSep)
-			args.append( "-sDEVICE=tiffsep" );
-		else
-			return 1;
-	}
-	else
-	{
-		if (showTransparency->isChecked() && havePngAlpha)
-			args.append("-sDEVICE=pngalpha");
-		else
-			args.append("-sDEVICE=tiff24nc");	
-	}
-	if (antiAliasing->isChecked())
-	{
-		args.append( "-dTextAlphaBits=4" );
-		args.append( "-dGraphicsAlphaBits=4" );
-	}
-	if ((doc->HasCMS) && (m_gsVersion >= 900))
-	{
-		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-		if (enableCMYK->isChecked())
-			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-		else
-			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocDisplayProf.profilePath()));
-	}
-	else if (ScCore->haveCMS() && (m_gsVersion >= 900))
-	{
-		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-		if (enableCMYK->isChecked())
-			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-		else
-			args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultRGBProfile.profilePath()));
-	}
-	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = prefsManager.prefsFile->getContext("Fonts");
-	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-	const char sep = ScPaths::envPathSeparator;
-	if (extraFonts->getRowCount() >= 1)
-		cmd1 = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
-	if (!cmd1.isEmpty())
-		args.append( cmd1 );
-	// then add any final args and call gs
-	if (enableCMYK->isChecked())
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")) );
-	else if ((showTransparency->isChecked() && havePngAlpha) || !postscriptPreview)
-		args.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.png")) );
-	else
-		args.append(QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")));
-	args.append( QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps") );
-	args.append( "-c" );
-	args.append( "showpage" );
-	args.append( "-c" );
-	args.append( "quit" );
-	ret = System(getShortPathName(prefsManager.ghostscriptExecutable()), args);
-	return ret;
-}
 
-int PrintPreview::RenderPreviewSep(int pageIndex, int res)
-{
-	int ret = -1;
-	QString cmd;
-	QStringList args, args1, args2, args3;
-	// Recreate Postscript-File only when the actual Page has changed
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	// Recreate Postscript-File only when necessary
 	if ((pageIndex != m_currentPage)  || (enableGCR->isChecked() != m_useGCR) || (useGray->isChecked() != m_useGray)
 		|| (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV) || (clipMargins->isChecked() != m_clipToMargins)
 		|| (spotColors->isChecked() != m_convertSpots))
@@ -636,502 +516,32 @@ int PrintPreview::RenderPreviewSep(int pageIndex, int res)
 		options.markLength = 20.0;
 		options.markOffset = 0.0;
 		options.bleeds.set(0, 0, 0, 0);
-		PSLib *dd = new PSLib(doc, options, PSLib::OutputPS, &doc->PageColors);
-		if (!dd)
-			return -1;
-		ret = dd->createPS(ScPaths::tempFileDir() + "/tmp.ps");
-		delete dd;
-		if (ret != 0) return 1;
+		m_previewCreator->setPrintOptions(options);
 	}
-	QString tmp, tmp2, tmp3;
-	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
-	if (doc->Pages->at(pageIndex)->orientation() == 1)
-		std::swap(b, h);
 
-	args1.append( "-q" );
-	args1.append( "-dNOPAUSE" );
-	args1.append( "-dPARANOIDSAFER" );
-	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b)), tmp3.setNum(qRound(h))) );
-	if (antiAliasing->isChecked())
-	{
-		args1.append("-dTextAlphaBits=4");
-		args1.append("-dGraphicsAlphaBits=4");
-	}
-	if ((doc->HasCMS) && (m_gsVersion >= 900))
-	{
-		args1.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-		args1.append("-sOutputICCProfile=" + QDir::toNativeSeparators(doc->DocPrinterProf.profilePath()));
-	}
-	else if (ScCore->haveCMS() && (m_gsVersion >= 900))
-	{
-		args.append("-sDefaultCMYKProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-		args.append("-sOutputICCProfile=" + QDir::toNativeSeparators(ScCore->defaultCMYKProfile.profilePath()));
-	}
-	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = prefsManager.prefsFile->getContext("Fonts");
-	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
-	const char sep = ScPaths::envPathSeparator;
-	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(QDir::toNativeSeparators(extraFonts->get(0,0)));
-	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(QDir::toNativeSeparators(extraFonts->get(i,0)));
-	if (!cmd.isEmpty())
-		args1.append(cmd);
-	args1.append( QString("-sOutputFile=%1").arg(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif")) );
-
-	args2.append( QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps") );
-	args2.append("-c");
-	args2.append("quit");
-
-	ColorList usedSpots;
-	doc->getUsedColors(usedSpots, true);
-	QStringList spots = usedSpots.keys();
-	args3.append( "-sDEVICE=tiffsep" );
-
-//	args3.append( "-c" );
-	cmd = "<< /SeparationColorNames ";
-	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
-	for (int sp = 0; sp < spots.count(); ++sp)
-	{
-		allSeps += "(" + spots[sp] + ") ";
-	}
-	allSeps += "]";
-	cmd += allSeps + " /SeparationOrder [ /Cyan /Magenta /Yellow /Black] >> setpagedevice";
-	QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
-	if (fx.open(QIODevice::WriteOnly))
-	{
-		QTextStream tsx(&fx);
-		tsx << cmd;
-		fx.close();
-	}
-//	args3.append("-f");
-//	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir() + "/sep.ps"));
-//	args3.append(cmd);
-
-//	args3.append("-f");
-	QString gsExe(getShortPathName(prefsManager.ghostscriptExecutable()));
-	ret = System(gsExe, args1 + args3 + args2, ScPaths::tempFileDir() + "/sc.tif.txt" );
-
-	QFile sepInfo(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sc.tif.txt"));
-	sepsToFileNum.clear();
-	if (sepInfo.open(QIODevice::ReadOnly))
-	{
-		QString Sname;
-		QTextStream tsC(&sepInfo);
-		int counter = 0;
-		while (!tsC.atEnd())
-		{
-			Sname = tsC.readLine();
-			QString tt = Sname.remove("%%SeparationName:").trimmed();
-			if (!tt.isEmpty())
-			{
-				sepsToFileNum.insert(tt, counter);
-				counter++;
-			}
-		}
-	}
-	sepInfo.close();
-	QString currSeps = "";
-	uint spc = 0;
-	for (int sp = 0; sp < spots.count(); ++sp)
-	{
-		currSeps += "("+spots[sp]+") ";
-		spc++;
-		if (sp > 6)
-		{
-			args3.clear();
-			args3.append("-sDEVICE=tiffsep");
-			QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
-			if (fx.open(QIODevice::WriteOnly))
-			{
-				QTextStream tsx(&fx);
-				tsx << QString("<< /SeparationColorNames " + allSeps + " /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
-				fx.close();
-			}
-			args3.append("-f");
-			args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
-	//		args3.append("-c");
-	//		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
-	//		args3.append("-f");
-			ret = System(gsExe, args1 + args3 + args2);
-			currSeps = "";
-			spc = 0;
-		}
-	}
-	if (spc != 0)
-	{
-		args3.clear();
-		args3.append("-sDEVICE=tiffsep");
-		QFile fx(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
-		if (fx.open(QIODevice::WriteOnly))
-		{
-			QTextStream tsx(&fx);
-			tsx << QString("<< /SeparationColorNames " + allSeps+" /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
-			fx.close();
-		}
-		args3.append("-f");
-		args3.append(QDir::toNativeSeparators(ScPaths::tempFileDir() + "/sep.ps"));
-	//	args3.append("-c");
-	//	args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
-	//	args3.append("-f");
-		ret = System(gsExe, args1 + args3 + args2);
-	}
-	return ret;
-}
-
-// this should move to scimage.cpp!
-void PrintPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
-{
-	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
+	m_previewCreator->setPreviewResolution(res);
+	m_previewCreator->setAntialisingEnabled(antiAliasing->isChecked());
+	m_previewCreator->setShowTransparency(showTransparency->isChecked());
 	
-	//FIXME: if source and target have different sizesomething went wrong.
-	// eg. loadPicture() failed and returned a 1x1 image
-	CMYKColor cmykValues;
-	int h = qMin(target.height(), source.height());
-	int w = qMin(target.width(), source.width());
-	int cyan, c, m, yc, k, cc, mm, yy, kk;
-	ScColorEngine::getCMYKValues(col, doc, cmykValues);
-	cmykValues.getValues(c, m, yc, k);
-	for (int y = 0; y < h; ++y )
+	SeparationPreviewCreator* sepPreviewCreator = dynamic_cast<SeparationPreviewCreator*>(m_previewCreator);
+	if (sepPreviewCreator)
 	{
-		QRgb *p = (QRgb *) target.scanLine(y);
-		QRgb *pq = (QRgb *) source.scanLine(y);
-		for (int x = 0; x < w; ++x )
-		{
-			cyan = 255 - qRed(*pq);
-			if (cyan != 0)
-			{
-				(c == 0) ? cc = qRed(*p) : cc = qMin(c * cyan / 255 + qRed(*p), 255);
-				(m == 0) ? mm = qGreen(*p) : mm = qMin(m * cyan / 255 + qGreen(*p), 255);
-				(yc == 0) ? yy = qBlue(*p) : yy = qMin(yc * cyan / 255 + qBlue(*p), 255);
-				(k == 0) ? kk = qAlpha(*p) : kk = qMin(k * cyan / 255 + qAlpha(*p), 255);
-				*p = qRgba(cc, mm, yy, kk);
-			}
-			p++;
-			pq++;
-		}
-	}
-}
+		sepPreviewCreator->setSeparationPreviewEnabled(enableCMYK->isChecked());
+		sepPreviewCreator->setShowInkCoverage(enableInkCover->isChecked());
+		sepPreviewCreator->setInkCoverageThreshold(coverThresholdValue->value());
 
-void PrintPreview::blendImagesSumUp(QImage &target, ScImage &scsource)
-{
-	QImage source = scsource.qImage(); // FIXME: this will not work once qImage always returns ARGB!
-	//FIXME: if source and target have different sizesomething went wrong.
-	// eg. loadPicture() failed and returned a 1x1 image
-	int h = qMin(target.height(), source.height());
-	int w = qMin(target.width(), source.width());
-	int cyan;
-	for (int y = 0; y < h; ++y )
-	{
-		uint *p = (QRgb *) target.scanLine(y);
-		QRgb *pq = (QRgb *) source.scanLine(y);
-		for (int x = 0; x < w; ++x )
+		QStringList separationNames = sepPreviewCreator->separationNames();
+		for (int i = 0; i < separationNames.count(); ++i)
 		{
-			cyan = 255 - qRed(*pq);
-			if (cyan != 0)
-			{
-				*p += cyan;
-			}
-			p++;
-			pq++;
+			const QString& separationName = separationNames.at(i);
+			const QCheckBox* checkBox = flagsVisible.value(separationName, nullptr);
+			if (checkBox)
+				sepPreviewCreator->setSeparationVisible(separationName, checkBox->isChecked());
 		}
 	}
-}
 
-QPixmap PrintPreview::CreatePreview(int pageIndex, int res)
-{
-	int ret = -1;
-	QPixmap pixmap;
-	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
+	pixmap = m_previewCreator->createPreview(pageIndex);
 
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-
-	if ((pageIndex != m_currentPage) || (enableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
-	        || (antiAliasing->isChecked() != m_useAntialiasing) || (((showTransparency->isChecked() != m_showTransparency) || (enableGCR->isChecked() != m_useGCR))
-			&& (!enableCMYK->isChecked()))
-			 || (useGray->isChecked() != m_useGray) || (mirrorHor->isChecked() != m_mirrorH) || (mirrorVert->isChecked() != m_mirrorV)
-			 || (clipMargins->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
-	{
-		if (!enableCMYK->isChecked() || (!haveTiffSep))
-		{
-			ret = RenderPreview(pageIndex, res);
-			if (ret > 0)
-			{
-				imageLoadError(pixmap, pageIndex);
-				return pixmap;
-			}
-		}
-	}
-	QImage image;
-	if (enableCMYK->isChecked())
-	{
-		bool loaderror;
-		int cyan, magenta, yellow, black;
-		if (haveTiffSep)
-		{
-			if ((pageIndex != m_currentPage) || (enableCMYK->isChecked() != m_colorMode) || (m_scaleMode != scaleBox->currentIndex())
-	       	 || (antiAliasing->isChecked() != m_useAntialiasing) || (showTransparency->isChecked() != m_showTransparency) || (enableGCR->isChecked() != m_useGCR)
-	       	 || (useGray->isChecked() != m_useGray)  || (mirrorHor->isChecked() != m_mirrorH)|| (mirrorVert->isChecked() != m_mirrorV)
-	       	 || (clipMargins->isChecked() != m_clipToMargins) || (spotColors->isChecked() != m_convertSpots))
-			{
-				ret = RenderPreviewSep(pageIndex, res);
-				if (ret > 0)
-				{
-					imageLoadError(pixmap, pageIndex);
-					return pixmap;
-				}
-			}
-			ScImage im;
-			bool mode;
-			int w = qRound(b);
-			int h2 = qRound(h);
-			if (doc->Pages->at(pageIndex)->orientation() == 1)
-				std::swap(w, h2);
-			image = QImage(w, h2, QImage::Format_ARGB32);
-			image.fill(qRgba(0, 0, 0, 0));
-
-			CMSettings cms(doc, "", Intent_Perceptual);
-			cms.allowColorManagement(false);
-			if (flagsVisible["Cyan"]->isChecked())
-			{
-				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Cyan.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Cyan).tif", 1, cms, ScImage::RGBData, 72, &mode);
-				if (!loaderror)
-				{
-					imageLoadError(pixmap, pageIndex);
-					return pixmap;
-				}
-				if (enableInkCover->isChecked())
-					blendImagesSumUp(image, im);
-				else
-					blendImages(image, im, ScColor(255, 0, 0, 0));
-			}
-			if (flagsVisible["Magenta"]->isChecked())
-			{
-				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Magenta.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Magenta).tif", 1, cms, ScImage::RGBData, 72, &mode);
-				if (!loaderror)
-				{
-					imageLoadError(pixmap, pageIndex);
-					return pixmap;
-				}
-				if (enableInkCover->isChecked())
-					blendImagesSumUp(image, im);
-				else
-					blendImages(image, im, ScColor(0, 255, 0, 0));
-			}
-			if (flagsVisible["Yellow"]->isChecked())
-			{
-				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Yellow.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Yellow).tif", 1, cms, ScImage::RGBData, 72, &mode);
-				if (!loaderror)
-				{
-					imageLoadError(pixmap, pageIndex);
-					return pixmap;
-				}
-				if (enableInkCover->isChecked())
-					blendImagesSumUp(image, im);
-				else
-					blendImages(image, im, ScColor(0, 0, 255, 0));
-			}
-			if (!sepsToFileNum.isEmpty())
-			{
-				QMap<QString, int>::Iterator sepit;
-				for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
-				{
-					const QCheckBox* checkBox = flagsVisible.value(sepit.key(), nullptr);
-					if (checkBox && checkBox->isChecked())
-					{
-						QString fnam;
-						if (m_gsVersion < 854)
-							fnam = QString(ScPaths::tempFileDir() + "/sc.tif.s%1.tif").arg(sepit.value());
-						else if (m_gsVersion <= 905)
-							fnam = QString(ScPaths::tempFileDir() + "/sc.s%1.tif").arg(sepit.value());
-						else
-							fnam = QString(ScPaths::tempFileDir() + "/sc(%1).tif").arg(sepit.key());
-						if (!im.loadPicture(fnam, 1, cms, ScImage::RGBData, 72, &mode))
-						{
-							imageLoadError(pixmap, pageIndex);
-							return pixmap;
-						}
-						if (enableInkCover->isChecked())
-							blendImagesSumUp(image, im);
-						else
-							blendImages(image, im, doc->PageColors[sepit.key()]);
-					}
-				}
-			}
-			if (flagsVisible["Black"]->isChecked())
-			{
-				CMSettings cms(doc, "", Intent_Perceptual);
-				cms.allowColorManagement(false);
-				if (m_gsVersion < 854)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.tif.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else if (m_gsVersion <= 905)
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc.Black.tif", 1, cms, ScImage::RGBData, 72, &mode);
-				else
-					loaderror = im.loadPicture(ScPaths::tempFileDir() + "/sc(Black).tif", 1, cms, ScImage::RGBData, 72, &mode);
-				if (!loaderror)
-				{
-					imageLoadError(pixmap, pageIndex);
-					return pixmap;
-				}
-				if (enableInkCover->isChecked())
-					blendImagesSumUp(image, im);
-				else
-					blendImages(image, im, ScColor(0, 0, 0, 255));
-			}
-			if (enableInkCover->isChecked())
-			{
-				uint limitVal = (coverThresholdValue->value() * 255) / 100;
-				for (int yi = 0; yi < h2; ++yi)
-				{
-					QRgb *q = (QRgb*) image.scanLine(yi);
-					for (int xi = 0; xi < w; ++xi)
-					{
-						uint greyVal = *q;
-						if (greyVal != 0)
-						{
-							if (limitVal == 0)
-							{
-								QColor tmpC;
-								tmpC.setHsv((greyVal * 359) / m_inkMax, 255, 255);
-								*q = tmpC.rgba();
-							}
-							else
-							{
-								int col = qMin(255 - static_cast<int>(((greyVal * 128) / m_inkMax) * 2), 255);
-								if ((*q > 0) && (*q < limitVal))
-									*q = qRgba(col, col, col, 255);
-								else
-									*q = qRgba(col, 0, 0, 255);
-							}
-						}
-						else
-						{
-							if (!showTransparency->isChecked())
-								*q = qRgba(255, 255, 255, 255);
-						}
-						q++;
-					}
-				}
-			}
-			else
-			{
-				if (doc->HasCMS || ScCore->haveCMS())
-				{
-					QRgb alphaFF = qRgba(0,0,0,255);
-					QRgb alphaOO = qRgba(255,255,255,0);
-					ScColorMgmtEngine engine = doc->colorEngine;
-					ScColorProfile cmykProfile = doc->HasCMS ? doc->DocPrinterProf : ScCore->defaultCMYKProfile;
-					ScColorProfile rgbProfile  = doc->HasCMS ? doc->DocDisplayProf : ScCore->defaultRGBProfile;
-					ScColorTransform transCMYK = engine.createTransform(cmykProfile, Format_YMCK_8, rgbProfile, Format_BGRA_8, Intent_Relative_Colorimetric, 0);
-					for (int yi = 0; yi < h2; ++yi)
-					{
-						uchar* ptr = image.scanLine( yi );
-						transCMYK.apply(ptr, ptr, image.width());
-						QRgb *q = (QRgb *) ptr;
-						for (int xi = 0; xi < image.width(); xi++, q++)
-						{
-							if (showTransparency->isChecked())
-							{
-								cyan = qRed(*q);
-								magenta = qGreen(*q);
-								yellow = qBlue(*q);
-								if	((cyan == 255) && (magenta == 255) && (yellow == 255))
-									*q = alphaOO;
-								else
-									*q |= alphaFF;
-							}
-							else
-								*q |= alphaFF;
-						}
-					}
-				}
-				else
-				{
-					for (int yi = 0; yi < h2; ++yi)
-					{
-						QRgb *q = (QRgb*) image.scanLine(yi);
-						for (int xi = 0; xi < w; ++xi)
-						{
-							cyan = qRed(*q);
-							magenta = qGreen(*q);
-							yellow = qBlue(*q);
-							black = qAlpha(*q);
-							if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-								*q = qRgba(255 - qMin(255, cyan+black), 255 - qMin(255, magenta+black), 255 - qMin(255, yellow+black), 255);
-							else
-							{
-								if (!showTransparency->isChecked())
-									*q = qRgba(255, 255, 255, 255);
-							}
-							q++;
-						}
-					}
-				}
-			}
-		}
-	}
-	else
-	{
-		QString previewFile;
-		if ((showTransparency->isChecked() && havePngAlpha) || !postscriptPreview)
-			previewFile = ScPaths::tempFileDir() + "/sc.png";
-		else
-			previewFile = ScPaths::tempFileDir() + "/sc.tif";
-		if (!image.load(previewFile))
-		{
-			imageLoadError(pixmap, pageIndex);
-			return pixmap;
-		}
-		image = image.convertToFormat(QImage::Format_ARGB32);
-		if ((showTransparency->isChecked()) && (havePngAlpha))
-		{
-			int wi = image.width();
-			int hi = image.height();
-			for (int yi = 0; yi < hi; ++yi)
-			{
-				QRgb *s = (QRgb*) image.scanLine(yi);
-				for (int xi = 0; xi < wi; ++xi)
-				{
-					if ((*s) == 0xffffffff)
-						(*s) &= 0x00ffffff;
-					s++;
-				}
-			}
-		}
-	}
-	const ScPage* page = doc->Pages->at(pageIndex);
-	if ((page->orientation() == 1) && (image.width() < image.height()))
-		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
-	if (showTransparency->isChecked())
-	{
-		pixmap = QPixmap(image.width(), image.height());
-		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
-		p.begin(&pixmap);
-		p.fillRect(0, 0, image.width(), image.height(), b);
-		p.drawImage(0, 0, image);
-		p.end();
-	}
-	else
-		pixmap = QPixmap::fromImage(image);
 	qApp->restoreOverrideCursor();
 	getUserSelection(pageIndex);
 	return pixmap;
@@ -1146,7 +556,7 @@ bool PrintPreview::usePostscriptPreview(const QString& printerName, PrintEngine 
 		return true;
 	else if (printerName.isEmpty())
 		return PrinterUtil::isPostscriptPrinter( ScPrintEngine_GDI::getDefaultPrinter() );
-	else if (engine >= PostScript1 && engine <= PostScript3)
+	else if (engine >= PrintEngine::PostScript1 && engine <= PrintEngine::PostScript3)
 		return PrinterUtil::isPostscriptPrinter( printerName );
 	return false;
 #else
@@ -1169,13 +579,6 @@ void PrintPreview::getUserSelection(int page)
 	m_clipToMargins = clipMargins->isChecked();
 	m_convertSpots = spotColors->isChecked();
 	m_useGray = useGray->isChecked();
-}
-
-void PrintPreview::imageLoadError(QPixmap &pixmap, int page)
-{
-	pixmap = QPixmap(1,1);
-	qApp->restoreOverrideCursor();
-	getUserSelection(page);
 }
 
 void PrintPreview::resizeEvent(QResizeEvent * event)

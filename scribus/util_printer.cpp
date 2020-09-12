@@ -42,7 +42,7 @@ void PrinterUtil::getDefaultPrintOptions(PrintOptions& options, const MarginStru
 	if ((selectedSep < 0) || (selectedSep > 4))
 		selectedSep = 0;
 	options.separationName = spots.at(selectedSep);
-	options.prnEngine = (PrintEngine) prnPrefs->getInt("PSLevel", PostScript3);
+	options.prnEngine = (PrintEngine) prnPrefs->getInt("PSLevel", (int) PrintEngine::PostScript3);
 	options.mirrorH = prnPrefs->getBool("MirrorH", false);
 	options.mirrorV = prnPrefs->getBool("MirrorV", false);
 	options.setDevParam = prnPrefs->getBool("doDev", false);
@@ -152,12 +152,12 @@ PrintEngine PrinterUtil::getDefaultPrintEngine(const QString&  /*printerName*/, 
 	if (!toFile)
 	{
 #if defined(_WIN32)
-		return WindowsGDI;
+		return PrintEngine::WindowsGDI;
 #else
-		return PostScript3;
+		return PrintEngine::PostScript3;
 #endif
 	}
-	return PostScript3;
+	return PrintEngine::PostScript3;
 }
 
 PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bool toFile)
@@ -167,14 +167,14 @@ PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bo
 	{
 		if (ScCore->haveGS())
 		{
-			prnMap.insert(CommonStrings::trPostScript1, PostScript1);
-			prnMap.insert(CommonStrings::trPostScript2, PostScript2);
+			prnMap.insert(CommonStrings::trPostScript1, PrintEngine::PostScript1);
+			prnMap.insert(CommonStrings::trPostScript2, PrintEngine::PostScript2);
 		}
-		prnMap.insert(CommonStrings::trPostScript3, PostScript3);
+		prnMap.insert(CommonStrings::trPostScript3, PrintEngine::PostScript3);
 	}
 #if defined(_WIN32)
 	if (!toFile)
-		prnMap.insert(CommonStrings::trWindowsGDI, WindowsGDI);
+		prnMap.insert(CommonStrings::trWindowsGDI, PrintEngine::WindowsGDI);
 #endif
 	return prnMap;
 }
@@ -182,11 +182,11 @@ PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bo
 bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile)
 {
 	bool psSupported = toFile || PrinterUtil::isPostscriptPrinter(printerName);
-	if (psSupported && (engine >= PostScript1 && engine <= PostScript3))
+	if (psSupported && (engine >= PrintEngine::PostScript1 && engine <= PrintEngine::PostScript3))
 		return true;
-	if (!psSupported && (engine >= PostScript1 && engine <= PostScript3))
+	if (!psSupported && (engine >= PrintEngine::PostScript1 && engine <= PrintEngine::PostScript3))
 		return false;
-	if (engine == WindowsGDI)
+	if (engine == PrintEngine::WindowsGDI)
 	{
 #if defined(_WIN32)
 		return true; //WindowsGDI

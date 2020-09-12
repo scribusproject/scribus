@@ -54,7 +54,7 @@ protected:
 	bool m_haveTiffSep { false };
 	int  m_gsVersion { 0 };
 
-	// PDF export options
+	// PS export options
 	int  m_psLevel;
 	int  m_colorOutputMode { 0 };
 	bool m_cmykPreviewMode { false };

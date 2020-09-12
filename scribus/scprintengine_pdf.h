@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 
 class ScPrintEngine_PDF : public ScPrintEngine
 {
+	friend class PrintPreviewCreator_PDF;
+
 public:
 	ScPrintEngine_PDF(ScribusDoc& doc);
 	~ScPrintEngine_PDF() {}
