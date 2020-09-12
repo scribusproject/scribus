@@ -484,10 +484,7 @@ void PrintPreview::scaleBox_valueChanged(int value)
 
 QPixmap PrintPreview::createPreview(int pageIndex, int res)
 {
-	int ret = -1;
 	QPixmap pixmap;
-	double b = doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = doc->Pages->at(pageIndex)->height() * res / 72.0;
 
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 
