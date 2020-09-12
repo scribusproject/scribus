@@ -52,7 +52,7 @@ void PrintPreviewCreator::setPreviewResolution(int res)
 void PrintPreviewCreator::setPrintOptions(const PrintOptions& options)
 {
 	m_printOptions = options;
-	m_printOptionsChanged;
+	m_printOptionsChanged = true;
 }
 
 void PrintPreviewCreator::setShowTransparency(bool showTrans)
