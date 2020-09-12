@@ -607,4 +607,15 @@ mark at that position, type is -1.\n\
 /*! Returns info about mark */
 PyObject *scribus_getmark(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_setmarktext__doc__,
+QT_TR_NOOP("setMarkText(pos, \"text\", [\"name\"])\n\
+\n\
+Returns a (type, text) tuple for the mark at position pos in object \"name\".\n\
+If \"name\" is not given the currently selected item is used. If there is no\n\
+mark at that position, type is -1.\n\
+"));
+/*! Returns info about mark */
+PyObject *scribus_setmarktext(PyObject * /*self*/, PyObject* args);
+
 #endif

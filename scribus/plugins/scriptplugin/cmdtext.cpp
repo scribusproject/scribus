@@ -1424,11 +1424,47 @@ PyObject *scribus_getmark(PyObject* /* self */, PyObject* args)
 	}
 	Mark* mark = item->itemText.mark(pos);
 	if (mark) {
-	  return Py_BuildValue("(is)", mark->getType(),
-			       mark->getData().strtxt.toUtf8().data());
+	  return Py_BuildValue(
+	      "{s:i,s:s,s:s}",
+	      "Type", mark->getType(),
+	      "Text", mark->getData().strtxt.toUtf8().data(),
+	      "Label", mark->label.toUtf8().data());
 	} else {
-	  return Py_BuildValue("(is)", MARKNoType, "");
+	  Py_RETURN_NONE;
 	}
+}
+
+PyObject *scribus_setmarktext(PyObject* /* self */, PyObject* args)
+{
+	int pos;
+	char *val = const_cast<char*>("");
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "ies|es", &pos, "utf-8", &val,
+			      "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set mark text in a non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	Mark* mark = item->itemText.mark(pos);
+	if (!mark) {
+	  PyErr_SetString(PyExc_ValueError, QObject::tr("No mark at that index.","python error").toLocal8Bit().constData());
+	  return nullptr;
+	}
+
+	mark->setString(QString::fromUtf8(val));
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
@@ -1475,6 +1511,7 @@ void cmdtextdocwarnings()
 	  << scribus_setfontsize__doc__
 	  << scribus_setlinespace__doc__
 	  << scribus_setlinespacemode__doc__
+	  << scribus_setmarktext__doc__
 	  << scribus_setpdfbookmark__doc__
 	  << scribus_settextdistances__doc__
 	  << scribus_settext__doc__

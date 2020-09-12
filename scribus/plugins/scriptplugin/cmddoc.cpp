@@ -470,6 +470,12 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject* scribus_updatedocument(PyObject* /* self */, PyObject* args)
+{
+  ScCore->primaryMainWindow()->updateDocument();
+  Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -498,5 +504,6 @@ void cmddocdocwarnings()
 	  << scribus_setdoctype__doc__ 
 	  << scribus_setinfo__doc__
 	  << scribus_setmargins__doc__
-	  << scribus_setunit__doc__;
+	  << scribus_setunit__doc__
+	  << scribus_updatedocument__doc__;
 }

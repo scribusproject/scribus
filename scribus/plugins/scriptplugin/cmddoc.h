@@ -313,6 +313,13 @@ Apply master page masterPageName on page pageNumber.\n\
 "));
 PyObject* scribus_applymasterpage(PyObject* self, PyObject* args);
 
+PyDoc_STRVAR(scribus_updatedocument__doc__,
+QT_TR_NOOP("updateDocument()\n\
+\n\
+Update the document.\n\
+"));
+PyObject* scribus_updatedocument(PyObject* self, PyObject* args);
+
 #endif
 
 
