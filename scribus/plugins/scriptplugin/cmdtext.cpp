@@ -1402,6 +1402,119 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 	return PyBool_FromLong(0);
 }
 
+PyObject *scribus_getcharcoordinates(PyObject* /* self */, PyObject* args)
+{
+	int pos;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "i|es", &pos, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character positions from a non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	// When chaining the frame the char is in doesn't necessarily match
+	// the selected frame.
+	PageItem* actual = item->frameOfChar(pos);
+	if (actual == nullptr) {
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index not visible in a frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	QLineF box = actual->textLayout.positionToPoint(pos);
+	// Can't use docUnitXToPageX and docUnitYToPageY because it might not
+	// be on the current page.
+	ScPage* actual_page
+	  = ScCore->primaryMainWindow()->doc->Pages->at(actual->OwnPage);
+	double page_x
+	  = PointToValue(actual->xPos() + box.x1() - actual_page->xOffset());
+	double page_y
+	  = PointToValue(actual->yPos() + box.y1() - actual_page->yOffset());
+
+	return Py_BuildValue("(idddd)",
+			     // Scripter API page starts at 1, not 0.
+			     actual->OwnPage + 1,
+			     page_x,
+			     page_y,
+			     PointToValue(box.x2() - box.x1()),
+			     PointToValue(box.y2() - box.y1()));
+}
+
+PyObject *scribus_getmark(PyObject* /* self */, PyObject* args)
+{
+	int pos;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "i|es", &pos, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get mark info from a non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	Mark* mark = item->itemText.mark(pos);
+	if (mark) {
+	  return Py_BuildValue(
+	      "{s:i,s:s,s:s}",
+	      "Type", mark->getType(),
+	      "Text", mark->getData().strtxt.toUtf8().data(),
+	      "Label", mark->label.toUtf8().data());
+	} else {
+	  Py_RETURN_NONE;
+	}
+}
+
+PyObject *scribus_setmarktext(PyObject* /* self */, PyObject* args)
+{
+	int pos;
+	char *val = const_cast<char*>("");
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "ies|es", &pos, "utf-8", &val,
+			      "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set mark text in a non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if ((pos < 0) || (pos >= static_cast<int>(item->itemText.length())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Character index out of bounds.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	Mark* mark = item->itemText.mark(pos);
+	if (!mark) {
+	  PyErr_SetString(PyExc_ValueError, QObject::tr("No mark at that index.","python error").toLocal8Bit().constData());
+	  return nullptr;
+	}
+
+	mark->setString(QString::fromUtf8(val));
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -1418,6 +1531,7 @@ void cmdtextdocwarnings()
 	  << scribus_getfontsize__doc__
 	  << scribus_getframetext__doc__
 	  << scribus_getlinespace__doc__
+	  << scribus_getmark__doc__
 	  << scribus_gettext__doc__ // Deprecated
 	  << scribus_gettextcolor__doc__
 	  << scribus_gettextdistances__doc__
@@ -1434,6 +1548,7 @@ void cmdtextdocwarnings()
 	  << scribus_layouttextchain__doc__
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
+	  << scribus_getcharcoordinates__doc__
 	  << scribus_selectframetext__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setalign__doc__
@@ -1445,6 +1560,7 @@ void cmdtextdocwarnings()
 	  << scribus_setfontsize__doc__
 	  << scribus_setlinespace__doc__
 	  << scribus_setlinespacemode__doc__
+	  << scribus_setmarktext__doc__
 	  << scribus_setpdfbookmark__doc__
 	  << scribus_settextdistances__doc__
 	  << scribus_settext__doc__

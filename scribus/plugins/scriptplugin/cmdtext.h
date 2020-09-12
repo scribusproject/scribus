@@ -602,4 +602,41 @@ May raise WrongFrameTypeError if the target frame is not a text frame\n\
 /*! Is PDF bookmark? */
 PyObject *scribus_ispdfbookmark(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_getcharcoordinates__doc__,
+QT_TR_NOOP("getCharCoordinates(pos, [\"name\"]) -> (page,x,y,width,height)\n\
+\n\
+Returns a (page, x, y, width, height) tuple based on the character at\n\
+position \"pos\" in the text frame \"name\". If the text frame is chained\n\
+from another text frame, \"pos\" is based on the overall story text. If\n\
+ \"name\" is not given the currently selected item is used.\n\
+\n\
+Will only work properly if the text has been layed out; you may need to call\n\
+layoutText() or layoutTextChain() first for correct results.\n\
+"));
+/*! Point for glyth at position */
+PyObject *scribus_getcharcoordinates(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getmark__doc__,
+QT_TR_NOOP("getMark(pos, [\"name\"]) -> (type,text)\n\
+\n\
+Returns a (type, text) tuple for the mark at position pos in object \"name\".\n\
+If \"name\" is not given the currently selected item is used. If there is no\n\
+mark at that position, type is -1.\n\
+"));
+/*! Returns info about mark */
+PyObject *scribus_getmark(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setmarktext__doc__,
+QT_TR_NOOP("setMarkText(pos, \"text\", [\"name\"])\n\
+\n\
+Returns a (type, text) tuple for the mark at position pos in object \"name\".\n\
+If \"name\" is not given the currently selected item is used. If there is no\n\
+mark at that position, type is -1.\n\
+"));
+/*! Returns info about mark */
+PyObject *scribus_setmarktext(PyObject * /*self*/, PyObject* args);
+
 #endif
