@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "sccolor.h"
 #include "scribusapi.h"
+
 class ScribusDoc;
 class VGradient;
 
@@ -115,7 +116,7 @@ public:
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod(VGradientEx::RepeatMethod repeatMethod) { m_repeatMethod = repeatMethod; }
 
-	const QList<VColorStopEx*> colorStops() const;
+	const QList<VColorStopEx*>& colorStops() const;
 	void addStop(const VColorStopEx& colorStop);
 	void addStop(const ScColor &color, double rampPoint, double midPoint, double opa, const QString& name = QString(), int shade = 100);
 	void removeStop(VColorStopEx& colorStop);

@@ -20,17 +20,18 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 
 #include "scpaths.h"
+#include "scribusapp.h"
 #include "iconmanager.h"
 #include "util.h"
 
 PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, nullptr )
 {
-	PageCountString = "%1" ;
+	pageCountString = "%1" ;
 	m_lastPage = maxPg;
 	m_currentPage = 1;
-	PageSelectorLayout = new QHBoxLayout( this );
-	PageSelectorLayout->setMargin(0);
-	PageSelectorLayout->setSpacing(1);
+	pageSelectorLayout = new QHBoxLayout( this );
+	pageSelectorLayout->setMargin(0);
+	pageSelectorLayout->setSpacing(1);
 
 	startButton = new QPushButton( this );
 	backButton = new QPushButton( this );
@@ -73,7 +74,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
 	m_pageCombo->setObjectName("pageCombo");
 	
-	pageCountLabel = new QLabel(PageCountString.arg(m_lastPage), this);
+	pageCountLabel = new QLabel(pageCountString.arg(m_lastPage), this);
 
 	forwardButton->setEnabled(true);
 	lastButton->setEnabled(true);
@@ -95,17 +96,19 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 		setStyleSheet(QString(stylesheet));
 	}
 
-	PageSelectorLayout->addWidget( startButton );
-	PageSelectorLayout->addWidget( backButton );
-	PageSelectorLayout->addWidget( m_pageCombo );
-	PageSelectorLayout->addWidget( pageCountLabel );
-	PageSelectorLayout->addWidget( forwardButton );
-	PageSelectorLayout->addWidget( lastButton );
-
+	pageSelectorLayout->addWidget( startButton );
+	pageSelectorLayout->addWidget( backButton );
+	pageSelectorLayout->addWidget( m_pageCombo );
+	pageSelectorLayout->addWidget( pageCountLabel );
+	pageSelectorLayout->addWidget( forwardButton );
+	pageSelectorLayout->addWidget( lastButton );
 
 	languageChange();
+
 	// signals and slots connections
-	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
+	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( gotoPage(int) ) );
 	connect( backButton, SIGNAL( clicked() ), this, SLOT( goBackward()) );
 	connect( startButton, SIGNAL( clicked() ), this, SLOT( goToStart() ) );
 	connect( forwardButton, SIGNAL( clicked() ), this, SLOT( goForward() ) );
@@ -127,7 +130,7 @@ void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 	m_pageCombo->setFocusPolicy(policy);
 }
 
-void PageSelector::setFont ( const QFont &fo )
+void PageSelector::setFont(const QFont &fo)
 {
 	pageCountLabel->setFont(fo);
 	QWidget::setFont(fo);
@@ -138,65 +141,53 @@ int PageSelector::getCurrentPage()
 	return m_currentPage;
 }
 
-void PageSelector::GotoPgE(int i)
+void PageSelector::gotoPage(int i)
 {
 	clearFocus();
 	setGUIForPage(i);
-	emit GotoPage(i+1);
-}
-
-void PageSelector::GotoPage()
-{
-	static QRegExp rx("^([0-9])+.*");
-	int p = rx.cap(1).toInt();
-	if (p < 1)
-		p=1;
-	if (p > m_lastPage)
-		p = m_lastPage;
-	setGUIForPage(p-1);
-	emit GotoPage(p);
+	emit pageChanged(i + 1);
 }
 
 void PageSelector::setGUIForPage(int i)
 {
-	m_pageCombo->blockSignals(true);
+	bool sigBlocked = m_pageCombo->blockSignals(true);
 	m_pageCombo->setCurrentIndex(i);
-	setCurrentComboItem(m_pageCombo, QString::number(i+1));
-	m_currentPage = i+1;
+	setCurrentComboItem(m_pageCombo, QString::number(i + 1));
+	m_currentPage = i + 1;
 	backButton->setEnabled(i != 0);
 	startButton->setEnabled(i != 0);
-	forwardButton->setEnabled(i != m_lastPage-1);
-	lastButton->setEnabled(i != m_lastPage-1);
-	m_pageCombo->blockSignals(false);
+	forwardButton->setEnabled(i != m_lastPage - 1);
+	lastButton->setEnabled(i != m_lastPage - 1);
+	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::setMaximum(int i)
 {
-	m_pageCombo->blockSignals(true);
+	bool sigBlocked = m_pageCombo->blockSignals(true);
 	m_pageCombo->clear();
 	m_lastPage = i;
 	m_validator->setRange(1, m_lastPage);
 	for (int b = 0; b < m_lastPage; ++b)
 	{
-		m_pageCombo->addItem(QString::number(b+1));
+		m_pageCombo->addItem(QString::number(b + 1));
 	}
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
-	pageCountLabel->setText(PageCountString.arg(m_lastPage));
-	m_pageCombo->blockSignals(false);
+	pageCountLabel->setText(pageCountString.arg(m_lastPage));
+	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::goToStart()
 {
 	if (m_currentPage == 1)
 		return;
-	GotoPgE(0);
+	gotoPage(0);
 }
 
 void PageSelector::goToEnd()
 {
 	if (m_currentPage == m_lastPage)
 		return;
-	GotoPgE(m_lastPage-1);
+	gotoPage(m_lastPage - 1);
 }
 
 void PageSelector::goBackward()
@@ -204,7 +195,7 @@ void PageSelector::goBackward()
 	m_currentPage--;
 	if (m_currentPage < 1)
 		m_currentPage = 1;
-	GotoPgE(m_currentPage-1);
+	gotoPage(m_currentPage - 1);
 }
 
 void PageSelector::goForward()
@@ -212,7 +203,7 @@ void PageSelector::goForward()
 	m_currentPage++;
 	if (m_currentPage > m_lastPage)
 		m_currentPage = m_lastPage;
-	GotoPgE(m_currentPage-1);
+	gotoPage(m_currentPage - 1);
 }
 
 void PageSelector::changeEvent(QEvent *e)
@@ -223,6 +214,19 @@ void PageSelector::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
+void PageSelector::iconSetChange()
+{
+	QByteArray stylesheet;
+	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
+		QByteArray da;
+		da.append(downArrow);
+		stylesheet.replace("___downArrow___", da);
+		setStyleSheet(QString(stylesheet));
+	}
+}
+
 void PageSelector::languageChange()
 {
 	startButton->setToolTip( tr("Go to the first page") );
@@ -230,8 +234,8 @@ void PageSelector::languageChange()
 	forwardButton->setToolTip( tr("Go to the next page") );
 	lastButton->setToolTip( tr("Go to the last page") );
 	m_pageCombo->setToolTip( tr("Select the current page") );
-	PageCountString =  tr(" of %1", "number of pages in document");
-	pageCountLabel->setText(PageCountString.arg(m_lastPage));
+	pageCountString =  tr(" of %1", "number of pages in document");
+	pageCountLabel->setText(pageCountString.arg(m_lastPage));
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
 }
 

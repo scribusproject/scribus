@@ -206,11 +206,11 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	double strikethruOffset = dbl_min, strikethruWidth = dbl_min;
 	double tracking = dbl_min;
 	
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddes", keywordargs,
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddeses", keywordargs,
 									"utf-8", &name, "utf-8", &font, &fontSize, "utf-8", &features,
 									"utf-8", &fillColor, &fillShade, "utf-8", &strokeColor, &strokeShade, &baselineOffset, &shadowXOffset,
 									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
-									&scaleH, &scaleV, &tracking, "utf-8", &language))
+									&scaleH, &scaleV, &tracking, "utf-8", &language, "utf-8", &fontFeatures))
 		return nullptr;
 	
 	if (strlen(name) == 0)
@@ -396,6 +396,117 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+/*
+ * Craig Ringer, 2004-09-09
+ * Enumerate all known paragraph styles
+ */
+PyObject *scribus_getparagraphstyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& paragraphStyles = ScCore->primaryMainWindow()->doc->paragraphStyles();
+
+	PyObject *styleList = PyList_New(0);
+	for (int i = 0; i < paragraphStyles.count(); ++i)
+	{
+		const QString& paraStyleName = paragraphStyles[i].name();
+		if (PyList_Append(styleList, PyString_FromString(paraStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
+}
+
+/*
+ * Enumerate all known character styles
+ */
+PyObject *scribus_getcharstylenames(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& charStyles = ScCore->primaryMainWindow()->doc->charStyles();
+
+	PyObject *charStyleList = PyList_New(0);
+	for (int i = 0; i < charStyles.count(); ++i)
+	{
+		const QString& charStyleName = charStyles[i].name();
+		if (PyList_Append(charStyleList, PyString_FromString(charStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return charStyleList;
+}
+
+/*
+ * Enumerate all known line styles
+ */
+PyObject *scribus_getlinestyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& lineStyles = ScCore->primaryMainWindow()->doc->lineStyles();
+
+	PyObject *lineStyleList = PyList_New(0);
+	auto itEnd = lineStyles.constEnd();
+	for (auto it = lineStyles.constBegin(); it != itEnd; ++it)
+	{
+		QString lineStyleName = it.key();
+		if (PyList_Append(lineStyleList, PyString_FromString(lineStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return lineStyleList;
+}
+
+/*
+ * Enumerate all known cell styles
+ */
+PyObject *scribus_getcellstyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& cellStyles = ScCore->primaryMainWindow()->doc->cellStyles();
+
+	PyObject *styleList = PyList_New(0);
+	for (int i = 0; i < cellStyles.count(); ++i)
+	{
+		const QString& cellStyleName = cellStyles[i].name();
+		if (PyList_Append(styleList, PyString_FromString(cellStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
+}
+
+/*
+ * Enumerate all known table styles
+ */
+PyObject *scribus_gettablestyles(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const auto& tableStyles = ScCore->primaryMainWindow()->doc->tableStyles();
+
+	PyObject *styleList = PyList_New(0);
+	for (int i = 0; i < tableStyles.count(); ++i)
+	{
+		const QString& tableStyleName = tableStyles[i].name();
+		if (PyList_Append(styleList, PyString_FromString(tableStyleName.toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return nullptr;
+		}
+	}
+	return styleList;
+}
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -403,6 +514,13 @@ PV */
 void cmdstyledocwarnings()
 {
 	QStringList s;
-	s << scribus_createparagraphstyle__doc__ << scribus_createcharstyle__doc__;
-	s << scribus_createcustomlinestyle__doc__;
+	s  << scribus_createcharstyle__doc__
+	   << scribus_createcustomlinestyle__doc__
+	   << scribus_createparagraphstyle__doc__
+	   << scribus_getallstyles__doc__
+	   << scribus_getcellstyles__doc__
+	   << scribus_getcharstylenames__doc__
+	   << scribus_getlinestyles__doc__
+	   << scribus_getparagraphstyles__doc__
+	   << scribus_gettablestyles__doc__;
 }

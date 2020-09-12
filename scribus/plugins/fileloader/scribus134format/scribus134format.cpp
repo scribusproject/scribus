@@ -9,6 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <algorithm>
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+// #include <QDebug>
+#include <QFileInfo>
+#include <QIODevice>
+#include <QList>
+#include <QScopedPointer>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
@@ -25,24 +34,15 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
 #include "util_color.h"
 #include "util_layer.h"
-
-#include <QApplication>
-#include <QByteArray>
-#include <QCursor>
-// #include <QDebug>
-#include <QFileInfo>
-#include <QIODevice>
-#include <QList>
-#include <QScopedPointer>
+#include "util_math.h"
+#include "util_printer.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -1691,6 +1691,15 @@ bool Scribus134Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	doc->Print_Options.firstUse = attrs.valueAsBool("firstUse");
+	if (doc->Print_Options.firstUse)
+	{
+		// Formerly we were writing uninitialized structure values in documents
+		// so set these uninitialized values to something more meaningful
+		PrinterUtil::getDefaultPrintOptions(doc->Print_Options, doc->bleedsVal());
+		reader.readToElementEnd();
+		return !reader.hasError();
+	}
+
 	doc->Print_Options.toFile   = attrs.valueAsBool("toFile");
 	doc->Print_Options.useAltPrintCommand = attrs.valueAsBool("useAltPrintCommand");
 	doc->Print_Options.outputSeparations  = attrs.valueAsBool("outputSeparations");
@@ -2095,7 +2104,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		}
 		if (tName == "LATEX")
 		{
-			if (newItem->asLatexFrame())
+			if (newItem->isLatexFrame())
 			{
 				readLatexInfo(newItem->asLatexFrame(), reader);
 			}
@@ -2129,7 +2138,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (newItem->asPathText())
 		newItem->updatePolyClip();
-	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame())
 	{
 		if (!newItem->Pfile.isEmpty())
 		{
@@ -2596,7 +2605,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX"), attrs.valueAsDouble("LOCALY"));
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT", 0));
-		if (!currItem->asLatexFrame())
+		if (!currItem->isLatexFrame())
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
 			QString dat  = attrs.valueAsString("ImageData", "");
@@ -2634,7 +2643,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
 		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
-		if (currItem->asLatexFrame())
+		if (currItem->isLatexFrame())
 		{
 			currItem->setImageXYOffset(attrs.valueAsDouble("LOCALX") * scx, attrs.valueAsDouble("LOCALY") * scy);
 	//		currItem->setImageXYScale(1.0, 1.0);
@@ -2736,8 +2745,6 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
 	currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
 	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK");
-	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
-		doc->OldBM = true;
 	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH"));
 	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV"));
 	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
@@ -2883,7 +2890,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
 	currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -3047,7 +3054,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->asLine()->setLineClip();
 	}
 
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;
@@ -3056,7 +3063,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
-		if (currItem->GrType == 8)
+		if (currItem->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern( attrs.valueAsString("pattern", "") );
 			double patternScaleX   = attrs.valueAsDouble("pScaleX", 100.0);
@@ -3085,12 +3092,12 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 		}
 	}
-	if ((currItem->GrType != 0) && (currItem->GrType != 8))
+	if ((currItem->GrType != 0) && (currItem->GrType != Gradient_Pattern))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
-			if (currItem->GrType == 5)
+			if (currItem->GrType == Gradient_RadialLegacy5)
 			{
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetQColor(&tmpc, GrColor, GrShade);
@@ -3113,14 +3120,14 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 	switch (currItem->GrType)
 	{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			currItem->GrType = 6;
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			currItem->GrType = Gradient_Linear;
 			break;
-		case 5:
-			currItem->GrType = 7;
+		case Gradient_RadialLegacy5:
+			currItem->GrType = Gradient_Radial;
 			break;
 		default:
 			break;

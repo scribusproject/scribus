@@ -17,7 +17,7 @@ REQUIREMENTS AND BUILDING - Microsoft Windows
 
 See the separate file BUILDING_win32.txt
 
-REQUIREMENTS AND BUILDING - Geneiric *BSD/Linux/*nix
+REQUIREMENTS AND BUILDING - Generic *BSD/Linux/*nix
 ====================================================
 
 These requirements are generic information for any BSD, UNIX or Linux flavour.
@@ -218,6 +218,9 @@ Recommended packages for compiling from source on Buster (Debian 10.0):
 	libpoppler-private-dev
 	python3-dev
 	gs-gpl or gs-afpl (usually gs-gpl is newer now)
+	
+For proper execution, following package(s) should also be installed:
+	qt5-image-formats-plugins
 
 You are unlikely to be able to compile Scribus 1.5.x on Debian 9.0 (Stretch)
 Scribus 1.5.x should be considered not to support Debian Stretch.
@@ -251,6 +254,8 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 
 You can install these packages with 'yum install packagename' as root.
 
+For proper execution, following package(s) should also be installed:
+	qt5-qtimageformats
 
 More info can be found in the README.
 
@@ -286,6 +291,9 @@ Recommended packages for compiling from source on OpenSuse 15.1 => :
 
 You can install these packages using YaST. You may find it difficult to compile
 Scribus 1.5.6+ on anything older than OpenSuse 15.1.
+
+For proper execution, following package(s) should also be installed:
+	libqt5-qtimageformats
 
 Please note we do provide frequently updated packages including debuginfo rpms
 on the Suse Build Server at https://software.opensuse.org .

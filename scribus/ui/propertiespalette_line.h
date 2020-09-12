@@ -46,8 +46,8 @@ protected:
 private:
 
 	PageItem* currentItemFromSelection();
-	void      updateArrowStyles(ScribusDoc *dd);
-	void      updateLineStyles(ScribusDoc *dd);
+	void updateArrowStyles(ScribusDoc *doc);
+	void updateLineStyles(ScribusDoc *doc);
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

@@ -20,8 +20,7 @@ CharTableView::CharTableView(QWidget * parent)
 {
 	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
-	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
-	        this, SLOT(viewDoubleClicked(const QModelIndex &)));
+	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(viewDoubleClicked(const QModelIndex &)));
 
 	actionMenu = new QMenu(this);
 	actionMenu->addAction(deleteAct);

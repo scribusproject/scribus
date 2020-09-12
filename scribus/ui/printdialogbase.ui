@@ -54,7 +54,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="OptButton">
+         <widget class="QPushButton" name="optionsButton">
           <property name="text">
            <string>&amp;Options...</string>
           </property>
@@ -95,15 +95,15 @@
            <string>&amp;File:</string>
           </property>
           <property name="buddy">
-           <cstring>LineEdit1</cstring>
+           <cstring>fileNameEdit</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="LineEdit1"/>
+         <widget class="QLineEdit" name="fileNameEdit"/>
         </item>
         <item>
-         <widget class="QToolButton" name="ToolButton1">
+         <widget class="QToolButton" name="selectFileButton">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -115,7 +115,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="OtherCom">
+       <widget class="QCheckBox" name="altComCheckBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -147,12 +147,12 @@
            <string>Co&amp;mmand:</string>
           </property>
           <property name="buddy">
-           <cstring>Command</cstring>
+           <cstring>altCommand</cstring>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="Command">
+         <widget class="QLineEdit" name="altCommand">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -185,7 +185,7 @@
        <number>5</number>
       </property>
       <item row="0" column="0">
-       <widget class="QRadioButton" name="RadioButton1">
+       <widget class="QRadioButton" name="printAllRadio">
         <property name="text">
          <string>Print &amp;All</string>
         </property>
@@ -225,14 +225,14 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QRadioButton" name="CurrentPage">
+       <widget class="QRadioButton" name="printCurrentRadio">
         <property name="text">
          <string>Print Current Pa&amp;ge</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QRadioButton" name="RadioButton2">
+       <widget class="QRadioButton" name="printRangeRadio">
         <property name="text">
          <string>Print &amp;Range</string>
         </property>
@@ -296,7 +296,7 @@ a range of pages or a single page number</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayoutOptions">
        <item row="0" column="0">
-        <widget class="QComboBox" name="PrintSep">
+        <widget class="QComboBox" name="printSepCombo">
          <item>
           <property name="text">
            <string>Print Normal</string>
@@ -324,7 +324,7 @@ a range of pages or a single page number</string>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QComboBox" name="SepArt">
+        <widget class="QComboBox" name="separationsCombo">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -361,21 +361,21 @@ a range of pages or a single page number</string>
          </property>
          <layout class="QVBoxLayout">
           <item>
-           <widget class="QCheckBox" name="MirrorHor">
+           <widget class="QCheckBox" name="mirrorHor">
             <property name="text">
              <string>Mirror Page(s) Horizontal</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="MirrorVert">
+           <widget class="QCheckBox" name="mirrorVert">
             <property name="text">
              <string>Mirror Page(s) Vertical</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="devPar">
+           <widget class="QCheckBox" name="setMediaSize">
             <property name="toolTip">
              <string>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</string>
             </property>
@@ -385,7 +385,7 @@ a range of pages or a single page number</string>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="ClipMarg">
+           <widget class="QCheckBox" name="clipMargins">
             <property name="text">
              <string>Clip to Printer Margins</string>
             </property>
@@ -401,7 +401,7 @@ a range of pages or a single page number</string>
          </property>
          <layout class="QVBoxLayout">
           <item>
-           <widget class="QCheckBox" name="GcR">
+           <widget class="QCheckBox" name="applyGCR">
             <property name="toolTip">
              <string>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</string>
             </property>
@@ -411,7 +411,7 @@ a range of pages or a single page number</string>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="spotColors">
+           <widget class="QCheckBox" name="convertSpots">
             <property name="toolTip">
              <string>&lt;qt&gt;Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.&lt;/qt&gt;</string>
             </property>
@@ -549,56 +549,56 @@ a range of pages or a single page number</string>
       </attribute>
       <layout class="QGridLayout">
        <item row="1" column="0">
-        <widget class="QLabel" name="BleedTxt1">
+        <widget class="QLabel" name="bleedTopText">
          <property name="text">
           <string>Top:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="ScrSpinBox" name="BleedTop">
+        <widget class="ScrSpinBox" name="bleedTop">
          <property name="toolTip">
           <string>Distance for bleed from the top of the physical page</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="QLabel" name="BleedTxt3">
+        <widget class="QLabel" name="bleedLeftText">
          <property name="text">
           <string>Left:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
-        <widget class="ScrSpinBox" name="BleedRight">
+        <widget class="ScrSpinBox" name="bleedRight">
          <property name="toolTip">
           <string>Distance for bleed from the right of the physical page</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="BleedTxt2">
+        <widget class="QLabel" name="bleedBottomText">
          <property name="text">
           <string>Bottom:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="ScrSpinBox" name="BleedBottom">
+        <widget class="ScrSpinBox" name="bleedBottom">
          <property name="toolTip">
           <string>Distance for bleed from the bottom of the physical page</string>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QLabel" name="BleedTxt4">
+        <widget class="QLabel" name="bleedRightText">
          <property name="text">
           <string>Right:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="ScrSpinBox" name="BleedLeft">
+        <widget class="ScrSpinBox" name="bleedLeft">
          <property name="toolTip">
           <string>Distance for bleed from the left of the physical page</string>
          </property>
@@ -644,7 +644,7 @@ a range of pages or a single page number</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="OKButton">
+      <widget class="QPushButton" name="okButton">
        <property name="text">
         <string>&amp;Print</string>
        </property>
@@ -654,7 +654,7 @@ a range of pages or a single page number</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="OKButton_2">
+      <widget class="QPushButton" name="cancelButton">
        <property name="text">
         <string>Cancel</string>
        </property>
@@ -676,29 +676,29 @@ a range of pages or a single page number</string>
  </customwidgets>
  <tabstops>
   <tabstop>PrintDest</tabstop>
-  <tabstop>OptButton</tabstop>
-  <tabstop>LineEdit1</tabstop>
-  <tabstop>ToolButton1</tabstop>
-  <tabstop>OtherCom</tabstop>
-  <tabstop>Command</tabstop>
-  <tabstop>RadioButton1</tabstop>
-  <tabstop>CurrentPage</tabstop>
-  <tabstop>RadioButton2</tabstop>
+  <tabstop>optionsButton</tabstop>
+  <tabstop>fileNameEdit</tabstop>
+  <tabstop>selectFileButton</tabstop>
+  <tabstop>altComCheckBox</tabstop>
+  <tabstop>altCommand</tabstop>
+  <tabstop>printAllRadio</tabstop>
+  <tabstop>printCurrentRadio</tabstop>
+  <tabstop>printRangeRadio</tabstop>
   <tabstop>pageNr</tabstop>
   <tabstop>pageNrButton</tabstop>
   <tabstop>Copies</tabstop>
   <tabstop>printOptions</tabstop>
-  <tabstop>PrintSep</tabstop>
+  <tabstop>printSepCombo</tabstop>
   <tabstop>colorType</tabstop>
-  <tabstop>SepArt</tabstop>
+  <tabstop>separationsCombo</tabstop>
   <tabstop>printEngines</tabstop>
   <tabstop>usePDFMarks</tabstop>
-  <tabstop>MirrorHor</tabstop>
-  <tabstop>MirrorVert</tabstop>
-  <tabstop>devPar</tabstop>
-  <tabstop>ClipMarg</tabstop>
-  <tabstop>GcR</tabstop>
-  <tabstop>spotColors</tabstop>
+  <tabstop>mirrorHor</tabstop>
+  <tabstop>mirrorVert</tabstop>
+  <tabstop>setMediaSize</tabstop>
+  <tabstop>clipMargins</tabstop>
+  <tabstop>applyGCR</tabstop>
+  <tabstop>convertSpots</tabstop>
   <tabstop>cropMarks</tabstop>
   <tabstop>bleedMarks</tabstop>
   <tabstop>colorMarks</tabstop>
@@ -706,18 +706,18 @@ a range of pages or a single page number</string>
   <tabstop>markLength</tabstop>
   <tabstop>markOffset</tabstop>
   <tabstop>docBleeds</tabstop>
-  <tabstop>BleedTop</tabstop>
-  <tabstop>BleedRight</tabstop>
-  <tabstop>BleedBottom</tabstop>
-  <tabstop>BleedLeft</tabstop>
+  <tabstop>bleedTop</tabstop>
+  <tabstop>bleedRight</tabstop>
+  <tabstop>bleedBottom</tabstop>
+  <tabstop>bleedLeft</tabstop>
   <tabstop>previewButton</tabstop>
-  <tabstop>OKButton</tabstop>
-  <tabstop>OKButton_2</tabstop>
+  <tabstop>okButton</tabstop>
+  <tabstop>cancelButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>OtherCom</sender>
+   <sender>altComCheckBox</sender>
    <signal>clicked(bool)</signal>
    <receiver>OthText</receiver>
    <slot>setEnabled(bool)</slot>
@@ -733,9 +733,9 @@ a range of pages or a single page number</string>
    </hints>
   </connection>
   <connection>
-   <sender>OtherCom</sender>
+   <sender>altComCheckBox</sender>
    <signal>clicked(bool)</signal>
-   <receiver>Command</receiver>
+   <receiver>altCommand</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -749,7 +749,7 @@ a range of pages or a single page number</string>
    </hints>
   </connection>
   <connection>
-   <sender>RadioButton2</sender>
+   <sender>printRangeRadio</sender>
    <signal>toggled(bool)</signal>
    <receiver>pageNr</receiver>
    <slot>setEnabled(bool)</slot>
@@ -765,7 +765,7 @@ a range of pages or a single page number</string>
    </hints>
   </connection>
   <connection>
-   <sender>RadioButton2</sender>
+   <sender>printRangeRadio</sender>
    <signal>toggled(bool)</signal>
    <receiver>pageNrButton</receiver>
    <slot>setEnabled(bool)</slot>

@@ -12,14 +12,13 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 
 #include "scconfig.h"
-#include "scpaths.h"
-#include "scribusdoc.h"
-#include "ui/createrange.h"
+
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "iconmanager.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "customfdialog.h"
 #include "cupsoptions.h"	
 #if defined(_WIN32)
 	#include <windows.h>
@@ -27,16 +26,20 @@ for which a new license (GPL+exception) is in place.
 #elif defined(HAVE_CUPS) // Haiku doesn't have it
 	#include <cups/cups.h>
 #endif
-#include "util_printer.h"
-#include "iconmanager.h"
-#include "util.h"
+#include "sccolor.h"
+#include "scpaths.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scrspinbox.h"
+#include "ui/createrange.h"
 #include "units.h"
 #include "usertaskstructs.h"
-#include "scrspinbox.h"
+#include "util.h"
+#include "util_printer.h"
 
 extern bool previewDinUse;
 
-PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions, bool gcr, const QStringList& spots)
+PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions)
 		: QDialog( parent )
 {
 	setupUi(this);
@@ -59,19 +62,26 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	markOffset->setNewUnit(m_unit);
 	markOffset->setMinimum(0);
 	markOffset->setMaximum(3000 * m_unitRatio);
-	BleedBottom->setNewUnit(m_unit);
-	BleedBottom->setMinimum(0);
-	BleedBottom->setMaximum(3000 * m_unitRatio);
-	BleedLeft->setNewUnit(m_unit);
-	BleedLeft->setMinimum(0);
-	BleedLeft->setMaximum(3000 * m_unitRatio);
-	BleedRight->setNewUnit(m_unit);
-	BleedRight->setMinimum(0);
-	BleedRight->setMaximum(3000 * m_unitRatio);
-	BleedTop->setNewUnit(m_unit);
-	BleedTop->setMinimum(0);
-	BleedTop->setMaximum(3000 * m_unitRatio);
-	previewButton->setEnabled(!previewDinUse);
+	bleedBottom->setNewUnit(m_unit);
+	bleedBottom->setMinimum(0);
+	bleedBottom->setMaximum(3000 * m_unitRatio);
+	bleedLeft->setNewUnit(m_unit);
+	bleedLeft->setMinimum(0);
+	bleedLeft->setMaximum(3000 * m_unitRatio);
+	bleedRight->setNewUnit(m_unit);
+	bleedRight->setMinimum(0);
+	bleedRight->setMaximum(3000 * m_unitRatio);
+	bleedTop->setNewUnit(m_unit);
+	bleedTop->setMinimum(0);
+	bleedTop->setMaximum(3000 * m_unitRatio);
+
+	if (ScCore->haveGS() || ScCore->isWinGUI())
+		previewButton->setEnabled(!previewDinUse);
+	else
+	{
+		previewButton->setVisible(false);
+		previewButton->setEnabled(false);
+	}
 
 	// Fill printer list
 	QString printerName;
@@ -94,20 +104,24 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	}
 
 	// Fill Separation list
-	QString sep[] =
-	    {
-	        tr("All"), tr("Cyan"), tr("Magenta"), tr("Yellow"),
-	        tr("Black")
-	    };
-	size_t sepArray = sizeof(sep) / sizeof(*sep);
-	for (uint prop = 0; prop < sepArray; ++prop)
-		SepArt->addItem(sep[prop]);
-	SepArt->addItems(spots);
+	ColorList usedSpots;
+	doc->getUsedColors(usedSpots, true);
+	m_spotColors = usedSpots.keys();
+
+	separationsCombo->addItem( tr("All"), "All" );
+	separationsCombo->addItem( tr("Cyan"), "Cyan" );
+	separationsCombo->addItem( tr("Magenta"), "Magenta" );
+	separationsCombo->addItem( tr("Yellow"), "Yellow" );
+	for (int i = 0; i < m_spotColors.count(); ++i)
+	{
+		const QString& spotName = m_spotColors.at(i);
+		separationsCombo->addItem(spotName, spotName);
+	}
 
 	if (m_doc->pagePositioning() != 0)
 	{
-		BleedTxt3->setText( tr( "Inside:" ) );
-		BleedTxt4->setText( tr( "Outside:" ) );
+		bleedLeftText->setText( tr( "Inside:" ) );
+		bleedRightText->setText( tr( "Outside:" ) );
 	}
 
 	QString prnDevice = printOptions.printer;
@@ -118,30 +132,31 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 		PrintDest->setCurrentIndex(PrintDest->count()-1);
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		DateiT->setEnabled(true);
-		LineEdit1->setEnabled(true);
+		fileNameEdit->setEnabled(true);
 		if (!printOptions.filename.isEmpty())
-			LineEdit1->setText(QDir::toNativeSeparators(printOptions.filename));
-		ToolButton1->setEnabled(true);
+			fileNameEdit->setText(QDir::toNativeSeparators(printOptions.filename));
+		selectFileButton->setEnabled(true);
 	}
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
+
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
-	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
-	connect( printEngines, SIGNAL(activated(const QString&)), this, SLOT(SelEngine(const QString&)));
-	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
-	connect( CurrentPage, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(selectPrinter(const QString&)));
+	connect( printEngines, SIGNAL(activated(const QString&)), this, SLOT(selectEngine(const QString&)));
+	connect( printAllRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
+	connect( printCurrentRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
 	connect( pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
-	connect( PrintSep, SIGNAL(activated(int)), this, SLOT(SelMode(int)));
-	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
-	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
+	connect( printSepCombo, SIGNAL(activated(int)), this, SLOT(selectSepMode(int)));
+	connect( selectFileButton, SIGNAL(clicked()), this, SLOT(selectFile()));
+	connect( altComCheckBox, SIGNAL(clicked()), this, SLOT(selectCommand()));
 	connect( previewButton, SIGNAL(clicked()), this, SLOT(previewButtonClicked()));
 	connect( docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
-	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
+	connect( optionsButton, SIGNAL( clicked() ), this, SLOT( selectOptions() ) );
 
-	setStoredValues(printOptions.filename, gcr);
+	setStoredValues(printOptions.filename);
 #if defined(_WIN32)
 	if (!outputToFile())
 	{
@@ -168,7 +183,7 @@ PrintDialog::~PrintDialog()
 	m_cupsOptions = nullptr;
 }
 
-void PrintDialog::SetOptions()
+void PrintDialog::selectOptions()
 {
 #ifdef HAVE_CUPS
 	if (!m_cupsOptions)
@@ -272,28 +287,28 @@ QString PrintDialog::getOptions()
 #endif
 }
 
-void PrintDialog::SelComm()
+void PrintDialog::selectCommand()
 {
-	bool test = OtherCom->isChecked();
+	bool test = altComCheckBox->isChecked();
 	OthText->setEnabled(test);
-	Command->setEnabled(test);
+	altCommand->setEnabled(test);
 	PrintDest->setEnabled(!test);
-	if (OtherCom->isChecked())
+	if (altComCheckBox->isChecked())
 	{
 		DateiT->setEnabled(false);
-		LineEdit1->setEnabled(false);
-		ToolButton1->setEnabled(false);
-		OptButton->setEnabled(false);
+		fileNameEdit->setEnabled(false);
+		selectFileButton->setEnabled(false);
+		optionsButton->setEnabled(false);
 	}
 	else
 	{
-		SelPrinter(PrintDest->currentText());
+		selectPrinter(PrintDest->currentText());
 		if (PrintDest->currentText() != tr("File"))
-			OptButton->setEnabled(true);
+			optionsButton->setEnabled(true);
 	}
 }
 
-void PrintDialog::SelEngine(const QString& eng)
+void PrintDialog::selectEngine(const QString& eng)
 {
 	prefs->set("CurrentPrnEngine", m_printEngineMap[printEngines->currentText()]);
 	bool psSupported = outputToFile();
@@ -302,26 +317,26 @@ void PrintDialog::SelEngine(const QString& eng)
 	psSupported |= (eng == CommonStrings::trPostScript3);
 	if (psSupported)
 	{
-		PrintSep->setEnabled(true);
+		printSepCombo->setEnabled(true);
 		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
-		setCurrentComboItem(PrintSep, tr("Print Normal"));
-		PrintSep->setEnabled(false);
-		setCurrentComboItem(SepArt, tr("All"));
-		SepArt->setEnabled(false);
+		setCurrentComboItem(printSepCombo, tr("Print Normal"));
+		printSepCombo->setEnabled(false);
+		setCurrentComboItem(separationsCombo, tr("All"));
+		separationsCombo->setEnabled(false);
 		usePDFMarks->setEnabled(false);
 	}
 }
 
-void PrintDialog::SelPrinter(const QString& prn)
+void PrintDialog::selectPrinter(const QString& prn)
 {
 	bool toFile = prn == tr("File");
 	DateiT->setEnabled(toFile);
-	LineEdit1->setEnabled(toFile);
-	ToolButton1->setEnabled(toFile);
-	OptButton->setEnabled(!toFile);
+	fileNameEdit->setEnabled(toFile);
+	selectFileButton->setEnabled(toFile);
+	optionsButton->setEnabled(!toFile);
 #if defined(_WIN32)
 	if (!toFile)
 	{
@@ -329,11 +344,11 @@ void PrintDialog::SelPrinter(const QString& prn)
 			qWarning( tr("Failed to retrieve printer settings").toLatin1().data() );
 	}
 #endif
-	if (toFile && LineEdit1->text().isEmpty())
+	if (toFile && fileNameEdit->text().isEmpty())
 	{
 		QFileInfo fi(m_doc->documentFileName());
 		if (fi.isRelative()) // if (m_doc->DocName.startsWith( tr("Document")))
-			LineEdit1->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->documentFileName() + ".ps") );
+			fileNameEdit->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->documentFileName() + ".ps") );
 		else
 		{
 			QString completeBaseName = fi.completeBaseName();
@@ -341,7 +356,7 @@ void PrintDialog::SelPrinter(const QString& prn)
 				if (completeBaseName.length() > 4) completeBaseName.chop(4);
 			if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
 				if (completeBaseName.length() > 3) completeBaseName.chop(3);
-			LineEdit1->setText( QDir::toNativeSeparators(fi.path() + "/" + completeBaseName + ".ps") );
+			fileNameEdit->setText( QDir::toNativeSeparators(fi.path() + "/" + completeBaseName + ".ps") );
 		}
 	}
 
@@ -359,50 +374,50 @@ void PrintDialog::SelPrinter(const QString& prn)
 	if (psSupported || toFile)
 	{
 		printEngines->setEnabled(true);
-		PrintSep->setEnabled(true);
+		printSepCombo->setEnabled(true);
 		usePDFMarks->setEnabled(true);
 	}
 	else
 	{
 		printEngines->setEnabled(false);
-		setCurrentComboItem(PrintSep, tr("Print Normal"));
-		PrintSep->setEnabled(false);
-		setCurrentComboItem(SepArt, tr("All"));
-		SepArt->setEnabled(false);
+		setCurrentComboItem(printSepCombo, tr("Print Normal"));
+		printSepCombo->setEnabled(false);
+		setCurrentComboItem(separationsCombo, tr("All"));
+		separationsCombo->setEnabled(false);
 		usePDFMarks->setEnabled(false);
 	}
 }
 
-void PrintDialog::SelRange(bool e)
+void PrintDialog::selectRange(bool e)
 {
 	pageNr->setEnabled(!e);
 	pageNrButton->setEnabled(!e);
 }
 
-void PrintDialog::SelMode(int e)
+void PrintDialog::selectSepMode(int e)
 {
-	SepArt->setEnabled(e != 0);
+	separationsCombo->setEnabled(e != 0);
 }
 
-void PrintDialog::SelFile()
+void PrintDialog::selectFile()
 {
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("printdir", ".");
 	CustomFDialog dia(this, wdir, tr("Save As"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
-	if (!LineEdit1->text().isEmpty())
-		dia.setSelection(LineEdit1->text());
+	if (!fileNameEdit->text().isEmpty())
+		dia.setSelection(fileNameEdit->text());
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("printdir", selectedFile.left(selectedFile.lastIndexOf("/")));
-		LineEdit1->setText( QDir::toNativeSeparators(selectedFile) );
+		fileNameEdit->setText( QDir::toNativeSeparators(selectedFile) );
 	}
 }
 
 void PrintDialog::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
-	CurrentPage->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
+	printCurrentRadio->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
 	pageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
@@ -411,7 +426,7 @@ void PrintDialog::storeValues()
 	getOptions(); // options were not set get last options with this hack
 
 	m_doc->Print_Options.printer = PrintDest->currentText();
-	m_doc->Print_Options.filename = QDir::fromNativeSeparators(LineEdit1->text());
+	m_doc->Print_Options.filename = QDir::fromNativeSeparators(fileNameEdit->text());
 	m_doc->Print_Options.toFile = outputToFile();
 	m_doc->Print_Options.copies = numCopies();
 	m_doc->Print_Options.outputSeparations = outputSeparations();
@@ -429,10 +444,10 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.prnEngine= printEngine();
 	m_doc->Print_Options.setDevParam = doDev();
 	m_doc->Print_Options.useDocBleeds  = docBleeds->isChecked();
-	m_doc->Print_Options.bleeds.setTop(BleedTop->value() / m_doc->unitRatio());
-	m_doc->Print_Options.bleeds.setLeft(BleedLeft->value() / m_doc->unitRatio());
-	m_doc->Print_Options.bleeds.setRight(BleedRight->value() / m_doc->unitRatio());
-	m_doc->Print_Options.bleeds.setBottom(BleedBottom->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setTop(bleedTop->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setLeft(bleedLeft->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setRight(bleedRight->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setBottom(bleedBottom->value() / m_doc->unitRatio());
 	m_doc->Print_Options.markLength = markLength->value() / m_doc->unitRatio();
 	m_doc->Print_Options.markOffset = markOffset->value() / m_doc->unitRatio();
 	m_doc->Print_Options.cropMarks  = cropMarks->isChecked();
@@ -440,9 +455,9 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.registrationMarks = registrationMarks->isChecked();
 	m_doc->Print_Options.colorMarks = colorMarks->isChecked();
 	m_doc->Print_Options.includePDFMarks = usePDFMarks->isChecked();
-	if (OtherCom->isChecked())
+	if (altComCheckBox->isChecked())
 	{
-		m_doc->Print_Options.printerCommand = Command->text();
+		m_doc->Print_Options.printerCommand = altCommand->text();
 		m_doc->Print_Options.useAltPrintCommand = true;
 	}
 	else
@@ -463,42 +478,10 @@ void PrintDialog::previewButtonClicked()
 	emit doPreview();
 }
 
-void PrintDialog::getDefaultPrintOptions(PrintOptions& options, bool gcr)
-{
-	QStringList spots;
-	options.firstUse = true;
-	options.printer  = prefs->get("CurrentPrn", "");
-	options.useAltPrintCommand = prefs->getBool("OtherCom", false);
-	options.printerCommand = prefs->get("Command", "");
-	options.outputSeparations = prefs->getInt("Separations", 0);
-	options.useColor = (prefs->getInt("PrintColor", 0) == 0);
-	spots << tr("All") << tr("Cyan") << tr("Magenta") << tr("Yellow") << tr("Black");
-	int selectedSep  = prefs->getInt("SepArt", 0);
-	if ((selectedSep < 0) || (selectedSep > 4))
-		selectedSep = 0;
-	options.separationName = spots.at(selectedSep);
-	options.prnEngine = (PrintEngine) prefs->getInt("PSLevel", PostScript3);
-	options.mirrorH = prefs->getBool("MirrorH", false);
-	options.mirrorV = prefs->getBool("MirrorV", false);
-	options.setDevParam = prefs->getBool("doDev", false);
-	options.doGCR   = prefs->getBool("DoGCR", gcr);
-	options.doClip  = prefs->getBool("Clip", false);
-	options.useSpotColors = prefs->getBool("doSpot", true);
-	options.useDocBleeds  = true;
-	options.bleeds = *m_doc->bleeds();
-	options.markLength = prefs->getDouble("markLength", 20.0);
-	options.markOffset = prefs->getDouble("markOffset", 0.0);
-	options.cropMarks  = prefs->getBool("cropMarks", false);
-	options.bleedMarks = prefs->getBool("bleedMarks", false);
-	options.registrationMarks = prefs->getBool("registrationMarks", false);
-	options.colorMarks = prefs->getBool("colorMarks", false);
-	options.includePDFMarks = prefs->getBool("includePDFMarks", true);
-}
-
-void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
+void PrintDialog::setStoredValues(const QString& fileName)
 {
 	if (m_doc->Print_Options.firstUse)
-		getDefaultPrintOptions(m_doc->Print_Options, gcr);
+		PrinterUtil::getDefaultPrintOptions(m_doc->Print_Options, m_doc->bleedsVal());
 	
 	int selectedDest = PrintDest->findText(m_doc->Print_Options.printer);
 	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
@@ -506,63 +489,54 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 		PrintDest->setCurrentIndex(selectedDest);
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		if (PrintDest->currentText() == tr("File"))
-			LineEdit1->setText(fileName);
-		SelPrinter(PrintDest->currentText());
+			fileNameEdit->setText(fileName);
+		selectPrinter(PrintDest->currentText());
 	}
-	OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
-	if (OtherCom->isChecked())
+	altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
+	if (altComCheckBox->isChecked())
 	{
-		SelComm();
-		Command->setText(m_doc->Print_Options.printerCommand);
+		selectCommand();
+		altCommand->setText(m_doc->Print_Options.printerCommand);
 	}
-	RadioButton1->setChecked(prefs->getBool("PrintAll", true));
-	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
-	bool printRangeChecked=prefs->getBool("PrintRange", false);
-	RadioButton2->setChecked(printRangeChecked);
+	printAllRadio->setChecked(prefs->getBool("PrintAll", true));
+	printCurrentRadio->setChecked(prefs->getBool("CurrentPage", false));
+	bool printRangeChecked = prefs->getBool("PrintRange", false);
+	printRangeRadio->setChecked(printRangeChecked);
 	pageNr->setEnabled(printRangeChecked);
 	pageNr->setText(prefs->get("PageNr", "1-1"));
 	Copies->setValue(1);
-	PrintSep->setCurrentIndex(m_doc->Print_Options.outputSeparations);
+	printSepCombo->setCurrentIndex(m_doc->Print_Options.outputSeparations);
 	colorType->setCurrentIndex(m_doc->Print_Options.useColor ? 0 : 1);
-	ColorList usedSpots;
-	m_doc->getUsedColors(usedSpots, true);
-	QStringList spots = usedSpots.keys();
-	spots.prepend( tr("Black"));
-	spots.prepend( tr("Yellow"));
-	spots.prepend( tr("Magenta"));
-	spots.prepend( tr("Cyan"));
-	spots.prepend( tr("All"));
-	int selectedSep = spots.indexOf(m_doc->Print_Options.separationName);
-	if ((selectedSep > -1) && (selectedSep < SepArt->count()))
-		SepArt->setCurrentIndex(selectedSep);
-	if (PrintSep->currentIndex() == 1)
-		SepArt->setEnabled(true);
+	int selectedSep = separationsCombo->findData(m_doc->Print_Options.separationName);
+	separationsCombo->setCurrentIndex((selectedSep >= 0) ? selectedSep : 0);
+	if (printSepCombo->currentIndex() == 1)
+		separationsCombo->setEnabled(true);
 	setPrintEngine(m_doc->Print_Options.prnEngine);
-	MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
-	MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
-	devPar->setChecked(m_doc->Print_Options.setDevParam);
-	GcR->setChecked(m_doc->Print_Options.doGCR);
-	ClipMarg->setChecked(m_doc->Print_Options.doClip);
-	spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
+	mirrorHor->setChecked(m_doc->Print_Options.mirrorH);
+	mirrorVert->setChecked(m_doc->Print_Options.mirrorV);
+	setMediaSize->setChecked(m_doc->Print_Options.setDevParam);
+	applyGCR->setChecked(m_doc->Print_Options.doGCR);
+	clipMargins->setChecked(m_doc->Print_Options.doClip);
+	convertSpots->setChecked(!m_doc->Print_Options.useSpotColors);
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
-		BleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
+		bleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
+		bleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
+		bleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
+		bleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
 	}
 	else
 	{
-		BleedTop->setValue(m_doc->Print_Options.bleeds.top() * m_unitRatio);
-		BleedBottom->setValue(m_doc->Print_Options.bleeds.bottom() * m_unitRatio);
-		BleedRight->setValue(m_doc->Print_Options.bleeds.right() * m_unitRatio);
-		BleedLeft->setValue(m_doc->Print_Options.bleeds.left() * m_unitRatio);
+		bleedTop->setValue(m_doc->Print_Options.bleeds.top() * m_unitRatio);
+		bleedBottom->setValue(m_doc->Print_Options.bleeds.bottom() * m_unitRatio);
+		bleedRight->setValue(m_doc->Print_Options.bleeds.right() * m_unitRatio);
+		bleedLeft->setValue(m_doc->Print_Options.bleeds.left() * m_unitRatio);
 	}
-	BleedTop->setEnabled(!docBleeds->isChecked());
-	BleedBottom->setEnabled(!docBleeds->isChecked());
-	BleedRight->setEnabled(!docBleeds->isChecked());
-	BleedLeft->setEnabled(!docBleeds->isChecked());
+	bleedTop->setEnabled(!docBleeds->isChecked());
+	bleedBottom->setEnabled(!docBleeds->isChecked());
+	bleedRight->setEnabled(!docBleeds->isChecked());
+	bleedLeft->setEnabled(!docBleeds->isChecked());
 	markLength->setValue(m_doc->Print_Options.markLength * m_unitRatio);
 	markOffset->setValue(m_doc->Print_Options.markOffset * m_unitRatio);
 	cropMarks->setChecked(m_doc->Print_Options.cropMarks);
@@ -579,7 +553,7 @@ QString PrintDialog::printerName()
 
 QString PrintDialog::outputFileName()
 {
-	return QDir::fromNativeSeparators(LineEdit1->text());
+	return QDir::fromNativeSeparators(fileNameEdit->text());
 }
 
 bool PrintDialog::outputToFile()
@@ -594,30 +568,30 @@ int PrintDialog::numCopies()
 
 bool PrintDialog::outputSeparations()
 {
-	return SepArt->isEnabled();
+	return separationsCombo->isEnabled();
 }
 
 QString PrintDialog::separationName()
 {
-	if (SepArt->currentIndex() == 0)
+	if (separationsCombo->currentIndex() == 0)
 		return QString("All");
-	if (SepArt->currentIndex() == 1)
+	if (separationsCombo->currentIndex() == 1)
 		return QString("Cyan");
-	if (SepArt->currentIndex() == 2)
+	if (separationsCombo->currentIndex() == 2)
 		return QString("Magenta");
-	if (SepArt->currentIndex() == 3)
+	if (separationsCombo->currentIndex() == 3)
 		return QString("Yellow");
-	if (SepArt->currentIndex() == 4)
+	if (separationsCombo->currentIndex() == 4)
 		return QString("Black");
-	return SepArt->currentText();
+	return separationsCombo->currentText();
 }
 
 QStringList PrintDialog::allSeparations()
 {
 	QStringList ret;
-	for (int a = 1; a < SepArt->count(); ++a)
+	for (int a = 1; a < separationsCombo->count(); ++a)
 	{
-		ret.append(SepArt->itemText(a));
+		ret.append(separationsCombo->itemText(a));
 	}
 	return ret;
 }
@@ -629,22 +603,22 @@ bool PrintDialog::color()
 
 bool PrintDialog::mirrorHorizontal()
 {
-	return MirrorHor->isChecked();
+	return mirrorHor->isChecked();
 }
 
 bool PrintDialog::mirrorVertical()
 {
-	return MirrorVert->isChecked();
+	return mirrorVert->isChecked();
 }
 
 bool PrintDialog::doGCR()
 {
-	return GcR->isChecked();
+	return applyGCR->isChecked();
 }
 
 bool PrintDialog::doClip()
 {
-	return ClipMarg->isChecked();
+	return clipMargins->isChecked();
 }
 
 PrintEngine PrintDialog::printEngine()
@@ -654,22 +628,22 @@ PrintEngine PrintDialog::printEngine()
 
 bool PrintDialog::doDev()
 {
-	return devPar->isChecked();
+	return setMediaSize->isChecked();
 }
 
 bool PrintDialog::doSpot()
 {
-	return !spotColors->isChecked();
+	return !convertSpots->isChecked();
 }
 
 bool PrintDialog::doPrintAll()
 {
-	return RadioButton1->isChecked();
+	return printAllRadio->isChecked();
 }
 
 bool PrintDialog::doPrintCurrentPage()
 {
-	return CurrentPage->isChecked();
+	return printCurrentRadio->isChecked();
 }
 
 QString PrintDialog::getPageString()
@@ -681,28 +655,28 @@ void PrintDialog::doDocBleeds()
 {
 	if (docBleeds->isChecked())
 	{
-		prefs->set("BleedTop", BleedTop->value() / m_unitRatio);
-		prefs->set("BleedBottom", BleedBottom->value() / m_unitRatio);
-		prefs->set("BleedRight", BleedRight->value() / m_unitRatio);
-		prefs->set("BleedLeft", BleedLeft->value() / m_unitRatio);
-		BleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
+		prefs->set("BleedTop", bleedTop->value() / m_unitRatio);
+		prefs->set("BleedBottom", bleedBottom->value() / m_unitRatio);
+		prefs->set("BleedRight", bleedRight->value() / m_unitRatio);
+		prefs->set("BleedLeft", bleedLeft->value() / m_unitRatio);
+		bleedTop->setValue(m_doc->bleeds()->top() * m_unitRatio);
+		bleedBottom->setValue(m_doc->bleeds()->bottom() * m_unitRatio);
+		bleedRight->setValue(m_doc->bleeds()->right() * m_unitRatio);
+		bleedLeft->setValue(m_doc->bleeds()->left() * m_unitRatio);
 	}
 	else
 	{
-		BleedTop->setValue(prefs->getDouble("BleedTop",0.0) * m_unitRatio);
-		BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0) * m_unitRatio);
-		BleedRight->setValue(prefs->getDouble("BleedRight",0.0) * m_unitRatio);
-		BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0) * m_unitRatio);
+		bleedTop->setValue(prefs->getDouble("BleedTop",0.0) * m_unitRatio);
+		bleedBottom->setValue(prefs->getDouble("BleedBottom",0.0) * m_unitRatio);
+		bleedRight->setValue(prefs->getDouble("BleedRight",0.0) * m_unitRatio);
+		bleedLeft->setValue(prefs->getDouble("BleedLeft",0.0) * m_unitRatio);
 	}
 	bool isChecked = docBleeds->isChecked();
 	prefs->set("UseDocBleeds", isChecked);
-	BleedTop->setEnabled(!isChecked);
-	BleedBottom->setEnabled(!isChecked);
-	BleedRight->setEnabled(!isChecked);
-	BleedLeft->setEnabled(!isChecked);
+	bleedTop->setEnabled(!isChecked);
+	bleedBottom->setEnabled(!isChecked);
+	bleedRight->setEnabled(!isChecked);
+	bleedLeft->setEnabled(!isChecked);
 }
 
 void PrintDialog::createPageNumberRange( )
@@ -745,9 +719,9 @@ void PrintDialog::refreshPrintEngineBox()
 	printEngines->setCurrentIndex(oldPDLIndex);
 }
 
-void PrintDialog::setPrintEngine(PrintEngine pdl)
+void PrintDialog::setPrintEngine(PrintEngine engine)
 {
-	QString pdlString = m_printEngineMap.key(pdl, "");
+	QString pdlString(m_printEngineMap.key(engine, ""));
 	int itemIndex = printEngines->findText(pdlString);
 	if (itemIndex >= 0)
 		printEngines->setCurrentIndex(itemIndex);

@@ -65,22 +65,22 @@ class SCRIBUS_API ContentPalette : public ScDockPalette
 		void languageChange();
 
 	private:
-		ScribusMainWindow *m_ScMW{nullptr};
-		ScGuardedPtr<ScribusDoc> m_doc{nullptr};
-		PageItem* m_item;
+		ScribusMainWindow *m_ScMW {nullptr};
+		ScGuardedPtr<ScribusDoc> m_doc {nullptr};
+		PageItem* m_item {nullptr};
 
-		bool m_haveDoc{false};
-		bool m_haveItem{false};
-		double m_unitRatio{1.0};
-		int m_unitIndex{0};
+		bool m_haveDoc {false};
+		bool m_haveItem {false};
+		double m_unitRatio {1.0};
+		int m_unitIndex {0};
 
-		QStackedWidget* stackedWidget{nullptr};
-		ContentPalette_Default* defaultPal{nullptr};
-		PropertiesPalette_Group* groupPal{nullptr};
-		PropertiesPalette_Image* imagePal{nullptr};
-		ContentPalette_Page* pagePal{nullptr};
-		PropertiesPalette_Table* tablePal{nullptr};
-		PropertiesPalette_Text* textPal{nullptr};
+		QStackedWidget* stackedWidget {nullptr};
+		ContentPalette_Default* defaultPal {nullptr};
+		PropertiesPalette_Group* groupPal {nullptr};
+		PropertiesPalette_Image* imagePal {nullptr};
+		ContentPalette_Page* pagePal {nullptr};
+		PropertiesPalette_Table* tablePal {nullptr};
+		PropertiesPalette_Text* textPal {nullptr};
 
 		void updatePanelTitle();
 		

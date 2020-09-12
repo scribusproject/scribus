@@ -49,11 +49,9 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 		void keyPressEvent(QKeyEvent *e) override;
 		void keyReleaseEvent(QKeyEvent *e) override;
 
-		bool handleKeyEvents() const override { return true; }
-
 		/**
-		Draws the controls for this mode
-	 */
+		 * Draws the controls for this mode
+		 */
 		void drawControls(QPainter* p) override;
 
 	private:

@@ -51,22 +51,6 @@ public:
 		Thumbnail = 4,
 	};
 
-	enum ImageEffectCode
-	{
-		EF_INVERT = 0,
-		EF_GRAYSCALE = 1,
-		EF_COLORIZE = 2,
-		EF_BRIGHTNESS = 3,
-		EF_CONTRAST = 4,
-		EF_SHARPEN = 5,
-		EF_BLUR = 6,
-		EF_SOLARIZE = 7,
-		EF_DUOTONE = 8,
-		EF_TRITONE = 9,
-		EF_QUADTONE = 10,
-		EF_GRADUATE = 11
-	};
-
 	void initialize();
 
 	const QImage& qImage();

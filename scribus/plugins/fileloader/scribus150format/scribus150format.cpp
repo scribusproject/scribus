@@ -9,15 +9,30 @@ for which a new license (GPL+exception) is in place.
 
 #include <algorithm>
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+// #include <QDebug>
+#include <QFileInfo>
+#include <QList>
+#include <QScopedPointer>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
-#include "ui/missing.h"
 #include "hyphenator.h"
 #include "langmgr.h"
 #include "notesstyles.h"
+#include "pageitem_arc.h"
 #include "pageitem_latexframe.h"
-#include "pageitem_line.h"
 #include "pageitem_noteframe.h"
+#ifdef HAVE_OSG
+	#include "pageitem_osgframe.h"
+#endif
+#include "pageitem_regularpolygon.h"
+#include "pageitem_spiral.h"
+#include "pageitem_table.h"
+#include "pagestructs.h"
+#include "pageitem_line.h"
 #include "pagesize.h"
 #include "prefsmanager.h"
 #include "qtiocompressor.h"
@@ -27,31 +42,16 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
 #include "undomanager.h"
+#include "ui/missing.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
 #include "util_color.h"
+#include "util_math.h"
+#include "util_printer.h"
 #include "util_text.h"
-#ifdef HAVE_OSG
-	#include "pageitem_osgframe.h"
-#endif
-#include "pageitem_table.h"
-#include "pageitem_regularpolygon.h"
-#include "pageitem_arc.h"
-#include "pageitem_spiral.h"
-#include "pagestructs.h"
-
-#include <QApplication>
-#include <QByteArray>
-#include <QCursor>
-// #include <QDebug>
-#include <QFileInfo>
-#include <QList>
-#include <QScopedPointer>
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -3397,6 +3397,15 @@ bool Scribus150Format::readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& re
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	doc->Print_Options.firstUse = attrs.valueAsBool("firstUse");
+	if (doc->Print_Options.firstUse)
+	{
+		// Formerly we were writing uninitialized structure values in documents
+		// so set these uninitialized values to something more meaningful
+		PrinterUtil::getDefaultPrintOptions(doc->Print_Options, doc->bleedsVal());
+		reader.readToElementEnd();
+		return !reader.hasError();
+	}
+
 	doc->Print_Options.toFile   = attrs.valueAsBool("toFile");
 	doc->Print_Options.useAltPrintCommand = attrs.valueAsBool("useAltPrintCommand");
 	doc->Print_Options.outputSeparations  = attrs.valueAsBool("outputSeparations");
@@ -4167,7 +4176,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			currentView.addedTransparency = tAtt.valueAsDouble("trans");
 			currentView.colorAC = QColor(tAtt.valueAsString("colorAC"));
 			currentView.colorFC = QColor(tAtt.valueAsString("colorFC"));
-			if (newItem->asOSGFrame())
+			if (newItem->isOSGFrame())
 				newItem->asOSGFrame()->viewMap.insert(tAtt.valueAsString("viewName"), currentView);
 		}
 #endif
@@ -4191,7 +4200,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if (tName == "LATEX")
 		{
-			if (newItem->asLatexFrame())
+			if (newItem->isLatexFrame())
 			{
 				readLatexInfo(newItem->asLatexFrame(), reader);
 			}
@@ -4207,7 +4216,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if ((tName == "PAGEOBJECT") || (tName == "ITEM"))
 		{
-			if (newItem->asGroupFrame())
+			if (newItem->isGroup())
 			{
 			//	bool success = true;
 				QList<PageItem*>* docItems = doc->Items;
@@ -4236,7 +4245,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 		if (tName == "MARK")
 		{
-			if (newItem->asTextFrame())
+			if (newItem->isTextFrame())
 			{
 				QString l = tAtt.valueAsString("label");
 				MarkType t = (MarkType) tAtt.valueAsInt("type");
@@ -4277,7 +4286,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 					}
 				}
 				if (mark == nullptr)
-					qDebug() << "Undefinied mark label ["<< l << "] type " << t;
+					qDebug() << "Undefined mark label ["<< l << "] type " << t;
 				else
 				{
 					//set pointer to item holds mark in his text
@@ -4334,19 +4343,19 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col1, doc), 0.0, 0.5, 1.0, doc->itemToolPrefs().shapeFillColor, 100);
 		newItem->mask_gradient.addStop(ScColorEngine::getRGBColor(col2, doc), 1.0, 0.5, 1.0, doc->itemToolPrefs().shapeLineColor, 100);
 	}
-	if (newItem->GrType == 13)
+	if (newItem->GrType == Gradient_Conical)
 	{
 		if (!newItem->gradient().isEmpty())
 			newItem->fill_gradient = doc->docGradients[newItem->gradient()];
 		newItem->createConicalMesh();
 	}
 
-	if (newItem->asPathText())
+	if (newItem->isPathText())
 		newItem->updatePolyClip();
 #ifdef HAVE_OSG
-	if (newItem->asImageFrame() || newItem->asLatexFrame() || newItem->asOSGFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame() || newItem->isOSGFrame())
 #else
-	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame())
 #endif
 	{
 		if (!newItem->Pfile.isEmpty())
@@ -4784,7 +4793,7 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 				}
 			}
 			if (mark == nullptr)
-				qDebug() << "Undefinied mark label ["<< l << "] type " << t;
+				qDebug() << "Undefined mark label ["<< l << "] type " << t;
 			else
 			{
 				//set pointer to item holds mark in his text
@@ -5004,11 +5013,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->setImageXYScale(imageXScale, imageYScale);
 		currItem->setImageXYOffset(imageXOffset, imageYOffset);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
-//		if (!currItem->asLatexFrame())
+//		if (!currItem->isLatexFrame())
 #ifdef HAVE_OSG
-		if ((currItem->asImageFrame() || currItem->asOSGFrame()) && (!currItem->asLatexFrame()))
+		if ((currItem->isImageFrame() || currItem->isOSGFrame()) && (!currItem->isLatexFrame()))
 #else
-		if ((currItem->asImageFrame()) && (!currItem->asLatexFrame()))
+		if ((currItem->isImageFrame()) && (!currItem->isLatexFrame()))
 #endif
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
@@ -5041,7 +5050,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			else
 				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
 #ifdef HAVE_OSG
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
 				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
@@ -5176,8 +5185,6 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
 	currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
 	currItem->isBookmark  = attrs.valueAsInt("BOOKMARK", 0);
-	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
-		doc->OldBM = true;
 	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
 	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
 	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
@@ -5379,7 +5386,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setIcon(attrs.valueAsInt("ANITYP", 0));
 	currItem->annotation().setAnOpen(attrs.valueAsBool("ANOPEN", false) );
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -5405,7 +5412,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		UndoManager::instance()->setUndoEnabled(true);
 	}
 
-	if (currItem->asTable())
+	if (currItem->isTable())
 	{
 		doc->dontResize = true;
 		PageItem_Table *tableitem = currItem->asTable();
@@ -5527,7 +5534,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->DashValues.clear();
 	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
 
-	if (currItem->asRegularPolygon())
+	if (currItem->isRegularPolygon())
 	{
 		PageItem_RegularPolygon *regitem = currItem->asRegularPolygon();
 		regitem->polyCorners      = attrs.valueAsInt("POLYC", 4);
@@ -5539,7 +5546,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		regitem->polyUseFactor    = attrs.valueAsBool("POLYS", false);
 		regitem->recalcPath();
 	}
-	else if (currItem->asArc())
+	else if (currItem->isArc())
 	{
 		PageItem_Arc *arcitem = currItem->asArc();
 		arcitem->arcHeight     = attrs.valueAsDouble("arcHeight", 1.0);
@@ -5548,7 +5555,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
 		arcitem->recalcPath();
 	}
-	else if (currItem->asSpiral())
+	else if (currItem->isSpiral())
 	{
 		PageItem_Spiral *arcitem = currItem->asSpiral();
 		arcitem->FrameType = 3; // Workaround for old docs, otherwise undo breaks spirals
@@ -5611,7 +5618,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
 
-	if (!currItem->asLine())
+	if (!currItem->isLine())
 		currItem->Clip = flattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
@@ -5621,7 +5628,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->asLine()->setLineClip();
 	}
 
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;
@@ -5630,7 +5637,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
-		if (currItem->GrType == 8)
+		if (currItem->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern( attrs.valueAsString("pattern", "") );
 			double patternScaleX   = attrs.valueAsDouble("pScaleX", 100.0);
@@ -5645,7 +5652,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
 			currItem->setPatternFlip(mirrorX, mirrorY);
 		}
-		else if (currItem->GrType == 11)
+		else if (currItem->GrType == Gradient_Mesh)
 		{
 			currItem->meshGradientArray.clear();
 			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
@@ -5661,7 +5668,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientArray.append(ml);
 			}
 		}
-		else if (currItem->GrType == 12)
+		else if (currItem->GrType == Gradient_PatchMesh)
 		{
 			currItem->meshGradientPatches.clear();
 			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
@@ -5671,7 +5678,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientPatches.append(patchM);
 			}
 		}
-		else if (currItem->GrType == 14)
+		else if (currItem->GrType == Gradient_Hatch)
 		{
 			int hatchType = attrs.valueAsInt("HatchMode", 0);
 			double hatchDistance = attrs.valueAsDouble("HatchDist", 2);
@@ -5702,7 +5709,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			GrName = attrs.valueAsString("GRNAME","");
 			if (!GrName.isEmpty())
 				currItem->setGradient(GrName);
-			if ((currItem->GrType == 9) || (currItem->GrType == 10))
+			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
 			{
 				currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
 				currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
@@ -5725,12 +5732,12 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 		}
 	}
-	if (((currItem->GrType != 0) && (currItem->GrType != 8) && (currItem->GrType != 14)) && (currItem->gradient().isEmpty()))
+	if (((currItem->GrType != 0) && (currItem->GrType != Gradient_Pattern) && (currItem->GrType != Gradient_Hatch)) && (currItem->gradient().isEmpty()))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
-			if (currItem->GrType == 5)
+			if (currItem->GrType == Gradient_RadialLegacy5)
 			{
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetQColor(&tmpc, GrColor, GrShade);
@@ -5751,6 +5758,21 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 //		currItem->updateGradientVectors();
 	}
+	switch (currItem->GrType)
+	{
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			currItem->GrType = Gradient_Linear;
+			break;
+		case Gradient_RadialLegacy5:
+			currItem->GrType = Gradient_Radial;
+			break;
+		default:
+			break;
+	}
+
 	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
 	double patternScaleX   = attrs.valueAsDouble("pScaleXS", 100.0);
 	double patternScaleY   = attrs.valueAsDouble("pScaleYS", 100.0);
@@ -5767,7 +5789,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setPatternFlip(mirrorX, mirrorY);
 	currItem->setStrokePatternToPath(atPath);
 	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
-	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != 8)) && (currItem->strokeGradient().isEmpty()))
+	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != Gradient_Pattern)) && (currItem->strokeGradient().isEmpty()))
 		currItem->stroke_gradient.clearStops();
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
 	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
@@ -5798,11 +5820,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	QString GrNameM = "";
 	GrNameM = attrs.valueAsString("GRNAMEM","");
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 4))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);
-	else if ((currItem->GrMask == 2) || (currItem->GrMask == 5))
+	else if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::radial);
-	if (((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5)) && (GrNameM.isEmpty()))
+	if (((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha)) && (GrNameM.isEmpty()))
 		currItem->mask_gradient.clearStops();
 	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
 	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);

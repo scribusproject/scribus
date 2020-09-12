@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include <QShowEvent>
 #include <QSignalBlocker>
 #include <QScopedPointer>
+#include <QScopedValueRollback>
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
@@ -120,13 +121,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	pal.setColor(QPalette::Window, QColor(255,255,255));
 	setAutoFillBackground(true);
 	setPalette(pal);
-	offs = 0;
-	currentPar = 0;
-	m_editor = nullptr;
-	noUpdt = true;
-	inRep = false;
 	pmen = new QMenu(this);
-	paraStyleAct = nullptr;
 	setMinimumWidth(fontMetrics().horizontalAdvance( tr("No Style") )+30);
 }
 
@@ -277,40 +272,16 @@ void SideBar::setRepaint(bool r)
 	noUpdt = r;
 }
 
-SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
+SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : 
+		QTextEdit(parent),
+		parentStoryEditor(parentSE)
 {
 	setCurrentDocument(docc);
-	parentStoryEditor = parentSE;
-	wasMod = false;
-	ready = false;
-	unicodeInputCount = 0;
-	CurrAlign = 0.0;
-	CurrDirection = 0.0;
-	CurrFontSize = 0.0;
-	CurrTextFillSh = 0.0;
-	CurrTextStrokeSh = 0.0;
-	CurrTextScaleH = 0.0;
-	CurrTextScaleV = 0.0;
-	CurrTextBase = 0.0;
-	CurrTextShadowX = 0.0;
-	CurrTextShadowY = 0.0;
-	CurrTextOutline = 0.0;
-	CurrTextUnderPos = 0.0;
-	CurrTextUnderWidth = 0.0;
-	CurrTextStrikePos = 0.0;
-	CurrTextStrikeWidth = 0.0;
-	CurrTextKern = 0.0;
-	SelCharStart = 0;
-	SelCharEnd = 0;
-	StyledText.clear();
 	document()->setUndoRedoEnabled(true);
 	viewport()->setAcceptDrops(false);
-	unicodeTextEditMode = false;
-	blockContentsChangeHook = 0;
 	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(this->document(), SIGNAL(contentsChange(int, int, int)), this, SLOT(handleContentsChange(int, int, int)));
-	SuspendContentsChange = 0;
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -508,7 +479,10 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 			cursor.setPosition(position + charsAdded, QTextCursor::KeepAnchor);
 			QString addedChars = cursor.selectedText();
 			if (addedChars.length() > 0)
+			{
+				addedChars.replace(QString(0x2029), SpecialChars::PARSEP);
 				StyledText.insertChars(position, addedChars, true);
+			}
 			//qDebug("handleContentsChange : - %01d, + %01d, len %01d", charsRemoved, charsAdded, addedChars.length());
 		}	
 	}
@@ -1119,13 +1093,14 @@ bool SEditor::canInsertFromMimeData( const QMimeData * source ) const
 QMimeData* SEditor::createMimeDataFromSelection () const
 {
 	StyledTextMimeData* mimeData = new StyledTextMimeData();
-	int start = textCursor().selectionStart();
-	int end   = textCursor().selectionEnd();
+	QTextCursor cursor = textCursor();
+	int start = cursor.selectionStart();
+	int end   = cursor.selectionEnd();
 	if (start < 0 || end <= start)
 		return mimeData;
 	StoryText* that = const_cast<StoryText*> (&StyledText);
-	that->select(start, end-start);
-	QString selectedText = textCursor().selectedText();
+	that->select(start, end - start);
+	QString selectedText = cursor.selectedText();
 	selectedText.replace(QChar(0x2029), QChar('\n'));
 	mimeData->setText(selectedText);
 	mimeData->setStyledText(*that, doc);
@@ -1587,50 +1562,10 @@ void SToolBFont::SetScaleV(double s)
 	charScaleV->setValue(s / 10.0);
 }
 
-/* Main Story Editor Class */
-// StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
-// 	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
-// {
-// 	prefsManager=PrefsManager::instance();
-// 	m_doc = docc;
-// 	seMenuMgr=nullptr;
-// 	buildGUI();
-// 	currItem = ite;
-// // 	charSelect = nullptr;
-// 	m_firstSet = false;
-// 	activFromApp = true;
-// 	Editor->loadItemText(ite);
-// 	Editor->getCursorPosition(&m_currPara, &m_currChar);
-// 	EditorBar->setRepaint(true);
-// 	EditorBar->doRepaint();
-// 	updateProps(m_currPara, m_currChar);
-// 	updateStatus();
-// 	m_textChanged = false;
-// 	disconnectSignals();
-// 	connectSignals();
-// 	Editor->setFocus();
-// 	Editor->setColor(false);
-// 	m_blockUpdate = false;
-// 	loadPrefs();
-// 	// hack to keep charPalette visible. See destructor too - PV
-// 	ScCore->primaryMainWindow()->charPalette->reparent(this, QPoint(0, 0));
-// }
-
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
-	activFromApp(true),
-	m_doc(nullptr),
-	m_item(nullptr),
-	m_textChanged(false),
-	m_firstSet(false),
-	m_blockUpdate(false),
-//	m_currPara(0),
-//	m_currChar(0),
-	charSelect(nullptr),
-	charSelectUsed(false),
 	prefsManager(PrefsManager::instance())
 {
-	m_spellActive=false;
 #ifdef Q_OS_MAC
 	noIcon = IconManager::instance().loadPixmap("noicon.png");
 #endif
@@ -1677,7 +1612,7 @@ void StoryEditor::hideEvent(QHideEvent *)
 					this, SLOT(slot_insertSpecialChar()));
 		disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar, QString)),
 					this, SLOT(slot_insertUserSpecialChar(QChar, QString)));
-		delete charSelect;
+		charSelect->deleteLater();
 		charSelect = nullptr;
 	}
 	savePrefs();
@@ -1836,8 +1771,10 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("InsertChar", "Insert");
 	seMenuMgr->addMenuItemString("unicodePageNumber", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodePageCount", "InsertChar");
-	//seMenuMgr->addMenuItemString("unicodeSoftHyphen", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeSoftHyphen", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeNonBreakingHyphen", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeZWJ", "InsertChar");
+	seMenuMgr->addMenuItemString("unicodeZWNJ", "InsertChar");
 	seMenuMgr->addMenuItemString("SEPARATOR", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeCopyRight", "InsertChar");
 	seMenuMgr->addMenuItemString("unicodeRegdTM", "InsertChar");
@@ -1878,6 +1815,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->createMenu("InsertSpace", tr("Spaces && Breaks"), "Insert");
 	seMenuMgr->addMenuItemString("InsertSpace", "Insert");
 	seMenuMgr->addMenuItemString("unicodeNonBreakingSpace", "InsertSpace");
+	seMenuMgr->addMenuItemString("unicodeNarrowNoBreakSpace", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceEN", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceEM", "InsertSpace");
 	seMenuMgr->addMenuItemString("unicodeSpaceThin", "InsertSpace");
@@ -2316,7 +2254,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			if ((m_item != nullptr) && (!m_blockUpdate))
 				updateTextFrame();
 			activFromApp = false;
-	//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		}
 		if ( ev->type() == QEvent::WindowActivate )
 		{
@@ -2339,7 +2276,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 					m_textChanged = false;
 					FontTools->Fonts->RebuildList(m_doc, m_item->isAnnotation());
 					Editor->loadItemText(m_item);
-	//				Editor->getCursorPosition(&m_currPara, &m_currChar);
 					updateStatus();
 					m_textChanged = false;
 					//Editor->moveCursor(QTextCursor::Start, QTextCursor::MoveAnchor);
@@ -2938,7 +2874,6 @@ void StoryEditor::slotFileRevert()
 	if (Do_new())
 	{
 		Editor->loadItemText(m_item);
-//		Editor->getCursorPosition(&m_currPara, &m_currChar);
 		updateStatus();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
@@ -3009,23 +2944,13 @@ void StoryEditor::updateTextFrame()
 	if (!m_textChanged)
 		return;
 	PageItem *nextItem = m_item;
-//#if 0
-	if (m_item->asTextFrame())
-	{
-		while (nextItem != nullptr)
-		{
-			if (nextItem->prevInChain() != nullptr)
-				nextItem = nextItem->prevInChain();
-			else
-				break;
-		}
-	}
-//#endif
+	if (m_item->isTextFrame())
+		nextItem = m_item->firstInChain();
 	m_item->invalidateLayout();
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
 #if 0
-	if (m_item->asTextFrame())
+	if (m_item->isTextFrame())
 	{
 		while (nb2 != 0)
 		{
@@ -3068,7 +2993,7 @@ void StoryEditor::updateTextFrame()
 	Editor->saveItemText(nextItem);
 	// #9180 : force relayout here, it appears that relayout is sometime disabled
 	// to speed up selection, but re layout() cannot be avoided here
-	if (nextItem->asTextFrame())
+	if (nextItem->isTextFrame())
 		nextItem->asTextFrame()->invalidateLayout(true);
 	nextItem->layout();
 #if 0
@@ -3086,7 +3011,7 @@ void StoryEditor::updateTextFrame()
 	FrameItemsDel.clear();
 #endif
 #if 0
-	if (currItem->asTextFrame())
+	if (currItem->isTextFrame())
 	{
 		nextItem->layout();
 		nb2 = nextItem;
@@ -3450,22 +3375,18 @@ void StoryEditor::LoadTextFile()
 	if (Do_new())
 	{
 		EditorBar->setRepaint(false);
-		QString loadEnc;
-		QString fileName;
 		PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
 		QString wdir = dirs->get("story_load", prefsManager.documentDir());
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files (*)"), fdExistingFiles | fdShowCodecs | fdDisableOk);
 		if (dia.exec() != QDialog::Accepted)
 			return;
-		loadEnc = dia.optionCombo->currentText();
-		if (loadEnc == "UTF-16")
-			loadEnc = "ISO-10646-UCS-2";
-		fileName =  dia.selectedFile();
+		QString textEncoding = dia.textCodec();
+		QString fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
 			dirs->set("story_load", fileName.left(fileName.lastIndexOf("/")));
 			QString txt;
-			if (Serializer::readWithEncoding(fileName, loadEnc, txt))
+			if (Serializer::readWithEncoding(fileName, textEncoding, txt))
 			{
 				txt.replace(QRegExp("\r"), "");
 				txt.replace(QRegExp("\n"), QChar(13));
@@ -3484,28 +3405,26 @@ void StoryEditor::LoadTextFile()
 
 void StoryEditor::SaveTextFile()
 {
-	m_blockUpdate = true;
-	QString loadEnc;
-	QString fileName;
-	PrefsContext* dirs = prefsManager.prefsFile->getContext("dirs");
-	QString wdir = dirs->get("story_save", prefsManager.appPrefs.pathPrefs.documents);
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
-	qApp->processEvents();
+	QScopedValueRollback<bool> blockUpdateRollback(m_blockUpdate);
+	PrefsContext* dirsContext = prefsManager.prefsFile->getContext("dirs");
+	PrefsContext* textContext = prefsManager.prefsFile->getContext("textsave_dialog");
+	QString prefsDocDir = prefsManager.documentDir();
+	QString workingDir = dirsContext->get("save_text", prefsDocDir.isEmpty() ? "." : prefsDocDir);
+	QString textEncoding = textContext->get("encoding");
+
+	CustomFDialog dia(this, workingDir, tr("Save as"), tr("Text Files (*.txt);;All Files (*)"), fdShowCodecs|fdHidePreviewCheckBox);
+	dia.setTextCodec(textEncoding);
 	if (dia.exec() != QDialog::Accepted)
-	{
-		m_blockUpdate = false;
 		return;
-	}
-	loadEnc = dia.optionCombo->currentText();
-	if (loadEnc == "UTF-16")
-		loadEnc = "ISO-10646-UCS-2";
-	fileName = dia.selectedFile();
-	if (!fileName.isEmpty())
-	{
-		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
-		Serializer::writeWithEncoding(fileName, loadEnc, Editor->StyledText.plainText());
-	}
-	m_blockUpdate = false;
+	
+	QString fileName = dia.selectedFile();
+	if (fileName.isEmpty())
+		return;
+	textEncoding = dia.textCodec();
+
+	dirsContext->set("save_text", fileName.left(fileName.lastIndexOf("/")));
+	textContext->set("encoding", dia.textCodec());
+	Serializer::writeWithEncoding(fileName, textEncoding, Editor->StyledText.plainText());
 }
 
 bool StoryEditor::textDataChanged() const

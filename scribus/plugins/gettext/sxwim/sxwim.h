@@ -48,11 +48,12 @@ public:
 	~SxwIm();
 
 private:
-	gtWriter* writer;
+	gtWriter* writer { nullptr };
 	QString encoding;
 	QString filename;
 	QString stylePath;
 	QString contentPath;
+
 	bool decompress();
 };
 

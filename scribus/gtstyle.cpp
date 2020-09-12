@@ -57,7 +57,7 @@ void gtStyle::setName(const QString& newName)
 	name = newName;
 }
 
-QString gtStyle::target()
+QString gtStyle::target() const
 {
 	return QString("character");
 }

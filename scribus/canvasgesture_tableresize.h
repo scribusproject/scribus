@@ -37,7 +37,6 @@ public:
 	void keyPressEvent(QKeyEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
-	bool handleKeyEvents() const override { return true; }
 	void drawControls(QPainter* p) override;
 
 	/// Sets up this table resize gesture to resize @a table.

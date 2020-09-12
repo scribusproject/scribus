@@ -369,12 +369,12 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 		doUnGroup->setEnabled(m_item->isGroup());
 	if ((m_doc->appMode == modeEditClip) && (m_item->isGroup()))
 		doUnGroup->setEnabled(false);
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(true);
 		rotationSpin->setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 	{
 		setEnabled(true);
 	}
@@ -497,7 +497,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				setEnabled(true);
 				rotationSpin->setEnabled(false);
@@ -652,76 +652,72 @@ void PropertiesPalette_XYZ::showRotation(double r)
 
 void PropertiesPalette_XYZ::handleNewX()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+
+	double x, y, gx, gy, gh, gw, base;
+	QTransform ma;
+	x = xposSpin->value() / m_unitRatio;
+	y = yposSpin->value() / m_unitRatio;
+	base = 0;
+	x += m_doc->rulerXoffset;
+	y += m_doc->rulerYoffset;
+	if (m_doc->guidesPrefs().rulerMode)
 	{
-		double x,y,w,h, gx, gy, gh, gw, base;
-		QTransform ma;
-		x = xposSpin->value() / m_unitRatio;
-		y = yposSpin->value() / m_unitRatio;
-		w = widthSpin->value() / m_unitRatio;
-		h = heightSpin->value() / m_unitRatio;
-		base = 0;
-		x += m_doc->rulerXoffset;
-		y += m_doc->rulerYoffset;
-		if (m_doc->guidesPrefs().rulerMode)
+		x += m_doc->currentPage()->xOffset();
+		y += m_doc->currentPage()->yOffset();
+	}
+	if (m_doc->m_Selection->isMultipleSelection())
+	{
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		int bp = basePointWidget->checkedId();
+		if ((bp == 0) || (bp == 3))
+			base = gx;
+		else if (bp == 2)
+			base = gx + gw / 2.0;
+		else if ((bp == 1) || (bp == 4))
+			base = gx + gw;
+		if (!_userActionOn)
+			m_ScMW->view->startGroupTransaction();
+		m_doc->moveGroup(x - base, 0);
+		if (!_userActionOn)
 		{
-			x += m_doc->currentPage()->xOffset();
-			y += m_doc->currentPage()->yOffset();
+			m_ScMW->view->endGroupTransaction();
 		}
-		if (m_doc->m_Selection->isMultipleSelection())
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		showXY(gx, gy);
+	}
+	else
+	{
+		if ((m_item->asLine()) && (m_lineMode))
 		{
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			int bp = basePointWidget->checkedId();
-			if ((bp == 0) || (bp == 3))
-				base = gx;
-			else if (bp == 2)
-				base = gx + gw / 2.0;
-			else if ((bp == 1) || (bp == 4))
-				base = gx + gw;
-			if (!_userActionOn)
-				m_ScMW->view->startGroupTransaction();
-			m_doc->moveGroup(x - base, 0);
-			if (!_userActionOn)
-			{
-				m_ScMW->view->endGroupTransaction();
-			}
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			showXY(gx, gy);
+			QPointF endPoint = m_item->asLine()->endPoint();
+			double r = atan2(endPoint.y() - m_item->yPos(), endPoint.x() - x) * (180.0 / M_PI);
+			double length = sqrt(pow(endPoint.x() - x, 2) + pow(endPoint.y() - m_item->yPos(), 2));
+			m_item->setXYPos(x, m_item->yPos(), true);
+			m_item->setRotation(r, true);
+			m_doc->sizeItem(length, m_item->height(), m_item, true);
 		}
 		else
 		{
-			if ((m_item->asLine()) && (m_lineMode))
-			{
-				QPointF endPoint = m_item->asLine()->endPoint();
-				double r = atan2(endPoint.y() - m_item->yPos(), endPoint.x() - x) * (180.0 / M_PI);
-				double length = sqrt(pow(endPoint.x() - x, 2) + pow(endPoint.y() - m_item->yPos(), 2));
-				m_item->setXYPos(x, m_item->yPos(), true);
-				m_item->setRotation(r, true);
-				m_doc->sizeItem(length, m_item->height(), m_item, true);
-			}
-			else
-			{
-				ma.translate(m_item->xPos(), m_item->yPos());
-				ma.rotate(m_item->rotation());
-				int bp = basePointWidget->checkedId();
-				if (bp == 0)
-					base = m_item->xPos();
-				else if (bp == 2)
-					base = ma.m11() * (m_item->width() / 2.0) + ma.m21() * (m_item->height() / 2.0) + ma.dx();
-				else if (bp == 1)
-					base = ma.m11() * m_item->width() + ma.m21() * 0.0 + ma.dx();
-				else if (bp == 4)
-					base = ma.m11() * m_item->width() + ma.m21() * m_item->height() + ma.dx();
-				else if (bp == 3)
-					base = ma.m11() * 0.0 + ma.m21() * m_item->height() + ma.dx();
-				m_doc->moveItem(x - base, 0, m_item);
-			}
+			ma.translate(m_item->xPos(), m_item->yPos());
+			ma.rotate(m_item->rotation());
+			int bp = basePointWidget->checkedId();
+			if (bp == 0)
+				base = m_item->xPos();
+			else if (bp == 2)
+				base = ma.m11() * (m_item->width() / 2.0) + ma.m21() * (m_item->height() / 2.0) + ma.dx();
+			else if (bp == 1)
+				base = ma.m11() * m_item->width() + ma.m21() * 0.0 + ma.dx();
+			else if (bp == 4)
+				base = ma.m11() * m_item->width() + ma.m21() * m_item->height() + ma.dx();
+			else if (bp == 3)
+				base = ma.m11() * 0.0 + ma.m21() * m_item->height() + ma.dx();
+			m_doc->moveItem(x - base, 0, m_item);
 		}
-		m_doc->regionsChanged()->update(QRect());
-		m_doc->changed();
 	}
+	m_doc->regionsChanged()->update(QRect());
+	m_doc->changed();
 }
 
 void PropertiesPalette_XYZ::handleNewY()
@@ -729,12 +725,10 @@ void PropertiesPalette_XYZ::handleNewY()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	double x,y,w,h, gx, gy, gh, gw, base;
+	double x, y, gx, gy, gh, gw, base;
 	QTransform ma;
 	x = xposSpin->value() / m_unitRatio;
 	y = yposSpin->value() / m_unitRatio;
-	w = widthSpin->value() / m_unitRatio;
-	h = heightSpin->value() / m_unitRatio;
 	base = 0;
 	x += m_doc->rulerXoffset;
 	y += m_doc->rulerYoffset;

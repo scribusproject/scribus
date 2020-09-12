@@ -63,7 +63,7 @@ public:
 
 	const ScColorSpaceData* data() const { return m_data.data(); }
 
-	bool operator==(const ScColorSpace& cspace) const;
+	bool operator==(const ScColorSpace& other) const;
 
 protected:
 	QSharedPointer<ScColorSpaceData> m_data;

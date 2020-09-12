@@ -133,14 +133,14 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 
 void Hyphenator::slotHyphenate(PageItem* it)
 {
-	if (!(it->asTextFrame()) || (it->itemText.length() == 0))
+	if (!(it->isTextFrame()) || (it->itemText.length() == 0))
 		return;
 	m_doc->DoDrawing = false;
 
 	QString text = "";
 
 	int startC = 0;
-	if (it->itemText.isSelected())
+	if (it->itemText.hasSelection())
 	{
 		startC = it->itemText.startOfSelection();
 		text = it->itemText.text(startC, it->itemText.selectionLength());
@@ -340,10 +340,10 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
 void Hyphenator::slotDeHyphenate(PageItem* it)
 {
-	if (!(it->asTextFrame()) || (it ->itemText.length() == 0))
+	if (!(it->isTextFrame()) || (it ->itemText.length() == 0))
 		return;
 
-	if (it->itemText.isSelected())
+	if (it->itemText.hasSelection())
 		it->itemText.hyphenateWord(it->itemText.startOfSelection(), it->itemText.selectionLength(), nullptr);
 	else
 	{

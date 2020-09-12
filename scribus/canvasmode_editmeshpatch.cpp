@@ -551,7 +551,7 @@ void CanvasMode_EditMeshPatch::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->asTextFrame()))
+		if (!(GetItem(&m_currItem) && (m_doc->appMode == modeEdit) && m_currItem->isTextFrame()))
 		{
 			mousePressEvent(m);
 			return;
@@ -629,8 +629,10 @@ void CanvasMode_EditMeshPatch::mouseMoveEvent(QMouseEvent *m)
 					m_canvas->displayXYHUD(m->globalPos(), npf.x(), npf.y());
 					if (m_view->editStrokeGradient == 9)
 					{
-						FPoint mp, mp_orig;
-						double xx, yy;
+						FPoint mp;
+						FPoint mp_orig;
+						double xx = 0.0;
+						double yy = 0.0;
 						if (m_patchPoint == useTL)
 						{
 							mp_orig = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX].TL.gridPoint;

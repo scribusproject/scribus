@@ -41,8 +41,10 @@ class XtgDialog : public QDialog
 public:
 	XtgDialog(bool prefix);
 	~XtgDialog();
+
 	bool usePrefix();
 	bool askAgain();
+
 private:
 	QCheckBox* prefixCheck;
 	QCheckBox* doNotAskCheck;

@@ -103,11 +103,11 @@ void ContextMenu::createMenuItems_Selection()
 
 	//<-- Add Info
 	//Test new method with image frames first
-	if (selectedItemCount==1 && currItem->asImageFrame())
+	if (selectedItemCount==1 && currItem->isImageFrame())
 	{
 		QAction *act = addMenu(menuInfo);
 		act->setText( tr("In&fo"));
-		if (currItem->asImageFrame())
+		if (currItem->isImageFrame())
 		{
 			QLabel* menuLabel = new QLabel("<html>" + currItem->infoDescription() + "</html>", this);
 			menuLabel->setFrameShape(QFrame::NoFrame);
@@ -174,7 +174,7 @@ void ContextMenu::createMenuItems_Selection()
 		}
 	if (m_actionList.contains("fileImportImage"))
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportImage"]);
-	if (selectedItemCount==1 && currItem->asImageFrame())
+	if (selectedItemCount==1 && currItem->isImageFrame())
 	{
 		if (QApplication::clipboard()->mimeData()->hasImage())
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
@@ -185,7 +185,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuEditContent->addAction(m_ScMW->scrActions["editCopyContents"]);
 		if (m_actionList.contains("editPasteContents"))
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteContents"]);
-		if (currItem->asImageFrame() && m_actionList.contains("editPasteContentsAbs"))
+		if (currItem->isImageFrame() && m_actionList.contains("editPasteContentsAbs"))
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
 	}
 	if (m_actionList.contains("editClearContents"))
@@ -305,7 +305,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuImage->addAction(m_ScMW->scrActions["styleImageEffects"]);
 		if (m_actionList.contains("editEditWithImageEditor"))
 			menuImage->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
-		if (selectedItemCount==1 && currItem->asImageFrame())
+		if (selectedItemCount==1 && currItem->isImageFrame())
 		{
 			if (currItem->imageIsAvailable)
 			{
@@ -346,7 +346,7 @@ void ContextMenu::createMenuItems_Selection()
 			}
 		}
 		
-		if ((selectedItemCount==1) && currItem->asTextFrame())
+		if ((selectedItemCount==1) && currItem->isTextFrame())
 		{
 			if (currItem->itemText.length() > 0)
 				m_ScMW->scrActions["itemAdjustFrameHeightToText"]->setEnabled(true);
@@ -555,17 +555,18 @@ void ContextMenu::createMenuItems_Selection()
 
 void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 {
-	int selectedItemCount=m_Sel.count();
-	if (selectedItemCount!=0)
+	int selectedItemCount = m_Sel.count();
+	if (selectedItemCount != 0)
 		return;
+	bool layerLocked = m_doc->layerLocked(m_doc->activeLayer());
 	
-	if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() )
+	if (!layerLocked && (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()))
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;
 		addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
 	}
-	if (m_ScMW->scrRecentPasteActions.count()>0)
+	if (!layerLocked && m_ScMW->scrRecentPasteActions.count() > 0)
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;
@@ -578,9 +579,12 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 			menuPasteRecent->addAction(recentPasteAction);
 		addSeparator();
 	}
-	QAction *act = addAction( tr("Paste File..."));
-	connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
-	addSeparator();
+	if (!layerLocked)
+	{
+		QAction *act = addAction( tr("Paste File..."));
+		connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
+		addSeparator();
+	}
 
 	addAction(m_ScMW->scrActions["editUndoAction"]);
 	addAction(m_ScMW->scrActions["editRedoAction"]);
@@ -611,7 +615,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		if (m_ScMW->scrActions["pageDelete"]->isEnabled())
 		{
 			addSeparator();
-			pageDeletePrimaryString=m_ScMW->scrActions["pageDelete"]->text();
+			pageDeletePrimaryString = m_ScMW->scrActions["pageDelete"]->text();
 			m_ScMW->scrActions["pageDelete"]->setText(tr("Delete Page"));
 			addAction(m_ScMW->scrActions["pageDelete"]);
 		}

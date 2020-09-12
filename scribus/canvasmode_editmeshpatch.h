@@ -50,12 +50,11 @@ class CanvasMode_EditMeshPatch :  public CanvasMode
 
 		void activate(bool) override;
 		void deactivate(bool) override;
+		void keyPressEvent(QKeyEvent *e) override;
 		void mouseDoubleClickEvent(QMouseEvent *m) override;
 		void mouseReleaseEvent(QMouseEvent *m) override;
 		void mouseMoveEvent(QMouseEvent *m) override;
 		void mousePressEvent(QMouseEvent *m) override;
-		void keyPressEvent(QKeyEvent *e) override;
-		bool handleKeyEvents() const override { return true; }
 		void drawControls(QPainter* p) override;
 		void drawControlsMeshPoint(QPainter* psx, const MeshPoint& mp, bool isSelected);
 		void drawControlsMeshPatch(QPainter* psx, PageItem* currItem);

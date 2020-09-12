@@ -45,33 +45,10 @@ typedef QMap<QString, int> CounterMap;
 
 class StyleReader
 {
-private:
-	static StyleReader *sreader;
-	gtWriter *writer;
-	bool importTextOnly;
-	bool usePrefix;
-	bool packStyles;
-	bool readProperties;
-	QString docname;
-	StyleMap styles;
-	StyleMap listParents;
-	StyleMap attrsStyles;
-	CounterMap pstyleCounts;
-	FontMap fonts;
-	gtStyle* currentStyle;
-	gtStyle* parentStyle;
-	bool inList;
-	QString currentList;
-	bool defaultStyleCreated;
-	double getSize(const QString& s, double parentSize = -1);
-	void styleProperties(const QXmlAttributes& attrs);
-	void defaultStyle(const QXmlAttributes& attrs);
-	void styleStyle(const QXmlAttributes& attrs);
-	void tabStop(const QXmlAttributes& attrs);
-	void setupFrameStyle();
 public:
 	StyleReader(const QString& documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
 	~StyleReader();
+
 	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar * name);
@@ -82,6 +59,33 @@ public:
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);
 	QString getFont(const QString& key);
+
+private:
+	static StyleReader *sreader;
+
+	gtWriter *writer { nullptr };
+	bool importTextOnly { false };
+	bool usePrefix { false };
+	bool packStyles { false };
+	bool readProperties { false };
+	QString docname;
+	StyleMap styles;
+	StyleMap listParents;
+	StyleMap attrsStyles;
+	CounterMap pstyleCounts;
+	FontMap fonts;
+	gtStyle* currentStyle { nullptr };
+	gtStyle* parentStyle { nullptr };
+	bool inList { false };
+	QString currentList;
+	bool defaultStyleCreated { false };
+
+	double getSize(const QString& s, double parentSize = -1);
+	void styleProperties(const QXmlAttributes& attrs);
+	void defaultStyle(const QXmlAttributes& attrs);
+	void styleStyle(const QXmlAttributes& attrs);
+	void tabStop(const QXmlAttributes& attrs);
+	void setupFrameStyle();
 };
 
 #endif

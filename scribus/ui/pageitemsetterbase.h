@@ -46,7 +46,7 @@ public:
 	/**
 	  * Default constructor
 	  */
-	PageItemSetterBase(QWidget * parent = 0);
+	PageItemSetterBase(QWidget* parent = nullptr);
 
 	/**
 	*  Reset parameters and internal state to reflect properties of

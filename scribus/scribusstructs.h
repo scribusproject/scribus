@@ -99,7 +99,39 @@ struct CMSData
 	bool SoftProofFullOn;
 	bool GamutCheck;
 	bool BlackPoint;
-} ;
+};
+
+enum
+{
+	Gradient_None = 0,
+	Gradient_LinearLegacy1 = 1,
+	Gradient_LinearLegacy2 = 2,
+	Gradient_LinearLegacy3 = 3,
+	Gradient_LinearLegacy4 = 4,
+	Gradient_RadialLegacy5 = 5,
+	Gradient_Linear = 6,
+	Gradient_Radial = 7,
+	Gradient_Pattern = 8,
+	Gradient_4Colors = 9,
+	Gradient_Diamond = 10,
+	Gradient_Mesh = 11,
+	Gradient_PatchMesh = 12,
+	Gradient_Conical = 13,
+	Gradient_Hatch = 14
+};
+
+enum
+{
+	GradMask_None = 0,
+	GradMask_Linear = 1,
+	GradMask_Radial = 2,
+	GradMask_Pattern = 3,
+	GradMask_LinearLumAlpha = 4,
+	GradMask_RadialLumAlpha = 5,
+	GradMask_PatternLumAlpha = 6,
+	GradMask_PatternLumAlphaInverted = 7,
+	GradMask_PatternInverted = 8
+};
 
 struct SingleLine
 {
@@ -191,33 +223,33 @@ typedef QMap<QString, PrintEngine> PrintEngineMap;
 
 struct PrintOptions
 {
-	bool firstUse;
-	bool toFile;
-	bool useAltPrintCommand;
-	bool outputSeparations;
-	bool useSpotColors;
-	bool useColor;
-	bool mirrorH;
-	bool mirrorV;
-	bool doGCR;
-	bool doClip;
-	bool setDevParam;
-	bool useDocBleeds;
-	bool cropMarks;
-	bool bleedMarks;
-	bool registrationMarks;
-	bool colorMarks;
-	bool includePDFMarks;
-	int  copies;
-	PrintEngine prnEngine;
-	double markLength;
-	double markOffset;
+	bool firstUse { true };
+	bool toFile { false };
+	bool useAltPrintCommand { false };
+	bool outputSeparations { false };
+	bool useSpotColors { true };
+	bool useColor { true };
+	bool mirrorH { false };
+	bool mirrorV { false };
+	bool doGCR { false };
+	bool doClip { false };
+	bool setDevParam { false };
+	bool useDocBleeds { true };
+	bool cropMarks { false };
+	bool bleedMarks { false };
+	bool registrationMarks { false };
+	bool colorMarks { false };
+	bool includePDFMarks { true };
+	int  copies { 1 };
+	PrintEngine prnEngine { PostScript3 };
+	double markLength { 20.0 };
+	double markOffset { 0.0 };
 	MarginStruct bleeds;
 	std::vector<int> pageNumbers;
 	QString printerOptions;
 	QString printer;
 	QString filename;
-	QString separationName;
+	QString separationName { "All" };
 	QStringList allSeparations;
 	QString printerCommand;
 	QByteArray devMode; // printer specific options on Windows
@@ -235,7 +267,8 @@ public:
 	}
 };
 
-typedef enum {
+enum PreflightError
+{
 	MissingGlyph = 1,
 	TextOverflow = 2,
 	ObjectNotOnPage = 3,
@@ -257,7 +290,7 @@ typedef enum {
 	MarksChanged = 19,
 	AppliedMasterDifferentSide = 20,
 	EmptyTextFrame = 21
-} PreflightError;
+};
 
 typedef QMap<PreflightError, int> errorCodes;
 

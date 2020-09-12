@@ -1354,7 +1354,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		return false;
 	}
 	channel_num = qMin(channel_num, (uint) 39);
-	uint components[40];
+	uint components[40] = {0};
 	for (uint channel = 0; channel < channel_num; channel++)
 	{
 		switch (layerInfo[layer].channelType[channel])

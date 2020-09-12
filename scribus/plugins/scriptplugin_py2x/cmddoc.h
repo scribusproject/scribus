@@ -142,6 +142,14 @@ If the save fails, there is currently no way to tell.\n\
 PyObject *scribus_savedoc(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_revertdoc__doc__,
+QT_TR_NOOP("revertDoc()\n\
+\n\
+Revert the current document to its last saved state.\n\
+"));
+PyObject *scribus_revertdoc(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getdocname__doc__,
 QT_TR_NOOP("getDocName() -> string\n\
 \n\
@@ -289,9 +297,9 @@ Delete the named master page.\n\
 PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
 
 PyDoc_STRVAR(scribus_getmasterpage__doc__,
-QT_TR_NOOP("getMasterPage(nr)\n\
+QT_TR_NOOP("getMasterPage(pageNr)\n\
 \n\
-Get Master Page of the page \"nr\".\n\
+Returns the name of master page applied to page \"nr\".\n\
 \n\
 May raise IndexError if the page number is out of range.\n\
 "));

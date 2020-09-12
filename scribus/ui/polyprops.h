@@ -23,7 +23,7 @@ class SCRIBUS_API PolyVectorDialog :  public ScrPaletteBase
 public:
 	PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	~PolyVectorDialog() {};
-	void setValues(int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
+	void setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	PolygonWidget* polyWidget;
 
 signals:

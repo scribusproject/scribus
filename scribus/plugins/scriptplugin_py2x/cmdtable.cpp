@@ -520,14 +520,23 @@ PV */
 void cmdtabledocwarnings()
 {
 	QStringList s;
-	s << scribus_gettablecolumns__doc__ << scribus_gettablerows__doc__
-	  << scribus_inserttablerows__doc__ << scribus_removetablerows__doc__
-	  << scribus_inserttablecolumns__doc__ << scribus_removetablecolumns__doc__
-	  << scribus_gettablerowheight__doc__ << scribus_gettablecolumnwidth__doc__
-	  << scribus_resizetablerow__doc__ << scribus_resizetablecolumn__doc__
-	  << scribus_mergetablecells__doc__ << scribus_settablestyle__doc__
-	  << scribus_gettablestyle__doc__ << scribus_settablefillcolor__doc__
-	  << scribus_gettablefillcolor__doc__ << scribus_settableleftborder__doc__
-	  << scribus_settablerightborder__doc__ << scribus_settabletopborder__doc__
-	  << scribus_settablebottomborder__doc__;
+	s << scribus_gettablecolumns__doc__
+	  << scribus_gettablecolumnwidth__doc__
+	  << scribus_gettablefillcolor__doc__
+	  << scribus_gettablerowheight__doc__
+	  << scribus_gettablerows__doc__
+	  << scribus_gettablestyle__doc__
+	  << scribus_inserttablecolumns__doc__ 
+	  << scribus_inserttablerows__doc__
+	  << scribus_mergetablecells__doc__
+	  << scribus_removetablerows__doc__
+	  << scribus_removetablecolumns__doc__
+	  << scribus_resizetablecolumn__doc__
+	  << scribus_resizetablerow__doc__ 
+	  << scribus_settablebottomborder__doc__
+	  << scribus_settablefillcolor__doc__
+	  << scribus_settableleftborder__doc__
+	  << scribus_settablerightborder__doc__
+	  << scribus_settablestyle__doc__
+	  << scribus_settabletopborder__doc__;
 }

@@ -67,7 +67,7 @@ public:
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", Qt::WindowFlags f = 0);
+	UndoGui(QWidget* parent = nullptr, const char* name = "UndoGui", Qt::WindowFlags f = Qt::WindowFlags());
 
 	/** @brief Destroys the widget */
 	virtual ~UndoGui() {}
@@ -164,7 +164,7 @@ private:
 	void updateRedoMenu();
 public:
 	/** @brief Creates a new UndoWidget instance. */
-	UndoWidget(QWidget* parent = 0, const char* name = 0);
+	UndoWidget(QWidget* parent = nullptr, const char* name = 0);
 
 	/** @brief Destroys the widget */
 	virtual ~UndoWidget();
@@ -317,7 +317,7 @@ private:
                  QPixmap *targetPixmap,
                  QPixmap *actionPixmap,
 		         bool isUndoAction,
-	             QListWidget * parent = 0);
+				 QListWidget* parent = nullptr);
 		~UndoItem();
 		/*void paint(QPainter *painter);
 		int height(const QListWidget*) const;
@@ -344,7 +344,7 @@ public:
 	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
 	 * be registered to the UndoManager with UndoManager's registerGui() method.
 	 */
-	UndoPalette(QWidget* parent = 0, const char* name = 0);
+	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
 
 	/** @brief Destroys the widget */
 	~UndoPalette();

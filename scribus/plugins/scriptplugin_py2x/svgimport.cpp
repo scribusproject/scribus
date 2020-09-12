@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_line.h"
-#include "ui/propertiespalette_text.h"
 
 #include <QString>
 
@@ -67,131 +66,6 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	}
 	Py_RETURN_NONE;
 }
-#if 0
-PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
-{
-	char *Image;
-	double x = 0.0;
-	double y = 0.0;
-	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT);
-	if (fmt)
-	{
-		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
-		{
-			double x2, y2, w, h;
-			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->startGroupTransaction();
-			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
-		}
-	}
-	else
-	{
-		PyErr_SetString(PyExc_Exception, "SVG Import plugin not available");
-		return nullptr;
-	}
-	Py_RETURN_NONE;
-}
-
-PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
-{
-	char *Image;
-	double x = 0.0;
-	double y = 0.0;
-	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
-	if (fmt)
-	{
-		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
-		{
-			double x2, y2, w, h;
-			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->startGroupTransaction();
-			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
-		}
-	}
-	else
-	{
-		PyErr_SetString(PyExc_Exception, "EPS Import plugin not available");
-		return nullptr;
-	}
-	Py_RETURN_NONE;
-}
-
-PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
-{
-	char *Image;
-	double x = 0.0;
-	double y = 0.0;
-	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT);
-	if (fmt)
-	{
-		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
-		{
-			double x2, y2, w, h;
-			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->startGroupTransaction();
-			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate)
-		}
-	}
-	else
-	{
-		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
-		return nullptr;
-	}
-	Py_RETURN_NONE;
-}
-
-PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
-{
-	char *Image;
-	double x = 0.0;
-	double y = 0.0;
-	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
-		return NULL;
-	if (!checkHaveDocument())
-		return nullptr;
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT);
-	if (fmt)
-	{
-		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() >= 1)
-		{
-			double x2, y2, w, h;
-			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-			ScCore->primaryMainWindow()->view->startGroupTransaction();
-			ScCore->primaryMainWindow()->doc->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-			ScCore->primaryMainWindow()->view->endGroupTransaction();
-			ScCore->primaryMainWindow()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate)
-		}
-	}
-	else
-	{
-		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
-		return nullptr;
-	}
-	Py_RETURN_NONE;
-}
-#endif
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
@@ -199,5 +73,9 @@ PV */
 void svgimportdocwarnings()
 {
 	QStringList s;
-	s << scribus_placevec__doc__ << scribus_placesvg__doc__ << scribus_placeeps__doc__ << scribus_placesxd__doc__ << scribus_placeodg__doc__;
+	s << scribus_placeeps__doc__
+	  << scribus_placeodg__doc__
+	  << scribus_placesvg__doc__
+	  << scribus_placesxd__doc__
+	  << scribus_placevec__doc__;
 }

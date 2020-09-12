@@ -261,6 +261,16 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }
 
+void CanvasMode_EditSpiral::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EditSpiral::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EditSpiral::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -268,7 +278,6 @@ void CanvasMode_EditSpiral::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m_view->requestMode(modeNormal);
 }
-
 
 void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 {

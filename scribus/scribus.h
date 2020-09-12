@@ -164,7 +164,7 @@ public:
 	void applyNewMaster(const QString& name);
 	void updateRecent(const QString& fn);
 	void doPasteRecent(const QString& data);
-	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
+	bool getPDFDriver(const QString & filename, const std::vector<int> & pageNumbers, const QMap<int, QImage> & thumbs, QString& error, bool* cancelled = nullptr);
 	bool DoSaveAsEps(const QString& fn, QString& error);
 	QString CFileDialog(const QString& workingDirectory = ".", const QString& dialogCaption = "", const QString& fileFilter = "", const QString& defNa = "",
 						int optionFlags = fdExistingFiles, bool *useCompression = 0, bool *useFonts = 0, bool *useProfiles = 0);
@@ -184,7 +184,8 @@ public:
 	 * @brief Returns true if an arrow key is pressed down.
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
-	bool arrowKeyDown();
+	//bool arrowKeyDown();
+
 	/**
 	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
 	 * @return true if application is in object specific undo mode, other wise returns false
@@ -313,7 +314,7 @@ public slots:
 	void changeLayer(int);
 	void setLayerMenuText(const QString &);
 	void showLayer();
-	void slotSetCurrentPage(int Seite);
+	void slotSetCurrentPage(int pageIndex);
 	void setCurrentPage(int p);
 	void ManageJava();
 	void editSelectedSymbolStart();
@@ -328,7 +329,7 @@ public slots:
 	void newFileFromTemplate();
 	bool slotPageImport();
 	bool loadPage(const QString& fileName, int Nr, bool Mpa, const QString& renamedPageName=QString());
-	void GotoLa(int l);
+	void gotoLayer(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
 	void slotGetClipboardImage();
@@ -496,6 +497,10 @@ public slots:
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();
 	void printPreview();
+	void doOutputPreviewPDF();
+	void outputPreviewPDF();
+	void doOutputPreviewPS();
+	void outputPreviewPS();
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();
@@ -634,9 +639,9 @@ private:
 	bool m_palettesStatus[13];
 	bool m_guidesStatus[13];
 
-	bool m_keyrep;
+	//bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
-	bool m__arrowKeyDown;
+	//bool m_arrowKeyDown;
 	/** @brief tells the undo mode */
 	bool m_objectSpecificUndo;
 
@@ -651,10 +656,7 @@ private:
 					QString Command;
 				} PDef ;
 	TOCGenerator *m_tocGenerator {nullptr};
-	int m_storedPageNum;
-	int m_storedViewXCoor;
-	int m_storedViewYCoor;
-	double m_storedViewScale;
+
 	StyleManager *m_styleManager {nullptr};
 	UndoManager *m_undoManager {nullptr};
 	PrefsManager& m_prefsManager;

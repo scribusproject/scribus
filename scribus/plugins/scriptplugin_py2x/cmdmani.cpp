@@ -27,7 +27,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -47,7 +47,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -89,7 +89,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -132,7 +132,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -176,14 +176,14 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	ImageEffect ef;
-	ef.effectCode = ScImage::EF_BRIGHTNESS;
+	ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 	ScTextStream fp(&ef.effectParameters, QIODevice::WriteOnly);
 	fp << n;
 
@@ -204,14 +204,14 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	ImageEffect ef;
-	ef.effectCode = ScImage::EF_GRAYSCALE;
+	ef.effectCode = ImageEffect::EF_GRAYSCALE;
 
 	item->effectsInUse.append(ef);
 	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
@@ -361,8 +361,8 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	Selection *tempSelection=nullptr;
-	Selection *finalSelection=nullptr;
+	Selection *tempSelection = nullptr;
+	Selection *finalSelection = nullptr;
 	//uint ap = ScCore->primaryMainWindow()->doc->currentPage()->pageNr();
 	// If we were passed a list of items to group...
 	if (il != nullptr)
@@ -383,10 +383,10 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 			}
 			tempSelection->addItem (ic, true);
 		}
-		finalSelection=tempSelection;
+		finalSelection = tempSelection;
 	}
 	else
-		finalSelection=ScCore->primaryMainWindow()->doc->m_Selection;
+		finalSelection = ScCore->primaryMainWindow()->doc->m_Selection;
 	if (finalSelection->count() < 2)
 	{
 		// We can't very well group only one item
@@ -460,8 +460,9 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
-		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
+	Selection * selection = ScCore->primaryMainWindow()->doc->m_Selection;
+	if ((i < selection->count()) && (i > -1))
+		return PyString_FromString(selection->itemAt(i)->itemName().toUtf8());
 	// FIXME: Should probably return None if no selection?
 	return PyString_FromString("");
 }
@@ -538,7 +539,7 @@ PyObject *scribus_setscaleframetoimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -565,7 +566,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -635,7 +636,7 @@ PyObject *scribus_combinepolygons(PyObject * /* self */)
 	for (int i = 0; i < curSelection->count(); ++i)
 	{
 		PageItem* it = currentDoc->m_Selection->itemAt(i);
-		if ((!it->asPolygon()) || (!it->asPolyLine()))
+		if ((!it->isPolygon()) || (!it->isPolyLine()))
 			canUniteItems = false;
 	}
 
@@ -655,15 +656,28 @@ PV */
 void cmdmanidocwarnings()
 {
 	QStringList s;
-	s << scribus_moveobjrel__doc__ << scribus_moveobjabs__doc__
-	  << scribus_rotobjrel__doc__ << scribus_rotobjabs__doc__
-	  << scribus_sizeobjabs__doc__ << scribus_getselobjnam__doc__
-	  << scribus_selcount__doc__ << scribus_selectobj__doc__
-	  << scribus_deselect__doc__ << scribus_groupobj__doc__
-	  << scribus_ungroupobj__doc__ << scribus_scalegroup__doc__
-	  << scribus_loadimage__doc__ << scribus_scaleimage__doc__
-	  << scribus_setimagescale__doc__ << scribus_lockobject__doc__
-	  << scribus_islocked__doc__ << scribus_setscaleimagetoframe__doc__ << scribus_setimagebrightness__doc__ << scribus_setimagegrayscale__doc__ << scribus_setimageoffset__doc__
+	s << scribus_combinepolygons__doc__
+	  << scribus_deselect__doc__
+	  << scribus_flipobject__doc__
+	  << scribus_getselobjnam__doc__
+	  << scribus_groupobj__doc__
+	  << scribus_islocked__doc__
+	  << scribus_loadimage__doc__
+	  << scribus_lockobject__doc__
+      << scribus_moveobjabs__doc__
+	  << scribus_moveobjrel__doc__
+	  << scribus_rotobjabs__doc__
+	  << scribus_rotobjrel__doc__
+	  << scribus_scalegroup__doc__
+	  << scribus_scaleimage__doc__
+	  << scribus_selcount__doc__
+	  << scribus_selectobj__doc__
+	  << scribus_setimagebrightness__doc__
+	  << scribus_setimagegrayscale__doc__
+	  << scribus_setimageoffset__doc__
+	  << scribus_setimagescale__doc__
 	  << scribus_setscaleframetoimage__doc__
-	  << scribus_flipobject__doc__;
+	  << scribus_setscaleimagetoframe__doc__
+	  << scribus_sizeobjabs__doc__ 
+	  << scribus_ungroupobj__doc__;
 }

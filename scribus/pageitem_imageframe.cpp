@@ -170,9 +170,9 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				mscalex *= 1.0 / pixm.imgInfo.lowResScale;
 				mscaley *= 1.0 / pixm.imgInfo.lowResScale;
 			}
-			if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+			if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial) || (GrMask == GradMask_LinearLumAlpha) || (GrMask == GradMask_RadialLumAlpha))
 			{
-				if ((GrMask == 1) || (GrMask == 2))
+				if ((GrMask == GradMask_Linear) || (GrMask == GradMask_Radial))
 					p->setMaskMode(1);
 				else
 					p->setMaskMode(3);
@@ -181,23 +181,23 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
 					mask_gradient = m_Doc->docGradients[gradientMaskVal];
 				p->mask_gradient = mask_gradient;
-				if ((GrMask == 1) || (GrMask == 4))
+				if ((GrMask == GradMask_Linear) || (GrMask == GradMask_LinearLumAlpha))
 					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), GrMaskScale, GrMaskSkew);
 				else
 					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX * mscalex, GrMaskStartY * mscaley), FPoint(GrMaskEndX * mscalex, GrMaskEndY * mscaley), FPoint(GrMaskFocalX * mscalex, GrMaskFocalY * mscaley), GrMaskScale, GrMaskSkew);
 			}
-			else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+			else if ((GrMask == GradMask_Pattern) || (GrMask == GradMask_PatternLumAlpha) || (GrMask == GradMask_PatternLumAlphaInverted) || (GrMask == GradMask_PatternInverted))
 			{
 				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
 					p->setMaskMode(0);
 				else
 				{
 					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX * mscalex, patternMaskScaleY * mscaley, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-					if (GrMask == 3)
+					if (GrMask == GradMask_Pattern)
 						p->setMaskMode(2);
-					else if (GrMask == 6)
+					else if (GrMask == GradMask_PatternLumAlpha)
 						p->setMaskMode(4);
-					else if (GrMask == 7)
+					else if (GrMask == GradMask_PatternLumAlphaInverted)
 						p->setMaskMode(5);
 					else
 						p->setMaskMode(6);

@@ -19,7 +19,7 @@ class PdfImportOptions : public QDialog
 	Q_OBJECT
 	
 public:
-	explicit PdfImportOptions(QWidget *parent = 0);
+	explicit PdfImportOptions(QWidget* parent = nullptr);
 	~PdfImportOptions();
 	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug);
 	QString getPagesString();

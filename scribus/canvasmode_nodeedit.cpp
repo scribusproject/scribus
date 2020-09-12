@@ -45,7 +45,6 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 
 void CanvasMode_NodeEdit::drawControls(QPainter* p) 
 {
-	double x, y;
 	if (m_doc->m_Selection->isEmpty())
 		return;
 	if (m_doc->nodeEdit.previewMode())
@@ -102,6 +101,8 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
 	}
+	double x = 0.0;
+	double y = 0.0;
 	// draw points
 	for (int i = 0; i < cli.size() - 1; i += 2)
 	{
@@ -678,7 +679,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 		}
 		if (m_doc->nodeEdit.hasNodeSelected())
 		{
-			if (currItem->asPolygon())
+			if (currItem->isPolygon())
 			{
 				if ((m_doc->nodeEdit.clre() != 0) && (m_doc->nodeEdit.clre() != (EndInd - 2)))
 				{
@@ -735,7 +736,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 			}
 			else
 			{
-				if ((currItem->asPolyLine()) || (currItem->asPathText()))
+				if ((currItem->isPolyLine()) || (currItem->isPathText()))
 				{
 					if ((m_doc->nodeEdit.clre() > 1) && (m_doc->nodeEdit.clre() < (Clip.size() - 2)))
 					{

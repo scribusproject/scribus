@@ -245,8 +245,11 @@ void LineBox::render(ScreenPainter *p, ITextContext *ctx) const
 
 void LineBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 {
+	p->save();
+	p->translate(0, ascent());
 	for (const Box *box : boxes())
 		box->drawSelection(p, ctx);
+	p->restore();
 }
 
 void LineBox::drawBackGround(TextLayoutPainter *p) const
@@ -565,7 +568,7 @@ void GlyphBox::drawSelection(ScreenPainter *p, ITextContext *ctx) const
 		}
 	}
 
-	QRectF rect(x(), 0, width(), height());
+	QRectF rect(x(), -ascent(), width(), height());
 	p->setSelected(true);
 	p->setStrokeWidth(0);
 

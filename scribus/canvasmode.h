@@ -112,7 +112,11 @@ public:
 	virtual void keyReleaseEvent(QKeyEvent *e) {}
 	virtual void inputMethodEvent(QInputMethodEvent *e) {}
 
-	virtual bool handleKeyEvents() const { return false; }
+	/**
+	 * @brief Returns true if an arrow key is pressed down.
+	 * @return true if an arrow key is pressed down otherwise returns false
+	 */
+	bool arrowKeyDown() const { return m_arrowKeyDown; }
 
 	/**
 		Sets appropriate values for this canvas mode
@@ -150,7 +154,6 @@ public:
 	virtual CanvasMode* delegate() { return nullptr; }
 	ScribusView* view() const { return m_view; }
 	~CanvasMode() override;
-	
 
 protected:
 	ScribusView* const m_view;
@@ -167,9 +170,11 @@ protected:
 	void commonDrawControls(QPainter* p, bool drawHandles);
 	/// Draws the text cursor for @a textframe, offset by @a offset.
 	void commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe, const QPointF& offset);
+
+	void commonkeyPressEvent_Default(QKeyEvent *e);
 	void commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e);
 	void commonkeyReleaseEvent(QKeyEvent *e);
-	
+
 private:
 	QMap<QString,QPen> m_pen;
 	QMap<QString,QBrush> m_brush;

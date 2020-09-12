@@ -171,7 +171,7 @@ MeshDistortionDialog::MeshDistortionDialog(QWidget* parent, ScribusDoc *doc) : Q
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}
@@ -263,7 +263,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		{
 			if (currItem->GrType != 0)
 			{
-				if (currItem->GrType != 8)
+				if (currItem->GrType != Gradient_Pattern)
 				{
 					QGradient pat;
 					double x1 = currItem->GrStartX;
@@ -300,7 +300,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 					}
 					pItem->setBrush(pat);
 				}
-				else if ((currItem->GrType == 8) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
+				else if ((currItem->GrType == Gradient_Pattern) && (!currItem->pattern().isEmpty()) && (doc->docPatterns.contains(currItem->pattern())))
 				{
 					double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 					currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
@@ -360,7 +360,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 				double y1 = currItem->GrStrokeStartY;
 				double x2 = currItem->GrStrokeEndX;
 				double y2 = currItem->GrStrokeEndY;
-				if (currItem->GrTypeStroke == 6)
+				if (currItem->GrTypeStroke == Gradient_Linear)
 					pat = QLinearGradient(x1, y1,  x2, y2);
 				else
 					pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
@@ -495,7 +495,7 @@ void MeshDistortionDialog::updateMesh(bool gridOnly)
 						if(vi == 0 && ui == 0)
 							base = Geom::Point(w4, w4);
 						double dl = dot((handles[corner+4*i] - base), dir)/dot(dir,dir);
-						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0f,((int)(ui+vi)));
+						sb2[dim][i][corner] = dl/(ww/2.0)*pow(4.0F,((int)(ui+vi)));
 					}
 				}
 			}

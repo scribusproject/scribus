@@ -426,12 +426,10 @@ namespace Pdf
 		return result;
 	}
 	
-	
 	QByteArray toName(const QString& s)
 	{
 		return toName(toPdfDocEncoding(s));
 	}
-	
 
 	QByteArray toName(QByteArray s)
 	{
@@ -459,7 +457,6 @@ namespace Pdf
 		tmp = tmp.replace(":", "");
 		return "D:" + tmp.toLatin1() + "Z";
 	}
-
 	
 	QByteArray toRectangleArray(QRect r)
 	{
@@ -470,9 +467,6 @@ namespace Pdf
 	{
 		return "[" + toPdf(r.left()) + " " + toPdf(r.bottom()) + " " + toPdf(r.right()) + " " + toPdf(r.top()) + "]";
 	}
- 
- 
-
 
 	Writer::Writer()
 	{
@@ -509,7 +503,6 @@ namespace Pdf
 		    0x2f, 0x0c, 0xa9, 0xfe, 0x64, 0x53, 0x69, 0x7a };
 		for (int a = 0; a < 32; ++a)
 			m_KeyGen[a] = kg_array[a];
-
 	}
 	
 	
@@ -523,7 +516,6 @@ namespace Pdf
 		return true;
 	}
 	
-	
 	ScStreamFilter* Writer::openStreamFilter(bool encrypted, PdfId objId)
 	{
 		if (encrypted)
@@ -533,7 +525,6 @@ namespace Pdf
 		}
 		return new ScNullEncodeFilter(&m_outStream);
 	}
-	
 	
 	bool Writer::close(bool abortExport)
 	{
@@ -548,12 +539,10 @@ namespace Pdf
 		return result;
 	}
 	
-	
 	void Writer::setFileId(const QByteArray& id)
 	{
 		m_FileID = QCryptographicHash::hash(id, QCryptographicHash::Md5);
 	}
-	
 	
 	void Writer::setEncryption(bool keyLen16, const QByteArray& PassOwner, const QByteArray& PassUser, int Permissions)
 	{
@@ -589,9 +578,7 @@ namespace Pdf
 		write("/U "+Pdf::toHexString(uk)+"\n");
 		write("/P "+Pdf::toPdf(Permissions)+"\n>>");
 		endObj(EncryptObj);
-
 	}
-	
 	
 	QByteArray Writer::encryptBytes(const QByteArray& in, PdfId ObjNum)
 	{
@@ -627,7 +614,6 @@ namespace Pdf
 		rc4Key.resize(qMin(m_KeyLen+5, 16));
 		return rc4Key;
 	}
-	
 
 	QByteArray Writer::FitKey(const QByteArray & pass)
 	{
@@ -741,7 +727,6 @@ namespace Pdf
 //		return QCryptographicHash::hash(TBytes, QCryptographicHash::Md5);
 //	}
 	
-	
 	void Writer::writeHeader(const PDFVersion& Version)
 	{
 		switch (Version)
@@ -801,7 +786,6 @@ namespace Pdf
 		write(">>\nstartxref\n");
 		write(Pdf::toPdf(StX)+"\n%%EOF\n");
 	}
-	
 	
 	void Writer::write(const QByteArray& bytes)
 	{
@@ -870,7 +854,6 @@ namespace Pdf
 		}
 		write(">>\n");
 	}
-	
 	
 	PdfId Writer::reserveObjects(unsigned int n)
 	{

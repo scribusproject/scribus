@@ -26,7 +26,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -46,7 +46,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -88,7 +88,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -131,7 +131,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -175,14 +175,14 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	ImageEffect ef;
-	ef.effectCode = ScImage::EF_BRIGHTNESS;
+	ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 	ScTextStream fp(&ef.effectParameters, QIODevice::WriteOnly);
 	fp << n;
 
@@ -203,14 +203,14 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
 	ImageEffect ef;
-	ef.effectCode = ScImage::EF_GRAYSCALE;
+	ef.effectCode = ImageEffect::EF_GRAYSCALE;
 
 	item->effectsInUse.append(ef);
 	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
@@ -538,7 +538,7 @@ PyObject *scribus_setscaleframetoimage(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -565,7 +565,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
-	if (! item->asImageFrame())
+	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -635,7 +635,7 @@ PyObject *scribus_combinepolygons(PyObject * /* self */)
 	for (int i = 0; i < curSelection->count(); ++i)
 	{
 		PageItem* it = currentDoc->m_Selection->itemAt(i);
-		if ((!it->asPolygon()) || (!it->asPolyLine()))
+		if ((!it->isPolygon()) || (!it->isPolyLine()))
 			canUniteItems = false;
 	}
 

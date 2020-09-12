@@ -75,7 +75,7 @@ public slots:
 
 	void editLineSelectorButton();
 	void editFillSelectorButton();
-	void slotGrad(int nr);
+	void slotGrad(int number);
 	void slotGradType(int type);
 	void setNamedGradient(const QString &name);
 	void switchGradientMode();

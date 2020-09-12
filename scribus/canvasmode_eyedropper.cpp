@@ -106,6 +106,16 @@ void CanvasMode_EyeDropper::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_EyeDropper::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EyeDropper::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -113,7 +123,6 @@ void CanvasMode_EyeDropper::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
 }
-
 
 void CanvasMode_EyeDropper::mouseMoveEvent(QMouseEvent *m)
 {
@@ -200,7 +209,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			PageItem *currItem = m_doc->m_Selection->itemAt(i);
 			if (!currItem)
 				continue;
-			if ((m->modifiers() & Qt::ControlModifier) && (currItem->asTextFrame() || currItem->asPathText()))
+			if ((m->modifiers() & Qt::ControlModifier) && (currItem->isTextFrame() || currItem->asPathText()))
 				m_doc->itemSelection_SetFillColor(colorName); //Text colour
 			else if (m->modifiers() & Qt::AltModifier) //Line colour
 				m_doc->itemSelection_SetItemPen(colorName);

@@ -747,7 +747,7 @@ int LanguageManager::langTableIndex(const QString &abbrev)
 	return -1;
 }
 
-const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslated)
+QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslated)
 {
 //	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i=langTableIndex(langAbbrev);
@@ -770,7 +770,7 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 	return "";
 }
 
-const QString LanguageManager::getAbbrevFromLang(const QString& lang, bool useInstalled)
+QString LanguageManager::getAbbrevFromLang(const QString& lang, bool useInstalled)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -789,7 +789,7 @@ const QString LanguageManager::getAbbrevFromLang(const QString& lang, bool useIn
 	return "";
 }
 
-const QString LanguageManager::getLangFromTransLang(const QString& transLang)
+QString LanguageManager::getLangFromTransLang(const QString& transLang)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -799,7 +799,7 @@ const QString LanguageManager::getLangFromTransLang(const QString& transLang)
 	return "";
 }
 
-const QString LanguageManager::getTransLangFromLang(const QString& lang)
+QString LanguageManager::getTransLangFromLang(const QString& lang)
 {
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
@@ -809,7 +809,7 @@ const QString LanguageManager::getTransLangFromLang(const QString& lang)
 	return "";
 }
 
-const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
+QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 {
 	//	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i = langTableIndex(langAbbrev);
@@ -828,7 +828,7 @@ const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 	return "";
 }
 
-const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev)
+QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev)
 {
 	int tIndex = langTableIndex(langAbbrev);
 	if (tIndex >= 0)
@@ -845,7 +845,7 @@ const QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QStri
 	return "";
 }
 
-const QString LanguageManager::getAlternativeAbbrevfromAbbrev(const QString& langAbbrev)
+QString LanguageManager::getAlternativeAbbrevfromAbbrev(const QString& langAbbrev)
 {
 	int i=langTableIndex(langAbbrev);
 	if (i != -1)
@@ -1138,7 +1138,7 @@ LanguageManager::~LanguageManager()
 	m_langTable.clear();
 }
 
-const QString LanguageManager::getHyphFilename(const QString & langAbbrev)
+QString LanguageManager::getHyphFilename(const QString & langAbbrev)
 {
 	int j = langTableIndex(langAbbrev);
 	if (j != -1 && m_langTable[j].m_hyphAvailable)

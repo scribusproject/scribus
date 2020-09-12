@@ -87,7 +87,7 @@ void PdfImportOptions::setUpOptions(const QString& fileName, int actPage, int nu
 	ui->pgSelect->setGUIForPage(actPage - 1);
 	m_maxPage = numPages;
 	updatePreview(actPage);
-	connect(ui->pgSelect, SIGNAL(GotoPage(int)), this, SLOT(updatePreview(int)));
+	connect(ui->pgSelect, SIGNAL(pageChanged(int)), this, SLOT(updatePreview(int)));
 	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
 	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));
 	connect(ui->pageSelectButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));

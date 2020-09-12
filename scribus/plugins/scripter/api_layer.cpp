@@ -142,12 +142,12 @@ QList< QVariant > LayerAPI::items()
 		PageItem *item = ScCore->primaryMainWindow()->doc->Items->at(i);
 		if (item->LayerID == this->getID())
 		{
-			if (item->asTextFrame())
+			if (item->isTextFrame())
 			{
 				TextAPI *textItem = new TextAPI(item->asTextFrame());
 				l.append(qVariantFromValue((QObject *)(textItem)));
 			}
-			else if (item->asImageFrame())
+			else if (item->isImageFrame())
 			{
 				ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 				l.append(qVariantFromValue((QObject *)(imageItem)));

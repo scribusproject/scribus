@@ -30,7 +30,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 	Q_OBJECT
 
 	public:
-		PythonConsole( QWidget* parent = 0);
+		PythonConsole( QWidget* parent = nullptr);
 		~PythonConsole();
 		
 		void setFonts();
@@ -78,7 +78,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		QString cursorTemplate;
 
 	protected slots:
-		void languageChange() override;
+		void languageChange();
 		void documentChanged(bool state);
 
 };

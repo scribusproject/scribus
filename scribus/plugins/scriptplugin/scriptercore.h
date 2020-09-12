@@ -84,9 +84,9 @@ protected:
 
 	// Preferences
 	/** \brief pref: Enable access to main interpreter and 'extension scripts' */
-	bool m_enableExtPython;
+	bool m_enableExtPython {false};
 	/** \brief pref: Run 'from scribus import *' at scripter startup */
-	bool m_importAllNames;
+	bool m_importAllNames {true};
 	/** \brief pref: Load this script on startup */
 	QString m_startupScript;
 };

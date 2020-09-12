@@ -8,14 +8,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFLIB_H
 #define PDFLIB_H
 
-#include "scconfig.h"
-#include "scribusapi.h"
-
-#include <QImage>
 #include <QObject>
+#include <QImage>
 #include <QMap>
 #include <vector>
 
+#include "scconfig.h"
+#include "scribusapi.h"
+
+class PDFOptions;
 class ScribusDoc;
 
 /**
@@ -39,6 +40,7 @@ public:
 	 * \param docu Document to use in export process
 	 */
 	explicit PDFlib(ScribusDoc & docu);
+	explicit PDFlib(ScribusDoc & docu, const PDFOptions& options);
 
 	~PDFlib();
 
@@ -46,13 +48,10 @@ public:
 	 * Perform an export.
 	 *
 	 * \param fn Output file name
-	 * \param nam ??
-	 * \param Components ??
 	 * \param pageNs List of pages from document to be exported as sequential PDF pages
 	 * \param thumbs A mapping of input (document) page numbers to pre-rendered thumbnails.
 	 */
-	bool doExport(const QString& fn, const QString& nam, int Components,
-				  const std::vector<int> & pageNs, const QMap<int, QImage>& thumbs);
+	bool doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage>& thumbs);
 
 	/**
 	 * Return an error message in case export has failed.

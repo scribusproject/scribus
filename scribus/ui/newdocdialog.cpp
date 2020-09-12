@@ -88,7 +88,7 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 	return QSize(maxX, maxY);
 }
 
-NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog( parent ),
+NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog(parent),
 	prefsManager(PrefsManager::instance())
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
@@ -116,7 +116,7 @@ NewDocDialog::NewDocDialog( QWidget* parent, const QStringList& recentDocs, bool
 		tabWidget->addTab(newFromTempFrame, tr("New &from Template"));
 		createOpenDocPage();
 		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
-		recentDocList=recentDocs;
+		recentDocList = recentDocs;
  		createRecentDocPage();
  		tabWidget->addTab(recentDocFrame, tr("Open Recent &Document"));
  		TabbedNewDocLayout->addWidget(tabWidget);
@@ -351,7 +351,7 @@ void NewDocDialog::createOpenDocPage()
 {
 	PrefsContext* docContext = prefsManager.prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
-	QString prefsDocDir=prefsManager.documentDir();
+	QString prefsDocDir = prefsManager.documentDir();
 	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
@@ -364,10 +364,17 @@ void NewDocDialog::createOpenDocPage()
 	openDocLayout->setSpacing(5);
 	m_selectedFile = "";
 
-	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
+	// With Qt 5.15 we have to be in careful so that new document dialog doesn't display too large on startup.
+	// To avoid this we have to use QFileDialog(QWidget *parent, Qt::WindowFlags flags) constructor, then
+	// set the QFileDialog::DontUseNativeDialog option as early as possible, and nonetheless set again
+	// the Qt::Widget window flag before adding the widget to layout.
+	fileDialog = new QFileDialog(openDocFrame, Qt::Widget);
+	fileDialog->setOption(QFileDialog::DontUseNativeDialog);
+	fileDialog->setWindowTitle(tr("Open"));
+	fileDialog->setDirectory(docDir);
+	fileDialog->setNameFilter(formats);
 	fileDialog->setFileMode(QFileDialog::ExistingFile);
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
-	fileDialog->setOption(QFileDialog::DontUseNativeDialog);
 	fileDialog->setIconProvider(new ImIconProvider());
 	fileDialog->setOption(QFileDialog::HideNameFilterDetails, true);
 	fileDialog->setReadOnly(true);

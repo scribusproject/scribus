@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QMenu>
 #include <QMessageBox>
+#include <QMultiMap>
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
@@ -152,7 +153,7 @@ void PicStatus::fillTable()
 				Iname = tr("Embedded Image");
 			else
 				Iname = fi.fileName();
-			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()))
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 			if (firstItem == nullptr)
 				firstItem = tempItem;
@@ -176,7 +177,7 @@ void PicStatus::fillTable()
 				Iname = tr("Embedded Image");
 			else
 				Iname = fi.fileName();
-			if ((item->itemType() == PageItem::ImageFrame) && (!item->asLatexFrame()))
+			if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()))
 				tempItem = new PicItem(imageViewArea, Iname, createImgIcon(item), item);
 			// if an image is selected in a doc, Manage Pictures should
 			// display the selected image and its values
@@ -199,19 +200,19 @@ void PicStatus::fillTable()
 
 void PicStatus::sortByName()
 {
-	QMap<QString, PicItem*> sorted;
+	QMultiMap<QString, PicItem*> sorted;
 
 	int num = imageViewArea->count();
 	if (num == 0)
 		return;
 
 	auto firstItem = imageViewArea->currentItem();
-	for (int a = num-1; a > -1; --a)
+	for (int i = num - 1; i > -1; --i)
 	{
-		QListWidgetItem *ite = imageViewArea->takeItem(a);
-		PicItem *item = (PicItem*)ite;
+		QListWidgetItem *ite = imageViewArea->takeItem(i);
+		PicItem *item = (PicItem*) ite;
 		QFileInfo fi = QFileInfo(item->PageItemObject->Pfile);
-		sorted.insertMulti(fi.fileName(), item);
+		sorted.insert(fi.fileName(), item);
 	}
 
 	int counter = 0;

@@ -24,8 +24,13 @@ public:
 
 	bool isNull() const override;
 
-	eColorSpaceType colorSpace()  const override;
+	eColorSpaceType colorSpace() const override;
+	eColorSpaceType connectionSpace() const override;
 	eProfileClass   deviceClass() const override;
+
+	int channelsOfColorSpace() const override;
+	int channelsOfConnectionSpace() const override;
+
 	bool            isSuitableForOutput() const override;
 	QString         productDescription() const override;
 	bool            save(QByteArray& profileData) const override;

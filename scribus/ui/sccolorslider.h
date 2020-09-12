@@ -19,7 +19,7 @@ class SCRIBUS_API ScColorSlider : public QSlider
 	Q_OBJECT
 
 public: 
-	ScColorSlider(QWidget* parent = 0);
+	ScColorSlider(QWidget* parent = nullptr);
 	
 	virtual void paintEvent(QPaintEvent * p);
 };

@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
+#include "scplugin.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -114,6 +115,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	if (newMode != modeNormal && newMode != modeStoryEditor)
 		scmw->activateWindow();
 
+	bool layerUnlocked = !doc->layerLocked(doc->activeLayer());
 
 	switch (oldMode)
 	{
@@ -141,7 +143,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (currItem != nullptr)
 				{
 					currItem->update();
-					if (currItem->asTextFrame())
+					if (currItem->isTextFrame())
 						enableTextActions(false);
 					//		scrMenuMgr->setMenuEnabled("Item", true);
 					setTextEditMode(false);
@@ -217,7 +219,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				(*a_scrActions)["editCut"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editCopy"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editClearContents"]->setEnabled(currItem != nullptr);
-				(*a_scrActions)["editPaste"]->setEnabled(ScMimeData::clipboardHasScribusData());
+				(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && ScMimeData::clipboardHasScribusData());
 				(*a_scrActions)["editTruncateContents"]->setEnabled((currItem != nullptr) && currItem->isTextFrame());
 
 				scmw->propertiesPalette->setGradientEditMode(false);
@@ -281,7 +283,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->setTBvals(currItem);
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
-				if (currItem != nullptr && currItem->asTextFrame())
+				if (currItem != nullptr && currItem->isTextFrame())
 				{
 					scmw->charPalette->setEnabled(true, currItem);
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
@@ -289,7 +291,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{
-					bool textFrameEditMode = ((currItem != nullptr) && (currItem->asTextFrame()));
+					bool textFrameEditMode = ((currItem != nullptr) && (currItem->isTextFrame()));
 					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
 				}
 				setTextEditMode(true);
@@ -350,7 +352,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 					// #11938: Paste is not correctly enabled in modeEditTable
 					if (ScMimeData::clipboardHasScribusData())
-						(*a_scrActions)["editPaste"]->setEnabled(currItem->asTable());
+						(*a_scrActions)["editPaste"]->setEnabled(currItem->isTable());
 				}
 			}
 			break;
@@ -445,7 +447,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	}
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
 	bool isImageFrame = SelectedType==PageItem::ImageFrame;
-	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->asLatexFrame()));
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(isImageFrame && (currItem->imageIsAvailable || currItem->isLatexFrame()));
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
 	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(isImageFrame && currItem->imageIsAvailable);
 	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->pixm.imgInfo.valid);
@@ -459,7 +461,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	(*a_scrActions)["editPasteContents"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->isRaster);
-	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->isLatexFrame() || currItem->isOSGFrame()));
 	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
 	if (!isImageFrame)
 	{
@@ -469,7 +471,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["itemPreviewLow"]->setChecked(false);
 	}
 
-	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
+	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->isTextFrame()))
 		enableTextActions(false);
 	(*a_scrActions)["insertSampleText"]->setEnabled(false);
 
@@ -650,7 +652,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			{
 				(*a_scrActions)["editSelectAll"]->setEnabled(true);
 				(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(false);
-				if (currItem->asTextFrame())
+				if (currItem->isTextFrame())
 				{
 					enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
 				}
@@ -833,7 +835,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		for (int i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem* it = doc->m_Selection->itemAt(i);
-			if ((!it->asPolygon()) && (!it->asPolyLine()))
+			if ((!it->isPolygon()) && (!it->isPolyLine()))
 				hPoly = false;
 		}
 		(*a_scrActions)["itemCombinePolygons"]->setEnabled(hPoly);
@@ -851,9 +853,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			bool canAttachTextToPath = false;
 			PageItem* item1 = doc->m_Selection->itemAt(0);
 			PageItem* item2 = doc->m_Selection->itemAt(1);
-			if (!item1->asTextFrame() || !(item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
+			if (!item1->isTextFrame() || !(item2->isPolygon() || item2->isPolyLine() || item2->isSpiral() || item2->isArc() || item2->isRegularPolygon()))
 				std::swap(item1, item2);
-			if (item1->asTextFrame() && (item2->asPolygon() || item2->asPolyLine() || item2->asSpiral() || item2->asArc() || item2->asRegularPolygon()))
+			if (item1->isTextFrame() && (item2->isPolygon() || item2->isPolyLine() || item2->isSpiral() || item2->isArc() || item2->isRegularPolygon()))
 			{
 				canAttachTextToPath  = true;
 				canAttachTextToPath &= (item1->nextInChain() == nullptr);
@@ -890,7 +892,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		{
 			(*a_scrActions)["itemUngroup"]->setEnabled(false);
 			(*a_scrActions)["itemGroupAdjust"]->setEnabled(false);
-			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
+			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->isPolygon()) && (currItem->Segments.count() != 0) );
 		}
 		bool levelEnabled = true;
 		if (currItem->locked())
@@ -1167,8 +1169,13 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(b2);
+	if (ScCore->haveGS())
+	{
+		(*a_scrActions)["OutputPreviewPDF"]->setEnabled(b2);
+		(*a_scrActions)["OutputPreviewPS"]->setEnabled(b2);
+	}
 	(*a_scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFTextField"]->setEnabled(b2);
@@ -1183,7 +1190,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 
 void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 {
-	bool b2=!b;
+	bool b2 = !b;
 	(*a_scrActions)["pageInsert"]->setEnabled(b2);
 	(*a_scrActions)["pageImport"]->setEnabled(b2);
 	(*a_scrActions)["pageDelete"]->setEnabled(b2);
@@ -1199,8 +1206,13 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 	if (b2)
 	{
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
-		if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		if (ScCore->haveGS() || ScCore->isWinGUI())
 			(*a_scrActions)["PrintPreview"]->setEnabled(true);
+		if (ScCore->haveGS())
+		{
+			(*a_scrActions)["OutputPreviewPDF"]->setEnabled(true);
+			(*a_scrActions)["OutputPreviewPS"]->setEnabled(true);
+		}
 		bool setter = doc->DocPages.count() > 1;
 		(*a_scrActions)["pageDelete"]->setEnabled(setter);
 		(*a_scrActions)["pageMove"]->setEnabled(setter);
@@ -1212,8 +1224,13 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 	(*a_scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(b2);
+	if (ScCore->haveGS())
+	{
+		(*a_scrActions)["OutputPreviewPDF"]->setEnabled(b2);
+		(*a_scrActions)["OutputPreviewPS"]->setEnabled(b2);
+	}
 	(*a_scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFTextField"]->setEnabled(b2);
@@ -1247,8 +1264,13 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	if (b2)
 	{
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
-		if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		if (ScCore->haveGS() || ScCore->isWinGUI())
 			(*a_scrActions)["PrintPreview"]->setEnabled(true);
+		if (ScCore->haveGS())
+		{
+			(*a_scrActions)["OutputPreviewPDF"]->setEnabled(true);
+			(*a_scrActions)["OutputPreviewPS"]->setEnabled(true);
+		}
 		bool setter = doc->DocPages.count() > 1;
 		(*a_scrActions)["pageDelete"]->setEnabled(setter);
 		(*a_scrActions)["pageMove"]->setEnabled(setter);
@@ -1257,8 +1279,13 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["fileRevert"]->setEnabled(b2);
 	(*a_scrActions)["fileDocSetup150"]->setEnabled(b2);
 	(*a_scrActions)["filePrint"]->setEnabled(b2);
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(b2);
+	if (ScCore->haveGS())
+	{
+		(*a_scrActions)["OutputPreviewPDF"]->setEnabled(b2);
+		(*a_scrActions)["OutputPreviewPS"]->setEnabled(b2);
+	}
 	(*a_scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFTextField"]->setEnabled(b2);
@@ -1273,6 +1300,42 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	//TODO: Move to masterpage edit mode enable option for plugin actions
 	if (a_scrActions->contains("ExportAsImage"))
 		(*a_scrActions)["ExportAsImage"]->setEnabled(b2);
+}
+
+void AppModeHelper::updateActionPluginsActions(ScribusDoc* doc)
+{
+	int selectedType = -1;
+	if (doc->m_Selection->count() > 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		selectedType = currItem->itemType();
+	}
+	bool isLayerLocked = doc->layerLocked(doc->activeLayer());
+
+	PluginManager& pluginManager(PluginManager::instance());
+	QStringList pluginNames(pluginManager.pluginNames(false));
+	ScPlugin* plugin;
+	ScActionPlugin* actionPlug;
+	ScrAction* pluginAction = nullptr;
+	QString pName;
+	for (int i = 0; i < pluginNames.count(); ++i)
+	{
+		pName = pluginNames.at(i);
+		plugin = pluginManager.getPlugin(pName, true);
+		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		if (!plugin->inherits("ScActionPlugin"))
+			continue;
+		actionPlug = dynamic_cast<ScActionPlugin*>(plugin);
+		Q_ASSERT(actionPlug);
+		ScActionPlugin::ActionInfo actionInfo(actionPlug->actionInfo());
+		pluginAction = ScCore->primaryMainWindow()->scrActions[actionInfo.name];
+		if (!pluginAction)
+			continue;
+		if (isLayerLocked && !actionInfo.enabledOnStartup)
+			pluginAction->setEnabled(false);
+		else
+			pluginAction->setEnabled(actionPlug->handleSelection(doc, selectedType));
+	}
 }
 
 void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
@@ -1362,10 +1425,14 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["toolsPDFListBox"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(setter2);
 	(*a_scrActions)["toolsPDFAnnotLink"]->setEnabled(setter);
+
+	updateActionPluginsActions(doc);
 }
 
 void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 {
+	bool layerUnlocked = !doc->layerLocked(doc->activeLayer());
+
 	(*a_scrActions)["filePrint"]->setEnabled(true);
 	(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
 	(*a_scrActions)["fileClose"]->setEnabled(true);
@@ -1378,15 +1445,20 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["fileImportVector"]->setEnabled(true);
 	(*a_scrActions)["pageImport"]->setEnabled(true);
 
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(true);
+	if (ScCore->haveGS())
+	{
+		(*a_scrActions)["OutputPreviewPDF"]->setEnabled(true);
+		(*a_scrActions)["OutputPreviewPS"]->setEnabled(true);
+	}
 
 	if ((*a_scrActions)["SaveAsDocumentTemplate"])
 		(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(true);
 
 	(*a_scrActions)["editCut"]->setEnabled(false);
 	(*a_scrActions)["editCopy"]->setEnabled(false);
-	(*a_scrActions)["editPaste"]->setEnabled(clipScrapHaveData);
+	(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && clipScrapHaveData);
 	(*a_scrActions)["editCopyContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(false);
@@ -1539,6 +1611,11 @@ void AppModeHelper::mainWindowCloseLastDoc()
 {
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		(*a_scrActions)["PrintPreview"]->setEnabled(false);
+	if (ScCore->haveGS())
+	{
+		(*a_scrActions)["OutputPreviewPDF"]->setEnabled(false);
+		(*a_scrActions)["OutputPreviewPS"]->setEnabled(false);
+	}
 	if ((*a_scrActions)["SaveAsDocumentTemplate"])
 		(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
 	(*a_scrActions)["editClearContents"]->setEnabled(false);
@@ -1679,6 +1756,15 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
+
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	scMW->unitSwitcher->setEnabled(false);
+	scMW->zoomSpinBox->setEnabled(false);
+	scMW->zoomDefaultToolbarButton->setEnabled(false);
+	scMW->zoomOutToolbarButton->setEnabled(false);
+	scMW->zoomInToolbarButton->setEnabled(false);
+	scMW->pageSelector->setEnabled(false);
+	scMW->layerMenu->setEnabled(false);
 }
 
 void AppModeHelper::setPreviewMode(bool b)
@@ -1721,6 +1807,8 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["fileCollect"]->setEnabled(false);
 	(*a_scrActions)["fileClose"]->setEnabled(false);
 	(*a_scrActions)["PrintPreview"]->setEnabled(false);
+	(*a_scrActions)["OutputPreviewPDF"]->setEnabled(false);
+	(*a_scrActions)["OutputPreviewPS"]->setEnabled(false);
 	if ((*a_scrActions)["SaveAsDocumentTemplate"])
 		(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
@@ -1761,6 +1849,12 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["editJavascripts"]->setEnabled(false);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(false);
 	(*a_scrActions)["editEditRenderSource"]->setEnabled(false);
+	(*a_scrActions)["editMark"]->setEnabled(false);
+	(*a_scrActions)["insertMarkVariableText"]->setEnabled(false);
+	(*a_scrActions)["insertMarkAnchor"]->setEnabled(false);
+	(*a_scrActions)["insertMarkItem"]->setEnabled(false);
+	(*a_scrActions)["insertMark2Mark"]->setEnabled(false);
+	(*a_scrActions)["insertMarkNote"]->setEnabled(false);
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(false);
 	(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 	(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
@@ -1789,9 +1883,14 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 //	scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
 	(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
 	(*a_scrActions)["itemSendToInline"]->setEnabled(false);
+	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(false);
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
 	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+	(*a_scrActions)["styleImageEffects"]->setEnabled(false);
 	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+	(*a_scrActions)["itemGroup"]->setEnabled(false);
+	(*a_scrActions)["itemUngroup"]->setEnabled(false);
+	(*a_scrActions)["itemGroupAdjust"]->setEnabled(false);
 	(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
 	(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
 	(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
@@ -1805,6 +1904,13 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+	(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
+	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
+	(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
+	(*a_scrActions)["itemSplitPolygons"]->setEnabled(false);
+	(*a_scrActions)["itemsUnWeld"]->setEnabled(false);
+	(*a_scrActions)["itemWeld"]->setEnabled(false);
+	(*a_scrActions)["itemEditWeld"]->setEnabled(false);
 	(*a_scrActions)["toolsSelect"]->setEnabled(false);
 	(*a_scrActions)["toolsRotate"]->setEnabled(false);
 	(*a_scrActions)["toolsEditContents"]->setEnabled(false);
@@ -1854,5 +1960,14 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
 	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
+
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	scMW->unitSwitcher->setEnabled(false);
+	scMW->zoomSpinBox->setEnabled(false);
+	scMW->zoomDefaultToolbarButton->setEnabled(false);
+	scMW->zoomOutToolbarButton->setEnabled(false);
+	scMW->zoomInToolbarButton->setEnabled(false);
+	scMW->pageSelector->setEnabled(false);
+	scMW->layerMenu->setEnabled(false);
 }
 

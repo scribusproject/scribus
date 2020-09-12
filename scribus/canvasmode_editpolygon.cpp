@@ -316,6 +316,16 @@ double CanvasMode_EditPolygon::GetMaxFactor()
 	return ret;
 }
 
+void CanvasMode_EditPolygon::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EditPolygon::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EditPolygon::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();

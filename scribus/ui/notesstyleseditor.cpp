@@ -294,7 +294,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 			if (*NS != n)
 			{
 				SimpleState* ss = nullptr;
-				if (UndoManager::instance()->undoEnabled())
+				if (UndoManager::undoEnabled())
 				{
 					ss = new SimpleState(UndoManager::EditNotesStyle);
 					ss->set("NSTYLE", QString("edit"));

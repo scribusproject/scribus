@@ -230,7 +230,7 @@ namespace cff {
 		
 		/// This write the header, name index and TopDict index for exactly one font.
 		/// All unknown offset are preset as 4 byte cardinal and corresponding operator positions returned
-		uint writeTopDict(const QByteArray& name, const QMap<operator_type, CFF_Variant>& dict, const QList<QByteArray>& oldStrings, QHash<operator_type, uint>& patches);
+		uint writeTopDict(const QByteArray& name, const QMap<operator_type, CFF_Variant>& dict, const QList<QByteArray>& oldStrings, QHash<operator_type, uint>& patchAddresses);
 		/// this will write another segment and return the start offset
 		uint writeSegment(const QByteArray& data);
 		void patch(QHash<operator_type, uint> patchPositions, uint patchOffset, operator_type op, uint offset, uint length = 0);

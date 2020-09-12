@@ -44,30 +44,8 @@ HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
 	defaultWeight = ps->getFont()->getWeight();
 	defaultSlant = ps->getFont()->getSlant();
 	initPStyles();
-	inH1 = false;
-	inH2 = false;
-	inH3 = false;
-	inH4 = false;
-	inH5 = false;
-	inH6 = false;
-	inA = false;
-	inCode = false;
-	inBody = false;
-	inPre = false;
-	inP = false;
-	inCenter = false;
+
 	writer = w;
-	href = "";
-	extLinks = "";
-	extIndex = 1;
-	listLevel = -1;
-	inOL = false;
-	wasInOL = false;
-	inUL = false;
-	wasInUL = false;
-	inLI = false;
-	addedLI = false;
-	lastCharWasSpace = false;
 	noFormatting = textOnly;
 	hreader = this;
 }
@@ -268,7 +246,8 @@ bool HTMLReader::characters(const QString &ch)
 			if (tmp.isEmpty())
 				return true;
 		}
-		QString chl(tmp.at(0)), chr(tmp.right(1));
+		QString chl(tmp.at(0));
+		QString chr(tmp.right(1));
 		bool fcis = (chl.length() > 0 && chl[0].isSpace());
 		bool lcis = (chr.length() > 0 && chr[0].isSpace());
 		if (inPre)

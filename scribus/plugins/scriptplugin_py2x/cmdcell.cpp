@@ -457,12 +457,19 @@ PV */
 void cmdcelldocwarnings()
 {
 	QStringList s;
-	s << scribus_setcelltext__doc__ << scribus_getcellstyle__doc__
-	  << scribus_setcellstyle__doc__ << scribus_getcellrowspan__doc__
-	  << scribus_getcellcolumnspan__doc__ << scribus_getcellfillcolor__doc__
-	  << scribus_setcellfillcolor__doc__ << scribus_setcellleftborder__doc__
-	  << scribus_setcellrightborder__doc__ << scribus_setcelltopborder__doc__
-	  << scribus_setcellbottomborder__doc__ << scribus_setcellleftpadding__doc__
-	  << scribus_setcellrightpadding__doc__ << scribus_setcelltoppadding__doc__
-	  << scribus_setcellbottompadding__doc__;
+	s << scribus_getcellcolumnspan__doc__
+	  << scribus_getcellfillcolor__doc__
+	  << scribus_getcellrowspan__doc__
+	  << scribus_getcellstyle__doc__
+	  << scribus_setcellbottomborder__doc__
+	  << scribus_setcellbottompadding__doc__
+	  << scribus_setcellfillcolor__doc__
+	  << scribus_setcellleftborder__doc__
+	  << scribus_setcellleftpadding__doc__
+	  << scribus_setcellrightborder__doc__
+	  << scribus_setcellrightpadding__doc__
+	  << scribus_setcellstyle__doc__
+	  << scribus_setcelltext__doc__  
+	  << scribus_setcelltopborder__doc__
+	  << scribus_setcelltoppadding__doc__;
 }

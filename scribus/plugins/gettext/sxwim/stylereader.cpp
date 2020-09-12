@@ -41,16 +41,10 @@ StyleReader::StyleReader(const QString& documentName, gtWriter *w, bool textOnly
 {
 	sreader      = this;
 	docname      = documentName;
-	readProperties = false;
 	writer       = w;
 	importTextOnly = textOnly;
 	usePrefix    = prefix;
 	packStyles   = combineStyles;
-	currentStyle = nullptr;
-	parentStyle  = nullptr;
-	inList       = false;
-	currentList  = "";
-	defaultStyleCreated = false;
 }
 
 bool StyleReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)
@@ -63,7 +57,7 @@ bool StyleReader::startElement(const QString&, const QString&, const QString &na
 	{
 		/*if (!defaultStyleCreated)
 		{
-			gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+			gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 			pstyle->setDefaultStyle(true);
 			currentStyle = dynamic_cast<gtStyle*>(pstyle);
 			currentStyle->setName("default-style");
@@ -173,7 +167,7 @@ void StyleReader::defaultStyle(const QXmlAttributes& attrs)
 		if (attrs.localName(i) == "style:family")
 			if (attrs.value(i) == "paragraph")
 			{
-				gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+				gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 				pstyle->setDefaultStyle(true);
 				currentStyle = dynamic_cast<gtStyle*>(pstyle);
 				currentStyle->setName("default-style");
@@ -315,7 +309,7 @@ void StyleReader::styleStyle(const QXmlAttributes& attrs)
 
 	if (!defaultStyleCreated)
 	{
-		gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+		gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 		pstyle->setDefaultStyle(true);
 		currentStyle = dynamic_cast<gtStyle*>(pstyle);
 		currentStyle->setName("default-style");
@@ -574,9 +568,9 @@ void StyleReader::setupFrameStyle()
 			fstyleName = it.key();
 		}
 	}
-	gtFrameStyle* fstyle;
+
 	gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(attrsStyles[fstyleName]);
-	fstyle = new gtFrameStyle(*pstyle);
+	gtFrameStyle* fstyle = new gtFrameStyle(*pstyle);
 
 	if (!importTextOnly)
 		writer->setFrameStyle(fstyle);

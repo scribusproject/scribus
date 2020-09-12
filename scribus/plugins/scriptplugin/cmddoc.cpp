@@ -501,6 +501,7 @@ void cmddocdocwarnings()
 	  << scribus_savedoc__doc__
 	  << scribus_savedocas__doc__
 	  << scribus_setbaseline__doc__
+	  << scribus_setbleeds__doc__
 	  << scribus_setdoctype__doc__ 
 	  << scribus_setinfo__doc__
 	  << scribus_setmargins__doc__

@@ -33,6 +33,7 @@ QChar SpecialChars::FRAMEBREAK   = QChar(27);
 QChar SpecialChars::SHYPHEN      = QChar(0xAD);
 QChar SpecialChars::NBHYPHEN     = QChar(0x2011);
 QChar SpecialChars::NBSPACE      = QChar(0xA0);
+QChar SpecialChars::NNBSPACE      = QChar(0x202F);
 QChar SpecialChars::OLD_NBHYPHEN = QChar(24);
 QChar SpecialChars::OLD_NBSPACE  = QChar(29);
 QChar SpecialChars::ZWNBSPACE    = QChar(0x2060);
@@ -77,9 +78,7 @@ bool SpecialChars::isImplicitSpace(uint c1, uint c2)
 	if (isLatin1 && isCJK2)
 		return true;
 	bool isLatin2 = SpecialChars::isLetterRequiringSpaceAroundCJK(c2);
-	if (isCJK1 && isLatin2)
-		return true;
-	return false;
+	return (isCJK1 && isLatin2);
 }
 
 bool SpecialChars::isBreak(QChar c, bool includeColBreak)
@@ -213,7 +212,7 @@ int SpecialChars::getCJKAttr(QChar c)
 bool SpecialChars::isCJK(uint ch)
 {
 	return (	(0x2E80 < ch && ch < 0x2EFF)   ||  // CJK Radicals Supplement
-		(0x3000 < ch && ch < 0x303F)   ||  // CJK Symbols and Punctuation
+		(0x3000 <= ch && ch < 0x303F)   ||  // CJK Symbols and Punctuation
 		(0x3040 < ch && ch <= 0x30FF)  ||  // Hiragana, Katakana
 		(0x31C0 < ch && ch < 0x31EF)   ||  // CJK Strokes
 		(0x3200 < ch && ch < 0x32FF)   ||  // Enclosed CJK Letters and Months
@@ -228,11 +227,7 @@ bool SpecialChars::isCJK(uint ch)
 		(0x2F800 < ch && ch < 0x2FA1F) ||  // CJK Compatibility Ideographs Supplement
 		(0xFF01 < ch && ch < 0xFF0F)   ||
 		(0xFF1A < ch && ch < 0xFF20)   ||
-		(0xFF58 < ch && ch < 0xFFDC)   ||
-		(ch == 0x3000) ||
-		(ch == 0x3002) ||
-		(ch == 0x201C) ||
-		(ch == 0x201D));
+		(0xFF58 < ch && ch < 0xFFDC)   );
 }
 
 

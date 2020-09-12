@@ -40,7 +40,7 @@ class SWDialog : public QDialog, public Ui::SWDialog
 	Q_OBJECT
 
 	public:
-		SWDialog(QWidget* parent = 0);
+		SWDialog(QWidget* parent = nullptr);
 		~SWDialog();
 
 		int actionSelected();

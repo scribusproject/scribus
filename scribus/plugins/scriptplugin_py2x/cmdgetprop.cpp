@@ -229,7 +229,7 @@ PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(item->cornerRadius()));
 }
 
-PyObject *scribus_getimgoffset(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getimageoffset(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -242,7 +242,7 @@ PyObject *scribus_getimgoffset(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(ff)", item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
 }
 
-PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -268,7 +268,7 @@ PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(item->Pfile.toUtf8());
 }
 
-PyObject *scribus_getposi(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getposition(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -452,16 +452,28 @@ PV */
 void cmdgetpropdocwarnings()
 {
 	QStringList s;
-	s << scribus_getobjecttype__doc__ << scribus_getfillcolor__doc__
+	s << scribus_getallobj__doc__
+	  << scribus_getcornerrad__doc__ 
 	  << scribus_getcustomlinestyle__doc__
-	  << scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ 
-	  << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ 
-	  << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ 
-	  << scribus_getlineshade__doc__ << scribus_getlinejoin__doc__ 
-	  << scribus_getlinecap__doc__ << scribus_getlinestyle__doc__ 
-	  << scribus_getfillshade__doc__ << scribus_getcornerrad__doc__ 
-	  << scribus_getimgscale__doc__ << scribus_getimagefile__doc__ 
-	  << scribus_getposi__doc__ << scribus_getsize__doc__ 
-	  << scribus_getrotation__doc__ <<  scribus_getallobj__doc__
-	  << scribus_getobjectattributes__doc__ << scribus_getimagecolorspace__doc__;
+	  << scribus_getfillcolor__doc__
+	  << scribus_getfillblend__doc__
+	  << scribus_getfillshade__doc__ 
+	  << scribus_getfilltrans__doc__
+	  << scribus_getimagecolorspace__doc__
+	  << scribus_getimagefile__doc__
+	  << scribus_getimageoffset__doc__
+	  << scribus_getimagescale__doc__
+	  << scribus_getlinecolor__doc__ 
+	  << scribus_getlineblend__doc__ 
+	  << scribus_getlinecap__doc__
+	  << scribus_getlinejoin__doc__ 
+	  << scribus_getlineshade__doc__
+	  << scribus_getlinetrans__doc__
+	  << scribus_getlinewidth__doc__
+	  << scribus_getlinestyle__doc__ 
+	  << scribus_getobjectattributes__doc__ 
+	  << scribus_getobjecttype__doc__
+	  << scribus_getposition__doc__
+	  << scribus_getrotation__doc__
+	  << scribus_getsize__doc__;
 }

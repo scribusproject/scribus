@@ -126,10 +126,7 @@ bool StoryText::hasBulletOrNum() const
 	}
 
 	const ParagraphStyle& trailingStyle = d->trailingStyle;
-	if (trailingStyle.hasBullet() || trailingStyle.hasNum())
-		return true;
-
-	return false;
+	return (trailingStyle.hasBullet() || trailingStyle.hasNum());
 }
 
 bool StoryText::hasTextMarks() const
@@ -476,7 +473,7 @@ void StoryText::insert(const StoryText& other, bool onlySelection)
 void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 {
 	if (pos < 0)
-		pos += length()+1;
+		pos += length() + 1;
 	
 	CharStyle cstyle(charStyle(pos));
 	ParagraphStyle pstyle(paragraphStyle(pos));
@@ -485,6 +482,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	ParagraphStyle otherDefault(other.defaultStyle());
 	otherDefault.eraseStyle(defaultStyle());
 	
+	int oldPos = pos;
+	int oldLen = length();
 	int otherStart  = onlySelection? other.startOfSelection() : 0;
 	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
 	int cstyleStart = otherStart;
@@ -545,6 +544,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			applyStyle(pos, other.paragraphStyle(otherEnd-1));
 		}
 	}
+	if ((d->selLast >= d->selFirst) && (d->selFirst <= oldPos) && (oldPos <= d->selLast))
+		d->selLast += (length() - oldLen);
 	invalidate(pos, length());
 }
 
@@ -681,7 +682,7 @@ void StoryText::insertChars(const QString& txt, bool applyNeighbourStyle) //, co
 void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
 {
 	if (pos < 0)
-		pos += length()+1;
+		pos += length() + 1;
 
 	assert(pos >= 0);
 	assert(pos <= length());
@@ -716,13 +717,15 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 	}
 
 	d->len = d->count();
+	if ((d->selLast >= d->selFirst) && (d->selFirst <= pos) && (pos <= d->selLast))
+		d->selLast += txt.length();
 	invalidate(pos, pos + txt.length());
 }
 
 void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool applyNeighbourStyle)
 {
 	if (pos < 0)
-		pos += length()+1;
+		pos += length() + 1;
 
 	assert(pos >= 0);
 	assert(pos <= length());
@@ -735,7 +738,7 @@ void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool app
 	ScText clone;
 	if (applyNeighbourStyle)
 	{
-		int referenceChar = qMax(0, qMin(pos, length()-1));
+		int referenceChar = qMax(0, qMin(pos, length() - 1));
 		clone.applyCharStyle(charStyle(referenceChar));
 		clone.setEffects(ScStyle_Default);
 	}
@@ -774,6 +777,8 @@ void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool app
 	}
 
 	d->len = d->count();
+	if ((d->selLast >= d->selFirst) && (d->selFirst <= pos) && (pos <= d->selLast))
+		d->selLast += inserted;
 	invalidate(pos, pos + inserted);
 }
 
@@ -1857,10 +1862,7 @@ int StoryText::prevParagraph(int pos)
 	return pos;
 }
 
-
-
 // selection
-
 int StoryText::startOfSelection() const
 {
 	return d->selFirst <= d->selLast? d->selFirst : 0;
@@ -1882,7 +1884,7 @@ int StoryText::selectionLength() const
 	return d->selFirst <= last? last - d->selFirst + 1 : 0;
 }
 
-bool StoryText::isSelected() const
+bool StoryText::hasSelection() const
 {
 	return selectionLength() > 0;
 }
@@ -2161,16 +2163,16 @@ void StoryText::validate()
 }
 */
 
-ScText*  StoryText::item(int itm)
+ScText*  StoryText::item(int index)
 {
-	assert( itm < length() );
-	return const_cast<StoryText *>(this)->d->at(itm);
+	assert( index < length() );
+	return const_cast<StoryText *>(this)->d->at(index);
 }
 
-const ScText*  StoryText::item(int itm) const
+const ScText*  StoryText::item(int index) const
 {
-	assert( itm < length() );
-	return const_cast<StoryText *>(this)->d->at(itm);
+	assert( index < length() );
+	return const_cast<StoryText *>(this)->d->at(index);
 }
 
 

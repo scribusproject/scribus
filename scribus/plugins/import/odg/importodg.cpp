@@ -474,7 +474,7 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 						{
 							ObjStyle tmpBStyle;
 							resovleStyle(tmpBStyle, backGroundStyle);
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.currColorFill, CommonStrings::None);
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
@@ -600,7 +600,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 						{
 							ObjStyle tmpBStyle;
 							resovleStyle(tmpBStyle, currStyle.page_layout_name.value);
-							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.currColorFill, CommonStrings::None);
 							PageItem *retObj = m_Doc->Items->at(z);
 							finishItem(retObj, tmpBStyle);
 						}
@@ -835,7 +835,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 		pArray.parseSVG(e.attribute("svg:d"));
 		if (pArray.size() > 3)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.currColorStroke);
 			retObj = m_Doc->Items->at(z);
 			retObj->PoLine = pArray.copy();
 			QTransform mat;
@@ -1033,7 +1033,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 					PageItem::ItemType itype = parseEnhPath(paths[a], pArray, filled, stroked) ? PageItem::PolyLine : PageItem::Polygon;
 					if (pArray.size() > 3)
 					{
-						QString fillC = tmpOStyle.CurrColorFill;
+						QString fillC = tmpOStyle.currColorFill;
 						if (!filled)
 							fillC = CommonStrings::None;
 						else
@@ -1112,7 +1112,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 									fillC = modifyColor(fillC, true, 120);
 							}
 						}
-						QString strokeC = tmpOStyle.CurrColorStroke;
+						QString strokeC = tmpOStyle.currColorStroke;
 						if (!stroked)
 							strokeC = CommonStrings::None;
 						int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, fillC, strokeC);
@@ -1250,7 +1250,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	normRef.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize * 1.2);
 	if (normRef.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.currColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine.resize(4);
 		retObj->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1269,7 +1269,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize / 2.0);
 	if (normRef2.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.currColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine.resize(4);
 		retObj->PoLine.setPoint(0, FPoint(x2, y2));
@@ -1286,9 +1286,9 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	QLineF textLine = QLineF(normRef.p2(), normRef2.p2());
 	if (textLine.length() != 0)
 	{
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 		retObj = m_Doc->Items->at(z);
-		retObj->setFillColor(tmpOStyle.CurrColorFill);
+		retObj->setFillColor(tmpOStyle.currColorFill);
 		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
 		finishItem(retObj, tmpOStyle);
@@ -1314,7 +1314,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.currColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(4);
 	retObj->PoLine.setPoint(0, FPoint(x1, y1));
@@ -1353,7 +1353,7 @@ PageItem* OdgPlug::parseEllipse(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 	retObj = m_Doc->Items->at(z);
 	if (e.hasAttribute("draw:transform"))
 		parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
@@ -1375,7 +1375,7 @@ PageItem* OdgPlug::parseRect(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 	retObj = m_Doc->Items->at(z);
 	if (corner != 0)
 	{
@@ -1398,7 +1398,7 @@ PageItem* OdgPlug::parsePolygon(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(0);
 	appendPoints(&retObj->PoLine, e, true);
@@ -1417,7 +1417,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
-	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.currColorStroke);
 	retObj = m_Doc->Items->at(z);
 	retObj->PoLine.resize(0);
 	appendPoints(&retObj->PoLine, e, false);
@@ -1458,7 +1458,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		double y = parseUnit(e.attribute("svg:y")) ;
 		double w = parseUnit(e.attribute("svg:width"));
 		double h = parseUnit(e.attribute("svg:height"));
-		int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+		int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine = pArray.copy();
 		QTransform mat;
@@ -1519,9 +1519,9 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 		{
 			if (n.text().isEmpty())
 				return retObj;
-			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 			retObj = m_Doc->Items->at(z);
-			retObj->setFillColor(tmpOStyle.CurrColorFill);
+			retObj->setFillColor(tmpOStyle.currColorFill);
 			retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			retObj->setTextFlowMode(PageItem::TextFlowDisabled);
 			retObj->setVerticalAlignment(tmpOStyle.verticalAlignment);
@@ -1544,7 +1544,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 				QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
 				if (formats.contains(ext.toUtf8()))
 				{
-					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 					retObj = m_Doc->Items->at(z);
 					if (e.hasAttribute("draw:transform"))
 						retObj->setRotation(r, true);
@@ -1638,7 +1638,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							}
 							else
 							{
-								int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke);
+								int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.currColorFill, tmpOStyle.currColorStroke);
 								retObj = m_Doc->Items->at(z);
 								if (e.hasAttribute("draw:transform"))
 									retObj->setRotation(r, true);
@@ -1856,8 +1856,8 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 {
 	tmpCStyle.setFont((*m_Doc->AllFonts)[oStyle.fontName]);
 	tmpCStyle.setFontSize(oStyle.fontSize * 10);
-	tmpCStyle.setFillColor(oStyle.CurrColorText);
-	tmpCStyle.setBackColor(oStyle.CurrColorBText);
+	tmpCStyle.setFillColor(oStyle.currColorText);
+	tmpCStyle.setBackColor(oStyle.currColorBText);
 	StyleFlag styleEffects = tmpCStyle.effects();
 	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
 	{
@@ -1871,7 +1871,7 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 		styleEffects |= ScStyle_Outline;
 		tmpCStyle.setOutlineWidth(30);
 		tmpCStyle.setFillColor("White");
-		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+		tmpCStyle.setStrokeColor(oStyle.currColorText);
 	}
 	if (oStyle.textUnderline)
 	{
@@ -1888,14 +1888,14 @@ void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
 			styleEffects |= ScStyle_Strikethrough;
 		tmpCStyle.setStrikethruOffset(-1);
 		tmpCStyle.setStrikethruWidth(-1);
-		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+		tmpCStyle.setStrokeColor(oStyle.currColorText);
 	}
 	if (oStyle.textShadow)
 	{
 		styleEffects |= ScStyle_Shadowed;
 		tmpCStyle.setShadowXOffset(30);
 		tmpCStyle.setShadowYOffset(-30);
-		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+		tmpCStyle.setStrokeColor(oStyle.currColorText);
 	}
 	tmpCStyle.setFeatures(styleEffects.featureList());
 }
@@ -2170,10 +2170,10 @@ void OdgPlug::parseStyles(QDomElement &sp)
 				if (spe.tagName() == "style:graphic-properties")
 				{
 					currStyle.fillMode = AttributeValue(spe.attribute("draw:fill", ""));
-					currStyle.CurrColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
+					currStyle.currColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
 					currStyle.strokeMode = AttributeValue(spe.attribute("draw:stroke", ""));
-					currStyle.CurrColorStroke = AttributeValue(spe.attribute("svg:stroke-color", ""));
-					currStyle.CurrColorShadow = AttributeValue(spe.attribute("draw:shadow-color", ""));
+					currStyle.currColorStroke = AttributeValue(spe.attribute("svg:stroke-color", ""));
+					currStyle.currColorShadow = AttributeValue(spe.attribute("draw:shadow-color", ""));
 					currStyle.hasShadow = AttributeValue(spe.attribute("draw:shadow", ""));
 					currStyle.shadowX = AttributeValue(spe.attribute("draw:shadow-offset-x", ""));
 					currStyle.shadowY = AttributeValue(spe.attribute("draw:shadow-offset-y", ""));
@@ -2230,7 +2230,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 				else if (spe.tagName() == "style:drawing-page-properties")
 				{
 					currStyle.fillMode = AttributeValue(spe.attribute("draw:fill", ""));
-					currStyle.CurrColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
+					currStyle.currColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
 					currStyle.patternName = AttributeValue(spe.attribute("draw:fill-image-name", ""));
 					currStyle.gradientName = AttributeValue(spe.attribute("draw:fill-gradient-name", ""));
 					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
@@ -2325,14 +2325,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 					actStyle.stroke_dash_style = AttributeValue(currStyle.stroke_dash_style.value);
 				if (currStyle.fillMode.valid)
 					actStyle.fillMode = AttributeValue(currStyle.fillMode.value);
-				if (currStyle.CurrColorFill.valid)
-					actStyle.CurrColorFill = AttributeValue(currStyle.CurrColorFill.value);
+				if (currStyle.currColorFill.valid)
+					actStyle.currColorFill = AttributeValue(currStyle.currColorFill.value);
 				if (currStyle.strokeMode.valid)
 					actStyle.strokeMode = AttributeValue(currStyle.strokeMode.value);
-				if (currStyle.CurrColorStroke.valid)
-					actStyle.CurrColorStroke = AttributeValue(currStyle.CurrColorStroke.value);
-				if (currStyle.CurrColorShadow.valid)
-					actStyle.CurrColorShadow = AttributeValue(currStyle.CurrColorShadow.value);
+				if (currStyle.currColorStroke.valid)
+					actStyle.currColorStroke = AttributeValue(currStyle.currColorStroke.value);
+				if (currStyle.currColorShadow.valid)
+					actStyle.currColorShadow = AttributeValue(currStyle.currColorShadow.value);
 				if (currStyle.hasShadow.valid)
 					actStyle.hasShadow = AttributeValue(currStyle.hasShadow.value);
 				if (currStyle.shadowX.valid)
@@ -2469,15 +2469,15 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 		if (actStyle.stroke_dash_dots2_length.valid)
 			tmpOStyle.stroke_dash_dots2_length = parseUnit(actStyle.stroke_dash_dots2_length.value);
 
-		if (actStyle.CurrColorFill.valid)
+		if (actStyle.currColorFill.valid)
 		{
 			if (actStyle.fillMode.valid && (actStyle.fillMode.value != "none"))
-				tmpOStyle.CurrColorFill = parseColor(actStyle.CurrColorFill.value);
+				tmpOStyle.currColorFill = parseColor(actStyle.currColorFill.value);
 			else
-				tmpOStyle.CurrColorFill = CommonStrings::None;
+				tmpOStyle.currColorFill = CommonStrings::None;
 		}
 		else
-			tmpOStyle.CurrColorFill = CommonStrings::None;
+			tmpOStyle.currColorFill = CommonStrings::None;
 		if (actStyle.fillMode.valid)
 		{
 			if (actStyle.fillMode.value == "none")
@@ -2503,15 +2503,15 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 					tmpOStyle.hatchName = actStyle.hatchName.value;
 			}
 		}
-		if (actStyle.CurrColorStroke.valid)
+		if (actStyle.currColorStroke.valid)
 		{
 			if (actStyle.strokeMode.valid && (actStyle.strokeMode.value != "none"))
-				tmpOStyle.CurrColorStroke = parseColor(actStyle.CurrColorStroke.value);
+				tmpOStyle.currColorStroke = parseColor(actStyle.currColorStroke.value);
 			else
-				tmpOStyle.CurrColorStroke = CommonStrings::None;
+				tmpOStyle.currColorStroke = CommonStrings::None;
 		}
 		else
-			tmpOStyle.CurrColorStroke = CommonStrings::None;
+			tmpOStyle.currColorStroke = CommonStrings::None;
 		if (actStyle.strokeMode.valid)
 		{
 			if (actStyle.strokeMode.value == "none")
@@ -2525,8 +2525,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 					tmpOStyle.dashName = actStyle.dashName.value;
 			}
 		}
-		if (actStyle.CurrColorShadow.valid)
-			tmpOStyle.CurrColorShadow = parseColor(actStyle.CurrColorShadow.value);
+		if (actStyle.currColorShadow.valid)
+			tmpOStyle.currColorShadow = parseColor(actStyle.currColorShadow.value);
 		if (actStyle.hasShadow.valid)
 			tmpOStyle.hasShadow = actStyle.hasShadow.value == "visible";
 		if (actStyle.shadowX.valid)
@@ -2571,9 +2571,9 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 		if (actStyle.fontSize.valid)
 			tmpOStyle.fontSize = parseUnit(actStyle.fontSize.value);
 		if (actStyle.fontColor.valid)
-			tmpOStyle.CurrColorText = parseColor(actStyle.fontColor.value);
+			tmpOStyle.currColorText = parseColor(actStyle.fontColor.value);
 		if (actStyle.textBackgroundColor.valid)
-			tmpOStyle.CurrColorBText = parseColor(actStyle.textBackgroundColor.value);
+			tmpOStyle.currColorBText = parseColor(actStyle.textBackgroundColor.value);
 		if (actStyle.margin_top.valid)
 			tmpOStyle.margin_top = parseUnit(actStyle.margin_top.value);
 		if (actStyle.margin_bottom.valid)
@@ -2634,7 +2634,7 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, const QString& pAttrs)
 		if (actStyle.textUnderlineColor.valid)
 		{
 			if (actStyle.textUnderlineColor.value == "font-color")
-				tmpOStyle.textUnderlineColor = tmpOStyle.CurrColorText;
+				tmpOStyle.textUnderlineColor = tmpOStyle.currColorText;
 			else
 				tmpOStyle.textUnderlineColor = parseColor(actStyle.textUnderlineColor.value);
 		}
@@ -3396,7 +3396,7 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None);
+					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
 					iteS = m_Doc->Items->at(zS);
 					iteS->PoLine = EndArrow.copy();
 					iteS->ClipEdited = true;
@@ -3463,7 +3463,7 @@ PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
 					EndArrow.map(arrowTrans);
-					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None);
+					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.currColorStroke, CommonStrings::None);
 					iteS = m_Doc->Items->at(zE);
 					iteS->PoLine = EndArrow.copy();
 					iteS->ClipEdited = true;
@@ -3593,7 +3593,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			item->GrType = 7;
+			item->GrType = Gradient_Radial;
 			item->GrStartX = item->width() * gStyle.gradientCenterX;
 			item->GrStartY = item->height()* gStyle.gradientCenterY;
 			item->GrFocalX = item->width() * gStyle.gradientCenterX;
@@ -3619,7 +3619,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
-			item->GrType = 7;
+			item->GrType = Gradient_Radial;
 			item->GrStartX = item->width() * gStyle.gradientCenterX;
 			item->GrStartY = item->height()* gStyle.gradientCenterY;
 			item->GrFocalX = item->width() * gStyle.gradientCenterX;
@@ -3662,7 +3662,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 		}
 		else if (gStyle.gradientType == "rectangular")
 		{
@@ -3721,7 +3721,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			iLineP4.setLength(lineLen);
 			P4 = intersectBoundingRect(item, iLineP4);
 			item->setDiamondGeometry(FPoint(P1.x(), P1.y()), FPoint(P2.x(), P2.y()), FPoint(P3.x(), P3.y()), FPoint(P4.x(), P4.y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 */
 /*
 			item->meshGradientPatches.clear();
@@ -3773,7 +3773,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			patch1.BR = inner;
 			patch1.TR = inner;
 			item->meshGradientPatches.append(patch1);
-			item->GrType = 12;
+			item->GrType = Gradient_PatchMesh;
 */
 
 			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
@@ -3785,7 +3785,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
-			item->GrType = 10;
+			item->GrType = Gradient_Diamond;
 		}
 	}
 	else if (obState.fill_type == 3)
@@ -3828,7 +3828,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			}
 			item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
 			item->setPattern(patternName);
-			item->GrType = 8;
+			item->GrType = Gradient_Pattern;
 		}
 		else
 		{
@@ -3902,7 +3902,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 									dy = pat.height * obState.patternY;
 							}
 							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
-							item->GrType = 8;
+							item->GrType = Gradient_Pattern;
 						}
 					}
 					delete tempFile;
@@ -3998,7 +3998,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 									dy = pat.height * obState.patternY;
 							}
 							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
-							item->GrType = 8;
+							item->GrType = Gradient_Pattern;
 						}
 					}
 					delete tempFile;
@@ -4015,8 +4015,8 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			hatchS = 1;
 		else if (gStyle.hatchStyle == "triple")
 			hatchS = 2;
-		item->setHatchParameters(hatchS, gStyle.hatchDistance, gStyle.hatchRotation, obState.hatchSolidFill, obState.CurrColorFill, gStyle.hatchColor);
-		item->GrType = 14;
+		item->setHatchParameters(hatchS, gStyle.hatchDistance, gStyle.hatchRotation, obState.hatchSolidFill, obState.currColorFill, gStyle.hatchColor);
+		item->GrType = Gradient_Hatch;
 	}
 	if (!obState.opacityName.isEmpty())
 	{
@@ -4129,7 +4129,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	if (obState.hasShadow)
 	{
 		item->setHasSoftShadow(true);
-		item->setSoftShadowColor(obState.CurrColorShadow);
+		item->setSoftShadowColor(obState.currColorShadow);
 		item->setSoftShadowXOffset(obState.shadowX);
 		item->setSoftShadowYOffset(obState.shadowY);
 		item->setSoftShadowBlurRadius(0);

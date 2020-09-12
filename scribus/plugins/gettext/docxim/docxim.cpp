@@ -46,11 +46,7 @@ DocXIm::DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool 
 	m_item = textItem;
 	m_prefixName = prefix;
 	m_append = append;
-	themePart = "";
-	docPart = "";
-	stylePart = "";
-	themeFont1 = "";
-	themeFont2 = "";
+
 	uz = new ScZipHandler();
 	if (!uz->open(fileName))
 	{
@@ -297,7 +293,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 				{
 					currentParagraphStyle = defaultParagraphStyle;
 					bool hasStyle = false;
-					QString currStyleName = "";
+					QString currStyleName;
 					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 					{
 						if (spr.tagName() == "w:pPr")

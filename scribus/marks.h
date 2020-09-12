@@ -12,7 +12,7 @@ class TextNote;
 
 enum MarkType
 {
-	MARKNoType = -1, //undefinied mark type (wrong situation!)
+	MARKNoType = -1, //undefined mark type (wrong situation!)
 	MARKAnchorType = 0, //empty anchor mark, useful for creating references to it
 	MARK2ItemType = 1, //reference to page item ID
 	MARK2MarkType = 2, //reference other mark
@@ -69,7 +69,7 @@ public:
 	void setMark(const QString& l, MarkType t);
 	MarkType getMarkType() const { return m_data.markType; }
 	void setMarkType(MarkType t) { m_data.markType = t; }
-	const QString getString() const;
+	QString getString() const;
 	void setString(const QString& str );
 	TextNote* getNotePtr() const { return m_data.notePtr; }
 	void setNotePtr(TextNote *note);

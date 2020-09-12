@@ -129,7 +129,7 @@ QString getLongPathName(const QString & shortPath)
 // Use loadRawText instead.
 // FIXME XXX
 //
-bool loadText(const QString& filename, QString *Buffer)
+bool loadText(const QString& filename, QString *buffer)
 {
 	QFile f(filename);
 	QFileInfo fi(f);
@@ -141,7 +141,7 @@ bool loadText(const QString& filename, QString *Buffer)
 	f.read(bb.data(), f.size());
 	f.close();
 	for (int i = 0; i < bb.size(); ++i)
-		*Buffer += QChar(bb[i]);
+		*buffer += QChar(bb[i]);
 	/*
 		int len = bb.size();
 		int oldLen = Buffer->length();
@@ -525,7 +525,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& exten
 	return QString("%1-%2%3.%4").arg(defaultName, QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
 }
 
-const QString getStringFromSequence(NumFormat type, uint position, const QString& asterix)
+QString getStringFromSequence(NumFormat type, uint position, const QString& asterix)
 {
 	QString retVal;
 
@@ -578,7 +578,7 @@ const QString getStringFromSequence(NumFormat type, uint position, const QString
 	return retVal;
 }
 
-const QString numberToLetterSequence(const QString& letters, uint num)
+QString numberToLetterSequence(const QString& letters, uint num)
 {
 	QString retVal;
 	unsigned digits = 1;
@@ -603,7 +603,7 @@ const QString numberToLetterSequence(const QString& letters, uint num)
 	return retVal;
 }
 
-const QString numberToRoman(uint i)
+QString numberToRoman(uint i)
 {
 	QString roman("");
 	int arabic = i;
@@ -1144,7 +1144,7 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	while (!gpL.isEmpty())
 	{
 		PageItem* item = gpL.takeFirst();
-		if (item->asTextFrame())
+		if (item->isTextFrame())
 			item->dropLinks();
 		delete item;
 	}
@@ -1177,7 +1177,7 @@ void getUniqueName(QString &name, const QStringList& list, const QString& separa
 	name = newName;
 }
 
-const QString numberToHebrew(uint i)
+QString numberToHebrew(uint i)
 {
 	const QString hebrew("אבגדהוזחטיכלמנסעפצקרשת");
 	QString result;
@@ -1217,7 +1217,7 @@ const QString numberToHebrew(uint i)
 	return result;
 }
 
-const QString numberToCJK(uint i)
+QString numberToCJK(uint i)
 {
 	QString result;
 	if (i<10)

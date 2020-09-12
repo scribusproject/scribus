@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAbstractItemView>
 
 #include "iconmanager.h"
+#include "pageitemiterator.h"
 #include "prefsstructs.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -293,53 +294,13 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	fontEmbeddingCombo->setEmbeddingMode(prefsData->pdfPrefs.FontEmbedding);
 	if (m_doc != nullptr && exportingPDF)
 	{
-//	Build a list of all Fonts used in Annotations;
-		PageItem *pgit;
-		QList<PageItem*> allItems;
-		for (auto it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
+		//	Build a list of all Fonts used in Annotations;
+		int pageItOptions = PageItemIterator::IterateInGroups | PageItemIterator::IterateInDocItems | PageItemIterator::IterateInMasterItems | PageItemIterator::IterateInFrameItems;
+		for (PageItemIterator it(m_doc, pageItOptions); *it; ++it)
 		{
-			PageItem *currItem = it.value();
-			if (currItem->isGroup())
-				allItems = currItem->getAllChildren();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
-			allItems.clear();
-		}
-		for (int a = 0; a < m_doc->MasterItems.count(); ++a)
-		{
-			PageItem *currItem = m_doc->MasterItems.at(a);
-			if (currItem->isGroup())
-				allItems = currItem->getAllChildren();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
-			allItems.clear();
-		}
-		for (int a = 0; a < m_doc->DocItems.count(); ++a)
-		{
-			PageItem *currItem = m_doc->DocItems.at(a);
-			if (currItem->isGroup())
-				allItems = currItem->getAllChildren();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()) && (pgit->itemText.length() > 0))
-					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-			}
-			allItems.clear();
+			PageItem *currItem = *it;
+			if (((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText)) && (currItem->isAnnotation()) && (currItem->itemText.length() > 0))
+				AnnotationFonts.insert(currItem->itemText.defaultStyle().charStyle().font().replacementName(), QString());
 		}
 		toSubsetButton->setEnabled(false);
 		fromSubsetButton->setEnabled(false);

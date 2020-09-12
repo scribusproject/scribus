@@ -123,7 +123,7 @@ PyObject *scribus_setbleeds(PyObject */* self */, PyObject *args)
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
-	currentDoc->setBleeds(bleeds));
+	currentDoc->setBleeds(bleeds);
 	currentView->reformPages();
 	currentDoc->setModified(true);
 	currentView->DrawNew();
@@ -208,6 +208,14 @@ PyObject *scribus_savedoc(PyObject* /* self */)
 	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->slotFileSave();
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_revertdoc(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	ScCore->primaryMainWindow()->slotFileRevert();
 	Py_RETURN_NONE;
 }
 
@@ -468,5 +476,28 @@ PV */
 void cmddocdocwarnings()
 {
 	QStringList s;
-	s << scribus_newdocument__doc__ << scribus_newdoc__doc__ <<  scribus_closedoc__doc__ << scribus_havedoc__doc__ << scribus_opendoc__doc__ << scribus_savedoc__doc__ << scribus_getdocname__doc__ << scribus_savedocas__doc__ << scribus_setinfo__doc__ <<scribus_setmargins__doc__ <<scribus_setunit__doc__ <<scribus_getunit__doc__ <<scribus_loadstylesfromfile__doc__ <<scribus_setdoctype__doc__ <<scribus_closemasterpage__doc__ <<scribus_masterpagenames__doc__ <<scribus_editmasterpage__doc__ <<scribus_createmasterpage__doc__ <<scribus_deletemasterpage__doc__ << scribus_setbaseline__doc__ << scribus_getmasterpage__doc__  << scribus_applymasterpage__doc__;
+	s << scribus_applymasterpage__doc__
+	  << scribus_closedoc__doc__
+	  << scribus_closemasterpage__doc__
+	  << scribus_createmasterpage__doc__
+	  << scribus_deletemasterpage__doc__
+	  << scribus_editmasterpage__doc__ 
+	  << scribus_getdocname__doc__
+	  << scribus_getmasterpage__doc__
+	  << scribus_getunit__doc__ 
+	  << scribus_havedoc__doc__
+	  << scribus_loadstylesfromfile__doc__
+	  << scribus_masterpagenames__doc__ 
+	  << scribus_newdoc__doc__ 
+	  << scribus_newdocument__doc__
+	  << scribus_opendoc__doc__
+	  << scribus_revertdoc__doc__
+	  << scribus_savedoc__doc__
+	  << scribus_savedocas__doc__
+	  << scribus_setbaseline__doc__
+	  << scribus_setbleeds__doc__
+	  << scribus_setdoctype__doc__ 
+	  << scribus_setinfo__doc__
+	  << scribus_setmargins__doc__
+	  << scribus_setunit__doc__;
 }

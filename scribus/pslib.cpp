@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "pluginapi.h"
+#include "pageitemiterator.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_table.h"
 #include "prefsmanager.h"
@@ -206,13 +207,16 @@ void PSPainter::drawRect(QRectF rect)
 
 void PSPainter::drawLine(QPointF start, QPointF end)
 {
-	double h, s, v, k;
 	QVector<double> dum;
 	dum.clear();
 	m_ps->PS_save();
 	applyTransform();
 	if (fillColor().color != CommonStrings::None)
 	{
+		double h = 0.0;
+		double s = 0.0;
+		double v = 0.0;
+		double k = 0.0;
 		m_ps->PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 		m_ps->PS_setdash(Qt::SolidLine, 0, dum);
 		m_ps->SetColor(fillColor().color,fillColor().shade, &h, &s, &v, &k);
@@ -641,12 +645,12 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 	QStringList patterns = m_Doc->getPatternDependencyList(m_Doc->getUsedPatterns());
 	for (int i = 0; i < patterns.count(); ++i)
 	{
-		QString patternName = patterns.at(i);
+		QString patternName(patterns.at(i));
 		ScPattern pa = m_Doc->docPatterns[patternName];
-		for (int j = 0; j < pa.items.count(); ++j)
+		for (PageItemIterator it(pa.items); *it; ++it)
 		{
-			PageItem* item = pa.items.at(j);
-			if ((item->asImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
+			PageItem* item = *it;
+			if ((item->isImageFrame()) && (item->imageIsAvailable) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!Options.outputSeparations) && (Options.useColor))
 			{
 				if (!PS_ImageData(item, item->Pfile, item->itemName(), item->ImageProfile, item->UseEmbedded))
 					return false;
@@ -728,7 +732,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 					continue;
 				if ((it->OwnPage != m_Doc->MasterPages.at(ap)->pageNr()) && (it->OwnPage != -1))
 					continue;
-				if ((m_optimization == OptimizeSize) && it->asImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!Options.outputSeparations) && Options.useColor)
+				if ((m_optimization == OptimizeSize) && it->isImageFrame() && it->imageIsAvailable && (!it->Pfile.isEmpty()) && it->printEnabled() && (!Options.outputSeparations) && Options.useColor)
 				{
 					errorOccured = !PS_ImageData(it, it->Pfile, it->itemName(), it->ImageProfile, it->UseEmbedded);
 					if (errorOccured) break;
@@ -1330,7 +1334,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 	cms.allowColorManagement(true);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	int resolution = 300;
-	if (item->asLatexFrame())
+	if (item->isLatexFrame())
 		resolution = item->asLatexFrame()->realDpi();
 	else if (item->pixm.imgInfo.type == ImageType7)
 		resolution = 72;
@@ -1347,7 +1351,7 @@ bool PSLib::PS_image(PageItem *item, double x, double y, const QString& fn, doub
 	PutStream("0 " + ToStr(h*scaley) + " tr\n");
 	PutStream(ToStr(-item->imageRotation()) + " ro\n");
 	PutStream("0 " + ToStr(-h*scaley) + " tr\n");
-	if ((extensionIndicatesPDF(ext)) && (!item->asLatexFrame()))
+	if ((extensionIndicatesPDF(ext)) && (!item->isLatexFrame()))
 	{
 		scalex *= PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / 300.0;
 		scaley *= PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / 300.0;
@@ -1840,7 +1844,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			SetClipPath(item->PoLine);
 			PS_closepath();
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
@@ -1957,7 +1961,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		{
 			SetClipPath(item->PoLine);
 			PS_closepath();
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if ((item->GrType != 0) && (!master))
 				HandleGradientFillStroke(item, false);
@@ -2105,7 +2109,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			SetClipPath(item->PoLine);
 			PS_closepath();
 			fillRule = item->fillRule;
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if (item->GrType != 0)
 				HandleGradientFillStroke(item, false);
@@ -2161,7 +2165,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			SetClipPath(item->PoLine);
 			PS_closepath();
 			fillRule = item->fillRule;
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 				PS_HatchFill(item);
 			else if (item->GrType != 0)
 				HandleGradientFillStroke(item, false);
@@ -2319,7 +2323,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 				PageItem* embed = pat.items.at(em);
 				PS_save();
 				PS_translate(embed->gXpos, item->height() - embed->gYpos);
-				ProcessItem(page, embed, PNr, master, true);
+				ProcessItem(page, embed, PNr, master, true, useTemplate);
 				PS_restore();
 			}
 			PS_restore();
@@ -2346,7 +2350,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			PageItem* embed = item->groupItemList.at(em);
 			PS_save();
 			PS_translate(embed->gXpos, item->height() - embed->gYpos);
-			ProcessItem(page, embed, PNr, master, true);
+			ProcessItem(page, embed, PNr, master, true, useTemplate);
 			PS_restore();
 		}
 		PS_restore();
@@ -2608,13 +2612,13 @@ void PSLib::ProcessPage(ScPage* page, uint PNr)
 				ScQApp->processEvents();
 			if (item->m_layerID != ll.ID)
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asTextFrame()))
+			if ((!page->pageNameEmpty()) && (item->isTextFrame()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asPathText()))
+			if ((!page->pageNameEmpty()) && (item->isPathText()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asTable()))
+			if ((!page->pageNameEmpty()) && (item->isTable()))
 				continue;
-			if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
+			if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 				continue;
 			//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 			if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
@@ -2656,19 +2660,19 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				ScQApp->processEvents();
 			if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 				continue;
-			if (!(ite->asTextFrame()) && !(ite->asImageFrame()) && !(ite->asPathText()) && !(ite->asTable()))
+			if (!(ite->isTextFrame()) && !(ite->isImageFrame()) && !(ite->isPathText()) && !(ite->isTable()))
 			{
 				int mpIndex = m_Doc->MasterNames[page->masterPageName()];
 				PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
 			}
-			else if (ite->asImageFrame())
+			else if (ite->isImageFrame())
 			{
 				PS_save();
 				// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
 				success &= ProcessItem(mPage, ite, PNr, false, false, true);
 				PS_restore();
 			}
-			else if (ite->asTable())
+			else if (ite->isTable())
 			{
 				PS_save();
 				PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
@@ -2868,7 +2872,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				}
 				PS_restore();
 			}
-			else if (ite->asTextFrame())
+			else if (ite->isTextFrame())
 			{
 				PS_save();
 				if (ite->doOverprint)
@@ -2888,7 +2892,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				{
 					SetClipPath(ite->PoLine);
 					PS_closepath();
-					if (ite->GrType == 14)
+					if (ite->GrType == Gradient_Hatch)
 						PS_HatchFill(ite);
 					else if (ite->GrType != 0)
 						HandleGradientFillStroke(ite, false);
@@ -3032,13 +3036,13 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			ScQApp->processEvents();
 		if (item->m_layerID != layer.ID)
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asTextFrame()))
+		if ((!page->pageNameEmpty()) && (item->isTextFrame()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asPathText()))
+		if ((!page->pageNameEmpty()) && (item->isPathText()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asTable()))
+		if ((!page->pageNameEmpty()) && (item->isTable()))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->asImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
+		if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 			continue;
 		//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 		if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
@@ -3869,7 +3873,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		else
 			gradient = item->fill_gradient;
 		gradient.setRepeatMethod(item->getGradientExtend());
-		if (GType == 8)
+		if (GType == Gradient_Pattern)
 		{
 			QTransform patternMatrix;
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
@@ -3894,22 +3898,22 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 				PutStream("fill\n");
 			return;
 		}
-		if (GType == 9)
+		if (GType == Gradient_4Colors)
 		{
 			HandleTensorGradient(item);
 			return;
 		}
-		if (GType == 10)
+		if (GType == Gradient_Diamond)
 		{
 			HandleDiamondGradient(item);
 			return;
 		}
-		if ((GType == 11) || (GType == 13))
+		if ((GType == Gradient_Mesh) || (GType == Gradient_Conical))
 		{
 			HandleMeshGradient(item);
 			return;
 		}
-		if (GType == 12)
+		if (GType == Gradient_PatchMesh)
 		{
 			HandlePatchMeshGradient(item);
 			return;
@@ -3944,7 +3948,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 			colorShades.append(cstops.at(cst)->shade);
 		}
 	}
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutStream("/ShadingType 2\n");
 	else
 		PutStream("/ShadingType 3\n");
@@ -3987,7 +3991,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		PutStream("/Extend [false false]\n");
 	else
 		PutStream("/Extend [true true]\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutStream("/Coords [" + ToStr(StartX) + " " + ToStr(-StartY) + " " + ToStr(EndX) + " " + ToStr(-EndY) + "]\n");
 	else
 		PutStream("/Coords [" + ToStr(FocalX) + " " + ToStr(-FocalY) + " 0.0 " + ToStr(StartX) + " " + ToStr(-StartY) + " " + ToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
@@ -4111,7 +4115,7 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 	{
 		qmatrix.translate(StartX, -StartY);
 		qmatrix.shear(Gskew, 0);

@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QPair>
+#include <QRectF>
 #include <QString>
 
 #include "scribusapi.h"
@@ -49,6 +50,7 @@ class SCRIBUS_API ScPage : public UndoObject, public SingleObservable<ScPage>
 public:
 	ScPage(const double x, const double y, const double b, const double h);
 	~ScPage();
+
 	double xOffset() const { return m_xOffset; }
 	double yOffset() const { return m_yOffset; }
 	double width() const { return m_width; }
@@ -74,6 +76,7 @@ public:
 	MarginStruct initialMargins;
 	int LeftPg {0};
 	int marginPreset {0};
+
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	int pageNr() const { return m_pageNr; }
@@ -93,6 +96,9 @@ public:
 	const QString& size() const {return m_pageSize;}
 	void setSize(const QString& newSize);
 	void restore(UndoState* state, bool isUndo);
+
+	QRectF bleedRect() const;
+	QRectF trimRect() const;
 
 	/*! \brief As a bit of a dirty hack, we declare this mutable so it can be altered
 	even while the object is `const'. That's normally only for internal

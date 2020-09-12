@@ -18,7 +18,7 @@ class BarcodeGeneratorRenderThread : public QThread
 	Q_OBJECT
 
 public:
-	BarcodeGeneratorRenderThread(QObject *parent = 0);
+	BarcodeGeneratorRenderThread(QObject* parent = nullptr);
 	~BarcodeGeneratorRenderThread();
 	void render(const QString&);
 

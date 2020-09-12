@@ -554,7 +554,7 @@ void CanvasMode_EditMeshGradient::mouseDoubleClickEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame()))
+		if (!(GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->isTextFrame()))
 		{
 			mousePressEvent(m);
 			return;

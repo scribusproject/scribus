@@ -277,7 +277,7 @@ PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -314,7 +314,6 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	QString text = "";
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
@@ -323,16 +322,20 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+	
+	const StoryText& story = item->itemText;
+	QString text;
+	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
 	for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
 	{
 		if (item->HasSel)
 		{
-			if (item->itemText.selected(i))
-				text += item->itemText.text(i);
+			if (story.selected(i))
+				text += story.text(i);
 		}
 		else
 		{
-			text += item->itemText.text(i);
+			text += story.text(i);
 		}
 	}
 	return PyUnicode_FromString(text.toUtf8());
@@ -345,7 +348,6 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	QString text = "";
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
@@ -356,18 +358,21 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 	}
 
 	// collect all chars from a storytext
-	for (int i = 0; i < item->itemText.length(); i++)
+	const StoryText& story = item->itemText;
+	QString text;
+	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
+	for (int i = 0; i < story.length(); i++)
 	{
 		if (item->HasSel)
 		{
-			if (item->itemText.selected(i))
-				text += item->itemText.text(i);
+			if (story.selected(i))
+				text += story.text(i);
 		}
 		else
 		{
-			text += item->itemText.text(i);
+			text += story.text(i);
 		}
-	} // for
+	}
 	return PyUnicode_FromString(text.toUtf8());
 }
 
@@ -535,7 +540,7 @@ PyObject *scribus_setalignment(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -570,7 +575,7 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -867,6 +872,49 @@ PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_selectframetext(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int start, selcount;
+	if (!PyArg_ParseTuple(args, "ii|es", &start, &selcount, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (selcount < -1)
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Count must be positive, 0 or -1", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (start < 0 || (selcount > 0 && ((item->lastInFrame() == -1) || (selcount + start > item->lastInFrame() - item->firstInFrame() + 1))))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	start += item->firstInFrame();
+	if (selcount == -1)
+		selcount = item->lastInFrame() + 1 - start;
+	item->itemText.deselectAll();
+	if (selcount == 0)
+	{
+		item->HasSel = false;
+		Py_RETURN_NONE;
+	}
+	item->itemText.select(start, selcount, true);
+	item->HasSel = true;
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -1143,7 +1191,7 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
-	if (!item->asTextFrame())
+	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot unlink a non-text frame.","python error").toLocal8Bit().constData());
 		return nullptr;
@@ -1501,6 +1549,7 @@ void cmdtextdocwarnings()
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
 	  << scribus_getcharcoordinates__doc__
+	  << scribus_selectframetext__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setalign__doc__
 	  << scribus_setcolumngap__doc__

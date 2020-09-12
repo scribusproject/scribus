@@ -180,7 +180,7 @@ void CanvasMode_EditArc::activate(bool fromGesture)
 	{
 		m_view->update();
 	}
-	connect(m_view, SIGNAL(changeUN(int)), vectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
+	connect(m_view, SIGNAL(unitChanged(int)), vectorDialog, SLOT(unitChange(int)), Qt::UniqueConnection);
 	connect(vectorDialog, SIGNAL(NewVectors(double,double,double,double)), this, SLOT(applyValues(double,double,double,double)));
 	connect(vectorDialog, SIGNAL(endEdit()), this, SLOT(endEditing()));
 	connect(vectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
@@ -266,20 +266,20 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 	{
 		ScItemState<QPair<FPointArray, FPointArray> > *ss = new ScItemState<QPair<FPointArray, FPointArray> >(Um::EditArc,"",Um::IPolygon);
 		ss->set("ARC");
-		ss->set("OLD_WIDTH",item->arcWidth);
-		ss->set("NEW_WIDTH",width);
-		ss->set("OLD_XPOS",oldX);
-		ss->set("OLD_YPOS",oldY);
-		ss->set("OLD_HEIGHT",item->arcHeight);
-		ss->set("NEW_HEIGHT",height);
-		ss->set("OLD_START",item->arcStartAngle);
-		ss->set("NEW_START",m_startAngle);
-		ss->set("OLD_SWEEP",item->arcSweepAngle);
-		ss->set("NEW_SWEEP",nSweep);
-		ss->setItem(qMakePair(old,item->PoLine));
-		ss->set("NEW_XPOS",item->xPos());
-		ss->set("NEW_YPOS",item->yPos());
-		undoManager->action(currItem,ss);
+		ss->set("OLD_WIDTH", item->arcWidth);
+		ss->set("NEW_WIDTH", width);
+		ss->set("OLD_XPOS", oldX);
+		ss->set("OLD_YPOS", oldY);
+		ss->set("OLD_HEIGHT", item->arcHeight);
+		ss->set("NEW_HEIGHT", height);
+		ss->set("OLD_START", item->arcStartAngle);
+		ss->set("NEW_START", m_startAngle);
+		ss->set("OLD_SWEEP", item->arcSweepAngle);
+		ss->set("NEW_SWEEP", nSweep);
+		ss->setItem(qMakePair(old, item->PoLine));
+		ss->set("NEW_XPOS", item->xPos());
+		ss->set("NEW_YPOS", item->yPos());
+		undoManager->action(currItem, ss);
 	}
 	item->arcStartAngle = m_startAngle;
 	item->arcSweepAngle = nSweep;
@@ -298,6 +298,16 @@ void CanvasMode_EditArc::applyValues(double start, double end, double height, do
 //	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 
+void CanvasMode_EditArc::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_EditArc::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -305,7 +315,6 @@ void CanvasMode_EditArc::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m_view->requestMode(modeNormal);
 }
-
 
 void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 {

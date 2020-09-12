@@ -10,15 +10,15 @@ class SCRIBUS_API MarkVariableText : public MarkInsert, private Ui::MarkVariable
 	Q_OBJECT
 
 public:
-	explicit MarkVariableText(const QList<Mark*>&, QWidget *parent = 0);
-	explicit MarkVariableText(const Mark*, QWidget *parent = 0);
+	explicit MarkVariableText(const QList<Mark*>&, QWidget* parent = nullptr);
+	explicit MarkVariableText(const Mark*, QWidget* parent = nullptr);
 	~MarkVariableText();
 
 	Mark* values(QString& label, QString& text) override;
 	void setValues(const QString label, const QString text) override;
 
 protected:
-	void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 private slots:
 	void onLabelList_currentIndexChanged(int index);

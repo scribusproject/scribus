@@ -2028,31 +2028,31 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				{
 					case U_HSP_Horizontal:
 						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_Vertical:
 						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_ForwardDiagonal:
 						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_BackwardDiagonal:
 						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_LargeGrid:
 						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_DiagonalCross:
 						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					default:
 						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 				}
 			}
@@ -2253,7 +2253,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 						}
 					}
 				}
-				ite->GrType = 12;
+				ite->GrType = Gradient_PatchMesh;
 			}
 			else if (currentDC.brushStyle == U_BT_TextureFill)
 			{
@@ -2282,7 +2282,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 						double sy = ite->height() / pat.height * 100;
 						ite->setPatternTransform(sx, sy, 0, 0, 0, 0, 0);
 					}
-					ite->GrType = 8;
+					ite->GrType = Gradient_Pattern;
 				}
 			}
 		}
@@ -2294,27 +2294,27 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				{
 					case U_HSP_Horizontal:
 						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_Vertical:
 						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_ForwardDiagonal:
 						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_BackwardDiagonal:
 						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_LargeGrid:
 						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case U_HSP_DiagonalCross:
 						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = 14;
+						ite->GrType = Gradient_Hatch;
 						break;
 					case 6:
 					case 7:
@@ -2335,7 +2335,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 			else if (currentDC.brushStyle == U_BT_TextureFill)
 			{
 				ite->setPattern(currentDC.patternName);
-				ite->GrType = 8;
+				ite->GrType = Gradient_Pattern;
 			}
 		}
 	}
@@ -5187,7 +5187,7 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 		float edge;
 		ds >> edge;
 		ImageEffect ef;
-		ef.effectCode = ScImage::EF_BLUR;
+		ef.effectCode = ImageEffect::EF_BLUR;
 		ef.effectParameters = QString("%1 1.0").arg(edge / 255.0 * 30.0);
 		m_Effects.append(ef);
 	}
@@ -5199,14 +5199,14 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 		if (brightness != 0)
 		{
 			ImageEffect ef;
-			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 			ef.effectParameters = QString("%1").arg(brightness);
 			m_Effects.append(ef);
 		}
 		if (contrast != 0)
 		{
 			ImageEffect ef;
-			ef.effectCode = ScImage::EF_CONTRAST;
+			ef.effectCode = ImageEffect::EF_CONTRAST;
 			ef.effectParameters = QString("%1").arg(qMin(qMax(qRound(contrast * 1.27), -127), 127));
 			m_Effects.append(ef);
 		}
@@ -5233,7 +5233,7 @@ void EmfPlug::handleEMFPSerializableObject(QDataStream &ds)
 		double amo = amount;
 		double rad = radius;
 		ImageEffect ef;
-		ef.effectCode = ScImage::EF_SHARPEN;
+		ef.effectCode = ImageEffect::EF_SHARPEN;
 		ef.effectParameters = QString("%1 %2").arg(qMin(rad, 10.0)).arg(qMin(amo / 100.0 * 5.0, 5.0));
 		m_Effects.append(ef);
 	}

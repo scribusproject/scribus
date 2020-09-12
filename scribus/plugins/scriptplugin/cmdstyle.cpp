@@ -518,7 +518,9 @@ void cmdstyledocwarnings()
 	   << scribus_createcustomlinestyle__doc__
 	   << scribus_createparagraphstyle__doc__
 	   << scribus_getallstyles__doc__
+	   << scribus_getcellstyles__doc__
 	   << scribus_getcharstylenames__doc__
 	   << scribus_getlinestyles__doc__
-	   << scribus_getparagraphstyles__doc__;
+	   << scribus_getparagraphstyles__doc__
+	   << scribus_gettablestyles__doc__;
 }

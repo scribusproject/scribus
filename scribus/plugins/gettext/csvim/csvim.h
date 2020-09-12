@@ -31,24 +31,28 @@ public:
 	CsvIm(const QString& fname, const QString& enc, gtWriter *w, const QString& fdelim = ",",
           const QString& vdelim = "\"", bool hasheader = false, bool usevdelim = true);
 	~CsvIm();
+
 	void setFieldDelimiter(const QString& fdelim);
 	void setValueDelimiter(const QString& vdelim);
 	void write();
+
 private:
 	QString fieldDelimiter;
 	QString valueDelimiter;
-	bool hasHeader;
-	bool useVDelim;
+	bool hasHeader { false };
+	bool useVDelim { true };
 	QString filename;
 	QString encoding;
-	gtWriter *writer;
+	gtWriter *writer {nullptr};
+
 	QString header;
 	QString data;
-	int rowNumber;
-	int colIndex;
-	int colCount;
-	gtParagraphStyle *pstyleData;
-	gtParagraphStyle *pstyleHeader;
+	int rowNumber {0};
+	int colIndex {0};
+	int colCount {0};
+	gtParagraphStyle *pstyleData {nullptr};
+	gtParagraphStyle *pstyleHeader {nullptr};
+
 	void loadFile();
 	void parseLine(const QString& line, bool isHeader);
 	QString toUnicode(const QByteArray& rawText);

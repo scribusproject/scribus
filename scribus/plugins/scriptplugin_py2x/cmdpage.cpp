@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 
-PyObject *scribus_actualpage(PyObject* /* self */)
+PyObject *scribus_currentpage(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
@@ -27,12 +27,11 @@ PyObject *scribus_redraw(PyObject* /* self */)
 		return nullptr;
 	ScCore->primaryMainWindow()->view->DrawNew();
 	qApp->processEvents();
- //	Py_INCREF(Py_None);
- //	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getpagetype(PyObject* /* self */, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -185,7 +184,7 @@ PyObject *scribus_pagedimension(PyObject* /* self */)
 	return t;
 }
 
-PyObject *scribus_pagensize(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getpagensize(PyObject* /* self */, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -209,7 +208,7 @@ PyObject *scribus_pagensize(PyObject* /* self */, PyObject* args)
 	return t;
 }
 
-PyObject *scribus_pagenmargins(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getpagenmargins(PyObject* /* self */, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -314,8 +313,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 		}
 		currentDoc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
- 	Py_INCREF(Py_None);
- 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -367,8 +365,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 		}
 		currentDoc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
-// 	Py_INCREF(Py_None);
-// 	return Py_None;
+
 	Py_RETURN_NONE;
 }
 
@@ -529,13 +526,22 @@ PV */
 void cmdpagedocwarnings()
 {
 	QStringList s;
-	s << scribus_newpage__doc__        << scribus_pageposition__doc__
-	  << scribus_actualpage__doc__     << scribus_redraw__doc__
-	  << scribus_savepageeps__doc__    << scribus_deletepage__doc__
-	  << scribus_gotopage__doc__       << scribus_pagecount__doc__
-	  << scribus_getHguides__doc__     << scribus_setHguides__doc__
-	  << scribus_getVguides__doc__     << scribus_setVguides__doc__
-	  << scribus_pagedimension__doc__  << scribus_getpageitems__doc__
-	  << scribus_getpagemargins__doc__ << scribus_importpage__doc__
-	  << scribus_pagensize__doc__      << scribus_pagenmargins__doc__;
+	s << scribus_currentpage__doc__
+	  << scribus_deletepage__doc__
+	  << scribus_getHguides__doc__
+	  << scribus_getVguides__doc__
+	  << scribus_getpageitems__doc__
+	  << scribus_getpagemargins__doc__
+	  << scribus_getpagensize__doc__ 
+	  << scribus_getpagetype__doc__
+	  << scribus_gotopage__doc__
+	  << scribus_importpage__doc__
+	  << scribus_newpage__doc__
+	  << scribus_pagecount__doc__
+	  << scribus_pagedimension__doc__
+	  << scribus_getpagenmargins__doc__ 
+	  << scribus_redraw__doc__
+	  << scribus_savepageeps__doc__           
+	  << scribus_setHguides__doc__
+	  << scribus_setVguides__doc__;
 }

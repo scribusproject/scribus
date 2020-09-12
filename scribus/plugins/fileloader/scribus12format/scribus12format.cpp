@@ -567,9 +567,9 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		}
 		currItem->ClipEdited = true;
 	}
-	if (currItem->asImageFrame())
+	if (currItem->isImageFrame())
 		currItem->adjustPictScale();
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 	{
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
@@ -578,13 +578,13 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	if (Buffer->GrType != 0)
 	{
 		currItem->GrType = Buffer->GrType;
-		if (Buffer->GrType == 8)
+		if (Buffer->GrType == Gradient_Pattern)
 		{
 			currItem->setPattern(Buffer->pattern);
 			currItem->setPatternTransform(Buffer->patternScaleX, Buffer->patternScaleY, Buffer->patternOffsetX, Buffer->patternOffsetY, Buffer->patternRotation, Buffer->patternSkewX, Buffer->patternSkewY);
 			currItem->setPatternFlip(Buffer->patternMirrorX, Buffer->patternMirrorY);
 		}
-		else if (Buffer->GrType == 11)
+		else if (Buffer->GrType == Gradient_Mesh)
 		{
 			currItem->meshGradientArray = Buffer->meshGradientArray;
 		}
@@ -593,7 +593,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			if ((!Buffer->GrColor.isEmpty()) && (!Buffer->GrColor2.isEmpty()))
 			{
 				currItem->fill_gradient.clearStops();
-				if (Buffer->GrType == 5)
+				if (Buffer->GrType == Gradient_RadialLegacy5)
 				{
 					if ((Buffer->GrColor != CommonStrings::None) && (!Buffer->GrColor.isEmpty()))
 						currItem->SetQColor(&tmp, Buffer->GrColor, Buffer->GrShade);
@@ -641,6 +641,20 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			currItem->GrCol4Shade = Buffer->GrCol4Shade;
 			currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
 		}
+		switch (currItem->GrType)
+		{
+			case Gradient_LinearLegacy1:
+			case Gradient_LinearLegacy2:
+			case Gradient_LinearLegacy3:
+			case Gradient_LinearLegacy4:
+				currItem->GrType = Gradient_Linear;
+				break;
+			case Gradient_RadialLegacy5:
+				currItem->GrType = Gradient_Radial;
+				break;
+			default:
+				break;
+		}
 	}
 	if (Buffer->GrTypeStroke > 0)
 	{
@@ -656,7 +670,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->GrStrokeSkew   = Buffer->GrStrokeSkew;
 	}
 	currItem->GrMask = Buffer->GrMask;
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha))
 	{
 		currItem->mask_gradient = Buffer->mask_gradient;
 		currItem->GrMaskStartX = Buffer->GrMaskStartX;
@@ -668,7 +682,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->GrMaskScale  = Buffer->GrMaskScale;
 		currItem->GrMaskSkew   = Buffer->GrMaskSkew;
 	}
-	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6))
+	else if ((currItem->GrMask == GradMask_Pattern) || (currItem->GrMask == GradMask_PatternLumAlpha))
 	{
 		currItem->setPatternMask(Buffer->patternMaskVal);
 		currItem->setMaskTransform(Buffer->patternMaskScaleX, Buffer->patternMaskScaleY, Buffer->patternMaskOffsetX, Buffer->patternMaskOffsetY, Buffer->patternMaskRotation, Buffer->patternMaskSkewX, Buffer->patternMaskSkewY);
@@ -1014,11 +1028,9 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 					}
 					GetItemProps(&obj, &OB, fileDir, newVersion);
 					OB.Xpos = ScCLocale::toDoubleC(obj.attribute("XPOS"))+m_Doc->Pages->at(a)->xOffset();
-					OB.Ypos=ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
+					OB.Ypos = ScCLocale::toDoubleC(obj.attribute("YPOS"))+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
-					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
-					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
-						m_Doc->OldBM = true;
+					OB.isBookmark = obj.attribute("BOOKMARK").toInt();
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
@@ -1431,7 +1443,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->fill_gradient.clearStops();
 	if (OB->GrType != 0)
 	{
-		if (OB->GrType == 8)
+		if (OB->GrType == Gradient_Pattern)
 		{
 			OB->pattern = obj->attribute("pattern", "");
 			OB->patternScaleX = ScCLocale::toDoubleC(obj->attribute("pScaleX"), 100.0);
@@ -1499,23 +1511,23 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 
 	switch (OB->GrType)
 	{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			OB->GrType = 6;
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			OB->GrType = Gradient_Linear;
 			break;
-		case 5:
-			OB->GrType = 7;
+		case Gradient_RadialLegacy5:
+			OB->GrType = Gradient_Radial;
 			break;
 		default:
 			break;
 	}
-	OB->Rot=ScCLocale::toDoubleC(obj->attribute("ROT"));
-	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());
-	OB->PLineEnd=Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
-	OB->PLineJoin=Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
-	OB->LineSp=ScCLocale::toDoubleC(obj->attribute("LINESP"));
+	OB->Rot = ScCLocale::toDoubleC(obj->attribute("ROT"));
+	OB->PLineArt = Qt::PenStyle(obj->attribute("PLINEART").toInt());
+	OB->PLineEnd = Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
+	OB->PLineJoin = Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
+	OB->LineSp = ScCLocale::toDoubleC(obj->attribute("LINESP"));
 	OB->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
 	OB->LocalScX   = ScCLocale::toDoubleC(obj->attribute("LOCALSCX"));
 	OB->LocalScY   = ScCLocale::toDoubleC(obj->attribute("LOCALSCY"));
@@ -2016,9 +2028,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					OB.endArrowIndex =  0;
 					OB.startArrowScale =  100;
 					OB.endArrowScale =  100;
-					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
-					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
-						m_Doc->OldBM = true;
+					OB.isBookmark = obj.attribute("BOOKMARK").toInt();
 					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					tmpf = obj.attribute("IFONT", m_Doc->itemToolPrefs().textFont);
 					if (tmpf.isEmpty())

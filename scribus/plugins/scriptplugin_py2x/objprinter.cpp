@@ -442,8 +442,8 @@ static PyObject *Printer_print(Printer *self)
 		bool printDone = false;
 		if (PrinterUtil::getDefaultSettings(prn, options.devMode))
 		{
-			ScPrintEngine_GDI winPrint;
-			printDone = winPrint.print(*currentDoc, options);
+			ScPrintEngine_GDI winPrint(*currentDoc);
+			printDone = winPrint.print(options);
 		}
 		if (!printDone)
 			PyErr_SetString(PyExc_SystemError, "Printing failed");
@@ -506,7 +506,7 @@ static PyObject *Printer_print(Printer *self)
 }
 
 static PyMethodDef Printer_methods[] = {
-	{const_cast<char*>("printNow"), (PyCFunction)Printer_print, METH_NOARGS, const_cast<char*>("Prints selected pages.")},
+	{const_cast<char*>("printNow"), (PyCFunction)Printer_print, METH_NOARGS, printer_printnow__doc__},
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
 };
 

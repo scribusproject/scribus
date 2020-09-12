@@ -455,31 +455,36 @@ void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 {
 	Q_CHECK_PTR(mw);
-	ScribusDoc* doc=mw->doc;
+	ScribusDoc* doc = mw->doc;
 	if (!doc)
 		return;
 
-	ScActionPlugin* ixplug = nullptr;
+	int selectedType = -1;
+	if ( doc->m_Selection->count() > 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		selectedType = currItem->itemType();
+	}
+	bool isLayerLocked = doc->layerLocked(doc->activeLayer());
+
+	ScActionPlugin* actionPlug = nullptr;
 	ScrAction* pluginAction = nullptr;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		if (it.value().plugin->inherits("ScActionPlugin"))
-		{
-			ixplug = dynamic_cast<ScActionPlugin*>(it.value().plugin);
-			Q_ASSERT(ixplug);
-			if (ixplug)
-			{
-				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				pluginAction = mw->scrActions[ai.name];
-				if (pluginAction != nullptr)
-				{
-					if (doc->m_Selection->count() != 0)
-						pluginAction->setEnabled(ixplug->handleSelection(doc, doc->m_Selection->itemAt(0)->itemType()));
-					else
-						pluginAction->setEnabled(ixplug->handleSelection(doc));
-				}
-			}
-		}
+		if (!it.value().plugin->inherits("ScActionPlugin"))
+			continue;
+		actionPlug = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+		if (!actionPlug)
+			continue;
+
+		ScActionPlugin::ActionInfo actionInfo(actionPlug->actionInfo());
+		pluginAction = mw->scrActions[actionInfo.name];
+		if (pluginAction == nullptr)
+			continue;
+		if (isLayerLocked && !actionInfo.enabledOnStartup)
+			pluginAction->setEnabled(false);
+		else
+			pluginAction->setEnabled(actionPlug->handleSelection(doc, selectedType));
 	}
 }
 
@@ -681,7 +686,7 @@ PluginManager & PluginManager::instance()
 	return (*ScCore->pluginManager);
 }
 
-const QString PluginManager::getPluginPath(const QString & pluginName) const
+QString PluginManager::getPluginPath(const QString & pluginName) const
 {
 	// It is not legal to call this function without a valid
 	// plug in name.

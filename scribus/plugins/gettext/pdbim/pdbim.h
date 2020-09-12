@@ -20,9 +20,6 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-
-
-
 /*! \brief Abiword's internal data types */
 typedef unsigned int UT_uint32;
 typedef unsigned short UT_uint16;
@@ -120,22 +117,24 @@ public:
 	\param w a reference to the gtWriter instance */
 	PdbIm(const QString& fname, const QString& enc, gtWriter *w);
 	~PdbIm();
+
 	/*! \brief Write data into Scribus text frame.
 	User should specify encoding of the imported text - it's recoded here. */
 	void write();
+
 private:
 	//! \brief Binary buffer for extraction tasks
-	buffer *m_buf;
+	buffer *m_buf { nullptr };
 	//! \brief Store the extracted text here
 	QString data;
 	//! \brief Name of the codec/encoding to recode
 	QString encoding;
 	//! \brief Imp plugin handler
-	gtWriter *writer;
+	gtWriter *writer { nullptr };
 	//! \brief A "bit order" flag. True on little endian systems.
-	bool m_littlendian;
+	bool m_littlendian { true };
 	//! \brief A "document uses that strange compress algorithm" flag.
-	bool bCompressed;
+	bool bCompressed { false };
 
 	/*! \brief Parse the PDB file.
 	\param fname a filename to open */

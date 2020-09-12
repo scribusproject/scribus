@@ -59,7 +59,7 @@ void FontListModel::setFonts(QList<QString> f)
 	endResetModel();
 }
 
-int FontListModel::rowCount(const QModelIndex&) const
+int FontListModel::rowCount(const QModelIndex& /*mi*/) const
 {
 	return m_font_names.size();
 }
@@ -69,7 +69,7 @@ int FontListModel::rowCount()
 	return m_font_names.size();
 }
 
-int FontListModel::columnCount(const QModelIndex&) const
+int FontListModel::columnCount(const QModelIndex& /*mi*/) const
 {
 	return 9;
 }

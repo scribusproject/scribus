@@ -18,10 +18,47 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QDataStream>
 #include <QByteArray>
+
 #include "util.h"
 #include "commonstrings.h"
-
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scribuscore.h"
+
+void PrinterUtil::getDefaultPrintOptions(PrintOptions& options, const MarginStruct& docBleeds)
+{
+	PrefsManager& prefsManager = PrefsManager::instance();
+	PrefsContext *prnPrefs = prefsManager.prefsFile->getContext("print_options");
+
+	options.firstUse = true;
+	options.printer  = prnPrefs->get("CurrentPrn", QString());
+	options.useAltPrintCommand = prnPrefs->getBool("OtherCom", false);
+	options.printerCommand = prnPrefs->get("Command", QString());
+	options.outputSeparations = prnPrefs->getInt("Separations", 0);
+	options.useColor = (prnPrefs->getInt("PrintColor", 0) == 0);
+	QStringList spots { "All" , "Cyan", "Magenta", "Yellow", "Black" };
+	int selectedSep  = prnPrefs->getInt("SepArt", 0);
+	if ((selectedSep < 0) || (selectedSep > 4))
+		selectedSep = 0;
+	options.separationName = spots.at(selectedSep);
+	options.prnEngine = (PrintEngine) prnPrefs->getInt("PSLevel", PostScript3);
+	options.mirrorH = prnPrefs->getBool("MirrorH", false);
+	options.mirrorV = prnPrefs->getBool("MirrorV", false);
+	options.setDevParam = prnPrefs->getBool("doDev", false);
+	options.doGCR   = prnPrefs->getBool("DoGCR", prefsManager.appPrefs.printerPrefs.GCRMode);
+	options.doClip  = prnPrefs->getBool("Clip", false);
+	options.useSpotColors = prnPrefs->getBool("doSpot", true);
+	options.useDocBleeds  = true;
+	options.bleeds = docBleeds;
+	options.markLength = prnPrefs->getDouble("markLength", 20.0);
+	options.markOffset = prnPrefs->getDouble("markOffset", 0.0);
+	options.cropMarks  = prnPrefs->getBool("cropMarks", false);
+	options.bleedMarks = prnPrefs->getBool("bleedMarks", false);
+	options.registrationMarks = prnPrefs->getBool("registrationMarks", false);
+	options.colorMarks = prnPrefs->getBool("colorMarks", false);
+	options.includePDFMarks = prnPrefs->getBool("includePDFMarks", true);
+}
 
 QString PrinterUtil::getDefaultPrinterName()
 {

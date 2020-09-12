@@ -140,129 +140,139 @@ static void PDFfile_dealloc(PDFfile *self)
 
 static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
-// do not create new object if there is no opened document
-	if (!checkHaveDocument()) {
+	// Do not create new object if there is no opened document
+	if (!checkHaveDocument())
 		return nullptr;
-	}
 
 	PDFfile *self;
 
 	self = (PDFfile *)type->tp_alloc(type, 0);
-	if (self) {
-// set file attribute
+	if (self)
+	{
+		// Set file attribute
 		self->file = PyString_FromString("");
-		if (!self->file) {
+		if (!self->file)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set font embedding mode attribute
+		// Set font embedding mode attribute
 		self->fontEmbedding = PyInt_FromLong(0);
-		if (!self->fontEmbedding) {
+		if (!self->fontEmbedding)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set fonts attribute
+		// Set fonts attribute
 		self->fonts = PyList_New(0);
-		if (!self->fonts){
+		if (!self->fonts)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 		self->subsetList = PyList_New(0);
-		if (!self->subsetList){
+		if (!self->subsetList)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set pages attribute
+		// Set pages attribute
 		self->pages = PyList_New(0);
-		if (self->pages == nullptr){
+		if (self->pages == nullptr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set thumbnails attribute
+		// Set thumbnails attribute
 		self->thumbnails = 0;
-// set cropMarks attribute
+		// Set cropMarks attribute
 		self->cropMarks = 0;
-// set bleedMarks attribute
+		// Set bleedMarks attribute
 		self->bleedMarks = 0;
-// set registrationMarks attribute
+		// Set registrationMarks attribute
 		self->registrationMarks = 0;
-// set colorMarks attribute
+		// Set colorMarks attribute
 		self->colorMarks = 0;
-// set docInfoMarks attribute
+		// Set docInfoMarks attribute
 		self->docInfoMarks = 0;
-// set mark offset attribute
+		// Set mark offset attribute
 		self->markOffset = 0;
-// set mark length attribute
+		// Set mark length attribute
 		self->markLength = 0;
-// set compress attribute
+		// Set compress attribute
 		self->compress = 0;
-// set compressmtd attribute
+		// Set compressmtd attribute
 		self->compressmtd = 0;
-// set quality attribute
+		// Set quality attribute
 		self->quality = 0;
-// set resolution attribute
+		// Set resolution attribute
 		self->resolution = PyInt_FromLong(300);
-		if (!self->resolution){
+		if (!self->resolution)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set downsample attribute
+		// Set downsample attribute
 		self->downsample = PyInt_FromLong(0);
-		if (!self->downsample){
+		if (!self->downsample)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set bookmarks attribute
+		// Set bookmarks attribute
 		self->bookmarks = 0;
-// set binding attribute
+		// Set binding attribute
 		self->binding = 0;
-// set presentation attribute
+		// Set presentation attribute
 		self->presentation = 0;
-// set effval attribute
+		// Set effval attribute
 		self->effval = PyList_New(0);
-		if (!self->effval){
+		if (!self->effval)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set article attribute
+		// Set article attribute
 		self->article = 0;
-// set encrypt attribute
+		// Set encrypt attribute
 		self->encrypt = 0;
-// set uselpi attribute
+		// Set uselpi attribute
 		self->uselpi = 0;
 		self->usespot = 1;
 		self->domulti = 0;
-// set lpival attribute
+		// Set lpival attribute
 		self->lpival = PyList_New(0);
-		if (!self->lpival){
+		if (!self->lpival)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set owner attribute
+		// Set owner attribute
 		self->owner = PyString_FromString("");
-		if (!self->owner){
+		if (!self->owner)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set user attribute
+		// Set user attribute
 		self->user = PyString_FromString("");
-		if (!self->user){
+		if (!self->user)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
-// set allowPrinting attribute
+		// Set allowPrinting attribute
 		self->allowPrinting = 1;
-// set allowChange attribute
+		// Set allowChange attribute
 		self->allowChange = 1;
-// set allowCopy attribute
+		// Set allowCopy attribute
 		self->allowCopy = 1;
-// set allowAnnots attribute
+		// Set allowAnnots attribute
 		self->allowAnnots = 1;
-// set version attribute
+		// Set version attribute
 		self->version = 14;
-// set output attribute
+		// Set output attribute
 		self->outdst = 0;
-
 
 		self->profiles = 0; // bool
 		self->profilei = 0; // bool
@@ -270,22 +280,26 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->intenti = 0; // int - 0 - ?
 		self->noembicc = 0; // bool
 		self->solidpr = PyString_FromString("");
-		if (!self->solidpr){
+		if (!self->solidpr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 		self->imagepr = PyString_FromString("");
-		if (!self->imagepr){
+		if (!self->imagepr)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 		self->printprofc = PyString_FromString("");
-		if (!self->printprofc){
+		if (!self->printprofc)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
 		self->info = PyString_FromString("");
-		if (!self->info){
+		if (!self->info)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
@@ -300,7 +314,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->mirrorV = 0;
 		self->doClip = 0;
 		self->rotateDeg = PyInt_FromLong(0);
-		if (!self->rotateDeg){
+		if (!self->rotateDeg)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
@@ -314,7 +329,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->hideMenuBar = 0;
 		self->fitWindow = 0;
 		self->openAction = PyString_FromString("");
-		if (!self->openAction){
+		if (!self->openAction)
+		{
 			Py_DECREF(self);
 			return nullptr;
 		}
@@ -325,172 +341,192 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	int i;
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return -1;
-	}
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	PDFOptions& pdfOptions = currentDoc->pdfOptions();
 
-// defaut save into file
+	// Defaut save into file
 	QString tf = pdfOptions.fileName;
-	if (tf.isEmpty()) {
+	if (tf.isEmpty())
+	{
 		QFileInfo fi = QFileInfo(currentDoc->documentFileName());
-		tf = fi.path()+"/"+fi.baseName()+".pdf";
+		tf = fi.path() + "/" + fi.baseName() + ".pdf";
 	}
-	PyObject *file = nullptr;
-	file = PyString_FromString(tf.toLatin1());
-	if (file){
+
+	PyObject *file = PyString_FromString(tf.toLatin1());
+	if (file)
+	{
 		Py_DECREF(self->file);
 		self->file = file;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'file' attribute");
 		return -1;
 	}
-// font embedding mode
-	PyObject *embeddingMode = nullptr;
-	embeddingMode = PyInt_FromLong(pdfOptions.FontEmbedding);
-	if (embeddingMode){
+
+	// Font embedding mode
+	PyObject *embeddingMode = PyInt_FromLong(pdfOptions.FontEmbedding);
+	if (embeddingMode)
+	{
 		Py_DECREF(self->fontEmbedding);
 		self->fontEmbedding = embeddingMode;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'fontEmbedding' attribute");
 		return -1;
 	}
-// embed all used fonts
-	PyObject *fonts = nullptr;
-	fonts = PyList_New(0);
-	if (fonts){
+
+	// Embed all used fonts
+	PyObject *fonts = PyList_New(0);
+	if (fonts)
+	{
 		Py_DECREF(self->fonts);
 		self->fonts = fonts;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
 		return -1;
 	}
-	// get all used fonts
+
+	// Get all used fonts
 	QMap<QString,int> ReallyUsed = currentDoc->UsedFonts;
-	// create list of all used fonts
+	// Create list of all used fonts
 	QList<QString> tmpEm = ReallyUsed.keys();
 	for (int i = 0; i < tmpEm.count(); ++i) 
 	{
 		const QString& fontName = tmpEm.at(i);
-		PyObject *tmp= nullptr;
-		tmp = PyString_FromString(fontName.toLatin1());
-		if (tmp) {
+		PyObject *tmp = PyString_FromString(fontName.toLatin1());
+		if (tmp)
+		{
 			PyList_Append(self->fonts, tmp);
-// do i need Py_DECREF(tmp) here?
-// Does PyList_Append increase reference or 'steal' one from provided argument
-// If it 'steal' reference comment next line
+			// Do i need Py_DECREF(tmp) here?
+			// Does PyList_Append increase reference or 'steal' one from provided argument
+			// If it 'steal' reference comment next line
 			Py_DECREF(tmp);
 		}
-		else {
+		else
+		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
 			return -1;
 		}
 	}
-// init subsetList
+
+	// Init subsetList
 	fonts = PyList_New(0);
-	if (fonts){
+	if (fonts)
+	{
 		Py_DECREF(self->subsetList);
 		self->subsetList = fonts;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 		return -1;
 	}
-// copied from TabPDFOptions::restoreDefaults()
+
+	// Copied from TabPDFOptions::restoreDefaults()
 	for (int fe = 0; fe < pdfOptions.SubsetList.count(); ++fe)
 	{
 		PyObject *tmp= nullptr;
 		tmp = PyString_FromString(pdfOptions.SubsetList[fe].toLatin1().data());
-		if (tmp) {
+		if (tmp)
+		{
 			PyList_Append(self->subsetList, tmp);
 			Py_DECREF(tmp);
 		}
-		else {
+		else
+		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'subsetList' attribute");
 			return -1;
 		}
 	}
 
-// set to print all pages
-	PyObject *pages = nullptr;
-	int num = 0;
-	// which one should I use ???
-	// new = ScCore->primaryMainWindow()->view->Pages.count()
-	num = currentDoc->Pages->count();
-	pages = PyList_New(num);
-	if (!pages){
+	// Set to print all pages
+	int num = currentDoc->Pages->count();
+	PyObject *pages = PyList_New(num);
+	if (!pages)
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
 		return -1;
 	}
-	for (i = 0; i<num; ++i) {
-		PyObject *tmp;
-		tmp = PyInt_FromLong((long)i+1L);
+	for (i = 0; i < num; ++i)
+	{
+		PyObject *tmp = PyInt_FromLong((long)i + 1L);
 		if (tmp)
 			PyList_SetItem(pages, i, tmp);
-		else {
+		else
+		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
 			return -1;
 		}
 	}
 	Py_DECREF(self->pages);
 	self->pages = pages;
-// print thumbnails ?
+	// Print thumbnails ?
 	self->thumbnails = pdfOptions.Thumbnails;
-// output crop marks ?
+	// Output crop marks ?
 	self->cropMarks = pdfOptions.cropMarks;
-// output bleed marks ?
+	// Output bleed marks ?
 	self->bleedMarks = pdfOptions.bleedMarks;
-// output registration marks ?
+	// Output registration marks ?
 	self->registrationMarks = pdfOptions.registrationMarks;
-// output color bars ?
+	// Output color bars ?
 	self->colorMarks = pdfOptions.colorMarks;
-// output doc info marks ?
+	// Output doc info marks ?
 	self->docInfoMarks = pdfOptions.docInfoMarks;
-// cropmarks offset 
+	// Cropmarks offset 
 	self->markOffset = pdfOptions.markOffset * currentDoc->unitRatio();
-// cropmarks length 
+	// Cropmarks length 
 	self->markLength = pdfOptions.markLength * currentDoc->unitRatio();
-// set automatic compression
+	// Set automatic compression
 	self->compress = pdfOptions.Compress;
 	self->compressmtd = pdfOptions.CompressMethod;
-// use maximum image quality
+	// Use maximum image quality
 	self->quality = pdfOptions.Quality;
-// default resolution
+	// Default resolution
 	PyObject *resolution = nullptr;
 	resolution = PyInt_FromLong(300);
-	if (resolution){
+	if (resolution)
+	{
 		Py_DECREF(self->resolution);
 		self->resolution = resolution;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'resolution' attribute");
 		return -1;
 	}
-// do not downsample images
+	// Do not downsample images
 	int down = pdfOptions.RecalcPic ? pdfOptions.PicRes : 0;
 	PyObject *downsample = nullptr;
 	downsample = PyInt_FromLong(down);
-	if (downsample){
+	if (downsample)
+	{
 		Py_DECREF(self->downsample);
 		self->downsample = downsample;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'downsamle' attribute");
 		return -1;
 	}
-	// no bookmarks
+	// No bookmarks
 	self->bookmarks = pdfOptions.Bookmarks;
-	// left margin binding
+	// Left margin binding
 	self->binding = pdfOptions.Binding;
-	// do not enable presentation effects
+	// Do not enable presentation effects
 	self->presentation = pdfOptions.PresentMode;
-	// set effects values for all pages
+	// Set effects values for all pages
 	PyObject *effval = nullptr;
-	num = 0;
-	// which one should I use ???
-	// new = ScCore->primaryMainWindow()->view->Pages.count();
 	num = currentDoc->Pages->count();
 	effval = PyList_New(num);
-	if (!effval){
+	if (!effval)
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 		return -1;
 	}
@@ -501,16 +537,18 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), t.pageEffectDuration, t.pageViewDuration, t.effectType, t.Dm, t.M, t.Di );
 		if (tmp)
 			PyList_SetItem(effval, i, tmp);
-		else {
+		else
+		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 			return -1;
 		}
-		for (; i<num; ++i) {
-			PyObject *tmp;
-			tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), 1, 1, 0, 0, 0, 0);
+		for (; i < num; ++i)
+		{
+			PyObject *tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), 1, 1, 0, 0, 0, 0);
 			if (tmp)
 				PyList_SetItem(effval, i, tmp);
-			else {
+			else
+			{
 				PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 				return -1;
 			}
@@ -518,26 +556,29 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	Py_DECREF(self->effval);
 	self->effval = effval;
-// do not save linked text frames as PDF article
+	// Do not save linked text frames as PDF article
 	self->article = pdfOptions.Articles;
-// do not encrypt file
+	// Do not encrypt file
 	self->encrypt = pdfOptions.Encrypt;
-// do not Use Custom Rendering Settings
+	// Do not Use Custom Rendering Settings
 	self->uselpi = pdfOptions.UseLPI;
 	self->usespot = pdfOptions.UseSpotColors;
 	self->domulti = pdfOptions.doMultiFile;
-// get default values for lpival
+	// Get default values for lpival
 	int n = pdfOptions.LPISettings.size();
 	PyObject *lpival=PyList_New(n);
-	if (!lpival){
+	if (!lpival)
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 		return -1;
 	}
 	QMap<QString,LPIData>::Iterator it = pdfOptions.LPISettings.begin();
-	while (it != pdfOptions.LPISettings.end()) {
+	while (it != pdfOptions.LPISettings.end())
+	{
 		PyObject *tmp;
 		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().toLatin1().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
-		if (!tmp) {
+		if (!tmp)
+		{
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 			return -1;
 		}
@@ -547,37 +588,41 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	PyList_Reverse(lpival);
 	Py_DECREF(self->lpival);
 	self->lpival = lpival;
-// set owner's password
-	PyObject *owner = nullptr;
-	owner = PyString_FromString(pdfOptions.PassOwner.toLatin1());
-	if (owner){
+	// Set owner's password
+	PyObject *owner = PyString_FromString(pdfOptions.PassOwner.toLatin1());
+	if (owner)
+	{
 		Py_DECREF(self->owner);
 		self->owner = owner;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'owner' attribute");
 		return -1;
 	}
-// set user'a password
-	PyObject *user = nullptr;
-	user = PyString_FromString(pdfOptions.PassUser.toLatin1());
-	if (user){
+	// Set user'a password
+	PyObject *user = PyString_FromString(pdfOptions.PassUser.toLatin1());
+	if (user)
+	{
 		Py_DECREF(self->user);
 		self->user = user;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'user' attribute");
 		return -1;
 	}
-// allow printing document
+	// Allow printing document
 	self->allowPrinting = pdfOptions.Permissions & 4;
-// allow changing document
+	// Allow changing document
 	self->allowChange = pdfOptions.Permissions & 8;
-// allow copying document
+	// Allow copying document
 	self->allowCopy = pdfOptions.Permissions & 16;
-// allow adding annotation and fields
+	// Allow adding annotation and fields
 	self->allowAnnots = pdfOptions.Permissions & 32;
-// use 1.4 pdf version *aka. Acrobat 5)
+	// Use 1.4 pdf version *aka. Acrobat 5)
 	self->version = pdfOptions.Version;
-// output destination is screen
+	// Output destination is screen
 	self->outdst = pdfOptions.UseRGB ? 0 : 1;
 
 	self->profiles = pdfOptions.UseProfiles; // bool
@@ -588,24 +633,28 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QString tp = pdfOptions.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 		tp = currentDoc->cmsSettings().DefaultSolidColorRGBProfile;
-	PyObject *solidpr = nullptr;
-	solidpr = PyString_FromString(tp.toLatin1());
-	if (solidpr){
+	PyObject *solidpr = PyString_FromString(tp.toLatin1());
+	if (solidpr)
+	{
 		Py_DECREF(self->solidpr);
 		self->solidpr = solidpr;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'solidpr' attribute");
 		return -1;
 	}
 	QString tp2 = pdfOptions.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp2))
 		tp2 = currentDoc->cmsSettings().DefaultSolidColorRGBProfile;
-	PyObject *imagepr = nullptr;
-	imagepr = PyString_FromString(tp2.toLatin1());
-	if (imagepr){
+	PyObject *imagepr = PyString_FromString(tp2.toLatin1());
+	if (imagepr)
+	{
 		Py_DECREF(self->imagepr);
 		self->imagepr = imagepr;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'imagepr' attribute");
 		return -1;
 	}
@@ -614,20 +663,25 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		tp3 = currentDoc->cmsSettings().DefaultPrinterProfile;
 	PyObject *printprofc = nullptr;
 	printprofc = PyString_FromString(tp3.toLatin1());
-	if (printprofc){
+	if (printprofc)
+	{
 		Py_DECREF(self->printprofc);
 		self->printprofc = printprofc;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'printprofc' attribute");
 		return -1;
 	}
 	QString tinfo = pdfOptions.Info;
-	PyObject *info = nullptr;
-	info = PyString_FromString(tinfo.toLatin1());
-	if (info){
+	PyObject *info = PyString_FromString(tinfo.toLatin1());
+	if (info)
+	{
 		Py_DECREF(self->info);
 		self->info = info;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
 		return -1;
 	}
@@ -641,12 +695,14 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->mirrorH = pdfOptions.MirrorH; // bool
 	self->mirrorV = pdfOptions.MirrorV; // bool
 	self->doClip = pdfOptions.doClip; // bool
-	PyObject *rotateDeg = nullptr;
-	rotateDeg = PyInt_FromLong(0);
-	if (rotateDeg){
+	PyObject *rotateDeg = PyInt_FromLong(0);
+	if (rotateDeg)
+	{
 		Py_DECREF(self->rotateDeg);
 		self->rotateDeg = rotateDeg;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'rotateDeg' attribute");
 		return -1;
 	}
@@ -660,12 +716,14 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->hideMenuBar = pdfOptions.hideMenuBar; // bool
 	self->fitWindow = pdfOptions.fitWindow; // bool
 
-	PyObject *openAction = nullptr;
-	openAction = PyString_FromString(pdfOptions.openAction.toLatin1().data());
-	if (openAction){
+	PyObject *openAction = PyString_FromString(pdfOptions.openAction.toLatin1().data());
+	if (openAction)
+	{
 		Py_DECREF(self->openAction);
 		self->openAction = openAction;
-	} else {
+	}
+	else
+	{
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'openAction' attribute");
 		return -1;
 	}
@@ -747,11 +805,13 @@ static PyObject *PDFfile_getfile(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setfile(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'file' attribute value must be string.");
 		return -1;
 	}
@@ -769,16 +829,19 @@ static PyObject *PDFfile_getFontEmbeddingMode(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setFontEmbeddingMode(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'fontEmbedding' attribute.");
 		return -1;
 	}
-	if (!PyInt_Check(value)) {
+	if (!PyInt_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'fontEmbedding' attribute value must be integer.");
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
-	if (n < 0 || n > 2) {
+	if (n < 0 || n > 2)
+	{
 		PyErr_SetString(PyExc_ValueError, "'fontEmbedding' value must be an integer between 0 and 2");
 		return -1;
 	}
@@ -796,24 +859,28 @@ static PyObject *PDFfile_getfonts(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setfonts(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'fonts' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'fonts' attribute value must be list of strings.");
 		return -1;
 	}
-	int n;
-	n = PyList_Size(value);
-	for (int i=0; i<n; ++i)
-		if (!PyString_Check(PyList_GetItem(value, i))) {
+	int n = PyList_Size(value);
+	for (int i = 0; i < n; ++i)
+	{
+		if (!PyString_Check(PyList_GetItem(value, i)))
+		{
 			PyErr_SetString(PyExc_TypeError, "The 'fonts' list must contain only strings.");
 			return -1;
 		}
-// Do I need to check if supplied string is really
-// name of available font???
-// this is not implemented yet
+	}
+	// Do I need to check if supplied string is really
+	// name of available font???
+	// this is not implemented yet
 	Py_DECREF(self->fonts);
 	Py_INCREF(value);
 	self->fonts = value;
@@ -829,21 +896,25 @@ static PyObject *PDFfile_getSubsetList(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setSubsetList(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'subsetList' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'subsetList' attribute value must be list of strings.");
 		return -1;
 	}
-	int n;
-	n = PyList_Size(value);
-	for (int i=0; i<n; ++i)
-		if (!PyString_Check(PyList_GetItem(value, i))) {
+	int n = PyList_Size(value);
+	for (int i = 0; i < n; ++i)
+	{
+		if (!PyString_Check(PyList_GetItem(value, i)))
+		{
 			PyErr_SetString(PyExc_TypeError, "The 'subsetList' list must contain only strings.");
 			return -1;
 		}
+	}
 	Py_DECREF(self->subsetList);
 	Py_INCREF(value);
 	self->subsetList = value;
@@ -859,25 +930,30 @@ static PyObject *PDFfile_getpages(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setpages(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'pages' attribute value must be list of integers.");
 		return -1;
 	}
 	int len = PyList_Size(value);
-	for (int i = 0; i<len; i++){
+	for (int i = 0; i < len; i++)
+	{
 		PyObject *tmp = PyList_GetItem(value, i);
 		// I did not check if tmp is nullptr
 		// how can PyList_GetItem fail in this case (my guess: short of available memory?)
 		// Also do I need Py_INCREF or Py_DECREF here?
-		if (!PyInt_Check(tmp)){
+		if (!PyInt_Check(tmp))
+		{
 			PyErr_SetString(PyExc_TypeError, "'pages' list must contain only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) || PyInt_AsLong(tmp) < 1)
+		{
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -897,16 +973,19 @@ static PyObject *PDFfile_getresolution(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setresolution(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'resolution' attribute.");
 		return -1;
 	}
-	if (!PyInt_Check(value)) {
+	if (!PyInt_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'resolution' attribute value must be integer.");
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
-	if (n<35 || n>4000) {
+	if (n < 35 || n > 4000)
+	{
 		PyErr_SetString(PyExc_ValueError, "'resolution' value must be in interval from 35 to 4000");
 		return -1;
 	}
@@ -924,16 +1003,19 @@ static PyObject *PDFfile_getdownsample(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'downsample' attribute.");
 		return -1;
 	}
-	if (!PyInt_Check(value)) {
+	if (!PyInt_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'downsample' attribute value must be integer.");
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
-	if (n!=0 && (n<35 || n>PyInt_AsLong(self->resolution))) {
+	if (n != 0 && (n < 35 || n > PyInt_AsLong(self->resolution)))
+	{
 		PyErr_SetString(PyExc_TypeError, "'downsample' value must be 0 or in interval from 35 to value of 'resolution'");
 		return -1;
 	}
@@ -951,28 +1033,35 @@ static PyObject *PDFfile_geteffval(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_seteffval(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'effval' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'effval' must be list.");
 		return -1;
 	}
 	int n = PyList_Size(value);
-	for (int i=0; i<n; ++i) {
+	for (int i = 0; i < n; ++i)
+	{
 		PyObject *tmp = PyList_GetItem(value, i);
-		if (!PyList_Check(tmp)) {
+		if (!PyList_Check(tmp))
+		{
 			PyErr_SetString(PyExc_TypeError, "elemets of 'effval' must be list of five integers.");
 			return -1;
 		}
 		int j = PyList_Size(tmp);
-		if (j != 6) {
+		if (j != 6)
+		{
 			PyErr_SetString(PyExc_TypeError, "elemets of 'effval' must have exactly six integers.");
 			return -1;
 		}
-		for ( --j; j > -1; --j) {
-			if (!PyInt_Check(PyList_GetItem(tmp, j))) {
+		for (--j; j > -1; --j)
+		{
+			if (!PyInt_Check(PyList_GetItem(tmp, j)))
+			{
 				PyErr_SetString(PyExc_TypeError, "innermost element of 'effval' must be integers.");
 				return -1;
 			}
@@ -992,34 +1081,42 @@ static PyObject *PDFfile_getlpival(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setlpival(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'lpival' attribute.");
 		return -1;
 	}
-	if (!PyList_Check(value)) {
+	if (!PyList_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'lpival' must be list.");
 		return -1;
 	}
 	// Do I need Py_INCREF or Py_DECREF here?
 	int n = PyList_Size(value);
-	for (int i=0; i<n; ++i) {
+	for (int i = 0; i < n; ++i)
+	{
 		PyObject *tmp = PyList_GetItem(value, i);
-		if (!PyList_Check(tmp)) {
-			PyErr_SetString(PyExc_TypeError, "elemets of 'lpival' must be list of five integers.");
+		if (!PyList_Check(tmp))
+		{
+			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must be list of five integers.");
 			return -1;
 		}
 		int j = PyList_Size(tmp);
-		if (j != 4) {
-			PyErr_SetString(PyExc_TypeError, "elemets of 'lpival' must have exactly four members.");
+		if (j != 4)
+		{
+			PyErr_SetString(PyExc_TypeError, "elements of 'lpival' must have exactly four members.");
 			return -1;
 		}
-		for ( --j; j > 0; --j) {
-			if (!PyInt_Check(PyList_GetItem(tmp, j))) {
+		for (--j; j > 0; --j)
+		{
+			if (!PyInt_Check(PyList_GetItem(tmp, j)))
+			{
 				PyErr_SetString(PyExc_TypeError, "'lpival'elements must have structure [siii]");
 				return -1;
 			}
 		}
-		if (!PyString_Check(PyList_GetItem(tmp, 0))) {
+		if (!PyString_Check(PyList_GetItem(tmp, 0)))
+		{
 			PyErr_SetString(PyExc_TypeError, "'lpival'elements must have structure [siii]");
 			return -1;
 		}
@@ -1038,11 +1135,13 @@ static PyObject *PDFfile_getowner(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setowner(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'owner' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'owner' attribute value must be string.");
 		return -1;
 	}
@@ -1060,11 +1159,13 @@ static PyObject *PDFfile_getuser(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setuser(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'user' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'user' attribute value must be string.");
 		return -1;
 	}
@@ -1082,11 +1183,13 @@ static PyObject *PDFfile_getsolidpr(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setsolidpr(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'solidpr' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'solidpr' attribute value must be string.");
 		return -1;
 	}
@@ -1104,11 +1207,13 @@ static PyObject *PDFfile_getimagepr(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setimagepr(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'imagepr' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'imagepr' attribute value must be string.");
 		return -1;
 	}
@@ -1126,11 +1231,13 @@ static PyObject *PDFfile_getprintprofc(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setprintprofc(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printprofc' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'printprofc' attribute value must be string.");
 		return -1;
 	}
@@ -1148,11 +1255,13 @@ static PyObject *PDFfile_getinfo(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setinfo(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'info' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "The 'info' attribute value must be string.");
 		return -1;
 	}
@@ -1170,16 +1279,19 @@ static PyObject *PDFfile_getRotateDeg(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setRotateDeg(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'rotateDeg' attribute.");
 		return -1;
 	}
-	if (!PyInt_Check(value)) {
+	if (!PyInt_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'rotateDeg' attribute value must be integer.");
 		return -1;
 	}
 	int n = PyInt_AsLong(value);
-	if (n!=0 && n!=90 && n!=180 && n!=270) {
+	if (n != 0 && n != 90 && n != 180 && n != 270)
+	{
 		PyErr_SetString(PyExc_TypeError, "'rotateDeg' value must be 0 or 90 or 180 or 270");
 		return -1;
 	}
@@ -1197,11 +1309,13 @@ static PyObject *PDFfile_getopenAction(PDFfile *self, void * /*closure*/)
 
 static int PDFfile_setopenAction(PDFfile *self, PyObject *value, void * /*closure*/)
 {
-	if (value == nullptr) {
+	if (value == nullptr)
+	{
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'openAction' attribute.");
 		return -1;
 	}
-	if (!PyString_Check(value)) {
+	if (!PyString_Check(value))
+	{
 		PyErr_SetString(PyExc_TypeError, "'openAction' attribute value must be string.");
 		return -1;
 	}
@@ -1254,25 +1368,25 @@ static PyGetSetDef PDFfile_getseters [] = {
 
 static PyObject *PDFfile_save(PDFfile *self)
 {
-	if (!checkHaveDocument()) {
+	if (!checkHaveDocument())
 		return nullptr;
-	}
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	PDFOptions& pdfOptions = currentDoc->pdfOptions();
 
-// copied from file scribus.cpp
-//void ScribusMainWindow::SaveAsPDF()
-	int Components = 3;
-	QString nam = "";
+	// Copied from file scribus.cpp
+	// void ScribusMainWindow::SaveAsPDF()
 	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		pdfOptions.Bookmarks = false;
 
-// get PDF version
+	// Get PDF version
 	self->version = minmaxi(self->version, PDFVersion::PDFVersion_Min, PDFVersion::PDFVersion_Max);
 	pdfOptions.Version = (PDFVersion::Version) self->version;
 
-// apply fonts attribute
+	// Update used fonts
+	currentDoc->reorganiseFonts();
+
+	// Apply fonts attribute
 	pdfOptions.EmbedList.clear();
 	int n = PyList_Size(self->fonts);
 	for (int i = 0; i < n; ++i)
@@ -1281,7 +1395,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->fonts, i)));
 		pdfOptions.EmbedList.append(tmpFon);
 	}
-// apply SubsetList attribute
+	// Apply SubsetList attribute
 	pdfOptions.SubsetList.clear();
 	n = PyList_Size(self->subsetList);
 	for (int i = 0; i < n; ++i)
@@ -1290,8 +1404,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 		tmpFon = QString(PyString_AsString(PyList_GetItem(self->subsetList, i)));
 		pdfOptions.SubsetList.append(tmpFon);
 	}
-// apply font embedding mode
-	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyInt_AsLong(self->fontEmbedding);
+	// Apply font embedding mode
+	pdfOptions.FontEmbedding = (PDFOptions::PDFFontEmbedding) PyLong_AsLong(self->fontEmbedding);
 	if (pdfOptions.Version == PDFVersion::PDF_X1a ||
 	    pdfOptions.Version == PDFVersion::PDF_X3 ||
 	    pdfOptions.Version == PDFVersion::PDF_X4)
@@ -1324,52 +1438,51 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pdfOptions.SubsetList  = QStringList();
 		pdfOptions.OutlineList = QStringList();
 	}
-// apply file attribute
-	QString fn;
-	fn = QString(PyString_AsString(self->file));
+	// Apply file attribute
+	QString fn = QString(PyString_AsString(self->file));
 	pdfOptions.fileName = fn;
-// apply pages attribute
+	// Apply pages attribute
 	std::vector<int> pageNs;
-	int nn=PyList_Size(self->pages);
+	int nn = PyList_Size(self->pages);
 	for (int i = 0; i < nn; ++i) {
-		pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
+		pageNs.push_back((int) PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
-// apply thumbnails attribute
+	// Apply thumbnails attribute
 	pdfOptions.Thumbnails = self->thumbnails;
-// apply cropmarks attribute
+	// Apply cropmarks attribute
 	pdfOptions.cropMarks = self->cropMarks;
-// apply bleedmarks attribute
+	// Apply bleedmarks attribute
 	pdfOptions.bleedMarks = self->bleedMarks;
-// apply registrationmarks attribute
+	// Apply registrationmarks attribute
 	pdfOptions.registrationMarks = self->registrationMarks;
-// apply colormarks attribute
+	// Apply colormarks attribute
 	pdfOptions.colorMarks = self->colorMarks;
-// apply docInfoMark attribute
+	// Apply docInfoMark attribute
 	pdfOptions.docInfoMarks = self->docInfoMarks;
-// apply mark offset attribute
+	// Apply mark offset attribute
 	pdfOptions.markOffset = qMax(0.0, self->markOffset / currentDoc->unitRatio());
-// apply mark length attribute
+	// Apply mark length attribute
 	pdfOptions.markLength = qMax(0.0, self->markLength / currentDoc->unitRatio());
-// apply compress attribute
+	// Apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	pdfOptions.Compress = self->compress;
 	pdfOptions.CompressMethod = (PDFOptions::PDFCompression) self->compressmtd;
-// apply quality attribute
+	// Apply quality attribute
 	self->quality = minmaxi(self->quality, 0, 4);
 	pdfOptions.Quality = self->quality;
-// apply resolusion attribute
+	// Apply resolusion attribute
 	pdfOptions.Resolution = PyInt_AsLong(self->resolution);
-// apply downsample attribute
+	// Apply downsample attribute
 	pdfOptions.RecalcPic = PyInt_AsLong(self->downsample);
 	if (pdfOptions.RecalcPic)
 		pdfOptions.PicRes = PyInt_AsLong(self->downsample);
 	else
 		pdfOptions.PicRes = pdfOptions.Resolution;
-// apply bookmarks attribute
+	// Apply bookmarks attribute
 	pdfOptions.Bookmarks = self->bookmarks;
-// apply binding attribute
+	// Apply binding attribute
 	pdfOptions.Binding = self->binding;
-// apply presentation attribute
+	// Apply presentation attribute
 	pdfOptions.PresentMode = self->presentation;
 
 	int tmpnum = PyList_Size(self->effval);
@@ -1388,9 +1501,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 		t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
 		//	PresentVals.append(t);
 	}
-
 //	pdfOptions.PresentVals = PresentVals;
-// apply lpival
+
+	// Apply lpival
 	int n2 = PyList_Size(self->lpival);
 	for (int i = 0; i < n2; ++i)
 	{
@@ -1404,8 +1517,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 //			return nullptr;
 //		}
 //		pdfOptions.LPISettings[QString(s)]=lpi;
-		QString st;
-		st = QString(PyString_AsString(PyList_GetItem(t,0)));
+		QString st = QString(PyString_AsString(PyList_GetItem(t,0)));
 		lpi.Frequency = PyInt_AsLong(PyList_GetItem(t, 1));
 		lpi.Angle = PyInt_AsLong(PyList_GetItem(t, 2));
 		lpi.SpotFunc = PyInt_AsLong(PyList_GetItem(t, 3));
@@ -1460,15 +1572,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 				pdfOptions.Version == PDFVersion::PDF_X3 ||
 				pdfOptions.Version == PDFVersion::PDF_X4)
 			{
-				ScColorProfile profile;
-				profile = ScCore->defaultEngine.openProfileFromFile(ScCore->PrinterProfiles[pdfOptions.PrintProf]);
-				nam = profile.productDescription();
-				if (profile.colorSpace() == ColorSpace_Rgb)
-					Components = 3;
-				if (profile.colorSpace() == ColorSpace_Cmyk)
-					Components = 4;
-				if (profile.colorSpace() == ColorSpace_Cmy)
-					Components = 3;
 				pdfOptions.Info = PyString_AsString(self->info);
 				pdfOptions.Encrypt = false;
 				pdfOptions.PresentMode = false;
@@ -1487,7 +1590,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	{
 		QImage thumb(10, 10, QImage::Format_ARGB32_Premultiplied );
 		if (pdfOptions.Thumbnails)
-			thumb = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100, pixmapFlags);
+			thumb = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap] - 1, 100, pixmapFlags);
 		thumbs.insert(pageNs[ap], thumb);
 	}
 
@@ -1497,7 +1600,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.useDocBleeds = self->useDocBleeds;
 	if (self->useDocBleeds)
 		pdfOptions.bleeds = ScCore->primaryMainWindow()->doc->bleedsVal();
-	else {
+	else
+	{
 		self->bleedt = minmaxd(self->bleedt, 0, currentDoc->pageHeight() * currentDoc->unitRatio());
 		pdfOptions.bleeds.setTop(self->bleedt / currentDoc->unitRatio());
 		self->bleedl = minmaxd(self->bleedl, 0, currentDoc->pageWidth() * currentDoc->unitRatio());
@@ -1526,8 +1630,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.firstUse = false;
 
 	QString errorMessage;
-	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage);
-	if (!success) {
+	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, pageNs, thumbs, errorMessage);
+	if (!success)
+	{
 		fn  = "Cannot write the File: " + fn;
 		if (!errorMessage.isEmpty())
 			fn += QString("\n%1").arg(errorMessage);
@@ -1543,7 +1648,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 }
 
 static PyMethodDef PDFfile_methods[] = {
-	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, const_cast<char*>("Save selected pages to pdf file")},
+	{const_cast<char*>("save"), (PyCFunction)PDFfile_save, METH_NOARGS, pdffile_save__doc__},
 	{nullptr, (PyCFunction)(nullptr), 0, nullptr} // sentinel
 };
 

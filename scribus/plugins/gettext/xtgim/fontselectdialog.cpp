@@ -52,7 +52,6 @@ FontSelect::FontSelect(QStringList list):QDialog(0)
 
 	horizontalLayout_2->addWidget(fontList);
 
-
 	verticalLayout_2->addLayout(horizontalLayout_2);
 
 	horizontalLayout_3 = new QHBoxLayout();

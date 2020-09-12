@@ -22,7 +22,7 @@ class QString;
 class QTextCodec;
 class PageItem;
 class BookMItem;
-class BookMView;
+class BookmarkView;
 class ScribusDoc;
 class ScPage;
 class PDFOptions;
@@ -65,8 +65,10 @@ friend class PdfPainter;
 
 public:
 	explicit PDFLibCore(ScribusDoc & docu);
+	explicit PDFLibCore(ScribusDoc & docu, const PDFOptions& options);
 	~PDFLibCore();
-	bool doExport(const QString& fn, const QString& nam, int Components, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs);
+
+	bool doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs);
 
 	const QString& errorMessage() const;
 	bool  exportAborted() const;
@@ -93,7 +95,7 @@ private:
 	bool PDF_IsPDFX();
 	bool PDF_IsPDFX(const PDFVersion& ver);
 
-	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookmarkView* vi);
 	void PDF_Begin_Catalog();
 	void PDF_Begin_MetadataAndEncrypt();
 	QMap<QString, QMap<uint, FPointArray> >
@@ -111,7 +113,7 @@ private:
 	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint>& glyphmap);
 	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);
 	PdfId PDF_EmbedFontObject(const QString& fontName, ScFace &face);
-	PdfId PDF_EmbedFontObject(const QByteArray& ttf, const QByteArray& subtype);
+	PdfId PDF_EmbedFontObject(const QByteArray& font, const QByteArray& subtype);
 	PdfId PDF_EmbedType1AsciiFontObject(const QByteArray& fontData);
 	PdfId PDF_EmbedType1BinaryFontObject(const QByteArray& fontData);
 
@@ -125,7 +127,7 @@ private:
 	bool PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	bool PDF_ProcessPageElements(const ScLayer& layer, const ScPage* page, uint PNr);
 	
-	bool PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	bool PDF_End_Doc(const QString& outputProfilePath = QString());
 	void PDF_End_Bookmarks();
 	void PDF_End_Resources();
 	void PDF_End_Outlines();
@@ -135,7 +137,7 @@ private:
 	void PDF_End_JavaScripts();
 	void PDF_End_Articles();
 	void PDF_End_Layers();
-	void PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components);
+	bool PDF_End_OutputProfile(const QString& profilePath);
 	void PDF_End_Metadata();
 	bool PDF_End_XRefAndTrailer();
 	bool closeAndCleanup();
@@ -255,7 +257,7 @@ private:
 	ScribusDoc & doc;
 	const ScPage * ActPageP;
 	const PDFOptions & Options;
-	BookMView* Bvie;
+	BookmarkView* Bvie;
 	//int Dokument;
 	QMap<QString,ShIm> SharedImages;
 	QList<PdfDest> NamedDest;

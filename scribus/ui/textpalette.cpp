@@ -226,11 +226,11 @@ void TextPalette::setCurrentItem(PageItem *item)
 		textPal->handleSelectionChanged();
 	}
 
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		textPal->setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->isSymbol())
 	{
 		textPal->setEnabled(false);
 	}

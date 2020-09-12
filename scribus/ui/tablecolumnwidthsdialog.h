@@ -21,7 +21,7 @@ class TableColumnWidthsDialog : public QDialog, private Ui::TableColumnWidthsDia
 	Q_OBJECT
 public:
 	/// Constructs a new dialog. The dialog will use the unit of @a doc.
-	explicit TableColumnWidthsDialog(ScribusDoc* doc, QWidget *parent = 0);
+	explicit TableColumnWidthsDialog(ScribusDoc* doc, QWidget* parent = nullptr);
 
 	/// Returns the column width the user entered.
 	double columnWidth() const;

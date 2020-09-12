@@ -360,7 +360,7 @@ PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setcornerradius(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -405,7 +405,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setitemname(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *newName = const_cast<char*>("");
@@ -413,11 +413,13 @@ PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
+
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == nullptr)
 		return nullptr;
 	currItem->setItemName(newName);
-	Py_RETURN_NONE;
+
+	return PyString_FromString(currItem->itemName().toUtf8());
 }
 
 PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
@@ -532,14 +534,23 @@ PV */
 void cmdsetpropdocwarnings()
 {
 	QStringList s;
-	s << scribus_setgradfill__doc__  << scribus_setgradstop__doc__
+	s << scribus_setcornerradius__doc__
 	  << scribus_setcustomlinestyle__doc__
-	  << scribus_setfillcolor__doc__ << scribus_setfilltrans__doc__ 
-	  << scribus_setfillblend__doc__ << scribus_setlinecolor__doc__ 
-	  << scribus_setlinetrans__doc__ << scribus_setlineblend__doc__ 
-	  << scribus_setlinewidth__doc__ << scribus_setlineshade__doc__ 
-	  << scribus_setlinejoin__doc__  << scribus_setlinecap__doc__   
-	  << scribus_setlinestyle__doc__ << scribus_setfillshade__doc__ 
-	  << scribus_setcornerrad__doc__ << scribus_setmultiline__doc__
-	  << scribus_setnewname__doc__   << scribus_setobjectattributes__doc__;
+	  << scribus_setfillblend__doc__
+	  << scribus_setfillcolor__doc__
+	  << scribus_setfillshade__doc__
+	  << scribus_setfilltrans__doc__
+	  << scribus_setgradfill__doc__ 
+	  << scribus_setgradstop__doc__
+	  << scribus_setitemname__doc__
+	  << scribus_setlineblend__doc__
+	  << scribus_setlinecap__doc__ 
+	  << scribus_setlinecolor__doc__
+	  << scribus_setlinejoin__doc__
+	  << scribus_setlineshade__doc__
+	  << scribus_setlinestyle__doc__
+	  << scribus_setlinetrans__doc__ 
+	  << scribus_setlinewidth__doc__ 
+	  << scribus_setmultiline__doc__     
+	  << scribus_setobjectattributes__doc__;
 }

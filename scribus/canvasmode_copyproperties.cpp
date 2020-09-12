@@ -94,6 +94,16 @@ void CanvasMode_CopyProperties::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CanvasMode_CopyProperties::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_CopyProperties::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
@@ -101,7 +111,6 @@ void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
 }
-
 
 void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 {
@@ -203,6 +212,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	{
 		m_doc->ElemToLink = nullptr;
 		m_view->requestMode(submodePaintingDone);
+		m_view->canvasMode()->mousePressEvent(m);
 	}
 }
 

@@ -81,7 +81,7 @@ void PdbIm::write()
 		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	data = codec->toUnicode(data.toLocal8Bit());
 	// Applying default style is of very limited use with 135svn style system
-	/*gtParagraphStyle *pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+	/*gtParagraphStyle *pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
 	pstyle->setName(writer->getFrameName() + "-" + QObject::tr("PDB_data", "PDB Importer"));
 	writer->append(data, pstyle);
 	delete pstyle;*/
@@ -92,7 +92,6 @@ void PdbIm::loadFile(const QString& fname)
 {
 	FILE *m_pdfp = fopen(fname.toLocal8Bit(), "rb");
 	pdb_header m_header;
-	DWord file_size, offset;
 	doc_record0 m_rec0;
 
 	if (!m_pdfp)
@@ -122,6 +121,7 @@ void PdbIm::loadFile(const QString& fname)
 	int num_records = swap_Word( m_header.numRecords ) - 1;
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setMaximum(num_records);
 	fseek(m_pdfp, PDB_HEADER_SIZE, SEEK_SET);
+	DWord offset;
 	GET_DWord(m_pdfp, offset);
 	fseek(m_pdfp, offset, SEEK_SET);
 	result = fread(&m_rec0, sizeof(m_rec0), 1, m_pdfp);
@@ -134,7 +134,7 @@ void PdbIm::loadFile(const QString& fname)
 		bCompressed = true;
 
 	fseek( m_pdfp, 0, SEEK_END );
-	file_size = ftell( m_pdfp );
+	DWord file_size = ftell( m_pdfp );
 	for (int rec_num = 1; rec_num <= num_records; ++rec_num )
 	{
 		DWord next_offset;

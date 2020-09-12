@@ -134,6 +134,9 @@ set(SCRIBUS_UI_SRC
 	ui/nftdialog.ui
 	ui/nftwidget.ui
 	ui/notesstyleseditor.ui
+	ui/outputpreview_pdf.ui
+	ui/outputpreview_ps.ui
+	ui/outputpreviewbase.ui
 	ui/pageitemattributes.ui
 	ui/pagepalette_pagesbase.ui
 	ui/pagepalette_masterpagesbase.ui
@@ -419,6 +422,9 @@ set(SCRIBUS_MOC_CLASSES
 	ui/notesstyleseditor.h
 	ui/numformatcombo.h
 	ui/outlinepalette.h
+	ui/outputpreview_pdf.h
+	ui/outputpreview_ps.h
+	ui/outputpreviewbase.h
 	ui/pageitemattributes.h
 	ui/pagelayout.h
 	ui/pagepalette.h
@@ -464,8 +470,8 @@ set(SCRIBUS_MOC_CLASSES
 	ui/prefs_pdfexport.h
 	ui/prefs_tableofcontents.h
 	ui/prefs_documentitemattributes.h
-	ui/preview.h
 	ui/printdialog.h
+	ui/printpreview.h
 	ui/propertiespalette.h
 	ui/propertiespalette_group.h
 	ui/propertiespalette_image.h
@@ -737,6 +743,7 @@ set(SCRIBUS_SOURCES
 	scpattern.cpp
 	scplugin.cpp
 	scpreview.cpp
+	scprintengine_pdf.cpp
 	scprintengine_ps.cpp
 	scraction.cpp
 	scribus.cpp
@@ -922,6 +929,9 @@ set(SCRIBUS_SOURCES
 	ui/notesstyleseditor.cpp
 	ui/numformatcombo.cpp
 	ui/outlinepalette.cpp
+	ui/outputpreview_pdf.cpp
+	ui/outputpreview_ps.cpp
+	ui/outputpreviewbase.cpp
 	ui/pageitemattributes.cpp
 	ui/pagelayout.cpp
 	ui/pagepalette.cpp
@@ -966,8 +976,8 @@ set(SCRIBUS_SOURCES
 	ui/prefs_pdfexport.cpp
 	ui/prefs_tableofcontents.cpp
 	ui/prefs_documentitemattributes.cpp
-	ui/preview.cpp
 	ui/printdialog.cpp
+	ui/printpreview.cpp
 	ui/propertiespalette.cpp
 	ui/propertiespalette_image.cpp
 	ui/propertiespalette_group.cpp

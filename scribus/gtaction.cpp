@@ -122,10 +122,10 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 	QString textStr = text;
 	textStr.remove(ch0);
 	textStr.remove(ch13);
-	textStr.replace(ch10,ch13);
-	textStr.replace(ch5,ch13);
-	textStr.replace(QString(0x2028),SpecialChars::LINEBREAK);
-	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
+	textStr.replace(ch10, ch13);
+	textStr.replace(ch5, ch13);
+	textStr.replace(QString(0x2028), SpecialChars::LINEBREAK);
+	textStr.replace(QString(0x2029), SpecialChars::PARSEP);
 	if (isNote)
 	{
 		if (m_note == nullptr)
@@ -395,7 +395,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	m_textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	m_textFrame->setFillShade(fstyle->getBgShade());
 	ParagraphStyle newTabs(m_textFrame->itemText.defaultStyle());
-	newTabs.setTabValues(QList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
+	newTabs.setTabValues(fstyle->getTabValues());
 	m_textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
@@ -576,7 +576,7 @@ void gtAction::setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& 
 	if (flags & gtParagraphStyle::spaceBelowWasSet)
 		style.setGapAfter(pstyle->getSpaceBelow());
 	if (flags & gtParagraphStyle::tabValueWasSet)
-		style.setTabValues(*pstyle->getTabValues());
+		style.setTabValues(pstyle->getTabValues());
 	if (flags & gtParagraphStyle::dropCapWasSet)
 		style.setHasDropCap(pstyle->hasDropCap());
 	if (flags & gtParagraphStyle::dropCapHeightWasSet)

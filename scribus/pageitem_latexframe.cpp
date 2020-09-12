@@ -161,7 +161,8 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 bool PageItem_LatexFrame::loadImage(const QString & filename, bool reload, int gsResolution, bool showMsg)
 {
 	//Save state and restore afterwards
-	double xres, yres;
+	double xres = 0.0;
+	double yres = 0.0;
 	if (imageIsAvailable)
 	{
 		xres = pixm.imgInfo.xres;

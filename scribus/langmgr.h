@@ -46,13 +46,13 @@ public:
 	void languageChange();
 	QStringList languageList(bool getTranslated=true);
 	
-	const QString getLangFromAbbrev(QString, bool getTranslated=true);
-	const QString getAbbrevFromLang(const QString&, bool useInstalled=true);
-	const QString getLangFromTransLang(const QString& transLang);
-	const QString getTransLangFromLang(const QString& lang);
-	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
-	const QString getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev);
-	const QString getAlternativeAbbrevfromAbbrev(const QString& langAbbrev);
+	QString getLangFromAbbrev(QString, bool getTranslated=true);
+	QString getAbbrevFromLang(const QString&, bool useInstalled=true);
+	QString getLangFromTransLang(const QString& transLang);
+	QString getTransLangFromLang(const QString& lang);
+	QString getShortAbbrevFromAbbrev(QString langAbbrev);
+	QString getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev);
+	QString getAlternativeAbbrevfromAbbrev(const QString& langAbbrev);
 	QStringList   getAbbrevDecomposition(const QString& langAbbrev);
 	void fillInstalledStringList(QStringList *stringListToFill);
 	void fillInstalledGUIStringList(QStringList *stringListToFill);
@@ -65,7 +65,7 @@ public:
 	bool findHyphDictionaries(QStringList& sl);
 	void findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	
-	const QString getHyphFilename(const QString& langAbbrev);
+	QString getHyphFilename(const QString& langAbbrev);
 	int langTableIndex(const QString& abbrev);
 
 	bool isAvailableTranslation(QString langAbbrev);

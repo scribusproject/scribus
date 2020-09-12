@@ -31,8 +31,8 @@ namespace sfnt
 	void  putWord16(QByteArray & bb, uint pos, quint16 val);
 	void  appendWord16(QByteArray& bb, quint16 val);
 	bool  copy(QByteArray & dst, uint to, const QByteArray & src, uint from, uint len);
-	const QByteArray tag(QByteArray const & bb, uint pos);
-	const QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag);
+	QByteArray tag(QByteArray const & bb, uint pos);
+	QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag);
 	
 
 	QByteArray subsetFace(const QByteArray& ttf, QList<uint>& glyphs);

@@ -43,6 +43,7 @@ public:
 	static QChar OLD_NBSPACE;
 	static QChar NBHYPHEN;
 	static QChar NBSPACE;
+	static QChar NNBSPACE;
 	static QChar ZWNBSPACE;
 	static QChar ZWSPACE;
 	static QChar ZWNJ;			// break ligatures

@@ -31,6 +31,7 @@ class DocXIm
 	public:
 		DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append);
 		~DocXIm();
+
 	private:
 		void parseContentTypes();
 		void parseTheme();
@@ -41,16 +42,17 @@ class DocXIm
 		void parsePlainTextOnly(PageItem *textItem);
 		QString getFontName(const QString& name);
 		double pixelsFromTwips(double twips);
+
 		QString themePart;
 		QString docPart;
 		QString stylePart;
 		QString themeFont1;
 		QString themeFont2;
-		ScZipHandler *uz;
-		ScribusDoc* m_Doc;
-		PageItem* m_item;
-		bool m_prefixName;
-		bool m_append;
+		ScZipHandler *uz { nullptr };
+		ScribusDoc* m_Doc { nullptr };
+		PageItem* m_item { nullptr };
+		bool m_prefixName { false};
+		bool m_append { false};
 		ParagraphStyle defaultParagraphStyle;
 		ParagraphStyle currentParagraphStyle;
 		QHash<QString, QString> map_ID_to_Name;

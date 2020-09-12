@@ -16,7 +16,6 @@ PictureBrowserPlugin::PictureBrowserPlugin()
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
-	pictureBrowser = nullptr;
 }
 
 PictureBrowserPlugin::~PictureBrowserPlugin()
@@ -46,6 +45,7 @@ void PictureBrowserPlugin::languageChange()
 	// Should the menu item be enabled when the app starts
 	// (even without a document open) ?
 	m_actionInfo.enabledOnStartup = false;
+	m_actionInfo.needsNumObjects = -1;
 }
 
 QString PictureBrowserPlugin::fullTrName() const
@@ -60,75 +60,72 @@ const ScActionPlugin::AboutData* PictureBrowserPlugin::getAboutData() const
 	return about;
 }
 
-void PictureBrowserPlugin::deleteAboutData ( const AboutData* about ) const
+void PictureBrowserPlugin::deleteAboutData(const AboutData* about) const
 {
 	Q_ASSERT ( about );
 	delete about;
 }
 
-bool PictureBrowserPlugin::run ( ScribusDoc* doc, const QString& target )
+bool PictureBrowserPlugin::run(ScribusDoc* doc, const QString& target)
 {
 	//picturebrowser isn't running yet, so create it
-	if ( !pictureBrowser )
+	if (!m_pictureBrowser)
 	{
-		pictureBrowser = new PictureBrowser ( doc, nullptr );
-
-		if ( !pictureBrowser )
-		{
+		m_pictureBrowser = new PictureBrowser(doc, nullptr);
+		if (!m_pictureBrowser)
 			return false;
-		}
 
-		connect ( pictureBrowser, SIGNAL ( destroyed() ), this, SLOT ( pictureBrowserClosed() ) );
+		connect(m_pictureBrowser, SIGNAL (destroyed()), this, SLOT (pictureBrowserClosed()));
 	}
 	//picturebrowser exists, just bring it to the top
 	else
 	{
-		pictureBrowser->hide();
+		m_pictureBrowser->hide();
 	}
 
-	Q_CHECK_PTR ( pictureBrowser );
+	Q_CHECK_PTR (m_pictureBrowser);
 
-	pictureBrowser->setAttribute ( Qt::WA_DeleteOnClose );
+	m_pictureBrowser->setAttribute ( Qt::WA_DeleteOnClose );
 	//show, get on top and activate window
-	pictureBrowser->show();
-	pictureBrowser->raise();
-	pictureBrowser->activateWindow();
+	m_pictureBrowser->show();
+	m_pictureBrowser->raise();
+	m_pictureBrowser->activateWindow();
 
 	return true;
 }
 
-void PictureBrowserPlugin::setDoc ( ScribusDoc* doc )
+void PictureBrowserPlugin::setDoc(ScribusDoc* doc)
 {
-	if ( pictureBrowser )
-		pictureBrowser->changedDocument ( doc );
+	if (m_pictureBrowser)
+		m_pictureBrowser->changedDocument(doc);
 }
 
 void PictureBrowserPlugin::unsetDoc()
 {
-	if ( pictureBrowser )
-		pictureBrowser->closedDocument();
+	if (m_pictureBrowser)
+		m_pictureBrowser->closedDocument();
 }
 
-void PictureBrowserPlugin::changedDoc ( ScribusDoc* doc )
+void PictureBrowserPlugin::changedDoc(ScribusDoc* doc)
 {
-//	if ( pictureBrowser )
-//		pictureBrowser->changedDocument ( doc );
+//	if (m_pictureBrowser)
+//		m_pictureBrowser->changedDocument (doc);
 }
 
 void PictureBrowserPlugin::closePictureBrowser()
 {
-	if (pictureBrowser)
+	if (m_pictureBrowser)
 	{
-		if (pictureBrowser->isVisible())
-			pictureBrowser->close();
-		delete pictureBrowser;
-		pictureBrowser = nullptr;
+		if (m_pictureBrowser->isVisible())
+			m_pictureBrowser->close();
+		delete m_pictureBrowser;
+		m_pictureBrowser = nullptr;
 	}
 }
 
 void PictureBrowserPlugin::pictureBrowserClosed()
 {
-	pictureBrowser = nullptr;
+	m_pictureBrowser = nullptr;
 }
 
 // Low level plugin API
@@ -144,7 +141,7 @@ ScPlugin* picturebrowser_getPlugin()
 	return plug;
 }
 
-void picturebrowser_freePlugin ( ScPlugin* plugin )
+void picturebrowser_freePlugin(ScPlugin* plugin)
 {
 	PictureBrowserPlugin* plug = dynamic_cast<PictureBrowserPlugin*> ( plugin );
 	Q_ASSERT ( plug );

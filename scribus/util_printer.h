@@ -24,6 +24,8 @@ class SCRIBUS_API PrinterUtil
 		PrinterUtil() = default;
 		~PrinterUtil() = default;
 
+		static void getDefaultPrintOptions(PrintOptions& options, const MarginStruct& docBleeds);
+
 		QString static getDefaultPrinterName();
 		QStringList static getPrinterNames();
 
@@ -39,7 +41,7 @@ class SCRIBUS_API PrinterUtil
 		 * @param devModeA an array which will store the DEVMODE structure with printer settings
 		 * @return true if default settings were successfully retrieved.
 		 */
-		static bool getDefaultSettings( QString printerName, QByteArray& devModeA );
+		static bool getDefaultSettings(QString printerName, QByteArray& devModeA);
 		/**
 		 * @brief Initialize print options dialog box settings (Windows only) 
 		 *
@@ -51,7 +53,7 @@ class SCRIBUS_API PrinterUtil
 		 * @param devModeA an array storing the DEVMODE structure for the specified printer
 		 * @return true if default settings were successfully retrieved.
 		 */
-		static bool initDeviceSettings( QString printerName, QByteArray& devModeA );
+		static bool initDeviceSettings(QString printerName, QByteArray& devModeA);
 #endif
 		/**
 		 * @brief Get the 4 minimum page margins for a certain paper size on the given printer

@@ -30,7 +30,7 @@ void Mark::setMark(Mark* mP)
 {
 	if (mP == nullptr)
 	{
-		m_data.destmarkName = "";
+		m_data.destmarkName.clear();
 		m_data.destmarkType = MARKNoType;
 	}
 	else
@@ -46,7 +46,7 @@ void Mark::setMark(const QString& l, MarkType t)
 	m_data.destmarkType = t;
 }
 
-const QString Mark::getString() const
+QString Mark::getString() const
 {
 	return m_data.strtxt;
 }

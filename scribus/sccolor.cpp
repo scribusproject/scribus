@@ -162,7 +162,7 @@ void ScColor::fromQColor(QColor color)
 	}
 }
 
-void  ScColor::getRawRGBColor(RGBColorF* rgb) const
+void ScColor::getRawRGBColor(RGBColorF* rgb) const
 {
 	if (m_Model == colorModelRGB)
 	{
@@ -461,42 +461,78 @@ void ColorList::ensureDefaultColors()
 
 void ColorList::ensureBlack()
 {
-	bool addBlack = true;
 	ColorList::Iterator itb = find("Black");
-	if (itb != end())
+	if (itb == end())
 	{
-		ScColor& black = itb.value();
-		colorModel model = black.getColorModel();
-		if (model == colorModelCMYK)
-		{
-			int c, m, y, k;
-			black.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 255)
-				addBlack = false;
-		}
-	}
-	if (addBlack)
 		insert("Black", ScColor(0, 0, 0, 255));
+		return;
+	}
+
+	ScColor& black = itb.value();
+	colorModel model = black.getColorModel();
+	 if (model == colorModelRGB)
+	{
+		double r, g, b;
+		black.getRGB(&r, &g, &b);
+		if (r != 0.0 || g != 0.0 || b != 0.0)
+			black.setRgbColorF(0.0, 0.0, 0.0);
+	}
+	else if (model == colorModelCMYK)
+	{
+		double c, m, y, k;
+		black.getCMYK(&c, &m, &y, &k);
+		if (c != 0.0 || m != 0.0 || y != 0.0 || k != 1.0)
+			black.setCmykColorF(0.0, 0.0, 0.0, 1.0);
+	}
+	else if (model == colorModelLab)
+	{
+		double l, a, b;
+		black.getLab(&l, &a, &b);
+		if (l != 0.0 || a != 0.0 || b != 0.0)
+			black.setLabColor(0.0, 0.0, 0.0);
+	}
+	else
+	{
+		black.setCmykColorF(0.0, 0.0, 0.0, 1.0);
+	}
 }
 
 void ColorList::ensureWhite()
 {
-	bool addWhite = true;
 	ColorList::Iterator itw = find("White");
-	if (itw != end())
+	if (itw == end())
 	{
-		ScColor& white = itw.value();
-		colorModel model = white.getColorModel();
-		if (model == colorModelCMYK)
-		{
-			int c, m, y, k;
-			white.getCMYK(&c, &m, &y, &k);
-			if (c == 0 && m == 0 && y == 0 && k == 0)
-				addWhite = false;
-		}
-	}
-	if (addWhite)
 		insert("White", ScColor(0, 0, 0, 0));
+		return;
+	}
+
+	ScColor& white = itw.value();
+	colorModel model = white.getColorModel();
+	if (model == colorModelRGB)
+	{
+		double r, g, b;
+		white.getRGB(&r, &g, &b);
+		if (r != 1.0 || g != 1.0 || b != 1.0)
+			white.setRgbColorF(1.0, 1.0, 1.0);
+	}
+	else if (model == colorModelCMYK)
+	{
+		double c, m, y, k;
+		white.getCMYK(&c, &m, &y, &k);
+		if (c != 0.0 || m != 0.0 || y != 0.0 || k != 0.0)
+			white.setCmykColorF(0.0, 0.0, 0.0, 0.0);
+	}
+	else if (model == colorModelLab)
+	{
+		double l, a, b;
+		white.getLab(&l, &a, &b);
+		if (l != 100.0 || a != 0.0 || b != 0.0)
+			white.setLabColor(100.0, 0.0, 0.0);
+	}
+	else
+	{
+		white.setCmykColorF(0.0, 0.0, 0.0, 0.0);
+	}
 }
 
 void ColorList::ensureRegistration()

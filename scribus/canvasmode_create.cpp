@@ -223,6 +223,16 @@ void CreateMode::deactivate(bool forGesture)
 	CanvasMode::deactivate(forGesture);
 }
 
+void CreateMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CreateMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void CreateMode::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();

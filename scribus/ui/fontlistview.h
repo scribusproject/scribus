@@ -22,7 +22,7 @@ class SCRIBUS_API FontListView : public QTableView
 	Q_OBJECT
 
 	public:
-		FontListView(QWidget * parent = 0);
+		FontListView(QWidget* parent = nullptr);
 
 		void setModel(QAbstractItemModel * model);
 		void setFonts(const SCFonts& f);

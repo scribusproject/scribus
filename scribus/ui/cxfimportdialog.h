@@ -19,7 +19,7 @@ class CxfImportDialog : public QDialog, Ui::CxfImportDialogBase
 	Q_OBJECT
 
 public:
-	CxfImportDialog(QWidget* parent = 0);
+	CxfImportDialog(QWidget* parent = nullptr);
 
 	QList<eColorSpaceType> priorities() const;
 

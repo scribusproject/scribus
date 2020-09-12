@@ -142,7 +142,7 @@ class PreviewImagesModel : public QAbstractListModel
 		Q_OBJECT
 
 	public:
-		PreviewImagesModel ( QObject *parent = 0 );
+		PreviewImagesModel ( QObject* parent = nullptr );
 		//saves pointer to calling PictureBrowser instance, for later access
 		PreviewImagesModel ( PictureBrowser *parent );
 

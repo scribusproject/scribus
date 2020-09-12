@@ -22,7 +22,7 @@ class SCRIBUS_API NumFormatCombo : public QComboBox
 	Q_OBJECT
 
 public:
-	NumFormatCombo(QWidget* parent=0);
+	NumFormatCombo(QWidget* parent=nullptr);
 	NumFormatCombo(QWidget* parent, bool showNone);
 
 	NumFormat currentFormat() const;

@@ -327,7 +327,7 @@ private:
 	bool emfMixed;
 	float emfPlusScale;
 	bool SerializableObject_Valid;
-	QList<ImageEffect> m_Effects;
+	ScImageEffectList m_Effects;
 	quint32 m_ObjSize;
 	quint32 m_currObjSize;
 	quint16 m_objID;

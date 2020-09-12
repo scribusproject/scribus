@@ -82,7 +82,7 @@ void PropertyWidget_OptMargins::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		if (m_item->asTextFrame() || m_item->asPathText())
+		if (m_item->isTextFrame() || m_item->isPathText())
 		{
 			ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 			if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)

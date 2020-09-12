@@ -155,7 +155,7 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 
 bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
-#ifdef Q_OS_OSX
+#ifdef Q_OS_MACOS
 	showProgress = false;
 #endif
 	bool success = false;
@@ -174,9 +174,8 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		ScribusMainWindow* mw = (m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
-		QStringList barNames, barTexts;
-		barNames << "GI";
-		barTexts << tr("Analyzing File:");
+		QStringList barNames("GI");
+		QStringList barTexts(tr("Analyzing File:"));
 		QList<bool> barsNumeric;
 		barsNumeric << false;
 		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);

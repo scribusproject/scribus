@@ -45,7 +45,7 @@ class QWidget;
 
 class FontSelect:public QDialog
 {
-Q_OBJECT
+	Q_OBJECT
 
 	public:
 		FontSelect(QStringList list);
@@ -55,16 +55,18 @@ Q_OBJECT
 	private slots:
 		void selectFont();
 		void resetFont();
+
 	private:
-		QLabel *label;
-		QComboBox *fontList;
-		QPushButton *okButton;
+		QLabel *label { nullptr };
+		QComboBox *fontList { nullptr };
+		QPushButton *okButton { nullptr };
+		QWidget *layoutWidget { nullptr };
+		QVBoxLayout *verticalLayout_2 { nullptr };
+		QHBoxLayout *horizontalLayout_2 { nullptr };
+		QSpacerItem *horizontalSpacer { nullptr };
+		QHBoxLayout *horizontalLayout_3 { nullptr };
+
 		QString font;
-		QWidget *layoutWidget;
-		QVBoxLayout *verticalLayout_2;
-		QHBoxLayout *horizontalLayout_2;
-		QSpacerItem *horizontalSpacer;
-		QHBoxLayout *horizontalLayout_3;
 };
 
 #endif

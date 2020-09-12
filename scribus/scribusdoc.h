@@ -96,6 +96,7 @@ public:
 	ScribusDoc();
 	ScribusDoc(const QString& docName, int unitIndex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup);
 	~ScribusDoc();
+
 	void init();
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
@@ -130,7 +131,6 @@ public:
 	void invalidateAll();
 	void invalidateLayer(int layerID);
 	void invalidateRegion(QRectF region);
-
 
 	MarginStruct* scratch() { return &m_docPrefsData.displayPrefs.scratch; }
 	MarginStruct* bleeds() { return &m_docPrefsData.docSetupPrefs.bleeds; }
@@ -733,6 +733,16 @@ public:
 	*/
 	bool useAnnotations() const;
 
+	/*!
+	* @brief Check if document use effects on images
+	*/
+	bool useImageEffects() const;
+
+	/*!
+	* @brief Check if document use effects on images
+	*/
+	bool useImageColorEffects() const;
+
 	/**
 	 * @brief Set and get the document's unit index
 	 */
@@ -839,7 +849,7 @@ public:
 	 */
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem);
 
-	int getItemNrfromUniqueID(uint unique);
+	int getItemNrFromUniqueID(uint unique);
 	//return pointer to item
 	PageItem* getItemFromName(const QString& name) const;
 	//itemDelete
@@ -1149,7 +1159,7 @@ public:
 					bool fvo = item->imageFlippedV();
 					if (m_applyNewRes)
 						item->pixm.imgInfo.lowResType = m_lowResType;
-					if (item->asLatexFrame())
+					if (item->isLatexFrame())
 						item->asLatexFrame()->rerunApplication(false);
 					else
 						item->loadImage(item->Pfile, true, -1, false);
@@ -1164,7 +1174,15 @@ public:
 		bool m_applyNewRes;
 		int m_lowResType;
 	};
-	void recalcPicturesRes(bool applyNewRes = false);
+
+	enum RecalcPictureResFlags
+	{
+		RecalcPicRes_ApplyNewRes = 1,
+		RecalcPicRes_ImageWithEffectsOnly = 2,
+		RecalcPicRes_ImageWithColorEffectsOnly = 4,
+	};
+	void recalcPicturesRes(int recalcFlags = 0);
+
 	int previewQuality();
 	void connectDocSignals();
 	void disconnectDocSignals();
@@ -1289,8 +1307,6 @@ public: // Public attributes
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
-	FPoint stored_minCanvasCoordinate;
-	FPoint stored_maxCanvasCoordinate;
 	double rulerXoffset {0.0};
 	double rulerYoffset {0.0};
 	/** \brief List of Pages */
@@ -1397,7 +1413,6 @@ public:
 		bool operator<(const BookMa& other) const { return ItemNr < other.ItemNr; }
 	};
 	QList<BookMa> BookMarks;
-	bool OldBM {false};
 	bool hasName {false};
 	bool isConverted {false};
 	QTimer * const autoSaveTimer;
@@ -1804,13 +1819,13 @@ public:
 	QList<PageItem_NoteFrame*> m_docEndNotesFramesChanged;
 
 	//finds item which holds given mark, start searching from next to lastItem index in DocItems
-	PageItem* findMarkItem(const Mark* mrk, int &lastItem) const;
+	PageItem* findMarkItem(const Mark* mrk, PageItem* &lastItem) const;
 	
 private:
 	//QMap<PageItem_NoteFrame*, QList<TextNote *> > map of notesframes and its list of notes
 	NotesInFrameMap m_docNotesInFrameMap;
 
-	PageItem* findFirstMarkItem(const Mark* mrk) const { int tmp = -1; return findMarkItem(mrk, tmp); }
+	PageItem* findFirstMarkItem(const Mark* mrk) const { PageItem* tmp = nullptr; return findMarkItem(mrk, tmp); }
 
 	//search for endnotesframe for given notes style and item holding master mark or section number
 	PageItem_NoteFrame* endNoteFrame(NotesStyle* nStyle, void* item = nullptr);

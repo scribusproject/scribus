@@ -95,8 +95,8 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 			{
 				PageItem* item1 = m_doc->m_Selection->itemAt(i);
 				PageItem* item2 = m_doc->m_Selection->itemAt(i+1);
-				if ((item1 != nullptr && item1->asTextFrame()) &&
-					(item2 != nullptr && item2->asTextFrame()) &&
+				if ((item1 != nullptr && item1->isTextFrame()) &&
+					(item2 != nullptr && item2->isTextFrame()) &&
 				     item1->canBeLinkedTo(item2))
 				{
 					item1->link(item2);
@@ -128,6 +128,16 @@ void CanvasMode_FrameLinks::deactivate(bool forGesture)
 //	qDebug() << "CanvasMode_FrameLinks::deactivate" << forGesture;
 	m_view->setRedrawMarkerShown(false);
 	CanvasMode::deactivate(forGesture);
+}
+
+void CanvasMode_FrameLinks::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void CanvasMode_FrameLinks::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
 }
 
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
@@ -196,7 +206,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&bb) && (bb->asTextFrame()))
+			if (GetItem(&bb) && (bb->isTextFrame()))
 			{
 				PageItem* bblast = bb;
 				while (bblast->nextInChain())
@@ -301,7 +311,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 			// #14334: delay selection signals so that (un)link actions get properly enabled/disabled
 			m_doc->m_Selection->delaySignalsOn();
 			SeleItem(m);
-			if (GetItem(&currItem) && (currItem->asTextFrame()))
+			if (GetItem(&currItem) && (currItem->isTextFrame()))
 			{
 				if (currItem->prevInChain() != nullptr)
 				{

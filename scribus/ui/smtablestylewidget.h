@@ -25,7 +25,7 @@ class SMTableStyleWidget : public QWidget, public Ui::SMTableStyleWidget
 	Q_OBJECT
 public:
 	/// Constructor.
-	SMTableStyleWidget(QWidget *parent = 0);
+	SMTableStyleWidget(QWidget* parent = nullptr);
 	/// Destructor.
 	~SMTableStyleWidget();
 

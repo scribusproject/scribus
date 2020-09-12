@@ -1568,7 +1568,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 					patch.TR = tR;
 					item->meshGradientPatches.append(patch);
 				}
-				item->GrType = 12;
+				item->GrType = Gradient_PatchMesh;
 			}
 			else
 			{

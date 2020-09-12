@@ -15,6 +15,7 @@ You will need:
 Provided solutions have been tested with following Microsoft Visual Studion editions:
 - Microsoft Visual Studio 2015 Express and Professional
 - Microsoft Visual Studio 2017 Express, Community and Professional
+- Microsoft Visual Studio 2019 Community and Professional
 
 GETTING DEPENDENCIES
 ====================
@@ -42,8 +43,8 @@ https://doc.qt.io/qt-5/windows-building.html
 Start a command line and import your Visual Studio environment:
 - for building 32bit on Visual Studio 2015: \path\to\visual\studio\VC\vcvarsall.bat x86
 - for building 64bit on Visual Studio 2015: \path\to\visual\studio\VC\vcvarsall.bat x86_amd64
-- for building 32bit on Visual Studio 2017: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86
-- for building 64bit on Visual Studio 2017: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86_amd64
+- for building 32bit on Visual Studio 2017 or 2019: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86
+- for building 64bit on Visual Studio 2017 or 2019: \path\to\visual\studio\VC\Auxiliary\Build\vcvarsall.bat x86_amd64
 
 Now cd to C:\Developer\qt-everywhere-whatever and run configure:
 configure -platform win32-msvc -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl dynamic -opensource -mp
@@ -91,12 +92,14 @@ build-all-platform-libs.bat script. For example :
 - to build with Visual Studio 2015 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v140
 - to build with Visual Studio 2017 default toolset for x64 platform:   build-all-platform-libs.bat x64   v141
 - to build with Visual Studio 2017 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v141
+- to build with Visual Studio 2019 default toolset for x64 platform:   build-all-platform-libs.bat x64   v142
+- to build with Visual Studio 2019 default toolset for Win32 platform: build-all-platform-libs.bat Win32 v142
 
 BUILDING SCRIBUS
 ====================
 
-After having compiled all dependencies, open the Scribus-build-props.props file located in Scribus\win32\msvc2015 or
-Scribus\win32\msvc2017 depending on the Visual Studio version you are using in a text editor.
+After having compiled all dependencies, open the Scribus-build-props.props file located in Scribus\win32\msvc2015,
+Scribus\win32\msvc2017 or Scribus\win32\msvc2019 depending on the Visual Studio version you are using in a text editor.
 Update the dependency paths to match your system.
 
 Open the Visual Studio solution located in same directoy and start building. Note: if you built dependencies with a different 

@@ -319,11 +319,7 @@ void SMParagraphStyle::setDefaultStyle(bool ids)
 
 	m_selection[0]->setDefaultStyle(ids);
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 QString SMParagraphStyle::shortcut(const QString &stylename) const
@@ -355,11 +351,7 @@ void SMParagraphStyle::setShortcut(const QString &shortcut)
 
 	m_selection[0]->setShortcut(shortcut);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::deleteStyles(const QList<RemoveItem> &removeList)
@@ -453,11 +445,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 	if (oldName != newName)
 		m_deleted.append(RemoveItem(oldName, newName));
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::languageChange()
@@ -696,11 +684,7 @@ void SMParagraphStyle::slotLineSpacingMode(int mode)
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setLineSpacingMode(lsm);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotLineSpacing()
@@ -718,11 +702,7 @@ void SMParagraphStyle::slotLineSpacing()
 			m_selection[i]->setLineSpacing(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotSpaceAbove()
@@ -740,11 +720,7 @@ void SMParagraphStyle::slotSpaceAbove()
 			m_selection[i]->setGapBefore(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotSpaceBelow()
@@ -762,11 +738,7 @@ void SMParagraphStyle::slotSpaceBelow()
 			m_selection[i]->setGapAfter(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotAlignment()
@@ -779,11 +751,7 @@ void SMParagraphStyle::slotAlignment()
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setAlignment(style);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotDirection()
@@ -796,11 +764,7 @@ void SMParagraphStyle::slotDirection()
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setDirection(style);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotOpticalMargin(int i)
@@ -813,34 +777,21 @@ void SMParagraphStyle::slotOpticalMargin(int i)
 //		for (int i = 0; i < m_selection.count(); ++i)
 //			m_selection[i]->setOpticalMargins(omt);
 //
-//	if (!m_selectionIsDirty)
-//	{
-//		m_selectionIsDirty = true;
-//		emit selectionDirty();
-//	}
+//	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotOpticalMarginSelector()
 {
 	int omt(ParagraphStyle::OM_None);
-	if (false)//(m_pwidget->optMarginCombo->useParentValue())
-	{
-	}
-	else
-	{
-// 		if (m_pwidget->optMarginRadioNone->isChecked()) omt = aragraphStyle::OM_None;
-		if (m_pwidget->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
-		else if (m_pwidget->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
-		else if (m_pwidget->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
 
-		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setOpticalMargins(omt);
-	}
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	if (m_pwidget->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
+	else if (m_pwidget->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
+	else if (m_pwidget->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
+
+	for (int i = 0; i < m_selection.count(); ++i)
+		m_selection[i]->setOpticalMargins(omt);
+
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParentOpticalMargin()
@@ -848,11 +799,7 @@ void SMParagraphStyle::slotParentOpticalMargin()
 	for (int i = 0; i < m_selection.count(); ++i)
 		m_selection[i]->resetOpticalMargins();
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotMinSpace()
@@ -867,11 +814,7 @@ void SMParagraphStyle::slotMinSpace()
 			m_selection[i]->setMinWordTracking(ms / 100.0);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotMinGlyphExt()
@@ -886,11 +829,7 @@ void SMParagraphStyle::slotMinGlyphExt()
 			m_selection[i]->setMinGlyphExtension(mge / 100.0);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotMaxGlyphExt()
@@ -905,11 +844,7 @@ void SMParagraphStyle::slotMaxGlyphExt()
 			m_selection[i]->setMaxGlyphExtension(mge / 100.0);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotConsecutiveLines()
@@ -923,11 +858,8 @@ void SMParagraphStyle::slotConsecutiveLines()
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setHyphenConsecutiveLines(cL);
 	}
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotDropCap(bool isOn)
@@ -942,11 +874,7 @@ void SMParagraphStyle::slotDropCap(bool isOn)
 		}
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParentParaEffects()
@@ -958,11 +886,7 @@ void SMParagraphStyle::slotParentParaEffects()
 		m_selection[i]->resetHasNum();
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotDropCapLines(int lines)
@@ -974,11 +898,7 @@ void SMParagraphStyle::slotDropCapLines(int lines)
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setDropCapLines(lines);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParEffectOffset()
@@ -997,11 +917,7 @@ void SMParagraphStyle::slotParEffectOffset()
 			m_selection[i]->setParEffectOffset(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParEffectIndent(bool isOn)
@@ -1015,11 +931,7 @@ void SMParagraphStyle::slotParEffectIndent(bool isOn)
 			m_selection[i]->setParEffectIndent(isOn);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParEffectCharStyle(int index)
@@ -1036,11 +948,7 @@ void SMParagraphStyle::slotParEffectCharStyle(int index)
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setPeCharStyleName(name);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBullet(bool isOn)
@@ -1056,11 +964,7 @@ void SMParagraphStyle::slotBullet(bool isOn)
 		}
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBulletStr(const QString &str)
@@ -1074,11 +978,7 @@ void SMParagraphStyle::slotBulletStr(const QString &str)
 	for (int i = 0; i < m_selection.count(); ++i)
 		m_selection[i]->setBulletStr(bstr);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumeration(bool isOn)
@@ -1093,20 +993,15 @@ void SMParagraphStyle::slotNumeration(bool isOn)
 		}
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumName(const QString &str)
 {
-	QString bstr(str);
 	if (!str.isEmpty())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
-			m_selection[i]->setNumName(bstr);
+			m_selection[i]->setNumName(str);
 		m_pwidget->numComboBox->setCurrentItem(m_pwidget->numComboBox->findText(m_selection[0]->numName()));
 		m_pwidget->numLevelSpin->setValue(m_selection[0]->numLevel()+1);
 		NumStruct * numS = m_doc->numerations.value(m_selection[0]->numName());
@@ -1117,11 +1012,7 @@ void SMParagraphStyle::slotNumName(const QString &str)
 		m_doc->flag_NumUpdateRequest = true;
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumNew()
@@ -1134,20 +1025,15 @@ void SMParagraphStyle::slotNumNew()
 		m_doc->flag_NumUpdateRequest = true;
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotSelectionDirty()
 {
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	if (m_selectionIsDirty)
+		return;
+	m_selectionIsDirty = true;
+	emit selectionDirty();
 }
 
 void SMParagraphStyle::slotNumFormat(int)
@@ -1162,11 +1048,7 @@ void SMParagraphStyle::slotNumFormat(int)
 			m_selection[i]->setNumFormat(numFormat);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumLevel(int level)
@@ -1182,11 +1064,8 @@ void SMParagraphStyle::slotNumLevel(int level)
 	
 	if (level == 0)
 		slotNumHigher(false);
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumPrefix(const QString &str)
@@ -1194,11 +1073,7 @@ void SMParagraphStyle::slotNumPrefix(const QString &str)
 	for (int i = 0; i < m_selection.count(); ++i)
 		m_selection[i]->setNumPrefix(str);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumSuffix(const QString &str)
@@ -1206,11 +1081,7 @@ void SMParagraphStyle::slotNumSuffix(const QString &str)
 	for (int i = 0; i < m_selection.count(); ++i)
 		m_selection[i]->setNumSuffix(str);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumStart(int start)
@@ -1222,11 +1093,7 @@ void SMParagraphStyle::slotNumStart(int start)
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setNumStart(start);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumRestart(int restart)
@@ -1240,11 +1107,7 @@ void SMParagraphStyle::slotNumRestart(int restart)
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setNumRestart(restartRange);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumOther(bool isOn)
@@ -1258,11 +1121,7 @@ void SMParagraphStyle::slotNumOther(bool isOn)
 			m_selection[i]->setNumOther(isOn);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotNumHigher(bool isOn)
@@ -1276,11 +1135,7 @@ void SMParagraphStyle::slotNumHigher(bool isOn)
 			m_selection[i]->setNumHigher(isOn);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 
@@ -1296,11 +1151,7 @@ void SMParagraphStyle::handleKeepLinesStart()
 			m_selection[i]->setKeepLinesStart (value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::handleKeepLinesEnd()
@@ -1315,11 +1166,7 @@ void SMParagraphStyle::handleKeepLinesEnd()
 			m_selection[i]->setKeepLinesEnd (value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::handleKeepTogether()
@@ -1334,11 +1181,7 @@ void SMParagraphStyle::handleKeepTogether()
 			m_selection[i]->setKeepTogether (value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::handleKeepWithNext()
@@ -1353,11 +1196,7 @@ void SMParagraphStyle::handleKeepWithNext()
 			m_selection[i]->setKeepWithNext (value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotTabRuler()
@@ -1374,11 +1213,7 @@ void SMParagraphStyle::slotTabRuler()
 			m_selection[i]->setTabValues(newTabs);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotLeftIndent()
@@ -1397,11 +1232,7 @@ void SMParagraphStyle::slotLeftIndent()
 			m_selection[i]->setLeftMargin(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotRightIndent()
@@ -1420,11 +1251,7 @@ void SMParagraphStyle::slotRightIndent()
 			m_selection[i]->setRightMargin(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFirstLine()
@@ -1443,11 +1270,7 @@ void SMParagraphStyle::slotFirstLine()
 			m_selection[i]->setFirstIndent(value);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFontSize()
@@ -1467,11 +1290,7 @@ void SMParagraphStyle::slotFontSize()
 	}
 
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotEffects(int e)
@@ -1531,12 +1350,7 @@ void SMParagraphStyle::slotEffects(int e)
 		}
 	}
 
-
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotEffectProperties()
@@ -1573,11 +1387,7 @@ void SMParagraphStyle::slotEffectProperties()
 		m_selection[i]->charStyle().setStrikethruWidth(qRound(slw));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFillColor()
@@ -1593,11 +1403,7 @@ void SMParagraphStyle::slotFillColor()
 			m_selection[i]->charStyle().setFillColor(col);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFillShade()
@@ -1612,11 +1418,7 @@ void SMParagraphStyle::slotFillShade()
 			m_selection[i]->charStyle().setFillShade(fs);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBackPColor()
@@ -1632,11 +1434,7 @@ void SMParagraphStyle::slotBackPColor()
 			m_selection[i]->setBackgroundColor(col);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBackPShade()
@@ -1651,11 +1449,7 @@ void SMParagraphStyle::slotBackPShade()
 			m_selection[i]->setBackgroundShade(fs);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBackColor()
@@ -1671,11 +1465,7 @@ void SMParagraphStyle::slotBackColor()
 			m_selection[i]->charStyle().setBackColor(col);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBackShade()
@@ -1690,11 +1480,7 @@ void SMParagraphStyle::slotBackShade()
 			m_selection[i]->charStyle().setBackShade(fs);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotStrokeColor()
@@ -1710,11 +1496,7 @@ void SMParagraphStyle::slotStrokeColor()
 			m_selection[i]->charStyle().setStrokeColor(col);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotStrokeShade()
@@ -1730,11 +1512,7 @@ void SMParagraphStyle::slotStrokeShade()
 			m_selection[i]->charStyle().setStrokeShade(ss);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotLanguage()
@@ -1755,11 +1533,7 @@ void SMParagraphStyle::slotLanguage()
 			m_selection[i]->charStyle().setLanguage(language);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotWordMin()
@@ -1775,11 +1549,7 @@ void SMParagraphStyle::slotWordMin()
 			m_selection[i]->charStyle().setHyphenWordMin(wm);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotHyphenChar()
@@ -1795,11 +1565,7 @@ void SMParagraphStyle::slotHyphenChar()
 			m_selection[i]->charStyle().setHyphenChar(ch);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotScaleH()
@@ -1817,11 +1583,7 @@ void SMParagraphStyle::slotScaleH()
 			m_selection[i]->charStyle().setScaleH(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotScaleV()
@@ -1839,11 +1601,7 @@ void SMParagraphStyle::slotScaleV()
 			m_selection[i]->charStyle().setScaleV(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotTracking()
@@ -1861,11 +1619,7 @@ void SMParagraphStyle::slotTracking()
 			m_selection[i]->charStyle().setTracking(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotWordTracking()
@@ -1883,11 +1637,7 @@ void SMParagraphStyle::slotWordTracking()
 			m_selection[i]->charStyle().setWordTracking(value);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotBaselineOffset()
@@ -1905,11 +1655,7 @@ void SMParagraphStyle::slotBaselineOffset()
 			m_selection[i]->charStyle().setBaselineOffset(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFont(const QString& s)
@@ -1924,11 +1670,7 @@ void SMParagraphStyle::slotFont(const QString& s)
 			m_selection[i]->charStyle().setFont(sf);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotParentChanged(const QString &parent)
@@ -1967,11 +1709,7 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 	selected(sel);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotCharParentChanged(const QString &parent)
@@ -1991,11 +1729,7 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 
 	selected(sel);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotFontFeatures()
@@ -2010,11 +1744,7 @@ void SMParagraphStyle::slotFontFeatures()
 			m_selection[i]->charStyle().setFontFeatures(fontfeatures);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotCharStylesDeleted(const QList<RemoveItem> &removeList)
@@ -2316,11 +2046,7 @@ void SMCharacterStyle::setDefaultStyle(bool ids)
 
 	m_selection[0]->setDefaultStyle(ids);
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 QString SMCharacterStyle::shortcut(const QString &stylename) const
@@ -2350,11 +2076,7 @@ void SMCharacterStyle::setShortcut(const QString &shortcut)
 
 	m_selection[0]->setShortcut(shortcut);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::deleteStyles(const QList<RemoveItem> &removeList)
@@ -2454,11 +2176,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 		emit charStylesDeleted(deletedStyles);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::languageChange()
@@ -2566,11 +2284,7 @@ void SMCharacterStyle::slotFontSize()
 			m_selection[i]->setFontSize(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotEffects(int e)
@@ -2630,12 +2344,7 @@ void SMCharacterStyle::slotEffects(int e)
 		}
 	}
 
-
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotEffectProperties()
@@ -2672,11 +2381,7 @@ void SMCharacterStyle::slotEffectProperties()
 		m_selection[i]->setStrikethruWidth(qRound(slw));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotFillColor()
@@ -2692,11 +2397,7 @@ void SMCharacterStyle::slotFillColor()
 			m_selection[i]->setFillColor(col);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotFillShade()
@@ -2711,11 +2412,7 @@ void SMCharacterStyle::slotFillShade()
 			m_selection[i]->setFillShade(fs);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotBackColor()
@@ -2731,11 +2428,7 @@ void SMCharacterStyle::slotBackColor()
 			m_selection[i]->setBackColor(col);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotBackShade()
@@ -2750,11 +2443,7 @@ void SMCharacterStyle::slotBackShade()
 			m_selection[i]->setBackShade(fs);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotStrokeColor()
@@ -2770,11 +2459,7 @@ void SMCharacterStyle::slotStrokeColor()
 			m_selection[i]->setStrokeColor(col);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotStrokeShade()
@@ -2789,11 +2474,7 @@ void SMCharacterStyle::slotStrokeShade()
 			m_selection[i]->setStrokeShade(ss);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotLanguage()
@@ -2812,12 +2493,7 @@ void SMCharacterStyle::slotLanguage()
 			m_selection[i]->setLanguage(language);
 	}
 
-
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotScaleH()
@@ -2836,12 +2512,7 @@ void SMCharacterStyle::slotScaleH()
 			m_selection[i]->setScaleH(qRound(value));
 	}
 
-
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotScaleV()
@@ -2860,12 +2531,7 @@ void SMCharacterStyle::slotScaleV()
 			m_selection[i]->setScaleV(qRound(value));
 	}
 
-
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotTracking()
@@ -2884,11 +2550,7 @@ void SMCharacterStyle::slotTracking()
 			m_selection[i]->setTracking(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotWordTracking()
@@ -2907,11 +2569,7 @@ void SMCharacterStyle::slotWordTracking()
 			m_selection[i]->setWordTracking(value);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotBaselineOffset()
@@ -2930,11 +2588,7 @@ void SMCharacterStyle::slotBaselineOffset()
 			m_selection[i]->setBaselineOffset(qRound(value));
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotHyphenChar()
@@ -2950,11 +2604,7 @@ void SMCharacterStyle::slotHyphenChar()
 			m_selection[i]->setHyphenChar(ch);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotSmallestWord()
@@ -2969,11 +2619,7 @@ void SMCharacterStyle::slotSmallestWord()
 			m_selection[i]->setHyphenWordMin(sw);
 	}
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotFont(const QString& s)
@@ -2988,11 +2634,7 @@ void SMCharacterStyle::slotFont(const QString& s)
 			m_selection[i]->setFont(sf);
 	}
 	
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotParentChanged(const QString &parent)
@@ -3030,11 +2672,7 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 
 	selected(sel);
 
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+	slotSelectionDirty();
 }
 
 void SMCharacterStyle::slotFontFeatures()
@@ -3049,11 +2687,16 @@ void SMCharacterStyle::slotFontFeatures()
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setFontFeatures(fontfeatures);
 	}
-	if (!m_selectionIsDirty)
-	{
-		m_selectionIsDirty = true;
-		emit selectionDirty();
-	}
+
+	slotSelectionDirty();
+}
+
+void SMCharacterStyle::slotSelectionDirty()
+{
+	if (m_selectionIsDirty)
+		return;
+	m_selectionIsDirty = true;
+	emit selectionDirty();
 }
 
 SMCharacterStyle::~SMCharacterStyle()

@@ -36,7 +36,7 @@ class SCRIBUS_API ColorListModel : public QAbstractItemModel
 
 public:
 	//! Constructor
-	ColorListModel(QObject *parent = 0);
+	ColorListModel(QObject* parent = nullptr);
 
 	enum SortRule
 	{

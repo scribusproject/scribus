@@ -39,7 +39,7 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ApplyMasterPageDialog( QWidget* parent = 0 );
+	ApplyMasterPageDialog( QWidget* parent = nullptr );
 	~ApplyMasterPageDialog();
 	
 	virtual void changeEvent(QEvent *e);

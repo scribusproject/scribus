@@ -109,7 +109,7 @@ int BookMItem::level()
 }
 
 
-BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
+BookmarkView::BookmarkView(QWidget* parent) : QTreeWidget(parent)
 {
 	NrItems = 0;
 	First = 1;
@@ -123,11 +123,10 @@ BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 	setRootIsDecorated(true);
 	header()->hide();
 
-	connect(this, SIGNAL(currentItemChanged( QTreeWidgetItem *, QTreeWidgetItem *)),
-			this, SLOT(setPageItem(QTreeWidgetItem *, QTreeWidgetItem *)));
+	connect(this, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(selectPageItem(QTreeWidgetItem *, int)));
 }
 
-void BookMView::addPageItem(PageItem* ite)
+void BookmarkView::addPageItem(PageItem* ite)
 {
 	QString bm, bm2;
 	getTextAndTitle(ite, bm, bm2);
@@ -135,7 +134,7 @@ void BookMView::addPageItem(PageItem* ite)
 	Last = NrItems;
 }
 
-void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
+void BookmarkView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 {
 	QChar ch;
 	QString str;
@@ -165,15 +164,15 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 	}
 }
 
-void BookMView::setPageItem(QTreeWidgetItem * current, QTreeWidgetItem * /*previous*/)
+void BookmarkView::selectPageItem(QTreeWidgetItem * current, int /*column*/)
 {
-	BookMItem * i = dynamic_cast<BookMItem*>(current);
+	BookMItem * bookmark = dynamic_cast<BookMItem*>(current);
 	// something weird here at 1st call...
-	if (i)
-		emit selectElement(i->PageObject, false);
+	if (bookmark)
+		emit selectElement(bookmark->PageObject, false);
 }
 
-void BookMView::dropEvent(QDropEvent *e)
+void BookmarkView::dropEvent(QDropEvent *e)
 {
 	QTreeWidget::dropEvent(e);
 //	QApplication::restoreOverrideCursor();
@@ -181,7 +180,7 @@ void BookMView::dropEvent(QDropEvent *e)
 }
 
 // #include <QtDebug>
-void BookMView::rebuildTree()
+void BookmarkView::rebuildTree()
 {
 	Last = 0;
 
@@ -245,7 +244,7 @@ void BookMView::rebuildTree()
 	emit changed();
 }
 
-void BookMView::addItem(const QString& text, const QString& Tit, PageItem *PageObject)
+void BookmarkView::addItem(const QString& text, const QString& Tit, PageItem *PageObject)
 {
 	BookMItem * ite = new BookMItem(this, NrItems+1, PageObject);
 	ite->setText(0, text);
@@ -253,7 +252,7 @@ void BookMView::addItem(const QString& text, const QString& Tit, PageItem *PageO
 	rebuildTree();
 }
 
-void BookMView::deleteItem(PageItem *pObject)
+void BookmarkView::deleteItem(PageItem *pObject)
 {
 	QTreeWidgetItemIterator it(this);
 	BookMItem * item;
@@ -270,7 +269,7 @@ void BookMView::deleteItem(PageItem *pObject)
 	rebuildTree();
 }
 
-void BookMView::setAction(PageItem *currItem, const QString& Act)
+void BookmarkView::setAction(PageItem *currItem, const QString& Act)
 {
 	BookMItem *ite;
 	QTreeWidgetItemIterator it(this);
@@ -286,7 +285,7 @@ void BookMView::setAction(PageItem *currItem, const QString& Act)
 	}
 }
 
-void BookMView::changeText(PageItem *currItem)
+void BookmarkView::changeText(PageItem *currItem)
 {
 	BookMItem *ite;
 	QString bm, bm2;

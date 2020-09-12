@@ -63,7 +63,7 @@ QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
 QByteArray SCRIBUS_API CompressArray(const QByteArray& in);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
-bool SCRIBUS_API loadText(const QString& nam, QString *Buffer);
+bool SCRIBUS_API loadText(const QString& filename, QString *buffer);
 /*! \brief Replacement version of loadText that returns a QCString as an out parameter.
 The QCString is filled with the contents of the specified file. The return
 byte string is of unknown encoding; the caller must handle encoding issues.
@@ -127,12 +127,12 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
 QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix=QString());
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
-const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
-const QString SCRIBUS_API numberToHebrew(uint i);
-const QString SCRIBUS_API numberToRoman(uint i);
-const QString SCRIBUS_API numberToCJK(uint i);
+QString getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
+QString SCRIBUS_API numberToHebrew(uint i);
+QString numberToRoman(uint i);
+QString numberToCJK(uint i);
 QChar SCRIBUS_API cjkDigit(uint i);
-const QString SCRIBUS_API numberToLetterSequence(const QString& letters, uint num);
+QString numberToLetterSequence(const QString& letters, uint num);
 void SCRIBUS_API parsePagesString(const QString& pages, std::vector<int>* pageNs, int sourcePageCount);
 
 QString SCRIBUS_API readLineFromDataStream(QDataStream &s);

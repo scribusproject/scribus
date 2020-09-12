@@ -164,6 +164,10 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction("16/document-print.png", "22/document-print.png", "", defaultKey(name), mainWindow));
 	name = "PrintPreview";
 	scrActions->insert(name, new ScrAction("16/document-print-preview.png", "22/document-print-preview.png", "", defaultKey(name), mainWindow));
+	name = "OutputPreviewPDF";
+	scrActions->insert(name, new ScrAction(QString(), defaultKey(name), mainWindow));
+	name = "OutputPreviewPS";
+	scrActions->insert(name, new ScrAction(QString(), defaultKey(name), mainWindow));
 	name = "fileQuit";
 	scrActions->insert(name, new ScrAction("exit.png", QString(), "", defaultKey(name), mainWindow));
 	(*scrActions)[name]->setMenuRole(QAction::QuitRole);
@@ -176,6 +180,8 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileClose"], SIGNAL(triggered()), mainWindow, SLOT(slotFileClose()) );
 	connect( (*scrActions)["filePrint"], SIGNAL(triggered()), mainWindow, SLOT(slotFilePrint()) );
 	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );
+	connect( (*scrActions)["OutputPreviewPDF"], SIGNAL(triggered()), mainWindow, SLOT(outputPreviewPDF()) );
+	connect( (*scrActions)["OutputPreviewPS"], SIGNAL(triggered()), mainWindow, SLOT(outputPreviewPS()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
 	connect( (*scrActions)["fileDocSetup150"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
@@ -1046,6 +1052,8 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::NBHYPHEN.unicode()));
 	name = "unicodeNonBreakingSpace";
 	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::NBSPACE.unicode()));
+	name = "unicodeNarrowNoBreakSpace";
+	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, 0x202F));
 	name = "unicodePageNumber";
 	actionMap->insert(name, new ScrAction(defaultKey(name), actionParent, SpecialChars::PAGENUMBER.unicode()));
 	name = "unicodePageCount";
@@ -1152,7 +1160,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	//Spaces and special characters
 
 	*actionNamesList << "unicodeZWNJ" << "unicodeZWJ";
-	*actionNamesList << "unicodeSoftHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodePageCount";
+	*actionNamesList << "unicodeSoftHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodeNarrowNoBreakSpace" << "unicodePageNumber" << "unicodePageCount";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
 	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeZerowidthSpace";
@@ -1431,13 +1439,13 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	if (currView==nullptr)
 		return;
 	PageItem* currItem = mainWindow->doc->m_Selection->itemAt(0);
-	if (currItem==nullptr)
+	if (currItem == nullptr)
 		return;
 
 	(*scrActions)["itemPDFIsBookmark"]->disconnect();
 	(*scrActions)["itemPDFIsAnnotation"]->disconnect();
 
-	if (!currItem->asTextFrame())
+	if (!currItem->isTextFrame())
 	{
 		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
@@ -1504,6 +1512,8 @@ void ActionManager::languageChange()
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w..."));
+	(*scrActions)["OutputPreviewPDF"]->setTexts( tr("PDF..."));
+	(*scrActions)["OutputPreviewPS"]->setTexts( tr("PostScript..."));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
@@ -1754,7 +1764,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpActionSearch"]->setTexts( tr("Action &Search"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize Value Indicator"));
-	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
+	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Help..."));
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
@@ -1838,6 +1848,7 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrActio
 	(*actionMap)["unicodeSoftHyphen"]->setText( tr("Soft &Hyphen"));
 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Hyphen"));
 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
+	(*actionMap)["unicodeNarrowNoBreakSpace"]->setTexts( tr("Narrow No-Break Space"));
 	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
 	(*actionMap)["unicodePageCount"]->setText( tr("Number of Pages"));
 	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
@@ -1991,6 +2002,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeSoftHyphen", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus);
 	defKeys.insert("unicodeNonBreakingHyphen", Qt::CTRL+Qt::ALT+Qt::Key_Minus);
 	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
+	defKeys.insert("unicodeNarrowNoBreakSpace", Qt::CTRL+Qt::ALT+Qt::Key_Space);
 	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
 	defKeys.insert("unicodeNewLine", Qt::SHIFT+Qt::Key_Return);
 
@@ -2077,6 +2089,8 @@ void ActionManager::createDefaultMenus()
 		<< "filePreferences150"
 		<< "filePrint"
 		<< "PrintPreview"
+		<< "OutputPreviewPDF"
+		<< "OutputPreviewPS"
 		<< "fileQuit";
 	++itmenu;
 	//Edit
@@ -2219,6 +2233,7 @@ void ActionManager::createDefaultMenus()
 		<< "unicodeSoftHyphen"
 		<< "unicodeNonBreakingHyphen"
 		<< "unicodeNonBreakingSpace"
+		<< "unicodeNarrowNoBreakSpace"
 		<< "unicodePageNumber"
 		<< "unicodePageCount"
 		<< "unicodeNewLine"
@@ -2268,6 +2283,7 @@ void ActionManager::createDefaultMenus()
 		 << "unicodeSoftHyphen"
 		 << "unicodeNonBreakingHyphen"
 		 << "unicodeNonBreakingSpace"
+		 << "unicodeNarrowNoBreakSpace"
 		 << "unicodePageNumber"
 		 << "unicodePageCount"
 		 << "unicodeNewLine"
@@ -2466,6 +2482,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeSoftHyphen";
 	itnmenua->second << "unicodeNonBreakingHyphen";
 	itnmenua->second << "unicodeNonBreakingSpace";
+	itnmenua->second << "unicodeNarrowNoBreakSpace";
 	itnmenua->second << "unicodePageNumber";
 	itnmenua->second << "unicodePageCount";
 	itnmenua->second << "unicodeNewLine";

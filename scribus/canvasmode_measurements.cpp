@@ -73,6 +73,16 @@ void MeasurementsMode::drawControls(QPainter* p)
 	p->restore();
 }
 
+void MeasurementsMode::keyPressEvent(QKeyEvent *e)
+{
+	commonkeyPressEvent_Default(e);
+}
+
+void MeasurementsMode::keyReleaseEvent(QKeyEvent *e)
+{
+	commonkeyReleaseEvent(e);
+}
+
 void MeasurementsMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	if (m_active)

@@ -22,7 +22,7 @@ Mark2Item::Mark2Item(QWidget *parent) : MarkInsert(parent)
 void Mark2Item::values(QString &label, PageItem* &ptr)
 {
 	QString itemName = ItemList->currentText();
-	if (itemName != "")
+	if (!itemName.isEmpty())
 	{
 		ScribusMainWindow* scmw = (ScribusMainWindow*) parent();
 		ptr = scmw->doc->getItemFromName(itemName);

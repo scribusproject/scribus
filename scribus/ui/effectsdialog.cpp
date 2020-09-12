@@ -485,9 +485,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->addItem( tr("Posterize"));
 	availableEffects->addItem( tr("Sharpen"));
 
-	availableEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
-	layout2->addWidget( availableEffects );
-	layout10->addLayout( layout2, 0, 0 );
+	QFontMetrics ftMetrics = this->fontMetrics();
+	int availableEffectsAdvance = ftMetrics.horizontalAdvance( tr("Available Effects"));
+
+	availableEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
+	layout2->addWidget(availableEffects);
+	layout10->addLayout(layout2, 0, 0);
 
 	layout1 = new QVBoxLayout;
 	layout1->setMargin(0);
@@ -513,22 +516,22 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2->setText( tr( "Applied Effects" ) );
 	layout8->addWidget( textLabel2 );
 	usedEffects = new QListWidget( this );
-	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
+	usedEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
 	usedEffects->clear();
 	m_effectValMap.clear();
 	for (int i = 0; i < effectsList.count(); ++i)
 	{
-		if (effectsList.at(i).effectCode == ScImage::EF_INVERT)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_INVERT)
 		{
 			usedEffects->addItem( tr("Invert"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_GRAYSCALE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_GRAYSCALE)
 		{
 			usedEffects->addItem( tr("Grayscale"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_COLORIZE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_COLORIZE)
 		{
 			usedEffects->addItem( tr("Colorize"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
@@ -537,22 +540,22 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_BRIGHTNESS)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_BRIGHTNESS)
 		{
 			usedEffects->addItem( tr("Brightness"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_CONTRAST)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_CONTRAST)
 		{
 			usedEffects->addItem( tr("Contrast"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_SHARPEN)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_SHARPEN)
 		{
 			usedEffects->addItem( tr("Sharpen"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_BLUR)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_BLUR)
 		{
 			usedEffects->addItem( tr("Blur"));
 			QString tmpstr = effectsList.at(i).effectParameters;
@@ -562,12 +565,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			blRadius->setValue(radius / m_imageScale);
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), QString("%1 1.0").arg(radius / m_imageScale));
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_SOLARIZE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_SOLARIZE)
 		{
 			usedEffects->addItem( tr("Posterize"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_DUOTONE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_DUOTONE)
 		{
 			usedEffects->addItem( tr("Duotone"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
@@ -576,7 +579,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_TRITONE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_TRITONE)
 		{
 			usedEffects->addItem( tr("Tritone"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
@@ -585,7 +588,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_QUADTONE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_QUADTONE)
 		{
 			usedEffects->addItem( tr("Quadtone"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
@@ -594,7 +597,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if (effectsList.at(i).effectCode == ScImage::EF_GRADUATE)
+		if (effectsList.at(i).effectCode == ImageEffect::EF_GRADUATE)
 		{
 			usedEffects->addItem( tr("Curves"));
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
@@ -775,37 +778,37 @@ void EffectsDialog::saveValues(bool final)
 	{
 		if (usedEffects->item(e)->text() == tr("Invert"))
 		{
-			ef.effectCode = ScImage::EF_INVERT;
+			ef.effectCode = ImageEffect::EF_INVERT;
 			ef.effectParameters = "";
 		}
 		if (usedEffects->item(e)->text() == tr("Grayscale"))
 		{
-			ef.effectCode = ScImage::EF_GRAYSCALE;
+			ef.effectCode = ImageEffect::EF_GRAYSCALE;
 			ef.effectParameters = "";
 		}
 		if (usedEffects->item(e)->text() == tr("Colorize"))
 		{
-			ef.effectCode = ScImage::EF_COLORIZE;
+			ef.effectCode = ImageEffect::EF_COLORIZE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Brightness"))
 		{
-			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Contrast"))
 		{
-			ef.effectCode = ScImage::EF_CONTRAST;
+			ef.effectCode = ImageEffect::EF_CONTRAST;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Sharpen"))
 		{
-			ef.effectCode = ScImage::EF_SHARPEN;
+			ef.effectCode = ImageEffect::EF_SHARPEN;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Blur"))
 		{
-			ef.effectCode = ScImage::EF_BLUR;
+			ef.effectCode = ImageEffect::EF_BLUR;
 			if (final)
 				ef.effectParameters = QString("%1 1.0").arg(blRadius->value() * m_imageScale);
 			else
@@ -813,27 +816,27 @@ void EffectsDialog::saveValues(bool final)
 		}
 		if (usedEffects->item(e)->text() == tr("Posterize"))
 		{
-			ef.effectCode = ScImage::EF_SOLARIZE;
+			ef.effectCode = ImageEffect::EF_SOLARIZE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Duotone"))
 		{
-			ef.effectCode = ScImage::EF_DUOTONE;
+			ef.effectCode = ImageEffect::EF_DUOTONE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Tritone"))
 		{
-			ef.effectCode = ScImage::EF_TRITONE;
+			ef.effectCode = ImageEffect::EF_TRITONE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Quadtone"))
 		{
-			ef.effectCode = ScImage::EF_QUADTONE;
+			ef.effectCode = ImageEffect::EF_QUADTONE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		if (usedEffects->item(e)->text() == tr("Curves"))
 		{
-			ef.effectCode = ScImage::EF_GRADUATE;
+			ef.effectCode = ImageEffect::EF_GRADUATE;
 			ef.effectParameters = m_effectValMap[usedEffects->item(e)];
 		}
 		effectsList.append(ef);

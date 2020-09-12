@@ -45,12 +45,13 @@ class HTMLIm
 public:
 	HTMLIm(const QString& fname, const QString& encoding, gtWriter *w, bool textOnly);
 	~HTMLIm();
+
 private:
 	QString encoding;
 	QString filename;
-	gtWriter *writer;
-	gtParagraphStyle *pstyle;
-// 	int defaultFontSize;
+	gtWriter *writer { nullptr };
+	gtParagraphStyle *pstyle { nullptr };
+
 	void importText(bool textOnly);
 };
 

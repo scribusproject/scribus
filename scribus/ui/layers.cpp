@@ -215,16 +215,15 @@ void LayerPalette::rebuildList()
 	disconnect(Table, SIGNAL(cellClicked(int,int)), this, SLOT(setActiveLayer(int,int)));
 	disconnect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	QString tmp;
-	ScLayers::iterator it;
 	int layerCount = m_Doc->layerCount();
 	Table->setRowCount(layerCount);
-	for (it = layers->begin(); it != layers->end(); ++it)
+	for (auto it = layers->begin(); it != layers->end(); ++it)
 	{
-		int layerID=(*it).ID;
+		int layerID = it->ID;
 		//TODO once "layers" is not set anymore, need to get layer number differently
 		int layerLevel = m_Doc->layerLevelFromID(layerID);
 		tmp = tmp.setNum(layerLevel);
-		int row = layerCount-layerLevel-1;
+		int row = layerCount-layerLevel - 1;
 		QToolButton *pb = new QToolButton(this);
 		pb->setObjectName(tmp);
 		pb->setAutoRaise(true);
@@ -241,7 +240,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl1 = new QHBoxLayout(cw1);
 		cl1->addWidget(cp1);
 		cl1->setAlignment(Qt::AlignCenter);
-		cl1->setContentsMargins(0,0,0,0);
+		cl1->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 1, cw1);
 		cp1->setChecked(m_Doc->layerVisible(layerID));
 		connect(cp1, SIGNAL(clicked()), this, SLOT(visibleLayer()));
@@ -253,7 +252,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl2 = new QHBoxLayout(cw2);
 		cl2->addWidget(cp2);
 		cl2->setAlignment(Qt::AlignCenter);
-		cl2->setContentsMargins(0,0,0,0);
+		cl2->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 2, cw2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(printLayer()));
 
@@ -264,7 +263,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl3 = new QHBoxLayout(cw3);
 		cl3->addWidget(cp3);
 		cl3->setAlignment(Qt::AlignCenter);
-		cl3->setContentsMargins(0,0,0,0);
+		cl3->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 3, cw3);
 		connect(cp3, SIGNAL(clicked()), this, SLOT(lockLayer()));
 
@@ -275,7 +274,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl4 = new QHBoxLayout(cw4);
 		cl4->addWidget(cp4);
 		cl4->setAlignment(Qt::AlignCenter);
-		cl4->setContentsMargins(0,0,0,0);
+		cl4->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 4, cw4);
 		connect(cp4, SIGNAL(clicked()), this, SLOT(flowToggleLayer()));
 
@@ -286,7 +285,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl5 = new QHBoxLayout(cw5);
 		cl5->addWidget(cp5);
 		cl5->setAlignment(Qt::AlignCenter);
-		cl5->setContentsMargins(0,0,0,0);
+		cl5->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 5, cw5);
 		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
 
@@ -297,7 +296,7 @@ void LayerPalette::rebuildList()
 		QHBoxLayout *cl6 = new QHBoxLayout(cw6);
 		cl6->addWidget(cp6);
 		cl6->setAlignment(Qt::AlignCenter);
-		cl6->setContentsMargins(0,0,0,0);
+		cl6->setContentsMargins(0, 0, 0, 0);
 		Table->setCellWidget(row, 6, cw6);
 		connect(cp6, SIGNAL(clicked()), this, SLOT(selectToggleLayer()));
 
@@ -528,9 +527,9 @@ void LayerPalette::toggleAllfromHeader(int index)
 {
 	if (!m_Doc)
 		return;
-	ScLayers::iterator it;
+
 	int layerCount = m_Doc->layerCount();
-	for (it = layers->begin(); it != layers->end(); ++it)
+	for (auto it = layers->begin(); it != layers->end(); ++it)
 	{
 		int row = layerCount - m_Doc->layerLevelFromID(it->ID) - 1;
 		if (index == 1)

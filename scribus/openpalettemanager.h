@@ -60,7 +60,7 @@ public:
 	/**
 	  * create a new OpenPalette
 	  */
-	static void newPalette(QWidget * parent = 0);
+	static void newPalette(QWidget* parent = nullptr);
 
 	/**
 	  * Return number of palettes

@@ -345,9 +345,9 @@ void PrefsManager::initDefaults()
 	appPrefs.pathPrefs.colorProfiles = "";
 	appPrefs.pathPrefs.scripts = "";
 	appPrefs.pathPrefs.documentTemplates = "";
+
 	appPrefs.printPreviewPrefs.PrPr_Mode = false;
-	//appPrefs.Gcr_Mode = true;
-	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = false;
+	appPrefs.printPreviewPrefs.PrPr_AntiAliasing = true;
 	appPrefs.printPreviewPrefs.PrPr_Transparency = false;
 	appPrefs.printPreviewPrefs.PrPr_C = true;
 	appPrefs.printPreviewPrefs.PrPr_M = true;
@@ -355,6 +355,28 @@ void PrefsManager::initDefaults()
 	appPrefs.printPreviewPrefs.PrPr_K = true;
 	appPrefs.printPreviewPrefs.PrPr_InkCoverage = false;
 	appPrefs.printPreviewPrefs.PrPr_InkThreshold = 250;
+
+	appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing = true;
+	appPrefs.pdfOutputPreviewPrefs.showTransparency = false;
+	appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode = false ;
+	appPrefs.pdfOutputPreviewPrefs.isCyanVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isMagentaVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isYellowVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.isBlackVisible = true;
+	appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = false;
+	appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = 250;
+
+	appPrefs.psOutputPreviewPrefs.psLevel = 3;
+	appPrefs.psOutputPreviewPrefs.enableAntiAliasing = true;
+	appPrefs.psOutputPreviewPrefs.showTransparency = false;
+	appPrefs.psOutputPreviewPrefs.cmykPreviewMode = false ;
+	appPrefs.psOutputPreviewPrefs.isCyanVisible = true;
+	appPrefs.psOutputPreviewPrefs.isMagentaVisible = true;
+	appPrefs.psOutputPreviewPrefs.isYellowVisible = true;
+	appPrefs.psOutputPreviewPrefs.isBlackVisible = true;
+	appPrefs.psOutputPreviewPrefs.displayInkCoverage = false;
+	appPrefs.psOutputPreviewPrefs.inkCoverageThreshold = 250;
+
 	appPrefs.extToolPrefs.imageEditorExecutable = ScPaths::defaultImageEditorApp();
 	appPrefs.extToolPrefs.extBrowserExecutable = "";
 	appPrefs.extToolPrefs.uniconvExecutable = "uniconv";
@@ -368,13 +390,15 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_AntiAliasText = true;
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
+
 	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor(Qt::white);
-	appPrefs.storyEditorPrefs.smartTextSelection=false;
-	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = "";
-	appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = "";
+	appPrefs.storyEditorPrefs.smartTextSelection = false;
+
+	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile.clear();
+	appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile.clear();
 	appPrefs.colorPrefs.DCMSset.CMSinUse = false;
 	appPrefs.colorPrefs.DCMSset.SoftProofOn = false;
 	appPrefs.colorPrefs.DCMSset.SoftProofFullOn = false;
@@ -382,6 +406,7 @@ void PrefsManager::initDefaults()
 	appPrefs.colorPrefs.DCMSset.BlackPoint = true;
 	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = Intent_Relative_Colorimetric;
 	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = Intent_Perceptual;
+
 	appPrefs.fontPrefs.GFontSub.clear();
 	appPrefs.displayPrefs.scratch.setLeft(100);
 	appPrefs.displayPrefs.scratch.setRight(100);
@@ -524,7 +549,7 @@ void PrefsManager::applyLoadedShortCuts()
 {
 	QMap<QString, QPointer<ScrAction> > &actions = ScCore->primaryMainWindow()->scrActions;
 
-	for (QMap<QString,Keys>::Iterator it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it )
+	for (auto it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it)
 	{
 		if (it.value().actionName.isEmpty())
 			continue;
@@ -1344,11 +1369,11 @@ bool PrefsManager::WritePref(const QString& ho)
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
-	QDomElement elem=docu.documentElement();
+	QDomElement elem = docu.documentElement();
 	elem.setAttribute("VERSION","1.5.0");
 
 
-	QDomElement dcUI=docu.createElement("UI");
+	QDomElement dcUI = docu.createElement("UI");
 	dcUI.setAttribute("ShowStartupDialog", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
 	dcUI.setAttribute("ShowSplashOnStartup", static_cast<int>(appPrefs.uiPrefs.showSplashOnStartup));
 	dcUI.setAttribute("UseSmallWidgets", static_cast<int>(appPrefs.uiPrefs.useSmallWidgets));
@@ -1365,18 +1390,18 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcUI.setAttribute("UserPreferredLocale", appPrefs.uiPrefs.userPreferredLocale);
 	elem.appendChild(dcUI);
 
-	QDomElement deDocumentSetup=docu.createElement("DocumentSetup");
-	deDocumentSetup.setAttribute("Language",appPrefs.docSetupPrefs.language);
-	deDocumentSetup.setAttribute("UnitIndex",appPrefs.docSetupPrefs.docUnitIndex);
-	deDocumentSetup.setAttribute("PageSize",appPrefs.docSetupPrefs.pageSize);
-	deDocumentSetup.setAttribute("PageOrientation",appPrefs.docSetupPrefs.pageOrientation);
+	QDomElement deDocumentSetup = docu.createElement("DocumentSetup");
+	deDocumentSetup.setAttribute("Language", appPrefs.docSetupPrefs.language);
+	deDocumentSetup.setAttribute("UnitIndex", appPrefs.docSetupPrefs.docUnitIndex);
+	deDocumentSetup.setAttribute("PageSize", appPrefs.docSetupPrefs.pageSize);
+	deDocumentSetup.setAttribute("PageOrientation", appPrefs.docSetupPrefs.pageOrientation);
 	deDocumentSetup.setAttribute("PageWidth",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageWidth));
 	deDocumentSetup.setAttribute("PageHeight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageHeight));
 	deDocumentSetup.setAttribute("MarginTop",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.top()));
 	deDocumentSetup.setAttribute("MarginBottom",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.bottom()));
 	deDocumentSetup.setAttribute("MarginLeft",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.left()));
 	deDocumentSetup.setAttribute("MarginRight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.right()));
-	deDocumentSetup.setAttribute("MarginPreset",appPrefs.docSetupPrefs.marginPreset);
+	deDocumentSetup.setAttribute("MarginPreset", appPrefs.docSetupPrefs.marginPreset);
 	deDocumentSetup.setAttribute("PagePositioning", appPrefs.docSetupPrefs.pagePositioning);
 	deDocumentSetup.setAttribute("AutoSave", static_cast<int>(appPrefs.docSetupPrefs.AutoSave));
 	deDocumentSetup.setAttribute("AutoSaveTime", appPrefs.docSetupPrefs.AutoSaveTime);
@@ -1391,15 +1416,15 @@ bool PrefsManager::WritePref(const QString& ho)
 	deDocumentSetup.setAttribute("BleedBottom", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.bottom()));
 	elem.appendChild(deDocumentSetup);
 
-	QDomElement dePaths=docu.createElement("Paths");
+	QDomElement dePaths = docu.createElement("Paths");
 	dePaths.setAttribute("Documents", appPrefs.pathPrefs.documents);
 	dePaths.setAttribute("Profiles", appPrefs.pathPrefs.colorProfiles);
 	dePaths.setAttribute("Scripts", appPrefs.pathPrefs.scripts);
 	dePaths.setAttribute("Templates", appPrefs.pathPrefs.documentTemplates);
 	elem.appendChild(dePaths);
 
-	QDomElement deGuides=docu.createElement("Guides");
-	deGuides.setAttribute("GrabRadius",appPrefs.guidesPrefs.grabRadius);
+	QDomElement deGuides = docu.createElement("Guides");
+	deGuides.setAttribute("GrabRadius", appPrefs.guidesPrefs.grabRadius);
 	deGuides.setAttribute("ShowGuides", static_cast<int>(appPrefs.guidesPrefs.guidesShown));
 	deGuides.setAttribute("ShowColumnBorders", static_cast<int>(appPrefs.guidesPrefs.colBordersShown));
 	deGuides.setAttribute("ShowFrames", static_cast<int>(appPrefs.guidesPrefs.framesShown));
@@ -1414,10 +1439,10 @@ bool PrefsManager::WritePref(const QString& ho)
 	deGuides.setAttribute("RulerMode", static_cast<int>(appPrefs.guidesPrefs.rulerMode));
 	deGuides.setAttribute("MinorGridSpacing",ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
 	deGuides.setAttribute("MajorGridSpacing",ScCLocale::toQStringC(appPrefs.guidesPrefs.majorGridSpacing));
-	deGuides.setAttribute("MinorGridColor",appPrefs.guidesPrefs.minorGridColor.name());
-	deGuides.setAttribute("MajorGridColor",appPrefs.guidesPrefs.majorGridColor.name());
+	deGuides.setAttribute("MinorGridColor", appPrefs.guidesPrefs.minorGridColor.name());
+	deGuides.setAttribute("MajorGridColor", appPrefs.guidesPrefs.majorGridColor.name());
 	deGuides.setAttribute("GuidesColor", appPrefs.guidesPrefs.guideColor.name());
-	deGuides.setAttribute("MarginColor",appPrefs.guidesPrefs.marginColor.name());
+	deGuides.setAttribute("MarginColor", appPrefs.guidesPrefs.marginColor.name());
 	deGuides.setAttribute("BaselineGridColor", appPrefs.guidesPrefs.baselineGridColor.name());
 	deGuides.setAttribute("ObjectToGuideSnapRadius", ScCLocale::toQStringC(appPrefs.guidesPrefs.guideRad));
 	QString renderStack = "";
@@ -1434,7 +1459,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	deGuides.setAttribute("BaselineGridOffset", ScCLocale::toQStringC(appPrefs.guidesPrefs.offsetBaselineGrid));
 	elem.appendChild(deGuides);
 
-	QDomElement deMiscellaneous=docu.createElement("Miscellaneous");
+	QDomElement deMiscellaneous = docu.createElement("Miscellaneous");
 	deMiscellaneous.setAttribute("ShowStylePreview", static_cast<int>(appPrefs.miscPrefs.haveStylePreview));
 	deMiscellaneous.setAttribute("LoremIpsumUseStandard", static_cast<int>(appPrefs.miscPrefs.useStandardLI));
 	deMiscellaneous.setAttribute("LoremIpsumParagraphs", appPrefs.miscPrefs.paragraphsLI);
@@ -1443,34 +1468,34 @@ bool PrefsManager::WritePref(const QString& ho)
 
 
 
-	QDomElement deSE=docu.createElement("StoryEditor");
-	deSE.setAttribute("Font",appPrefs.storyEditorPrefs.guiFont);
-	deSE.setAttribute("FontColorBackground",appPrefs.storyEditorPrefs.guiFontColorBackground.name());
-	deSE.setAttribute("SmartTextSelection",static_cast<int>(appPrefs.storyEditorPrefs.smartTextSelection));
+	QDomElement deSE = docu.createElement("StoryEditor");
+	deSE.setAttribute("Font", appPrefs.storyEditorPrefs.guiFont);
+	deSE.setAttribute("FontColorBackground", appPrefs.storyEditorPrefs.guiFontColorBackground.name());
+	deSE.setAttribute("SmartTextSelection", static_cast<int>(appPrefs.storyEditorPrefs.smartTextSelection));
 	elem.appendChild(deSE);
 
-	QDomElement deDisplay=docu.createElement("Display");
+	QDomElement deDisplay = docu.createElement("Display");
 	deDisplay.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.bottom()));
 	deDisplay.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.left()));
 	deDisplay.setAttribute("ScratchRight", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.right()));
 	deDisplay.setAttribute("ScratchTop", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.top()));
 	deDisplay.setAttribute("PageGapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapHorizontal));
 	deDisplay.setAttribute("PageGapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
-	deDisplay.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
-	deDisplay.setAttribute("PageColor",appPrefs.displayPrefs.paperColor.name());
-	deDisplay.setAttribute("ScratchColor",appPrefs.displayPrefs.scratchColor.name());
-	deDisplay.setAttribute("FrameSelectedColor",appPrefs.displayPrefs.frameColor.name());
-	deDisplay.setAttribute("FrameNormColor",appPrefs.displayPrefs.frameNormColor.name());
-	deDisplay.setAttribute("FrameGroupColor",appPrefs.displayPrefs.frameGroupColor.name());
-	deDisplay.setAttribute("FrameLockColor",appPrefs.displayPrefs.frameLockColor.name());
-	deDisplay.setAttribute("FrameLinkColor",appPrefs.displayPrefs.frameLinkColor.name());
-	deDisplay.setAttribute("FrameAnnotationColor",appPrefs.displayPrefs.frameAnnotationColor.name());
-	deDisplay.setAttribute("PageBorderColor",appPrefs.displayPrefs.pageBorderColor.name());
-	deDisplay.setAttribute("ControlCharColor",appPrefs.displayPrefs.controlCharColor.name());
+	deDisplay.setAttribute("ShowPageShadow", static_cast<int>(appPrefs.displayPrefs.showPageShadow));
+	deDisplay.setAttribute("PageColor", appPrefs.displayPrefs.paperColor.name());
+	deDisplay.setAttribute("ScratchColor", appPrefs.displayPrefs.scratchColor.name());
+	deDisplay.setAttribute("FrameSelectedColor", appPrefs.displayPrefs.frameColor.name());
+	deDisplay.setAttribute("FrameNormColor", appPrefs.displayPrefs.frameNormColor.name());
+	deDisplay.setAttribute("FrameGroupColor", appPrefs.displayPrefs.frameGroupColor.name());
+	deDisplay.setAttribute("FrameLockColor", appPrefs.displayPrefs.frameLockColor.name());
+	deDisplay.setAttribute("FrameLinkColor", appPrefs.displayPrefs.frameLinkColor.name());
+	deDisplay.setAttribute("FrameAnnotationColor", appPrefs.displayPrefs.frameAnnotationColor.name());
+	deDisplay.setAttribute("PageBorderColor", appPrefs.displayPrefs.pageBorderColor.name());
+	deDisplay.setAttribute("ControlCharColor", appPrefs.displayPrefs.controlCharColor.name());
 	deDisplay.setAttribute("ShowMarginsFilled", static_cast<int>(appPrefs.displayPrefs.marginColored));
 	deDisplay.setAttribute("DisplayScale", ScCLocale::toQStringC(appPrefs.displayPrefs.displayScale, 8));
-	deDisplay.setAttribute("ShowVerifierWarningsOnCanvas",static_cast<int>(appPrefs.displayPrefs.showVerifierWarningsOnCanvas));
-	deDisplay.setAttribute("ShowAutosaveClockOnCanvas",static_cast<int>(appPrefs.displayPrefs.showAutosaveClockOnCanvas));
+	deDisplay.setAttribute("ShowVerifierWarningsOnCanvas", static_cast<int>(appPrefs.displayPrefs.showVerifierWarningsOnCanvas));
+	deDisplay.setAttribute("ShowAutosaveClockOnCanvas", static_cast<int>(appPrefs.displayPrefs.showAutosaveClockOnCanvas));
 	deDisplay.setAttribute("ToolTips", static_cast<int>(appPrefs.displayPrefs.showToolTips));
 	deDisplay.setAttribute("ShowMouseCoordinates", static_cast<int>(appPrefs.displayPrefs.showMouseCoordinates));
 	elem.appendChild(deDisplay);
@@ -1478,37 +1503,36 @@ bool PrefsManager::WritePref(const QString& ho)
 	// Font information must be written before Fonts element so that face "usable"
 	// member is set properly before one try to set default font. Allows to check
 	// that default font is indeed usable, problems expected otherwise
-	for ( SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
+	for (SCFontsIterator itf(appPrefs.fontPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		if (!itf.currentKey().isEmpty())
 		{
-			QDomElement fn=docu.createElement("Font");
+			QDomElement fn = docu.createElement("Font");
 			fn.setAttribute("Name",itf.currentKey());
-			fn.setAttribute("Embed",static_cast<int>(itf.current().embedPs()));
+			fn.setAttribute("Embed", static_cast<int>(itf.current().embedPs()));
 			fn.setAttribute("Use", static_cast<int>(itf.current().usable()));
 			fn.setAttribute("Subset", static_cast<int>(itf.current().subset()));
 			elem.appendChild(fn);
 		}
 	}
-	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = appPrefs.fontPrefs.GFontSub.begin(); itfsu != appPrefs.fontPrefs.GFontSub.end(); ++itfsu)
+	for (auto itfsu = appPrefs.fontPrefs.GFontSub.begin(); itfsu != appPrefs.fontPrefs.GFontSub.end(); ++itfsu)
 	{
 		QDomElement fosu = docu.createElement("Substitute");
-		fosu.setAttribute("Name",itfsu.key());
-		fosu.setAttribute("Replace",itfsu.value());
+		fosu.setAttribute("Name", itfsu.key());
+		fosu.setAttribute("Replace", itfsu.value());
 		elem.appendChild(fosu);
 	}
 
-	QDomElement dcFonts=docu.createElement("Fonts");
+	QDomElement dcFonts = docu.createElement("Fonts");
 	dcFonts.setAttribute("AutomaticSubstitution", static_cast<int>(appPrefs.fontPrefs.askBeforeSubstitute));
 	elem.appendChild(dcFonts);
 
-	QDomElement dcTypography=docu.createElement("Typography");
-	dcTypography.setAttribute("SubScriptDistance",appPrefs.typoPrefs.valueSubScript);
-	dcTypography.setAttribute("SubScriptScaling",appPrefs.typoPrefs.scalingSubScript);
-	dcTypography.setAttribute("SuperScriptDistance",appPrefs.typoPrefs.valueSuperScript);
-	dcTypography.setAttribute("SuperScriptScaling",appPrefs.typoPrefs.scalingSuperScript);
-	dcTypography.setAttribute("SmallCapsScaling",appPrefs.typoPrefs.valueSmallCaps);
+	QDomElement dcTypography = docu.createElement("Typography");
+	dcTypography.setAttribute("SubScriptDistance", appPrefs.typoPrefs.valueSubScript);
+	dcTypography.setAttribute("SubScriptScaling", appPrefs.typoPrefs.scalingSubScript);
+	dcTypography.setAttribute("SuperScriptDistance", appPrefs.typoPrefs.valueSuperScript);
+	dcTypography.setAttribute("SuperScriptScaling", appPrefs.typoPrefs.scalingSuperScript);
+	dcTypography.setAttribute("SmallCapsScaling", appPrefs.typoPrefs.valueSmallCaps);
 	dcTypography.setAttribute("AutomaticLineSpacing", appPrefs.typoPrefs.autoLineSpacing);
 	if (appPrefs.typoPrefs.valueUnderlinePos == -1)
 		dcTypography.setAttribute("UnderlineDistance", appPrefs.typoPrefs.valueUnderlinePos);
@@ -1528,37 +1552,37 @@ bool PrefsManager::WritePref(const QString& ho)
 		dcTypography.setAttribute("StrikeThruWidth", appPrefs.typoPrefs.valueStrikeThruWidth / 10.0);
 	elem.appendChild(dcTypography);
 
-	QDomElement dcItemTools=docu.createElement("ItemTools");
-	dcItemTools.setAttribute("ShapeLineColor",appPrefs.itemToolPrefs.shapeLineColor);
-	dcItemTools.setAttribute("ShapeFillColor",appPrefs.itemToolPrefs.shapeFillColor);
-	dcItemTools.setAttribute("LineColor",appPrefs.itemToolPrefs.lineColor);
-	dcItemTools.setAttribute("TextColor",appPrefs.itemToolPrefs.textColor);
-	dcItemTools.setAttribute("TextStrokeColor",appPrefs.itemToolPrefs.textStrokeColor);
+	QDomElement dcItemTools = docu.createElement("ItemTools");
+	dcItemTools.setAttribute("ShapeLineColor", appPrefs.itemToolPrefs.shapeLineColor);
+	dcItemTools.setAttribute("ShapeFillColor", appPrefs.itemToolPrefs.shapeFillColor);
+	dcItemTools.setAttribute("LineColor", appPrefs.itemToolPrefs.lineColor);
+	dcItemTools.setAttribute("TextColor", appPrefs.itemToolPrefs.textColor);
+	dcItemTools.setAttribute("TextStrokeColor", appPrefs.itemToolPrefs.textStrokeColor);
 	dcItemTools.setAttribute("TextBackgroundColor", appPrefs.itemToolPrefs.textFillColor);
 	dcItemTools.setAttribute("TextLineColor", appPrefs.itemToolPrefs.textLineColor);
 	dcItemTools.setAttribute("TextBackgroundColorShade", appPrefs.itemToolPrefs.textFillColorShade);
 	dcItemTools.setAttribute("TextLineColorShade", appPrefs.itemToolPrefs.textLineColorShade);
 	dcItemTools.setAttribute("TextColorShade", appPrefs.itemToolPrefs.textShade);
 	dcItemTools.setAttribute("TextStrokeColorShade", appPrefs.itemToolPrefs.textStrokeShade);
-	dcItemTools.setAttribute("TextColumnCount",appPrefs.itemToolPrefs.textColumns);
+	dcItemTools.setAttribute("TextColumnCount", appPrefs.itemToolPrefs.textColumns);
 	dcItemTools.setAttribute("TextColumnGap",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textColumnGap));
 	dcItemTools.setAttribute("TextTabWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textTabWidth));
 	dcItemTools.setAttribute("TextDistanceTop",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.top()));
 	dcItemTools.setAttribute("TextDistanceBottom",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.bottom()));
 	dcItemTools.setAttribute("TextDistanceLeft",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.left()));
 	dcItemTools.setAttribute("TextDistanceRight",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.right()));
-	dcItemTools.setAttribute("TabFillCharacter",appPrefs.itemToolPrefs.textTabFillChar);
-	dcItemTools.setAttribute("ShapeLineStyle",appPrefs.itemToolPrefs.shapeLineStyle);
-	dcItemTools.setAttribute("LineStyle",appPrefs.itemToolPrefs.lineStyle);
+	dcItemTools.setAttribute("TabFillCharacter", appPrefs.itemToolPrefs.textTabFillChar);
+	dcItemTools.setAttribute("ShapeLineStyle", appPrefs.itemToolPrefs.shapeLineStyle);
+	dcItemTools.setAttribute("LineStyle", appPrefs.itemToolPrefs.lineStyle);
 	dcItemTools.setAttribute("ShapeLineWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.shapeLineWidth));
 	dcItemTools.setAttribute("LineWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.lineWidth));
-	dcItemTools.setAttribute("ShapeLineColorShade",appPrefs.itemToolPrefs.shapeLineColorShade);
-	dcItemTools.setAttribute("LineColorShade",appPrefs.itemToolPrefs.lineColorShade);
-	dcItemTools.setAttribute("ShapeFillColorShade",appPrefs.itemToolPrefs.shapeFillColorShade);
-	dcItemTools.setAttribute("ImageFillColor",appPrefs.itemToolPrefs.imageFillColor);
-	dcItemTools.setAttribute("ImageFillColorShade",appPrefs.itemToolPrefs.imageFillColorShade);
-	dcItemTools.setAttribute("ImageStrokeColor",appPrefs.itemToolPrefs.imageStrokeColor);
-	dcItemTools.setAttribute("ImageStrokeColorShade",appPrefs.itemToolPrefs.imageStrokeColorShade);
+	dcItemTools.setAttribute("ShapeLineColorShade", appPrefs.itemToolPrefs.shapeLineColorShade);
+	dcItemTools.setAttribute("LineColorShade", appPrefs.itemToolPrefs.lineColorShade);
+	dcItemTools.setAttribute("ShapeFillColorShade", appPrefs.itemToolPrefs.shapeFillColorShade);
+	dcItemTools.setAttribute("ImageFillColor", appPrefs.itemToolPrefs.imageFillColor);
+	dcItemTools.setAttribute("ImageFillColorShade", appPrefs.itemToolPrefs.imageFillColorShade);
+	dcItemTools.setAttribute("ImageStrokeColor", appPrefs.itemToolPrefs.imageStrokeColor);
+	dcItemTools.setAttribute("ImageStrokeColorShade", appPrefs.itemToolPrefs.imageStrokeColorShade);
 	dcItemTools.setAttribute("ImageScaleX",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleX));
 	dcItemTools.setAttribute("ImageScaleY",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleY));
 	dcItemTools.setAttribute("PolygonCorners", appPrefs.itemToolPrefs.polyCorners);
@@ -1579,8 +1603,8 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcItemTools.setAttribute("ImageLowResType", appPrefs.itemToolPrefs.imageLowResType);
 	dcItemTools.setAttribute("LineStartArrow", appPrefs.itemToolPrefs.lineStartArrow);
 	dcItemTools.setAttribute("LineEndArrow", appPrefs.itemToolPrefs.lineEndArrow);
-	dcItemTools.setAttribute("FontFace",appPrefs.itemToolPrefs.textFont);
-	dcItemTools.setAttribute("FontSize",appPrefs.itemToolPrefs.textSize / 10.0);
+	dcItemTools.setAttribute("FontFace", appPrefs.itemToolPrefs.textFont);
+	dcItemTools.setAttribute("FontSize", appPrefs.itemToolPrefs.textSize / 10.0);
 	dcItemTools.setAttribute("CalligraphicPenFillColor", appPrefs.itemToolPrefs.calligraphicPenFillColor);
 	dcItemTools.setAttribute("CalligraphicPenLineColor", appPrefs.itemToolPrefs.calligraphicPenLineColor);
 	dcItemTools.setAttribute("CalligraphicPenFillColorShade", appPrefs.itemToolPrefs.calligraphicPenFillColorShade);
@@ -1588,56 +1612,54 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcItemTools.setAttribute("CalligraphicPenLineWidth", appPrefs.itemToolPrefs.calligraphicPenLineWidth);
 	dcItemTools.setAttribute("CalligraphicPenAngle", appPrefs.itemToolPrefs.calligraphicPenAngle);
 	dcItemTools.setAttribute("CalligraphicPenWidth", appPrefs.itemToolPrefs.calligraphicPenWidth);
-	dcItemTools.setAttribute("CalligraphicPenStyle",appPrefs.itemToolPrefs.calligraphicPenStyle);
+	dcItemTools.setAttribute("CalligraphicPenStyle", appPrefs.itemToolPrefs.calligraphicPenStyle);
 	elem.appendChild(dcItemTools);
 
-	QDomElement dcOperatorTools=docu.createElement("OperatorTools");
-	dcOperatorTools.setAttribute("MinimumMagnification",appPrefs.opToolPrefs.magMin);
-	dcOperatorTools.setAttribute("MaximumMagnification",appPrefs.opToolPrefs.magMax);
-	dcOperatorTools.setAttribute("MagnificationStep",appPrefs.opToolPrefs.magStep);
+	QDomElement dcOperatorTools = docu.createElement("OperatorTools");
+	dcOperatorTools.setAttribute("MinimumMagnification", appPrefs.opToolPrefs.magMin);
+	dcOperatorTools.setAttribute("MaximumMagnification", appPrefs.opToolPrefs.magMax);
+	dcOperatorTools.setAttribute("MagnificationStep", appPrefs.opToolPrefs.magStep);
 	dcOperatorTools.setAttribute("DisplayOffsetX", ScCLocale::toQStringC(appPrefs.opToolPrefs.dispX));
 	dcOperatorTools.setAttribute("DisplayOffsetY", ScCLocale::toQStringC(appPrefs.opToolPrefs.dispY));
 	dcOperatorTools.setAttribute("RotationConstrainAngle", ScCLocale::toQStringC(appPrefs.opToolPrefs.constrain));
 	elem.appendChild(dcOperatorTools);
 
-	QDomElement dcMainWindow=docu.createElement("MainWindow");
-	dcMainWindow.setAttribute("XPosition",appPrefs.uiPrefs.mainWinSettings.xPosition);
-	dcMainWindow.setAttribute("YPosition",appPrefs.uiPrefs.mainWinSettings.yPosition);
-	dcMainWindow.setAttribute("Width",appPrefs.uiPrefs.mainWinSettings.width);
-	dcMainWindow.setAttribute("Height",appPrefs.uiPrefs.mainWinSettings.height);
-	dcMainWindow.setAttribute("Maximized",static_cast<int>(appPrefs.uiPrefs.mainWinSettings.maximized));
-	dcMainWindow.setAttribute("ScreenNumber",appPrefs.uiPrefs.mainWinSettings.screenNumber);
+	QDomElement dcMainWindow = docu.createElement("MainWindow");
+	dcMainWindow.setAttribute("XPosition", appPrefs.uiPrefs.mainWinSettings.xPosition);
+	dcMainWindow.setAttribute("YPosition", appPrefs.uiPrefs.mainWinSettings.yPosition);
+	dcMainWindow.setAttribute("Width", appPrefs.uiPrefs.mainWinSettings.width);
+	dcMainWindow.setAttribute("Height", appPrefs.uiPrefs.mainWinSettings.height);
+	dcMainWindow.setAttribute("Maximized", static_cast<int>(appPrefs.uiPrefs.mainWinSettings.maximized));
+	dcMainWindow.setAttribute("ScreenNumber", appPrefs.uiPrefs.mainWinSettings.screenNumber);
 	elem.appendChild(dcMainWindow);
 
-	QDomElement dcScrapbook=docu.createElement("ScrapBook");
-	dcScrapbook.setAttribute("CopyToScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.doCopyToScrapbook));
-	dcScrapbook.setAttribute("PersistentScrapbook",static_cast<int>(appPrefs.scrapbookPrefs.persistentScrapbook));
-	dcScrapbook.setAttribute("WritePreviews",static_cast<int>(appPrefs.scrapbookPrefs.writePreviews));
-	dcScrapbook.setAttribute("ScrapbookCopies",appPrefs.scrapbookPrefs.numScrapbookCopies);
+	QDomElement dcScrapbook = docu.createElement("ScrapBook");
+	dcScrapbook.setAttribute("CopyToScrapbook", static_cast<int>(appPrefs.scrapbookPrefs.doCopyToScrapbook));
+	dcScrapbook.setAttribute("PersistentScrapbook", static_cast<int>(appPrefs.scrapbookPrefs.persistentScrapbook));
+	dcScrapbook.setAttribute("WritePreviews", static_cast<int>(appPrefs.scrapbookPrefs.writePreviews));
+	dcScrapbook.setAttribute("ScrapbookCopies", appPrefs.scrapbookPrefs.numScrapbookCopies);
 	for (int i=0; i<appPrefs.scrapbookPrefs.RecentScrapbooks.count(); ++i)
 	{
-		QDomElement rde=docu.createElement("Recent");
-		rde.setAttribute("Name",appPrefs.scrapbookPrefs.RecentScrapbooks[i]);
+		QDomElement rde = docu.createElement("Recent");
+		rde.setAttribute("Name", appPrefs.scrapbookPrefs.RecentScrapbooks[i]);
 		dcScrapbook.appendChild(rde);
 	}
 	elem.appendChild(dcScrapbook);
 
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QList<PageSet>::Iterator itpgset;
-	for(itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset )
+	for (auto itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset)
 	{
 		QDomElement pgst = docu.createElement("Set");
-		pgst.setAttribute("Name", (*itpgset).Name);
-		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
-		pgst.setAttribute("Rows", (*itpgset).Rows);
-		pgst.setAttribute("Columns", (*itpgset).Columns);
-//		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-//		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
-//		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
-		QStringList pNames = (*itpgset).pageNames;
-		QStringList::Iterator itpgsetN;
-		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		pgst.setAttribute("Name", itpgset->Name);
+		pgst.setAttribute("FirstPage", itpgset->FirstPage);
+		pgst.setAttribute("Rows", itpgset->Rows);
+		pgst.setAttribute("Columns", itpgset->Columns);
+//		pgst.setAttribute("GapHorizontal", itpgset->GapHorizontal);
+//		pgst.setAttribute("GapVertical", itpgset->GapVertical);
+//		pgst.setAttribute("GapBelow", itpgset->GapBelow);
+		QStringList pNames = itpgset->pageNames;
+		for (auto itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
 		{
 			QDomElement pgstN = docu.createElement("PageNames");
 			pgstN.setAttribute("Name", (*itpgsetN));
@@ -1647,69 +1669,69 @@ bool PrefsManager::WritePref(const QString& ho)
 	}
 	elem.appendChild(pageSetAttr);
 
-	QDomElement dcPreflightVerifier=docu.createElement("PreflightVerifier");
+	QDomElement dcPreflightVerifier = docu.createElement("PreflightVerifier");
 	dcPreflightVerifier.setAttribute("CurrentProfile", appPrefs.verifierPrefs.curCheckProfile);
 	dcPreflightVerifier.setAttribute("ShowPagesWithoutErrors", appPrefs.verifierPrefs.showPagesWithoutErrors);
 	dcPreflightVerifier.setAttribute("ShowNonPrintingLayerErrors", appPrefs.verifierPrefs.showNonPrintingLayerErrors);
 	elem.appendChild(dcPreflightVerifier);
 
-	CheckerPrefsList::Iterator itcp;
-	CheckerPrefsList::Iterator itcpend=appPrefs.verifierPrefs.checkerPrefsList.end();
-	for (itcp = appPrefs.verifierPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
+	CheckerPrefsList::Iterator itcpend = appPrefs.verifierPrefs.checkerPrefsList.end();
+	for (auto itcp = appPrefs.verifierPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
 	{
-		QDomElement dcVerifierProfile=docu.createElement("VerifierProfile");
-		dcVerifierProfile.setAttribute("Name",itcp.key());
-		dcVerifierProfile.setAttribute("IgnoreErrors", static_cast<int>(itcp.value().ignoreErrors));
-		dcVerifierProfile.setAttribute("AutoCheck", static_cast<int>(itcp.value().autoCheck));
-		dcVerifierProfile.setAttribute("CheckGlyphs", static_cast<int>(itcp.value().checkGlyphs));
-		dcVerifierProfile.setAttribute("CheckOrphans", static_cast<int>(itcp.value().checkOrphans));
-		dcVerifierProfile.setAttribute("CheckOverflow", static_cast<int>(itcp.value().checkOverflow));
-		dcVerifierProfile.setAttribute("CheckPictures", static_cast<int>(itcp.value().checkPictures));
-		dcVerifierProfile.setAttribute("CheckResolution", static_cast<int>(itcp.value().checkResolution));
-		dcVerifierProfile.setAttribute("CheckPartFilledImageFrames", static_cast<int>(itcp.value().checkPartFilledImageFrames));
-		dcVerifierProfile.setAttribute("CheckTransparency", static_cast<int>(itcp.value().checkTransparency));
-		dcVerifierProfile.setAttribute("CheckAnnotations", static_cast<int>(itcp.value().checkAnnotations));
-		dcVerifierProfile.setAttribute("CheckRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
-		dcVerifierProfile.setAttribute("CheckForGIF", static_cast<int>(itcp.value().checkForGIF));
-		dcVerifierProfile.setAttribute("IgnoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
-		dcVerifierProfile.setAttribute("CheckOffConflictLayers", static_cast<int>(itcp.value().checkOffConflictLayers));
-		dcVerifierProfile.setAttribute("MinimumResolution",ScCLocale::toQStringC(itcp.value().minResolution));
-		dcVerifierProfile.setAttribute("MaximumResolution",ScCLocale::toQStringC(itcp.value().maxResolution));
-		dcVerifierProfile.setAttribute("CheckNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
-		dcVerifierProfile.setAttribute("CheckDeviceColorsAndOutputIntent", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntent));
-		dcVerifierProfile.setAttribute("CheckFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));
-		dcVerifierProfile.setAttribute("CheckFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
-		dcVerifierProfile.setAttribute("CheckAppliedMasterDifferentSide", static_cast<int>(itcp.value().checkAppliedMasterDifferentSide));
-		dcVerifierProfile.setAttribute("CheckEmptyTextFrames", static_cast<int>(itcp.value().checkEmptyTextFrames));
+		QDomElement dcVerifierProfile = docu.createElement("VerifierProfile");
+		const CheckerPrefs& checkerProfile = itcp.value();
+		dcVerifierProfile.setAttribute("Name", itcp.key());
+		dcVerifierProfile.setAttribute("IgnoreErrors", static_cast<int>(checkerProfile.ignoreErrors));
+		dcVerifierProfile.setAttribute("AutoCheck", static_cast<int>(checkerProfile.autoCheck));
+		dcVerifierProfile.setAttribute("CheckGlyphs", static_cast<int>(checkerProfile.checkGlyphs));
+		dcVerifierProfile.setAttribute("CheckOrphans", static_cast<int>(checkerProfile.checkOrphans));
+		dcVerifierProfile.setAttribute("CheckOverflow", static_cast<int>(checkerProfile.checkOverflow));
+		dcVerifierProfile.setAttribute("CheckPictures", static_cast<int>(checkerProfile.checkPictures));
+		dcVerifierProfile.setAttribute("CheckResolution", static_cast<int>(checkerProfile.checkResolution));
+		dcVerifierProfile.setAttribute("CheckPartFilledImageFrames", static_cast<int>(checkerProfile.checkPartFilledImageFrames));
+		dcVerifierProfile.setAttribute("CheckTransparency", static_cast<int>(checkerProfile.checkTransparency));
+		dcVerifierProfile.setAttribute("CheckAnnotations", static_cast<int>(checkerProfile.checkAnnotations));
+		dcVerifierProfile.setAttribute("CheckRasterPDF", static_cast<int>(checkerProfile.checkRasterPDF));
+		dcVerifierProfile.setAttribute("CheckForGIF", static_cast<int>(checkerProfile.checkForGIF));
+		dcVerifierProfile.setAttribute("IgnoreOffLayers", static_cast<int>(checkerProfile.ignoreOffLayers));
+		dcVerifierProfile.setAttribute("CheckOffConflictLayers", static_cast<int>(checkerProfile.checkOffConflictLayers));
+		dcVerifierProfile.setAttribute("MinimumResolution",ScCLocale::toQStringC(checkerProfile.minResolution));
+		dcVerifierProfile.setAttribute("MaximumResolution",ScCLocale::toQStringC(checkerProfile.maxResolution));
+		dcVerifierProfile.setAttribute("CheckNotCMYKOrSpot", static_cast<int>(checkerProfile.checkNotCMYKOrSpot));
+		dcVerifierProfile.setAttribute("CheckDeviceColorsAndOutputIntent", static_cast<int>(checkerProfile.checkDeviceColorsAndOutputIntent));
+		dcVerifierProfile.setAttribute("CheckFontNotEmbedded", static_cast<int>(checkerProfile.checkFontNotEmbedded));
+		dcVerifierProfile.setAttribute("CheckFontIsOpenType", static_cast<int>(checkerProfile.checkFontIsOpenType));
+		dcVerifierProfile.setAttribute("CheckAppliedMasterDifferentSide", static_cast<int>(checkerProfile.checkAppliedMasterDifferentSide));
+		dcVerifierProfile.setAttribute("CheckEmptyTextFrames", static_cast<int>(checkerProfile.checkEmptyTextFrames));
 		elem.appendChild(dcVerifierProfile);
 	}
-	QDomElement dcColorManagement=docu.createElement("ColorManagement");
+
+	QDomElement dcColorManagement = docu.createElement("ColorManagement");
 	dcColorManagement.setAttribute("SoftProofOn", static_cast<int>(appPrefs.colorPrefs.DCMSset.SoftProofOn));
 	dcColorManagement.setAttribute("SoftProofFullOn", static_cast<int>(appPrefs.colorPrefs.DCMSset.SoftProofFullOn));
 	dcColorManagement.setAttribute("ColorManagementActive", static_cast<int>(appPrefs.colorPrefs.DCMSset.CMSinUse));
 	dcColorManagement.setAttribute("GamutCheck", static_cast<int>(appPrefs.colorPrefs.DCMSset.GamutCheck));
 	dcColorManagement.setAttribute("BlackPoint", static_cast<int>(appPrefs.colorPrefs.DCMSset.BlackPoint));
-	dcColorManagement.setAttribute("DefaultMonitorProfile",appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
-	dcColorManagement.setAttribute("DefaultPrinterProfile",appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
-	dcColorManagement.setAttribute("DefaultImageRGBProfile",appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
-	dcColorManagement.setAttribute("DefaultImageCMYKProfile",appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
-	dcColorManagement.setAttribute("DefaultSolidColorRGBProfile",appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
-	dcColorManagement.setAttribute("DefaultSolorColorCMYKProfile",appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
-	dcColorManagement.setAttribute("DefaultIntentColors",appPrefs.colorPrefs.DCMSset.DefaultIntentColors);
-	dcColorManagement.setAttribute("DefaultIntentImages",appPrefs.colorPrefs.DCMSset.DefaultIntentImages);
+	dcColorManagement.setAttribute("DefaultMonitorProfile", appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile);
+	dcColorManagement.setAttribute("DefaultPrinterProfile", appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile);
+	dcColorManagement.setAttribute("DefaultImageRGBProfile", appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile);
+	dcColorManagement.setAttribute("DefaultImageCMYKProfile", appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile);
+	dcColorManagement.setAttribute("DefaultSolidColorRGBProfile", appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile);
+	dcColorManagement.setAttribute("DefaultSolorColorCMYKProfile", appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile);
+	dcColorManagement.setAttribute("DefaultIntentColors", appPrefs.colorPrefs.DCMSset.DefaultIntentColors);
+	dcColorManagement.setAttribute("DefaultIntentImages", appPrefs.colorPrefs.DCMSset.DefaultIntentImages);
 	elem.appendChild(dcColorManagement);
 
-	QDomElement dcPrinter=docu.createElement("Printer");
-	dcPrinter.setAttribute("Name",appPrefs.printerPrefs.PrinterName);
-	dcPrinter.setAttribute("File",appPrefs.printerPrefs.PrinterFile);
-	dcPrinter.setAttribute("Command",appPrefs.printerPrefs.PrinterCommand);
+	QDomElement dcPrinter = docu.createElement("Printer");
+	dcPrinter.setAttribute("Name", appPrefs.printerPrefs.PrinterName);
+	dcPrinter.setAttribute("File", appPrefs.printerPrefs.PrinterFile);
+	dcPrinter.setAttribute("Command", appPrefs.printerPrefs.PrinterCommand);
 	dcPrinter.setAttribute("ClipToMargins", static_cast<int>(appPrefs.printerPrefs.ClipMargin));
 	dcPrinter.setAttribute("GCRMode", static_cast<int>(appPrefs.printerPrefs.GCRMode));
 	elem.appendChild(dcPrinter);
 
-	QDomElement dc8Pr=docu.createElement("PrintPreview");
+	QDomElement dc8Pr = docu.createElement("PrintPreview");
 	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Mode));
-	//dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
 	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_AntiAliasing));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_Transparency));
 	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_C));
@@ -1719,6 +1741,32 @@ bool PrefsManager::WritePref(const QString& ho)
 	dc8Pr.setAttribute("InkCoverage", static_cast<int>(appPrefs.printPreviewPrefs.PrPr_InkCoverage));
 	dc8Pr.setAttribute("InkThreshold", appPrefs.printPreviewPrefs.PrPr_InkThreshold);
 	elem.appendChild(dc8Pr);
+
+	QDomElement dcPdfOutputPrev = docu.createElement("PDFOutputPreview");
+	dcPdfOutputPrev.setAttribute("AntiAliasing", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing));
+	dcPdfOutputPrev.setAttribute("Transparency", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.showTransparency));
+	dcPdfOutputPrev.setAttribute("CMYKMode", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode));
+	dcPdfOutputPrev.setAttribute("Cyan", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isCyanVisible));
+	dcPdfOutputPrev.setAttribute("Magenta", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isMagentaVisible));
+	dcPdfOutputPrev.setAttribute("Yellow", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isYellowVisible));
+	dcPdfOutputPrev.setAttribute("Black", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.isBlackVisible));
+	dcPdfOutputPrev.setAttribute("InkCoverage", static_cast<int>(appPrefs.pdfOutputPreviewPrefs.displayInkCoverage));
+	dcPdfOutputPrev.setAttribute("InkThreshold", appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold);
+	elem.appendChild(dcPdfOutputPrev);
+
+	QDomElement dcPSOutputPrev = docu.createElement("PSOutputPreview");
+	dcPSOutputPrev.setAttribute("PSLevel", static_cast<int>(appPrefs.psOutputPreviewPrefs.psLevel));
+	dcPSOutputPrev.setAttribute("AntiAliasing", static_cast<int>(appPrefs.psOutputPreviewPrefs.enableAntiAliasing));
+	dcPSOutputPrev.setAttribute("Transparency", static_cast<int>(appPrefs.psOutputPreviewPrefs.showTransparency));
+	dcPSOutputPrev.setAttribute("CMYKMode", static_cast<int>(appPrefs.psOutputPreviewPrefs.cmykPreviewMode));
+	dcPSOutputPrev.setAttribute("Cyan", static_cast<int>(appPrefs.psOutputPreviewPrefs.isCyanVisible));
+	dcPSOutputPrev.setAttribute("Magenta", static_cast<int>(appPrefs.psOutputPreviewPrefs.isMagentaVisible));
+	dcPSOutputPrev.setAttribute("Yellow", static_cast<int>(appPrefs.psOutputPreviewPrefs.isYellowVisible));
+	dcPSOutputPrev.setAttribute("Black", static_cast<int>(appPrefs.psOutputPreviewPrefs.isBlackVisible));
+	dcPSOutputPrev.setAttribute("InkCoverage", static_cast<int>(appPrefs.psOutputPreviewPrefs.displayInkCoverage));
+	dcPSOutputPrev.setAttribute("InkThreshold", appPrefs.psOutputPreviewPrefs.inkCoverageThreshold);
+	elem.appendChild(dcPSOutputPrev);
+
 	QDomElement dcExternalTools = docu.createElement("ExternalTools");
 	dcExternalTools.setAttribute("ImageEditor", imageEditorExecutable());
 	dcExternalTools.setAttribute("Ghostscript", ghostscriptExecutable());
@@ -1741,17 +1789,17 @@ bool PrefsManager::WritePref(const QString& ho)
 		dcExternalTools.appendChild(domConfig);
 	}
 	elem.appendChild(dcExternalTools);
-	QDomElement rde=docu.createElement("Hyphenator");
+	QDomElement rde = docu.createElement("Hyphenator");
 	rde.setAttribute("Automatic", static_cast<int>(appPrefs.hyphPrefs.Automatic));
 	rde.setAttribute("AutomaticCheck", static_cast<int>(appPrefs.hyphPrefs.AutoCheck));
-	for (QHash<QString, QString>::Iterator hyit = appPrefs.hyphPrefs.specialWords.begin(); hyit != appPrefs.hyphPrefs.specialWords.end(); ++hyit)
+	for (auto hyit = appPrefs.hyphPrefs.specialWords.begin(); hyit != appPrefs.hyphPrefs.specialWords.end(); ++hyit)
 	{
 		QDomElement hyelm = docu.createElement("Exception");
 		hyelm.setAttribute("Word", hyit.key());
 		hyelm.setAttribute("Hyphenated", hyit.value());
 		rde.appendChild(hyelm);
 	}
-	for (QSet<QString>::Iterator hyit2 = appPrefs.hyphPrefs.ignoredWords.begin(); hyit2 != appPrefs.hyphPrefs.ignoredWords.end(); ++hyit2)
+	for (auto hyit2 = appPrefs.hyphPrefs.ignoredWords.begin(); hyit2 != appPrefs.hyphPrefs.ignoredWords.end(); ++hyit2)
 	{
 		QDomElement hyelm2 = docu.createElement("Ignore");
 		hyelm2.setAttribute("Word", (*hyit2));
@@ -1760,21 +1808,21 @@ bool PrefsManager::WritePref(const QString& ho)
 	elem.appendChild(rde);
 	for (int rd=0; rd<appPrefs.uiPrefs.RecentDocs.count(); ++rd)
 	{
-		QDomElement rde=docu.createElement("Recent");
-		rde.setAttribute("Name",appPrefs.uiPrefs.RecentDocs[rd]);
+		QDomElement rde = docu.createElement("Recent");
+		rde.setAttribute("Name", appPrefs.uiPrefs.RecentDocs[rd]);
 		elem.appendChild(rde);
 	}
-	for (QMap<QString,Keys>::Iterator ksc=appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc!=appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
+	for (auto ksc = appPrefs.keyShortcutPrefs.KeyActions.begin(); ksc!=appPrefs.keyShortcutPrefs.KeyActions.end(); ++ksc)
 	{
 		if (ksc.value().actionName.isEmpty())
 			continue;
-		QDomElement kscc=docu.createElement("Shortcut");
+		QDomElement kscc = docu.createElement("Shortcut");
 		kscc.setAttribute("Action",ksc.value().actionName);
 		kscc.setAttribute("KeySequence", Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
 	}
-	QDomElement cosd=docu.createElement("DefaultColorSet");
-	cosd.setAttribute("Name",appPrefs.colorPrefs.DColorSet);
+	QDomElement cosd = docu.createElement("DefaultColorSet");
+	cosd.setAttribute("Name", appPrefs.colorPrefs.DColorSet);
 	elem.appendChild(cosd);
 
 	QDomElement pdf = docu.createElement("PDF");
@@ -1837,8 +1885,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	pdf.setAttribute("openAfterExport", static_cast<int>(appPrefs.pdfPrefs.openAfterExport));
 	pdf.setAttribute("PageLayout", appPrefs.pdfPrefs.PageLayout);
 	pdf.setAttribute("OpenAction", appPrefs.pdfPrefs.openAction);
-	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = appPrefs.pdfPrefs.LPISettings.begin(); itlp != appPrefs.pdfPrefs.LPISettings.end(); ++itlp)
+	for (auto itlp = appPrefs.pdfPrefs.LPISettings.begin(); itlp != appPrefs.pdfPrefs.LPISettings.end(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
@@ -1848,8 +1895,9 @@ bool PrefsManager::WritePref(const QString& ho)
 		pdf.appendChild(pdf4);
 	}
 	elem.appendChild(pdf);
+
 	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
-	for(ObjAttrVector::Iterator objAttrIt = appPrefs.itemAttrPrefs.defaultItemAttributes.begin() ; objAttrIt != appPrefs.itemAttrPrefs.defaultItemAttributes.end(); ++objAttrIt )
+	for(auto objAttrIt = appPrefs.itemAttrPrefs.defaultItemAttributes.begin() ; objAttrIt != appPrefs.itemAttrPrefs.defaultItemAttributes.end(); ++objAttrIt)
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
 		itemAttr.setAttribute("Name", (*objAttrIt).name);
@@ -1862,8 +1910,9 @@ bool PrefsManager::WritePref(const QString& ho)
 		docItemAttrs.appendChild(itemAttr);
 	}
 	elem.appendChild(docItemAttrs);
+
 	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for(ToCSetupVector::Iterator tocSetupIt = appPrefs.tocPrefs.defaultToCSetups.begin() ; tocSetupIt != appPrefs.tocPrefs.defaultToCSetups.end(); ++tocSetupIt )
+	for(auto tocSetupIt = appPrefs.tocPrefs.defaultToCSetups.begin() ; tocSetupIt != appPrefs.tocPrefs.defaultToCSetups.end(); ++tocSetupIt)
 	{
 		QDomElement tocsetup = docu.createElement("TableOfContents");
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
@@ -2414,8 +2463,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 		if (dc.tagName()=="PrintPreview")
 		{
 			appPrefs.printPreviewPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
-			//appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
-			appPrefs.printPreviewPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
+			appPrefs.printPreviewPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
 			appPrefs.printPreviewPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
@@ -2423,6 +2471,31 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.printPreviewPrefs.PrPr_K = static_cast<bool>(dc.attribute("Black", "1").toInt());
 			appPrefs.printPreviewPrefs.PrPr_InkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
 			appPrefs.printPreviewPrefs.PrPr_InkThreshold = dc.attribute("InkThreshold", "250").toInt();
+		}
+		if (dc.tagName() == "PDFOutputPreview")
+		{
+			appPrefs.pdfOutputPreviewPrefs.enableAntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.showTransparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.cmykPreviewMode = static_cast<bool>(dc.attribute("CMYKMode", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isCyanVisible = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isMagentaVisible = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isYellowVisible = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.isBlackVisible = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.pdfOutputPreviewPrefs.displayInkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold = dc.attribute("InkThreshold", "250").toInt();
+		}
+		if (dc.tagName() == "PSOutputPreview")
+		{
+			appPrefs.psOutputPreviewPrefs.psLevel = qMax(1, qMin(dc.attribute("PSLevel", "3").toInt(), 3));
+			appPrefs.psOutputPreviewPrefs.enableAntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.showTransparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.cmykPreviewMode = static_cast<bool>(dc.attribute("CMYKMode", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.isCyanVisible = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isMagentaVisible = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isYellowVisible = static_cast<bool>(dc.attribute("Yellow", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.isBlackVisible = static_cast<bool>(dc.attribute("Black", "1").toInt());
+			appPrefs.psOutputPreviewPrefs.displayInkCoverage = static_cast<bool>(dc.attribute("InkCoverage", "0").toInt());
+			appPrefs.psOutputPreviewPrefs.inkCoverageThreshold = dc.attribute("InkThreshold", "250").toInt();
 		}
 		if (dc.tagName()=="ExternalTools")
 		{

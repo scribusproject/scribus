@@ -31,10 +31,50 @@ struct ImageLoadRequest
 
 struct ImageEffect
 {
+	enum EffectCode
+	{
+		EF_INVERT = 0,
+		EF_GRAYSCALE = 1,
+		EF_COLORIZE = 2,
+		EF_BRIGHTNESS = 3,
+		EF_CONTRAST = 4,
+		EF_SHARPEN = 5,
+		EF_BLUR = 6,
+		EF_SOLARIZE = 7,
+		EF_DUOTONE = 8,
+		EF_TRITONE = 9,
+		EF_QUADTONE = 10,
+		EF_GRADUATE = 11
+	};
+
 	int effectCode;
 	QString effectParameters;
 };
-typedef QList<ImageEffect> ScImageEffectList;
+
+class ScImageEffectList : public QList<ImageEffect>
+{
+public:
+	bool useColorEffect() const
+	{
+		int effectCount = this->count();
+		if (effectCount <= 0)
+			return false;
+
+		for (int i = 0; i < effectCount; ++i)
+		{
+			const auto& effect = at(i);
+			if (effect.effectCode == ImageEffect::EF_COLORIZE)
+				return true;
+			if (effect.effectCode == ImageEffect::EF_DUOTONE)
+				return true;
+			if (effect.effectCode == ImageEffect::EF_TRITONE)
+				return true;
+			if (effect.effectCode == ImageEffect::EF_QUADTONE)
+				return true;
+		}
+		return false;
+	}
+};
 
 struct PSDHeader
 {

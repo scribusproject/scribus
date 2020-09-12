@@ -50,8 +50,6 @@ public:
 	~PDFExportDialog() {};
 
 	void updateDocOptions();
-	const QString &cmsDescriptor();
-	int colorSpaceComponents();
 	QString getPagesString();
 
 protected slots:
@@ -80,8 +78,6 @@ protected:
 	QList<PDFPresentationData> m_presEffects;
 	PDFOptions & m_opts;
 	double m_unitRatio;
-	QString m_cmsDescriptor;
-	int m_components;
 	const ProfilesL & m_printerProfiles;
 };
 

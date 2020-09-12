@@ -25,4 +25,6 @@ Example:\n\
 p = Printer()\n\
 p.print()");
 
+PyDoc_STRVAR(printer_printnow__doc__, "printNow() -> boolean\n\nPrints selected pages.");
+
 #endif /* OBJPRINTER_H */

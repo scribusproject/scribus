@@ -1839,7 +1839,7 @@ void RawPainter::applyFill(PageItem* ite)
 			else if (angle == 270)
 				ite->setGradientVector(0, h / 2.0, w, h / 2.0, 0, 0, 1, 0);
 			ite->fill_gradient = m_currentGradient;
-			ite->GrType = 6;
+			ite->GrType = Gradient_Linear;
 		}
 		else if (gradMode == "radial")
 		{
@@ -1853,7 +1853,7 @@ void RawPainter::applyFill(PageItem* ite)
 				cy = m_style["svg:cy"]->getDouble();
 			ite->setGradientVector(cx, cy, w, h / 2.0, cx, cy, 1, 0);
 			ite->fill_gradient = m_currentGradient;
-			ite->GrType = 7;
+			ite->GrType = Gradient_Radial;
 		}
 		else if (gradMode == "square")
 		{
@@ -1871,7 +1871,7 @@ void RawPainter::applyFill(PageItem* ite)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
-			ite->GrType = 10;
+			ite->GrType = Gradient_Diamond;
 		}
 		else if (gradMode == "center")
 		{
@@ -1894,7 +1894,7 @@ void RawPainter::applyFill(PageItem* ite)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
-			ite->GrType = 10;
+			ite->GrType = Gradient_Diamond;
 		}
 		else if (gradMode == "shape")
 		{
@@ -2105,7 +2105,7 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->meshGradientPatches.append(patch);
 			}
 			*/
-			ite->GrType = 12;
+			ite->GrType = Gradient_PatchMesh;
 		}
 	}
 	if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap")
@@ -2146,7 +2146,7 @@ void RawPainter::applyFill(PageItem* ite)
 					efVal += "\n";
 					struct ImageEffect ef;
 					efVal += "100";
-					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectCode = ImageEffect::EF_COLORIZE;
 					ef.effectParameters = efVal;
 					ite->effectsInUse.append(ef);
 				}
@@ -2172,7 +2172,7 @@ void RawPainter::applyFill(PageItem* ite)
 				m_Doc->addPattern(patternName, pat);
 				m_importedPatterns->append(patternName);
 				ite->setPattern(patternName);
-				ite->GrType = 8;
+				ite->GrType = Gradient_Pattern;
 			}
 			delete tempFile;
 		}
@@ -3228,7 +3228,7 @@ void RawPainter::applyFill(PageItem* ite)
 			else if (angle == 270)
 				ite->setGradientVector(0, h / 2.0, w, h / 2.0, 0, 0, 1, 0);
 			ite->fill_gradient = m_currentGradient;
-			ite->GrType = 6;
+			ite->GrType = Gradient_Linear;
 		}
 		else if (gradMode == "radial")
 		{
@@ -3242,7 +3242,7 @@ void RawPainter::applyFill(PageItem* ite)
 				cy = m_style["svg:cy"]->getDouble();
 			ite->setGradientVector(cx, cy, w, h / 2.0, cx, cy, 1, 0);
 			ite->fill_gradient = m_currentGradient;
-			ite->GrType = 7;
+			ite->GrType = Gradient_Radial;
 		}
 		else if (gradMode == "square")
 		{
@@ -3260,7 +3260,7 @@ void RawPainter::applyFill(PageItem* ite)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
-			ite->GrType = 10;
+			ite->GrType = Gradient_Diamond;
 		}
 		else if (gradMode == "center")
 		{
@@ -3283,7 +3283,7 @@ void RawPainter::applyFill(PageItem* ite)
 			{
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
-			ite->GrType = 10;
+			ite->GrType = Gradient_Diamond;
 		}
 		else if (gradMode == "shape")
 		{
@@ -3320,7 +3320,7 @@ void RawPainter::applyFill(PageItem* ite)
 				patch.TR = tR;
 				ite->meshGradientPatches.append(patch);
 			}
-			ite->GrType = 12;
+			ite->GrType = Gradient_PatchMesh;
 		}
 	}
 	if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap")
@@ -3361,7 +3361,7 @@ void RawPainter::applyFill(PageItem* ite)
 					efVal += "\n";
 					struct ImageEffect ef;
 					efVal += "100";
-					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectCode = ImageEffect::EF_COLORIZE;
 					ef.effectParameters = efVal;
 					ite->effectsInUse.append(ef);
 				}
@@ -3387,7 +3387,7 @@ void RawPainter::applyFill(PageItem* ite)
 				m_Doc->addPattern(patternName, pat);
 				m_importedPatterns->append(patternName);
 				ite->setPattern(patternName);
-				ite->GrType = 8;
+				ite->GrType = Gradient_Pattern;
 			}
 			delete tempFile;
 		}
@@ -3539,7 +3539,7 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 			efVal += "\n";
 			struct ImageEffect ef;
 			efVal += "100";
-			ef.effectCode = ScImage::EF_COLORIZE;
+			ef.effectCode = ImageEffect::EF_COLORIZE;
 			ef.effectParameters = efVal;
 			ite->effectsInUse.append(ef);
 		}
@@ -3547,7 +3547,7 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 		{
 			double per = m_style["draw:luminance"]->getDouble();
 			struct ImageEffect ef;
-			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectCode = ImageEffect::EF_BRIGHTNESS;
 			ef.effectParameters = QString("%1").arg(qRound((per - 0.5) * 255));
 			ite->effectsInUse.append(ef);
 		}

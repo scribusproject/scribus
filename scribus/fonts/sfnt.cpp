@@ -64,12 +64,12 @@ namespace sfnt {
 		putWord16(bb, pos, val);
 	}
 	
-	const QByteArray tag(const QByteArray& bb, uint pos)
+	QByteArray tag(const QByteArray& bb, uint pos)
 	{
 		return QByteArray::fromRawData(bb.constData() + pos, 4);
 	}
 	
-	const QByteArray tag(uint word)
+	QByteArray tag(uint word)
 	{
 		QByteArray result;
 		result.resize(4);
@@ -100,330 +100,330 @@ namespace sfnt {
 
 
 
-const uint post_format10_names_count = 258;
+	const uint post_format10_names_count = 258;
 
 
-static const char* post_format10_names[] = {
-	".notdef",
-	".null",
-	"nonmarkingreturn",
-	"space",
-	"exclam",
-	"quotedbl",
-	"numbersign",
-	"dollar",
-	"percent",
-	"ampersand",
-	"quotesingle",
-	"parenleft",
-	"parenright",
-	"asterisk",
-	"plus",
-	"comma",
-	"hyphen",
-	"period",
-	"slash",
-	"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-	"colon",
-	"semicolon",
-	"less",
-	"equal",
-	"greater",
-	"question",
-	"at",
-	"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-	"bracketleft",
-	"backslash",
-	"bracketright",
-	"asciicircum",
-	"underscore",
-	"grave",
-	"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-	"braceleft",
-	"bar",
-	"braceright",
-	"asciitilde",
-	"Adieresis",
-	"Aring",
-	"Ccedilla",
-	"Eacute",
-	"Ntilde",
-	"Odieresis",
-	"Udieresis",
-	"aacute",
-	"agrave",
-	"acircumflex",
-	"adieresis",
-	"atilde",
-	"aring",
-	"ccedilla",
-	"eacute",
-	"egrave",
-	"ecircumflex",
-	"edieresis",
-	"iacute",
-	"igrave",
-	"icircumflex",
-	"idieresis",
-	"ntilde",
-	"oacute",
-	"ograve",
-	"ocircumflex",
-	"odieresis",
-	"otilde",
-	"uacute",
-	"ugrave",
-	"ucircumflex",
-	"udieresis",
-	"dagger",
-	"degree",
-	"cent",
-	"sterling",
-	"section",
-	"bullet",
-	"paragraph",
-	"germandbls",
-	"registered",
-	"copyright",
-	"trademark",
-	"acute",
-	"dieresis",
-	"notequal",
-	"AE",
-	"Oslash",
-	"infinity",
-	"plusminus",
-	"lessequal",
-	"greaterequal",
-	"yen",
-	"mu",
-	"partialdiff",
-	"summation",
-	"product",
-	"pi",
-	"integral",
-	"ordfeminine",
-	"ordmasculine",
-	"Omega",
-	"ae",
-	"oslash",
-	"questiondown",
-	"exclamdown",
-	"logicalnot",
-	"radical",
-	"florin",
-	"approxequal",
-	"Delta",
-	"guillemotleft",
-	"guillemotright",
-	"ellipsis",
-	"nonbreakingspace",
-	"Agrave",
-	"Atilde",
-	"Otilde",
-	"OE",
-	"oe",
-	"endash",
-	"emdash",
-	"quotedblleft",
-	"quotedblright",
-	"quoteleft",
-	"quoteright",
-	"divide",
-	"lozenge",
-	"ydieresis",
-	"Ydieresis",
-	"fraction",
-	"currency",
-	"guilsinglleft",
-	"guilsinglright",
-	"fi",
-	"fl",
-	"daggerdbl",
-	"periodcentered",
-	"quotesinglbase",
-	"quotedblbase",
-	"perthousand",
-	"Acircumflex",
-	"Ecircumflex",
-	"Aacute",
-	"Edieresis",
-	"Egrave",
-	"Iacute",
-	"Icircumflex",
-	"Idieresis",
-	"Igrave",
-	"Oacute",
-	"Ocircumflex",
-	"apple",
-	"Ograve",
-	"Uacute",
-	"Ucircumflex",
-	"Ugrave",
-	"dotlessi",
-	"circumflex",
-	"tilde",
-	"macron",
-	"breve",
-	"dotaccent",
-	"ring",
-	"cedilla",
-	"hungarumlaut",
-	"ogonek",
-	"caron",
-	"Lslash",
-	"lslash",
-	"Scaron",
-	"scaron",
-	"Zcaron",
-	"zcaron",
-	"brokenbar",
-	"Eth",
-	"eth",
-	"Yacute",
-	"yacute",
-	"Thorn",
-	"thorn",
-	"minus",
-	"multiply",
-	"onesuperior",
-	"twosuperior",
-	"threesuperior",
-	"onehalf",
-	"onequarter",
-	"threequarters",
-	"franc",
-	"Gbreve",
-	"gbreve",
-	"Idotaccent",
-	"Scedilla",
-	"scedilla",
-	"Cacute",
-	"cacute",
-	"Ccaron",
-	"ccaron",
-	"dcroat"
-};
+	static const char* post_format10_names[] = {
+		".notdef",
+		".null",
+		"nonmarkingreturn",
+		"space",
+		"exclam",
+		"quotedbl",
+		"numbersign",
+		"dollar",
+		"percent",
+		"ampersand",
+		"quotesingle",
+		"parenleft",
+		"parenright",
+		"asterisk",
+		"plus",
+		"comma",
+		"hyphen",
+		"period",
+		"slash",
+		"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+		"colon",
+		"semicolon",
+		"less",
+		"equal",
+		"greater",
+		"question",
+		"at",
+		"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+		"bracketleft",
+		"backslash",
+		"bracketright",
+		"asciicircum",
+		"underscore",
+		"grave",
+		"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+		"braceleft",
+		"bar",
+		"braceright",
+		"asciitilde",
+		"Adieresis",
+		"Aring",
+		"Ccedilla",
+		"Eacute",
+		"Ntilde",
+		"Odieresis",
+		"Udieresis",
+		"aacute",
+		"agrave",
+		"acircumflex",
+		"adieresis",
+		"atilde",
+		"aring",
+		"ccedilla",
+		"eacute",
+		"egrave",
+		"ecircumflex",
+		"edieresis",
+		"iacute",
+		"igrave",
+		"icircumflex",
+		"idieresis",
+		"ntilde",
+		"oacute",
+		"ograve",
+		"ocircumflex",
+		"odieresis",
+		"otilde",
+		"uacute",
+		"ugrave",
+		"ucircumflex",
+		"udieresis",
+		"dagger",
+		"degree",
+		"cent",
+		"sterling",
+		"section",
+		"bullet",
+		"paragraph",
+		"germandbls",
+		"registered",
+		"copyright",
+		"trademark",
+		"acute",
+		"dieresis",
+		"notequal",
+		"AE",
+		"Oslash",
+		"infinity",
+		"plusminus",
+		"lessequal",
+		"greaterequal",
+		"yen",
+		"mu",
+		"partialdiff",
+		"summation",
+		"product",
+		"pi",
+		"integral",
+		"ordfeminine",
+		"ordmasculine",
+		"Omega",
+		"ae",
+		"oslash",
+		"questiondown",
+		"exclamdown",
+		"logicalnot",
+		"radical",
+		"florin",
+		"approxequal",
+		"Delta",
+		"guillemotleft",
+		"guillemotright",
+		"ellipsis",
+		"nonbreakingspace",
+		"Agrave",
+		"Atilde",
+		"Otilde",
+		"OE",
+		"oe",
+		"endash",
+		"emdash",
+		"quotedblleft",
+		"quotedblright",
+		"quoteleft",
+		"quoteright",
+		"divide",
+		"lozenge",
+		"ydieresis",
+		"Ydieresis",
+		"fraction",
+		"currency",
+		"guilsinglleft",
+		"guilsinglright",
+		"fi",
+		"fl",
+		"daggerdbl",
+		"periodcentered",
+		"quotesinglbase",
+		"quotedblbase",
+		"perthousand",
+		"Acircumflex",
+		"Ecircumflex",
+		"Aacute",
+		"Edieresis",
+		"Egrave",
+		"Iacute",
+		"Icircumflex",
+		"Idieresis",
+		"Igrave",
+		"Oacute",
+		"Ocircumflex",
+		"apple",
+		"Ograve",
+		"Uacute",
+		"Ucircumflex",
+		"Ugrave",
+		"dotlessi",
+		"circumflex",
+		"tilde",
+		"macron",
+		"breve",
+		"dotaccent",
+		"ring",
+		"cedilla",
+		"hungarumlaut",
+		"ogonek",
+		"caron",
+		"Lslash",
+		"lslash",
+		"Scaron",
+		"scaron",
+		"Zcaron",
+		"zcaron",
+		"brokenbar",
+		"Eth",
+		"eth",
+		"Yacute",
+		"yacute",
+		"Thorn",
+		"thorn",
+		"minus",
+		"multiply",
+		"onesuperior",
+		"twosuperior",
+		"threesuperior",
+		"onehalf",
+		"onequarter",
+		"threequarters",
+		"franc",
+		"Gbreve",
+		"gbreve",
+		"Idotaccent",
+		"Scedilla",
+		"scedilla",
+		"Cacute",
+		"cacute",
+		"Ccaron",
+		"ccaron",
+		"dcroat"
+	};
 
 
 
-bool PostTable::usable() const
-{
-    return m_usable;
-}
-
-void PostTable::setUsable(bool usable)
-{
-    m_usable = usable;
-}
-
-QString PostTable::errorMsg() const
-{
-    return m_errorMsg;
-}
-
-void PostTable::setErrorMsg(const QString& errorMsg)
-{
-    m_errorMsg = errorMsg;
-}
-
-uint PostTable::numberOfGlyphs() const
-{
-    if (m_names.length() > 0)
-        return m_names.length();
-    return post_format10_names_count;
-}
-
-QString PostTable::nameFor(uint glyph) const
-{
-	if (glyph < (uint) m_names.length())
-		return m_names[glyph];
-	if (glyph < sfnt::post_format10_names_count)
-		return post_format10_names[glyph];
-	return ".notdef";
-}
-
-
-void PostTable::readFrom(FT_Face face)
-{
-	QByteArray postData;
-	FT_ULong size = 0;
-	int error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, nullptr, &size );
-	//qDebug() << "load post" << error << size;
-	if (error || size == 0)
+	bool PostTable::usable() const
 	{
-		m_errorMsg = "no post table";
-		m_usable = false;
-		return;
+		return m_usable;
 	}
-	postData.resize(size);
-	error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, reinterpret_cast<FT_Byte*>(postData.data()), &size );
-	if (error)
+
+	void PostTable::setUsable(bool usable)
 	{
-		m_errorMsg = "can't load post table";
-		m_usable = false;
-		return;
+		m_usable = usable;
 	}
-	
-	switch (sfnt::word(postData, ttf_post_format))
+
+	QString PostTable::errorMsg() const
 	{
-		case sfnt::post_format10:
-			m_usable = true;
-			m_names.clear();
-			return;
-		case sfnt::post_format20:
-			break;
-		case sfnt::post_format30:
-			m_errorMsg = QString("post table has no glyph names");
-			m_usable = false;
-			return;
-		case sfnt::post_format25:
-		case sfnt::post_format40:
-		default:
-			m_errorMsg = QString("unsupported post format %1").arg(sfnt::word(postData,0));
-			m_usable = false;
-			return;
-			
+		return m_errorMsg;
 	}
-	QMap<QString,uint> usedNames;
-	QList<QByteArray> pascalStrings;
-	
-	uint nrOfGlyphs = sfnt::word16(postData, ttf_post_header_length);
-	uint stringPos = ttf_post_header_length + 2 + 2 * nrOfGlyphs;
-	while (stringPos < (uint) postData.length())
+
+	void PostTable::setErrorMsg(const QString& errorMsg)
 	{
-		int strLen = byte(postData, stringPos);
-		++stringPos;
-		pascalStrings.append(postData.mid(stringPos, strLen));
-		stringPos += strLen;
+		m_errorMsg = errorMsg;
 	}
-	uint pos = ttf_post_header_length + 2;
-	for (uint gid = 0; gid < nrOfGlyphs; ++gid)
+
+	uint PostTable::numberOfGlyphs() const
 	{
-		uint nameIndex = sfnt::word16(postData, pos);
-		pos += 2;
-		QString name;
-		if (nameIndex < sfnt::post_format10_names_count)
-			name = sfnt::post_format10_names[nameIndex];
-		else if (nameIndex < pascalStrings.length() + sfnt::post_format10_names_count)
-			name = pascalStrings[nameIndex - sfnt::post_format10_names_count];
-		else {
-			m_usable = false;
-			m_errorMsg = QString("missing name %1 for glyph %2").arg(nameIndex).arg(gid);
-			return;
-		}
-		if (name != ".notdef" && name[0] != QChar(0) && usedNames.contains(name))
+		if (m_names.length() > 0)
+			return m_names.length();
+		return post_format10_names_count;
+	}
+
+	QString PostTable::nameFor(uint glyph) const
+	{
+		if (glyph < (uint) m_names.length())
+			return m_names[glyph];
+		if (glyph < sfnt::post_format10_names_count)
+			return post_format10_names[glyph];
+		return ".notdef";
+	}
+
+
+	void PostTable::readFrom(FT_Face face)
+	{
+		QByteArray postData;
+		FT_ULong size = 0;
+		int error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, nullptr, &size );
+		//qDebug() << "load post" << error << size;
+		if (error || size == 0)
 		{
+			m_errorMsg = "no post table";
 			m_usable = false;
-			m_errorMsg = QString("duplicate name %1 used for glyphs %2 and %3").arg(name).arg(gid).arg(usedNames[name]);
 			return;
 		}
-		usedNames[name] = gid;
-		m_names.append(name);
+		postData.resize(size);
+		error = FT_Load_Sfnt_Table ( face, TTAG_post , 0, reinterpret_cast<FT_Byte*>(postData.data()), &size );
+		if (error)
+		{
+			m_errorMsg = "can't load post table";
+			m_usable = false;
+			return;
+		}
+
+		switch (sfnt::word(postData, ttf_post_format))
+		{
+			case sfnt::post_format10:
+				m_usable = true;
+				m_names.clear();
+				return;
+			case sfnt::post_format20:
+				break;
+			case sfnt::post_format30:
+				m_errorMsg = QString("post table has no glyph names");
+				m_usable = false;
+				return;
+			case sfnt::post_format25:
+			case sfnt::post_format40:
+			default:
+				m_errorMsg = QString("unsupported post format %1").arg(sfnt::word(postData,0));
+				m_usable = false;
+				return;
+
+		}
+		QMap<QString,uint> usedNames;
+		QList<QByteArray> pascalStrings;
+
+		uint nrOfGlyphs = sfnt::word16(postData, ttf_post_header_length);
+		uint stringPos = ttf_post_header_length + 2 + 2 * nrOfGlyphs;
+		while (stringPos < (uint) postData.length())
+		{
+			int strLen = byte(postData, stringPos);
+			++stringPos;
+			pascalStrings.append(postData.mid(stringPos, strLen));
+			stringPos += strLen;
+		}
+		uint pos = ttf_post_header_length + 2;
+		for (uint gid = 0; gid < nrOfGlyphs; ++gid)
+		{
+			uint nameIndex = sfnt::word16(postData, pos);
+			pos += 2;
+			QString name;
+			if (nameIndex < sfnt::post_format10_names_count)
+				name = sfnt::post_format10_names[nameIndex];
+			else if (nameIndex < pascalStrings.length() + sfnt::post_format10_names_count)
+				name = pascalStrings[nameIndex - sfnt::post_format10_names_count];
+			else {
+				m_usable = false;
+				m_errorMsg = QString("missing name %1 for glyph %2").arg(nameIndex).arg(gid);
+				return;
+			}
+			if (name != ".notdef" && name[0] != QChar(0) && usedNames.contains(name))
+			{
+				m_usable = false;
+				m_errorMsg = QString("duplicate name %1 used for glyphs %2 and %3").arg(name).arg(gid).arg(usedNames[name]);
+				return;
+			}
+			usedNames[name] = gid;
+			m_names.append(name);
+		}
+		m_errorMsg = "";
+		m_usable = true;
 	}
-	m_errorMsg = "";
-	m_usable = true;
-}
 
 
 
@@ -446,65 +446,64 @@ void PostTable::readFrom(FT_Face face)
 	}
 
 
-QByteArray extractFace(const QByteArray& coll, int faceIndex)
-{
-	QByteArray result;
-	
-	const int numFonts = word(coll, ttc_numFonts);
-	if (faceIndex >= static_cast<int>(numFonts))
+	QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	{
-		return result;
-	}
+		QByteArray result;
 
-	uint faceOffset = sfnt::word(coll, ttc_OffsetTables + 4 * faceIndex);
-	uint nTables	= sfnt::word16(coll, faceOffset + ttf_numtables);
-	
-	//qDebug() << QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg("collection").arg(faceOffset).arg(nTables);
-	
-	uint headerLength = ttf_TableRecords + ttf_TableRecord_Size * nTables;
-	
-	uint tableLengths = 0;
-	// sum table lengths incl padding
-	for (uint i=0; i < nTables; ++i)
-	{
-		tableLengths += sfnt::word(coll, faceOffset + ttf_TableRecords + ttf_TableRecord_Size * i + ttf_TableRecord_length);
-		tableLengths = (tableLengths+3) & ~3;
-	}
-	result.resize(headerLength + tableLengths);
-	if (!result.data())
-	{
-		result.resize(0);
-		return result;
-	}
-	
-	// write header
-	//		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
-	if (!copy(result, 0, coll, faceOffset, headerLength))
-	{
-		result.resize(0);
-		return result;
-	}
-	uint pos = headerLength;
-	for (uint i=0; i < nTables; ++i)
-	{
-		uint sourceDirEntry = faceOffset + ttf_TableRecords + ttf_TableRecord_Size * i;
-		uint destDirEntry = ttf_TableRecords + ttf_TableRecord_Size * i;
-		
-		int tableSize = copyTable(result, destDirEntry, pos, coll, sourceDirEntry);
-		if (tableSize < 0)
+		const int numFonts = word(coll, ttc_numFonts);
+		if (faceIndex >= static_cast<int>(numFonts))
+		{
+			return result;
+		}
+
+		uint faceOffset = sfnt::word(coll, ttc_OffsetTables + 4 * faceIndex);
+		uint nTables	= sfnt::word16(coll, faceOffset + ttf_numtables);
+
+		//qDebug() << QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg("collection").arg(faceOffset).arg(nTables);
+
+		uint headerLength = ttf_TableRecords + ttf_TableRecord_Size * nTables;
+
+		uint tableLengths = 0;
+		// sum table lengths incl padding
+		for (uint i=0; i < nTables; ++i)
+		{
+			tableLengths += sfnt::word(coll, faceOffset + ttf_TableRecords + ttf_TableRecord_Size * i + ttf_TableRecord_length);
+			tableLengths = (tableLengths+3) & ~3;
+		}
+		result.resize(headerLength + tableLengths);
+		if (!result.data())
 		{
 			result.resize(0);
 			return result;
 		}
-		pos += tableSize;
 
-		// pad
-		while ((pos & 3) != 0)
-			result.data()[pos++] = '\0';
+		// write header
+		//		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
+		if (!copy(result, 0, coll, faceOffset, headerLength))
+		{
+			result.resize(0);
+			return result;
+		}
+		uint pos = headerLength;
+		for (uint i=0; i < nTables; ++i)
+		{
+			uint sourceDirEntry = faceOffset + ttf_TableRecords + ttf_TableRecord_Size * i;
+			uint destDirEntry = ttf_TableRecords + ttf_TableRecord_Size * i;
+
+			int tableSize = copyTable(result, destDirEntry, pos, coll, sourceDirEntry);
+			if (tableSize < 0)
+			{
+				result.resize(0);
+				return result;
+			}
+			pos += tableSize;
+
+			// pad
+			while ((pos & 3) != 0)
+				result.data()[pos++] = '\0';
+		}
+		return result;
 	}
-	return result;
-}
-
 
 	uint getTableDirEntry(const QByteArray& ttf, const QByteArray& ttfTag)
 	{
@@ -521,8 +520,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		return 0;
 	}
 
-
-	const QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag)
+	QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag)
 	{
 		uint pos = getTableDirEntry(ttf, ttfTag);
 		if (pos <= 0)
@@ -593,7 +591,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	{
 		const QByteArray head = getTable(ttf, "head");
 		uint idxToLocFormat = word16(head, ttf_head_indexToLocFormat);
-//		qDebug() << "loca format:" << (void*)idxToLocFormat;
+		//		qDebug() << "loca format:" << (void*)idxToLocFormat;
 		return idxToLocFormat == 1;
 	}
 
@@ -619,7 +617,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		return result;
 	}
 
-	const QByteArray writeLoca(const QList<uint>& loca, bool longFormat)
+	QByteArray writeLoca(const QList<uint>& loca, bool longFormat)
 	{
 		QByteArray result;
 		if (longFormat)
@@ -724,91 +722,91 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		switch (format)
 		{
 			case 4:
-			{
-				uint segCount2 = word16(cmaps, startOfUnicodeTable + ttf_cmap4_segCountX2);
-				uint endCodes = startOfUnicodeTable + ttf_cmap4_EndCodes;
-				uint startCodes = endCodes + segCount2 + ttf_cmap4_StartCodes_EndCodes;
-				uint idDeltas = startCodes + segCount2 + ttf_cmap4_IdDeltas_StartCodes;
-				uint idRangeOffsets = idDeltas + segCount2 + ttf_cmap4_IdRangeOffsets_IdDeltas;
-				//uint glyphIndexArray = idRangeOffsets + segCount2 + ttf_cmap4_GlyphIds_IdRangeOffsets;
-				
-				for (uint seg = 0; seg < segCount2; seg+=2)
 				{
-					uint start = word16(cmaps, startCodes + seg);
-					uint end = word16(cmaps, endCodes + seg);
-					uint idDelta = word16(cmaps, idDeltas + seg);
-					uint idRangeOffset = word16(cmaps, idRangeOffsets + seg);
-					for (uint c = start; c <= end; ++c)
+					uint segCount2 = word16(cmaps, startOfUnicodeTable + ttf_cmap4_segCountX2);
+					uint endCodes = startOfUnicodeTable + ttf_cmap4_EndCodes;
+					uint startCodes = endCodes + segCount2 + ttf_cmap4_StartCodes_EndCodes;
+					uint idDeltas = startCodes + segCount2 + ttf_cmap4_IdDeltas_StartCodes;
+					uint idRangeOffsets = idDeltas + segCount2 + ttf_cmap4_IdRangeOffsets_IdDeltas;
+					//uint glyphIndexArray = idRangeOffsets + segCount2 + ttf_cmap4_GlyphIds_IdRangeOffsets;
+
+					for (uint seg = 0; seg < segCount2; seg+=2)
 					{
-						quint16 glyph;
-						if (idRangeOffset > 0)
+						uint start = word16(cmaps, startCodes + seg);
+						uint end = word16(cmaps, endCodes + seg);
+						uint idDelta = word16(cmaps, idDeltas + seg);
+						uint idRangeOffset = word16(cmaps, idRangeOffsets + seg);
+						for (uint c = start; c <= end; ++c)
 						{
-							uint glyphIndexAdress = idRangeOffset + 2*(c-start) + (idRangeOffsets + seg);
-							glyph = word16(cmaps, glyphIndexAdress);
-							if (glyph != 0)
-								glyph += idDelta;
-						}
-						else
-						{
-							glyph = c + idDelta;
-						}
-						if (!result.contains(c))
-						{
-							// search would always find the one in the segment with the lower endcode, i.e. earlier segment
-							if (c < 256 || glyph == 0)
-								//qDebug() << "(" << QChar(c) << "," << glyph << ")";
-							result[c] = glyph;
-						}
-						else
-						{
-							// nothing to do. No idea if fonts with overlapping cmap4 segments exist, though.
+							quint16 glyph;
+							if (idRangeOffset > 0)
+							{
+								uint glyphIndexAdress = idRangeOffset + 2*(c-start) + (idRangeOffsets + seg);
+								glyph = word16(cmaps, glyphIndexAdress);
+								if (glyph != 0)
+									glyph += idDelta;
+							}
+							else
+							{
+								glyph = c + idDelta;
+							}
+							if (!result.contains(c))
+							{
+								// search would always find the one in the segment with the lower endcode, i.e. earlier segment
+								if (c < 256 || glyph == 0)
+									//qDebug() << "(" << QChar(c) << "," << glyph << ")";
+									result[c] = glyph;
+							}
+							else
+							{
+								// nothing to do. No idea if fonts with overlapping cmap4 segments exist, though.
+							}
 						}
 					}
+					break;
 				}
-				break;
-			}
 			case 6:
-			{
-				uint firstCode = word16(cmaps, startOfUnicodeTable + ttf_cmap6_firstCode);
-				uint count = word16(cmaps, startOfUnicodeTable + ttf_cmap6_entryCount);
-				pos = word16(cmaps, startOfUnicodeTable + ttf_cmap6_glyphIndexArray);
-				for (uint i = 0; i < count; ++i)
 				{
-					result[firstCode + i] = word16(cmaps, pos);
-					pos += 2;
-				}
-				break;
-			}
-			case 12:
-			{
-				uint nGroups = word(cmaps, startOfUnicodeTable + ttf_cmap12_nGroups);
-				pos = startOfUnicodeTable + ttf_cmap12_Groups;
-				for (uint grp = 0; grp < nGroups; ++grp)
-				{
-					uint start = word(cmaps, pos + ttf_cmap12_Group_startCharCode);
-					uint end = word(cmaps, pos + ttf_cmap12_Group_endCharCode);
-					uint gid = word(cmaps, pos + ttf_cmap12_Group_startGlyphCode);
-					for (uint c = start; c <= end; ++c)
+					uint firstCode = word16(cmaps, startOfUnicodeTable + ttf_cmap6_firstCode);
+					uint count = word16(cmaps, startOfUnicodeTable + ttf_cmap6_entryCount);
+					pos = word16(cmaps, startOfUnicodeTable + ttf_cmap6_glyphIndexArray);
+					for (uint i = 0; i < count; ++i)
 					{
-						result[c] = gid;
-						++gid;
+						result[firstCode + i] = word16(cmaps, pos);
+						pos += 2;
 					}
-					pos += ttf_cmap12_Group_Size;
+					break;
 				}
-				break;
-			}
+			case 12:
+				{
+					uint nGroups = word(cmaps, startOfUnicodeTable + ttf_cmap12_nGroups);
+					pos = startOfUnicodeTable + ttf_cmap12_Groups;
+					for (uint grp = 0; grp < nGroups; ++grp)
+					{
+						uint start = word(cmaps, pos + ttf_cmap12_Group_startCharCode);
+						uint end = word(cmaps, pos + ttf_cmap12_Group_endCharCode);
+						uint gid = word(cmaps, pos + ttf_cmap12_Group_startGlyphCode);
+						for (uint c = start; c <= end; ++c)
+						{
+							result[c] = gid;
+							++gid;
+						}
+						pos += ttf_cmap12_Group_Size;
+					}
+					break;
+				}
 			default:
-			{
-				qDebug() << "unsupported cmap format" << format;
-				break;
-			}
+				{
+					qDebug() << "unsupported cmap format" << format;
+					break;
+				}
 		}
 		return result;
 	}
 
 
 
-	const QByteArray writeCMap(const QMap<uint, uint>& cmap)
+	QByteArray writeCMap(const QMap<uint, uint>& cmap)
 	{
 		// we always write only one table: platform=3(MS), encoding=1(Unicode 16bit)
 		QByteArray result;
@@ -833,7 +831,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 				chars.append(ch);
 				cmapHasData = true;
 			}
-//			qDebug() << QChar(ch) << QChar::requiresSurrogates(ch) << cit.value();
+			//			qDebug() << QChar(ch) << QChar::requiresSurrogates(ch) << cit.value();
 		}
 		std::sort(chars.begin(), chars.end());
 		
@@ -947,11 +945,11 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		
 		putWord16(result, startOfTable + ttf_cmap4_length, result.size() - startOfTable);
 		return result;
-	 }
+	}
 	
 	
 	QList<uint> copyGlyphComponents(QByteArray& destGlyf, const QByteArray& srcGlyf, uint srcOffset,
-	                                QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
+									QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
 	{
 		QList<uint> result;
 		
@@ -1010,7 +1008,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 				pos += 2;
 			}
 		} while ( flags & ttf_glyf_ComponentFlag_MORE_COMPONENTS );
-			
+
 		if (haveInstructions)
 		{
 			uint numInstr = word16(srcGlyf, pos);
@@ -1026,8 +1024,8 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	
 
 	QList<uint> copyGlyph(QList<uint>& destLoca, QByteArray& destGlyf, uint destGid,
-	                      const QList<uint>& srcLoca, const QByteArray& srcGlyf, uint srcGid,
-	                      QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
+						  const QList<uint>& srcLoca, const QByteArray& srcGlyf, uint srcGid,
+						  QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
 	{
 		QList<uint> compositeElements;
 		uint glyphStart = srcLoca[srcGid];
@@ -1071,7 +1069,7 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 		QMap<QByteArray,QByteArray> tables;
 		
 		
-//		qDebug() << "loca table:" << (void*) oldLoca[0] << (void*) oldLoca[1] << (void*) oldLoca[2] << (void*) oldLoca[3] << (void*) oldLoca[4] << (void*) oldLoca[5] << (void*) oldLoca[6] << (void*) oldLoca[7];
+		//		qDebug() << "loca table:" << (void*) oldLoca[0] << (void*) oldLoca[1] << (void*) oldLoca[2] << (void*) oldLoca[3] << (void*) oldLoca[4] << (void*) oldLoca[5] << (void*) oldLoca[6] << (void*) oldLoca[7];
 		
 
 		QMap<uint,uint> newForOldGid;
@@ -1101,8 +1099,8 @@ QByteArray extractFace(const QByteArray& coll, int faceIndex)
 			{
 				uint oldGid = glyphs[i];
 				glyphs.append(copyGlyph(newLoca, newGlyf, i,
-				                        oldLoca, oldGlyf, oldGid,
-				                        newForOldGid, nextFreeGid));
+										oldLoca, oldGlyf, oldGid,
+										newForOldGid, nextFreeGid));
 			}
 			newLoca.append(newGlyf.length());
 			

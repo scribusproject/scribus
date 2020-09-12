@@ -66,6 +66,26 @@ ScPage::~ScPage()
 	FromMaster.clear();
 }
 
+QRectF ScPage::bleedRect() const
+{
+	QRectF pageRect(m_xOffset, m_yOffset, m_width, m_height);
+	if (m_Doc)
+	{
+		MarginStruct pageBleeds;
+		m_Doc->getBleeds(this, pageBleeds);
+		double totalWidth = m_width + pageBleeds.left() + pageBleeds.right();
+		double totalHeight = m_height + pageBleeds.bottom() + pageBleeds.top();
+		pageRect = QRectF(m_xOffset - pageBleeds.left(), m_yOffset - pageBleeds.top(), totalWidth, totalHeight);
+	}
+	return pageRect;
+}
+
+QRectF ScPage::trimRect() const
+{
+	QRectF pageRect(m_xOffset, m_yOffset, m_width, m_height);
+	return pageRect;
+}
+
 void ScPage::setDocument(ScribusDoc *doc)
 {
 	m_Doc=doc;

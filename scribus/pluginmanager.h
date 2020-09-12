@@ -72,9 +72,14 @@ public:
 	/*! \brief Called when the last doc is closed
 	 */
 	void enableOnlyStartupPluginActions(ScribusMainWindow*);
-	/*! \brief Called when the last doc is closed
+
+	/*! \brief Called when selection change
 	 */
 	void enablePluginActionsForSelection(ScribusMainWindow*);
+
+	/*! \brief Called when selection change
+	 */
+	void enablePluginActionsForSelection(ScribusDoc*);
 
 	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
 	 *
@@ -111,7 +116,7 @@ public:
 
 	/*! \brief Return the path to the file for the named plugin.
 	An invalid plugin name is an error.*/
-	const QString getPluginPath(const QString & pluginName) const;
+	QString getPluginPath(const QString & pluginName) const;
 
 	/*! \brief Whether the given plug-in will be enabled on start-up.
 	Usable as an lvalue. An invalid plugin name is an error. */

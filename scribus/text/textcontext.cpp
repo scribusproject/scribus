@@ -108,11 +108,9 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 					{
 						mark->setItemPtr(m_frame);
 
-
 						TextNote* note = mark->getNotePtr();
 						if (note == nullptr)
 							return QString();
-
 					}
 					if (!mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
 						return mark->getString();

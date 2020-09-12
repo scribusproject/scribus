@@ -406,15 +406,42 @@ struct StoryEditorPrefs
 
 struct PrintPreviewPrefs
 {
-	bool PrPr_Mode;
-	bool PrPr_AntiAliasing;
-	bool PrPr_Transparency;
-	bool PrPr_C;
-	bool PrPr_M;
-	bool PrPr_Y;
-	bool PrPr_K;
-	bool PrPr_InkCoverage;
-	int PrPr_InkThreshold;
+	bool PrPr_Mode { false };
+	bool PrPr_AntiAliasing { true };
+	bool PrPr_Transparency { false };
+	bool PrPr_C { true };
+	bool PrPr_M { true };
+	bool PrPr_Y { true };
+	bool PrPr_K { true };
+	bool PrPr_InkCoverage { false };
+	int PrPr_InkThreshold { 250 };
+};
+
+struct PDFOutputPreviewPrefs
+{
+	bool enableAntiAliasing { true };
+	bool showTransparency { false };
+	bool cmykPreviewMode { false };
+	bool isCyanVisible { true };
+	bool isMagentaVisible { true };
+	bool isYellowVisible { true };
+	bool isBlackVisible { true };
+	bool displayInkCoverage { false };
+	int  inkCoverageThreshold { 250 };
+};
+
+struct PSOutputPreviewPrefs
+{
+	int  psLevel { 3 };
+	bool enableAntiAliasing { true };
+	bool showTransparency { false };
+	bool cmykPreviewMode { false };
+	bool isCyanVisible { true };
+	bool isMagentaVisible { true };
+	bool isYellowVisible { true };
+	bool isBlackVisible { true };
+	bool displayInkCoverage { false };
+	int  inkCoverageThreshold { 250 };
 };
 
 struct PluginPrefs
@@ -456,8 +483,10 @@ struct ApplicationPrefs
 	PDFOptions pdfPrefs;
 	PathPrefs pathPrefs;
 	PluginPrefs pluginPrefs;
-	PrintPreviewPrefs printPreviewPrefs;
 	PrinterPrefs printerPrefs;
+	PrintPreviewPrefs printPreviewPrefs;
+	PDFOutputPreviewPrefs pdfOutputPreviewPrefs;
+	PSOutputPreviewPrefs  psOutputPreviewPrefs;
 	ScrapbookPrefs scrapbookPrefs;
 	ScripterPrefs scripterPrefs;
 	ShortWordPrefs shortwordPrefs;
@@ -473,12 +502,9 @@ struct ApplicationPrefs
 	QList<PageSet> pageSets;
 	QStringList activePageSizes;
 
-
-
 	//TODO : Remove these no longer used items
 	//! System default QStyle name for current instance, seemingly unused
 	QString ui_SystemTheme;
-	//	bool Gcr_Mode;
 
 	//Added for Doc Only
 	DocumentInformation docInfo;

@@ -109,11 +109,11 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 		return;
 	}
 
-	if (currItem->asImageFrame() && !currItem->locked())
+	if (currItem->isImageFrame() && !currItem->locked())
 	{
 		currItem->handleModeEditKey(e, m_keyRepeat);
 	}
-	if (currItem->asTextFrame())
+	if (currItem->isTextFrame())
 	{
 		bool oldKeyRepeat = m_keyRepeat;
 
@@ -197,7 +197,7 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 			}
 			drawTextCursor(p, textframe);
 		}
-		else if (currItem->asImageFrame())
+		else if (currItem->isImageFrame())
 		{
 			QTransform mm = currItem->getTransform();
 			p->save();
@@ -287,7 +287,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	PageItem * it(nullptr);
 	if (GetItem(&it))
 	{
-		if (it->asTextFrame())
+		if (it->isTextFrame())
 		{
 			m_canvas->setupEditHRuler(it, true);
 			if (m_doc->appMode == modeEdit)
@@ -318,7 +318,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	PageItem *currItem = nullptr;
-	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->asTextFrame())
+	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->isTextFrame())
 	{
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
@@ -379,7 +379,7 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 					currItem->itemText.selectWord(oldCp);
 				}
 			}
-			currItem->HasSel = currItem->itemText.isSelected();
+			currItem->HasSel = currItem->itemText.hasSelection();
 		}
 	}
 	else
@@ -410,7 +410,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			return;
 		if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEdit))
 		{
-			if (currItem->asImageFrame())
+			if (currItem->isImageFrame())
 			{
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
@@ -435,7 +435,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				Mxp = newX;
 				Myp = newY;
 			}
-			if (currItem->asTextFrame())
+			if (currItem->isTextFrame())
 			{
 				int refStartSel(currItem->asTextFrame()->itemText.startOfSelection());
 				int refEndSel(currItem->asTextFrame()->itemText.endOfSelection());
@@ -489,9 +489,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				{
 					if (hitTest == Canvas::INSIDE)
 					{
-						if (currItem->asTextFrame())
+						if (currItem->isTextFrame())
 							m_view->setCursor(QCursor(Qt::IBeamCursor));
-						if (currItem->asImageFrame())
+						if (currItem->isImageFrame())
 						{
 							if (m->modifiers() & Qt::ShiftModifier)
 								m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
@@ -577,7 +577,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	if (GetItem(&currItem))
 	{
 //		m_view->slotDoCurs(false);
-		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->asLine())
+		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->isLine())
 		{
 			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
@@ -588,7 +588,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				if (SeleItem(m))
 				{
 					currItem = m_doc->m_Selection->itemAt(0);
-					if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+					if ((currItem->isTextFrame()) || (currItem->isImageFrame()))
 					{
 						m_view->requestMode(modeEdit);
 						wantNormal = false;
@@ -598,7 +598,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 						m_view->requestMode(submodePaintingDone);
 						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					}
-					if (currItem->asTextFrame())
+					if (currItem->isTextFrame())
 					{
 						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 						oldCp = currItem->itemText.cursorPosition();
@@ -620,7 +620,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		}
 		oldP = currItem->itemText.cursorPosition();
 		//CB Where we set the cursor for a click in text frame
-		if (currItem->asTextFrame())
+		if (currItem->isTextFrame())
 		{
 			inText = m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
 			//CB If we clicked outside a text frame to go out of edit mode and deselect the frame
@@ -640,7 +640,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				//<<CB Add in shift select to text frames
 				if (m->modifiers() & Qt::ShiftModifier)
 				{
-					if (currItem->itemText.isSelected())
+					if (currItem->itemText.hasSelection())
 					{
 						if (currItem->itemText.cursorPosition() < (currItem->itemText.startOfSelection() + currItem->itemText.endOfSelection()) / 2)
 						{
@@ -706,13 +706,13 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
-		else if (!currItem->asImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
+		else if (!currItem->isImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
 			m_view->deselectItems(true);
 			if (SeleItem(m))
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
-				if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+				if ((currItem->isTextFrame()) || (currItem->isImageFrame()))
 				{
 					m_view->requestMode(modeEdit);
 				}
@@ -758,7 +758,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->setRedrawBounding(currItem);
 			currItem->OwnPage = m_doc->OnPage(currItem);
 			m_canvas->m_viewMode.operItemResizing = false;
-			if (currItem->asLine())
+			if (currItem->isLine())
 				m_view->updateContents();
 		}
 		if (m_canvas->m_viewMode.operItemMoving)
@@ -941,8 +941,8 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 		currItem = m_doc->m_Selection->itemAt(0);
 		m_doc->nodeEdit.finishTransaction(currItem);
 	}
-	if (GetItem(&currItem) && currItem->asTextFrame())
-		m_ScMW->setCopyCutEnabled(currItem->itemText.isSelected());
+	if (GetItem(&currItem) && currItem->isTextFrame())
+		m_ScMW->setCopyCutEnabled(currItem->itemText.hasSelection());
 }
 
 //CB-->Doc/Fix

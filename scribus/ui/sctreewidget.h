@@ -51,6 +51,7 @@ class SCRIBUS_API ScTreeWidget : public QTreeWidget
 public:
 	ScTreeWidget(QWidget* pa);
 	~ScTreeWidget() {}
+
 	QTreeWidgetItem* addWidget(const QString& title, QWidget* widget);
 	void setToolBoxMode(bool enable);
 	int addItem(QWidget* widget, const QString& title);
@@ -68,7 +69,7 @@ signals:
 	void currentChanged2(int);
 
 private:
-	bool m_toolbox_mode;
+	bool m_toolboxMode { false };
 	QHash<int, QTreeWidgetItem*> keySList;
 
 protected:

@@ -200,6 +200,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/scpreview.h \
            scribus/scprintengine.h \
            scribus/scprintengine_gdi.h \
+           scribus/scprintengine_pdf.h \
            scribus/scprintengine_ps.h \
            scribus/scraction.h \
            scribus/scribus.h \
@@ -502,6 +503,9 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/openpaletteview.h \
            scribus/ui/osgeditor.h \
            scribus/ui/outlinepalette.h \
+           scribus/ui/outputpreview_pdf.h \
+           scribus/ui/outputpreview_ps.h \
+           scribus/ui/outputpreviewbase.h \
            scribus/ui/pageitemattributes.h \
            scribus/ui/pageitempositionsetter.h \
            scribus/ui/pageitemrotationsetter.h \
@@ -551,8 +555,8 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/prefs_tableofcontents.h \
            scribus/ui/prefs_typography.h \
            scribus/ui/prefs_userinterface.h \
-           scribus/ui/preview.h \
            scribus/ui/printdialog.h \
+           scribus/ui/printpreview.h \
            scribus/ui/propertiespalette.h \
            scribus/ui/propertiespalette_group.h \
            scribus/ui/propertiespalette_image.h \
@@ -1065,6 +1069,9 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/nftwidget.ui \
          scribus/ui/notesstyleseditor.ui \
          scribus/ui/osgeditor.ui \
+         scribus/ui/outputpreview_pdf.ui \
+         scribus/ui/outputpreview_ps.ui \
+         scribus/ui/outputpreviewbase.ui \
          scribus/ui/pageitemattributes.ui \
          scribus/ui/pagepalette_masterpagesbase.ui \
          scribus/ui/pagepalette_pagesbase.ui \
@@ -1353,6 +1360,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/scplugin.cpp \
            scribus/scpreview.cpp \
            scribus/scprintengine_gdi.cpp \
+           scribus/scprintengine_pdf.cpp \
            scribus/scprintengine_ps.cpp \
            scribus/scraction.cpp \
            scribus/scribus.cpp \
@@ -1630,6 +1638,9 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/openpaletteview.cpp \
            scribus/ui/osgeditor.cpp \
            scribus/ui/outlinepalette.cpp \
+           scribus/ui/outputpreview_pdf.cpp \
+           scribus/ui/outputpreview_ps.cpp \
+           scribus/ui/outputpreviewbase.cpp \
            scribus/ui/pageitemattributes.cpp \
            scribus/ui/pageitempositionsetter.cpp \
            scribus/ui/pageitemrotationsetter.cpp \
@@ -1678,8 +1689,8 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/prefs_tableofcontents.cpp \
            scribus/ui/prefs_typography.cpp \
            scribus/ui/prefs_userinterface.cpp \
-           scribus/ui/preview.cpp \
            scribus/ui/printdialog.cpp \
+           scribus/ui/printpreview.cpp \
            scribus/ui/propertiespalette.cpp \
            scribus/ui/propertiespalette_group.cpp \
            scribus/ui/propertiespalette_image.cpp \

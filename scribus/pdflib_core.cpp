@@ -525,10 +525,16 @@ public:
 };
 
 PDFLibCore::PDFLibCore(ScribusDoc & docu)
+	: PDFLibCore(docu, docu.pdfOptions())
+{
+	
+}
+
+PDFLibCore::PDFLibCore(ScribusDoc & docu, const PDFOptions& options)
 	: QObject(&docu),
 	doc(docu),
 	ActPageP(nullptr),
-	Options(doc.pdfOptions()),
+	Options(options),
 	Bvie(nullptr),
 	ucs2Codec(nullptr),
 	ResNam("RE"),
@@ -543,11 +549,6 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	bleedDisplacementX(0),
 	bleedDisplacementY(0)
 {
-//	KeyGen.resize(32);
-//	OwnerKey.resize(32);
-//	UserKey.resize(32);
-//	FileID.resize(16);
-//	EncryKey.resize(5);
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
@@ -556,11 +557,7 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	Outlines.Count = 0;
 	pageData.ObjNum = 0;
 	pageData.Thumb = 0;
-//	int kg_array[] = {0x28, 0xbf, 0x4e, 0x5e, 0x4e, 0x75, 0x8a, 0x41, 0x64, 0x00, 0x4e, 0x56, 0xff, 0xfa,
-//			  0x01, 0x08, 0x2e, 0x2e, 0x00, 0xb6, 0xd0, 0x68, 0x3e, 0x80, 0x2f, 0x0c, 0xa9, 0xfe,
-//			  0x64, 0x53, 0x69, 0x7a};
-//	for (int a = 0; a < 32; ++a)
-//		KeyGen[a] = kg_array[a];
+
 	if (usingGUI)
 	{
 		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW());
@@ -603,8 +600,7 @@ bool PDFLibCore::PDF_IsPDFX(const PDFVersion& ver)
 	return false;
 }
 
-bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
-					  const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs)
+bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, const QMap<int, QImage> & thumbs)
 {
 	QImage thumb;
 	bool ret = false, error = false;
@@ -661,7 +657,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		}
 		for (uint a = 0; a < pageNs.size() && !abortExport; ++a)
 		{
-			if (doc.pdfOptions().Thumbnails)
+			if (Options.Thumbnails)
 				thumb = thumbs[pageNs[a]];
 			qApp->processEvents();
 			if (abortExport) break;
@@ -670,7 +666,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 			qApp->processEvents();
 			if (abortExport) break;
 
-			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, doc.pdfOptions().doClip))
+			if (!PDF_ProcessPage(doc.DocPages.at(pageNs[a]-1), pageNs[a]-1, Options.doClip))
 				error = abortExport = true;
 			qApp->processEvents();
 			if (abortExport) break;
@@ -686,8 +682,8 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		ret = true;//Even when aborting we return true. Don't want that "couldnt write msg"
 		if (!abortExport)
 		{
-			if (PDF_IsPDFX(doc.pdfOptions().Version))
-				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf], nam, Components);
+			if (PDF_IsPDFX(Options.Version))
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[Options.PrintProf]);
 			else
 				ret = PDF_End_Doc();
 		}
@@ -1005,9 +1001,7 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpace
 	return (succeed ? bytesWritten : 0);
 }
 
-
-
-bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookMView* vi)
+bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookmarkView* vi)
 {
 	if (!writer.open(fn))
 		return false;
@@ -2771,12 +2765,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					{
 						if (ite->GrType != 0)
 						{
-							if (ite->GrType == 8)
+							if (ite->GrType == Gradient_Pattern)
 							{
 								if (!PDF_PatternFillStroke(tmpOut, ite))
 									return false;
 							}
-							else if (ite->GrType == 14)
+							else if (ite->GrType == Gradient_Hatch)
 							{
 								if (!PDF_HatchFill(tmpOut, ite))
 									return false;
@@ -2789,7 +2783,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							if (!tmpOut.isEmpty())
 							{
 								PutPage("q\n");
-								if (ite->GrType == 14)
+								if (ite->GrType == Gradient_Hatch)
 									PutPage(tmpOut);
 								else
 								{
@@ -2964,12 +2958,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 					}
 					if (ite->GrType != 0)
 					{
-						if (ite->GrType == 8)
+						if (ite->GrType == Gradient_Pattern)
 						{
 							if (!PDF_PatternFillStroke(tmpOut, ite))
 								return false;
 						}
-						else if (ite->GrType == 14)
+						else if (ite->GrType == Gradient_Hatch)
 						{
 							if (!PDF_HatchFill(tmpOut, ite))
 								return false;
@@ -2981,7 +2975,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						if (!tmpOut.isEmpty())
 						{
-							if (ite->GrType == 14)
+							if (ite->GrType == Gradient_Hatch)
 								PutPage(tmpOut);
 							else
 							{
@@ -3064,12 +3058,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						}
 						if (ite->GrType != 0)
 						{
-							if (ite->GrType == 8)
+							if (ite->GrType == Gradient_Pattern)
 							{
 								if (!PDF_PatternFillStroke(tmpOut, ite))
 									return false;
 							}
-							else if (ite->GrType == 14)
+							else if (ite->GrType == Gradient_Hatch)
 							{
 								if (!PDF_HatchFill(tmpOut, ite))
 									return false;
@@ -3081,7 +3075,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							}
 							if (!tmpOut.isEmpty())
 							{
-								if (ite->GrType == 14)
+								if (ite->GrType == Gradient_Hatch)
 									PutPage(tmpOut);
 								else
 								{
@@ -3872,7 +3866,7 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 		QByteArray name = QByteArray("/master_page_obj_%1_%2")
 			                            .replace("%1", Pdf::toPdf(mPageIndex))
 			                            .replace("%2", Pdf::toPdf(qHash(ite)));
-		if ((!ite->asTextFrame()) && (!ite->asPathText()) && (!ite->asTable()))
+		if ((!ite->isTextFrame()) && (!ite->isPathText()) && (!ite->isTable()))
 		{
 			if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
 				content += (name + " Do\n");
@@ -4493,7 +4487,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
 #ifdef HAVE_OSG
-			if (ite->asOSGFrame())
+			if (ite->isOSGFrame())
 			{
 				if (Options.Version != PDFVersion::PDF_X3)
 				{
@@ -4513,12 +4507,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			{
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4531,7 +4525,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					if (!tmpOut.isEmpty())
 					{
 						tmp += "q\n";
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -4642,12 +4636,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			{
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4660,7 +4654,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					if (!tmpOut.isEmpty())
 					{
 						tmp += "q\n";
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -4827,12 +4821,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 			}
 			if (ite->GrType != 0)
 			{
-				if (ite->GrType == 8)
+				if (ite->GrType == Gradient_Pattern)
 				{
 					if (!PDF_PatternFillStroke(tmpOut, ite))
 						return false;
 				}
-				else if (ite->GrType == 14)
+				else if (ite->GrType == Gradient_Hatch)
 				{
 					if (!PDF_HatchFill(tmpOut, ite))
 						return false;
@@ -4844,7 +4838,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				if (!tmpOut.isEmpty())
 				{
-					if (ite->GrType == 14)
+					if (ite->GrType == Gradient_Hatch)
 						tmp += tmpOut;
 					else
 					{
@@ -4928,12 +4922,12 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				}
 				if (ite->GrType != 0)
 				{
-					if (ite->GrType == 8)
+					if (ite->GrType == Gradient_Pattern)
 					{
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
-					else if (ite->GrType == 14)
+					else if (ite->GrType == Gradient_Hatch)
 					{
 						if (!PDF_HatchFill(tmpOut, ite))
 							return false;
@@ -4945,7 +4939,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					}
 					if (!tmpOut.isEmpty())
 					{
-						if (ite->GrType == 14)
+						if (ite->GrType == Gradient_Hatch)
 							tmp += tmpOut;
 						else
 						{
@@ -6186,7 +6180,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		scaleX = 1.0 / (currItem->width() / pat.width);
 		scaleY = 1.0 / (currItem->height() / pat.height);
 	}
-	if ((currItem->GrMask == 1) || (currItem->GrMask == 2) || (currItem->GrMask == 4) || (currItem->GrMask == 5))
+	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha))
 	{
 		QList<double> StopVec;
 		QList<double> TransVec;
@@ -6390,7 +6384,7 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/AIS false\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
 	}
-	else if ((currItem->GrMask == 3) || (currItem->GrMask == 6) || (currItem->GrMask == 7) || (currItem->GrMask == 8))
+	else if ((currItem->GrMask == GradMask_Pattern) || (currItem->GrMask == GradMask_PatternLumAlpha) || (currItem->GrMask == GradMask_PatternLumAlphaInverted) || (currItem->GrMask == GradMask_PatternInverted))
 	{
 		QByteArray tmpOut;
 		PDF_PatternFillStroke(tmpOut, currItem, 2);
@@ -6449,19 +6443,19 @@ QByteArray PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		ResCount++;
 		GXName = ResNam + Pdf::toPdf(ResCount);
 		ResCount++;
-		if (currItem->GrMask == 6)
+		if (currItem->GrMask == GradMask_PatternLumAlpha)
 			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		else if (currItem->GrMask == 7)
+		else if (currItem->GrMask == GradMask_PatternLumAlphaInverted)
 			Transpar[GXName] = writeGState("/SMask << /S /Luminosity /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n/AIS true\n");
-		else if (currItem->GrMask == 3)
+		else if (currItem->GrMask == GradMask_Pattern)
 			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
-		else if (currItem->GrMask == 8)
+		else if (currItem->GrMask == GradMask_PatternInverted)
 			Transpar[GXName] = writeGState("/SMask << /S /Alpha /G " + Pdf::toPdf(formObject) + " 0 R /BC [ 1 1 1 ] /TR << /FunctionType 2 /Domain [ 0 1 ] /Range [ 0 1 ] /C0 [ 1 ] /C1 [ 0 ] /N 1 >> >>\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		tmp = Pdf::toName(GXName) + " gs\n";
 	}
 	else
 	{
-		if (currItem->GrType == 14)
+		if (currItem->GrType == Gradient_Hatch)
 			Transpar[ShName] = writeGState("/CA " + FToStr(1.0 - currItem->fillTransparency()) + "\n/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
 		else
 			Transpar[ShName] = writeGState("/ca " + FToStr(1.0 - currItem->fillTransparency()) + "\n/SMask /None\n/AIS false\n/OPM 1\n/BM /" + blendMode(currItem->fillBlendmode()) + "\n");
@@ -8196,13 +8190,13 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	else
 	{
 		GType = currItem->GrType;
-		if (GType == 9)
+		if (GType == Gradient_4Colors)
 			return PDF_TensorGradientFill(output, currItem);
-		if (GType == 10)
+		if (GType == Gradient_Diamond)
 			return PDF_DiamondGradientFill(output, currItem);
-		if ((GType == 11) || (GType == 13))
+		if ((GType == Gradient_Mesh) || (GType == Gradient_Conical))
 			return PDF_MeshGradientFill(output, currItem);
-		if (GType == 12)
+		if (GType == Gradient_PatchMesh)
 			return PDF_PatchMeshGradientFill(output, currItem);
 		StartX = currItem->GrStartX;
 		StartY = currItem->GrStartY;
@@ -8255,7 +8249,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 	{
 		mpa.translate(StartX, -StartY);
 		mpa.shear(Gskew, 0);
@@ -8325,7 +8319,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		QTransform mpM;
 		//#12058: cause problems with rotated objects
 		//mpM.rotate(-currItem->rotation());
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 		{
 			mpM.translate(StartX, -StartY);
 			mpM.shear(Gskew, 0);
@@ -8348,7 +8342,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		PutDoc("/Matrix [" + TransformToStr(mpM) + "]\n");
 		PutDoc("/Shading\n");
 		PutDoc("<<\n");
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 			PutDoc("/ShadingType 2\n");
 		else
 			PutDoc("/ShadingType 3\n");
@@ -8357,7 +8351,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 			PutDoc("/Extend [false false]\n");
 		else
 			PutDoc("/Extend [true true]\n");
-		if (GType == 6)
+		if (GType == Gradient_Linear)
 			PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 		else
 			PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
@@ -8451,7 +8445,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	PutDoc("/Matrix [" + TransformToStr(mpa) + "]\n");
 	PutDoc("/Shading\n");
 	PutDoc("<<\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutDoc("/ShadingType 2\n");
 	else
 		PutDoc("/ShadingType 3\n");
@@ -8485,7 +8479,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 		PutDoc("/Extend [false false]\n");
 	else
 		PutDoc("/Extend [true true]\n");
-	if (GType == 6)
+	if (GType == Gradient_Linear)
 		PutDoc("/Coords [" + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(EndX) + " " + FToStr(-EndY) + "]\n");
 	else
 		PutDoc("/Coords [" + FToStr(FocalX) + " " + FToStr(-FocalY) + " 0.0 " + FToStr(StartX) + " " + FToStr(-StartY) + " " + FToStr(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))) + "]\n");
@@ -10261,7 +10255,7 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
  * Add the image item to this.output
  * Returns false if the image can't be read or if it can't be added to this.output
 */
-bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
+bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
@@ -10287,25 +10281,25 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		ImInfo.reso = Options.Resolution / 72.0;
 	ImInfo.xa = x;
 	ImInfo.ya = y;
-	ImInfo.origXsc = c->imageXScale();
-	ImInfo.origYsc = c->imageYScale();
+	ImInfo.origXsc = item->imageXScale();
+	ImInfo.origYsc = item->imageYScale();
 	ShIm   ImInfo2;
-	ImInfo2.origXsc = c->imageXScale();
-	ImInfo2.origYsc = c->imageYScale();
+	ImInfo2.origXsc = item->imageXScale();
+	ImInfo2.origYsc = item->imageYScale();
 	if (SharedImages.contains(fn))
 		ImInfo2 = SharedImages[fn];
 	if ((!SharedImages.contains(fn))
 		 || (fromAN)
-		 || (c->asLatexFrame())
-		 || (c->effectsInUse.count() != 0)
+		 || (item->isLatexFrame())
+		 || (item->effectsInUse.count() != 0)
 		 || ((ImInfo2.origXsc != ImInfo.origXsc) || (ImInfo2.origYsc != ImInfo.origYsc))
-		 || (ImInfo2.RequestProps != c->pixm.imgInfo.RequestProps)
-		 || (ImInfo2.Page != c->pixm.imgInfo.actualPageNumber))
+		 || (ImInfo2.RequestProps != item->pixm.imgInfo.RequestProps)
+		 || (ImInfo2.Page != item->pixm.imgInfo.actualPageNumber))
 	{
 		bool imageLoaded = false;
 		bool fatalError  = false;
 		QString pdfFile = fn;
-		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))) && c->effectsInUse.count() == 0)
+		if ((extensionIndicatesPDF(ext) || ((extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))) && item->effectsInUse.count() == 0)
 		{
 			if (extensionIndicatesEPSorPS(ext))
 			{
@@ -10324,17 +10318,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				opts.append( "-dAutoRotatePages=/None" ); // #14289: otherwise EPS might come out rotated
 				if (convertPS2PDF(fn, tmpFile, opts) == 0)
 				{
-					imageLoaded = PDF_EmbeddedPDF(c, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
+					imageLoaded = PDF_EmbeddedPDF(item, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
 					QFile::remove(tmpFile);
 				}
 				pdfFile = tmpFile;
 			}
 			else
-				imageLoaded = PDF_EmbeddedPDF(c, fn, sx, sy, x, y, fromAN, ImInfo, fatalError);
+				imageLoaded = PDF_EmbeddedPDF(item, fn, sx, sy, x, y, fromAN, ImInfo, fatalError);
 			ImInfo.isEmbeddedPDF = true;
-			ImInfo.Page = c->pixm.imgInfo.actualPageNumber;
+			ImInfo.Page = item->pixm.imgInfo.actualPageNumber;
 		}
-		if (!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
+		if (!imageLoaded && extensionIndicatesPDF(ext) && item->effectsInUse.count() == 0 && Options.embedPDF)
 		{
 			if (fatalError)
 			{
@@ -10347,7 +10341,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 		// no embedded PDF:
 		if (!imageLoaded)
 		{
-			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != ImageType7))
+			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (item->pixm.imgInfo.type != ImageType7))
 			{
 				ImInfo.isBitmapFromGS = true;
 				if (Options.RecalcPic)
@@ -10359,20 +10353,20 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					afl = Options.Resolution;
 				if (ext == "pdf")
 				{
-					CMSettings cms(c->doc(), Profil, Intent);
+					CMSettings cms(item->doc(), Profil, Intent);
 					cms.setUseEmbeddedProfile(Embedded);
 					if (Options.UseRGB)
-						imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+						imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 					else
 					{
 						if ((doc.HasCMS) && (Options.UseProfiles2))
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 						else
 						{
 							if (Options.isGrayscale)
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 							else
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
 						}
 					}
 				}
@@ -10406,20 +10400,20 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 						f.close();
 						if (found)
 						{
-							CMSettings cms(c->doc(), Profil, Intent);
+							CMSettings cms(item->doc(), Profil, Intent);
 							cms.setUseEmbeddedProfile(Embedded);
 							if (Options.UseRGB)
-								imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+								imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 							else
 							{
 								if ((doc.HasCMS) && (Options.UseProfiles2))
-									imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+									imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 								else
 								{
 									if (Options.isGrayscale)
-										imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
+										imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, afl);
 									else
-										imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
+										imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, afl);
 								}
 							}
 						}
@@ -10443,22 +10437,22 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				img.imgInfo.clipPath.clear();
 				img.imgInfo.PDSpathData.clear();
 				img.imgInfo.layerInfo.clear();
-				img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-				img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-				CMSettings cms(c->doc(), Profil, Intent);
+				img.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+				img.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+				CMSettings cms(item->doc(), Profil, Intent);
 				cms.setUseEmbeddedProfile(Embedded);
 				if (Options.UseRGB)
-					imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
+					imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
 				else
 				{
 					if ((doc.HasCMS) && (Options.UseProfiles2))
-						imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RawData, 72, &realCMYK);
+						imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RawData, 72, &realCMYK);
 					else
 					{
 						if (Options.isGrayscale)
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &realCMYK);
 						else
-							imageLoaded = img.loadPicture(fn, c->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 72, &realCMYK);
+							imageLoaded = img.loadPicture(fn, item->pixm.imgInfo.actualPageNumber, cms, ScImage::CMYKData, 72, &realCMYK);
 					}
 				}
 				if (!imageLoaded)
@@ -10466,7 +10460,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					PDF_Error_ImageLoadFailure(fn);
 					return false;
 				}
-				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
+				if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))
 				{
 					double afl = Options.PicRes;
 					a2 = (72.0 / sx) / afl;
@@ -10483,21 +10477,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				}
 				ImInfo.reso = 1;
 			}
-			bool hasColorEffect = false;
-			if (c->effectsInUse.count() != 0)
-			{
-				for (int a = 0; a < c->effectsInUse.count(); ++a)
-				{
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_COLORIZE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_DUOTONE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_TRITONE)
-						hasColorEffect = true;
-					if (c->effectsInUse.at(a).effectCode == ScImage::EF_QUADTONE)
-						hasColorEffect = true;
-				}
-			}
+			bool hasColorEffect = item->effectsInUse.useColorEffect();
 			if ((doc.HasCMS) && (Options.UseProfiles2))
 			{
 				if (!ICCProfiles.contains(Profil))
@@ -10521,8 +10501,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfilesCMYK[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfilesCMYK[c->doc()->cmsSettings().DefaultImageCMYKProfile];
-								profInUse = c->doc()->cmsSettings().DefaultImageCMYKProfile;
+								profilePath = ScCore->InputProfilesCMYK[item->doc()->cmsSettings().DefaultImageCMYKProfile];
+								profInUse = item->doc()->cmsSettings().DefaultImageCMYKProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 4;
@@ -10539,8 +10519,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								profilePath = ScCore->InputProfiles[Profil];
 							else
 							{
-								profilePath = ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile];
-								profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
+								profilePath = ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile];
+								profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							}
 							loadRawBytes(profilePath, dataP);
 							components = 3;
@@ -10592,7 +10572,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					{
 						if ((img.imgInfo.colorspace == ColorSpaceGray) && (hasColorEffect))
 						{
-							profInUse = c->doc()->cmsSettings().DefaultImageRGBProfile;
+							profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							if (!ICCProfiles.contains(profInUse))
 							{
 								int components = 3;
@@ -10600,7 +10580,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 								writer.startObj(embeddedProfile);
 								QByteArray dataP;
 								PdfICCD dataD;
-								loadRawBytes(ScCore->InputProfiles[c->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
+								loadRawBytes(ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
 								components = 3;
 								PutDoc("<<\n");
 								if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)
@@ -10640,15 +10620,15 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			img2.imgInfo.clipPath.clear();
 			img2.imgInfo.PDSpathData.clear();
 			img2.imgInfo.layerInfo.clear();
-			img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
-			img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-			if (c->pixm.imgInfo.type == ImageType7)
+			img2.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+			img2.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+			if (item->pixm.imgInfo.type == ImageType7)
 				alphaM = false;
 			else
 			{
 				bool gotAlpha = false;
 				bool pdfVer14 = Options.supportsTransparency();
-				gotAlpha = img2.getAlpha(fn, c->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
+				gotAlpha = img2.getAlpha(fn, item->pixm.imgInfo.actualPageNumber, im2, true, pdfVer14, afl, img.width(), img.height());
 				if (!gotAlpha)
 				{
 					PDF_Error_MaskLoadFailure(fn);
@@ -10663,8 +10643,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				imgE = !((Options.UseProfiles2) && (img.imgInfo.colorspace != ColorSpaceCMYK));
 			origWidth = img.width();
 			origHeight = img.height();
-			img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
-			if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
+			img.applyEffect(item->effectsInUse, item->doc()->PageColors, imgE);
+			if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale())))))
 			{
 				ImInfo.sxa = sx * (1.0 / ImInfo.reso);
 				ImInfo.sya = sy * (1.0 / ImInfo.reso);
@@ -10716,25 +10696,27 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			PutDoc("/Height " + Pdf::toPdf(img.height()) + "\n");
 			enum PDFOptions::PDFCompression compress_method = Options.CompressMethod;
  			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
-			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
+			bool exportToCMYK = false;
+			bool exportToGrayscale = false;
+			bool jpegUseOriginal = false;
 			if (!Options.UseRGB && !(doc.HasCMS && Options.UseProfiles2 && !realCMYK))
 			{
 				exportToGrayscale = Options.isGrayscale;
 				if (exportToGrayscale)
-					exportToCMYK      = !Options.isGrayscale;
+					exportToCMYK = !Options.isGrayscale;
 				else
-					exportToCMYK      = !Options.UseRGB;
+					exportToCMYK = !Options.UseRGB;
 			}
-			if (c->OverrideCompressionMethod)
-				compress_method = cm = (enum PDFOptions::PDFCompression) c->CompressionMethodIndex;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (c->effectsInUse.count() == 0))
+			if (item->OverrideCompressionMethod)
+				compress_method = cm = (enum PDFOptions::PDFCompression) item->CompressionMethodIndex;
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (item->effectsInUse.count() == 0))
 			{
 				compress_method = (compress_method != PDFOptions::Compression_None) ? PDFOptions::Compression_ZIP : compress_method;
 				cm = compress_method;
 			}
 			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
-				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
+				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))))
 				{
 					// #12961 : we must not rely on PDF viewers taking exif infos into account
 					// So if JPEG orientation is non default, do not use the original file
@@ -10744,64 +10726,58 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image
 				// dictionary, which we do not quite want as this argument is simply ignored by some rips and software
 				// amongst which photoshop and illustrator
-				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
+				/*else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm == PDFOptions::Compression_Auto) && (item->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceCMYK) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / item->imageXScale(), 72.0 / item->imageYScale()))))) && (!img.imgInfo.progressive))
 				{
 					jpegUseOriginal = false;
 					exportToCMYK = true;
 					cm = PDFOptions::Compression_JPEG;
 				}*/
-				else
-				{
-					if (compress_method == PDFOptions::Compression_JPEG)
-					{
-						if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
-						{
-							exportToGrayscale = Options.isGrayscale;
-							if (exportToGrayscale)
-								exportToCMYK      = !Options.isGrayscale;
-							else
-								exportToCMYK      = !Options.UseRGB;
-						}
-						cm = PDFOptions::Compression_JPEG;
-					}
-					else
-						cm = PDFOptions::Compression_ZIP;
-				}
-			}
-			else
-			{
-				if ((compress_method == PDFOptions::Compression_JPEG) || (compress_method == PDFOptions::Compression_Auto))
+				else if (compress_method == PDFOptions::Compression_JPEG)
 				{
 					if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
 					{
 						exportToGrayscale = Options.isGrayscale;
 						if (exportToGrayscale)
-							exportToCMYK      = !Options.isGrayscale;
+							exportToCMYK = !Options.isGrayscale;
 						else
-							exportToCMYK      = !Options.UseRGB;
+							exportToCMYK = !Options.UseRGB;
 					}
 					cm = PDFOptions::Compression_JPEG;
-					/*if (compress_method == PDFOptions::Compression_Auto)
-					{
-						QFileInfo fi(tmpFile);
-						if (fi.size() < im.size())
-						{
-							im.resize(0);
-							if (!loadRawBytes(tmpFile, im))
-								return false;
-							cm = PDFOptions::Compression_JPEG;
-						}
-						else
-							cm = PDFOptions::Compression_ZIP;
-					}*/
 				}
+				else
+					cm = PDFOptions::Compression_ZIP;
+			}
+			else if ((compress_method == PDFOptions::Compression_JPEG) || (compress_method == PDFOptions::Compression_Auto))
+			{
+				if (realCMYK || !((Options.UseRGB) || (Options.UseProfiles2)))
+				{
+					exportToGrayscale = Options.isGrayscale;
+					if (exportToGrayscale)
+						exportToCMYK = !Options.isGrayscale;
+					else
+						exportToCMYK = !Options.UseRGB;
+				}
+				cm = PDFOptions::Compression_JPEG;
+				/*if (compress_method == PDFOptions::Compression_Auto)
+				{
+					QFileInfo fi(tmpFile);
+					if (fi.size() < im.size())
+					{
+						im.resize(0);
+						if (!loadRawBytes(tmpFile, im))
+							return false;
+						cm = PDFOptions::Compression_JPEG;
+					}
+					else
+						cm = PDFOptions::Compression_ZIP;
+				}*/
 			}
 			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
 				exportToGrayscale = true;
 			int bytesWritten = 0;
 			// Fixme: outType variable should be set directly in the if/else maze above.
 			ColorSpaceEnum outType;
-			if (img.imgInfo.colorspace == ColorSpaceMonochrome && c->effectsInUse.count() == 0)
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && item->effectsInUse.count() == 0)
 				outType = ColorSpaceMonochrome;
 			else
 				outType = getOutputType(exportToGrayscale, exportToCMYK);
@@ -10847,8 +10823,8 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			PutDoc(">>\nstream\n");
 			if (cm == PDFOptions::Compression_JPEG) // Fixme: should not do this with monochrome images?
 			{
-				int quality = c->OverrideCompressionQuality ? c->CompressionQualityIndex : Options.Quality;
-				if (c->OverrideCompressionQuality)
+				int quality = item->OverrideCompressionQuality ? item->CompressionQualityIndex : Options.Quality;
+				if (item->OverrideCompressionQuality)
 					jpegUseOriginal = false;
 				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, quality, outType, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
 			}
@@ -10872,9 +10848,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			ImInfo.Height = img.height();
 			ImInfo.xa = sx;
 			ImInfo.ya = sy;
-			ImInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+			ImInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 		} // not embedded PDF
-		if ((c->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
+		if ((item->effectsInUse.count() == 0) && (!SharedImages.contains(fn)))
 			SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
@@ -10893,10 +10869,10 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			embedPre  = "0 g 0 G";
 			embedPre += " 1 w 0 J 0 j [] 0 d\n"; // add default graphics stack parameters pdftex relies on them
 		}
-		if (c->asLatexFrame())
+		if (item->isLatexFrame())
 		{
-			ImInfo.sxa *= 1.0 / c->imageXScale();
-			ImInfo.sya *= 1.0 / c->imageYScale();
+			ImInfo.sxa *= 1.0 / item->imageXScale();
+			ImInfo.sya *= 1.0 / item->imageYScale();
 		}
 		else
 		{
@@ -10906,18 +10882,18 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	}
 	if (!fromAN && output)
 	{
-		if (c->imageRotation())
+		if (item->imageRotation())
 		{
-			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height*ImInfo.sya+y*sy)) + " cm\n";
+			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
 			QTransform mpa;
-			mpa.rotate(-c->imageRotation());
-			embedPre += "1 0 0 1 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " cm\n";
+			mpa.rotate(-item->imageRotation());
+			embedPre += "1 0 0 1 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " cm\n";
 			embedPre += FToStr(mpa.m11()) + " " + FToStr(mpa.m12()) + " " + FToStr(mpa.m21()) + " " + FToStr(mpa.m22()) + " 0 0 cm\n";
-			embedPre += "1 0 0 1 0 " + FToStr(-ImInfo.Height*ImInfo.sya) + " cm\n";
-			embedPre += FToStr(ImInfo.Width*ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " 0 0 cm\n";
+			embedPre += "1 0 0 1 0 " + FToStr(-ImInfo.Height * ImInfo.sya) + " cm\n";
+			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " 0 0 cm\n";
 		}
 		else
-			embedPre += FToStr(ImInfo.Width*ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height*ImInfo.sya) + " " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height*ImInfo.sya+y*sy)) + " cm\n";
+			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " " + FToStr(x * sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
 		*output = embedPre + Pdf::toName(ResNam + "I" + Pdf::toPdf(ImInfo.ResNum)) + " Do\n";
 	}
 	else if (output)
@@ -10925,7 +10901,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 	return true;
 }
 
-bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
+bool PDFLibCore::PDF_End_Doc(const QString& outputProfilePath)
 {
 	PDF_End_Bookmarks();
 	PDF_End_Resources();
@@ -10936,7 +10912,9 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	PDF_End_JavaScripts();
 	PDF_End_Articles();
 	PDF_End_Layers();
-	PDF_End_OutputProfile(PrintPr, Name, Components);
+	bool success = PDF_End_OutputProfile(outputProfilePath);
+	if (!success)
+		return false;
 	PDF_End_Metadata();
 	return PDF_End_XRefAndTrailer();
 }
@@ -10945,61 +10923,61 @@ void PDFLibCore::PDF_End_Bookmarks()
 {
 	if (writer.OutlinesObj == 0)
 		return;
+
+	if ((Bvie->topLevelItemCount() <= 0) || (!Options.Bookmarks) || (!BookMinUse))
+		return;
 	
-	QByteArray Inhal;
-	QMap<int, QByteArray> Inha;
-	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
+	QByteArray content;
+	QMap<int, QByteArray> bookmarkMap;
+	BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
+	PdfId basis = writer.objectCounter() - 1;
+	Outlines.Count = Bvie->topLevelItemCount();
+	Outlines.First = ip->ItemNr + basis;
+	Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + basis;
+	QTreeWidgetItemIterator it(Bvie);
+	while (*it)
 	{
-		BookMItem* ip = (BookMItem*) Bvie->topLevelItem(0);
-		PdfId Basis = writer.objectCounter() - 1;
-		Outlines.Count = Bvie->topLevelItemCount();
-		Outlines.First = ip->ItemNr + Basis;
-		Outlines.Last  = ((BookMItem*) Bvie->topLevelItem(Outlines.Count - 1))->ItemNr + Basis;
-		QTreeWidgetItemIterator it(Bvie);
-		while (*it)
+		ip = (BookMItem*)(*it);
+		QString encText = ip->text(0);
+		content.clear();
+		content += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr + basis) + "\n";
+		if (ip->Pare == 0)
+			content += "/Parent 3 0 R\n";
+		else
+			content += "/Parent " + Pdf::toPdf(ip->Pare + basis) + " 0 R\n";
+		if (ip->Prev != 0)
+			content += "/Prev " + Pdf::toPdf(ip->Prev + basis) + " 0 R\n";
+		if (ip->Next != 0)
+			content += "/Next " + Pdf::toPdf(ip->Next + basis) + " 0 R\n";
+		if (ip->First != 0)
+			content += "/First " + Pdf::toPdf(ip->First + basis) + " 0 R\n";
+		if (ip->Last != 0)
+			content += "/Last " + Pdf::toPdf(ip->Last + basis) + " 0 R\n";
+		if (ip->childCount())
+			content += "/Count -" + Pdf::toPdf(ip->childCount()) + "\n";
+		if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
 		{
-			ip = (BookMItem*)(*it);
-			QString encText = ip->text(0);
-			Inhal.clear();
-			Inhal += "<<\n/Title " + EncStringUTF16(encText, ip->ItemNr+Basis) + "\n";
-			if (ip->Pare == 0)
-				Inhal += "/Parent 3 0 R\n";
-			else
-				Inhal += "/Parent " + Pdf::toPdf(ip->Pare+Basis) + " 0 R\n";
-			if (ip->Prev != 0)
-				Inhal += "/Prev " + Pdf::toPdf(ip->Prev+Basis) + " 0 R\n";
-			if (ip->Next != 0)
-				Inhal += "/Next " + Pdf::toPdf(ip->Next+Basis) + " 0 R\n";
-			if (ip->First != 0)
-				Inhal += "/First " + Pdf::toPdf(ip->First+Basis) + " 0 R\n";
-			if (ip->Last != 0)
-				Inhal += "/Last " + Pdf::toPdf(ip->Last+Basis) + " 0 R\n";
-			if (ip->childCount())
-				Inhal += "/Count -" + Pdf::toPdf(ip->childCount()) + "\n";
-			if ((ip->PageObject->OwnPage != -1) && PageTree.KidsMap.contains(ip->PageObject->OwnPage))
+			QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
+			if (action.isEmpty())
 			{
-				QByteArray action = Pdf::toPdfDocEncoding(ip->Action);
-				if (action.isEmpty())
-				{
-					const ScPage* page = doc.DocPages.at(ip->PageObject->OwnPage);
-					double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
-					action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
-				}
-				Inhal += "/Dest [" + Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage]) + " 0 R " + action + "]\n";
+				const ScPage* page = doc.DocPages.at(ip->PageObject->OwnPage);
+				double actionPos = page->height() - (ip->PageObject->yPos() - page->yOffset());
+				action = "/XYZ 0 " + Pdf::toPdf(actionPos) + " 0";
 			}
-			Inhal += ">>";
-			Inha[ip->ItemNr] = Inhal;
-			++it;
+			content += "/Dest [" + Pdf::toPdf(PageTree.KidsMap[ip->PageObject->OwnPage]) + " 0 R " + action + "]\n";
 		}
-		QMap<int,QByteArray> ::ConstIterator contentIt;
-		writer.reserveObjects(Inha.count());
-		for (contentIt = Inha.begin(); contentIt != Inha.end(); ++contentIt)
-		{
-			int itemNr = contentIt.key();
-			writer.startObj(itemNr + Basis);
-			PutDoc(contentIt.value());
-			writer.endObj(itemNr + Basis);
-		}
+		content += ">>";
+		bookmarkMap[ip->ItemNr] = content;
+		++it;
+	}
+
+	writer.reserveObjects(bookmarkMap.count());
+	for (auto contentIt = bookmarkMap.begin(); contentIt != bookmarkMap.end(); ++contentIt)
+	{
+		int itemNr = contentIt.key();
+		writer.startObj(itemNr + basis);
+		PutDoc(contentIt.value());
+		writer.endObj(itemNr + basis);
 	}
 }
 
@@ -11175,7 +11153,7 @@ void PDFLibCore::PDF_End_Articles()
 	for (int ele = 0; ele < doc.Items->count(); ++ele)
 	{
 		PageItem* tel = doc.Items->at(ele);
-		if ((tel->asTextFrame()) && (tel->prevInChain() == nullptr) && (tel->nextInChain() != nullptr) && (!tel->inPdfArticle))
+		if ((tel->isTextFrame()) && (tel->prevInChain() == nullptr) && (tel->nextInChain() != nullptr) && (!tel->inPdfArticle))
 		{
 			Beads.clear();
 			PdfBead bd;
@@ -11257,112 +11235,111 @@ void PDFLibCore::PDF_End_Articles()
 
 void PDFLibCore::PDF_End_Layers()
 {
-	if (Options.exportsLayers())
+	if (!Options.exportsLayers())
+		return;
+
+	QList<QByteArray> lay;
+	writer.startObj(writer.OCPropertiesObj);
+	PutDoc("<<\n");
+	PutDoc("/D << /Order [ ");
+	ScLayer ll;
+	ll.isPrintable = false;
+	ll.ID = 0;
+	for (int la = 0; la < doc.Layers.count(); ++la)
 	{
-		QList<QByteArray> lay;
-		writer.startObj(writer.OCPropertiesObj);
-		PutDoc("<<\n");
-		PutDoc("/D << /Order [ ");
-		ScLayer ll;
-		ll.isPrintable = false;
-		ll.ID = 0;
-		for (int la = 0; la < doc.Layers.count(); ++la)
-		{
-			doc.Layers.levelToLayer(ll, la);
-			if (ll.isEditable)
-				lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + " ");
-		}
-		for (int layc = 0; layc < lay.count(); ++layc)
-		{
-			if (Options.Version != PDFVersion::PDF_X4)
-				PutDoc(lay[layc]);
-		}
-		PutDoc("]\n");
-		if (Options.Version == PDFVersion::PDF_X4)
-		{
-			PutDoc("/BaseState /ON\n");
-			QString occdName = "Default";
-			PutDoc("/Name " + Pdf::toLiteralString(occdName) + "\n");
-		}
-		PutDoc("/OFF [ ");
-		QHash<QString, PdfOCGInfo>::Iterator itoc;
-		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-		{
-			if (!itoc.value().visible)
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-		}
-		PutDoc("]\n");
+		doc.Layers.levelToLayer(ll, la);
+		if (ll.isEditable)
+			lay.prepend(Pdf::toObjRef(OCGEntries[ll.Name].ObjNum) + " ");
+	}
+	for (int layc = 0; layc < lay.count(); ++layc)
+	{
 		if (Options.Version != PDFVersion::PDF_X4)
-		{
-			PutDoc("/AS [<</Event /Print /OCGs [ ");
-			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-			{
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-			}
-			PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
-			for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-			{
-				PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
-			}
-			PutDoc("] /Category [/View]>>]\n");
-		}
-		PutDoc(">>\n");
-		PutDoc("/OCGs [ ");
+			PutDoc(lay[layc]);
+	}
+	PutDoc("]\n");
+	if (Options.Version == PDFVersion::PDF_X4)
+	{
+		PutDoc("/BaseState /ON\n");
+		QString occdName = "Default";
+		PutDoc("/Name " + Pdf::toLiteralString(occdName) + "\n");
+	}
+	PutDoc("/OFF [ ");
+	QHash<QString, PdfOCGInfo>::Iterator itoc;
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		if (!itoc.value().visible)
+			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+	}
+	PutDoc("]\n");
+	if (Options.Version != PDFVersion::PDF_X4)
+	{
+		PutDoc("/AS [<</Event /Print /OCGs [ ");
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
 			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
 		}
-		PutDoc("]\n");
-		PutDoc(">>");
-		writer.endObj(writer.OCPropertiesObj);
+		PutDoc("] /Category [/Print]>> <</Event /View /OCGs [");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+		}
+		PutDoc("] /Category [/View]>>]\n");
 	}
+	PutDoc(">>\n");
+	PutDoc("/OCGs [ ");
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		PutDoc(Pdf::toObjRef(itoc.value().ObjNum) + " ");
+	}
+	PutDoc("]\n");
+	PutDoc(">>");
+	writer.endObj(writer.OCPropertiesObj);
 }
 
-void PDFLibCore::PDF_End_OutputProfile(const QString& PrintPr, const QString& Name, int Components)
+bool PDFLibCore::PDF_End_OutputProfile(const QString& profilePath)
 {
-	if (PDF_IsPDFX())
+	if (!PDF_IsPDFX())
+		return true;
+
+	PdfId profileObj = writer.startObj();
+	QByteArray dataP;
+	if (!loadRawBytes(profilePath, dataP))
+		return false;
+
+	ScColorProfile colorProfile = doc.colorEngine.openProfileFromMem(dataP);
+	if (colorProfile.isNull())
+		return false;
+	QString profileDesc = colorProfile.productDescription();
+	int components = colorProfile.channelsOfColorSpace();
+
+	PutDoc("<<\n");
+	if (Options.Compress)
 	{
-		PdfId profileObj =writer.startObj();
-		QByteArray dataP;
-		loadRawBytes(PrintPr, dataP);
-		PutDoc("<<\n");
-		if (Options.Compress)
+		QByteArray compData = CompressArray(dataP);
+		if (compData.size() > 0)
 		{
-			QByteArray compData = CompressArray(dataP);
-			if (compData.size() > 0)
-			{
-				PutDoc("/Filter /FlateDecode\n");
-				dataP = compData;
-			}
+			PutDoc("/Filter /FlateDecode\n");
+			dataP = compData;
 		}
-		PutDoc("/Length " + Pdf::toPdf(dataP.size() + 1) + "\n");
-		PutDoc("/N " + Pdf::toPdf(Components) + "\n");
-		PutDoc(">>\nstream\n");
-		PutDoc(dataP);
-		PutDoc("\nendstream");
-		writer.endObj(profileObj);
-
-//		if ((Options.Version == PDFVersion::PDF_X4) && (Options.useLayers))
-//		{
-//			XRef[9] = bytesWritten();
-//			PutDoc("10 0 obj\n");
-//		}
-//		if ((Options.Version == PDFVersion::PDF_X3) || (Options.Version == PDFVersion::PDF_X1a) || ((Options.Version == PDFVersion::PDF_X4) && !(Options.useLayers)))
-//		{
-//			XRef[8] = bytesWritten();
-//			PutDoc("9 0 obj\n");
-//		}
-		
-		writer.startObj(writer.OutputIntentObj);
-
-		PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
-		PutDoc("/DestOutputProfile " + Pdf::toObjRef(profileObj) + "\n");
-		PutDoc("/OutputConditionIdentifier (Custom)\n");
-		PutDoc("/Info " + Pdf::toLiteralString(Options.Info) + "\n");
-		PutDoc("/OutputCondition " + Pdf::toLiteralString(Name) + "\n");
-		PutDoc(">>");
-		writer.endObj(writer.OutputIntentObj);
 	}
+	PutDoc("/Length " + Pdf::toPdf(dataP.size() + 1) + "\n");
+	PutDoc("/N " + Pdf::toPdf(components) + "\n");
+	PutDoc(">>\nstream\n");
+	PutDoc(dataP);
+	PutDoc("\nendstream");
+	writer.endObj(profileObj);
+		
+	writer.startObj(writer.OutputIntentObj);
+
+	PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
+	PutDoc("/DestOutputProfile " + Pdf::toObjRef(profileObj) + "\n");
+	PutDoc("/OutputConditionIdentifier (Custom)\n");
+	PutDoc("/Info " + Pdf::toLiteralString(Options.Info) + "\n");
+	PutDoc("/OutputCondition " + Pdf::toLiteralString(profileDesc) + "\n");
+	PutDoc(">>");
+	writer.endObj(writer.OutputIntentObj);
+
+	return true;
 }
 
 void PDFLibCore::PDF_End_Metadata()

@@ -23,13 +23,16 @@ class TxtIm
 public:
 	TxtIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
 	~TxtIm();
+
 	void write();
+
 private:
 	QString filename;
 	QString encoding;
 	QString text;
-	gtWriter *writer;
-	bool textOnly;
+	gtWriter *writer { nullptr };
+	bool textOnly { true };
+
 	void loadText();
 	QString toUnicode(const QByteArray& rawText);
 };

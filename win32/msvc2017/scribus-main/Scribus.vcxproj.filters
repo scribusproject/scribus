@@ -806,6 +806,9 @@
     <ClInclude Include="..\..\..\scribus\pdfversion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -1606,10 +1609,10 @@
     <ClCompile Include="..\..\..\scribus\prefstable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\preview.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp">
@@ -2506,6 +2509,18 @@
     <ClCompile Include="..\..\..\scribus\pdfversion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreviewbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_pdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_ps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2891,6 +2906,15 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\contentpalette_defaultbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreviewbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreview_pdf.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreview_ps.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
@@ -3665,10 +3689,10 @@
     <moc Include="..\..\..\scribus\prefsmanager.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\preview.h">
+    <moc Include="..\..\..\scribus\ui\printdialog.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\printdialog.h">
+    <moc Include="..\..\..\scribus\ui\printpreview.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette.h">
@@ -4140,6 +4164,15 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\contentpalette_default.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreviewbase.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_ps.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

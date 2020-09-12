@@ -96,7 +96,7 @@ void PropertyWidget_PathText::setCurrentItem(PageItem *item)
 
 	if (m_item)
 	{
-		if (m_item->asPathText())
+		if (m_item->isPathText())
 		{
 			pathTextType->setCurrentIndex(m_item->textPathType);
 			flippedPathText->setChecked(m_item->textPathFlipped);
@@ -246,11 +246,14 @@ void PropertyWidget_PathText::unitChange()
 	if (!m_doc)
 		return;
 
+	QSignalBlocker startOffsetBlocker(startOffset);
+	QSignalBlocker distFromCurveBlocker(distFromCurve);
+
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	startOffset->setNewUnit( m_unitIndex );
-	distFromCurve->setNewUnit( m_unitIndex );
+	startOffset->setNewUnit(m_unitIndex);
+	distFromCurve->setNewUnit(m_unitIndex);
 }
 
 void PropertyWidget_PathText::localeChange()

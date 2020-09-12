@@ -903,7 +903,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 		if ((!item->strokePattern().isEmpty()) && (item->patternStrokePath))
 		{
 			ob = m_domDoc.createElement("g");
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 			{
 				QDomElement ob1 = processHatchFill(item, trans);
 				ob.appendChild(ob1);
@@ -911,7 +911,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 			QDomElement ob2 = m_domDoc.createElement("path");
 			ob2.setAttribute("d", setClipPath(&item->PoLine, closedPath));
 			ob2.setAttribute("transform", trans);
-			if (item->GrType != 14)
+			if (item->GrType != Gradient_Hatch)
 				ob2.setAttribute("style", fill);
 			else
 			{
@@ -924,7 +924,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 		}
 		else
 		{
-			if (item->GrType == 14)
+			if (item->GrType == Gradient_Hatch)
 			{
 				ob = m_domDoc.createElement("g");
 				ob.setAttribute("transform", trans);
@@ -948,14 +948,14 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 	{
 		ob = m_domDoc.createElement("g");
 		ob.setAttribute("transform", trans);
-		if (item->GrType == 14)
+		if (item->GrType == Gradient_Hatch)
 		{
 			QDomElement ob1 = processHatchFill(item);
 			ob.appendChild(ob1);
 		}
 		QDomElement ob2 = m_domDoc.createElement("path");
 		ob2.setAttribute("d", setClipPath(&item->PoLine, closedPath));
-		if (item->GrType != 14)
+		if (item->GrType != Gradient_Hatch)
 			ob2.setAttribute("style", fill);
 		else
 		{
@@ -1015,7 +1015,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 	ob.setAttribute("transform", trans);
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
-		if (item->GrType == 14)
+		if (item->GrType == Gradient_Hatch)
 		{
 			QDomElement ob1 = processHatchFill(item);
 			ob.appendChild(ob1);
@@ -1270,7 +1270,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 	ob.setAttribute("transform", trans);
 	if ((item->fillColor() != CommonStrings::None) || (item->GrType != 0))
 	{
-		if (item->GrType == 14)
+		if (item->GrType == Gradient_Hatch)
 		{
 			QDomElement ob1 = processHatchFill(item);
 			ob.appendChild(ob1);
@@ -1590,7 +1590,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			else if (item->GrTypeStroke > 0)
 			{
 				QDomElement grad;
-				if (item->GrTypeStroke == 7)
+				if (item->GrTypeStroke == Gradient_Radial)
 				{
 					grad = m_domDoc.createElement("radialGradient");
 					grad.setAttribute("r", FToStr(sqrt(pow(item->GrStrokeEndX - item->GrStrokeStartX, 2) + pow(item->GrStrokeEndY - item->GrStrokeStartY,2))));
@@ -1755,7 +1755,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			else if (item->GrTypeStroke > 0)
 			{
 				QDomElement grad;
-				if (item->GrTypeStroke == 7)
+				if (item->GrTypeStroke == Gradient_Radial)
 				{
 					grad = m_domDoc.createElement("radialGradient");
 					grad.setAttribute("r", FToStr(sqrt(pow(item->GrStrokeEndX - item->GrStrokeStartX, 2) + pow(item->GrStrokeEndY - item->GrStrokeStartY,2))));
@@ -1856,7 +1856,7 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 			trans += " rotate(" + FToStr(item->rotation()) + ")";
 		ob.setAttribute("transform", trans);
 	}
-	if ((item->GrMask == 3) || (item->GrMask == 6))
+	if ((item->GrMask == GradMask_Pattern) || (item->GrMask == GradMask_PatternLumAlpha))
 	{
 		QString pattID = item->patternMask() + IToStr(m_pattCount);
 		m_pattCount++;
@@ -1885,9 +1885,9 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 		m_globalDefs.appendChild(patt);
 		ob.setAttribute("fill", "url(#" + pattID + ")");
 	}
-	else if ((item->GrMask == 1) || (item->GrMask == 2) || (item->GrMask == 4) || (item->GrMask == 5))
+	else if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_Radial) || (item->GrMask == GradMask_LinearLumAlpha) || (item->GrMask == GradMask_RadialLumAlpha))
 	{
-		if ((item->GrMask == 1) || (item->GrMask == 4))
+		if ((item->GrMask == GradMask_Linear) || (item->GrMask == GradMask_LinearLumAlpha))
 		{
 			grad = m_domDoc.createElement("linearGradient");
 			grad.setAttribute("x1", FToStr(item->GrMaskStartX));
@@ -1916,7 +1916,7 @@ QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
 		else
 			gradientSkew = tan(M_PI / 180.0 * item->GrMaskSkew);
 		QTransform qmatrix;
-		if (item->GrType == 6)
+		if (item->GrType == Gradient_Linear)
 		{
 			qmatrix.translate(item->GrMaskStartX, item->GrMaskStartY);
 			qmatrix.shear(-gradientSkew, 0);
@@ -1979,7 +1979,7 @@ QString SVGExPlug::getFillStyle(PageItem *item)
 		fill = "fill:" + setColor(item->fillColor(), item->fillShade()) + ";";
 		if (item->GrType != 0)
 		{
-			if (item->GrType == 8)
+			if (item->GrType == Gradient_Pattern)
 			{
 				QString pattID = item->pattern() + IToStr(m_pattCount);
 				m_pattCount++;
@@ -2010,7 +2010,7 @@ QString SVGExPlug::getFillStyle(PageItem *item)
 			}
 			else
 			{
-				if (item->GrType == 6)
+				if (item->GrType == Gradient_Linear)
 				{
 					grad = m_domDoc.createElement("linearGradient");
 					grad.setAttribute("x1", FToStr(item->GrStartX));
@@ -2039,7 +2039,7 @@ QString SVGExPlug::getFillStyle(PageItem *item)
 				else
 					gradientSkew = tan(M_PI / 180.0 * item->GrSkew);
 				QTransform qmatrix;
-				if (item->GrType == 6)
+				if (item->GrType == Gradient_Linear)
 				{
 					qmatrix.translate(item->GrStartX, item->GrStartY);
 					qmatrix.shear(-gradientSkew, 0);
@@ -2228,7 +2228,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 	else if (item->GrTypeStroke > 0)
 	{
 		QDomElement grad;
-		if (item->GrTypeStroke == 7)
+		if (item->GrTypeStroke == Gradient_Radial)
 		{
 			grad = m_domDoc.createElement("radialGradient");
 			grad.setAttribute("r", FToStr(sqrt(pow(item->GrStrokeEndX - item->GrStrokeStartX, 2) + pow(item->GrStrokeEndY - item->GrStrokeStartY,2))));
@@ -2277,7 +2277,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 		else
 			gradientSkew = tan(M_PI / 180.0 * item->GrStrokeSkew);
 		QTransform qmatrix;
-		if (item->GrType == 6)
+		if (item->GrType == Gradient_Linear)
 		{
 			qmatrix.translate(item->GrStrokeStartX, item->GrStrokeStartY);
 			qmatrix.shear(-gradientSkew, 0);

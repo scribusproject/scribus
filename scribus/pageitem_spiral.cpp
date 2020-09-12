@@ -141,7 +141,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				{
 					p->setStrokeMode(ScPainter::Gradient);
 					p->stroke_gradient = stroke_gradient;
-					if (GrTypeStroke == 6)
+					if (GrTypeStroke == Gradient_Linear)
 						p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 					else
 						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
@@ -218,7 +218,6 @@ void PageItem_Spiral::recalcPath()
 	double endAngleK = spiralEndAngle;
 	double spiralHeight = height();
 	double spiralWidth = width();
-	QPainterPath path, path2;
 	double sh = spiralHeight / (spiralFactor + 1.0);
 	double sw = 0.0;
 	double ww = spiralWidth;
@@ -230,6 +229,8 @@ void PageItem_Spiral::recalcPath()
 	bool segPart = true;
 	bool draw = false;
 	QPointF tp;
+	QPainterPath path;
+	QPainterPath path2;
 	path2.moveTo(sw, sh);
 	while (segStart < endAngleK)
 	{

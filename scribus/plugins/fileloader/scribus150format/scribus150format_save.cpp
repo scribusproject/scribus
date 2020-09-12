@@ -74,7 +74,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 		PageItem *currItem = selection->itemAt(i);
 		currItem->getNamedResources(lists);
 		emG.append(currItem);
-		if ((!currItem->asTextFrame()) && (!currItem->asPathText()))
+		if ((!currItem->isTextFrame()) && (!currItem->isPathText()))
 			continue;
 		//for notes frames text should not be saved
 		if (currItem->isNoteFrame())
@@ -1907,7 +1907,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pattern", item->pattern());
 		if (item->GrType != 0)
 		{
-			if (item->GrType == 8)
+			if (item->GrType == Gradient_Pattern)
 			{
 				docu.writeAttribute("pattern", item->pattern());
 				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
@@ -1926,16 +1926,16 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			else
 			{
-				if (item->GrType == 11)
+				if (item->GrType == Gradient_Mesh)
 				{
 					docu.writeAttribute("GMAY", item->meshGradientArray[0].count());
 					docu.writeAttribute("GMAX", item->meshGradientArray.count());
 				}
-				else if (item->GrType == 12)
+				else if (item->GrType == Gradient_PatchMesh)
 				{
 					docu.writeAttribute("GMAX", item->meshGradientPatches.count());
 				}
-				else if (item->GrType == 14)
+				else if (item->GrType == Gradient_Hatch)
 				{
 					docu.writeAttribute("HatchMode", item->hatchType);
 					docu.writeAttribute("HatchDist", item->hatchDistance);
@@ -1955,7 +1955,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GRSCALE" , item->GrScale);
 					docu.writeAttribute("GRSKEW" , item->GrSkew);
 					docu.writeAttribute("GRExt", item->getGradientExtend());
-					if ((item->GrType == 9) || (item->GrType == 10))
+					if ((item->GrType == Gradient_4Colors) || (item->GrType == Gradient_Diamond))
 					{
 						docu.writeAttribute("GRC1X"   , item->GrControl1.x());
 						docu.writeAttribute("GRC1Y"   , item->GrControl1.y());
@@ -1976,9 +1976,9 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("GRCOLT3" , item->GrCol3transp);
 						docu.writeAttribute("GRCOLT4" , item->GrCol4transp);
 						docu.writeAttribute("GRCOLS1" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS2" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS3" , item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS4" , item->GrCol1Shade);
+						docu.writeAttribute("GRCOLS2" , item->GrCol2Shade);
+						docu.writeAttribute("GRCOLS3" , item->GrCol3Shade);
+						docu.writeAttribute("GRCOLS4" , item->GrCol4Shade);
 					}
 				}
 			}
@@ -2060,7 +2060,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->isBookmark)
 			docu.writeAttribute("BOOKMARK", 1);
 
-		if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
+		if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 		{
 			if (item->nextInChain() != nullptr)
 				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()) & 0x7FFFFFFF);
@@ -2083,7 +2083,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("BACKITEM", -1);
 				if (item->isNoteFrame())
 					docu.writeAttribute("isNoteFrame", 1);
-				else if (item->asTextFrame() || item->asPathText())
+				else if (item->isTextFrame() || item->isPathText())
 					writeStoryText(doc, docu, item);
 			}
 		}
@@ -2117,7 +2117,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Param", item->effectsInUse.at(a).effectParameters);
 			}
 		}
-		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
+		if (((item->isImageFrame()) || (item->isTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
 		{
 			for (auto it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
 			{
@@ -2129,7 +2129,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Blend", it2.value().blend);
 			}
 		}
-		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11) && (item->GrType != 14)) && (item->gradient().isEmpty()))
+		if (((item->GrType > 0) && (item->GrType != Gradient_Pattern) && (item->GrType != Gradient_4Colors) && (item->GrType != Gradient_Mesh) && (item->GrType != Gradient_Hatch)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (int cst = 0; cst < item->fill_gradient.stops(); ++cst)
@@ -2165,7 +2165,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
 			}
 		}
-		if (item->GrType == 11)
+		if (item->GrType == Gradient_Mesh)
 		{
 			for (int grow = 0; grow < item->meshGradientArray.count(); grow++)
 			{
@@ -2192,7 +2192,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				}
 			}
 		}
-		if (item->GrType == 12)
+		if (item->GrType == Gradient_PatchMesh)
 		{
 			for (int grow = 0; grow < item->meshGradientPatches.count(); grow++)
 			{
@@ -2245,7 +2245,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 		}
 
-		if (item->asLatexFrame())
+		if (item->isLatexFrame())
 		{
 			docu.writeStartElement("LATEX");
 			PageItem_LatexFrame *latexitem = item->asLatexFrame();
@@ -2269,7 +2269,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			ob.appendChild(latexinfo);*/
 		}
 #ifdef HAVE_OSG
-		if (item->asOSGFrame())
+		if (item->isOSGFrame())
 		{
 			PageItem_OSGFrame *osgitem = item->asOSGFrame();
 			if (!item->Pfile.isEmpty())
@@ -2316,7 +2316,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 		}
 #endif
-		if (item->asGroupFrame())
+		if (item->isGroup())
 		{
 			WriteObjects(m_Doc, docu, baseDir, nullptr, 0, ItemSelectionGroup, &item->groupItemList);
 		}
@@ -2592,7 +2592,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("WeldSource", qHash(item) & 0x7FFFFFFF);
 		}
 	}
-	if (item->asRegularPolygon())
+	if (item->isRegularPolygon())
 	{
 		PageItem_RegularPolygon *regitem = item->asRegularPolygon();
 		docu.writeAttribute("POLYC", regitem->polyCorners);
@@ -2603,7 +2603,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
 		docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
 	}
-	if (item->asArc())
+	if (item->isArc())
 	{
 		PageItem_Arc *arcitem = item->asArc();
 		docu.writeAttribute("arcHeight", arcitem->arcHeight);
@@ -2611,7 +2611,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("arcStartAngle", arcitem->arcStartAngle);
 		docu.writeAttribute("arcSweepAngle", arcitem->arcSweepAngle);
 	}
-	if (item->asSpiral())
+	if (item->isSpiral())
 	{
 		PageItem_Spiral *arcitem = item->asSpiral();
 		docu.writeAttribute("spiralStartAngle", arcitem->spiralStartAngle);
@@ -2670,7 +2670,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 //	docu.writeAttribute("TEXTFLOW" , item->textFlowAroundObject() ? 1 : 0);
 //	docu.writeAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
 //	docu.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
-	if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
+	if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 	{
 		docu.writeAttribute("LOCALSCX", item->imageXScale());
 		docu.writeAttribute("LOCALSCY", item->imageYScale());
@@ -2681,7 +2681,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
 	}
-	if (item->asTextFrame() || item->asPathText())
+	if (item->isTextFrame() || item->isPathText())
 	{
 		docu.writeAttribute("COLUMNS", item->columns());
 		docu.writeAttribute("COLGAP", item->columnGap());
@@ -2698,9 +2698,9 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
 	}
 #ifdef HAVE_OSG
-	if (((item->asImageFrame() && !(item->asLatexFrame() || item->asOSGFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+	if (((item->isImageFrame() && !(item->isLatexFrame() || item->isOSGFrame())) || (item->isTextFrame())) && (!item->Pfile.isEmpty()))
 #else
-	if (((item->asImageFrame() && !(item->asLatexFrame())) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+	if (((item->isImageFrame() && !(item->isLatexFrame())) || (item->isTextFrame())) && (!item->Pfile.isEmpty()))
 #endif
 	{
 		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
@@ -2722,7 +2722,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	}
 #ifdef HAVE_OSG
-	else if (item->asOSGFrame())
+	else if (item->isOSGFrame())
 	{
 		if (!item->Pfile.isEmpty())
 		{
@@ -2755,7 +2755,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("EPROF", item->EmbeddedProfile);
 	if (!item->UseEmbedded)
 		docu.writeAttribute("EMBEDDED", 0);
-	if (item->asImageFrame())
+	if (item->isImageFrame())
 	{
 		if (item->OverrideCompressionMethod)
 			docu.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
@@ -2792,7 +2792,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->isTable())
 	{
 		//PTYPE == PageItem::Table or 16 (pageitem.h)
-		PageItem_Table* tableItem=item->asTable();
+		PageItem_Table* tableItem = item->asTable();
 		docu.writeAttribute("Rows", tableItem->rows());
 		docu.writeAttribute("Columns", tableItem->columns());
 
@@ -2849,7 +2849,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	QString colp = item->ContourLine.svgPath(true);
 	if (!colp.isEmpty())
 		docu.writeAttribute("copath", colp);
-	if (item->asLine() || item->asPolyLine())
+	if (item->isLine() || item->isPolyLine())
 	{
 		if (item->startArrowIndex() != 0)
 			docu.writeAttribute("startArrowIndex", item->startArrowIndex());

@@ -104,7 +104,7 @@ ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 	header()->setSectionResizeMode(QHeaderView::Stretch);
 	viewport()->setBackgroundRole(QPalette::Window);
 	setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-	m_toolbox_mode = false;
+
     connect(this, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(handleMousePress(QTreeWidgetItem*)));
 }
 
@@ -148,7 +148,7 @@ QTreeWidgetItem* ScTreeWidget::addWidget(const QString& title, QWidget* widget)
 
 void ScTreeWidget::setToolBoxMode(bool enable)
 {
-	m_toolbox_mode = enable;
+	m_toolboxMode = enable;
 }
 
 int ScTreeWidget::addItem(QWidget* widget, const QString& title)
@@ -244,7 +244,7 @@ void ScTreeWidget::handleMousePress(QTreeWidgetItem *item)
 		}
 		int wide = 0;
 		int tops = topLevelItemCount();
-		if (m_toolbox_mode)
+		if (m_toolboxMode)
 		{
 			for (int t = 0; t < tops; t++)
 			{

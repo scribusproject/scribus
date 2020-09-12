@@ -122,7 +122,7 @@ const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 
 bool ScActionPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 {
-	const int docSelectionCount=doc->m_Selection->count();
+	const int docSelectionCount = doc->m_Selection->count();
 	ActionInfo ai(actionInfo());
 	if (SelectedType != -1)
 	{

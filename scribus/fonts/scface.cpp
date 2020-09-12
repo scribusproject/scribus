@@ -412,6 +412,8 @@ ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 		return CONTROL_GLYPHS + ch;
 	if (ch == SpecialChars::NBSPACE)
 		return  m_m->char2CMap(' ');
+	if (ch == SpecialChars::NNBSPACE)
+		return  m_m->char2CMap(0x2009); // Use thin space
 	if (ch == SpecialChars::NBHYPHEN)
 		return hyphenGlyph();
 	return 0;

@@ -330,9 +330,9 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 	showLineWidth(m_item->lineWidth());
 	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
 
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 		setEnabled(false);
-	if (m_item->asSymbolFrame())
+	if (m_item->isSymbol())
 		setEnabled(false);
 }
 
@@ -354,18 +354,18 @@ void PropertiesPalette_Line::updateLineStyles()
 	updateLineStyles(m_doc);
 }
 
-void PropertiesPalette_Line::updateLineStyles(ScribusDoc *dd)
+void PropertiesPalette_Line::updateLineStyles(ScribusDoc *doc)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	
 	lineStyles->blockSignals(true);
 	lineStyles->clear();
-	if (dd != nullptr)
+	if (doc != nullptr)
 	{
 		QHash<QString,multiLine>::Iterator it;
-		for (it = dd->docLineStyles.begin(); it != dd->docLineStyles.end(); ++it)
-			lineStyles->addItem( new LineFormatItem(dd, it.value(), it.key()) );
+		for (it = doc->docLineStyles.begin(); it != doc->docLineStyles.end(); ++it)
+			lineStyles->addItem( new LineFormatItem(doc, it.value(), it.key()) );
 		lineStyles->sortItems();
 		lineStyles->insertItem( 0, tr("No Style"));
 		if (lineStyles->currentItem())

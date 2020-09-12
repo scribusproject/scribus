@@ -25,7 +25,7 @@ class AdapterWidget : public QGLWidget
 {
     Q_OBJECT
 	public:
-		AdapterWidget ( QWidget * parent = 0, const char * name = 0, const QGLWidget * shareWidget = 0);
+		AdapterWidget ( QWidget* parent = nullptr, const char * name = 0, const QGLWidget * shareWidget = 0);
 
 		virtual ~AdapterWidget() {}
 
@@ -53,7 +53,7 @@ class AdapterWidget : public QGLWidget
 class ViewerQT : public osgViewer::Viewer, public AdapterWidget
 {
 	public:
-		ViewerQT ( QWidget * parent = 0, const char * name = 0, const QGLWidget * shareWidget = 0) : AdapterWidget ( parent, name, shareWidget)
+		ViewerQT ( QWidget* parent = nullptr, const char * name = 0, const QGLWidget * shareWidget = 0) : AdapterWidget ( parent, name, shareWidget)
 		{
 			getCamera()->setViewport ( new osg::Viewport ( 0,0,width(),height() ) );
 			getCamera()->setProjectionMatrixAsPerspective ( 30.0f, static_cast<double> ( width() ) /static_cast<double> ( height() ), 1.0f, 10000.0f );

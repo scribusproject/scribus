@@ -1116,7 +1116,7 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 			parseCharStyle(newStyle, n.isElement() ? e : elm);
 			item->itemText.applyCharStyle(pos, chars.length(), newStyle);
 		}
-		if (!item->asPolyLine() && !item->asTextFrame())
+		if (!item->isPolyLine() && !item->isTextFrame())
 			item = m_Doc->convertItemTo(item, PageItem::TextFrame);
 		firstSpan = false;
 	}
@@ -1161,9 +1161,9 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 				double gradientAngle(oostyle.gradientAngle);
 				if ((gradientAngle == 0) || (gradientAngle == 180) || (gradientAngle == 90) || (gradientAngle == 270))
 				{
+					item->GrType = Gradient_Linear;
 					if ((gradientAngle == 0) || (gradientAngle == 180))
 					{
-						item->GrType = 6;
 						item->GrStartX = item->width() / 2.0;
 						item->GrStartY = 0;
 						item->GrEndX = item->width() / 2.0;
@@ -1171,7 +1171,6 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 					}
 					else if ((gradientAngle == 90) || (gradientAngle == 270))
 					{
-						item->GrType = 6;
 						item->GrStartX = 0;
 						item->GrStartY = item->height() / 2.0;
 						item->GrEndX = item->width();
@@ -1221,12 +1220,12 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 						item->GrStartX = xpos;
 						item->GrStartY = 0;
 					}
-					item->GrType = 6;
+					item->GrType = Gradient_Linear;
 				}
 			}
 			if (oostyle.gradientType == 2)
 			{
-				item->GrType = 7;
+				item->GrType = Gradient_Radial;
 				item->GrStartX = item->width() * oostyle.gradientPointX;
 				item->GrStartY = item->height()* oostyle.gradientPointY;
 				if (item->width() >= item->height())

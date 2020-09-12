@@ -46,7 +46,7 @@ public:
 	void setDoc(ScribusDoc *doc);
 
 	/*! \brief State of the P.V. */
-	enum CheckMode { checkNULL, checkPDF, checkEPS, checkPrint, checkPrintPreview };
+	enum CheckMode { checkNULL, checkPDF, checkEPS, checkPrint, checkPrintPreview, checkOutputPreviewPDF, checkOutputPreviewPS };
 
 	/*! \brief Clean the list view tree and reset the P.V. attributes. */
 	void clearErrorList();

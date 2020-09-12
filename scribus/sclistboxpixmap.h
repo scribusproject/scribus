@@ -94,14 +94,13 @@ void ScListBoxPixmap<pixWidth, pixHeight>::paint(QPainter * qpainter, const QSty
 		int yPos = (itemHeight - pmap->height()) / 2;
 		qpainter->drawPixmap(option.rect.x() + 3, option.rect.y() + yPos, *pmap);
 	}
+
 	if (option.state & QStyle::State_Selected)
-		qpainter->setBrush(option.palette.highlightedText());
+		qpainter->setPen(QPen(option.palette.highlightedText(), 0));
 	else
-		qpainter->setBrush(QBrush(Qt::black));
-	qpainter->setPen(Qt::black);
+		qpainter->setPen(QPen(option.palette.text(), 0));
 	
 	QString txt(index.data(Qt::DisplayRole).toString());
-
 	if (!txt.isEmpty())
 	{
 		QFontMetrics fm = qpainter->fontMetrics();

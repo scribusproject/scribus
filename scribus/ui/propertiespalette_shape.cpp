@@ -154,7 +154,7 @@ void PropertiesPalette_Shape::setLocked(bool isLocked)
 	{
 		enableCustomShape();
 		enableEditShape();
-		if (((m_item->asTextFrame()) || (m_item->asImageFrame()) || (m_item->asPolygon())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
+		if (((m_item->isTextFrame()) || (m_item->isImageFrame()) || (m_item->isPolygon())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
 			roundRect->setEnabled(!isLocked);
 		else
 			roundRect->setEnabled(false);
@@ -232,7 +232,7 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 		case PageItem::OSGFrame:
-			if (currItem->asOSGFrame())
+			if (currItem->isOSGFrame())
 			{
 				setEnabled(false);
 				roundRect->setEnabled(false);
@@ -341,7 +341,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
 	showTextFlowMode(m_item->textFlowMode());
 
-	if (m_item->asPathText() || m_item->asTextFrame() || m_item->asImageFrame())
+	if (m_item->isPathText() || m_item->isTextFrame() || m_item->isImageFrame())
 	{
 		nonZero->setChecked(false);
 		nonZero->setEnabled(false);
@@ -359,24 +359,24 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
-	if (((m_item->asTextFrame()) || (m_item->asImageFrame())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
+	if (((m_item->isTextFrame()) || (m_item->isImageFrame())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
 		roundRect->setEnabled(true);
 	else
 	{
-		roundRect->setEnabled ((m_item->asPolygon()) &&  (!m_item->ClipEdited)  && ((m_item->FrameType == 0) || (m_item->FrameType == 2)));
+		roundRect->setEnabled ((m_item->isPolygon()) &&  (!m_item->ClipEdited)  && ((m_item->FrameType == 0) || (m_item->FrameType == 2)));
 	}
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(false);
 		roundRect->setEnabled(false);
 		editShape->setEnabled(false);
 		customShape->setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->isSymbol())
 	{
 		setEnabled(false);
 	}
-	if (m_item->asTable())
+	if (m_item->isTable())
 	{
 		setEnabled(true);
 		roundRect->setEnabled(false);
@@ -513,7 +513,7 @@ void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 		textFlowUsesContourLine->setChecked(true);
 	else if (mode == PageItem::TextFlowUsesImageClipping)
 		textFlowUsesImageClipping->setChecked(true);
-	if ((m_item->asImageFrame()) && (!m_item->imageClip.empty()))
+	if ((m_item->isImageFrame()) && (!m_item->imageClip.empty()))
 		textFlowUsesImageClipping->setEnabled(true);
 	else
 		textFlowUsesImageClipping->setEnabled(false);

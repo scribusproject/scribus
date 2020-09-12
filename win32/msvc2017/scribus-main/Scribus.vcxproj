@@ -347,6 +347,7 @@
     <ClInclude Include="..\..\..\scribus\pdfversion.h" />
     <ClInclude Include="..\..\..\scribus\pdfwriter.h" />
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
+    <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
     <moc Include="..\..\..\scribus\ui\charselectenhanced.h" />
@@ -576,8 +577,8 @@
     <ClInclude Include="..\..\..\scribus\prefsreader.h" />
     <ClInclude Include="..\..\..\scribus\prefsstructs.h" />
     <ClInclude Include="..\..\..\scribus\prefstable.h" />
-    <moc Include="..\..\..\scribus\ui\preview.h" />
     <moc Include="..\..\..\scribus\ui\printdialog.h" />
+    <moc Include="..\..\..\scribus\ui\printpreview.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_group.h" />
     <moc Include="..\..\..\scribus\ui\propertiespalette_image.h" />
@@ -607,6 +608,9 @@
     <moc Include="..\..\..\scribus\ui\contentpalette.h" />
     <moc Include="..\..\..\scribus\ui\contentpalette_page.h" />
     <moc Include="..\..\..\scribus\ui\contentpalette_default.h" />
+    <moc Include="..\..\..\scribus\ui\outputpreviewbase.h" />
+    <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h" />
+    <moc Include="..\..\..\scribus\ui\outputpreview_ps.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -888,6 +892,7 @@
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp" />
+    <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
     <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
@@ -1195,6 +1200,9 @@
     <ClCompile Include="..\..\..\scribus\pageitem_symbol.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitem_table.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitem_textframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\outputpreviewbase.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_pdf.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pageitemattributes.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitempointer.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pagelayout.cpp" />
@@ -1254,8 +1262,8 @@
     <ClCompile Include="..\..\..\scribus\prefsmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp" />
     <ClCompile Include="..\..\..\scribus\prefstable.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\preview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_image.cpp" />
@@ -1576,6 +1584,9 @@
     <uic Include="..\..\..\scribus\ui\nftwidget.ui" />
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui" />
     <uic Include="..\..\..\scribus\ui\osgeditor.ui" />
+    <uic Include="..\..\..\scribus\ui\outputpreviewbase.ui" />
+    <uic Include="..\..\..\scribus\ui\outputpreview_pdf.ui" />
+    <uic Include="..\..\..\scribus\ui\outputpreview_ps.ui" />
     <uic Include="..\..\..\scribus\ui\pageitemattributes.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_masterpagesbase.ui" />
     <uic Include="..\..\..\scribus\ui\pagepalette_pagesbase.ui" />

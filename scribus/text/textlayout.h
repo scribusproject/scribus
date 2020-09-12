@@ -49,7 +49,7 @@ public:
 	ITextContext*  frame() { return m_frame; }
 	const StoryText* story() const { return m_story; }
 	void setStory(StoryText* story);
-	void render(ScreenPainter *p, ITextContext *item) const;
+	void render(ScreenPainter *p, ITextContext *ctx) const;
 	void render(TextLayoutPainter *p) const;
 	void renderBackground(TextLayoutPainter *p) const;
 	int startOfLine(int pos) const;

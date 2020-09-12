@@ -97,7 +97,7 @@ void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
 
 	if (!m_item) return;
 
-	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
 		configureWidgets();
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
@@ -351,7 +351,7 @@ void PropertyWidget_ParEffect::configureWidgets()
 		PageItem_TextFrame *textItem = m_item->asTextFrame();
 		if (m_doc->appMode == modeEditTable)
 			textItem = m_item->asTable()->activeCell().textFrame();
-		if (textItem || m_item->asPathText())
+		if (textItem || m_item->isPathText())
 			enabled = true;
 	}
 	setEnabled(enabled);

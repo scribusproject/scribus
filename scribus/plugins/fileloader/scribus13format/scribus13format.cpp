@@ -326,7 +326,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->cmsSettings().DefaultSolidColorCMYKProfile = dc.attribute("DPPr","");
 		m_Doc->cmsSettings().DefaultIntentColors = (eRenderIntent) dc.attribute("DISc", "1").toInt();
 		m_Doc->cmsSettings().DefaultIntentImages = (eRenderIntent) dc.attribute("DIIm", "0").toInt();
-		layerToSetActive=dc.attribute("ALAYER", "0").toInt();
+		layerToSetActive = dc.attribute("ALAYER", "0").toInt();
 		//m_Doc->setHyphLanguage(dc.attribute("LANGUAGE", ""));
 		static const QString LANGUAGE("LANGUAGE");
 		QString l(dc.attribute(LANGUAGE, "en"));
@@ -1658,8 +1658,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->setEndArrowScale(obj->attribute("endArrowScale", "100").toInt());
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
-	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
-		doc->OldBM = true;
 	currItem->setImageFlippedH(obj->attribute("FLIPPEDH").toInt());
 	currItem->setImageFlippedV(obj->attribute("FLIPPEDV").toInt());
 	currItem->setCornerRadius(ScCLocale::toDoubleC(obj->attribute("RADRECT"), 0.0));
@@ -1812,7 +1810,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	currItem->annotation().setIPlace(obj->attribute("ANPLACE", "1").toInt());
 	currItem->annotation().setScaleW(obj->attribute("ANSCALE", "0").toInt());
 
-	if (currItem->asTextFrame() || currItem->asPathText())
+	if (currItem->isTextFrame() || currItem->isPathText())
 	{
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
@@ -1945,9 +1943,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setHeight(1.0);
 		currItem->asLine()->setLineClip();
 	}
-	if (currItem->asImageFrame())
+	if (currItem->isImageFrame())
 		currItem->adjustPictScale();
-	if (currItem->asPathText())
+	if (currItem->isPathText())
 		currItem->updatePolyClip();
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
@@ -1977,7 +1975,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
-			if (currItem->GrType == 5)
+			if (currItem->GrType == Gradient_RadialLegacy5)
 			{
 				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
@@ -2004,14 +2002,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	}
 	switch (currItem->GrType)
 	{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			currItem->GrType = 6;
+		case Gradient_LinearLegacy1:
+		case Gradient_LinearLegacy2:
+		case Gradient_LinearLegacy3:
+		case Gradient_LinearLegacy4:
+			currItem->GrType = Gradient_Linear;
 			break;
-		case 5:
-			currItem->GrType = 7;
+		case Gradient_RadialLegacy5:
+			currItem->GrType = Gradient_Radial;
 			break;
 		default:
 			break;

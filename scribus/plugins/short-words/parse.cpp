@@ -53,7 +53,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	SWConfig *cfg = new SWConfig();
 
 	// just textframes processed
-	if (!aFrame->asTextFrame())
+	if (!aFrame->isTextFrame())
 		return;
 
 	// an ugly hack to get the language code from the item language property

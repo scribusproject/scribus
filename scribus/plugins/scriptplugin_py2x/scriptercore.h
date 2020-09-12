@@ -36,7 +36,7 @@ public:
 
 public slots:
 	void runScriptDialog();
-	void StdScript(const QString& filebasename);
+	void StdScript(const QString& baseFilename);
 	void RecentScript(const QString& fn);
 	void slotRunScriptFile(const QString& fileName, bool inMainInterpreter = false);
 	void slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter = false);
@@ -84,9 +84,9 @@ protected:
 
 	// Preferences
 	/** \brief pref: Enable access to main interpreter and 'extension scripts' */
-	bool m_enableExtPython;
+	bool m_enableExtPython {false};
 	/** \brief pref: Run 'from scribus import *' at scripter startup */
-	bool m_importAllNames;
+	bool m_importAllNames {true};
 	/** \brief pref: Load this script on startup */
 	QString m_startupScript;
 };

@@ -13,11 +13,11 @@ class SCRIBUS_API MarkInsert : public QDialog
 	Q_OBJECT
 
 public:
-	MarkInsert(const QList<Mark*>&, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsert(const Mark*, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsert(const QList<NotesStyle*>&, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsert(QWidget *parent = 0) : QDialog(parent) {}
-	~MarkInsert() {}
+	MarkInsert(const QList<Mark*>&, QWidget* parent = nullptr) : QDialog(parent) {}
+	MarkInsert(const Mark*, QWidget* parent = nullptr) : QDialog(parent) {}
+	MarkInsert(const QList<NotesStyle*>&, QWidget* parent = nullptr) : QDialog(parent) {}
+	MarkInsert(QWidget* parent = nullptr) : QDialog(parent) {}
+	virtual ~MarkInsert() {}
 
 	virtual void values(QString &label) {}
 	virtual void values(QString &label, PageItem* &item) {}

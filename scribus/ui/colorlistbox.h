@@ -46,8 +46,8 @@ class SCRIBUS_API ColorListBox : public QListView
 
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
-		ColorListBox(QWidget * parent = 0);
-		ColorListBox(ColorListBox::PixmapType type, QWidget * parent = 0);
+		ColorListBox(QWidget* parent = nullptr);
+		ColorListBox(ColorListBox::PixmapType type, QWidget* parent = nullptr);
 		~ColorListBox();
 
 		virtual void changeEvent(QEvent *e);

@@ -446,7 +446,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	if (m_item->asImageFrame())
+	if (m_item->isImageFrame())
 	{
 		imagePageNumber->blockSignals(true);
 		if(m_item->imageIsAvailable)
@@ -473,7 +473,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		bool setter = m_item->ScaleType;
 		freeScale->setChecked(setter);
 		frameScale->setChecked(!setter);
-		if ((m_item->asLatexFrame()) || (m_item->asOSGFrame()))
+		if ((m_item->isLatexFrame()) || (m_item->isOSGFrame()))
 		{
 			freeScale->setEnabled(false);
 			frameScale->setEnabled(false);
@@ -523,15 +523,15 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		rrR = 360 - rrR;
 	imageRotation->showValue(fabs(rrR));
 
-	if (m_item->asImageFrame())
+	if (m_item->isImageFrame())
 	{
 		updateProfileList();
 	}
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->isSymbol())
 	{
 		setEnabled(false);
 	}
@@ -837,16 +837,14 @@ void PropertiesPalette_Image::unitChange()
 	if (!m_doc)
 		return;
 
+	QSignalBlocker imageXOffsetSpinBoxBlocker(imageXOffsetSpinBox);
+	QSignalBlocker imageYOffsetSpinBoxBlocker(imageYOffsetSpinBox);
+
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	imageXOffsetSpinBox->blockSignals(true);
-	imageXOffsetSpinBox->setNewUnit( m_unitIndex );
-	imageXOffsetSpinBox->blockSignals(false);
-
-	imageYOffsetSpinBox->blockSignals(true);
-	imageYOffsetSpinBox->setNewUnit( m_unitIndex );
-	imageYOffsetSpinBox->blockSignals(false);
+	imageXOffsetSpinBox->setNewUnit(m_unitIndex);
+	imageYOffsetSpinBox->setNewUnit(m_unitIndex);
 }
 
 void PropertiesPalette_Image::localeChange()

@@ -62,7 +62,7 @@ private:
 	void handleQuickTime(QDataStream &ts, quint16 opCode);
 	void handleComment(QDataStream &ts, bool longComment);
 	QRect readRect(QDataStream &ts);
-	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte);
+	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte);
 	QBrush setFillPattern();
 
 	int m_baseX, m_baseY;

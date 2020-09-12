@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 bool os_is_osx()
 {
-#ifdef Q_OS_OSX
+#ifdef Q_OS_MACOS
 	return true;
 #else
 	return false;

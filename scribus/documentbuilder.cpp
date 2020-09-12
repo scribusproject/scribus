@@ -109,7 +109,7 @@ PageItem* DocumentBuilder::createPageItem(int itemTypeI, int frameTypeI, double 
 
 PageItem* DocumentBuilder::finishPageItem(PageItem* newItem)
 {
-	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	if (newItem->isImageFrame() || newItem->isLatexFrame())
 	{
 		if (!newItem->Pfile.isEmpty())
 		{

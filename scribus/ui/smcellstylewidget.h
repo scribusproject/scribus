@@ -26,7 +26,7 @@ class SMCellStyleWidget : public QWidget, public Ui::SMCellStyleWidget
 
 public:
 	/// Constructor.
-	SMCellStyleWidget(QWidget *parent = 0);
+	SMCellStyleWidget(QWidget* parent = nullptr);
 	/// Destructor.
 	~SMCellStyleWidget();
 

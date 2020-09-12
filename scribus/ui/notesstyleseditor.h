@@ -14,7 +14,7 @@ class SCRIBUS_API NotesStylesEditor : public ScrPaletteBase, private Ui::NotesSt
 	Q_OBJECT
 
 public:
-	explicit NotesStylesEditor(QWidget *parent = 0, const char *name = "notesStylesEditor");
+	explicit NotesStylesEditor(QWidget* parent = nullptr, const char *name = "notesStylesEditor");
 	~NotesStylesEditor();
 
 	virtual void changeEvent(QEvent *e);

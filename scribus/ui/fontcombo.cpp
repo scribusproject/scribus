@@ -540,6 +540,8 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	if (hasLatin)
 		font = font2;
 
+	pixPainter.setPen(QPen(option.palette.text(), 0));
+
 	invpixPainter.setBrush(option.palette.highlight());
 	invpixPainter.setPen(Qt::NoPen);
 	invpixPainter.drawRect(0, 0, option.rect.width(), option.rect.height());

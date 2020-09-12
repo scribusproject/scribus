@@ -244,7 +244,7 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		return;
 
 	PageItem* currItem = currentItemFromSelection();
-	if (m_doc->m_Selection->count() > 1 )
+	if (m_doc->m_Selection->count() > 1)
 	{
 		setEnabled(false);
 		flopBox->flopRealHeight->setChecked(true);
@@ -258,6 +258,7 @@ void PropertiesPalette_Text::handleSelectionChanged()
 		{
 		case -1:
 			m_haveItem = false;
+			m_item = nullptr;
 			setEnabled(false);
 			break;
 		case PageItem::TextFrame:
@@ -337,18 +338,18 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 		parEffectWidgets->handleSelectionChanged();
 	}
 
-	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
+	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
 		if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable)
 			m_item->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
-	if (m_item->asOSGFrame())
+	if (m_item->isOSGFrame())
 	{
 		setEnabled(false);
 	}
-	if (m_item->asSymbolFrame())
+	if (m_item->asSymbol())
 	{
 		setEnabled(false);
 	}
@@ -387,14 +388,13 @@ void PropertiesPalette_Text::localeChange()
 
 void PropertiesPalette_Text::handleLineSpacingMode(int id)
 {
-	if ((m_haveDoc) && (m_haveItem))
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(m_item, true);
-		m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
-	//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
-		m_doc->regionsChanged()->update(QRect());
-	}
+	if (!m_haveDoc || !m_haveItem)
+		return;
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
+//	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Text::changeLang(int id)
@@ -701,12 +701,20 @@ void PropertiesPalette_Text::doClearPStyle()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
+
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item, true);
 	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
 	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
 	CharStyle emptyCStyle;
 	m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
+
+	if (activeTransaction)
+		activeTransaction.commit();
 }
 
 void PropertiesPalette_Text::updateColorList()
