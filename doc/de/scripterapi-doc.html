@@ -154,6 +154,18 @@ of the topleft corner of the graphic placed on the page.</p>
 relative path).</p>
 <p>May raise ScribusError if the save fails.</p></dd>
 
+<dt><a name="-setBaseLine"><strong>setBaseLine</strong></a>(...)</dt>
+<dd><code>setBaseLine(grid, offset)</code>
+<p>Sets the base line settings of the document, grid spacing(grid), grid offset(offset). Values are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</p></dd>
+
+<dt><a name="-setBleeds"><strong>setBleeds</strong></a>(...)</dt>
+<dd><code>setBleeds(lr, rr, tr, br)</code>
+<p>Sets the bleeds of the document. Left(lr), Right(rr), Top(tr) and Bottom(br) bleeds are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</p></dd>
+
+<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><code>setDocType(facingPages, firstPageLeft)</code>
+<p>Sets the document type. To get facing pages set the first parameter to FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead. If you want to be the first page a left side set the second parameter to FIRSTPAGELEFT, for a right page use FIRSTPAGERIGHT.</p></dd>
+
 <dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
 <dd><code>setInfo("author", "info", "description") -&gt; bool</code>
 <p>Sets the document information. "Author", "Info", "Description" are strings.</p></dd>
@@ -162,10 +174,6 @@ relative path).</p>
 <dd><code>setMargins(lr, rr, tr, br)</code>
 <p>Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br) margins are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</p></dd>
 
-<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
-<dd><code>setDocType(facingPages, firstPageLeft)</code>
-<p>Sets the document type. To get facing pages set the first parameter to FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead. If you want to be the first page a left side set the second parameter to FIRSTPAGELEFT, for a right page use FIRSTPAGERIGHT.</p></dd>
-
 <dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
 <dd><code>setUnit(type)</code>
 <p>Changes the measurement unit of the document. Possible values for "unit" are defined as constants UNIT_&lt;type&gt;.</p>
@@ -173,10 +181,6 @@ relative path).</p>
 <p>As noted above, typically you may use this command so that you can change the measurement units to something else, for which you are creating or modifying objects based some particular units, like points, after which you want to return to whatever the original units were.</p><p><b>original = getUnit()</b></p>
 <p><i>do some operations...then later</i></p>
 <p><b>setUnit(original)</b></p></dd>
-
-<dt><a name="-setBaseLine"><strong>setBaseLine</strong></a>(...)</dt>
-<dd><code>setBaseLine(grid, offset)</code>
-<p>Sets the base line settings of the document, grid spacing(grid), grid offset(offset). Values are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</p></dd>
 
 <dt><a name="-scrollDocument"><strong>scrollDocument</strong>(...)</a></dt>
 <dd><code>scrollDocument(x,y)</code>

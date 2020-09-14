@@ -122,6 +122,18 @@ du fichier vectoriel une fois placé sur la page.</p>
 <p>Enregistre le document courant sous le nouveau "nom" (qui peut être un chemin complet ou relatif).</p>
 <p>Peut générer ScribusError si l'enregistrement échoue.</p></dd>
 
+<dt><a name="-setBaseLine"><strong>setBaseLine</strong></a>(...)</dt>
+<dd><code>setBaseLine(grid, offset)</code>
+<p>Définit les valeurs de la ligne de base du document: espacement de la grille(grid), offset de la grille(offset). Les valeurs sont définies dans les unités de mesure du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setBleeds"><strong>setBleeds</strong></a>(...)</dt>
+<dd><code>setBleeds(lr, rr, tr, br)</code>
+<p>Définit les valeurs de fonds perdus du document. Les valeurs de fonds perdus à gauche (lr), à droite (rr), en haut (tr) et en bas (br) sont définies dans les unités de mesure du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><code>setDocType(pagesRegard, premierePageGauche)</code>
+<p>Assigne le type de document. Pour obtenir des pages en regard, mettez le premier paramètre à FACINGPAGES; pour désactiver facingPages, utilisez NOFACINGPAGES à la place. Si vous voulez que la première page soit à gauche, mettez le deuxième paramètre à FIRSTPAGELEFT; pour une première page à droite, utilisez FIRSTPAGERIGHT.</p></dd>
+
 <dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
 <dd><code>saveDocAs("auteur", "info",
 "description") -&gt; booléen</code>
@@ -134,14 +146,18 @@ du fichier vectoriel une fois placé sur la page.</p>
 Haut(tr) et Bas(br) sont indiquées dans les unités de mesure du
 document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
 
-<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
-<dd><code>setDocType(pagesRegard, premierePageGauche)</code>
-<p>Assigne le type de document. Pour obtenir des pages en regard, mettez le premier paramètre à FACINGPAGES; pour désactiver facingPages, utilisez NOFACINGPAGES à la place. Si vous voulez que la première page soit à gauche, mettez le deuxième paramètre à FIRSTPAGELEFT; pour une première page à droite, utilisez FIRSTPAGERIGHT.</p></dd>
-	
 <dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
 <dd><code>setUnit(type)</code>
 <p>Change l'unité de mesure du document. Les valeurs possibles de l'"unité" sont définies par les constantes UNIT_&lt;type&gt;.</p>
 <p>Peut générer ValueError si l'unité passée n'est pas valide.</p></dd>
+
+<dt><a name="-scrollDocument"><strong>scrollDocument</strong>(...)</a></dt>
+<dd><code>scrollDocument(x, y)</code>
+<p>Scrolle le document affiché dans la fenêtre active par les valeurs x and y.</p></dd>
+
+<dt><a name="-zoomDocument"><strong>zoomDocument</strong>(...)</a></dt>
+<dd><code>zoomDocument(double)</code>
+<p>Effectue un zoom du document affiché dans la fenêtre active. Les valeurs de zoom prennent des valeurs positives telles que 20.0, 100.0, etc. Vous pouvez utiliser la valeur spéciale -100.0 pour ajuster automatiquement la valeur de zoom.</p></dd>
 
 </dl>
 </body>
