@@ -24,7 +24,11 @@ réel</code>
 
 <dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
 <dd><code>getColumns(["nom"]) -&gt; nombre entier</code>
-<p>Donne le nombre de colonnes du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+<p>Donne le nombre de colonnes du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
+<dd><code>getFirstLinkedFrame(["name"]) -&gt; chaîne</code>
+<p>Retourne le premier cadre dans la chaîne de texte. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
 <dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
 <dd><code>getFont(["nom"]) -&gt; chaîne</code>
@@ -41,9 +45,21 @@ Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
 <p>Cette fonction retourne uniquement le texte visible dans le cadre spécifié. Si vous souhaitez obtenir le texte contenu dans une chaîne de texte, veuillez utiliser <a href="#-getAllText">getAllText()</a> en lieu et place.</p>
 <p>Comme cette fonction nécessite que la mise en page du texte soit à jour, il est possible que vous ayez besoin d'appeler <a href="#-layoutText">layoutText()</a> ou <a href="#-layoutTextChain">layoutTextChain()</a> au préalable afin d'obtenir le résultat attendu.</p></dd>
 
+<dt><a name="-getLastLinkedFrame"><strong>getLastLinkedFrame</strong></a>(...)</dt>
+<dd><code>getLastLinkedFrame(["name"]) -&gt; chaîne</code>
+<p>Retourne le dernier cadre dans la chaîne de texte. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
 <dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
 <dd><code>getLineSpacing(["nom"]) -&gt; réel</code>
-<p>Retourne l'espacement de ligne ("leading") du cadre de texte "nom", exprimé en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p></dd>
+<p>Retourne l'espacement de ligne ("leading") du cadre de texte "nom", exprimé en points. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getNextLinkedFrame"><strong>getNextLinkedFrame</strong></a>(...)</dt>
+<dd><code>getNextLinkedFrame(["nom"]) -&gt; chaîne</code>
+<p>Retourne le cadre suivant dans la chaîne de texte ou None si le cadre spécifié est le dernier dans la chaîne. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
+<dt><a name="-getPrevLinkedFrame"><strong>getPrevLinkedFrame</strong></a>(...)</dt>
+<dd><code>getPrevLinkedFrame(["nom"]) -&gt; chaîne</code>
+<p>Retourne le cadre précédent dans la chaîne de texte ou None si le cadre spécifié est le premier dans la chaîne. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["nom"]) -&gt; chaîne</code>

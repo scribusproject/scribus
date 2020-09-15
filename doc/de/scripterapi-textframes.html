@@ -32,6 +32,10 @@
 <dd><code>getColumns(["name"]) -&gt; integer</code>
 <p>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
+<dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
+<dd><code>getFirstLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the first text frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
 <dd><code>getFont(["name"]) -&gt; string</code>
 <p>Returns the font name for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
@@ -46,9 +50,21 @@
 <p>This function returns only the text visible in specified frame. If you need to retrieve the text contained in a text chain, use <a href="#-getAllText">getAllText()</a> instead.</p>
 <p>As this function depends on text layout being up-to-date, you may need to call <a href="#-layoutText">layoutText()</a> or <a href="#-layoutTextChain">layoutTextChain()</a> before calling this function in order to get expected result.</p></dd>
 
+<dt><a name="-getLastLinkedFrame"><strong>getLastLinkedFrame</strong></a>(...)</dt>
+<dd><code>getLastLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the last text frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
 <dd><code>getLineSpacing(["name"]) -&gt; float</code>
 <p>Returns the line spacing ("leading") of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getNextLinkedFrame"><strong>getNextLinkedFrame</strong></a>(...)</dt>
+<dd><code>getNextLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the next text frame in the chain or None if specified frame is the last frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getPrevLinkedFrame"><strong>getPrevLinkedFrame</strong></a>(...)</dt>
+<dd><code>getPrevLinkedFrame(["name"]) -&gt; string</code>
+<p>Return the previous text frame in the chain or None if specified frame is the first frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
 <dd><code>getText(["name"]) -&gt; string</code>

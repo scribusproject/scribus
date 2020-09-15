@@ -267,6 +267,88 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(item->currentCharStyle().fontFeatures().toUtf8());
 }
 
+PyObject *scribus_getfirstlinkedframe(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	return PyString_FromString(item->firstInChain()->itemName().toUtf8());
+}
+
+PyObject *scribus_getlastlinkedframe(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	return PyString_FromString(item->lastInChain()->itemName().toUtf8());
+}
+
+PyObject *scribus_getnextlinkedframe(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (item->nextInChain() != nullptr)
+		return PyString_FromString(item->nextInChain()->itemName().toUtf8());
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_getprevlinkedframe(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (item->prevInChain() != nullptr)
+		return PyString_FromString(item->prevInChain()->itemName().toUtf8());
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -1413,11 +1495,15 @@ void cmdtextdocwarnings()
 	  << scribus_getalltext__doc__
 	  << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__
+	  << scribus_getfirstlinkedframe__doc__
 	  << scribus_getfont__doc__
 	  << scribus_getfontfeatures__doc__
 	  << scribus_getfontsize__doc__
 	  << scribus_getframetext__doc__
+	  << scribus_getlastlinkedframe__doc__
 	  << scribus_getlinespace__doc__
+	  << scribus_getnextlinkedframe__doc__
+	  << scribus_getprevlinkedframe__doc__
 	  << scribus_gettext__doc__ // Deprecated
 	  << scribus_gettextcolor__doc__
 	  << scribus_gettextdistances__doc__

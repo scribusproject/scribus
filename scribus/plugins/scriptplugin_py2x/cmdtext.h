@@ -49,6 +49,52 @@ selected item is used.\n\
 PyObject *scribus_getfontfeatures(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfirstlinkedframe__doc__,
+QT_TR_NOOP("getFirstLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the first text frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the first text frame in the chain */
+PyObject *scribus_getfirstlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlastlinkedframe__doc__,
+QT_TR_NOOP("getLastLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the last text frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the last text frame in the chain */
+PyObject *scribus_getlastlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getnextlinkedframe__doc__,
+QT_TR_NOOP("getNextLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the next text frame in the chain or None\n\
+if specified frame is the last frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the next frame in the chain */
+PyObject *scribus_getnextlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getprevlinkedframe__doc__,
+QT_TR_NOOP("getPrevLinkedFrame(item: str = None) -> str\n\
+\n\
+Return the previous text frame in the chain or None\n\
+if specified frame is the first frame in the chain.\n\
+\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*!  Get the name of the previous frame in the chain */
+PyObject *scribus_getprevlinkedframe(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_gettextcolor__doc__,
 	QT_TR_NOOP("getTextColor([\"name\"]) -> string\n\
 \n\

@@ -1923,24 +1923,24 @@ void PageItem_TextFrame::layout()
 						else
 							current.yPos += (current.startOfCol ? 1 : style.lineSpacing());
 						lastLineY = maxYAsc;
-						if (current.startOfCol)
+						/*if (current.startOfCol)
 						{
-//							double addAsce;
-//							if (DropCmode)
-//								addAsce = qMax(realAsce, asce + offset);
-//							else
-//								addAsce = asce + offset;
-//							if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
-//							{
-//								if (firstLineOffset() == FLOPRealGlyphHeight)
-//									addAsce = realAsce;
-//								else if (firstLineOffset() == FLOPLineSpacing)
-//									addAsce = style.lineSpacing() + offset;
-//							}
+							double addAsce;
+							if (DropCmode)
+								addAsce = qMax(realAsce, asce + offset);
+							else
+								addAsce = asce + offset;
+							if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
+							{
+								if (firstLineOffset() == FLOPRealGlyphHeight)
+									addAsce = realAsce;
+								else if (firstLineOffset() == FLOPLineSpacing)
+									addAsce = style.lineSpacing();
+							}
 							maxYAsc = current.yPos - addAsce;
 						}
 						else
-							maxYAsc = current.yPos - realAsce;
+							maxYAsc = current.yPos - realAsce;*/
 						maxYDesc = current.yPos + realDesc;
 
 						if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
