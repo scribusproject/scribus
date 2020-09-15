@@ -882,7 +882,7 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 	for (int i = 0; i < docSelectionCount; ++i)
 	{
 		nameList.append(currentDoc->m_Selection->itemAt(i)->itemName());
-		if (i < docSelectionCount)
+		if (i < docSelectionCount - 1)
 			nameList.append(",");
 	}
 	return PyString_FromString(nameList.toUtf8());
