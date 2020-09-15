@@ -859,7 +859,7 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 	// do the copy
 	currentWin->slotEditCopy();
 
-	Py_RETURN_NONE;
+	return PyUnicode_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 }
 
 PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
@@ -871,9 +871,21 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 		return nullptr;
 
 	// do the paste
-	ScCore->primaryMainWindow()->slotEditPaste();
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+	currentWin->slotEditPaste();
+	if (!currentDoc->m_Selection->isMultipleSelection())
+		return PyUnicode_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 
-	Py_RETURN_NONE;
+	QString nameList;
+	int docSelectionCount = currentDoc->m_Selection->count();
+	for (int i = 0; i < docSelectionCount; ++i)
+	{
+		nameList.append(currentDoc->m_Selection->itemAt(i)->itemName());
+		if (i < docSelectionCount)
+			nameList.append(",");
+	}
+	return PyUnicode_FromString(nameList.toUtf8());
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
