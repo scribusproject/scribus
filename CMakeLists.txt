@@ -362,10 +362,10 @@ endif()
 
 #C++11 Support
 #as of 1.5.5.svn, require C++11
-#if(WANT_CPP11)
+if(NOT WANT_CPP14 AND NOT WANT_CPP17)
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
-#endif()
+endif()
 if (WANT_CPP14)
 	message(STATUS "Enabling C++14 compiler features")
 	set(CMAKE_CXX_STANDARD 14)
