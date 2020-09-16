@@ -229,8 +229,8 @@ public:
 
 //	void justify(const ParagraphStyle& style);
 
-	void addBox(const Box* box);
-	void removeBox(int i);
+	void addBox(const Box* box) override;
+	void removeBox(int i) override;
 
 protected:
 	virtual void drawBackGround(TextLayoutPainter *p) const;

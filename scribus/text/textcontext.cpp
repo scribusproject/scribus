@@ -66,7 +66,7 @@ double TextContext::getHeight(const InlineFrame& frame)  const
 #endif
 
 	
-QString TextContext::expand(const ExpansionPoint& expansion) 
+QString TextContext::expand(const ExpansionPoint& expansion)
 {
 	ScribusDoc* doc = m_frame->doc();
 	switch (expansion.getType())
