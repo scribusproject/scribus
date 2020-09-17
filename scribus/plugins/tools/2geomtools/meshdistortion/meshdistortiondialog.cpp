@@ -458,7 +458,7 @@ void MeshDistortionDialog::doReset()
 
 void MeshDistortionDialog::adjustHandles()
 {
-	double sc = previewLabel->matrix().m11();
+	double sc = previewLabel->transform().m11();
 	for(int n = 0; n < nodeItems.count(); n++)
 	{
 		double x = handles[n][Geom::X];

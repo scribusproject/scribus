@@ -329,7 +329,7 @@ bool VsdPlug::convert(const QString& fn)
 	QFile file(fn);
 	if ( !file.exists() )
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << Qt::endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
 		return false;
 	}
 #if HAVE_REVENGE

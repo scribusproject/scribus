@@ -326,7 +326,7 @@ bool FhPlug::convert(const QString& fn)
 	QFile file(fn);
 	if ( !file.exists() )
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << Qt::endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
 		return false;
 	}
 	librevenge::RVNGFileStream input(QFile::encodeName(fn).data());

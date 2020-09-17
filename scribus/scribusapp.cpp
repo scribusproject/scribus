@@ -574,7 +574,7 @@ Helper procedure */
 static void printArgLine(QTextStream & ts, const char * smallArg, const char* fullArg, const QString& desc)
 {
 	ts << QString("     %1 %2 %3").arg(QString("%1,").arg(smallArg), -5).arg(fullArg, -32).arg(desc);
-	Qt::endl(ts);
+	endl(ts);
 }
 
 void ScribusQApp::showUsage()
@@ -582,8 +582,8 @@ void ScribusQApp::showUsage()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	ts << tr("Usage: scribus [options] [files]") ; Qt::endl(ts); Qt::endl(ts);
-	ts << tr("Options:") ; Qt::endl(ts);
+	ts << tr("Usage: scribus [options] [files]") ; endl(ts); endl(ts);
+	ts << tr("Options:") ; endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
 	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP, tr("Print help (this message) and exit") );
 	printArgLine(ts, ARG_LANG_SHORT, ARG_LANG, tr("Uses xx as shortcut for a language, eg `en' or `de'") );
@@ -596,7 +596,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT, tr("script"), tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
-	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); Qt::endl(ts);
+	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); endl(ts);
  	
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
@@ -608,11 +608,11 @@ void ScribusQApp::showUsage()
 #endif
 
 /* Delete me?
-	std::cout << "-file|-- name Open file 'name'" ; Qt::endl(ts);
-	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; Qt::endl(ts);
-	std::cout << "QT specific options as -display ..." ; Qt::endl(ts);
+	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
+	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);
+	std::cout << "QT specific options as -display ..." ; endl(ts);
 */
-	Qt::endl(ts);
+	endl(ts);
 	f.close();
 }
 
@@ -621,14 +621,14 @@ void ScribusQApp::showAvailLangs()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	ts << tr("Installed interface languages for Scribus are as follows:"); Qt::endl(ts);
-	Qt::endl(ts);
+	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
+	endl(ts);
 
 	LanguageManager::instance()->printInstalledList();
 
-	Qt::endl(ts);
-	ts << tr("To override the default language choice:"); Qt::endl(ts);
-	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice."); Qt::endl(ts);
+	endl(ts);
+	ts << tr("To override the default language choice:"); endl(ts);
+	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice."); endl(ts);
 }
 
 void ScribusQApp::showVersion()
@@ -641,20 +641,20 @@ void ScribusQApp::showHeader()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	Qt::endl(ts);
+	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
 	// Build a separator of ----s the same width as the heading
 	QString separator = QString("").rightJustified(heading.length(),'-');
 	// Then output the heading, separator, and docs/www/etc info in an aligned table
 	const int urlwidth = 23;
 	const int descwidth = -(heading.length() - urlwidth - 1);
-	ts << heading; Qt::endl(ts);
-	ts << separator; Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); Qt::endl(ts);
-	Qt::endl(ts);
+	ts << heading; endl(ts);
+	ts << separator; endl(ts);
+	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
+	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
+	endl(ts);
 }
 
 void ScribusQApp::neverSplash(bool splashOff)

@@ -247,7 +247,7 @@ public:
 	}
 
 protected:
-	void update();
+	void update() override;
 	void drawBackGround(TextLayoutPainter *p) const override;
 };
 

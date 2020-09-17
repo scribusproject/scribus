@@ -320,12 +320,12 @@ bool ScImgDataLoader_WPG::loadPicture(const QString& fn, int /*page*/, int /*res
 	QFile file(fn);
 	if ( !file.exists() )
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << Qt::endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
 		return false;
 	}
 	if ( !file.open( QIODevice::ReadOnly ) )
 	{
-		qDebug() << "Cannot open file " << QFile::encodeName(fn).data() << Qt::endl;
+		qDebug() << "Cannot open file " << QFile::encodeName(fn).data() << endl;
 		return false;
 	}
 	QByteArray ba = file.readAll();
