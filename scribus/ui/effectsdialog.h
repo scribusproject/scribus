@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QMap>
-#include <QTime>
+#include <QElapsedTimer>
 
 #include "scribusapi.h"
 #include "scimage.h"
@@ -182,7 +182,7 @@ protected:
 	ScImage m_image;
 	double  m_imageScale;
 
-	QTime m_time;
+	QElapsedTimer m_time;
 	QMap<QListWidgetItem*, QString> m_effectValMap;
 
 	QHBoxLayout* EffectsDialogLayout;
