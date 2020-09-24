@@ -851,7 +851,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 				FPoint Vector = item->PoLine.point(xx);
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					double r = atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI);
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
@@ -876,7 +876,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	}
 	if (!gc->startMarker.isEmpty())
 	{
-		QString marker = gc->endMarker;
+		QString marker = gc->startMarker;
 		if (importedPattTrans.contains(marker))
 			marker = importedPattTrans[marker];
 		if (markers.contains(marker))
@@ -887,7 +887,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 				FPoint Vector = item->PoLine.point(xx);
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
-					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);// - 180.0;
+					double r = atan2(End.y() - Vector.y(), End.x() - Vector.x()) * (180.0 / M_PI) - 180.0;
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
