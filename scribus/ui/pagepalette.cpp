@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 
-PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette", nullptr)
+PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette", Qt::WindowFlags())
 {
 	m_scMW = (ScribusMainWindow*) parent;
 	m_view = nullptr;

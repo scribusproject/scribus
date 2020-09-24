@@ -101,7 +101,7 @@ void InlineView::dropEvent(QDropEvent *e)
 	clearSelection();
 }
 
-InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline", nullptr)
+InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette(parent, "Inline", Qt::WindowFlags())
 {
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Inline"));

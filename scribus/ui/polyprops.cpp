@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "iconmanager.h"
 
-PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase( parent, "PolyVectorDialog", false, nullptr )
+PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature) : ScrPaletteBase(parent, "PolyVectorDialog", false, Qt::WindowFlags())
 {
 	setWindowTitle( tr( "Polygon Properties" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));

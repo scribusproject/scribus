@@ -1,6 +1,6 @@
 #include "downloadspalette.h"
 
-DownloadsPalette::DownloadsPalette(QWidget* parent) : ScrPaletteBase( parent, "DownloadsPalette", false, nullptr )
+DownloadsPalette::DownloadsPalette(QWidget* parent) : ScrPaletteBase(parent, "DownloadsPalette", false, Qt::WindowFlags())
 {
 	setupUi(this);
 	languageChange();

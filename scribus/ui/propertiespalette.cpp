@@ -55,7 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 
-PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, "PropertiesPalette", nullptr)
+PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette(parent, "PropertiesPalette", Qt::WindowFlags())
 {
 	undoManager = UndoManager::instance();
 

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, nullptr )
+Measurements::Measurements( QWidget* parent ) : ScrPaletteBase(parent, "MeasurementsPalette", false, Qt::WindowFlags())
 {
 	setupUi(this);
 

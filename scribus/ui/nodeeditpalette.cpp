@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "iconmanager.h"
 
-NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, nullptr)
+NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette", false, Qt::WindowFlags())
 {
 	IconManager& im = IconManager::instance();
 	QSize iconSize = QSize(22, 22);

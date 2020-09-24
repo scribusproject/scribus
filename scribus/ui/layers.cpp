@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 
 
-LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", nullptr ), m_Doc(nullptr)
+LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags()), m_Doc(nullptr)
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
