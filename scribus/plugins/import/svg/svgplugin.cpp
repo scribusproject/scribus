@@ -2935,50 +2935,56 @@ void SVGPlug::parseFilter(const QDomElement &b)
 void SVGPlug::parseMarker(const QDomElement &b)
 {
 	QString id = b.attribute("id", "");
+	if (id.isEmpty())
+		return;
 	QString origName = id;
-	if (!id.isEmpty())
+
+	inGroupXOrigin = 999999;
+	inGroupYOrigin = 999999;
+	markerDesc mark;
+	mark.xref = parseUnit(b.attribute("refX", "0"));
+	mark.yref = parseUnit(b.attribute("refY", "0"));
+	mark.wpat = parseUnit(b.attribute("markerWidth", "3"));
+	mark.hpat = parseUnit(b.attribute("markerHeight", "3"));
+
+	setupNode(b);
+	SvgStyle *gc = m_gc.top();
+	gc->matrix   = QTransform(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+
+	QList<PageItem*> GElements;
+	GElements = parseGroup(b);
+	if (GElements.count() > 0)
 	{
-		inGroupXOrigin = 999999;
-		inGroupYOrigin = 999999;
-		markerDesc mark;
-		mark.xref = parseUnit(b.attribute("refX", "0"));
-		mark.yref = parseUnit(b.attribute("refY", "0"));
-		mark.wpat = parseUnit(b.attribute("markerWidth", "3"));
-		mark.hpat = parseUnit(b.attribute("markerHeight", "3"));
-		QList<PageItem*> GElements;
-		GElements = parseGroup(b);
-		if (GElements.count() > 0)
-		{
-			ScPattern pat = ScPattern();
-			pat.setDoc(m_Doc);
-			PageItem* currItem = GElements.at(0);
-			m_Doc->DoDrawing = true;
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			double x1, x2, y1, y2;
-			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
-			currItem->gXpos = currItem->xPos() - minx;
-			currItem->gYpos = currItem->yPos() - miny;
-			currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
-			pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
-			pat.width = maxx - minx;
-			pat.height = maxy - miny;
-			m_Doc->DoDrawing = false;
-			pat.items.append(currItem);
-			m_Doc->Items->removeAll(currItem);
-			m_Doc->addPattern(id, pat);
-			importedPatterns.append(id);
-			importedPattTrans.insert(origName, id);
-			markers.insert(id, mark);
-		}
-		m_nodeMap.insert(origName, b);
+		ScPattern pat = ScPattern();
+		pat.setDoc(m_Doc);
+		PageItem* currItem = GElements.at(0);
+		m_Doc->DoDrawing = true;
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		currItem->gXpos = currItem->xPos() - minx;
+		currItem->gYpos = currItem->yPos() - miny;
+		currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
+		pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+		pat.width = maxx - minx;
+		pat.height = maxy - miny;
+		m_Doc->DoDrawing = false;
+		pat.items.append(currItem);
+		m_Doc->Items->removeAll(currItem);
+		m_Doc->addPattern(id, pat);
+		importedPatterns.append(id);
+		importedPattTrans.insert(origName, id);
+		markers.insert(id, mark);
 	}
+	m_nodeMap.insert(origName, b);
+	delete (m_gc.pop());
 }
 
 void SVGPlug::parsePattern(const QDomElement &b)
