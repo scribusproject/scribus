@@ -93,7 +93,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.fillRect(0, 0, 128, 128, imageViewArea->palette().window());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.setBrush(palette().window());
-	p.drawRoundRect(0, 0, 127, 127, 10, 10);
+	p.drawRoundedRect(0, 0, 127, 127, 10, 10, Qt::RelativeSize);
 	p.setPen(Qt::NoPen);
 	p.setBrush(b);
 	p.drawRect(12, 12, 104, 104);
