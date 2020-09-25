@@ -632,8 +632,8 @@ struct LineControl {
 			QRegion qr2 = QRegion(cRect).subtracted(shape);
 			if (qr2.isEmpty()) // qr2 == 0 <=> cRect subset of shape
 			{
-				QRect rect = lineI.rects().at(0);
-				double  mx = qMax(rect.left(), rect.right()) /*- pf2.dx()*/;
+				QRegion::const_iterator rect = lineI.cbegin();
+				double  mx = qMax(rect->left(), rect->right()) /*- pf2.dx()*/;
 				int steps  = static_cast<int>((mx - StartX - morespace - 2) / 0.25);
 				if (steps > 0)
 				{

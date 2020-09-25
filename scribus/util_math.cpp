@@ -337,9 +337,8 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 		return false;
 
 	/* can stop when both partOut and partIn are true, or we reach prect->y2 */
-	const QVector<QRect> rects = shape.rects();
-	pbox = (rectCount == 1) ? &boundingRect : rects.constData();
-	pboxEnd = pbox + rectCount;
+	pbox = (rectCount == 1) ? &boundingRect : shape.cbegin();
+	pboxEnd = (rectCount == 1) ? (&boundingRect + 1) : shape.cend();
 	for (; pbox < pboxEnd; ++pbox)
 	{
 		if (pbox->bottom() < ry)
