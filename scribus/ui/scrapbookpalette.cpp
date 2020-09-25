@@ -1963,10 +1963,16 @@ void Biblio::cleanUpTemp()
 	{
 		QFile f(it.value().Data);
 		f.remove();
-		QFileInfo fi(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
-		if (fi.exists())
+		QFileInfo fi1(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+		if (fi1.exists())
 		{
 			QFile f2(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
+			f2.remove();
+		}
+		QFileInfo fi2(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
+		if (fi2.exists())
+		{
+			QFile f2(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
 			f2.remove();
 		}
 		QFileInfo fiD(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key()));
