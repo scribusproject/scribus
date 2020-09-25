@@ -26,7 +26,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		void updateSuggestions(QStringList& newSuggestions);
 
 	public slots:
-		void goToNextWord(int i=-1);
+		void goToNextWord(int i = -1);
 		void ignoreAllWords();
 		void changeWord();
 		void changeAllWords();
