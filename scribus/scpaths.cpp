@@ -574,7 +574,7 @@ QString ScPaths::pluginDataDir(bool createIfNotExists)
 	QDir useFilesDirectory(applicationDataDir() + "plugins/");
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userDictDir(ScPaths::DictType dictType, bool createIfNotExists)
@@ -587,7 +587,7 @@ QString ScPaths::userDictDir(ScPaths::DictType dictType, bool createIfNotExists)
 	QDir useFilesDirectory(applicationDataDir() + "dicts/" + dictSuffix);
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userFontDir(bool createIfNotExists)
@@ -595,7 +595,7 @@ QString ScPaths::userFontDir(bool createIfNotExists)
 	QDir useFilesDirectory(applicationDataDir() + "fonts/");
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userHelpFilesDir(bool createIfNotExists)
@@ -603,7 +603,7 @@ QString ScPaths::userHelpFilesDir(bool createIfNotExists)
 	QDir useFilesDirectory(applicationDataDir() + "helpfiles/");
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userPaletteFilesDir(bool createIfNotExists)
@@ -614,7 +614,7 @@ QString ScPaths::userPaletteFilesDir(bool createIfNotExists)
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/locked");
 	}
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userTemplateDir(bool createIfNotExists)
@@ -624,7 +624,7 @@ QString ScPaths::userTemplateDir(bool createIfNotExists)
 	QDir useFilesDirectory(PrefsManager::instance().appPrefs.pathPrefs.documentTemplates);
 	if (createIfNotExists && !useFilesDirectory.exists())
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::userDocumentDir()
@@ -644,7 +644,7 @@ QString ScPaths::scrapbookDir(bool createIfNotExists)
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/main");
 		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/tmp");
 	}
-	return useFilesDirectory.absolutePath()+"/";
+	return useFilesDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::tempFileDir()
@@ -668,7 +668,7 @@ QString ScPaths::tempFileDir()
 	QDir tempAppDirectory(applicationDataDir() + "temp/");
 	if (!tempAppDirectory.exists())
 		tempAppDirectory.mkpath(tempAppDirectory.absolutePath());
-	return tempAppDirectory.absolutePath()+"/";
+	return tempAppDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::downloadDir()
@@ -676,7 +676,7 @@ QString ScPaths::downloadDir()
 	QDir downloadDirectory(applicationDataDir() + "downloads/");
 	if (!downloadDirectory.exists())
 		downloadDirectory.mkpath(downloadDirectory.absolutePath());
-	return downloadDirectory.absolutePath()+"/";
+	return downloadDirectory.absolutePath() + "/";
 }
 
 QString ScPaths::windowsSpecialDir(int folder)
