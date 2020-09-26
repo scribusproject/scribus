@@ -1833,18 +1833,25 @@ void Biblio::objFromMenu(QString text)
 
 void Biblio::objFromCopyAction(const QString& text, const QString& name)
 {
-	QString nam;
+	// Something is bad with temp scrapbook directory, either it does not exists
+	// or is unreadeable, do not attempt to create temp scrapbook items in such case,
+	// they may end up in root directory or drive
+	if (tempBView->ScFilename.isEmpty())
+		return;
+	QString nativeTempScrapPath = QDir::toNativeSeparators(tempBView->ScFilename + "/");
+	QString nativeTempThumbsPath = QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/");
+
 	QString tmp;
-	nam = name;
+	QString nam = name;
 	if (nam.isEmpty())
 		nam = tr("Object") + tmp.setNum(m_tempCount);
 	if (tempBView->objectMap.contains(nam))
 		nam += "("+ tmp.setNum(m_tempCount) + ")";
 	m_tempCount++;
-	tempBView->checkAndChange(text, QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename + "/" + nam + ".sce")), QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename)));
+	tempBView->checkAndChange(text, QDir::cleanPath(nativeTempScrapPath + nam + ".sce"), QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename)));
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = QPixmap::fromImage(pre->createPreview(text));
-	tempBView->addObject(nam, QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
+	tempBView->addObject(nam, QDir::cleanPath(nativeTempScrapPath + nam + ".sce"), pm);
 	if (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews)
 	{
 		QDir thumbs(tempBView->ScFilename);
@@ -1853,7 +1860,7 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 			if ((tempBView->canWrite) && (PrefsManager::instance().appPrefs.scrapbookPrefs.writePreviews))
 				thumbs.mkdir(".ScribusThumbs");
 		}
-		pm.save(QDir::cleanPath(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + nam +".png")), "PNG");
+		pm.save(QDir::cleanPath(nativeTempThumbsPath + nam +".png"), "PNG");
 	}
 	pm = pm.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
@@ -1872,25 +1879,25 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 		it = tempBView->objectMap.begin();
 		QFile f(it.value().Data);
 		f.remove();
-		QFileInfo fi(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
+		QFileInfo fi(nativeTempThumbsPath + it.key() + ".png");
 		if (fi.exists())
 		{
-			QFile f2(QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/" + it.key() + ".png"));
+			QFile f2(nativeTempThumbsPath + it.key() + ".png");
 			f2.remove();
 		}
-		QFileInfo fiD(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key()));
+		QFileInfo fiD(nativeTempScrapPath + it.key());
 		if ((fiD.exists()) && (fiD.isDir()))
 		{
 			QDir dd = QDir(QDir::toNativeSeparators(tempBView->ScFilename));
-			QDir d(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+			QDir d(nativeTempScrapPath + it.key(), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 			if ((d.exists()) && (d.count() != 0))
 			{
 				for (uint dc = 0; dc < d.count(); ++dc)
 				{
-					QFile::remove(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+					QFile::remove(nativeTempScrapPath + it.key() + "/" + d[dc]);
 				}
 			}
-			dd.rmdir(QDir::toNativeSeparators(tempBView->ScFilename + "/" + it.key()));
+			dd.rmdir(nativeTempScrapPath + it.key());
 		}
 		QString name = it.key();
 		tempBView->objectMap.erase(it);
@@ -1958,13 +1965,18 @@ void Biblio::objFromMainMenu(QString text, int scrapID)
 
 void Biblio::cleanUpTemp()
 {
+	// Something is bad with temp scrapbook directory, either it does not exists
+	// or is unreadeable, do not attempt to delete files in such case
+	if (tempBView->ScFilename.isEmpty())
+		return;
+	QString nativeScrapPath = QDir::toNativeSeparators(tempBView->ScFilename + "/");
+	QString nativeThumbsPath = QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/");
+
 	QMap<QString,BibView::Elem>::Iterator it;
 	for (it = tempBView->objectMap.begin(); it != tempBView->objectMap.end(); ++it)
 	{
 		QFile f(it.value().Data);
 		f.remove();
-		QString nativeScrapPath = QDir::toNativeSeparators(tempBView->ScFilename + "/");
-		QString nativeThumbsPath = QDir::toNativeSeparators(tempBView->ScFilename + "/.ScribusThumbs/");
 		QFileInfo fi1(nativeScrapPath + it.key() + ".png");
 		if (fi1.exists())
 		{

@@ -638,11 +638,14 @@ QString ScPaths::userDocumentDir()
 QString ScPaths::scrapbookDir(bool createIfNotExists)
 {
 	QDir useFilesDirectory(applicationDataDir() + "scrapbook/");
-	if (createIfNotExists && !useFilesDirectory.exists())
+	if (createIfNotExists)
 	{
-		useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
-		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/main");
-		useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/tmp");
+		if (!useFilesDirectory.exists())
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath());
+		if (!useFilesDirectory.exists("main"))
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/main");
+		if (!useFilesDirectory.exists("tmp"))
+			useFilesDirectory.mkpath(useFilesDirectory.absolutePath() + "/tmp");
 	}
 	return useFilesDirectory.absolutePath() + "/";
 }
