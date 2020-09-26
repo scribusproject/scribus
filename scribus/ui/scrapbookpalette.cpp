@@ -1974,7 +1974,7 @@ void Biblio::cleanUpTemp()
 		QFileInfo fi2(nativeThumbsPath + it.key() + ".png");
 		if (fi2.exists())
 		{
-			QFile f2(nativeThumbsPath + ".png");
+			QFile f2(nativeThumbsPath + it.key() + ".png");
 			f2.remove();
 		}
 		QFileInfo fiD(nativeScrapPath + it.key());
