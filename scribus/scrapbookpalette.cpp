@@ -1311,9 +1311,14 @@ void Biblio::ObjFromMenu(QString text)
 
 void Biblio::ObjFromCopyAction(QString text, QString name)
 {
-	QString nam = "";
+	// Something is bad with temp scrapbook directory, either it does not exists
+	// or is unreadeable, do not attempt to create temp scrapbook items in such case,
+	// they may end up in root directory or drive
+	if (tempBView->ScFilename.isEmpty())
+		return;
+
 	QString tmp;
-	nam = name;
+	QString nam = name;
 	if (nam.isEmpty())
 		nam = tr("Object") + tmp.setNum(tempCount);
 	if (tempBView->objectMap.contains(nam))
@@ -1417,7 +1422,12 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 
 void Biblio::CleanUpTemp()
 {
-	QMap<QString,BibView::Elem>::Iterator it;
+	// Something is bad with temp scrapbook directory, either it does not exists
+	// or is unreadeable, do not attempt to delete files in such case
+	if (tempBView->ScFilename.isEmpty())
+		return;
+
+	QMap<QString, BibView::Elem>::Iterator it;
 	for (it = tempBView->objectMap.begin(); it != tempBView->objectMap.end(); ++it)
 	{
 		QFile f(it.value().Data);
