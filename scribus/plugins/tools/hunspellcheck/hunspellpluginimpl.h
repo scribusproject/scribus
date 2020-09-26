@@ -21,20 +21,19 @@ class PageItem;
 class StoryText;
 class StoryEditor;
 
-
-
 class HunspellPluginImpl : public QObject
 {
 	Q_OBJECT
 	public:
 		HunspellPluginImpl();
 		~HunspellPluginImpl();
+
 		bool run(const QString & target, ScribusDoc* doc=0);
 		bool initHunspell();
 		bool checkWithHunspell();
 		bool checkWithHunspellSE();
 		bool parseTextFrame(StoryText *);
-		bool openGUIForTextFrame(StoryText *iText);
+		bool openGUIForTextFrame(PageItem *iText);
 		bool openGUIForStoryEditor(StoryText *iText);
 		void setRunningForSE(bool rfSE, StoryEditor *sE);
 		QList<WordsFound> wordsToCorrect;
@@ -42,11 +41,10 @@ class HunspellPluginImpl : public QObject
 	protected:
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
-		//int numDicts, numAFFs;
 		QMap<QString, HunspellDict*> hspellerMap;
-		ScribusDoc* m_doc;
-		bool m_runningForSE;
-		StoryEditor* m_SE;
+		ScribusDoc* m_doc { nullptr };
+		bool m_runningForSE { false };
+		StoryEditor* m_SE { nullptr };
 };
 
 #endif

@@ -167,8 +167,10 @@ public:
  	QChar   text(int pos) const;
 	// Get text with len chars at specific position
 	QString text(int pos, uint len) const;
- 	//Get sentence at any position within it
+ 	// Get sentence at any position within it
 	QString sentence(int pos, int &posn);
+	// Get word starting at position
+	QString word(int pos);
 
 	bool hasObject(int pos) const;
 	PageItem* getItem(int pos) const; // deprecated

@@ -19,8 +19,10 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 	Q_OBJECT
 
 	public:
+		HunspellDialog(QWidget* parent, ScribusDoc *doc, PageItem* item);
 		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* iText);
 		~HunspellDialog() {};
+
 		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
 		void updateSuggestions(QStringList& newSuggestions);
@@ -35,16 +37,17 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		void setLanguageCombo(const QString &newLangAbbrev);
 
 	private:
-		ScribusDoc* m_doc;
-		StoryText* m_iText;
-		QMap<QString, QString>* m_dictionaryMap;
-		QMap<QString, HunspellDict*> *m_hspellerMap;
-		QList<WordsFound>* m_wfList;
+		ScribusDoc* m_doc { nullptr };
+		PageItem*  m_item { nullptr };
+		StoryText* m_iText { nullptr };
+		QMap<QString, QString>* m_dictionaryMap { nullptr };
+		QMap<QString, HunspellDict*> *m_hspellerMap { nullptr };
+		QList<WordsFound>* m_wfList { nullptr };
 		WordsFound currWF;
-		int  m_wfListIndex;
-		bool m_docChanged;
-		bool m_returnToDefaultLang;
-		int m_primaryLangIndex;
+		int  m_wfListIndex { 0 };
+		bool m_docChanged { false };
+		bool m_returnToDefaultLang { false };
+		int m_primaryLangIndex { 0 };
 };
 
 #endif // HUNSPELLDIALOG_H

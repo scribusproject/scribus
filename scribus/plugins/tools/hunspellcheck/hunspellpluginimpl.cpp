@@ -33,10 +33,9 @@ for which a new license (GPL+exception) is in place.
 // Initialize members here, if any
 HunspellPluginImpl::HunspellPluginImpl() : QObject(nullptr)
 {
-//	numDicts=0;
-	m_doc=nullptr;
-	m_runningForSE=false;
-	m_SE=nullptr;
+	m_doc = nullptr;
+	m_runningForSE = false;
+	m_SE = nullptr;
 }
 
 HunspellPluginImpl::~HunspellPluginImpl()
@@ -47,26 +46,25 @@ HunspellPluginImpl::~HunspellPluginImpl()
 		h = nullptr;
 	}
 	hspellerMap.clear();
-//	numDicts = 0;
 }
 
 bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 {
-	m_doc=doc;
-	bool initOk=initHunspell();
+	m_doc = doc;
+	bool initOk = initHunspell();
 	if (!initOk)
 		return false;
-	bool spellCheckOk=false;
+	bool spellCheckOk = false;
 	if (m_runningForSE)
-		spellCheckOk=checkWithHunspellSE();
+		spellCheckOk = checkWithHunspellSE();
 	else
-		spellCheckOk=checkWithHunspell();
+		spellCheckOk = checkWithHunspell();
 	return spellCheckOk;
 }
 
 bool HunspellPluginImpl::initHunspell()
 {
-	bool dictPathFound=LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
+	bool dictPathFound = LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
 		qDebug()<<"No preinstalled dictonary paths found";
@@ -74,16 +72,15 @@ bool HunspellPluginImpl::initHunspell()
 	}
 	dictionaryMap.clear();
 	LanguageManager::instance()->findSpellingDictionarySets(dictionaryPaths, dictionaryMap);
-//	numDicts=dictionaryMap.count();
-	if (dictionaryMap.count()==0)
+	if (dictionaryMap.count() == 0)
 		return false;
 
 	//Initialise one hunspeller for each dictionary found
 	auto it = dictionaryMap.cbegin();
 	while (it != dictionaryMap.cend())
 	{
-		//qDebug()<<"hunspell init:"<<it.key()<<it.value();
-		hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
+		//qDebug() << "hunspell init:" << it.key() << it.value();
+		hspellerMap.insert(it.key(), new HunspellDict(it.value() + ".aff", it.value() + ".dic"));
 		++it;
 	}
 	return true;
@@ -96,9 +93,9 @@ bool HunspellPluginImpl::checkWithHunspell()
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		frameToCheck = m_doc->m_Selection->itemAt(i);
-		StoryText *iText=&frameToCheck->itemText;
+		StoryText *iText = &frameToCheck->itemText;
 		parseTextFrame(iText);
-		openGUIForTextFrame(iText);
+		openGUIForTextFrame(frameToCheck);
 		m_doc->view()->DrawNew();
 	}
 	return true;
@@ -141,24 +138,24 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 				wordLang = defaultStyle->language();
 		}
 		//we now use the abbreviation
-		//wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
+		//wordLang = LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
 		if (wordLang == "en")
 			wordLang = "en_GB";
-		//qDebug()<<"Word:"<<word<<wordLang;
+		//qDebug() << "Word:" << word << wordLang;
 		if (!dictionaryMap.contains(wordLang))
 		{
-			//qDebug()<<"Spelling language to match style language NOT installed ("<<wordLang<<")";
+			//qDebug() << "Spelling language to match style language NOT installed (" << wordLang << ")";
 			QString altLang = LanguageManager::instance()->getAlternativeAbbrevfromAbbrev(wordLang);
 			if (!altLang.isEmpty())
 			{
-				//qDebug()<<"altLang"<<altLang<<dictionaryMap.contains(altLang);
+				//qDebug() << "altLang" << altLang << dictionaryMap.contains(altLang);
 				wordLang = altLang;
 			}
 		}
 		else
 		{
-			//qDebug()<<"Spelling language to match style language IS installed ("<<wordLang<<")";
+			//qDebug() << "Spelling language to match style language IS installed (" << wordLang << ")";
 			int i = 0;
 			auto it = dictionaryMap.cbegin();
 			while (it != dictionaryMap.cend())
@@ -172,14 +169,14 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 
 		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word)==0)
 		{
-			//qDebug()<<"hspellerMap.contains(wordLang)"<<hspellerMap.contains(wordLang)<< "hspellerMap[wordLang]->spell(word)"<<hspellerMap[wordLang]->spell(word);
+			//qDebug() << "hspellerMap.contains(wordLang)" << hspellerMap.contains(wordLang) << "hspellerMap[wordLang]->spell(word)" << hspellerMap[wordLang]->spell(word);
 			struct WordsFound wf;
-			wf.start=wordStart;
-			wf.end=wordEnd;
-			wf.w=word;
-			wf.changed=false;
-			wf.ignore=false;
-			wf.changeOffset=0;
+			wf.start = wordStart;
+			wf.end = wordEnd;
+			wf.w = word;
+			wf.changed = false;
+			wf.ignore = false;
+			wf.changeOffset = 0;
 			wf.lang = wordLang;
 			wf.replacements = hspellerMap[wordLang]->suggest(word);
 			wordsToCorrect.append(wf);
@@ -189,9 +186,9 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 	return true;
 }
 
-bool HunspellPluginImpl::openGUIForTextFrame(StoryText *iText)
+bool HunspellPluginImpl::openGUIForTextFrame(PageItem *item)
 {
-	HunspellDialog hsDialog(m_doc->scMW(), m_doc, iText);
+	HunspellDialog hsDialog(m_doc->scMW(), m_doc, item);
 	hsDialog.set(&dictionaryMap, &hspellerMap, &wordsToCorrect);
 	hsDialog.exec();
 	if (hsDialog.docChanged())
@@ -211,7 +208,7 @@ bool HunspellPluginImpl::openGUIForStoryEditor(StoryText *iText)
 
 void HunspellPluginImpl::setRunningForSE(bool rfSE, StoryEditor *sE)
 {
-	m_runningForSE=rfSE;
-	m_SE=sE;
+	m_runningForSE = rfSE;
+	m_SE = sE;
 }
 

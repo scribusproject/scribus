@@ -846,15 +846,7 @@ void StoryText::replaceSelection(const QString& newText)
 
 int StoryText::replaceWord(int pos, QString newWord)
 {
-	int eoWord = pos;
-	while (eoWord < length())
-	{
-		if (text(eoWord).isLetterOrNumber() || SpecialChars::isIgnorableCodePoint(text(eoWord).unicode()))
-			++eoWord;
-		else
-			break;
-	}
-	QString word = text(pos, eoWord - pos);
+	QString word = this->word(pos);
 	int lengthDiff = newWord.length() - word.length();
 	if (lengthDiff == 0)
 	{
@@ -1058,9 +1050,22 @@ ExpansionPoint StoryText::expansionPoint(int pos) const
 QString StoryText::sentence(int pos, int &posn)
 {
 	int sentencePos = qMax(0, prevSentence(pos));
-	posn=sentencePos;
+	posn = sentencePos;
 	int nextSentencePos = qMin(length(), endOfSentence(pos));
-	return text(sentencePos, nextSentencePos-sentencePos);
+	return text(sentencePos, nextSentencePos - sentencePos);
+}
+
+QString StoryText::word(int pos)
+{
+	int eoWord = pos;
+	while (eoWord < length())
+	{
+		if (text(eoWord).isLetterOrNumber() || SpecialChars::isIgnorableCodePoint(text(eoWord).unicode()))
+			++eoWord;
+		else
+			break;
+	}
+	return text(pos, eoWord - pos);
 }
 
 QString StoryText::textWithSoftHyphens(int pos, uint len) const
