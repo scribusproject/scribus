@@ -38,6 +38,8 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "styleselect.h"
 #include "ui/storyeditor.h"
+#include "undomanager.h"
+#include "undotransaction.h"
 #include "util.h"
 #include "util_text.h"
 
@@ -728,9 +730,44 @@ void SearchReplace::doReplace()
 {
 	if (m_itemMode)
 	{
+		UndoTransaction transaction;
+		if (UndoManager::undoEnabled())
+			transaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap());
+
 		if (RText->isChecked())
 		{
+			QString selectedText = m_item->itemText.selectedText();
 			QString repl = RTextVal->text();
+			if (UndoManager::undoEnabled())
+			{
+				UndoObject* undoTarget = m_item->isNoteFrame() ? dynamic_cast<UndoObject*>(m_item->doc()) : dynamic_cast<UndoObject*>(m_item);
+				if (selectedText.length() > 0)
+				{
+					auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
+					int selStart =  m_item->itemText.startOfSelection();
+					is->set("DELETE_FRAMETEXT");
+					is->set("ETEA",  QString("delete_frametext"));
+					is->set("TEXT_STR", selectedText);
+					is->set("START", m_item->itemText.startOfSelection());
+					is->setItem(m_item->itemText.charStyle(selStart));
+					if (m_item->isNoteFrame())
+						is->set("noteframeName", m_item->getUName());
+					UndoManager::instance()->action(undoTarget, is);
+				}
+				if (repl.length() > 0)
+				{
+					int selStart = qMin(m_item->itemText.cursorPosition(), m_item->itemText.startOfSelection());
+					auto ss = new SimpleState(Um::InsertText, "", Um::ICreate);
+					ss->set("INSERT_FRAMETEXT");
+					ss->set("ETEA", QString("insert_frametext"));
+					ss->set("TEXT_STR", repl);
+					ss->set("START", selStart);
+					UndoObject * undoTarget = m_item;
+					if (m_item->isNoteFrame())
+						ss->set("noteframeName", m_item->getUName());
+					UndoManager::instance()->action(undoTarget, ss);
+				}
+			}
 			m_item->itemText.replaceSelection(repl);
 		}
 		if (RStyle->isChecked())
@@ -774,6 +811,9 @@ void SearchReplace::doReplace()
 			}
 		}
 		m_item->itemText.deselectAll();
+
+		if (transaction)
+			transaction.commit();
 	}
 	else if (m_doc->scMW()->CurrStED != nullptr)
 	{
@@ -849,11 +889,18 @@ void SearchReplace::slotReplaceAll()
 	if (m_itemMode)
 		m_doc->DoDrawing = false;
 
+	UndoTransaction undoTransaction;
+	if (m_itemMode && UndoManager::undoEnabled())
+		undoTransaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap());
+
 	do
 	{
 		doReplace();
 	}
 	while (m_found);
+
+	if (undoTransaction)
+		undoTransaction.commit();
 
 	if (m_itemMode)
 	{
