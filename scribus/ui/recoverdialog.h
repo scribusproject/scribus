@@ -38,11 +38,14 @@ class SCRIBUS_API RecoverDialog : public QDialog, Ui::recoverDialogBase
 public:
 	RecoverDialog(QWidget* parent, const QStringList& files);
 	~RecoverDialog() {};
+
 	QStringList recoverFiles;
 	QStringList recoverNames;
+
 private:
 	void updateFilesTable();
 	QStringList m_files;
+
 private slots:
 	void toggleAllfromHeader(int col);
 	void handleItemClick();
