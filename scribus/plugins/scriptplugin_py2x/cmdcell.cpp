@@ -12,6 +12,48 @@
 #include "pageitem_table.h"
 #include "tableborder.h"
 
+PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int row, column;
+	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == nullptr)
+		return nullptr;
+	PageItem_Table *table = i->asTable();
+	if (!table)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell text on a non-table item.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	PageItem* textFrame = table->cellAt(row, column).textFrame();
+	const StoryText& story = textFrame->itemText;
+	QString text;
+	text.reserve(story.hasSelection() ? story.selectionLength() : story.length());
+	for (int i = 0; i < story.length(); i++)
+	{
+		if (textFrame->HasSel)
+		{
+			if (story.selected(i))
+				text += story.text(i);
+		}
+		else
+		{
+			text += story.text(i);
+		}
+	}
+	return PyString_FromString(text.toUtf8());
+}
+
 PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -461,6 +503,7 @@ void cmdcelldocwarnings()
 	  << scribus_getcellfillcolor__doc__
 	  << scribus_getcellrowspan__doc__
 	  << scribus_getcellstyle__doc__
+	  << scribus_getcelltext__doc__
 	  << scribus_setcellbottomborder__doc__
 	  << scribus_setcellbottompadding__doc__
 	  << scribus_setcellfillcolor__doc__

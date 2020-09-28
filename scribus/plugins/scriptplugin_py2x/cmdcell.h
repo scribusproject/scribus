@@ -16,6 +16,19 @@
 #define CMDCELL_H
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcelltext__doc__,
+QT_TR_NOOP("getCellText(row, column, [\"name\"]) -> string\n\
+\n\
+Returns the text content of the cell at \"row\", \"column\" in the table \"name\".\n\
+If cell has some text selected, the selected text is returned.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May throw ValueError if the cell does not exist.\n\
+"));
+/*! Get cell text */
+PyObject *scribus_getcelltext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setcelltext__doc__,
 QT_TR_NOOP("setCellText(row, column, text, [\"name\"])\n\
 \n\
