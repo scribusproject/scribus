@@ -10,6 +10,7 @@
 #include "cmdcell.h"
 #include "cmdutil.h"
 #include "pageitem_table.h"
+#include "pageitem_textframe.h"
 #include "tableborder.h"
 
 PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
