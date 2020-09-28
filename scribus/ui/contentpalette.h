@@ -38,7 +38,7 @@ class SCRIBUS_API ContentPalette : public ScDockPalette
 
 		void updateColorList();
 		bool userActionOn();
-		virtual void changeEvent(QEvent *e) override;
+		void changeEvent(QEvent *e) override;
 		void update(PageItem_ImageFrame* image);
 		void update(const ParagraphStyle& style);
 		void update(PageItem_TextFrame* image);
