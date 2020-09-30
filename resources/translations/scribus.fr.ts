@@ -1060,7 +1060,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;View Tools</source>
-        <translation>&amp;Voir les Outils</translation>
+        <translation>&amp;Outils de Visualisation</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1705"/>
@@ -40352,7 +40352,7 @@ Voulez-vous démarrer le navigateur par défaut?</translation>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="33"/>
         <source>View Tools</source>
-        <translation>Afficher les outils</translation>
+        <translation>Outils de Visualisation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="92"/>
