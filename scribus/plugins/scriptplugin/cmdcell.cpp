@@ -104,9 +104,6 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
 		return nullptr;
 	}
-
-
-
 	return PyUnicode_FromString(table->cellAt(row, column).styleName().toUtf8());
 }
 
