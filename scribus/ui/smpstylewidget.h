@@ -25,8 +25,6 @@ class SMPStyleWidget : public QWidget, Ui::SMPStyleWidget
 public:
 	SMPStyleWidget(ScribusDoc *doc, StyleSet<CharStyle> *cstyles);
 	~SMPStyleWidget();
-	
-	virtual void changeEvent(QEvent *e);
 
 	void show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 	void show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
@@ -35,6 +33,9 @@ public:
 	void languageChange();
 	void unitChange(double oldRatio, double newRatio, int unitIndex);
 	void setDoc(ScribusDoc* doc);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	bool m_hasParent = false;

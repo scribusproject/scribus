@@ -28,8 +28,6 @@ public:
 	PropertiesPalette_Line(QWidget* parent);
 	~PropertiesPalette_Line() {delete lineStyles->itemDelegate();};
 
-	virtual void changeEvent(QEvent *e);
-
 	void updateLineStyles();
 	void updateArrowStyles();
 
@@ -43,8 +41,9 @@ protected:
 	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
 
-private:
+	void changeEvent(QEvent *e) override;
 
+private:
 	PageItem* currentItemFromSelection();
 	void updateArrowStyles(ScribusDoc *doc);
 	void updateLineStyles(ScribusDoc *doc);
@@ -69,7 +68,6 @@ public slots:
 	void localeChange();
 
 private slots:
-
 	void handleLineWidth();
 	void handleLineStyle();
 	void handleLineJoin();

@@ -42,6 +42,7 @@ Q_OBJECT
 public:
 	ScDockPalette( QWidget * parent = nullptr, const QString& prefsContext = QString(), Qt::WindowFlags f = Qt::WindowFlags() );
 	~ScDockPalette() {}
+
 	/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
 	//virtual void keyPressEvent(QKeyEvent *keyEvent);
 	virtual void hide();
@@ -65,11 +66,11 @@ protected:
 	void storeDockState();
 
 	/** @brief Restore the geometry of the window when showing it. */
-	virtual void showEvent(QShowEvent *showEvent);
+	void showEvent(QShowEvent *showEvent) override;
 	/** @brief Captures the close event and changes it to hide */
-	virtual void closeEvent(QCloseEvent *closeEvent);
+	void closeEvent(QCloseEvent *closeEvent) override;
 	/** @brief Stores the geometry of the window when hiding. */
-	virtual void hideEvent(QHideEvent* hideEvent);
+	void hideEvent(QHideEvent* hideEvent) override;
 
 	PrefsContext* m_palettePrefs {nullptr};
 	QString m_prefsContextName;

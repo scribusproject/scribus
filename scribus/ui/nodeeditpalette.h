@@ -133,17 +133,17 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 
-	virtual void changeEvent(QEvent *e);
-	virtual void closeEvent(QCloseEvent *);
+	void changeEvent(QEvent *e) override;
+	void closeEvent(QCloseEvent *) override;
 
-	QVBoxLayout *vboxLayout;
-	QVBoxLayout *vboxLayout1;
-	QGridLayout *gridLayout;
-	QGridLayout *gridLayout1;
-	QGridLayout *gridLayout2;
+	QVBoxLayout *vboxLayout { nullptr };
+	QVBoxLayout *vboxLayout1 { nullptr };
+	QGridLayout *gridLayout { nullptr };
+	QGridLayout *gridLayout1 { nullptr };
+	QGridLayout *gridLayout2 { nullptr };
 
-	ScribusDoc *m_doc;
-	ScribusView *m_view;
+	ScribusDoc *m_doc { nullptr };
+	ScribusView *m_view { nullptr };
 	
 	double unitRatio;
 	double xPos;

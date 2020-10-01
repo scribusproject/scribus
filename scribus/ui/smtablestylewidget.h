@@ -30,7 +30,6 @@ public:
 	~SMTableStyleWidget();
 
 	void setDoc(ScribusDoc* doc);
-	virtual void changeEvent(QEvent *e);
 
 	/**
 	 * Shows attributes for a single table style.
@@ -66,6 +65,9 @@ public:
 	 */
 	void fillFillColorCombo(ColorList &colors);
 	void showColors(const QList<TableStyle*> &tableStyles);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	ScribusDoc * m_Doc = nullptr;

@@ -39,9 +39,9 @@ private slots:
 	void leaveOK();
 
 protected:
-	void closeEvent(QCloseEvent *closeEvent);
-	QVBoxLayout* FontReplaceDialogLayout;
-	QHBoxLayout* layout1;
+	void closeEvent(QCloseEvent *closeEvent) override;
+	QVBoxLayout* FontReplaceDialogLayout { nullptr };
+	QHBoxLayout* layout1 { nullptr };
 
 };
 

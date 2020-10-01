@@ -50,8 +50,6 @@ class SCRIBUS_API ColorListBox : public QListView
 		ColorListBox(ColorListBox::PixmapType type, QWidget* parent = nullptr);
 		~ColorListBox();
 
-		virtual void changeEvent(QEvent *e);
-
 		/*! Return the current color name */
 		QString currentColor() const;
 
@@ -138,7 +136,9 @@ class SCRIBUS_API ColorListBox : public QListView
 		void itemSelectionChanged();
 
 	protected:
-		bool viewportEvent(QEvent *event);
+		void changeEvent(QEvent *e) override;
+		bool viewportEvent(QEvent *event) override;
+
 		static int initialized;
 		static int sortRule;
 		ColorListBox::PixmapType m_type;

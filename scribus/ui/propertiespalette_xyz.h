@@ -31,8 +31,6 @@ class SCRIBUS_API PropertiesPalette_XYZ : public QWidget, public Ui::PropertiesP
 public:
 	PropertiesPalette_XYZ(QWidget* parent);
 	~PropertiesPalette_XYZ() {};
-
-	virtual void changeEvent(QEvent *e);
 	
 	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
@@ -43,7 +41,6 @@ public:
 	void setLineMode(int lineMode);
 
 private:
-
 	PageItem* currentItemFromSelection();
 	
 public slots:
@@ -112,6 +109,8 @@ protected:
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

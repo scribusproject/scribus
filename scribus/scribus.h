@@ -152,12 +152,14 @@ public:
 	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true, int marginPreset=0);
 	bool DoFileSave(const QString& fileName, QString* savedFileName = nullptr);
-	void changeEvent(QEvent *e);
-	void closeEvent(QCloseEvent *ce);
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
-	void inputMethodEvent (QInputMethodEvent *event);
-	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const ;
+
+	void changeEvent(QEvent *e) override;
+	void closeEvent(QCloseEvent *ce) override;
+	void keyPressEvent(QKeyEvent *k) override;
+	void keyReleaseEvent(QKeyEvent *k) override;
+	void inputMethodEvent (QInputMethodEvent *event) override;
+	QVariant inputMethodQuery ( Qt::InputMethodQuery query ) const override;
+
 	void requestUpdate(int);
 	void setTBvals(PageItem *currItem);
 	int ShowSubs();
@@ -595,9 +597,9 @@ protected:
 	/*!
 	\brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
 	 */
-	bool eventFilter( QObject *o, QEvent *e );
-	virtual void dragEnterEvent( QDragEnterEvent* e);
-	virtual void dropEvent( QDropEvent* e);
+	bool eventFilter( QObject *o, QEvent *e ) override;
+	void dragEnterEvent( QDragEnterEvent* e) override;
+	void dropEvent( QDropEvent* e) override;
 
 private:
     /** init methods */

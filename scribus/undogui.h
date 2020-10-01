@@ -162,6 +162,7 @@ private:
 	QMenu* redoMenu;
 	void updateUndoMenu();
 	void updateRedoMenu();
+
 public:
 	/** @brief Creates a new UndoWidget instance. */
 	UndoWidget(QWidget* parent = nullptr, const char* name = 0);
@@ -174,13 +175,14 @@ public:
 	/**
 	 * @brief Update the scrActions
 	 */
-	virtual void updateUndoActions();
+	void updateUndoActions() override;
 		
 private slots:
 	void undoClicked();
 	void redoClicked();
 	void undoMenuClicked(QAction *id);
 	void redoMenuClicked(QAction *id);
+
 public slots:
 	/**
 	 * @brief Insert a new undo item.
@@ -225,6 +227,7 @@ public slots:
 	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
+
 signals:
 	/** 
 	 * @brief Emitted when undo is requested.
@@ -260,16 +263,39 @@ class SCRIBUS_API UndoPalette : public UndoGui
 {
 	Q_OBJECT
 
+public:
+	/** 
+	 * @brief Creates a new UndoPalette instance.
+	 * 
+	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
+	 * be registered to the UndoManager with UndoManager's registerGui() method.
+	 */
+	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
+
+	/** @brief Destroys the widget */
+	~UndoPalette();
+
+	/** @brief Empties the undo stack for this widget. */
+	void clear();
+	/**
+	 * @brief Update the scrActions
+	 */
+	void updateUndoActions() override;
+
+protected:
+	void changeEvent(QEvent *e) override;
+
 private:
-	QWidget* container;
-	int currentSelection;
-	int redoItems;
-	QListWidget* undoList;
-	QCheckBox* objectBox;
-	QPushButton* undoButton;
-	QPushButton* redoButton;
+	QWidget* container { nullptr };
+	int currentSelection { 0 };
+	int redoItems { 0 };
+	QListWidget* undoList { nullptr };
+	QCheckBox* objectBox { nullptr };
+	QPushButton* undoButton { nullptr };
+	QPushButton* redoButton { nullptr };
 	QKeySequence initialUndoKS;
 	QKeySequence initialRedoKS;
+
 	void updateList();
 	void removeRedoItems();
 	
@@ -280,9 +306,9 @@ private:
 	{
 	private:
 		/** @brief An icon for the undo target */
-		QPixmap *targetpixmap;
+		QPixmap *targetpixmap { nullptr };
 		/** @brief An icon for the undo state (action) */
-		QPixmap *actionpixmap;
+		QPixmap *actionpixmap { nullptr };
 		/** @brief Name of the target of the state (action) */
 		QString target;
 		/** @brief Undo action's name */
@@ -290,7 +316,8 @@ private:
 		/** @brief Description of the action */
 		QString description;
 		/** @brief Does this item describe an undo action if false it's a redo action */
-		bool isUndoAction_;
+		bool isUndoAction_ { true };
+
 	public:
 		/** @brief Create an empty UndoItem object */
 		UndoItem();
@@ -319,6 +346,7 @@ private:
 		         bool isUndoAction,
 				 QListWidget* parent = nullptr);
 		~UndoItem();
+
 		/*void paint(QPainter *painter);
 		int height(const QListWidget*) const;
 		int width(const QListWidget*) const;*/
@@ -328,35 +356,6 @@ private:
 	};
 	
 /******************************************************************************/
-
-private slots:
-	void undoClicked();
-	void redoClicked();
-	void undoListClicked(int i);
-	void showToolTip(QListWidgetItem *i);
-	void removeToolTip();
-	void objectCheckBoxClicked(bool on);
-
-public:
-	/** 
-	 * @brief Creates a new UndoPalette instance.
-	 * 
-	 * Creates a new UndoPalette instance. After creation of an UndoPalette it must
-	 * be registered to the UndoManager with UndoManager's registerGui() method.
-	 */
-	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
-
-	/** @brief Destroys the widget */
-	~UndoPalette();
-	
-	virtual void changeEvent(QEvent *e);
-
-	/** @brief Empties the undo stack for this widget. */
-	void clear();
-	/**
-	 * @brief Update the scrActions
-	 */
-	virtual void updateUndoActions();
 	
 public slots:
 	/** @brief Sets GUI strings on language change */
@@ -409,8 +408,15 @@ public slots:
 	/** @brief Receive prefsChanged() signal to update shortcuts. */
 	void updateFromPrefs();
 
-signals:
+private slots:
+	void undoClicked();
+	void redoClicked();
+	void undoListClicked(int i);
+	void showToolTip(QListWidgetItem *i);
+	void removeToolTip();
+	void objectCheckBoxClicked(bool on);
 
+signals:
 	/**
 	 * @brief Emitted when undo behaviour should be changed from global undo
 	 * @brief to object specific undo and other way around.

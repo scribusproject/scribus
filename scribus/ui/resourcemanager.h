@@ -33,8 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "ui_resourcemanagerbase.h"
 
-
-
 class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 {
 	Q_OBJECT
@@ -54,7 +52,7 @@ class SCRIBUS_API ResourceManager : public QDialog, Ui::ResourceManagerBase
 		~ResourceManager() {};
 
 	//events:
-		//virtual void changeEvent(QEvent *e);
+		//void changeEvent(QEvent *e) override;
 
 	public slots:
 		void languageChange();

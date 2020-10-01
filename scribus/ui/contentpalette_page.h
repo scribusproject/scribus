@@ -26,8 +26,6 @@ public:
 	ContentPalette_Page(QWidget* parent);
 	~ContentPalette_Page() {};
 
-	virtual void changeEvent(QEvent *e);
-
 protected:
 	bool      m_haveDoc = false;
 	bool      m_haveItem = false;
@@ -37,6 +35,8 @@ protected:
 	// PageItem *m_item;
 	ScribusMainWindow*       m_ScMW = nullptr;
 	ScGuardedPtr<ScribusDoc> m_doc;
+
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

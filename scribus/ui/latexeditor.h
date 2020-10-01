@@ -45,7 +45,7 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 	public:
 		LatexEditor(PageItem_LatexFrame *);
 		~LatexEditor();
-		virtual void changeEvent(QEvent *e);
+
 		void startEditor();
 		void exitEditor();
 		void revert();
@@ -53,24 +53,30 @@ class SCRIBUS_API LatexEditor : public QDialog, Ui::LatexEditor
 		void initialize();
 		static QIcon icon(const QString& config, const QString& fn);
 		static QString iconFile(QString config);
+
 	protected:
-		PageItem_LatexFrame *frame;
-		LatexHighlighter *highlighter;
+		PageItem_LatexFrame *frame { nullptr };
+		LatexHighlighter *highlighter { nullptr };
+		QMap<QString, XmlWidget *> widgetMap;
+		QString currentConfigFile, currentIconFile;
+		QString extEditorFile;
+		QProcess *extEditor { nullptr };
+		FileWatcher *fileWatcher { nullptr };
+
+		void changeEvent(QEvent *e) override;
+
 		void loadSettings();
 		void createNewSettingsTab(I18nXmlStreamReader *xml);
 		void createNewItemsTab(I18nXmlStreamReader *xml);
-		QMap<QString, XmlWidget *> widgetMap;
-		QString currentConfigFile, currentIconFile;
-		/*External Editor*/
-		QString extEditorFile;
+		
 		void loadExternalEditorFile();
 		void writeExternalEditorFile();
-		QProcess *extEditor;
-		FileWatcher *fileWatcher;
+
 	protected slots:
 		void extEditorFinished(int exitCode, QProcess::ExitStatus exitStatus);
 		void extEditorFileChanged(const QString& filename);
 		void extEditorError(QProcess::ProcessError error);
+
 	public slots:
 		void okClicked();
 		void cancelClicked();

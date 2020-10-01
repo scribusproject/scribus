@@ -80,8 +80,6 @@ public:
 	void editingStart(int itemID);
 	void editingFinished();
 	void updateItemList();
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void handleContextMenue(QPoint p);
@@ -104,6 +102,8 @@ protected:
 	ScribusMainWindow *m_scMW;
 	int actItem;
 	int currentEditedItem;
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

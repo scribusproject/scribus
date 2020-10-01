@@ -18,14 +18,13 @@ class PropertyWidget_Orphans : public QFrame, public Ui::PropertyWidget_OrphansB
 	Q_OBJECT
 
 public:
-
 	PropertyWidget_Orphans(QWidget* parent);
 	~PropertyWidget_Orphans() {};
 
 	void updateStyle(const ParagraphStyle& newCurrent);
 
 protected:
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void languageChange();

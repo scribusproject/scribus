@@ -54,9 +54,6 @@ public:
 	PropertiesPalette(QWidget* parent);
 	~PropertiesPalette() {}
 
-	virtual void changeEvent(QEvent *e);
-	virtual void closeEvent(QCloseEvent *closeEvent);
-
 	void endPatchAdd();
 	void updateColorSpecialGradient();
 	void updateColorList();
@@ -75,6 +72,10 @@ public:
 	PropertiesPalette_XYZ* xyzPal {nullptr};
 	ColorPalette *colorPalette {nullptr};
 	TransparencyPalette *transparencyPalette {nullptr};
+
+protected:
+	void changeEvent(QEvent *e) override;
+	void closeEvent(QCloseEvent *closeEvent) override;
 
 private:
 	PageItem* currentItemFromSelection();

@@ -237,8 +237,6 @@ public:
 	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	void setCurrentDocument(ScribusDoc *doc);
 
 	QLabel* FillIcon { nullptr };
@@ -247,6 +245,9 @@ public:
 	QAction* pm2Action { nullptr };
 	QAction* txFillAction { nullptr };
 	QAction* fillIconAction { nullptr };
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void SetColor(int c);
@@ -267,8 +268,6 @@ public:
 	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	void setCurrentDocument(ScribusDoc *doc);
 
 	QLabel* StrokeIcon { nullptr };
@@ -278,6 +277,8 @@ public:
 	QAction* txStrokeAction { nullptr };
 	QAction* pm1Action { nullptr };
 
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void SetColor(int c);
@@ -298,14 +299,15 @@ public:
 	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	StyleSelect* SeStyle { nullptr };
 	QLabel* trackingLabel { nullptr };
 	ScrSpinBox* Extra { nullptr };
 	QAction* seStyleAction { nullptr };
 	QAction* trackingLabelAction { nullptr };
 	QAction* extraAction { nullptr };
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void newStrikeHandler();
@@ -339,14 +341,15 @@ public:
 	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	AlignSelect* GroupAlign { nullptr };
 	DirectionSelect* GroupDirection { nullptr };
 	ParaStyleComboBox *paraStyleCombo { nullptr };
 	QAction* groupAlignAction { nullptr };
 	QAction* groupDirectionAction { nullptr };
 	QAction* paraStyleComboAction { nullptr };
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void SetAlign(int s);
@@ -368,14 +371,15 @@ public:
 	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	FontCombo* Fonts { nullptr };
 	ScrSpinBox* charScaleH { nullptr };
 	ScrSpinBox* charScaleV { nullptr };
 	QAction* fontsAction { nullptr };
 	QAction* chScaleHAction { nullptr };
 	QAction* chScaleVAction { nullptr };
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void SetFont(const QString& f);
@@ -411,8 +415,6 @@ public:
 	StoryEditor( QWidget* parent );
 // 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
-
-	virtual void changeEvent(QEvent *e);
 
 	void setCurrentDocumentAndItem(ScribusDoc *doc=nullptr, PageItem *item=nullptr);
 	void setSpellActive(bool ssa);
@@ -537,12 +539,14 @@ protected:
     //! True when there were some glyphs inserted via charSelect
 	bool charSelectUsed { false };
 
-	void showEvent(QShowEvent *);
-	void hideEvent(QHideEvent *);
+	void changeEvent(QEvent *e) override;
 
-	void closeEvent(QCloseEvent *);
-	void keyPressEvent (QKeyEvent * e);
-	bool eventFilter( QObject* ob, QEvent* ev );
+	void showEvent(QShowEvent *) override;
+	void hideEvent(QHideEvent *) override;
+
+	void closeEvent(QCloseEvent *) override;
+	void keyPressEvent (QKeyEvent * e) override;
+	bool eventFilter( QObject* ob, QEvent* ev ) override;
 
 	QHBoxLayout* StoryEd2Layout { nullptr };
 	QGridLayout* ButtonGroup1Layout { nullptr };

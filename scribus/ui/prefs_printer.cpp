@@ -74,7 +74,7 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 	altPrinterCmdLineEdit->setText(prefs->get("Command", ""));
 	outputComboBox->setCurrentIndex(prefs->getInt("Separations", 0));
 	postscriptPrintToColorComboBox->setCurrentIndex(prefs->getInt("PrintColor", 0));
-	postscriptLevelComboBox->setCurrentIndex(prefs->getInt("PSLevel", 3)-1);
+	postscriptLevelComboBox->setCurrentIndex(prefs->getInt("PSLevel", 3) - 1);
 	pageMirrorHorizontallyCheckBox->setChecked(prefs->getBool("MirrorH", false));
 	pageMirrorVerticallyCheckBox->setChecked(prefs->getBool("MirrorV", false));
 	setMediaSizeCheckBox->setChecked(prefs->getBool("doDev", false));

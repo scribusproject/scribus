@@ -48,7 +48,7 @@ protected:
 	ScribusView       *m_view;
 	ScribusMainWindow *m_scMW;
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setView(ScribusView *view);

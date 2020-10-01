@@ -42,19 +42,19 @@ class SCRIBUS_API PatternPropsDialog : public QDialog
 public:
 	PatternPropsDialog(QWidget* parent, int unitIndex, bool isStroke);
 	~PatternPropsDialog() {};
-	virtual void changeEvent(QEvent *e);
-	ScrSpinBox* spinXoffset;
-	ScrSpinBox* spinYoffset;
-	ScrSpinBox* spinXscaling;
-	ScrSpinBox* spinYscaling;
-	ScrSpinBox* spinAngle;
-	ScrSpinBox* spinXSkew;
-	ScrSpinBox* spinYSkew;
-	ScrSpinBox* spinSpacing;
-	QToolButton* FlipH;
-	QToolButton* FlipV;
-	LinkButton* keepScaleRatio;
-	bool forStroke;
+
+	ScrSpinBox* spinXoffset { nullptr };
+	ScrSpinBox* spinYoffset { nullptr };
+	ScrSpinBox* spinXscaling { nullptr };
+	ScrSpinBox* spinYscaling { nullptr };
+	ScrSpinBox* spinAngle { nullptr };
+	ScrSpinBox* spinXSkew { nullptr };
+	ScrSpinBox* spinYSkew { nullptr };
+	ScrSpinBox* spinSpacing { nullptr };
+	QToolButton* FlipH { nullptr };
+	QToolButton* FlipV { nullptr };
+	LinkButton* keepScaleRatio { nullptr };
+	bool forStroke { false };
 
 public slots:
 	void languageChange();
@@ -68,28 +68,30 @@ signals:
 	void NewPatternPropsS(double, double, double, double, double, double, double, double, bool, bool);
 
 protected:
-	QGroupBox* groupOffset;
-	QLabel* textLabel1;
-	QLabel* textLabel2;
-	QGroupBox* groupScale;
-	QLabel* textLabel5;
-	QLabel* textLabel6;
-	QGroupBox* groupRotation;
-	QLabel* textLabel7;
-	QGroupBox* groupSkew;
-	QLabel* textLabel8;
-	QLabel* textLabel9;
-	QLabel* textLabel15;
-	QGroupBox* groupSpace;
-	QLabel* textLabel20;
-	QVBoxLayout* frame3Layout;
-	QHBoxLayout* groupOffsetLayout;
-	QGridLayout* groupScaleLayout;
-	QGridLayout* groupSkewLayout;
-	QHBoxLayout* groupRotationLayout;
-	QHBoxLayout* groupSpaceLayout;
-	QPushButton* buttonOk;
-	QHBoxLayout* buttonLayout;
-	QHBoxLayout* groupFlipLayout;
+	QGroupBox* groupOffset { nullptr };
+	QLabel* textLabel1 { nullptr };
+	QLabel* textLabel2 { nullptr };
+	QGroupBox* groupScale { nullptr };
+	QLabel* textLabel5 { nullptr };
+	QLabel* textLabel6 { nullptr };
+	QGroupBox* groupRotation { nullptr };
+	QLabel* textLabel7 { nullptr };
+	QGroupBox* groupSkew { nullptr };
+	QLabel* textLabel8 { nullptr };
+	QLabel* textLabel9 { nullptr };
+	QLabel* textLabel15 { nullptr };
+	QGroupBox* groupSpace { nullptr };
+	QLabel* textLabel20 { nullptr };
+	QVBoxLayout* frame3Layout { nullptr };
+	QHBoxLayout* groupOffsetLayout { nullptr };
+	QGridLayout* groupScaleLayout { nullptr };
+	QGridLayout* groupSkewLayout { nullptr };
+	QHBoxLayout* groupRotationLayout { nullptr };
+	QHBoxLayout* groupSpaceLayout { nullptr };
+	QPushButton* buttonOk { nullptr };
+	QHBoxLayout* buttonLayout { nullptr };
+	QHBoxLayout* groupFlipLayout { nullptr };
+
+	void changeEvent(QEvent *e) override;
 };
 #endif

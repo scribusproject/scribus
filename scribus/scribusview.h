@@ -313,13 +313,13 @@ private slots:
 	void dragTimerTimeOut();
 
 public:
-	virtual void wheelEvent(QWheelEvent *ev);
-	virtual void changeEvent(QEvent *e);
+	void wheelEvent(QWheelEvent *ev) override;
+	void changeEvent(QEvent *e) override;
 	void nativeGestureEvent(QNativeGestureEvent *e);
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
-	void inputMethodEvent(QInputMethodEvent * event);
-	QVariant inputMethodQuery(Qt::InputMethodQuery query) const ;
+	void keyPressEvent(QKeyEvent *k) override;
+	void keyReleaseEvent(QKeyEvent *k) override;
+	void inputMethodEvent(QInputMethodEvent * event) override;
+	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 	
 	inline void registerMousePress(QPoint p);
 	bool mousePressed();

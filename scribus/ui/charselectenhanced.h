@@ -42,6 +42,9 @@ public slots:
 	void delEdit();
 	void insChar();
 
+protected:
+	void changeEvent(QEvent *e) override;
+
 private:
 	ScribusDoc* m_doc;
 	//! \brief Current font name
@@ -88,8 +91,6 @@ private:
 	void scanFont();
 	void setupRangeCombo();
 	void generatePreview(int charClass);
-
-	virtual void changeEvent(QEvent *e);
 
 private slots:
 	void hexLineEdit_returnPressed();

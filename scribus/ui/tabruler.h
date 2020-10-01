@@ -94,8 +94,6 @@ public:
 			 double wid = -1);
 	~Tabruler() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
 
 	QList<ParagraphStyle::TabRecord> getTabVals();
@@ -165,6 +163,8 @@ protected:
 
 	bool   m_haveFirst;
 	double m_docUnitRatio;
+
+	void changeEvent(QEvent *e) override;
 
 protected slots:
 	void iconSetChange();

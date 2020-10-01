@@ -35,9 +35,6 @@ public:
 	TextPalette(QWidget* parent);
 	~TextPalette() {}
 
-	virtual void changeEvent(QEvent *e);
-	virtual void closeEvent(QCloseEvent *closeEvent);
-
 	void updateColorList();
 	void endPatchAdd();
 
@@ -47,10 +44,9 @@ public:
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 
-	PropertiesPalette_Text*  textPal;
+	PropertiesPalette_Text*  textPal { nullptr };
 
 private:
-
 	PageItem* currentItemFromSelection();
 	
 public slots:
@@ -70,20 +66,22 @@ public slots:
 private slots:
 	void NewLineMode(int mode);
 
-
 protected:
-	ScribusMainWindow *m_ScMW;
+	ScribusMainWindow *m_ScMW { nullptr };
 
-	bool      m_haveDoc;
-	bool      m_haveItem;
-	double    m_unitRatio;
-	int       m_unitIndex;
-	PageItem* m_item;
-	UndoManager *undoManager;
+	bool      m_haveDoc { false };
+	bool      m_haveItem { false };
+	double    m_unitRatio { 1.0 };
+	int       m_unitIndex { 0 };
+	PageItem* m_item { nullptr };
+	UndoManager *undoManager { nullptr };
 	
 	ScGuardedPtr<ScribusDoc> m_doc;
 	
 	int idTextItem;
+
+	void changeEvent(QEvent *e) override;
+	void closeEvent(QCloseEvent *closeEvent) override;
 };
 
 #endif

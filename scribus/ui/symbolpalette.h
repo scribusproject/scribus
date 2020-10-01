@@ -83,8 +83,6 @@ public:
 	void editingStart(QStringList names);
 	void editingFinished();
 	void updateSymbolList();
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void handleContextMenue(QPoint p);
@@ -107,6 +105,8 @@ protected:
 	ScribusMainWindow *m_scMW;
 	QStringList editItemNames;
 	QListWidgetItem *m_item;
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

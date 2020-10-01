@@ -36,7 +36,7 @@ protected:
 	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

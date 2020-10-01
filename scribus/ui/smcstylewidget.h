@@ -21,8 +21,6 @@ class SMCStyleWidget : public QWidget, public Ui::SMCStyleWidget
 public:
 	SMCStyleWidget(QWidget* parent = nullptr);
 	~SMCStyleWidget();
-	
-	virtual void changeEvent(QEvent *e);
 
 	void setDoc(ScribusDoc* doc);
 	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
@@ -32,6 +30,9 @@ public:
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
 	void clearAll();
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	//QMap<QString, QString> m_langMap;

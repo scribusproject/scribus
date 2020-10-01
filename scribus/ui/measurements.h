@@ -19,8 +19,8 @@ public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
 
-	virtual void changeEvent(QEvent *e);
-
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double length);

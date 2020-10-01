@@ -33,8 +33,9 @@ class SCRIBUS_API PagePalette_Pages : public QWidget, Ui::PagePalette_PagesBase
 public:
 	PagePalette_Pages(QWidget* parent);
 	~PagePalette_Pages() {};
-	
-	virtual void changeEvent(QEvent *e);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setView(ScribusView *view);
@@ -63,8 +64,8 @@ signals:
 	void gotoPage(int);
 
 protected:
-	ScribusView       *currView;
-	ScribusMainWindow *m_scMW;
+	ScribusView       *currView { nullptr};
+	ScribusMainWindow *m_scMW { nullptr};
 
 	QList<SeItem*>    pageList;
 	QPixmap pix;

@@ -74,8 +74,6 @@ public:
 	FontComboH(QWidget* parent, bool labels=false);
 	~FontComboH() {}
 	
-	virtual void changeEvent(QEvent *e);
-	
 	QString currentFont();
 	void rebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
@@ -105,6 +103,8 @@ protected:
 	QPixmap otfFont;
 	QPixmap psFont;
 	QPixmap substFont;
+
+	void changeEvent(QEvent *e) override;
 };
 
 // based on Qfontcombobox class from Qt project

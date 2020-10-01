@@ -107,6 +107,8 @@ public:
 	//! Flag if use "random" paragraphs, taken from GUI.
 	bool randomize();
 
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	QCheckBox* appendCheckBox {nullptr};
@@ -128,8 +130,6 @@ private:
 
 	//! all lorems with Public Name -> filename structure
 	QMap<QString,QString> availableLorems;
-
-	virtual void changeEvent(QEvent *e);
 
 protected slots:
 	void languageChange();

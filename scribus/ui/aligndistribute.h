@@ -61,8 +61,6 @@ public:
 
 	virtual void setDoc( ScribusDoc* newDoc );
 	void unitChange();
-
-	virtual void changeEvent(QEvent *e);
 	
 public slots:
 	void setGuide(int, qreal);
@@ -70,6 +68,8 @@ public slots:
 
 protected:
 	ScribusView *currView;
+
+	void changeEvent(QEvent *e) override;
 	
 protected slots:
 	virtual void iconSetChange();

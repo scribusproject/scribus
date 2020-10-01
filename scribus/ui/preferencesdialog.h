@@ -58,7 +58,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc *doc=nullptr);
 		~PreferencesDialog();
 
-		virtual void changeEvent(QEvent *e);
 		ApplicationPrefs prefs() const { return localPrefs; }
 		void getResizeDocumentPages(bool &resizePages, bool &resizeMasterPages, bool &resizePageMargins, bool &resizeMasterPageMargins);
 
@@ -86,6 +85,8 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		/*! \brief Scans plugins for those that want to add a prefs widget and
 		hooks them up to the dialog. */
 		void addPlugins();
+
+		void changeEvent(QEvent *e) override;
 
 		Prefs_ColorManagement *prefs_ColorManagement {nullptr};
 		Prefs_Display *prefs_Display {nullptr};

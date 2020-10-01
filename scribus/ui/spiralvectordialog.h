@@ -44,7 +44,9 @@ class SCRIBUS_API SpiralVectorDialog :  public ScrPaletteBase, Ui::SpiralVectorB
 public:
 	SpiralVectorDialog( QWidget* parent);
 	~SpiralVectorDialog() {};
-	virtual void changeEvent(QEvent *e);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void languageChange();

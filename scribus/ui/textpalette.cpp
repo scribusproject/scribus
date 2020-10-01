@@ -44,11 +44,6 @@ for which a new license (GPL+exception) is in place.
 TextPalette::TextPalette( QWidget* parent) : ScDockPalette(parent, "TextPalette", Qt::WindowFlags())
 {
 	undoManager = UndoManager::instance();
-	m_ScMW=nullptr;
-	m_doc=nullptr;
-	m_haveDoc = false;
-	m_haveItem = false;
-	m_unitRatio = 1.0;
 
 	setObjectName(QString::fromLocal8Bit("TextPalette"));
 ///	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

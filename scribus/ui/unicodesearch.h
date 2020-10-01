@@ -121,15 +121,12 @@ public:
 	UnicodeChooseButton(QWidget * parent);
 	~UnicodeChooseButton(){};
 
-	virtual void changeEvent(QEvent *e);
-
-signals:
-	//! \brief Signal transferring the chosen character as QString
-	void chosenUnicode(const QString &);
-
 public slots:
     //! \brief Slot for changing language of GUI
     void languageChange();
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	/*! \brief UnicodeSearch reference.
@@ -150,6 +147,10 @@ private slots:
 	void glyphSelected(const QString & hex);
 	// \brief Flush the cached m_searchDialog (destroy it).
 // 	void deleteSearchDialog();
+
+signals:
+	//! \brief Signal transferring the chosen character as QString
+	void chosenUnicode(const QString &);
 };
 
 #endif

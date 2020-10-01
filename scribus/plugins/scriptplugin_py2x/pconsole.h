@@ -41,10 +41,6 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		//! \brief File name for saving the contents
 		QString filename;
 
-		//! \brief Close event for turning the action off
-		void closeEvent(QCloseEvent *);
-
-		virtual void changeEvent(QEvent *e);
 		void updateSyntaxHighlighter();
 
 	public slots:
@@ -76,6 +72,11 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 		QLabel * changedLabel;
 		QLabel * cursorLabel;
 		QString cursorTemplate;
+		
+		//! \brief Process change event
+		void changeEvent(QEvent *e) override;
+		//! \brief Close event for turning the action off
+		void closeEvent(QCloseEvent *) override;
 
 	protected slots:
 		void languageChange();

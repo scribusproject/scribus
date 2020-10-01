@@ -41,8 +41,6 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 public:
 	ApplyMasterPageDialog( QWidget* parent = nullptr );
 	~ApplyMasterPageDialog();
-	
-	virtual void changeEvent(QEvent *e);
 
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;
@@ -74,6 +72,8 @@ protected:
 	QSpacerItem* spacer3;
 	QHBoxLayout* layout8;
 	QSpacerItem* spacer1;
+	
+	void changeEvent(QEvent *e) override;
 
 protected slots:
 	virtual void languageChange();

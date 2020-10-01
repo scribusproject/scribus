@@ -35,7 +35,7 @@ protected:
 	void configureWidgets();
 	void initWidgets();
 	void setCurrentItem(PageItem *item);
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 	quint64 featureFlags();
 

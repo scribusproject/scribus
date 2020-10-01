@@ -42,7 +42,6 @@ public:
 	CheckDocument( QWidget* parent, bool modal );
 	~CheckDocument() {};
 	
-	virtual void changeEvent(QEvent *e);
 	void setDoc(ScribusDoc *doc);
 
 	/*! \brief State of the P.V. */
@@ -105,16 +104,14 @@ signals:
 	//! \brief Signal emitted when user press the "ignore errors" button.
 	void ignoreAllErrors();
 
-
-
 protected slots:
 	void iconSetChange();
 	void languageChange();
 
 protected:
-	QVBoxLayout* checkDocumentLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layout2;
+	QVBoxLayout* checkDocumentLayout { nullptr };
+	QHBoxLayout* layout1 { nullptr };
+	QHBoxLayout* layout2 { nullptr };
 	//! \brief Mappping Page Item - item nr.
 	QMap<QTreeWidgetItem*, QPointer<PageItem> > itemMap;
 	//! \brief Mappping Page - page nr.
@@ -163,17 +160,17 @@ protected:
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
-	QComboBox* curCheckProfile;
-	QLabel* textLabel1;
-	QTreeWidget* reportDisplay;
-	QPushButton* ignoreErrors;
-	QPushButton* reScan;
+	QComboBox* curCheckProfile { nullptr };
+	QLabel* textLabel1 { nullptr };
+	QTreeWidget* reportDisplay { nullptr };
+	QPushButton* ignoreErrors { nullptr };
+	QPushButton* reScan { nullptr };
 
 // 	bool globalGraveError;
-	bool pageGraveError {false};
-	bool itemError {false};
-	bool showPagesWithoutErrors;
-	bool showNonPrintingLayerErrors;
+	bool pageGraveError { false };
+	bool itemError { false };
+	bool showPagesWithoutErrors { false };
+	bool showNonPrintingLayerErrors { true };
 
 	int minResDPI {0};
 	int maxResDPI {0};
@@ -192,6 +189,8 @@ protected:
 	void buildItem(QTreeWidgetItem * item,
 					PreflightError errorType,
 					PageItem * pageItem);
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif // CHECKDOCUMENT_H

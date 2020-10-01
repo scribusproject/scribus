@@ -40,7 +40,7 @@ protected:
 	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 	void handleChanges(PageItem* item, ParagraphStyle& newStyle);
 
 public slots:

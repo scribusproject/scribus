@@ -25,13 +25,7 @@ class ShortcutWidget : public QWidget, public Ui::ShortcutWidget
 public:
 	ShortcutWidget(QWidget* parent = nullptr);
 	~ShortcutWidget();
-	
-	
-	virtual void changeEvent(QEvent *e);
 
-	bool event( QEvent* ev );
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
 	void setShortcut(const QString &shortcut);
 	void setAllowedModifiers(int allowed, int required);
 	static QString getKeyText(int KeyC);
@@ -40,14 +34,6 @@ public:
 public slots:
 	void setKeyText();
 	void setNoKey();
-
-signals:
-	/**
-	 * @brief emitted when a shrotcut is changed.
-	 *
-	 * Parameter will be QString() when No key is used
-	 */
-	void newKey(const QString&);
 
 protected:
 	int keyCode;
@@ -58,6 +44,20 @@ protected:
 	QString Part4;
 	int requiredModifiers;
 	int allowedModifiers;
+
+	void changeEvent(QEvent *e) override;
+	
+	bool event(QEvent* ev) override;
+	void keyPressEvent(QKeyEvent *k) override;
+	void keyReleaseEvent(QKeyEvent *k) override;
+
+signals:
+	/**
+	 * @brief emitted when a shrotcut is changed.
+	 *
+	 * Parameter will be QString() when No key is used
+	 */
+	void newKey(const QString&);
 };
 
 #endif

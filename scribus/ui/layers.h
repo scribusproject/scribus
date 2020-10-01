@@ -35,13 +35,11 @@ class SCRIBUS_API LayerPalette : public ScDockPalette
 public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
-	
-	virtual void changeEvent(QEvent *e);
 
 	void setDoc(ScribusDoc* doc);
 	void rebuildList();
 	
-	QTableWidget* Table;	//public for the event filter in scribus.cpp.. TODO
+	QTableWidget* Table { nullptr };	//public for the event filter in scribus.cpp.. TODO
 
 public slots:
 	void addLayer();
@@ -71,22 +69,24 @@ signals:
 	void LayerActivated(int);
 
 protected:
-	QWidget* containerWidget;
-	ScribusDoc* m_Doc;
-	QVBoxLayout* LayerPaletteLayout;
-	QHBoxLayout* Layout1;
-	QHBoxLayout* layout1;
-	QLabel* textLabel1;
-	QComboBox* blendMode;
-	QLabel* textLabel2;
-	ScrSpinBox* opacitySpinBox;
-	QHeaderView* Header;
-	QPushButton* newLayerButton;
-	QPushButton* duplicateLayerButton;
-	QPushButton* deleteLayerButton;
-	QPushButton* raiseLayerButton;
-	QPushButton* lowerLayerButton;
-	ScLayers *layers;
+	QWidget* containerWidget { nullptr };
+	ScribusDoc* m_Doc { nullptr };
+	QVBoxLayout* LayerPaletteLayout { nullptr };
+	QHBoxLayout* Layout1 { nullptr };
+	QHBoxLayout* layout1 { nullptr };
+	QLabel* textLabel1 { nullptr };
+	QComboBox* blendMode { nullptr };
+	QLabel* textLabel2 { nullptr };
+	ScrSpinBox* opacitySpinBox { nullptr };
+	QHeaderView* Header { nullptr };
+	QPushButton* newLayerButton { nullptr };
+	QPushButton* duplicateLayerButton { nullptr };
+	QPushButton* deleteLayerButton { nullptr };
+	QPushButton* raiseLayerButton { nullptr };
+	QPushButton* lowerLayerButton { nullptr };
+	ScLayers *layers { nullptr };
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif // LAYERPALETTE_H

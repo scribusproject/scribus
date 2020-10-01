@@ -26,8 +26,6 @@ public:
 	ContentPalette_Default(QWidget* parent);
 	~ContentPalette_Default() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	// void showTextFlowMode(PageItem::TextFlowMode mode);
 
 	// void updateColorList();
@@ -43,6 +41,7 @@ protected:
 	ScribusMainWindow*       m_ScMW = nullptr;
 	ScGuardedPtr<ScribusDoc> m_doc;
 
+	void changeEvent(QEvent *e) override;
 	void setLabelText();
 
 public slots:

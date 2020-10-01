@@ -43,10 +43,12 @@ class SCRIBUS_API WeldEditDialog :  public ScrPaletteBase, Ui::weldEditBase
 public:
 	WeldEditDialog( QWidget* parent);
 	~WeldEditDialog() {};
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void languageChange();
+	
+protected:
+	void changeEvent(QEvent *e) override;
 
 signals:
 	void modeMoveWeld();

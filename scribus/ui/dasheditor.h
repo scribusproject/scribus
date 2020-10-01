@@ -84,7 +84,6 @@ public:
 	DashEditor(QWidget *pa);
 	~DashEditor() {};
 	
-	virtual void changeEvent(QEvent *e);
 	void setDashValues(QVector<double> vals, double linewidth, double offset);
 	QVector<double> getDashValues(double linewidth);
 	
@@ -93,6 +92,9 @@ public:
 	QDoubleSpinBox *Position;
 	QLabel *Desc2;
 	QDoubleSpinBox *Offset;
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 public slots:
 	void setPos(double);

@@ -39,8 +39,6 @@ class SCRIBUS_API PropertiesPalette_Text : public QWidget, public Ui::Properties
 public:
 	PropertiesPalette_Text(QWidget* parent);
 	~PropertiesPalette_Text() {}
-
-	virtual void changeEvent(QEvent *e);
 	
 	void updateColorList();
 
@@ -57,6 +55,8 @@ protected:
 	PageItem *m_item {nullptr};
 	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
+
+	void changeEvent(QEvent *e) override;
 
 private:
 	PageItem* currentItemFromSelection();

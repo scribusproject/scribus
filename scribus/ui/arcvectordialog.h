@@ -44,13 +44,15 @@ class SCRIBUS_API ArcVectorDialog :  public ScrPaletteBase, Ui::ArcVectorBase
 public:
 	ArcVectorDialog( QWidget* parent);
 	~ArcVectorDialog() {};
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void languageChange();
 	void changeVectors();
 	void setValues(double start, double sweep, double height, double width);
 	void unitChange(int unitIndex);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 signals:
 	void NewVectors(double, double, double, double);

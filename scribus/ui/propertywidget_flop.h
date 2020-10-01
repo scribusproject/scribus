@@ -31,10 +31,9 @@ public:
 	~PropertyWidget_Flop() {};
 
 protected:
-
 	ScGuardedPtr<ScribusDoc> m_doc;
 
-	virtual void changeEvent(QEvent *e);
+	void changeEvent(QEvent *e) override;
 
 public slots:
 

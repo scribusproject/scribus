@@ -60,8 +60,6 @@ class SCRIBUS_API OutlinePalette : public ScDockPalette
 public:
 	OutlinePalette( QWidget* parent );
 	
-	virtual void changeEvent(QEvent *e);
-	
 //	void resizeEvent(QResizeEvent *r);
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
@@ -99,17 +97,20 @@ protected slots:
 	void slotDoubleClick(QTreeWidgetItem* ite, int col);
 
 protected:
+	void changeEvent(QEvent *e) override;
+
 	void filterTree();
 	void clearPalette();
 	void createContextMenu(PageItem *currItem, double, double);
-	QWidget* containerWidget;
-	OutlineWidget* reportDisplay;
-	QTreeWidgetItem* freeObjects;
-	QTreeWidgetItem* rootObject;
-	QTreeWidgetItem* currentObject;
-	QLabel* filterLabel;
-	QLineEdit* filterEdit;
-	ScribusMainWindow* m_MainWindow;
+
+	QWidget* containerWidget { nullptr };
+	OutlineWidget* reportDisplay { nullptr };
+	QTreeWidgetItem* freeObjects { nullptr };
+	QTreeWidgetItem* rootObject { nullptr };
+	QTreeWidgetItem* currentObject { nullptr };
+	QLabel* filterLabel { nullptr };
+	QLineEdit* filterEdit { nullptr };
+	ScribusMainWindow* m_MainWindow { nullptr };
 	QPixmap textIcon;
 	QPixmap imageIcon;
 	QPixmap latexIcon;
@@ -129,8 +130,8 @@ protected:
 	QPixmap annotLinkIcon;
 	QPixmap annot3DIcon;
 	QPixmap groupIcon;
-	bool selectionTriggered;
-	ScribusDoc *currDoc;
+	bool selectionTriggered { false };
+	ScribusDoc *currDoc { nullptr };
 };
 
 #endif // TREE_H

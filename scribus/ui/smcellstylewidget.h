@@ -31,7 +31,6 @@ public:
 	~SMCellStyleWidget();
 
 	void setDoc(ScribusDoc* doc);
-	virtual void changeEvent(QEvent *e);
 
 	/**
 	 * Shows attributes for a single cell style.
@@ -67,6 +66,9 @@ public:
 	 */
 	void fillFillColorCombo(ColorList &colors);
 	void showColors(const QList<CellStyle*> &cellStyles);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	ScribusDoc * m_Doc = nullptr;

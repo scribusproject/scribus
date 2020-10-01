@@ -27,8 +27,6 @@ class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::StyleManager
 public:
 	StyleManager(QWidget* parent = nullptr, const char *name = "StyleManager");
 	~StyleManager();
-	
-	virtual void changeEvent(QEvent *e);
 
 	void addStyle(StyleItem *item);
 	void updateColorList();
@@ -44,9 +42,10 @@ signals:
 	void closed();
 
 protected:
-	void hideEvent(QHideEvent *e);
-	void closeEvent(QCloseEvent *e);
-	void showEvent(QShowEvent *e);
+	void changeEvent(QEvent *e) override;
+	void hideEvent(QHideEvent *e) override;
+	void closeEvent(QCloseEvent *e) override;
+	void showEvent(QShowEvent *e) override;
 
 private:
 	QList<StyleItem*>   m_items;

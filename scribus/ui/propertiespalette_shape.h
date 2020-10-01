@@ -31,8 +31,6 @@ public:
 	PropertiesPalette_Shape(QWidget* parent);
 	~PropertiesPalette_Shape() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	void setCustomShapeIcon(int submode);
 	void setLocked(bool isLocked);
 	void setSizeLocked(bool isLocked);
@@ -48,6 +46,8 @@ protected:
 	ScGuardedPtr<ScribusDoc> m_doc;
 
 	Selection* m_tmpSelection {nullptr};
+
+	void changeEvent(QEvent *e) override;
 
 private:
 	PageItem* currentItemFromSelection();

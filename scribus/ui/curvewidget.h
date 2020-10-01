@@ -71,8 +71,6 @@ public:
 	CurveWidget(QWidget* parent);
 	~CurveWidget() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	void setLinear(bool setter);
 	QPushButton* invertButton;
 	QPushButton* resetButton;
@@ -92,6 +90,8 @@ protected:
 	QHBoxLayout* CurveWidgetLayout;
 	QVBoxLayout* layout1;
 	QSpacerItem* spacer1;
+
+	void changeEvent(QEvent *e) override;
 
 protected slots:
 	virtual void languageChange();

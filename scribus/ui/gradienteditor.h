@@ -45,12 +45,12 @@ class SCRIBUS_API GradientEditor : public QFrame, Ui::GradientEditorBase
 public:
 	GradientEditor(QWidget *pa);
 	~GradientEditor() {};
+
 	void setGradient(const VGradient& grad);
 	const VGradient &gradient();
 	void setColors(ColorList &colorList);
 	QColor setColor(const QString& colorName, int shad);
 	void setGradientEditable(bool val);
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void setPos(double);
@@ -68,7 +68,9 @@ signals:
 
 protected:
 	ColorList m_colorList;
-	virtual bool event ( QEvent * event );
+
+	void changeEvent(QEvent *e) override;
+	bool event(QEvent * event ) override;
 };
 
 #endif

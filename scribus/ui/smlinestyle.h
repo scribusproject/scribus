@@ -24,8 +24,6 @@ public:
 	SMLineStyle();
 	~SMLineStyle();
 	
-	virtual void changeEvent(QEvent *e);
-	
 	QTabWidget* widget();
 	QString typeNamePlural();
 	QString typeNameSingular();
@@ -47,6 +45,9 @@ public:
 	QString getUniqueName(const QString &name);
 	void languageChange();
 	void unitChange();
+
+protected:
+	virtual void changeEvent(QEvent *e);
 
 signals:
 	void deleteDone();

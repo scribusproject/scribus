@@ -44,7 +44,7 @@ class SCRIBUS_API GradientVectorDialog :  public ScrPaletteBase, Ui::GradientVec
 public:
 	GradientVectorDialog( QWidget* parent);
 	~GradientVectorDialog() {};
-	virtual void changeEvent(QEvent *e);
+
 	void selectLinear();
 	void selectRadial();
 	void selectConical();
@@ -72,6 +72,8 @@ public slots:
 
 protected:
 	double m_unitRatio;
+
+	void changeEvent(QEvent *e) override;
 
 signals:
 	void NewSpecial(double, double, double, double, double, double, double, double, double, double);

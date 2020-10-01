@@ -39,7 +39,6 @@ public:
 	SMFontFeatures(QWidget *parent);
 	~SMFontFeatures(){}
 
-	virtual void changeEvent(QEvent *e);
 	void languageChange();
 
 	void setFontFeatures(const QString& s, QStringList fontFeaturesList);
@@ -54,6 +53,8 @@ public:
 protected:
 	void connectSignals();
 	void disconnectSignals();
+
+	void changeEvent(QEvent *e) override;
 
 private:
 	void hideAllFontFeatures();

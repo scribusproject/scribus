@@ -17,8 +17,10 @@ public:
 	explicit NotesStylesEditor(QWidget* parent = nullptr, const char *name = "notesStylesEditor");
 	~NotesStylesEditor();
 
-	virtual void changeEvent(QEvent *e);
 	void updateNSList();
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	ScribusDoc         *m_Doc;

@@ -29,8 +29,6 @@ class ScInputDialog : public QDialog
 public:
 	ScInputDialog( QWidget* parent = nullptr, const char* name = 0, bool modal = false);
 	~ScInputDialog(){};
-	
-	virtual void changeEvent(QEvent *e);
 
 	QLabel* entryLabel;
 	ScrSpinBox* entrySpin;
@@ -46,6 +44,8 @@ protected:
 	QVBoxLayout* ScInputDialogLayout;
 	QHBoxLayout* labelEntryLayout;
 	QHBoxLayout* buttonLayout;
+
+	void changeEvent(QEvent *e) override;
 
 protected slots:
 	void languageChange();

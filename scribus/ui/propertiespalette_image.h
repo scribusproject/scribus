@@ -30,15 +30,12 @@ public:
 	PropertiesPalette_Image(QWidget* parent);
 	~PropertiesPalette_Image() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	bool userActionOn();
 
 	void updateProfileList();
 	void showCMSOptions();
 
 protected:
-
 	bool m_haveDoc {false};
 	bool m_haveItem {false};
 	bool m_userActionOn {false};
@@ -52,6 +49,8 @@ protected:
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);
 	void installSniffer(QSpinBox *spinBox);
+
+	void changeEvent(QEvent *e) override;
 
 private:
 

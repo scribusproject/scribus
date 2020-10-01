@@ -17,8 +17,10 @@ public:
 	explicit MarksManager(QWidget *parent = nullptr, const char *name = "MarksManager");
 	~MarksManager();
 
-	virtual void changeEvent(QEvent *e);
 	void updateListView();
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	ScribusDoc* m_Doc;

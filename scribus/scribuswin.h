@@ -45,7 +45,6 @@ public:
 	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
 
-	void closeEvent(QCloseEvent *ce);
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
@@ -60,6 +59,7 @@ protected:
 	ScribusView *m_View {nullptr};
 	int m_winIndex {0};
 
+	void closeEvent(QCloseEvent *ce) override;
 };
 
 #endif

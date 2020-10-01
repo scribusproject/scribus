@@ -48,7 +48,8 @@ public:
 	//! Used for StoryEditor
 	CharTableModel * userTableModel() { return m_userTableModel; }
 
-	virtual void changeEvent(QEvent *e);
+protected:
+	void changeEvent(QEvent *e) override;
 
 signals:
 	/*! \brief A signall emittedthis palette tries to insert glyphs.

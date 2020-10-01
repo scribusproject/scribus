@@ -52,12 +52,13 @@ public:
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	BookmarkView	*BView;
 	
 public slots:
 	void languageChange();
+
+protected:
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

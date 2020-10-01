@@ -102,21 +102,19 @@ protected:
 
 class SCRIBUS_API StyleSelect : public QWidget
 {
-
 	Q_OBJECT
 
 public:
 	StyleSelect(QWidget* parent);
 	~StyleSelect() {};
 	
-	virtual void changeEvent(QEvent *e);
-	
 	void setStyle(int s);
 	int getStyle();
-	ShadowValues* ShadowVal;
-	OutlineValues* OutlineVal;
-	UnderlineValues* UnderlineVal;
-	StrikeValues* StrikeVal;
+
+	ShadowValues* ShadowVal { nullptr };
+	OutlineValues* OutlineVal { nullptr };
+	UnderlineValues* UnderlineVal { nullptr };
+	StrikeValues* StrikeVal { nullptr };
 
 public slots:
 	void iconSetChange();
@@ -129,24 +127,26 @@ signals:
 	void State(int);
 
 protected:
-	QHBoxLayout* ssLayout;
-	QToolButton* underlineButton;
-	QToolButton* underlineWordButton;
-	QToolButton* subscriptButton;
-	QToolButton* superscriptButton;
-	QToolButton* smallcapsButton;
-	QToolButton* allcapsButton;
-	QToolButton* strikeoutButton;
-	QToolButton* outlineButton;
-	QToolButton* shadowButton;
-	QMenu* ShadowPop;
-	QMenu* OutlinePop;
-	QMenu* UnderlinePop;
-	QMenu* StrikePop;
-	QWidgetAction* StrikeValAct;
-	QWidgetAction* ShadowValAct;
-	QWidgetAction* OutlineValAct;
-	QWidgetAction* UnderlineValAct;
+	QHBoxLayout* ssLayout { nullptr };
+	QToolButton* underlineButton { nullptr };
+	QToolButton* underlineWordButton { nullptr };
+	QToolButton* subscriptButton { nullptr };
+	QToolButton* superscriptButton { nullptr };
+	QToolButton* smallcapsButton { nullptr };
+	QToolButton* allcapsButton { nullptr };
+	QToolButton* strikeoutButton { nullptr };
+	QToolButton* outlineButton { nullptr };
+	QToolButton* shadowButton { nullptr };
+	QMenu* ShadowPop { nullptr };
+	QMenu* OutlinePop { nullptr };
+	QMenu* UnderlinePop { nullptr };
+	QMenu* StrikePop { nullptr };
+	QWidgetAction* StrikeValAct { nullptr };
+	QWidgetAction* ShadowValAct { nullptr };
+	QWidgetAction* OutlineValAct { nullptr };
+	QWidgetAction* UnderlineValAct { nullptr };
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

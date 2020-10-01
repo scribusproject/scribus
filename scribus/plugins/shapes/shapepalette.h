@@ -100,8 +100,6 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void closeTab();
@@ -120,6 +118,8 @@ protected:
 
 	ScribusDoc *m_doc {nullptr};
 	ScribusMainWindow *m_scMW {nullptr};
+	
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

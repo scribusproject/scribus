@@ -26,10 +26,11 @@ public:
 	SMLineStyleWidget();
 	~SMLineStyleWidget();
 	
-	virtual void changeEvent(QEvent *e);
-	
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
 	void unitChange(int unitIndex);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	multiLine  m_currentStyle;

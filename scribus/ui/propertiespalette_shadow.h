@@ -26,11 +26,9 @@ public:
 	PropertiesPalette_Shadow(QWidget* parent);
 	~PropertiesPalette_Shadow() {};
 
-	virtual void changeEvent(QEvent *e);
 	void updateColorList();
 
 private:
-
 	PageItem* currentItemFromSelection();
 
 public slots:
@@ -72,6 +70,8 @@ protected:
 	PageItem *m_item {nullptr};
 	ScribusMainWindow* m_ScMW {nullptr};
 	ScGuardedPtr<ScribusDoc> m_doc;
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

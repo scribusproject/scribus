@@ -26,71 +26,15 @@ class SCRIBUS_API AutoformButtonGroup : public QMenu
 public:
 	AutoformButtonGroup( QWidget* parent );
 	~AutoformButtonGroup() {};
+
 	void addShape(QMenu* menu, int shapenum);
 	qreal* getShapeData(int a, int *n);
 	QPixmap getIconPixmap(int nr, int pixmapSize=22);
-	virtual void changeEvent(QEvent *e);
-/*	QButtonGroup* buttonGroup;
-	QToolButton* toolButton1;
-	QToolButton* toolButton2;
-	QToolButton* toolButton3;
-	QToolButton* toolButton4;
-	QToolButton* toolButton5;
-	QToolButton* toolButton6;
-	QToolButton* toolButton7;
-	QToolButton* toolButton8;
-	QToolButton* toolButton9;
-	QToolButton* toolButton10;
-	QToolButton* toolButton11;
-	QToolButton* toolButton12;
-	QToolButton* toolButton13;
-	QToolButton* toolButton14;
-	QToolButton* toolButton15;
-	QToolButton* toolButton16;
-	QToolButton* toolButton17;
-	QToolButton* toolButton18;
-	QToolButton* toolButton19;
-	QToolButton* toolButton20;
-	QCheckBox* checkDoubleArrows;
-	QToolButton* toolButton21;
-	QToolButton* toolButton22;
-	QToolButton* toolButton23;
-	QCheckBox* checkFlowChart;
-	QToolButton* toolButton25;
-	QToolButton* toolButton26;
-	QToolButton* toolButton27;
-	QToolButton* toolButton28;
-	QToolButton* toolButton29;
-	QToolButton* toolButton30;
-	QToolButton* toolButton31;
-	QToolButton* toolButton32;
-	QCheckBox* checkJigSaw;
-	QToolButton* toolButton33;
-	QToolButton* toolButton34;
-	QToolButton* toolButton35;
-	QToolButton* toolButton36;
-	QToolButton* toolButton37;
-	QToolButton* toolButton38;
-	QToolButton* toolButton39;
-	QToolButton* toolButton40;
-	QToolButton* toolButton41;
-	QToolButton* toolButton42;
-	QToolButton* toolButton43;
-	QToolButton* toolButton44;
-	QCheckBox* checkSpecials;
-	QToolButton* toolButton24;
-	QToolButton* toolButton45;
-*/
+
 public slots:
 	void selForm(int a);
 	void languageChange();
-/*
-private slots:
-	void toggleDoubleArrows(bool visible);
-	void toggleSpecials(bool visible);
-	void toggleFlowChart(bool visible);
-	void toggleJigSaw(bool visible);
-*/
+
 signals:
 	void FormSel(int, int, qreal *);
 	void buttonClicked(int);
@@ -102,8 +46,8 @@ protected:
 	QMenu *menu3;
 	QMenu *menu4;
 	QMenu *menu5;
-/*	QGridLayout* buttonGroup1Layout;
-*/
+
+	void changeEvent(QEvent *e) override;
 };
 
 #endif

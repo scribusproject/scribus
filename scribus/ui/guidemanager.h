@@ -70,8 +70,9 @@ public:
 	int currentIndex() const { return tabWidget->currentIndex(); }
 
 	void setGuideLock(bool guidesLocked);
-	
-	virtual void changeEvent(QEvent *e);
+
+protected:
+	void changeEvent(QEvent *e) override;
 
 private:
 	//! \brief Store the guide values in the Qt4 model

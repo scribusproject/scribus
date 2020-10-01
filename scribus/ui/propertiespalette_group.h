@@ -27,8 +27,6 @@ public:
 	PropertiesPalette_Group(QWidget* parent);
 	~PropertiesPalette_Group() {};
 
-	virtual void changeEvent(QEvent *e);
-
 	void showTextFlowMode(PageItem::TextFlowMode mode);
 
 	void updateColorList();
@@ -44,8 +42,9 @@ protected:
 	ScGuardedPtr<ScribusDoc> m_doc;
 	Selection* m_tmpSelection {nullptr};
 
-private:
+	void changeEvent(QEvent *e) override;
 
+private:
 	PageItem* currentItemFromSelection();
 
 public slots:
