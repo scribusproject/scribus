@@ -15,7 +15,7 @@ class ScribusDoc;
 class PrintPreviewCreatorFactory
 {
 public:
-	static PrintPreviewCreator* create(ScribusDoc* doc, PrintEngine prnEngine);
+	static PrintPreviewCreator* create(ScribusDoc* doc, PrintLanguage prnLanguage);
 };
 
 #endif

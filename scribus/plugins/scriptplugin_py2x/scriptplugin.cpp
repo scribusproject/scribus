@@ -727,6 +727,7 @@ void initscribus(ScribusMainWindow *mainWin)
 	PyDict_SetItemString(d, const_cast<char*>("ICON_INFORMATION"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Information));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_WARNING"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Warning));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_CRITICAL"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Critical));
+	// Paper formats
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_A0"), Py_BuildValue(const_cast<char*>("(ff)"), 2380.0, 3368.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_A1"), Py_BuildValue(const_cast<char*>("(ff)"), 1684.0, 2380.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_A2"), Py_BuildValue(const_cast<char*>("(ff)"), 1190.0, 1684.0));
@@ -778,12 +779,14 @@ void initscribus(ScribusMainWindow *mainWin)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+	// Colorspaces
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_UNDEFINED"), Py_BuildValue(const_cast<char*>("i"), -1));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_RGB"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_CMYK"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_GRAY"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_DUOTONE"), Py_BuildValue(const_cast<char*>("i"), 3));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_MONOCHROME"), Py_BuildValue(const_cast<char*>("i"), 4));
+	// Blend modes
 	PyDict_SetItemString(d, const_cast<char*>("NORMAL"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("DARKEN"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("LIGHTEN"), Py_BuildValue(const_cast<char*>("i"), 2));
@@ -800,12 +803,18 @@ void initscribus(ScribusMainWindow *mainWin)
 	PyDict_SetItemString(d, const_cast<char*>("SATURATION"), Py_BuildValue(const_cast<char*>("i"), 13));
 	PyDict_SetItemString(d, const_cast<char*>("COLOR"), Py_BuildValue(const_cast<char*>("i"), 14));
 	PyDict_SetItemString(d, const_cast<char*>("LUMINOSITY"), Py_BuildValue(const_cast<char*>("i"), 15));
-	// preset page layouts
+	// Preset page layouts
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_1"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_3"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_4"), Py_BuildValue(const_cast<char*>("i"), 3));
-	// tab alignment
+	// Print languages
+	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT1"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript1));
+	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT2"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript2));
+	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_POSTSCRIPT3"), Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PostScript3));
+	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_WINDOWSGDI"),  Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::WindowsGDI));
+	PyDict_SetItemString(d, const_cast<char*>("PRNLANG_PDF"),         Py_BuildValue(const_cast<char*>("i"), (int) PrintLanguage::PDF));
+	// Tab alignment
 	PyDict_SetItemString(d, const_cast<char*>("TAB_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("TAB_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("TAB_PERIOD"), Py_BuildValue(const_cast<char*>("i"), 2));

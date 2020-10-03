@@ -28,6 +28,12 @@ public:
 	QPixmap createPreview(int pageIndex) override;
 
 	/**
+	 * @brief If print preview is generated with Ghostscript
+	 * @retval bool
+	 */
+	bool isGhostscriptBased() const override { return false; }
+
+	/**
 	 * @brief Set options used for generating print preview
 	 */
 	void setPrintOptions(const PrintOptions& options) override;

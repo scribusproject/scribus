@@ -72,20 +72,20 @@ class SCRIBUS_API PrinterUtil
 		 * @param printerName the printer name
 		 * @param toFile if file printing is planned
 		 */
-		static PrintEngine getDefaultPrintEngine(const QString& printerName, bool toFile);
+		static PrintLanguage getDefaultPrintLanguage(const QString& printerName, bool toFile);
 		/**
 		 * @brief Get print engines supported by a specific printer
 		 * @param printerName the printer name
 		 * @param toFile if file printing is planned
 		 */
-		static PrintEngineMap getPrintEngineSupport(const QString& printerName, bool toFile);
+		static PrintLanguageMap getPrintLanguageSupport(const QString& printerName, bool toFile);
 		/**
 		 * @brief Check if a print engine is supported by a specific printer
 		 * @param printerName the printer name
 		 * @param engine the print engine for which support is to be checked
 		 * @param toFile if file printing is planned
 		 */
-		static bool checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile);
+		static bool checkPrintLanguageSupport(const QString& printerName, PrintLanguage engine, bool toFile);
 		/**
 		 * @brief Check if a specified printer supports postscript input
 		 *
@@ -97,7 +97,17 @@ class SCRIBUS_API PrinterUtil
 		 * @return true is printer support postscript, false otherwise.
 		 *
 		 */
-		static bool isPostscriptPrinter( const QString& printerName );
+		static bool isPostscriptPrinter(const QString& printerName);
+		/**
+		 * @brief Check if a specified printer supports PDF input
+		 *
+		 * On Windows, the function always return false
+		 *
+		 * @param printerName the printer name
+		 * @return true is printer support PDF, false otherwise.
+		 *
+		 */
+		static bool supportsPDF(const QString& printerName);
 };
 
 #endif // DRUCK_H

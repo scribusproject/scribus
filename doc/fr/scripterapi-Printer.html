@@ -68,12 +68,15 @@ False  --  Défaut</p></dd>
 	<dd><p>Nom de l'imprimante &agrave; utiliser.<br>
 La valeur par défaut est 'File' pour l'impression dans un fichier</p></dd>
 
+	<dt><strong>prnLanguage</strong> = &lt;attribut 'prnLanguage' des objets 'Printer'&gt;</dt>
+	<dd><p>Langage d'impression &agrave; utiliser.<br>
+Une des constantes PRNLANG_*. La valeur par défaut est PRNLANG_POSTSCRIPT3.</p></dd>
+
 	<dt><strong>pslevel</strong> = &lt;membre 'pslevel' des objets 'Printer'&gt;</dt>
-	<dd><p>Niveau PostScript<br>
-Peut &ecirc;tre 1 ou 2 ou 3    -- Valeur par défaut &agrave; 3.</p></dd>
+	<dd><p>Obsolète, veuillez utiliser prnLanguage à la place.</p></dd>
 
 	<dt><strong>separation</strong> = &lt;attribut 'separation' des objets 'Printer'&gt;</dt>
-	<dd><p>Imprimer la séparation<br>
+	<dd><p>Imprimer les séparations<br>
          'No'  -- Défaut<br>
          'All'<br>
          'Cyan'<br>

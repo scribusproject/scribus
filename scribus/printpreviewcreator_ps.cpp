@@ -30,7 +30,7 @@ PrintPreviewCreator_PS::PrintPreviewCreator_PS(ScribusDoc* doc) :
 	SeparationPreviewCreator(doc),
 	m_prefsManager(PrefsManager::instance())
 {
-	m_printOptions.prnEngine = PrintEngine::PostScript3;
+	m_printOptions.prnLanguage = PrintLanguage::PostScript3;
 
 	// Generate a template name for temporary files
 	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scpspreview_XXXXXX.png");
@@ -354,7 +354,7 @@ bool PrintPreviewCreator_PS::createPreviewFile(int pageIndex)
 	delete psLib;
 
 	// TODO : Postscript level < 3
-	if (success && (printOptions.prnEngine != PrintEngine::PostScript3))
+	if (success && (printOptions.prnLanguage != PrintLanguage::PostScript3))
 	{
 		// use gs to convert our PS to a lower version
 		QStringList opts;
@@ -366,8 +366,8 @@ bool PrintPreviewCreator_PS::createPreviewFile(int pageIndex)
 		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(QString::number(pageWidth)) );
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(QString::number(pageHeight)) );
 
-		QString outFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".ps" + QString::number((int) printOptions.prnEngine);
-		success = (convertPS2PS(psFileName, outFileName, opts, (int) printOptions.prnEngine) == 0);
+		QString outFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".ps" + QString::number((int) printOptions.prnLanguage);
+		success = (convertPS2PS(psFileName, outFileName, opts, (int) printOptions.prnLanguage) == 0);
 		if (!success)
 			return false;
 		success &= QFile::remove(psFileName);
@@ -595,7 +595,7 @@ int PrintPreviewCreator_PS::renderPreviewSep(int pageIndex, int res)
 void PrintPreviewCreator_PS::setPrintOptions(const PrintOptions& options)
 {
 	m_printOptions = options;
-	m_printOptions.prnEngine = PrintEngine::PostScript3;
+	m_printOptions.prnLanguage = PrintLanguage::PostScript3;
 	m_printOptionsChanged = true;
 }
 

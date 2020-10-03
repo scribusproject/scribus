@@ -197,6 +197,9 @@
           <property name="maximum">
            <double>400.000000000000000</double>
           </property>
+          <property name="singleStep">
+           <double>10.000000000000000</double>
+          </property>
           <property name="value">
            <double>300.000000000000000</double>
           </property>
@@ -211,14 +214,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PdfVersionCombo</class>
-   <extends>QComboBox</extends>
-   <header>ui/pdfversioncombo.h</header>
-  </customwidget>
-  <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>PdfVersionCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/pdfversioncombo.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

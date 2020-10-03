@@ -29,6 +29,12 @@ public:
 	 * @retval pixmap QPixmap print preview
 	 */
 	virtual QPixmap createPreview(int pageIndex) = 0;
+	
+	/**
+	 * @brief If print preview is generated with Ghostscript
+	 * @retval bool
+	 */
+	virtual bool isGhostscriptBased() const = 0;
 
 	/**
 	 * @brief Return if antialiasing is currently enabled or not

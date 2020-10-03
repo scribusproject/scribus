@@ -53,9 +53,6 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
-	printEngines->addItem( CommonStrings::trPostScript1 );
-	printEngines->addItem( CommonStrings::trPostScript2 );
-	printEngines->addItem( CommonStrings::trPostScript3 );
 	markLength->setNewUnit(m_unit);
 	markLength->setMinimum(1 * m_unitRatio);
 	markLength->setMaximum(3000 * m_unitRatio);
@@ -92,7 +89,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 		printerName = printerNames[i];
 		PrintDest->addItem(printerName);
 	}
-	PrintDest->addItem( tr("File"));
+	PrintDest->addItem( CommonStrings::trFile );
 
 	int prnIndex = PrintDest->findText(printOptions.printer);
 	if (prnIndex < 0)
@@ -127,7 +124,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	QString prnDevice = printOptions.printer;
 	if (prnDevice.isEmpty())
 		prnDevice = PrintDest->currentText();
-	if ((prnDevice == tr("File")) || (PrintDest->count() == 1))
+	if ((prnDevice == CommonStrings::trFile) || (PrintDest->count() == 1))
 	{
 		PrintDest->setCurrentIndex(PrintDest->count()-1);
 		prefs->set("CurrentPrn", PrintDest->currentText());
@@ -145,7 +142,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(selectPrinter(const QString&)));
-	connect( printEngines, SIGNAL(activated(const QString&)), this, SLOT(selectEngine(const QString&)));
+	connect( printLanguages, SIGNAL(activated(const QString&)), this, SLOT(selectPrintLanguage(const QString&)));
 	connect( printAllRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
 	connect( printCurrentRadio, SIGNAL(toggled(bool)), this, SLOT(selectRange(bool)));
 	connect( pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
@@ -165,14 +162,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	}
 #endif
 
-	m_printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), outputToFile());
-	refreshPrintEngineBox();
-
-	bool ps1Supported = m_printEngineMap.contains(CommonStrings::trPostScript1);
-	bool ps2Supported = m_printEngineMap.contains(CommonStrings::trPostScript2);
-	bool ps3Supported = m_printEngineMap.contains(CommonStrings::trPostScript3);
-	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
-	printEngines->setEnabled(psSupported || outputToFile());
+	printLanguages->setupLanguages(PrintDest->currentText(), outputToFile());
+	printLanguages->setEnabled(printLanguages->count() > 1);
 }
 
 PrintDialog::~PrintDialog()
@@ -218,7 +209,7 @@ void PrintDialog::selectOptions()
 	{
 		bool sigBlocked = Copies->blockSignals(true);
 		Copies->setValue(devMode->dmCopies);
-		Copies->blockSignals(false);
+		Copies->blockSignals(sigBlocked);
 	}
 #endif
 }
@@ -303,36 +294,14 @@ void PrintDialog::selectCommand()
 	else
 	{
 		selectPrinter(PrintDest->currentText());
-		if (PrintDest->currentText() != tr("File"))
+		if (PrintDest->currentText() != CommonStrings::trFile)
 			optionsButton->setEnabled(true);
-	}
-}
-
-void PrintDialog::selectEngine(const QString& eng)
-{
-	prefs->set("CurrentPrnEngine", (int) m_printEngineMap[printEngines->currentText()]);
-	bool psSupported = outputToFile();
-	psSupported |= (eng == CommonStrings::trPostScript1);
-	psSupported |= (eng == CommonStrings::trPostScript2);
-	psSupported |= (eng == CommonStrings::trPostScript3);
-	if (psSupported)
-	{
-		printSepCombo->setEnabled(true);
-		usePDFMarks->setEnabled(true);
-	}
-	else
-	{
-		setCurrentComboItem(printSepCombo, tr("Print Normal"));
-		printSepCombo->setEnabled(false);
-		setCurrentComboItem(separationsCombo, tr("All"));
-		separationsCombo->setEnabled(false);
-		usePDFMarks->setEnabled(false);
 	}
 }
 
 void PrintDialog::selectPrinter(const QString& prn)
 {
-	bool toFile = prn == tr("File");
+	bool toFile = prn == CommonStrings::trFile;
 	DateiT->setEnabled(toFile);
 	fileNameEdit->setEnabled(toFile);
 	selectFileButton->setEnabled(toFile);
@@ -347,8 +316,9 @@ void PrintDialog::selectPrinter(const QString& prn)
 	if (toFile && fileNameEdit->text().isEmpty())
 	{
 		QFileInfo fi(m_doc->documentFileName());
+		QString fileExt = (printLanguage() == PrintLanguage::PDF) ? ".pdf" : ".ps";
 		if (fi.isRelative()) // if (m_doc->DocName.startsWith( tr("Document")))
-			fileNameEdit->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->documentFileName() + ".ps") );
+			fileNameEdit->setText( QDir::toNativeSeparators(QDir::currentPath() + "/" + m_doc->documentFileName() + fileExt) );
 		else
 		{
 			QString completeBaseName = fi.completeBaseName();
@@ -356,35 +326,102 @@ void PrintDialog::selectPrinter(const QString& prn)
 				if (completeBaseName.length() > 4) completeBaseName.chop(4);
 			if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
 				if (completeBaseName.length() > 3) completeBaseName.chop(3);
-			fileNameEdit->setText( QDir::toNativeSeparators(fi.path() + "/" + completeBaseName + ".ps") );
+			fileNameEdit->setText( QDir::toNativeSeparators(fi.path() + "/" + completeBaseName + fileExt) );
 		}
 	}
 
 	// Get page description language supported by the selected printer
-	m_printEngineMap = PrinterUtil::getPrintEngineSupport(prn, toFile);
-	refreshPrintEngineBox();
+	printLanguages->setupLanguages(prn, toFile);
+	printLanguages->setEnabled(printLanguages->count() > 1);
 
 	prefs->set("CurrentPrn", prn);
-	prefs->set("CurrentPrnEngine", (int) m_printEngineMap[printEngines->currentText()]);
-	
-	bool ps1Supported = m_printEngineMap.contains(CommonStrings::trPostScript1);
-	bool ps2Supported = m_printEngineMap.contains(CommonStrings::trPostScript2);
-	bool ps3Supported = m_printEngineMap.contains(CommonStrings::trPostScript3);
-	bool psSupported  = (ps1Supported || ps2Supported || ps3Supported);
-	if (psSupported || toFile)
+	prefs->set("CurrentPrnEngine", (int) printLanguages->currentLanguage());
+
+	PrintLanguage prnLanguage = printLanguage();
+
+	bool psSupported = false;
+	psSupported |= (prnLanguage == PrintLanguage::PostScript1);
+	psSupported |= (prnLanguage == PrintLanguage::PostScript2);
+	psSupported |= (prnLanguage == PrintLanguage::PostScript3);
+
+	printSepCombo->setEnabled(psSupported);
+	separationsCombo->setEnabled(psSupported && (printSepCombo->currentIndex() == 1));
+	if (!psSupported)
 	{
-		printEngines->setEnabled(true);
-		printSepCombo->setEnabled(true);
-		usePDFMarks->setEnabled(true);
-	}
-	else
-	{
-		printEngines->setEnabled(false);
 		setCurrentComboItem(printSepCombo, tr("Print Normal"));
-		printSepCombo->setEnabled(false);
 		setCurrentComboItem(separationsCombo, tr("All"));
-		separationsCombo->setEnabled(false);
-		usePDFMarks->setEnabled(false);
+	}
+
+	bool pdfMarksSupported = (prnLanguage == PrintLanguage::PDF);
+	pdfMarksSupported |= (prnLanguage == PrintLanguage::PostScript1);
+	pdfMarksSupported |= (prnLanguage == PrintLanguage::PostScript2);
+	pdfMarksSupported |= (prnLanguage == PrintLanguage::PostScript3);
+	usePDFMarks->setEnabled(pdfMarksSupported);
+
+	if (outputToFile())
+	{
+		QString newExt = "prn";
+		if (prnLanguage == PrintLanguage::PDF)
+			newExt = "pdf";
+		if (psSupported)
+			newExt = "ps";
+		QString outputFileName = fileNameEdit->text();
+		if (!outputFileName.isEmpty())
+		{
+			QFileInfo fileInfo(outputFileName);
+			QString currentExt = fileInfo.suffix();
+			if (!currentExt.isEmpty())
+			{
+				int lastIndex = outputFileName.lastIndexOf(currentExt);
+				outputFileName.replace(lastIndex, currentExt.length(), newExt);
+				fileNameEdit->setText(outputFileName);
+			}
+		}
+	}
+}
+
+void PrintDialog::selectPrintLanguage(const QString& prnLanguage)
+{
+	prefs->set("CurrentPrnEngine", (int) printLanguages->currentLanguage());
+
+	bool psSupported = false;
+	psSupported |= (prnLanguage == CommonStrings::trPostScript1);
+	psSupported |= (prnLanguage == CommonStrings::trPostScript2);
+	psSupported |= (prnLanguage == CommonStrings::trPostScript3);
+
+	printSepCombo->setEnabled(psSupported);
+	separationsCombo->setEnabled(psSupported && (printSepCombo->currentIndex() == 1));
+	if (!psSupported)
+	{
+		setCurrentComboItem(printSepCombo, tr("Print Normal"));
+		setCurrentComboItem(separationsCombo, tr("All"));
+	}
+
+	bool pdfMarksSupported = (prnLanguage == CommonStrings::trPDF);
+	pdfMarksSupported |= (prnLanguage == CommonStrings::trPostScript1);
+	pdfMarksSupported |= (prnLanguage == CommonStrings::trPostScript2);
+	pdfMarksSupported |= (prnLanguage == CommonStrings::trPostScript3);
+	usePDFMarks->setEnabled(pdfMarksSupported);
+
+	if (outputToFile())
+	{
+		QString newExt = "prn";
+		if (prnLanguage == CommonStrings::trPDF)
+			newExt = "pdf";
+		if (psSupported)
+			newExt = "ps";
+		QString outputFileName = fileNameEdit->text();
+		if (!outputFileName.isEmpty())
+		{
+			QFileInfo fileInfo(outputFileName);
+			QString currentExt = fileInfo.suffix();
+			if (!currentExt.isEmpty())
+			{
+				int lastIndex = outputFileName.lastIndexOf(currentExt);
+				outputFileName.replace(lastIndex, currentExt.length(), newExt);
+				fileNameEdit->setText(outputFileName);
+			}
+		}
 	}
 }
 
@@ -402,8 +439,11 @@ void PrintDialog::selectSepMode(int e)
 void PrintDialog::selectFile()
 {
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
-	QString wdir = dirs->get("printdir", ".");
-	CustomFDialog dia(this, wdir, tr("Save As"), tr("PostScript Files (*.ps);;All Files (*)"), fdNone | fdHidePreviewCheckBox);
+	QString wdir = dirs->get("printdir", ScPaths::userDocumentDir());
+
+	PrintLanguage prnLanguage = printLanguage();
+	QString fileFilter = (prnLanguage == PrintLanguage::PDF) ? tr("PDF Files (*.pdf);;All Files (*)") : tr("PostScript Files (*.ps);;All Files (*)");
+	CustomFDialog dia(this, wdir, tr("Save As"), fileFilter, fdNone | fdHidePreviewCheckBox);
 	if (!fileNameEdit->text().isEmpty())
 		dia.setSelection(fileNameEdit->text());
 	if (dia.exec() == QDialog::Accepted)
@@ -417,8 +457,8 @@ void PrintDialog::selectFile()
 void PrintDialog::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
-	printCurrentRadio->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
-	pageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
+	printCurrentRadio->setText( tr( "Print Current Pa&ge" ) + " (" + tmp.setNum(cur) + ")");
+	pageNr->setText(tmp.setNum(min) + "-" + tmp2.setNum(max));
 }
 
 void PrintDialog::storeValues()
@@ -441,7 +481,7 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.mirrorV  = mirrorVertical();
 	m_doc->Print_Options.doClip   = doClip();
 	m_doc->Print_Options.doGCR    = doGCR();
-	m_doc->Print_Options.prnEngine= printEngine();
+	m_doc->Print_Options.prnLanguage = printLanguage();
 	m_doc->Print_Options.setDevParam = doDev();
 	m_doc->Print_Options.useDocBleeds  = docBleeds->isChecked();
 	m_doc->Print_Options.bleeds.setTop(bleedTop->value() / m_doc->unitRatio());
@@ -488,7 +528,7 @@ void PrintDialog::setStoredValues(const QString& fileName)
 	{
 		PrintDest->setCurrentIndex(selectedDest);
 		prefs->set("CurrentPrn", PrintDest->currentText());
-		if (PrintDest->currentText() == tr("File"))
+		if (PrintDest->currentText() == CommonStrings::trFile)
 			fileNameEdit->setText(fileName);
 		selectPrinter(PrintDest->currentText());
 	}
@@ -511,7 +551,7 @@ void PrintDialog::setStoredValues(const QString& fileName)
 	separationsCombo->setCurrentIndex((selectedSep >= 0) ? selectedSep : 0);
 	if (printSepCombo->currentIndex() == 1)
 		separationsCombo->setEnabled(true);
-	setPrintEngine(m_doc->Print_Options.prnEngine);
+	setPrintLanguage(m_doc->Print_Options.prnLanguage);
 	mirrorHor->setChecked(m_doc->Print_Options.mirrorH);
 	mirrorVert->setChecked(m_doc->Print_Options.mirrorV);
 	setMediaSize->setChecked(m_doc->Print_Options.setDevParam);
@@ -558,7 +598,7 @@ QString PrintDialog::outputFileName()
 
 bool PrintDialog::outputToFile()
 {
-	return (PrintDest->currentText() == tr("File"));
+	return (PrintDest->currentText() == CommonStrings::trFile);
 }
 
 int PrintDialog::numCopies()
@@ -621,9 +661,9 @@ bool PrintDialog::doClip()
 	return clipMargins->isChecked();
 }
 
-PrintEngine PrintDialog::printEngine()
+PrintLanguage PrintDialog::printLanguage()
 {
-	return m_printEngineMap[printEngines->currentText()];
+	return printLanguages->currentLanguage();
 }
 
 bool PrintDialog::doDev()
@@ -695,45 +735,17 @@ void PrintDialog::createPageNumberRange( )
 	pageNr->setText(QString());
 }
 
-void PrintDialog::refreshPrintEngineBox()
+void PrintDialog::setPrintLanguage(PrintLanguage prnLanguage)
 {
-	int index = 0, oldPDLIndex = -1;
-	QString oldPDL  = printEngines->currentText();
-	PrintEngineMap::Iterator it, itEnd = m_printEngineMap.end();
-	printEngines->clear();
-	for (it = m_printEngineMap.begin(); it != itEnd; ++it)
-	{
-		printEngines->addItem(it.key());
-		if (it.key() == oldPDL)
-			oldPDLIndex = index;
-		index++;
-	}
-	// Try to not default on PostScript 1 when switching
-	// from a GDI printer to a Postscript printer
-	if (oldPDLIndex < 0)
-	{
-		oldPDLIndex = printEngines->findText(CommonStrings::trPostScript3);
-		if (oldPDLIndex < 0)
-			oldPDLIndex = 0;
-	}
-	printEngines->setCurrentIndex(oldPDLIndex);
-}
-
-void PrintDialog::setPrintEngine(PrintEngine engine)
-{
-	QString pdlString(m_printEngineMap.key(engine, ""));
-	int itemIndex = printEngines->findText(pdlString);
+	int itemIndex = printLanguages->findLanguage(prnLanguage);
 	if (itemIndex >= 0)
-		printEngines->setCurrentIndex(itemIndex);
-	else if (printEngines->count() > 0)
+		printLanguages->setCurrentIndex(itemIndex);
+	else if (printLanguages->count() > 0)
 	{
-		pdlString = m_printEngineMap.key(PrintEngine::PostScript3, "");
-		itemIndex = printEngines->findText(pdlString);
+		itemIndex = printLanguages->findLanguage(PrintLanguage::PostScript3);
 		if (itemIndex >= 0)
-			printEngines->setCurrentIndex(itemIndex);
+			printLanguages->setCurrentIndex(itemIndex);
 		else
-			printEngines->setCurrentIndex(printEngines->count() - 1);
+			printLanguages->setCurrentIndex(printLanguages->count() - 1);
 	}
 }
-
-

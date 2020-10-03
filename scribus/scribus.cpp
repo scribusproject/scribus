@@ -144,6 +144,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmimedata.h"
 #include "scpage.h"
 #include "scpaths.h"
+#include "scprintengine_pdf.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
 #include "scribusXml.h"
@@ -4349,12 +4350,17 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 	ScCore->fileWatcher->stop();
 	ScPrintEngine* prnEngine = nullptr;
 #if defined(_WIN32)
-	if (doc->Print_Options.toFile)
+	if (doc->Print_Options.toFile && (options.prnLanguage == PrintLanguage::PDF))
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PDF(*doc));
+	else if (doc->Print_Options.toFile)
 		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 	else
 		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_GDI(*doc));
 #else
-	prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
+	if (options.prnLanguage == PrintLanguage::PDF)
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PDF(*doc));
+	else
+		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 #endif
 	if (prnEngine)
 	{
@@ -6764,10 +6770,10 @@ void ScribusMainWindow::doPrintPreview()
 	}
 	PrefsContext* prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 	QString currentPrinter(prefs->get("CurrentPrn"));
-	PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
-	if (PrintPreview::usePostscriptPreview(currentPrinter, currentEngine) && (!ScCore->haveGS()) )
+	PrintLanguage currentEngine = (PrintLanguage) prefs->get("CurrentPrnEngine", "3").toInt();
+	if (PrintPreview::usesGhostscript(currentPrinter, currentEngine) && (!ScCore->haveGS()) )
 	{
-		QString mess(tr("Ghostscript is missing : PostScript Print Preview is not available")+"\n\n");
+		QString mess(tr("Ghostscript is missing : PostScript Print Preview is not available") + "\n\n");
 		ScMessageBox::warning(this, CommonStrings::trWarning, mess);
 		return;
 	}
@@ -6779,7 +6785,7 @@ void ScribusMainWindow::doPrintPreview()
 	prefsManager.appPrefs.printPreviewPrefs.PrPr_Mode = dia->isCMYKPreviewEnabled();
 	prefsManager.appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->isAntialiasingEnabled();
 	prefsManager.appPrefs.printPreviewPrefs.PrPr_Transparency = dia->isTransparencyEnabled();
-	if (ScCore->haveTIFFSep() && dia->usePostScriptPreview())
+	if (ScCore->haveTIFFSep() && dia->useGhostscriptPreview())
 	{
 		prefsManager.appPrefs.printPreviewPrefs.PrPr_C = dia->isInkChannelVisible("Cyan");
 		prefsManager.appPrefs.printPreviewPrefs.PrPr_M = dia->isInkChannelVisible("Magenta");

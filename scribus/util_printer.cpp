@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
+#include "util_os.h"
 
 void PrinterUtil::getDefaultPrintOptions(PrintOptions& options, const MarginStruct& docBleeds)
 {
@@ -42,7 +43,10 @@ void PrinterUtil::getDefaultPrintOptions(PrintOptions& options, const MarginStru
 	if ((selectedSep < 0) || (selectedSep > 4))
 		selectedSep = 0;
 	options.separationName = spots.at(selectedSep);
-	options.prnEngine = (PrintEngine) prnPrefs->getInt("PSLevel", (int) PrintEngine::PostScript3);
+	if (prnPrefs->contains("PrintLanguage"))
+		options.prnLanguage = (PrintLanguage) prnPrefs->getInt("PrintLanguage", (int) PrinterUtil::getDefaultPrintLanguage(options.printer, false));
+	else
+		options.prnLanguage = (PrintLanguage) prnPrefs->getInt("PSLevel", (int) PrintLanguage::PostScript3);
 	options.mirrorH = prnPrefs->getBool("MirrorH", false);
 	options.mirrorV = prnPrefs->getBool("MirrorV", false);
 	options.setDevParam = prnPrefs->getBool("doDev", false);
@@ -147,54 +151,61 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QSize
 	return true;
 }
 
-PrintEngine PrinterUtil::getDefaultPrintEngine(const QString&  /*printerName*/, bool toFile)
+PrintLanguage PrinterUtil::getDefaultPrintLanguage(const QString&  /*printerName*/, bool toFile)
 {
 	if (!toFile)
 	{
 #if defined(_WIN32)
-		return PrintEngine::WindowsGDI;
+		return PrintLanguage::WindowsGDI;
 #else
-		return PrintEngine::PostScript3;
+		return PrintLanguage::PostScript3;
 #endif
 	}
-	return PrintEngine::PostScript3;
+	return PrintLanguage::PostScript3;
 }
 
-PrintEngineMap PrinterUtil::getPrintEngineSupport(const QString& printerName, bool toFile)
+PrintLanguageMap PrinterUtil::getPrintLanguageSupport(const QString& printerName, bool toFile)
 {
-	PrintEngineMap prnMap;
+	PrintLanguageMap prnMap;
 	if (toFile || PrinterUtil::isPostscriptPrinter(printerName))
 	{
 		if (ScCore->haveGS())
 		{
-			prnMap.insert(CommonStrings::trPostScript1, PrintEngine::PostScript1);
-			prnMap.insert(CommonStrings::trPostScript2, PrintEngine::PostScript2);
+			prnMap.insert(CommonStrings::trPostScript1, PrintLanguage::PostScript1);
+			prnMap.insert(CommonStrings::trPostScript2, PrintLanguage::PostScript2);
 		}
-		prnMap.insert(CommonStrings::trPostScript3, PrintEngine::PostScript3);
+		prnMap.insert(CommonStrings::trPostScript3, PrintLanguage::PostScript3);
 	}
+	if (toFile || PrinterUtil::supportsPDF(printerName))
+		prnMap.insert(CommonStrings::trPDF, PrintLanguage::PDF);
 #if defined(_WIN32)
 	if (!toFile)
-		prnMap.insert(CommonStrings::trWindowsGDI, PrintEngine::WindowsGDI);
+		prnMap.insert(CommonStrings::trWindowsGDI, PrintLanguage::WindowsGDI);
 #endif
 	return prnMap;
 }
 
-bool PrinterUtil::checkPrintEngineSupport(const QString& printerName, PrintEngine engine, bool toFile)
+bool PrinterUtil::checkPrintLanguageSupport(const QString& printerName, PrintLanguage engine, bool toFile)
 {
-	bool psSupported = toFile || PrinterUtil::isPostscriptPrinter(printerName);
-	if (psSupported && (engine >= PrintEngine::PostScript1 && engine <= PrintEngine::PostScript3))
-		return true;
-	if (!psSupported && (engine >= PrintEngine::PostScript1 && engine <= PrintEngine::PostScript3))
-		return false;
-	if (engine == PrintEngine::WindowsGDI)
-	{
-#if defined(_WIN32)
-		return true; //WindowsGDI
-#else
-		return false;
-#endif
-	}
+	if (engine >= PrintLanguage::PostScript1 && engine <= PrintLanguage::PostScript3)
+		return (toFile || PrinterUtil::isPostscriptPrinter(printerName));
+
+	if (engine == PrintLanguage::WindowsGDI)
+		return os_is_win();
+
+	if (engine == PrintLanguage::PDF)
+		return toFile || os_is_unix();
+
 	return false;
+}
+
+bool PrinterUtil::supportsPDF(const QString& /*printerName*/)
+{
+#ifdef _WIN32
+	return false;
+#else
+	return true;
+#endif
 }
 
 //Parameter needed on win32..

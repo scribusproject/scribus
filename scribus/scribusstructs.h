@@ -212,7 +212,7 @@ struct Keys
 	int menuPos;
 };
 
-enum class PrintEngine
+enum class PrintLanguage
 {
 	PostScript1 = 1,
 	PostScript2 = 2,
@@ -220,7 +220,7 @@ enum class PrintEngine
 	WindowsGDI  = 4,
 	PDF         = 5
 };
-typedef QMap<QString, PrintEngine> PrintEngineMap;
+typedef QMap<QString, PrintLanguage> PrintLanguageMap;
 
 struct PrintOptions
 {
@@ -242,7 +242,7 @@ struct PrintOptions
 	bool colorMarks { false };
 	bool includePDFMarks { true };
 	int  copies { 1 };
-	PrintEngine prnEngine { PrintEngine::PostScript3 };
+	PrintLanguage prnLanguage { PrintLanguage::PostScript3 };
 	double markLength { 20.0 };
 	double markOffset { 0.0 };
 	MarginStruct bleeds;

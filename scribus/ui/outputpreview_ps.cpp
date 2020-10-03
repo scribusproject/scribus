@@ -189,7 +189,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 
 	if (m_printOptions.firstUse)
 		PrinterUtil::getDefaultPrintOptions(m_printOptions, m_doc->bleedsVal());
-	m_printOptions.prnEngine = PrintEngine::PostScript3;
+	m_printOptions.prnLanguage = PrintLanguage::PostScript3;
 	m_printOptions.outputSeparations = false;
 	m_printOptions.separationName = "All";
 	m_printOptions.allSeparations = QStringList();
@@ -207,6 +207,8 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 	QPixmap previewPix = createPreview(m_doc->currentPageNumber(), qRound(72 * m_scaleFactor));
 	m_previewLabel->setPixmap(previewPix);
 	m_previewLabel->resize(previewPix.size());
+
+	m_uiBase->pageSelector->setGUIForPage(m_doc->currentPage()->pageNr());
 
 	int w = m_previewLabel->width() + inkTableWidth + 50;
 	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
@@ -577,7 +579,7 @@ bool OutputPreview_PS::createPreviewFile(int pageIndex)
 	delete psLib;
 
 	// TODO : Postscript level < 3
-	if (success && (m_printOptions.prnEngine != PrintEngine::PostScript3))
+	if (success && (m_printOptions.prnLanguage != PrintLanguage::PostScript3))
 	{
 		// use gs to convert our PS to a lower version
 		QStringList opts;
@@ -589,8 +591,8 @@ bool OutputPreview_PS::createPreviewFile(int pageIndex)
 		opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(QString::number(pageWidth)) );
 		opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(QString::number(pageHeight)) );
 
-		QString outFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".ps" + QString::number((int) m_printOptions.prnEngine);
-		success = (convertPS2PS(psFileName, outFileName, opts, (int) m_printOptions.prnEngine) == 0);
+		QString outFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".ps" + QString::number((int) m_printOptions.prnLanguage);
+		success = (convertPS2PS(psFileName, outFileName, opts, (int) m_printOptions.prnLanguage) == 0);
 		if (!success)
 			return false;
 		success &= QFile::remove(psFileName);
@@ -872,7 +874,7 @@ bool OutputPreview_PS::psOptionsHaveChanged(int pageIndex) const
 void OutputPreview_PS::setPrintOptionsToOptions(PrintOptions& prnOptions)
 {
 	// TODO : finish
-	m_psLevel = qMax(1, qMin((int) prnOptions.prnEngine, 3));
+	m_psLevel = qMax(1, qMin((int) prnOptions.prnLanguage, 3));
 
 	m_colorOutputMode = prnOptions.useColor ? 0 : 1;
 	m_mirrorH = prnOptions.mirrorH;
@@ -885,7 +887,7 @@ void OutputPreview_PS::setPrintOptionsToOptions(PrintOptions& prnOptions)
 void OutputPreview_PS::setPrintOptionsToUi(PrintOptions& prnOptions)
 {
 	// TODO : finish
-	int psLevel = qMax(1, qMin((int) prnOptions.prnEngine, 3));
+	int psLevel = qMax(1, qMin((int) prnOptions.prnLanguage, 3));
 	m_optionsUi->psLevelCombo->setCurrentIndex(psLevel - 1);
 
 	m_optionsUi->colorOutputMode->setCurrentIndex(prnOptions.useColor ? 0 : 1);
@@ -906,7 +908,7 @@ void OutputPreview_PS::setPrintOptionsToUi(PrintOptions& prnOptions)
 void OutputPreview_PS::setUiOptionsToPrintOptions(PrintOptions& prnOptions)
 {
 	// TODO : finish
-	prnOptions.prnEngine = (PrintEngine) (m_optionsUi->psLevelCombo->currentIndex() + 1);
+	prnOptions.prnLanguage = (PrintLanguage) (m_optionsUi->psLevelCombo->currentIndex() + 1);
 
 	prnOptions.useColor = (m_optionsUi->colorOutputMode->currentIndex() == 0);
 	prnOptions.mirrorH = m_optionsUi->mirrorH->isChecked();

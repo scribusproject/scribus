@@ -19,6 +19,7 @@ class QLabel;
 class QPushButton;
 class QScrollArea;
 class QTableWidget;
+namespace Ui { class PrintPreviewBase; }
 
 #include "ui/scrspinbox.h"
 #include "scribusapi.h"
@@ -47,19 +48,19 @@ public:
 	\param printer a name of the printer
 	\param engine a printer engine
 	*/
-	PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& printer, PrintEngine engine );
+	PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& printer, PrintLanguage engine);
 	~PrintPreview();
 
-	bool isCMYKPreviewEnabled() const { return enableCMYK->isChecked(); }
-	bool isAntialiasingEnabled() const { return antiAliasing->isChecked(); }
-	bool isTransparencyEnabled() const { return showTransparency->isChecked();  }
-	bool isInkChannelVisible(const QString& ink) { return (flagsVisible.contains(ink) ? flagsVisible[ink]->isChecked() : false); }
-	bool isInkCoverageEnabled() const { return enableInkCover->isChecked(); }
-	bool usePostScriptPreview() const { return postscriptPreview; }
+	bool isCMYKPreviewEnabled() const;
+	bool isAntialiasingEnabled() const;
+	bool isTransparencyEnabled() const;
+	bool isInkChannelVisible(const QString& ink) { return (m_inkVisibilities.contains(ink) ? m_inkVisibilities[ink]->isChecked() : false); }
+	bool isInkCoverageEnabled() const;
+	bool useGhostscriptPreview() const;
 
-	double inkCoverageThreshold() const { return coverThresholdValue->value(); }
+	double inkCoverageThreshold() const;
 
-	static bool usePostscriptPreview(const QString& printerName, PrintEngine engine);
+	static bool usesGhostscript(const QString& printerName, PrintLanguage engine);
 	/*!
 	\author Franz Schmid
 	\brief Creates the Preview of the Actual Page
@@ -91,32 +92,23 @@ public slots:
 	\brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
 	*/
 	void toggleCMYK_Colour();
-	void doSpotTable(int row);
 	void toggleAllfromHeader();
-	/*!
-	\author Petr Vanek
-	\date 09/03/2005
-	\brief Recompute scaling factor of the preview image
-	\param value spinbox value from signal
-	*/
-	void scaleBox_valueChanged(int value);
 
 signals:
 	void doPrint();
 
 protected:
-	ScribusDoc *doc { nullptr };
-	bool havePngAlpha { false };
-	bool haveTiffSep { false };
-	bool postscriptPreview { true };
-	QMap<QString, QCheckBox*> flagsVisible;
-	QTableWidget* inkTable { nullptr };
+	ScribusDoc *m_doc { nullptr };
+	bool m_haveTiffSep { false };
+	bool m_useGhostscript { true };
+	QMap<QString, QCheckBox*> m_inkVisibilities;
 
 	PrintPreviewCreator* m_previewCreator { nullptr };
 
 	int m_currentPage { -1 };
 	int m_scaleMode { 1 };
 	int m_gsVersion { 0 };
+	int  m_colorOutputMode { 0 };
 	bool m_colorMode { false };
 	bool m_useAntialiasing { false };
 	bool m_showTransparency { false };
@@ -125,48 +117,34 @@ protected:
 	bool m_mirrorV { false };
 	bool m_clipToMargins { false };
 	bool m_convertSpots { true };
-	bool m_useGray { false };
 
 	/*! \brief Percentage value of the scaling widget */
-	double scaleFactor { 1.0 };
+	double m_scaleFactor { 1.0 };
 
-	PageSelector *pageSelector { nullptr };
-	QCheckBox* antiAliasing { nullptr };
-	QCheckBox* showTransparency { nullptr };
-	QCheckBox* enableCMYK { nullptr };
-	QCheckBox* enableGCR { nullptr };
-	QCheckBox* mirrorHor { nullptr };
-	QCheckBox* mirrorVert { nullptr };
-	QCheckBox* clipMargins { nullptr };
-	QCheckBox* spotColors { nullptr };
-	QCheckBox* useGray { nullptr };
-	QCheckBox* enableInkCover { nullptr };
-	ScrSpinBox* coverThresholdValue { nullptr };
-	QLabel* thresholdLabel { nullptr };
-	QScrollArea* previewArea { nullptr };
-	QLabel* previewLabel { nullptr };
-	QGroupBox* devTitle { nullptr };
-	QGroupBox* jobTitle { nullptr };
-	QPushButton *closeButton { nullptr };
-	QPushButton *printButton { nullptr };
-	/*! scaling GUI */
-	QLabel* scaleLabel { nullptr };
-	QComboBox* scaleBox { nullptr };
+	Ui::PrintPreviewBase *m_ui { nullptr };
+	QLabel* m_previewLabel { nullptr };
 
-	QVBoxLayout* PLayout { nullptr };
-	QVBoxLayout* Layout1 { nullptr };
-	QVBoxLayout* Layout2 { nullptr };
-	QHBoxLayout* Layout5 { nullptr };
-	QHBoxLayout* Layout6 { nullptr };
-	QHBoxLayout* Layout7 { nullptr };
-	QVBoxLayout* settingsBarLayout { nullptr };
-	PrefsManager& prefsManager;
+	PrefsManager& m_prefsManager;
 
 	void setValues();
 	void getUserSelection(int);
 
+	bool printOptionsHaveChanged(int pageIndex) const;
+
 	//! \brief repaint sample on the dialog change
 	void resizeEvent(QResizeEvent * event) override;
+
+protected slots:
+	void onPrintLanguageChange(int);
+	void onInkTableCellDoubleClicked(int row);
+
+	/*!
+	\author Petr Vanek
+	\date 09/03/2005
+	\brief Recompute scaling factor of the preview image
+	\param value spinbox value from signal
+	*/
+	void scaleBox_valueChanged(int value);
 };
 
 #endif

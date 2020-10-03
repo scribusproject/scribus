@@ -9,10 +9,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 
+#include "scribusapi.h"
+
 class  ScribusDoc;
 struct PrintOptions;
 
-class ScPrintEngine : public QObject
+class SCRIBUS_API ScPrintEngine : public QObject
 {
 	Q_OBJECT
 

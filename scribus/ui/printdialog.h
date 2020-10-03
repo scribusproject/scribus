@@ -40,7 +40,7 @@ public:
 	bool mirrorVertical();
 	bool doGCR();
 	bool doClip();
-	PrintEngine printEngine();
+	PrintLanguage printLanguage();
 	bool doDev();
 	bool doSpot();
 	bool doPrintAll();
@@ -57,8 +57,8 @@ protected slots:
 	void doDocBleeds();
 	void createPageNumberRange();
 	void selectOptions();
-	void selectEngine(const QString& eng);
 	void selectPrinter(const QString& prn);
+	void selectPrintLanguage(const QString& prnLanguage);
 	void selectRange(bool e);
 	void selectSepMode(int e);
 	void selectFile();
@@ -68,7 +68,6 @@ protected slots:
 
 protected:
 	ScribusDoc*    m_doc;
-	PrintEngineMap m_printEngineMap;
 	PrefsContext*  prefs { nullptr };
 	CupsOptions*   m_cupsOptions { nullptr };
 	int            m_unit { 0 };
@@ -79,8 +78,7 @@ protected:
 
 	QString getOptions();
 	void storeValues();
-	void refreshPrintEngineBox();
-	void setPrintEngine(PrintEngine engine);
+	void setPrintLanguage(PrintLanguage engine);
 	void setStoredValues(const QString& fileName);
 };
 

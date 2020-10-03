@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 PrintPreviewCreator_GDI::PrintPreviewCreator_GDI(ScribusDoc* doc) :
 	PrintPreviewCreator(doc)
 {
-	m_printOptions.prnEngine = PrintEngine::WindowsGDI;
+	m_printOptions.prnLanguage = PrintLanguage::WindowsGDI;
 
 	// Generate a template name for temporary files
 	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scgdipreview_XXXXXX.png");
@@ -112,7 +112,7 @@ bool PrintPreviewCreator_GDI::createPreviewFile(int pageIndex, int res)
 	options.mirrorV = m_printOptions.mirrorV;
 	options.outputSeparations = false;
 	options.pageNumbers.push_back(pageIndex);
-	options.prnEngine = PrintEngine::WindowsGDI;
+	options.prnLanguage = PrintLanguage::WindowsGDI;
 	options.separationName = "All";
 	options.toFile = false;
 	options.useColor = m_printOptions.useColor;
@@ -126,6 +126,6 @@ bool PrintPreviewCreator_GDI::createPreviewFile(int pageIndex, int res)
 void PrintPreviewCreator_GDI::setPrintOptions(const PrintOptions& options)
 {
 	m_printOptions = options;
-	m_printOptions.prnEngine = PrintEngine::WindowsGDI;
+	m_printOptions.prnLanguage = PrintLanguage::WindowsGDI;
 	m_printOptionsChanged = true;
 }

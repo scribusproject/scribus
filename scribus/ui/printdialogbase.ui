@@ -331,7 +331,7 @@ a range of pages or a single page number</string>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="printEngines">
+        <widget class="PrintLanguageCombo" name="printLanguages">
          <property name="toolTip">
           <string>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</string>
          </property>
@@ -673,6 +673,11 @@ a range of pages or a single page number</string>
    <extends>QDoubleSpinBox</extends>
    <header>ui/scrspinbox.h</header>
   </customwidget>
+  <customwidget>
+   <class>PrintLanguageCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/printlanguagecombo.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>PrintDest</tabstop>
@@ -691,7 +696,7 @@ a range of pages or a single page number</string>
   <tabstop>printSepCombo</tabstop>
   <tabstop>colorType</tabstop>
   <tabstop>separationsCombo</tabstop>
-  <tabstop>printEngines</tabstop>
+  <tabstop>printLanguages</tabstop>
   <tabstop>usePDFMarks</tabstop>
   <tabstop>mirrorHor</tabstop>
   <tabstop>mirrorVert</tabstop>

@@ -68,12 +68,15 @@ False  --  Default</p></dd>
 	<dd><p>Name of printer to use.<br>
 Default is 'File' for printing into file</p></dd>
 
+	<dt><strong>prnLanguage</strong> = &lt;attribute 'prnLanguage' of 'Printer' objects&gt;</dt>
+	<dd><p>Print language to use.<br>
+One of PRNLANG_* constants.  --  Default is PRNLANG_POSTSCRIPT3</p></dd>
+
 	<dt><strong>pslevel</strong> = &lt;member 'pslevel' of 'Printer' objects&gt;</dt>
-	<dd><p>PostScript Level<br>
-Can be 1 or 2 or 3    -- Default is 3.</p></dd>
+	<dd><p>Deprecated, use prnLanguage instead.</p></dd>
 
 	<dt><strong>separation</strong> = &lt;attribute 'separation' of 'Printer' objects&gt;</dt>
-	<dd><p>Print separationl<br>
+	<dd><p>Print separations<br>
          'No'  -- Default<br>
          'All'<br>
          'Cyan'<br>

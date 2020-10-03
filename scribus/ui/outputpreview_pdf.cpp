@@ -187,6 +187,8 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 	m_previewLabel->setPixmap(previewPix);
 	m_previewLabel->resize(previewPix.size());
 
+	m_uiBase->pageSelector->setGUIForPage(m_doc->currentPage()->pageNr());
+
 	int w = m_previewLabel->width() + inkTableWidth + 50;
 	resize(qMin(QApplication::desktop()->width() - 30, w), 500);
 

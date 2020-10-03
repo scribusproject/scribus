@@ -250,8 +250,12 @@ public:
 	static QString trMaxGlyphExtension;
 
 	//PostScript or other PDL strings
+	static QString File;
+	static QString trFile;
 	static QString PostScript;
 	static QString trPostScript;
+	static QString PDF;
+	static QString trPDF;
 	static QString PDF_1_3;
 	static QString PDF_1_4;
 	static QString PDF_1_5;

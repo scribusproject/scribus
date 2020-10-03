@@ -9,8 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "pdfoptions.h"
 #include "scprintengine.h"
+#include "scribusapi.h"
 
-class ScPrintEngine_PDF : public ScPrintEngine
+class SCRIBUS_API ScPrintEngine_PDF : public ScPrintEngine
 {
 	friend class PrintPreviewCreator_PDF;
 

@@ -12,23 +12,23 @@ for which a new license (GPL+exception) is in place.
 #include "printpreviewcreator_pdf.h"
 #include "printpreviewcreator_ps.h"
 
-PrintPreviewCreator* PrintPreviewCreatorFactory::create(ScribusDoc* doc, PrintEngine prnEngine)
+PrintPreviewCreator* PrintPreviewCreatorFactory::create(ScribusDoc* doc, PrintLanguage prnLanguage)
 {
 #ifdef Q_OS_WIN32
-	if (prnEngine == PrintEngine::WindowsGDI)
+	if (prnLanguage == PrintLanguage::WindowsGDI)
 	{
 		PrintPreviewCreator* generator = new PrintPreviewCreator_GDI(doc);
 		return generator;
 	}
 #endif
 
-	if (prnEngine == PrintEngine::PostScript1 || prnEngine == PrintEngine::PostScript2 || prnEngine == PrintEngine::PostScript3)
+	if (prnLanguage == PrintLanguage::PostScript1 || prnLanguage == PrintLanguage::PostScript2 || prnLanguage == PrintLanguage::PostScript3)
 	{
 		PrintPreviewCreator* generator = new PrintPreviewCreator_PS(doc);
 		return generator;
 	}
 
-	if (prnEngine == PrintEngine::PDF)
+	if (prnLanguage == PrintLanguage::PDF)
 	{
 		PrintPreviewCreator* generator = new PrintPreviewCreator_PDF(doc);
 		return generator;

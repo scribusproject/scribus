@@ -32,7 +32,7 @@ PrintPreviewCreator_PDF::PrintPreviewCreator_PDF(ScribusDoc* doc) :
 	m_prefsManager(PrefsManager::instance())
 {
 	m_pdfPrintEngine = new ScPrintEngine_PDF(*doc);
-	m_printOptions.prnEngine = PrintEngine::PDF;
+	m_printOptions.prnLanguage = PrintLanguage::PDF;
 
 	// Generate a template name for temporary files
 	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scpdfpreview_XXXXXX.png");
@@ -568,7 +568,7 @@ int PrintPreviewCreator_PDF::renderPreviewSep(int pageIndex, int res)
 void PrintPreviewCreator_PDF::setPrintOptions(const PrintOptions& options)
 {
 	m_printOptions = options;
-	m_printOptions.prnEngine = PrintEngine::PDF;
+	m_printOptions.prnLanguage = PrintLanguage::PDF;
 	m_printOptionsChanged = true;
 }
 

@@ -8,8 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define SCPRINTENGINE_PS_H
 
 #include "scprintengine.h"
+#include "scribusapi.h"
 
-class ScPrintEngine_PS : public ScPrintEngine
+class SCRIBUS_API ScPrintEngine_PS : public ScPrintEngine
 {
 public:
 	ScPrintEngine_PS(ScribusDoc& doc);

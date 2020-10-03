@@ -161,8 +161,12 @@ QString CommonStrings::trMaxWordTracking   = "";
 QString CommonStrings::trMinGlyphExtension = "";
 QString CommonStrings::trMaxGlyphExtension = "";
 
+QString CommonStrings::File         = "";
+QString CommonStrings::trFile       = "";
 QString CommonStrings::PostScript   = "";
 QString CommonStrings::trPostScript = "";
+QString CommonStrings::PDF          = "";
+QString CommonStrings::trPDF        = "";
 QString CommonStrings::PDF_1_3      = "";
 QString CommonStrings::PDF_1_4      = "";
 QString CommonStrings::PDF_1_5      = "";
@@ -429,8 +433,12 @@ void CommonStrings::languageChange()
 	CommonStrings::trMaxGlyphExtension = tr("Max. Glyph Extension");
 
 	//PostScript & PDF Types etc
+	CommonStrings::File         = "File";
+	CommonStrings::trFile       = tr("File");
 	CommonStrings::PostScript   = "PostScript";
 	CommonStrings::trPostScript = tr("PostScript");
+	CommonStrings::PDF          = "PDF";
+	CommonStrings::trPDF        = tr("PDF");
 	CommonStrings::PDF_1_3      = "PDF 1.3";
 	CommonStrings::PDF_1_4      = "PDF 1.4";
 	CommonStrings::PDF_1_5      = "PDF 1.5";
@@ -449,20 +457,20 @@ void CommonStrings::languageChange()
 	CommonStrings::trWindowsGDI  = tr( "Windows GDI" );
 
 	//Units
-	CommonStrings::trStrPT=unitGetStrFromIndex(SC_PT);
-	CommonStrings::trStrMM=unitGetStrFromIndex(SC_MM);
-	CommonStrings::trStrIN=unitGetStrFromIndex(SC_IN);
-	CommonStrings::trStrP =unitGetStrFromIndex(SC_P);
-	CommonStrings::trStrCM=unitGetStrFromIndex(SC_CM);
-	CommonStrings::trStrC =unitGetStrFromIndex(SC_C);
-	CommonStrings::trStrPX=tr("px");
-	CommonStrings::strPT=unitGetUntranslatedStrFromIndex(SC_PT);
-	CommonStrings::strMM=unitGetUntranslatedStrFromIndex(SC_MM);
-	CommonStrings::strIN=unitGetUntranslatedStrFromIndex(SC_IN);
-	CommonStrings::strP =unitGetUntranslatedStrFromIndex(SC_P);
-	CommonStrings::strCM=unitGetUntranslatedStrFromIndex(SC_CM);
-	CommonStrings::strC =unitGetUntranslatedStrFromIndex(SC_C);
-	CommonStrings::strPX="px";
+	CommonStrings::trStrPT = unitGetStrFromIndex(SC_PT);
+	CommonStrings::trStrMM = unitGetStrFromIndex(SC_MM);
+	CommonStrings::trStrIN = unitGetStrFromIndex(SC_IN);
+	CommonStrings::trStrP  = unitGetStrFromIndex(SC_P);
+	CommonStrings::trStrCM = unitGetStrFromIndex(SC_CM);
+	CommonStrings::trStrC  = unitGetStrFromIndex(SC_C);
+	CommonStrings::trStrPX = tr("px");
+	CommonStrings::strPT = unitGetUntranslatedStrFromIndex(SC_PT);
+	CommonStrings::strMM = unitGetUntranslatedStrFromIndex(SC_MM);
+	CommonStrings::strIN = unitGetUntranslatedStrFromIndex(SC_IN);
+	CommonStrings::strP  = unitGetUntranslatedStrFromIndex(SC_P);
+	CommonStrings::strCM = unitGetUntranslatedStrFromIndex(SC_CM);
+	CommonStrings::strC  = unitGetUntranslatedStrFromIndex(SC_C);
+	CommonStrings::strPX = "px";
 
 	//Keyboard Modifiers
 	CommonStrings::altModifier=tr("Alt");

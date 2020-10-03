@@ -8,30 +8,31 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 
 #include "objprinter.h"
-#include "cmdutil.h"
-#include "prefsmanager.h"
 
 #include <structmember.h>
 #include <QFileInfo>
 #include <QDir>
 #include <QScopedPointer>
 
+#include "cmdutil.h"
+#include "prefsmanager.h"
 #include "pslib.h"
 #include "scpaths.h"
+#include "scprintengine_pdf.h"
+#include "scprintengine_ps.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
 #include "util_printer.h"
 
-// these functions are located at utils.cpp
-bool SCRIBUS_API loadText(QString nam, QString *Buffer);
-void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
-// end of utils.cpp
-
 #if defined(_WIN32)
 #include "scprintengine_gdi.h"
 #endif
+
+// these functions are located at utils.cpp
+void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
+// end of utils.cpp
 
 typedef struct
 {
@@ -45,7 +46,7 @@ typedef struct
 	PyObject *separation; // string - No; All; Cyan; Magenta; Yellow; Black
 	int color; // bool - do we print in color=1 or greyscale=0
 	int useICC; // bool - do we use ICC Profiles 0 = No 1 = Yes
-	int pslevel; // integer - 1, 2 or 3 level of used postscript
+	int prnLang; // integer - print language
 	int mph; // bool - mirror pages horizontally
 	int mpv; // bool - mirror pages vertically
 	int ucr; // bool - Under Color Removal
@@ -74,37 +75,37 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 	if (self != nullptr) {
 // set allPrinters attribute
 		self->allPrinters = PyList_New(0);
-		if (self->allPrinters == nullptr){
+		if (self->allPrinters == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set printer attribute
 		self->printer = PyString_FromString("");
-		if (self->printer == nullptr){
+		if (self->printer == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set file attribute
 		self->file = PyString_FromString("");
-		if (self->file == nullptr){
+		if (self->file == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set cmd attribute
 		self->cmd = PyString_FromString("");
-		if (self->cmd == nullptr){
+		if (self->cmd == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set pages attribute
 		self->pages = PyList_New(0);
-		if (self->pages == nullptr){
+		if (self->pages == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
 // set separation attribute
 		self->separation = PyString_FromString("No");
-		if (self->separation == nullptr){
+		if (self->separation == nullptr) {
 			Py_DECREF(self);
 			return nullptr;
 		}
@@ -112,8 +113,8 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->color = 1;
 // set useICC attribute
 		self->useICC = 0;
-// set pslevel attribute
-		self->pslevel = 3;
+// set prnLanguage attribute
+		self->prnLang = (int) PrintLanguage::PostScript3;
 // set mph attribute
 		self->mph = 0;
 // set mpv attribute
@@ -134,7 +135,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // pool system for installed printers
 // most code is stolen and little adopted from druck.cpp
 	PyObject *allPrinters = PyList_New(0);
-	if (allPrinters){
+	if (allPrinters) {
 		Py_DECREF(self->allPrinters);
 		self->allPrinters = allPrinters;
 	}
@@ -145,7 +146,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		if (prn.isEmpty())
 			continue;
 		PyObject *tmppr = PyString_FromString(prn.toLocal8Bit().constData());
-		if (tmppr){
+		if (tmppr) {
 			PyList_Append(self->allPrinters, tmppr);
 			Py_DECREF(tmppr);
 		}
@@ -156,7 +157,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // as defaut set to print into file
 	PyObject *printer = nullptr;
 	printer = PyString_FromString("File");
-	if (printer){
+	if (printer) {
 		Py_DECREF(self->printer);
 		self->printer = printer;
 	}
@@ -164,11 +165,11 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QString tf(ScCore->primaryMainWindow()->doc->pdfOptions().fileName);
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->documentFileName());
-		tf = fi.path()+"/"+fi.baseName()+".pdf";
+		tf = fi.path() + "/" + fi.baseName() + ".pdf";
 	}
 	PyObject *file = nullptr;
 	file = PyString_FromString(tf.toLatin1());
-	if (file){
+	if (file) {
 		Py_DECREF(self->file);
 		self->file = file;
 	} else {
@@ -178,7 +179,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // alternative printer commands default to ""
 	PyObject *cmd = nullptr;
 	cmd = PyString_FromString("");
-	if (cmd){
+	if (cmd) {
 		Py_DECREF(self->cmd);
 		self->cmd = cmd;
 	}
@@ -187,12 +188,12 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	PyObject *pages = nullptr;
 	int num = ScCore->primaryMainWindow()->doc->Pages->count();
 	pages = PyList_New(num);
-	if (pages){
+	if (pages) {
 		Py_DECREF(self->pages);
 		self->pages = pages;
 	}
-	for (int i = 0; i<num; i++) {
-		PyObject *tmp=nullptr;
+	for (int i = 0; i < num; i++) {
+		PyObject *tmp = nullptr;
 		tmp = PyInt_FromLong((long)i+1L); // instead of 1 put here first page number
 		if (tmp)
 			PyList_SetItem(self->pages, i, tmp);
@@ -200,7 +201,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // do not print separation
 	PyObject *separation = nullptr;
 	separation = PyString_FromString("No");
-	if (separation){
+	if (separation) {
 		Py_DECREF(self->separation);
 		self->separation = separation;
 	}
@@ -209,7 +210,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // do not use ICC Profile
 	self->useICC = 0;
 // use PostScrip level 3
-	self->pslevel = 3;
+	self->prnLang = (int) PrintLanguage::PostScript3;
 // do not mirror pages
 	self->mph = 0;
 // do not mirror pages
@@ -225,7 +226,8 @@ static PyMemberDef Printer_members[] = {
 	{const_cast<char*>("copies"), T_INT, offsetof(Printer, copies), 0, const_cast<char*>("Number of copies")},
 	{const_cast<char*>("color"), T_INT, offsetof(Printer, color), 0, const_cast<char*>("Print in color.\n\t True - color  --  Default\n\t False - greyscale")},
 	{const_cast<char*>("useICC"), T_INT, offsetof(Printer, useICC), 0, const_cast<char*>("Use ICC Profile\n\tTrue\n\tFalse  --  Default")},
-	{const_cast<char*>("pslevel"), T_INT, offsetof(Printer, pslevel), 0, const_cast<char*>("PostScript Level\nCan be 1 or 2 or 3    -- Default is 3.")},
+	{const_cast<char*>("pslevel"), T_INT, offsetof(Printer, prnLang), 0, const_cast<char*>("Deprecated, use prnLanguage instead.")}, // Deprecated
+	{const_cast<char*>("prnLanguage"), T_INT, offsetof(Printer, prnLang), 0, const_cast<char*>("Print Language\nOne of PRNLANG_* constants  -- Default is PRNLANG_POSTSCRIPT3.")},
 	{const_cast<char*>("mph"), T_INT, offsetof(Printer, mph), 0, const_cast<char*>("Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default")},
 	{const_cast<char*>("mpv"), T_INT, offsetof(Printer, mpv), 0, const_cast<char*>("Mirror Pages Vertical\n\t True\n\tFalse  --  Default")},
 	{const_cast<char*>("ucr"), T_INT, offsetof(Printer, ucr), 0, const_cast<char*>("Apply Under Color Removal\n\tTrue  --  Default\n\tFalse")},
@@ -262,15 +264,20 @@ static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/
 		PyErr_SetString(PyExc_TypeError, "The 'printer' attribute value must be string.");
 		return -1;
 	}
+
 	int n = PyList_Size(self->allPrinters);
 	bool same = 0;
-	for (int i = 0; i<n; i++)
-		if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1)
+	for (int i = 0; i < n; i++) {
+		if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1) {
 			same = true;
+			break;
+		}
+	}
 	if (!same) {
 		PyErr_SetString(PyExc_ValueError, "'printer' value can be only one of string in 'allPrinters' attribute ");
 		return -1;
 	}
+
 	Py_DECREF(self->printer);
 	Py_INCREF(value);
 	self->printer = value;
@@ -338,9 +345,9 @@ static int Printer_setpages(Printer *self, PyObject *value, void * /*closure*/)
 		return -1;
 	}
 	int len = PyList_Size(value);
-	for (int i = 0; i<len; i++){
+	for (int i = 0; i < len; i++) {
 		PyObject *tmp = PyList_GetItem(value, i);
-		if (!PyInt_Check(tmp)){
+		if (!PyInt_Check(tmp)) {
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
@@ -394,27 +401,24 @@ static PyObject *Printer_print(Printer *self)
 	if (!checkHaveDocument()) {
 		return nullptr;
 	}
-// copied from void ScribusMainWindow::slotFilePrint() in file scribus.cpp
-	QString fna, prn, cmd, cc, SepName;
-	QString printcomm;
-	bool fil;
 
-//    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
-	prn = QString(PyString_AsString(self->printer));
-	fna = QString(PyString_AsString(self->file));
-	fil = QString(PyString_AsString(self->printer)) == QString("File");
-	std::vector<int> pageNs;
+//	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
+	QString prn = QString(PyString_AsString(self->printer));
+	QString fna = QString(PyString_AsString(self->file));
+	bool    fil = QString(PyString_AsString(self->printer)) == QString("File");
+	QString sepName = QString(PyString_AsString(self->separation));
+
 	PrintOptions options;
 	for (int i = 0; i < PyList_Size(self->pages); ++i) {
-		options.pageNumbers.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
+		options.pageNumbers.push_back((int) PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
-	int copyCount = (self->copies < 1) ? 1 : self->copies;
-	SepName = QString(PyString_AsString(self->separation));
 	options.printer   = prn;
-	options.prnEngine = (PrintEngine) self->pslevel;
+	options.prnLanguage = (PrintLanguage) self->prnLang;
+	options.copies    = (self->copies < 1) ? 1 : self->copies;
 	options.toFile    = fil;
-	options.separationName = SepName;
-	options.outputSeparations = SepName != QString("No");
+	options.filename  = fil ? fna : QString();
+	options.separationName = sepName;
+	options.outputSeparations = sepName != QString("No");
 	options.useSpotColors = true;
 	options.useColor = self->color;
 	options.mirrorH  = self->mph;
@@ -429,9 +433,14 @@ static PyObject *Printer_print(Printer *self)
 	options.includePDFMarks = false;
 	options.markOffset = 0.0;
 	options.bleeds.set(0, 0, 0, 0);
-	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
-		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
-	printcomm = QString(PyString_AsString(self->cmd));
+	if (!PrinterUtil::checkPrintLanguageSupport(options.printer, options.prnLanguage, options.toFile))
+		options.prnLanguage = PrinterUtil::getDefaultPrintLanguage(options.printer, options.toFile);
+	if (options.prnLanguage == PrintLanguage::PDF || options.prnLanguage == PrintLanguage::WindowsGDI)
+	{
+		options.separationName = "All";
+		options.outputSeparations = false;
+	}
+	options.printerCommand = QString(PyString_AsString(self->cmd));
 	
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
@@ -451,55 +460,26 @@ static PyObject *Printer_print(Printer *self)
 	}
 #endif
 
-	QScopedPointer<PSLib> psLib(new PSLib(currentDoc, options, PSLib::OutputPS, &currentDoc->PageColors));
-	if (psLib.isNull())
+	if (options.prnLanguage == PrintLanguage::PostScript1 || options.prnLanguage == PrintLanguage::PostScript2)
 	{
-		PyErr_SetString(PyExc_SystemError, "Memory allocation error");
-		return nullptr;
-	}
-
-	if (!fil)
-		fna = QDir::toNativeSeparators(ScPaths::tempFileDir() + "/tmp.ps");
-	fna = QDir::toNativeSeparators(fna);
-
-	int printed = psLib->createPS(fna);
-	if (printed == 1)
-	{
-		PyErr_SetString(PyExc_SystemError, "Printing failed");
-		return nullptr;
-	}
-
-	if (options.prnEngine == PrintEngine::PostScript1 || options.prnEngine == PrintEngine::PostScript2)
-	{
-		if (ScCore->haveGS())
-		{
-			QString tmp;
-			QStringList opts;
-			opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(currentDoc->pageWidth())) );
-			opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(currentDoc->pageHeight())) );
-			convertPS2PS(fna, fna + ".tmp", opts, (int) options.prnEngine);
-			moveFile( fna + ".tmp", fna );
-		}
-		else
+		if (!ScCore->haveGS())
 		{
 			PyErr_SetString(PyExc_SystemError, "Printing failed : GhostScript is needed to print to PostScript Level 1 or Level 2");
 			Py_RETURN_NONE;
 		}
 	}
+	
+	QScopedPointer<ScPrintEngine> printEngine;
+	if (options.prnLanguage == PrintLanguage::PDF)
+		printEngine.reset(new ScPrintEngine_PDF(*currentDoc));
+	else
+		printEngine.reset(new ScPrintEngine_PS(*currentDoc));
 
-	if (!fil)
+	bool printDone = printEngine->print(options);
+	if (!printDone)
 	{
-		if (!printcomm.isEmpty())
-			cmd = printcomm + " "+fna;
-		else
-		{
-			cmd = "lpr -P" + prn;
-			if (copyCount > 1)
-				cmd += " -#" + cc.setNum(copyCount);
-			cmd += " "+fna;
-		}
-		system(cmd.toLocal8Bit().constData());
-		unlink(fna.toLocal8Bit().constData());
+		QString error = printEngine->errorMessage();
+		PyErr_SetString(PyExc_SystemError, error.toLocal8Bit().constData());
 	}
 
 	Py_RETURN_NONE;

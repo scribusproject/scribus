@@ -617,6 +617,7 @@
     <moc Include="..\..\..\scribus\ui\outputpreviewbase.h" />
     <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h" />
     <moc Include="..\..\..\scribus\ui\outputpreview_ps.h" />
+    <moc Include="..\..\..\scribus\ui\printlanguagecombo.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -1274,6 +1275,7 @@
     <ClCompile Include="..\..\..\scribus\prefsreader.cpp" />
     <ClCompile Include="..\..\..\scribus\prefstable.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\printlanguagecombo.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp" />
@@ -1634,6 +1636,7 @@
     <uic Include="..\..\..\scribus\ui\prefs_typographybase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_userinterfacebase.ui" />
     <uic Include="..\..\..\scribus\ui\printdialogbase.ui" />
+    <uic Include="..\..\..\scribus\ui\printpreviewbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_groupbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_imagebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_linebase.ui" />

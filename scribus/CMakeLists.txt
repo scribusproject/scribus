@@ -172,6 +172,7 @@ set(SCRIBUS_UI_SRC
 	ui/prefs_tableofcontentsbase.ui
 	ui/prefs_documentitemattributesbase.ui
 	ui/printdialogbase.ui
+	ui/printpreviewbase.ui
 	ui/propertiespalette_groupbase.ui
 	ui/propertiespalette_imagebase.ui
 	ui/propertiespalette_linebase.ui
@@ -471,6 +472,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/prefs_tableofcontents.h
 	ui/prefs_documentitemattributes.h
 	ui/printdialog.h
+	ui/printlanguagecombo.h
 	ui/printpreview.h
 	ui/propertiespalette.h
 	ui/propertiespalette_group.h
@@ -981,6 +983,7 @@ set(SCRIBUS_SOURCES
 	ui/prefs_tableofcontents.cpp
 	ui/prefs_documentitemattributes.cpp
 	ui/printdialog.cpp
+	ui/printlanguagecombo.cpp
 	ui/printpreview.cpp
 	ui/propertiespalette.cpp
 	ui/propertiespalette_image.cpp
