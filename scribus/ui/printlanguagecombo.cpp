@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "printlanguagecombo.h"
+#include "scribusstructs.h"
 #include "util_printer.h"
 
 PrintLanguageCombo::PrintLanguageCombo(QWidget* parent) : QComboBox(parent)
