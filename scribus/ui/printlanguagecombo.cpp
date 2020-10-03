@@ -120,7 +120,7 @@ void PrintLanguageCombo::setupLanguages(const QString& printerName, bool toFile)
 #if defined(Q_OS_WIN32)
 		printLanguageMap.insert(CommonStrings::trWindowsGDI, PrintLanguage::WindowsGDI);
 #else
-		printLanguageMap.insert(CommonStrings::trPostscript3, PrintLanguage::Postscript3);
+		printLanguageMap.insert(CommonStrings::trPostScript3, PrintLanguage::PostScript3);
 #endif
 	}
 
