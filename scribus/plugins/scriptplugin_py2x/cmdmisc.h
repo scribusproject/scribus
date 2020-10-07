@@ -94,6 +94,24 @@ Returns the name of the current active layer.\n\
 PyObject *scribus_getactlayer(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_loweractlayer__doc__,
+QT_TR_NOOP("lowerActiveLayer()\n\
+\n\
+Lowers the current active layer.\n\
+"));
+/*! Lower active Layer */
+PyObject *scribus_loweractlayer(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_raiseactlayer__doc__,
+QT_TR_NOOP("raiseActiveLayer()\n\
+\n\
+Raises the current active layer.\n\
+"));
+/*! Raise active layer */
+PyObject *scribus_raiseactlayer(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_senttolayer__doc__,
 QT_TR_NOOP("sentToLayer(\"layer\" [, \"name\"])\n\
 \n\

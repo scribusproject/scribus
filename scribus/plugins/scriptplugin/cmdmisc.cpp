@@ -186,6 +186,24 @@ PyObject *scribus_getactlayer(PyObject* /* self */)
 	return PyUnicode_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
 }
 
+PyObject *scribus_loweractlayer(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	int activeLayer = ScCore->primaryMainWindow()->doc->activeLayer();
+	ScCore->primaryMainWindow()->doc->lowerLayer(activeLayer);
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_raiseactlayer(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	int activeLayer = ScCore->primaryMainWindow()->doc->activeLayer();
+	ScCore->primaryMainWindow()->doc->raiseLayer(activeLayer);
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
