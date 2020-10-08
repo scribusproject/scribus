@@ -31,20 +31,12 @@ for which a new license (GPL+exception) is in place.
 
 ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(nullptr)
 {
-	Xp = 0;
-	Yp = 0;
-	doDrawMark = false;
-	drawMode = 0;
 	setAutoFillBackground(false);
 	drawPalette(255);
 }
 
 ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_doc(doc)
 {
-	Xp = 0;
-	Yp = 0;
-	doDrawMark = false;
-	drawMode = 0;
 	setAutoFillBackground(false);
 	drawPalette(255);
 }
@@ -161,12 +153,10 @@ void ColorChart::drawPalette(int val)
 	{
 		QImage image(xSize, ySize, QImage::Format_ARGB32_Premultiplied);
 		QColor color;
-		int x;
-		int y;
-		for (y = 0; y < ySize; ++y)
+		for (int y = 0; y < ySize; ++y)
 		{
 			unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
-			for(x = 0; x < xSize; ++x)
+			for(int x = 0; x < xSize; ++x)
 			{
 				color.setHsv(360*x/xSize, 256*( ySize - 1 - y )/ySize, val);
 				*p = color.rgb();

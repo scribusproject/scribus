@@ -49,7 +49,7 @@ TextLayout::~TextLayout()
 uint TextLayout::lines() const
 {
 	uint count = 0;
-	for (const Box *box : m_box->boxes())
+	for (auto box : qAsConst(m_box->boxes()))
 	{
 		count += box->boxes().count();
 	}

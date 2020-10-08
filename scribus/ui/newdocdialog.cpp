@@ -381,14 +381,14 @@ void NewDocDialog::createOpenDocPage()
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QList<QPushButton *> pushButtons = fileDialog->findChildren<QPushButton *>();
-	for (auto pushButton : pushButtons)
+	for (auto pushButton : qAsConst(pushButtons))
 		pushButton->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> listViews = fileDialog->findChildren<QListView *>();
-	for (auto listView : listViews)
+	for (auto listView : qAsConst(listViews))
 		listView->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));

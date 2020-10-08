@@ -36,9 +36,9 @@ class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 		void advSpinChange();
 		
 	protected:
-		int m_PageCount;
-		int m_RangeType;
-		int m_BasicRangeType;
+		int m_PageCount {0};
+		int m_RangeType {0};
+		int m_BasicRangeType {0};
 		QString m_PageString;
 };
 

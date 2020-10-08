@@ -202,7 +202,7 @@ public:
 	void setScale(const double newScale);
 	double scale() const;
 
-	virtual void changed(QRectF re, bool);
+	void changed(QRectF re, bool) override;
 
 	void updateCanvas(QRectF box = QRectF());
 	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x, y, width, height)); }
@@ -235,7 +235,7 @@ public: // for now
 
 	void scrollBy(int x, int y);
 	void scrollCanvasBy(double deltaX, double deltaY);
-	void scrollContentsBy(int dx, int dy);
+	void scrollContentsBy(int dx, int dy) override;
 
 	void zoom(double scale = 0.0);
 	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
@@ -337,10 +337,10 @@ public:
 	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
 
 protected: // Protected methods
-	virtual void enterEvent(QEvent *);
-	virtual void leaveEvent(QEvent *);
-	virtual void resizeEvent ( QResizeEvent * event );
-	bool eventFilter(QObject *obj, QEvent *event);
+	void enterEvent(QEvent *) override;
+	void leaveEvent(QEvent *) override;
+	void resizeEvent(QResizeEvent *event) override;
+	bool eventFilter(QObject *obj, QEvent *event) override;
 
 	// those appear to be gone from QScrollArea:
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);

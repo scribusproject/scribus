@@ -129,7 +129,8 @@ void GroupBox::removeBox(int i)
 void GroupBox::update()
 {
 	m_naturalHeight = m_naturalWidth = 0;
-	for (const Box* box : boxes()) {
+	for (const Box* box : boxes())
+	{
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 		if (m_direction == D_Horizontal)
@@ -469,7 +470,8 @@ void LineBox::justify(const ParagraphStyle& style)
 
 void PathLineBox::update()
 {
-	for (Box* box : boxes()) {
+	for (Box* box : boxes())
+	{
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 	}

@@ -17,7 +17,7 @@ CopyPageToMasterPageDialog::CopyPageToMasterPageDialog(int existingMasterNamesCo
 	setupUi(this);
 
 	QList<QAbstractButton *> buttonList = buttonBox->buttons();
-	for (QAbstractButton* b : buttonList)
+	for (QAbstractButton* b : qAsConst(buttonList))
 	{
 		if (buttonBox->buttonRole(b) == QDialogButtonBox::AcceptRole)
 			b->setText(CommonStrings::tr_OK);

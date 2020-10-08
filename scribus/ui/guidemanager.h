@@ -41,7 +41,7 @@ public:
 	void setDoc(ScribusDoc* doc);
 
 	/*! \brief Reimplement ScrPaletteBase::setVisible() */
-	virtual void setVisible(bool visible);
+	void setVisible(bool visible) override;
 
 	/*! \brief Set the widgets on the page change.
 	It has to be called on every page to page transition */

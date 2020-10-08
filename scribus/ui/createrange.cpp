@@ -18,9 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTabWidget>
 
 CreateRange::CreateRange(const QString& currText, int pageCount, QWidget* parent) : QDialog(parent),
-	m_PageCount(pageCount),
-	m_RangeType(0),
-	m_BasicRangeType(0)
+	m_PageCount(pageCount)
 {
 	setupUi(this);
 	pageCountValueLabel->setText(QString("%1").arg(pageCount));

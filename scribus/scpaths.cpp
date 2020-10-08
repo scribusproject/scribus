@@ -467,7 +467,7 @@ QStringList ScPaths::dirsFromEnvVar(const QString& envVar, const QString& dirToF
 			path_data = line.mid(envVar.length()+1); //eg, Strip "XDG_DATA_DIRS="
 	}
 	const QStringList splitpath_data(path_data.split(sep, QString::SkipEmptyParts));
-	for (QString dir : splitpath_data)
+	for (const QString &dir : splitpath_data)
 	{
 		QFileInfo info(dir+dirToFind);
 		if (info.exists())

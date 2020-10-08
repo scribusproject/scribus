@@ -21,34 +21,34 @@ class SCRIBUS_API DirectionSelect : public QWidget
 {
 	Q_OBJECT
 
-public:
-    DirectionSelect(QWidget* parent);
-    ~DirectionSelect() {};
+	public:
+		DirectionSelect(QWidget* parent);
+		~DirectionSelect() {};
 
-    void setStyle(int s);
-    int getStyle();
-    int selectedId();
+		void setStyle(int s);
+		int getStyle();
+		int selectedId();
 
-    QButtonGroup* buttonGroup { nullptr };
-    QToolButton* RTL { nullptr };
-    QToolButton* LTR { nullptr };
+		QButtonGroup* buttonGroup { nullptr };
+		QToolButton* RTL { nullptr };
+		QToolButton* LTR { nullptr };
 
-public slots:
-	void iconSetChange();
-    void languageChange();
+	public slots:
+		void iconSetChange();
+		void languageChange();
 
-protected:
-    QHBoxLayout* groupSelectLayout { nullptr };
-	
-    int m_selected { 0 };
+	protected:
+		QHBoxLayout* groupSelectLayout { nullptr };
 
-    void changeEvent(QEvent *e) override;
+		int m_selected { 0 };
 
-private slots:
-    void setTypeStyle(int a);
+		void changeEvent(QEvent *e) override;
 
-signals:
-    void State(int);
+	private slots:
+		void setTypeStyle(int a);
+
+	signals:
+		void State(int);
 };
 
 #endif // DIRECTIONSELECT_H

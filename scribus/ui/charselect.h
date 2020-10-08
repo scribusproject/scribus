@@ -38,7 +38,7 @@ public:
 	CharSelect(QWidget* parent);
 	~CharSelect();
 
-	void hide();
+	void hide() override;
 	void show();
 	void setDoc(ScribusDoc* doc);
 	void setEnabled(bool state, PageItem* item=0);

@@ -295,7 +295,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 	// Insert implicit spaces in justification between characters
 	// in scripts that do not use spaces to seperate words
-	for (const TextRun& run : scriptRuns)
+	for (const TextRun& run : qAsConst(scriptRuns))
 	{
 		switch (run.script) {
 		// clustered scripts from https://drafts.csswg.org/css-text-3/#script-groups
@@ -331,7 +331,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		}
 	}
 
-	for (const TextRun& textRun : textRuns)
+	for (auto textRun : qAsConst(textRuns))
 	{
 		const CharStyle &style = m_story.charStyle(m_textMap.value(textRun.start));
 

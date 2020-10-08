@@ -1453,7 +1453,7 @@ void  Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu, const QString
 void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 {
 	QList<PageItem_NoteFrame*> nfList;
-	for (NotesStyle* noteStyle : m_Doc->m_docNotesStylesList)
+	for (NotesStyle* noteStyle : qAsConst(m_Doc->m_docNotesStylesList))
 		nfList.append(m_Doc->listNotesFrames(noteStyle));
 
 	writeNotesFrames(docu, nfList);

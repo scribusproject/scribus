@@ -44,7 +44,7 @@ void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QStri
 	QString l(QDir::cleanPath(location));
 	if (!l.endsWith("/"))
 		l += "/";
-	for (const QString& u : m_urlList)
+	for (const QString& u : qAsConst(m_urlList))
 	{
 		QUrl url(u);
 		if (!urlOK(u))

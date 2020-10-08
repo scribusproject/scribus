@@ -541,7 +541,7 @@ public:
 
 	void begin(const Xml_string&, Xml_attr)
 	{
-		txt = "";
+		txt.clear();
 	}
 
 	void chars(const Xml_string& chunk)
@@ -634,11 +634,11 @@ public:
 				mode.isIdRef = true;
 			}
 			else {
-				mode.ID = "";
+				mode.ID.clear();
 				mode.isIdRef = false;
 			}
 		}
-		if (mode.ID != "")
+		if (!mode.ID.isEmpty())
 		{
 			Obj_Type* storedObj = this->dig->template lookup<Obj_Type>(mode.ID);
 			if ( !storedObj )

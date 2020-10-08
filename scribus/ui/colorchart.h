@@ -56,10 +56,10 @@ public:
 	void setMark(int h, int s);
 	void drawPalette(int val);
 
-	int Xp;
-	int Yp;
-	bool doDrawMark;
-	int drawMode;
+	int Xp {0};
+	int Yp {0};
+	bool doDrawMark {false};
+	int drawMode {0};
 	QPixmap pmx;
 
 protected:

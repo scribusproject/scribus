@@ -202,9 +202,9 @@ void Digester::chars(const Xml_string& text)
 
 Xml_string Digester::concat(const Xml_string& pattern1, const Xml_string& pattern2)
 {
-	if (pattern1 == "")
+	if (pattern1.isEmpty())
 		return pattern2;
-	if (pattern2 == "")
+	if (pattern2.isEmpty())
 		return pattern1;
 	if ( (pattern1[pattern1.length()-1] != '/') && (pattern2[0] != '/') )
 		// insert "/" as separator

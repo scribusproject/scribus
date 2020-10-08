@@ -49,7 +49,7 @@ public:
 public slots:
 	virtual void setPaletteShown(bool);
 	virtual void setFontSize();
-	virtual int exec() { return QDialog::exec();}
+	int exec() override { return QDialog::exec();}
 	int exec(QWidget* newParent);
 
 signals:
@@ -81,6 +81,6 @@ protected:
 	QWidget* m_tempParent { nullptr };
 
 protected slots:
-	virtual void reject();
+	void reject() override;
 };
 #endif

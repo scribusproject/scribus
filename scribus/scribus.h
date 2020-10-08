@@ -193,7 +193,7 @@ public:
 	 * @return true if application is in object specific undo mode, other wise returns false
 	 */
 	bool isObjectSpecificUndo();
-	void restore(UndoState* state, bool isUndo);
+	void restore(UndoState* state, bool isUndo) override;
 	void restoreGrouping(SimpleState *state, bool isUndo);
 	void restoreUngrouping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);

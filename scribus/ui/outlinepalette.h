@@ -76,7 +76,7 @@ public slots:
 	void iconSetChange();
 	void languageChange();
 	void slotShowSelect(int pageNr, PageItem *pageItem);
-	void setPaletteShown(bool);
+	void setPaletteShown(bool) override;
 	void slotRightClick(QPoint point);
 	void setActiveLayer(int layerID);
 	void setLayerVisible(int layerID);

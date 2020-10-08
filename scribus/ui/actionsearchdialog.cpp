@@ -103,14 +103,14 @@ void ActionSearchDialog::moveSelectionDown()
 void ActionSearchDialog::updateList()
 {
 	ui->actionsListWidget->clear();
-	
+
 	const auto filter = ui->filterLineEdit->text().trimmed();
 	if (filter.isEmpty())
 		return;
-	
-	if (!filter.contains(" ")) 
+
+	if (!filter.contains(" "))
 	{
-		for (const auto& name: m_actionNames)
+		for (auto& name: qAsConst(m_actionNames))
 		{
 			if (name.contains(filter, Qt::CaseInsensitive))
 			{
@@ -121,10 +121,10 @@ void ActionSearchDialog::updateList()
 	else
 	{
 		auto words = filter.split(" ");
-		for (const auto& name: m_actionNames)
+		for (auto& name: qAsConst(m_actionNames))
 		{
 			bool matches(true);
-			for (const auto& word: words)
+			for (auto& word: qAsConst(words))
 			{
 				if (!name.contains(word, Qt::CaseInsensitive))
 				{
@@ -132,13 +132,13 @@ void ActionSearchDialog::updateList()
 					break;
 				}
 			}
-			
+
 			if (!matches)
 				continue;
 			ui->actionsListWidget->addItem(name);
 		}
 	}
-	
+
 	if (ui->actionsListWidget->count() > 0)
 		ui->actionsListWidget->setCurrentRow(0);
 }
