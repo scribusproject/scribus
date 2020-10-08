@@ -48,7 +48,7 @@ bool ScPrintEngine_PDF::print(PrintOptions& options)
 	if (options.toFile)
 		return true;
 
-	// Print and delete the PS file
+	// Print and delete the PDF file
 	QByteArray cmd;
 	if (options.useAltPrintCommand)
 	{
