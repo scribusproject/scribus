@@ -709,6 +709,11 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 	// For multiple selections or if current item has no text selected, we apply style in normal mode
 	if (currentDoc->m_Selection->isMultipleSelection() || (item->itemText.selectionLength() <= 0))
 	{
+		if (currentDoc->m_Selection->count() <= 1)
+		{
+			currentView->deselectItems(true);
+			currentView->selectItem(item, false);
+		}
 		int mode = currentDoc->appMode;
 		currentDoc->appMode = modeNormal;
 		currentDoc->itemSelection_SetNamedParagraphStyle(paraStyleName);
@@ -780,6 +785,11 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 	// For multiple selections or if current item has no text selected, we apply style in normal mode
 	if (currentDoc->m_Selection->isMultipleSelection() || (item->itemText.selectionLength() <= 0))
 	{
+		if (currentDoc->m_Selection->count() <= 1)
+		{
+			currentView->deselectItems(true);
+			currentView->selectItem(item, false);
+		}
 		int mode = currentDoc->appMode;
 		currentDoc->appMode = modeNormal;
 		currentDoc->itemSelection_SetNamedCharStyle(charStyleName);
