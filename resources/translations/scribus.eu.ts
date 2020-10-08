@@ -4494,7 +4494,7 @@ Insert teklak glifo bat txertatzen du beheko hautapenean, eta Supr teklak txerta
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
         <source>Object is not on a Page</source>
-        <translation>Objektua ez da orria</translation>
+        <translation>Objektua ez dago orri batean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
