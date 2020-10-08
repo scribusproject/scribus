@@ -61,7 +61,7 @@ bool ScPrintEngine_PS::print(PrintOptions& options)
 	{
 		cmd += options.printerCommand;
 		cmd += " ";
-		cmd += filename;
+		cmd += "\"" + filename + "\"";
 		system(cmd.data());
 	}
 	else
@@ -73,7 +73,8 @@ bool ScPrintEngine_PS::print(PrintOptions& options)
 		if (options.copies > 1)
 			cmd += " -#" + cc.setNum(options.copies);
 		cmd += options.printerOptions;
-		cmd += " " + filename;
+		cmd += " ";
+		cmd += "\"" + filename + "\"";
 		system(cmd.data());
 	}
 	// Disabled that for now, as kprinter won't work otherwise
