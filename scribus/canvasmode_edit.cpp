@@ -527,7 +527,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 {
-	qDebug()<<"CanvasMode_Edit::mousePressEvent 1"<<m_doc->isModified();
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
@@ -577,33 +576,28 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	int oldP=0;
 	if (GetItem(&currItem))
 	{
-		qDebug()<<"CanvasMode_Edit::mousePressEvent 2"<<m_doc->isModified();
 //		m_view->slotDoCurs(false);
 		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->isLine())
 		{
 			FPoint canvasPoint = m_canvas->globalToCanvas(m->globalPos());
 			if (m_canvas->frameHitTest(QPointF(canvasPoint.x(), canvasPoint.y()), currItem) < 0)
 			{
-				qDebug()<<"CanvasMode_Edit::mousePressEvent 3"<<m_doc->isModified();
 				m_doc->m_Selection->delaySignalsOn();
 				m_view->deselectItems(true);
 				bool wantNormal = true;
 				if (SeleItem(m))
 				{
-					qDebug()<<"CanvasMode_Edit::mousePressEvent 4"<<m_doc->isModified();
 					currItem = m_doc->m_Selection->itemAt(0);
 					if ((currItem->isTextFrame()) || (currItem->isImageFrame()))
 					{
 						m_view->requestMode(modeEdit);
 						wantNormal = false;
-						qDebug()<<"CanvasMode_Edit::mousePressEvent 21"<<m_doc->isModified();
 					}
 					else
 					{
 						m_view->requestMode(submodePaintingDone);
 						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					}
-					qDebug()<<"CanvasMode_Edit::mousePressEvent 10"<<m_doc->isModified();
 					if (currItem->isTextFrame())
 					{
 						m_view->slotSetCurs(m->globalPos().x(), m->globalPos().y());
@@ -714,7 +708,6 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		}
 		else if (!currItem->isImageFrame() || m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) < 0)
 		{
-				qDebug()<<"CanvasMode_Edit::mousePressEvent 7"<<m_doc->isModified();
 			m_view->deselectItems(true);
 			if (SeleItem(m))
 			{
