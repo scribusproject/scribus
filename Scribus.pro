@@ -1110,6 +1110,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/prefs_typographybase.ui \
          scribus/ui/prefs_userinterfacebase.ui \
          scribus/ui/printdialogbase.ui \
+         scribus/ui/printpreviewbase.ui \
          scribus/ui/propertiespalette_groupbase.ui \
          scribus/ui/propertiespalette_imagebase.ui \
          scribus/ui/propertiespalette_linebase.ui \
