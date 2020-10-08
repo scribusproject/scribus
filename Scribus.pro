@@ -556,6 +556,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/prefs_typography.h \
            scribus/ui/prefs_userinterface.h \
            scribus/ui/printdialog.h \
+           scribus/ui/printlanguagecombo.h \
            scribus/ui/printpreview.h \
            scribus/ui/propertiespalette.h \
            scribus/ui/propertiespalette_group.h \
@@ -1026,6 +1027,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.h \
            scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.h \
            scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.h
+
 FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/actionsearchdialog.ui \
          scribus/ui/aligndistribute.ui \
@@ -1149,20 +1151,11 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/tablecolumnwidthsdialog.ui \
          scribus/ui/tablerowheightsdialog.ui \
          scribus/ui/tabpdfoptions.ui \
-         scribus/ui/test_xyz.ui \
-         scribus/ui/test_xyzbase.ui \
          scribus/ui/transformdialogbase.ui \
          scribus/ui/transparencypalette.ui \
          scribus/ui/unicodesearch.ui \
          scribus/ui/useprintermarginsdialog.ui \
          scribus/ui/weldeditbase.ui \
-         scribus/ui/xyz.ui \
-         scribus/ui/xyz2.ui \
-         scribus/ui/xyz3.ui \
-         scribus/ui/xyz4.ui \
-         scribus/ui/xyz5.ui \
-         scribus/ui/xyz_dw.ui \
-         scribus/ui/xyz_vert.ui \
          scribus/plugins/barcodegenerator/barcodegenerator.ui \
          scribus/plugins/colorwheel/cwdialog.ui \
          scribus/plugins/fontpreview/fontpreview.ui \
@@ -1188,6 +1181,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/scripter/python/sceditor/mainwindow.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
          scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
+
 SOURCES += scribus/actionmanager.cpp \
            scribus/actionsearch.cpp \
            scribus/appmodehelper.cpp \
@@ -1690,6 +1684,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/prefs_typography.cpp \
            scribus/ui/prefs_userinterface.cpp \
            scribus/ui/printdialog.cpp \
+           scribus/ui/printlanguagecombo.cpp \
            scribus/ui/printpreview.cpp \
            scribus/ui/propertiespalette.cpp \
            scribus/ui/propertiespalette_group.cpp \
