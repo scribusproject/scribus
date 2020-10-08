@@ -3272,6 +3272,8 @@ bool ScribusDoc::lowerLayer(int layerID)
 
 bool ScribusDoc::lowerLayerByLevel(int layerLevel)
 {
+	if (layerLevel <= 0)
+		return false;
 	if (Layers.count() < 2)
 		return false;
 	if (UndoManager::undoEnabled())
@@ -3319,6 +3321,8 @@ bool ScribusDoc::raiseLayer(int layerID)
 
 bool ScribusDoc::raiseLayerByLevel(int layerLevel)
 {
+	if (layerLevel >= Layers.count() - 1)
+		return false;
 	if (Layers.count() < 2)
 		return false;
 	if (UndoManager::undoEnabled())
