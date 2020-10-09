@@ -418,8 +418,8 @@ void ScripterCore::slotRunScript(const QString& Script)
 				"    sys.stderr = scribus._bu\n"
 				"    sys.argv = ['scribus']\n" // this is the PySys_SetArgv replacement
 				"    scribus.mainInterpreter = True\n" // the scripter console runs everything in the main interpreter
-				"    for i in scribus.getval().splitlines():\n"
-				"        scribus._ia.push(i)\n"
+				"    for scribus._i_str in scribus.getval().splitlines():\n"
+				"        scribus._ia.push(scribus._i_str)\n"
 				"    scribus.retval(scribus._bu.getvalue())\n"
 				"    sys.stdout = sys.__stdout__\n"
 				"    sys.stderr = sys.__stderr__\n"
