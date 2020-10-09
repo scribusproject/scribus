@@ -186,22 +186,22 @@ void Prefs_Guides::restoreDefaults(struct ApplicationPrefs *prefsData)
 void Prefs_Guides::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->guidesPrefs.renderStackOrder = renderStackOrder;
-	prefsData->guidesPrefs.guideRad=guideSnapDistanceSpinBox->value();
-	prefsData->guidesPrefs.grabRadius=guideGrabRadiusSpinBox->value();
-	prefsData->guidesPrefs.guidesShown=visibilityGuidesCheckBox->isChecked();
-	prefsData->guidesPrefs.marginsShown=visibilityMarginsCheckBox->isChecked();
-	prefsData->guidesPrefs.gridShown=visibilityGridCheckBox->isChecked();
-	prefsData->guidesPrefs.baselineGridShown=visibilityBaselineGridCheckBox->isChecked();
+	prefsData->guidesPrefs.guideRad = guideSnapDistanceSpinBox->value();
+	prefsData->guidesPrefs.grabRadius = guideGrabRadiusSpinBox->value();
+	prefsData->guidesPrefs.guidesShown = visibilityGuidesCheckBox->isChecked();
+	prefsData->guidesPrefs.marginsShown = visibilityMarginsCheckBox->isChecked();
+	prefsData->guidesPrefs.gridShown = visibilityGridCheckBox->isChecked();
+	prefsData->guidesPrefs.baselineGridShown = visibilityBaselineGridCheckBox->isChecked();
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
-	prefsData->guidesPrefs.majorGridSpacing=majorGridSpacingSpinBox->value() / unitRatio;
-	prefsData->guidesPrefs.minorGridSpacing=minorGridSpacingSpinBox->value() / unitRatio;
-	prefsData->guidesPrefs.valueBaselineGrid=baselineGridSpacingSpinBox->value();
-	prefsData->guidesPrefs.offsetBaselineGrid=baselineGridOffsetSpinBox->value();
-	prefsData->guidesPrefs.guideColor=colorGuides;
-	prefsData->guidesPrefs.marginColor=colorMargin;
-	prefsData->guidesPrefs.majorGridColor=colorMajorGrid;
-	prefsData->guidesPrefs.minorGridColor=colorMinorGrid;
-	prefsData->guidesPrefs.baselineGridColor=colorBaselineGrid;
+	prefsData->guidesPrefs.majorGridSpacing = majorGridSpacingSpinBox->value() / unitRatio;
+	prefsData->guidesPrefs.minorGridSpacing = minorGridSpacingSpinBox->value() / unitRatio;
+	prefsData->guidesPrefs.valueBaselineGrid = baselineGridSpacingSpinBox->value();
+	prefsData->guidesPrefs.offsetBaselineGrid = baselineGridOffsetSpinBox->value();
+	prefsData->guidesPrefs.guideColor = colorGuides;
+	prefsData->guidesPrefs.marginColor = colorMargin;
+	prefsData->guidesPrefs.majorGridColor = colorMajorGrid;
+	prefsData->guidesPrefs.minorGridColor = colorMinorGrid;
+	prefsData->guidesPrefs.baselineGridColor = colorBaselineGrid;
 	prefsData->guidesPrefs.gridType = gridTypeCombo->currentIndex();
 }
 
@@ -268,9 +268,9 @@ void Prefs_Guides::changeMarginColor()
 void Prefs_Guides::changeRenderStack()
 {
 	renderStackOrder.clear();
-	for (int a = 0; a < guidePlacementListBox->count(); a++)
+	for (int i = 0; i < guidePlacementListBox->count(); i++)
 	{
-		renderStackOrder.prepend(guidePlacementListBox->item(a)->data(Qt::UserRole).toInt());
+		renderStackOrder.prepend(guidePlacementListBox->item(i)->data(Qt::UserRole).toInt());
 	}
 	int curr = guidePlacementListBox->currentRow();
 	if (curr == 0)
@@ -296,7 +296,7 @@ void Prefs_Guides::moveUp()
 	if (curr == 0)
 		return;
 	QListWidgetItem *it = guidePlacementListBox->takeItem(curr);
-	guidePlacementListBox->insertItem(curr-1, it);
+	guidePlacementListBox->insertItem(curr - 1, it);
 	guidePlacementListBox->setCurrentItem(it);
 	changeRenderStack();
 }
@@ -304,10 +304,10 @@ void Prefs_Guides::moveUp()
 void Prefs_Guides::moveDown()
 {
 	int curr = guidePlacementListBox->currentRow();
-	if (curr == static_cast<int>(guidePlacementListBox->count())-1)
+	if (curr == static_cast<int>(guidePlacementListBox->count()) - 1)
 		return;
 	QListWidgetItem *it = guidePlacementListBox->takeItem(curr);
-	guidePlacementListBox->insertItem(curr+1, it);
+	guidePlacementListBox->insertItem(curr + 1, it);
 	guidePlacementListBox->setCurrentItem(it);
 	changeRenderStack();
 }

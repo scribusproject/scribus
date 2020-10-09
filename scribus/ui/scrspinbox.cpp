@@ -94,7 +94,7 @@ void ScrSpinBox::stepBy(int steps)
 
 void ScrSpinBox::setParameters( int s )
 {
-	if (s>=0 && s <=unitGetMaxIndex())
+	if (s >= 0 && s <= unitGetMaxIndex())
 		setDecimals(static_cast<int>(pow(10.0, s)));
 	else
 		setDecimals(100);
