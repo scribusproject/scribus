@@ -710,6 +710,7 @@ PyObject* PyInit_scribus(void)
 	// Done with exception setup
 
 	// CONSTANTS
+	// Units
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyLong_FromLong(unitIndexFromString("pt")));
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyLong_FromLong(unitIndexFromString("mm")));
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyLong_FromLong(unitIndexFromString("in")));
@@ -722,39 +723,50 @@ PyObject* PyInit_scribus(void)
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_P"), PyLong_FromLong(unitIndexFromString("p")));
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_CM"), PyLong_FromLong(unitIndexFromString("cm")));
 	PyDict_SetItemString(d, const_cast<char*>("UNIT_C"), PyLong_FromLong(unitIndexFromString("c")));
+	// Page orientation
 	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), portraitPage));
 	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), landscapePage));
+	// Page layout
 	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("FACINGPAGES"),  Py_BuildValue(const_cast<char*>("i"), 1));
+	// First page position
 	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
+	// Text horizontal alignment
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_BLOCK"), Py_BuildValue(const_cast<char*>("i"), 3));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_FORCED"), Py_BuildValue(const_cast<char*>("i"), 4));
+	// Text vertical alignment
 	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_TOP"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGNV_BOTTOM"), Py_BuildValue(const_cast<char*>("i"), 2));
+	// Text direction
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_LTR"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_RTL"), Py_BuildValue(const_cast<char*>("i"), 1));
+	// Fill mode
 	PyDict_SetItemString(d, const_cast<char*>("FILL_NOG"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_HORIZONTALG"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_VERTICALG"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_DIAGONALG"), Py_BuildValue(const_cast<char*>("i"), 3));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_CROSSDIAGONALG"), Py_BuildValue(const_cast<char*>("i"), 4));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_RADIALG"), Py_BuildValue(const_cast<char*>("i"), 5));
+	// Stroke type
 	PyDict_SetItemString(d, const_cast<char*>("LINE_SOLID"), Py_BuildValue(const_cast<char*>("i"), Qt::SolidLine));
 	PyDict_SetItemString(d, const_cast<char*>("LINE_DASH"), Py_BuildValue(const_cast<char*>("i"), Qt::DashLine));
 	PyDict_SetItemString(d, const_cast<char*>("LINE_DOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DotLine));
 	PyDict_SetItemString(d, const_cast<char*>("LINE_DASHDOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DashDotLine));
 	PyDict_SetItemString(d, const_cast<char*>("LINE_DASHDOTDOT"), Py_BuildValue(const_cast<char*>("i"), Qt::DashDotDotLine));
+	// Line join type
 	PyDict_SetItemString(d, const_cast<char*>("JOIN_MITTER"), Py_BuildValue(const_cast<char*>("i"), Qt::MiterJoin));
 	PyDict_SetItemString(d, const_cast<char*>("JOIN_BEVEL"), Py_BuildValue(const_cast<char*>("i"), Qt::BevelJoin));
 	PyDict_SetItemString(d, const_cast<char*>("JOIN_ROUND"), Py_BuildValue(const_cast<char*>("i"), Qt::RoundJoin));
+	// Line cap type
 	PyDict_SetItemString(d, const_cast<char*>("CAP_FLAT"), Py_BuildValue(const_cast<char*>("i"), Qt::FlatCap));
 	PyDict_SetItemString(d, const_cast<char*>("CAP_SQUARE"), Py_BuildValue(const_cast<char*>("i"), Qt::SquareCap));
 	PyDict_SetItemString(d, const_cast<char*>("CAP_ROUND"), Py_BuildValue(const_cast<char*>("i"), Qt::RoundCap));
+	// QMessageBox buttons
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoButton));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_OK"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ok));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_CANCEL"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Cancel));
@@ -765,6 +777,7 @@ PyObject* PyInit_scribus(void)
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_IGNORE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ignore));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_DEFAULT"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Default));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_ESCAPE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Escape));
+	// QMessageBox icons
 	PyDict_SetItemString(d, const_cast<char*>("ICON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoIcon));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_INFORMATION"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Information));
 	PyDict_SetItemString(d, const_cast<char*>("ICON_WARNING"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Warning));
