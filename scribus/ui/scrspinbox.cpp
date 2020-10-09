@@ -134,7 +134,7 @@ void ScrSpinBox::getValues(double *min, double *max, int *deci, double *val) con
 
 double ScrSpinBox::getValue(int unitIndex) const
 {
-	double val=value() / unitGetRatioFromIndex(m_unitIndex);
+	double val = value() / unitGetRatioFromIndex(m_unitIndex);
 	if (unitIndex == 0)
 		return val;
 	return val * unitGetRatioFromIndex(unitIndex);
@@ -171,9 +171,9 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 //	qDebug()<<"crtSepDecimal"<<crtSepDecimal;
 	QRegExp rxP;
 	if (m_unitIndex==SC_PICAS)
-		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\"+crtSepDecimal+"?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\" + crtSepDecimal + "?\\d*)?\\b");
 	else
-		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\"+crtSepDecimal+"?\\d*)?\\b");
+		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\" + crtSepDecimal + "?\\d*)?\\b");
 	int posP = 0;
 	while (posP >= 0)
 	{
