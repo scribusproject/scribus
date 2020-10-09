@@ -606,7 +606,7 @@ PyObject *scribus_layouttextchain(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setalignment(PyObject* /* self */, PyObject* args)
+PyObject *scribus_settextalignment(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int alignment;
@@ -1522,7 +1522,6 @@ void cmdtextdocwarnings()
 	  << scribus_outlinetext__doc__
 	  << scribus_selectframetext__doc__
 	  << scribus_selecttext__doc__
-	  << scribus_setalign__doc__
 	  << scribus_setcolumngap__doc__
 	  << scribus_setcolumns__doc__
 	  << scribus_setdirection__doc__
@@ -1534,6 +1533,7 @@ void cmdtextdocwarnings()
 	  << scribus_setpdfbookmark__doc__
 	  << scribus_settextdistances__doc__
 	  << scribus_settext__doc__
+	  << scribus_settextalignment__doc__
 	  << scribus_settextfill__doc__
 	  << scribus_settextscalingh__doc__
 	  << scribus_settextscalingv__doc__

@@ -564,7 +564,7 @@ PyMethodDef scribus_methods[] = {
     {const_cast<char*>("setTableStyle"), scribus_settablestyle, METH_VARARGS, tr(scribus_settablestyle__doc__)},
     {const_cast<char*>("setTableTopBorder"), scribus_settabletopborder, METH_VARARGS, tr(scribus_settabletopborder__doc__)},
     {const_cast<char*>("setText"), scribus_settext, METH_VARARGS, tr(scribus_settext__doc__)},
-    {const_cast<char*>("setTextAlignment"), scribus_setalignment, METH_VARARGS, tr(scribus_setalign__doc__)},
+    {const_cast<char*>("setTextAlignment"), scribus_settextalignment, METH_VARARGS, tr(scribus_settextalignment__doc__)},
     {const_cast<char*>("setTextColor"), scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
     {const_cast<char*>("setTextDirection"), scribus_setdirection, METH_VARARGS, tr(scribus_setdirection__doc__)},
     {const_cast<char*>("setTextDistances"), scribus_settextdistances, METH_VARARGS, tr(scribus_settextdistances__doc__)},

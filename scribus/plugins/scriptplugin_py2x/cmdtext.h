@@ -395,7 +395,7 @@ May throw ValueError if number of columns is not at least one.\n\
 PyObject *scribus_setcolumns(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setalign__doc__,
+PyDoc_STRVAR(scribus_settextalignment__doc__,
 QT_TR_NOOP("setTextAlignment(align, [\"name\"])\n\
 \n\
 Sets the text alignment of the text frame \"name\" to the specified alignment.\n\
@@ -405,7 +405,7 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).\n\
 May throw ValueError for an invalid alignment constant.\n\
 "));
 /*! Set alignt */
-PyObject *scribus_setalignment(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_settextalignment(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextverticalalignment__doc__,
