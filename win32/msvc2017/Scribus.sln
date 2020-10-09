@@ -360,6 +360,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qxpimport", "qxpimport\qxpi
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gettext-markdownim", "gettext-markdownim\gettext-markdownim.vcxproj", "{918AFADC-9F6A-4286-AF39-32F889DABCC1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -944,6 +949,14 @@ Global
 		{630E2D8B-919E-4C52-9894-75D3873B4A7A}.Release|Win32.Build.0 = Release|Win32
 		{630E2D8B-919E-4C52-9894-75D3873B4A7A}.Release|x64.ActiveCfg = Release|x64
 		{630E2D8B-919E-4C52-9894-75D3873B4A7A}.Release|x64.Build.0 = Release|x64
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Debug|Win32.Build.0 = Debug|Win32
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Debug|x64.ActiveCfg = Debug|x64
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Debug|x64.Build.0 = Debug|x64
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Release|Win32.ActiveCfg = Release|Win32
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Release|Win32.Build.0 = Release|Win32
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Release|x64.ActiveCfg = Release|x64
+		{918AFADC-9F6A-4286-AF39-32F889DABCC1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
