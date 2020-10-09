@@ -704,7 +704,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	if (currItem->itemText.cursorPosition() < SelCharStart)
 		SelCharStart = currItem->itemText.cursorPosition();
 	SelCharStart -= currItem->itemText.startOfParagraph(newSelParaStart);
-	if (SelStack.count())
+	if (!SelStack.isEmpty())
 		std::get<1>(SelStack.top()) = -1;
 	//qDebug() << "SE::loadItemText: cursor";
 //	setCursorPosition(SelParaStart, SelCharStart);
@@ -903,7 +903,7 @@ void SEditor::updateFromChars(int pa)
 void SEditor::updateSel(const ParagraphStyle& newStyle)
 {
 	int PStart, PEnd, SelStart, SelEnd, start;
-	if (SelStack.count())
+	if (!SelStack.isEmpty())
 	{
 		QTextCursor tc(textCursor());
 		int selFirst, selSecond, selThird;
@@ -928,7 +928,7 @@ void SEditor::updateSel(const ParagraphStyle& newStyle)
 
 void SEditor::updateSel(const CharStyle& newStyle)
 {
-	if (SelStack.count())
+	if (!SelStack.isEmpty())
 	{
 		QTextCursor tc(textCursor());
 		int selFirst, selSecond, selThird;

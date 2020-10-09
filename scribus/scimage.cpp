@@ -2171,7 +2171,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	{
 		pDataLoader->loadEmbeddedProfile(fn, page);
 		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
-		if	(embeddedProfile.size())
+		if	(!embeddedProfile.isEmpty())
 		{
 			prof = ScCore->defaultEngine.openProfileFromMem(embeddedProfile);
 			if (prof)
