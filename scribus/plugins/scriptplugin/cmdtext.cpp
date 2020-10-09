@@ -367,7 +367,7 @@ PyObject *scribus_getfirstlineoffset(PyObject* /* self */, PyObject* args)
 	return PyLong_FromLong(static_cast<long>(item->firstLineOffset()));
 }
 
-PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -824,7 +824,7 @@ PyObject *scribus_setfirstlineoffset(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlinespacing(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double w;
@@ -859,7 +859,7 @@ PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_setlinespacemode(PyObject* /* self */, PyObject* args)
+PyObject *scribus_setlinespacingmode(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -1547,7 +1547,7 @@ void cmdtextdocwarnings()
 	  << scribus_getfontsize__doc__
 	  << scribus_getframetext__doc__
 	  << scribus_getlastlinkedframe__doc__
-	  << scribus_getlinespace__doc__
+	  << scribus_getlinespacing__doc__
 	  << scribus_getnextlinkedframe__doc__
 	  << scribus_getprevlinkedframe__doc__
 	  << scribus_gettext__doc__ // Deprecated
@@ -1575,8 +1575,8 @@ void cmdtextdocwarnings()
 	  << scribus_setfont__doc__
 	  << scribus_setfontfeatures__doc__
 	  << scribus_setfontsize__doc__
-	  << scribus_setlinespace__doc__
-	  << scribus_setlinespacemode__doc__
+	  << scribus_setlinespacing__doc__
+	  << scribus_setlinespacingmode__doc__
 	  << scribus_setpdfbookmark__doc__
 	  << scribus_settextdistances__doc__
 	  << scribus_settext__doc__

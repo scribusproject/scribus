@@ -188,14 +188,14 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfirstlineoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlinespace__doc__,
+PyDoc_STRVAR(scribus_getlinespacing__doc__,
 QT_TR_NOOP("getLineSpacing([\"name\"]) -> float\n\
 \n\
 Returns the line spacing (\"leading\") of the text frame \"name\" expressed in\n\
 points. If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get line space */
-PyObject *scribus_getlinespace(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlinespacing(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextdistances__doc__,
@@ -354,7 +354,7 @@ May throw ValueError for an invalid offset constant.\n\
 PyObject *scribus_setfirstlineoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setlinespace__doc__,
+PyDoc_STRVAR(scribus_setlinespacing__doc__,
 QT_TR_NOOP("setLineSpacing(size, [\"name\"])\n\
 \n\
 Sets the line spacing (\"leading\") of the text frame \"name\" to \"size\".\n\
@@ -364,10 +364,10 @@ item is used.\n\
 May throw ValueError if the line spacing is out of bounds.\n\
 "));
 /*! Set line space */
-PyObject *scribus_setlinespace(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlinespacing(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_setlinespacemode__doc__,
+PyDoc_STRVAR(scribus_setlinespacingmode__doc__,
 QT_TR_NOOP("setLineSpacingMode(mode, [\"name\"])\n\
 \n\
 Sets the line spacing mode of the text frame \"name\" to \"mode\".\n\
@@ -378,7 +378,7 @@ Mode values are the same as in createParagraphStyle.\n\
 May throw ValueError if the mode is out of bounds.\n\
 "));
 /*! Set line space mode */
-PyObject *scribus_setlinespacemode(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_setlinespacingmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextdistances__doc__,
