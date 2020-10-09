@@ -32,6 +32,10 @@
 <dd><code>getColumns(["name"]) -&gt; integer</code>
 <p>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
 
+<dt><a name="-getFirstLineOffset"><strong>getFirstLineOffset</strong></a>(...)</dt>
+<dd><code>getFirstLineOffset(["name"]) -&gt; string</code>
+<p>Gets the offset of the first line of text inside text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
 <dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
 <dd><code>getFirstLinkedFrame(["name"]) -&gt; string</code>
 <p>Return the first text frame in the chain. If "name" is not given the currently selected item is used.</p></dd>
@@ -160,6 +164,13 @@ is not given the currently selected item is used.</p></dd>
 <dd><code>setColumnGap(size, ["name"])</code>
 <p>Sets the column gap of the text frame "name" to the value "size". If "name" is not given the currently selected item is used.</p>
 <p>May throw ValueError if the column gap is out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setFirstLineOffset"><strong>setFirstLineOffset</strong></a>(...)</dt>
+<dd>
+<code>setFirstLineOffset(offset, ["name"])</code>
+<p>Sets the offset of the first line of text inside text frame "name" to the specified offset policy. If "name" is not given the currently selected item is used. "offset" should be one of the FLOP_* constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid offset constant.</p>
+</dd>
 
 <dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
 <dd><code>setFont("font", ["name"])</code>

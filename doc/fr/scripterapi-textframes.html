@@ -26,8 +26,12 @@ réel</code>
 <dd><code>getColumns(["nom"]) -&gt; nombre entier</code>
 <p>Donne le nombre de colonnes du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
+<dt><a name="-getFirstLineOffset"><strong>getFirstLineOffset</strong></a>(...)</dt>
+<dd><code>getFirstLineOffset(["nom"]) -&gt; nombre entier</code>
+<p>Retourne l'offset de la première ligne de texte à l'intérieur du cadre de texte "nom". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
+
 <dt><a name="-getFirstLinkedFrame"><strong>getFirstLinkedFrame</strong></a>(...)</dt>
-<dd><code>getFirstLinkedFrame(["name"]) -&gt; chaîne</code>
+<dd><code>getFirstLinkedFrame(["nom"]) -&gt; chaîne</code>
 <p>Retourne le premier cadre dans la chaîne de texte. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé.</p></dd>
 
 <dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
@@ -134,6 +138,11 @@ moins égal &agrave; un.</p></dd>
 <p>Définit la gouttière de colonne du cadre de texte "nom" &agrave; la valeur "taille". Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
 <p>Peut générer ValueError si la gouttière de colonne est hors
 limites (elle doit &ecirc;tre positive).</p></dd>
+
+<dt><a name="-setFirstLineOffset"><strong>setFirstLineOffset</strong></a>(...)</dt>
+<dd><code>setFirstLineOffset(offset, ["nom"])</code>
+<p>Définit l'offset de la première ligne de texte du cadre de texte "nom" &agrave; la valeur spécifiée. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. La valeur "offset" doit &ecirc;tre une des constantes FLOP_* définies dans ce module - voir dir(scribus).</p>
+<p>Peut générer ValueError si la constante d'offset n'est pas valide.</p></dd>
 
 <dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
 <dd><code>setFont("police", ["nom"])</code>

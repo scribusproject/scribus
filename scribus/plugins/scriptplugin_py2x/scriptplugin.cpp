@@ -356,6 +356,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getFillColor"), scribus_getfillcolor, METH_VARARGS, tr(scribus_getfillcolor__doc__)},
 	{const_cast<char*>("getFillShade"), scribus_getfillshade, METH_VARARGS, tr(scribus_getfillshade__doc__)},
 	{const_cast<char*>("getFillTransparency"), scribus_getfilltrans, METH_VARARGS, tr(scribus_getfilltrans__doc__)},
+	{const_cast<char*>("getFirstLineOffset"), scribus_getfirstlineoffset, METH_VARARGS, tr(scribus_getfirstlineoffset__doc__)},
 	{const_cast<char*>("getFirstLinkedFrame"), scribus_getfirstlinkedframe, METH_VARARGS, tr(scribus_getfirstlinkedframe__doc__)},
 	{const_cast<char*>("getFont"), scribus_getfont, METH_VARARGS, tr(scribus_getfont__doc__)},
 	{const_cast<char*>("getFontFeatures"), scribus_getfontfeatures, METH_VARARGS, tr(scribus_getfontfeatures__doc__)},
@@ -517,6 +518,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setFillColor"), scribus_setfillcolor, METH_VARARGS, tr(scribus_setfillcolor__doc__)},
 	{const_cast<char*>("setFillShade"), scribus_setfillshade, METH_VARARGS, tr(scribus_setfillshade__doc__)},
 	{const_cast<char*>("setFillTransparency"), scribus_setfilltrans, METH_VARARGS, tr(scribus_setfilltrans__doc__)},
+	{const_cast<char*>("setFirstLineOffset"), scribus_setfirstlineoffset, METH_VARARGS, tr(scribus_setfirstlineoffset__doc__)},
 	{const_cast<char*>("setFont"), scribus_setfont, METH_VARARGS, tr(scribus_setfont__doc__)},
 	{const_cast<char*>("setFontFeatures"), scribus_setfontfeatures, METH_VARARGS, tr(scribus_setfontfeatures__doc__)},
 	{const_cast<char*>("setFontSize"), scribus_setfontsize, METH_VARARGS, tr(scribus_setfontsize__doc__)},
@@ -705,6 +707,11 @@ void initscribus(ScribusMainWindow *mainWin)
 	// Text direction
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_LTR"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("DIRECTION_RTL"), Py_BuildValue(const_cast<char*>("i"), 1));
+	// First line offset
+	PyDict_SetItemString(d, const_cast<char*>("FLOP_REALGLYPHHEIGHT"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPRealGlyphHeight));
+	PyDict_SetItemString(d, const_cast<char*>("FLOP_FONTASCENT"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPFontAscent));
+	PyDict_SetItemString(d, const_cast<char*>("FLOP_LINESPACING"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPLineSpacing));
+	PyDict_SetItemString(d, const_cast<char*>("FLOP_BASELINEGRID"), Py_BuildValue(const_cast<char*>("i"), (int) FLOPBaselineGrid));
 	// Fill mode
 	PyDict_SetItemString(d, const_cast<char*>("FILL_NOG"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("FILL_HORIZONTALG"), Py_BuildValue(const_cast<char*>("i"), 1));

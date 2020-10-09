@@ -349,6 +349,24 @@ PyObject *scribus_getprevlinkedframe(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getfirstlineoffset(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get first line offset of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return PyInt_FromLong(static_cast<long>(item->firstLineOffset()));
+}
+
 PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -775,6 +793,33 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		doc->appMode = modeEdit;
 	doc->itemSelection_SetFont(QString::fromUtf8(Font), &tmpSelection);
 	doc->appMode = oldAppMode;
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setfirstlineoffset(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int offset;
+	if (!PyArg_ParseTuple(args, "i|es", &offset, "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (offset < 0 || offset > (int) FLOPBaselineGrid)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("First line offset out of bounds, Use one of the scribus.FLOP_* constants.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set first line offset on a non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	item->setFirstLineOffset((FirstLineOffsetPolicy) offset);
+	item->update();
 
 	Py_RETURN_NONE;
 }
@@ -1495,6 +1540,7 @@ void cmdtextdocwarnings()
 	  << scribus_getalltext__doc__
 	  << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__
+	  << scribus_getfirstlineoffset__doc__
 	  << scribus_getfirstlinkedframe__doc__
 	  << scribus_getfont__doc__
 	  << scribus_getfontfeatures__doc__
@@ -1520,10 +1566,12 @@ void cmdtextdocwarnings()
 	  << scribus_layouttextchain__doc__
 	  << scribus_linktextframes__doc__
 	  << scribus_outlinetext__doc__
+	  << scribus_selectframetext__doc__
 	  << scribus_selecttext__doc__
 	  << scribus_setcolumngap__doc__
 	  << scribus_setcolumns__doc__
 	  << scribus_setdirection__doc__
+	  << scribus_setfirstlineoffset__doc__
 	  << scribus_setfont__doc__
 	  << scribus_setfontfeatures__doc__
 	  << scribus_setfontsize__doc__

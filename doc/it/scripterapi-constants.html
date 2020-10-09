@@ -1,241 +1,255 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Constantes prédéfinies</title>
+	<title>Predefined Constants</title>
 </head>
+<style>
+@import "manual.css";
+</style>
 <body>
-<h2>Constantes prédéfinies</h2>
+<h2>Predefined Constants</h2>
 
-<p>Des constantes sont définies pour aider à utiliser les commandes: </p>
+<p>There are some Constants defined to help using the Commands: </p>
 
-<h4>Version Scribus :</h4>
-	<p>L'interface de script fournit deux variables contenant la version
-courante de Scribus dans le module <code>Scribus</code>. Les scripts peuvent utiliser ces variables pour vérifier qu'ils tournent sous la bonne version de Scribus et pour informer l'utilisateur d'éventuelles incompatibilités. Ces
-deux variables, <code>scribus_version</code> et
-<code>scribus_version_info</code>, ont été ajoutées dans les versions
-1.2.1 et 1.3.0cvs et sont absentes des versions
-précédentes. Si nécessaire, vous pouvez vérifier leur présence avec <code>hasattr(scribus, 'scribus_version')</code>.</p>
-	<p><code>scribus_version</code> est une cha&icirc;ne qui contient la version courante de Scribus. Sa valeur ressemble habituellement à <code>'1.2.1cvs'</code> ou <code>'1.3.0'</code>, par exemple, mais il n'est pas garanti que le format sera toujours le même. Cette
-variable est utile pour afficher la version à l'utilisateur, par exemple pour signaler une incompatibilité. N'analysez pas et ne comparez pas cette variable, car <code>scribus_version_info</code> est fait pour cela.</p>
-	<p><code>scribus_version_info</code> est un vecteur semblable au vecteur <code>sys.version_info</code> fourni par Python. 
-C'est un vecteur de la forme (majorversion, minorversion, patchlevel,
-extraversion, build), par exemple 1.2.1cvs correspond à
-<code>(1,2,1,'cvs',0)</code> et 1.3.2 correspond à <code>(1,3,2,'',0)</code> . Ces vecteurs sont idéaux pour vérifier les versions minimum, etc., parce que Python compare les vecteurs élément par élément, de gauche à droite. Par exemple :</p>
+<h4>Scribus Version:</h4>
+	<p>The script interface provides two variables containing the current Scribus version in the <code>scribus</code> module. Scripts can use these variables to check that they're running under the version of Scribus they expect, and to report information about incompatibilities to the user. These two variables, <code>scribus_version</code> and <code>scribus_version_info</code>, were added in 1.2.1 and 1.3.0svn and will not be present in earlier versions. If you need to, you can check for their presence with <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> contains the current Scribus version as a string. It will usually look like <code>'1.2.1svn'</code> or <code>'1.3.0'</code>, for example, but is not guaranteed to always follow that format. This variable is useful when you need to display the version to the user, for example when reporting an incompatibility. Do not parse or compare this variable, that is what <code>scribus_version_info</code> is for.</p>
+	<p><code>scribus_version_info</code> is a tuple similar to the <code>sys.version_info</code> tuple provided by Python. It is a tuple of the form (majorversion, minorversion, patchlevel, extraversion, build) for example, 1.2.1svn will have <code>(1,2,1,'svn',0)</code> and 1.3.2 will have <code>(1,3,2,'',0)</code> . These tuples are ideal for checking for minimum versions, etc, because Python compares tuples element-by-element, left-to-right. For example:</p>
 <pre>
 if scribus.scribus_version_info[:3] &lt; (1,2,2):
-    messageBox("Scribus - script Python",
-        "Ce script requiert 1.2.2 ou plus récent."+\
-        "Vous roulez %s." % scribus.scribus_version,
-        ICON_CRITICAL)
+    messageBox("Scribus - Python script",
+        "This script requires Scribus 1.2.2 or newer. "+"You're running %s." % scribus.scribus_version, scribus.ICON_CRITICAL)
     sys.exit()
 </pre>
+<p><em>Note that if you are using this style of import statement:</em></p>
+<pre>import scribus</pre>
+<p>you will need to add a prefix to these predefined constants, for example, <strong>scribus.ICON_CRITICAL</strong>.</p>
 
-<h4>Constantes d'énumération d'unités : </h4>
+
+<h4>Unit Enumeration Constants: </h4>
 <table><tr><td>
 <dl>
 	<dt>UNIT_POINTS</dt>
-	<dd>Unité de mesure point = 0</dd>
+	<dd>Measurement Unit Point = 0</dd>
 	<dt>UNIT_MILLIMETERS</dt>
-	<dd>Unité de mesure millimètre = 1</dd>
+	<dd>Measurement Unit Millimeter = 1</dd>
 	<dt>UNIT_INCHES</dt>
-	<dd>Unité de mesure pouce = 2</dd>
+	<dd>Measurement Unit Inch = 2</dd>
 	<dt>UNIT_PICAS</dt>
-	<dd>Unité de mesure pica = 3</dd>
+	<dd>Measurement Unit Pica = 3</dd>
 </dl>
 </td></tr></table>
 
-<h4>Constantes de conversion d'unités</h4>
+<h4>Unit Conversion Constants</h4>
 
-<p>Ces facteurs de conversion peuvent être utilisés pour convertir les unités en points et vice versa.
-Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; pour convertir les points en pouces vous écrirez 'valeur*inch', et pour convertir les pouces en mm vous écrirez 'valeur*mm/inch'.</p>
+<p>These conversion factors can be used to convert units to and from points.
+Thus, to convert inches to points, you can simply write 'value/inch', to
+convert points to inches you write 'value*inch', and to convert inches to mm
+you write 'value*mm/inch' .</p>
 
 <table><tr><td>
 <dl>
 	<dt>pt</dt>
-	<dd>points dans 1 pt</dd>
+	<dd>points in 1 pt</dd>
 	<dt>inch</dt>
-	<dd>pouces dans 1 pt</dt>
+	<dd>inches in 1 pt</dt>
 	<dt>p</dt>
-	<dd>pica dans 1 pt</dd>
+	<dd>pica in 1 pt</dd>
 	<dt>cm<dt>
-	<dd>centimètres dans 1 pt</dd>
+	<dd>centimetres in 1 pt</dd>
 	<dt>mm</dt>
-	<dd>millimètres dans 1 pt</dd>
+	<dd>millimetres in 1 pt</dd>
 	<dt>...</dt>
-	<dd>D'autres constantes seront fournies si le coeur de Scribus les reconna&icirc;t.</dd>
+	<dd>Other constants will be provided if the Scribus core knows about them.</dd>
 </dl>
 </td></tr></table>
 
-<h4>Constantes d'orientation de page :</h4>
+<h4>Page Orientation Definitions: </h4>
 <table><tr><td>
 <dl>
 	<dt>PORTRAIT</dt>
-	<dd>Orientation Portrait = 0</dd>
+	<dd>Page orientation Portrait = 0</dd>
 	<dt>LANDSCAPE</dt>
-	<dd>Orientation Landscape = 1</dd>
+	<dd>Page orientation Landscape = 1</dd>
 </dl>
 </td></tr></table>
 
-<h4>Réglages de format de page : </h4>
+<h4>Definitions for Page Formats: </h4>
+<p>If you are using these, it's important to understand that these constants are simply tuples of these specific numbers. There are now two sets of these constants for A and B series of paper formats.</p>
+<p>The original set, such as PAPER_A4, is used when a document is created with points units. Now you can also use the similarly named PAPER_A4_MM when you are using millimeters as the page units. As before, they must be used with the appropriate constant, either UNIT_POINTS or UNIT_MILLIMETERS. What you can then do, for example, is use them to create a document in points, then switch the units of the document with the setUnit() command.</p>
 <table><tr>
 <td>
 <dl>
 	<dt>PAPER_A0</dt>
-	<dd>Format papier A0 = 2380 x 3368 Points</dd>
+	<dd>Paper format A0 = 2380 x 3368 Points</dd>
 	<dt>PAPER_A1</dt>
-	<dd>Format papier A1 = 1684 x 2380 Points</dd>
+	<dd>Paper format A1 = 1684 x 2380 Points</dd>
 	<dt>PAPER_A2</dt>
-	<dd>Format papier A2 = 1190 x 1684 Points</dd>
+	<dd>Paper format A2 = 1190 x 1684 Points</dd>
 	<dt>PAPER_A3</dt>
-	<dd>Format papier A3 = 842 x 1190 Points</dd>
+	<dd>Paper format A3 = 842 x 1190 Points</dd>
 	<dt>PAPER_A4</dt>
-	<dd>Format papier A4 = 595 x 842 Points</dd>
+	<dd>Paper format A4 = 595 x 842 Points</dd>
 	<dt>PAPER_A5</dt>
-	<dd>Format papier A5 = 421 x 595 Points</dd>
+	<dd>Paper format A5 = 421 x 595 Points</dd>
 	<dt>PAPER_A6</dt>
-	<dd>Format papier A6 = 297 x 421 Points</dd>
+	<dd>Paper format A6 = 297 x 421 Points</dd>
 	<dt>PAPER_A7</dt>
-	<dd>Format papier A7 = 210 x 297 Points</dd>
+	<dd>Paper format A7 = 210 x 297 Points</dd>
 	<dt>PAPER_A8</dt>
-	<dd>Format papier A8 = 148 x 210 Points</dd>
+	<dd>Paper format A8 = 148 x 210 Points</dd>
 	<dt>PAPER_A9</dt>
-	<dd>Format papier A9 = 105 x 148 Points</dd></dl></td>
+	<dd>Paper format A9 = 105 x 148 Points</dd></dl></td>
 <td>
 <dl>
 	<dt>PAPER_A0_MM</dt>
-	<dd>Format papier A0 = 841 x 1189 Millimètres</dd>
+	<dd>Paper format A0 = 841 x 1189 Millimeters</dd>
 	<dt>PAPER_A1_MM</dt>
-	<dd>Format papier A1 = 594 x 841 Millimètres</dd>
+	<dd>Paper format A1 = 594 x 841 Millimeters</dd>
 	<dt>PAPER_A2_MM</dt>
-	<dd>Format papier A2 = 420 x 594 Millimètres</dd>
+	<dd>Paper format A2 = 420 x 594 Millimeters</dd>
 	<dt>PAPER_A3_MM</dt>
-	<dd>Format papier A3 = 297 x 420 Millimètres</dd>
+	<dd>Paper format A3 = 297 x 420 Millimeters</dd>
 	<dt>PAPER_A4_MM</dt>
-	<dd>Format papier A4 = 210 x 297 Millimètres</dd>
+	<dd>Paper format A4 = 210 x 297 Millimeters</dd>
 	<dt>PAPER_A5_MM</dt>
-	<dd>Format papier A5 = 148 x 210 Millimètres</dd>
+	<dd>Paper format A5 = 148 x 210 Millimeters</dd>
 	<dt>PAPER_A6_MM</dt>
-	<dd>Format papier A6 = 105 x 148 Millimètres</dd>
+	<dd>Paper format A6 = 105 x 148 Millimeters</dd>
 	<dt>PAPER_A7_MM</dt>
-	<dd>Format papier A7 = 74 x 105 Millimètres</dd>
+	<dd>Paper format A7 = 74 x 105 Millimeters</dd>
 	<dt>PAPER_A8_MM</dt>
-	<dd>Format papier A8 = 52 x 74 Millimètres</dd>
+	<dd>Paper format A8 = 52 x 74 Millimeters</dd>
 	<dt>PAPER_A9_MM</dt>
-	<dd>Format papier A9 = 37 x 52 Millimètres</dd></dl></td></tr>
+	<dd>Paper format A9 = 37 x 52 Millimeters</dd></dl></td></tr>
 <tr><td>
 <dl>
 	<dt>PAPER_B0</dt>
-	<dd>Format papier B0 = 2836 x 4008 Points</dd>
+	<dd>Paper format B0 = 2836 x 4008 Points</dd>
 	<dt>PAPER_B1</dt>
-	<dd>Format papier B1 = 2004 x 2836 Points</dd>
+	<dd>Paper format B1 = 2004 x 2836 Points</dd>
 	<dt>PAPER_B2</dt>
-	<dd>Format papier B2 = 1418 x 2004 Points</dd>
+	<dd>Paper format B2 = 1418 x 2004 Points</dd>
 	<dt>PAPER_B3</dt>
-	<dd>Format papier B3 = 1002 x 1418 Points</dd>
+	<dd>Paper format B3 = 1002 x 1418 Points</dd>
 	<dt>PAPER_B4</dt>
-	<dd>Format papier B4 = 709 x 1002 Points</dd>
+	<dd>Paper format B4 = 709 x 1002 Points</dd>
 	<dt>PAPER_B5</dt>
-	<dd>Format papier B5 = 501 x 709 Points</dd>
+	<dd>Paper format B5 = 501 x 709 Points</dd>
 	<dt>PAPER_B6</dt>
-	<dd>Format papier B6 = 355 x 501 Points</dd>
+	<dd>Paper format B6 = 355 x 501 Points</dd>
 	<dt>PAPER_B7</dt>
-	<dd>Format papier B7 = 250 x 355 Points</dd>
+	<dd>Paper format B7 = 250 x 355 Points</dd>
 	<dt>PAPER_B8</dt>
-	<dd>Format papier B8 = 178 x 250 Points</dd>
+	<dd>Paper format B8 = 178 x 250 Points</dd>
 	<dt>PAPER_B9</dt>
-	<dd>Format papier B9 = 125 x 178 Points</dd>
+	<dd>Paper format B9 = 125 x 178 Points</dd>
 	<dt>PAPER_B10</dt>
-	<dd>Format papier B10 = 89 x 125 Points</dd></dl></td>
+	<dd>Paper format B10 = 89 x 125 Points</dd></dl></td>
 <td>
 <dl>
 	<dt>PAPER_B0_MM</dt>
-	<dd>Format papier B0 = 1000 x 1414 Millimètres</dd>
+	<dd>Paper format B0 = 1000 x 1414 Millimeters</dd>
 	<dt>PAPER_B1_MM</dt>
-	<dd>Format papier B1 = 707 x 1000 Millimètres</dd>
+	<dd>Paper format B1 = 707 x 1000 Millimeters</dd>
 	<dt>PAPER_B2_MM</dt>
-	<dd>Format papier B2 = 500 x 707 Millimètres</dd>
+	<dd>Paper format B2 = 500 x 707 Millimeters</dd>
 	<dt>PAPER_B3_MM</dt>
-	<dd>Format papier B3 = 353 x 500 Millimètres</dd>
+	<dd>Paper format B3 = 353 x 500 Millimeters</dd>
 	<dt>PAPER_B4_MM</dt>
-	<dd>Format papier B4 = 250 x 353 Millimètres</dd>
+	<dd>Paper format B4 = 250 x 353 Millimeters</dd>
 	<dt>PAPER_B5_MM</dt>
-	<dd>Format papier B5 = 176 x 250 Millimètres</dd>
+	<dd>Paper format B5 = 176 x 250 Millimeters</dd>
 	<dt>PAPER_B6_MM</dt>
-	<dd>Format papier B6 = 125 x 176 Millimètres</dd>
+	<dd>Paper format B6 = 125 x 176 Millimeters</dd>
 	<dt>PAPER_B7_MM</dt>
-	<dd>Format papier B7 = 88 x 125 Millimètres</dd>
+	<dd>Paper format B7 = 88 x 125 Millimeters</dd>
 	<dt>PAPER_B8_MM</dt>
-	<dd>Format papier B8 = 62 x 88 Millimètres</dd>
+	<dd>Paper format B8 = 62 x 88 Millimeters</dd>
 	<dt>PAPER_B9_MM</dt>
-	<dd>Format papier B9 = 44 x 62 Millimètres</dd>
+	<dd>Paper format B9 = 44 x 62 Millimeters</dd>
 	<dt>PAPER_B10_MM</dt>
-	<dd>Format papier B10 = 31 x 44 Millimètres</dd></dl></td></tr>
+	<dd>Paper format B10 = 31 x 44 Millimeters</dd></dl></td></tr>
 <tr><td>
 <dl>
 	<dt>PAPER_C5E</dt>
-	<dd>Format papier C5E = 462 x 649 Points</dd>
+	<dd>Paper format C5E = 462 x 649 Points</dd>
 	<dt>PAPER_COMM10E</dt>
-	<dd>Format papier Comm10E = 298 x 683 Points</dd>
+	<dd>Paper format Comm10E = 298 x 683 Points</dd>
 	<dt>PAPER_DLE</dt>
-	<dd>Format papier DLE = 312 x 624 Points</dd>
+	<dd>Paper format DLE = 312 x 624 Points</dd>
 	<dt>PAPER_EXECUTIVE</dt>
-	<dd>Format papier Executive = 542 x 720 Points</dd>
+	<dd>Paper format Executive = 542 x 720 Points</dd>
 	<dt>PAPER_FOLIO</dt>
-	<dd>Format papier Folio = 595 x 935 Points</dd>
+	<dd>Paper format Folio = 595 x 935 Points</dd>
 	<dt>PAPER_LEDGER</dt>
-	<dd>Format papier Ledger = 1224 x 792 Points</dd>
+	<dd>Paper format Ledger = 1224 x 792 Points</dd>
 	<dt>PAPER_LEGAL</dt>
-	<dd>Format papier Legal = 612 x 1008 Points</dd>
+	<dd>Paper format Legal = 612 x 1008 Points</dd>
 	<dt>PAPER_LETTER</dt>
-	<dd>Format papier Letter = 612 x 792 Points</dd>
+	<dd>Paper format Letter = 612 x 792 Points</dd>
 	<dt>PAPER_TABLOID</dt>
-	<dd>Format papier Tabloid = 792 x 1224 Points</dd>
+	<dd>Paper format Tabloid = 792 x 1224 Points</dd>
 </dl></td></tr>
 </table>
 
-<h4>Constantes de disposition du document :</h4>
+<h4>Definitions for Document Layout:</h4>
 <table><tr><td>
 <dl>
 	<dt>FACINGPAGES</dt>
-	<dd>Disposition avec des pages en regard.</dd>
+	<dd>Layout with facing Pages.</dd>
 	<dt>NOFACINGPAGES</dt>
-	<dd>Disposition normale du document.</dd>
+	<dd>Normal Layout of the Document.</dd>
 	<dt>FIRSTPAGELEFT</dt>
-	<dd>La première page du document est une page de droite.</dd>
+	<dd>The first Page of the Document is a left Page.</dd>
 	<dt>FIRSTPAGERIGHT</dt>
-	<dd>La première page du document est une première de droite.</dd>
+	<dd>The first Page of the Document is a right Page.</dd>
 </dl>
 </td></tr></table>
 
-<h4>Constantes d'alignement :</h4>
+<h4>Alignment Definitions: </h4>
 <table><tr><td>
 <dl>
 	<dt>ALIGN_LEFT</dt>
-	<dd>Le texte est aligné à gauche.</dd>
+	<dd>Text is aligned to the Left.</dd>
 	<dt>ALIGN_CENTERED</dt>
-	<dd>Le texte est centré dans le cadre de texte.</dd>
+	<dd>The Text is centered in the Textframe.</dd>
 	<dt>ALIGN_RIGHT</dt>
-	<dd>Le texte est aligné sur le c&ocirc;té droit du cadre de texte.</dd>
+	<dd>The Text is aligned to the Right Side of the Textframe</dd>
 	<dt>ALIGN_FORCED</dt>
-	<dd>Le texte a un alignement forcé.</dd>
+	<dd>The Text has forced Alignment</dd>
   	<dt>ALIGN_BLOCK</dt>
-	<dd>Le texte a un alignement bloqué.</dd>
+	<dd>The Text has block Alignment</dd>
 </dl>
 </td></tr></table>
 
-<h4>Constantes d'alignement vertical :</h4>
+<h4>Vertical alignment Definitions: </h4>
 <table><tr><td>
 <dl>
 	<dt>ALIGNV_TOP</dt>
-	<dd>Le texte est aligné verticalement en haut.</dd>
+	<dd>Text is aligned vertically to the top.</dd>
 	<dt>ALIGNV_CENTERED</dt>
-	<dd>Le texte est aligné verticalement au centre.</dd>
+	<dd>Text is aligned vertically to the center.</dd>
 	<dt>ALIGNV_BOTTOM</dt>
-	<dd>Le texte est aligné verticalement en bas.</dd>
+	<dd>Text is aligned vertically to the bottom.</dd>
 </dl>
 </td></tr></table>
 
-<h4>Réglages relatifs aux lignes :</h4>
+<h4>First line offset Definitions: </h4>
+<table><tr><td>
+<dl>
+	<dt>FLOP_REALGLYPHHEIGHT</dt>
+	<dd>First line offset is determined according to the maximum height of glyphs in the line.</dd>
+	<dt>FLOP_FONTASCENT</dt>
+	<dd>First line offset is determined according to font ascent.</dd>
+	<dt>FLOP_LINESPACING</dt>
+	<dd>First line offset is determined according to current linespacing.</dd>
+	<dt>FLOP_BASELINEGRID</dt>
+	<dd>First line offset is determined according to the baseline grid.</dd>
+</dl>
+</td></tr></table>
+
+<h4>Line related Definitions: </h4>
 <table><tr><td>
 <dl>
     <dt>LINE_DASH</dt>
@@ -254,7 +268,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; p
 </dl>
 </td></tr></table>
 
-<h4>Définitions d'espaces de couleur: </h4>
+<h4>Colorspace Definitions: </h4>
 <table><tr><td>
 <dl>
 	<dt>CSPACE_UNDEFINED</dt>
@@ -266,11 +280,11 @@ Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; p
 </dl>
 </td></tr></table>
 
-<h4>Réglages relatifs au fond :</h4>
+<h4>Fill related Definitions: </h4>
 <table><tr><td>
 <dl>
 	<dt>FILL_NOG</dt>
-    <dd>Pas de dégradé, couleur unie</dd>
+    <dd>No gradient, plain color</dd>
 	<dt>FILL_HORIZONTALG</dt>
 	<dt>FILL_VERTICALG</dt>
 	<dt>FILL_DIAGONALG</dt>
@@ -279,21 +293,25 @@ Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; p
 </dl>
 </td></tr></table>
 
-<h4>Boutons de dialogue</h4>
-<table><tr><td>
-<dl>
-    <dt>BUTTON_ABORT</dt>
-    <dt>BUTTON_CANCEL</dt>
-    <dt>BUTTON_IGNORE</dt>
-    <dt>BUTTON_NO</dt>
-    <dt>BUTTON_NONE</dt>
-    <dt>BUTTON_OK</dt>
-    <dt>BUTTON_RETRY</dt>
-    <dt>BUTTON_YES</dt>
-</dl>
-</td></tr></table>
+<h4>Dialog Buttons</h4>
+<p>
+<table>
+<tr><td><strong>Button Type</strong></td><td><strong>Return Value</strong></td></tr>
+<tr>    <td>BUTTON_ABORT</td><td>262144</td></tr>
+<tr>    <td>BUTTON_CANCEL</td><td>4194304</td></tr>
+    <tr><td>BUTTON_IGNORE</td><td>1048576</td></tr>
+    <tr><td>BUTTON_NO</td><td>65536</td></tr>
+    <tr><td>BUTTON_NONE</td><td>N/A</td></tr>
+    <tr><td>BUTTON_OK</td><td>1024</td></tr>
+    <tr><td>BUTTON_RETRY</td><td>524288</td></tr>
+    <tr><td>BUTTON_YES</td><td>16384</td></tr>
+</table></p>
 
-<h4>Ic&ocirc;nes de dialogue</h4>
+<p>There is also a hierarchy of buttons in terms of how they appear in the dialogs, with this ordering, left to right:</p>
+<p>BUTTON_YES, BUTTON_NO, BUTTON_OK, BUTTON_RETRY, BUTTON_IGNORE, BUTTON_ABORT, BUTTON_CANCEL</p>
+<p>For example, even if you assign CANCEL to button1, RETRY to button2, and YES to button3, they will appear YES, RETRY, and CANCEL left to right in the dialog.</p>
+
+<h4>Dialog Icons</h4>
 <table><tr><td>
 <dl>
     <dt>ICON_CRITICAL</dt>
@@ -303,7 +321,7 @@ Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; p
 </dl>
 </td></tr></table>
 
-<h4>Constantes d'alignement par TAB</h4>
+<h4>Tab alignment</h4>
 <table><tr><td>
 <dl>
 	<dt>TAB_LEFT</dt>
@@ -314,22 +332,21 @@ Ainsi, pour convertir les pouces en points, il suffit d'écrire 'valeur/inch'; p
 </dl>
 </td></tr></table>
 
-<h4>Constantes de language d'impression</h4>
+<h4>Print languages</h4>
 <table><tr><td>
 <dl>
 	<dt>PRNLANG_POSTSCRIPT1</dt>
-	<dd>Postscript Niveau 1 (requiert Ghostscript)</dd>
+	<dd>Postscript Level 1 (requires Ghostscript)</dd>
 	<dt>PRNLANG_POSTSCRIPT2</dt>
-	<dd>Postscript Niveau 2 (requiert Ghostscript)</dd>
+	<dd>Postscript Level 2 (requires Ghostscript)</dd>
 	<dt>PRNLANG_POSTSCRIPT3</dt>
-	<dd>Postscript Niveau 3</dd>
+	<dd>Postscript Level 3</dd>
 	<dt>PRNLANG_WINDOWSGDI</dt>
-	<dd>Windows GDI (disponible sur Microsoft Windows uniquement)</dd>
+	<dd>Windows GDI (available on Microsoft Windows only)</dd>
 	<dt>PRNLANG_PDF</dt>
-	<dd>Adobe PDF (disponible uniquement sur MacOS et les systèmes dérivés d'Unix)</dd>
+	<dd>Adobe PDF (available only on MacOS and *nix systems)</dd>
 </dl>
 </td></tr></table>
 
 </body>
 </html>
- 

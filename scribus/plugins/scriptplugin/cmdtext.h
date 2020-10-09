@@ -178,6 +178,16 @@ used.\n\
 PyObject *scribus_getalltext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfirstlineoffset__doc__,
+	QT_TR_NOOP("getFirstLineOffset([\"name\"]) -> integer\n\
+\n\
+Gets the offset of the first line of text inside text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get columns */
+PyObject *scribus_getfirstlineoffset(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getlinespace__doc__,
 QT_TR_NOOP("getLineSpacing([\"name\"]) -> float\n\
 \n\
@@ -329,6 +339,19 @@ May throw ValueError for a font size that's out of bounds.\n\
 "));
 /*! Set font size */
 PyObject *scribus_setfontsize(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setfirstlineoffset__doc__,
+	QT_TR_NOOP("setFirstLineOffset(offset, [\"name\"])\n\
+\n\
+Sets the offset of the first line of text inside text frame \"name\" to the specified\n\
+offset policy. If \"name\" is not given the currently selected item is used. \"offset\" \n\
+should be one of the FLOP_* constants defined in this module - see dir(scribus).\n\
+\n\
+May throw ValueError for an invalid offset constant.\n\
+"));
+/*! Set vertical alignment */
+PyObject *scribus_setfirstlineoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinespace__doc__,
