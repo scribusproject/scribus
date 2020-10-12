@@ -28604,7 +28604,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="364"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nem szövegkeret alapvonal-eltolása nem határozható meg.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="382"/>
@@ -28935,7 +28935,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="637"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
-        <translation>Igazítás nem esik a tartományba. Használj egy scribus.ALIGN_* állandót.</translation>
+        <translation>Az igazítás kívül esik a tartományon. Használj egy scribus.ALIGN_* állandót.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="645"/>
@@ -28983,13 +28983,13 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="810"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Az alapvonal-eltolás kívül esik a tartományon. Használj egy scribus.FLOP_* állandót.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="818"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alapvonal-eltolást nem lehet beállítani nem szövegkereten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
@@ -29043,7 +29043,7 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="985"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
-        <translation>Függőleges igazítás nem esik a tartományba. Használj egy scribus.ALIGNV_* állandót.</translation>
+        <translation>A függőleges igazítás kívül esik a tartományon. Használj egy scribus.ALIGNV_* állandót.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="993"/>

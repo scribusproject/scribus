@@ -28575,44 +28575,44 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="63"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti veličinu fonta od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti veličinu fonta ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="88"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti font od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti font ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="113"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="140"/>
         <source>Cannot get text color of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti boju teksta od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti boju teksta ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti veličinu teksta od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti veličinu teksta ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="203"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti okomito poravnanje od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti okomito poravnanje ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="221"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti broj stupaca od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti broj stupaca ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="257"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti font-karakteristike od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti karakteristike fonta ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="282"/>
@@ -28621,38 +28621,38 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="342"/>
         <source>Cannot get linked frames of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti povezane okvire netekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti povezane okvire ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="364"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće dobiti odmak prvog retka ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="382"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti prored od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti prored ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="239"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti razmak između stupaca od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti razmak između stupaca ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="422"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="456"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti tekst od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti tekst ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="492"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće postaviti tekst u ne-tekstualnom okviru.</translation>
+        <translation>Nije moguće postaviti tekst ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="520"/>
@@ -29006,13 +29006,13 @@ Vanjske poveznice
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="810"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Odmak prvog retka je izvan granica. Koristi jednu od scribus.FLOP_ * konstanti.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="818"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće postaviti odmak prvog retka u ne-tekstualnom okviru.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
@@ -30300,7 +30300,7 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="185"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti broj redaka od ne-tekstualnog okvira.</translation>
+        <translation>Nije moguće dobiti broj redaka ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="176"/>
@@ -30603,7 +30603,7 @@ Pojedinosti o iznimkama koje svaka funkcija može prouzročiti, nalaze se u doku
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="400"/>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti odmake teksta u ne-tekstualnom okviru.</translation>
+        <translation>Nije moguće dobiti odmake teksta ne-tekstualnog okvira.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="907"/>
@@ -30960,13 +30960,13 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="28"/>
         <source>Cannot get table row count of non-table item.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti broj redaka tablice od ne-tabličnog elementa.</translation>
+        <translation>Nije moguće dobiti broj redaka tablice ne-tabličnog elementa.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="48"/>
         <source>Cannot get table column count of non-table item.</source>
         <comment>python error</comment>
-        <translation>Nije moguće dobiti broj stupaca tablice od ne-tabličnog elementa.</translation>
+        <translation>Nije moguće dobiti broj stupaca tablice ne-tabličnog elementa.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="68"/>
