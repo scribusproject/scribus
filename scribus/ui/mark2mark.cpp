@@ -12,7 +12,8 @@ Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent)
 	MarkType typeMrk;
 
 	int index = 0;
-	typeMrk = MARKAnchorType;	typeStr = tr("Anchors");
+	typeMrk = MARKAnchorType;
+	typeStr = tr("Anchors");
 	//adding name of marks type, and make it unselectable
 	LabelList->addItem("+++ " + typeStr);
 	qobject_cast<QStandardItemModel *>(LabelList->model())->item( ++index )->setEnabled( false );
@@ -24,7 +25,8 @@ Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent)
 			index++;
 		}
 	}
-	typeMrk = MARK2MarkType;	typeStr = tr("Mark to Mark");
+	typeMrk = MARK2MarkType;
+	typeStr = tr("Mark to Mark");
 	LabelList->addItem("+++ " + typeStr);
 	qobject_cast<QStandardItemModel *>(LabelList->model())->item( ++index )->setEnabled( false );
 	for (int i = 0; i < marks.size(); ++i)
@@ -35,7 +37,8 @@ Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent)
 			index++;
 		}
 	}
-	typeMrk = MARK2ItemType;	typeStr = tr("Mark to Item");
+	typeMrk = MARK2ItemType;
+	typeStr = tr("Mark to Item");
 	LabelList->addItem("+++ " + typeStr);
 	qobject_cast<QStandardItemModel *>(LabelList->model())->item( ++index )->setEnabled( false );
 	for (int i = 0; i < marks.size(); ++i)
@@ -46,7 +49,8 @@ Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent)
 			index++;
 		}
 	}
-	typeMrk = MARKNoteMasterType;	typeStr = tr("Note mark");
+	typeMrk = MARKNoteMasterType;
+	typeStr = tr("Note mark");
 	LabelList->addItem("+++ " + typeStr);
 	qobject_cast<QStandardItemModel *>(LabelList->model())->item( ++index )->setEnabled( false );
 	for (int i = 0; i < marks.size(); ++i)
