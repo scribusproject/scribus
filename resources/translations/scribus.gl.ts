@@ -11685,23 +11685,23 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Mark2Mark</name>
     <message>
-        <location filename="../../scribus/ui/mark2mark.cpp" line="15"/>
+        <location filename="../../scribus/ui/mark2mark.cpp" line="16"/>
         <source>Anchors</source>
         <translation>Áncoras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/mark2mark.cpp" line="27"/>
-        <location filename="../../scribus/ui/mark2mark.cpp" line="71"/>
+        <location filename="../../scribus/ui/mark2mark.cpp" line="29"/>
+        <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Mark to Mark</source>
         <translation>Marca a marca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/mark2mark.cpp" line="38"/>
+        <location filename="../../scribus/ui/mark2mark.cpp" line="41"/>
         <source>Mark to Item</source>
         <translation>Marca a elemento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/mark2mark.cpp" line="49"/>
+        <location filename="../../scribus/ui/mark2mark.cpp" line="53"/>
         <source>Note mark</source>
         <translation>Marca de nota</translation>
     </message>
