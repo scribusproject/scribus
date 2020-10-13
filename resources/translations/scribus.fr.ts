@@ -16205,199 +16205,199 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="68"/>
         <source>Folder Browser</source>
-        <translation type="unfinished">Explorateur de Dossiers</translation>
+        <translation>Explorateur de Dossiers</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="73"/>
         <source>Collection Browser</source>
-        <translation type="unfinished">Explorateur de Collection</translation>
+        <translation>Explorateur de Collection</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="78"/>
         <source>Document Browser</source>
-        <translation type="unfinished">Explorateur de Documents</translation>
+        <translation>Explorateur de Documents</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="93"/>
         <source>Include Subdirectories</source>
-        <translation type="unfinished">Inclure les sous-répertoires</translation>
+        <translation>Inclure les sous-répertoires</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="153"/>
         <source>Create new category</source>
-        <translation type="unfinished">Créer une nouvelle catégorie</translation>
+        <translation>Créer une nouvelle catégorie</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="175"/>
         <source>New collection</source>
-        <translation type="unfinished">Nouvelle collection</translation>
+        <translation>Nouvelle collection</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="197"/>
         <source>Delete selected collection</source>
-        <translation type="unfinished">Supprime la collection sélectionnée</translation>
+        <translation>Supprime la collection sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="219"/>
         <source>Edit selected collection</source>
-        <translation type="unfinished">Modifie la collection sélectionnée</translation>
+        <translation>Modifie la collection sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="254"/>
         <source>Add selected images to collection(s)</source>
-        <translation type="unfinished">Ajoute les images sélectionnées à la (aux) collection(s)</translation>
+        <translation>Ajoute les images sélectionnées à la (aux) collection(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="276"/>
         <source>Remove selected images from current collection</source>
-        <translation type="unfinished">Supprime les images sélectionnées de la collection actuelle</translation>
+        <translation>Supprime les images sélectionnées de la collection actuelle</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="298"/>
         <source>Tag selected images</source>
-        <translation type="unfinished">Étiquette les images sélectionnées</translation>
+        <translation>Étiquette les images sélectionnées</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="333"/>
         <source>Import collection/collectionset</source>
-        <translation type="unfinished">Importe une collection ou un jeu de collection</translation>
+        <translation>Importe une collection ou un jeu de collection</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="355"/>
         <source>Export collection/collectionset</source>
-        <translation type="unfinished">Exporte une collection ou un jeu de collection</translation>
+        <translation>Exporte une collection ou un jeu de collection</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="384"/>
         <source>add selected images to collections</source>
-        <translation type="unfinished">ajouter les images sélectionnées aux collections</translation>
+        <translation>ajouter les images sélectionnées aux collections</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="482"/>
         <source>Go to Page</source>
-        <translation type="unfinished">Aller à la page</translation>
+        <translation>Aller à la page</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="523"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1897"/>
         <source>More</source>
-        <translation type="unfinished">Plus</translation>
+        <translation>Plus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="552"/>
         <source>Always on Top</source>
-        <translation type="unfinished">Toujours devant</translation>
+        <translation>Toujours devant</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="577"/>
         <source>Sort by Name</source>
-        <translation type="unfinished">Trier par nom</translation>
+        <translation>Trier par nom</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="582"/>
         <source>Sort by Date</source>
-        <translation type="unfinished">Trier par date</translation>
+        <translation>Trier par date</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="587"/>
         <source>Sort by Size</source>
-        <translation type="unfinished">Trier par taille</translation>
+        <translation>Trier par taille</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="592"/>
         <source>Sort by Type</source>
-        <translation type="unfinished">Trier par type</translation>
+        <translation>Trier par type</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="653"/>
         <source>Zoom in</source>
-        <translation type="unfinished">Zoom avant</translation>
+        <translation>Zoom avant</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="681"/>
         <source>Zoom out</source>
-        <translation type="unfinished">Zoom arrière</translation>
+        <translation>Zoom arrière</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="714"/>
         <source>Preview Images Only</source>
-        <translation type="unfinished">Aperçu des Images Uniquement</translation>
+        <translation>Aperçu des Images Uniquement</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="719"/>
         <source>Preview with Information</source>
-        <translation type="unfinished">Aperçu avec informations</translation>
+        <translation>Aperçu avec informations</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="741"/>
         <source>Quick Insert</source>
-        <translation type="unfinished">Insertion rapide</translation>
+        <translation>Insertion rapide</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="746"/>
         <source>Custom Insert</source>
-        <translation type="unfinished">Insertion personnalisée</translation>
+        <translation>Insertion personnalisée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="751"/>
         <source>Add to Collection</source>
-        <translation type="unfinished">Ajouter à la collection</translation>
+        <translation>Ajouter à la collection</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="771"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="943"/>
         <source>Go</source>
-        <translation type="unfinished">Aller</translation>
+        <translation>Aller</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="807"/>
         <source>0 Image(s) Displayed, 0 Image(s) Filtered</source>
-        <translation type="unfinished">0 Image(s) affichée(s), 0 Image(s) filtrée(s)</translation>
+        <translation>0 Image(s) affichée(s), 0 Image(s) filtrée(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="830"/>
         <source>Autosave Settings</source>
-        <translation type="unfinished">Sauvegarde automatique des paramètres</translation>
+        <translation>Sauvegarde automatique des paramètres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="846"/>
         <source>Reset Settings</source>
-        <translation type="unfinished">Réinitialiser les paramètres</translation>
+        <translation>Réinitialiser les paramètres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="853"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="883"/>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="895"/>
         <source>File</source>
-        <translation type="unfinished">Fichier</translation>
+        <translation>Fichier</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="901"/>
         <source>Name:</source>
-        <translation type="unfinished">Nom :</translation>
+        <translation>Nom :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="921"/>
         <source>Path:</source>
-        <translation type="unfinished">Chemin :</translation>
+        <translation>Chemin :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="14"/>
         <source>Picture Browser</source>
-        <translation type="unfinished">Navigateur d&apos;image</translation>
+        <translation>Navigateur d&apos;image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="479"/>
         <source>Move the document view to the selected page</source>
-        <translation type="unfinished">Déplacer la vue du document à la page sélectionnée</translation>
+        <translation>Déplacer la vue du document à la page sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="520"/>
@@ -16407,7 +16407,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="549"/>
         <source>Always keep Picture Browser on top of other windows</source>
-        <translation type="unfinished">Toujours garder le Navigateur d&apos;image au premier plan des fenêtres</translation>
+        <translation>Toujours garder le Navigateur d&apos;image au premier plan</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="612"/>
@@ -16422,182 +16422,182 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="827"/>
         <source>Enable Picture Browser autosave settings</source>
-        <translation type="unfinished">Active la sauvegarde automatique de la configuration du Navigateur d&apos;image</translation>
+        <translation>Active la sauvegarde automatique de la configuration du Navigateur d&apos;image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="843"/>
         <source>Reset Picture Browser to default settings</source>
-        <translation type="unfinished">Réinitialise le Navigateur d&apos;image à la configuration par défaut</translation>
+        <translation>Réinitialise le Navigateur d&apos;image à la configuration par défaut</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="958"/>
         <source>Size:</source>
-        <translation type="unfinished">Taille :</translation>
+        <translation>Taille :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="978"/>
         <source>Date:</source>
-        <translation type="unfinished">Date :</translation>
+        <translation>Date :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1014"/>
         <source>Image</source>
-        <translation type="unfinished">Image</translation>
+        <translation>Image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1100"/>
         <source>Format:</source>
-        <translation type="unfinished">Format :</translation>
+        <translation>Format :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1072"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1727"/>
         <source>Width:</source>
-        <translation type="unfinished">Largeur :</translation>
+        <translation>Largeur :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1107"/>
         <source>Colorspace:</source>
-        <translation type="unfinished">Espace colorimétrique :</translation>
+        <translation>Espace colorimétrique :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1128"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1737"/>
         <source>Height:</source>
-        <translation type="unfinished">Hauteur :</translation>
+        <translation>Hauteur :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1121"/>
         <source>DPI:</source>
-        <translation type="unfinished">PPP :</translation>
+        <translation>PPP :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1114"/>
         <source>Layers:</source>
-        <translation type="unfinished">Calques :</translation>
+        <translation>Calques :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1044"/>
         <source>Embedded Profile:</source>
-        <translation type="unfinished">Profil intégré :</translation>
+        <translation>Profil intégré :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1058"/>
         <source>Profile Name:</source>
-        <translation type="unfinished">Nom du profil :</translation>
+        <translation>Nom du profil :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1152"/>
         <source>Filter / Search</source>
-        <translation type="unfinished">Filtre / Recherche</translation>
+        <translation>Filtre / Recherche</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1166"/>
         <source>Filters:</source>
-        <translation type="unfinished">Filtres :</translation>
+        <translation>Filtres :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1185"/>
         <source>Filter Displayed Images</source>
-        <translation type="unfinished">Filtrer les images affichées</translation>
+        <translation>Filtrer les images affichées</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1190"/>
         <source>Search Images</source>
-        <translation type="unfinished">Recherche des images</translation>
+        <translation>Recherche des images</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1195"/>
         <source>Filter Collections</source>
-        <translation type="unfinished">Filtrer les collections</translation>
+        <translation>Filtrer les collections</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1245"/>
         <source>Select a directory</source>
-        <translation type="unfinished">Sélectionnez un répertoire</translation>
+        <translation>Sélectionnez un répertoire</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1248"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1288"/>
         <source>Criteria</source>
-        <translation type="unfinished">Critères</translation>
+        <translation>Critères</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1300"/>
         <source>Add filter</source>
-        <translation type="unfinished">Ajouter un filtre</translation>
+        <translation>Ajouter un filtre</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1303"/>
         <source>&lt;&lt; Add</source>
-        <translation type="unfinished">&lt;&lt; Ajouter</translation>
+        <translation>&lt;&lt; Ajouter</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1310"/>
         <source>Filter criteria</source>
-        <translation type="unfinished">Critères de filtrage</translation>
+        <translation>Critères de filtrage</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1314"/>
         <source>Name (Wildcards Allowed)</source>
-        <translation type="unfinished">Nom (Caractères de remplacement autorisés)</translation>
+        <translation>Nom (Caractères de remplacement autorisés)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1319"/>
         <source>Date</source>
-        <translation type="unfinished">Date</translation>
+        <translation>Date</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1324"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1718"/>
         <source>Size</source>
-        <translation type="unfinished">Taille</translation>
+        <translation>Taille</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1329"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1334"/>
         <source>Tag</source>
-        <translation type="unfinished">Étiquette</translation>
+        <translation>Étiquette</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1367"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1407"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1447"/>
         <source>Search criteria</source>
-        <translation type="unfinished">Critères de recherche</translation>
+        <translation>Critères de recherche</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1371"/>
         <source>Contains</source>
-        <translation type="unfinished">Contient</translation>
+        <translation>Contient</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1376"/>
         <source>Doesn&apos;t Contain</source>
-        <translation type="unfinished">Ne contient pas</translation>
+        <translation>Ne contient pas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1384"/>
         <source>Type name</source>
-        <translation type="unfinished">Nom de type</translation>
+        <translation>Nom de type</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1411"/>
         <source>Newer than</source>
-        <translation type="unfinished">Plus récent que</translation>
+        <translation>Plus récent que</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1416"/>
         <source>Older than</source>
-        <translation type="unfinished">Plus ancien que</translation>
+        <translation>Plus ancien que</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1424"/>
@@ -16607,12 +16607,12 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1451"/>
         <source>Smaller than</source>
-        <translation type="unfinished">Plus petit que</translation>
+        <translation>Plus petit que</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1456"/>
         <source>Bigger than</source>
-        <translation type="unfinished">Plus grand que</translation>
+        <translation>Plus grand que</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1464"/>
@@ -16627,7 +16627,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1499"/>
         <source>Select file type(s)</source>
-        <translation type="unfinished">Sélectionnez le(s) type(s) de fichier</translation>
+        <translation>Sélectionnez le(s) type(s) de fichier</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1516"/>
@@ -16637,177 +16637,177 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1536"/>
         <source>Apply Filters</source>
-        <translation type="unfinished">Appliquer des filtres</translation>
+        <translation>Appliquer des filtres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1549"/>
         <source>Clear Filters</source>
-        <translation type="unfinished">Effacer les filtres</translation>
+        <translation>Effacer les filtres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1557"/>
         <source>Insert Image</source>
-        <translation type="unfinished">Insérer une image</translation>
+        <translation>Insérer une image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1569"/>
         <source>Image Placement</source>
-        <translation type="unfinished">Placement d&apos;image</translation>
+        <translation>Placement d&apos;image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1581"/>
         <source>Page(s):</source>
-        <translation type="unfinished">Page(s) :</translation>
+        <translation>Page(s) :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1591"/>
         <source>Select the page(s) where to insert the image(s)</source>
-        <translation type="unfinished">Sélectionnez la(les) page(s) où insérer l&apos;image(s)</translation>
+        <translation>Sélectionnez la(les) page(s) où insérer l&apos;image(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1604"/>
         <source>Image Frame(s):</source>
-        <translation type="unfinished">Cadre(s) d&apos;image :</translation>
+        <translation>Cadre(s) d&apos;image :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1614"/>
         <source>Select which frame(s) to use</source>
-        <translation type="unfinished">Sélectionnez le(s) cadre(s) à utiliser</translation>
+        <translation>Sélectionnez le(s) cadre(s) à utiliser</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1630"/>
         <source>Position of New Frame(s)</source>
-        <translation type="unfinished">Position du(des) nouveau(x) cadre(s)</translation>
+        <translation>Position des nouveaux cadres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1636"/>
         <source>Set the position of the image frame(s) to insert</source>
-        <translation type="unfinished">Réglez la position du(des) cadre(s) d&apos;image pour l&apos;insertion</translation>
+        <translation>Réglez la position du(des) cadre(s) d&apos;image pour l&apos;insertion</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1640"/>
         <source>Top Left of Margins</source>
-        <translation type="unfinished">En haut à gauche des marges</translation>
+        <translation>En haut à gauche des marges</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1645"/>
         <source>Top Left of Page</source>
-        <translation type="unfinished">En haut à gauche de la page</translation>
+        <translation>En haut à gauche de la page</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1650"/>
         <source>Top Left of Bleed</source>
-        <translation type="unfinished">En haut à gauche du fond perdu</translation>
+        <translation>En haut à gauche du fond perdu</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1655"/>
         <source>Custom Position</source>
-        <translation type="unfinished">Position personnalisée</translation>
+        <translation>Position personnalisée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1676"/>
         <source>X:</source>
-        <translation type="unfinished">X :</translation>
+        <translation>X :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1686"/>
         <source>Horizontal position</source>
-        <translation type="unfinished">Position horizontale</translation>
+        <translation>Position horizontale</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1666"/>
         <source>Y:</source>
-        <translation type="unfinished">Y :</translation>
+        <translation>Y :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1699"/>
         <source>Vertical position</source>
-        <translation type="unfinished">Position verticale</translation>
+        <translation>Position verticale</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1770"/>
         <source>Set the size of the image frame(s) to insert</source>
-        <translation type="unfinished">Définissez la taille du(des) cadre(s) d&apos;image pour l&apos;insertion</translation>
+        <translation>Définissez la taille du(des) cadre(s) d&apos;image pour l&apos;insertion</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1774"/>
         <source>Same as Page Margins</source>
-        <translation type="unfinished">Identique aux marges de la page</translation>
+        <translation>Identique aux marges de la page</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1779"/>
         <source>Same as Page</source>
-        <translation type="unfinished">Identique à la page</translation>
+        <translation>Identique à la page</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1784"/>
         <source>Same as Bleed</source>
-        <translation type="unfinished">Identique aux fonds perdus</translation>
+        <translation>Identique aux fonds perdus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1794"/>
         <source>Custom Size</source>
-        <translation type="unfinished">Dimensions personnalisées</translation>
+        <translation>Dimensions personnalisées</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1760"/>
         <source>Width</source>
-        <translation type="unfinished">Largeur</translation>
+        <translation>Largeur</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1747"/>
         <source>Height</source>
-        <translation type="unfinished">Hauteur</translation>
+        <translation>Hauteur</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1789"/>
         <source>Same as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Identique à l&apos;image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1813"/>
         <source>Insert Image into</source>
-        <translation type="unfinished">Insérer l&apos;image dans</translation>
+        <translation>Insérer l&apos;image dans</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1829"/>
         <source>0 Page(s)</source>
-        <translation type="unfinished">0 Page(s)</translation>
+        <translation>0 Page(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1842"/>
         <source>0 Frame(s)</source>
-        <translation type="unfinished">0 Cadre(s)</translation>
+        <translation>0 Cadre(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1855"/>
         <source>Insert</source>
-        <translation type="unfinished">Insérer</translation>
+        <translation>Insérer</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1865"/>
         <source>Tag Image(s)</source>
-        <translation type="unfinished">Étiquette d&apos;Image(s)</translation>
+        <translation>Étiquette d&apos;image(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1871"/>
         <source>Selected Images:</source>
-        <translation type="unfinished">Images sélectionnées :</translation>
+        <translation>Images sélectionnées :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1900"/>
         <source>Tag Selected Image(s)</source>
-        <translation type="unfinished">Étiquette d&apos;Image Sélectionnée(s)</translation>
+        <translation>Étiquette d&apos;image sélectionnée(s)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1909"/>
         <source>Type Tag name</source>
-        <translation type="unfinished">Type de nom d&apos;étiquette</translation>
+        <translation>Type de nom d&apos;étiquette</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1916"/>
         <source>Add New Tag</source>
-        <translation type="unfinished">Ajouter une nouvelle étiquette</translation>
+        <translation>Ajouter une nouvelle étiquette</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1923"/>
@@ -16825,43 +16825,43 @@ Veuillez en choisir un autre.</translation>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1327"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1433"/>
         <source>Picture Browser Error</source>
-        <translation type="unfinished">Navigateur d&apos;image</translation>
+        <translation>Erreur du Navigateur d&apos;image</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="424"/>
         <source>No Image(s) Selected</source>
-        <translation type="unfinished">Pas d&apos;image(s) sélectionnée(s)</translation>
+        <translation>Aucune image sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="751"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1257"/>
         <source>You have to create a category first</source>
-        <translation type="unfinished">Vous devez d&apos;abord créer une catégorie</translation>
+        <translation>Vous devez d&apos;abord créer une catégorie</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="915"/>
         <source>No image(s) selected</source>
-        <translation type="unfinished">Aucune(s) image(s) sélectionnée(s)</translation>
+        <translation>Aucune image sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="956"/>
         <source>No page/image frame selected</source>
-        <translation type="unfinished">Aucune page/image sélectionnée</translation>
+        <translation>Aucune page/image sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1062"/>
         <source>Directory does not exist</source>
-        <translation type="unfinished">Le répertoire n&apos;existe pas</translation>
+        <translation>Le répertoire n&apos;existe pas</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Select Directory</source>
-        <translation type="unfinished">Sélectionnez le répertoire</translation>
+        <translation>Sélectionnez le répertoire</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1299"/>
         <source>Import Image Collection</source>
-        <translation type="unfinished">Importer une Collection d&apos;Images</translation>
+        <translation>Importer une Collection d&apos;Images</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1299"/>
@@ -16872,17 +16872,17 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1321"/>
         <source>Export Image Collection</source>
-        <translation type="unfinished">Exporter la Collection d&apos;images</translation>
+        <translation>Exporter la Collection d&apos;images</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1327"/>
         <source>You have to select something you want to export</source>
-        <translation type="unfinished">Vous devez sélectionner un élément pour l&apos;&apos;exporter</translation>
+        <translation>Vous devez sélectionner un élément pour l&apos;&apos;exporter</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1433"/>
         <source>No tag entered</source>
-        <translation type="unfinished">Aucune étiquette n&apos;a été entrée</translation>
+        <translation>Aucune étiquette n&apos;a été entrée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1577"/>
@@ -16892,52 +16892,52 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1759"/>
         <source>Image still loading</source>
-        <translation type="unfinished">Image toujours en cours de chargement</translation>
+        <translation>Image toujours en cours de chargement</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1767"/>
         <source>JPG</source>
-        <translation type="unfinished">JPG</translation>
+        <translation>JPG</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1771"/>
         <source>TIFF</source>
-        <translation type="unfinished">TIFF</translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1775"/>
         <source>PSD</source>
-        <translation type="unfinished">PSD</translation>
+        <translation>PSD</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1779"/>
         <source>EPS/PS</source>
-        <translation type="unfinished">EPS/PS</translation>
+        <translation>EPS/PS</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1783"/>
         <source>PDF</source>
-        <translation type="unfinished">PDF</translation>
+        <translation>PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1787"/>
         <source>JPG2000</source>
-        <translation type="unfinished">JPG2000</translation>
+        <translation>JPG2000</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1795"/>
         <source>emb. PSD</source>
-        <translation type="unfinished">PSD incorporé</translation>
+        <translation>PSD incorporé</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1799"/>
         <source>not available</source>
-        <translation type="unfinished">indisponible</translation>
+        <translation>indisponible</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1820"/>
         <source>No image selected</source>
-        <translation type="unfinished">Aucune image sélectionnée</translation>
+        <translation>Aucune image sélectionnée</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1889"/>
@@ -19936,7 +19936,7 @@ Voulez-vous utiliser celle-ci?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Embedding</source>
-        <translation type="unfinished">Incorporation</translation>
+        <translation>Incorporation</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1304"/>
@@ -20177,7 +20177,7 @@ Voulez-vous utiliser celle-ci?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="60"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Détermine la compatibilité PDF.&lt;br/&gt;Le format &lt;b&gt;PDF 1.3&lt;/b&gt;, qui est le plus ancien supporté, donne la plus large compatibilité avec les RIPs des imprimeurs.&lt;br/&gt;Le format &lt;b&gt;PDF 1.4&lt;/b&gt;, qui est la version par défaut, ajoute le support des transparences et du chiffrement 128 bits.&lt;br/&gt;Le format &lt;b&gt;PDF 1.5&lt;/b&gt; doit être utilisé si vous désirez préserver les objets dans des calques séparés.&lt;br/&gt;Le format &lt;b&gt;PDF/X-1a&lt;/b&gt; est prévu pour un échange de fichiers comportant uniquement des couleurs CMJN et tons directs.&lt;br/&gt;Le format &lt;b&gt;PDF/X-3&lt;/b&gt; est utilisé pour exporter des fichiers comportant des données RVB dont les couleurs sont gérées en vue de leur impression chez un prestataire commercial. Ce format est sélectionnable uniquement si la gestion de couleur est activée. Utilisez ce fomat uniquement sur le conseil de votre imprimeur ou dans certains cas lors de l&apos;impression sur une imprimante laser numérique 4 couleurs.&lt;br/&gt;Le format &lt;b&gt;PDF/X-4&lt;/b&gt; est une extension du format PDF/X-3 supportant les transparences et les calques.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="61"/>
@@ -20247,7 +20247,7 @@ Voulez-vous utiliser celle-ci?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="64"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished">Les calques de votre document sont exportés vers le PDF. Disponible uniquement si le format PDF 1.5 ou supérieur est sélectionné.</translation>
+        <translation>Les calques de votre document sont exportés vers le PDF. Disponible uniquement si le format PDF 1.5 ou supérieur est sélectionné.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
@@ -35132,7 +35132,7 @@ Gouttière verticale: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="13463"/>
         <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished">%1 objet(s) copié(s) sur %2 pages</translation>
+        <translation>%1 objet(s) copié(s) sur %2 pages</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
@@ -36011,7 +36011,7 @@ Le profil anciennement sélectionné sera utilisé.</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1061"/>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished">Effacer l&apos;intégralité du texte ?</translation>
+        <translation>Voulez-vous effacer l&apos;intégralité du texte ?</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1200"/>
@@ -36168,7 +36168,7 @@ Le profil anciennement sélectionné sera utilisé.</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="104"/>
         <source>Clear The Console</source>
-        <translation type="unfinished">Effacer la console</translation>
+        <translation>Effacer la console</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="109"/>
@@ -36178,7 +36178,7 @@ Le profil anciennement sélectionné sera utilisé.</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="112"/>
         <source>Save the  script</source>
-        <translation type="unfinished">Enregistrer le script</translation>
+        <translation>Enregistrer le script</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="115"/>
@@ -36188,12 +36188,12 @@ Le profil anciennement sélectionné sera utilisé.</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="120"/>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Ouvrir</translation>
+        <translation>&amp;Ouvrir</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="123"/>
         <source>Open a script</source>
-        <translation type="unfinished">Ouvrir un script</translation>
+        <translation>Ouvrir un script</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="126"/>
@@ -36208,7 +36208,7 @@ Le profil anciennement sélectionné sera utilisé.</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="134"/>
         <source>Save the current script</source>
-        <translation type="unfinished">Enregistrer le script actuel</translation>
+        <translation>Enregistrer le script actuel</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="137"/>
@@ -38222,7 +38222,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="206"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Détermine la compatibilité PDF.&lt;br/&gt;Le format &lt;b&gt;PDF 1.3&lt;/b&gt;, qui est le plus ancien supporté, donne la plus large compatibilité avec les RIPs des imprimeurs.&lt;br/&gt;Le format &lt;b&gt;PDF 1.4&lt;/b&gt;, qui est la version par défaut, ajoute le support des transparences et du chiffrement 128 bits.&lt;br/&gt;Le format &lt;b&gt;PDF 1.5&lt;/b&gt; doit être utilisé si vous désirez préserver les objets dans des calques séparés.&lt;br/&gt;Le format &lt;b&gt;PDF/X-1a&lt;/b&gt; est prévu pour un échange de fichiers comportant uniquement des couleurs CMJN et tons directs.&lt;br/&gt;Le format &lt;b&gt;PDF/X-3&lt;/b&gt; est utilisé pour exporter des fichiers comportant des données RVB dont les couleurs sont gérées en vue de leur impression chez un prestataire commercial. Ce format est sélectionnable uniquement si la gestion de couleur est activée. Utilisez ce fomat uniquement sur le conseil de votre imprimeur ou dans certains cas lors de l&apos;impression sur une imprimante laser numérique 4 couleurs.&lt;br/&gt;Le format &lt;b&gt;PDF/X-4&lt;/b&gt; est une extension du format PDF/X-3 supportant les transparences et les calques.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="207"/>
@@ -41791,27 +41791,27 @@ veuillez choisir un autre nom.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
         <source>Discretionary Ligatures (dlig)</source>
-        <translation type="unfinished">Ligatures discrétionnaires (dlig)</translation>
+        <translation>Ligatures discrétionnaires (dlig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
         <source>Contextual Ligatures (clig)</source>
-        <translation type="unfinished">Ligatures contextuelles (clig)</translation>
+        <translation>Ligatures contextuelles (clig)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
         <source>Historical Ligatures (hlig)</source>
-        <translation type="unfinished">Ligatures historiques (hlig) utilisées dans les livres anciens</translation>
+        <translation>Ligatures historiques (hlig) utilisées dans les livres anciens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="139"/>
         <source>Capitals &amp;&amp; Position</source>
-        <translation type="unfinished">Capitales &amp;&amp; Positions</translation>
+        <translation>Capitales &amp;&amp; Positions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="186"/>
         <source>Capitals:</source>
-        <translation type="unfinished">Capitales :</translation>
+        <translation>Capitales :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="148"/>
@@ -41831,162 +41831,162 @@ veuillez choisir un autre nom.</translation>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="163"/>
         <source>Unicase</source>
-        <translation type="unfinished">Écriture unicamérale</translation>
+        <translation>Écriture unicamérale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="168"/>
         <source>Titling</source>
-        <translation type="unfinished">Titrage</translation>
+        <translation>Titrage</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common Ligatures (liga)</source>
-        <translation type="unfinished">Ligatures courantes (liga)</translation>
+        <translation>Ligatures courantes (liga)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
         <source>Ligatures</source>
-        <translation type="unfinished">Ligatures</translation>
+        <translation>Ligatures</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
         <source>Common</source>
-        <translation type="unfinished">Les plus courantes</translation>
+        <translation>Les plus courantes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
         <source>Discretionary</source>
-        <translation type="unfinished">Discrétionnaire</translation>
+        <translation>Discrétionnaire</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="89"/>
         <source>Contextual</source>
-        <translation type="unfinished">Contextuelle</translation>
+        <translation>Contextuelle</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="117"/>
         <source>Historical</source>
-        <translation type="unfinished">Historique</translation>
+        <translation>Historique</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="173"/>
         <source>Petite Capitals from Capitals</source>
-        <translation type="unfinished">Capitales en Petite Caps</translation>
+        <translation>Capitales en Petite Caps</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="178"/>
         <source>Small Capitals from Capitals</source>
-        <translation type="unfinished">Capitales en Petites Capitales</translation>
+        <translation>Capitales en Petites Capitales</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="206"/>
         <source>Position:</source>
-        <translation type="unfinished">Position :</translation>
+        <translation>Position :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="214"/>
         <source>Default Position</source>
-        <translation type="unfinished">Position par défaut</translation>
+        <translation>Position par défaut</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="219"/>
         <source>Subscript</source>
-        <translation type="unfinished">Indice</translation>
+        <translation>Indice</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="224"/>
         <source>Superscript</source>
-        <translation type="unfinished">Exposant</translation>
+        <translation>Exposant</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="229"/>
         <source>Ordinals</source>
-        <translation type="unfinished">Ordinaux</translation>
+        <translation>Ordinaux</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="261"/>
         <source>Numerals</source>
-        <translation type="unfinished">Numéros</translation>
+        <translation>Numéros</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="301"/>
         <source>Style:</source>
-        <translation type="unfinished">Style :</translation>
+        <translation>Style :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="270"/>
         <source>Default Numerals</source>
-        <translation type="unfinished">Chiffres par défaut</translation>
+        <translation>Chiffres par défaut</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="275"/>
         <source>Lining</source>
-        <translation type="unfinished">Alignées</translation>
+        <translation>Alignées</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="280"/>
         <source>Old Style</source>
-        <translation type="unfinished">Vieux Style</translation>
+        <translation>Vieux Style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="308"/>
         <source>Width:</source>
-        <translation type="unfinished">Largeur :</translation>
+        <translation>Largeur :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="329"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished">Largeur numérique par défaut</translation>
+        <translation>Largeur de chiffres par défaut</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="334"/>
         <source>Proportional</source>
-        <translation type="unfinished">Proportionnel</translation>
+        <translation>Proportionnelle</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="339"/>
         <source>Tabular</source>
-        <translation type="unfinished">Tabulaire</translation>
+        <translation>Tabulaire</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="347"/>
         <source>Fraction:</source>
-        <translation type="unfinished">Fraction :</translation>
+        <translation>Fraction :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="355"/>
         <source>No Fractions</source>
-        <translation type="unfinished">Pas de fractions</translation>
+        <translation>Pas de fractions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="360"/>
         <source>Diagonal Fractions</source>
-        <translation type="unfinished">Fractions Obliques</translation>
+        <translation>Fractions Obliques</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="365"/>
         <source>Stacked Fractions</source>
-        <translation type="unfinished">Fractions Empilées</translation>
+        <translation>Fractions Empilées</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
         <source>Slashed Zero (zero)</source>
-        <translation type="unfinished">Zéro Barré (zero)</translation>
+        <translation>Zéro Barré (zero)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="394"/>
         <source>Slashed Zero</source>
-        <translation type="unfinished">Zéro Barré</translation>
+        <translation>Zéro Barré</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="406"/>
         <source>Stylistic Sets:</source>
-        <translation type="unfinished">Ensembles stylistiques :</translation>
+        <translation>Ensembles stylistiques :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="425"/>
         <source>click to select</source>
-        <translation type="unfinished">cliquez pour sélectionner</translation>
+        <translation>cliquez pour sélectionner</translation>
     </message>
 </context>
 <context>
