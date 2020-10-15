@@ -23391,7 +23391,7 @@ transparentnost objekta</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
         <source>Text flow around  frame shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Prijelom teksta oko oblika okvira</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
