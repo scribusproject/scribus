@@ -23387,8 +23387,8 @@ de la objekto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around  frame shape</source>
-        <translation type="unfinished"></translation>
+        <source>Text flow around frame shape</source>
+        <translation>Teksto fluas ĉirkaŭ la kadroformo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>

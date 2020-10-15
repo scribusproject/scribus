@@ -89,7 +89,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Text flow around  frame shape</string>
+          <string>Text flow around frame shape</string>
          </property>
          <property name="text">
           <string>Use Frame &amp;Shape</string>
