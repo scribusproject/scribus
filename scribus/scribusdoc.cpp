@@ -11032,11 +11032,20 @@ void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
 	int selectedItemCount = itemSelection->count();
 	if (selectedItemCount <= 0)
 		return;
+
+	UndoTransaction undoTransaction;
+	if (UndoManager::undoEnabled() && (selectedItemCount > 1))
+		undoTransaction = UndoManager::instance()->beginTransaction(Um::Selection, Um::IGroup, Um::TruncateText);
+
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
 		currItem->truncateContents();
 	}
+
+	if (undoTransaction)
+		undoTransaction.commit();
+
 	regionsChanged()->update(QRectF());
 	changed();
 }
