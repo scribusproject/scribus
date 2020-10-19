@@ -1686,8 +1686,10 @@
   <ItemGroup>
     <lrelease Include="..\..\..\resources\translations\scribus.af.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.ar.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.az.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.be.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.bg.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.bn_IN.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.br.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.ca.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.cs_CZ.ts" />
@@ -1722,6 +1724,7 @@
     <lrelease Include="..\..\..\resources\translations\scribus.lt_LT.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.ml.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.mn_MN.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.ms_MY.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.nb_NO.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.nl.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.oc.ts" />

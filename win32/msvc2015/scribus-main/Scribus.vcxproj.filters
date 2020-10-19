@@ -2964,7 +2964,13 @@
     <lrelease Include="..\..\..\resources\translations\scribus.ar.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.az.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.bg.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.bn_IN.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.br.ts">
@@ -3112,6 +3118,9 @@
       <Filter>Translation Files</Filter>
     </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.mn_MN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ms_MY.ts">
       <Filter>Translation Files</Filter>
     </lrelease>
     <lrelease Include="..\..\..\resources\translations\scribus.pt_PT.ts">
