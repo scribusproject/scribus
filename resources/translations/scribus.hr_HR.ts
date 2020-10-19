@@ -23389,14 +23389,14 @@ transparentnost objekta</translation>
         <translation>Prijelom teksta okolo graničnog okvira</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
+        <source>Text flow around frame shape</source>
+        <translation>Prijelom teksta oko oblika okvira</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
         <source>Text flow around frame disabled</source>
         <translation>Deaktiviran prijelom teksta okolo okvira</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around frame shape</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>

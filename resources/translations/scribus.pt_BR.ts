@@ -23386,14 +23386,14 @@ do objeto</translation>
         <translation>Fluxo de texto ao redor da caixa delimitadora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
-        <source>Text flow around frame disabled</source>
-        <translation>Fluxo de texto ao redor do quadro desabilitado</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
         <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
+        <source>Text flow around frame disabled</source>
+        <translation>Fluxo de texto ao redor do quadro desabilitado</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>

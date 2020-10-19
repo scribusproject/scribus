@@ -23368,14 +23368,14 @@ Transparency</source>
         <translation>Szöveg körbefuttatása a határolódoboz körül</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
+        <source>Text flow around frame shape</source>
+        <translation>Szöveg körbefuttatása a keret alakzata körül</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
         <source>Text flow around frame disabled</source>
         <translation>Szöveg körbefuttatása a keret körül letiltva</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around frame shape</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>

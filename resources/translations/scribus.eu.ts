@@ -23403,14 +23403,14 @@ gardentasuna</translation>
         <translation>Textu-fluxua muga-koadroaren inguruan </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
-        <source>Text flow around frame disabled</source>
-        <translation>Textu-fluxua markoaren inguruan desgaituta</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
         <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
+        <source>Text flow around frame disabled</source>
+        <translation>Textu-fluxua markoaren inguruan desgaituta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>

@@ -23328,14 +23328,14 @@ Transparency</source>
         <translation>文本环绕边框</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
-        <source>Text flow around frame disabled</source>
-        <translation>文本环绕框架已禁用</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
         <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
+        <source>Text flow around frame disabled</source>
+        <translation>文本环绕框架已禁用</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>
