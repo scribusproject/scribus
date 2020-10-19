@@ -23376,14 +23376,14 @@ Transparency</source>
         <translation>التفاف النص حول مربع الإحاطة</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around frame shape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
         <source>Text flow around frame disabled</source>
         <translation>التفاف النص حول الإطار  معطّل</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
+        <source>Text flow around frame shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>
@@ -31261,7 +31261,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;أنت تحاول استيراد صفحات أكثر من تلك المتوفرة في المستند الحالي بحسب الصفحة النشطة.&lt;/p&gt;اختر أحد الخيارات التالية:&lt;ul&gt;&lt;li&gt;&lt;b&gt;أنشئ&lt;/b&gt;صفحات مفقودة&lt;/li&gt;&lt;li&gt;&lt;b&gt;استورد&lt;/b&gt;صفحات حتى الصفحة الأخيرة&lt;/li&gt;&lt;li&gt;&lt;b&gt;ألغِ&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17850"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
         <source>Unacceptable settings for note style</source>
         <translation>إعدادات غير مقبولة لنمط الملاحظة</translation>
     </message>
@@ -35067,7 +35067,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16312"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
         <source>Document</source>
         <translation>مستند</translation>
     </message>
@@ -35077,27 +35077,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>الخلفية</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>لا يمكن حذف عنصر قيد الاستخدام</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>يٌحرّر حاليًا العنصر 1% بواسطة محرر القصة. سوف تُلغى عملية الحذف</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11704"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11713"/>
         <source>Some objects are locked.</source>
         <translation>بعض العناصر مُوصدة.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11700"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11709"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;افتح الكل</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11710"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;تخطى العناصر المُوصدة</translation>
     </message>
@@ -35108,7 +35108,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
         <source>Adjusting Colors</source>
         <translation>ضبط الألوان</translation>
     </message>
@@ -35123,7 +35123,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>أزِل تنسيق الأحرف المباشر</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13308"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13317"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35134,7 +35134,7 @@ Rotation: %4</source>
 دوران: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13343"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13352"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35145,14 +35145,14 @@ Vertical gap: %4</source>
 الفجوة الرأسية: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13472"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>نُسخت %1 من العناصر على %2 من الصفحات</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14709"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14764"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14918"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
         <source>Group%1</source>
         <translation> مجموعه%1</translation>
     </message>
@@ -35163,18 +35163,18 @@ Vertical gap: %4</source>
         <translation>اُستورِد</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
         <source>File %1 autosaved</source>
         <translation>حُفظ الملف 1% تلقائيًا</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17477"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17516"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
         <source>No Style</source>
         <translation>بلا نمط</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17844"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>يحتوي نمط الملاحظة 1% على مستند كنطاق ويوفر نفس نمط الترقيم كالمجموعة 2%</translation>
     </message>

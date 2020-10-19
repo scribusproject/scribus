@@ -23368,14 +23368,14 @@ Transparency</source>
         <translation>Szöveg körbefuttatása a határolódoboz körül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around frame shape</source>
-        <translation>Szöveg körbefuttatása a keret alakzata körül</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
         <source>Text flow around frame disabled</source>
         <translation>Szöveg körbefuttatása a keret körül letiltva</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
+        <source>Text flow around frame shape</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="163"/>
@@ -31251,7 +31251,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17850"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -35057,7 +35057,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16312"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -35067,27 +35067,27 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <translation>Háttér</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Használatban lévő elem nem törölhető</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben szerkesztés alatt áll. Törlés megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11704"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11713"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11700"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11709"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11710"/>
         <source>&amp;Skip locked objects</source>
         <translation>Zárolt objektumok &amp;kihagyása</translation>
     </message>
@@ -35098,7 +35098,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
@@ -35113,7 +35113,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <translation>Közvetlen karakterformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13308"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13317"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35124,7 +35124,7 @@ Függőleges eltolás: %3
 Forgatás: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13343"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13352"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35135,14 +35135,14 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13472"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>%1 elem lett másolva a(z) %2 oldalra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14709"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14764"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14918"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -35153,18 +35153,18 @@ Függőleges térköz: %4</translation>
         <translation>Importált </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17477"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17516"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17844"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>

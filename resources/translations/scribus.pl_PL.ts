@@ -23416,13 +23416,13 @@ obiektu</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
-        <source>Text flow around frame shape</source>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
+        <source>Text flow around frame disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="58"/>
-        <source>Text flow around frame disabled</source>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="92"/>
+        <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -31273,7 +31273,7 @@ Tym samym obraz może nie być poprawny</translation>
         <translation>&lt;p&gt;Próbujesz zaimportować więcej stron niż jest dostępnych w bieżącym dokumencie, licząc od aktywnej strony.&lt;/p&gt;Wybierz jedno z następujących rozwiązań:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Utwórz&lt;/b&gt; brakujące strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Zaimportuj&lt;/b&gt; strony aż do ostatniej strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Anuluj&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17850"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nieakceptowalne ustawienie dla stylu notatki </translation>
     </message>
@@ -35080,7 +35080,7 @@ Jeśli zapiszesz go w tej wersji, nie będzie już odczytywany przez starsze wer
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16312"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -35090,27 +35090,27 @@ Jeśli zapiszesz go w tej wersji, nie będzie już odczytywany przez starsze wer
         <translation>Tło</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Nie można usunąć obiektu będącego w użyciu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Obiekt %1 jest edytowany w Edytorze artykułów. Operacja usunięcia zostaje anulowana</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11704"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11713"/>
         <source>Some objects are locked.</source>
         <translation>Niektóre obiekty są zabezpieczone.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11700"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11709"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odbezpiecz wszystko</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11710"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Pomiń zabezpieczone obiekty</translation>
     </message>
@@ -35121,7 +35121,7 @@ Jeśli zapiszesz go w tej wersji, nie będzie już odczytywany przez starsze wer
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
         <source>Adjusting Colors</source>
         <translation>Dopasuj kolory</translation>
     </message>
@@ -35136,7 +35136,7 @@ Jeśli zapiszesz go w tej wersji, nie będzie już odczytywany przez starsze wer
         <translation>usuń bezpośrednie formatowanie znaków</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13308"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13317"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35147,7 +35147,7 @@ Przesunięcie w pionie: %3
 Obrót: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13343"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13352"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35158,14 +35158,14 @@ Poziomy odstęp: %3
 Pionowy odstęp: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13472"/>
         <source>Copied %1 items on %2 pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14709"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14764"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14918"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
         <source>Group%1</source>
         <translation>Grupa%1</translation>
     </message>
@@ -35176,18 +35176,18 @@ Pionowy odstęp: %4</translation>
         <translation>Zaimportowany</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
         <source>File %1 autosaved</source>
         <translation>Plik %1 został automatycznie zapisany</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17477"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17516"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
         <source>No Style</source>
         <translation>Bez stylu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17844"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Style notatek %1 ma dokument za zakres i dostarcza ten sam styl numerowania co zestaw %2</translation>
     </message>

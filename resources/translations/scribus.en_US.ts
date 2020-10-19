@@ -31274,7 +31274,7 @@ Therefore the image may be not correct</translation>
         <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17850"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
         <source>Unacceptable settings for note style</source>
         <translation>Unacceptable settings for note style</translation>
     </message>
@@ -35080,7 +35080,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16312"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -35090,27 +35090,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11099"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11108"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11704"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11713"/>
         <source>Some objects are locked.</source>
         <translation>Some objects are locked.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11700"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11709"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Unlock All</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11710"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Skip locked objects</translation>
     </message>
@@ -35121,7 +35121,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15993"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
         <source>Adjusting Colors</source>
         <translation>Adjusting Colors</translation>
     </message>
@@ -35136,7 +35136,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>remove direct char formatting</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13308"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13317"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35147,7 +35147,7 @@ Vertical shift: %3
 Rotation: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13343"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13352"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35158,14 +35158,14 @@ Horizontal gap: %3
 Vertical gap: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13472"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>Copied %1 items on %2 pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14709"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14764"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14918"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
         <source>Group%1</source>
         <translation>Group%1</translation>
     </message>
@@ -35176,18 +35176,18 @@ Vertical gap: %4</translation>
         <translation>Imported</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16328"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
         <source>File %1 autosaved</source>
         <translation>File %1 autosaved</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17477"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17516"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
         <source>No Style</source>
         <translation>No Style</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17844"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 note style has document as range and provide same numbering style as set %2</translation>
     </message>
