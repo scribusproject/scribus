@@ -11,9 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
-#include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "undomanager.h"
-
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
@@ -505,6 +503,8 @@ PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == nullptr)
 		return nullptr;
+	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
+	// and instead provide a different function like toggleLock()
 	item->toggleLock();
 	if (item->locked())
 		return PyLong_FromLong(1);
@@ -516,8 +516,6 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return nullptr;
-	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
-	// and instead provide a different function like toggleLock()
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
