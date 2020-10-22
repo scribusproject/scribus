@@ -169,7 +169,7 @@ PyObject *scribus_pagecount(PyObject* /* self */)
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->Pages->count()));
 }
 
-PyObject *scribus_pagedimension(PyObject* /* self */)
+PyObject *scribus_getpagesize(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
@@ -538,7 +538,7 @@ void cmdpagedocwarnings()
 	  << scribus_importpage__doc__
 	  << scribus_newpage__doc__
 	  << scribus_pagecount__doc__
-	  << scribus_pagedimension__doc__
+	  << scribus_getpagesize__doc__
 	  << scribus_getpagenmargins__doc__ 
 	  << scribus_redraw__doc__
 	  << scribus_savepageeps__doc__           

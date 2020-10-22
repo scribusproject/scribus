@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 /*! Scribus GUI tool */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_messagebartext__doc__,
+PyDoc_STRVAR(scribus_statusmessage__doc__,
 QT_TR_NOOP("messagebarText(\"string\")\n\
 \n\
 Writes the \"string\" into the Scribus message bar (status line). The text\n\
@@ -23,7 +23,7 @@ must be UTF8 encoded or 'unicode' string(recommended).\n\
 Changes the status bar string.
 (Petr Vanek 02/19/04)
 */
-PyObject *scribus_messagebartext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_statusmessage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_progressreset__doc__,

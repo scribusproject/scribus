@@ -30,7 +30,7 @@ nomDefaut='report.txt', estEnregistre=True)</p></dd>
 	
 <dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt>
 <dd><code>messagebarText("chaîne")</code>
-<p>&Eacute;crit "chaîne" dans la barre de message de Scribus (ligne d'état). Le texte doit être encodé en UTF8 ou en une chaîne 'unicode' (recommandé).</p></dd>
+<p>Obsolète. Veuillez utiliser statusMessage() en lieu et place.</p></dd>
 	
 <dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
 <dd><code>messageBox("titre", "message",
@@ -61,7 +61,7 @@ ICON_ERROR)result = <a href="#-messageBox">messageBox</a>('Singes!',
 la valeur True si un document a été créé.</p></dd>
 	
 <dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
-<dd><code>messagebarText("chaîne")</code>
+<dd><code>statusMessage("chaîne")</code>
 <p>&Eacute;crit "chaîne" dans la barre de message de Scribus (ligne d'état). Le texte doit être encodé en UTF8 ou en une chaîne 'unicode' (recommandé).</p></dd>
 	
 <dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>

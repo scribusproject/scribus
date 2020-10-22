@@ -31,7 +31,7 @@ PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_fontnames(PyObject* /* self */)
+PyObject *scribus_getfontnames(PyObject* /* self */)
 {
 	int cc2 = 0;
 	SCFontsIterator it2(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
@@ -179,14 +179,14 @@ PyObject *scribus_setactivelayer(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_getactlayer(PyObject* /* self */)
+PyObject *scribus_getactivelayer(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
 }
 
-PyObject *scribus_loweractlayer(PyObject* /* self */)
+PyObject *scribus_loweractivelayer(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
@@ -195,7 +195,7 @@ PyObject *scribus_loweractlayer(PyObject* /* self */)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_raiseactlayer(PyObject* /* self */)
+PyObject *scribus_raiseactivelayer(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
@@ -680,7 +680,7 @@ PyObject *scribus_getlayertransparency(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(i);
 }
 
-PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
+PyObject *scribus_deletelayer(PyObject* /* self */, PyObject* args)
 {
 //FIXME: Use the docs remove layer code
 	char *Name = const_cast<char*>("");
@@ -810,9 +810,10 @@ void cmdmiscdocwarnings()
 {
 	QStringList s;
 	s << scribus_createlayer__doc__
+	  << scribus_deletelayer__doc__
 	  << scribus_filequit__doc__
-	  << scribus_fontnames__doc__
-	  << scribus_getactlayer__doc__ 
+	  << scribus_getfontnames__doc__
+	  << scribus_getactivelayer__doc__ 
 	  << scribus_getlanguage__doc__
 	  << scribus_getlayerblendmode__doc__
 	  << scribus_getlayers__doc__
@@ -825,7 +826,6 @@ void cmdmiscdocwarnings()
 	  << scribus_moveselectiontoback__doc__ 
 	  << scribus_moveselectiontofront__doc__
 	  << scribus_readpdfoptions__doc__
-	  << scribus_removelayer__doc__
 	  << scribus_renderfont__doc__
 	  << scribus_savepdfoptions__doc__
 	  << scribus_senttolayer__doc__

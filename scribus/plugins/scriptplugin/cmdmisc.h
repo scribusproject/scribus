@@ -26,13 +26,13 @@ setRedraw(True) in a finally: clause at the top level of your script.\n\
 PyObject *scribus_setredraw(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_fontnames__doc__,
+PyDoc_STRVAR(scribus_getfontnames__doc__,
 QT_TR_NOOP("getFontNames() -> list\n\
 \n\
 Returns a list with the names of all available fonts.\n\
 "));
 /*! simple list of font names. */
-PyObject *scribus_fontnames(PyObject * /*self*/);
+PyObject *scribus_getfontnames(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_xfontnames__doc__,
@@ -85,31 +85,31 @@ May raise ValueError if the layer name isn't acceptable.\n\
 PyObject *scribus_setactivelayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getactlayer__doc__,
+PyDoc_STRVAR(scribus_getactivelayer__doc__,
 QT_TR_NOOP("getActiveLayer() -> string\n\
 \n\
 Returns the name of the current active layer.\n\
 "));
 /*! Get layer name */
-PyObject *scribus_getactlayer(PyObject * /*self*/);
+PyObject *scribus_getactivelayer(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_loweractlayer__doc__,
+PyDoc_STRVAR(scribus_loweractivelayer__doc__,
 QT_TR_NOOP("lowerActiveLayer()\n\
 \n\
 Lowers the current active layer.\n\
 "));
 /*! Lower active Layer */
-PyObject *scribus_loweractlayer(PyObject * /*self*/);
+PyObject *scribus_loweractivelayer(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_raiseactlayer__doc__,
+PyDoc_STRVAR(scribus_raiseactivelayer__doc__,
 QT_TR_NOOP("raiseActiveLayer()\n\
 \n\
 Raises the current active layer.\n\
 "));
 /*! Raise active layer */
-PyObject *scribus_raiseactlayer(PyObject * /*self*/);
+PyObject *scribus_raiseactivelayer(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_senttolayer__doc__,
@@ -307,7 +307,7 @@ May raise ValueError if the layer name isn't acceptable.\n\
 PyObject *scribus_getlayertransparency(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_removelayer__doc__,
+PyDoc_STRVAR(scribus_deletelayer__doc__,
 QT_TR_NOOP("deleteLayer(\"layer\")\n\
 \n\
 Deletes the layer with the name \"layer\". Nothing happens if the layer doesn't\n\
@@ -317,7 +317,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Remove layer */
-PyObject *scribus_removelayer(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_deletelayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_createlayer__doc__,

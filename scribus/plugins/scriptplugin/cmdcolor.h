@@ -13,14 +13,14 @@ for which a new license (GPL+exception) is in place.
 /** Managing Colors */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_colornames__doc__,
+PyDoc_STRVAR(scribus_getcolornames__doc__,
 QT_TR_NOOP("getColorNames() -> list\n\
 \n\
 Returns a list containing the names of all defined colors in the document.\n\
 If no document is open, returns a list of the default document colors.\n\
 "));
 /** Returns a list with colours available in doc or in prefs. */
-PyObject *scribus_colornames(PyObject * /*self*/);
+PyObject *scribus_getcolornames(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolor__doc__,
@@ -247,7 +247,7 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_newcolorlab(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_delcolor__doc__,
+PyDoc_STRVAR(scribus_deletecolor__doc__,
 QT_TR_NOOP("deleteColor(\"name\", \"replace\")\n\
 \n\
 Deletes the color \"name\". Every occurrence of that color is replaced by the\n\
@@ -261,7 +261,7 @@ May raise NotFoundError if a named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Deletes named color */
-PyObject *scribus_delcolor(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_deletecolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_replcolor__doc__,

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QString>
 
-PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_statusmessage(PyObject* /* self */, PyObject* args)
 {
 	char *aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
@@ -124,8 +124,12 @@ PV */
 void guiappdocwarnings()
 {
 	QStringList s;
-	s << scribus_messagebartext__doc__ << scribus_progressreset__doc__
-			<< scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__
-			<< scribus_setcursor__doc__ << scribus_docchanged__doc__
-			<< scribus_zoomdocument__doc__ << scribus_scrolldocument__doc__;
+	s << scribus_docchanged__doc__
+	  << scribus_progressreset__doc__
+	  << scribus_progresssetprogress__doc__
+	  << scribus_progresssettotalsteps__doc__
+	  << scribus_scrolldocument__doc__
+	  << scribus_setcursor__doc__
+	  << scribus_statusmessage__doc__
+	  << scribus_zoomdocument__doc__;
 }

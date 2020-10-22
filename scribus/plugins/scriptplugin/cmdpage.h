@@ -143,7 +143,7 @@ See setHGuides.\n\
 PyObject *scribus_setVguides(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pagedimension__doc__,
+PyDoc_STRVAR(scribus_getpagesize__doc__,
 QT_TR_NOOP("getPageSize() -> tuple\n\
 \n\
 Returns a tuple with document page dimensions measured in the document's current units.\n\
@@ -154,7 +154,7 @@ returns a tuple with page domensions in used system
 e.g. when is the doc in picas returns picas ;)
 (Petr Vanek 02/17/04)
 */
-PyObject *scribus_pagedimension(PyObject * /*self*/);
+PyObject *scribus_getpagesize(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getpagensize__doc__,

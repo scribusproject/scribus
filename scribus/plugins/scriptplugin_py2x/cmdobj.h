@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 /** Object related Commands */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newrect__doc__,
+PyDoc_STRVAR(scribus_createrect__doc__,
 QT_TR_NOOP("createRect(x, y, width, height, [\"name\"]) -> string\n\
 \n\
 Creates a new rectangle on the current page and returns its name. The\n\
@@ -27,10 +27,10 @@ May raise NameExistsError if you explicitly pass a name that's already used.\n\
 /** Creates a rectangular with params X, Y (base position)
  b, h (width, height) and optional name of the object.
  */
-PyObject *scribus_newrect(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createrect(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newellipse__doc__,
+PyDoc_STRVAR(scribus_createellipse__doc__,
 QT_TR_NOOP("createEllipse(x, y, width, height, [\"name\"]) -> string\n\
 \n\
 Creates a new ellipse on the current page and returns its name.\n\
@@ -44,10 +44,10 @@ May raise NameExistsError if you explicitly pass a name that's already used.\n\
 /** Creates an ellipse with x, y, b and h - name optionally
  params.
  */
-PyObject *scribus_newellipse(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createellipse(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newimage__doc__,
+PyDoc_STRVAR(scribus_createimage__doc__,
 QT_TR_NOOP("createImage(x, y, width, height, [\"name\"]) -> string\n\
 \n\
 Creates a new picture frame on the current page and returns its name. The\n\
@@ -59,10 +59,10 @@ create one for you.\n\
 May raise NameExistsError if you explicitly pass a name that's already used.\n\
 "));
 /** Creates an image frame - x, y, b, h and opt. name. */
-PyObject *scribus_newimage(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createimage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newtext__doc__,
+PyDoc_STRVAR(scribus_createtext__doc__,
 QT_TR_NOOP("createText(x, y, width, height, [\"name\"]) -> string\n\
 \n\
 Creates a new text frame on the actual page and returns its name.\n\
@@ -74,10 +74,10 @@ given Scribus will create one for you.\n\
 May raise NameExistsError if you explicitly pass a name that's already used.\n\
 "));
 /** Creates a text frame - x, y, b, h and opt. name. */
-PyObject *scribus_newtext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createtext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newtable__doc__,
+PyDoc_STRVAR(scribus_createtable__doc__,
 QT_TR_NOOP("createTable(x, y, width, height, numRows, numColumns, [\"name\"]) -> string\n\
 \n\
 Creates a new table with the given number of rows and columns on the actual page\n\
@@ -90,10 +90,10 @@ May raise NameExistsError if you explicitly pass a name that's already used.\n\
 May raise ValueError if an insufficient number of rows or columns is passed.\n\
 "));
 /** Creates a table - x, y, width, height, numRows, numColumns and opt. name. */
-PyObject *scribus_newtable(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createtable(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_newline__doc__,
+PyDoc_STRVAR(scribus_createline__doc__,
 QT_TR_NOOP("createLine(x1, y1, x2, y2, [\"name\"]) -> string\n\
 \n\
 Creates a new line from the point(x1, y1) to the point(x2, y2) and returns\n\
@@ -105,10 +105,10 @@ object because you need this name for further access to that object. If\n\
 May raise NameExistsError if you explicitly pass a name that's already used.\n\
 "));
 /** Creates a line object - x, y, b, h and opt. name. */
-PyObject *scribus_newline(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createline(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_polyline__doc__,
+PyDoc_STRVAR(scribus_createpolyline__doc__,
 QT_TR_NOOP("createPolyLine(list, [\"name\"]) -> string\n\
 \n\
 Creates a new polyline and returns its name. The points for the polyline are\n\
@@ -123,10 +123,10 @@ May raise ValueError if an insufficient number of points is passed or if\n\
 the number of values passed don't group into points without leftovers.\n\
 "));
 /** Creates a polygon line - list with points and opt. name as params. */
-PyObject *scribus_polyline(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createpolyline(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_polygon__doc__,
+PyDoc_STRVAR(scribus_createpolygon__doc__,
 QT_TR_NOOP("createPolygon(list, [\"name\"]) -> string\n\
 \n\
 Creates a new polygon and returns its name. The points for the polygon are\n\
@@ -143,10 +143,10 @@ May raise ValueError if an insufficient number of points is passed or if\n\
 the number of values passed don't group into points without leftovers.\n\
 "));
 /** Creates a polygon - list with points and opt. name as params. */
-PyObject *scribus_polygon(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createpolygon(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_bezierline__doc__,
+PyDoc_STRVAR(scribus_createbezierline__doc__,
 QT_TR_NOOP("createBezierLine(list, [\"name\"]) -> string\n\
 \n\
 Creates a new bezier curve and returns its name. The points for the bezier\n\
@@ -164,10 +164,10 @@ May raise ValueError if an insufficient number of points is passed or if\n\
 the number of values passed don't group into points without leftovers.\n\
 "));
 /** Creates a Bezier line - list with points and opt. name as params. */
-PyObject *scribus_bezierline(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createbezierline(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pathtext__doc__,
+PyDoc_STRVAR(scribus_createpathtext__doc__,
 QT_TR_NOOP("createPathText(x, y, \"textbox\", \"beziercurve\", [\"name\"]) -> string\n\
 \n\
 Creates a new pathText by merging the two objects \"textbox\" and\n\
@@ -182,10 +182,10 @@ May raise NotFoundError if one or both of the named base object don't exist.\n\
 /** Joins 2 objects - textframe and line - into text on path.
  Uses x, y (base of the new object), name of the text frame,
  name of the line and opt. new name as params. */
-PyObject *scribus_pathtext(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_createpathtext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_deleteobj__doc__,
+PyDoc_STRVAR(scribus_deleteobject__doc__,
 QT_TR_NOOP("deleteObject([\"name\"])\n\
 \n\
 Deletes the item with the name \"name\". If \"name\" is not given the currently\n\
@@ -193,7 +193,7 @@ selected item is deleted.\n\
 "));
 /** Deletes an object - if is the name given the named object is
  deleted else the active object erased. */
-PyObject *scribus_deleteobj(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_deleteobject(PyObject * /*self*/, PyObject* args);
 
 PyDoc_STRVAR(scribus_gettextflowmode__doc__,
 QT_TR_NOOP("getTextFlowMode([\"name\"]) -> integer\n\

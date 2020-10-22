@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "sccolorengine.h"
 
-PyObject *scribus_colornames(PyObject* /* self */)
+PyObject *scribus_getcolornames(PyObject* /* self */)
 {
 	ColorList edc;
 	PyObject *l;
@@ -545,7 +545,7 @@ PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
+PyObject *scribus_deletecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Repl = const_cast<char*>(CommonStrings::None.toLatin1().constData());
@@ -670,8 +670,8 @@ PV */
 void cmdcolordocswarnings()
 {
 	QStringList s;
-	s << scribus_colornames__doc__
-	  << scribus_delcolor__doc__
+	s << scribus_getcolornames__doc__
+	  << scribus_deletecolor__doc__
 	  << scribus_getcolor__doc__
 	  << scribus_getcolorasrgb__doc__
 	  << scribus_getcolorasrgbfloat__doc__

@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 
-PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createrect(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
@@ -48,7 +48,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 }
 
 
-PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createellipse(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
@@ -74,7 +74,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 }
 
 
-PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createimage(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
@@ -99,7 +99,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 }
 
 
-PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
@@ -123,7 +123,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toUtf8());
 }
 
-PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createtable(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	int numRows, numColumns;
@@ -159,7 +159,7 @@ PyObject *scribus_newtable(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(table->itemName().toUtf8());
 }
 
-PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createline(PyObject* /* self */, PyObject* args)
 {
 	double x, y, w, h;
 	char *Name = const_cast<char*>("");
@@ -220,7 +220,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 }
 
 
-PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -297,7 +297,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 }
 
 
-PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -378,7 +378,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(it->itemName().toUtf8());
 }
 
-PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -472,7 +472,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 
 /* 03/31/2004 - xception handling
  */
-PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
+PyObject *scribus_createpathtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y;
 	char *Name = const_cast<char*>("");
@@ -513,7 +513,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 
 /* 03/21/2004 - exception raised when Name doesn't exists. Doesn't crash then. (subik)
  */
-PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
+PyObject *scribus_deleteobject(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -904,25 +904,25 @@ PV */
 void cmdobjdocwarnings()
 {
 	QStringList s;
-	s << scribus_bezierline__doc__
-	  << scribus_copyobject__doc__
-	  << scribus_deleteobj__doc__
+	s << scribus_copyobject__doc__
+	  << scribus_createbezierline__doc__
+	  << scribus_createellipse__doc__
+	  << scribus_createimage__doc__
+	  << scribus_createline__doc__
+	  << scribus_createpathtext__doc__
+	  << scribus_createpolygon__doc__
+	  << scribus_createpolyline__doc__
+	  << scribus_createrect__doc__
+	  << scribus_createtable__doc__
+	  << scribus_createtext__doc__
+	  << scribus_deleteobject__doc__
 	  << scribus_duplicateobject__doc__
 	  << scribus_getcharacterstyle__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
 	  << scribus_gettextflowmode__doc__
-	  << scribus_newellipse__doc__
-	  << scribus_newimage__doc__
-	  << scribus_newline__doc__
-	  << scribus_newrect__doc__ 
-	  << scribus_newtable__doc__
-	  << scribus_newtext__doc__
 	  << scribus_objectexists__doc__
 	  << scribus_pasteobject__doc__
-	  << scribus_pathtext__doc__
-	  << scribus_polygon__doc__
-	  << scribus_polyline__doc__
 	  << scribus_setcharstyle__doc__
 	  << scribus_setparagraphstyle__doc__
 	  << scribus_setstyle__doc__

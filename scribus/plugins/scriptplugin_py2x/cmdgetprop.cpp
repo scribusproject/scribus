@@ -60,7 +60,7 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(item->fillColor().toUtf8());
 }
 
-PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getfilltransparency(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -73,7 +73,7 @@ PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(1.0 - item->fillTransparency()));
 }
 
-PyObject *scribus_getfillblend(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getfillblendmode(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -112,7 +112,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 	return PyString_FromString(item->lineColor().toUtf8());
 }
 
-PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlinetransparency(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -125,7 +125,7 @@ PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(1.0 - item->lineTransparency()));
 }
 
-PyObject *scribus_getlineblend(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getlineblendmode(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -216,7 +216,7 @@ PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(item->fillShade()));
 }
 
-PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
+PyObject *scribus_getcornerradius(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -308,7 +308,7 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(item->rotation() * -1));
 }
 
-PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args, PyObject *keywds)
+PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
 {
 	PyObject *l;
 	int typ = -1;
@@ -452,23 +452,23 @@ PV */
 void cmdgetpropdocwarnings()
 {
 	QStringList s;
-	s << scribus_getallobj__doc__
-	  << scribus_getcornerrad__doc__ 
+	s << scribus_getallobjects__doc__
+	  << scribus_getcornerradius__doc__ 
 	  << scribus_getcustomlinestyle__doc__
 	  << scribus_getfillcolor__doc__
-	  << scribus_getfillblend__doc__
+	  << scribus_getfillblendmode__doc__
 	  << scribus_getfillshade__doc__ 
-	  << scribus_getfilltrans__doc__
+	  << scribus_getfilltransparency__doc__
 	  << scribus_getimagecolorspace__doc__
 	  << scribus_getimagefile__doc__
 	  << scribus_getimageoffset__doc__
 	  << scribus_getimagescale__doc__
 	  << scribus_getlinecolor__doc__ 
-	  << scribus_getlineblend__doc__ 
+	  << scribus_getlineblendmode__doc__ 
 	  << scribus_getlinecap__doc__
 	  << scribus_getlinejoin__doc__ 
 	  << scribus_getlineshade__doc__
-	  << scribus_getlinetrans__doc__
+	  << scribus_getlinetransparency__doc__
 	  << scribus_getlinewidth__doc__
 	  << scribus_getlinestyle__doc__ 
 	  << scribus_getobjectattributes__doc__ 

@@ -422,7 +422,7 @@ PyObject *scribus_getparagraphstyles(PyObject* /* self */)
 /*
  * Enumerate all known character styles
  */
-PyObject *scribus_getcharstylenames(PyObject* /* self */)
+PyObject *scribus_getcharstyles(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
 		return nullptr;
@@ -519,7 +519,7 @@ void cmdstyledocwarnings()
 	   << scribus_createparagraphstyle__doc__
 	   << scribus_getallstyles__doc__
 	   << scribus_getcellstyles__doc__
-	   << scribus_getcharstylenames__doc__
+	   << scribus_getcharstyles__doc__
 	   << scribus_getlinestyles__doc__
 	   << scribus_getparagraphstyles__doc__
 	   << scribus_gettablestyles__doc__;

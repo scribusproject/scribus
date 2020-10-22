@@ -126,12 +126,12 @@ Deprecated. Use getParagraphStyles() instead.\n\
 PyObject *scribus_getparagraphstyles(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getcharstylenames__doc__,
+PyDoc_STRVAR(scribus_getcharstyles__doc__,
 QT_TR_NOOP("getCharStyles() -> list\n\
 \n\
 Return a list of the names of all character styles in the current document.\n\
 "));
-PyObject *scribus_getcharstylenames(PyObject * /*self*/);
+PyObject *scribus_getcharstyles(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinestyles__doc__,

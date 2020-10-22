@@ -32,24 +32,24 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillcolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getfilltrans__doc__,
+PyDoc_STRVAR(scribus_getfilltransparency__doc__,
 QT_TR_NOOP("getFillTransparency([\"name\"]) -> float\n\
 \n\
 Returns the fill transparency of the object \"name\". If \"name\"\n\
 is not given the currently selected Item is used.\n\
 "));
 /*! Returns fill transparency of the object */
-PyObject *scribus_getfilltrans(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getfilltransparency(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getfillblend__doc__,
+PyDoc_STRVAR(scribus_getfillblendmode__doc__,
 QT_TR_NOOP("getFillBlendmode([\"name\"]) -> integer\n\
 \n\
 Returns the fill blendmode of the object \"name\". If \"name\"\n\
 is not given the currently selected Item is used.\n\
 "));
 /*! Returns fill blendmode of the object */
-PyObject *scribus_getfillblend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getfillblendmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcustomlinestyle__doc__,
@@ -72,24 +72,24 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getlinecolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlinetrans__doc__,
+PyDoc_STRVAR(scribus_getlinetransparency__doc__,
 QT_TR_NOOP("getLineTransparency([\"name\"]) -> float\n\
 \n\
 Returns the line transparency of the object \"name\". If \"name\"\n\
 is not given the currently selected Item is used.\n\
 "));
 /*! Returns line transparency of the object */
-PyObject *scribus_getlinetrans(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlinetransparency(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getlineblend__doc__,
+PyDoc_STRVAR(scribus_getlineblendmode__doc__,
 QT_TR_NOOP("getLineBlendmode([\"name\"]) -> integer\n\
 \n\
 Returns the line blendmode of the object \"name\". If \"name\"\n\
 is not given the currently selected Item is used.\n\
 "));
 /*! Returns line blendmode of the object */
-PyObject *scribus_getlineblend(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getlineblendmode(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinewidth__doc__,
@@ -155,7 +155,7 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillshade(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getcornerrad__doc__,
+PyDoc_STRVAR(scribus_getcornerradius__doc__,
 QT_TR_NOOP("getCornerRadius([\"name\"]) -> integer\n\
 \n\
 Returns the corner radius of the object \"name\". The radius is\n\
@@ -163,7 +163,7 @@ expressed in points. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Returns corner radius of the object */
-PyObject *scribus_getcornerrad(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getcornerradius(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getimagecolorspace__doc__,
@@ -242,7 +242,7 @@ is used.\n\
 PyObject *scribus_getrotation(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getallobj__doc__,
+PyDoc_STRVAR(scribus_getallobjects__doc__,
 QT_TR_NOOP("getAllObjects([\"page\"]) -> list\n\
 \n\
 Returns a list containing the names of all objects on the current page.\n\
@@ -250,7 +250,7 @@ Takes an optional keyword argument that changes the page from which the objects 
 The page index starts at 0 and goes to the total number of pages - 1.\n\
 "));
 /*! Returns a list with all objects in page */
-PyObject *scribus_getallobj(PyObject * /*self*/, PyObject* args, PyObject *keywds);
+PyObject *scribus_getallobjects(PyObject * /*self*/, PyObject* args, PyObject *keywds);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getobjectattributes__doc__,

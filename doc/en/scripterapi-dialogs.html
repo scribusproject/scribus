@@ -30,7 +30,7 @@
 
 <dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt>
 <dd><code>messagebarText("string")</code>
-<p>Writes the "string" into the Scribus message bar (status line). The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd>
+<p>Deprecated. Use statusMessage() instead.</p></dd>
 
 <dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
 <dd><code>messageBox("caption", "message",
@@ -57,7 +57,7 @@ button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer</code>
 <p>Shows 'Create new paragraph style' dialog. Function returns real style name or None when user cancels the dialog.</p></dd>
 
 <dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
-<dd><code>messagebarText("string")</code>
+<dd><code>statusMessage("string")</code>
 <p>Writes the "string" into the Scribus message bar (status line). The text must be UTF8 encoded or 'unicode' string(recommended).</p></dd>
 
 <dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>
