@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 /** Manipulating Objects */
 
 /*! docstring */
-PyDoc_STRVAR(scribus_moveobjrel__doc__,
+PyDoc_STRVAR(scribus_moveobjectrel__doc__,
 QT_TR_NOOP("moveObject(dx, dy [, \"name\"])\n\
 \n\
 Moves the object \"name\" by dx and dy relative to its current position. The\n\
@@ -22,10 +22,10 @@ UNIT constants). If \"name\" is not given the currently selected item is used.\n
 If the object \"name\" belongs to a group, the whole group is moved.\n\
 "));
 /*! Move REL the object */
-PyObject *scribus_moveobjrel(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_moveobjectrel(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_moveobjabs__doc__,
+PyDoc_STRVAR(scribus_moveobjectabs__doc__,
 QT_TR_NOOP("moveObjectAbs(x, y [, \"name\"])\n\
 \n\
 Moves the object \"name\" to a new location. The coordinates are expressed in\n\
@@ -34,10 +34,10 @@ is not given the currently selected item is used.  If the object \"name\"\n\
 belongs to a group, the whole group is moved.\n\
 "));
 /*! Move ABS the object */
-PyObject *scribus_moveobjabs(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_moveobjectabs(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_rotobjrel__doc__,
+PyDoc_STRVAR(scribus_rotateobjectrel__doc__,
 QT_TR_NOOP("rotateObject(rot [, \"name\"])\n\
 \n\
 Rotates the object \"name\" by \"rot\" degrees relatively. The object is\n\
@@ -47,10 +47,10 @@ clockwise rotation when the default rotation point is used. If \"name\" is not\n
 given the currently selected item is used.\n\
 "));
 /*! Rotate REL the object */
-PyObject *scribus_rotobjrel(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_rotateobjectrel(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_rotobjabs__doc__,
+PyDoc_STRVAR(scribus_rotateobjectabs__doc__,
 QT_TR_NOOP("rotateObjectAbs(rot [, \"name\"])\n\
 \n\
 Sets the rotation of the object \"name\" to \"rot\". Positive values\n\
@@ -58,20 +58,20 @@ mean counter clockwise rotation. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Rotate ABS the object */
-PyObject *scribus_rotobjabs(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_rotateobjectabs(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_sizeobjabs__doc__,
+PyDoc_STRVAR(scribus_sizeobject__doc__,
 QT_TR_NOOP("sizeObject(width, height [, \"name\"])\n\
 \n\
 Resizes the object \"name\" to the given width and height. If \"name\"\n\
 is not given the currently selected item is used.\n\
 "));
 /*! Resize ABS the object */
-PyObject *scribus_sizeobjabs(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_sizeobject(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getselobjnam__doc__,
+PyDoc_STRVAR(scribus_getselectedobject__doc__,
 QT_TR_NOOP("getSelectedObject([nr]) -> string\n\
 \n\
 Returns the name of the selected object. \"nr\" if given indicates the number\n\
@@ -79,37 +79,37 @@ of the selected object, e.g. 0 means the first selected object, 1 means the\n\
 second selected Object and so on.\n\
 "));
 /*! Returns name of the selected object */
-PyObject *scribus_getselobjnam(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_getselectedobject(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_selcount__doc__,
+PyDoc_STRVAR(scribus_selectioncount__doc__,
 QT_TR_NOOP("selectionCount() -> integer\n\
 \n\
 Returns the number of selected objects.\n\
 "));
 /*! Returns count of the selected object */
-PyObject *scribus_selcount(PyObject * /*self*/);
+PyObject *scribus_selectioncount(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_selectobj__doc__,
+PyDoc_STRVAR(scribus_selectobject__doc__,
 QT_TR_NOOP("selectObject(\"name\")\n\
 \n\
 Selects the object with the given \"name\".\n\
 "));
 /*! Count selection */
-PyObject *scribus_selectobj(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_selectobject(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_deselect__doc__,
+PyDoc_STRVAR(scribus_deselectall__doc__,
 QT_TR_NOOP("deselectAll()\n\
 \n\
 Deselects all objects in the whole document.\n\
 "));
 /*! Remove all selection */
-PyObject *scribus_deselect(PyObject * /*self*/);
+PyObject *scribus_deselectall(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_groupobj__doc__,
+PyDoc_STRVAR(scribus_groupobjects__doc__,
 QT_TR_NOOP("groupObjects(list) -> string\n\
 \n\
 Groups the objects named in \"list\" together. \"list\" must contain the names\n\
@@ -117,15 +117,15 @@ of the objects to be grouped. If \"list\" is not given the currently selected\n\
 items are used. Returns the group name for further referencing.\n\
 "));
 /*! Group objects named in list. */
-PyObject *scribus_groupobj(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_groupobjects(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_ungroupobj__doc__,
+PyDoc_STRVAR(scribus_ungroupobjects__doc__,
 QT_TR_NOOP("unGroupObjects(\"name\")\n\n\
 Destructs the group the object \"name\" belongs to.\
 If \"name\" is not given the currently selected item is used."));
 /*! Ungroup objects named in list. */
-PyObject *scribus_ungroupobj(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_ungroupobjects(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_scalegroup__doc__,
