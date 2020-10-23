@@ -27,10 +27,12 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "scgzfile.h"
 #include "scpattern.h"
+
 #include <QCursor>
+#include <QDataStream>
 #include <QFileInfo>
 #include <QList>
-#include <QDataStream>
+#include <QScopedPointer>
 
 #include "scxmlstreamwriter.h"
 
@@ -60,7 +62,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	if (QFile::exists(tmpFileName))
 		return false;
 
-	std::auto_ptr<QIODevice> outputFile;
+	QScopedPointer<QIODevice> outputFile;
 	if (fileName.toLower().right(2) == "gz")
 		outputFile.reset( new ScGzFile(tmpFileName) );
 	else
@@ -71,7 +73,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	ScXmlStreamWriter docu;
 	docu.setAutoFormatting(true);
-	docu.setDevice(outputFile.get());
+	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
 	docu.writeStartElement("SCRIBUSUTF8NEW");
 	docu.writeAttribute("Version", QString(VERSION));
@@ -256,8 +258,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeEndDocument();
 	
 	bool  writeSucceed = false;
-	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
-	const ScGzFile* gzFile = dynamic_cast<ScGzFile*>(outputFile.get());
+	const QFile* qFile = dynamic_cast<QFile*>(outputFile.data());
+	const ScGzFile* gzFile = dynamic_cast<ScGzFile*>(outputFile.data());
 	if (qFile)
 		writeSucceed = (qFile->error() == QFile::NoError);
 	else if (gzFile)

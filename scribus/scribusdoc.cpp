@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QProgressBar>
+#include <QScopedPointer>
 
 #include "canvas.h"
 #include "cmserrorhandling.h"
@@ -10123,7 +10124,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		newY = qMax(newY, 1);
 	}
 	*/
-	std::auto_ptr<UndoTransaction> activeTransaction;
+	QScopedPointer<UndoTransaction> activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
 		QString transacDesc = QString(Um::ResizeFromTo).arg(currItem->oldWidth).arg(currItem->oldHeight).arg(newX).arg(newY);
@@ -10181,7 +10182,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 
 		if (currItem->FrameType == 0 || currItem->asLine())
 		{
-			if (activeTransaction.get())
+			if (activeTransaction.data())
 			{
 				currItem->checkChanges();
 				activeTransaction->commit();
@@ -10192,7 +10193,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		currItem->updateClip();
 //		currItem->updateGradientVectors();
 
-		if (activeTransaction.get())
+		if (activeTransaction.data())
 		{
 			currItem->checkChanges();
 			activeTransaction->commit();
@@ -10244,7 +10245,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		}
 	}
 	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(),currItem->height())/2));
-	if (activeTransaction.get())
+	if (activeTransaction.data())
 	{
 		currItem->checkChanges();
 		activeTransaction->commit();

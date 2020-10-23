@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QList>
 #include <QByteArray>
+#include <QScopedPointer>
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
@@ -1981,7 +1982,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	bool gotAlpha = false;
-	auto_ptr<ScImgDataLoader> pDataLoader;
+	QScopedPointer<ScImgDataLoader> pDataLoader;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
 	imgInfo.PDSpathData.clear();
@@ -2005,13 +2006,13 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	else if (extensionIndicatesTIFF(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
-		if	(pDataLoader.get())
+		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
-		if	(pDataLoader.get())
+		if	(pDataLoader.data())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
 	else if (ext == "pat")
@@ -2019,7 +2020,7 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 
-	if	(pDataLoader.get())
+	if	(pDataLoader.data())
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
@@ -2159,7 +2160,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	ScColorProfile   inputProf = 0;
 	int cmsFlags = 0;
 	int cmsProofFlags = 0;
-	auto_ptr<ScImgDataLoader> pDataLoader;
+	QScopedPointer<ScImgDataLoader> pDataLoader;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return ret;

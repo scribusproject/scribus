@@ -32,17 +32,27 @@ class ScListBoxPixmap : public QAbstractItemDelegate, public ScListBoxDelegate
 {
 public:
 	ScListBoxPixmap(void);
+
 	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+
 protected:
+#if __cplusplus >= 201103L
+	static std::unique_ptr<QPixmap> pmap;
+#else
 	static std::auto_ptr<QPixmap> pmap;
+#endif
 	// The drawPixmap function must not modify pixmap size
 	virtual void redraw(const QVariant&) const = 0;
 };
 
+#if __cplusplus >= 201103L
+template<unsigned int pixWidth, unsigned int pixHeight> 
+std::unique_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
+#else
 template<unsigned int pixWidth, unsigned int pixHeight> 
 std::auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
-
+#endif
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDelegate()
@@ -52,7 +62,6 @@ ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDeleg
 		pmap.reset( new QPixmap(pixWidth, pixHeight) );
 	}
 };
-
 
 template<unsigned int pixWidth, unsigned int pixHeight>
 QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const

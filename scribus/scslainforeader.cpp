@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 
 #include <QFile>
+#include <QScopedPointer>
 #include <QXmlStreamReader>
 #include "scgzfile.h"
 
@@ -24,7 +25,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	bool isScribusDocument = false;
 	bool readInfoSuccess   = false;
 	bool firstStartElement = true;
-	std::auto_ptr<QIODevice> file;
+	QScopedPointer<QIODevice> file;
 
 	resetFileInfos();
 
@@ -33,7 +34,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	else
 		file.reset( new QFile(fileName) );
 
-	if (!file.get() || !file->open(QIODevice::ReadOnly))
+	if (file.isNull() || !file->open(QIODevice::ReadOnly))
 		return false;
 
 	QByteArray bytes = file->read(512);
@@ -44,7 +45,7 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	}
 	file->reset();
 
-	QXmlStreamReader reader(file.get());
+	QXmlStreamReader reader(file.data());
 	while (!reader.atEnd() && !reader.hasError())
 	{
 		QXmlStreamReader::TokenType ttype = reader.readNext();
