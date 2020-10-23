@@ -6916,48 +6916,48 @@ void PDFLibCore::copyPoDoFoDirect(const PoDoFo::PdfVariant* obj, QList<PoDoFo::P
 	{
 	case PoDoFo::ePdfDataType_Reference:
 		{
-		const PoDoFo::PdfReference reference(obj->GetReference());
-		uint objNr;
-		if (!importedObjects.contains(reference))
-		{
-			objNr = newObject();
-			importedObjects[reference] = objNr;
-			referencedObjects.append(reference);
-		}
-		else
-		{
-			objNr = importedObjects[reference];
-		}
-		PutDoc(" " + QString::number(objNr) + " 0 R");
+			const PoDoFo::PdfReference reference(obj->GetReference());
+			uint objNr;
+			if (!importedObjects.contains(reference))
+			{
+				objNr = newObject();
+				importedObjects[reference] = objNr;
+				referencedObjects.append(reference);
+			}
+			else
+			{
+				objNr = importedObjects[reference];
+			}
+			PutDoc(" " + QString::number(objNr) + " 0 R");
 		}
 		break;
 	case PoDoFo::ePdfDataType_Array:
 		{
-		const PoDoFo::PdfArray& array(obj->GetArray());
-		PutDoc("[");
-		for (uint i=0; i < array.size(); ++i)
-			copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
+			const PoDoFo::PdfArray& array(obj->GetArray());
+			PutDoc("[");
+			for (uint i=0; i < array.size(); ++i)
+				copyPoDoFoDirect( &(array[i]), referencedObjects, importedObjects);
 			PutDoc("]");
 		}
 		break;
 	case PoDoFo::ePdfDataType_Dictionary:
 		{
-		const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
-		const PoDoFo::TKeyMap keys = dict.GetKeys();
-		PutDoc("<<");
-		for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
-		{
-			PutDoc("\n/" + k->first.GetEscapedName());
-			copyPoDoFoDirect(k->second, referencedObjects, importedObjects);
-		}
-		PutDoc(" >>");
+			const PoDoFo::PdfDictionary& dict(obj->GetDictionary());
+			const PoDoFo::TKeyMap keys = dict.GetKeys();
+			PutDoc("<<");
+			for (PoDoFo::TCIKeyMap k=keys.begin(); k != keys.end(); ++k)
+			{
+				PutDoc("\n/" + k->first.GetEscapedName());
+				copyPoDoFoDirect(k->second, referencedObjects, importedObjects);
+			}
+			PutDoc(" >>");
 		}
 		break;
 	default:
 		{
-		std::string str;
-		obj->ToString(str);
-		PutDoc(" " + str);
+			std::string str;
+			obj->ToString(str);
+			PutDoc(" " + str);
 		}
 	}
 	
