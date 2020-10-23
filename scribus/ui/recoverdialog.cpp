@@ -121,7 +121,10 @@ void RecoverDialog::doRemove()
 	{
 		m_files.removeAll(filesToRemove[a]);
 	}
-	updateFilesTable();
+	if (filesList->rowCount() == filesToRemove.count())
+		accept();
+	else
+		updateFilesTable();
 }
 
 void RecoverDialog::updateFilesTable()
