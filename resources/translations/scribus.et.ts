@@ -246,7 +246,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="289"/>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiku port:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="133"/>
@@ -8260,7 +8260,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle lubamissel hakkab Scribus neid asendusi tulevastes paifuusts püsivalt kasutama. Seda saab lähtestada või muuta menüüst Fail-&gt;Eelistused-&gt;Fondid.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
@@ -8957,7 +8957,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="33"/>
         <source>Check Spelling...</source>
-        <translation type="unfinished"></translation>
+        <translation>Õigekirja kontroll ...</translation>
     </message>
 </context>
 <context>
@@ -20776,7 +20776,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_paths.cpp" line="35"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="unfinished"></translation>
+        <translation>ICC profiilide vaikimisi kataloog. Seda ei saa muuta, kui dokument on avatud. Vaikimisi otsib Scribus Mac OSX-i ja Windowsi puhul neid süateemsetest kataloogidest. Linuxi ja Unixi puhul otsitakse kataloogidest $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc ja /usr/local/share/color/icc</translation>
     </message>
 </context>
 <context>
@@ -21332,27 +21332,27 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="27"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="36"/>
         <source>Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Õigekirja kontrollimine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="60"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Paigaldatud õigekirja kontrollimise sõnaraamatud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="78"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Allalaaditavad õigekirja kontrollimise sõnaraamatud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="131"/>
         <source>Refresh Downloadable List</source>
-        <translation type="unfinished"></translation>
+        <translation>Värskenda allalaadimise nimekirja</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="138"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi valitud sõnaraamatud alla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
@@ -21364,17 +21364,17 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="320"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kood</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Asukoht</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="320"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Paigaldatud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="320"/>
@@ -21384,7 +21384,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_spellingbase.ui" line="98"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Allalaadimine</translation>
     </message>
 </context>
 <context>
@@ -25028,19 +25028,19 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="143"/>
         <source>Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Üks skript juba töötab ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="144"/>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="159"/>
         <source>Please let it finish its task...</source>
-        <translation type="unfinished"></translation>
+        <translation>Palun lase sel oma ülesanne lõpetada ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="158"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Üks skript juba töötab ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="132"/>
@@ -28626,7 +28626,7 @@ Välised lingid
         <translation>Ühik väljaspool piire. Kasuta mõnda  scribus.UNIT_* konstanti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="31"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="29"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Sihtmärk ei ole pildikast.</translation>
@@ -28805,19 +28805,19 @@ Välised lingid
         <translation>Värvi ei leitud vaikimisi värvide seast.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="434"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>0% võrra ei saa skaleerida.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="51"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="93"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="136"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="180"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="208"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="543"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="570"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="49"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="91"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="568"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Määratud element ei ole pildikast.</translation>
@@ -29686,27 +29686,27 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
         <location filename="../../scribus/main_win32.cpp" line="298"/>
         <location filename="../../scribus/main_win32.cpp" line="350"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribuse krahh</translation>
     </message>
     <message>
         <location filename="../../scribus/main_nix.cpp" line="119"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribust tabas krahh signaaliga #%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="360"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Rühmitamiseks on vajalik valik või elementide nimekiri</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="392"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Vähem kui kaht elementi ei saa rühmitada</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="644"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29860,7 +29860,7 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
         <translation>Fontide otsimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3988"/>
+        <location filename="../../scribus/scribus.cpp" line="3987"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Dokumenti tehtud muudatused pole salvestatud, nüüd aga soovisid need tühistada. Kas soovid jätkata?</translation>
     </message>
@@ -31138,12 +31138,12 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="122"/>
         <source>Aragonese</source>
-        <translation type="unfinished"></translation>
+        <translation>Aragoni</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="156"/>
         <source>Belarusian</source>
-        <translation type="unfinished"></translation>
+        <translation>Valgevene</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="228"/>
@@ -31158,12 +31158,12 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="232"/>
         <source>English (UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Inglise (Briti)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="230"/>
         <source>English (New Zealand)</source>
-        <translation type="unfinished"></translation>
+        <translation>Inglise (Uus-Meremaa)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="231"/>
@@ -31173,7 +31173,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="571"/>
         <source>Spanish (Argentina)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hispaania (Argentina)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="61"/>
@@ -31208,7 +31208,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="465"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepaali</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="850"/>
@@ -31308,7 +31308,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation>Anii</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="75"/>
@@ -31352,7 +31352,7 @@ Seepärast ei pruugi pilt olla korrektne</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="197"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pildi avamine nurjus: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="437"/>
@@ -31364,19 +31364,19 @@ Seepärast ei pruugi pilt olla korrektne</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="456"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljetoorikut ei ole olemas: &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="461"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljenumber väljub piiridest: %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="467"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljetooriku &apos;%1&apos; rakendamine leheküljele nurjus: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="173"/>
@@ -31749,12 +31749,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="146"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="149"/>
         <source>Emergency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="158"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="161"/>
         <source>Autosave</source>
         <translation>Automaatne salvestamine</translation>
     </message>
@@ -31818,7 +31818,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="802"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="847"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Paigaldatud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="552"/>
@@ -31844,7 +31844,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="752"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kood</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="333"/>
@@ -31853,7 +31853,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="465"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="504"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Asukoht</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
@@ -31889,7 +31889,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="60"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Paigaldatud</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="83"/>
@@ -31907,7 +31907,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="93"/>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="194"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Asukoht</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="118"/>
@@ -32056,22 +32056,22 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="203"/>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="210"/>
         <source>landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>rõhtpaigutus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="215"/>
         <source>portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>püstpaigutus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="231"/>
         <source>custom</source>
-        <translation type="unfinished"></translation>
+        <translation>kohandatud</translation>
     </message>
 </context>
 <context>
@@ -35194,19 +35194,19 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2042"/>
         <location filename="../../scribus/scribus.cpp" line="2082"/>
-        <location filename="../../scribus/scribus.cpp" line="3646"/>
-        <location filename="../../scribus/scribus.cpp" line="4093"/>
-        <location filename="../../scribus/scribus.cpp" line="4167"/>
-        <location filename="../../scribus/scribus.cpp" line="4322"/>
-        <location filename="../../scribus/scribus.cpp" line="6595"/>
-        <location filename="../../scribus/scribus.cpp" line="8619"/>
+        <location filename="../../scribus/scribus.cpp" line="3645"/>
+        <location filename="../../scribus/scribus.cpp" line="4092"/>
+        <location filename="../../scribus/scribus.cpp" line="4166"/>
+        <location filename="../../scribus/scribus.cpp" line="4321"/>
+        <location filename="../../scribus/scribus.cpp" line="6594"/>
+        <location filename="../../scribus/scribus.cpp" line="8618"/>
         <source>Ready</source>
         <translation>Valmis</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3000"/>
         <location filename="../../scribus/scribus.cpp" line="3115"/>
-        <location filename="../../scribus/scribus.cpp" line="3737"/>
+        <location filename="../../scribus/scribus.cpp" line="3736"/>
         <source>Open</source>
         <translation>Avamine</translation>
     </message>
@@ -35248,154 +35248,154 @@ Vertical gap: %4</source>
         <translation>Laadimine...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3543"/>
+        <location filename="../../scribus/scribus.cpp" line="3542"/>
         <source> was replaced by: </source>
         <translation> asendati profiiliga: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3573"/>
+        <location filename="../../scribus/scribus.cpp" line="3572"/>
         <source>(converted)</source>
         <translation>(teisendatud)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3928"/>
+        <location filename="../../scribus/scribus.cpp" line="3927"/>
         <source>Filename and Path for Image</source>
         <translation>Pildi failinimi ja asukoht</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3928"/>
+        <location filename="../../scribus/scribus.cpp" line="3927"/>
         <source>All Files (*)</source>
         <translation>Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4023"/>
-        <location filename="../../scribus/scribus.cpp" line="4088"/>
-        <location filename="../../scribus/scribus.cpp" line="7065"/>
-        <location filename="../../scribus/scribus.cpp" line="7223"/>
-        <location filename="../../scribus/scribus.cpp" line="7237"/>
+        <location filename="../../scribus/scribus.cpp" line="4022"/>
+        <location filename="../../scribus/scribus.cpp" line="4087"/>
+        <location filename="../../scribus/scribus.cpp" line="7064"/>
+        <location filename="../../scribus/scribus.cpp" line="7222"/>
+        <location filename="../../scribus/scribus.cpp" line="7236"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Ei õnnestunud kirjutada faili:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4073"/>
-        <location filename="../../scribus/scribus.cpp" line="7054"/>
+        <location filename="../../scribus/scribus.cpp" line="4072"/>
+        <location filename="../../scribus/scribus.cpp" line="7053"/>
         <source>Save As</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4102"/>
+        <location filename="../../scribus/scribus.cpp" line="4101"/>
         <source>Saving...</source>
         <translation>Salvestamine...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4230"/>
-        <location filename="../../scribus/scribus.cpp" line="6735"/>
-        <location filename="../../scribus/scribus.cpp" line="6812"/>
-        <location filename="../../scribus/scribus.cpp" line="6884"/>
+        <location filename="../../scribus/scribus.cpp" line="4229"/>
+        <location filename="../../scribus/scribus.cpp" line="6734"/>
+        <location filename="../../scribus/scribus.cpp" line="6811"/>
+        <location filename="../../scribus/scribus.cpp" line="6883"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus avastas vigu. Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4265"/>
+        <location filename="../../scribus/scribus.cpp" line="4264"/>
         <source>Printing...</source>
         <translation>Trükkimine...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1196"/>
         <location filename="../../scribus/scribus.cpp" line="2111"/>
-        <location filename="../../scribus/scribus.cpp" line="4269"/>
-        <location filename="../../scribus/scribus.cpp" line="7033"/>
-        <location filename="../../scribus/scribus.cpp" line="8354"/>
+        <location filename="../../scribus/scribus.cpp" line="4268"/>
+        <location filename="../../scribus/scribus.cpp" line="7032"/>
+        <location filename="../../scribus/scribus.cpp" line="8353"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4310"/>
+        <location filename="../../scribus/scribus.cpp" line="4309"/>
         <source>Printing failed!</source>
         <translation>Trükkimine nurjus!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
+        <location filename="../../scribus/scribus.cpp" line="4399"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Kasutuselolevat elementi ei saa lõigata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
+        <location filename="../../scribus/scribus.cpp" line="4399"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Elementi %1 redigeeritakse parajasti looredaktoris. Lõikamisoperatsioon katkestatakse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5038"/>
+        <location filename="../../scribus/scribus.cpp" line="5037"/>
         <source>About Qt</source>
         <translation>Qt info</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5069"/>
+        <location filename="../../scribus/scribus.cpp" line="5068"/>
         <source>Scribus Manual</source>
         <translation>Scribuse käsiraamat</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6175"/>
+        <location filename="../../scribus/scribus.cpp" line="6174"/>
         <source>&amp;Size:</source>
         <translation>&amp;Suurus:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1523"/>
-        <location filename="../../scribus/scribus.cpp" line="6175"/>
+        <location filename="../../scribus/scribus.cpp" line="6174"/>
         <source>Size</source>
         <translation>Suurus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6581"/>
+        <location filename="../../scribus/scribus.cpp" line="6580"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Monitori profiili avamisel tekkis tõrge.
 Kasutatakse endist monitori profiili.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7000"/>
+        <location filename="../../scribus/scribus.cpp" line="6999"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus avastas vigu.
 Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7096"/>
+        <location filename="../../scribus/scribus.cpp" line="7095"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Avastati mõned vead.
 Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7219"/>
+        <location filename="../../scribus/scribus.cpp" line="7218"/>
         <source>-Page%1</source>
         <translation>-lk%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7754"/>
+        <location filename="../../scribus/scribus.cpp" line="7753"/>
         <source>Some objects are locked.</source>
         <translation>Mõned objektid on lukustatud.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7750"/>
+        <location filename="../../scribus/scribus.cpp" line="7749"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Lukusta kõik</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7251"/>
+        <location filename="../../scribus/scribus.cpp" line="7250"/>
         <source>Locate your PDF viewer</source>
         <translation>PDF-i näitaja asukoht</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7751"/>
+        <location filename="../../scribus/scribus.cpp" line="7750"/>
         <source>&amp;Unlock All</source>
         <translation>Eemalda kõigi l&amp;ukustus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3847"/>
-        <location filename="../../scribus/scribus.cpp" line="8818"/>
+        <location filename="../../scribus/scribus.cpp" line="3846"/>
+        <location filename="../../scribus/scribus.cpp" line="8817"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Kas tõesti asendada olemasolev pilt?</translation>
     </message>
@@ -35425,22 +35425,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Aseta viimati kasutatud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4071"/>
+        <location filename="../../scribus/scribus.cpp" line="4070"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumendid (*.sla *.sla.gz);;Kõik failid (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3759"/>
+        <location filename="../../scribus/scribus.cpp" line="3758"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Kas tõesti kustutada kogu tekst?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3540"/>
+        <location filename="../../scribus/scribus.cpp" line="3539"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Mõned dokumendis kasutatud värviprofiilid ei ole paigaldatud:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7054"/>
+        <location filename="../../scribus/scribus.cpp" line="7053"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Kõik failid (*)</translation>
     </message>
@@ -35450,20 +35450,20 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Kasutaja kiirklahvide rakendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6617"/>
+        <location filename="../../scribus/scribus.cpp" line="6616"/>
         <source>Updating Images</source>
         <translation>Piltide uuendamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4021"/>
-        <location filename="../../scribus/scribus.cpp" line="4086"/>
+        <location filename="../../scribus/scribus.cpp" line="4020"/>
+        <location filename="../../scribus/scribus.cpp" line="4085"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Sinu dokument on salvestatud ajutisse faili ja seda ei saa liigutada: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4373"/>
+        <location filename="../../scribus/scribus.cpp" line="4372"/>
         <source>Print engine initialization failed</source>
         <translation>Trükkimismootori initsialiseerimine nurjus</translation>
     </message>
@@ -35473,19 +35473,19 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Kõik toetatud vormingud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9095"/>
-        <location filename="../../scribus/scribus.cpp" line="9173"/>
+        <location filename="../../scribus/scribus.cpp" line="9094"/>
+        <location filename="../../scribus/scribus.cpp" line="9172"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9095"/>
-        <location filename="../../scribus/scribus.cpp" line="9173"/>
+        <location filename="../../scribus/scribus.cpp" line="9094"/>
+        <location filename="../../scribus/scribus.cpp" line="9172"/>
         <source>New Entry</source>
         <translation>Uus kirje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6776"/>
+        <location filename="../../scribus/scribus.cpp" line="6775"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript puudub: ei saa kasutada PostScript trükkimise eelvaatlust</translation>
     </message>
@@ -35500,7 +35500,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Fail võib olla kahjustatud või ei ole loodud Scribuse uusima versiooniga.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7517"/>
+        <location filename="../../scribus/scribus.cpp" line="7516"/>
         <source>Editing Symbol: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35530,31 +35530,31 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation>Märgid</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9517"/>
+        <location filename="../../scribus/scribus.cpp" line="9516"/>
         <source>Insert new </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9544"/>
-        <location filename="../../scribus/scribus.cpp" line="9773"/>
+        <location filename="../../scribus/scribus.cpp" line="9543"/>
+        <location filename="../../scribus/scribus.cpp" line="9772"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9552"/>
-        <location filename="../../scribus/scribus.cpp" line="9786"/>
+        <location filename="../../scribus/scribus.cpp" line="9551"/>
+        <location filename="../../scribus/scribus.cpp" line="9785"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9560"/>
-        <location filename="../../scribus/scribus.cpp" line="9824"/>
+        <location filename="../../scribus/scribus.cpp" line="9559"/>
+        <location filename="../../scribus/scribus.cpp" line="9823"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9570"/>
-        <location filename="../../scribus/scribus.cpp" line="9845"/>
+        <location filename="../../scribus/scribus.cpp" line="9569"/>
+        <location filename="../../scribus/scribus.cpp" line="9844"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35660,13 +35660,13 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1392"/>
-        <location filename="../../scribus/scribus.cpp" line="8615"/>
+        <location filename="../../scribus/scribus.cpp" line="8614"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1394"/>
-        <location filename="../../scribus/scribus.cpp" line="8616"/>
+        <location filename="../../scribus/scribus.cpp" line="8615"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -35676,67 +35676,67 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5123"/>
+        <location filename="../../scribus/scribus.cpp" line="5122"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5123"/>
+        <location filename="../../scribus/scribus.cpp" line="5122"/>
         <source>Save as</source>
         <translation>Salvestamine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6188"/>
+        <location filename="../../scribus/scribus.cpp" line="6187"/>
         <source>&amp;Language:</source>
         <translation>&amp;Keel:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6188"/>
+        <location filename="../../scribus/scribus.cpp" line="6187"/>
         <source>Language</source>
         <translation>Keel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7568"/>
+        <location filename="../../scribus/scribus.cpp" line="7567"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8465"/>
+        <location filename="../../scribus/scribus.cpp" line="8464"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8609"/>
+        <location filename="../../scribus/scribus.cpp" line="8608"/>
         <source>Current zoom level</source>
         <translation>Praegune suurendustase</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8610"/>
+        <location filename="../../scribus/scribus.cpp" line="8609"/>
         <source>Zoom to 100%</source>
         <translation>Suurendus 100% peale</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8611"/>
+        <location filename="../../scribus/scribus.cpp" line="8610"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Vähendus tööriista seadistustes määratud sammu võrra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8612"/>
+        <location filename="../../scribus/scribus.cpp" line="8611"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Suurendus tööriista seadistustes määratud sammu võrra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8613"/>
+        <location filename="../../scribus/scribus.cpp" line="8612"/>
         <source>Select the current layer</source>
         <translation>Aktiivse kihi valimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8614"/>
+        <location filename="../../scribus/scribus.cpp" line="8613"/>
         <source>Select the current unit</source>
         <translation>Aktiivse ühiku valimine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9755"/>
+        <location filename="../../scribus/scribus.cpp" line="9754"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40113,7 +40113,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="757"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloonimine</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="759"/>

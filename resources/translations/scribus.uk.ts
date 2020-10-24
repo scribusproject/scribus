@@ -28683,7 +28683,7 @@ External Links
         <translation>Одиниця виходить за доступний діапазон. Використайте одну з констант scribus.UNIT_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="31"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="29"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Рамка призначення не є рамкою для зображень.</translation>
@@ -28862,19 +28862,19 @@ External Links
         <translation>Колір не знайдено в стандартних кольорах.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="434"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation>Змінити масштаб на 0% неможливо.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="51"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="93"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="136"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="180"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="208"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="543"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="570"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="49"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="91"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="568"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation>Вказаний об&apos;єкт не є рамкою для зображень.</translation>
@@ -29746,19 +29746,19 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Аварійний вихід зі Scribus з сигналом %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="360"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Потрібний список аргументів чи об&apos;єктів для згрупування</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="392"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Неможливо згрупувати менш ніж два об&apos;єкти</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="644"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29912,7 +29912,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Пошук шрифтів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3988"/>
+        <location filename="../../scribus/scribus.cpp" line="3987"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Зміни внесені в документ не були записані і ви бажаєте їх скасувати. Продовжити виконання цієї операції?</translation>
     </message>
@@ -31804,12 +31804,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>(відновлено)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="146"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="149"/>
         <source>Emergency</source>
         <translation>Аварія</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="158"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="161"/>
         <source>Autosave</source>
         <translation>Автоматичне збереження</translation>
     </message>
@@ -35249,19 +35249,19 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2042"/>
         <location filename="../../scribus/scribus.cpp" line="2082"/>
-        <location filename="../../scribus/scribus.cpp" line="3646"/>
-        <location filename="../../scribus/scribus.cpp" line="4093"/>
-        <location filename="../../scribus/scribus.cpp" line="4167"/>
-        <location filename="../../scribus/scribus.cpp" line="4322"/>
-        <location filename="../../scribus/scribus.cpp" line="6595"/>
-        <location filename="../../scribus/scribus.cpp" line="8619"/>
+        <location filename="../../scribus/scribus.cpp" line="3645"/>
+        <location filename="../../scribus/scribus.cpp" line="4092"/>
+        <location filename="../../scribus/scribus.cpp" line="4166"/>
+        <location filename="../../scribus/scribus.cpp" line="4321"/>
+        <location filename="../../scribus/scribus.cpp" line="6594"/>
+        <location filename="../../scribus/scribus.cpp" line="8618"/>
         <source>Ready</source>
         <translation>Готовий</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3000"/>
         <location filename="../../scribus/scribus.cpp" line="3115"/>
-        <location filename="../../scribus/scribus.cpp" line="3737"/>
+        <location filename="../../scribus/scribus.cpp" line="3736"/>
         <source>Open</source>
         <translation>Відкрити</translation>
     </message>
@@ -35303,154 +35303,154 @@ Vertical gap: %4</source>
         <translation>Завантаження…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3543"/>
+        <location filename="../../scribus/scribus.cpp" line="3542"/>
         <source> was replaced by: </source>
         <translation>був підмінений на:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3573"/>
+        <location filename="../../scribus/scribus.cpp" line="3572"/>
         <source>(converted)</source>
         <translation>(конвертовано)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3928"/>
+        <location filename="../../scribus/scribus.cpp" line="3927"/>
         <source>Filename and Path for Image</source>
         <translation>Назва файлу і шлях до зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3928"/>
+        <location filename="../../scribus/scribus.cpp" line="3927"/>
         <source>All Files (*)</source>
         <translation>Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4023"/>
-        <location filename="../../scribus/scribus.cpp" line="4088"/>
-        <location filename="../../scribus/scribus.cpp" line="7065"/>
-        <location filename="../../scribus/scribus.cpp" line="7223"/>
-        <location filename="../../scribus/scribus.cpp" line="7237"/>
+        <location filename="../../scribus/scribus.cpp" line="4022"/>
+        <location filename="../../scribus/scribus.cpp" line="4087"/>
+        <location filename="../../scribus/scribus.cpp" line="7064"/>
+        <location filename="../../scribus/scribus.cpp" line="7222"/>
+        <location filename="../../scribus/scribus.cpp" line="7236"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Неможливо записати файл: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4073"/>
-        <location filename="../../scribus/scribus.cpp" line="7054"/>
+        <location filename="../../scribus/scribus.cpp" line="4072"/>
+        <location filename="../../scribus/scribus.cpp" line="7053"/>
         <source>Save As</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4102"/>
+        <location filename="../../scribus/scribus.cpp" line="4101"/>
         <source>Saving...</source>
         <translation>Запис…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4230"/>
-        <location filename="../../scribus/scribus.cpp" line="6735"/>
-        <location filename="../../scribus/scribus.cpp" line="6812"/>
-        <location filename="../../scribus/scribus.cpp" line="6884"/>
+        <location filename="../../scribus/scribus.cpp" line="4229"/>
+        <location filename="../../scribus/scribus.cpp" line="6734"/>
+        <location filename="../../scribus/scribus.cpp" line="6811"/>
+        <location filename="../../scribus/scribus.cpp" line="6883"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus знайшов помилки. Спробуйте використати доекспортну перевірку для їх виправлення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4265"/>
+        <location filename="../../scribus/scribus.cpp" line="4264"/>
         <source>Printing...</source>
         <translation>Друк…</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1196"/>
         <location filename="../../scribus/scribus.cpp" line="2111"/>
-        <location filename="../../scribus/scribus.cpp" line="4269"/>
-        <location filename="../../scribus/scribus.cpp" line="7033"/>
-        <location filename="../../scribus/scribus.cpp" line="8354"/>
+        <location filename="../../scribus/scribus.cpp" line="4268"/>
+        <location filename="../../scribus/scribus.cpp" line="7032"/>
+        <location filename="../../scribus/scribus.cpp" line="8353"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4310"/>
+        <location filename="../../scribus/scribus.cpp" line="4309"/>
         <source>Printing failed!</source>
         <translation>Друк не вдався!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
+        <location filename="../../scribus/scribus.cpp" line="4399"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Неможливо вирізати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
+        <location filename="../../scribus/scribus.cpp" line="4399"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операцію вирізання буде скасовано</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5038"/>
+        <location filename="../../scribus/scribus.cpp" line="5037"/>
         <source>About Qt</source>
         <translation>Про Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5069"/>
+        <location filename="../../scribus/scribus.cpp" line="5068"/>
         <source>Scribus Manual</source>
         <translation>Довідка Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6175"/>
+        <location filename="../../scribus/scribus.cpp" line="6174"/>
         <source>&amp;Size:</source>
         <translation>&amp;Розмір:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1523"/>
-        <location filename="../../scribus/scribus.cpp" line="6175"/>
+        <location filename="../../scribus/scribus.cpp" line="6174"/>
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6581"/>
+        <location filename="../../scribus/scribus.cpp" line="6580"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Виникла помилка при відкриванні профілю монітора.
 Буде використано попередній профіль монітора.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7000"/>
+        <location filename="../../scribus/scribus.cpp" line="6999"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus знайшов деякі помилки. Спробуйте використати
 доекспортну перевірку для їх виправлення.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7096"/>
+        <location filename="../../scribus/scribus.cpp" line="7095"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Знайдено деякі помилки. Спробуйте використати
 доекспортну перевірку для їх виправлення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7219"/>
+        <location filename="../../scribus/scribus.cpp" line="7218"/>
         <source>-Page%1</source>
         <translation>-Сторінка%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7754"/>
+        <location filename="../../scribus/scribus.cpp" line="7753"/>
         <source>Some objects are locked.</source>
         <translation>Деякі об&quot;єкти - замкнені.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7750"/>
+        <location filename="../../scribus/scribus.cpp" line="7749"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Замкнути все</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7251"/>
+        <location filename="../../scribus/scribus.cpp" line="7250"/>
         <source>Locate your PDF viewer</source>
         <translation>Знайдіть оглядач PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7751"/>
+        <location filename="../../scribus/scribus.cpp" line="7750"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Розімкнути всі об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3847"/>
-        <location filename="../../scribus/scribus.cpp" line="8818"/>
+        <location filename="../../scribus/scribus.cpp" line="3846"/>
+        <location filename="../../scribus/scribus.cpp" line="8817"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ви справді бажаєте замінити наявне зображення?</translation>
     </message>
@@ -35480,22 +35480,22 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Вставити недавнє</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4071"/>
+        <location filename="../../scribus/scribus.cpp" line="4070"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Документи (*.sla *.sla.gz);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3759"/>
+        <location filename="../../scribus/scribus.cpp" line="3758"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3540"/>
+        <location filename="../../scribus/scribus.cpp" line="3539"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Деякі колірні профілі, використані в цьому документі, не встановлено:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7054"/>
+        <location filename="../../scribus/scribus.cpp" line="7053"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Всі файли (*)</translation>
     </message>
@@ -35505,20 +35505,20 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Застосування користувацьких сполучень клавіш</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6617"/>
+        <location filename="../../scribus/scribus.cpp" line="6616"/>
         <source>Updating Images</source>
         <translation>Оновлення зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4021"/>
-        <location filename="../../scribus/scribus.cpp" line="4086"/>
+        <location filename="../../scribus/scribus.cpp" line="4020"/>
+        <location filename="../../scribus/scribus.cpp" line="4085"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ваш документ збережений до тимчасової теки і не може бути переміщений: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4373"/>
+        <location filename="../../scribus/scribus.cpp" line="4372"/>
         <source>Print engine initialization failed</source>
         <translation>Не вдалося ініціалізувати рушій друку</translation>
     </message>
@@ -35528,19 +35528,19 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Всі підтримувані формати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9095"/>
-        <location filename="../../scribus/scribus.cpp" line="9173"/>
+        <location filename="../../scribus/scribus.cpp" line="9094"/>
+        <location filename="../../scribus/scribus.cpp" line="9172"/>
         <source>&amp;Name:</source>
         <translation>&amp;Назва:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9095"/>
-        <location filename="../../scribus/scribus.cpp" line="9173"/>
+        <location filename="../../scribus/scribus.cpp" line="9094"/>
+        <location filename="../../scribus/scribus.cpp" line="9172"/>
         <source>New Entry</source>
         <translation>Новий екземпляр</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6776"/>
+        <location filename="../../scribus/scribus.cpp" line="6775"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Відсутній Ghostscript : перегляд друку PostScript недоступний</translation>
     </message>
@@ -35555,7 +35555,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Файл пошкоджений або підготовлений новішою версією Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7517"/>
+        <location filename="../../scribus/scribus.cpp" line="7516"/>
         <source>Editing Symbol: %1</source>
         <translation>Редагується символ: %1</translation>
     </message>
@@ -35585,31 +35585,31 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Позначки</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9517"/>
+        <location filename="../../scribus/scribus.cpp" line="9516"/>
         <source>Insert new </source>
         <translation>Вставити новий </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9544"/>
-        <location filename="../../scribus/scribus.cpp" line="9773"/>
+        <location filename="../../scribus/scribus.cpp" line="9543"/>
+        <location filename="../../scribus/scribus.cpp" line="9772"/>
         <source>Anchor mark</source>
         <translation>Позначка якоря</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9552"/>
-        <location filename="../../scribus/scribus.cpp" line="9786"/>
+        <location filename="../../scribus/scribus.cpp" line="9551"/>
+        <location filename="../../scribus/scribus.cpp" line="9785"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Позначка зі змінним текстом &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9560"/>
-        <location filename="../../scribus/scribus.cpp" line="9824"/>
+        <location filename="../../scribus/scribus.cpp" line="9559"/>
+        <location filename="../../scribus/scribus.cpp" line="9823"/>
         <source>Mark to %1 item</source>
         <translation>Позначку в елемент %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9570"/>
-        <location filename="../../scribus/scribus.cpp" line="9845"/>
+        <location filename="../../scribus/scribus.cpp" line="9569"/>
+        <location filename="../../scribus/scribus.cpp" line="9844"/>
         <source>Mark to %1 mark</source>
         <translation>Позначка в позначку %1</translation>
     </message>
@@ -35715,13 +35715,13 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1392"/>
-        <location filename="../../scribus/scribus.cpp" line="8615"/>
+        <location filename="../../scribus/scribus.cpp" line="8614"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1394"/>
-        <location filename="../../scribus/scribus.cpp" line="8616"/>
+        <location filename="../../scribus/scribus.cpp" line="8615"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -35731,67 +35731,67 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5123"/>
+        <location filename="../../scribus/scribus.cpp" line="5122"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Текстові файли (*.txt);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5123"/>
+        <location filename="../../scribus/scribus.cpp" line="5122"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6188"/>
+        <location filename="../../scribus/scribus.cpp" line="6187"/>
         <source>&amp;Language:</source>
         <translation>&amp;Мова:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6188"/>
+        <location filename="../../scribus/scribus.cpp" line="6187"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7568"/>
+        <location filename="../../scribus/scribus.cpp" line="7567"/>
         <source>Editing Inline Item</source>
         <translation>Зміна рядкового об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8465"/>
+        <location filename="../../scribus/scribus.cpp" line="8464"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Програма %1 відсутня або не відкрилась</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8609"/>
+        <location filename="../../scribus/scribus.cpp" line="8608"/>
         <source>Current zoom level</source>
         <translation>Поточний масштаб</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8610"/>
+        <location filename="../../scribus/scribus.cpp" line="8609"/>
         <source>Zoom to 100%</source>
         <translation>Масштаб 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8611"/>
+        <location filename="../../scribus/scribus.cpp" line="8610"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Зменшити масштаб на крок, який визначено у налаштуваннях інструментів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8612"/>
+        <location filename="../../scribus/scribus.cpp" line="8611"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Збільшити масштаб на крок, який визначено у налаштуваннях інструментів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8613"/>
+        <location filename="../../scribus/scribus.cpp" line="8612"/>
         <source>Select the current layer</source>
         <translation>Виберіть поточний шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8614"/>
+        <location filename="../../scribus/scribus.cpp" line="8613"/>
         <source>Select the current unit</source>
         <translation>Виберіть поточну одиницю вимірювання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9755"/>
+        <location filename="../../scribus/scribus.cpp" line="9754"/>
         <source>Edit %1</source>
         <translation>Змінити %1</translation>
     </message>
