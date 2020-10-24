@@ -253,9 +253,9 @@ PyObject *scribus_setscaleframetoimage(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setscaleimagetoframe__doc__,
 QT_TR_NOOP("setScaleImageToFrame(scaletoframe, proportional=None, name=<selection>)\n\
 \n\
-Sets the scale to frame on the selected or specified image frame to `scaletoframe'.\n\
-If `proportional' is specified, set fixed aspect ratio scaling to `proportional'.\n\
-Both `scaletoframe' and `proportional' are boolean.\n\
+Sets the scale to frame on the selected or specified image frame to 'scaletoframe'.\n\
+If 'proportional' is specified, set fixed aspect ratio scaling to 'proportional'.\n\
+Both 'scaletoframe' and 'proportional' are boolean.\n\
 \n\
 May raise WrongFrameTypeError.\n\
 "));

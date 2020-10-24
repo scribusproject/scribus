@@ -57,8 +57,8 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist);
 /**
  * @brief return the name of the C type of the specified property
  *
- * Look up `propname' on `obj', searching through parent classes if
- * `includsuper' is true. Get and return the name of the C type
+ * Look up 'propname' on 'obj', searching through parent classes if
+ * 'includsuper' is true. Get and return the name of the C type
  * of the property.
  *
  * If the property cannot be found, a null string is returned. NO
@@ -76,10 +76,10 @@ const char* getpropertytype(QObject* obj, const char* propname, bool includesupe
 PyDoc_STRVAR(scribus_propertyctype__doc__,
 QT_TR_NOOP("getPropertyCType(object, property, includesuper=True)\n\
 \n\
-Returns the name of the C type of `property' of `object'. See getProperty()\n\
+Returns the name of the C type of 'property' of 'object'. See getProperty()\n\
 for details of arguments.\n\
 \n\
-If `includesuper' is true, search inherited properties too.\n\
+If 'includesuper' is true, search inherited properties too.\n\
 "));
 PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw);
 
@@ -95,8 +95,8 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 PyDoc_STRVAR(scribus_getpropertynames__doc__,
 QT_TR_NOOP("getPropertyNames(object, includesuper=True)\n\
 \n\
-Return a list of property names supported by `object'.\n\
-If `includesuper' is true, return properties supported\n\
+Return a list of property names supported by 'object'.\n\
+If 'includesuper' is true, return properties supported\n\
 by parent classes as well.\n\
 "));
 PyObject* scribus_getpropertynames(PyObject* self, PyObject* args, PyObject* kw);
@@ -122,14 +122,14 @@ PyObject* scribus_getpropertynames(PyObject* self, PyObject* args, PyObject* kw)
 PyDoc_STRVAR(scribus_getproperty__doc__,
 QT_TR_NOOP("getProperty(object, property)\n\
 \n\
-Return the value of the property `property' of the passed `object'.\n\
+Return the value of the property 'property' of the passed 'object'.\n\
 \n\
-The `object' argument may be a string, in which case the named PageItem\n\
+The 'object' argument may be a string, in which case the named PageItem\n\
 is searched for. It may also be a PyCObject, which may point to any\n\
 C++ QObject instance.\n\
 \n\
-The `property' argument must be a string, and is the name of the property\n\
-to look up on `object'.\n\
+The 'property' argument must be a string, and is the name of the property\n\
+to look up on 'object'.\n\
 \n\
 The return value varies depending on the type of the property.\n\
 "));
@@ -157,8 +157,8 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw);
 PyDoc_STRVAR(scribus_setproperty__doc__,
 QT_TR_NOOP("setProperty(object, property, value)\n\
 \n\
-Set `property' of `object' to `value'. If `value' cannot be converted to a type\n\
-compatible with the type of `property', an exception is raised. An exception may\n\
+Set 'property' of 'object' to 'value'. If 'value' cannot be converted to a type\n\
+compatible with the type of 'property', an exception is raised. An exception may\n\
 also be raised if the underlying setter fails.\n\
 \n\
 See getProperty() for more information.\n\
@@ -177,8 +177,8 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw);
 PyDoc_STRVAR(scribus_getchildren__doc__,
 QT_TR_NOOP("getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)\n\
 \n\
-Return a list of children of `object', possibly restricted to children\n\
-of class named `ofclass' or children named `ofname'. If `recursive' is true,\n\
+Return a list of children of 'object', possibly restricted to children\n\
+of class named 'ofclass' or children named 'ofname'. If 'recursive' is true,\n\
 search recursively through children, grandchildren, etc.\n\
 \n\
 See QObject::children() in the Qt docs for more information.\n\
@@ -197,8 +197,8 @@ PyObject* scribus_getchildren(PyObject* self, PyObject* args, PyObject* kw);
 PyDoc_STRVAR(scribus_getchild__doc__,
 QT_TR_NOOP("getChild(object, childname, ofclass=None, recursive=True)\n\
 \n\
-Return the first child of `object' named `childname', possibly restricting\n\
-the search to children of type name `ofclass'. If `recursive' is true,\n\
+Return the first child of 'object' named 'childname', possibly restricting\n\
+the search to children of type name 'ofclass'. If 'recursive' is true,\n\
 search recursively through children, grandchildren, etc.\n\
 "));
 PyObject* scribus_getchild(PyObject* self, PyObject* args, PyObject* kw);
