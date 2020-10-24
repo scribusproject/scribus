@@ -608,7 +608,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			psize = static_cast<double>(parent2Style->getFont()->getSize());
  		else if (styles.contains("default-style"))
  			psize = static_cast<double>(styles["default-style"]->getFont()->getSize());
- 			psize = psize / 10;
+ 		psize = psize / 10;
  		size = getSize(value, psize);
  		int nsize = static_cast<int>(size * 10);
  		style->getFont()->setSize(nsize);
@@ -628,7 +628,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	else if (key == "fo:color")
 		style->getFont()->setColor(value);
 	else if ((key == "style:use-window-font-color") && (value == "true"))
- 			style->getFont()->setColor("Black");
+ 		style->getFont()->setColor("Black");
  	else if ((key == "fo:font-weight") && (value == "bold"))
  		style->getFont()->setWeight(BOLD);
  	else if ((key == "fo:font-style") && (value == "italic"))

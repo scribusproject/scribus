@@ -39,7 +39,11 @@ for which a new license (GPL+exception) is in place.
 
 
 SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem) : StyleItem(),
-pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyleItem_(cstyleItem)
+	pwidget_(0), 
+	cstyleItem_(cstyleItem),
+	doc_(0),
+	selectionIsDirty_(false),
+	unitRatio_(1.0)
 {
 	Q_ASSERT(cstyleItem_);
 	cstyles_ = cstyleItem_->tmpStyles();
