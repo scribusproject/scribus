@@ -701,6 +701,12 @@
     <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\unzip_crypt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2825,13 +2831,5 @@
     <moc Include="..\..\..\scribus\canvasmode_framelinks.h">
       <Filter>Header Files</Filter>
     </moc>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\..\scribus\color.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\scribus\crypt.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
   </ItemGroup>
 </Project>

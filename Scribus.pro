@@ -264,7 +264,6 @@ HEADERS += scribus/about.h \
            scribus/commonstrings.h \
            scribus/contextmenu.h \
            scribus/cpalette.h \
-           scribus/crypt.h \
            scribus/cupsoptions.h \
            scribus/curvewidget.h \
            scribus/customfdialog.h \
@@ -544,6 +543,7 @@ HEADERS += scribus/about.h \
            scribus/unicodesearch.h \
            scribus/units.h \
            scribus/unzip.h \
+           scribus/unzip_crypt.h \
            scribus/updatemanager.h \
            scribus/upgradechecker.h \
            scribus/urllauncher.h \

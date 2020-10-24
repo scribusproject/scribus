@@ -154,7 +154,7 @@ typedef struct
 
 
 #ifndef NOUNCRYPT
-#include "crypt.h"
+#include "unzip_crypt.h"
 #endif
 
 /* ===========================================================================

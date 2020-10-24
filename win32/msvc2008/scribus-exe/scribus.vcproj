@@ -2592,22 +2592,6 @@
 			<File
 				RelativePath="..\..\..\scribus\color.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\colorblind.h"
@@ -2790,26 +2774,6 @@
 					>
 					<Tool
 						Name="moc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\scribus\crypt.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						AdditionalDependencies=""
 					/>
 				</FileConfiguration>
 			</File>
@@ -4936,28 +4900,6 @@
 			<File
 				RelativePath="..\..\..\scribus\scdocoutput_ps2.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\scescapecatcher.h"
@@ -5120,28 +5062,6 @@
 			<File
 				RelativePath="..\..\..\scribus\sclayer.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\sclimits.h"
@@ -5438,28 +5358,6 @@
 			<File
 				RelativePath="..\..\..\scribus\scribusXml.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\scrpalettebase.h"
@@ -6494,28 +6392,6 @@
 			<File
 				RelativePath="..\..\..\scribus\tt\simpletreemodel\treeitem.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Étape de génération personnalisée en cours"
-						CommandLine=""
-						AdditionalDependencies=""
-						Outputs=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\tt\simpletreemodel\treemodel.h"
@@ -6607,6 +6483,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\unzip.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\unzip_crypt.h"
 				>
 			</File>
 			<File

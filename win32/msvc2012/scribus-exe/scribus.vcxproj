@@ -313,7 +313,7 @@
     <moc Include="..\..\..\scribus\cmsprefs.h" />
     <moc Include="..\..\..\scribus\cmykfw.h" />
     <moc Include="..\..\..\scribus\collect4output.h" />
-    <CustomBuild Include="..\..\..\scribus\color.h" />
+    <ClInclude Include="..\..\..\scribus\color.h" />
     <moc Include="..\..\..\scribus\colorblind.h" />
     <moc Include="..\..\..\scribus\colorchart.h" />
     <moc Include="..\..\..\scribus\colorcombo.h" />
@@ -325,7 +325,7 @@
     <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h" />
     <moc Include="..\..\..\scribus\cpalette.h" />
     <moc Include="..\..\..\scribus\ui\createrange.h" />
-    <CustomBuild Include="..\..\..\scribus\crypt.h" />
+    <ClInclude Include="..\..\..\scribus\unzip_crypt.h" />
     <moc Include="..\..\..\scribus\cupsoptions.h" />
     <moc Include="..\..\..\scribus\curvewidget.h" />
     <moc Include="..\..\..\scribus\customfdialog.h" />
