@@ -143,6 +143,9 @@
     <ClInclude Include="..\..\..\scribus\colorsetmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\documentchecker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\documentinformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -822,9 +825,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\printpreviewcreatorfactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\printlanguagecombo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -4223,10 +4223,8 @@
     <moc Include="..\..\..\scribus\ui\outputpreview_ps.h">
       <Filter>Header Files</Filter>
     </moc>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="..\..\..\scribus\documentchecker.h">
+    <moc Include="..\..\..\scribus\ui\printlanguagecombo.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
+    </moc>
   </ItemGroup>
 </Project>

@@ -388,7 +388,7 @@
     <moc Include="..\..\..\scribus\deferredtask.h" />
     <moc Include="..\..\..\scribus\ui\delpages.h" />
     <moc Include="..\..\..\scribus\docinfo.h" />
-    <CustomBuild Include="..\..\..\scribus\documentchecker.h" />
+    <ClInclude Include="..\..\..\scribus\documentchecker.h" />
     <ClInclude Include="..\..\..\scribus\documentinformation.h" />
     <moc Include="..\..\..\scribus\ui\editor.h" />
     <moc Include="..\..\..\scribus\ui\edittoolbar.h" />
