@@ -5135,11 +5135,9 @@ bool ScribusDoc::deleteSection(const uint number)
 		return false;
 	QMap<uint, DocumentSection>::Iterator itprev=sections.begin();
 	QMap<uint, DocumentSection>::Iterator it=itprev;
-	uint currMinIndex = itprev.value().fromindex;
 	uint currMaxIndex = itprev.value().toindex;
 	for ( ; it != sections.end(); ++it )
 	{
-		currMinIndex=it.value().fromindex;
 		currMaxIndex=it.value().toindex;
 
 		if (it.key()!=number)
@@ -5162,14 +5160,12 @@ bool ScribusDoc::deleteSection(const uint number)
 
 int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 {
-	bool found=false;
 	int retVal=-1;
 	DocumentSectionMap::ConstIterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
 	{
 		if (pageIndex>=it.value().fromindex && pageIndex<=it.value().toindex)
 		{
-			found=true;
 			retVal=it.key();
 			break;
 		}

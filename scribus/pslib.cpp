@@ -327,7 +327,6 @@ bool PSLib::PutImageDataToStream(const QByteArray& image)
 bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByteArray& mask, bool gray)
 {
 	int pending = 0;
-	int bIndex  = 0;
 	unsigned char bytes[1505];
 	const unsigned char* imageData = (const unsigned char*) image.constData();
 	const unsigned char* maskData  = (const unsigned char*) mask.constData();
@@ -345,7 +344,6 @@ bool PSLib::PutInterleavedImageMaskToStream(const QByteArray& image, const QByte
 
 	for (int i = 0; i < pixels; ++i)
 	{
-		bIndex = 4 *i;
 		bytes[pending++] = maskData [i];
 		bytes[pending++] = *imageData++; // cyan/black
 		if (channels > 1)

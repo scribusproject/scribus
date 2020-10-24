@@ -2149,8 +2149,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 	// gsRes - is the resolution that ghostscript will render at
 	bool isCMYK = false;
 	bool ret = false;
-	bool inputProfisEmbedded = false;
-	bool stdProof = false;
+//	bool inputProfisEmbedded = false;
 	if (realCMYK != 0)
 		*realCMYK = false;
 	bool bilevel = false;
@@ -2245,7 +2244,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 		if ((embeddedProfile.size() > 0 ) && (useEmbedded))
 		{
 			inputProf = ScColorMgmtEngine::openProfileFromMem(embeddedProfile);
-			inputProfisEmbedded = true;
+		//	inputProfisEmbedded = true;
 		}
 		else
 		{
@@ -2257,7 +2256,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
-					inputProfisEmbedded = true;
+				//	inputProfisEmbedded = true;
 					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName];
 					inputProf = ScColorMgmtEngine::openProfileFromFile(profilePath);
 				}
@@ -2265,7 +2264,7 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					inputProf = cmSettings.doc()->DocInputImageCMYKProf;
 					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
-					inputProfisEmbedded = false;
+				//	inputProfisEmbedded = false;
 				}
 			}
 			else if (bilevel && (reqType == CMYKData))
@@ -2274,21 +2273,21 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 			{
 				imgInfo.profileName = cmSettings.profileName();
 				profilePath = ScCore->InputProfiles[imgInfo.profileName].toLocal8Bit();
-				inputProfisEmbedded = true;
+				//inputProfisEmbedded = true;
 				inputProf = ScColorMgmtEngine::openProfileFromFile(profilePath);
 			}
 			else
 			{
 				inputProf = cmSettings.doc()->DocInputImageRGBProf;
 				imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
-				inputProfisEmbedded = false;
+			//	inputProfisEmbedded = false;
 			}
 		}
 	}
 	else if ((useProf && embeddedProfile.size() > 0) && (useEmbedded))
 	{
 		inputProf = ScColorMgmtEngine::openProfileFromMem(embeddedProfile);
-		inputProfisEmbedded = true;
+	//	inputProfisEmbedded = true;
 	}
 	else if (useProf && isCMYK)
 		inputProf = ScCore->defaultCMYKProfile;
@@ -2370,7 +2369,6 @@ bool ScImage::LoadPicture(const QString & fn, int page, const CMSettings& cmSett
 						else
 							xform = cmSettings.rgbImageProofingTransform();
 						xform.changeBufferFormat(inputProfFormat, Format_BGRA_8);
-						stdProof = true;
 					}
 					else
 						xform = ScColorMgmtEngine::createProofingTransform(inputProf, inputProfFormat,

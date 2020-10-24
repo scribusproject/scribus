@@ -378,7 +378,6 @@ void SMLineStyle::languageChange()
 
 void SMLineStyle::unitChange()
 {
-	double oldRatio = unitRatio_;
 	unitRatio_ = doc_->unitRatio();
 	if (widget_)
 		widget_->unitChange(doc_->unitIndex());

@@ -117,8 +117,9 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 		return;
 	FT_Library library = NULL;
 	QString pathfile, fullpath;
-	bool error;
-	error = FT_Init_FreeType( &library );
+//	bool error;
+//	error =
+	FT_Init_FreeType( &library );
 	QString pathname(path);
 	if ( !pathname.endsWith("/") )
 		pathname += "/";
@@ -177,12 +178,12 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 				ext = ext2;
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
-				error = AddScalableFont(pathfile, library, DocName);
+				AddScalableFont(pathfile, library, DocName);
 			}
 #ifdef Q_OS_MAC
 			else if (ext.isEmpty() && DocName.isEmpty())
 			{
-				error = AddScalableFont(pathfile, library, DocName);
+				bool error = AddScalableFont(pathfile, library, DocName);
 				if (error)
 					error = AddScalableFont(pathfile + "/..namedfork/rsrc",library, DocName);
 			}

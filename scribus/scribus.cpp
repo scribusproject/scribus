@@ -8637,7 +8637,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				QMessageBox msgBox;
 				QPushButton *abortButton = msgBox.addButton(QMessageBox::Cancel);
 				QPushButton *lockButton = msgBox.addButton(tr("&Lock All"), QMessageBox::AcceptRole);
-				QPushButton *unlockButton = msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);
+				msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);
 				msgBox.setIcon(QMessageBox::Warning);
 				msgBox.setWindowTitle(CommonStrings::trWarning);
 				msgBox.setText( tr("Some objects are locked."));
@@ -8647,7 +8647,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				else if (msgBox.clickedButton() == lockButton)
 					lockObject = true;
 				modifyLock = true;
-				unlockButton = NULL;	// just to silence the compiler
 			}
 		}
 		doc->itemSelection_GroupObjects(modifyLock, lockObject);

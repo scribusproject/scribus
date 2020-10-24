@@ -150,7 +150,6 @@ void BookMView::getTextAndTitle(PageItem* item, QString& text, QString& title)
 	text.clear();
 	title.clear();
 
-	const StoryText& itemText = item->itemText;
 	for (int i = 0; i < item->itemText.length(); ++i)
 	{
 		ch = item->itemText.text(i);

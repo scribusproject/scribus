@@ -174,14 +174,17 @@ int makedir (const QString& newdir)
 {
 	QChar p;
 	QString buffer;
+
 	int len = newdir.length();
-	
 	if (len <= 0)
 		return 0;
 	buffer = newdir;
 
-	if (buffer.endsWith("/") || buffer.endsWith("\\"))
-		buffer.left(len - 1);
+	while (buffer.endsWith("/") || buffer.endsWith("\\"))
+		buffer = buffer.left(len - 1);
+
+	if (buffer.length() <= 0)
+		return 0;
 
 	if (mymkdir(buffer) == 0)
 		return 1;

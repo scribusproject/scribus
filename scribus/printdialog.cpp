@@ -539,7 +539,6 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	GcR->setChecked(m_doc->Print_Options.doGCR);
 	ClipMarg->setChecked(m_doc->Print_Options.doClip);
 	spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
-	bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || outputToFile();
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
