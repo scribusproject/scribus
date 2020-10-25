@@ -1835,7 +1835,12 @@ void PageItem_TextFrame::layout()
 					if (firstLineOffset() == FLOPRealGlyphHeight)
 						addAsce = realAsce;
 					else if (firstLineOffset() == FLOPLineSpacing)
-						addAsce = style.lineSpacing();
+					{
+						if (DropCmode)
+							addAsce = DropCapDrop + style.lineSpacing();
+						else
+							addAsce = style.lineSpacing();
+					}
 				}
 				maxYAsc = current.yPos - addAsce;
 			}
@@ -1844,17 +1849,14 @@ void PageItem_TextFrame::layout()
 			//fix for glyphs with negative realAsce value
 			maxYAsc = qMax(maxYAsc, 0.0);
 			maxYDesc = current.yPos + realDesc;
+			if (style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
+			{
+				maxYAsc = qMin(maxYAsc, qMax(0.0, current.yPos - asce));
+				maxYDesc = current.yPos + desc;
+			}
 
-			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-			{
-				regionMinY = static_cast<int>(floor(maxYAsc));
-				regionMaxY = static_cast<int>(floor(maxYDesc));
-			}
-			else // #11727, #11628, etc.
-			{
-				regionMinY = static_cast<int>(qMax(0.0, floor(current.yPos - (asce + offset))));
-				regionMaxY = static_cast<int>(floor(current.yPos + desc));
-			}
+			regionMinY = static_cast<int>(floor(maxYAsc));
+			regionMaxY = static_cast<int>(floor(maxYDesc));
 
 			if (current.isEmpty && !current.afterOverflow)
 			{
@@ -1923,36 +1925,21 @@ void PageItem_TextFrame::layout()
 						else
 							current.yPos += (current.startOfCol ? 1 : style.lineSpacing());
 						lastLineY = maxYAsc;
+
 						if (current.startOfCol)
-						{
-//							double addAsce;
-//							if (DropCmode)
-//								addAsce = qMax(realAsce, asce + offset);
-//							else
-//								addAsce = asce + offset;
-//							if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
-//							{
-//								if (firstLineOffset() == FLOPRealGlyphHeight)
-//									addAsce = realAsce;
-//								else if (firstLineOffset() == FLOPLineSpacing)
-//									addAsce = style.lineSpacing() + offset;
-//							}
 							maxYAsc = current.yPos - addAsce;
-						}
 						else
 							maxYAsc = current.yPos - realAsce;
+						maxYAsc = qMax(maxYAsc, 0.0);
 						maxYDesc = current.yPos + realDesc;
+						if (style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
+						{
+							maxYAsc = qMin(maxYAsc, qMax(0.0, current.yPos - asce));
+							maxYDesc = current.yPos + desc;
+						}
 
-						if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-						{
-							regionMinY = static_cast<int>(floor(maxYAsc));
-							regionMaxY = static_cast<int>(floor(maxYDesc));
-						}
-						else // #11727, #11628, etc.
-						{
-							regionMinY = static_cast<int>(qMax(0.0, floor(current.yPos - (asce + offset))));
-							regionMaxY = static_cast<int>(floor(current.yPos + desc));
-						}
+						regionMinY = static_cast<int>(floor(maxYAsc));
+						regionMaxY = static_cast<int>(floor(maxYDesc));
 
 						pt.moveTopLeft(QPoint(static_cast<int>(floor(current.xPos)), regionMinY));
 						done = false;
