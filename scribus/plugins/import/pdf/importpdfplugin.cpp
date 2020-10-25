@@ -165,24 +165,35 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		fileName = diaf.selectedFile();
 		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
-	m_Doc =ScCore->primaryMainWindow()->doc;
-	UndoTransaction activeTransaction;
+	m_Doc = ScCore->primaryMainWindow()->doc;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
+	QFileInfo fi(fileName);
+	QStringList exts = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept" << "ps" << "ai";
+	QString lowerExt = fi.suffix().toLower();
+
+	QString undoActionName = Um::ImportPDF;
+	if (lowerExt == QLatin1String("ai"))
+		undoActionName = Um::ImportAI;
+	else if (exts.contains(fi.suffix().toLower()))
+		undoActionName = Um::ImportEPS;
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
-	trSettings.actionName   = Um::ImportXfig;
+	trSettings.actionName   = undoActionName;
 	trSettings.description  = fileName;
 	trSettings.actionPixmap = Um::IXFIG;
+	
+	UndoTransaction activeTransaction;
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
 	bool isCleanedFile = false;
 	QString cleanFile = "";
-	QFileInfo fi(fileName);
-	QStringList exts = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept" << "ps" << "ai";
 	if (exts.contains(fi.suffix().toLower()))
 	{
 		if (!ScCore->haveGS())

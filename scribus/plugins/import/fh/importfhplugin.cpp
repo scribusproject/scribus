@@ -137,7 +137,7 @@ bool ImportFhPlugin::import(QString fileName, int flags)
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
-	trSettings.actionName   = Um::ImportXfig;
+	trSettings.actionName   = Um::ImportFreehand;
 	trSettings.description  = fileName;
 	trSettings.actionPixmap = Um::IXFIG;
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
