@@ -9657,7 +9657,7 @@ dokumentet, ved å konvertere deres vektordata til scribusobjekter.</translation
         <translation>Alle støttede formater</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="191"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14611,32 +14611,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4999"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4986"/>
         <source>Linked Text</source>
         <translation>Lenket tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4988"/>
         <source>Text Frame</source>
         <translation>Tekstramme</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5005"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4992"/>
         <source>Paragraphs: </source>
         <translation>Avsnitt: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5013"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5000"/>
         <source>Lines: </source>
         <translation>Linjer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5019"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5006"/>
         <source>Words: </source>
         <translation>Ord: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5027"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5014"/>
         <source>Chars: </source>
         <translation>Tegn: </translation>
     </message>
@@ -39382,173 +39382,173 @@ til %2</translation>
         <translation>Konverter til</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="680"/>
+        <location filename="../../scribus/undomanager.cpp" line="699"/>
         <source>Import SVG image</source>
         <translation>Importer SVG-bilde</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="681"/>
+        <location filename="../../scribus/undomanager.cpp" line="701"/>
         <source>Import Uniconvertor image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="682"/>
+        <location filename="../../scribus/undomanager.cpp" line="688"/>
         <source>Import EPS image</source>
         <translation>Importer EPS-bilde</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="691"/>
+        <location filename="../../scribus/undomanager.cpp" line="713"/>
         <source>Scratch space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="693"/>
+        <location filename="../../scribus/undomanager.cpp" line="714"/>
         <source>Text flows around the frame</source>
         <translation>Teksten flyter rundt ramma</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="694"/>
+        <location filename="../../scribus/undomanager.cpp" line="715"/>
         <source>Text flows around bounding box</source>
         <translation>Teksten flyter rundt grenseboksen</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="695"/>
+        <location filename="../../scribus/undomanager.cpp" line="716"/>
         <source>Text flows around contour line</source>
         <translation>Teksten flyter rundt konturlinjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="697"/>
+        <location filename="../../scribus/undomanager.cpp" line="718"/>
         <source>No text flow</source>
         <translation>Ingen tekstflyt</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="699"/>
+        <location filename="../../scribus/undomanager.cpp" line="720"/>
         <source>No bounding box</source>
         <translation>Ingen grenseboks</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="700"/>
+        <location filename="../../scribus/undomanager.cpp" line="721"/>
         <source>No contour line</source>
         <translation>Ingen konturlinjer</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="702"/>
+        <location filename="../../scribus/undomanager.cpp" line="723"/>
         <source>Page %1</source>
         <translation>Side %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="703"/>
+        <location filename="../../scribus/undomanager.cpp" line="724"/>
         <source>Set image scaling</source>
         <translation>Velg bildeskalering</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="704"/>
+        <location filename="../../scribus/undomanager.cpp" line="725"/>
         <source>Frame size</source>
         <translation>Størrelsen på ramma</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="708"/>
+        <location filename="../../scribus/undomanager.cpp" line="729"/>
         <source>Free scaling</source>
         <translation>Fri skalering</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="709"/>
+        <location filename="../../scribus/undomanager.cpp" line="730"/>
         <source>Keep aspect ratio</source>
         <translation>Behold høyde/bredde-forholdet</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="710"/>
+        <location filename="../../scribus/undomanager.cpp" line="731"/>
         <source>Break aspect ratio</source>
         <translation>Bryt høyde/bredde-forholdet</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="711"/>
-        <location filename="../../scribus/undomanager.cpp" line="766"/>
+        <location filename="../../scribus/undomanager.cpp" line="732"/>
+        <location filename="../../scribus/undomanager.cpp" line="787"/>
         <source>Edit contour line</source>
         <translation>Endre konturlinjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="712"/>
+        <location filename="../../scribus/undomanager.cpp" line="733"/>
         <source>Edit shape</source>
         <translation>Rediger form</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="714"/>
+        <location filename="../../scribus/undomanager.cpp" line="735"/>
         <source>Reset contour line</source>
         <translation>Nullstill konturlinjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="715"/>
+        <location filename="../../scribus/undomanager.cpp" line="736"/>
         <source>Add page</source>
         <translation>Legg til side</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="716"/>
+        <location filename="../../scribus/undomanager.cpp" line="737"/>
         <source>Add pages</source>
         <translation>Legg til sider</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="735"/>
+        <location filename="../../scribus/undomanager.cpp" line="756"/>
         <source>Delete page</source>
         <translation>Slett side</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="736"/>
+        <location filename="../../scribus/undomanager.cpp" line="757"/>
         <source>Delete pages</source>
         <translation>Slett sider</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="738"/>
+        <location filename="../../scribus/undomanager.cpp" line="759"/>
         <source>Add layer</source>
         <translation>Legg til lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="740"/>
+        <location filename="../../scribus/undomanager.cpp" line="761"/>
         <source>Delete layer</source>
         <translation>Slett lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="741"/>
+        <location filename="../../scribus/undomanager.cpp" line="762"/>
         <source>Rename layer</source>
         <translation>Gi laget et nytt navn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="742"/>
+        <location filename="../../scribus/undomanager.cpp" line="763"/>
         <source>Raise layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="744"/>
+        <location filename="../../scribus/undomanager.cpp" line="765"/>
         <source>Lower layer</source>
         <translation>Senk lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="745"/>
+        <location filename="../../scribus/undomanager.cpp" line="766"/>
         <source>Send to layer</source>
         <translation>Flytt til lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="746"/>
+        <location filename="../../scribus/undomanager.cpp" line="767"/>
         <source>Enable printing of layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="747"/>
+        <location filename="../../scribus/undomanager.cpp" line="768"/>
         <source>Disable printing of layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="748"/>
+        <location filename="../../scribus/undomanager.cpp" line="769"/>
         <source>Change name of the layer</source>
         <translation>Bytt navn på lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="755"/>
+        <location filename="../../scribus/undomanager.cpp" line="776"/>
         <source>Get image</source>
         <translation>Sett inn bilde</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="684"/>
+        <location filename="../../scribus/undomanager.cpp" line="691"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Importer OpenOffice.org Draw-bilde</translation>
     </message>
@@ -39573,7 +39573,7 @@ til %2</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="758"/>
+        <location filename="../../scribus/undomanager.cpp" line="779"/>
         <source>Multiple duplicate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39602,59 +39602,59 @@ X: %4, Y: %5</source>
 X: %4, Y: %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="760"/>
+        <location filename="../../scribus/undomanager.cpp" line="781"/>
         <source>Apply text style</source>
         <translation>Bruk tekststil</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="762"/>
+        <location filename="../../scribus/undomanager.cpp" line="783"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation>&amp;Undo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="763"/>
+        <location filename="../../scribus/undomanager.cpp" line="784"/>
         <source>&amp;Undo</source>
         <translation>&amp;Angre</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="764"/>
+        <location filename="../../scribus/undomanager.cpp" line="785"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation>&amp;Gjør om igjen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="765"/>
+        <location filename="../../scribus/undomanager.cpp" line="786"/>
         <source>&amp;Redo</source>
         <translation>&amp;Gjør om igjen</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="698"/>
+        <location filename="../../scribus/undomanager.cpp" line="719"/>
         <source>No object frame</source>
         <translation>Ingen objektramme</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="767"/>
+        <location filename="../../scribus/undomanager.cpp" line="788"/>
         <source>Reset control point</source>
         <translation>Nullstill kontrollpunktet</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="768"/>
+        <location filename="../../scribus/undomanager.cpp" line="789"/>
         <source>Reset control points</source>
         <translation>Nullstill kontrollpunktene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="769"/>
+        <location filename="../../scribus/undomanager.cpp" line="790"/>
         <source>Apply image effects</source>
         <translation>Bruk bildeeffekter</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="770"/>
+        <location filename="../../scribus/undomanager.cpp" line="791"/>
         <source>Insert frame</source>
         <translation>Sett inn ramme</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="771"/>
+        <location filename="../../scribus/undomanager.cpp" line="792"/>
         <source>Adjust frame to the image size</source>
         <translation>Juster ramma til bildet</translation>
     </message>
@@ -39664,17 +39664,17 @@ X: %4, Y: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="772"/>
+        <location filename="../../scribus/undomanager.cpp" line="793"/>
         <source>Remove all guides</source>
         <translation>Fjern alle hjelpelinjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="774"/>
+        <location filename="../../scribus/undomanager.cpp" line="795"/>
         <source>Copy</source>
         <translation>Kopier</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="775"/>
+        <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Copy page</source>
         <translation>Kopier siden</translation>
     </message>
@@ -39689,32 +39689,32 @@ X: %4, Y: %5</translation>
         <translation>Fjern vannrett hjelpelinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="696"/>
+        <location filename="../../scribus/undomanager.cpp" line="717"/>
         <source>Text flows around image clipping path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="773"/>
+        <location filename="../../scribus/undomanager.cpp" line="794"/>
         <source>Remove page guides</source>
         <translation>Fjern hjelpelinjene</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="779"/>
+        <location filename="../../scribus/undomanager.cpp" line="800"/>
         <source>Convert to outlines</source>
         <translation>Gjør om til omriss</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="756"/>
+        <location filename="../../scribus/undomanager.cpp" line="777"/>
         <source>Change formula</source>
         <translation>Endre formel</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="685"/>
+        <location filename="../../scribus/undomanager.cpp" line="680"/>
         <source>Import AI drawing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="686"/>
+        <location filename="../../scribus/undomanager.cpp" line="707"/>
         <source>Import XFig drawing</source>
         <translation>Importer XFig-tegning</translation>
     </message>
@@ -39724,12 +39724,12 @@ X: %4, Y: %5</translation>
         <translation>Behandle ramme</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="683"/>
+        <location filename="../../scribus/undomanager.cpp" line="682"/>
         <source>Import Barcode</source>
         <translation>Last inn en strekkode</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="739"/>
+        <location filename="../../scribus/undomanager.cpp" line="760"/>
         <source>Duplicate layer %1</source>
         <translation>Kopier det gjeldende laget %1</translation>
     </message>
@@ -39739,72 +39739,72 @@ X: %4, Y: %5</translation>
         <translation>Mer enn 20 elementer berøres</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="689"/>
+        <location filename="../../scribus/undomanager.cpp" line="704"/>
         <source>Import WMF drawing</source>
         <translation>Last inn et WMF-bilde</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="713"/>
+        <location filename="../../scribus/undomanager.cpp" line="734"/>
         <source>Change shape type</source>
         <translation>Endre form</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="737"/>
+        <location filename="../../scribus/undomanager.cpp" line="758"/>
         <source>Change page properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="749"/>
+        <location filename="../../scribus/undomanager.cpp" line="770"/>
         <source>Enable text flow around for lower layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="750"/>
+        <location filename="../../scribus/undomanager.cpp" line="771"/>
         <source>Disable text flow around for lower layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="751"/>
+        <location filename="../../scribus/undomanager.cpp" line="772"/>
         <source>Set layer blend mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="752"/>
+        <location filename="../../scribus/undomanager.cpp" line="773"/>
         <source>Set layer opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="753"/>
+        <location filename="../../scribus/undomanager.cpp" line="774"/>
         <source>Lock layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="754"/>
+        <location filename="../../scribus/undomanager.cpp" line="775"/>
         <source>Unlock layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="780"/>
+        <location filename="../../scribus/undomanager.cpp" line="801"/>
         <source>Link text frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="781"/>
+        <location filename="../../scribus/undomanager.cpp" line="802"/>
         <source>Unlink text frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="776"/>
+        <location filename="../../scribus/undomanager.cpp" line="797"/>
         <source>Move page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="782"/>
+        <location filename="../../scribus/undomanager.cpp" line="803"/>
         <source>Clear image frame content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="783"/>
+        <location filename="../../scribus/undomanager.cpp" line="804"/>
         <source>Path Operation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39949,158 +39949,268 @@ X: %4, Y: %5</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="687"/>
-        <source>Change columns</source>
+        <location filename="../../scribus/undomanager.cpp" line="681"/>
+        <source>Import Apple Pages document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="688"/>
-        <source>Change columns gap</source>
+        <location filename="../../scribus/undomanager.cpp" line="683"/>
+        <source>Import CorelDraw drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="684"/>
+        <source>Import CGM drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="685"/>
+        <source>Import Calamus CVG drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="686"/>
+        <source>Import Micrografx Draw drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="687"/>
+        <source>Import EMF drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="689"/>
+        <source>Import FreeHand document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="690"/>
-        <source>Change text to frame distance</source>
+        <source>Import IDML document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="701"/>
-        <source>Show image</source>
+        <location filename="../../scribus/undomanager.cpp" line="692"/>
+        <source>Import PageMaker document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="693"/>
+        <source>Import PDF document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="694"/>
+        <source>Import Macintosh Pict drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="695"/>
+        <source>Import MS Publisher document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="696"/>
+        <source>Import QuarkXPress document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="697"/>
+        <source>Import Shape drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="698"/>
+        <source>Import Kivio stencil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="700"/>
+        <source>Import SVM image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="702"/>
+        <source>Import Viva Designer document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="703"/>
+        <source>Import Visio document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="705"/>
-        <source>Create mesh gradient</source>
+        <source>Import WordPerfect graphic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="706"/>
-        <source>Change mesh gradient</source>
+        <source>Import Xara image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="707"/>
-        <source>Change Mode</source>
+        <location filename="../../scribus/undomanager.cpp" line="708"/>
+        <source>Import XPS document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="717"/>
-        <source>Replace text</source>
+        <location filename="../../scribus/undomanager.cpp" line="709"/>
+        <source>Import Zoner Draw image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="718"/>
-        <source>Change First Line Offset</source>
+        <location filename="../../scribus/undomanager.cpp" line="710"/>
+        <source>Change columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="719"/>
-        <source>Delete text</source>
+        <location filename="../../scribus/undomanager.cpp" line="711"/>
+        <source>Change columns gap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="720"/>
-        <source>Insert text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/undomanager.cpp" line="721"/>
-        <source>Append text</source>
+        <location filename="../../scribus/undomanager.cpp" line="712"/>
+        <source>Change text to frame distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="722"/>
-        <source>Import text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/undomanager.cpp" line="723"/>
-        <source>Clear text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/undomanager.cpp" line="725"/>
-        <source>Add Lorem Ipsum</source>
+        <source>Show image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="726"/>
-        <source>Insert mark</source>
+        <source>Create mesh gradient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="727"/>
-        <source>Insert note</source>
+        <source>Change mesh gradient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="728"/>
-        <source>Edit mark</source>
+        <source>Change Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="729"/>
-        <source>Delete mark</source>
+        <location filename="../../scribus/undomanager.cpp" line="738"/>
+        <source>Replace text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="730"/>
-        <source>Delete note</source>
+        <location filename="../../scribus/undomanager.cpp" line="739"/>
+        <source>Change First Line Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="731"/>
-        <source>Add note style</source>
+        <location filename="../../scribus/undomanager.cpp" line="740"/>
+        <source>Delete text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="732"/>
-        <source>Edit note style</source>
+        <location filename="../../scribus/undomanager.cpp" line="741"/>
+        <source>Insert text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="733"/>
-        <location filename="../../scribus/undomanager.cpp" line="734"/>
-        <source>Delete note style</source>
+        <location filename="../../scribus/undomanager.cpp" line="742"/>
+        <source>Append text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="743"/>
+        <source>Import text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="744"/>
+        <source>Clear text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="746"/>
+        <source>Add Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="747"/>
+        <source>Insert mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="748"/>
+        <source>Insert note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="749"/>
+        <source>Edit mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="750"/>
+        <source>Delete mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="751"/>
+        <source>Delete note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="752"/>
+        <source>Add note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="753"/>
+        <source>Edit note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="754"/>
+        <location filename="../../scribus/undomanager.cpp" line="755"/>
+        <source>Delete note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="764"/>
         <source>Change gradient position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="757"/>
+        <location filename="../../scribus/undomanager.cpp" line="778"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="759"/>
+        <location filename="../../scribus/undomanager.cpp" line="780"/>
         <source>Remove mesh patch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="761"/>
+        <location filename="../../scribus/undomanager.cpp" line="782"/>
         <source>Remove text style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="778"/>
+        <location filename="../../scribus/undomanager.cpp" line="799"/>
         <source>Import page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="784"/>
+        <location filename="../../scribus/undomanager.cpp" line="805"/>
         <source>Change Page Attributes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="785"/>
+        <location filename="../../scribus/undomanager.cpp" line="806"/>
         <source>Transform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="786"/>
+        <location filename="../../scribus/undomanager.cpp" line="807"/>
         <source>Weld Items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40110,57 +40220,57 @@ X: %4, Y: %5</translation>
         <translation>Gi nytt navn til malsiden</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="724"/>
+        <location filename="../../scribus/undomanager.cpp" line="745"/>
         <source>Truncate text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="788"/>
+        <location filename="../../scribus/undomanager.cpp" line="809"/>
         <source>Drop Shadow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="789"/>
+        <location filename="../../scribus/undomanager.cpp" line="810"/>
         <source>Drop Shadow Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="790"/>
+        <location filename="../../scribus/undomanager.cpp" line="811"/>
         <source>Drop Shadow Shade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="791"/>
+        <location filename="../../scribus/undomanager.cpp" line="812"/>
         <source>Drop Shadow Blur Radius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="792"/>
+        <location filename="../../scribus/undomanager.cpp" line="813"/>
         <source>Drop Shadow X Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="793"/>
+        <location filename="../../scribus/undomanager.cpp" line="814"/>
         <source>Drop Shadow Y Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="794"/>
+        <location filename="../../scribus/undomanager.cpp" line="815"/>
         <source>Drop Shadow Opacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="795"/>
+        <location filename="../../scribus/undomanager.cpp" line="816"/>
         <source>Drop Shadow Blend Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="777"/>
+        <location filename="../../scribus/undomanager.cpp" line="798"/>
         <source>Swap page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="787"/>
+        <location filename="../../scribus/undomanager.cpp" line="808"/>
         <source>Unweld Items</source>
         <translation type="unfinished"></translation>
     </message>

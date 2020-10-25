@@ -28568,7 +28568,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="31"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="29"/>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -28747,19 +28747,19 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="434"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="51"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="93"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="136"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="180"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="208"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="543"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="570"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="49"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="91"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="134"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="178"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="206"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="568"/>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29608,19 +29608,19 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="360"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="392"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="644"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -31655,12 +31655,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="146"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="149"/>
         <source>Emergency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/recoverdialog.cpp" line="158"/>
+        <location filename="../../scribus/ui/recoverdialog.cpp" line="161"/>
         <source>Autosave</source>
         <translation type="unfinished"></translation>
     </message>
