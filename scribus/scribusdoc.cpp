@@ -14902,6 +14902,8 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 		currItem->gHeight = h;
 		lowestItem = qMin(lowestItem, Items->indexOf(currItem));
 	}
+
+	bool needTextInteractionCheck = false;
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -14915,11 +14917,14 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
+		needTextInteractionCheck |= currItem->textFlowAroundObject();
 	}
+
 	double gx = minx;
 	double gy = miny;
 	double gw = maxx - minx;
 	double gh = maxy - miny;
+
 	m_undoManager->setUndoEnabled(false);
 	int z = itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None);
 	PageItem *groupItem = Items->takeAt(z);
@@ -14953,8 +14958,12 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	itemSelection->addItem(groupItem);
 
 	GroupCounter++;
-	regionsChanged()->update(QRectF(gx - 5, gy - 5, gw + 10, gh + 10));
+	QRectF regionToUpdate = QRectF(gx - 5, gy - 5, gw + 10, gh + 10);
+	if (needTextInteractionCheck)
+		invalidateRegion(regionToUpdate);
+	regionsChanged()->update(needTextInteractionCheck ? QRectF() : regionToUpdate);
 	emit docChanged();
+
 	if (m_ScMW && ScCore->usingGUI())
 	{
 		m_ScMW->scrActions["itemAttachTextToPath"]->setEnabled(false);
@@ -14971,6 +14980,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		return;
 	
 	bool wasLoad = isLoading();
+	bool needTextInteractionCheck = false;
 	int docSelectionCount = itemSelection->count();
 	PageItem *currItem;
 
@@ -14985,6 +14995,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		currItem = itemSelection->itemAt(i);
 		if (!currItem->isGroup())
 			continue;
+		needTextInteractionCheck |= currItem->textFlowAroundObject();
 		toDelete.append(currItem);
 	}
 
@@ -15005,6 +15016,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		for (int j = 0; j < gcount; j++)
 		{
 			PageItem* gItem = currItem->groupItemList.last();
+			needTextInteractionCheck |= gItem->textFlowAroundObject();
 			removeFromGroup(gItem);
 			if (currItem->isGroupChild())
 			{
@@ -15051,7 +15063,11 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	emit docChanged();
 	if (itemSelection->count() > 0)
 		m_ScMW->HaveNewSel();
-	regionsChanged()->update(QRectF(x - 5, y - 5, w + 10, h + 10));
+
+	QRectF regionToUpdate = QRectF(x - 5, y - 5, w + 10, h + 10);
+	if (needTextInteractionCheck)
+		invalidateRegion(regionToUpdate);
+	regionsChanged()->update(needTextInteractionCheck ? QRectF() : regionToUpdate);
 }
 
 void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
