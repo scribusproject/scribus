@@ -13001,9 +13001,9 @@ void ScribusDoc::invalidateAll()
 void ScribusDoc::invalidateLayer(int layerID)
 {
 	QList<PageItem*> allItems;
-	for (int c = 0; c < DocItems.count(); ++c)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *ite = DocItems.at(c);
+		PageItem *ite = DocItems.at(i);
 		if (ite->isGroup())
 			allItems = ite->getAllChildren();
 		else
@@ -13018,9 +13018,9 @@ void ScribusDoc::invalidateLayer(int layerID)
 	}
 	if (this->masterPageMode())
 	{
-		for (int c=0; c < MasterItems.count(); ++c)
+		for (int i = 0; i < MasterItems.count(); ++i)
 		{
-			PageItem *ite = MasterItems.at(c);
+			PageItem *ite = MasterItems.at(i);
 			if (ite->isGroup())
 				allItems = ite->getAllChildren();
 			else
@@ -13040,9 +13040,9 @@ void ScribusDoc::invalidateLayer(int layerID)
 void ScribusDoc::invalidateRegion(QRectF region)
 {
 	QList<PageItem*> allItems;
-	for (int c=0; c<DocItems.count(); ++c)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *ite = DocItems.at(c);
+		PageItem *ite = DocItems.at(i);
 		if (ite->isGroup())
 			allItems = ite->getAllChildren();
 		else
@@ -13055,9 +13055,9 @@ void ScribusDoc::invalidateRegion(QRectF region)
 		}
 		allItems.clear();
 	}
-	for (int c=0; c<MasterItems.count(); ++c)
+	for (int i = 0; i < MasterItems.count(); ++i)
 	{
-		PageItem *ite = MasterItems.at(c);
+		PageItem *ite = MasterItems.at(i);
 		if (ite->isGroup())
 			allItems = ite->getAllChildren();
 		else
