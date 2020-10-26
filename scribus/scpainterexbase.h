@@ -68,33 +68,33 @@ public:
 	virtual void begin() = 0;
 	virtual void end() = 0;
 	virtual void clear() = 0;
-	virtual void clear( ScColorShade& ) = 0;
+	virtual void clear(ScColorShade&) = 0;
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QTransform & ) = 0;
+	virtual void setWorldMatrix(const QTransform &) = 0;
 	virtual const QTransform worldMatrix() = 0;
-	virtual void translate( double, double ) = 0;
-	virtual void translate( const QPointF& offset ) = 0;
-	virtual void rotate( double ) = 0;
-	virtual void scale( double, double ) = 0;
+	virtual void translate(double, double) = 0;
+	virtual void translate(const QPointF& offset) = 0;
+	virtual void rotate(double) = 0;
+	virtual void scale(double, double) = 0;
 
 	// drawing
-	virtual void moveTo( const double &, const double & ) = 0;
-	virtual void lineTo( const double &, const double & ) = 0;
-	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 ) = 0;
+	virtual void moveTo(const double &, const double &) = 0;
+	virtual void lineTo(const double &, const double &) = 0;
+	virtual void curveTo(FPoint p1, FPoint p2, FPoint p3) = 0;
 	virtual void newPath() = 0;
 	virtual void fillPath() = 0;
 	virtual void strokePath() = 0;
-	virtual void setFillRule( bool fillRule ) = 0;
+	virtual void setFillRule(bool fillRule) = 0;
 	virtual bool fillRule()  = 0;
-	virtual void setFillMode( int fill ) = 0;
+	virtual void setFillMode(int fill) = 0;
 	virtual int  fillMode() = 0;
-	virtual void setStrokeMode( int stroke ) = 0;
+	virtual void setStrokeMode(int stroke) = 0;
 	virtual int  strokeMode() = 0;
-	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew ) = 0;
+	virtual void setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
 
-	virtual void setMaskMode( int mask ) = 0;
+	virtual void setMaskMode(int mask) = 0;
 	virtual void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
 	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
 
@@ -106,7 +106,7 @@ public:
 
 	virtual void setClipPath() = 0;
 
-	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
+	virtual void drawImage(ScImage *image, ScPainterExBase::ImageMode mode) = 0;
 	virtual void setupPolygon(const FPointArray *points, bool closed = true) = 0;
 	virtual void drawPolygon() = 0;
 	virtual void drawPolyLine() = 0;
@@ -117,24 +117,24 @@ public:
 	// pen + brush
 	virtual ScColorShade pen() = 0;
 	virtual ScColorShade brush() = 0;
-	virtual void setPen( const ScColorShade &c ) = 0;
-	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo ) = 0;
-	virtual void setPenOpacity( double op ) = 0;
-	virtual void setLineWidth( double w) = 0;
+	virtual void setPen(const ScColorShade &c) = 0;
+	virtual void setPen(const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo) = 0;
+	virtual void setPenOpacity(double op) = 0;
+	virtual void setLineWidth(double w) = 0;
 	virtual void setDash(const QVector<double>& array, double ofs) = 0;
-	virtual void setBrush( const ScColorShade & ) = 0;
-	virtual void setBrushOpacity( double op ) = 0;
-	virtual void setOpacity( double op ) = 0;
-	virtual void setFont( const QFont &f ) = 0;
+	virtual void setBrush(const ScColorShade &) = 0;
+	virtual void setBrushOpacity(double op) = 0;
+	virtual void setOpacity(double op) = 0;
+	virtual void setFont(const QFont &f) = 0;
 	virtual QFont font() = 0;
 
 	// stack management
 	virtual void save() = 0;
 	virtual void restore() = 0;
 
-	virtual void setRasterOp( int op ) = 0;
-	virtual void setBlendModeFill( int blendMode ) = 0;
-	virtual void setBlendModeStroke( int blendMode ) = 0;
+	virtual void setRasterOp(int op) = 0;
+	virtual void setBlendModeFill(int blendMode) = 0;
+	virtual void setBlendModeStroke(int blendMode) = 0;
 
 	VGradientEx  m_fillGradient;
 	VGradientEx  m_strokeGradient;
