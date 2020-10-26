@@ -87,7 +87,7 @@ ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blen
 
 	m_matrix = QTransform();
 	m_zoomStack.clear();
-	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w * 4);
 	cairo_surface_set_device_scale(img, m_image->devicePixelRatio(), m_image->devicePixelRatio());
 	m_cr = cairo_create(img);
 	cairo_save(m_cr);
@@ -689,14 +689,14 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 					s++;
 				}
 			}
-			m_imageMask = cairo_image_surface_create_for_data ((uchar*)m_imageQ.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+			m_imageMask = cairo_image_surface_create_for_data ((uchar*)m_imageQ.bits(), CAIRO_FORMAT_ARGB32, w, h, w * 4);
 		}
 		else
 		{
 			m_imageQ = m_maskPattern->pattern.copy();
 			if (m_maskMode == 6)
 				m_imageQ.invertPixels(QImage::InvertRgba);
-			m_imageMask = cairo_image_surface_create_for_data ((uchar*)m_imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width()*4);
+			m_imageMask = cairo_image_surface_create_for_data ((uchar*)m_imageQ.bits(), CAIRO_FORMAT_ARGB32, m_maskPattern->getPattern()->width(), m_maskPattern->getPattern()->height(), m_maskPattern->getPattern()->width() * 4);
 		}
 		pat = cairo_pattern_create_for_surface(m_imageMask);
 		cairo_pattern_set_extend(pat, CAIRO_EXTEND_REPEAT);
@@ -1154,7 +1154,7 @@ void ScPainter::fillPathHelper()
 	else if (m_fillMode == 3)
 	{
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
-		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width() * 4);
 		cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 		cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 		cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
@@ -1315,7 +1315,7 @@ void ScPainter::strokePathHelper()
 	{
 		cairo_push_group(m_cr);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
-		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width() * 4);
 		cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 		cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 		cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
@@ -1426,7 +1426,7 @@ void ScPainter::drawImage(QImage *image)
 {
 	cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
 /*
-	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
 	cairo_set_source_surface (m_cr, image3, 0, 0);
 	cairo_paint_with_alpha (m_cr, fill_trans);
 	cairo_surface_destroy (image3);
@@ -1436,8 +1436,8 @@ void ScPainter::drawImage(QImage *image)
 	cairo_push_group(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
-	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width() * 4);
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	cairo_mask_surface (m_cr, image3, 0, 0);
