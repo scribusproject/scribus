@@ -165,9 +165,12 @@ void HunspellDialog::changeAllWords()
 void HunspellDialog::replaceWord(int i)
 {
 	//TODO: rehyphenate after the replacement
+	QListWidgetItem* suggestionItem = suggestionsListWidget->currentItem();
+	if (!suggestionItem)
+		return;
 	int replaceStart = m_wfList->at(i).start + m_wfList->at(i).changeOffset;
 	QString oldText(m_iText->word(replaceStart));
-	QString newText(suggestionsListWidget->currentItem()->text());
+	QString newText(suggestionItem->text());
 
 	UndoTransaction transaction;
 	if ((m_item != nullptr) && UndoManager::undoEnabled())
