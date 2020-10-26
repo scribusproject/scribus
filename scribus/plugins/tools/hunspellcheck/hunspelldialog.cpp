@@ -123,12 +123,13 @@ void HunspellDialog::changeWord()
 
 void HunspellDialog::changeAllWords()
 {
-	if(m_wfList->at(wfListIndex).ignore && !m_wfList->at(wfListIndex).changed)
+	if (m_wfList->at(wfListIndex).ignore && !m_wfList->at(wfListIndex).changed)
 		return;
-	QString wordToChange=m_wfList->at(wfListIndex).w;
+
+	QString wordToChange = m_wfList->at(wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
-	for(int i=0;i<m_wfList->count();++i)
-		if(m_wfList->at(i).w==wordToChange)
+	for (int i = 0; i < m_wfList->count(); ++i)
+		if (m_wfList->at(i).w == wordToChange)
 			replaceWord(i);
 	goToNextWord();
 }
@@ -136,15 +137,19 @@ void HunspellDialog::changeAllWords()
 void HunspellDialog::replaceWord(int i)
 {
 	//TODO: rehypenate after the replacement
-	QString newText(suggestionsListWidget->currentItem()->text());
-	int lengthDiff=m_iText->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
-	if (lengthDiff!=0)
+	QListWidgetItem* suggestionItem = suggestionsListWidget->currentItem();
+	if (!suggestionItem)
+		return;
+
+	QString newText(suggestionItem->text());
+	int lengthDiff = m_iText->replaceWord(m_wfList->at(i).start + m_wfList->at(i).changeOffset, newText);
+	if (lengthDiff != 0)
 	{
-		for (int k=i; k<m_wfList->count();++k)
-			(*m_wfList)[k].changeOffset+=lengthDiff;
+		for (int k = i; k < m_wfList->count(); ++k)
+			(*m_wfList)[k].changeOffset += lengthDiff;
 	}
-	(*m_wfList)[i].changed=true;
-	m_docChanged=true;
+	(*m_wfList)[i].changed = true;
+	m_docChanged = true;
 }
 
 void HunspellDialog::languageComboChanged(const QString &newLanguage)
