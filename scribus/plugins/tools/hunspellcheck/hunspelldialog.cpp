@@ -115,8 +115,8 @@ void HunspellDialog::goToNextWord(int i)
 
 	int sentencePos = 0;
 	QString sentence(m_iText->sentence(currWF.start, sentencePos));
-	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
-	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
+	sentence.insert(currWF.end - sentencePos + currWF.changeOffset, "</b></font>");
+	sentence.insert(currWF.start - sentencePos + currWF.changeOffset, "<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
 }
 
@@ -221,7 +221,7 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 {
 	m_returnToDefaultLang = true;
 	QString wordLang = LanguageManager::instance()->getAbbrevFromLang(newLanguage, false);
-	if (!m_hspellerMap->contains(wordLang) )
+	if (!m_hspellerMap->contains(wordLang))
 	{
 		//qDebug() << "hspeller"<<wordLang<<"does not exist";
 		return;
