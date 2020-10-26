@@ -673,9 +673,8 @@ void SCFonts::AddFontconfigFonts()
 	FcObjectSetDestroy(os);
 	FcPatternDestroy(pat);
 	// Create the Freetype library
-	bool error;
 	FT_Library library = NULL;
-	error = FT_Init_FreeType( &library );
+	FT_Init_FreeType( &library );
 	// Now iterate over the font files and load them
 	int i;
 	for (i = 0; i < fs->nfont; i++) 
@@ -685,7 +684,7 @@ void SCFonts::AddFontconfigFonts()
 		{
 			if (showFontInformation)
 				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
-			error = AddScalableFont(QString((char*)file), library, "");
+			AddScalableFont(QString((char*)file), library, "");
 		}
 		else
 			if (showFontInformation)
