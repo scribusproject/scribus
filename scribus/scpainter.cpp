@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <QDebug>
 
-ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int blendmode )
+ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blendmode)
 {
 	Q_ASSERT(w >= 0);
 	Q_ASSERT(h >= 0);
@@ -90,16 +90,16 @@ ScPainter::ScPainter( QImage *target, int w, int h, double transparency, int ble
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	cairo_surface_set_device_scale(img, m_image->devicePixelRatio(), m_image->devicePixelRatio());
 	m_cr = cairo_create(img);
-	cairo_save( m_cr );
+	cairo_save(m_cr);
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-	cairo_set_tolerance( m_cr, 0.5 );
+	cairo_set_tolerance(m_cr, 0.5);
 }
 
 ScPainter::~ScPainter()
 {
 	cairo_surface_destroy(cairo_get_target(m_cr));
-	cairo_destroy( m_cr );
+	cairo_destroy(m_cr);
 }
 
 void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clipArray)
@@ -160,7 +160,7 @@ void ScPainter::endLayer()
 		cairo_pop_group_to_source (m_cr);
 		if (!la.groupClip.empty())
 		{
-			if( m_fillRule)
+			if (m_fillRule)
 				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 			else
 				cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
@@ -200,7 +200,7 @@ void ScPainter::end()
 	if (m_layeredMode)
 	{
 		cairo_surface_flush(cairo_get_target(m_cr));
-		cairo_restore( m_cr );
+		cairo_restore(m_cr);
 		return;
 	}
 }
@@ -208,14 +208,14 @@ void ScPainter::end()
 void ScPainter::clear()
 {
 	if (m_imageMode)
-		m_image->fill( qRgba(255, 255, 255, 255) );
+		m_image->fill(qRgba(255, 255, 255, 255));
 }
 
-void ScPainter::clear( const QColor &c )
+void ScPainter::clear(const QColor &c)
 {
 	QRgb cs = c.rgb();
 	if (m_imageMode)
-		m_image->fill( qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)) );
+		m_image->fill(qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)));
 }
 
 cairo_t *ScPainter::context()
@@ -227,11 +227,11 @@ const QTransform ScPainter::worldMatrix()
 {
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QTransform mat = QTransform( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
+	QTransform mat = QTransform(matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0);
 	return mat;
 }
 
-void ScPainter::setWorldMatrix( const QTransform &mat )
+void ScPainter::setWorldMatrix(const QTransform &mat)
 {
 	cairo_matrix_t matrix;
 	cairo_matrix_init(&matrix, mat.m11(), mat.m12(), mat.m21(), mat.m22(), mat.dx(), mat.dy());
@@ -246,70 +246,70 @@ void ScPainter::setAntialiasing(bool enable)
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
 }
 
-void ScPainter::setZoomFactor( double zoomFactor )
+void ScPainter::setZoomFactor(double zoomFactor)
 {
 	m_zoomFactor = zoomFactor;
 	cairo_scale (m_cr, m_zoomFactor, m_zoomFactor);
 }
 
-void ScPainter::translate( double x, double y )
+void ScPainter::translate(double x, double y)
 {
 	cairo_translate (m_cr, x, y);
 }
 
-void ScPainter::translate( const QPointF& offset )
+void ScPainter::translate(const QPointF& offset)
 {
 	cairo_translate (m_cr, offset.x(), offset.y());
 }
 
-void ScPainter::rotate( double r )
+void ScPainter::rotate(double r)
 {
 	cairo_rotate (m_cr, r * 3.1415927 / 180.0);
 }
 
-void ScPainter::scale( double x, double y )
+void ScPainter::scale(double x, double y)
 {
 	cairo_scale (m_cr, x, y);
 	m_zoomFactor *= qMax(x, y);
 }
 
-void ScPainter::moveTo( const double &x, const double &y )
+void ScPainter::moveTo(const double &x, const double &y)
 {
-	cairo_move_to( m_cr, x, y);
+	cairo_move_to(m_cr, x, y);
 }
 
 void
-ScPainter::lineTo( const double &x, const double &y )
+ScPainter::lineTo(const double &x, const double &y)
 {
-	cairo_line_to( m_cr, x, y);
+	cairo_line_to(m_cr, x, y);
 }
 
-void ScPainter::curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3 )
+void ScPainter::curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3)
 {
 	cairo_curve_to(m_cr, p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 }
 
 void ScPainter::newPath()
 {
-	cairo_new_path( m_cr );
+	cairo_new_path(m_cr);
 }
 
 void ScPainter::closePath()
 {
-	cairo_close_path( m_cr );
+	cairo_close_path(m_cr);
 }
 
-void ScPainter::setFillRule( bool fillRule )
+void ScPainter::setFillRule(bool fillRule)
 {
 	m_fillRule = fillRule;
 }
 
-void ScPainter::setFillMode( int fill )
+void ScPainter::setFillMode(int fill)
 {
 	m_fillMode = fill;
 }
 
-void ScPainter::setStrokeMode( int stroke )
+void ScPainter::setStrokeMode(int stroke)
 {
 	m_strokeMode = stroke;
 }
@@ -471,12 +471,12 @@ double ScPainter::brushOpacity()
 	return m_fill_trans;
 }
 
-void ScPainter::setPen( const QColor &c )
+void ScPainter::setPen(const QColor &c)
 {
 	m_stroke = c;
 }
 
-void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo )
+void ScPainter::setPen(const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
 {
 	m_stroke = c;
 	m_LineWidth = w;
@@ -486,12 +486,12 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	getDashArray(st, w, m_array);
 }
 
-void ScPainter::setLineWidth( double w )
+void ScPainter::setLineWidth(double w)
 {
 	m_LineWidth = w;
 }
 
-void ScPainter::setPenOpacity( double op )
+void ScPainter::setPenOpacity(double op)
 {
 	m_stroke_trans = op;
 }
@@ -503,17 +503,17 @@ void ScPainter::setDash(const QVector<double>& array, double ofs)
 	m_offset = ofs;
 }
 
-void ScPainter::setBrush( const QColor &c )
+void ScPainter::setBrush(const QColor &c)
 {
 	m_fill = c;
 }
 
-void ScPainter::setBrushOpacity( double op )
+void ScPainter::setBrushOpacity(double op)
 {
 	m_fill_trans = op;
 }
 
-void ScPainter::setOpacity( double op )
+void ScPainter::setOpacity(double op)
 {
 	m_fill_trans = op;
 	m_stroke_trans = op;
@@ -527,13 +527,13 @@ void ScPainter::setFont(const ScFace &f, double s)
 
 void ScPainter::save()
 {
-	cairo_save( m_cr );
+	cairo_save(m_cr);
 	m_zoomStack.push(m_zoomFactor);
 }
 
 void ScPainter::restore()
 {
-	cairo_restore( m_cr );
+	cairo_restore(m_cr);
 	if (!m_zoomStack.isEmpty())
 		m_zoomFactor = m_zoomStack.pop();
 }
@@ -589,12 +589,12 @@ void ScPainter::setRasterOp(int blendMode)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
-void ScPainter::setBlendModeFill( int blendMode )
+void ScPainter::setBlendModeFill(int blendMode)
 {
 	m_blendModeFill = blendMode;
 }
 
-void ScPainter::setBlendModeStroke( int blendMode )
+void ScPainter::setBlendModeStroke(int blendMode)
 {
 	m_blendModeStroke = blendMode;
 }
@@ -615,7 +615,7 @@ void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, dou
 
 cairo_pattern_t * ScPainter::getMaskPattern()
 {
-	cairo_save( m_cr );
+	cairo_save(m_cr);
 	cairo_pattern_t *pat;
 	if ((m_maskMode == 1) || (m_maskMode == 3))
 	{
@@ -677,7 +677,7 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 			QRgb r;
 			for (int yi = 0; yi < h; ++yi)
 			{
-				s = (QRgb*)(m_imageQ.scanLine( yi ));
+				s = (QRgb*)(m_imageQ.scanLine(yi));
 				for (int xi = 0; xi < w; ++xi)
 				{
 					r = *s;
@@ -716,13 +716,13 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 		cairo_matrix_invert(&matrix);
 		cairo_pattern_set_matrix (pat, &matrix);
 	}
-	cairo_restore( m_cr );
+	cairo_restore(m_cr);
 	return pat;
 }
 
 void ScPainter::fillPathHelper()
 {
-	cairo_save( m_cr );
+	cairo_save(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	if (m_fillRule)
 		cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -735,7 +735,7 @@ void ScPainter::fillPathHelper()
 		if (m_maskMode > 0)
 		{
 			cairo_pattern_t *pat = getMaskPattern();
-			cairo_set_source_rgb( m_cr, r, g, b );
+			cairo_set_source_rgb(m_cr, r, g, b);
 			setRasterOp(m_blendModeFill);
 			cairo_clip_preserve(m_cr);
 			cairo_mask(m_cr, pat);
@@ -745,7 +745,7 @@ void ScPainter::fillPathHelper()
 		}
 		else
 		{
-			cairo_set_source_rgba( m_cr, r, g, b, m_fill_trans );
+			cairo_set_source_rgba(m_cr, r, g, b, m_fill_trans);
 			setRasterOp(m_blendModeFill);
 			cairo_fill_preserve(m_cr);
 		}
@@ -770,7 +770,7 @@ void ScPainter::fillPathHelper()
 			cr = cairo_create(img);
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-			cairo_set_tolerance(cr, 0.5 );
+			cairo_set_tolerance(cr, 0.5);
 			double r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			cairo_mesh_pattern_begin_patch(mpat);
@@ -813,7 +813,7 @@ void ScPainter::fillPathHelper()
 			cr = cairo_create(img);
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-			cairo_set_tolerance(cr, 0.5 );
+			cairo_set_tolerance(cr, 0.5);
 			double r, g, b, a;
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QList<QColor> qStopColors;
@@ -989,7 +989,7 @@ void ScPainter::fillPathHelper()
 			cr = cairo_create(img);
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-			cairo_set_tolerance(cr, 0.5 );
+			cairo_set_tolerance(cr, 0.5);
 			double r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			for (int grow = 0; grow < meshGradientArray.count()-1; grow++)
@@ -1036,7 +1036,7 @@ void ScPainter::fillPathHelper()
 			cr = cairo_create(img);
 			cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
 			cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
-			cairo_set_tolerance(cr, 0.5 );
+			cairo_set_tolerance(cr, 0.5);
 			double r, g, b, a;
 			mpat = cairo_pattern_create_mesh();
 			for (int col = 0; col < meshGradientPatches.count(); col++)
@@ -1148,7 +1148,7 @@ void ScPainter::fillPathHelper()
 		{
 			cairo_surface_destroy(img);
 			cairo_pattern_destroy(mpat);
-			cairo_destroy( cr );
+			cairo_destroy(cr);
 		}
 	}
 	else if (m_fillMode == 3)
@@ -1207,61 +1207,61 @@ void ScPainter::fillPathHelper()
 		double r, g, b;
 		m_hatchForeground.getRgbF(&r, &g, &b);
 		cairo_clip_preserve (m_cr);
-		cairo_set_line_width( m_cr, 1 );
+		cairo_set_line_width(m_cr, 1);
 		cairo_set_source_rgb(m_cr, r, g, b);
 		translate(m_hatchWidth / 2.0, m_hatchHeight / 2.0);
 		double lineLen = sqrt((m_hatchWidth / 2.0) * (m_hatchWidth / 2.0) + (m_hatchHeight / 2.0) * (m_hatchHeight / 2.0));
 		double dist = 0.0;
 		while (dist < lineLen)
 		{
-			cairo_save( m_cr );
+			cairo_save(m_cr);
 			rotate(-m_hatchAngle);
 			newPath();
 			moveTo(-lineLen, dist);
 			lineTo(lineLen, dist);
-			cairo_stroke( m_cr );
+			cairo_stroke(m_cr);
 			if (dist > 0)
 			{
 				newPath();
 				moveTo(-lineLen, -dist);
 				lineTo(lineLen, -dist);
-				cairo_stroke( m_cr );
+				cairo_stroke(m_cr);
 			}
-			cairo_restore( m_cr );
+			cairo_restore(m_cr);
 			if ((m_hatchType == 1) || (m_hatchType == 2))
 			{
-				cairo_save( m_cr );
+				cairo_save(m_cr);
 				rotate(-m_hatchAngle + 90);
 				newPath();
 				moveTo(-lineLen, dist);
 				lineTo(lineLen, dist);
-				cairo_stroke( m_cr );
+				cairo_stroke(m_cr);
 				if (dist > 0)
 				{
 					newPath();
 					moveTo(-lineLen, -dist);
 					lineTo(lineLen, -dist);
-					cairo_stroke( m_cr );
+					cairo_stroke(m_cr);
 				}
-				cairo_restore( m_cr );
+				cairo_restore(m_cr);
 			}
 			if (m_hatchType == 2)
 			{
-				cairo_save( m_cr );
+				cairo_save(m_cr);
 				rotate(-m_hatchAngle + 45);
 				double dDist = dist * sqrt(2.0);
 				newPath();
 				moveTo(-lineLen, dDist);
 				lineTo(lineLen, dDist);
-				cairo_stroke( m_cr );
+				cairo_stroke(m_cr);
 				if (dist > 0)
 				{
 					newPath();
 					moveTo(-lineLen, -dDist);
 					lineTo(lineLen, -dDist);
-					cairo_stroke( m_cr );
+					cairo_stroke(m_cr);
 				}
-				cairo_restore( m_cr );
+				cairo_restore(m_cr);
 			}
 			dist += m_hatchDistance;
 		}
@@ -1282,35 +1282,35 @@ void ScPainter::fillPathHelper()
 		cairo_append_path(m_cr, path);
 		cairo_path_destroy(path);
 	}
-	cairo_restore( m_cr );
+	cairo_restore(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
 void ScPainter::strokePathHelper()
 {
-	cairo_save( m_cr );
+	cairo_save(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	if (m_LineWidth == 0)
-		cairo_set_line_width( m_cr, 1.0 / m_zoomFactor );
+		cairo_set_line_width(m_cr, 1.0 / m_zoomFactor);
 	else
-		cairo_set_line_width( m_cr, m_LineWidth );
+		cairo_set_line_width(m_cr, m_LineWidth);
 	if (m_array.count() > 0)
-		cairo_set_dash( m_cr, m_array.data(), m_array.count(), m_offset);
+		cairo_set_dash(m_cr, m_array.data(), m_array.count(), m_offset);
 	else
-		cairo_set_dash( m_cr, nullptr, 0, 0 );
+		cairo_set_dash(m_cr, nullptr, 0, 0);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	if (PLineEnd == Qt::RoundCap)
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 	else if (PLineEnd == Qt::SquareCap)
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_SQUARE);
-	else if (PLineEnd == Qt::FlatCap )
+	else if (PLineEnd == Qt::FlatCap)
 		cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_BUTT);
 	if (PLineJoin == Qt::RoundJoin)
-		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_ROUND );
+		cairo_set_line_join(m_cr, CAIRO_LINE_JOIN_ROUND);
 	else if (PLineJoin == Qt::BevelJoin)
-		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
+		cairo_set_line_join(m_cr, CAIRO_LINE_JOIN_BEVEL);
 	else if (PLineJoin == Qt::MiterJoin)
-		cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
+		cairo_set_line_join(m_cr, CAIRO_LINE_JOIN_MITER);
 	if (m_strokeMode == 3)
 	{
 		cairo_push_group(m_cr);
@@ -1335,7 +1335,7 @@ void ScPainter::strokePathHelper()
 		cairo_matrix_invert(&matrix);
 		cairo_pattern_set_matrix (m_pat, &matrix);
 		cairo_set_source (m_cr, m_pat);
-		cairo_stroke_preserve( m_cr );
+		cairo_stroke_preserve(m_cr);
 		cairo_pattern_destroy (m_pat);
 		cairo_surface_destroy (image2);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
@@ -1399,7 +1399,7 @@ void ScPainter::strokePathHelper()
 		cairo_matrix_invert(&matrix);
 		cairo_pattern_set_matrix (pat, &matrix);
 		cairo_set_source (m_cr, pat);
-		cairo_stroke_preserve( m_cr );
+		cairo_stroke_preserve(m_cr);
 		cairo_pattern_destroy (pat);
 		cairo_pop_group_to_source (m_cr);
 		setRasterOp(m_blendModeStroke);
@@ -1409,11 +1409,11 @@ void ScPainter::strokePathHelper()
 	{
 		double r, g, b;
 		m_stroke.getRgbF(&r, &g, &b);
-		cairo_set_source_rgba( m_cr, r, g, b, m_stroke_trans );
+		cairo_set_source_rgba(m_cr, r, g, b, m_stroke_trans);
 		setRasterOp(m_blendModeStroke);
-		cairo_stroke_preserve( m_cr );
+		cairo_stroke_preserve(m_cr);
 	}
-	cairo_restore( m_cr );
+	cairo_restore(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }
 
@@ -1422,7 +1422,7 @@ void ScPainter::setClipPath()
 	cairo_clip (m_cr);
 }
 
-void ScPainter::drawImage( QImage *image)
+void ScPainter::drawImage(QImage *image)
 {
 	cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
 /*
@@ -1482,8 +1482,8 @@ void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 		{
 			np = points->point(poi);
 			if ((!first) && (closed) && (np4 == firstP))
-				cairo_close_path( m_cr );
-			cairo_move_to( m_cr, np.x(), np.y());
+				cairo_close_path(m_cr);
+			cairo_move_to(m_cr, np.x(), np.y());
 			first = nPath = false;
 			firstP = np4 = np;
 		}
@@ -1494,13 +1494,13 @@ void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 		if (np4 == np3)
 			continue;
 		if ((np == np1) && (np2 == np3))
-			cairo_line_to( m_cr, np3.x(), np3.y());
+			cairo_line_to(m_cr, np3.x(), np3.y());
 		else
 			cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
 		np4 = np3;
 	}
 	if (closed)
-		cairo_close_path( m_cr );
+		cairo_close_path(m_cr);
 }
 
 void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
@@ -1524,9 +1524,9 @@ void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 		{
 			np = points->point(poi);
 			if ((!first) && (closed) && (np4 == firstP))
-				cairo_close_path( m_cr );
+				cairo_close_path(m_cr);
 			sharpLineHelper(np);
-			cairo_move_to( m_cr, np.x(), np.y());
+			cairo_move_to(m_cr, np.x(), np.y());
 			first = nPath = false;
 			firstP = np4 = np;
 		}
@@ -1539,14 +1539,14 @@ void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 		if ((np == np1) && (np2 == np3))
 		{
 			sharpLineHelper(np3);
-			cairo_line_to( m_cr, np3.x(), np3.y());
+			cairo_line_to(m_cr, np3.x(), np3.y());
 		}
 		else
 			cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
 		np4 = np3;
 	}
 	if (closed)
-		cairo_close_path( m_cr );
+		cairo_close_path(m_cr);
 }
 
 void ScPainter::sharpLineHelper(FPoint &pp)
@@ -1694,16 +1694,16 @@ void ScPainter::drawText(QRectF area, const QString& text, bool filled, int alig
 	if (filled)
 	{
 		m_fill.getRgbF(&r, &g, &b);
-		cairo_set_source_rgba( m_cr, r, g, b, m_fill_trans );
-		cairo_new_path( m_cr );
+		cairo_set_source_rgba(m_cr, r, g, b, m_fill_trans);
+		cairo_new_path(m_cr);
 		cairo_rectangle(m_cr, x, y, ww, hh);
-		cairo_fill( m_cr );
+		cairo_fill(m_cr);
 	}
-	cairo_new_path( m_cr );
+	cairo_new_path(m_cr);
 	y += extentsF.ascent;
 	cairo_move_to (m_cr, x, y);
 	m_stroke.getRgbF(&r, &g, &b);
-	cairo_set_source_rgba( m_cr, r, g, b, m_stroke_trans );
+	cairo_set_source_rgba(m_cr, r, g, b, m_stroke_trans);
 
 	QVector<cairo_glyph_t> cairoGlyphs;
 
@@ -1752,16 +1752,16 @@ void ScPainter::drawText(QRectF area, const QString& text, bool filled, int alig
 	if (filled)
 	{
 		m_fill.getRgbF(&r, &g, &b);
-		cairo_set_source_rgba( m_cr, r, g, b, m_fill_trans );
-		cairo_new_path( m_cr );
+		cairo_set_source_rgba(m_cr, r, g, b, m_fill_trans);
+		cairo_new_path(m_cr);
 		cairo_rectangle(m_cr, x, y, ww, hh);
-		cairo_fill( m_cr );
+		cairo_fill(m_cr);
 	}
-	cairo_new_path( m_cr );
+	cairo_new_path(m_cr);
 	y += extentsF.ascent;
 	cairo_move_to (m_cr, x, y);
 	m_stroke.getRgbF(&r, &g, &b);
-	cairo_set_source_rgba( m_cr, r, g, b, m_stroke_trans );
+	cairo_set_source_rgba(m_cr, r, g, b, m_stroke_trans);
 	for (int a = 0; a < textList.count(); ++a)
 	{
 		cairo_show_text (m_cr, textList[a].toUtf8());
@@ -1816,7 +1816,7 @@ void ScPainter::drawShadeCircle(const QRectF &re, const QColor& color, bool sunk
 	cairo_curve_to(m_cr, cx - (1 - bezierCircle) * r2, cy - (1 + bezierCircle) * r2, cx + (1 - bezierCircle) * r2, cy - (1 + bezierCircle) * r2, cx + r2, cy - r2);
 	cairo_curve_to(m_cr, cx + (1 + bezierCircle) * r2, cy - (1 - bezierCircle) * r2, cx + (1 + bezierCircle) * r2, cy + (1 - bezierCircle) * r2, cx + r2, cy + r2);
 	strokePath();
-	cairo_restore( m_cr );
+	cairo_restore(m_cr);
 }
 
 void ScPainter::drawShadePanel(const QRectF &r, const QColor& color, bool sunken, int lineWidth)

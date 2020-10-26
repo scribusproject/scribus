@@ -34,7 +34,7 @@ typedef struct _cairo_pattern cairo_pattern_t;
 class SCRIBUS_API ScPainter
 {
 public:
-	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0 );
+	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0);
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = nullptr);
@@ -43,38 +43,38 @@ public:
 	virtual void begin();
 	virtual void end();
 	void clear();
-	virtual void clear( const QColor & );
+	virtual void clear(const QColor &);
 	virtual cairo_t* context();
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QTransform & );
+	virtual void setWorldMatrix(const QTransform &);
 	virtual const QTransform worldMatrix();
-	virtual void setZoomFactor( double );
+	virtual void setZoomFactor(double);
 	virtual double zoomFactor() { return m_zoomFactor; }
-	virtual void translate( double, double );
-	virtual void translate( const QPointF& offset );
-	virtual void rotate( double );
-	virtual void scale( double, double );
+	virtual void translate(double, double);
+	virtual void translate(const QPointF& offset);
+	virtual void rotate(double);
+	virtual void scale(double, double);
 
 	// drawing
-	virtual void moveTo( const double &, const double & );
-	virtual void lineTo( const double &, const double & );
-	virtual void curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3 );
+	virtual void moveTo(const double &, const double &);
+	virtual void lineTo(const double &, const double &);
+	virtual void curveTo(const FPoint& p1, const FPoint& p2, const FPoint& p3);
 	virtual void newPath();
 	virtual void closePath();
 	virtual void fillPath();
 	virtual void strokePath();
-	virtual void setFillRule( bool fillRule );
+	virtual void setFillRule(bool fillRule);
 	virtual bool fillRule() { return m_fillRule; }
-	virtual void setFillMode( int fill );
+	virtual void setFillMode(int fill);
 	virtual int  fillMode() { return m_fillMode; }
 	virtual int  maskMode() { return m_maskMode; }
-	virtual void setStrokeMode( int stroke );
+	virtual void setStrokeMode(int stroke);
 	virtual int  strokeMode() { return m_strokeMode; }
-	virtual void setGradient( VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
+	virtual void setGradient(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
-	virtual void setMaskMode( int mask );
+	virtual void setMaskMode(int mask);
 	virtual void setGradientMask(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
 	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
@@ -88,7 +88,7 @@ public:
 
 	virtual void setClipPath();
 
-	virtual void drawImage( QImage *image);
+	virtual void drawImage(QImage *image);
 	virtual void setupPolygon(const FPointArray *points, bool closed = true);
 	virtual void setupSharpPolygon(const FPointArray *points, bool closed = true);
 	virtual void sharpLineHelper(FPoint &pp);
@@ -114,14 +114,14 @@ public:
 	virtual QColor pen();
 	virtual QColor brush();
 	virtual double brushOpacity();
-	virtual void setPen( const QColor & );
-	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
-	virtual void setPenOpacity( double op );
-	virtual void setLineWidth( double w);
+	virtual void setPen(const QColor &);
+	virtual void setPen(const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
+	virtual void setPenOpacity(double op);
+	virtual void setLineWidth(double w);
 	virtual void setDash(const QVector<double>& m_array, double ofs);
-	virtual void setBrush( const QColor & );
-	virtual void setBrushOpacity( double op );
-	virtual void setOpacity( double op );
+	virtual void setBrush(const QColor &);
+	virtual void setBrushOpacity(double op);
+	virtual void setOpacity(double op);
 	virtual void setFont(const ScFace &f , double s);
 
 	// stack management
@@ -130,9 +130,9 @@ public:
 	virtual int blendModeFill();
 
 
-	virtual void setRasterOp( int blendMode );
-	virtual void setBlendModeFill( int blendMode );
-	virtual void setBlendModeStroke( int blendMode );
+	virtual void setRasterOp(int blendMode);
+	virtual void setBlendModeFill(int blendMode);
+	virtual void setBlendModeStroke(int blendMode);
 
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
