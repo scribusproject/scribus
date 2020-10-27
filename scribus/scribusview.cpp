@@ -2970,8 +2970,15 @@ class TextToPathPainter: public TextLayoutPainter
 
 		void drawGlyph(const GlyphCluster& gc) override
 		{
+			double current_x = 0.0;
 			for (const GlyphLayout& gl : gc.glyphs())
 			{
+				if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+				{
+					current_x += gl.xadvance * gl.scaleH;
+					continue;
+				}
+
 				FPointArray outline = font().glyphOutline(gl.glyph);
 				if (outline.size() < 4)
 					return;
@@ -2988,7 +2995,7 @@ class TextToPathPainter: public TextLayoutPainter
 					transform.translate(0, m_item->height());
 					transform.scale(1, -1);
 				}
-				transform.translate(x(), y());
+				transform.translate(x() + gl.xoffset + current_x , y() + gl.yoffset);
 				transform.translate(0, -(fontSize() * gl.scaleV));
 				transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
 				outline.map(transform);
@@ -3014,13 +3021,22 @@ class TextToPathPainter: public TextLayoutPainter
 				m_view->m_doc->setRedrawBounding(item);
 				m_view->undoManager->setUndoEnabled(true);
 				m_group.append(m_view->m_doc->Items->takeAt(z));
+
+				current_x += gl.xadvance * gl.scaleH;
 			}
 		}
 
 		void drawGlyphOutline(const GlyphCluster& gc, bool fill) override
 		{
+			double current_x = 0.0;
 			for (const GlyphLayout& gl : gc.glyphs())
 			{
+				if (gl.glyph >= ScFace::CONTROL_GLYPHS)
+				{
+					current_x += gl.xadvance * gl.scaleH;
+					continue;
+				}
+
 				FPointArray outline = font().glyphOutline(gl.glyph);
 				if (outline.size() < 4)
 					return;
@@ -3037,7 +3053,7 @@ class TextToPathPainter: public TextLayoutPainter
 					transform.translate(0, m_item->height());
 					transform.scale(1, -1);
 				}
-				transform.translate(x(), y());
+				transform.translate(x() + gl.xoffset + current_x , y() + gl.yoffset);
 				transform.translate(0, -(fontSize() * gl.scaleV));
 				transform.scale(gl.scaleH * fontSize() / 10.0, gl.scaleV * fontSize() / 10.0);
 				outline.map(transform);
@@ -3066,6 +3082,8 @@ class TextToPathPainter: public TextLayoutPainter
 				m_view->m_doc->setRedrawBounding(item);
 				m_view->undoManager->setUndoEnabled(true);
 				m_group.append(m_view->m_doc->Items->takeAt(z));
+
+				current_x += gl.xadvance * gl.scaleH;
 			}
 		}
 
