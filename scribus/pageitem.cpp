@@ -1593,8 +1593,6 @@ void PageItem::setCornerRadius(double newRadius)
  */
 void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
-	if (!m_Doc->DoDrawing)
-		return;
 	// #12698: Prevent drawing of line items
 	/*if (PoLine.isEmpty())
 		return;*/
@@ -2077,8 +2075,6 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
-		return;
-	if (!m_Doc->DoDrawing)
 		return;
 	QList<PageItem*> emG;
 	emG.clear();

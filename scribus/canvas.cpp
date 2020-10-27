@@ -809,7 +809,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 {
 //	qDebug()<<"Canvas::paintEvent"<<p->rect()<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 // 	printBacktrace(62);
-	if (m_doc->isLoading())
+	if (m_doc->isLoading() || !m_doc->DoDrawing)
 		return;
 // #define SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA

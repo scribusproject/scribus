@@ -292,8 +292,6 @@ void ScreenPainter::drawObject(PageItem* embedded)
 	QRectF cullingArea;
 	if (!embedded)
 		return;
-	if (!m_item->m_Doc->DoDrawing)
-		return;
 
 	m_painter->save();
 	setupState(false);

@@ -1070,8 +1070,6 @@ public:
 		QRect cullingArea;
 		if (!embedded)
 			return;
-		if (!m_item->m_Doc->DoDrawing)
-			return;
 
 		m_painter->save();
 		double pws = embedded->m_lineWidth;
