@@ -13072,7 +13072,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">La finestra sta aggiungendo nuovi stili note. Dopo aver annullato l&apos;editor tornerà nella modalità normale.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
@@ -13112,7 +13112,7 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor stili note sta aggiungendo nuovi stili note. Dopo aver annullato l&apos;editor tornerà nella modalità normale.</translation>
     </message>
 </context>
 <context>
@@ -21136,7 +21136,7 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="357"/>
         <source>Printing Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Lingua di stampa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="420"/>
@@ -21197,7 +21197,8 @@ Vuoi usarlo?</translation>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
         <source>Sets the printing language to use.
  Setting to Postscript Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta la lingua di stampa da usare.
+ PostScript Livello 1 o 2 possono creare file di grandi dimensioni.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
@@ -21869,7 +21870,7 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="68"/>
         <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
-        <translation type="unfinished">Usa la definizione della lingua di sistema o di quella selezionata per i numeri e le cifre decimali nell&apos;interfaccia</translation>
+        <translation>Usa la definizione della lingua di sistema o quella selezionata per i numeri e le cifre decimali nell&apos;interfaccia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="69"/>
@@ -28699,44 +28700,44 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="63"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere la dimensione carattere di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere la dimensione carattere da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="88"/>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere il carattere di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere il carattere da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="113"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="140"/>
         <source>Cannot get text color of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere il colore del testo di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere il colore del testo da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="167"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere la dimensione del testo di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere la dimensione del testo da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="203"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere l&apos;allineamento verticale di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere l&apos;allineamento verticale da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="221"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere il numero di colonne di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere il numero di colonne da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="257"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Non è possibile ottenere le funzionalità font di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere le funzionalità font da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="282"/>
@@ -28745,45 +28746,45 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="342"/>
         <source>Cannot get linked frames of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere le cornici collegate da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="364"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere lo spostamento prima riga da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="382"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere l&apos;interlinea di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere l&apos;interlinea da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="239"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere la distanza colone di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere la distanza colone da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="422"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="456"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere il testo di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere il testo da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="492"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare il testo di una cornice non di testo.</translation>
+        <translation>Impossibile impostare il testo di una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="520"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="560"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile inserire testo in una cornice non di testo.</translation>
+        <translation>Impossibile inserire testo in una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1027"/>
@@ -28847,7 +28848,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="115"/>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile acquisire un colore con un nome vuoto.</translation>
+        <translation>Impossibile ottenere un colore con un nome vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="145"/>
@@ -28857,7 +28858,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="292"/>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile cambiare un colore con un nome vuoto.</translation>
+        <translation>Impossibile cambiare un colore con un nome vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="335"/>
@@ -28867,19 +28868,19 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="506"/>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile creare un colore con un nome vuoto.</translation>
+        <translation>Impossibile creare un colore con un nome vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="556"/>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile eliminare un colore con un nome vuoto.</translation>
+        <translation>Impossibile eliminare un colore con un nome vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="601"/>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile sostituire un colore con un nome vuoto.</translation>
+        <translation>Impossibile sostituire un colore con un nome vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwim.cpp" line="46"/>
@@ -28952,7 +28953,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="104"/>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation>Non è possibile eliminare le impostazioni del tipo di immagine.</translation>
+        <translation>Impossibile eliminare le impostazioni del tipo di immagine.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="108"/>
@@ -29036,7 +29037,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="106"/>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation>Non è possibile mostrare un esempio vuoto.</translation>
+        <translation>Impossibile mostrare un esempio vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="168"/>
@@ -29055,7 +29056,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="693"/>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile avere un nome di livello vuoto.</translation>
+        <translation>Impossibile avere un nome di livello vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="176"/>
@@ -29082,13 +29083,13 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="698"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation>Non è possibile eliminare l&apos;ultimo livello.</translation>
+        <translation>Impossibile eliminare l&apos;ultimo livello.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="739"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile creare un livello senza un nome.</translation>
+        <translation>Impossibile creare un livello senza un nome.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="529"/>
@@ -29100,13 +29101,13 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="586"/>
         <source>Cannot layout text of a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile disporre il testo di una cornice non di testo.</translation>
+        <translation>Impossibile disporre il testo di una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="606"/>
         <source>Cannot layout text chain for a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile disporre il testo collegato per una cornice non di testo.</translation>
+        <translation>Impossibile disporre il testo collegato per una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="637"/>
@@ -29118,7 +29119,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="645"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare l&apos;allineamento testo su una cornice non di testo.</translation>
+        <translation>Impossibile impostare l&apos;allineamento testo su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="672"/>
@@ -29142,31 +29143,31 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="716"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare la dimensione carattere su una cornice non di testo.</translation>
+        <translation>Impossibile impostare la dimensione carattere su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="748"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Non è possibile impostare le funzionalità font su una cornice non di testo.</translation>
+        <translation>Impossibile impostare le funzionalità font su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="778"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare il font su una cornice non di testo.</translation>
+        <translation>Impossibile impostare il font su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="810"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spostamento prima riga fuori intervallo. Usa una delle costanti scribus.FLOP_*.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="818"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile impostare lo spostamento prima riga su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
@@ -29178,7 +29179,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="845"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare l&apos;interlinea su una cornice non di testo.</translation>
+        <translation>Impossibile impostare l&apos;interlinea su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="872"/>
@@ -29202,7 +29203,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="941"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare la distanza colonne in una cornice non di testo.</translation>
+        <translation>Impossibile impostare la distanza colonne su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="959"/>
@@ -29214,7 +29215,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="967"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare il numero di colonne in una cornice non di testo.</translation>
+        <translation>Impossibile impostare il numero di colonne su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="985"/>
@@ -29226,44 +29227,44 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="993"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare l&apos;allineamento verticale su una cornice non di testo.</translation>
+        <translation>Impossibile impostare l&apos;allineamento verticale su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1016"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1072"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non è possibile selezionare il testo in una cornice non di testo</translation>
+        <translation>Impossibile selezionare il testo su una cornice non di testo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1021"/>
         <source>Count must be positive, 0 or -1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conteggio deve essere positivo, 0 o 1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1106"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile cancellare il testo da una cornice non di testo.</translation>
+        <translation>Impossibile cancellare il testo da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1139"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare il colore riempimento testo in una cornice non di testo.</translation>
+        <translation>Impossibile impostare il colore riempimento testo su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1159"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare il colore contorno testo in una cornice non di testo.</translation>
+        <translation>Impossibile impostare il colore contorno testo su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1255"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare l&apos;intensità colore testo in una cornice non di testo.</translation>
+        <translation>Impossibile impostare l&apos;intensità colore testo su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1279"/>
@@ -29293,25 +29294,25 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1323"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile scollegare una cornice non di testo.</translation>
+        <translation>Impossibile scollegare una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1377"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation>Non è possibile convertire una cornice non di testo in contorni.</translation>
+        <translation>Impossibile convertire una cornice non di testo in contorni.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1495"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non è possibile aggiungere un segnalibro in una cornice non di testo</translation>
+        <translation>Impossibile aggiungere un segnalibro su una cornice non di testo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1524"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere informazioni da una cornice non di testo</translation>
+        <translation>Impossibile ottenere informazioni da una cornice non di testo</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/odtim/odtim.cpp" line="48"/>
@@ -29626,13 +29627,13 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="607"/>
         <source>Cannot get character style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere lo stile carattere da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="647"/>
         <source>Cannot get style of a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere lo stile di una cornice non di testo.</translation>
+        <translation>Impossibile ottenere lo stile da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="705"/>
@@ -29656,7 +29657,7 @@ Collegamenti esterni
         <location filename="../../scribus/plugins/scriptplugin/cmdobj.cpp" line="691"/>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile impostare lo stile su una cornice non di testo.</translation>
+        <translation>Impossibile impostare lo stile su una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="61"/>
@@ -29994,12 +29995,12 @@ forniti nella documentazione delle funzioni.
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="131"/>
         <source>No User Template Location Defined</source>
-        <translation type="unfinished">Nessuna locazione definita per modelli di documento</translation>
+        <translation>Nessuna locazione definita per i modelli</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="132"/>
         <source>You have not configured where to save document templates.&lt;br&gt;Please go to the Paths section in the Scribus application Preferences to set a location.</source>
-        <translation type="unfinished">Non è stato configurato il percorso per il salvataggio di modelli di documento.&lt;br&gt;Si prega di impostarlo nella sezione Percorsi nelle Preferenze di Scribus.</translation>
+        <translation>Non è stato configurato il percorso per il salvataggio dei modelli di documento.&lt;br&gt;Si prega di impostarlo nella sezione Percorsi nelle Preferenze di Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="136"/>
@@ -30538,7 +30539,7 @@ forniti nella documentazione delle funzioni.
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="185"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile ottenere il numero di righe in una cornice non di testo.</translation>
+        <translation>Impossibile ottenere il numero di righe da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="176"/>
@@ -30799,7 +30800,7 @@ forniti nella documentazione delle funzioni.
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="60"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile avere un nome di stile-paragrafo vuoto.</translation>
+        <translation>Impossibile avere un nome di stile-paragrafo vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="66"/>
@@ -30823,7 +30824,7 @@ forniti nella documentazione delle funzioni.
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="218"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
-        <translation>Non è possibile avere un nome di stile carattere vuoto.</translation>
+        <translation>Impossibile avere un nome di stile carattere vuoto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="227"/>
@@ -30922,7 +30923,7 @@ forniti nella documentazione delle funzioni.
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="400"/>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Non è possibile acquisire distanze di testo da una cornice non di testo.</translation>
+        <translation>Impossibile ottenere le distanze di testo da una cornice non di testo.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="907"/>
@@ -31128,7 +31129,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="73"/>
         <source>Cannot set cell text on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare testo cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il testo cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="35"/>
@@ -31153,73 +31154,73 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="30"/>
         <source>Cannot get cell text on a non-table item.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile ottenere il testo cella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="99"/>
         <source>Cannot get cell style on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere lo stile cella su un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere lo stile cella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="125"/>
         <source>Cannot set cell style on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare lo stile cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare lo stile cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="151"/>
         <source>Cannot get cell row span from non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere estensione orizzontale cella da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere l&apos;estensione orizzontale cella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="171"/>
         <source>Cannot get cell column span from non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere estensione verticale cella da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere l&apos;estensione verticale cella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="191"/>
         <source>Cannot get cell fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere il colore di riempimento cella su un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere il colore di riempimento cella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="217"/>
         <source>Cannot set cell fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare il colore di riempimento cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il colore di riempimento cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="244"/>
         <source>Cannot set cell left border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo sinistro di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo sinistro della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="278"/>
         <source>Cannot set cell right border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo destro di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo destro della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="312"/>
         <source>Cannot set cell top border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo superiore di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo superiore della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="346"/>
         <source>Cannot set cell bottom border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo inferiore di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo inferiore della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="380"/>
         <source>Cannot set cell left padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare spaziatura interna sinistra di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare la spaziatura interna sinistra della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="390"/>
@@ -31234,37 +31235,37 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="413"/>
         <source>Cannot set cell right padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare spaziatura interna destra di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare la spaziatura interna destra della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="446"/>
         <source>Cannot set cell top padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare spaziatura interna superiore di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare la spaziatura interna superiore della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcell.cpp" line="479"/>
         <source>Cannot set cell bottom padding on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare spaziatura interna inferiore di cella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare la spaziatura interna inferiore della cella di un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="28"/>
         <source>Cannot get table row count of non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere il numero di righe di una tabella da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere il numero di righe di una tabella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="48"/>
         <source>Cannot get table column count of non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere il numero di colonne di una tabella da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere il numero di colonne di una tabella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="68"/>
         <source>Cannot insert rows on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile inserire righe su un elemento non-tabella.</translation>
+        <translation>Impossibile inserire righe su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="73"/>
@@ -31284,7 +31285,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="99"/>
         <source>Cannot remove rows from a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile eliminare righe da un elemento non-tabella.</translation>
+        <translation>Impossibile eliminare righe da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="109"/>
@@ -31302,13 +31303,13 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="135"/>
         <source>Cannot get row height from non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere altezza riga da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere l&apos;altezza riga da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="156"/>
         <source>Cannot resize row on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ridimensionare righe su un elemento non-tabella.</translation>
+        <translation>Impossibile ridimensionare righe su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="166"/>
@@ -31320,7 +31321,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="187"/>
         <source>Cannot insert columns on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile inserire colonne su un elemento non-tabella.</translation>
+        <translation>Impossibile inserire colonne su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="192"/>
@@ -31340,7 +31341,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="218"/>
         <source>Cannot remove columns from a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile eliminare colonne da un elemento non-tabella.</translation>
+        <translation>Impossibile eliminare colonne da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="228"/>
@@ -31358,13 +31359,13 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="254"/>
         <source>Cannot get column width from non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere la larghezza colonna da un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere la larghezza colonna da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="275"/>
         <source>Cannot resize column on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ridimensionare colonne su un elemento non-tabella.</translation>
+        <translation>Impossibile ridimensionare colonne su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="285"/>
@@ -31376,7 +31377,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="306"/>
         <source>Cannot merge cells on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile unire celle su un elemento non-tabella.</translation>
+        <translation>Impossibile unire celle su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="311"/>
@@ -31394,49 +31395,49 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="338"/>
         <source>Cannot get table style on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere lo stile tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere lo stile tabella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="358"/>
         <source>Cannot set table style on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare lo stile tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare lo stile tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="378"/>
         <source>Cannot get table fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile ottenere il colore di riempimento tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile ottenere il colore di riempimento tabella da un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="398"/>
         <source>Cannot set table fill color on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare il colore di riempimento tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il colore di riempimento tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="419"/>
         <source>Cannot set table left border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo sinistro di tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo sinistro della tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="447"/>
         <source>Cannot set table right border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo destro di tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo destro della tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="475"/>
         <source>Cannot set table top border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo superiore di tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo superiore della tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="503"/>
         <source>Cannot set table bottom border on a non-table item.</source>
         <comment>python error</comment>
-        <translation>Impossibile impostare bordo inferiore di tabella su un elemento non-tabella.</translation>
+        <translation>Impossibile impostare il bordo inferiore della tabella su un elemento non tabella.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="202"/>
@@ -31816,18 +31817,18 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="52"/>
         <source>Click here to toggle your choice</source>
-        <translation type="unfinished">Clicca qui per selezionare la tua scelta</translation>
+        <translation>Clicca qui per selezionare la tua scelta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished">I file salvati automaticamente sono versioni di un documento aperto in precedenza.</translation>
+        <translation>I file salvati automaticamente sono versioni salvate automaticamente di un documento aperto in precedenza.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="101"/>
         <source>(recovered)</source>
-        <translation type="unfinished">(ripristinato)</translation>
+        <translation>(ripristinato)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="149"/>
@@ -39668,112 +39669,112 @@ a %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="681"/>
         <source>Import Apple Pages document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento Apple Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Import CorelDraw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno CorelDraw</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Import CGM drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno CGM</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Import Calamus CVG drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno Calamus CVG</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="686"/>
         <source>Import Micrografx Draw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno Micrografx Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Import EMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno EMF</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Import FreeHand document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento FreeHand</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="690"/>
         <source>Import IDML document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento IDML</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Import PageMaker document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento PageMaker</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Import PDF document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Import Macintosh Pict drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno Macintosh Pict</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="695"/>
         <source>Import MS Publisher document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento MS Publisher</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="696"/>
         <source>Import QuarkXPress document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento QuarkXPress</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="697"/>
         <source>Import Shape drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa disegno Shape</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="698"/>
         <source>Import Kivio stencil</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa Kivio stencil</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="700"/>
         <source>Import SVM image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa immagine SVM</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Import Viva Designer document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento Viva Designer</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Import Visio document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento Visio</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="705"/>
         <source>Import WordPerfect graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa grafica WordPerfect</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="706"/>
         <source>Import Xara image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa immagine Xara</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Import XPS document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa documento XPS</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="709"/>
         <source>Import Zoner Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa immagine Zoner Draw</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="710"/>
