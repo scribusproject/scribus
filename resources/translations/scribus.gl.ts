@@ -14187,8 +14187,8 @@ Desactive a incorporación de PDF e PS experimental e ténteo de novo.</translat
         <translation>Símbolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Copiar de</translation>
     </message>
@@ -31264,7 +31264,7 @@ Polo tanto, a imaxe podería non ser correcta</translation>
         <translation>&lt;p&gt;Está tentando importar máis páxinas das que hai dispoñíbeis no documento actual contando a partir da páxina activa.&lt;/p&gt;Escolla unha destas opcións:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Crear&lt;/b&gt; as páxinas que falten&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; páxinas até a derradeira&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Opcións inaceptábeis para o estilo de notas</translation>
     </message>
@@ -31780,7 +31780,7 @@ Envíe o ficheiro (de ser posíbel) ao Proxecto de Liberación de Documentos, ht
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Os ficheiros gardados automaticamente son versións gardadas automaticamente dun documento que foi aberto nunha sesión de Scribus anterior.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35069,7 +35069,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -35110,7 +35110,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>A axustar as cores</translation>
     </message>
@@ -35151,7 +35151,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -35162,18 +35162,18 @@ Vertical gap: %4</source>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>O ficheiro %1 foi gardado automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Sen estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 ten documento como intervalo e fornece o mesmo estilo de numeración que o conxunto %2</translation>
     </message>
@@ -36000,27 +36000,27 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Imprimir: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Activado</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Desactivado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Non é posíbel converter o elemento en uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>O elemento %1 está a ser modificado no Editor de Artigos. Saltarase a operación de conversión deste elemento a siluetas</translation>
     </message>

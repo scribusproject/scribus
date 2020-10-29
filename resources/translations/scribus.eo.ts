@@ -9230,7 +9230,7 @@ ignorolisto</translation>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="76"/>
         <source>Imports Corel Draw Files</source>
-        <translation>Imports Corel-Draw-dosierojn</translation>
+        <translation>Importas Corel-Draw-dosierojn</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="77"/>
@@ -9844,7 +9844,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
         <source>Imports most Kivio stencils into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importas la plejparton el la Kevio-stencils-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
+        <translation>Importas la plejparton el la Kevio-stenciloj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
@@ -14197,8 +14197,8 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
         <translation>Simbolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Kopio de</translation>
     </message>
@@ -31273,7 +31273,7 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>&lt;p&gt;Vi provas importi pli da paĝoj ol kiom estas disponeblaj en la aktuala dokumento, kalkulante ekde la aktiva paĝo.&lt;/p&gt;Elektu unu el la sekvaj opcioj:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Kreu&lt;/b&gt;mankantajn paĝojn&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importu&lt;/b&gt; paĝojn ĝis la lasta paĝo&lt;/li&gt;&lt;li&gt;&lt;b&gt;Rezignu&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Agordoj neakcepteblaj por la notstilo</translation>
     </message>
@@ -31790,7 +31790,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Aŭtokonservitaj dosieroj estas aŭtomate konservitaj versioj de dokumento kiu estis malfermita en antaŭa seanco de Scribus </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35079,7 +35079,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Dokumento</translation>
     </message>
@@ -35120,7 +35120,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>Kolorĝustigo</translation>
     </message>
@@ -35164,7 +35164,7 @@ Vertikala distanco: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -35175,18 +35175,18 @@ Vertikala distanco: %4</translation>
         <translation>Importita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>Dosiero %1 aŭtokonservita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Notstilo %1 estas aplikita al la tuta dokumento kaj posedas la saman numeradstilon kiel %2 </translation>
     </message>
@@ -36013,27 +36013,27 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Rezignu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Printo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Ebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Neebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ne eblas konverti elementon uzatan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>La elemento %1 estas redaktata de Tekstoredaktilo. La konverto al konturoj por ĉi tiu elemento estos preterlasita</translation>
     </message>
@@ -40045,112 +40045,112 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="681"/>
         <source>Import Apple Pages document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Apple-Pages-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Import CorelDraw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu CorelDraw-desegnon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Import CGM drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu CGM-desegnon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Import Calamus CVG drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Calamus-Vector-desegnon...</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="686"/>
         <source>Import Micrografx Draw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Micrografx-Draw-desegnon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Import EMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu EMF-desegnon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Import FreeHand document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Freehand-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="690"/>
         <source>Import IDML document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu IDML-Dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Import PageMaker document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Pagemaker-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Import PDF document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu PDF-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Import Macintosh Pict drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Macintosh-Pict-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="695"/>
         <source>Import MS Publisher document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu MS-Publisher-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="696"/>
         <source>Import QuarkXPress document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu QuarkXPress-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="697"/>
         <source>Import Shape drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Shape-desegnon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="698"/>
         <source>Import Kivio stencil</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Kivio-stencilon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="700"/>
         <source>Import SVM image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu SVM-bildon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Import Viva Designer document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Viva-Designer-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Import Visio document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Visio-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="705"/>
         <source>Import WordPerfect graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu WordPerfect-grafikaĵon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="706"/>
         <source>Import Xara image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Xara-bildon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Import XPS document</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu XPS-dokumenton</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="709"/>
         <source>Import Zoner Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importu Zoner-Draw-bildon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="710"/>

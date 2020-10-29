@@ -14207,8 +14207,8 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
         <translation>Ikurra</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Honen kopia</translation>
     </message>
@@ -31293,7 +31293,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>&lt;p&gt;Uneko dokumentuan (orrialde aktibotik hasita) daudenak baino orrialde gehiago inportatzen saiatzen ari zara&lt;/p&gt;Hautatu hauetako bat:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Sortu&lt;/b&gt; falta diren orrialdeak&lt;/li&gt;&lt;li&gt;&lt;b&gt;Inportatu&lt;/b&gt;orrialdeak azkenekoraino&lt;/li&gt;&lt;li&gt;&lt;b&gt;Utzi&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Ezarpen onartezinak oharpen-estilorako</translation>
     </message>
@@ -31810,7 +31810,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Automatikoki gordetako fitxategiak aurreko Scribus saio batean ireki zen dokumentu baten gordetako bertsioak dira.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35099,7 +35099,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Dokumentua</translation>
     </message>
@@ -35140,7 +35140,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>Koloreak doitzen</translation>
     </message>
@@ -35184,7 +35184,7 @@ Tarte bertikala: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -35195,18 +35195,18 @@ Tarte bertikala: %4</translation>
         <translation>Inportatua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>%1 fitxategia automatikoki gorde da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Estilorik ez</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 ohar-estiloak dokumentua du barruti gisa eta %2(e)n ezarritako zenbakitze-estilo bera ematen du</translation>
     </message>
@@ -36033,27 +36033,27 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Utzi</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Inprimatu: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Gaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua bihurtu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 elementua artikulu-editorean editatzen ari da. Elementua eskemetara bihurtzeko 
 eragiketa saltatu egingo da</translation>

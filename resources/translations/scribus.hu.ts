@@ -14181,8 +14181,8 @@ A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.
         <translation>Szimbólum</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Másolat</translation>
     </message>
@@ -31251,7 +31251,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -31768,7 +31768,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Automatikus mentések, melyek egy előző Scribus munkamenetben kerültek automatikusan elmentésre.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35057,7 +35057,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -35098,7 +35098,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
@@ -35142,7 +35142,7 @@ Függőleges térköz: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -35153,18 +35153,18 @@ Függőleges térköz: %4</translation>
         <translation>Importált </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
@@ -35990,27 +35990,27 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Nyomtatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Engedélyezve</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Tiltva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nem alakítható át a használatban lévő elem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A konvertálás megszakítva</translation>
     </message>
@@ -40020,112 +40020,112 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="681"/>
         <source>Import Apple Pages document</source>
-        <translation type="unfinished"></translation>
+        <translation>Apple Pages dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Import CorelDraw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>CorelDraw rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Import CGM drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>CGM-rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Import Calamus CVG drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Calamus CVG-rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="686"/>
         <source>Import Micrografx Draw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Micrografx Draw rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Import EMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>EMF-rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Import FreeHand document</source>
-        <translation type="unfinished"></translation>
+        <translation>FreeHand dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="690"/>
         <source>Import IDML document</source>
-        <translation type="unfinished"></translation>
+        <translation>IDML-dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Import PageMaker document</source>
-        <translation type="unfinished"></translation>
+        <translation>PageMaker dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Import PDF document</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Import Macintosh Pict drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh Pict rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="695"/>
         <source>Import MS Publisher document</source>
-        <translation type="unfinished"></translation>
+        <translation>MS Publisher dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="696"/>
         <source>Import QuarkXPress document</source>
-        <translation type="unfinished"></translation>
+        <translation>QuarkXPress dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="697"/>
         <source>Import Shape drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Shape rajz importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="698"/>
         <source>Import Kivio stencil</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivio rajzsablon importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="700"/>
         <source>Import SVM image</source>
-        <translation type="unfinished"></translation>
+        <translation>SVM-kép importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Import Viva Designer document</source>
-        <translation type="unfinished"></translation>
+        <translation>Viva Designer dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Import Visio document</source>
-        <translation type="unfinished"></translation>
+        <translation>Visio dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="705"/>
         <source>Import WordPerfect graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>WordPerfect grafika importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="706"/>
         <source>Import Xara image</source>
-        <translation type="unfinished"></translation>
+        <translation>Xara kép importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Import XPS document</source>
-        <translation type="unfinished"></translation>
+        <translation>XPS-dokumentum importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="709"/>
         <source>Import Zoner Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoner Draw kép importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="710"/>

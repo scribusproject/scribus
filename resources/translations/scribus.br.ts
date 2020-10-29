@@ -14192,8 +14192,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Arouez</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Eilad eus</translation>
     </message>
@@ -31267,7 +31267,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>&lt;p&gt;Emaoc&apos;h o klask enporzhiañ muioc&apos;h a bajennoù eget pezh zo hegerz en teul, eus ar bajenn vremanel betek an dibenn. &lt;/p&gt;An dibaboù zo : &lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Krouiñ&lt;/b&gt; ar pajennoù a vank&lt;/li&gt;&lt;li&gt;&lt;b&gt;Enprozhiañ&lt;/b&gt; ar pajennoù betek an hini diwezhañ eus an teul&lt;/li&gt;&lt;li&gt;&lt;b&gt;Dilezel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Arventennoù n&apos;hall ket bezañ bet degemeret evit ar stil notenn</translation>
     </message>
@@ -31784,7 +31784,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Ar restroù enrollet ent-emgefreek a dalv da handelvoù teulioù enrollet ent-emgefreek eus teulioù a oa bet digoret e-pad un estez kent eus Scribus.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35073,7 +35073,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Teul</translation>
     </message>
@@ -35114,7 +35114,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>Kengeidadur al livioù</translation>
     </message>
@@ -35155,7 +35155,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -35166,18 +35166,18 @@ Vertical gap: %4</source>
         <translation>Enporzhiet </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>Restr %1 bet enrollet ent-emgefreek</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Stil ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Un teul a dalv da lijorenn evit stil notenn %1 ha pourchas a ra an hevelep stil niverenniñ ouzh spletad %2</translation>
     </message>
@@ -36004,27 +36004,27 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Nullañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Moullañ : </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Gweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Diweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>N&apos;haller ket amdreiñ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Emañ an ergorenn %1 war embann en embanner diabarzh. Nullet e vo ar gwezh amdreiñ da drolinenn</translation>
     </message>

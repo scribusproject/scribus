@@ -14187,8 +14187,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation>الرمز</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>نسخة من</translation>
     </message>
@@ -31261,7 +31261,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;أنت تحاول استيراد صفحات أكثر من تلك المتوفرة في المستند الحالي بحسب الصفحة النشطة.&lt;/p&gt;اختر أحد الخيارات التالية:&lt;ul&gt;&lt;li&gt;&lt;b&gt;أنشئ&lt;/b&gt;صفحات مفقودة&lt;/li&gt;&lt;li&gt;&lt;b&gt;استورد&lt;/b&gt;صفحات حتى الصفحة الأخيرة&lt;/li&gt;&lt;li&gt;&lt;b&gt;ألغِ&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>إعدادات غير مقبولة لنمط الملاحظة</translation>
     </message>
@@ -31778,7 +31778,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>الملفات المحفوظة تلقائيًا هي إصدارات محفوظة تلقائيًا لمستند فُتح في جلسة سكريبس سابقة.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35067,7 +35067,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>مستند</translation>
     </message>
@@ -35108,7 +35108,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>ضبط الألوان</translation>
     </message>
@@ -35152,7 +35152,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation> مجموعه%1</translation>
     </message>
@@ -35163,18 +35163,18 @@ Vertical gap: %4</source>
         <translation>اُستورِد</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>حُفظ الملف 1% تلقائيًا</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>بلا نمط</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>يحتوي نمط الملاحظة 1% على مستند كنطاق ويوفر نفس نمط الترقيم كالمجموعة 2%</translation>
     </message>
@@ -36001,27 +36001,27 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>الغاء</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>اطبع:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>تفعيل:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>تعطيل</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>لا يمكن تحويل عنصر قيد الاستخدام</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>يُحرر حاليًا العنصر 1% بواسطة محرر القصص. سيتم تخطي عملية تحويل هذا العنصر لخطوط خارجية. </translation>
     </message>

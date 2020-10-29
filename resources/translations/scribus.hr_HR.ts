@@ -14199,8 +14199,8 @@ Deaktiviraj eksperimentalno PDF i PS ugrađivanje i pokušaj ponovo.</translatio
         <translation>Simbol</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7415"/>
-        <location filename="../../scribus/pageitem.cpp" line="7416"/>
+        <location filename="../../scribus/pageitem.cpp" line="7411"/>
+        <location filename="../../scribus/pageitem.cpp" line="7412"/>
         <source>Copy of</source>
         <translation>Kopija od</translation>
     </message>
@@ -31261,7 +31261,7 @@ Zbog toga tvoja slika možda neće odgovarati originalu</translation>
         <translation>&lt;p&gt;Pokušavaš uvesti više stranica, nego što ih trenutačno ima, brojeći od aktivne stranice nadalje.&lt;/p&gt;Odaberi sljedeće mogućnosti:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Stvori&lt;/b&gt; stranice koje nedostaju&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvezi&lt;/b&gt; stranice, sve do zadnje stranice&lt;/li&gt;&lt;li&gt;&lt;b&gt;Odustani&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17881"/>
         <source>Unacceptable settings for note style</source>
         <translation>Neprihvatljie postavke za stil napomena</translation>
     </message>
@@ -31778,7 +31778,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation>Automatski spremljene datoteke su verzije dokumenta, koji je bio otvoren prilikom zadnje Scribusove sesije.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>
@@ -35069,7 +35069,7 @@ Ako je spremiš s ovom verzijom, više je nećeš moći učitati u starije Scrib
         <location filename="../../scribus/scribusdoc.cpp" line="207"/>
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="242"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16321"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16343"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -35110,7 +35110,7 @@ Ako je spremiš s ovom verzijom, više je nećeš moći učitati u starije Scrib
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16002"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16024"/>
         <source>Adjusting Colors</source>
         <translation>Prilagođavanje boja</translation>
     </message>
@@ -35154,7 +35154,7 @@ Okomiti razmak: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14718"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14773"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14927"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14932"/>
         <source>Group%1</source>
         <translation>Grupa%1</translation>
     </message>
@@ -35165,18 +35165,18 @@ Okomiti razmak: %4</translation>
         <translation>Uvezeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16359"/>
         <source>File %1 autosaved</source>
         <translation>Datoteka %1 je automatski spremljena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17486"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17525"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17508"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17547"/>
         <source>No Style</source>
         <translation>Bez stila</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17853"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17875"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Stil nepomene %1 ima dokument zadan kao raspon i pruža isti stil numeriranja, kao i postavljen %2</translation>
     </message>
@@ -36003,27 +36003,27 @@ Ispravi greške pomoću gumba „Digitalna provjera”</translation>
         <translation>Odustani</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10363"/>
         <source>Print: </source>
         <translation>Ispis: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10369"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Enabled</source>
         <translation>Aktivirano</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10371"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Disabled</source>
         <translation>Deaktivirano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nije moguće konvertirati aktivni element</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3151"/>
+        <location filename="../../scribus/scribusview.cpp" line="3169"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Element %1 se trenutačno ueđuje u uređivaču za tekst. Za ovaj element će se preskočiti operacija za konvertiranje u konture</translation>
     </message>
@@ -40035,112 +40035,112 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="681"/>
         <source>Import Apple Pages document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Apple Pages dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Import CorelDraw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi CorelDraw crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Import CGM drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi CGM crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Import Calamus CVG drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Calamus CVG crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="686"/>
         <source>Import Micrografx Draw drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Micrografx Draw crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Import EMF drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi EMF crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Import FreeHand document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi FreeHand dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="690"/>
         <source>Import IDML document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi IDML dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Import PageMaker document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi PageMaker dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Import PDF document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi PDF dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Import Macintosh Pict drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Macintosh Pict crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="695"/>
         <source>Import MS Publisher document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi MS Publisher dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="696"/>
         <source>Import QuarkXPress document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi QuarkXPress dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="697"/>
         <source>Import Shape drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Shape crtež</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="698"/>
         <source>Import Kivio stencil</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Kivio matricu</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="700"/>
         <source>Import SVM image</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi SVM sliku</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Import Viva Designer document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Viva Designer dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Import Visio document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Visio dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="705"/>
         <source>Import WordPerfect graphic</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi WordPerfect grafiku</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="706"/>
         <source>Import Xara image</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Xara sliku</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Import XPS document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi XPS dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="709"/>
         <source>Import Zoner Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvezi Zoner Draw sliku</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="710"/>
