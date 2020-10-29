@@ -114,7 +114,7 @@ void HunspellDialog::goToNextWord(int i)
 	updateSuggestions(currWF.replacements);
 
 	int sentencePos = 0;
-	QString sentence(m_iText->sentence(currWF.start, sentencePos));
+	QString sentence(m_iText->sentence(currWF.start + currWF.changeOffset, sentencePos));
 	sentence.insert(currWF.end - sentencePos + currWF.changeOffset, "</b></font>");
 	sentence.insert(currWF.start - sentencePos + currWF.changeOffset, "<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
