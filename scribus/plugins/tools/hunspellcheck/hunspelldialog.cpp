@@ -97,7 +97,7 @@ void HunspellDialog::goToNextWord(int i)
 		} while (m_wfListIndex<m_wfList->count() && (m_wfList->at(m_wfListIndex).changed || m_wfList->at(m_wfListIndex).ignore));
 		//qDebug()<<"selected word index"<<m_wfListIndex;
 	}
-	if (m_wfListIndex>=m_wfList->count())
+	if (m_wfListIndex >= m_wfList->count())
 	{
 		statusLabel->setText(tr("Spelling check complete"));
 		suggestionsListWidget->clear();
@@ -109,7 +109,7 @@ void HunspellDialog::goToNextWord(int i)
 		return;
 	}
 	statusLabel->setText("");
-	currWF=m_wfList->at(m_wfListIndex);
+	currWF = m_wfList->at(m_wfListIndex);
 	setLanguageCombo(currWF.lang);
 	updateSuggestions(currWF.replacements);
 
