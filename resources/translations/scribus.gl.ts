@@ -31779,7 +31779,7 @@ Envíe o ficheiro (de ser posíbel) ao Proxecto de Liberación de Documentos, ht
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
-        <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
+        <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
         <translation>Os ficheiros gardados automaticamente son versións gardadas automaticamente dun documento que foi aberto nunha sesión de Scribus anterior.</translation>
     </message>
     <message>

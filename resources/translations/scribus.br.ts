@@ -31783,7 +31783,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
-        <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
+        <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
         <translation>Ar restroù enrollet ent-emgefreek a dalv da handelvoù teulioù enrollet ent-emgefreek eus teulioù a oa bet digoret e-pad un estez kent eus Scribus.</translation>
     </message>
     <message>

@@ -31786,7 +31786,7 @@ projeto Document Liberation http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
-        <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
+        <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
         <translation>Arquivos salvos automaticamente são versões de documentos salvos automaticamente e que estiveram abertos na última abertura do Scribus.</translation>
     </message>
     <message>

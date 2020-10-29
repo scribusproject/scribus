@@ -31767,7 +31767,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
-        <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
+        <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
         <translation>Automatikus mentések, melyek egy előző Scribus munkamenetben kerültek automatikusan elmentésre.</translation>
     </message>
     <message>

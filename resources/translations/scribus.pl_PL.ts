@@ -31789,7 +31789,7 @@ Projektu Wyzwolenia Dokumentów: http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
-        <source>Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
+        <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
         <translation>Pliki zapisane automatycznie to pliki, które są automatycznie zapisywaną wersją dokumentu, który został otwarty w poprzedniej sesji Scribus.</translation>
     </message>
     <message>

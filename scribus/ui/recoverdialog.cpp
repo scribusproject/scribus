@@ -50,7 +50,7 @@ RecoverDialog::RecoverDialog(QWidget* parent, const QStringList& files) : QDialo
 	filesList->setColumnWidth(0, 24);
 	filesList->horizontalHeaderItem(0)->setIcon(style()->standardIcon(QStyle::SP_DialogApplyButton));
 	filesList->horizontalHeaderItem(0)->setToolTip("<qt>" + tr("Click here to toggle your choice") + "</qt>" );
-	filesList->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Autosaved files are files are automatically saved versions of a document that was opened in a previous Scribus session.") + "<br>" + "Emergency files are files that Scribus was able to salvage after a crash." + "</qt>" );
+	filesList->horizontalHeaderItem(3)->setToolTip("<qt>" + tr("Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.") + "<br>" + "Emergency files are files that Scribus was able to salvage after a crash." + "</qt>" );
 	
 	updateFilesTable();
 	toggleAllfromHeader(0);
