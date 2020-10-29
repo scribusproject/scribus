@@ -62,12 +62,12 @@ void HunspellDialog::goToNextWord(int i)
 {
 	if (m_returnToDefaultLang)
 	{
-		bool b=languagesComboBox->blockSignals(true);
+		bool b = languagesComboBox->blockSignals(true);
 		languagesComboBox->setCurrentIndex(m_primaryLangIndex);
 		languagesComboBox->blockSignals(b);
 	}
-	if (i>=0)
-		wfListIndex=i;
+	if (i >= 0)
+		wfListIndex = i;
 	else
 	{
 		do {
@@ -88,16 +88,15 @@ void HunspellDialog::goToNextWord(int i)
 	}
 	else
 		statusLabel->setText("");
-	currWF=m_wfList->at(wfListIndex);
+	currWF = m_wfList->at(wfListIndex);
 	setLanguageCombo(currWF.lang);
 	updateSuggestions(currWF.replacements);
 
-	int sentencePos=0;
-	QString sentence(m_iText->sentence(currWF.start, sentencePos));
-	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
-	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
+	int sentencePos = 0;
+	QString sentence(m_iText->sentence(currWF.start + currWF.changeOffset, sentencePos));
+	sentence.insert(currWF.end - sentencePos + currWF.changeOffset, "</b></font>");
+	sentence.insert(currWF.start - sentencePos + currWF.changeOffset, "<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
-
 }
 
 void HunspellDialog::ignoreAllWords()
