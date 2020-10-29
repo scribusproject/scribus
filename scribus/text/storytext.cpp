@@ -1057,6 +1057,15 @@ QString StoryText::sentence(int pos, int &posn)
 
 QString StoryText::word(int pos)
 {
+	BreakIterator* it = getWordIterator();
+	if (it)
+	{
+		it->setText((const UChar*) plainText().utf16());
+		int end = it->following(pos);
+		return text(pos, end - pos);
+	}
+
+	// Fallback to old code
 	int eoWord = pos;
 	while (eoWord < length())
 	{
