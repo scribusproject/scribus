@@ -94,7 +94,7 @@ void HunspellDialog::goToNextWord(int i)
 	{
 		do {
 			++m_wfListIndex;
-		} while (m_wfListIndex<m_wfList->count() && (m_wfList->at(m_wfListIndex).changed || m_wfList->at(m_wfListIndex).ignore));
+		} while (m_wfListIndex < m_wfList->count() && (m_wfList->at(m_wfListIndex).changed || m_wfList->at(m_wfListIndex).ignore));
 		//qDebug()<<"selected word index"<<m_wfListIndex;
 	}
 	if (m_wfListIndex >= m_wfList->count())
@@ -127,8 +127,10 @@ void HunspellDialog::ignoreAllWords()
 	QString wordToIgnore = m_wfList->at(m_wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
 	for (int i = 0; i < m_wfList->count(); ++i)
+	{
 		if (m_wfList->at(i).w == wordToIgnore)
 			(*m_wfList)[i].ignore = true;
+	}
 	goToNextWord();
 }
 
