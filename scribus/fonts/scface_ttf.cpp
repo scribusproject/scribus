@@ -100,8 +100,10 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
 	return true;
 }
 
-void ScFace_ttf::rawData(QByteArray & bb) const {
-	if (formatCode == ScFace::TTCF) {
+void ScFace_ttf::rawData(QByteArray & bb) const
+{
+	if (formatCode == ScFace::TTCF)
+	{
 		QByteArray coll;
 		FtFace::rawData(coll);
 		// access table for faceIndex
@@ -118,13 +120,13 @@ void ScFace_ttf::rawData(QByteArray & bb) const {
 		uint headerLength = OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * nTables;
 		uint tableLengths = 0;
 		// sum table lengths incl padding
-		for (uint i=0; i < nTables; ++i)
+		for (uint i = 0; i < nTables; ++i)
 		{
 			tableLengths += sfnt::word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12);
 			tableLengths = (tableLengths+3) & ~3;
 		}
 		bb.resize(headerLength + tableLengths);
-		if (! bb.data())
+		if (!bb.data())
 			return;
 		// write header
 //		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
@@ -132,7 +134,7 @@ void ScFace_ttf::rawData(QByteArray & bb) const {
 			return;
 
 		uint pos = headerLength;
-		for (uint i=0; i < nTables; ++i)
+		for (uint i = 0; i < nTables; ++i)
 		{
             uint dirEntry = faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i;
 			uint tableSize  = sfnt::word(coll,  dirEntry + 12);
@@ -153,12 +155,10 @@ void ScFace_ttf::rawData(QByteArray & bb) const {
 				bb.data()[pos++] = '\0';
 		}
 	}
-	else if (formatCode == ScFace::TYPE42) {
+	else if (formatCode == ScFace::TYPE42)
 		FtFace::rawData(bb);
-	}
-	else {
+	else
 		FtFace::rawData(bb);
-	}
 }
 
 bool ScFace_ttf::embedFont(QByteArray &str) const
@@ -183,49 +183,52 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 	if (ftIOFunc(fts, 0L, nullptr, 0))
 		return(false);
 
-	str+="%!PS-TrueTypeFont\n";
-	str+="11 dict begin\n";
-	str+="/FontName /" + psName + " def\n";
-	str+="/Encoding /ISOLatin1Encoding where {pop ISOLatin1Encoding} {StandardEncoding} ifelse def\n";
-	str+="/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n";
-	str+="/FontBBox ["+m_pdfFontBBox+"] def\n";
-	str+="/FontType 42 def\n";
-	str+="/FontInfo 8 dict dup begin\n";
-	str+="/FamilyName (" + psName + ") def\n";
-	str+="end readonly def\n";
+	str += "%!PS-TrueTypeFont\n";
+	str += "11 dict begin\n";
+	str += "/FontName /" + psName + " def\n";
+	str += "/Encoding /ISOLatin1Encoding where {pop ISOLatin1Encoding} {StandardEncoding} ifelse def\n";
+	str += "/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n";
+	str += "/FontBBox ["+m_pdfFontBBox+"] def\n";
+	str += "/FontType 42 def\n";
+	str += "/FontInfo 8 dict dup begin\n";
+	str += "/FamilyName (" + psName + ") def\n";
+	str += "end readonly def\n";
 	unsigned char *tmp = new unsigned char[65535];
 	int length;
 	char linebuf[80];
 	str += "/sfnts [";
-	int poso=0;
-	do {
-		int posi=0;
-		length= fts->size - fts->pos;
-		if (length > 65534) {
+	int poso = 0;
+	do
+	{
+		int posi = 0;
+		length = fts->size - fts->pos;
+		if (length > 65534)
 			length = 65534;
-		}
 		if (!ftIOFunc(fts, 0L, tmp, length))
 		{
-			str+="\n<\n";
+			str += "\n<\n";
 			for (int j = 0; j < length; j++)
 			{
-				unsigned char u=tmp[posi];
-				linebuf[poso]=((u >> 4) & 15) + '0';
-				if (u>0x9f) linebuf[poso]+='a'-':';
+				unsigned char u = tmp[posi];
+				linebuf[poso] = ((u >> 4) & 15) + '0';
+				if (u > 0x9f)
+					linebuf[poso] += 'a'-':';
 				++poso;
-				u&=15; linebuf[poso]=u + '0';
-				if (u>0x9) linebuf[poso]+='a'-':';
+				u &= 15;
+				linebuf[poso] = u + '0';
+				if (u > 0x9)
+					linebuf[poso] += 'a'-':';
 				++posi;
 				++poso;
 				if (poso > 70)
 				{
-					linebuf[poso++]='\n';
-					linebuf[poso++]=0;
+					linebuf[poso++] = '\n';
+					linebuf[poso++] = 0;
 					str += linebuf;
 					poso = 0;
 				}
 			}
-			linebuf[poso++]=0;
+			linebuf[poso++] = 0;
 			str += linebuf;
 			poso = 0;
 			str += "00\n>";
@@ -237,7 +240,8 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 			status = qMax(status,ScFace::BROKENGLYPHS);
 			return false;
 		}
-	} while (length==65534);
+	}
+	while (length == 65534);
 	
 	str += "\n] def\n";
 	delete[] tmp;
@@ -252,7 +256,7 @@ bool ScFace_ttf::embedFont(QByteArray &str) const
 		counter++;
 	}
 	tmp4.setNum(counter);
-	str += "/CharStrings " + tmp4 + " dict dup begin\n"+tmp2;
+	str += "/CharStrings " + tmp4 + " dict dup begin\n" + tmp2;
 	str += "end readonly def\n";
 	str += "FontName currentdict end definefont pop\n";
 	return(true);
