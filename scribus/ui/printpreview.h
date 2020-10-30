@@ -92,7 +92,7 @@ public slots:
 	\brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
 	*/
 	void toggleCMYK_Colour();
-	void toggleAllfromHeader();
+	void toggleAllFromHeader();
 
 signals:
 	void doPrint();

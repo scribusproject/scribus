@@ -457,7 +457,7 @@ void PrintPreview::onPrintLanguageChange(int /*langIndex*/)
 	m_previewLabel->resize(previewPix.size());
 }
 
-void PrintPreview::toggleAllfromHeader()
+void PrintPreview::toggleAllFromHeader()
 {
 	if (!m_haveTiffSep)
 		return;
