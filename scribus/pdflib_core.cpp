@@ -2681,8 +2681,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 				PutPage(Pdf::toName(ShName) + " gs\n");
 			}
 /* Bookmarks on Master Pages do not make any sense */
-//				if ((ite->isBookmark) && (Options.Bookmarks))
-//					PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
+//			if ((ite->isBookmark) && (Options.Bookmarks))
+//				PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
 			if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageNameEmpty())))
 			{
 				PutPage("Q\n");
@@ -2696,8 +2696,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 			if (ite->DashValues.count() != 0)
 			{
 				PutPage("[ ");
-				QVector<double>::iterator it;
-				for (it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it)
+				for (auto it = ite->DashValues.cbegin(); it != ite->DashValues.cend(); ++it)
 				{
 					double da = *it;
 					// #8758: Custom dotted lines don't export properly to pdf
@@ -4423,8 +4422,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		QVector<double>::iterator it;
-		for (it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it)
+		for (auto it = ite->DashValues.cbegin(); it != ite->DashValues.cend(); ++it)
 		{
 			double da = *it;
 			// #8758: Custom dotted lines don't export properly to pdf
@@ -5435,8 +5433,7 @@ QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& sta
 		if (DashValues.count() != 0)
 		{
 			tmp += "[ ";
-			QVector<double>::iterator it;
-			for (it = DashValues.begin(); it != DashValues.end(); ++it)
+			for (auto it = DashValues.cbegin(); it != DashValues.cend(); ++it)
 			{
 				double da = *it;
 				if (da != 0)
