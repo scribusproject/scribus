@@ -21,8 +21,11 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 	public:
 		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* iText);
 		~HunspellDialog() {};
+
 		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
+
+		void updateSuggestions(const WordsFound& wordFound);
 		void updateSuggestions(QStringList& newSuggestions);
 
 	public slots:

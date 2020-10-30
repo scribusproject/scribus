@@ -129,11 +129,11 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		if (!dictionaryMap.contains(langAbbrev))
 		{
 			//qDebug()<<"Spelling language to match style language not installed ("<<langAbbrev<<")";
-			QString langAbbrev2=LanguageManager::instance()->getAbbrevFromLang(wordLang, false, false, 2);
+			QString langAbbrev2 = LanguageManager::instance()->getAbbrevFromLang(wordLang, false, false, 2);
 			if (!langAbbrev2.isEmpty() && dictionaryMap.contains(langAbbrev2))
 			{
 				//qDebug()<<"Spelling language swapped to :"<<langAbbrev2;
-				langAbbrev=langAbbrev2;
+				langAbbrev = langAbbrev2;
 			}
 		}
 		else
@@ -142,7 +142,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			QMap<QString, QString>::iterator it = dictionaryMap.begin();
 			while (it != dictionaryMap.end())
 			{
-				if (it.key()==langAbbrev)
+				if (it.key() == langAbbrev)
 					break;
 				++i;
 				++it;
@@ -152,14 +152,13 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		if (hspellerMap.contains(langAbbrev) && hspellerMap[langAbbrev]->spell(word)==0)
 		{
 			struct WordsFound wf;
-			wf.start=wordStart;
-			wf.end=wordEnd;
-			wf.w=word;
-			wf.changed=false;
-			wf.ignore=false;
-			wf.changeOffset=0;
+			wf.start = wordStart;
+			wf.end = wordEnd;
+			wf.w = word;
+			wf.changed = false;
+			wf.ignore = false;
+			wf.changeOffset = 0;
 			wf.lang = langAbbrev;
-			wf.replacements = hspellerMap[langAbbrev]->suggest(word);
 			wordsToCorrect.append(wf);
 		}
 		currPos = iText->nextWord(wordStart);
