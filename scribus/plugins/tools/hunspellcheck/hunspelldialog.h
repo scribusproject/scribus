@@ -25,7 +25,9 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 
 		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
-		void updateSuggestions(QStringList& newSuggestions);
+
+		void updateSuggestions(const WordsFound& wordFound);
+		void updateSuggestions(const QStringList& newSuggestions);
 
 	public slots:
 		void goToNextWord(int i = -1);

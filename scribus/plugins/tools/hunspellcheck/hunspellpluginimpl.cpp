@@ -178,7 +178,6 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.ignore = false;
 			wf.changeOffset = 0;
 			wf.lang = wordLang;
-			wf.replacements = hspellerMap[wordLang]->suggest(word);
 			wordsToCorrect.append(wf);
 		}
 		currPos = iText->nextWord(wordStart);

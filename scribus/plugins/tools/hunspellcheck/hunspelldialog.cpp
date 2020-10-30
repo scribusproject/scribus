@@ -73,7 +73,15 @@ void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hu
 	goToNextWord(0);
 }
 
-void HunspellDialog::updateSuggestions(QStringList &newSuggestions)
+void HunspellDialog::updateSuggestions(const WordsFound& wordFound)
+{
+	QStringList suggestions;
+	if (m_hspellerMap->contains(wordFound.lang))
+		suggestions = (*m_hspellerMap)[wordFound.lang]->suggest(wordFound.w);
+	updateSuggestions(suggestions);
+}
+
+void HunspellDialog::updateSuggestions(const QStringList &newSuggestions)
 {
 	suggestionsListWidget->clear();
 	suggestionsListWidget->addItems(newSuggestions);
@@ -111,7 +119,7 @@ void HunspellDialog::goToNextWord(int i)
 	statusLabel->setText("");
 	currWF = m_wfList->at(m_wfListIndex);
 	setLanguageCombo(currWF.lang);
-	updateSuggestions(currWF.replacements);
+	updateSuggestions(currWF);
 
 	int sentencePos = 0;
 	QString sentence(m_iText->sentence(currWF.start + currWF.changeOffset, sentencePos));
