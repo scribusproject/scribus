@@ -1366,7 +1366,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 
 static QByteArray sanitizeFontName(QString fn)
 {
-	return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+	return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_"));
 }
 
 static QList<Pdf::Resource> asColorSpace(const QList<PdfICCD>& iccCSlist)
@@ -1808,7 +1808,7 @@ PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& fa
 	return fontDescriptor;
 }
 
-PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint>& glyphmap  )
+PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint>& glyphmap)
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
@@ -1833,7 +1833,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 		if (gid > 0 || !seenNotDef)
 		{
 			seenNotDef |= (gid == 0);
-			PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] " );
+			PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] ");
 			QString tmp = QString::asprintf("%04X", gid);
 			QString tmp2 = gl.value(*git).toUnicode;
 			toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
@@ -2623,7 +2623,7 @@ void PDFLibCore::PDF_Begin_Layers()
 	}
 }
 
-bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
+bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 {
 	QByteArray tmpOut;
 	ActPageP = pag;
@@ -2697,7 +2697,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 			{
 				PutPage("[ ");
 				QVector<double>::iterator it;
-				for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+				for (it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it)
 				{
 					double da = *it;
 					// #8758: Custom dotted lines don't export properly to pdf
@@ -4245,7 +4245,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 		PutDoc("/CS /DeviceGray\n");
 	else if (Options.UseRGB)
 		PutDoc("/CS /DeviceRGB\n");
-	else if (doc.HasCMS && Options.UseProfiles && (shadowColor.getColorModel() != colorModelCMYK ))
+	else if (doc.HasCMS && Options.UseProfiles && (shadowColor.getColorModel() != colorModelCMYK))
 		PutDoc("/CS " + ICCProfiles[Options.SolidProf].ICCArray + "\n");
 	else
 		PutDoc("/CS /DeviceCMYK\n");
@@ -4424,7 +4424,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 	{
 		tmp += "[ ";
 		QVector<double>::iterator it;
-		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+		for (it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it)
 		{
 			double da = *it;
 			// #8758: Custom dotted lines don't export properly to pdf
@@ -5436,7 +5436,7 @@ QByteArray PDFLibCore::paintBorder(const TableBorder& border, const QPointF& sta
 		{
 			tmp += "[ ";
 			QVector<double>::iterator it;
-			for ( it = DashValues.begin(); it != DashValues.end(); ++it )
+			for (it = DashValues.begin(); it != DashValues.end(); ++it)
 			{
 				double da = *it;
 				if (da != 0)
@@ -8717,7 +8717,7 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PutDoc("/3DD " + Pdf::toPdf(appearanceObj) + " 0 R\n");
 	PutDoc("/3DV " + Pdf::toPdf(viewObj) + " 0 R\n");
 	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
-	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
+	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_"));
 	PutDoc("/AS " + onState + "\n");
 	PutDoc("/AP << /N <<\n" + onState + " " + Pdf::toPdf(appearanceObj1) + " 0 R >> >>\n");
 	PutDoc("/Rect [ " + FToStr(x+bleedDisplacementX) + " " + FToStr(y2+bleedDisplacementY) + " " + FToStr(x2+bleedDisplacementX) + " " + FToStr(y+bleedDisplacementY) + " ]\n");
@@ -8754,13 +8754,13 @@ void PDFLibCore::PDF_RadioButtons()
 		if (it.key() == 0)
 			anTitle = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
 		else
-			anTitle = Pdf::toPdfDocEncoding(it.key()->itemName().replace(".", "_" ));
+			anTitle = Pdf::toPdfDocEncoding(it.key()->itemName().replace(".", "_"));
 		for (int a = 0; a < bList.count(); a++)
 		{
 			PdfId kid = PDF_RadioButton(bList[a], parentObject, anTitle);
 			kidsList.append(kid);
 			if (bList[a]->annotation().IsChk())
-				onState = Pdf::toName(bList[a]->itemName().replace(".", "_" ));
+				onState = Pdf::toName(bList[a]->itemName().replace(".", "_"));
 		}
 		writer.startObj(parentObject);
 		pageData.AObjects.append(parentObject);
@@ -8854,7 +8854,7 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 		PutDoc("/R " + Pdf::toPdf(rot) + " ");
 	}
 	PutDoc(">>\n");
-	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_" ));
+	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_"));
 	if (ite->annotation().IsChk())
 		PutDoc("/AS " + onState + "\n");
 	else
@@ -8964,7 +8964,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			bmUtf16 += (cc == QChar(13) ? QChar(10) : cc);
 		}
 	}
-	QByteArray anTitle = Pdf::toPdfDocEncoding(ite->itemName().replace(".", "_" ));
+	QByteArray anTitle = Pdf::toPdfDocEncoding(ite->itemName().replace(".", "_"));
 	QStringList bmstUtf16 = bmUtf16.split(QChar(10), QString::SkipEmptyParts);
 	const QByteArray m[] = {"4", "5", "F", "l", "H", "n"};
 	QByteArray ct(m[ite->annotation().ChkStil()]);
@@ -8988,7 +8988,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		case Annotation::Text:
 			PutDoc("/Subtype /Text\n");
 			PutDoc("/Contents " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
-			PutDoc("/Open " );
+			PutDoc("/Open ");
 			if (ite->annotation().IsAnOpen())
 				PutDoc("true\n");
 			else
@@ -9832,8 +9832,8 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	QScopedPointer<PoDoFo::PdfMemDocument> doc;
 	try
 	{
-		PoDoFo::PdfError::EnableDebug( false );
-		PoDoFo::PdfError::EnableLogging( false );
+		PoDoFo::PdfError::EnableDebug(false);
+		PoDoFo::PdfError::EnableLogging(false);
 		doc.reset(new PoDoFo::PdfMemDocument(fn.toLocal8Bit().data()));
 	}
 	catch(PoDoFo::PdfError& e)
@@ -10030,14 +10030,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			char * mbuffer = nullptr;
 			long mlen = 0;
 			// copied from podofoimpose
-			PoDoFo::PdfMemoryOutputStream outMemStream ( 1 );
+			PoDoFo::PdfMemoryOutputStream outMemStream (1);
 //			PoDoFo::PdfFilteredEncodeStream outMemStream (outMemStreamRaw, ePdfFilter_FlateDecode, false);
 			PoDoFo::PdfArray carray(page->GetContents()->GetArray());
 			for (unsigned int ci = 0; ci < carray.size(); ++ci)
 			{
 				if (carray[ci].HasStream())
 				{
-					carray[ci].GetStream()->GetFilteredCopy ( &outMemStream );
+					carray[ci].GetStream()->GetFilteredCopy(&outMemStream);
 				}
 				else if (carray[ci].IsReference())
 				{
@@ -10052,7 +10052,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 						}
 						else if (nextObj->HasStream())
 						{
-							nextObj->GetStream()->GetFilteredCopy ( &outMemStream );
+							nextObj->GetStream()->GetFilteredCopy(&outMemStream);
 							break;
 						}
 					}
