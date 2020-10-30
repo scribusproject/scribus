@@ -23,6 +23,7 @@ set(SCRIBUS_TEXT_LIB_SOURCES
 	screenpainter.cpp
 	scrptrun.cpp
 	sctext_shared.cpp
+	scworditerator.cpp
 	shapedtext.cpp
 	shapedtextcache.cpp
 	shapedtextfeed.cpp

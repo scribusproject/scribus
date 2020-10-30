@@ -434,6 +434,7 @@
     <ClInclude Include="..\..\..\scribus\text\itextsource.h" />
     <ClInclude Include="..\..\..\scribus\text\screenpainter.h" />
     <ClInclude Include="..\..\..\scribus\text\scrptrun.h" />
+    <ClInclude Include="..\..\..\scribus\text\scworditerator.h" />
     <ClInclude Include="..\..\..\scribus\text\shapedtext.h" />
     <ClInclude Include="..\..\..\scribus\text\shapedtextcache.h" />
     <ClInclude Include="..\..\..\scribus\text\shapedtextfeed.h" />
@@ -910,6 +911,7 @@
     <ClCompile Include="..\..\..\scribus\text\index.cpp" />
     <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp" />
     <ClCompile Include="..\..\..\scribus\text\scrptrun.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\scworditerator.cpp" />
     <ClCompile Include="..\..\..\scribus\text\shapedtext.cpp" />
     <ClCompile Include="..\..\..\scribus\text\shapedtextcache.cpp" />
     <ClCompile Include="..\..\..\scribus\text\shapedtextfeed.cpp" />
