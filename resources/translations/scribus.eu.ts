@@ -8930,7 +8930,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Ortografia egiaztatzea osatu da</translation>
     </message>
@@ -14081,44 +14081,44 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <translation>Qt bertsioak &quot;UTF-16&quot; eta &quot;ISO-10646-UCS-2&quot; testu-kodekak falta ditu, ezin da PDFra esportatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Orrialdea:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Eguna:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Ezin izan da PDFa kapsulatu: %1
 Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Irudi bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Irudi bat idazteak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Irudi-maskara bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria gutxi irudi bat prozesatzeko</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Idazte-errorea gertatu da, begiratu tokirik duzun diskoan</translation>
     </message>
@@ -29702,7 +29702,7 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>%1 letra-tipoa hondatuta dago (korrontea irakurtzean), ez dago kapsulatua</translation>
     </message>
@@ -29743,7 +29743,7 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
         <translation>Huts egin du letra-tipoa kargatzean - freetype2 ezin izan da letra-fitxategian aurkitu</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>%1 kanporatzen %2 letra-tipotik (despl.=%3, nTaula=%4)</translation>
     </message>

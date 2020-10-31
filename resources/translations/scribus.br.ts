@@ -8921,7 +8921,7 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Echu eo gwiriadur ar reizhskrivadur</translation>
     </message>
@@ -14067,43 +14067,43 @@ Mar plij, gwiriit hi ha klaskit en-dro.</translation>
         <translation>Enboneger-ezvoneger an destenn mod &quot;UTF-16&quot; ha &quot;ISO-10646-UCS-2&quot; a vank, n&apos;haller ket seveniñ an ezporzhiañ PDF.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Pajenn :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Deiziad :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>C&apos;hwitadenn war kargañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>C&apos;hwitadenn war skrivañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>C&apos;hwitadenn war kargañ maskl ur skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>N&apos;eus ket memor a-walc&apos;h a-benn keweriañ ur skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Degouezhet ez eus bet ur fazi skritur, gwiriit ar plas a chom war ar gantenn</translation>
     </message>
@@ -29676,7 +29676,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Siek eo an nodrezh %1 (lanv lenn), laosket e vo a-gostez</translation>
     </message>
@@ -29717,7 +29717,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>C&apos;hwitadenn war gargañ un nodrezh - n&apos;eo ket gouest freetype2 da gavout ar restr</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>oc&apos;h eztennañ an arouezenn %1 eus an nodrezh %2 (linkañ=%3, nTaolennoù=%4)</translation>
     </message>

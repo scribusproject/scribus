@@ -8926,7 +8926,7 @@ Document Liberation : http://www.documentliberation.org</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Correction orthographique achevée</translation>
     </message>
@@ -14070,44 +14070,44 @@ Veuillez le vérifier puis essayer à nouveau.</translation>
         <translation>Qt ne dispose pas des codecs &quot;UTF-16&quot; ou &quot;ISO-10646-UCS-2&quot;, l&apos;export PDF est impossible</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Date :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Échec d&apos;incorporation du fichier PDF : %1.
 Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichiers PS et PDF, puis réessayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Erreur lors du chargement d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Erreur lors de l&apos;écriture d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Erreur lors du chargement d&apos;un masque d&apos;image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Mémoire insuffisante pour traiter une image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Une erreur d&apos;écriture s&apos;est produite, veuillez contrôler l&apos;espace disque disponible</translation>
     </message>
@@ -28639,7 +28639,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>La police %1 est défectueuse (flux de lecture), elle sera ignorée</translation>
     </message>
@@ -28746,7 +28746,7 @@ Vérifiez le chemin et le nom du fichier.</translation>
         <translation>Recherche des polices</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>extraction du caractère %1 de la police %2 (décalage=%3, nTables=%4)</translation>
     </message>

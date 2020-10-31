@@ -8905,7 +8905,7 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Spellingscontrole voltooid</translation>
     </message>
@@ -14045,43 +14045,43 @@ Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Pagina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Afbeelding : %1 kon niet worden geladen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Afbeelding : %1 kon niet worden geschreven</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Onvoldoende geheugen beschikbaar om de afbeelding te verwerken</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Er deed zich een schrijffout voor, controleer de beschikbare schijfruimte</translation>
     </message>
@@ -29631,7 +29631,7 @@ aangeroepen functies.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Het font %1 is beschadigd (read stream), wordt niet ingesloten</translation>
     </message>
@@ -29672,7 +29672,7 @@ aangeroepen functies.
         <translation>Laden van een font niet gelukt - freetype2 kan font bestand niet vinden</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>extractie face %1 van font %2 (offset=%3, nTables=%4)</translation>
     </message>

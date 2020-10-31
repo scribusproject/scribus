@@ -8914,7 +8914,7 @@ Wesselényinél mázol Quitóban</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Helyesírás-ellenőrzés befejeződött</translation>
     </message>
@@ -14055,44 +14055,44 @@ Javító ellenőrzés után érdemes újra megpróbálni.</translation>
         <translation>A Qt buildből hiányzik az „UTF-16” és az „ISO-10646-UCS-2” szövegkódolás, a PDF exportálás nem lehetséges</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Oldal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Dátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Nem sikerült a PDF-fájl beágyazása: %1
 A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Kép betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Kép írása sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Képmaszk betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nincs elegendő memória egy kép feldolgozásához</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Írási hiba történt, ellenőrizze a rendelkezésre álló szabad lemezterületet</translation>
     </message>
@@ -29662,7 +29662,7 @@ lista hiányos a meghívott funkciók miatt.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>%1 betűkészlet törött (adatfolyam betöltése), nem lesz beágyazva</translation>
     </message>
@@ -29703,7 +29703,7 @@ lista hiányos a meghívott funkciók miatt.
         <translation>Betűkészlet betöltése sikertelen – Freetype2 nem találja a betűtípus fájlt</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>%1 betűkép kicsomagolása a(z) %2 betűkészletből (offset=%3, nTables=%4)</translation>
     </message>
@@ -31768,7 +31768,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Az automatikus mentések olyan automatikusan mentett dokumentumváltozatok, amelyek egy előző Scribus munkamenetben lettek megnyitva.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>

@@ -8925,7 +8925,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Ortografia kontrolo kompleta</translation>
     </message>
@@ -14071,44 +14071,44 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <translation>En la versio de Qt uzata mankas tekstaj kodekoj &quot;UTF-16&quot; kaj &quot;ISO-10646-UCS-2&quot;, do ne eblas la PDF-eksporto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Paĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Malsukcesis enkorpigi PDF-dosieron: %1.
 Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Malsukcesis la ŝargo de bildo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Malsukcesis skribi bildon: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Malsukcesis la ŝargo de bildmasko: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Ne sufiĉas memoro por trakti bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Okazis skriberaro, bonvolu kontroli la disponeblan diskospacon</translation>
     </message>
@@ -29683,7 +29683,7 @@ pro la esceptoj de la vokitaj funkcioj.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>La tiparo %1 estas difektita (legu fluon), ne estos enkorpigita</translation>
     </message>
@@ -29724,7 +29724,7 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>Malsukcesis ŝargi tiparon - freetype2 ne povis trovi la tipardosieron</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>ekstraktas signon %1 el la tiparo %2 (offset=%3, nTables=%4)</translation>
     </message>
@@ -31790,7 +31790,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="53"/>
         <source>Autosaved files are automatically saved versions of a document that was opened in a previous Scribus session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aŭtokonservitaj dosieroj estas aŭtomate konservitaj versioj de dokumento kiu estis malfermita en antaŭa seanco de Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/recoverdialog.cpp" line="99"/>

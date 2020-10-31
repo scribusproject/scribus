@@ -4751,22 +4751,22 @@ nyní %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
         <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud jste vytvořili textový rámec, předpokládá se, že do něj vložíte text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud některý importovaný dokument nepoužívá přikládané fonty, budou tyto vykresleny chybně, pokud je nemáte v systému nainstalované. Nicméně nelze pak správnost garantovat v případě, že se rozhodnete výsledný dokument sdílet.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedná se o uživatelské nastavení chovající se jako varování u obrázků s vysokým rozlišením, které pak vedou k vytváření nechtěně velkých souborů.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedná se o uživatelské nastavení chovající se jako varování u obrázků s nízkým rozlišením, které pak vedou k nízké výstupní kvalitě.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
@@ -6619,7 +6619,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="390"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
-        <translation type="unfinished"></translation>
+        <translation>Při shromažďování souborů dokumentu zahrnout fonty. Ujistěte se, že znáte a rozumíte licenčním ujednáním pro všechny zahrnuté fonty, pokud je dále šíříte.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="392"/>
@@ -6688,12 +6688,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/cxfimportdialogbase.ui" line="14"/>
         <source>CxF Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovat CxF</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cxfimportdialogbase.ui" line="20"/>
         <source>The file you are trying to import contains multiple definitions for colors. Please select how you would like colors to be imported by priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor, který se pokoušíte importovat, obsahuje několik barevných definic. Podle priority si vyberte, jak mají být barvy importovány:</translation>
     </message>
 </context>
 <context>
@@ -6929,7 +6929,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="168"/>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Název dokumentu. Toto pole může být ve Scribus dokumentu zahrnuto kvůli referenci, stejně jako metadata z PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="169"/>
@@ -6954,7 +6954,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="171"/>
         <source>A person or organization responsible for making the document available</source>
-        <translation type="unfinished"></translation>
+        <translation>Osoba či organizace odpovědná za dostupnost dokumentu</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="172"/>
@@ -7460,7 +7460,7 @@ se nepodařil!</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="24"/>
         <source>An exception occured while running the script.</source>
-        <translation type="unfinished"></translation>
+        <translation>Výjimka, ke které došlo během provádění skriptu.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="31"/>
@@ -7974,7 +7974,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="76"/>
         <source>Flatten Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyrovnaná Cesta</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="80"/>
@@ -7984,12 +7984,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="101"/>
         <source>Flattens a Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyrovná Cestu</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="102"/>
         <source>Converts a Bezier Path to a Path made of line segments.</source>
-        <translation type="unfinished"></translation>
+        <translation>Převede Bézierovu Cestu na Cestu z rovných úseků.</translation>
     </message>
 </context>
 <context>
@@ -8263,12 +8263,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Zruší náhrady těchto písem a zastaví načítání dokumentu.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
         <source>If you select OK, then save, these substitutions are made permanent in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud vyberete OK a uložíte, náhrady budou pro dokument trvalé.</translation>
     </message>
 </context>
 <context>
@@ -8276,7 +8276,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="35"/>
         <source>Select Alternate Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat Alternativní Font</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/fontselectdialog.cpp" line="44"/>
@@ -8902,7 +8902,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>HunspellDialog</name>
     <message>
-        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="102"/>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
         <source>Spelling check complete</source>
         <translation>Kontrola pravopisu dokončena</translation>
     </message>
@@ -14040,43 +14040,43 @@ Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3530"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3529"/>
         <source>Page:</source>
         <translation>Stránka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3540"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3539"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10335"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10332"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11493"/>
         <source>Failed to load an image : %1</source>
         <translation>Chyba při nahrávání obrázku: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11501"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11498"/>
         <source>Failed to write an image : %1</source>
         <translation>Chyba při ukládání obrázku: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11506"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11503"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Chyba při nahrávání masky obrázky: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11511"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11508"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nedostatek paměti pro zpracování obrázku</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11491"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11488"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Při ukládání došlo k chybě. Prosím, zkontrolujte volné místo na disku</translation>
     </message>
@@ -29604,7 +29604,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="235"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation>Font %1 je poškozený (chyba při čtení), nebude vložen</translation>
     </message>
@@ -29645,7 +29645,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Nelze načíst font FreeType2 - nelze nalézt soubor s fontem</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="117"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation>rozbaluji face %1 z fontu %2 (offset=%3, nTables=%4)</translation>
     </message>
