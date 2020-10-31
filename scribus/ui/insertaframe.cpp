@@ -102,12 +102,12 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 
 	sourceDocLineEdit->setText("");
 	
-	if (m_Doc!=nullptr)
+	if (m_Doc != nullptr)
 	{
 		pageItemMap=m_Doc->getDocItemNames(PageItem::TextFrame);
 		comboBoxLinkToExistingFrameName->addItems(pageItemMap.values());
 	}
-	if (comboBoxLinkToExistingFrameName->count()==0)
+	if (comboBoxLinkToExistingFrameName->count() == 0)
 		checkBoxLinkToExistingFrame->setEnabled(false);
 	
 	connect(typeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectType(int)));
@@ -122,8 +122,8 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 
 void InsertAFrame::slotSelectType( int id )
 {
-	checkBoxLinkCreatedTextFrames->setEnabled(id==0);
-	radioButtonImageSize->setVisible(id==1);
+	checkBoxLinkCreatedTextFrames->setEnabled(id == 0);
+	radioButtonImageSize->setVisible(id == 1);
 	switch (id)
 	{
 		case 0:
@@ -157,64 +157,64 @@ void InsertAFrame::slotSelectType( int id )
 	}
 }
 
-void InsertAFrame::slotSelectPagePlacement( int id )
+void InsertAFrame::slotSelectPagePlacement(int id)
 {
-	placementPagesLineEdit->setEnabled(id==2);
-	placementPagesRangeButton->setEnabled(id==2);
-	checkBoxLinkCreatedTextFrames->setEnabled(typeButtonGroup->checkedId()==0 && (id!=0));
+	placementPagesLineEdit->setEnabled(id == 2);
+	placementPagesRangeButton->setEnabled(id == 2);
+	checkBoxLinkCreatedTextFrames->setEnabled(typeButtonGroup->checkedId() == 0 && (id != 0));
 }
 
-void InsertAFrame::slotSelectPosition( int id )
+void InsertAFrame::slotSelectPosition(int id)
 {
-	xPosScrSpinBox->setEnabled(id==3);
-	yPosScrSpinBox->setEnabled(id==3);
+	xPosScrSpinBox->setEnabled(id == 3);
+	yPosScrSpinBox->setEnabled(id == 3);
 }
 
-void InsertAFrame::slotSelectSize( int id )
+void InsertAFrame::slotSelectSize(int id)
 {
-	widthScrSpinBox->setEnabled(id==4);
-	heightScrSpinBox->setEnabled(id==4);
+	widthScrSpinBox->setEnabled(id == 4);
+	heightScrSpinBox->setEnabled(id == 4);
 }
 
 void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 {
-	int type=typeButtonGroup->checkedId();
-	iafData.source="";
+	int type = typeButtonGroup->checkedId();
+	iafData.source.clear();
 	switch (type)
 	{
 		case 0:
-			iafData.frameType=PageItem::TextFrame;
-			iafData.source=QDir::fromNativeSeparators(sourceDocLineEdit->text());
+			iafData.frameType = PageItem::TextFrame;
+			iafData.source = QDir::fromNativeSeparators(sourceDocLineEdit->text());
 			break;
 		case 1:
-			iafData.frameType=PageItem::ImageFrame;
-			iafData.source=QDir::fromNativeSeparators(sourceImageLineEdit->text());
+			iafData.frameType = PageItem::ImageFrame;
+			iafData.source = QDir::fromNativeSeparators(sourceImageLineEdit->text());
 			break;
 	}
-	iafData.locationType=pagePlacementButtonGroup->checkedId();
-	iafData.pageList=placementPagesLineEdit->text();
-	iafData.positionType=framePositionButtonGroup->checkedId();
-	iafData.sizeType=sizeButtonGroup->checkedId();
+	iafData.locationType = pagePlacementButtonGroup->checkedId();
+	iafData.pageList = placementPagesLineEdit->text();
+	iafData.positionType = framePositionButtonGroup->checkedId();
+	iafData.sizeType = sizeButtonGroup->checkedId();
 	int docUnitIndex = m_Doc->unitIndex();
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	iafData.x=xPosScrSpinBox->value() / unitRatio;
-	iafData.y=yPosScrSpinBox->value() / unitRatio;
-	iafData.width=widthScrSpinBox->value() / unitRatio;
-	iafData.height=heightScrSpinBox->value() / unitRatio;
-	iafData.impsetup=m_ImportSetup;
-	iafData.columnCount=textColumnCountSpinBox->value();
-	iafData.columnGap=textColumnGapScrSpinBox->value();
-	iafData.linkTextFrames=checkBoxLinkCreatedTextFrames->isChecked();
-	iafData.linkToExistingFrame=checkBoxLinkToExistingFrame->isChecked();
-	iafData.linkToExistingFramePtr=nullptr;
-	if (comboBoxLinkToExistingFrameName->count()!=0)
+	iafData.x = xPosScrSpinBox->value() / unitRatio;
+	iafData.y = yPosScrSpinBox->value() / unitRatio;
+	iafData.width = widthScrSpinBox->value() / unitRatio;
+	iafData.height = heightScrSpinBox->value() / unitRatio;
+	iafData.impsetup = m_ImportSetup;
+	iafData.columnCount = textColumnCountSpinBox->value();
+	iafData.columnGap = textColumnGapScrSpinBox->value();
+	iafData.linkTextFrames = checkBoxLinkCreatedTextFrames->isChecked();
+	iafData.linkToExistingFrame = checkBoxLinkToExistingFrame->isChecked();
+	iafData.linkToExistingFramePtr = nullptr;
+	if (comboBoxLinkToExistingFrameName->count() != 0)
 	{
 		QHashIterator<PageItem*, QString> i(pageItemMap);
 		while (i.hasNext())
 		{
 			i.next();
-			if (i.value()==comboBoxLinkToExistingFrameName->currentText())
-				iafData.linkToExistingFramePtr=i.key();
+			if (i.value() == comboBoxLinkToExistingFrameName->currentText())
+				iafData.linkToExistingFramePtr = i.key();
 		}
 	}
 }
@@ -230,7 +230,7 @@ void InsertAFrame::locateImageFile()
 	else
 		docDir = prefsManager.prefsFile->getContext("dirs")->get("images", ".");
 		
-	QString fileName("");
+	QString fileName;
 	CustomFDialog dia(this, docDir, tr("Open"), formatD, fdShowPreview | fdExistingFiles | fdDisableOk);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -240,9 +240,9 @@ void InsertAFrame::locateImageFile()
 
 void InsertAFrame::locateDocFile()
 {
-	m_ImportSetup.runDialog=false;
+	m_ImportSetup.runDialog = false;
 	gtGetText* gt = new gtGetText(m_Doc);
-	m_ImportSetup=gt->run();
+	m_ImportSetup = gt->run();
 	if (m_ImportSetup.runDialog)
 		sourceDocLineEdit->setText(QDir::toNativeSeparators(m_ImportSetup.filename));
 	delete gt;
@@ -250,7 +250,7 @@ void InsertAFrame::locateDocFile()
 
 void InsertAFrame::slotCreatePageNumberRange( )
 {
-	if (m_Doc!=nullptr)
+	if (m_Doc != nullptr)
 	{
 		CreateRange cr(placementPagesLineEdit->text(), m_Doc->Pages->count(), this);
 		if (cr.exec())
@@ -266,7 +266,7 @@ void InsertAFrame::slotCreatePageNumberRange( )
 
 void InsertAFrame::slotLinkToExistingFrame(int state)
 {
-	comboBoxLinkToExistingFrameName->setEnabled(state==Qt::Checked);
-	sourceDocLineEdit->setEnabled(state==Qt::Unchecked);
-	selectDocFileButton->setEnabled(state==Qt::Unchecked);
+	comboBoxLinkToExistingFrameName->setEnabled(state == Qt::Checked);
+	sourceDocLineEdit->setEnabled(state == Qt::Unchecked);
+	selectDocFileButton->setEnabled(state == Qt::Unchecked);
 }

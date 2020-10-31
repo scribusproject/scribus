@@ -33,13 +33,13 @@ ScDLManager::~ScDLManager()
 void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
-	d.id=m_dlID++;
-	d.name=url.fileName();
-	d.url=url;
-	d.downloadLocation=downloadLocation;
-	d.destinationLocation=destinationLocation;
-	d.destinationName=destinationName;
-	d.state=DownloadData::New;
+	d.id = m_dlID++;
+	d.name = url.fileName();
+	d.url = url;
+	d.downloadLocation = downloadLocation;
+	d.destinationLocation = destinationLocation;
+	d.destinationName = destinationName;
+	d.state = DownloadData::New;
 	m_fileList.append(d);
 
 	m_thread->addURL(url, overwrite, downloadLocation, destinationLocation);
@@ -48,13 +48,13 @@ void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloa
 void ScDLManager::addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
-	d.id=m_dlID++;
-	d.name=QUrl(url).fileName();
-	d.url=url;
-	d.downloadLocation=downloadLocation;
-	d.destinationLocation=destinationLocation;
-	d.destinationName=destinationName;
-	d.state=DownloadData::New;
+	d.id = m_dlID++;
+	d.name = QUrl(url).fileName();
+	d.url = url;
+	d.downloadLocation = downloadLocation;
+	d.destinationLocation = destinationLocation;
+	d.destinationName = destinationName;
+	d.state = DownloadData::New;
 	m_fileList.append(d);
 
 	m_thread->addURL(QUrl(url), overwrite, downloadLocation, destinationLocation);
@@ -65,12 +65,12 @@ void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QStr
 	for(const QString& s : urlList)
 	{
 		DownloadData d;
-		d.id=m_dlID++;
-		d.name=QUrl(s).fileName();
-		d.url=s;
-		d.downloadLocation=downloadLocation;
-		d.destinationLocation=destinationLocation;
-		d.state=DownloadData::New;
+		d.id = m_dlID++;
+		d.name = QUrl(s).fileName();
+		d.url = s;
+		d.downloadLocation = downloadLocation;
+		d.destinationLocation = destinationLocation;
+		d.state = DownloadData::New;
 		m_fileList.append(d);
 	}
 	m_thread->addURLs(urlList, overwrite, downloadLocation, destinationLocation);
@@ -92,7 +92,7 @@ void ScDLManager::dlStarted(const QString& filename)
 		if (i.value().state!=DownloadData::Successful && i.value().state!=DownloadData::Failed && i.value().downloadLocation+i.value().name==filename)
 		{
 			//qDebug()<<"starting"<<i.value().downloadLocation+i.value().name<<filename;
-			i.value().state=DownloadData::Started;
+			i.value().state = DownloadData::Started;
 			break;
 		}
 	}
@@ -106,10 +106,10 @@ void ScDLManager::dlReceived(const QString& filename)
 	while (i.hasNext())
 	{
 		i.next();
-		if (i.value().state==DownloadData::Started && i.value().downloadLocation+i.value().name==filename)
+		if (i.value().state == DownloadData::Started && i.value().downloadLocation + i.value().name == filename)
 		{
-			//qDebug()<<"success"<<i.value().downloadLocation+i.value().name<<filename;
-			i.value().state=DownloadData::Successful;
+			//qDebug( )<< "success" << i.value().downloadLocation + i.value().name << filename;
+			i.value().state = DownloadData::Successful;
 			break;
 		}
 	}
@@ -123,10 +123,10 @@ void ScDLManager::dlFailed(const QString& filename)
 	while (i.hasNext())
 	{
 		i.next();
-		if (i.value().state==DownloadData::Started && i.value().downloadLocation+i.value().name==filename)
+		if (i.value().state == DownloadData::Started && i.value().downloadLocation + i.value().name == filename)
 		{
 			//qDebug()<<"fail"<<i.value().downloadLocation+i.value().name<<filename;
-			i.value().state=DownloadData::Failed;
+			i.value().state = DownloadData::Failed;
 			break;
 		}
 	}

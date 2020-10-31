@@ -217,7 +217,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 		}
 		availableLorems[parser->name] = fi.fileName();
 		QTreeWidgetItem *item = new QTreeWidgetItem(loremList);
-		if (parser->name=="la")
+		if (parser->name == "la")
 			item->setText(0, standardloremtext);
 		else
 			item->setText(0, langmgr->getLangFromAbbrev(parser->name, true));
@@ -370,10 +370,10 @@ QString LoremManager::getName()
 		li = loremList->currentItem()->parent();
 
 	QString name;
-	if (li->text(0)==standardloremtext)
-		name="la";
+	if (li->text(0) == standardloremtext)
+		name = "la";
 	else
-		name=LanguageManager::instance()->getAbbrevFromLang(li->text(0), false);
+		name = LanguageManager::instance()->getAbbrevFromLang(li->text(0), false);
 
 	return availableLorems[name];
 }

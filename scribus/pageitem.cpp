@@ -7379,7 +7379,7 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
 	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
-		if (objAttrIt->name==attributeName)
+		if (objAttrIt->name == attributeName)
 		{
 			++countFound;
 			foundIt=objAttrIt;

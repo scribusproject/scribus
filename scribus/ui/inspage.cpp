@@ -231,8 +231,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
 
-	PageSize *ps=new PageSize(m_doc->pageSize());
-	prefsPageSizeName=ps->name();
+	PageSize *ps = new PageSize(m_doc->pageSize());
+	prefsPageSizeName = ps->name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
 	QStringList insertList(ps->activeSizeTRList());
 	if (insertList.indexOf(prefsPageSizeName)==-1)
@@ -274,7 +274,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout->addWidget( moveObjectsCheckBox, 3, 0, 1, 4 );
 	dialogLayout->addWidget( dsGroupBox7 );
 	dsGroupBox7->setEnabled(false);
-	bool b=(sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
+	bool b = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
 	heightSpinBox->setEnabled( b );
 	widthSpinBox->setEnabled( b );
 	delete ps;
@@ -408,10 +408,10 @@ bool InsPage::moveObjects() const
 
 void InsPage::insWherePageDataDisable(int index)
 {
-	insWherePageData->setDisabled((index==2));
+	insWherePageData->setDisabled((index == 2));
 }
 
 void InsPage::enableSizingControls(int state)
 {
-	dsGroupBox7->setEnabled(state==Qt::Checked);
+	dsGroupBox7->setEnabled(state == Qt::Checked);
 }
