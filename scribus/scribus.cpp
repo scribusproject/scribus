@@ -1805,7 +1805,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		int windowCount = windows.count();
 		for ( int i = 0; i < windowCount; ++i )
 		{
-			tw = dynamic_cast<ScribusWin *>(windows.at(i));
+			tw = qobject_cast<ScribusWin *>(windows.at(i));
 			QMdiSubWindow *tws = windows.at(i);
 			ScribusWin* scw = dynamic_cast<ScribusWin *>(tws->widget());
 			if (scw)
@@ -3535,10 +3535,9 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			}
 			if (missingMap.count() > 0)
 			{
-				QMultiMap<QString, QString>::const_iterator it;
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QString mess = tr("Some color profiles used by this document are not installed:")+"\n\n";
-				for (it = missingMap.begin(); it != missingMap.end(); ++it)
+				for (auto it = missingMap.constBegin(); it != missingMap.constEnd(); ++it)
 				{
 					mess += it.key() + tr(" was replaced by: ") + it.value() +"\n";
 				}
@@ -3743,7 +3742,7 @@ void ScribusMainWindow::slotGetContent()
 		{
 			dirsContext->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
 			view->requestMode(modeImportImage);
-			CanvasMode_ImageImport* cii = dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode());
+			CanvasMode_ImageImport* cii = qobject_cast<CanvasMode_ImageImport*>(view->canvasMode());
 			if (cii)
 				cii->setImageList(fileNames);
 		}
@@ -4358,9 +4357,9 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_GDI(*doc));
 #else
 	if (options.prnLanguage == PrintLanguage::PDF)
-		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PDF(*doc));
+		prnEngine = qobject_cast<ScPrintEngine*>(new ScPrintEngine_PDF(*doc));
 	else
-		prnEngine = dynamic_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
+		prnEngine = qobject_cast<ScPrintEngine*>(new ScPrintEngine_PS(*doc));
 #endif
 	if (prnEngine)
 	{

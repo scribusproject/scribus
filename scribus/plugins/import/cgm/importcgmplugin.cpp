@@ -41,7 +41,7 @@ ScPlugin* importcgm_getPlugin()
 
 void importcgm_freePlugin(ScPlugin* plugin)
 {
-	ImportCgmPlugin* plug = dynamic_cast<ImportCgmPlugin*>(plugin);
+	ImportCgmPlugin* plug = qobject_cast<ImportCgmPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

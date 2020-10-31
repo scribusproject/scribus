@@ -45,7 +45,7 @@ ScPlugin* pathconnect_getPlugin()
 
 void pathconnect_freePlugin(ScPlugin* plugin)
 {
-	PathConnectPlugin* plug = dynamic_cast<PathConnectPlugin*>(plugin);
+	PathConnectPlugin* plug = qobject_cast<PathConnectPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

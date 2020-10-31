@@ -34,7 +34,7 @@ ScPlugin* importpm_getPlugin()
 
 void importpm_freePlugin(ScPlugin* plugin)
 {
-	ImportPmPlugin* plug = dynamic_cast<ImportPmPlugin*>(plugin);
+	ImportPmPlugin* plug = qobject_cast<ImportPmPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

@@ -173,7 +173,7 @@ void FontComboH::familySelected(int id)
 	for (QStringList::ConstIterator it = styleList.constBegin(); it != styleList.constEnd(); ++it)
 	{
 		SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(fntFamily + " " + *it);
-		if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
+		if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.constEnd())
 		{
 			if (!fIt->usable() || fIt->isReplacement())
 				continue;
@@ -223,7 +223,7 @@ void FontComboH::setCurrentFont(const QString& f)
 		for (QStringList::ConstIterator it3 = slist.constBegin(); it3 != slist.constEnd(); ++it3)
 		{
 			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it3);
-			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
+			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.constEnd())
 			{
 				if (!fIt->usable() || fIt->isReplacement())
 					continue;
@@ -281,7 +281,7 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		else
 		{
 			QMap<QString, QStringList>::ConstIterator fmIt = prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.find(*it2);
-			if (fmIt == prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.end())
+			if (fmIt == prefsManager.appPrefs.fontPrefs.AvailFonts.fontMap.constEnd())
 				continue;
 			if (fmIt->count() <= 0)
 				continue;
@@ -320,7 +320,7 @@ void FontComboH::rebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		for (QStringList::ConstIterator it = slist.constBegin(); it != slist.constEnd(); ++it)
 		{
 			SCFonts::ConstIterator fIt = prefsManager.appPrefs.fontPrefs.AvailFonts.find(family + " " + *it);
-			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.end())
+			if (fIt != prefsManager.appPrefs.fontPrefs.AvailFonts.constEnd())
 			{
 				if (!fIt->usable() || fIt->isReplacement())
 					continue;
@@ -668,7 +668,7 @@ FontComboValidator::FontComboValidator(QObject* parent)
 
 QValidator::State FontComboValidator::validate(QString & input, int & pos) const
 {
-	QComboBox* comboBox = dynamic_cast<QComboBox*>(this->parent());
+	QComboBox* comboBox = qobject_cast<QComboBox*>(this->parent());
 	if (!comboBox)
 		return QValidator::Invalid;
 

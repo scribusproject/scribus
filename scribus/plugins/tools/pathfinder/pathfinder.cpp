@@ -56,7 +56,7 @@ ScPlugin* pathfinder_getPlugin()
 
 void pathfinder_freePlugin(ScPlugin* plugin)
 {
-	PathFinderPlugin* plug = dynamic_cast<PathFinderPlugin*>(plugin);
+	PathFinderPlugin* plug = qobject_cast<PathFinderPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

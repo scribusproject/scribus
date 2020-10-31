@@ -123,7 +123,7 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	pdfOptions.bleeds = options.bleeds;
 
 	// Generate PDF
-	QString errorString;
+//	QString errorString;
 	
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();

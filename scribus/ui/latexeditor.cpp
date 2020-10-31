@@ -637,7 +637,7 @@ void LatexEditor::itemDoubleClicked(QListWidgetItem *item)
 
 void LatexEditor::insertButtonClicked(QObject *widget)
 {
-	QListWidget *list = dynamic_cast<QListWidget*>(widget);
+	QListWidget *list = qobject_cast<QListWidget*>(widget);
 	Q_ASSERT(list);
 	sourceTextEdit->insertPlainText(
 		list->currentItem()->data(Qt::UserRole).toString());

@@ -41,7 +41,7 @@ ScPlugin* importdrw_getPlugin()
 
 void importdrw_freePlugin(ScPlugin* plugin)
 {
-	ImportDrwPlugin* plug = dynamic_cast<ImportDrwPlugin*>(plugin);
+	ImportDrwPlugin* plug = qobject_cast<ImportDrwPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

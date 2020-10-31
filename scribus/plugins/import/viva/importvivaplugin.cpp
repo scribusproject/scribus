@@ -40,7 +40,7 @@ ScPlugin* importviva_getPlugin()
 
 void importviva_freePlugin(ScPlugin* plugin)
 {
-	ImportVivaPlugin* plug = dynamic_cast<ImportVivaPlugin*>(plugin);
+	ImportVivaPlugin* plug = qobject_cast<ImportVivaPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

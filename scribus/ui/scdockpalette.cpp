@@ -253,7 +253,7 @@ void ScDockPalette::storeDockState()
 	{
 		m_palettePrefs->set("floating", isFloating());
 		Qt::DockWidgetArea area = Qt::NoDockWidgetArea;
-		QMainWindow* mainWindow = dynamic_cast<QMainWindow*>(parent());
+		QMainWindow* mainWindow = qobject_cast<QMainWindow*>(parent());
 		if (mainWindow)
 			area = mainWindow->dockWidgetArea(this);
 		m_palettePrefs->set("area", (int) area);

@@ -582,7 +582,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	if (!layerLocked)
 	{
 		QAction *act = addAction( tr("Paste File..."));
-		connect(act, SIGNAL(triggered()), dynamic_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
+		connect(act, SIGNAL(triggered()), qobject_cast<QObject*>(m_doc->view()->m_canvasMode), SLOT(importToPage()));
 		addSeparator();
 	}
 

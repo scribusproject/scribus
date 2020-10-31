@@ -34,7 +34,7 @@ ScPlugin* importfh_getPlugin()
 
 void importfh_freePlugin(ScPlugin* plugin)
 {
-	ImportFhPlugin* plug = dynamic_cast<ImportFhPlugin*>(plugin);
+	ImportFhPlugin* plug = qobject_cast<ImportFhPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

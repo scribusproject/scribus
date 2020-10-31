@@ -40,7 +40,7 @@ ScPlugin* importpdf_getPlugin()
 
 void importpdf_freePlugin(ScPlugin* plugin)
 {
-	ImportPdfPlugin* plug = dynamic_cast<ImportPdfPlugin*>(plugin);
+	ImportPdfPlugin* plug = qobject_cast<ImportPdfPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

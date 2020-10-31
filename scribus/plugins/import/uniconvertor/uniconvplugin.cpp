@@ -45,7 +45,7 @@ ScPlugin* uniconvertorplugin_getPlugin()
 
 void uniconvertorplugin_freePlugin(ScPlugin* plugin)
 {
-	UniconvImportPlugin* plug = dynamic_cast<UniconvImportPlugin*>(plugin);
+	UniconvImportPlugin* plug = qobject_cast<UniconvImportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

@@ -114,7 +114,7 @@ ScPlugin* hunspellplugin_getPlugin()
 
 void hunspellplugin_freePlugin(ScPlugin* plugin)
 {
-	HunspellPlugin* plug = dynamic_cast<HunspellPlugin*>(plugin);
+	HunspellPlugin* plug = qobject_cast<HunspellPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

@@ -40,7 +40,7 @@ ScPlugin* importemf_getPlugin()
 
 void importemf_freePlugin(ScPlugin* plugin)
 {
-	ImportEmfPlugin* plug = dynamic_cast<ImportEmfPlugin*>(plugin);
+	ImportEmfPlugin* plug = qobject_cast<ImportEmfPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

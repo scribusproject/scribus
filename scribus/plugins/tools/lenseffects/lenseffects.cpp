@@ -44,7 +44,7 @@ ScPlugin* lenseffects_getPlugin()
 
 void lenseffects_freePlugin(ScPlugin* plugin)
 {
-	LensEffectsPlugin* plug = dynamic_cast<LensEffectsPlugin*>(plugin);
+	LensEffectsPlugin* plug = qobject_cast<LensEffectsPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

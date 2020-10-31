@@ -556,7 +556,7 @@ bool OutputPreview_PDF::createPreviewFile(int pageIndex)
 	m_pdfOptions.bleeds.set(0, 0, 0, 0);
 
 	// Generate PDF
-	QString errorString;
+//	QString errorString;
 	QString pdfFileName = ScPaths::tempFileDir() + "/"  + m_tempBaseName + ".pdf";
 	
 	ScCore->fileWatcher->forceScan();

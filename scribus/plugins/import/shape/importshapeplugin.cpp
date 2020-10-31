@@ -34,7 +34,7 @@ ScPlugin* importshape_getPlugin()
 
 void importshape_freePlugin(ScPlugin* plugin)
 {
-	ImportShapePlugin* plug = dynamic_cast<ImportShapePlugin*>(plugin);
+	ImportShapePlugin* plug = qobject_cast<ImportShapePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

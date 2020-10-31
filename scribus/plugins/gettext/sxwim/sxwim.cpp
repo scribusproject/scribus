@@ -93,6 +93,8 @@ SxwIm::SxwIm(const QString& fileName, const QString& enc, gtWriter* w, bool text
 	ScZipHandler* fun = new ScZipHandler();
 	if (fun->open(fileName))
 	{
+		const QString STYLE   = "styles.xml";
+		const QString CONTENT = "content.xml";
 		QTemporaryDir *dir = new QTemporaryDir();
 		QString baseDir = dir->path();
 		fun->extract(STYLE, baseDir, ScZipHandler::SkipPaths);

@@ -40,7 +40,7 @@ ScPlugin* importsvm_getPlugin()
 
 void importsvm_freePlugin(ScPlugin* plugin)
 {
-	ImportSvmPlugin* plug = dynamic_cast<ImportSvmPlugin*>(plugin);
+	ImportSvmPlugin* plug = qobject_cast<ImportSvmPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

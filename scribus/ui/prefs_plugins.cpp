@@ -53,7 +53,7 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 		// Resident plugins don't have predefined actions
 		if (plugin->inherits("ScActionPlugin"))
 		{
-			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			ixplug = qobject_cast<ScActionPlugin*>(plugin);
 			Q_ASSERT(ixplug);
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			// menu path

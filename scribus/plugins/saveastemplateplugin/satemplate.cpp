@@ -32,7 +32,7 @@ ScPlugin* saveastemplateplugin_getPlugin()
 
 void saveastemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	SaveAsTemplatePlugin* plug = dynamic_cast<SaveAsTemplatePlugin*>(plugin);
+	SaveAsTemplatePlugin* plug = qobject_cast<SaveAsTemplatePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

@@ -66,7 +66,7 @@ ScPlugin* oodrawimp_getPlugin()
 
 void oodrawimp_freePlugin(ScPlugin* plugin)
 {
-	OODrawImportPlugin* plug = dynamic_cast<OODrawImportPlugin*>(plugin);
+	OODrawImportPlugin* plug = qobject_cast<OODrawImportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

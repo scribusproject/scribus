@@ -545,8 +545,8 @@ protected:
 	void hideEvent(QHideEvent *) override;
 
 	void closeEvent(QCloseEvent *) override;
-	void keyPressEvent (QKeyEvent * e) override;
-	bool eventFilter( QObject* ob, QEvent* ev ) override;
+	void keyPressEvent(QKeyEvent *e) override;
+	bool eventFilter(QObject *ob, QEvent* ev) override;
 
 	QHBoxLayout* StoryEd2Layout { nullptr };
 	QGridLayout* ButtonGroup1Layout { nullptr };

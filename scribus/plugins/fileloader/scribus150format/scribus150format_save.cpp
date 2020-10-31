@@ -175,7 +175,7 @@ bool Scribus150Format::savePalette(const QString & fileName)
 	docu.writeEndElement();
 	docu.writeEndDocument();
 	bool  writeSucceed = false;
-	const QFile* qFile = dynamic_cast<QFile*>(outputFile.data());
+	const QFile* qFile = qobject_cast<QFile*>(outputFile.data());
 	writeSucceed = (qFile->error() == QFile::NoError);
 	outputFile->close();
 	return writeSucceed;
@@ -454,7 +454,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeEndDocument();
 
 	bool  writeSucceed = false;
-	const QFile* qFile = dynamic_cast<QFile*>(outputFile.data());
+	const QFile* qFile = qobject_cast<QFile*>(outputFile.data());
 	if (qFile)
 		writeSucceed = (qFile->error() == QFile::NoError);
 	else

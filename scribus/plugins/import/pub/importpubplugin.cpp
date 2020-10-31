@@ -34,7 +34,7 @@ ScPlugin* importpub_getPlugin()
 
 void importpub_freePlugin(ScPlugin* plugin)
 {
-	ImportPubPlugin* plug = dynamic_cast<ImportPubPlugin*>(plugin);
+	ImportPubPlugin* plug = qobject_cast<ImportPubPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

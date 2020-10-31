@@ -53,7 +53,7 @@ ScPlugin* smoothpath_getPlugin()
 
 void smoothpath_freePlugin(ScPlugin* plugin)
 {
-	SmoothPathPlugin* plug = dynamic_cast<SmoothPathPlugin*>(plugin);
+	SmoothPathPlugin* plug = qobject_cast<SmoothPathPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

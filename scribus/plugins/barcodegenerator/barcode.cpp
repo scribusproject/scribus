@@ -103,7 +103,7 @@ ScPlugin* barcodegenerator_getPlugin()
 
 void barcodegenerator_freePlugin(ScPlugin* plugin)
 {
-	Barcode* plug = dynamic_cast<Barcode*>(plugin);
+	Barcode* plug = qobject_cast<Barcode*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

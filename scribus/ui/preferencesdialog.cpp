@@ -155,7 +155,7 @@ void PreferencesDialog::restoreDefaults()
 
 void PreferencesDialog::initPreferenceValues()
 {
-	mainWin = dynamic_cast<ScribusMainWindow*>(parent());
+	mainWin = qobject_cast<ScribusMainWindow*>(parent());
 	docUnitIndex = localPrefs.docSetupPrefs.docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 }
@@ -238,7 +238,7 @@ void PreferencesDialog::accept()
 	// #15583: emitting manually accepted should not be needed
 	// QDialog::accept() will emit it by itself
 	// emit accepted();
-	return QDialog::accept();
+	QDialog::accept();
 }
 
 void PreferencesDialog::setupListWidget()

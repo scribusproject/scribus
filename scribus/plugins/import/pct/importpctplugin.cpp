@@ -34,7 +34,7 @@ ScPlugin* importpct_getPlugin()
 
 void importpct_freePlugin(ScPlugin* plugin)
 {
-	ImportPctPlugin* plug = dynamic_cast<ImportPctPlugin*>(plugin);
+	ImportPctPlugin* plug = qobject_cast<ImportPctPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

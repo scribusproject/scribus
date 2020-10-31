@@ -34,7 +34,7 @@ ScPlugin* importxfig_getPlugin()
 
 void importxfig_freePlugin(ScPlugin* plugin)
 {
-	ImportXfigPlugin* plug = dynamic_cast<ImportXfigPlugin*>(plugin);
+	ImportXfigPlugin* plug = qobject_cast<ImportXfigPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

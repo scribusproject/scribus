@@ -91,7 +91,7 @@ public slots:
 	void handleDeleteItem();
 	void handleUpdateRequest(int);
 	void languageChange();
-	void keyPressEvent(QKeyEvent *e);
+	void keyPressEvent(QKeyEvent *e) override;
 
 signals:
 	void startEdit(QString);

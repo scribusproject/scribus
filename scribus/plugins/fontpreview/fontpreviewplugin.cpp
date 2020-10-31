@@ -25,7 +25,7 @@ ScPlugin* fontpreview_getPlugin()
 
 void fontpreview_freePlugin(ScPlugin* plugin)
 {
-	FontPreviewPlugin* plug = dynamic_cast<FontPreviewPlugin*>(plugin);
+	FontPreviewPlugin* plug = qobject_cast<FontPreviewPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

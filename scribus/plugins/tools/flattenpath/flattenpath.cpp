@@ -52,7 +52,7 @@ ScPlugin* flattenpath_getPlugin()
 
 void flattenpath_freePlugin(ScPlugin* plugin)
 {
-	FlattenPathPlugin* plug = dynamic_cast<FlattenPathPlugin*>(plugin);
+	FlattenPathPlugin* plug = qobject_cast<FlattenPathPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

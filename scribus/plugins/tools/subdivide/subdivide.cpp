@@ -44,7 +44,7 @@ ScPlugin* subdivide_getPlugin()
 
 void subdivide_freePlugin(ScPlugin* plugin)
 {
-	SubdividePlugin* plug = dynamic_cast<SubdividePlugin*>(plugin);
+	SubdividePlugin* plug = qobject_cast<SubdividePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

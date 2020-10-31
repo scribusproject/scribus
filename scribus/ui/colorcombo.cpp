@@ -58,11 +58,11 @@ QString ColorCombo::currentColor() const
 
 void ColorCombo::setColors(ColorList& list, bool insertNone)
 {
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
+	ColorListBox* clb = qobject_cast<ColorListBox*>(view());
 	if (!clb)
 		return;
 
-	ColorListModel* clm = dynamic_cast<ColorListModel*>(clb->model());
+	ColorListModel* clm = qobject_cast<ColorListModel*>(clb->model());
 	if (!clm)
 		return;
 
@@ -81,7 +81,7 @@ void ColorCombo::setCurrentColor(QString colorName)
 
 void ColorCombo::setPixmapType(ColorCombo::PixmapType type)
 {
-	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
+	ColorListBox* clb = qobject_cast<ColorListBox*>(view());
 	if (!clb)
 		return;
 

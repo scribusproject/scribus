@@ -52,7 +52,7 @@ ScPlugin* scribusshortwords_getPlugin()
 
 void scribusshortwords_freePlugin(ScPlugin* plugin)
 {
-	ShortWordsPlugin* plug = dynamic_cast<ShortWordsPlugin*>(plugin);
+	ShortWordsPlugin* plug = qobject_cast<ShortWordsPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

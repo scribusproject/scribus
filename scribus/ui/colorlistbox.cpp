@@ -340,7 +340,7 @@ bool ColorListBox::hasSelection() const
 
 void ColorListBox::insertItem(int row, const ScColor& color, const QString& colorName)
 {
-	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	ColorListModel* colorListModel = qobject_cast<ColorListModel*>(model());
 	if (!colorListModel)
 		return;
 
@@ -354,7 +354,7 @@ void ColorListBox::insertItem(int row, const ScColor& color, const QString& colo
 
 bool ColorListBox::isNoneColorShown() const
 {
-	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	ColorListModel* colorListModel = qobject_cast<ColorListModel*>(model());
 	if (colorListModel)
 		return colorListModel->isNoneColorShown();
 	return false;
@@ -398,7 +398,7 @@ void ColorListBox::setColors(ColorList& list, bool insertNone)
 {
 	ColorList::Iterator it;
 
-	ColorListModel* colorModel = dynamic_cast<ColorListModel*>(this->model());
+	ColorListModel* colorModel = qobject_cast<ColorListModel*>(this->model());
 	if (!colorModel)
 		return;
 
@@ -452,7 +452,7 @@ void ColorListBox::setPixmapType(ColorListBox::PixmapType type)
 
 void ColorListBox::setShowNoneColor(bool showNone)
 {
-	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	ColorListModel* colorListModel = qobject_cast<ColorListModel*>(model());
 	if (colorListModel)
 		colorListModel->setShowNoneColor(showNone);
 }
@@ -471,7 +471,7 @@ void ColorListBox::slotRightClick()
 	sortRule = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
 	delete pmen;
 
-	ColorListModel* colorListModel = dynamic_cast<ColorListModel*>(model());
+	ColorListModel* colorListModel = qobject_cast<ColorListModel*>(model());
 	if (!colorListModel)
 		return;
 
@@ -499,7 +499,7 @@ void ColorListBox::updateBox(ColorList& list)
 	clear();
 	reset();
 
-	ColorListModel* colorModel = dynamic_cast<ColorListModel*>(this->model());
+	ColorListModel* colorModel = qobject_cast<ColorListModel*>(this->model());
 	if (colorModel)
 		showNoneColor = colorModel->isNoneColorShown();
 	setColors(list, showNoneColor);

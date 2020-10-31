@@ -2234,18 +2234,18 @@ void StoryEditor::closeEvent(QCloseEvent *e)
 	m_blockUpdate = false;
 }
 
-void StoryEditor::keyPressEvent (QKeyEvent * e)
+void StoryEditor::keyPressEvent(QKeyEvent *e)
 {
 	if (e->key() == Qt::Key_Escape)
 		close();
 	else
 	{
 		activFromApp = false;
-		return QMainWindow::keyReleaseEvent(e);
+		QMainWindow::keyReleaseEvent(e);
 	}
 }
 
-bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
+bool StoryEditor::eventFilter(QObject* ob, QEvent *ev)
 {
 	if (!m_spellActive)
 	{
@@ -2778,7 +2778,7 @@ void StoryEditor::Do_fontPrev()
 
 	if (PluginManager::instance().DLLexists("fontpreview"))
 	{
-		plugin = dynamic_cast<ScActionPlugin*>(PluginManager::instance().getPlugin("fontpreview", false));
+		plugin = qobject_cast<ScActionPlugin*>(PluginManager::instance().getPlugin("fontpreview", false));
 		if (plugin)
 			result = plugin->run(this, m_doc, Editor->CurrFont);
 		if (result)

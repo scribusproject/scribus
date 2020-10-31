@@ -46,7 +46,7 @@ ScPlugin* shapeplugin_getPlugin()
 
 void shapeplugin_freePlugin(ScPlugin* plugin)
 {
-	ShapePlugin* plug = dynamic_cast<ShapePlugin*>(plugin);
+	ShapePlugin* plug = qobject_cast<ShapePlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

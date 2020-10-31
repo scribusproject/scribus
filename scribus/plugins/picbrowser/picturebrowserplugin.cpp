@@ -143,7 +143,7 @@ ScPlugin* picturebrowser_getPlugin()
 
 void picturebrowser_freePlugin(ScPlugin* plugin)
 {
-	PictureBrowserPlugin* plug = dynamic_cast<PictureBrowserPlugin*> ( plugin );
+	PictureBrowserPlugin* plug = qobject_cast<PictureBrowserPlugin*> ( plugin );
 	Q_ASSERT ( plug );
 	delete plug;
 }

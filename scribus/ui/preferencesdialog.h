@@ -63,7 +63,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 
 	public slots:
 		/// \brief Overridden to emit accepted(), which plugin panels use
-		virtual void accept();
+		void accept() override;
 		void itemSelected(QListWidgetItem* ic);
 		void newItemSelected();
 		void restoreDefaults();
@@ -75,7 +75,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 	protected slots:
 		virtual void languageChange();
 		void applyButtonClicked();
-
 
 	protected:
 		void addWidget(Prefs_Pane* tab);

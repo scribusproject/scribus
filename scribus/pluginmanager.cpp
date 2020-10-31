@@ -255,7 +255,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
-		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
+		ScPersistentPlugin* plugin = qobject_cast<ScPersistentPlugin*>(pda.plugin);
 		assert(plugin);
 		pda.enabled = plugin->initPlugin();
 		if (!pda.enabled)
@@ -284,7 +284,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		{
 			//Add in ScrAction based plugin linkage
 			//Insert DLL Action into Dictionary with values from plugin interface
-			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
 			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, mw);
@@ -385,7 +385,7 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 		{
 			//Add in ScrAction based plugin linkage
 			//Insert DLL Action into Dictionary with values from plugin interface
-			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
 			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			if (ai.enabledForStoryEditor)
@@ -443,7 +443,7 @@ void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 	{
 		if (it.value().plugin->inherits("ScActionPlugin"))
 		{
-			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
 			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			if (mw->scrActions.contains(ai.name))
@@ -473,7 +473,7 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 	{
 		if (!it.value().plugin->inherits("ScActionPlugin"))
 			continue;
-		actionPlug = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+		actionPlug = qobject_cast<ScActionPlugin*>(it.value().plugin);
 		if (!actionPlug)
 			continue;
 
@@ -589,7 +589,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 	Q_ASSERT(pda.plugin);
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
-		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
+		ScActionPlugin* plugin = qobject_cast<ScActionPlugin*>(pda.plugin);
 		assert(plugin);
 		plugin->cleanupPlugin();
 		// FIXME: Correct way to delete action?
@@ -597,7 +597,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
-		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
+		ScPersistentPlugin* plugin = qobject_cast<ScPersistentPlugin*>(pda.plugin);
 		assert(plugin);
 		plugin->cleanupPlugin();
 	}
@@ -660,7 +660,7 @@ void PluginManager::languageChange()
 		if (plugin)
 		{
 			plugin->languageChange();
-			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			ixplug = qobject_cast<ScActionPlugin*>(plugin);
 			if (ixplug)
 			{
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());

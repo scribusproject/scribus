@@ -34,7 +34,7 @@ ScPlugin* importvsd_getPlugin()
 
 void importvsd_freePlugin(ScPlugin* plugin)
 {
-	ImportVsdPlugin* plug = dynamic_cast<ImportVsdPlugin*>(plugin);
+	ImportVsdPlugin* plug = qobject_cast<ImportVsdPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

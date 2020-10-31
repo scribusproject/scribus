@@ -137,7 +137,7 @@ void ParaStyleComboBox::updateStyleList()
 				setCurrentIndex(newIndex);
 		}
 	}
-	QListView *tmpView = dynamic_cast<QListView*>(view());
+	QListView *tmpView = qobject_cast<QListView*>(view());
 	if (tmpView)
 	{
 		int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -268,7 +268,7 @@ void CharStyleComboBox::updateStyleList()
 				setCurrentIndex(newIndex);
 		}
 	}
-	QListView *tmpView = dynamic_cast<QListView*>(view());
+	QListView *tmpView = qobject_cast<QListView*>(view());
 	if (tmpView)
 	{
 		int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -400,7 +400,7 @@ void CellStyleComboBox::updateStyleList()
 		}
 	}
 
-	QListView *tmpView = dynamic_cast<QListView*>(view());
+	QListView *tmpView = qobject_cast<QListView*>(view());
 	if (tmpView)
 	{
 		int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -531,7 +531,7 @@ void TableStyleComboBox::updateStyleList()
 				setCurrentIndex(newIndex);
 		}
 	}
-	QListView *tmpView = dynamic_cast<QListView*>(view());
+	QListView *tmpView = qobject_cast<QListView*>(view());
 	if (tmpView)
 	{
 		int tmpWidth = tmpView->sizeHintForColumn(0);

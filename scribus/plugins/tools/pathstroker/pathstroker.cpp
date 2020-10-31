@@ -56,7 +56,7 @@ ScPlugin* pathstroker_getPlugin()
 
 void pathstroker_freePlugin(ScPlugin* plugin)
 {
-	PathStrokerPlugin* plug = dynamic_cast<PathStrokerPlugin*>(plugin);
+	PathStrokerPlugin* plug = qobject_cast<PathStrokerPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

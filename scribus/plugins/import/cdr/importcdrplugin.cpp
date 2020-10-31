@@ -36,7 +36,7 @@ ScPlugin* importcdr_getPlugin()
 
 void importcdr_freePlugin(ScPlugin* plugin)
 {
-	ImportCdrPlugin* plug = dynamic_cast<ImportCdrPlugin*>(plugin);
+	ImportCdrPlugin* plug = qobject_cast<ImportCdrPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

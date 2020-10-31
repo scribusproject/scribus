@@ -2400,7 +2400,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 				{
 					QMap<uint, FPointArray>::const_iterator it;
-					for (it = usedGlyphs.begin(); it != usedGlyphs.end(); ++it)
+					for (it = usedGlyphs.constBegin(); it != usedGlyphs.constEnd(); ++it)
 					{
 						int glyphIndex = it.key();
 						hasNeededGlyphNames &= gl.contains(glyphIndex);
@@ -8950,7 +8950,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
 	double x2 = x+ite->width();
 	double y2 = y-ite->height();
-	QString bmUtf16("");
+	QString bmUtf16;
 	if (!((ite->itemText.length() == 1) && (ite->itemText.text(0, 1) == QChar(13))))
 	{
 		// #6823 EncStringUTF16() perform the string encoding by its own

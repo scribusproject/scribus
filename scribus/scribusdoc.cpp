@@ -13314,7 +13314,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		QString hString = QString::number(dH * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString vString = QString::number(dV * m_docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
 		QString dString = QString::number(dR) + " " + unitGetStrFromIndex(SC_DEGREES);
-		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(hString).arg(vString).arg(dString);
+		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(hString, vString, dString);
 	}
 	else if (mdData.type == 1) // Create a grid of duplicated items
 	{
@@ -13349,7 +13349,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		int unitPrecision = unitGetPrecisionFromIndex(this->unitIndex());
 		QString hString = QString::number(mdData.gridGapH, 'f', unitPrecision) + " " + unitSuffix;
 		QString vString = QString::number(mdData.gridGapV, 'f', unitPrecision) + " " + unitSuffix;
-		tooltip = tr("Number of rows: %1\nNumber of columns: %2\nHorizontal gap: %3\nVertical gap: %4").arg(mdData.gridRows).arg(mdData.gridCols).arg(hString).arg(vString).arg(unitSuffix);
+		tooltip = tr("Number of rows: %1\nNumber of columns: %2\nHorizontal gap: %3\nVertical gap: %4").arg(mdData.gridRows).arg(mdData.gridCols).arg(hString, vString, unitSuffix);
 	}
 	else if (mdData.type == 2)
 	{

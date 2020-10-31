@@ -75,7 +75,7 @@ ScPlugin* xpsexplugin_getPlugin()
 
 void xpsexplugin_freePlugin(ScPlugin* plugin)
 {
-	XPSExportPlugin* plug = dynamic_cast<XPSExportPlugin*>(plugin);
+	XPSExportPlugin* plug = qobject_cast<XPSExportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

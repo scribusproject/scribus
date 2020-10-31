@@ -150,7 +150,7 @@ void SMCStyleWidget::fillLangComboFromList(const QStringList& langList)
 	language_->clear();
 	language_->addItems(langList);
 
-	QListView *tmpView = dynamic_cast<QListView*>(language_->view());
+	QListView *tmpView = qobject_cast<QListView*>(language_->view());
 	Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)

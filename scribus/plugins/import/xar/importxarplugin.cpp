@@ -34,7 +34,7 @@ ScPlugin* importxar_getPlugin()
 
 void importxar_freePlugin(ScPlugin* plugin)
 {
-	ImportXarPlugin* plug = dynamic_cast<ImportXarPlugin*>(plugin);
+	ImportXarPlugin* plug = qobject_cast<ImportXarPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

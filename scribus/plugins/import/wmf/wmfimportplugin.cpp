@@ -52,7 +52,7 @@ ScPlugin* wmfimplugin_getPlugin()
 
 void wmfimplugin_freePlugin(ScPlugin* plugin)
 {
-	WMFImportPlugin* plug = dynamic_cast<WMFImportPlugin*>(plugin);
+	WMFImportPlugin* plug = qobject_cast<WMFImportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

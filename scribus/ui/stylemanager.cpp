@@ -194,7 +194,7 @@ ItemType* StyleManager::item()
 	for (int i = 0; i < m_items.count(); ++i)
 	{
 		StyleItem* item = m_items[i];
-		ItemType*  typedItem = dynamic_cast<ItemType*>(item);
+		ItemType*  typedItem = qobject_cast<ItemType*>(item);
 		if (typedItem)
 			return typedItem;
 	}
@@ -359,19 +359,19 @@ void StyleManager::slotImport()
 	SMLineStyle      *lstyle = nullptr;
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		pstyle = dynamic_cast<SMParagraphStyle*>(m_items.at(i));
+		pstyle = qobject_cast<SMParagraphStyle*>(m_items.at(i));
 		if (pstyle)
 			break;
 	}
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		cstyle = dynamic_cast<SMCharacterStyle*>(m_items.at(i));
+		cstyle = qobject_cast<SMCharacterStyle*>(m_items.at(i));
 		if (cstyle)
 			break;
 	}
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		lstyle = dynamic_cast<SMLineStyle*>(m_items.at(i));
+		lstyle = qobject_cast<SMLineStyle*>(m_items.at(i));
 		if (lstyle)
 			break;
 	}

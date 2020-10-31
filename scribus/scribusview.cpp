@@ -3452,7 +3452,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			requestMode(modeImportImage);
 			if (frame)
 			{
-				auto* cm = dynamic_cast<CanvasMode_ImageImport*>(canvasMode());
+				auto* cm = qobject_cast<CanvasMode_ImageImport*>(canvasMode());
 				if (!cm)
 					qFatal("ScribusView::eventFilter cm nullptr");
 				cm->setImage(frame);

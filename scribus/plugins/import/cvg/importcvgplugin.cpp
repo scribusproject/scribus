@@ -34,7 +34,7 @@ ScPlugin* importcvg_getPlugin()
 
 void importcvg_freePlugin(ScPlugin* plugin)
 {
-	ImportCvgPlugin* plug = dynamic_cast<ImportCvgPlugin*>(plugin);
+	ImportCvgPlugin* plug = qobject_cast<ImportCvgPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

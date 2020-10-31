@@ -812,7 +812,7 @@ ScPlugin* scribus134format_getPlugin()
 
 void scribus134format_freePlugin(ScPlugin* plugin)
 {
-	Scribus134Format* plug = dynamic_cast<Scribus134Format*>(plugin);
+	Scribus134Format* plug = qobject_cast<Scribus134Format*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

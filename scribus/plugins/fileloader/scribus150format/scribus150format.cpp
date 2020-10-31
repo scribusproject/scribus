@@ -2084,7 +2084,7 @@ ScPlugin* scribus150format_getPlugin()
 
 void scribus150format_freePlugin(ScPlugin* plugin)
 {
-	Scribus150Format* plug = dynamic_cast<Scribus150Format*>(plugin);
+	Scribus150Format* plug = qobject_cast<Scribus150Format*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

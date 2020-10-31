@@ -40,7 +40,7 @@ ScPlugin* importpages_getPlugin()
 
 void importpages_freePlugin(ScPlugin* plugin)
 {
-	ImportPagesPlugin* plug = dynamic_cast<ImportPagesPlugin*>(plugin);
+	ImportPagesPlugin* plug = qobject_cast<ImportPagesPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

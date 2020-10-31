@@ -355,7 +355,7 @@ void PropTreeItem::setDoubleValue(double value)
 
 	setData(1, Qt::UserRole, value);
 //	setData(1, Qt::DisplayRole, QString("%1 %2").arg(value, 0, 'f', m_decimals).arg(unitGetSuffixFromIndex(m_unit)));
-	setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(value, 'f', m_decimals)).arg(unitGetSuffixFromIndex(m_unit)));
+	setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(value, 'f', m_decimals), unitGetSuffixFromIndex(m_unit)));
 
 }
 
@@ -392,7 +392,7 @@ void PropTreeItem::setDecimalsValue(int unit)
 	if (m_type == DoubleSpinBox)
 	{
 		const QLocale& l(LocaleManager::instance().userPreferredLocale());
-		setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(data(1, Qt::UserRole).toDouble(), 'f', unit)).arg(unitGetSuffixFromIndex(m_unit)));
+		setData(1, Qt::DisplayRole, QString("%1 %2").arg(l.toString(data(1, Qt::UserRole).toDouble(), 'f', unit), unitGetSuffixFromIndex(m_unit)));
 	}
 	else
 		setData(1, Qt::DisplayRole, QString("%1 %2").arg(data(1, Qt::UserRole).toString(), unitGetSuffixFromIndex(m_unit)));

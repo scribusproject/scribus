@@ -66,7 +66,7 @@ ScPlugin* svgimplugin_getPlugin()
 
 void svgimplugin_freePlugin(ScPlugin* plugin)
 {
-	SVGImportPlugin* plug = dynamic_cast<SVGImportPlugin*>(plugin);
+	SVGImportPlugin* plug = qobject_cast<SVGImportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -2094,7 +2094,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 {
 	bool doBreak = false;
 	setupNode(e);
-	QDomNode c = e.firstChild();
+//	QDomNode c = e.firstChild();
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))

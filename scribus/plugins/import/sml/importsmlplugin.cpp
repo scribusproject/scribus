@@ -34,7 +34,7 @@ ScPlugin* importsml_getPlugin()
 
 void importsml_freePlugin(ScPlugin* plugin)
 {
-	ImportSmlPlugin* plug = dynamic_cast<ImportSmlPlugin*>(plugin);
+	ImportSmlPlugin* plug = qobject_cast<ImportSmlPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

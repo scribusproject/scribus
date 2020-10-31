@@ -52,7 +52,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
 		if (plugin->inherits("ScActionPlugin"))
 		{
-			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			ixplug = qobject_cast<ScActionPlugin*>(plugin);
 			Q_ASSERT(ixplug);
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			itnmenua->second << ai.name;

@@ -39,11 +39,11 @@ int GroupBox::pointToPosition(QPointF coord, const StoryText &story) const
 
 	if (containsPoint(coord) && (m_boxes.count() > 0))
 	{
-		LineBox* firstLine = dynamic_cast<LineBox*>(m_boxes.first());
+		LineBox* firstLine = qobject_cast<LineBox*>(m_boxes.first());
 		if (firstLine && (coord.y() < firstLine->y()))
 			return firstLine->firstChar();
 
-		LineBox* lastLine = dynamic_cast<LineBox*>(m_boxes.last());
+		LineBox* lastLine = qobject_cast<LineBox*>(m_boxes.last());
 		if (lastLine && (coord.y() > lastLine->y() + lastLine->naturalHeight()))
 			return lastLine->lastChar() + 1;
 	}
@@ -260,7 +260,7 @@ void LineBox::drawBackGround(TextLayoutPainter *p) const
 	QRectF lastRect;
 	for (int i = 0; i < boxes().count(); i++)
 	{
-		const GlyphBox* box = dynamic_cast<const GlyphBox*>(boxes()[i]);
+		const GlyphBox* box = qobject_cast<const GlyphBox*>(boxes()[i]);
 		if (!box)
 			continue;
 		const CharStyle& style = box->style();
@@ -483,7 +483,7 @@ void PathLineBox::drawBackGround(TextLayoutPainter *p) const
 {
 	for (int i = 0; i < boxes().count(); i++)
 	{
-		const GlyphBox* box = dynamic_cast<const GlyphBox*>(boxes()[i]);
+		const GlyphBox* box = qobject_cast<const GlyphBox*>(boxes()[i]);
 		if (!box)
 			continue;
 

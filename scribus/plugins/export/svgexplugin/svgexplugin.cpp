@@ -72,7 +72,7 @@ ScPlugin* svgexplugin_getPlugin()
 
 void svgexplugin_freePlugin(ScPlugin* plugin)
 {
-	SVGExportPlugin* plug = dynamic_cast<SVGExportPlugin*>(plugin);
+	SVGExportPlugin* plug = qobject_cast<SVGExportPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

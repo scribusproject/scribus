@@ -134,7 +134,7 @@ void PicSearchOptions::slotSearchPic()
 void PicSearchOptions::slotSearchPicAborted(bool userCancelled)
 {
 	m_bCancelled = userCancelled;
-	const FileSearch* search = dynamic_cast<const FileSearch*>(sender());
+	const FileSearch* search = qobject_cast<const FileSearch*>(sender());
 	assert(search);
 	setSearchButton(false, search);
 	enableGuiWhileSearching(true);

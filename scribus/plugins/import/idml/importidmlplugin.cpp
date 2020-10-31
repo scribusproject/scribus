@@ -40,7 +40,7 @@ ScPlugin* importidml_getPlugin()
 
 void importidml_freePlugin(ScPlugin* plugin)
 {
-	ImportIdmlPlugin* plug = dynamic_cast<ImportIdmlPlugin*>(plugin);
+	ImportIdmlPlugin* plug = qobject_cast<ImportIdmlPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

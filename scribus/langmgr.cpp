@@ -411,7 +411,7 @@ void LanguageManager::generateLangList()
 	m_langTable.append(LangDef("mak",      "",         "Makasar",                 QObject::tr("Makasar")));
 	m_langTable.append(LangDef("vmw",      "",         "Makhuwa",                 QObject::tr("Makhuwa")));
 	m_langTable.append(LangDef("kde",      "",         "Makonde",                 QObject::tr("Makonde")));
-	m_langTable.append(LangDef("ms",       "",         "Malay",                   QObject::tr("Malay")));
+	m_langTable.append(LangDef("ms",       "ms_MY",    "Malay",                   QObject::tr("Malay")));
 	m_langTable.append(LangDef("mg",       "",         "Malagasy",                QObject::tr("Malagasy")));
 	m_langTable.append(LangDef("ml",       "ml_IN",    "Malayalam",               QObject::tr("Malayalam")));
 	m_langTable.append(LangDef("dv",       "",         "Maldivian",               QObject::tr("Maldivian")));

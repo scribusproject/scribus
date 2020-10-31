@@ -24,7 +24,7 @@ ScPlugin* colorwheel_getPlugin()
 
 void colorwheel_freePlugin(ScPlugin* plugin)
 {
-	auto* plug = dynamic_cast<ColorWheelPlugin*>(plugin);
+	auto* plug = qobject_cast<ColorWheelPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

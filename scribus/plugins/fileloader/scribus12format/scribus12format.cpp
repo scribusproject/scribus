@@ -105,7 +105,7 @@ ScPlugin* scribus12format_getPlugin()
 
 void scribus12format_freePlugin(ScPlugin* plugin)
 {
-	Scribus12Format* plug = dynamic_cast<Scribus12Format*>(plugin);
+	Scribus12Format* plug = qobject_cast<Scribus12Format*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

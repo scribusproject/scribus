@@ -158,9 +158,9 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 //	const lconv * lc(localeconv());
 	QString cSepDecimal(QLocale::c().decimalPoint());
 	QString cSepGroup(QLocale::c().groupSeparator());
-	QString sysSepDecimal(QLocale::system().decimalPoint());
+//	QString sysSepDecimal(QLocale::system().decimalPoint());
 //	qDebug()<<"sysSepDecimal"<<sysSepDecimal;
-	QString sysSepGroup(QLocale::system().groupSeparator());
+//	QString sysSepGroup(QLocale::system().groupSeparator());
 //	qDebug()<<"sysSepGroup"<<sysSepGroup;
 //	QString crtSepDecimal(QString::fromLocal8Bit( lc->decimal_point ));
 //	QString crtSepGroup(QString::fromLocal8Bit( lc->thousands_sep ));

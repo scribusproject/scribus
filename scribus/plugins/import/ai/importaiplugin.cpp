@@ -40,7 +40,7 @@ ScPlugin* importai_getPlugin()
 
 void importai_freePlugin(ScPlugin* plugin)
 {
-	ImportAIPlugin* plug = dynamic_cast<ImportAIPlugin*>(plugin);
+	ImportAIPlugin* plug = qobject_cast<ImportAIPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

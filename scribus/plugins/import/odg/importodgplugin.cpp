@@ -40,7 +40,7 @@ ScPlugin* importodg_getPlugin()
 
 void importodg_freePlugin(ScPlugin* plugin)
 {
-	ImportOdgPlugin* plug = dynamic_cast<ImportOdgPlugin*>(plugin);
+	ImportOdgPlugin* plug = qobject_cast<ImportOdgPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

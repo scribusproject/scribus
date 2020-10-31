@@ -38,23 +38,20 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-const QString STYLE   = "styles.xml";
-const QString CONTENT = "content.xml";
-
 class SxwIm
 {
-public:
-	SxwIm(const QString& fileName, const QString& encoding, gtWriter* w, bool textOnly);
-	~SxwIm();
+	public:
+		SxwIm(const QString& fileName, const QString& encoding, gtWriter* w, bool textOnly);
+		~SxwIm();
 
-private:
-	gtWriter* writer { nullptr };
-	QString encoding;
-	QString filename;
-	QString stylePath;
-	QString contentPath;
+	private:
+		gtWriter* writer { nullptr };
+		QString encoding;
+		QString filename;
+		QString stylePath;
+		QString contentPath;
 
-	bool decompress();
+		bool decompress();
 };
 
 #endif // SXWIM_H

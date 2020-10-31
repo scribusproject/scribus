@@ -49,7 +49,7 @@ ScPlugin* pathcut_getPlugin()
 
 void pathcut_freePlugin(ScPlugin* plugin)
 {
-	PathCutPlugin* plug = dynamic_cast<PathCutPlugin*>(plugin);
+	PathCutPlugin* plug = qobject_cast<PathCutPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

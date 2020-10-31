@@ -164,16 +164,17 @@ void StyleReader::defaultStyle(const QXmlAttributes& attrs)
 {
 	currentStyle = nullptr;
 	for (int i = 0; i < attrs.count(); ++i)
-		if (attrs.localName(i) == "style:family")
-			if (attrs.value(i) == "paragraph")
-			{
-				gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
-				pstyle->setDefaultStyle(true);
-				currentStyle = dynamic_cast<gtStyle*>(pstyle);
-				currentStyle->setName("default-style");
-				readProperties = true;
-				defaultStyleCreated = true;
-			}
+	{
+		if (attrs.localName(i) == "style:family" && attrs.value(i) == "paragraph")
+		{
+			gtParagraphStyle* pstyle = new gtParagraphStyle(writer->getDefaultStyle()->asGtParagraphStyle());
+			pstyle->setDefaultStyle(true);
+			currentStyle = dynamic_cast<gtStyle*>(pstyle);
+			currentStyle->setName("default-style");
+			readProperties = true;
+			defaultStyleCreated = true;
+		}
+	}
 }
 
 void StyleReader::styleProperties(const QXmlAttributes& attrs)

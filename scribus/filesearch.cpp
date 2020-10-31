@@ -86,7 +86,7 @@ void FileSearch::next()
 //	while ( *(m_iter.top()) == "." || *(m_iter.top()) == ".." )
 //		++m_iter.top();
 
-	if ( (m_iter.top() == m_tree.top().end()) || (m_depth == m_maxdepth) )
+	if ( (m_iter.top() == m_tree.top().constEnd()) || (m_depth == m_maxdepth) )
 	{
 		// We're at the end of the list of subdirectory names in this directory,
 		// or we've hit the maximum depth we're allowed to search to.
@@ -129,7 +129,7 @@ void FileSearch::next()
 void FileSearch::pushStack()
 {
 	m_tree.push(m_dir.entryList(QDir::Dirs|QDir::NoSymLinks|QDir::NoDotAndDotDot));
-	m_iter.push(m_tree.top().begin());
+	m_iter.push(m_tree.top().constBegin());
 }
 
 void FileSearch::addCurrentDirFiles()

@@ -103,7 +103,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStyleVal->setEditable(false);
 	for (int x = 0; x < doc->paragraphStyles().count(); ++x)
 		SStyleVal->addItem(doc->paragraphStyles()[x].name());
-	QListView *tmpView = dynamic_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
+	QListView *tmpView = qobject_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
@@ -116,7 +116,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
 	for (uint a = 0; a < ar_sty; ++a)
 		SAlignVal->addItem( tmp_sty[a] );
-	tmpView = dynamic_cast<QListView*>(SAlignVal->view()); Q_ASSERT(tmpView);
+	tmpView = qobject_cast<QListView*>(SAlignVal->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
@@ -202,7 +202,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStyleVal->setEditable(false);
 	for (int x = 0; x < doc->paragraphStyles().count(); ++x)
 		RStyleVal->addItem(doc->paragraphStyles()[x].name());
-	tmpView = dynamic_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);
+	tmpView = qobject_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
@@ -213,7 +213,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RAlignVal->setEditable(false);
 	for (uint a = 0; a < ar_sty; ++a)
 		RAlignVal->addItem(tmp_sty[a]);
-	tmpView = dynamic_cast<QListView*>(RAlignVal->view()); Q_ASSERT(tmpView);
+	tmpView = qobject_cast<QListView*>(RAlignVal->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);

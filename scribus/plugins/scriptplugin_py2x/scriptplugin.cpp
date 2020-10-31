@@ -105,7 +105,7 @@ ScPlugin* scriptplugin_getPlugin()
 
 void scriptplugin_freePlugin(ScPlugin* plugin)
 {
-	ScriptPlugin* plug = dynamic_cast<ScriptPlugin*>(plugin);
+	ScriptPlugin* plug = qobject_cast<ScriptPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }

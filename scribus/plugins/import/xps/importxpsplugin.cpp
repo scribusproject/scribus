@@ -40,7 +40,7 @@ ScPlugin* importxps_getPlugin()
 
 void importxps_freePlugin(ScPlugin* plugin)
 {
-	ImportXpsPlugin* plug = dynamic_cast<ImportXpsPlugin*>(plugin);
+	ImportXpsPlugin* plug = qobject_cast<ImportXpsPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
