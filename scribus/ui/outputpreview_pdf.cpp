@@ -587,7 +587,7 @@ int OutputPreview_PDF::renderPreview(int pageIndex, int res)
 	{
 		if (!m_haveTiffSep)
 			return 1;
-		args.append( "-sDEVICE=tiffsep" );
+		args.append("-sDEVICE=tiffsep");
 	}
 	else
 	{
@@ -598,8 +598,8 @@ int OutputPreview_PDF::renderPreview(int pageIndex, int res)
 	}
 	if (m_optionsUi->antiAliasing->isChecked())
 	{
-		args.append( "-dTextAlphaBits=4" );
-		args.append( "-dGraphicsAlphaBits=4" );
+		args.append("-dTextAlphaBits=4");
+		args.append("-dGraphicsAlphaBits=4");
 	}
 	if ((m_doc->HasCMS) && (m_gsVersion >= 900))
 	{
@@ -769,7 +769,7 @@ int OutputPreview_PDF::renderPreviewSep(int pageIndex, int res)
 		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
-			tsx << QString("<< /SeparationColorNames " + allSeps+" /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
+			tsx << QString("<< /SeparationColorNames " + allSeps + " /SeparationOrder [ " + currSeps + " ] >> setpagedevice");
 			fx.close();
 		}
 		args3.append("-f");
