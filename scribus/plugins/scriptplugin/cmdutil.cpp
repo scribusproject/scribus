@@ -64,10 +64,10 @@ PageItem *GetItem(const QString& Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (int a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
+		for (int i = 0; i < ScCore->primaryMainWindow()->doc->Items->count(); i++)
 		{
-			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
-				return ScCore->primaryMainWindow()->doc->Items->at(a);
+			if (ScCore->primaryMainWindow()->doc->Items->at(i)->itemName() == Name)
+				return ScCore->primaryMainWindow()->doc->Items->at(i);
 		}
 	}
 	else
