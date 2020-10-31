@@ -94,7 +94,7 @@ void ScSplashScreen::drawContents(QPainter* painter)
 #endif
 		painter->setFont(wf);
 		painter->setPen(QPen(Qt::red));
-		QString warningText("UNSTABLE. For testing purposes only!");
+		QString warningText("Development Version");
 		QRect r3 = rect().adjusted(0, 0, -15, -25);
 		painter->drawText(r3, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, warningText );
 	}
