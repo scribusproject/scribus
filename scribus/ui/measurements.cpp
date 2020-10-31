@@ -71,7 +71,7 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	double rr = angle;
 	if (angle < 0)
 		rr = rr + 360;
-	angleData->setText(tmp.setNum(fabs(rr), 'f', 2)+ trUtf8(" °"));
+	angleData->setText(tmp.setNum(fabs(rr), 'f', 2) + " " + unitGetStrFromIndex(SC_DEG));
 	unitChanged();
 }
 
