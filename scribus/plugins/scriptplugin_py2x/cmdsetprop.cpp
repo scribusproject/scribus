@@ -434,17 +434,20 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 
-	if (!PyList_Check(attr)) {
+	if (!PyList_Check(attr))
+	{
 		PyErr_SetString(PyExc_TypeError, "argument must be list.");
 		return nullptr;
 	}
 
 	ObjAttrVector attributes;
 	int n = PyList_Size(attr);
-	for (int i=0; i<n; ++i) {
+	for (int i = 0; i < n; ++i)
+	{
 		PyObject *tmp = PyList_GetItem(attr, i);
-		if (!PyDict_Check(tmp)) {
-			PyErr_SetString(PyExc_TypeError, "elemets of 'attr' must be dictionary.");
+		if (!PyDict_Check(tmp))
+		{
+			PyErr_SetString(PyExc_TypeError, "elements of 'attr' must be dictionary.");
 			return nullptr;
 		}
 		ObjectAttribute blank;
@@ -452,7 +455,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		char* data;
 
 		val = PyDict_GetItemString(tmp, "Name");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Name' key.");
 			return nullptr;
 		}
@@ -462,7 +466,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.name = QString(data);
 
 		val = PyDict_GetItemString(tmp, "Type");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Type' key.");
 			return nullptr;
 		}
@@ -472,7 +477,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.type = QString(data);
 
 		val = PyDict_GetItemString(tmp, "Value");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Value' key.");
 			return nullptr;
 		}
@@ -482,7 +488,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.value = QString(data);
 
 		val = PyDict_GetItemString(tmp, "Parameter");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Parameter' key.");
 			return nullptr;
 		}
@@ -492,7 +499,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.parameter = QString(data);
 
 		val = PyDict_GetItemString(tmp, "Relationship");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'Relationship' key.");
 			return nullptr;
 		}
@@ -502,7 +510,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.relationship = QString(data);
 
 		val = PyDict_GetItemString(tmp, "RelationshipTo");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'RelationshipTo' key.");
 			return nullptr;
 		}
@@ -512,7 +521,8 @@ PyObject *scribus_setobjectattributes(PyObject* /* self */, PyObject* args)
 		blank.relationshipto = QString(data);
 
 		val = PyDict_GetItemString(tmp, "AutoAddTo");
-		if (!val) {
+		if (!val)
+		{
 			PyErr_SetString(PyExc_TypeError, "attribute does not have 'AutoAddTo' key.");
 			return nullptr;
 		}
