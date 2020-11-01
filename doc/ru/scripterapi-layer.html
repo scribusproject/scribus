@@ -62,10 +62,14 @@
 <p>Returns whether the layer "layer" is visible or not, a value of True means that the layer "layer" is visible, a value of False means that the layer "layer" is invisible.</p>
 <p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
-<dd><code>sentToLayer("layer" [, "name"])</code>
+<dt><a name="-sendToLayer"><strong>sendToLayer</strong></a>(...)</dt>
+<dd><code>sendToLayer("layer" [, "name"])</code>
 <p>Sends the object "name" to the layer "layer". The layer must exist. If "name" is not given the currently selected item is used.</p>
 <p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+<dd><code>sentToLayer("layer" [, "name"])</code>
+<p>Obsolete. Use sendToLayer() instead.</p></dd>
 
 <dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
 <dd><code>setActiveLayer("name")</code>

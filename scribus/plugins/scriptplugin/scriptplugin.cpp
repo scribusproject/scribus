@@ -492,7 +492,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("selectObject"), scribus_selectobject, METH_VARARGS, tr(scribus_selectobject__doc__)},
 	{const_cast<char*>("selectText"), scribus_selecttext, METH_VARARGS, tr(scribus_selecttext__doc__)},
 	{const_cast<char*>("selectionCount"), (PyCFunction)scribus_selectioncount, METH_NOARGS, tr(scribus_selectioncount__doc__)},
-	{const_cast<char*>("sentToLayer"), scribus_senttolayer, METH_VARARGS, tr(scribus_senttolayer__doc__)},
+	{const_cast<char*>("sendToLayer"), scribus_sendtolayer, METH_VARARGS, tr(scribus_sendtolayer__doc__)},
+	{const_cast<char*>("sentToLayer"), scribus_sendtolayer, METH_VARARGS, tr(scribus_sendtolayer__doc__)}, // Deprecated, alias to sentToLayer
 	{const_cast<char*>("setActiveLayer"), scribus_setactivelayer, METH_VARARGS, tr(scribus_setactivelayer__doc__)},
 	{const_cast<char*>("setBaseLine"), scribus_setbaseline, METH_VARARGS, tr(scribus_setbaseline__doc__)},
 	{const_cast<char*>("setBleeds"), scribus_setbleeds, METH_VARARGS, tr(scribus_setbleeds__doc__)},

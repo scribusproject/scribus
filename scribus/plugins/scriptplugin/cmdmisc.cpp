@@ -204,7 +204,7 @@ PyObject *scribus_raiseactivelayer(PyObject* /* self */)
 	Py_RETURN_NONE;
 }
 
-PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
+PyObject *scribus_sendtolayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Layer = const_cast<char*>("");
@@ -828,7 +828,7 @@ void cmdmiscdocwarnings()
 	  << scribus_readpdfoptions__doc__
 	  << scribus_renderfont__doc__
 	  << scribus_savepdfoptions__doc__
-	  << scribus_senttolayer__doc__
+	  << scribus_sendtolayer__doc__
 	  << scribus_setactivelayer__doc__
 	  << scribus_setlayerblendmode__doc__
 	  << scribus_setlayerflow__doc__ 

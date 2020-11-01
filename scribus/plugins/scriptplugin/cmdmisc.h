@@ -112,8 +112,8 @@ Raises the current active layer.\n\
 PyObject *scribus_raiseactivelayer(PyObject * /*self*/);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_senttolayer__doc__,
-QT_TR_NOOP("sentToLayer(\"layer\" [, \"name\"])\n\
+PyDoc_STRVAR(scribus_sendtolayer__doc__,
+QT_TR_NOOP("sendToLayer(\"layer\" [, \"name\"])\n\
 \n\
 Sends the object \"name\" to the layer \"layer\". The layer must exist.\n\
 If \"name\" is not given the currently selected item is used.\n\
@@ -122,7 +122,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Move object from one layer to other one */
-PyObject *scribus_senttolayer(PyObject * /*self*/, PyObject* args);
+PyObject *scribus_sendtolayer(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlayervisible__doc__,

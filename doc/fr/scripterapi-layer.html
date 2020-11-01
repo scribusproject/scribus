@@ -36,10 +36,14 @@
 <p>Indique si le "calque" est visible ou non; une valeur True signifie que le "calque" est visible et une valeur False, que le "calque" est invisible.</p>
 <p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut générer ValueError si le nom du calque n'est pas valide.</p></dd>
 
-<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
-<dd><code>sentToLayer("calque" [, "nom"])</code>
+<dt><a name="-sendToLayer"><strong>sendToLayer</strong></a>(...)</dt>
+<dd><code>sendToLayer("calque" [, "nom"])</code>
 <p>Envoie l'objet "nom" au calque "calque". Le calque doit exister. Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. </p>
 <p>Peut générer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut générer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+<dd><code>sentToLayer("calque" [, "nom"])</code>
+<p>Oboslète. Veuillez utiliser sendToLayer() en lieu et place.</p></dd>
 
 <dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
 <dd><code>setActiveLayer("nom")</code>
