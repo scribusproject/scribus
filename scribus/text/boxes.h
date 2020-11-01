@@ -8,12 +8,9 @@
 #ifndef BOXES_H
 #define BOXES_H
 
-#include <QObject>
-
 #include "glyphcluster.h"
 #include "sctextstruct.h"
 #include "itextcontext.h"
-
 
 class StoryText;
 class TextLayoutPainter;
