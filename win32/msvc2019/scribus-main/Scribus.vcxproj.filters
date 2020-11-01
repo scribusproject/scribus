@@ -158,6 +158,9 @@
     <ClInclude Include="..\..\..\scribus\fpointarray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\boxes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\text\frect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -4125,9 +4128,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\recoverdialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\text\boxes.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\directionselect.h">

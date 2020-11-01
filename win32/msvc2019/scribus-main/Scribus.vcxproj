@@ -405,7 +405,7 @@
     <moc Include="..\..\..\scribus\ui\fontreplacedialog.h" />
     <ClInclude Include="..\..\..\scribus\fpoint.h" />
     <ClInclude Include="..\..\..\scribus\fpointarray.h" />
-    <moc Include="..\..\..\scribus\text\boxes.h" />
+    <ClInclude Include="..\..\..\scribus\text\boxes.h" />
     <ClInclude Include="..\..\..\scribus\text\frect.h" />
     <ClInclude Include="..\..\..\scribus\text\fsize.h" />
     <ClInclude Include="..\..\..\scribus\fonts\ftface.h" />

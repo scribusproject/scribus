@@ -62,7 +62,7 @@ const LineBox* TextLayout::line(uint i) const
 	for (const Box *box : m_box->boxes())
 	{
 		if (i < count + box->boxes().count())
-			return qobject_cast<const LineBox*>(box->boxes()[i - count]);
+			return dynamic_cast<const LineBox*>(box->boxes()[i - count]);
 		count += box->boxes().count();
 	}
 	assert(false);
@@ -87,7 +87,7 @@ void TextLayout::appendLine(LineBox* ls)
 	assert(ls->lastChar() < story()->length());
 	assert(!m_box->boxes().empty());
 
-	GroupBox* column = qobject_cast<GroupBox*>(m_box->boxes().last());
+	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().last());
 	assert(column);
 	if (ls->type() == Box::T_PathLine)
 		ls->setAscent(ls->y() - column->naturalHeight());
@@ -103,7 +103,7 @@ void TextLayout::removeLastLine ()
 	if (boxes.isEmpty())
 		return;
 
-	GroupBox* column = qobject_cast<GroupBox*>(boxes.last());
+	GroupBox* column = dynamic_cast<GroupBox*>(boxes.last());
 	assert(column);
 
 	int lineCount = column->boxes().count();
@@ -310,7 +310,7 @@ int TextLayout::startOfFrame() const
 		return 0;
 	const QList<Box*>& boxes = m_box->boxes();
 
-	const GroupBox* column = qobject_cast<const GroupBox*>(boxes.first());
+	const GroupBox* column = dynamic_cast<const GroupBox*>(boxes.first());
 	assert(column);
 
 	// Beware of columns hidden by other objects
@@ -320,7 +320,7 @@ int TextLayout::startOfFrame() const
 	int columnCount = boxes.count();
 	for (int i = 1; i < columnCount; ++i)
 	{
-		column = qobject_cast<const GroupBox*>(boxes.at(i));
+		column = dynamic_cast<const GroupBox*>(boxes.at(i));
 		assert(column);
 
 		if (!column->isEmpty())
@@ -341,7 +341,7 @@ int TextLayout::endOfFrame() const
 	int columnIndex = boxes.count() - 1;
 	do
 	{
-		column = qobject_cast<const GroupBox*>(boxes.at(columnIndex));
+		column = dynamic_cast<const GroupBox*>(boxes.at(columnIndex));
 		assert(column);
 
 		if (!column->isEmpty())
