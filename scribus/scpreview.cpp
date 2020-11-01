@@ -32,7 +32,7 @@ QImage ScPreview::createPreview(const QString& data)
 		{
 			QString dat = elem.attribute("previewData", "");
 			QByteArray inlineImageData;
-			inlineImageData.append(dat);
+			inlineImageData.append(dat.toUtf8());
 			inlineImageData = QByteArray::fromBase64(inlineImageData);
 			QImage tmp;
 			tmp.loadFromData(inlineImageData);

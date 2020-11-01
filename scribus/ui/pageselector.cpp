@@ -91,7 +91,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 	{
 		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
 		QByteArray da;
-		da.append(downArrow);
+		da.append(downArrow.toUtf8());
 		stylesheet.replace("___downArrow___", da);
 		setStyleSheet(QString(stylesheet));
 	}
@@ -221,7 +221,7 @@ void PageSelector::iconSetChange()
 	{
 		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
 		QByteArray da;
-		da.append(downArrow);
+		da.append(downArrow.toUtf8());
 		stylesheet.replace("___downArrow___", da);
 		setStyleSheet(QString(stylesheet));
 	}

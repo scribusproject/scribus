@@ -171,7 +171,7 @@ public:
 	virtual ~UndoWidget();
 
 	/** @brief Empties the undo stack for this widget. */
-	void clear();
+	void clear() override;
 	/**
 	 * @brief Update the scrActions
 	 */
@@ -193,14 +193,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject* target, UndoState* state);
+	void insertUndoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject* target, UndoState* state);
+	void insertRedoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -210,7 +210,7 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateUndo(int steps);
+	void updateUndo(int steps) override;
 
 	/**
 	 * @brief Update redo stack representation with number of steps.
@@ -220,13 +220,13 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateRedo(int steps);
+	void updateRedo(int steps) override;
 	
 	/** @brief Clear the redo action items. */
-	void clearRedo();
+	void clearRedo() override;
 	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
-	void popBack();
+	void popBack() override;
 
 signals:
 	/** 
@@ -276,7 +276,7 @@ public:
 	~UndoPalette();
 
 	/** @brief Empties the undo stack for this widget. */
-	void clear();
+	void clear() override;
 	/**
 	 * @brief Update the scrActions
 	 */
@@ -370,14 +370,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject* target, UndoState* state);
+	void insertUndoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject* target, UndoState* state);
+	void insertRedoItem(UndoObject* target, UndoState* state) override;
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -387,7 +387,7 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateUndo(int steps);
+	void updateUndo(int steps) override;
 
 	/**
 	 * @brief Update redo stack representation with number of steps.
@@ -397,13 +397,13 @@ public slots:
 	 * representation.
 	 * @param steps Number of steps to take
 	 */
-	void updateRedo(int steps);
+	void updateRedo(int steps) override;
 
 	/** @brief Clear the redo action items. */
-	void clearRedo();
+	void clearRedo() override;
 	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
-	void popBack();
+	void popBack() override;
 
 	/** @brief Receive prefsChanged() signal to update shortcuts. */
 	void updateFromPrefs();

@@ -10392,7 +10392,7 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 void PageItem::setInlineData(const QString& data)
 {
 	QByteArray inlineImageData;
-	inlineImageData.append(data);
+	inlineImageData.append(data.toUtf8());
 	if (inlineImageData.size() > 0)
 	{
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt);

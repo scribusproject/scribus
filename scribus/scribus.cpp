@@ -589,11 +589,11 @@ void ScribusMainWindow::setStyleSheet()
 	{
 		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
 		QByteArray da;
-		da.append(downArrow);
+		da.append(downArrow.toUtf8());
 		stylesheet.replace("___downArrow___", da);
 		QString toolbararrow(IconManager::instance().pathForIcon("stylesheet/down_arrow.png"));
 		QByteArray tba;
-		tba.append(toolbararrow);
+		tba.append(toolbararrow.toUtf8());
 		stylesheet.replace("___tb_menu_arrow___", tba);
 	}
 

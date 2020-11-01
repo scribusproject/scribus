@@ -2610,7 +2610,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
 			QString dat  = attrs.valueAsString("ImageData", "");
 			QByteArray inlineImageData;
-			inlineImageData.append(dat);
+			inlineImageData.append(dat.toUtf8());
 			QString inlineImageExt = attrs.valueAsString("inlineImageExt", "");
 			if (inlineF)
 			{

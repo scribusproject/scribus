@@ -127,7 +127,7 @@ public slots:
 	void ResetToEditDefaults();
 
 protected slots:
-	virtual void reject();
+	void reject() override;
 
 protected:
 	void connectSignals();
