@@ -848,6 +848,91 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	return PyString_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 }
 
+PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
+{
+	PyObject* pyObject = nullptr;
+	if (!PyArg_ParseTuple(args, "|O", &pyObject))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+
+	// Is there a special name given? Yes -> add this to selection
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+	
+	if ((pyObject != nullptr) && !PyString_Check(pyObject) && !PyList_Check(pyObject))
+	{
+		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	QStringList itemNames;
+	if ((pyObject != nullptr) && PyString_Check(pyObject))
+	{
+		char* name = const_cast<char*>("");
+		if (!PyArg_Parse(pyObject, "es", "utf-8", &name))
+			return nullptr;
+		QString itemName = QString::fromUtf8(name);
+		if (!itemName.isEmpty())
+			itemNames.append(itemName);
+	}
+	else if ((pyObject != nullptr) && PyList_Check(pyObject))
+	{
+		int len = PyList_Size(pyObject);
+		for (int i = 0; i < len; ++i)
+		{
+			PyObject* pyItem = PyList_GetItem(pyObject, i);
+			if (!PyString_Check(pyItem))
+			{
+				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toLocal8Bit().constData());
+				return nullptr;
+			}
+			char* name = PyString_AsString(pyItem);
+			QString itemName = QString::fromUtf8(name);
+			if (itemName.isEmpty())
+				continue;
+			itemNames.append(itemName);
+		}
+	}
+
+	if (!itemNames.isEmpty())
+	{
+		QList<PageItem*> pageItems;
+		pageItems.reserve(itemNames.count());
+
+		currentDoc->m_Selection->delaySignalsOn();
+		currentDoc->m_Selection->clear();
+		for (int i = 0; i < itemNames.count(); ++i)
+		{
+			QString itemName = itemNames.at(i);
+			PageItem *item = GetUniqueItem(itemName);
+			if (item == nullptr)
+				return nullptr;
+			pageItems.append(item);
+		}
+		currentDoc->m_Selection->addItems(pageItems);
+		currentDoc->m_Selection->delaySignalsOff();
+	}
+
+	if (currentDoc->m_Selection->isEmpty())
+	{
+		PyObject* pyList = PyList_New(0);
+		return pyList;
+	}
+
+	// do the duplicate
+	currentWin->slotEditCopy();
+	currentWin->slotEditPaste();
+
+	PyObject* pyList = PyList_New(currentDoc->m_Selection->count());
+	for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
+	{
+		PageItem* item = currentDoc->m_Selection->itemAt(i);
+		PyList_SetItem(pyList, i, PyString_FromString(item->itemName().toUtf8()));
+	}
+	return pyList;
+}
+
 PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
@@ -872,11 +957,81 @@ PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args)
 	return PyString_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 }
 
-PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
+PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
+{
+	PyObject* pyObject = nullptr;
+	if (!PyArg_ParseTuple(args, "|O", &pyObject))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+
+	// Is there a special name given? Yes -> add this to selection
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+	
+	if ((pyObject != nullptr) && !PyString_Check(pyObject) && !PyList_Check(pyObject))
+	{
+		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	QStringList itemNames;
+	if ((pyObject != nullptr) && PyString_Check(pyObject))
+	{
+		char* name = const_cast<char*>("");
+		if (!PyArg_Parse(pyObject, "es", "utf-8", &name))
+			return nullptr;
+		QString itemName = QString::fromUtf8(name);
+		if (!itemName.isEmpty())
+			itemNames.append(itemName);
+	}
+	else if ((pyObject != nullptr) && PyList_Check(pyObject))
+	{
+		int len = PyList_Size(pyObject);
+		for (int i = 0; i < len; i++)
+		{
+			PyObject* pyItem = PyList_GetItem(pyObject, i);
+			if (!PyString_Check(pyItem))
+			{
+				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toLocal8Bit().constData());
+				return nullptr;
+			}
+			char* name = PyString_AsString(pyItem);
+			QString itemName = QString::fromUtf8(name);
+			if (itemName.isEmpty())
+				continue;
+			itemNames.append(itemName);
+		}
+	}
+	
+	if (!itemNames.isEmpty())
+	{
+		QList<PageItem*> pageItems;
+		pageItems.reserve(itemNames.count());
+
+		currentDoc->m_Selection->delaySignalsOn();
+		currentDoc->m_Selection->clear();
+		for (int i = 0; i < itemNames.count(); ++i)
+		{
+			QString itemName = itemNames.at(i);
+			PageItem *item = GetUniqueItem(itemName);
+			if (item == nullptr)
+				return nullptr;
+			pageItems.append(item);
+		}
+		currentDoc->m_Selection->addItems(pageItems);
+		currentDoc->m_Selection->delaySignalsOff();
+	}
+
+	// do the copy
+	currentWin->slotEditCopy();
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_pasteobject(PyObject * /* self */, PyObject * /*args*/)
 {
 	char* name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
 
@@ -898,6 +1053,26 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args)
 	return PyString_FromString(nameList.toUtf8());
 }
 
+PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject * /*args*/)
+{
+	char* name = const_cast<char*>("");
+	if (!checkHaveDocument())
+		return nullptr;
+
+	// do the paste
+	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = currentWin->doc;
+	currentWin->slotEditPaste();
+
+	PyObject* pyList = PyList_New(currentDoc->m_Selection->count());
+	for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
+	{
+		PageItem* item = currentDoc->m_Selection->itemAt(i);
+		PyList_SetItem(pyList, i, PyString_FromString(item->itemName().toUtf8()));
+	}
+	return pyList;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -905,6 +1080,7 @@ void cmdobjdocwarnings()
 {
 	QStringList s;
 	s << scribus_copyobject__doc__
+	  << scribus_copyobjects__doc__
 	  << scribus_createbezierline__doc__
 	  << scribus_createellipse__doc__
 	  << scribus_createimage__doc__
@@ -917,12 +1093,14 @@ void cmdobjdocwarnings()
 	  << scribus_createtext__doc__
 	  << scribus_deleteobject__doc__
 	  << scribus_duplicateobject__doc__
+	  << scribus_duplicateobjects__doc__
 	  << scribus_getcharacterstyle__doc__
 	  << scribus_getparagraphstyle__doc__
 	  << scribus_getstyle__doc__
 	  << scribus_gettextflowmode__doc__
 	  << scribus_objectexists__doc__
 	  << scribus_pasteobject__doc__
+	  << scribus_pasteobjects__doc__
 	  << scribus_setcharstyle__doc__
 	  << scribus_setparagraphstyle__doc__
 	  << scribus_setstyle__doc__

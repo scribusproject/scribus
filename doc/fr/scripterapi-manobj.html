@@ -15,11 +15,25 @@
 
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
 <dd><code>copyObject(["nom"]) -&gt; chaîne</code>
-<p>Effectue une copie de l'objet sélectionné vers le presse-papiers.</p></dd>
+<p>Effectue une copie de l'objet sélectionné vers le presse-papiers ou du premier objet dans la sélection si "nom" n'est pas spécifié.</p>
+<p>Obsolète. Veuillez utiliser copyObjects() en lieu et place.</p></dd>
+
+<dt><a name="-copyObjects"><strong>copyObjects</strong>(...)</a></dt>
+<dd><code>copyObjects(noms)</code>
+<p>Effectue une copie des objets spécifiés vers le presse-papiers ou de la sélection courante si aucun nom d'objet n'est spécifié.</p>
+<p>Le nom des objets à copier peut être spécifié sous forme d'une chaîne de caractères afin de copier un seul objet ou d'une liste de chaînes afin de copier plusieurs objets à la fois.</p></dd>
 
 <dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
 <dd><code>duplicateObject(["nom"]) -&gt; chaîne</code>
-<p>Crée une copie du ou des objects sélectionnés dans le document courant.</p></dd>
+<p>Crée une copie de l'objet spécifié ou du premier objet dans la sélection si "nom" n'est pas spécifié.</p>
+<p>Retourne le nom de l'objet nouvellement créé.</p>
+<p>Obsolète. Veuillez utiliser duplicateObjects() en lieu et place.</p></dd>
+
+<dt><a name="-duplicateObjects"><strong>duplicateObjects</strong>(...)</a></dt>
+<dd><code>duplicateObjects(noms) -&gt; list</code>
+<p>Crée une copie des objets spécifiés ou de la sélection courante si aucun nom d'objet n'est spécifié.</p>
+<p>Le nom des objets à dupliquer peut être spécifié sous forme d'une chaîne de caractères afin de dupliquer un seul objet ou d'une liste de chaînes afin de dupliquer plusieurs objets à la fois.</p>
+<p>Retourne une liste des noms des objets nouvellement créés.</p></dd>
 
 <dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
 <dd><code>getCharacterStyle(["nom"])  -&gt; chaîne</code>
@@ -73,9 +87,18 @@ les constantes UNIT). Si "nom" n'est pas fourni, l'élément sélectionné est u
 
 <dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
 <dd><code>moveObjectAbs(x, y [, "nom"])</code>
-<p>Déplace l'objet "nom" à une nouvelle position. Les coordonnées
-sont exprimées dans les unités de mesure du document (voir les
-constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
+<p>Déplace l'objet "nom" à une nouvelle position. Les coordonnées sont exprimées dans les unités de mesure du document (voir les constantes UNIT).  Si "nom" n'est pas fourni, l'élément sélectionné est utilisé. Si l'objet "nom" appartient à un groupe, tout le groupe est déplacé.</p></dd>
+
+<dt><a name="-pasteObject"><strong>pasteObject</strong>(...)</a></dt>
+<dd><code>pasteObject() -&gt; chaîne</code>
+<p>Colle un objet depuis le presse-papier. Cette fonction doit être utilisée uniquement suivant un appel à la fonction <em>copyObject(...)</em>, sans quoi le presse-papier ne contiendra probablement aucune donnée susceptible d'être collée.</p>
+<p>Retourne les noms des objets nouvellement créés sous forme d'une chaîne séparés par des virgules.</p>
+<p>Obsolète. Veuillez utiliser pasteObjects() en lieu et place.</p></dd>
+
+<dt><a name="-pasteObjects"><strong>pasteObjects</strong>(...)</a></dt>
+<dd><code>pasteObjects() -&gt; list</code>
+<p>Colle des objets depuis le presse-papier. Cette fonction doit être utilisée uniquement suivant un appel à la fonction <em>copyObjects(...)</em>, sans quoi le presse-papier ne contiendra probablement aucune donnée susceptible d'être collée.</p>
+<p>Retourne le nom des objets nouvellement créés sous forme d'une liste.</p></dd>
 
 <dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
 <dd><code>rotateObject(rot [, "nom"])</code>

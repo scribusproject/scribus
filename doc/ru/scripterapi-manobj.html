@@ -18,11 +18,25 @@
 
 <dt><a name="-copyObject"><strong>copyObject</strong>(...)</a></dt>
 <dd><code>copyObject(["name"]) -&gt; string</code>
-<p>copies the selected Object to the clipboard.</p></dd>
+<p>Copies the specified object or first item of selection if "name" is not given.</p>
+<p>Deprecated. Use copyObjects() instead.</p></dd>
+
+<dt><a name="-copyObjects"><strong>copyObjects</strong>(...)</a></dt>
+<dd><code>copyObjects(names)</code>
+<p>Copies the specified objects or the current object selection if no item names are given.</p>
+<p>The names of objects to copy can be provided as a string to copy a single object or as a list of strings to copy several objects at once.</p></dd>
 
 <dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
 <dd><code>duplicateObject(["name"]) -&gt; string</code>
-<p>Creates a Duplicate of the selected Object (or Selection Group).</p></dd>
+<p>Creates a duplicate of the specified object or of first item of selection if "name" is not given.</p>
+<p>Returns name of new object.</p>
+<p>Deprecated. Use duplicateObjects() instead.</p></dd>
+
+<dt><a name="-duplicateObjects"><strong>duplicateObjects</strong>(...)</a></dt>
+<dd><code>duplicateObjects(names) -&gt; list</code>
+<p>Creates a duplicate of the specified objects or of the current selection if no names are given.</p>
+<p>The names of objects to duplicate can be provided as a string to duplicate a single object or as a list of strings to duplicate several objects at once.</p>
+<p>Returns a list of the names of the newly created objects.</p></dd>
 
 <dt><a name="-getCharacterStyle"><strong>getCharacterStyle</strong></a>(...)</dt>
 <dd><code>getCharacterStyle(["name"])</code>
@@ -72,11 +86,18 @@
 
 <dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
 <dd><code>moveObjectAbs(x, y [, "name"])</code>
-<p>Moves the object "name" to a new location. The coordinates are expressed in the current measurement unit of the document (see UNIT constants).  If "name" is not given the currently selected item is used.  If the object "name" belongs to a group, the whole group is moved.</p></dd>
+<p>Moves the object "name" to a new location. The coordinates are expressed in the current measurement unit of the document (see UNIT constants).  If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p></dd>
 
 <dt><a name="-pasteObject"><strong>pasteObject</strong>(...)</a></dt>
-<dd><code>pasteObject(["name"]) -&gt; string</code>
-<p>Pastes an Object from the clipboard. This will be used only or most sensibly following <em>copyObject(...)</em>, since otherwise there will likely be nothing in the clipboard to paste.</p></dd>
+<dd><code>pasteObject() -&gt; string</code>
+<p>Pastes an object from the clipboard. This will be used only or most sensibly following <em>copyObject(...)</em>, since otherwise there will likely be nothing in the clipboard to paste.</p>
+<p>Returns the names of the newly created object in a comma separated string.</p>
+<p>Deprecated. Use pasteObjects() instead.</p></dd>
+
+<dt><a name="-pasteObjects"><strong>pasteObjects</strong>(...)</a></dt>
+<dd><code>pasteObjects() -&gt; list</code>
+<p>Pastes the content of clipboard to canvas. This will be used only or most sensibly following <em>copyObjects(...)</em>, since otherwise there will likely be nothing in the clipboard to paste.</p>
+<p>Returns the names of the newly created object in a list.</p></dd>
 
 <dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
 <dd><code>rotateObject(rot [, "name"])</code>

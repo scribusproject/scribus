@@ -330,7 +330,9 @@ PyObject *scribus_setcharstyle(PyObject * /*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_duplicateobject__doc__,
 QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
 \n\
-creates a duplicate of the selected object (or Selection Group). Returns name of new object.\n\
+Creates a duplicate of the specified object or of first item of selection if \"name\" is not given.\n\
+Returns name of new object.\n\
+Deprecated. Use duplicateObjects() instead.\n\
 "));
 /**
  Christian Hausknecht, 2006-07-12
@@ -339,10 +341,22 @@ creates a duplicate of the selected object (or Selection Group). Returns name of
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_duplicateobjects__doc__,
+QT_TR_NOOP("duplicateObjects([names]) -> list\n\
+\n\
+Creates a duplicate of the specified objects or of the current selection if no names are given.\n\
+The names of objects to duplicate can be provided as a string to duplicate a single object\n\
+or as a list of strings to duplicate several objects at once.\n\
+Returns a list of the names of the newly created objects.\n\
+"));
+PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_copyobject__doc__,
 QT_TR_NOOP("copyObject([\"name\"]) -> string\n\
 \n\
-copies the selected Object (or Selection Group).\n\
+Copies the specified object or first item of selection if \"name\" is not given.\n\
+Deprecated. Use copyObjects instead.\n\
 "));
 /**
  Gregory Pittman, 2012-01-12
@@ -351,16 +365,41 @@ copies the selected Object (or Selection Group).\n\
 PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_pasteobject__doc__,
-QT_TR_NOOP("pasteObject([\"name\"]) -> string\n\
+PyDoc_STRVAR(scribus_copyobjects__doc__,
+QT_TR_NOOP("copyObjects([names])\n\
 \n\
-pastes a Duplicate of the selected Object (or Selection Group).\n\
+Copies the specified objects or the current object selection if no item names are given.\n\
+The names of objects to copy can be provided as a string for copying a single object\n\
+or as a list of strings to copy several objects at once.\n\
+"));
+PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pasteobject__doc__,
+QT_TR_NOOP("pasteObject() -> string\n\
+\n\
+Pastes an object from the clipboard. This will be used only or most\n\
+sensibly following copyObject(...), since otherwise there will likely\n\
+be nothing in the clipboard to paste.\n\
+Returns the names of the newly created object in a comma separated string.\n\
+Deprecated. Use pasteObjects() instead.\n\
 "));
 /**
  Gregory Pittman, 2012-01-29
  pastes an object
 */
 PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pasteobjects__doc__,
+QT_TR_NOOP("pasteObjects() -> list\n\
+\n\
+Pastes the content of clipboard to canvas. This will be used only or most\n\
+sensibly following copyObjects(...), since otherwise there will likely\n\
+be nothing in the clipboard to paste.\n\
+Returns the names of the newly created object in a list.\n\
+"));
+PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject *args);
 
 /* Internal function not intended for general use; no docstring */
 PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
