@@ -24,15 +24,15 @@ public:
 	ScFace_ttf (const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
 	~ScFace_ttf();
 
-	void load () const;
-	void unload () const;
+	void load () const override;
+	void unload () const override;
 
-	bool embedFont(QByteArray &str) const;
-	void rawData(QByteArray & bb) const;
+	bool embedFont(QByteArray &str) const override;
+	void rawData(QByteArray & bb) const override;
 	
-	virtual bool glyphNames(ScFace::FaceEncoding& GList) const;
-	virtual bool hasNames() const;
-	virtual bool isSymbolic() const;
+	bool glyphNames(ScFace::FaceEncoding& glyphList) const override;
+	bool hasNames() const override;
+	bool isSymbolic() const override;
 
 private:
 	mutable sfnt::PostTable m_checkPost;

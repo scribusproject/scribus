@@ -32,11 +32,12 @@ class ScFace_PostScript : public FtFace
 {
 	public:
 		ScFace_PostScript(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
+		
+		void load() const override;
 
 		virtual QStringList findFontMetrics(const QString& fontPath) const;
 		virtual QStringList findFontMetrics(const QString& baseDir, const QString& baseName) const;
 		virtual bool loadFontMetrics(FT_Face face, const QString& fontPath) const;
-		virtual void load() const;
 };
 
 /*
@@ -49,7 +50,8 @@ class ScFace_PFB : public ScFace_PostScript
 {
 	public:
 		ScFace_PFB(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
-		virtual bool embedFont(QByteArray &str) const;
+
+		bool embedFont(QByteArray &str) const override;
 };
 
 /*
@@ -62,7 +64,8 @@ class ScFace_PFA : public ScFace_PostScript
 {
 	public:
 		ScFace_PFA(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features);
-		virtual bool embedFont(QByteArray &str) const;
+
+		bool embedFont(QByteArray &str) const override;
 };
 
 

@@ -70,7 +70,7 @@ bool ScFace_ttf::hasNames() const
 	return FtFace::hasNames();
 }
 
-bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
+bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& glyphList) const
 {
 	FT_ULong  charcode;
 	FT_UInt gindex = 0;
@@ -83,7 +83,7 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
 	// For those fonts we consequently use Adobe Glyph names whenever possible.
 	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) && hasMicrosoftUnicodeCmap(face);
 	if (!avoidFntNames)
-		return FtFace::glyphNames(GList);
+		return FtFace::glyphNames(glyphList);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
 	charcode = FT_Get_First_Char(face, &gindex);
@@ -93,8 +93,8 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& GList) const
 		glEncoding.charcode  = charcode;
 		glEncoding.glyphName = adobeGlyphName(charcode);
 		glEncoding.toUnicode = QString::asprintf("%04lX", charcode);
-		GList.insert(gindex, glEncoding);
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		glyphList.insert(gindex, glEncoding);
+		charcode = FT_Get_Next_Char(face, charcode, &gindex);
 	}
 
 	return true;

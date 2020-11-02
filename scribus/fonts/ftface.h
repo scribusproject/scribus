@@ -76,8 +76,8 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
 	QString italicAngleAsString()    const { return m_italicAngle; }
 
-	bool isItalic() const { return m_isItalic; }
-	bool isBold() const { return m_isBold; }
+	bool isItalic() const override { return m_isItalic; }
+	bool isBold() const override { return m_isBold; }
 
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 
@@ -85,15 +85,15 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 //	GlyphMetrics glyphBBox (gid_type gl, qreal sz) const;
 
-	void rawData   (QByteArray & bb) const;
+	void rawData(QByteArray & bb) const override;
 
 	static bool hasMicrosoftUnicodeCmap(FT_Face face);
 	static QString adobeGlyphName(FT_ULong charcode);
 	virtual bool glyphNames(ScFace::FaceEncoding& glyphList) const;
 
-	void load() const;
-	void unload() const;
-	void loadGlyph (ScFace::gid_type gl) const;
+	void load() const override;
+	void unload() const override;
+	void loadGlyph (ScFace::gid_type gl) const override;
 
 protected:
 	mutable FT_Face m_face;

@@ -96,7 +96,8 @@ public:
 
 	static const gid_type CONTROL_GLYPHS = 2000000000; // 2 billion
 
-	struct GlyphData { 
+	struct GlyphData
+	{ 
 		FPointArray Outlines;
 		qreal x {0.0};
 		qreal y {0.0};
@@ -109,12 +110,16 @@ public:
 
     
 	/// see accessors for ScFace for docs
-	class ScFaceData {
+	class ScFaceData 
+	{
 	public:
+		ScFaceData();
+		virtual ~ScFaceData();
+
 		/// controls destruction
-	mutable int refs {0};
+		mutable int refs {0};
 		/// controls load()
-	mutable int usage {0};
+		mutable int usage {0};
 
 		QString family;
 		QString fontFile {"(None)"};
@@ -141,10 +146,7 @@ public:
 		bool hasGlyphNames {false};
 		gid_type maxGlyph {0};
 
-		ScFaceData();
-		virtual ~ScFaceData();
 	protected:
-
 		friend class ScFace;
 		Status m_cachedStatus {ScFace::UNKNOWN};
 
