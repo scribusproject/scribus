@@ -924,7 +924,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	mw->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
 	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
-		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
+		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~(Qt::WindowMinimized | Qt::WindowFullScreen)) | Qt::WindowMaximized);
 	//For 1.3.5, we dump prefs first time around.
 	if (!firstTimeIgnoreOldPrefs)
 		ReadPrefsXML();
