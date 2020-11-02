@@ -497,7 +497,7 @@ void ScribusMainWindow::setupMainWindow()
 	resize(mainWinSettings.width, mainWinSettings.height);
 
 	if (mainWinSettings.maximized)
-		this->setWindowState((this->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
+		this->setWindowState((this->windowState() & ~(Qt::WindowMinimized | Qt::WindowFullScreen)) | Qt::WindowMaximized);
 
 	if (!m_prefsManager.appPrefs.uiPrefs.mainWinState.isEmpty())
 		restoreState(m_prefsManager.appPrefs.uiPrefs.mainWinState);
