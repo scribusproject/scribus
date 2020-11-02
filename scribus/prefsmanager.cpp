@@ -957,7 +957,7 @@ void PrefsManager::ReadPrefsXML()
 			if (!LanguageManager::instance()->isAvailableTranslation(appPrefs.uiPrefs.language))
 				appPrefs.uiPrefs.language = "en_GB"; // If we get here, Houston, we have a problem!
 		}
-		appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
+		appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate", "").toLatin1());
 		appPrefs.uiPrefs.tabbedPalettes.clear();
 		PrefsTable *tabsTable = userprefsContext->getTable("tabbedPalettes");
 		PrefsTable *actTabsTable = userprefsContext->getTable("activeTabs");
@@ -1370,7 +1370,7 @@ bool PrefsManager::WritePref(const QString& ho)
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("VERSION","1.5.0");
+	elem.setAttribute("VERSION", "1.5.0");
 
 
 	QDomElement dcUI = docu.createElement("UI");
@@ -2008,12 +2008,12 @@ bool PrefsManager::ReadPref(const QString& ho)
 
 		if (dc.tagName()=="UI")
 		{
-			appPrefs.uiPrefs.style = dc.attribute("Theme","Default");
+			appPrefs.uiPrefs.style = dc.attribute("Theme", "Default");
 			appPrefs.uiPrefs.wheelJump = dc.attribute("ScrollWheelJump").toInt();
 			appPrefs.uiPrefs.mouseMoveTimeout = dc.attribute("MouseMoveTimeout", "150").toInt();
 			appPrefs.uiPrefs.applicationFontSize = dc.attribute("ApplicationFontSize", "12").toInt();
 			appPrefs.uiPrefs.paletteFontSize = dc.attribute("PaletteFontSize", "10").toInt();
-			appPrefs.uiPrefs.recentDocCount = dc.attribute("RecentDocumentCount","5").toUInt();
+			appPrefs.uiPrefs.recentDocCount = dc.attribute("RecentDocumentCount", "5").toUInt();
 			appPrefs.uiPrefs.showStartupDialog = static_cast<bool>(dc.attribute("ShowStartupDialog", "1").toInt());
 			appPrefs.uiPrefs.showSplashOnStartup = static_cast<bool>(dc.attribute("UI_SHOWSPLASHSCREEN", "1").toInt());
 			appPrefs.uiPrefs.useSmallWidgets = dc.attribute("UseSmallWidgets").toInt();
@@ -2021,7 +2021,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.uiPrefs.stickyTools = static_cast<bool>(dc.attribute("StickyTools", "0").toInt());
 			appPrefs.uiPrefs.grayscaleIcons = static_cast<bool>(dc.attribute("UseGrayscaleIcons",nullptr).toInt());
 			appPrefs.uiPrefs.iconSet = dc.attribute("IconSet", "1_5_0");
-			appPrefs.uiPrefs.userPreferredLocale = dc.attribute("UserPreferredLocale","System");
+			appPrefs.uiPrefs.userPreferredLocale = dc.attribute("UserPreferredLocale", "System");
 		}
 
 		if (dc.tagName()=="DocumentSetup")
@@ -2031,7 +2031,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			if (appPrefs.docSetupPrefs.language.isEmpty())
 				appPrefs.docSetupPrefs.language = "en_GB";
 			appPrefs.docSetupPrefs.docUnitIndex = dc.attribute("UnitIndex", "0").toInt();
-			appPrefs.docSetupPrefs.pageSize = dc.attribute("PageSize","A4");
+			appPrefs.docSetupPrefs.pageSize = dc.attribute("PageSize", "A4");
 			appPrefs.docSetupPrefs.pageOrientation = dc.attribute("PageOrientation", "0").toInt();
 			appPrefs.docSetupPrefs.pageWidth   = ScCLocale::toDoubleC(dc.attribute("PageWidth"), 595.0);
 			appPrefs.docSetupPrefs.pageHeight  = ScCLocale::toDoubleC(dc.attribute("PageHeight"), 842.0);
@@ -2046,7 +2046,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.docSetupPrefs.AutoSaveCount  = dc.attribute("AutoSaveCount", "1").toInt();
 			appPrefs.docSetupPrefs.AutoSaveKeep = static_cast<bool>(dc.attribute("AutoSaveKeep", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveLocation = static_cast<bool>(dc.attribute("AutoSaveLoc", "1").toInt());
-			appPrefs.docSetupPrefs.AutoSaveDir = dc.attribute("AutoSaveDir","");
+			appPrefs.docSetupPrefs.AutoSaveDir = dc.attribute("AutoSaveDir", "");
 			appPrefs.docSetupPrefs.saveCompressed = static_cast<bool>(dc.attribute("SaveCompressed", "0").toInt());
 			appPrefs.docSetupPrefs.bleeds.setTop(ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0));
 			appPrefs.docSetupPrefs.bleeds.setLeft(ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0));
@@ -2078,14 +2078,14 @@ bool PrefsManager::ReadPref(const QString& ho)
 				appPrefs.displayPrefs.scratchColor = QColor(dc.attribute("ScratchColor"));
 			else
 				appPrefs.displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
-			appPrefs.displayPrefs.frameColor = QColor(dc.attribute("FrameSelectedColor","#ff0000"));
-			appPrefs.displayPrefs.frameNormColor = QColor(dc.attribute("FrameNormColor","#000000"));
-			appPrefs.displayPrefs.frameGroupColor = QColor(dc.attribute("FrameGroupColor","#008080"));
-			appPrefs.displayPrefs.frameLockColor = QColor(dc.attribute("FrameLockColor","#800000"));
-			appPrefs.displayPrefs.frameLinkColor = QColor(dc.attribute("FrameLinkColor","#ff0000"));
-			appPrefs.displayPrefs.frameAnnotationColor = QColor(dc.attribute("FrameAnnotationColor","#0000ff"));
-			appPrefs.displayPrefs.pageBorderColor = QColor(dc.attribute("PageBorderColor","#ff0000"));
-			appPrefs.displayPrefs.controlCharColor = QColor(dc.attribute("ControlCharColor","#800000"));
+			appPrefs.displayPrefs.frameColor = QColor(dc.attribute("FrameSelectedColor", "#ff0000"));
+			appPrefs.displayPrefs.frameNormColor = QColor(dc.attribute("FrameNormColor", "#000000"));
+			appPrefs.displayPrefs.frameGroupColor = QColor(dc.attribute("FrameGroupColor", "#008080"));
+			appPrefs.displayPrefs.frameLockColor = QColor(dc.attribute("FrameLockColor", "#800000"));
+			appPrefs.displayPrefs.frameLinkColor = QColor(dc.attribute("FrameLinkColor", "#ff0000"));
+			appPrefs.displayPrefs.frameAnnotationColor = QColor(dc.attribute("FrameAnnotationColor", "#0000ff"));
+			appPrefs.displayPrefs.pageBorderColor = QColor(dc.attribute("PageBorderColor", "#ff0000"));
+			appPrefs.displayPrefs.controlCharColor = QColor(dc.attribute("ControlCharColor", "#800000"));
 			appPrefs.displayPrefs.marginColored = static_cast<bool>(dc.attribute("ShowMarginsFilled", "0").toInt());
 			appPrefs.displayPrefs.displayScale = qRound(ScCLocale::toDoubleC(dc.attribute("DisplayScale"), appPrefs.displayPrefs.displayScale)*72)/72.0;
 			appPrefs.displayPrefs.showVerifierWarningsOnCanvas = static_cast<bool>(dc.attribute("ShowVerifierWarningsOnCanvas", "1").toInt());
@@ -2095,10 +2095,10 @@ bool PrefsManager::ReadPref(const QString& ho)
 		}
 		if (dc.tagName()=="Paths")
 		{
-			appPrefs.pathPrefs.documents = dc.attribute("Documents","");
-			appPrefs.pathPrefs.colorProfiles = dc.attribute("Profiles","");
-			appPrefs.pathPrefs.scripts = dc.attribute("Scripts","");
-			appPrefs.pathPrefs.documentTemplates = dc.attribute("Templates","");
+			appPrefs.pathPrefs.documents = dc.attribute("Documents", "");
+			appPrefs.pathPrefs.colorProfiles = dc.attribute("Profiles", "");
+			appPrefs.pathPrefs.scripts = dc.attribute("Scripts", "");
+			appPrefs.pathPrefs.documentTemplates = dc.attribute("Templates", "");
 		}
 		if (dc.tagName()=="Guides")
 		{
@@ -2147,13 +2147,13 @@ bool PrefsManager::ReadPref(const QString& ho)
 				appPrefs.guidesPrefs.guideRad = ScCLocale::toDoubleC(dc.attribute("ObjectToGuideSnapRadius"), 10.0);
 			if (dc.hasAttribute("BaseC"))
 				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaselineGridColor"));
-			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MarginColor","#0000ff"));
+			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MarginColor", "#0000ff"));
 			appPrefs.guidesPrefs.valueBaselineGrid   = ScCLocale::toDoubleC(dc.attribute("BaselineGridDistance"), 12.0);
 			appPrefs.guidesPrefs.offsetBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BaselineGridOffset"), 0.0);
 		}
 		if (dc.tagName()=="StoryEditor")
 		{
-			appPrefs.storyEditorPrefs.guiFont  = dc.attribute("Font","");
+			appPrefs.storyEditorPrefs.guiFont  = dc.attribute("Font", "");
 			appPrefs.storyEditorPrefs.guiFontColorBackground  = QColor(dc.attribute("FontColorBackground", "#FFFFFF"));
 			appPrefs.storyEditorPrefs.smartTextSelection = static_cast<bool>(dc.attribute("SmartTextSelection", "0").toInt());
 		}
@@ -2391,12 +2391,12 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.colorPrefs.DCMSset.CMSinUse = static_cast<bool>(dc.attribute("ColorManagementActive", "0").toInt());
 			appPrefs.colorPrefs.DCMSset.GamutCheck = static_cast<bool>(dc.attribute("GamutCheck", "0").toInt());
 			appPrefs.colorPrefs.DCMSset.BlackPoint = static_cast<bool>(dc.attribute("BlackPoint", "1").toInt());
-			appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = dc.attribute("DefaultMonitorProfile","");
-			appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = dc.attribute("DefaultPrinterProfile","");
-			appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = dc.attribute("DefaultImageRGBProfile","");
-			appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DefaultImageCMYKProfile","");
-			appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DefaultSolidColorRGBProfile","");
-			appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DefaultSolorColorCMYKProfile","");
+			appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = dc.attribute("DefaultMonitorProfile", "");
+			appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile = dc.attribute("DefaultPrinterProfile", "");
+			appPrefs.colorPrefs.DCMSset.DefaultImageRGBProfile = dc.attribute("DefaultImageRGBProfile", "");
+			appPrefs.colorPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DefaultImageCMYKProfile", "");
+			appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile = dc.attribute("DefaultSolidColorRGBProfile", "");
+			appPrefs.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile = dc.attribute("DefaultSolorColorCMYKProfile", "");
 			appPrefs.colorPrefs.DCMSset.DefaultIntentColors = (eRenderIntent) dc.attribute("DefaultIntentColors", "1").toInt();
 			appPrefs.colorPrefs.DCMSset.DefaultIntentImages = (eRenderIntent) dc.attribute("DefaultIntentImages", "0").toInt();
 		}
