@@ -7375,7 +7375,7 @@ QList<ObjectAttribute> PageItem::getObjectAttributes(const QString& attributeNam
 
 ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 {
-	int countFound=0;
+	int countFound = 0;
 	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
 	for (ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin(); objAttrIt != pageItemAttributes.end(); ++objAttrIt)
 	{
@@ -7396,7 +7396,7 @@ ObjectAttribute PageItem::getObjectAttribute(const QString& attributeName) const
 
 void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
-	pageItemAttributes=*map;
+	pageItemAttributes = *map;
 }
 
 //if not `prependCopy` then string "Copy of" wil not be prepended
