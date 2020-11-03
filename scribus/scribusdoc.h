@@ -1309,7 +1309,7 @@ public: // Public attributes
 	FPoint maxCanvasCoordinate;
 	double rulerXoffset {0.0};
 	double rulerYoffset {0.0};
-	/** \brief List of Pages */
+	//! Page is a pointer to the lists of pages that exist in a document. In Normal mode, it points to DocPages. In Master Page mode it points to MasterPages. See ScribusDoc::assignPageModeLists()
 	QList<ScPage*>* Pages {nullptr};
 	/** \brief List of Master Pages */
 	QList<ScPage*> MasterPages;
@@ -1320,8 +1320,11 @@ public: // Public attributes
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */
+	//! Items is a pointer to the lists of items that exist in a document. In Normal mode, it points to DocItems. In Master Page mode it points to MasterItems. See ScribusDoc::assignPageModeLists()
 	QList<PageItem*>* Items {nullptr};
+	//! The list of master page items
 	QList<PageItem*> MasterItems;
+	//! The list of page items
 	QList<PageItem*> DocItems;
 	QHash<int, PageItem*> FrameItems;
 	QList<PageItem*> EditFrameItems;
