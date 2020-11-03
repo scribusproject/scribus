@@ -401,8 +401,5 @@ Returns the names of the newly created object in a list.\n\
 "));
 PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject *args);
 
-/* Internal function not intended for general use; no docstring */
-PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
-
 #endif
 
