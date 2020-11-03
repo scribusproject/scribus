@@ -11842,14 +11842,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Measurements</name>
-    <message>
-        <location filename="../../scribus/ui/measurements.cpp" line="74"/>
-        <source> °</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>MeasurementsBase</name>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="14"/>

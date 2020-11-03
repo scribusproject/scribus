@@ -11892,14 +11892,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>Measurements</name>
-    <message>
-        <location filename="../../scribus/ui/measurements.cpp" line="74"/>
-        <source> °</source>
-        <translation> °</translation>
-    </message>
-</context>
-<context>
     <name>MeasurementsBase</name>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="20"/>
@@ -15480,7 +15472,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="190"/>
         <source>Spacing</source>
-        <translation></translation>
+        <translation>Spacing</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="192"/>
@@ -15495,7 +15487,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="195"/>
         <source>Y-Skew:</source>
-        <translation></translation>
+        <translation>Y-Skew:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="196"/>
