@@ -1031,7 +1031,6 @@ PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
 
 PyObject *scribus_pasteobject(PyObject * /* self */, PyObject * /*args*/)
 {
-	char* name = const_cast<char*>("");
 	if (!checkHaveDocument())
 		return nullptr;
 
@@ -1055,7 +1054,6 @@ PyObject *scribus_pasteobject(PyObject * /* self */, PyObject * /*args*/)
 
 PyObject *scribus_pasteobjects(PyObject * /* self */, PyObject * /*args*/)
 {
-	char* name = const_cast<char*>("");
 	if (!checkHaveDocument())
 		return nullptr;
 
