@@ -96,7 +96,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 
 	buildScribusScriptsMenu();
 
-	m_menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
+	m_menuMgr->addMenuStringToMenuBarBefore("Scripter", "Windows");
 	m_menuMgr->addMenuItemStringsToMenuBar("Scripter", m_scripterActions);
 	m_recentScripts = m_savedRecentScripts;
 	rebuildRecentScriptsMenu();

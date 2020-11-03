@@ -243,11 +243,17 @@ PyObject *scribus_getrotation(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getallobjects__doc__,
-QT_TR_NOOP("getAllObjects([\"page\"]) -> list\n\
+QT_TR_NOOP("getAllObjects([type, page, \"layer\"]) -> list\n\
 \n\
-Returns a list containing the names of all objects on the current page.\n\
-Takes an optional keyword argument that changes the page from which the objects are returned\n\
-The page index starts at 0 and goes to the total number of pages - 1.\n\
+Returns a list containing the names of all objects of specified type and located\n\
+on specified page and/or layer.\n\
+This function accepts several optional keyword arguments:\n\
+- type (optional): integer corresponding to item type, by default all items will be returned.\n\
+- page (optional): index of page on which returned objects are located, by default the current page.\n\
+         The page index starts at 0 and goes to the total number of pages - 1.\n\
+- layer (optional): name of layer on which returned objects are located, by default\n\
+         the function returns items located on all layers.\n\
+May throw ValueError if page index or layer name is invalid.\n\
 "));
 /*! Returns a list with all objects in page */
 PyObject *scribus_getallobjects(PyObject * /*self*/, PyObject* args, PyObject *keywds);

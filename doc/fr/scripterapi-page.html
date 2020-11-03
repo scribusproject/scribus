@@ -40,8 +40,15 @@ L'édition d'un gabarit est initiée avec la fonction <a href="#-editMasterPage"
 Lorsque l'édition du gabarit est achevée, appelez la fonction <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
 
 <dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
-<dd><code>getAllObjects() -&gt; liste</code>
-<p>Retourne une liste contenant les noms de tous les objets de la page courante.</p></dd>
+<dd><code>getAllObjects([type, page, "calque"]) -&gt; liste</code>
+<p>Retourne une liste contenant les noms de tous les objets du type spécifié et situés sur la page et/ou le calque spécifiés.</p>
+<p>Cette fonction accepte les paramètres nommés suivants:
+<ul>
+<li>type (optionel) : entier correspondant au type des objets retournés, par défaut tous les types d'objets sont retournés.</li>
+<li>page (optionel) : indice de la page où sont situés les objets retournés, par défault la page courante. L'indice de page est situé entre 0 et nombre de pages - 1.</li>
+<li>"layer" (optionel) : nom du calque où sont situés les objets retournés, par défault la fonction retourne les objets situés sur tous les calques.</li>
+</ul></p>
+<p>Peut générer ValueError if l'indice du page ou le nom du calque sont invalides.</p></dd>
 
 <dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
 <dd><code>getHGuides() -&gt; liste</code>

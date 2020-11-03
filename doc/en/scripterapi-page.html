@@ -47,8 +47,15 @@ to normal. Begin editing with <a href="#-editMasterPage">editMasterPage()</a>.</
 for editing. Finish editing with <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
 
 <dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
-<dd><code>getAllObjects() -&gt; list</code>
-<p>Returns a list containing the names of all objects on the current page.</p></dd>
+<dd><code>getAllObjects([type, page, "layer"]) -&gt; list</code>
+<p>Returns a list containing the names of all objects of specified type and located on specified page and/or layer.</p>
+<p>This function accepts several optional keyword arguments:
+<ul>
+<li>type (optional): integer corresponding to item type, by default all items will be returned.</li>
+<li>page (optional): index of page on which returned objects are located, by default the current page. The page index starts at 0 and goes to the total number of pages - 1.</li>
+<li>"layer" (optional): name of layer on which returned objects are located, by default the function returns items located on all layers.</li>
+</ul></p>
+<p>May throw ValueError if page index or layer name is invalid.</p></dd>
 
 <dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
 <dd><code>getHGuides() -&gt; list</code>

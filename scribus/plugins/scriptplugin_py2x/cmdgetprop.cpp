@@ -310,66 +310,67 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
 {
-	PyObject *l;
-	int typ = -1;
+	int type = -1;
 	uint counter = 0;
 	uint counter2 = 0;
 
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	int pageNr = currentDoc->currentPageNumber();
-	char *kwlist[] = {const_cast<char*>(""), const_cast<char*>("page"), nullptr};
+	char *kwlist[] = { const_cast<char*>("type"), const_cast<char*>("page"), const_cast<char*>("layer"), nullptr};
+	char* szLayerName = const_cast<char*>("");
 
-	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &typ, &pageNr))
+	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &type, &pageNr))
+		return nullptr;
+
+	if (!checkHaveDocument())
 		return nullptr;
 
 	int numPages = currentDoc->Pages->count();
-	if (pageNr < 0 || pageNr >= numPages) {
-		PyErr_SetString(PyExc_RuntimeError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
+	if (pageNr < 0 || pageNr >= numPages)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	//if (!PyArg_ParseTuple(args, "|i", &typ))
-	//	return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	// have doc already
-	if (typ != -1)
+
+	const ScLayer *layer = nullptr;
+	QString layerName = QString::fromUtf8(szLayerName);
+	if (!layerName.isEmpty())
 	{
-		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
+		layer = currentDoc->Layers.layerByName(layerName);
+		if (!layer)
 		{
-			if ((currentDoc->Items->at(lam2)->itemType() == typ) && (pageNr == currentDoc->Items->at(lam2)->OwnPage))
-				counter++;
-		}
-	}
-	else
-	{
-		for (int lam2 = 0; lam2 < currentDoc->Items->count(); ++lam2)
-		{
-			if (pageNr == currentDoc->Items->at(lam2)->OwnPage)
-				counter++;
+			PyErr_SetString(PyExc_ValueError, QObject::tr("layer name is invalid.", "python error").toLocal8Bit().constData());
+			return nullptr;
 		}
 	}
 
-	l = PyList_New(counter);
-	for (int lam=0; lam < currentDoc->Items->count(); ++lam)
+	// have doc already
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
-		if  (pageNr == currentDoc->Items->at(lam)->OwnPage)
-		{
-			if (typ != -1)
-			{
-				if (currentDoc->Items->at(lam)->itemType() == typ)
-				{
-					PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
-					counter2++;
-				}
-			}
-			else
-			{
-				PyList_SetItem(l, counter2, PyString_FromString(currentDoc->Items->at(lam)->itemName().toUtf8()));
-				counter2++;
-			}
-		}
+		PageItem* item = currentDoc->Items->at(i);
+		if  (pageNr != item->OwnPage)
+			continue;
+		if ((type != -1) && (item->itemType() != type))
+			continue;
+		if (layer && (layer->ID != item->m_layerID))
+			continue;
+		counter++;
 	}
-	return l;
+
+	PyObject* pyList = PyList_New(counter);
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
+	{
+		PageItem* item = currentDoc->Items->at(i);
+		if  (pageNr != item->OwnPage)
+			continue;
+		if ((type != -1) && (item->itemType() == type))
+			continue;
+		if (layer && (layer->ID != item->m_layerID))
+			continue;
+		PyList_SetItem(pyList, counter2, PyString_FromString(item->itemName().toUtf8()));
+		counter2++;
+	}
+	return pyList;
 }
 
 PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
