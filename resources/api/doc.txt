@@ -1,0 +1,4 @@
+//verb, what, description, return, parameters
+#file, page
+get, PageCount, "Returns the number of pages in the document", int, void
+
