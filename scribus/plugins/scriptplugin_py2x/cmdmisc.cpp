@@ -823,8 +823,10 @@ void cmdmiscdocwarnings()
 	  << scribus_islayeroutlined__doc__
 	  << scribus_islayerprintable__doc__
 	  << scribus_islayervisible__doc__
+	  << scribus_loweractivelayer__doc__
 	  << scribus_moveselectiontoback__doc__ 
 	  << scribus_moveselectiontofront__doc__
+	  << scribus_raiseactivelayer__doc__
 	  << scribus_readpdfoptions__doc__
 	  << scribus_renderfont__doc__
 	  << scribus_savepdfoptions__doc__
