@@ -21,7 +21,7 @@ class SCRIBUS_API PicItem : public QListWidgetItem
 public:
 	PicItem(QListWidget* parent, const QString& text, const QPixmap& pix, PageItem* pgItem);
 	~PicItem() {};
-	PageItem *PageItemObject;
+	PageItem *PageItemObject {nullptr};
 };
 
 
@@ -106,9 +106,9 @@ protected:
 	bool loadPict(PageItem* item, const QString & newFilePath);
 
 private:
-	ScribusDoc *m_Doc;
-	PageItem *currItem;
-	int sortOrder;
+	ScribusDoc *m_Doc {nullptr};
+	PageItem *currItem {nullptr};
+	int sortOrder {0};
 
 };
 #endif

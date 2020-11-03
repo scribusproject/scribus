@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPushButton>
 #include <QRegExp>
+#include <QSignalBlocker>
 #include <QToolTip>
 #include <QValidator>
 
@@ -24,11 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, nullptr )
+PageSelector::PageSelector( QWidget* parent, int maximumPage ) : QWidget( parent, Qt::WindowFlags() )
 {
-	pageCountString = "%1" ;
-	m_lastPage = maxPg;
-	m_currentPage = 1;
+	pageCountString = "%1";
+	m_lastPage = maximumPage;
 	pageSelectorLayout = new QHBoxLayout( this );
 	pageSelectorLayout->setMargin(0);
 	pageSelectorLayout->setSpacing(1);
@@ -86,15 +86,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, null
 		lastButton->setEnabled(false);
 	}
 
-	QByteArray stylesheet;
-	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
-	{
-		QString downArrow(IconManager::instance().pathForIcon("16/go-down.png"));
-		QByteArray da;
-		da.append(downArrow.toUtf8());
-		stylesheet.replace("___downArrow___", da);
-		setStyleSheet(QString(stylesheet));
-	}
+	iconSetChange();
 
 	pageSelectorLayout->addWidget( startButton );
 	pageSelectorLayout->addWidget( backButton );
@@ -130,10 +122,10 @@ void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 	m_pageCombo->setFocusPolicy(policy);
 }
 
-void PageSelector::setFont(const QFont &fo)
+void PageSelector::setFont(const QFont& font)
 {
-	pageCountLabel->setFont(fo);
-	QWidget::setFont(fo);
+	pageCountLabel->setFont(font);
+	QWidget::setFont(font);
 }
 
 int PageSelector::getCurrentPage()
@@ -150,20 +142,19 @@ void PageSelector::gotoPage(int i)
 
 void PageSelector::setGUIForPage(int i)
 {
-	bool sigBlocked = m_pageCombo->blockSignals(true);
+	QSignalBlocker signalBlocker(m_pageCombo);
 	m_pageCombo->setCurrentIndex(i);
-	setCurrentComboItem(m_pageCombo, QString::number(i + 1));
 	m_currentPage = i + 1;
+	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
 	backButton->setEnabled(i != 0);
 	startButton->setEnabled(i != 0);
 	forwardButton->setEnabled(i != m_lastPage - 1);
 	lastButton->setEnabled(i != m_lastPage - 1);
-	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::setMaximum(int i)
 {
-	bool sigBlocked = m_pageCombo->blockSignals(true);
+	QSignalBlocker signalBlocker(m_pageCombo);
 	m_pageCombo->clear();
 	m_lastPage = i;
 	m_validator->setRange(1, m_lastPage);
@@ -173,7 +164,6 @@ void PageSelector::setMaximum(int i)
 	}
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
 	pageCountLabel->setText(pageCountString.arg(m_lastPage));
-	m_pageCombo->blockSignals(sigBlocked);
 }
 
 void PageSelector::goToStart()

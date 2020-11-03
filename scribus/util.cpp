@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDomElement>
 #include <QMessageBox>
 #include <QProcess>
+#include <QSignalBlocker>
 
 #include "pageitem.h"
 #include "pageitem_table.h"
@@ -792,29 +793,26 @@ QString readLineFromDataStream(QDataStream &s)
 
 void setCurrentComboItem(QComboBox *box, const QString& text)
 {
-	bool sigBlocked = box->blockSignals(true);
+	QSignalBlocker signalBlocker(box);
 	int ind = box->findText(text);
 	if (ind > -1)
 		box->setCurrentIndex(ind);
-	box->blockSignals(sigBlocked);
 }
 
 void setCurrentComboItemFromData(QComboBox *box, const QString& data)
 {
-	bool sigBlocked = box->blockSignals(true);
+	QSignalBlocker signalBlocker(box);
 	int ind = box->findData(data);
 	if (ind > -1)
 		box->setCurrentIndex(ind);
-	box->blockSignals(sigBlocked);
 }
 
 void removeComboItem(QComboBox *box, const QString& text)
 {
-	bool sigBlocked = box->blockSignals(true);
+	QSignalBlocker signalBlocker(box);
 	int ind = box->findText(text);
 	if (ind > -1)
 		box->removeItem(ind);
-	box->blockSignals(sigBlocked);
 }
 
 QString readAdobeUniCodeString(QDataStream &s)

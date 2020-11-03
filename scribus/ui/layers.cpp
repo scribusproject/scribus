@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
+#include <QSignalBlocker>
 #include <QSpacerItem>
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -699,8 +700,7 @@ void LayerPalette::languageChange()
 	textLabel1->setText( tr( "Blend Mode:" ) );
 
 	int  oldBlendMode = blendMode->currentIndex();
-	bool blendModeBlocked = blendMode->blockSignals(true);
-
+	QSignalBlocker signalBlocker(blendMode);
 	blendMode->clear();
 	blendMode->addItem( tr("Normal"));
 	blendMode->addItem( tr("Darken"));
@@ -720,7 +720,6 @@ void LayerPalette::languageChange()
 	blendMode->addItem( tr("Luminosity"));
 
 	blendMode->setCurrentIndex(oldBlendMode);
-	blendMode->blockSignals(blendModeBlocked);
 
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));

@@ -26,12 +26,12 @@ class SCRIBUS_API PageSelector : public QWidget
 	Q_OBJECT
 
 public:
-	PageSelector( QWidget* parent, int maxPg = 0 );
+	PageSelector(QWidget* parent, int maximumPage = 0 );
 	~PageSelector() {};
 	
 	bool hasFocus();
 	void focusPolicy(Qt::FocusPolicy policy);
-	void setFont ( const QFont & );
+	void setFont(const QFont& font);
 	int getCurrentPage();
 
 public slots:
