@@ -66,7 +66,6 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	imageViewArea->setIconSize(QSize(128, 128));
 	imageViewArea->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_Doc = docu;
-	currItem = nullptr;
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	fillTable();
 	workTab->setCurrentIndex(0);
