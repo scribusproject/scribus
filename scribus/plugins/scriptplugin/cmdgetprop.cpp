@@ -314,15 +314,15 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 	uint counter = 0;
 	uint counter2 = 0;
 
+	if (!checkHaveDocument())
+		return nullptr;
+
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	int pageNr = currentDoc->currentPageNumber();
 	char *kwlist[] = { const_cast<char*>("type"), const_cast<char*>("page"), const_cast<char*>("layer"), nullptr};
 	char* szLayerName = const_cast<char*>("");
 
 	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|iies", kwlist, &type, &pageNr, "utf-8", &szLayerName))
-		return nullptr;
-
-	if (!checkHaveDocument())
 		return nullptr;
 
 	int numPages = currentDoc->Pages->count();
@@ -363,7 +363,7 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 		PageItem* item = currentDoc->Items->at(i);
 		if  (pageNr != item->OwnPage)
 			continue;
-		if ((type != -1) && (item->itemType() == type))
+		if ((type != -1) && (item->itemType() != type))
 			continue;
 		if (layer && (layer->ID != item->m_layerID))
 			continue;
