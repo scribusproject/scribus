@@ -410,7 +410,6 @@ void PicStatus::visiblePic()
 	if (currItem == nullptr)
 		return;
 	currItem->setImageVisible(isVisibleCheck->isChecked());
-	emit refreshItem(currItem);
 }
 
 void PicStatus::GotoPic()
@@ -489,7 +488,6 @@ void PicStatus::SearchPic()
 	auto source = QFileInfo(currItem->Pfile);
 
 	loadPict(currItem, dia2->getSelectedImage());
-	refreshItem(currItem);
 	auto target = QFileInfo(currItem->Pfile);
 	item->setText(target.fileName());
 	item->setIcon(createImgIcon(currItem));
@@ -520,7 +518,6 @@ void PicStatus::doImageEffects()
 	{
 		currItem->effectsInUse = dia->effectsList;
 		loadPict(currItem, currItem->Pfile);
-		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 	}
 	delete dia;
@@ -535,7 +532,6 @@ void PicStatus::doImageExtProp()
 	if (dia.exec())
 	{
 		loadPict(currItem, currItem->Pfile);
-		refreshItem(currItem);
 		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 	}
 }
@@ -570,7 +566,6 @@ void PicStatus::relinkMatchingImages(const QFileInfo& source, const QFileInfo& t
 			continue;
 
 		loadPict(item->PageItemObject, QDir(target.path()).filePath(fi.fileName()));
-		refreshItem(item->PageItemObject);
 		item->setText(fi.fileName());
 		item->setIcon(createImgIcon(item->PageItemObject));
 	}

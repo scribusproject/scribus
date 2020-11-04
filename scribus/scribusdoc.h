@@ -1470,7 +1470,6 @@ signals:
 	void docChanged();
 	void updateContents();
 	void updateContents(const QRect &r);
-	void refreshItem(PageItem *);
 	void firstSelectedItemType(int);
 
 	void updateEditItem();

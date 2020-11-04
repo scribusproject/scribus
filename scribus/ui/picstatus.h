@@ -95,7 +95,6 @@ signals:
 	void selectPage(int);
 	void selectMasterPage(QString);
 	void selectElementByItem(PageItem *, bool, int);
-	void refreshItem(PageItem*);
 
 protected:
 	/*! \brief Enable widgets depending on currently selected item */
