@@ -86,9 +86,21 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& glyphList) const
 		return FtFace::glyphNames(glyphList);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
+	int spaceGlyphIndex = -1;
+
 	charcode = FT_Get_First_Char(face, &gindex);
 	while (gindex != 0)
 	{
+		// #16289 : Protect space character in case several characters are
+		// mapped to same glyph as space
+		if (charcode == ' ')
+			spaceGlyphIndex = gindex;
+		if ((gindex == spaceGlyphIndex) && (charcode != ' '))
+		{
+			charcode = FT_Get_Next_Char(face, charcode, &gindex);
+			continue;
+		}
+
 		ScFace::GlyphEncoding glEncoding;
 		glEncoding.charcode  = charcode;
 		glEncoding.glyphName = adobeGlyphName(charcode);
