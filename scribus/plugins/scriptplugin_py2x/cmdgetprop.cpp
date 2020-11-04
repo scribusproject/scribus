@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <algorithm>
+
 #include "cmdgetprop.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
@@ -310,9 +313,9 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
 {
-	int type = -1;
+	int itemType = -1;
+	int layerId = -1;
 	uint counter = 0;
-	uint counter2 = 0;
 
 	if (!checkHaveDocument())
 		return nullptr;
@@ -322,13 +325,13 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 	char *kwlist[] = { const_cast<char*>("type"), const_cast<char*>("page"), const_cast<char*>("layer"), nullptr};
 	char* szLayerName = const_cast<char*>("");
 
-	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|ii", kwlist, &type, &pageNr))
+	if (!PyArg_ParseTupleAndKeywords(args, keywds, "|iies", kwlist, &itemType, &pageNr, "utf-8", &szLayerName))
 		return nullptr;
 
 	int numPages = currentDoc->Pages->count();
 	if (pageNr < 0 || pageNr >= numPages)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("page number is invalid.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("page number is invalid.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
 
@@ -336,41 +339,38 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 	QString layerName = QString::fromUtf8(szLayerName);
 	if (!layerName.isEmpty())
 	{
-		layer = currentDoc->Layers.layerByName(layerName);
+		const ScLayer *layer = currentDoc->Layers.layerByName(layerName);
 		if (!layer)
 		{
 			PyErr_SetString(PyExc_ValueError, QObject::tr("layer name is invalid.", "python error").toLocal8Bit().constData());
 			return nullptr;
 		}
+		layerId = layer->ID;
 	}
 
-	// have doc already
+	auto isReturnedItem = [pageNr, layerId, itemType](PageItem* item)
+	{
+		if  (pageNr != item->OwnPage)
+			return false;
+		if ((itemType != -1) && (item->itemType() != itemType))
+			return false;
+		if ((layerId != -1) && (item->m_layerID) != layerId)
+			return false;
+		return true;
+	};
+
+	int returnedItemCount = std::count_if(currentDoc->DocItems.begin(), currentDoc->DocItems.end(), isReturnedItem);
+
+	PyObject* pyItemList = PyList_New(returnedItemCount);
 	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
 		PageItem* item = currentDoc->Items->at(i);
-		if  (pageNr != item->OwnPage)
+		if (!isReturnedItem(item))
 			continue;
-		if ((type != -1) && (item->itemType() != type))
-			continue;
-		if (layer && (layer->ID != item->m_layerID))
-			continue;
+		PyList_SetItem(pyItemList, counter, PyString_FromString(item->itemName().toUtf8()));
 		counter++;
 	}
-
-	PyObject* pyList = PyList_New(counter);
-	for (int i = 0; i < currentDoc->Items->count(); ++i)
-	{
-		PageItem* item = currentDoc->Items->at(i);
-		if  (pageNr != item->OwnPage)
-			continue;
-		if ((type != -1) && (item->itemType() != type))
-			continue;
-		if (layer && (layer->ID != item->m_layerID))
-			continue;
-		PyList_SetItem(pyList, counter2, PyString_FromString(item->itemName().toUtf8()));
-		counter2++;
-	}
-	return pyList;
+	return pyItemList;
 }
 
 PyObject *scribus_getobjectattributes(PyObject* /* self */, PyObject* args)
