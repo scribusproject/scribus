@@ -237,7 +237,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 		return nullptr;
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 
-	if (currentDoc->Items->count() == 0)
+	if (currentDoc->Items->isEmpty())
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
 	int pageNr = currentDoc->currentPageNumber();

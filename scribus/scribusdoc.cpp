@@ -6476,7 +6476,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, const QString& symbolName)
 	else
 	{
 		ScPage* addedPage = TempPages.at(0);
-		if (Items->count() == 0)
+		if (Items->isEmpty())
 		{
 			removePattern(m_currentEditedSymbol);
 		}
@@ -6620,7 +6620,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 	else
 	{
 		ScPage* addedPage = TempPages.at(0);
-		if (Items->count() == 0)
+		if (Items->isEmpty())
 		{
 			removeInlineFrame(m_currentEditedIFrame);
 		}

@@ -123,7 +123,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 					tx = QString::number(static_cast<int>(xl));
 					double frac = fabs(xl - static_cast<int>(xl));
 					if ((static_cast<int>(xl) == 0) && (frac > 0.1))
-						tx = "";
+						tx.clear();
 					if ((frac > 0.24) && (frac < 0.26))
 						tx += QChar(0xBC);
 					if ((frac > 0.49) && (frac < 0.51))

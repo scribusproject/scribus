@@ -461,7 +461,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 		}
 	}
 	// now look for normal items
-	if (m_doc->Items->count() == 0)
+	if (m_doc->Items->isEmpty())
 		return nullptr;
 
 	QList<PageItem*> *itemList = (itemAbove && itemAbove->isGroupChild()) ? &itemAbove->parentGroup()->groupItemList : m_doc->Items;

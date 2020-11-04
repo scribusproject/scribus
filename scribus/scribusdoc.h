@@ -1309,7 +1309,7 @@ public: // Public attributes
 	FPoint maxCanvasCoordinate;
 	double rulerXoffset {0.0};
 	double rulerYoffset {0.0};
-	//! Page is a pointer to the lists of pages that exist in a document. In Normal mode, it points to DocPages. In Master Page mode it points to MasterPages. See ScribusDoc::assignPageModeLists()
+	//! Pages is a pointer to the lists of pages that exist in a document. In Normal mode, it points to DocPages. In Master Page mode it points to MasterPages. See ScribusDoc::assignPageModeLists()
 	QList<ScPage*>* Pages {nullptr};
 	/** \brief List of Master Pages */
 	QList<ScPage*> MasterPages;
