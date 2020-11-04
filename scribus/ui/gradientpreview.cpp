@@ -67,7 +67,7 @@ GradientPreview::GradientPreview(QWidget *pa) : QFrame(pa)
 	ActStop = 0;
 	for (int i = 0; i < fill_gradient.stops(); ++i)
 	{
-		int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
+		int center = qRound(cstops.at(i)->rampPoint * (width() - 20)) + 10;
 		StopM.append(center);
 	}
 } 
@@ -78,22 +78,22 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	StopM.clear();
 	for (int i = 0; i < fill_gradient.stops(); ++i)
 	{
-		int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
+		int center = qRound(cstops.at(i)->rampPoint * (width() - 20)) + 10;
 		StopM.append(center);
 	}
-	QImage pixm(width()-20, 37, QImage::Format_ARGB32_Premultiplied);
+	QImage pixm(width() - 20, 37, QImage::Format_ARGB32_Premultiplied);
 	QPainter pb;
 	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 	pb.begin(&pixm);
 	pb.fillRect(0, 0, pixm.width(), pixm.height(), b);
 	pb.end();
-	ScPainter *p = new ScPainter(&pixm, width()-20, 37);
+	ScPainter *p = new ScPainter(&pixm, width() - 20, 37);
 //	p->clear(Qt::white);
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(2);
 	p->fill_gradient = fill_gradient;
-	p->setGradient(VGradient::linear, FPoint(0,20), FPoint(width()-20,20), FPoint(0, 0), 1.0, 0.0);
-	p->drawRect(0, 0, width()-20, 37);
+	p->setGradient(VGradient::linear, FPoint(0, 20), FPoint(width() - 20, 20), FPoint(0, 0), 1.0, 0.0);
+	p->drawRect(0, 0, width() - 20, 37);
 	p->end();
 	delete p;
 	QPainter pw;
@@ -103,14 +103,14 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	{
 		for (int i = 0; i < fill_gradient.stops(); ++i)
 		{
-			int center = qRound(cstops.at(i)->rampPoint * (width()-20))+10;
+			int center = qRound(cstops.at(i)->rampPoint * (width() - 20)) + 10;
 			pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			if (StopM[qMax(ActStop,0)] == center)
 				pw.setBrush(Qt::red);
 			else
 				pw.setBrush(Qt::blue);
 			QPolygon cr;
-			cr.setPoints(3, center, 43, center-4, 56, center+4, 56);
+			cr.setPoints(3, center, 43, center - 4, 56, center + 4, 56);
 			pw.drawPolygon(cr);
 		}
 	}
@@ -148,7 +148,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 		{
-			fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
+			fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 			if (fpo.contains(m->pos()))
 			{
 				ActStop = yg;
@@ -164,7 +164,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	qApp->restoreOverrideCursor();
-	QRect insideRect = QRect(10, 43, width()-20, 13);
+	QRect insideRect = QRect(10, 43, width() - 20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
@@ -182,7 +182,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 			if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 			{
 				QList<VColorStop*> cstops = fill_gradient.colorStops();
-				double  newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
+				double  newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width()) - 20);
 				QColor  stopColor = (cstops.count() > 0) ? cstops.at(0)->color : QColor(255, 255, 255);
 				QString stopName  = (cstops.count() > 0) ? cstops.at(0)->name  : QString("White");
 				int     stopShade = (cstops.count() > 0) ? cstops.at(0)->shade : 100;
@@ -192,7 +192,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 				cstops = fill_gradient.colorStops();
 				for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 				{
-					fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
+					fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 					if (fpo.contains(m->pos()))
 					{
 						ActStop = yg;
@@ -210,7 +210,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 			int stop = -1;
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
-				fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
+				fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 				if (fpo.contains(m->pos()))
 				{
 					stop = yg;
@@ -229,7 +229,8 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	Mpressed = false;
-	if ((!onlyselect) && (ActStop >= 0)){
+	if ((!onlyselect) && (ActStop >= 0))
+	{
 		emit gradientChanged();
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		emit currStep(cstops.at(ActStop)->rampPoint);
@@ -238,7 +239,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 
 void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
-	QRect insideRect = QRect(10, 43, width()-20, 13);
+	QRect insideRect = QRect(10, 43, width() - 20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
@@ -248,7 +249,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 			setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
-				fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
+				fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 				if (fpo.contains(m->pos()))
 				{
 					setCursor(QCursor(Qt::SizeHorCursor));
@@ -258,10 +259,10 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (m->buttons() & Qt::LeftButton)
 		{
-			if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9) && (ActStop != -1))
+			if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width() - 9) && (ActStop != -1))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-				double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
+				double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width()) - 20);
 				if (ActStop > 1)
 				{
 					if (StopM[ActStop-1]+2 >= m->x())
@@ -308,7 +309,7 @@ void GradientPreview::enterEvent(QEvent*)
 void GradientPreview::addStop()
 {
 	QList<VColorStop*> cstops = fill_gradient.colorStops();
-	double  newStop = static_cast<double>((mPos.x() - 10)) / (static_cast<double>(width())-20);
+	double  newStop = static_cast<double>((mPos.x() - 10)) / (static_cast<double>(width()) - 20);
 	QColor  stopColor = (cstops.count() > 0) ? cstops.at(0)->color : QColor(255, 255, 255);
 	QString stopName  = (cstops.count() > 0) ? cstops.at(0)->name  : QString("White");
 	int     stopShade = (cstops.count() > 0) ? cstops.at(0)->shade : 100;
@@ -318,7 +319,7 @@ void GradientPreview::addStop()
 	cstops = fill_gradient.colorStops();
 	for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 	{
-		QRect fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
+		QRect fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 		if (fpo.contains(mPos))
 		{
 			ActStop = yg;
