@@ -61,10 +61,10 @@ VGradient::VGradient(VGradientType type) : m_type( type )
 	// set up dummy gradient
 	QColor color;
 
-	color = QColor(255,0,0);
+	color = QColor(255, 0, 0);
 	addStop( color, 0.0, 0.5, 1.0 );
 
-	color = QColor(255,255,0);
+	color = QColor(255, 255, 0);
 	addStop( color, 1.0, 0.5, 1.0 );
 
 	setOrigin( FPoint( 0, 0 ) );

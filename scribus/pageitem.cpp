@@ -641,6 +641,7 @@ PageItem::PageItem(ScribusDoc *doc, ItemType newType, double x, double y, double
 	}
 	GrMaskEndX = w;
 	mask_gradient = VGradient(VGradient::linear);
+	mask_gradient.clearStops();
 	const ScColor& col = m_Doc->PageColors["Black"];
 	QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
 	mask_gradient.addStop(qcol, 0.0, 0.5, 1.0, "Black", 100);
