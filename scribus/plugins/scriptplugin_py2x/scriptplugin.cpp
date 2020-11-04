@@ -805,6 +805,25 @@ void initscribus(ScribusMainWindow *mainWin)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+	// PageItem types
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ITEMTYPE1"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ItemType1));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_IMAGEFRAME"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ImageFrame));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ITEMTYPE3"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::ItemType3));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_TEXTFRAME"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::TextFrame));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_LINE"),       Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Line));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_POLYGON"),    Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Polygon));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_POLYLINE"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::PolyLine));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_PATHTEXT"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::PathText));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_LATEXFRAME"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::LatexFrame));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_OSGFRAME"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::OSGFrame));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_SYMBOL"),     Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Symbol));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_GROUP"),      Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Group));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_REGULARPOLYGON"), Py_BuildValue(const_cast<char*>("i"), (int) PageItem::RegularPolygon));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_ARC"),        Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Arc));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_SPIRAL"),     Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Spiral));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_TABLE"),      Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Table));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_NOTEFRAME"),  Py_BuildValue(const_cast<char*>("i"), (int) PageItem::NoteFrame));
+	PyDict_SetItemString(d, const_cast<char*>("ITEMTYPE_MULTIPLE"),   Py_BuildValue(const_cast<char*>("i"), (int) PageItem::Multiple));
 	// Colorspaces
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_UNDEFINED"), Py_BuildValue(const_cast<char*>("i"), -1));
 	PyDict_SetItemString(d, const_cast<char*>("CSPACE_RGB"), Py_BuildValue(const_cast<char*>("i"), 0));
