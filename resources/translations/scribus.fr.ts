@@ -18586,7 +18586,7 @@ Voulez-vous utiliser celle-ci?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="314"/>
         <source>Command: </source>
-        <translation>Commande :</translation>
+        <translation>Commande : </translation>
     </message>
 </context>
 <context>
@@ -23576,7 +23576,7 @@ de l&apos;objet</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="707"/>
         <source>remove direct paragraph formatting</source>
-        <translation type="unfinished">Suppression du formatage manuel des paragraphes</translation>
+        <translation>Suppression du formatage manuel des paragraphes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="756"/>
