@@ -87,31 +87,31 @@ QStringList ScFace_PostScript::findFontMetrics(const QString& baseDir, const QSt
 
 bool ScFace_PostScript::loadFontMetrics(FT_Face face, const QString& fontPath) const
 {
-	bool metricsFound = false;
 	QStringList fontMetrics = findFontMetrics(fontPath);
-	if (!fontMetrics.empty())
+	if (fontMetrics.empty())
 	{
-		bool brokenMetric = false;
-		QString metricsFile;
-		for (int i = 0; i < fontMetrics.size(); ++i)
-		{
-			metricsFile = fontMetrics.at(i);
-			if (FT_Attach_File(face, metricsFile.toLocal8Bit().constData()))
-			{
-				qDebug() << QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath, metricsFile);
-				brokenMetric = true;
-			}
-			else
-			{
-				if (brokenMetric)
-					qDebug() << QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile, metricsFile);
-				metricsFound = true;
-				break;
-			}
-		}
-	}
-	else
 		qDebug() << QObject::tr("No metrics found for font %1, ignoring font").arg(fontPath);
+		return false;
+	}
+
+	bool brokenMetric = false;
+	bool metricsFound = false;
+	QString metricsFile;
+	for (int i = 0; i < fontMetrics.size(); ++i)
+	{
+		metricsFile = fontMetrics.at(i);
+		if (FT_Attach_File(face, metricsFile.toLocal8Bit().constData()) == 0)
+		{
+			if (brokenMetric)
+				qDebug() << QObject::tr("Valid metrics were found for font %1, using metrics in file %2").arg(fontFile, metricsFile);
+			metricsFound = true;
+			break;
+		}
+		
+		qDebug() << QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontPath, metricsFile);
+		brokenMetric = true;
+	}
+		
 	return metricsFound;
 }
 
@@ -133,48 +133,10 @@ void ScFace_PostScript::load() const // routine by Franz Schmid - modified by Al
 		// don't mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
 		FtFace::load();
 	}
-	//			Ascent = tmp.setNum(face->ascender);
-	//			Descender = tmp.setNum(face->descender);
-	//			CapHeight = Ascent;
-	//			ItalicAngle = "0";
-	//			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
-	/*
- setBestEncoding(face);
-			gindex = 0;
-			charcode = FT_Get_First_Char( face, &gindex );
-			int goodGlyph = 0;
-			int invalidGlyph = 0;
-			while ( gindex != 0 )
-			{
-				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-				if (error)
-				{
-					++invalidGlyph;
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(fontPath()).arg(gindex).arg(charcode));
-					charcode = FT_Get_Next_Char( face, charcode, &gindex );
-					continue;
-				}
-				++goodGlyph;
-				qreal ww = face->glyph->metrics.horiAdvance / uniEM;
-				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
-					isStroked = true;
-				error = false;
-				outlines = traceChar(face, charcode, 10, &x, &y, &error);
-				if (!error)
-				{
-					CharWidth.insert(charcode, ww);
-					GRec.Outlines = outlines.copy();
-					GRec.x = x;
-					GRec.y = y;
-					GlyphArray.insert(charcode, GRec);
-				}
-				charcode = FT_Get_Next_Char( face, charcode, &gindex );
-			}
- */
 }
 
 ScFace_PFB::ScFace_PFB(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features) :
-	ScFace_PostScript(fam,sty,alt,scname,psname,path,face,features)
+	ScFace_PostScript(fam, sty, alt, scname, psname, path, face, features)
 {
 	formatCode = ScFace::PFB;
 }
@@ -188,17 +150,17 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 		int posi,cxxc=0;
 		for (posi = 6; posi < bb.size(); ++posi)
 		{
-			if ((bb[posi] == '\x80') && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
+			if ((bb[posi] == '\x80') && (posi + 1 < bb.size()) && (static_cast<int>(bb[posi + 1]) == 2))
 				break;
 			str += bb[posi];
 		}
 		int ulen;
-		if (posi+6 < bb.size())
+		if (posi + 6 < bb.size())
 		{
-			ulen = bb[posi+2] & 0xff;
-			ulen |= (bb[posi+3] << 8) & 0xff00;
-			ulen |= (bb[posi+4] << 16) & 0xff0000;
-			ulen |= (bb[posi+5] << 24) & 0xff000000;
+			ulen = bb[posi + 2] & 0xff;
+			ulen |= (bb[posi + 3] << 8) & 0xff00;
+			ulen |= (bb[posi + 4] << 16) & 0xff0000;
+			ulen |= (bb[posi + 5] << 24) & 0xff000000;
 			posi += 6;
 			if (posi + ulen > bb.size())
 				ulen = bb.size() - posi - 1;
@@ -247,7 +209,7 @@ bool ScFace_PFB::embedFont(QByteArray& str) const
 }
 
 ScFace_PFA::ScFace_PFA(const QString& fam, const QString& sty, const QString& alt, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features) :
-	ScFace_PostScript(fam,sty,alt,scname,psname,path,face,features)
+	ScFace_PostScript(fam, sty, alt, scname, psname, path, face, features)
 {
 	formatCode = ScFace::PFA;
 }
