@@ -43,6 +43,22 @@ PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 		result = "Polyline";
 	} else if (item->itemType() == PageItem::LatexFrame) {
 		result = "LatexFrame";
+	} else if (item->itemType() == PageItem::OSGFrame) {
+		result = "OSGFrame";
+	} else if (item->itemType() == PageItem::Symbol) {
+		result = "Symbol";
+	} else if (item->itemType() == PageItem::Group) {
+		result = "Group";
+	} else if (item->itemType() == PageItem::RegularPolygon) {
+		result = "RegularPolygon";
+	} else if (item->itemType() == PageItem::Arc) {
+		result = "Arc";
+	} else if (item->itemType() == PageItem::Spiral) {
+		result = "Spiral";
+	} else if (item->itemType() == PageItem::Table) {
+		result = "Table";
+	} else if (item->itemType() == PageItem::NoteFrame) {
+		result = "NoteFrame";
 	} else if (item->itemType() == PageItem::Multiple) {
 		result = "Multiple";
 	}
