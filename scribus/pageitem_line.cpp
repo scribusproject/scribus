@@ -176,11 +176,13 @@ QPointF PageItem_Line::endPoint() const
 
 void PageItem_Line::setLineClip()
 {
+	// Big fat warning : QPolygon::setPoints is a variadic function,
+	// only pass ints as arguments, or expect strange results
 	int ph = static_cast<int>(qMax(1.0, this->visualLineWidth() / 2.0));
-	Clip.setPoints(4, -1.0, -ph,
+	Clip.setPoints(4, -1, -ph,
 	                  static_cast<int>(width() + 1.0), -ph,
 	                  static_cast<int>(width() + 1.0), ph,
-	                  -1.0, ph);
+	                  -1, ph);
 }
 
 void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
