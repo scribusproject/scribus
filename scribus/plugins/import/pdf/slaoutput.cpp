@@ -3021,7 +3021,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 	GfxFont *gfxFont;
 	GfxFontLoc *fontLoc;
 	GfxFontType fontType;
-	SplashOutFontFileID *id;
+	SlaOutFontFileID *id;
 	SplashFontFile *fontFile;
 	SplashFontSrc *fontsrc = nullptr;
 	FoFiTrueType *ff;
@@ -3051,7 +3051,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 	}
 
 	// check the font file cache
-	id = new SplashOutFontFileID(gfxFont->getID());
+	id = new SlaOutFontFileID(gfxFont->getID());
 	if ((fontFile = m_fontEngine->getFontFile(id)))
 		delete id;
 	else

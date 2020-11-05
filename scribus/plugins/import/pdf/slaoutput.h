@@ -100,19 +100,20 @@ public:
 private:
 	GooString *fileName {nullptr};		// file name
 };
+
 //------------------------------------------------------------------------
-// SplashOutFontFileID
+// SlaOutFontFileID
 //------------------------------------------------------------------------
 
-class SplashOutFontFileID: public SplashFontFileID
+class SlaOutFontFileID: public SplashFontFileID
 {
 public:
+	SlaOutFontFileID(const Ref *rA) { r = *rA; }
+	~SlaOutFontFileID() {}
 
-	SplashOutFontFileID(const Ref *rA) { r = *rA; }
-	~SplashOutFontFileID() {}
 	GBool matches(SplashFontFileID *id)
 	{
-		return ((SplashOutFontFileID *)id)->r.num == r.num && ((SplashOutFontFileID *)id)->r.gen == r.gen;
+		return ((SlaOutFontFileID*) id)->r.num == r.num && ((SlaOutFontFileID *) id)->r.gen == r.gen;
 	}
 
 private:
