@@ -12,8 +12,8 @@ void ScColorProfileCache::addProfile(const ScColorProfile& profile)
 	if (path.isEmpty())
 		return;
 
-	auto iter = m_profileMap.find(path);
-	if (iter != m_profileMap.end())
+	auto iter = m_profileMap.constFind(path);
+	if (iter != m_profileMap.constEnd())
 	{
 		QSharedPointer<ScColorProfileData> strongRef = iter.value().toStrongRef();
 		if (strongRef) return;
@@ -34,8 +34,8 @@ void ScColorProfileCache::removeProfile(const ScColorProfile& profile)
 	
 bool ScColorProfileCache::contains(const QString& profilePath)
 {
-	auto iter = m_profileMap.find(profilePath);
-	if (iter != m_profileMap.end())
+	auto iter = m_profileMap.constFind(profilePath);
+	if (iter != m_profileMap.constEnd())
 	{
 		QSharedPointer<ScColorProfileData> strongRef = iter.value().toStrongRef();
 		return (!strongRef.isNull());
@@ -46,8 +46,8 @@ bool ScColorProfileCache::contains(const QString& profilePath)
 ScColorProfile ScColorProfileCache::profile(const QString& profilePath)
 {
 	ScColorProfile profile;
-	auto iter = m_profileMap.find(profilePath);
-	if (iter != m_profileMap.end())
+	auto iter = m_profileMap.constFind(profilePath);
+	if (iter != m_profileMap.constEnd())
 		profile = ScColorProfile(iter.value());
 	return profile;
 }
