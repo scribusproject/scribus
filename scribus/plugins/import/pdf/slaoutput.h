@@ -111,7 +111,7 @@ public:
 	SlaOutFontFileID(const Ref *rA) { r = *rA; }
 	~SlaOutFontFileID() {}
 
-	GBool matches(SplashFontFileID *id)
+	GBool matches(SplashFontFileID *id) override
 	{
 		return ((SlaOutFontFileID*) id)->r.num == r.num && ((SlaOutFontFileID *) id)->r.gen == r.gen;
 	}
