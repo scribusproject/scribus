@@ -100,7 +100,7 @@ QVector<int> CxfMeasurementSpec::wavelengths(int count) const
 QVector<int> CxfMeasurementSpec::wavelengths(int start, int increment, int count)
 {
 	QVector<int> wls;
-	
+	wls.reserve(count);
 	int wl = start;
 	for (int i = 0; i < count; ++i)
 	{

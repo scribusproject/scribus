@@ -291,7 +291,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 
 	uint tmp;
 	uint cdataStart;
-	uint ressourceDataLen;
+	uint resourceDataLen;
 //	uint startRessource;
 
 	s.device()->seek( dataOffset );
@@ -460,10 +460,11 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			QList<uchar> colorTableR;
 			QList<uchar> colorTableG;
 			QList<uchar> colorTableB;
-			colorTableR.clear();
-			colorTableG.clear();
-			colorTableB.clear();
+			colorTableR.reserve(256);
+			colorTableG.reserve(256);
+			colorTableB.reserve(256);
 			m_colorTable.clear();
+			m_colorTable.reserve(256);
 			uchar r;
 			for (uint cc = 0; cc < 256; cc++)
 			{
@@ -487,10 +488,10 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 		}
 	}
 	s.device()->seek( cdataStart + tmp );
-	s >> ressourceDataLen;
+	s >> resourceDataLen;
 //	startRessource = s.device()->pos();
-	if (ressourceDataLen != 0)
-		parseRessourceData(s, header, ressourceDataLen);
+	if (resourceDataLen != 0)
+		parseRessourceData(s, header, resourceDataLen);
 	return true;
 }
 

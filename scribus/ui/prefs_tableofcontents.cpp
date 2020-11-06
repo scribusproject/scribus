@@ -116,16 +116,16 @@ void Prefs_TableOfContents::generatePageItemList()
 	if (m_Doc != nullptr)
 	{
 		QList<PageItem*> allItems;
-		for (int a = 0; a < m_Doc->DocItems.count(); ++a)
+		for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 		{
-			PageItem *currItem = m_Doc->DocItems.at(a);
+			PageItem *currItem = m_Doc->DocItems.at(i);
 			if (currItem->isGroup())
 				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				currItem = allItems.at(ii);
+				currItem = allItems.at(j);
 				if (currItem->itemType() == PageItem::TextFrame)
 					itemDestFrameComboBox->addItem(currItem->itemName());
 			}

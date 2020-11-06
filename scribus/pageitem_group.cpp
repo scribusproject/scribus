@@ -73,6 +73,7 @@ void PageItem_Group::adjustXYPosition()
 QList<PageItem*> PageItem_Group::getAllChildren() const
 {
 	QList<PageItem*> ret;
+	ret.reserve(groupItemList.count());
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);

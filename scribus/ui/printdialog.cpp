@@ -629,10 +629,8 @@ QString PrintDialog::separationName()
 QStringList PrintDialog::allSeparations()
 {
 	QStringList ret;
-	for (int a = 1; a < separationsCombo->count(); ++a)
-	{
-		ret.append(separationsCombo->itemText(a));
-	}
+	for (int i = 1; i < separationsCombo->count(); ++i)
+		ret.append(separationsCombo->itemText(i));
 	return ret;
 }
 

@@ -2328,9 +2328,9 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 				allItems = currItem->getAllChildren();
 			else
 				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				PageItem* item = allItems.at(ii);
+				PageItem* item = allItems.at(j);
 				if ((item->itemType() == PageItem::ImageFrame) && (!item->isLatexFrame()) && (!item->isOSGFrame()))
 				{
 					enablePicManager = true;

@@ -67,6 +67,7 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 	QPainterPath pts;
 	// calculate corner Points first
 	QList<QPointF> cornerPoints;
+	cornerPoints.reserve(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;

@@ -64,9 +64,9 @@ extern QString DocDir;
 
 ImIconProvider::ImIconProvider()
 {
-	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};
 	size_t arraySize = sizeof(tmp) / sizeof(*tmp);
+	fmts.reserve(arraySize);
 	for (size_t i = 0; i < arraySize; ++i)
 		fmts.append(tmp[i]);
 	IconManager& im=IconManager::instance();

@@ -2989,6 +2989,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 	for (int x = 0; x < rows + 1; x++)
 	{
 		QList<MeshPoint> mgList;
+		mgList.reserve(cols + 1);
 		for (int y = 0; y < cols + 1; y++)
 		{
 			MeshPoint mgP;

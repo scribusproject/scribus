@@ -1070,11 +1070,13 @@ FPointArray SvmPlug::getPolyPolygonPoints(QDataStream &ds, quint16 version)
 				qint64 posC = ds.device()->pos();
 				quint16  numPoints;
 				ds >> numPoints;
+				points.reserve(numPoints);
 				for (uint i = 0; i < numPoints; ++i)
 				{
 					QPointF p = getPoint(ds);
 					points.append(p);
 				}
+				pTypes.reserve(numPoints);
 				for (uint i = 0; i < numPoints; ++i)
 				{
 					quint8 ptyc;
@@ -1968,6 +1970,7 @@ void SvmPlug::handleText(QDataStream &ds, quint16 version)
 		quint32 dLen;
 		ds >> ind >> len;
 		ds >> dLen;
+		dxTxt.reserve(len);
 		for (quint16 aa = 0; aa < len; aa++)
 		{
 			quint32 ptyc;
@@ -2846,6 +2849,8 @@ quint32 SvmPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 			ds >> cCount;
 			QList<float> posit;
 			QList<quint32> facts;
+			posit.reserve(cCount);
+			facts.reserve(cCount);
 			for (quint32 c = 0; c < cCount; c++)
 			{
 				float fact;
@@ -2924,6 +2929,8 @@ quint32 SvmPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 			ds >> cCount;
 			QList<float> posit;
 			QList<quint32> facts;
+			posit.reserve(cCount);
+			facts.reserve(cCount);
 			for (quint32 c = 0; c < cCount; c++)
 			{
 				float fact;
@@ -4711,6 +4718,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
 			dsB >> palFlags >> colorsUsed;
+			colorTbl.reserve(colorsUsed);
 			for (quint32 pa = 0; pa < colorsUsed; pa++)
 			{
 				quint32 brushID;
@@ -4740,6 +4748,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
 			dsB >> palFlags >> colorsUsed;
+			colorTbl.reserve(colorsUsed);
 			for (quint32 pa = 0; pa < colorsUsed; pa++)
 			{
 				quint32 brushID;
@@ -4779,6 +4788,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
 			dsB >> palFlags >> colorsUsed;
+			colorTbl.reserve(colorsUsed);
 			for (quint32 pa = 0; pa < colorsUsed; pa++)
 			{
 				quint32 brushID;

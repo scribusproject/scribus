@@ -1553,6 +1553,7 @@ void XfigPlug::resortItems()
 {
 	int ac = m_Doc->Items->count();
 	QList<PageItem*> itemList;
+	itemList.reserve(ac);
 	for (int as = oldDocItemCount; as < ac; ++as)
 	{
 		itemList.append(m_Doc->Items->takeAt(oldDocItemCount));

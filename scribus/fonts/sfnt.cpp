@@ -600,19 +600,16 @@ namespace sfnt {
 	{
 		QList<quint32> result;
 		const QByteArray loca = getTable(ttf, "loca");
+		result.reserve(loca.length());
 		if (hasLongLocaFormat(ttf))
 		{
 			for (int i = 0; i < loca.length(); i+=4)
-			{
 				result.append(word(loca, i));
-			}
 		}
 		else
 		{
 			for (int i = 0; i < loca.length(); i+=2)
-			{
 				result.append(word16(loca, i) * 2);
-			}
 		}
 		return result;
 	}
@@ -1148,6 +1145,7 @@ namespace sfnt {
 		{
 			QList<std::pair<qint16, quint16> > oldHmtx = readHmtx(ttf);
 			QList<std::pair<qint16, quint16> > newHmtx;
+			newHmtx.reserve(glyphs.length() + 1);
 			newHmtx.append(std::pair<qint16, quint16>(1234, 123));
 			for (int i = 1; i < glyphs.length(); ++i)
 				newHmtx.append(newHmtx[0]);

@@ -1323,6 +1323,7 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 			ts >> ct_seed;
 			ts >> ct_flags >> ct_size;
 //			qDebug() << "ColorTable has" << ct_size << "Entries";
+			colors.reserve(ct_size+1);
 			for (quint16 cc = 0; cc < ct_size+1; cc++)
 			{
 				quint16 cev, cRed, cGreen, cBlue;

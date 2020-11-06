@@ -550,6 +550,7 @@ void PageItem_Table::insertRows(int index, int numRows)
 
 		// Insert a row of cells.
 		QList<TableCell> cellRow;
+		cellRow.reserve(columns());
 		for (int col = 0; col < columns(); ++col)
 			cellRow.append(TableCell(row, col, this));
 		m_cellRows.insert(row, cellRow);

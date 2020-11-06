@@ -823,6 +823,7 @@ namespace cff {
 			start = start << 8 | (uchar) m_bytes[pos++];
 		}
 		start += dataStart;
+		result.reserve(N);
 		for (uint i = 0; i < N; ++i)
 		{
 			end = 0;
@@ -843,6 +844,7 @@ namespace cff {
 	QList<uint> CFF::readEncoding(uint& pos) const
 	{
 		QList<uint> result;
+		result.reserve(256);
 		for(int i = 0; i < 256; ++i)
 			result.append(0);
 		
@@ -1650,8 +1652,10 @@ namespace cff {
 			QList<sid_type> newCharset;
 			// new charStrings
 			QList<QByteArray> newCharStrings;
-
-			for (int i = 0; i < cids.length(); ++i)
+			int cidsLength = cids.length();
+			newCharset.reserve(cidsLength);
+			newCharStrings.reserve(cidsLength);
+			for (int i = 0; i < cidsLength; ++i)
 			{
 				sid_type gid = cids[i];
 				sid_type sid = charset[gid];
