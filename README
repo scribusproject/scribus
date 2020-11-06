@@ -34,7 +34,7 @@ More dependencies: Scribus 1.5.x makes extensive use of many more external libra
 - Anchored text frames.
 - Automatic numbering and bullets.
 - Automatic creation of text frame links.
-- Vertical alignment of text. This has been one of the most-requested features with respect to Scribus’s text features. Text in a frame can now be aligned to the top, the center and the bottom.
+- Vertical alignment of text. This has been one of the most-requested features with respect to Scribus’s text features. Text in a frame can now be aligned to the top, the middle and the bottom.
 - Auto-adjustment of text frames to text size.
 - Inline Objects in text frames are finally fully editable.
 
