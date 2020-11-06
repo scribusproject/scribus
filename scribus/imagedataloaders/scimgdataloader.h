@@ -43,7 +43,7 @@ protected:
 
 	QString getPascalString(QDataStream & s);
 	double decodePSDfloat(uint data);
-	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size );
+	void parseResourceData( QDataStream & s, const PSDHeader & header, uint size );
 
 public:
 	virtual ~ScImgDataLoader() {};

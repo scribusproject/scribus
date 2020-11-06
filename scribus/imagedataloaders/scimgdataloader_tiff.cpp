@@ -752,7 +752,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 			PSDHeader fakeHeader;
 			fakeHeader.width = widtht;
 			fakeHeader.height = heightt;
-			parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+			parseResourceData(strPhot, fakeHeader, PhotoshopLen);
 			m_imageInfoRecord.exifInfo.width = widtht;
 			m_imageInfoRecord.exifInfo.height = heightt;
 			if (!m_imageInfoRecord.valid)

@@ -108,7 +108,7 @@ double ScImgDataLoader::decodePSDfloat(uint data)
 	return ret;
 }
 
-void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & header, uint size )
+void ScImgDataLoader::parseResourceData( QDataStream & s, const PSDHeader & header, uint size )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
 	ushort resID, hResUnit, vResUnit, dummyW;

@@ -10146,7 +10146,7 @@ void ScribusDoc::removePict(const QString& name)
 void ScribusDoc::updatePic()
 {
 	//TODO? Getting the pointer with m_Selection->itemAt(i) over and over again in the loop 
-	// seems to be a waste of ressources
+	// seems to be a waste of resources
 	uint docSelectionCount = m_Selection->count();
 	if (docSelectionCount <= 0)
 		return;

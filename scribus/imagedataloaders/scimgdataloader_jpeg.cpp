@@ -336,7 +336,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		else if (cinfo.output_components == 1)
 			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
-		parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+		parseResourceData(strPhot, fakeHeader, PhotoshopLen);
 		// Photoshop resolution is more accurate than jpeg header resolution
 		xres = m_imageInfoRecord.xres;
 		yres = m_imageInfoRecord.yres;

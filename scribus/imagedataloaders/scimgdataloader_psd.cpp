@@ -264,8 +264,8 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	uint tmp;
 	uint cresStart;
 	uint cdataStart;
-	uint ressourceDataLen;
-	uint startRessource;
+	uint resourceDataLen;
+	uint startResource;
 
 	cresStart = s.device()->pos();
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
@@ -275,12 +275,12 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	LoadPSDResources(s, header, cresStart); 
 	
 	s.device()->seek( cdataStart + tmp );
-	s >> ressourceDataLen;
-	startRessource = s.device()->pos();
+	s >> resourceDataLen;
+	startResource = s.device()->pos();
 
 	if  ((!m_imageInfoRecord.exifInfo.thumbnail.isNull()) && (header.reserved[0] == 't'))
 		return true;
-	bool ret = LoadPSDImgData(s, header, startRessource + ressourceDataLen);
+	bool ret = LoadPSDImgData(s, header, startResource + resourceDataLen);
 	return ret;
 }
 
@@ -292,7 +292,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	uint tmp;
 	uint cdataStart;
 	uint resourceDataLen;
-//	uint startRessource;
+//	uint startResource;
 
 	s.device()->seek( dataOffset );
 
@@ -489,9 +489,9 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	}
 	s.device()->seek( cdataStart + tmp );
 	s >> resourceDataLen;
-//	startRessource = s.device()->pos();
+//	startResource = s.device()->pos();
 	if (resourceDataLen != 0)
-		parseRessourceData(s, header, resourceDataLen);
+		parseResourceData(s, header, resourceDataLen);
 	return true;
 }
 

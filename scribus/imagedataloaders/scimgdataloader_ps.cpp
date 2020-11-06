@@ -407,7 +407,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 								ts2 >> x >> y >> b >> h;
 								fakeHeader.width = qRound(b);
 								fakeHeader.height = qRound(h);
-								parseRessourceData(strPhot, fakeHeader, psdata.size());
+								parseResourceData(strPhot, fakeHeader, psdata.size());
 								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0;
 								if (!m_imageInfoRecord.PDSpathData.empty())
 								{
