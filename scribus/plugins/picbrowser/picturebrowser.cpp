@@ -197,9 +197,9 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 
 	PageItem *pItem;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
+	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
-		PageItem *currItem = m_Doc->MasterItems.at(a);
+		PageItem *currItem = m_Doc->MasterItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
@@ -220,9 +220,9 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		allItems.clear();
 	}
 
-	for (int a = 0; a < m_Doc->Items->count(); ++a)
+	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 	{
-		PageItem *currItem = m_Doc->Items->at(a);
+		PageItem *currItem = m_Doc->DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
