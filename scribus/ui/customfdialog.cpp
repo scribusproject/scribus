@@ -563,7 +563,7 @@ void CustomFDialog::handleCompress()
 	QString   fileName;
 	QFileInfo tmp(selectedFile());
 	QString   fn(tmp.fileName());
-	QStringList fc = fn.split(".", QString::KeepEmptyParts);
+	QStringList fc = fn.split(".", Qt::KeepEmptyParts);
 	if (fc.count() > 0)
 		fileName = fc.at(0);
 	for (int a = 1; a < fc.count(); a++)

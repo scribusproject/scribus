@@ -125,7 +125,7 @@ void TextFilter::write()
 		writer->append(text);
 	else
 	{
-		QStringList list = text.split("\n", QString::KeepEmptyParts);
+		QStringList list = text.split("\n", Qt::KeepEmptyParts);
 		gtParagraphStyle *useStyle = nullptr;
 		for (int i = 0; i < static_cast<int>(list.size()); ++i)
 		{
