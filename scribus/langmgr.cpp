@@ -964,9 +964,9 @@ void LanguageManager::printInstalledList()
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
 		ts << "  " << m_langTable[i].m_priAbbrev.leftJustified(8) << ": " << m_langTable[i].m_name;
-		endl(ts);
+		Qt::endl(ts);
 	}
-	endl(ts);
+	Qt::endl(ts);
 	f.close();
 }
 
