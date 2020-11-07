@@ -56,32 +56,32 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	FtFace(const QString& fam, const QString& sty, const QString& variant, const QString& scname,
 		   const QString& psname, const QString& path, int face, const QStringList& features);
 
-	FT_Face ftFace() const;
+	FT_Face ftFace() const override;
 
 	virtual ~FtFace();
 
 	// font metrics
-	qreal ascent(qreal sz=1.0)    const { return m_ascent * sz; }
-	qreal descent(qreal sz=1.0)   const { return m_descent * sz; }
-	qreal xHeight(qreal sz=1.0)   const { return m_xHeight * sz; }
-	qreal capHeight(qreal sz=1.0) const { return m_capHeight * sz; }
-	qreal height(qreal sz=1.0)    const { return m_height * sz; }
-	qreal strikeoutPos(qreal sz=1.0)    const { return m_strikeoutPos * sz; }
-	qreal underlinePos(qreal sz=1.0)    const { return m_underlinePos * sz; }
-	qreal strokeWidth(qreal /*sz*/)     const { return m_strokeWidth; }
-	qreal maxAdvanceWidth(qreal sz=1.0) const { return m_maxAdvanceWidth * sz; }
-	QString pdfAscentAsString()      const { return m_pdfAscent; }
-	QString pdfDescentAsString()     const { return m_pdfDescender; }
-	QString pdfCapHeightAsString()   const { return m_pdfCapHeight; }
-	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
-	QString italicAngleAsString()    const { return m_italicAngle; }
+	qreal ascent(qreal sz=1.0) const override          { return m_ascent * sz; }
+	qreal descent(qreal sz=1.0) const override         { return m_descent * sz; }
+	qreal xHeight(qreal sz=1.0) const override         { return m_xHeight * sz; }
+	qreal capHeight(qreal sz=1.0) const override       { return m_capHeight * sz; }
+	qreal height(qreal sz=1.0) const override          { return m_height * sz; }
+	qreal strikeoutPos(qreal sz=1.0) const override    { return m_strikeoutPos * sz; }
+	qreal underlinePos(qreal sz=1.0) const override    { return m_underlinePos * sz; }
+	qreal strokeWidth(qreal /*sz*/) const override     { return m_strokeWidth; }
+	qreal maxAdvanceWidth(qreal sz=1.0) const override { return m_maxAdvanceWidth * sz; }
+	QString pdfAscentAsString() const override         { return m_pdfAscent; }
+	QString pdfDescentAsString() const override        { return m_pdfDescender; }
+	QString pdfCapHeightAsString() const override      { return m_pdfCapHeight; }
+	QString pdfFontBBoxAsString() const override       { return m_pdfFontBBox; }
+	QString italicAngleAsString() const override       { return m_italicAngle; }
 
 	bool isItalic() const override { return m_isItalic; }
 	bool isBold() const override { return m_isBold; }
 
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 
-	ScFace::gid_type char2CMap(uint ch) const;
+	ScFace::gid_type char2CMap(uint ch) const override;
 
 //	GlyphMetrics glyphBBox (gid_type gl, qreal sz) const;
 
@@ -89,7 +89,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	static bool hasMicrosoftUnicodeCmap(FT_Face face);
 	static QString adobeGlyphName(FT_ULong charcode);
-	virtual bool glyphNames(ScFace::FaceEncoding& glyphList) const;
+	bool glyphNames(ScFace::FaceEncoding& glyphList) const override;
 
 	void load() const override;
 	void unload() const override;
