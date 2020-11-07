@@ -1642,7 +1642,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QLineF n_i = s_i.normalVector();
 		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
 		QPointF center;
-		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
+		if (n_s.intersects(n_i, &center) != QLineF::NoIntersection)
 		{
 			QLineF rad1 = QLineF(center, pStart);
 			QLineF rad3 = QLineF(center, pInter);
@@ -1690,7 +1690,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QLineF n_i = s_i.normalVector();
 		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
 		QPointF center;
-		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
+		if (n_s.intersects(n_i, &center) != QLineF::NoIntersection)
 		{
 			QLineF rad1 = QLineF(center, pStart);
 			QLineF rad3 = QLineF(center, pInter);
@@ -1930,7 +1930,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			for (int a = 0; a < elPo.size() - 1; a++)
 			{
 				QPointF intersect;
-				if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
+				if (QLineF(elPo[a], elPo[a+1]).intersects(stv, &intersect) == QLineF::BoundedIntersection)
 				{
 					stP = intersect;
 					break;
@@ -1939,7 +1939,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			for (int a = 0; a < elPo.size() - 1; a++)
 			{
 				QPointF intersect;
-				if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
+				if (QLineF(elPo[a], elPo[a+1]).intersects(env, &intersect) == QLineF::BoundedIntersection)
 				{
 					enP = intersect;
 					break;
@@ -2027,7 +2027,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		for (int a = 0; a < elPo.size() - 1; a++)
 		{
 			QPointF intersect;
-			if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
+			if (QLineF(elPo[a], elPo[a+1]).intersects(stv, &intersect) == QLineF::BoundedIntersection)
 			{
 				stP = intersect;
 				break;
@@ -2037,7 +2037,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		for (int a = 0; a < elPo.size() - 1; a++)
 		{
 			QPointF intersect;
-			if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
+			if (QLineF(elPo[a], elPo[a+1]).intersects(env, &intersect) == QLineF::BoundedIntersection)
 			{
 				enP = intersect;
 				break;

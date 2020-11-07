@@ -3341,13 +3341,13 @@ QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
 {
 	QPointF interPoint;
 	QPointF gradEnd;
-	if (gradientVector.intersect(QLineF(0, 0, item->width(), 0), &interPoint) == QLineF::BoundedIntersection)
+	if (gradientVector.intersects(QLineF(0, 0, item->width(), 0), &interPoint) == QLineF::BoundedIntersection)
 		gradEnd = interPoint;
-	else if (gradientVector.intersect(QLineF(item->width(), 0, item->width(), item->height()), &interPoint) == QLineF::BoundedIntersection)
+	else if (gradientVector.intersects(QLineF(item->width(), 0, item->width(), item->height()), &interPoint) == QLineF::BoundedIntersection)
 		gradEnd = interPoint;
-	else if (gradientVector.intersect(QLineF(item->width(), item->height(), 0, item->height()), &interPoint) == QLineF::BoundedIntersection)
+	else if (gradientVector.intersects(QLineF(item->width(), item->height(), 0, item->height()), &interPoint) == QLineF::BoundedIntersection)
 		gradEnd = interPoint;
-	else if (gradientVector.intersect(QLineF(0, item->height(), 0, 0), &interPoint) == QLineF::BoundedIntersection)
+	else if (gradientVector.intersects(QLineF(0, item->height(), 0, 0), &interPoint) == QLineF::BoundedIntersection)
 		gradEnd = interPoint;
 	return gradEnd;
 }
@@ -3689,7 +3689,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			L1.setAngle(-45);
 			QLineF LCW = QLineF(0.0, item->height() / 2.0, item->width(), item->height() / 2.0);
 			QPointF P5;
-			LCW.intersect(L1, &P5);
+			LCW.intersects(L1, &P5);
 			QPointF P6 = QPointF(item->width() - P5.x(), P5.y());
 			QPolygonF pPoints;
 			pPoints << P1 << P2 << P3 << P4 << P5 << P6;
