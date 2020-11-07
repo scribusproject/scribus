@@ -1209,8 +1209,8 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs)
 		}
 		if ((actStyle.tabDists.valid) && (actStyle.tabTypes.valid))
 		{
-			QStringList dists = actStyle.tabDists.value.split(";", QString::SkipEmptyParts);
-			QStringList types = actStyle.tabTypes.value.split(" ", QString::SkipEmptyParts);
+			QStringList dists = actStyle.tabDists.value.split(";", Qt::SkipEmptyParts);
+			QStringList types = actStyle.tabTypes.value.split(" ", Qt::SkipEmptyParts);
 			if (dists.count() == types.count())
 			{
 				tmpOStyle.tabStops.clear();
@@ -1279,7 +1279,7 @@ QString ODTIm::parseColor( const QString &s )
 	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
-		QStringList colors = parse.split( ',', QString::SkipEmptyParts );
+		QStringList colors = parse.split( ',', Qt::SkipEmptyParts );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );

@@ -7853,7 +7853,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	int wo    = state->getInt("PAGE");
 	int where = state->getInt("WHERE");
 	int count = state->getInt("COUNT");
-	QStringList based = state->get("BASED").split("|", QString::SkipEmptyParts);
+	QStringList based = state->get("BASED").split("|", Qt::SkipEmptyParts);
 	double height = state->getDouble("HEIGHT");
 	double width = state->getDouble("WIDTH");
 	int orient = state->getInt("ORIENT");

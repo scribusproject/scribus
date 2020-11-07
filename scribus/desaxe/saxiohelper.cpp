@@ -153,7 +153,7 @@ Xml_string toXMLString(const QList<float>& floatlist)
 
 QList<double> parseDoubleList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QList<double> result;
 	for (auto it = strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseDouble(*it));
@@ -178,7 +178,7 @@ Xml_string toXMLString(const QVector<float>& floatlist)
 
 QVector<double> parseDoubleVector(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QVector<double> result;
 	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseDouble(*it));
@@ -197,7 +197,7 @@ Xml_string toXMLString(const QList<int>& intlist)
 
 QList<int> parseIntList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QList<int> result;
 	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
@@ -215,7 +215,7 @@ Xml_string toXMLString(const QVector<int>& intlist)
 
 QVector<int> parseIntVector(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QVector<int> result;
 	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
@@ -225,7 +225,7 @@ QVector<int> parseIntVector(const Xml_string& str)
 
 QStack<int> parseIntStack(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
+	QStringList strlist = str.split(' ', Qt::SkipEmptyParts);
 	QStack<int> result;
 	for (auto it = strlist.cbegin(); it != strlist.cend(); ++it)
 		result.append(parseInt(*it));
@@ -244,7 +244,7 @@ Xml_string toXMLString(const QStringList& list)
 
 QStringList parseStringList(const Xml_string&  str)
 {
-	return str.split(' ', QString::SkipEmptyParts);
+	return str.split(' ', Qt::SkipEmptyParts);
 }
 
 

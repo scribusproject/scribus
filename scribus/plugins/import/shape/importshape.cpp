@@ -431,10 +431,10 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 		QString style = pg.attribute( "style", "" ).simplified();
 		if (style.isEmpty())
 			style = pg.attribute( "svg:style", "" ).simplified();
-		QStringList substyles = style.split(';', QString::SkipEmptyParts);
+		QStringList substyles = style.split(';', Qt::SkipEmptyParts);
 		for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 		{
-			QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
+			QStringList substyle = (*it).split(':', Qt::SkipEmptyParts);
 			QString command(substyle[0].trimmed());
 			QString params(substyle[1].trimmed());
 			if (command == "fill")
@@ -526,7 +526,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = points.split(' ', QString::SkipEmptyParts);
+			QStringList pointList = points.split(' ', Qt::SkipEmptyParts);
 			FirstM = true;
 			for (QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++)
 			{
@@ -701,7 +701,7 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = points.split(' ', QString::SkipEmptyParts);
+			QStringList pointList = points.split(' ', Qt::SkipEmptyParts);
 			FirstM = true;
 			for (QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++)
 			{

@@ -2643,7 +2643,7 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 
 	static const QString FEATURES("FEATURES");
 	if (attrs.hasAttribute(FEATURES))
-		newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", QString::SkipEmptyParts));
+		newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", Qt::SkipEmptyParts));
 
 	static const QString SCOLOR("SCOLOR");
 	if (attrs.hasAttribute(SCOLOR))
@@ -5238,7 +5238,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	if (attrs.hasAttribute("TXTSTW"))
 		pstyle.charStyle().setStrikethruWidth(qRound(attrs.valueAsDouble("TXTSTW") * 10));
 	if (attrs.hasAttribute("TXTFEATURES"))
-		pstyle.charStyle().setFeatures(attrs.valueAsString("TXTFEATURES").split(" ", QString::SkipEmptyParts));
+		pstyle.charStyle().setFeatures(attrs.valueAsString("TXTFEATURES").split(" ", Qt::SkipEmptyParts));
 	if (attrs.hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(attrs.valueAsDouble("TXTKERN", 0.0) * 10));
 	if (attrs.hasAttribute("wordTrack"))

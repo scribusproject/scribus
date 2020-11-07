@@ -987,7 +987,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 		f.close();
 		if (found)
 		{
-			QStringList bb = BBox.split(" ", QString::SkipEmptyParts);
+			QStringList bb = BBox.split(" ", Qt::SkipEmptyParts);
 			if (bb.count() == 4)
 			{
 				x = ScCLocale::toDoubleC(bb[0]);
@@ -1499,7 +1499,7 @@ void AIPlug::processData(const QString& data)
 				symbolMode = false;
 			}
 		}
-		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
+		QStringList da2 = Cdata.split(" ", Qt::SkipEmptyParts);
 		if (da2.count() == 0)
 			return;
 		command = da2.last();
@@ -2592,7 +2592,7 @@ void AIPlug::processGradientData(const QString& data)
 	for (int a = 0; a < da.count(); a++)
 	{
 		Cdata = da[a];
-		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
+		QStringList da2 = Cdata.split(" ", Qt::SkipEmptyParts);
 		command = da2.last();
 		if (command == "Bd")
 		{

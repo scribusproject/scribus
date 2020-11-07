@@ -1651,7 +1651,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["style:text-position"])
 	{
-		QStringList pos = QString(propList["style:text-position"]->getStr().cstr()).split(' ', QString::SkipEmptyParts);
+		QStringList pos = QString(propList["style:text-position"]->getStr().cstr()).split(' ', Qt::SkipEmptyParts);
 		if (!pos.empty())
 		{
 			if (pos[0] == "super")
@@ -3482,7 +3482,7 @@ QString RawPainter::parseColor( const QString &s )
 	if (s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
-		QStringList colors = parse.split(',', QString::SkipEmptyParts);
+		QStringList colors = parse.split(',', Qt::SkipEmptyParts);
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );

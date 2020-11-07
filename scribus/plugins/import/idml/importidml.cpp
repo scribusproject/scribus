@@ -76,7 +76,7 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 QString IdmlPlug::getNodeValue(QDomNode &baseNode, const QString& path)
 {
 	QString ret;
-	QStringList pathParts = path.split("/", QString::SkipEmptyParts);
+	QStringList pathParts = path.split("/", Qt::SkipEmptyParts);
 	QDomNode n = baseNode.namedItem(pathParts[0]);
 	if (n.isNull())
 		return QString();

@@ -268,7 +268,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 					continue;
 				QStringList wt;
 				QStringList::Iterator it;
-				wt = cc.split("\t", QString::SkipEmptyParts);
+				wt = cc.split("\t", Qt::SkipEmptyParts);
 				it = wt.begin();
 				CharStyle nstyle;
 				QString ch = (*it);

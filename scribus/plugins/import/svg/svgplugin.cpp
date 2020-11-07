@@ -265,7 +265,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	if (!docElem.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(docElem.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -411,7 +411,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!docElem.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(docElem.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			QTransform matrix;
@@ -946,7 +946,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 		if (xatt.contains(',') || xatt.contains(' '))
 		{
 			xatt.replace(QChar(','), QChar(' '));
-			QStringList xl(xatt.split(QChar(' '), QString::SkipEmptyParts));
+			QStringList xl(xatt.split(QChar(' '), Qt::SkipEmptyParts));
 			xatt = xl.first();
 		}
 		x = parseUnit(xatt); 
@@ -958,7 +958,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 		if (yatt.contains(',') || yatt.contains(' '))
 		{
 			yatt.replace(QChar(','), QChar(' '));
-			QStringList yl(yatt.split(QChar(' '), QString::SkipEmptyParts));
+			QStringList yl(yatt.split(QChar(' '), Qt::SkipEmptyParts));
 			yatt = yl.first();
 		}
 		y = parseUnit(yatt);
@@ -970,7 +970,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 		if (dxatt.contains(',') || dxatt.contains(' '))
 		{
 			dxatt.replace(QChar(','), QChar(' '));
-			QStringList xl(dxatt.split(QChar(' '), QString::SkipEmptyParts));
+			QStringList xl(dxatt.split(QChar(' '), Qt::SkipEmptyParts));
 			dxatt = xl.first();
 		}
 		x += parseUnit(dxatt); 
@@ -982,7 +982,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 		if (dyatt.contains(',') || dyatt.contains(' '))
 		{
 			dyatt.replace(QChar(','), QChar(' '));
-			QStringList xl(dyatt.split(QChar(' '), QString::SkipEmptyParts));
+			QStringList xl(dyatt.split(QChar(' '), Qt::SkipEmptyParts));
 			dyatt = xl.first();
 		}
 		y += parseUnit(dyatt); 
@@ -1032,7 +1032,7 @@ QRectF SVGPlug::parseViewBox(const QDomElement &e)
 	if (!e.attribute("viewBox").isEmpty())
 	{
 		QString viewbox(e.attribute("viewBox"));
-		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
+		QStringList points = viewbox.replace(QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		if (points.size() > 3)
 		{
 			double left   = ScCLocale::toDoubleC(points[0]);
@@ -1122,10 +1122,10 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 /*	if (e.hasAttribute("style"))
 	{
 		QString style = e.attribute("style").simplified();
-		QStringList substyles = style.split(';', QString::SkipEmptyParts);
+		QStringList substyles = style.split(';', Qt::SkipEmptyParts);
 		for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 		{
-			QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
+			QStringList substyle = (*it).split(':', Qt::SkipEmptyParts);
 			QString command(substyle[0].trimmed());
 			QString params(substyle[1].trimmed());
 			if (command == "clip-path")
@@ -1713,7 +1713,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	{
 		QString STag = parseTagName(e);
 		points = points.simplified().replace(',', " ");
-		QStringList pointList = points.split(' ', QString::SkipEmptyParts);
+		QStringList pointList = points.split(' ', Qt::SkipEmptyParts);
 		if ((STag == "polygon" ) && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else
@@ -2197,13 +2197,13 @@ QTransform SVGPlug::parseTransform(const QString &transform)
 	// Workaround for QString::split() bug when string ends with space
 	QString trans = transform.simplified();
 	// Split string for handling 1 transform statement at a time
-	QStringList subtransforms = trans.split(')', QString::SkipEmptyParts);
+	QStringList subtransforms = trans.split(')', Qt::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for (; it != end; ++it)
 	{
 		QTransform result;
-		QStringList subtransform = it->split('(', QString::SkipEmptyParts);
+		QStringList subtransform = it->split('(', Qt::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QVector<double> params = parseNumbersList(subtransform[1]);
@@ -2337,7 +2337,7 @@ QString SVGPlug::parseColor(const QString &s)
 	if (s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
-		QStringList colors = parse.split(',', QString::SkipEmptyParts);
+		QStringList colors = parse.split(',', Qt::SkipEmptyParts);
 		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
 		QString b = colors[2].left(colors[2].length() - 1);
@@ -2387,7 +2387,7 @@ QString SVGPlug::parseIccColor(const QString &s)
 	{
 		QString iccColor = s.mid(iccFirst + 1, iccLast - iccFirst - 1);
 		iccColor = iccColor.trimmed();
-		QStringList colors = iccColor.split(',', QString::SkipEmptyParts);
+		QStringList colors = iccColor.split(',', Qt::SkipEmptyParts);
 		if (colors.count() == 5) // then we assume this is a cmyk color
 		{
 			QString cs = colors[1], ms = colors[2], ys = colors[3], ks = colors[4];
@@ -2692,7 +2692,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		if (params != "none")
 		{
 			QString params2 = params.simplified().replace(',', " ");
-			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
+			QStringList dashes = params2.split(' ', Qt::SkipEmptyParts);
 			if ((dashes.count() > 0) && (parseUnit(dashes[0]) != 0.0))
 			{
 				for (QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it)
@@ -2826,10 +2826,10 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 	if (!e.attribute("marker-start").isEmpty())
 		parsePA(obj, "marker-start", e.attribute("marker-start"));
 	QString style = e.attribute("style").simplified();
-	QStringList substyles = style.split(';', QString::SkipEmptyParts);
+	QStringList substyles = style.split(';', Qt::SkipEmptyParts);
 	for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 	{
-		QStringList substyle = it->split(':', QString::SkipEmptyParts);
+		QStringList substyle = it->split(':', Qt::SkipEmptyParts);
 		if (substyle.count() >= 2)
 		{
 			QString command(substyle.at(0).trimmed());
@@ -2872,10 +2872,10 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			else if (stop.hasAttribute("style"))
 			{
 				QString style = stop.attribute("style").simplified();
-				QStringList substyles = style.split(';', QString::SkipEmptyParts);
+				QStringList substyles = style.split(';', Qt::SkipEmptyParts);
 				for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
 				{
-					QStringList substyle = it->split(':', QString::SkipEmptyParts);
+					QStringList substyle = it->split(':', Qt::SkipEmptyParts);
 					if (substyle.count() >= 2)
 					{
 						QString command(substyle.at(0).trimmed());

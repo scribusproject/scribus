@@ -916,7 +916,7 @@ void PrefsManager::convert12Preferences()
 		QTextStream tsx(&fontPrefsFile12);
 		QString extraPath = tsx.readAll();
 		fontPrefsFile12.close();
-		QStringList extraFonts = extraPath.split("\n", QString::SkipEmptyParts);
+		QStringList extraFonts = extraPath.split("\n", Qt::SkipEmptyParts);
 		for (int i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}

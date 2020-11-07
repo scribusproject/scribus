@@ -247,7 +247,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 //	nameFilters << "*.jpg" << "*.jpeg" << "*.gif" << "*.png" << "*.ps" << "*.psd" << "*.tif" << "*.tiff" << "*.xpm" << "*.eps" << "*.epsf" << "*.epsi" << "*.eps2" << "*.eps3" << "*.epi" << "*.epg";
 
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 0));
-	nameFilters = formatD.split(" ", QString::SkipEmptyParts);
+	nameFilters = formatD.split(" ", Qt::SkipEmptyParts);
 	nameFilters.append("*.svg");
 
 	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);

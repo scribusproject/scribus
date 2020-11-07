@@ -91,7 +91,7 @@ void Prefs_Spelling::downloadSpellDicts()
 			if (d.filetype=="plain")
 			{
 				//qDebug()<<d.url<<d.files;
-				const QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
+				const QStringList plainURLs(d.files.split(";", Qt::SkipEmptyParts));
 				for (const QString& s : plainURLs)
 				{
 					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation, userDictDir);
@@ -174,14 +174,14 @@ void Prefs_Spelling::downloadSpellDictsFinished()
 	QStringList allFileList;
 	foreach(DictData d, downloadList)
 	{
-		allFileList += d.files.split(";", QString::SkipEmptyParts);
+		allFileList += d.files.split(";", Qt::SkipEmptyParts);
 	}
 	// Move downloaded files to destination
 	foreach(DictData d, downloadList)
 	{
 		QString basename = QFileInfo(d.url).fileName();
 		QString filename = downloadLocation+basename;
-		QStringList files = d.files.split(";", QString::SkipEmptyParts);
+		QStringList files = d.files.split(";", Qt::SkipEmptyParts);
 		QString affixFile = affixFileName(files);
 		QString dictFile  = dictFileName(files);
 		//qDebug()<<filename;

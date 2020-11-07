@@ -76,7 +76,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	if ((m_annotation.ActionType() == Annotation::Action_GoTo) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileRel) || (m_annotation.ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		QString tm = m_annotation.Action();
-		tl = tm.split(" ", QString::SkipEmptyParts);
+		tl = tm.split(" ", Qt::SkipEmptyParts);
 	}
 	else
 	{
@@ -756,7 +756,7 @@ void ScAnnot::DecodeVali()
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfo.split(",", QString::SkipEmptyParts);
+	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	MinValid->setText(pfol[1].simplified());
 	MaxValid->setText(pfol[3].simplified());
 }
@@ -769,7 +769,7 @@ void ScAnnot::DecodeCalc()
 	int ss = pfor.lastIndexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
-	pfol = pfo.split(",", QString::SkipEmptyParts);
+	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
@@ -783,7 +783,7 @@ void ScAnnot::DecodeCalc()
 	CalcFields->setText(tm);
 	ss = pfor.indexOf("(");
 	pfo = pfor.mid(ss+1, pfor.length()-ss-3);
-	pfol = pfo.split(",", QString::SkipEmptyParts);
+	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	/* PFJ - 28/02/04 - Let's get rid of lots of ifs.... */
 	QString pf[] = {"\"SUM\"", "\"PRD\"", "\"AVG\"", "\"MIN\"", "\"MAX\""};
 	size_t pfTest = sizeof(pf) / sizeof(*pf);
@@ -800,7 +800,7 @@ void ScAnnot::DecodeNum()
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfo.split(",", QString::SkipEmptyParts);
+	pfol = pfo.split(",", Qt::SkipEmptyParts);
 	if (m_annotation.Format() == 1)
 	{
 		Decim->setValue(pfol[0].toInt());
@@ -1190,7 +1190,7 @@ void ScAnnot::SetValues()
 			}
 			tmpCact += "new Array (";
 			QStringList pfol;
-			pfol = CalcFields->text().split(",", QString::SkipEmptyParts);
+			pfol = CalcFields->text().split(",", Qt::SkipEmptyParts);
 			if (pfol.count() > 1)
 			{
 				tmpCact += "\""+pfol[0].simplified()+"\"";

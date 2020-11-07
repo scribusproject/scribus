@@ -797,7 +797,7 @@ QString gtAction::parseColor(const QString &s)
 		if( s.startsWith( "rgb(" ) )
 		{
 			QString parse = s.trimmed();
-			QStringList colors = parse.split(',', QString::SkipEmptyParts);
+			QStringList colors = parse.split(',', Qt::SkipEmptyParts);
 			QString r = colors[0].right( ( colors[0].length() - 4 ) );
 			QString g = colors[1];
 			QString b = colors[2].left( ( colors[2].length() - 1 ) );

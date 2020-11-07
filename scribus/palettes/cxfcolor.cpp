@@ -537,7 +537,7 @@ bool CxfReflectanceSpectrum::parse(QDomElement& colorElem)
 	if (spectrum.isEmpty())
 		return false;
 
-	QStringList values = spectrum.split(QChar(' '), QString::SkipEmptyParts);
+	QStringList values = spectrum.split(QChar(' '), Qt::SkipEmptyParts);
 	if (values.count() <= 0)
 		return false;
 

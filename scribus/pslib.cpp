@@ -3217,7 +3217,7 @@ void PSLib::HandleMeshGradient(PageItem* item)
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
+				QStringList cols2 = colorVal.split(" ", Qt::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
 			colorValues.append(colorVal);
@@ -3398,7 +3398,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
+				QStringList cols2 = colorVal.split(" ", Qt::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
 			colorValues.append(colorVal);
@@ -3575,7 +3575,7 @@ void PSLib::HandleDiamondGradient(PageItem* item)
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-				QStringList cols2 = colorVal.split(" ", QString::SkipEmptyParts);
+				QStringList cols2 = colorVal.split(" ", Qt::SkipEmptyParts);
 				colorVal = ToStr(1 - ScCLocale::toDoubleC(cols2[pla]));
 			}
 			colorValues.append(colorVal);
@@ -3814,7 +3814,7 @@ void PSLib::HandleTensorGradient(PageItem* item)
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-				QStringList cols2 = GCol.split(" ", QString::SkipEmptyParts);
+				QStringList cols2 = GCol.split(" ", Qt::SkipEmptyParts);
 				PutStream(ToStr(1 - ScCLocale::toDoubleC(cols2[pla])) + "\n");
 			}
 			else
@@ -4085,8 +4085,8 @@ void PSLib::HandleGradientFillStroke(PageItem *item, bool stroke, bool forArrow)
 			if (DoSep)
 			{
 				int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-				QStringList cols1 = GCol.split(" ", QString::SkipEmptyParts);
-				QStringList cols2 = GCol2.split(" ", QString::SkipEmptyParts);
+				QStringList cols1 = GCol.split(" ", Qt::SkipEmptyParts);
+				QStringList cols2 = GCol2.split(" ", Qt::SkipEmptyParts);
 				PutStream("/C1 [" + ToStr(1 - ScCLocale::toDoubleC(cols1[pla])) + "]\n");
 				PutStream("/C0 [" + ToStr(1 - ScCLocale::toDoubleC(cols2[pla])) + "]\n");
 			}

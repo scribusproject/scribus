@@ -8962,7 +8962,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		}
 	}
 	QByteArray anTitle = Pdf::toPdfDocEncoding(ite->itemName().replace(".", "_"));
-	QStringList bmstUtf16 = bmUtf16.split(QChar(10), QString::SkipEmptyParts);
+	QStringList bmstUtf16 = bmUtf16.split(QChar(10), Qt::SkipEmptyParts);
 	const QByteArray m[] = {"4", "5", "F", "l", "H", "n"};
 	QByteArray ct(m[ite->annotation().ChkStil()]);
 	PdfId annotationObj = writer.newObject();

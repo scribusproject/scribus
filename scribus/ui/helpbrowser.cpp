@@ -580,7 +580,7 @@ void HelpBrowser::loadMenu()
 	helpMenuFiles.append(qMakePair(installHelpDir, m_language));
 	if (!m_language.isEmpty())
 	{
-		QStringList langDecomp = m_language.split(QChar('_'), QString::SkipEmptyParts);
+		QStringList langDecomp = m_language.split(QChar('_'), Qt::SkipEmptyParts);
 		QString altLanguage = langDecomp.first();
 		helpMenuFiles.append(qMakePair(baseHelpDir, altLanguage));
 		helpMenuFiles.append(qMakePair(installHelpDir, altLanguage));

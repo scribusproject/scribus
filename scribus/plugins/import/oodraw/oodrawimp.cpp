@@ -1360,7 +1360,7 @@ QString OODPlug::parseColor( const QString &s )
 	if (s.startsWith( "rgb(" ))
 	{
 		QString parse = s.trimmed();
-		QStringList colors = parse.split( ',', QString::SkipEmptyParts );
+		QStringList colors = parse.split( ',', Qt::SkipEmptyParts );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
@@ -1399,16 +1399,16 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 {
 	double dx, dy;
 	QTransform result;
-	QStringList subtransforms = transform.split(')', QString::SkipEmptyParts);
+	QStringList subtransforms = transform.split(')', Qt::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for (; it != end; ++it)
 	{
-		QStringList subtransform = (*it).split('(', QString::SkipEmptyParts);
+		QStringList subtransform = (*it).split('(', Qt::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
-		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
+		QStringList params = subtransform[1].split(reg, Qt::SkipEmptyParts);
 		if (subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if (subtransform[0] == "rotate")
@@ -1453,7 +1453,7 @@ void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, doub
 	if (!object.attribute( "svg:viewBox" ).isEmpty())
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split(' ', QString::SkipEmptyParts);
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split(' ', Qt::SkipEmptyParts);
 		*x = ScCLocale::toDoubleC(points[0]);
 		*y = ScCLocale::toDoubleC(points[1]);
 		*w = ScCLocale::toDoubleC(points[2]);
@@ -1474,7 +1474,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	parseViewBox(object, &vx, &vy, &vw, &vh);
 	double sx = (vw != 0.0) ? (w / vw) : w;
 	double sy = (vh != 0.0) ? (h / vh) : h;
-	QStringList ptList = object.attribute( "draw:points" ).split( ' ', QString::SkipEmptyParts );
+	QStringList ptList = object.attribute( "draw:points" ).split( ' ', Qt::SkipEmptyParts );
 	FPoint point, firstP;
 	bool bFirst = true;
 	for (QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it)

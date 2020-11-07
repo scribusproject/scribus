@@ -62,7 +62,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	if ((m_item->annotation().ActionType() == Annotation::Action_GoTo) || (m_item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (m_item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		QString tm = m_item->annotation().Action();
-		tl = tm.split(" ", QString::SkipEmptyParts);
+		tl = tm.split(" ", Qt::SkipEmptyParts);
 	}
 	else
 	{

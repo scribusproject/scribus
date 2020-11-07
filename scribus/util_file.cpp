@@ -201,7 +201,7 @@ bool fileInPath(const QString& filename)
 {
 	if (filename.isEmpty())
 		return false;
-	QString file = filename.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
+	QString file = filename.split(' ', Qt::SkipEmptyParts).at(0); //Ignore parameters
 #if defined(Q_OS_WIN32)
 	if (QFileInfo(file).suffix().isEmpty())
 		file += ".exe";
@@ -228,7 +228,7 @@ bool fileInPath(const QString& filename)
 	}
 
 	QChar envPathSeparator(ScPaths::envPathSeparator);
-	const QStringList splitpath = path.split(envPathSeparator, QString::SkipEmptyParts);
+	const QStringList splitpath = path.split(envPathSeparator, Qt::SkipEmptyParts);
 	for (const QString& dir : splitpath)
 	{
 		QFileInfo info(dir, file);

@@ -1154,7 +1154,7 @@ void StyleManager::slotApplyStyle(const QString& keyString)
 	if (m_isEditMode)
 		return;
 
-	QStringList slist = keyString.split(SEPARATOR, QString::SkipEmptyParts);
+	QStringList slist = keyString.split(SEPARATOR, Qt::SkipEmptyParts);
 	Q_ASSERT(slist.count() == 2);
 
 	loadType(slist[0]);

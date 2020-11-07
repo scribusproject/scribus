@@ -94,14 +94,14 @@ UnicodeSearchModel::UnicodeSearchModel(QObject * /*parent*/)
 	QFile file(ScPaths::instance().shareDir() + "unicodenameslist.txt");
 	if (file.open( QIODevice::ReadOnly ) )
 	{
-		QStringList list = QString(file.readAll()).split('\n', QString::SkipEmptyParts);
+		QStringList list = QString(file.readAll()).split('\n', Qt::SkipEmptyParts);
 		file.close();
 
 		QStringList line;
 		UnicodeStruct uni;
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
-			line = (*it).split(':', QString::SkipEmptyParts);
+			line = (*it).split(':', Qt::SkipEmptyParts);
 			uni.description = line[1].toLower();
 			uni.hex = line[0];
 			m_unicode.append(uni);

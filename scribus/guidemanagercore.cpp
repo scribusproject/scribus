@@ -664,7 +664,7 @@ double GuideManagerCore::closestVertRight(double x)// const
 
 void GuideManagerIO::readVerticalGuides(const QString& guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
+	QStringList gVal(guideString.split(' ', Qt::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addHorizontal(ScCLocale::toDoubleC((*it)), type) :
@@ -673,7 +673,7 @@ void GuideManagerIO::readVerticalGuides(const QString& guideString, ScPage *page
 
 void GuideManagerIO::readHorizontalGuides(const QString& guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
+	QStringList gVal(guideString.split(' ', Qt::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addVertical(ScCLocale::toDoubleC((*it)), type):
@@ -717,7 +717,7 @@ void GuideManagerIO::readSelection(const QString& guideString, ScPage *page)
 {
 	if (guideString.isEmpty())
 		return;
-	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
+	QStringList gVal(guideString.split(' ', Qt::SkipEmptyParts));
 	page->guides.gx = ScCLocale::toDoubleC(gVal[0]);
 	page->guides.gy = ScCLocale::toDoubleC(gVal[1]);
 	page->guides.gw = ScCLocale::toDoubleC(gVal[2]);
