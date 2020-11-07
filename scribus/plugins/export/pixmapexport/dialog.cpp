@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCompleter>
 #include <QComboBox>
 #include <QDebug>
-#include <QDirModel>
+#include <QFileSystemModel>
 #include <QFileDialog>
 #include <QImageWriter>
 #include <QToolTip>
@@ -32,7 +32,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	setModal(true);
 	prefs = PrefsManager::instance().prefsFile->getPluginContext("pixmapexport");
 
-	QDirModel * dirModel = new QDirModel(this);
+	QFileSystemModel* dirModel = new QFileSystemModel(this);
 	dirModel->setFilter(QDir::AllDirs);
 	outputDirectory->setCompleter(new QCompleter(dirModel, this));
 

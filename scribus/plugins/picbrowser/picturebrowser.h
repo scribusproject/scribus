@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PICTUREBROWSER_H
 
 #include <QCloseEvent>
-#include <QDirModel>
+#include <QFileSystemModel>
 #include "ui_picturebrowser.h"
 
 //previewicon class
@@ -224,7 +224,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		ScribusMainWindow* m_ScMW;
 
 		//the dirmodel for the folderbrowser
-		QDirModel folderModel;
+		QFileSystemModel folderModel;
 		//model for QListView containing the previewimages
 		PreviewImagesModel *pModel;
 		//contains the currently selected index in folderModel
