@@ -1,5 +1,7 @@
 Scribus - 1.5.6 (Released 2020-11-07)
 =========================================
+0012493: [Import / Export] "Export to Image" dialog proposes bad prefix, folder and image type (cbradney)
+0015201: [General] Unstable when footnotes move to another frame (jghali)
 0016319: [Documentation] Doc updates for 1.5.6 (cbradney)
 0016316: [Translation] German translation updates for 1.5.6 (christoph_s)
 0016306: [Scripter] Add constants for the item types (text, image, ...) (jghali)
