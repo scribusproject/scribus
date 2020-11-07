@@ -104,7 +104,8 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, const QString& target)
 	// interval widgets handling
 	QString tmp;
 	dia->rangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
-	dia->prefixLineEdit->setText(doc->documentFileName());
+	QFileInfo docFileInfo(doc->documentFileName());
+	dia->prefixLineEdit->setText(docFileInfo.baseName());
 	// main "loop"
 	if (dia->exec() != QDialog::Accepted)
 		return true;

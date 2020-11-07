@@ -21,16 +21,16 @@ public:
 	~ExportForm();
 
 public slots:
-	virtual void OutputDirectoryButton_pressed();
-	virtual void IntervalPagesRadio_stateChanged();
-	virtual void AllPagesRadio_stateChanged();
-	virtual void OnePageRadio_stateChanged();
-	virtual void computeSize();
+	void OutputDirectoryButton_pressed();
+	void IntervalPagesRadio_stateChanged();
+	void AllPagesRadio_stateChanged();
+	void OnePageRadio_stateChanged();
+	void computeSize();
 
 protected:
-	PrefsContext* prefs;
-	ScribusDoc*  m_doc;
-	int m_PageCount;
+	PrefsContext* prefs {nullptr};
+	ScribusDoc* m_doc {nullptr};
+	int m_PageCount {1};
 
 protected slots:
 	void createPageNumberRange();
