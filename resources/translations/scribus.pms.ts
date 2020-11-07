@@ -14123,8 +14123,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7411"/>
-        <location filename="../../scribus/pageitem.cpp" line="7412"/>
+        <location filename="../../scribus/pageitem.cpp" line="7413"/>
+        <location filename="../../scribus/pageitem.cpp" line="7414"/>
         <source>Copy of</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15793,12 +15793,12 @@ Please choose another one.</source>
 <context>
     <name>PicStatus</name>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="477"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="475"/>
         <source>Scribus - Image Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="477"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="475"/>
         <source>No images named &quot;%1&quot; were found.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15808,52 +15808,52 @@ Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="303"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="302"/>
         <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="330"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="329"/>
         <source>JPG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="333"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="332"/>
         <source>TIFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="336"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="335"/>
         <source>PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="339"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="338"/>
         <source>EPS/PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="342"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="341"/>
         <source>PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="345"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="344"/>
         <source>JPG2000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="351"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="350"/>
         <source>emb. PSD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="357"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="356"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="374"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="373"/>
         <source>n/a</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15963,12 +15963,12 @@ Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="265"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="264"/>
         <source>Sort by Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="267"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="266"/>
         <source>Sort by Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16103,9 +16103,9 @@ Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/picstatus.cpp" line="153"/>
-        <location filename="../../scribus/ui/picstatus.cpp" line="177"/>
-        <location filename="../../scribus/ui/picstatus.cpp" line="314"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="152"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="176"/>
+        <location filename="../../scribus/ui/picstatus.cpp" line="313"/>
         <source>Embedded Image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28618,19 +28618,19 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="331"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="342"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="361"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="429"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="445"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29511,7 +29511,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="966"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="985"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -29562,7 +29562,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="434"/>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="238"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="250"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29572,8 +29572,8 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="245"/>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="265"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
         <source>Font %1 cannot be read, no embedding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29603,7 +29603,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ttf.cpp" line="119"/>
+        <location filename="../../scribus/fonts/scface_ttf.cpp" line="131"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30216,7 +30216,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="101"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="111"/>
         <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30345,12 +30345,12 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="107"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="106"/>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/scface_ps.cpp" line="114"/>
+        <location filename="../../scribus/fonts/scface_ps.cpp" line="93"/>
         <source>No metrics found for font %1, ignoring font</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35866,17 +35866,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10363"/>
+        <location filename="../../scribus/pageitem.cpp" line="10365"/>
         <source>Print: </source>
         <translation>Stampa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10365"/>
+        <location filename="../../scribus/pageitem.cpp" line="10367"/>
         <source>Enabled</source>
         <translation>Abilità</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10367"/>
+        <location filename="../../scribus/pageitem.cpp" line="10369"/>
         <source>Disabled</source>
         <translation>Dësabilità</translation>
     </message>
@@ -40654,7 +40654,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1615"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1616"/>
         <source>Generating Items</source>
         <translation type="unfinished"></translation>
     </message>

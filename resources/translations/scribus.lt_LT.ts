@@ -7488,30 +7488,30 @@ importuoti nepavyko!
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="211"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="212"/>
         <source>File exists. Overwrite?</source>
         <translation>Failas jau yra. Rašyti ant viršaus?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="212"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="213"/>
         <source>exists already. Overwrite?</source>
         <translation>jau yra. Rašyti ant viršaus?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="198"/>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="227"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="199"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="228"/>
         <source>Save as Image</source>
         <translation>Įrašyti kaip paveikslą</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="198"/>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="199"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="200"/>
         <source>Insufficient memory for this image size.</source>
         <translation>Šio dydžio paveikslui nepakanka atminties.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="227"/>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="228"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="229"/>
         <source>Error writing the output file(s).</source>
         <translation>Išvesties failo (-ų) rašymo klaida.</translation>
     </message>
@@ -7524,29 +7524,29 @@ importuoti nepavyko!
         <translation>V&amp;isus puslapius</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="127"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="129"/>
         <source>Change the output directory</source>
         <translation>Pakeisti išvesties aplanką</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="126"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Išvedimo aplankas - vieta, išsaugoti jūsų paveikslams.
 Eksporto failo pavadinimas bus „dokumentopavadinimas-puslapionumeris.failotipas“</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="79"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="81"/>
         <source>Choose an Export Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="122"/>
         <source>Export only the current page</source>
         <translation>Eksportuoti tik dabartinį puslapį</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="127"/>
         <source>Available export formats</source>
         <translation>Galimi eksportavimo formatai</translation>
     </message>
@@ -7612,17 +7612,17 @@ Eksporto failo pavadinimas bus „dokumentopavadinimas-puslapionumeris.failotipa
         <translation>&amp;Rėžis</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="116"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="118"/>
         <source>Export a range of pages</source>
         <translation>Eksportuoti puslapių grupę</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="121"/>
         <source>Export all pages</source>
         <translation>Eksportuoti visus puslapius</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="121"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Paveikslų raiška
@@ -7634,7 +7634,7 @@ Naudokite 72 dpi paveikslus vaizdavimui kompiuterio ekrane</translation>
         <translation>&amp;Dydis:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="122"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Paveikslų dydis. 100% – be pakeitimų, 200% – dvigubai didesnis ir pan.</translation>
     </message>
@@ -7644,12 +7644,12 @@ Naudokite 72 dpi paveikslus vaizdavimui kompiuterio ekrane</translation>
         <translation>Paveikslo dydis pikseliais</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="125"/>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
         <translation>Jūsų paveikslų glaudinimo lygis: 100% - jokio glaudinimo, 0% - maksimalus glaudinimas, Jei abejojate, rinkitės „Automatiškai“</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="126"/>
         <source>Automatic</source>
         <translation>Automatiškai parinktas</translation>
     </message>
@@ -7669,17 +7669,17 @@ Naudokite 72 dpi paveikslus vaizdavimui kompiuterio ekrane</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="130"/>
         <source>Don&apos;t export Page Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="118"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
         <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="117"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
@@ -16937,23 +16937,23 @@ Prašome parinkti kitą.</translation>
         <translation>Eksportuoja pažymėtus puslapius kaip taškinės grafikos paveikslus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="124"/>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="130"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="131"/>
         <source>Save as Image</source>
         <translation>Įrašyti kaip paveikslą</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="152"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="153"/>
         <source>Export successful</source>
         <translation>Eksportuota sėkmingai</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="126"/>
         <source>The target location %1 must be an existing directory</source>
         <translation>Paskirties vieta „%1“ turi būti jau esamas aplankas</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="131"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="132"/>
         <source>The target location %1 must be writable</source>
         <translation>Į paskirties vietą „%1“ turi būti leidžiama rašyti </translation>
     </message>

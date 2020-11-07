@@ -7501,30 +7501,30 @@ fallita!</translation>
 <context>
     <name>ExportBitmap</name>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="211"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="212"/>
         <source>File exists. Overwrite?</source>
         <translation>Il file esiste. Sovrascriverlo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="212"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="213"/>
         <source>exists already. Overwrite?</source>
         <translation>esiste già. Sovrascriverlo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="198"/>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="227"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="199"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="228"/>
         <source>Save as Image</source>
         <translation>Salva come immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="198"/>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="199"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="200"/>
         <source>Insufficient memory for this image size.</source>
         <translation>Memoria insufficiente per le dimensioni di questa immagine.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="227"/>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="228"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="229"/>
         <source>Error writing the output file(s).</source>
         <translation>Errore di salvataggio del file di output.</translation>
     </message>
@@ -7537,24 +7537,24 @@ fallita!</translation>
         <translation>Tutte le p&amp;agine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="127"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="129"/>
         <source>Change the output directory</source>
         <translation>Cambia la cartella di destinazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="126"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>La cartella di destinazione - dove verranno conservate le immagini.
 Il nome del file di esportazione sarà &apos;nomedocumento-numeropagina.tipofile&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="79"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="81"/>
         <source>Choose an Export Directory</source>
         <translation>Scegli una cartella per l&apos;esportazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="117"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
@@ -7564,12 +7564,12 @@ in cui un simbolo può essere * per tutte le pagine,
 o un numero di una singola pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="122"/>
         <source>Export only the current page</source>
         <translation>Esporta solo la pagina corrente</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="127"/>
         <source>Available export formats</source>
         <translation>Formati di esportazione disponibili</translation>
     </message>
@@ -7650,29 +7650,29 @@ o un numero di una singola pagina</translation>
         <translation>&amp;Intervallo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="116"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="118"/>
         <source>Export a range of pages</source>
         <translation>Esporta un intervallo di pagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="118"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
         <source>Create a range of pages</source>
         <translation>Crea un intervallo di pagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="121"/>
         <source>Export all pages</source>
         <translation>Esporta tutte le pagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="121"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Risoluzione delle immagini
 Usa 72 dpi per immagini da visualizzare su schermo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="130"/>
         <source>Don&apos;t export Page Background</source>
         <translation>Non esportare lo sfondo della pagina</translation>
     </message>
@@ -7682,7 +7682,7 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
         <translation>Dimen&amp;sione:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="122"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Dimensione delle immagini. 100% per manterla invariata, 200% per ingrandire due volte ecc.</translation>
     </message>
@@ -7692,12 +7692,12 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
         <translation>Dimensione immagine in pixel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="123"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="125"/>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
         <translation>Il rapporto di compressione delle immagini - 100% nessuna compressione, 0% compressione massima. In caso di dubbio scegliere &apos;Automatico&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="126"/>
         <source>Automatic</source>
         <translation>Automatico</translation>
     </message>
@@ -16997,23 +16997,23 @@ Sceglierne un&apos;altra.</translation>
         <translation>Esporta le pagine selezionate come immagini bitmap.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="124"/>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="130"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="131"/>
         <source>Save as Image</source>
         <translation>Salva come immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="152"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="153"/>
         <source>Export successful</source>
         <translation>Esportazione riuscita</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="125"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="126"/>
         <source>The target location %1 must be an existing directory</source>
         <translation>La destinazione %1 deve essere una cartella esistente</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="131"/>
+        <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="132"/>
         <source>The target location %1 must be writable</source>
         <translation>La destinazione %1 deve essere scrivibile</translation>
     </message>
