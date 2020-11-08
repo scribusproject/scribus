@@ -1551,13 +1551,14 @@ void XfigPlug::processData(QDataStream &ts, const QString& data)
 
 void XfigPlug::resortItems()
 {
-	int ac = m_Doc->Items->count();
 	QList<PageItem*> itemList;
-	itemList.reserve(ac);
-	for (int as = oldDocItemCount; as < ac; ++as)
+	int newItemCount = m_Doc->Items->count();
+	itemList.reserve(newItemCount - oldDocItemCount);
+	for (int as = oldDocItemCount; as < newItemCount; ++as)
 	{
 		itemList.append(m_Doc->Items->takeAt(oldDocItemCount));
 	}
+
 	QList<int> keylist = depthMap.uniqueKeys();
 	int keysCount = keylist.count();
 	int currentLayer = 0;
