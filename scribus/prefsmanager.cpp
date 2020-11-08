@@ -167,9 +167,9 @@ void PrefsManager::initDefaults()
 //	appPrefs.uiPrefs.mainWinSettings.yPosition = 0;
 	appPrefs.uiPrefs.mainWinSettings.width = 640;
 	appPrefs.uiPrefs.mainWinSettings.height = 480;
-	QScreen* s=QGuiApplication::primaryScreen();
-	appPrefs.uiPrefs.mainWinSettings.xPosition=(s->availableGeometry().width()-appPrefs.uiPrefs.mainWinSettings.width)/2;
-	appPrefs.uiPrefs.mainWinSettings.yPosition=(s->availableGeometry().height()-appPrefs.uiPrefs.mainWinSettings.height)/2;
+	QScreen* s = QGuiApplication::primaryScreen();
+	appPrefs.uiPrefs.mainWinSettings.xPosition = (s->availableGeometry().width() - appPrefs.uiPrefs.mainWinSettings.width) / 2;
+	appPrefs.uiPrefs.mainWinSettings.yPosition = (s->availableGeometry().height() - appPrefs.uiPrefs.mainWinSettings.height) / 2;
 	appPrefs.uiPrefs.mainWinSettings.maximized = false;
 	appPrefs.uiPrefs.mainWinState = QByteArray();
 	appPrefs.uiPrefs.RecentDocs.clear();
