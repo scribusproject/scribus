@@ -12,7 +12,8 @@
   <!-- Import Qt4 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt4 -->
-    <QT4_DIR Condition="'$(Platform)' == 'Win32'">F:\Libraries-vcall\Qt-4.8.7\msvc2015</QT4_DIR>
+	<QT4_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140'"   >F:\Libraries-vcall\Qt-4.8.7\msvc2015</QT4_DIR>
+	<QT4_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v140_xp'">F:\Libraries-vcall\Qt-4.8.7\msvc2015_xp</QT4_DIR>
 	<QT4_DIR Condition="'$(Platform)' == 'x64'">F:\Libraries-vcall\Qt-4.8.7\msvc2015_64</QT4_DIR>
 	<QT4_LIBS Condition="'$(Configuration)' == 'Debug-cairo'">QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib</QT4_LIBS>
 	<QT4_LIBS Condition="'$(Configuration)' == 'Release-cairo'">QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib</QT4_LIBS>
