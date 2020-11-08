@@ -619,16 +619,18 @@ void ScribusQApp::showUsage()
 void ScribusQApp::showAvailLangs()
 {
 	QFile f;
-	f.open(stderr, QIODevice::WriteOnly);
+	if (!f.open(stderr, QIODevice::WriteOnly))
+		return;
+
 	QTextStream ts(&f);
-	ts << tr("Installed interface languages for Scribus are as follows:"); Qt::endl(ts);
+	ts << tr("Installed interface languages for Scribus are as follows:") << Qt::endl;
 	Qt::endl(ts);
 
 	LanguageManager::instance()->printInstalledList();
-
 	Qt::endl(ts);
-	ts << tr("To override the default language choice:"); Qt::endl(ts);
-	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice."); Qt::endl(ts);
+
+	ts << tr("To override the default language choice:") << Qt::endl;
+	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") << Qt::endl;
 }
 
 void ScribusQApp::showVersion()
