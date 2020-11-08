@@ -2642,7 +2642,7 @@ void ScribusDoc::swapPage(int a, int b)
 		ss->set("PAGE_SWAP_TO", b);
 		m_undoManager->action(this, ss);
 	}
-	Pages->swap(a,b);
+	Pages->swapItemsAt(a, b);
 	reformPages();
 	changed();
 }
@@ -2653,9 +2653,9 @@ void ScribusDoc::restoreSwapPage(SimpleState* ss, bool isUndo)
 	int b = ss->getInt("PAGE_SWAP_TO");
 
 	if (isUndo)
-		swapPage(b,a);
+		swapPage(b, a);
 	else
-		swapPage(a,b);
+		swapPage(a, b);
 }
 
 void ScribusDoc::movePage(int fromPage, int toPage, int dest, int position)
