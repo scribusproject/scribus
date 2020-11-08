@@ -352,12 +352,14 @@ bool PagesPlug::convert(QString fn)
 {
 	importedColors.clear();
 	importedPatterns.clear();
+
 	QFile file(fn);
-	if ( !file.exists() )
+	if (!file.exists())
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;
 	}
+
 	shared_ptr<librevenge::RVNGInputStream> input;
 	if (librevenge::RVNGDirectoryStream::isDirectory(QFile::encodeName(fn).data()))
 		input.reset(new librevenge::RVNGDirectoryStream(QFile::encodeName(fn).data()));

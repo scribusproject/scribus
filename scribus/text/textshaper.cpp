@@ -331,7 +331,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 		}
 	}
 
-	for (auto textRun : qAsConst(textRuns))
+	for (const TextRun& textRun : qAsConst(textRuns))
 	{
 		const CharStyle &style = m_story.charStyle(m_textMap.value(textRun.start));
 

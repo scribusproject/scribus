@@ -24,7 +24,7 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 	return *this;
 }
 
-ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString& colName )
+ColorPixmapValue::ColorPixmapValue(const ScColor& col, ScribusDoc* doc, const QString& colName)
 {
 	m_doc = (doc) ? doc->guardedPtr() : nullptr;
 	m_color = col;
@@ -107,7 +107,7 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags ColorListModel::flags(const QModelIndex &index) const
 {
 	if (!index.isValid())
-		return nullptr;
+		return Qt::ItemFlags();
 
 	Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 	return flags;

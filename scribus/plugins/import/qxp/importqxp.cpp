@@ -330,12 +330,14 @@ bool QxpPlug::convert(QString fn)
 {
 	importedColors.clear();
 	importedPatterns.clear();
+
 	QFile file(fn);
-	if ( !file.exists() )
+	if (!file.exists())
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;
 	}
+
 	librevenge::RVNGFileStream input(QFile::encodeName(fn).data());
 	libqxp::QXPDocument::Type type = libqxp::QXPDocument::TYPE_UNKNOWN;
 	if (!libqxp::QXPDocument::isSupported(&input, &type))

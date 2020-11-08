@@ -351,7 +351,6 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 		return nullptr;
 	}
 
-	const ScLayer *layer = nullptr;
 	QString layerName = QString::fromUtf8(szLayerName);
 	if (!layerName.isEmpty())
 	{

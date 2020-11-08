@@ -322,12 +322,14 @@ bool PubPlug::convert(const QString& fn)
 {
 	importedColors.clear();
 	importedPatterns.clear();
+
 	QFile file(fn);
-	if ( !file.exists() )
+	if (!file.exists())
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << Qt::endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;
 	}
+
 #if HAVE_REVENGE
 	librevenge::RVNGFileStream input(QFile::encodeName(fn).data());
 #else

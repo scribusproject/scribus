@@ -78,7 +78,7 @@ PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
 	int butt[3] = { QMessageBox::Ok|QMessageBox::Default, QMessageBox::NoButton, QMessageBox::NoButton };
-	QMessageBox::StandardButtons buttons = QMessageBox::StandardButtons(nullptr);
+	QMessageBox::StandardButtons buttons;
 	enum QMessageBox::StandardButton defaultButton = QMessageBox::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),

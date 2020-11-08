@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/charstyle.h"
 
 ContentPalette::ContentPalette(QWidget* parent) :
-	ScDockPalette(parent, "ContentPalette", nullptr)
+	ScDockPalette(parent, "ContentPalette", Qt::WindowFlags())
 {
 	setObjectName(QString::fromLocal8Bit("ContentPalette"));
 

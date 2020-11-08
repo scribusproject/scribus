@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, const QString& type)
-	: QDialog(parent, nullptr), m_doc(doc), m_PageCount(doc->DocPages.count())
+	: QDialog(parent, Qt::WindowFlags()), m_doc(doc), m_PageCount(doc->DocPages.count())
 {
 	setupUi(this);
 	setModal(true);

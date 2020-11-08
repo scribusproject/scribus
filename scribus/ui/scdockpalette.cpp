@@ -38,11 +38,11 @@ for which a new license (GPL+exception) is in place.
 #include "scdockpalette.h"
 #include "util.h"
 
-ScDockPalette::ScDockPalette( QWidget * parent, const QString& prefsContext, Qt::WindowFlags f)
+ScDockPalette::ScDockPalette(QWidget * parent, const QString& prefsContext, Qt::WindowFlags f)
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
-	: QDockWidget ( parent, f | Qt::Tool  | Qt::CustomizeWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint )
+	: QDockWidget(parent, f | Qt::Tool | Qt::CustomizeWindowHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint)
 #else
-	: QDockWidget ( parent, f | Qt::Tool  | Qt::CustomizeWindowHint )
+	: QDockWidget(parent, f | Qt::Tool | Qt::CustomizeWindowHint)
 #endif
 {
 	if (PrefsManager::instance().appPrefs.uiPrefs.useSmallWidgets)

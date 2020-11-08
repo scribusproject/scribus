@@ -375,17 +375,15 @@ bool WMFImport::import(const QString& fname, const TransactionSettings& trSettin
 
 bool WMFImport::loadWMF( const QString &fileName )
 {
-	QFile file( fileName );
-
-	if ( !file.exists() )
+	QFile file(fileName);
+	if (!file.exists())
 	{
-		cerr << "File " << QFile::encodeName(fileName).data() << " does not exist" << endl;
+		cerr << "File " << QFile::encodeName(fileName).data() << " does not exist" << std::endl;
 		return false;
 	}
-
-	if ( !file.open( QIODevice::ReadOnly ) )
+	if (!file.open( QIODevice::ReadOnly))
 	{
-		cerr << "Cannot open file " << QFile::encodeName(fileName).data() << endl;
+		cerr << "Cannot open file " << QFile::encodeName(fileName).data() << std::endl;
 		return false;
 	}
 

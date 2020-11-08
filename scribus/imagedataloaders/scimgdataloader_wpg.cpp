@@ -314,14 +314,14 @@ void ScImgDataLoader_WPG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 bool ScImgDataLoader_WPG::loadPicture(const QString& fn, int /*page*/, int /*res*/, bool /*thumbnail*/)
 {
 	QFile file(fn);
-	if ( !file.exists() )
+	if (!file.exists())
 	{
-		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << Qt::endl;
+		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;
 	}
-	if ( !file.open( QIODevice::ReadOnly ) )
+	if (!file.open( QIODevice::ReadOnly))
 	{
-		qDebug() << "Cannot open file " << QFile::encodeName(fn).data() << Qt::endl;
+		qDebug() << "Cannot open file " << QFile::encodeName(fn).data();
 		return false;
 	}
 	QByteArray ba = file.readAll();

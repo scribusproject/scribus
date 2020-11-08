@@ -253,7 +253,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		fillShade = qMax(0.0, qMin(fillShade, 1.0));
 	if (strokeShade >= 0)
 		strokeShade = qMax(0.0, qMin(strokeShade, 1.0));
-	QStringList featuresList = QString(features).split(',', QString::SkipEmptyParts);
+	QStringList featuresList = QString(features).split(',', Qt::SkipEmptyParts);
 	QString qLanguage = QString(language);
 
 	CharStyle tmpCharStyle;

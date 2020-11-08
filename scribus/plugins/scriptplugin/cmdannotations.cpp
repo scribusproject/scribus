@@ -618,7 +618,7 @@ PyObject *getLinkData(PyObject *rv,int page, const QString& action)
 	PyObject *pagevalue = PyLong_FromLong((long)page);
 	PyDict_SetItem(rv, pagekey, pagevalue);
 	
-	QStringList qsl = action.split(" ", QString::SkipEmptyParts);
+	QStringList qsl = action.split(" ", Qt::SkipEmptyParts);
 
 	x = qsl[0].toInt();
 	const char x2[] = "x";
