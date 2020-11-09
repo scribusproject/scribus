@@ -260,6 +260,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("TextDistRight", m_Doc->itemToolPrefs().textDistances.right());
 	docu.writeAttribute("TextDistBottom", m_Doc->itemToolPrefs().textDistances.bottom());
 	docu.writeAttribute("TextDistTop" , m_Doc->itemToolPrefs().textDistances.top());
+	docu.writeAttribute("FirstLineOffset" , (int) m_Doc->itemToolPrefs().firstLineOffset);
 	docu.writeAttribute("AUTHOR"      , m_Doc->documentInfo().author());
 	docu.writeAttribute("COMMENTS"    , m_Doc->documentInfo().comments());
 	docu.writeAttribute("KEYWORDS"    , m_Doc->documentInfo().keywords());

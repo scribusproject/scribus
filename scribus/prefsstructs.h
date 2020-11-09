@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "scfonts.h"
 #include "scpattern.h"
+#include "sctextstruct.h"
 #include "vgradient.h"
 
 struct CheckerPrefs
@@ -226,6 +227,7 @@ struct ItemToolPrefs
 	QString textTabFillChar; //! Default tab fill character
 	MarginStruct textDistances; //! Default text to frame distances
 	double textTabWidth; //! Default tab width
+	FirstLineOffsetPolicy firstLineOffset; //! Default first line offset of text frame
 	/* ShapeTool */
 	QString shapeLineColor; //! Default shape line color
 	QString shapeFillColor; //! Default shape fill color

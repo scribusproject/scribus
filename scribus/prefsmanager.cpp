@@ -242,8 +242,9 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.textLineColorShade = 100;
 	appPrefs.itemToolPrefs.textShade = 100;
 	appPrefs.itemToolPrefs.textStrokeShade = 100;
-	appPrefs.itemToolPrefs.textTabFillChar = "";
+	appPrefs.itemToolPrefs.textTabFillChar.clear();
 	appPrefs.itemToolPrefs.textTabWidth = 36.0;
+	appPrefs.itemToolPrefs.firstLineOffset = FLOPFontAscent;
 	// defaults for calligraphic pen
 	appPrefs.itemToolPrefs.calligraphicPenFillColor = "Black";
 	appPrefs.itemToolPrefs.calligraphicPenLineColor = "Black";
@@ -1565,17 +1566,18 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcItemTools.setAttribute("TextColorShade", appPrefs.itemToolPrefs.textShade);
 	dcItemTools.setAttribute("TextStrokeColorShade", appPrefs.itemToolPrefs.textStrokeShade);
 	dcItemTools.setAttribute("TextColumnCount", appPrefs.itemToolPrefs.textColumns);
-	dcItemTools.setAttribute("TextColumnGap",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textColumnGap));
-	dcItemTools.setAttribute("TextTabWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textTabWidth));
-	dcItemTools.setAttribute("TextDistanceTop",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.top()));
-	dcItemTools.setAttribute("TextDistanceBottom",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.bottom()));
-	dcItemTools.setAttribute("TextDistanceLeft",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.left()));
-	dcItemTools.setAttribute("TextDistanceRight",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.right()));
+	dcItemTools.setAttribute("TextColumnGap", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textColumnGap));
+	dcItemTools.setAttribute("TextTabWidth", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textTabWidth));
+	dcItemTools.setAttribute("TextDistanceTop", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.top()));
+	dcItemTools.setAttribute("TextDistanceBottom", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.bottom()));
+	dcItemTools.setAttribute("TextDistanceLeft", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.left()));
+	dcItemTools.setAttribute("TextDistanceRight", ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.right()));
 	dcItemTools.setAttribute("TabFillCharacter", appPrefs.itemToolPrefs.textTabFillChar);
+	dcItemTools.setAttribute("FirstLineOffset", (int) appPrefs.itemToolPrefs.firstLineOffset);
 	dcItemTools.setAttribute("ShapeLineStyle", appPrefs.itemToolPrefs.shapeLineStyle);
 	dcItemTools.setAttribute("LineStyle", appPrefs.itemToolPrefs.lineStyle);
-	dcItemTools.setAttribute("ShapeLineWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.shapeLineWidth));
-	dcItemTools.setAttribute("LineWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.lineWidth));
+	dcItemTools.setAttribute("ShapeLineWidth", ScCLocale::toQStringC(appPrefs.itemToolPrefs.shapeLineWidth));
+	dcItemTools.setAttribute("LineWidth", ScCLocale::toQStringC(appPrefs.itemToolPrefs.lineWidth));
 	dcItemTools.setAttribute("ShapeLineColorShade", appPrefs.itemToolPrefs.shapeLineColorShade);
 	dcItemTools.setAttribute("LineColorShade", appPrefs.itemToolPrefs.lineColorShade);
 	dcItemTools.setAttribute("ShapeFillColorShade", appPrefs.itemToolPrefs.shapeFillColorShade);
@@ -2188,7 +2190,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 		}
 
 
-		if (dc.tagName()=="ItemTools")
+		if (dc.tagName() == "ItemTools")
 		{
 			appPrefs.itemToolPrefs.calligraphicPenFillColor = dc.attribute("CalligraphicPenFillColor", "Black");
 			appPrefs.itemToolPrefs.calligraphicPenLineColor = dc.attribute("CalligraphicPenLineColor", "Black");
@@ -2217,6 +2219,8 @@ bool PrefsManager::ReadPref(const QString& ho)
 			appPrefs.itemToolPrefs.textDistances.setBottom(ScCLocale::toDoubleC(dc.attribute("TextDistanceBottom"), 0.0));
 			appPrefs.itemToolPrefs.textDistances.setLeft(ScCLocale::toDoubleC(dc.attribute("TextDistanceLeft"), 0.0));
 			appPrefs.itemToolPrefs.textDistances.setRight(ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0));
+			appPrefs.itemToolPrefs.firstLineOffset = (FirstLineOffsetPolicy) dc.attribute("FirstLineOffset", "1").toInt(); // Default to FLOPFontAscent
+			appPrefs.itemToolPrefs.firstLineOffset = qMax(FLOPRealGlyphHeight, qMin(appPrefs.itemToolPrefs.firstLineOffset, FLOPBaselineGrid));
 			appPrefs.itemToolPrefs.shapeLineStyle = dc.attribute("ShapeLineStyle").toInt();
 			appPrefs.itemToolPrefs.lineStyle = dc.attribute("LineStyle").toInt();
 			appPrefs.itemToolPrefs.shapeLineWidth	 = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 1.0);

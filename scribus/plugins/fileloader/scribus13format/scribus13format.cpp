@@ -422,6 +422,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->itemToolPrefs().shapeFillColorShade     = dc.attribute("BRUSHSHADE", "100").toInt();
 		m_Doc->itemToolPrefs().textTabFillChar = dc.attribute("TabFill","");
 		m_Doc->itemToolPrefs().textTabWidth   = ScCLocale::toDoubleC(dc.attribute("TabWidth"), 36.0);
+		m_Doc->itemToolPrefs().firstLineOffset = FLOPRealGlyphHeight;
 		if (dc.hasAttribute("CPICT"))
 			m_Doc->itemToolPrefs().imageFillColor = dc.attribute("CPICT");
 		m_Doc->itemToolPrefs().imageFillColorShade = ScCLocale::toDoubleC(dc.attribute("PICTSHADE"), 100.0);

@@ -135,6 +135,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	bottomTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.bottom() * unitRatio);
 	leftTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.left() * unitRatio);
 	rightTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.right() * unitRatio);
+	firstLineOffsetComboBox->setCurrentIndex((int) prefsData->itemToolPrefs.firstLineOffset);
 
 	//Image Tool
 	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
@@ -236,6 +237,7 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	prefsData->itemToolPrefs.textColumnGap = textColumnGapSpinBox->value() / unitRatio;
 	prefsData->itemToolPrefs.textTabWidth = textTabWidthSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.firstLineOffset = (FirstLineOffsetPolicy) firstLineOffsetComboBox->currentIndex();
 
 	switch (textTabFillCharComboBox->currentIndex())
 	{
