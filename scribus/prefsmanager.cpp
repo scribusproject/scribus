@@ -2751,10 +2751,14 @@ bool PrefsManager::ReadPref(const QString& ho)
 	appPrefs.ui_SystemTheme = qApp->style()->objectName();
 	if (appPrefs.uiPrefs.style.length() > 0)
 	{
-		qApp->setStyle(QStyleFactory::create(appPrefs.uiPrefs.style));
-		// Plain wrong, a style may set a palette different from the standard palette
-		// Eg : Windows XP and Windows Vista styles
-		// qApp->setPalette(qApp->style()->standardPalette());
+		QStyle* qtStyle = nullptr;
+		QStringList availableStyles = QStyleFactory::keys();
+		if (availableStyles.contains(appPrefs.uiPrefs.style))
+			qtStyle = QStyleFactory::create(appPrefs.uiPrefs.style);
+		if (qtStyle)
+			qApp->setStyle(qtStyle);
+		else
+			appPrefs.uiPrefs.style.clear();
 	}
 	QFont apf = qApp->font();
 	apf.setPointSize(appPrefs.uiPrefs.applicationFontSize);
