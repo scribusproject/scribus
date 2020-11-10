@@ -162,6 +162,17 @@ bool checkHaveDocument()
 	return false;
 }
 
+bool checkValidPageNumber(int page)
+{
+	const int numPages = ScCore->primaryMainWindow()->doc->Pages->count();
+	if (page < 0 || page >= numPages)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("%1 is not a valid page number.", "python error").arg(page).toLocal8Bit().constData());
+		return false;
+	}
+	return true;
+}
+
 QStringList getSelectedItemsByName()
 {
 	/*
