@@ -60,20 +60,21 @@ double docUnitYToPageY(double pageUnitY)
 	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
-PageItem *GetItem(const QString& Name)
+PageItem *GetItem(const QString& name)
 {
-	if (!Name.isEmpty())
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (!name.isEmpty())
 	{
-		for (int i = 0; i < ScCore->primaryMainWindow()->doc->Items->count(); i++)
+		for (int i = 0; i < currentDoc->Items->count(); ++i)
 		{
-			if (ScCore->primaryMainWindow()->doc->Items->at(i)->itemName() == Name)
-				return ScCore->primaryMainWindow()->doc->Items->at(i);
+			if (currentDoc->Items->at(i)->itemName() == name)
+				return currentDoc->Items->at(i);
 		}
 	}
 	else
 	{
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
-			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
+		if (currentDoc->m_Selection->count() != 0)
+			return currentDoc->m_Selection->itemAt(0);
 	}
 	return nullptr;
 }
@@ -118,11 +119,14 @@ PageItem* getPageItemByName(const QString& name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
 		return nullptr;
 	}
-	for (int i = 0; i < ScCore->primaryMainWindow()->doc->Items->count(); i++)
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
-		if (name == ScCore->primaryMainWindow()->doc->Items->at(i)->itemName())
-			return ScCore->primaryMainWindow()->doc->Items->at(i);
-	} // for items
+		if (name == currentDoc->Items->at(i)->itemName())
+			return currentDoc->Items->at(i);
+	}
+
 	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
 	return nullptr;
 }
@@ -137,11 +141,13 @@ bool ItemExists(const QString& name)
 {
 	if (name.length() == 0)
 		return false;
-	for (int i = 0; i < ScCore->primaryMainWindow()->doc->Items->count(); i++)
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
-		if (name == ScCore->primaryMainWindow()->doc->Items->at(i)->itemName())
+		if (name == currentDoc->Items->at(i)->itemName())
 			return true;
-	} // for items
+	}
 	return false;
 }
 
@@ -185,23 +191,27 @@ QStringList getSelectedItemsByName()
 	return ScCore->primaryMainWindow()->doc->m_Selection->getSelectedItemsByName();
 }
 
-bool setSelectedItemsByName(QStringList& itemNames)
+bool setSelectedItemsByName(const QStringList& itemNames)
 {
-	ScCore->primaryMainWindow()->view->deselectItems();
+	ScribusDoc* currentDoc =  ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+
+	currentView->deselectItems();
+
 	// For each named item
-	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
+	for (auto it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
 		PageItem* item = nullptr;
-		for (int j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
+		for (int j = 0; j < currentDoc->Items->count(); j++)
 		{
-			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
-				item = ScCore->primaryMainWindow()->doc->Items->at(j);
+			if (*it == currentDoc->Items->at(j)->itemName())
+				item = currentDoc->Items->at(j);
 		}
 		if (!item)
 			return false;
-		// and select it
-		ScCore->primaryMainWindow()->view->selectItem(item);
+		// And select it
+		currentView->selectItem(item);
 	}
 	return true;
 }
@@ -228,7 +238,8 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 
 	// Parse each tuple decribing a border line and append it to the border.
 	int nBorderLines = PyList_Size(borderLinesList);
-	for (int i = 0; i < nBorderLines; i++) {
+	for (int i = 0; i < nBorderLines; ++i)
+	{
 		double width = 0.0;
 		double shade = 100.0;
 		int style;

@@ -27,7 +27,7 @@ double pageUnitYToDocY(double pageUnitY);
 /// \brief Doc units -> page-relative units
 double docUnitYToPageY(double pageUnitY);
 
-PageItem *GetItem(const QString& Name);
+PageItem *GetItem(const QString& name);
 void ReplaceColor(const QString& col, const QString& rep);
 
 /*!
@@ -80,7 +80,7 @@ QStringList getSelectedItemsByName();
  * Returns false if one or more items can't be selected, true if all were selected.
  * Selection state is undefined on failure.
  */
-bool setSelectedItemsByName(QStringList& itemNames);
+bool setSelectedItemsByName(const QStringList& itemNames);
 
 /*!
  * @brief Helper method to parse a border from a list of tuples.
