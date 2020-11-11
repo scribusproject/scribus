@@ -18,9 +18,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMap>
 
-ScribusMainWindow* Carrier;
-ScribusDoc* doc;
-
 /// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
