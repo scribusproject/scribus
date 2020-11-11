@@ -14,8 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QByteArray>
-#include <QXmlInputSource>
-#include <QXmlSimpleReader>
+
 #include "scribusdoc.h"
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
@@ -71,22 +70,20 @@ DocXIm::DocXIm(const QString& fileName, PageItem *textItem, bool textOnly, bool 
 
 void DocXIm::parseContentTypes()
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read("[Content_Types].xml", f))
+	if (!uz->read("[Content_Types].xml", xmlData))
 		return;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
@@ -117,22 +114,20 @@ void DocXIm::parseContentTypes()
 
 void DocXIm::parseTheme()
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(themePart, f))
+	if (!uz->read(themePart, xmlData))
 		return;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
@@ -165,27 +160,26 @@ void DocXIm::parseTheme()
 
 void DocXIm::parseStyles()
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(stylePart, f))
+	if (!uz->read(stylePart, xmlData))
 		return;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+
 	defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
@@ -256,22 +250,20 @@ void DocXIm::parseStyles()
 
 void DocXIm::parseStyledText(PageItem *textItem)
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, f))
+	if (!uz->read(docPart, xmlData))
 		return;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+
 	if (!m_append)
 	{
 		QString pStyleD = CommonStrings::DefaultParagraphStyle;
@@ -282,6 +274,7 @@ void DocXIm::parseStyledText(PageItem *textItem)
 		textItem->itemText.setDefaultStyle(newStyle);
 	}
 	textItem->itemText.setDefaultStyle(defaultParagraphStyle);
+
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
@@ -588,22 +581,20 @@ void DocXIm::parseCharProps(QDomElement &props, ParagraphStyle &pStyle)
 
 void DocXIm::parsePlainTextOnly(PageItem *textItem)
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(docPart, f))
+	if (!uz->read(docPart, xmlData))
 		return;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return;
 	}
+
 	if (!m_append)
 	{
 		QString pStyleD = CommonStrings::DefaultParagraphStyle;
@@ -616,6 +607,7 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	currentParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	currentParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 	currentParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{

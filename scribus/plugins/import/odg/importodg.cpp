@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
@@ -20,9 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStack>
 #include <QUrl>
-#include <QXmlInputSource>
-#include <QXmlSimpleReader>
-#include <QDebug>
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
@@ -401,18 +399,15 @@ bool OdgPlug::convert(const QString& fn)
 
 bool OdgPlug::parseStyleSheets(const QString& designMap)
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, f))
+	if (!uz->read(designMap, xmlData))
 		return false;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
@@ -528,18 +523,15 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 
 bool OdgPlug::parseDocReference(const QString& designMap)
 {
-	QByteArray f;
+	QByteArray xmlData;
 	QDomDocument designMapDom;
-	if (!uz->read(designMap, f))
+	if (!uz->read(designMap, xmlData))
 		return false;
-	QXmlInputSource xmlSource;
-	xmlSource.setData(f);
-	QXmlSimpleReader xmlReader;
-	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-	QString errorMsg = "";
+
+	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
