@@ -11,8 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include <QDir>
-#include <QXmlDefaultHandler>
-#include <QXmlSimpleReader>
+#include <QXmlStreamReader>
 
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -20,20 +19,47 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "iconmanager.h"
 
-class CategoriesReader : public QXmlDefaultHandler
+class CategoriesReader
 {
 public:
-	QStringList categories;
-	virtual bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)
+	CategoriesReader() = default;
+
+	const QStringList& categories() { return m_categories; }
+
+	bool parse(const QString& fileName)
 	{
-		if (name == QLatin1String("template"))
+		m_categories.clear();
+
+		QFile qFile(fileName);
+		if (!qFile.open(QFile::ReadOnly))
+			return false;
+
+		QXmlStreamReader sReader(&qFile);
+		QXmlStreamReader::TokenType tagType;
+		QStringRef tagName;
+
+		while (!sReader.atEnd() && !sReader.hasError())
 		{
-			QString cat = attrs.value(QLatin1String("category"));
-			if (!categories.contains(cat))
-				categories.append(cat);
+			tagType = sReader.readNext();
+			if (tagType != QXmlStreamReader::StartElement)
+				continue;
+
+			tagName = sReader.name();
+			if (tagName != "template")
+				continue;
+
+			QXmlStreamAttributes attrs = sReader.attributes();
+			QString cat = attrs.value(QLatin1String("category")).toString();
+			if (!m_categories.contains(cat))
+				m_categories.append(cat);
 		}
-		return true;
+		qFile.close();
+
+		return (m_categories.count() > 0);
 	}
+
+private:
+	QStringList m_categories;
 };
 
 SATDialog::SATDialog(QWidget* parent, const QString& tmplName, int pageW, int pageH) : QDialog(parent)
@@ -133,13 +159,11 @@ void SATDialog::addCategories(const QString& dir)
 
 void SATDialog::readCategories(const QString& fileName)
 {
-	QFile file(fileName);
 	CategoriesReader catReader;
-	QXmlInputSource  xmlSource(&file);
-	QXmlSimpleReader reader;
-	reader.setContentHandler(&catReader);
-	reader.parse(&xmlSource);
-	QStringList& categories = catReader.categories;
+	if (!catReader.parse(fileName))
+		return;
+
+	const QStringList& categories = catReader.categories();
 	for (int i = 0; i < categories.count(); ++i)
 	{
 		const QString& category = categories.at(i);
