@@ -168,7 +168,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 	m_prefsManager.initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
-	m_prefsManager.ReadPrefs();
+	m_prefsManager.readPrefs();
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
 	m_prefsManager.appPrefs.uiPrefs.showSplashOnStartup=showSplash;
 	if (!m_iconManager.setActiveFromPrefs(m_prefsManager.appPrefs.uiPrefs.iconSet))

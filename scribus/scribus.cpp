@@ -472,7 +472,7 @@ void ScribusMainWindow::setupMainWindow()
 	rebuildRecentFileMenu();
 	//For 1.3.5, we dump prefs first time around.
 	if (!m_prefsManager.firstTimeIgnoreOldPrefs())
-		m_prefsManager.ReadPrefsXML();
+		m_prefsManager.readPrefsXML();
 	if (m_prefsManager.appPrefs.verifierPrefs.checkerPrefsList.count() == 0)
 	{
 		m_prefsManager.initDefaultCheckerPrefs(m_prefsManager.appPrefs.verifierPrefs.checkerPrefsList);
@@ -1868,7 +1868,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
 	m_prefsManager.appPrefs.scrapbookPrefs.RecentScrapbooks = scrapbookPalette->getOpenScrapbooks();
 	if (!emergencyActivated)
-		m_prefsManager.SavePrefs();
+		m_prefsManager.savePrefs();
 	UndoManager::deleteInstance();
 	FormatsManager::deleteInstance();
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -6590,7 +6590,7 @@ void ScribusMainWindow::slotPrefsOrg()
 	icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
 	icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
 
-	m_prefsManager.SavePrefs();
+	m_prefsManager.savePrefs();
 	m_mainWindowStatusLabel->setText( tr("Ready"));
 }
 

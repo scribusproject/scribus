@@ -100,26 +100,26 @@ public:
 	/*! \brief Read the preferences.
 	\param fname optional filename with preferences. If is not given,
 	the default is used. */
-	void ReadPrefs();
-	void ReadPrefsXML();
+	void readPrefs();
+	void readPrefsXML();
 
 	/*! \brief Save the preferences.
 	\param fname optional filename with preferences. If is not given,
 	the defualt is used. */
-	void SavePrefs();
-	void SavePrefsXML();
+	void savePrefs();
+	void savePrefsXML();
 
 	/*! \brief Writes the preferences physically to the file.
 	Here is the XML file created itself.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool WritePref(const QString& ho);
+	bool writePref(const QString& filePath);
 	/*! \brief Reads the preferences physically from the file.
 	Here is the XML file parsed itself. Returns false on error. 
 	It's the caller's job to make sure the prefs file actually exists.
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
-	bool ReadPref(const QString& ho);
+	bool readPref(const QString& filePath);
 
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);

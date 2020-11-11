@@ -923,12 +923,12 @@ void PrefsManager::convert12Preferences()
 	}
 }
 
-void PrefsManager::ReadPrefs()
+void PrefsManager::readPrefs()
 {
 	QString prefsFile(m_prefsLocation + "scribus150.rc");
 	if (QFile::exists(prefsFile))
 	{
-		if (!ReadPref(prefsFile))
+		if (!readPref(prefsFile))
 		{
 			alertLoadPrefsFailed();
 			return;
@@ -936,7 +936,7 @@ void PrefsManager::ReadPrefs()
 	}
 }
 
-void PrefsManager::ReadPrefsXML()
+void PrefsManager::readPrefsXML()
 {
 	if (!prefsFile)
 		return;
@@ -993,7 +993,7 @@ void PrefsManager::ReadPrefsXML()
 }
 
 
-void PrefsManager::SavePrefs()
+void PrefsManager::savePrefs()
 {
 	// If closing because of a crash don't save prefs as we can
 	// accidentally nuke the settings if the crash is before prefs are loaded
@@ -1018,13 +1018,13 @@ void PrefsManager::SavePrefs()
 		appPrefs.uiPrefs.RecentDocs.append(ScCore->primaryMainWindow()->m_recentDocsList[m]);
 	}
 	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
-	SavePrefsXML();
-	if (!WritePref(m_prefsLocation + "scribus150.rc"))
+	savePrefsXML();
+	if (!writePref(m_prefsLocation + "scribus150.rc"))
 		alertSavePrefsFailed();
 	emit prefsChanged();
 }
 
-void PrefsManager::SavePrefsXML()
+void PrefsManager::savePrefsXML()
 {
 	if (prefsFile)
 	{
@@ -1365,14 +1365,13 @@ bool PrefsManager::showPageShadow() const
 	return appPrefs.displayPrefs.showPageShadow;
 }
 
-bool PrefsManager::WritePref(const QString& ho)
+bool PrefsManager::writePref(const QString& filePath)
 {
 	QDomDocument docu("scribusrc");
-	QString st="<SCRIBUSRC></SCRIBUSRC>";
+	QString st = "<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
 	elem.setAttribute("VERSION", "1.5.0");
-
 
 	QDomElement dcUI = docu.createElement("UI");
 	dcUI.setAttribute("ShowStartupDialog", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
@@ -1396,12 +1395,12 @@ bool PrefsManager::WritePref(const QString& ho)
 	deDocumentSetup.setAttribute("UnitIndex", appPrefs.docSetupPrefs.docUnitIndex);
 	deDocumentSetup.setAttribute("PageSize", appPrefs.docSetupPrefs.pageSize);
 	deDocumentSetup.setAttribute("PageOrientation", appPrefs.docSetupPrefs.pageOrientation);
-	deDocumentSetup.setAttribute("PageWidth",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageWidth));
-	deDocumentSetup.setAttribute("PageHeight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageHeight));
-	deDocumentSetup.setAttribute("MarginTop",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.top()));
-	deDocumentSetup.setAttribute("MarginBottom",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.bottom()));
-	deDocumentSetup.setAttribute("MarginLeft",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.left()));
-	deDocumentSetup.setAttribute("MarginRight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.right()));
+	deDocumentSetup.setAttribute("PageWidth", ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageWidth));
+	deDocumentSetup.setAttribute("PageHeight", ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageHeight));
+	deDocumentSetup.setAttribute("MarginTop", ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.top()));
+	deDocumentSetup.setAttribute("MarginBottom", ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.bottom()));
+	deDocumentSetup.setAttribute("MarginLeft", ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.left()));
+	deDocumentSetup.setAttribute("MarginRight", ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.right()));
 	deDocumentSetup.setAttribute("MarginPreset", appPrefs.docSetupPrefs.marginPreset);
 	deDocumentSetup.setAttribute("PagePositioning", appPrefs.docSetupPrefs.pagePositioning);
 	deDocumentSetup.setAttribute("AutoSave", static_cast<int>(appPrefs.docSetupPrefs.AutoSave));
@@ -1438,8 +1437,8 @@ bool PrefsManager::WritePref(const QString& ho)
 	deGuides.setAttribute("ShowRulers", static_cast<int>(appPrefs.guidesPrefs.rulersShown));
 	deGuides.setAttribute("ShowBleed", static_cast<int>(appPrefs.guidesPrefs.showBleed));
 	deGuides.setAttribute("RulerMode", static_cast<int>(appPrefs.guidesPrefs.rulerMode));
-	deGuides.setAttribute("MinorGridSpacing",ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
-	deGuides.setAttribute("MajorGridSpacing",ScCLocale::toQStringC(appPrefs.guidesPrefs.majorGridSpacing));
+	deGuides.setAttribute("MinorGridSpacing", ScCLocale::toQStringC(appPrefs.guidesPrefs.minorGridSpacing));
+	deGuides.setAttribute("MajorGridSpacing", ScCLocale::toQStringC(appPrefs.guidesPrefs.majorGridSpacing));
 	deGuides.setAttribute("MinorGridColor", appPrefs.guidesPrefs.minorGridColor.name());
 	deGuides.setAttribute("MajorGridColor", appPrefs.guidesPrefs.majorGridColor.name());
 	deGuides.setAttribute("GuidesColor", appPrefs.guidesPrefs.guideColor.name());
@@ -1583,8 +1582,8 @@ bool PrefsManager::WritePref(const QString& ho)
 	dcItemTools.setAttribute("ImageFillColorShade", appPrefs.itemToolPrefs.imageFillColorShade);
 	dcItemTools.setAttribute("ImageStrokeColor", appPrefs.itemToolPrefs.imageStrokeColor);
 	dcItemTools.setAttribute("ImageStrokeColorShade", appPrefs.itemToolPrefs.imageStrokeColorShade);
-	dcItemTools.setAttribute("ImageScaleX",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleX));
-	dcItemTools.setAttribute("ImageScaleY",ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleY));
+	dcItemTools.setAttribute("ImageScaleX", ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleX));
+	dcItemTools.setAttribute("ImageScaleY", ScCLocale::toQStringC(appPrefs.itemToolPrefs.imageScaleY));
 	dcItemTools.setAttribute("PolygonCorners", appPrefs.itemToolPrefs.polyCorners);
 	dcItemTools.setAttribute("PolygonFactor", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyFactor));
 	dcItemTools.setAttribute("PolygonRotation", ScCLocale::toQStringC(appPrefs.itemToolPrefs.polyRotation));
@@ -1695,8 +1694,8 @@ bool PrefsManager::WritePref(const QString& ho)
 		dcVerifierProfile.setAttribute("CheckForGIF", static_cast<int>(checkerProfile.checkForGIF));
 		dcVerifierProfile.setAttribute("IgnoreOffLayers", static_cast<int>(checkerProfile.ignoreOffLayers));
 		dcVerifierProfile.setAttribute("CheckOffConflictLayers", static_cast<int>(checkerProfile.checkOffConflictLayers));
-		dcVerifierProfile.setAttribute("MinimumResolution",ScCLocale::toQStringC(checkerProfile.minResolution));
-		dcVerifierProfile.setAttribute("MaximumResolution",ScCLocale::toQStringC(checkerProfile.maxResolution));
+		dcVerifierProfile.setAttribute("MinimumResolution", ScCLocale::toQStringC(checkerProfile.minResolution));
+		dcVerifierProfile.setAttribute("MaximumResolution", ScCLocale::toQStringC(checkerProfile.maxResolution));
 		dcVerifierProfile.setAttribute("CheckNotCMYKOrSpot", static_cast<int>(checkerProfile.checkNotCMYKOrSpot));
 		dcVerifierProfile.setAttribute("CheckDeviceColorsAndOutputIntent", static_cast<int>(checkerProfile.checkDeviceColorsAndOutputIntent));
 		dcVerifierProfile.setAttribute("CheckFontNotEmbedded", static_cast<int>(checkerProfile.checkFontNotEmbedded));
@@ -1943,10 +1942,10 @@ bool PrefsManager::WritePref(const QString& ho)
 
 	// write file
 	bool result = false;
-	QFile f(ho);
+	QFile f(filePath);
 	if (!f.open(QIODevice::WriteOnly))
 	{
-		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2").arg(ho, qApp->translate("QFile",f.errorString().toLatin1().constData()));
+		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2").arg(filePath, qApp->translate("QFile",f.errorString().toLatin1().constData()));
 	}
 	else
 	{
@@ -1956,20 +1955,20 @@ bool PrefsManager::WritePref(const QString& ho)
 		if (f.error()==QFile::NoError)
 			result = true;
 		else
-			m_lastError = tr("Writing to preferences file \"%1\" failed: QIODevice status code %2").arg(ho, f.errorString());
+			m_lastError = tr("Writing to preferences file \"%1\" failed: QIODevice status code %2").arg(filePath, f.errorString());
 	}
 	if (f.isOpen())
 		f.close();
 	return result;
 }
 
-bool PrefsManager::ReadPref(const QString& ho)
+bool PrefsManager::readPref(const QString& filePath)
 {
 	QDomDocument docu("scridoc");
-	QFile f(ho);
+	QFile f(filePath);
 	if (!f.open(QIODevice::ReadOnly))
 	{
-		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(ho, qApp->translate("QFile",f.errorString().toLatin1().constData()) );
+		m_lastError = tr("Failed to open prefs file \"%1\": %2").arg(filePath, qApp->translate("QFile",f.errorString().toLatin1().constData()) );
 		return false;
 	}
 	QTextStream ts(&f);
@@ -1979,22 +1978,23 @@ bool PrefsManager::ReadPref(const QString& ho)
 	int errorColumn = 0;
 	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn))
 	{
-		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(ho, errorMsg).arg(errorLine).arg(errorColumn);
+		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4").arg(filePath, errorMsg).arg(errorLine).arg(errorColumn);
 		f.close();
 		return false;
 	}
 	f.close();
+
 	ScDomElement elem = docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	//Ignore scribus*.rc files prior to 1.5.0 due to changes
-	bool prefs150FileFound=false;
+	bool prefs150FileFound = false;
 	if (elem.hasAttribute("VERSION"))
 	{
 		if (elem.attribute("VERSION") == "1.5.0")
-			prefs150FileFound=true;
+			prefs150FileFound = true;
 	}
-	m_firstTimeIgnoreOldPrefs=!prefs150FileFound;
+	m_firstTimeIgnoreOldPrefs = !prefs150FileFound;
 	if (!prefs150FileFound)
 		return false;
 	appPrefs.colorPrefs.DColors.clear();
@@ -2003,7 +2003,7 @@ bool PrefsManager::ReadPref(const QString& ho)
 	csm.findPaletteLocations();
 	csm.findPalettes();
 	csm.findUserPalettes();
-	QDomNode DOC=elem.firstChild();
+	QDomNode DOC = elem.firstChild();
 	if (!DOC.namedItem("CheckProfile").isNull())
 		appPrefs.verifierPrefs.checkerPrefsList.clear();
 	while (!DOC.isNull())
@@ -2846,7 +2846,7 @@ const QString & PrefsManager::lastError() const
 	return m_lastError;
 }
 
-// It's hard to say whether this should be here and called from SavePrefs, or
+// It's hard to say whether this should be here and called from savePrefs, or
 // triggered by a signal sent from here and displayed by ScribusMainWindow.
 void PrefsManager::alertSavePrefsFailed() const
 {
@@ -2860,7 +2860,7 @@ void PrefsManager::alertSavePrefsFailed() const
 			+ "</qt>");
 }
 
-// It's hard to say whether this should be here and called from ReadPrefs, or
+// It's hard to say whether this should be here and called from readPrefs, or
 // triggered by a signal sent from here and displayed by ScribusMainWindow.
 void PrefsManager::alertLoadPrefsFailed() const
 {
