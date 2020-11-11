@@ -220,16 +220,16 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 {
 	prefsData->docSetupPrefs.language = LanguageManager::instance()->getAbbrevFromLang(languageComboBox->currentText(), false);
 	prefsData->docSetupPrefs.pageSize = prefsPageSizeName;
-	prefsData->docSetupPrefs.pageOrientation=pageOrientationComboBox->currentIndex();
-	prefsData->docSetupPrefs.docUnitIndex=pageUnitsComboBox->currentIndex();
-	prefsData->docSetupPrefs.pageWidth=pageW;
-	prefsData->docSetupPrefs.pageHeight=pageH;
-	prefsData->docSetupPrefs.pagePositioning=pageLayoutButtonGroup->checkedId();
-	prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage=layoutFirstPageIsComboBox->currentIndex();
+	prefsData->docSetupPrefs.pageOrientation = pageOrientationComboBox->currentIndex();
+	prefsData->docSetupPrefs.docUnitIndex = pageUnitsComboBox->currentIndex();
+	prefsData->docSetupPrefs.pageWidth = pageW;
+	prefsData->docSetupPrefs.pageHeight = pageH;
+	prefsData->docSetupPrefs.pagePositioning = pageLayoutButtonGroup->checkedId();
+	prefsData->pageSets[prefsData->docSetupPrefs.pagePositioning].FirstPage = layoutFirstPageIsComboBox->currentIndex();
 
-	prefsData->docSetupPrefs.margins=marginsWidget->margins();
-	prefsData->docSetupPrefs.bleeds=bleedsWidget->margins();
-	prefsData->docSetupPrefs.saveCompressed=saveCompressedCheckBox->isChecked();
+	prefsData->docSetupPrefs.margins = marginsWidget->margins();
+	prefsData->docSetupPrefs.bleeds = bleedsWidget->margins();
+	prefsData->docSetupPrefs.saveCompressed = saveCompressedCheckBox->isChecked();
 	prefsData->miscPrefs.saveEmergencyFile = emergencyCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSave=autosaveCheckBox->isChecked();
 	prefsData->docSetupPrefs.AutoSaveTime = autosaveIntervalSpinBox->value() * 1000 * 60;
@@ -238,7 +238,7 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->docSetupPrefs.AutoSaveLocation = autosaveDocRadio->isChecked();
 	prefsData->docSetupPrefs.AutoSaveDir = autosaveDirEdit->text();
 	prefsData->displayPrefs.showAutosaveClockOnCanvas=showAutosaveClockOnCanvasCheckBox->isChecked();
-	bool undoActive=undoCheckBox->isChecked();
+	bool undoActive = undoCheckBox->isChecked();
 	if (!undoActive)
 		UndoManager::instance()->clearStack();
 	UndoManager::instance()->setUndoEnabled(undoActive);
@@ -249,15 +249,21 @@ void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 
 void Prefs_DocumentSetup::setupPageSets()
 {
-	int i=layoutFirstPageIsComboBox->currentIndex();
-	int currIndex=pageLayoutButtonGroup->checkedId()<0?0:pageLayoutButtonGroup->checkedId();
+	int i = layoutFirstPageIsComboBox->currentIndex();
+	if (!layoutFirstPageIsComboBox->isEnabled())
+		i = -1;
+	int currIndex = pageLayoutButtonGroup->checkedId() < 0 ? 0 :pageLayoutButtonGroup->checkedId();
 	layoutFirstPageIsComboBox->clear();
-	if (currIndex>0 && currIndex<pageSets.count())
+	if (currIndex > 0 && currIndex < pageSets.count())
 	{
+		const PageSet& pageSet = pageSets.at(currIndex);
+		const QStringList& pageNames = pageSet.pageNames;
 		layoutFirstPageIsComboBox->setEnabled(true);
-		for (QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames)
-			layoutFirstPageIsComboBox->addItem(CommonStrings::translatePageSetLocString(*pNames));
-		layoutFirstPageIsComboBox->setCurrentIndex(i<0?0:i);
+		for (const QString& pageName : pageNames)
+			layoutFirstPageIsComboBox->addItem(CommonStrings::translatePageSetLocString(pageName));
+		int firstPageIndex = i < 0 ? pageSet.FirstPage : i;
+		firstPageIndex = qMax(0, qMin(firstPageIndex, pageSet.pageNames.count() - 1));
+		layoutFirstPageIsComboBox->setCurrentIndex(firstPageIndex);
 	}
 	else
 	{
