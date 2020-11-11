@@ -1467,8 +1467,6 @@ bool PrefsManager::WritePref(const QString& ho)
 	deMiscellaneous.setAttribute("saveEmergencyFile", static_cast<int>(appPrefs.miscPrefs.saveEmergencyFile));
 	elem.appendChild(deMiscellaneous);
 
-
-
 	QDomElement deSE = docu.createElement("StoryEditor");
 	deSE.setAttribute("Font", appPrefs.storyEditorPrefs.guiFont);
 	deSE.setAttribute("FontColorBackground", appPrefs.storyEditorPrefs.guiFontColorBackground.name());
@@ -2352,42 +2350,47 @@ bool PrefsManager::ReadPref(const QString& ho)
 
 		if (dc.tagName() == "PageSets")
 		{
-			QDomNode pgs = DOC.firstChild();
-			if (!pgs.namedItem("PageNames").isNull())
+			QList<PageSet> newPageSets;
+			for (QDomNode pgs = DOC.firstChild(); !pgs.isNull(); pgs = pgs.nextSibling())
 			{
-				appPrefs.pageSets.clear();
-				while (!pgs.isNull())
+				QDomElement pgsAttr = pgs.toElement();
+				if (pgsAttr.tagName() != "Set")
+					continue;
+
+				struct PageSet pageS;
+				pageS.Name = pgsAttr.attribute("Name");
+				pageS.FirstPage = pgsAttr.attribute("FirstPage", "0").toInt();
+				pageS.Rows = pgsAttr.attribute("Rows", "1").toInt();
+				pageS.Columns = pgsAttr.attribute("Columns", "1").toInt();
+//				pageS.GapHorizontal = pgsAttr.attribute("GapHorizontal", "0").toDouble();
+//				pageS.GapVertical = pgsAttr.attribute("GapVertical", "0").toDouble();
+//				pageS.GapBelow = pgsAttr.attribute("GapBelow", "0").toDouble();
+				pageS.pageNames.clear();
+
+				for (QDomNode pgsN = pgs.firstChild(); !pgsN.isNull(); pgsN = pgsN.nextSibling())
 				{
-					QDomElement pgsAttr = pgs.toElement();
-					if (pgsAttr.tagName() == "Set")
-					{
-						struct PageSet pageS;
-						pageS.Name = pgsAttr.attribute("Name");
-						pageS.FirstPage = pgsAttr.attribute("FirstPage", "0").toInt();
-						pageS.Rows = pgsAttr.attribute("Rows", "1").toInt();
-						pageS.Columns = pgsAttr.attribute("Columns", "1").toInt();
-//						pageS.GapHorizontal = pgsAttr.attribute("GapHorizontal", "0").toDouble();
-//						pageS.GapVertical = pgsAttr.attribute("GapVertical", "0").toDouble();
-//						pageS.GapBelow = pgsAttr.attribute("GapBelow", "0").toDouble();
-						pageS.pageNames.clear();
-						QDomNode pgsN = pgs.firstChild();
-						while (!pgsN.isNull())
-						{
-							QDomElement PgsAttrN = pgsN.toElement();
-							if (PgsAttrN.tagName() == "PageNames")
-								pageS.pageNames.append(PgsAttrN.attribute("Name"));
-							pgsN = pgsN.nextSibling();
-						}
-						appPrefs.pageSets.append(pageS);
-						if ((appPrefs.pageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.displayPrefs.pageGapHorizontal < 0) && (appPrefs.displayPrefs.pageGapVertical < 0)))
-						{
-							appPrefs.displayPrefs.pageGapHorizontal = ScCLocale::toDoubleC(pgsAttr.attribute("GapHorizontal"), 0.0);
-							appPrefs.displayPrefs.pageGapVertical   = ScCLocale::toDoubleC(pgsAttr.attribute("GapBelow"), 40.0);
-						}
-					}
-					pgs = pgs.nextSibling();
+					QDomElement pgsAttrN = pgsN.toElement();
+					if (pgsAttrN.tagName() == "PageNames")
+						pageS.pageNames.append(pgsAttrN.attribute("Name"));
+				}
+
+				int pagesPerSpread = pageS.Rows * pageS.Columns;
+				if (pagesPerSpread < 0)
+					continue;
+				if ((pagesPerSpread == 1) && (pageS.pageNames.count() > 1))
+					continue;
+				if ((pagesPerSpread > 1) && (pagesPerSpread != pageS.pageNames.count()))
+					continue;
+				newPageSets.append(pageS);
+
+				if ((newPageSets.count() == appPrefs.docSetupPrefs.pagePositioning) && ((appPrefs.displayPrefs.pageGapHorizontal < 0) && (appPrefs.displayPrefs.pageGapVertical < 0)))
+				{
+					appPrefs.displayPrefs.pageGapHorizontal = ScCLocale::toDoubleC(pgsAttr.attribute("GapHorizontal"), 0.0);
+					appPrefs.displayPrefs.pageGapVertical   = ScCLocale::toDoubleC(pgsAttr.attribute("GapBelow"), 40.0);
 				}
 			}
+			if (newPageSets.count() > 0)
+				appPrefs.pageSets = newPageSets;
 		}
 
 		if (dc.tagName() == "ColorManagement")

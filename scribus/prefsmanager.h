@@ -99,7 +99,7 @@ public:
 
 	/*! \brief Read the preferences.
 	\param fname optional filename with preferences. If is not given,
-	the defualt is used. */
+	the default is used. */
 	void ReadPrefs();
 	void ReadPrefsXML();
 
@@ -120,6 +120,7 @@ public:
 	\param ho a file name to write
 	\retval bool true on success, false on write error */
 	bool ReadPref(const QString& ho);
+
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
