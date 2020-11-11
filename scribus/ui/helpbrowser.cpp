@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextEdit>
 #include <QTreeView>
 #include <QVector>
-#include <QXmlDefaultHandler>
+#include <QXmlStreamReader>
 
 #include "prefsmanager.h"
 #include "scribuscore.h"
@@ -68,31 +68,40 @@ from ~/.scribus/doc/history.xml file.
 The reference to historyBrowser is a reference to the dialog.
 \author Petr Vanek <petr@yarpen.cz>
 */
-class HistoryParser2 : public QXmlDefaultHandler
+class HistoryParser2
 {
 	public:
-		HelpBrowser *helpBrowser;
+		HelpBrowser *helpBrowser { nullptr };
 
-		bool startDocument()
+		bool parse(const QString& fileName)
 		{
-			return true;
-		}
+			QFile qFile(fileName);
+			if (!qFile.open(QFile::ReadOnly))
+				return false;
 
-		bool startElement(const QString&, const QString&, const QString& qName, const QXmlAttributes& attrs)
-		{
-			if (qName == "item")
+			QXmlStreamReader sReader(&qFile);
+			QXmlStreamReader::TokenType tagType;
+			QStringRef tagName;
+
+			while (!sReader.atEnd() && !sReader.hasError())
 			{
+				tagType = sReader.readNext();
+				if (tagType != QXmlStreamReader::StartElement)
+					continue;
+
+				tagName = sReader.name();
+				if (tagName != "item")
+					continue;
+
 				struct histd2 his;
-				his.title = attrs.value(0);
-				his.url = attrs.value(1);
+				QXmlStreamAttributes attrs = sReader.attributes();
+				his.title = attrs.value(QLatin1String("title")).toString();
+				his.url = attrs.value(QLatin1String("url")).toString();
 				helpBrowser->addHistoryItem(his);
 			}
-			return true;
-		}
+			qFile.close();
 
-		bool endElement(const QString&, const QString&, const QString&)
-		{
-			return true;
+			return (!sReader.hasError());
 		}
 };
 
@@ -102,35 +111,48 @@ from ~/.scribus/doc/bookmarks.xml file.
 The reference to QListView *view is a reference to the list view with bookmarks
 \author Petr Vanek <petr@yarpen.cz>
 */
-class BookmarkParser2 : public QXmlDefaultHandler
+class BookmarkParser2
 {
 	public:
-		QTreeWidget* view;
-		QMap<QString, QString>* quickHelpIndex;
-		QMap<QString, QPair<QString, QString> >* bookmarkIndex;
+		QTreeWidget* view { nullptr };
+		QMap<QString, QString>* quickHelpIndex { nullptr };
+		QMap<QString, QPair<QString, QString> >* bookmarkIndex { nullptr };
 
-		bool startDocument()
+		bool parse(const QString& fileName)
 		{
-			return true;
-		}
+			QFile qFile(fileName);
+			if (!qFile.open(QFile::ReadOnly))
+				return false;
 
-		bool startElement(const QString&, const QString&, const QString& qName, const QXmlAttributes& attrs)
-		{
-			if (qName == "item")
+			QXmlStreamReader sReader(&qFile);
+			QXmlStreamReader::TokenType tagType;
+			QStringRef tagName;
+
+			while (!sReader.atEnd() && !sReader.hasError())
 			{
+				tagType = sReader.readNext();
+				if (tagType != QXmlStreamReader::StartElement)
+					continue;
+
+				tagName = sReader.name();
+				if (tagName != "item")
+					continue;
+
+				QXmlStreamAttributes attrs = sReader.attributes();
+				QString title = attrs.value(QLatin1String("title")).toString();
+				QString pageTitle = attrs.value(QLatin1String("pagetitle")).toString();
+				QString pageUrl = attrs.value(QLatin1String("url")).toString();
+
 				//TODO : This will dump items if bookmarks get loaded into a different GUI language
-				if (quickHelpIndex->contains(attrs.value(1)))
+				if (quickHelpIndex->contains(pageTitle))
 				{
-					bookmarkIndex->insert(attrs.value(0), qMakePair(attrs.value(1), attrs.value(2)));
-					view->addTopLevelItem(new QTreeWidgetItem(view, QStringList() << attrs.value(0)));
+					bookmarkIndex->insert(title, qMakePair(pageTitle, pageUrl));
+					view->addTopLevelItem(new QTreeWidgetItem(view, QStringList() << title));
 				}
 			}
-			return true;
-		}
+			qFile.close();
 
-		bool endElement(const QString&, const QString&, const QString&)
-		{
-			return true;
+			return (!sReader.hasError());
 		}
 };
 
@@ -635,26 +657,18 @@ void HelpBrowser::loadMenu()
 
 void HelpBrowser::readBookmarks()
 {
-	BookmarkParser2 handler;
-	handler.view = helpNav->bookmarksView;
-	handler.quickHelpIndex = &m_quickHelpIndex;
-	handler.bookmarkIndex = &m_bookmarkIndex;
-	QFile xmlFile(bookmarkFile());
-	QXmlInputSource source(&xmlFile);
-	QXmlSimpleReader reader;
-	reader.setContentHandler(&handler);
-	reader.parse(source);
+	BookmarkParser2 bookmarkParser;
+	bookmarkParser.view = helpNav->bookmarksView;
+	bookmarkParser.quickHelpIndex = &m_quickHelpIndex;
+	bookmarkParser.bookmarkIndex = &m_bookmarkIndex;
+	bookmarkParser.parse(bookmarkFile());
 }
 
 void HelpBrowser::readHistory()
 {
- 	HistoryParser2 handler;
- 	handler.helpBrowser = this;
- 	QFile xmlFile(historyFile());
- 	QXmlInputSource source(&xmlFile);
- 	QXmlSimpleReader reader;
- 	reader.setContentHandler(&handler);
- 	reader.parse(source);
+ 	HistoryParser2 historyParser;
+ 	historyParser.helpBrowser = this;
+	historyParser.parse(historyFile());
 }
 
 void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelection & deselected)
