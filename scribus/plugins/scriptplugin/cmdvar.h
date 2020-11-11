@@ -52,7 +52,7 @@ class ScripterCore;
 // uses.
 /** @brief A PyCObject containing a pointer to qApp */
 extern PyObject* wrappedQApp;
-/** @brief A PyCObject containing a pointer to the main window ('Carrier') */
+/** @brief A PyCObject containing a pointer to the main window ('mainWindow') */
 extern PyObject* wrappedMainWindow;
 
 /** @brief A pointer to the ScripterCore instance */
