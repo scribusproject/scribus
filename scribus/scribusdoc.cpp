@@ -13220,7 +13220,7 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 
 void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData& mdData)
 {
-	if ((mdData.type==0 && mdData.copyCount<1) || (mdData.type==1 && (mdData.gridRows==1 && mdData.gridCols==1)))
+	if ((mdData.type == 0 && mdData.copyCount < 1) || (mdData.type == 1 && (mdData.gridRows == 1 && mdData.gridCols == 1)))
 		return;
 	if ((mdData.type == 2) && (Pages->count() == 1))
 		return;
@@ -13231,7 +13231,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 	if (UndoManager::undoEnabled())
 	{ // Make multiple duplicate a single action in the action history
 		if (m_Selection->count() > 1)
-			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate,"",Um::IMultipleDuplicate);
+			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
 		else
 		{
 			PageItem* item=m_Selection->itemAt(0);
@@ -13256,7 +13256,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		double dV2 = dV;
 		double dR = mdData.copyRotation;
 		double dR2 = dR;
-		if (mdData.copyShiftOrGap==1)
+		if (mdData.copyShiftOrGap == 1)
 		{
 			if (dH != 0.0)
 				dH2 += selection.width();
@@ -13267,7 +13267,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		QString BufferS = ss.writeElem(this, &selection);
 		//FIXME: stop using m_View
 		m_View->deselectItems(true);
-		for (int i=0; i<mdData.copyCount; ++i)
+		for (int i = 0; i < mdData.copyCount; ++i)
 		{
 			uint ac = Items->count();
 			ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
@@ -13327,7 +13327,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 			for (int j = 0; j < mdData.gridCols; ++j) //skip 0, the item is the one we are copying
 			{
 				// We can comment out this conditional jump if we use slotEditCut(), would not be cool? ;-)
-				if (i==0 && j==0)
+				if (i == 0 && j == 0)
 					continue;
 				uint ac = Items->count();
 				ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
@@ -13335,7 +13335,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 				{
 					PageItem* bItem = Items->at(as);
 					bItem->setLocked(false);
-					bItem->moveBy(j*dX, i*dY, true);
+					bItem->moveBy(j * dX, i * dY, true);
 					if (bItem->isGroup())
 						GroupOnPage(bItem);
 					else
