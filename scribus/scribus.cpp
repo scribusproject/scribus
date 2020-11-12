@@ -6281,44 +6281,16 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 void ScribusMainWindow::duplicateItem()
 {
 	slotSelect();
-	bool savedAlignGrid = doc->SnapGrid;
-	bool savedAlignGuides = doc->SnapGuides;
-	bool savedAlignElement = doc->SnapElement;
+
+	double shiftGapH = doc->opToolPrefs().dispX * doc->unitRatio();
+	double shiftGapV = doc->opToolPrefs().dispY * doc->unitRatio();
+
 	internalCopy = true;
-	doc->SnapGrid  = false;
-	doc->SnapGuides = false;
-	doc->SnapElement = false;
+	
+	doc->itemSelection_Duplicate(shiftGapH, shiftGapV);
 
-	UndoTransaction trans;
-	if (UndoManager::undoEnabled())
-		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Duplicate, QString(), Um::IMultipleDuplicate);
-
-	ItemMultipleDuplicateData mdData;
-	mdData.type = 0;
-	mdData.copyCount = 1;
-	mdData.copyShiftOrGap = 0;
-	mdData.copyShiftGapH = doc->opToolPrefs().dispX * doc->unitRatio();
-	mdData.copyShiftGapV = doc->opToolPrefs().dispY * doc->unitRatio();
-
-	int oldItemCount = doc->Items->count();
-	doc->m_Selection->delaySignalsOn();
-	doc->itemSelection_MultipleDuplicate(mdData);
-	view->deselectItems(true);
-	for (int i = oldItemCount; i < doc->Items->count(); ++i)
-	{
-		PageItem* item = doc->Items->at(i);
-		doc->m_Selection->addItem(item);
-	}
-	doc->m_Selection->delaySignalsOff();
-
-	if (trans)
-		trans.commit();
-	doc->SnapGrid  = savedAlignGrid;
-	doc->SnapGuides = savedAlignGuides;
-	doc->SnapElement = savedAlignElement;
 	internalCopy = false;
 	internalCopyBuffer.clear();
-	view->DrawNew();
 }
 
 void ScribusMainWindow::duplicateItemMulti()

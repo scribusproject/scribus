@@ -13218,30 +13218,77 @@ QRectF ScribusDoc::ApplyGridF(const QRectF& in)
 	return nr;
 }
 
-void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData& mdData)
+void ScribusDoc::itemSelection_Duplicate(double shiftX, double shiftY, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+
+	bool savedAlignGrid = this->SnapGrid;
+	bool savedAlignGuides = this->SnapGuides;
+	bool savedAlignElement = this->SnapElement;
+	this->SnapGrid  = false;
+	this->SnapGuides = false;
+	this->SnapElement = false;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = m_undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Duplicate, QString(), Um::IMultipleDuplicate);
+
+	ItemMultipleDuplicateData mdData;
+	mdData.type = 0;
+	mdData.copyCount = 1;
+	mdData.copyShiftOrGap = 0;
+	mdData.copyShiftGapH = shiftX;
+	mdData.copyShiftGapV = shiftY;
+
+	int oldItemCount = Items->count();
+	m_Selection->delaySignalsOn();
+	itemSelection_MultipleDuplicate(mdData, itemSelection);
+	m_Selection->clear();
+	for (int i = oldItemCount; i < Items->count(); ++i)
+	{
+		PageItem* item = Items->at(i);
+		m_Selection->addItem(item);
+	}
+	m_Selection->delaySignalsOff();
+
+	if (trans)
+		trans.commit();
+
+	this->SnapGrid  = savedAlignGrid;
+	this->SnapGuides = savedAlignGuides;
+	this->SnapElement = savedAlignElement;
+
+	regionsChanged()->update(QRectF());
+}
+
+void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData& mdData, Selection* customSelection)
 {
 	if ((mdData.type == 0 && mdData.copyCount < 1) || (mdData.type == 1 && (mdData.gridRows == 1 && mdData.gridCols == 1)))
 		return;
 	if ((mdData.type == 2) && (Pages->count() == 1))
 		return;
 
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	assert(itemSelection != nullptr);
+
 	QString tooltip;
 	UndoTransaction activeTransaction;
 
 	if (UndoManager::undoEnabled())
 	{ // Make multiple duplicate a single action in the action history
-		if (m_Selection->count() > 1)
+		if (itemSelection->count() > 1)
 			activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
 		else
 		{
-			PageItem* item=m_Selection->itemAt(0);
+			PageItem* item = itemSelection->itemAt(0);
 			activeTransaction = m_undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
 		}
 	}
 	DoDrawing = false;
 	view()->updatesOn(false);
 
-	QList<PageItem*> selectedItems = m_Selection->items();
+	QList<PageItem*> selectedItems = itemSelection->items();
 	std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
 
 	Selection selection(this, false);
@@ -13269,12 +13316,12 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		m_View->deselectItems(true);
 		for (int i = 0; i < mdData.copyCount; ++i)
 		{
-			uint ac = Items->count();
+			int oldItemCount = Items->count();
 			ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
 			m_Selection->delaySignalsOn();
-			for (int as = ac; as < Items->count(); ++as)
+			for (int j = oldItemCount; j < Items->count(); ++j)
 			{
-				PageItem* bItem = Items->at(as);
+				PageItem* bItem = Items->at(j);
 				bItem->setLocked(false);
 				bItem->moveBy(dH2, dV2, true);
 				if (bItem->isGroup())
@@ -13302,11 +13349,6 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 					dV2 += m_Selection->height();
 			}
 			dR2 += dR;
-			if (m_Selection->count() > 0)
-			{
-				m_Selection->itemAt(0)->connectToGUI();
-				m_Selection->itemAt(0)->emitAllToGUI();
-			}
 			m_Selection->clear();
 		}
 		QString unitSuffix = unitGetStrFromIndex(this->unitIndex());
@@ -13363,7 +13405,8 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 	view()->updatesOn(true);
 	//FIXME: stop using m_View
 	m_View->deselectItems(true);
-	view()->DrawNew();
+
+	regionsChanged()->update(QRectF());
 	changed();
 }
 

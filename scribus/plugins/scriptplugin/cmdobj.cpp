@@ -835,15 +835,14 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
 	ScribusDoc* currentDoc = currentWin->doc;
 
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
-	if (i == nullptr)
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == nullptr)
 		return nullptr;
 	currentDoc->m_Selection->clear();
-	currentDoc->m_Selection->addItem(i);
+	currentDoc->m_Selection->addItem(item);
 
 	// do the duplicate
-	currentWin->slotEditCopy();
-	currentWin->slotEditPaste();
+	currentDoc->itemSelection_Duplicate(0.0, 0.0);
 
 	return PyUnicode_FromString(currentDoc->m_Selection->itemAt(0)->itemName().toUtf8());
 }
@@ -921,8 +920,7 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 	}
 
 	// do the duplicate
-	currentWin->slotEditCopy();
-	currentWin->slotEditPaste();
+	currentDoc->itemSelection_Duplicate(0.0, 0.0);
 
 	PyObject* pyList = PyList_New(currentDoc->m_Selection->count());
 	for (int i = 0; i < currentDoc->m_Selection->count(); ++i)
