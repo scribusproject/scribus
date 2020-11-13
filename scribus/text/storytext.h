@@ -46,6 +46,7 @@ class ParagraphStyle;
 class PageItem;
 class ScribusDoc;
 class ScText_Shared;
+class ScWordIterator;
 class ResourceCollection;
 class ShapedTextCache;
 
@@ -266,6 +267,8 @@ public:
 	static icu::BreakIterator* getWordIterator();
 	static icu::BreakIterator* getSentenceIterator();
 	static icu::BreakIterator* getLineIterator();
+	
+	ScWordIterator* createWordIterator();
 
 // layout helpers
 
