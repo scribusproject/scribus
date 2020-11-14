@@ -8,10 +8,10 @@
   <release platform="OS2" stability="stablesvn" version="1.4.9.svn" />
   <release platform="MacOSX" stability="stablesvn" version="1.4.9.svn" />
   <release platform="Win32" stability="stablesvn" version="1.4.9.svn" />
-  <release platform="X11" stability="unstable" version="1.5.6" />
-  <release platform="Win32" stability="unstable" version="1.5.6" />
-  <release platform="MacOSX" stability="unstable" version="1.5.6" />
-  <release platform="OS2" stability="unstable" version="1.5.6" />
+  <release platform="X11" stability="unstable" version="1.5.6.1" />
+  <release platform="Win32" stability="unstable" version="1.5.6.1" />
+  <release platform="MacOSX" stability="unstable" version="1.5.6.1" />
+  <release platform="OS2" stability="unstable" version="1.5.6.1" />
   <release platform="X11" stability="unstablesvn" version="1.5.7.svn" />
   <release platform="Win32" stability="unstablesvn" version="1.5.7.svn" />
   <release platform="MacOSX" stability="unstablesvn" version="1.5.7.svn" />
