@@ -23,6 +23,11 @@ ScWordIterator::~ScWordIterator()
 		delete m_wordIterator;
 		m_wordIterator = nullptr;
 	}
+	if (m_unicodeString)
+	{
+		delete m_unicodeString;
+		m_unicodeString = nullptr;
+	}
 }
 
 BreakIterator* ScWordIterator::getWordIterator()
@@ -39,7 +44,13 @@ BreakIterator* ScWordIterator::getWordIterator()
 		return  nullptr;
 	}
 	
-	m_wordIterator->setText((const UChar*) m_story.plainText().utf16());
+	if (m_unicodeString)
+	{
+		delete m_unicodeString;
+		m_unicodeString = nullptr;
+	}
+	m_unicodeString = new icu::UnicodeString((const UChar*) m_story.plainText().utf16());
+	m_wordIterator->setText(*m_unicodeString);
 	return m_wordIterator;
 }
 
