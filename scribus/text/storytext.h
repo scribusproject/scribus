@@ -266,7 +266,7 @@ public:
 	static icu::BreakIterator* getWordIterator();
 	static icu::BreakIterator* getSentenceIterator();
 	static icu::BreakIterator* getLineIterator();
-
+	
 // layout helpers
 
 	ShapedTextCache* shapedTextCache() { return m_shapedTextCache; }

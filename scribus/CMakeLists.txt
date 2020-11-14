@@ -30,12 +30,13 @@ include_directories(
 	${HARFBUZZ_INCLUDE_DIRS}
 )
 
+include(text/CMakeLists.txt)
+
 add_subdirectory(dtd)
 add_subdirectory(colormgmt)
 add_subdirectory(desaxe)
 add_subdirectory(fonts)
 add_subdirectory(styles)
-add_subdirectory(text)
 add_subdirectory(ui/qml)
 if(WITH_TESTS)
 	add_subdirectory(tests)
@@ -581,6 +582,7 @@ set(SCRIBUS_MOC_CLASSES
 	ui/weldedit.h
 #	#{SCRIBUS_ITEMSETTERS_CLASS}
 	${SCRIBUS_OSG_CLASS}
+	${SCRIBUS_TEXT_MOC_CLASSES}
 )
 
 set(SCRIBUS_SOURCES
@@ -1097,6 +1099,7 @@ set(SCRIBUS_SOURCES
 #	#{SCRIBUS_ITEMSETTERS_SRC}
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
+	${SCRIBUS_TEXT_LIB_SOURCES}
 )
 
 if(NOT HAVE_HYPHEN)
@@ -1136,7 +1139,6 @@ link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/desaxe
 	${CMAKE_CURRENT_BINARY_DIR}/fonts
 	${CMAKE_CURRENT_BINARY_DIR}/styles
-	${CMAKE_CURRENT_BINARY_DIR}/text
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/pgf
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/rtf-qt
@@ -1158,7 +1160,7 @@ if(HAVE_BOOST)
 endif ()
 
 set(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
-set(SCRIBUS_TEXT_LIB "scribus_text_lib")
+
 if(WITH_TESTS)
 	set(SCRIBUS_TESTS_LIB "scribus_tests_lib")
 else()
@@ -1232,7 +1234,6 @@ if(HAVE_OSG)
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_UI_SOURCES}
-		${SCRIBUS_TEXT_SOURCES}
 		${SCRIBUS_STYLES_SOURCES}
 		${SCRIBUS_COLORMGMT_SOURCES}
 		${SCRIBUS_FONTS_SOURCES}
@@ -1247,7 +1248,6 @@ else()
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_UI_SOURCES}
-		${SCRIBUS_TEXT_SOURCES}
 		${SCRIBUS_STYLES_SOURCES}
 		${SCRIBUS_COLORMGMT_SOURCES}
 		${SCRIBUS_FONTS_SOURCES}
@@ -1363,7 +1363,6 @@ endif ()
 target_link_libraries(${EXE_NAME}
 	${SCRIBUS_COLORMGMT_LIB}
 	${SCRIBUS_DESAXE_LIB}
-	${SCRIBUS_TEXT_LIB}
 	${SCRIBUS_STYLES_LIB}
 	${SCRIBUS_FONTS_LIB}
 	${SCRIBUS_WPG_LIB}
