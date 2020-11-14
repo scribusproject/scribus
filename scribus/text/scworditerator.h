@@ -16,6 +16,7 @@
 
 U_NAMESPACE_BEGIN
 class BreakIterator;
+class UnicodeString;
 U_NAMESPACE_END
 
 class SCRIBUS_API ScWordIterator
@@ -32,6 +33,7 @@ public:
 	QString word(int pos);
 	
 private:
+	icu::UnicodeString* m_unicodeString { nullptr };
 	icu::BreakIterator* m_wordIterator { nullptr };
 	StoryText& m_story;
 	
