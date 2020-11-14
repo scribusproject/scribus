@@ -32,7 +32,6 @@ pageitem.cpp  -  description
 #include "scfonts.h"
 #include "scribusdoc.h"
 #include "sctext_shared.h"
-#include "scworditerator.h"
 #include "selection.h"
 #include "storytext.h"
 //
@@ -2028,11 +2027,6 @@ void StoryText::fixSurrogateSelection()
 		d->selFirst -= 1;
 	if (isHighSurrogate(d->selLast) && isLowSurrogate(d->selLast + 1))
 		d->selLast += 1;
-}
-
-ScWordIterator* StoryText::createWordIterator()
-{
-	return new ScWordIterator(*this);
 }
 
 BreakIterator* StoryText::m_graphemeIterator = nullptr;
