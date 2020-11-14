@@ -257,21 +257,9 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 
 void HunspellDialog::setLanguageCombo(const QString &newLangAbbrev)
 {
-	bool found = false;
-
-	auto it = m_dictionaryMap->cbegin();
-	while (it != m_dictionaryMap->cend())
-	{
-		if (it.key() == newLangAbbrev)
-		{
-			found = true;
-			break;
-		}
-		++it;
-	}
 	int i = 0;
-	if (found)
-		i = languagesComboBox->findText(LanguageManager::instance()->getLangFromAbbrev(newLangAbbrev,true));
+	if (m_dictionaryMap->contains(newLangAbbrev))
+		i = languagesComboBox->findText(LanguageManager::instance()->getLangFromAbbrev(newLangAbbrev, true));
 	bool b = languagesComboBox->blockSignals(true);
 	languagesComboBox->setCurrentIndex(i);
 	languagesComboBox->blockSignals(b);
