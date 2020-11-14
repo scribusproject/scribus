@@ -1306,7 +1306,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 	}
 	if (pos == length())
 	{
-		qDebug() << "storytext::charstyle: access at end of text %i" << pos;
+		//qDebug() << "storytext::charstyle: access at end of text %i" << pos;
 		--pos;
 	}
 	
