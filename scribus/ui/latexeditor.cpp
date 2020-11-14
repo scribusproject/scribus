@@ -813,7 +813,7 @@ class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 			return itemData(currentIndex()).toString();
 		}
 		
-		void fromString(QString str) {
+		void fromString(QString str) override {
 			setCurrentIndex(findData(str));
 		}
 };
