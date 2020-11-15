@@ -310,10 +310,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 			getCMSProfilesDir(profDir, showInfo, true);
 		}
 	}
-	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
-		m_haveCMS = true;
-	else
-		m_haveCMS = false;
+	m_haveCMS = (!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty());
 }
 
 void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive)

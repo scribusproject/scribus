@@ -1021,10 +1021,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	}
 	m_imageInfoRecord.BBoxX = 0;
 	m_imageInfoRecord.BBoxH = r_image.height();
-	if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
-		m_imageInfoRecord.valid = false;
-	else
-		m_imageInfoRecord.valid = true;
+	m_imageInfoRecord.valid = !(m_imageInfoRecord.layerInfo.isEmpty() && m_imageInfoRecord.PDSpathData.isEmpty());
 	return true;
 }
 

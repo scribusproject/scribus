@@ -2730,10 +2730,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 //		setAlphaBuffer(false);
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
-	if (imgInfo.isEmbedded && cmSettings.useEmbeddedProfile())
-		imgInfo.isEmbedded = true;
-	else
-		imgInfo.isEmbedded = false;
+	imgInfo.isEmbedded = imgInfo.isEmbedded && cmSettings.useEmbeddedProfile();
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());

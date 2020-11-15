@@ -15,7 +15,7 @@
 #include "text/boxes.h"
 
 PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
-    : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
+	: PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_nstyle = nStyle;
 	itemText.clear();
@@ -23,7 +23,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	m_itemName = generateUniqueCopyName(nStyle->isEndNotes() ? tr("Endnote frame ") + m_nstyle->name() : tr("Footnote frame ") + m_nstyle->name(), false);
 	AutoName = false; //endnotes frame will saved with name
 	setUName(m_itemName);
-	
+
 	//set default style for note frame
 	ParagraphStyle newStyle;
 	if (nStyle->notesParStyle().isEmpty() || (nStyle->notesParStyle() == tr("No Style")))
@@ -37,22 +37,13 @@ PageItem_NoteFrame::PageItem_NoteFrame(NotesStyle *nStyle, ScribusDoc *doc, doub
 	m_textFlowMode = TextFlowUsesFrameShape;
 	setColumns(1);
 
-	if (m_nstyle->isAutoNotesHeight())
-		m_SizeVLocked = true;
-	else
-		m_SizeVLocked = false;
-	if (m_nstyle->isAutoNotesWidth())
-		m_SizeHLocked = true;
-	else
-		m_SizeHLocked = false;
-	if (m_nstyle->isAutoNotesHeight() && m_nstyle->isAutoNotesWidth())
-		m_SizeLocked = true;
-	else
-		m_SizeLocked = false;
+	m_SizeVLocked = m_nstyle->isAutoNotesHeight();
+	m_SizeHLocked = m_nstyle->isAutoNotesWidth();
+	m_SizeLocked = m_nstyle->isAutoNotesHeight() && m_nstyle->isAutoNotesWidth();
 }
 
 PageItem_NoteFrame::PageItem_NoteFrame(ScribusDoc *doc, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline)
-    : PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
+	: PageItem_TextFrame(doc, x, y, w, h, w2, fill, outline)
 {
 	m_textFlowMode = TextFlowUsesFrameShape;
 }
@@ -84,7 +75,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	itemText.blockSignals(true);
 	itemText.setDefaultStyle(newStyle);
 	itemText.blockSignals(false);
-	
+
 	double frameHeight = calculateLineSpacing(newStyle, this);
 	if (frameHeight == 0.0 && !m_nstyle->isAutoNotesHeight())
 		frameHeight = newStyle.charStyle().fontSize()/10;
@@ -151,7 +142,7 @@ void PageItem_NoteFrame::setNoteStyle(NotesStyle *nStyle, PageItem_TextFrame* ma
 
 	m_itemName = generateUniqueCopyName(m_nstyle->isEndNotes() ? "Endnote frame " + m_nstyle->name() : "Footnote frame " + m_nstyle->name(), false);
 	setUName(m_itemName);
-	
+
 	//set default style for note frame
 	ParagraphStyle newStyle;
 	if (nStyle->notesParStyle().isEmpty() || (nStyle->notesParStyle() == tr("No Style")))

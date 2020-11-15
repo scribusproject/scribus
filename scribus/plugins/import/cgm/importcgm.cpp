@@ -1102,10 +1102,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 6)
 	{
 		ts >> data;
-		if (data == 0)
-			useClipRect = false;
-		else
-			useClipRect = true;
+		useClipRect = data != 0;
 		// qDebug() << "CLIP INDICATOR" << useClipRect;
 	}
 	else if (elemID == 7)
@@ -2353,10 +2350,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		quint16 data;
 		ts >> data;
-		if (data == 0)
-			lineVisible = false;
-		else
-			lineVisible = true;
+		lineVisible = data != 0;
  		// qDebug() << "EDGE VISIBILITY";
 	}
 	else if (elemID == 31)

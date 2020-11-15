@@ -815,10 +815,7 @@ void Hruler::setItem(PageItem * item)
 						  - item->textToFrameDistLeft() - item->textToFrameDistLeft()
 						  - 2*m_lineCorr) / item->columns();
 	m_rightMargin = columnWidth - currentStyle.rightMargin();
-	if (item->imageFlippedH())
-		m_reverse = true;
-	else
-		m_reverse = false;
+	m_reverse = item->imageFlippedH();
 	m_textEditMode = true;
 	m_tabValues = currentStyle.tabValues();
 }

@@ -222,10 +222,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 
 void ScrPainter::setFillRule(FillRule rule)
 {
-	if (rule == libwpg::WPGPaintInterface::WindingFill)
-		fillrule = false;
-	else
-		fillrule = true;
+	fillrule = rule != libwpg::WPGPaintInterface::WindingFill;
 //	qDebug() << "Fill Rule " << fillrule;
 }
 
