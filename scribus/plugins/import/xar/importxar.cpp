@@ -1603,7 +1603,7 @@ void XarPlug::handleFillRule(QDataStream &ts)
 	quint8 val;
 	ts >> val;
 	XarStyle *gc = m_gc.top();
-	gc->fillRule = val != 0;
+	gc->fillRule = (val != 0);
 }
 
 void XarPlug::handleLineEnd(QDataStream &ts)

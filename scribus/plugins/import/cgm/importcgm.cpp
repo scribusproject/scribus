@@ -1102,7 +1102,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 6)
 	{
 		ts >> data;
-		useClipRect = data != 0;
+		useClipRect = (data != 0);
 		// qDebug() << "CLIP INDICATOR" << useClipRect;
 	}
 	else if (elemID == 7)

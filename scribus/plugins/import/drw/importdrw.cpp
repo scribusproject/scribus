@@ -1587,7 +1587,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			gElements.scaleY = scaleY;
 			gElements.rotationAngle = rotationAngle;
 			gElements.posPivot = posPivot;
-			gElements.filled = data8 == 17;
+			gElements.filled = (data8 == 17);
 			gElements.nrOfItems = nItems;
 			gElements.counter = 0;
 			gElements.patternIndex = patternIndex;

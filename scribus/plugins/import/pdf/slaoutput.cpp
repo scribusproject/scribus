@@ -1577,7 +1577,7 @@ void SlaOutputDev::setSoftMask(GfxState * /*state*/, POPPLER_CONST_070 double * 
 		transferFunc->transform(&lum, &lum2);
 	else
 		lum2 = lum;
-	m_groupStack.top().inverted = lum != lum2;
+	m_groupStack.top().inverted = (lum != lum2);
 	m_groupStack.top().maskName = m_currentMask;
 	// Remember the mask's position as it might not align with the image to which the mask is later assigned.
 	m_groupStack.top().maskPos = m_currentMaskPosition;

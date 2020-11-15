@@ -766,7 +766,7 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["svg:fill-rule"])
 	{
-		m_fillRule = QString(propList["svg:fill-rule"]->getStr().cstr()) != "nonzero";
+		m_fillRule = (propList["svg:fill-rule"]->getStr() != "nonzero");
 	}
 	if (propList["svg:stroke-width"])
 		m_lineWidth = valueAsPoint(propList["svg:stroke-width"]);
