@@ -2,7 +2,7 @@ set(SCRIBUS_TEXT_MOC_CLASSES
 	text/storytext.h
 )
 
-set(SCRIBUS_TEXT_LIB_SOURCES
+set(SCRIBUS_TEXT_SOURCES
 	text/boxes.cpp
 	text/frect.cpp
 	text/fsize.cpp

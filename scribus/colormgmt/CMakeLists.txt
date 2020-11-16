@@ -1,43 +1,30 @@
-include_directories(
-${CMAKE_SOURCE_DIR}
-${CMAKE_SOURCE_DIR}/scribus
-)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_FPIC}")
 
 include_directories( ${LCMS2_INCLUDE_DIR} )
+
 set(SCRIBUS_LCMS_IMPL_SOURCES
-	sclcms2colormgmtengineimpl.cpp
-	sclcms2colorprofileimpl.cpp
-	sclcms2colortransformimpl.cpp
+	colormgmt/sclcms2colormgmtengineimpl.cpp
+	colormgmt/sclcms2colorprofileimpl.cpp
+	colormgmt/sclcms2colortransformimpl.cpp
 )
 
-set(SCRIBUS_COLORMGMT_LIB_SOURCES
-	scciedata.cpp
-	sccieilluminants.cpp
-	sccieobservers.cpp
-	sccolormgmtengine.cpp
-	sccolormgmtenginedata.cpp
-	sccolormgmtenginefactory.cpp
-	sccolormgmtimplelem.cpp
-	sccolormgmtstructs.cpp
-	sccolorprofile.cpp
-	sccolorprofilecache.cpp
-	sccolorprofiledata.cpp
-	sccolorspace.cpp
-	sccolorspacedata.cpp
-	sccolortransform.cpp
-	sccolortransformpool.cpp
-	sce308tables.cpp
-	scspectralvaluesconvertor.cpp
+set(SCRIBUS_COLORMGMT_SOURCES
+	colormgmt/scciedata.cpp
+	colormgmt/sccieilluminants.cpp
+	colormgmt/sccieobservers.cpp
+	colormgmt/sccolormgmtengine.cpp
+	colormgmt/sccolormgmtenginedata.cpp
+	colormgmt/sccolormgmtenginefactory.cpp
+	colormgmt/sccolormgmtimplelem.cpp
+	colormgmt/sccolormgmtstructs.cpp
+	colormgmt/sccolorprofile.cpp
+	colormgmt/sccolorprofilecache.cpp
+	colormgmt/sccolorprofiledata.cpp
+	colormgmt/sccolorspace.cpp
+	colormgmt/sccolorspacedata.cpp
+	colormgmt/sccolortransform.cpp
+	colormgmt/sccolortransformpool.cpp
+	colormgmt/sce308tables.cpp
+	colormgmt/scspectralvaluesconvertor.cpp
 	${SCRIBUS_LCMS_IMPL_SOURCES}
 )
 
-set(SCRIBUS_COLORMGMT_LIB "scribus_colormgmt_lib")
-add_library(${SCRIBUS_COLORMGMT_LIB} STATIC ${SCRIBUS_COLORMGMT_LIB_SOURCES})
-# This is a convenience library that for linkage purposes is part of Scribus's
-# main API.
-set_target_properties(${SCRIBUS_COLORMGMT_LIB}
-  PROPERTIES
-  COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
-  )
