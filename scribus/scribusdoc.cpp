@@ -13336,7 +13336,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 			if (dR != 0.0)
 			{
 				if (tempSelection.count() > 1)
-					rotateGroup(dR2, FPoint(0.0, 0.0), &tempSelection); //FIXME:av
+					rotateGroup(dR2, &tempSelection); //FIXME:av
 				else
 					rotateItem(dR2, tempSelection.itemAt(0));
 			}
@@ -14441,9 +14441,9 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 	if (this->m_rotMode == 2)
 		rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 	if (this->m_rotMode == 3)
-		rotationPoint = FPoint(gx, gy+gh);
+		rotationPoint = FPoint(gx, gy + gh);
 	if (this->m_rotMode == 4)
-		rotationPoint = FPoint(gx+gw, gy+gh);
+		rotationPoint = FPoint(gx + gw, gy + gh);
 	rotateGroup(angle, rotationPoint, itemSelection);
 }
 
