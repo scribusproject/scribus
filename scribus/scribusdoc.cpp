@@ -13313,12 +13313,13 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 		ScriXmlDoc ss;
 		QString BufferS = ss.writeElem(this, &selection);
 		//FIXME: stop using m_View
+		Selection tempSelection(nullptr, false);
 		m_View->deselectItems(true);
 		for (int i = 0; i < mdData.copyCount; ++i)
 		{
 			int oldItemCount = Items->count();
 			ss.readElem(BufferS, this, m_currentPage->xOffset(), m_currentPage->yOffset(), false, true);
-			m_Selection->delaySignalsOn();
+			tempSelection.delaySignalsOn();
 			for (int j = oldItemCount; j < Items->count(); ++j)
 			{
 				PageItem* bItem = Items->at(j);
@@ -13328,28 +13329,28 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 					GroupOnPage(bItem);
 				else
 					bItem->OwnPage = OnPage(bItem);
-				m_Selection->addItem(bItem);
+				tempSelection.addItem(bItem);
 			}
-			m_Selection->delaySignalsOff();
-			m_Selection->setGroupRect();
+			tempSelection.delaySignalsOff();
+			tempSelection.setGroupRect();
 			if (dR != 0.0)
 			{
-				if (m_Selection->count() > 1)
-					rotateGroup(dR2, FPoint(0,0)); //FIXME:av
+				if (tempSelection.count() > 1)
+					rotateGroup(dR2, FPoint(0.0, 0.0), &tempSelection); //FIXME:av
 				else
-					rotateItem(dR2, m_Selection->itemAt(0));
+					rotateItem(dR2, tempSelection.itemAt(0));
 			}
 			dH2 += dH;
 			dV2 += dV;
 			if (mdData.copyShiftOrGap == 1)
 			{
 				if (dH != 0.0)
-					dH2 += m_Selection->width();
+					dH2 += tempSelection.width();
 				if (dV != 0.0)
-					dV2 += m_Selection->height();
+					dV2 += tempSelection.height();
 			}
 			dR2 += dR;
-			m_Selection->clear();
+			tempSelection.clear();
 		}
 		QString unitSuffix = unitGetStrFromIndex(this->unitIndex());
 		int unitPrecision = unitGetPrecisionFromIndex(this->unitIndex());
@@ -13382,8 +13383,6 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 						GroupOnPage(bItem);
 					else
 						bItem->OwnPage = OnPage(bItem);
-					bItem->connectToGUI();
-					bItem->emitAllToGUI();
 				}
 			}
 		}
