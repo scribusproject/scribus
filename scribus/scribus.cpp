@@ -4594,10 +4594,10 @@ void ScribusMainWindow::slotEditPaste()
 			if (currItem->isNoteFrame())
 			{
 				story->setDoc(doc);
-				for (int pos=story->length() -1; pos >= 0; --pos)
+				for (int pos = story->length() - 1; pos >= 0; --pos)
 				{
 					if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
-						story->removeChars(pos,1);
+						story->removeChars(pos, 1);
 				}
 			}
 			if (UndoManager::undoEnabled())

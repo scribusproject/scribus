@@ -82,12 +82,12 @@ const QString FileLoader::getLoadFilterString()
 	QStringList fmts = LoadSavePlugin::fileDialogLoadFilter();
 	QString fmtString = QObject::tr("All Supported Formats")+" (";
 	int ind = -1;
-	for (int i = 0; i < fmts.count()-1; i++)
+	for (int i = 0; i < fmts.count() - 1; ++i)
 	{
 		QString fmt(fmts[i]);
 		int s = fmt.indexOf("(");
 		int e = fmt.lastIndexOf(")");
-		QString f(fmt.mid(s+1, e-s-1));
+		QString f(fmt.mid(s + 1, e - s - 1));
 #ifndef HAVE_POPPLER
 		if (f.contains("pdf"))	// for removing PDF from the list
 		{
@@ -350,8 +350,8 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 	vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
-	vg.setPeCharStyleName(pg.attribute("DROPCHSTYLE", ""));
-	vg.setPeCharStyleName(pg.attribute("PECHSTYLE", ""));
+	vg.setPeCharStyleName(pg.attribute("DROPCHSTYLE", QString()));
+	vg.setPeCharStyleName(pg.attribute("PECHSTYLE", QString()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 	vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("DROPDIST"), 0.0));
 	vg.setParEffectOffset(ScCLocale::toDoubleC(pg.attribute("PEDIST"), 0.0));
@@ -390,29 +390,28 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 			tbs.append(tb);
 		}
 		vg.setTabValues(tbs);
-		tmp = "";
+		tmp.clear();
 	}
 	else
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
-		QDomNode IT = pg.firstChild();
-		while (!IT.isNull())
+		QDomNode domNode = pg.firstChild();
+		while (!domNode.isNull())
 		{
-			QDomElement it = IT.toElement();
-			if (it.tagName()=="Tabs")
+			QDomElement it = domNode.toElement();
+			if (it.tagName() == "Tabs")
 			{
 				ParagraphStyle::TabRecord tb;
 				tb.tabPosition = ScCLocale::toDoubleC(it.attribute("Pos"));
 				tb.tabType = it.attribute("Type").toInt();
-				QString tbCh = "";
-				tbCh = it.attribute("Fill","");
+				QString tbCh = it.attribute("Fill", QString());
 				if (tbCh.isEmpty())
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
-			IT=IT.nextSibling();
+			domNode = domNode.nextSibling();
 		}
 		vg.setTabValues(tbs);
 	}
@@ -456,25 +455,24 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 
 void FileLoader::informReplacementFonts()
 {
-	if (m_ReplacedFonts.count() != 0)
+	if (m_ReplacedFonts.count() == 0)
+		return;
+
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QString mess = tr("Some fonts used by this document have been substituted:") + "\n\n";
+	for (auto it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
-		QMap<QString, QString>::Iterator it;
-		for (it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
-		{
-			mess += it.key() + tr(" was replaced by: ")+ it.value() +"\n";
-		}
-		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess);
+		mess += it.key() + tr(" was replaced by: ") + it.value() +"\n";
 	}
+	ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess);
 }
 
 bool FileLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &it)
 {
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
-	it=fileFormats.constBegin();
+	it = fileFormats.constBegin();
 	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
-	for ( ; it != itEnd ; ++it )
+	for ( ; it != itEnd ; ++it)
 	{
 		if (formatId == it->formatId)
 			return true;
