@@ -141,11 +141,12 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
+
 	QRegExp regExp150("Version=\"1.5.[0-9]");
 	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
 	if (startElemPos >= 0)
 	{
-		bool is150 = ( regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
+		bool is150 = (regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0);
 		return is150;
 	}
 	return false;
