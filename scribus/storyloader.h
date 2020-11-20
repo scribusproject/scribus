@@ -17,14 +17,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+class FileFormat;
+class PageItem;
 class QDomElement;
 class QProgressBar;
+class PrefsManager;
+class SCFonts;
 class ScribusDoc;
 class ScribusView;
-class SCFonts;
 class StoryText;
-class PrefsManager;
-class FileFormat;
 
 class SCRIBUS_API StoryLoader : public QObject
 {

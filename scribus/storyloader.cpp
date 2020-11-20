@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
+#include "pageitem.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
@@ -37,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 #include "plugins/formatidlist.h"
+#include "text/storytext.h"
 #include "ui/fontreplacedialog.h"
 #include "ui/missing.h"
 
