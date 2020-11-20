@@ -89,6 +89,10 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		virtual bool savePalette(const QString & fileName);
 		virtual QString saveElements(double, double, double, double, Selection*, QByteArray &prevData);
 
+		// Save requested item story
+		virtual bool loadStory(const QByteArray& data, StoryText& story, PageItem* item);
+		virtual bool saveStory(StoryText& story, PageItem* item, QByteArray& data);
+
 		// Return last file saved, this may be the last fileName argument passed to saveFile(),
 		// a temporary file name or an empty string if last call to saveFile() could not create
 		// a valid file
@@ -100,6 +104,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// file type (eg "XML doc with root element SCRIBUSXML and version 1.3.1").
 		// All plugins must implement this method.
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const = 0;
+
+		// Examine if the passed story data to see whether it appears to be loadable with this plugin
+		virtual bool storySupported(const QByteArray& storyData) const { return false; }
 
 		// Return a list of all formats supported by all currently loaded and
 		// active plugins. This list is sorted in a very specific order:
@@ -196,13 +203,20 @@ class SCRIBUS_API FileFormat
 		FileFormat(LoadSavePlugin * plug);
 
 		bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) const;
+
 		// Load a file with this format
 		bool loadFile(const QString & fileName, int flags, int index = 0) const;
 		bool loadPalette(const QString & fileName) const;
+
 		// Save a file with this format
 		bool saveFile(const QString & fileName) const;
 		bool savePalette(const QString & fileName) const;
 		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) const;
+
+		// Save item story with this format
+		bool loadStory(const QByteArray& data, StoryText& story, PageItem* item) const;
+		bool saveStory(StoryText& story, PageItem* item, QByteArray& data) const;
+
 		// Get last saved file
 		QString lastSavedFile() const;
 
@@ -215,6 +229,7 @@ class SCRIBUS_API FileFormat
 		bool readColors(const QString& fileName, ColorList & colors) const;
 		bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames) const;
 		QImage readThumbnail(const QString& fileName) const;
+
 		//
 		// Data members
 		//

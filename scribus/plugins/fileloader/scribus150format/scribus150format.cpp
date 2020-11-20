@@ -152,6 +152,18 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	return false;
 }
 
+bool Scribus150Format::storySupported(const QByteArray& storyData) const
+{
+	QRegExp regExp150("Version=\"1.5.[0-9]");
+	int startElemPos = storyData.left(512).indexOf("<ScribusStory ");
+	if (startElemPos >= 0)
+	{
+		bool is150 = (regExp150.indexIn(storyData.mid(startElemPos, 64)) >= 0);
+		return is150;
+	}
+	return false;
+}
+
 QIODevice* Scribus150Format::slaReader(const QString & fileName)
 {
 	if (!fileSupported(nullptr, fileName))
@@ -732,11 +744,190 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	return true;
 }
 
+bool Scribus150Format::loadStory(const QByteArray& data, StoryText& story, PageItem* item)
+{
+	ParagraphStyle vg;
+	isNewFormat = false;
+
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	itemRemapM.clear();
+	itemNextM.clear();
+	itemCountM = 0;
+	itemRemapF.clear();
+	itemNextF.clear();
+	FrameItems.clear();
+	LinkID.clear();
+
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
+
+	bool firstElement = true;
+	bool success = true;
+
+	ReadObjectParams readObjectParams;
+	readObjectParams.baseDir = QString() /*fileDir*/; //FIXME
+	readObjectParams.itemKind = PageItem::InlineItem;
+	readObjectParams.loadingPage = true;
+
+	ScXmlStreamReader reader(data);
+	ScXmlStreamAttributes attrs;
+	while (!reader.atEnd() && !reader.hasError())
+	{
+		QXmlStreamReader::TokenType tType = reader.readNext();
+		if (tType != QXmlStreamReader::StartElement)
+			continue;
+		QStringRef tagName = reader.name();
+		attrs = reader.scAttributes();
+
+		if (firstElement)
+		{
+			if (tagName != "ScribusStory")
+			{
+				success = false;
+				break;
+			}
+			firstElement = false;
+		}
+
+		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("NAME");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
+			readColor(m_Doc->PageColors, attrs);
+		}
+		if (tagName == "Gradient")
+		{
+			VGradient gra;
+			QString grName = attrs.valueAsString("Name");
+			success = readGradient(m_Doc, gra, reader);
+			if (!success)
+				break;
+			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
+			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
+				m_Doc->docGradients.insert(grName, gra);
+		}
+		if (tagName == "STYLE")
+		{
+			readParagraphStyle(m_Doc, reader, vg);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->paragraphStyles().contains(vg.name()))
+				continue;
+			StyleSet<ParagraphStyle> tmp;
+			tmp.create(vg);
+			m_Doc->redefineStyles(tmp, false);
+		}
+		if (tagName == "CHARSTYLE")
+		{
+			CharStyle cstyle;
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			readNamedCharacterStyleAttrs(m_Doc, attrs, cstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->charStyles().contains(cstyle.name()))
+				continue;
+			StyleSet<CharStyle> temp;
+			temp.create(cstyle);
+			m_Doc->redefineCharStyles(temp, false);
+		}
+		if (tagName == "TableStyle")
+		{
+			TableStyle tstyle;
+			readTableStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->tableStyles().contains(tstyle.name()))
+				continue;
+			StyleSet<TableStyle> temp;
+			temp.create(tstyle);
+			m_Doc->redefineTableStyles(temp, false);
+		}
+		if (tagName == "CellStyle")
+		{
+			CellStyle tstyle;
+			readCellStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->cellStyles().contains(tstyle.name()))
+				continue;
+			StyleSet<CellStyle> temp;
+			temp.create(tstyle);
+			m_Doc->redefineCellStyles(temp, false);
+		}
+		if (tagName == "Arrows")
+		{
+			success = readArrows(m_Doc, attrs);
+			if (!success) break;
+		}
+		if (tagName == "MultiLine")
+		{
+			multiLine ml;
+			QString mlName = attrs.valueAsString("Name");
+			success = readMultiline(ml, reader);
+			if (!success)
+				break;
+			if (!mlName.isEmpty() && !m_Doc->docLineStyles.contains(mlName))
+				m_Doc->docLineStyles.insert(mlName, ml);
+		}
+		if (tagName == "FRAMEOBJECT")
+		{
+			ItemInfo itemInfo;
+			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
+			if (!success)
+				break;
+			itemInfo.item->m_layerID = LayerToPaste;
+		}
+		if (tagName == "StoryText")
+		{
+			readStoryText(m_Doc, reader, story, item);
+		}
+		if (tagName == "Pattern") // FIXME
+		{
+			/*success = readPattern(m_Doc, reader, fileDir);
+			if (!success) break;*/
+		}
+		if (tagName == "NotesStyles")
+		{
+			success = readNotesStyles(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "Notes")
+		{
+			success = readNotes(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "Marks")
+		{
+			success = readMarks(m_Doc, reader);
+			if (!success) break;
+		}
+	}
+
+	if (reader.hasError())
+	{
+		setDomParsingError(reader.errorString(), reader.lineNumber(), reader.columnNumber());
+		return false;
+	}
+
+	//update names to pointers
+	updateNames2Ptr();
+
+	return true;
+}
+
 bool Scribus150Format::loadPalette(const QString & fileName)
 {
-	if (m_Doc==nullptr || m_AvailableFonts==nullptr)
+	if (m_Doc == nullptr || m_AvailableFonts == nullptr)
 	{
-		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
+		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
 	ParagraphStyle vg;
@@ -3234,7 +3425,8 @@ bool Scribus150Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 		fp >> ya;
 		arrow.points.addPoint(xa, ya);
 	}
-	doc->appendToArrowStyles(arrow);
+	if (!doc->hasArrowStyle(arrow.name))
+		doc->appendToArrowStyles(arrow);
 	return true;
 }
 
@@ -4045,7 +4237,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		}
 
 		if (tName == "ITEXT")
-			readItemText(newItem, tAtt, lastStyle);
+			readItemText(newItem->itemText, tAtt, lastStyle);
 		else if (tName == "TableData")
 		{
 			readItemTableData(newItem->asTable(), reader, doc);
@@ -4191,7 +4383,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			newItem->effectsInUse.append(ef);
 		}
 		if (tName == "StoryText")
-			readStoryText(doc, reader, newItem);
+			readStoryText(doc, reader, newItem->itemText, newItem);
 		if (tName == "Tabs")
 		{
 			ParagraphStyle::TabRecord tb;
@@ -4652,7 +4844,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	return success;
 }
 
-bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, PageItem* item)
+bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item)
 {
 	QStringRef tagName = reader.name();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -4672,86 +4864,86 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 		{
 			ParagraphStyle newStyle;
 			readParagraphStyle(doc, reader, newStyle);
-			item->itemText.setDefaultStyle(newStyle);
+			story.setDefaultStyle(newStyle);
 		}
 
 		if (tName == "ITEXT")
-			readItemText(item, tAtt, lastStyle);
+			readItemText(story, tAtt, lastStyle);
 		else if (tName == "para")
 		{
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::PARSEP);
+			story.insertChars(story.length(), SpecialChars::PARSEP);
 			ParagraphStyle newStyle;
 			readParagraphStyle(doc, reader, newStyle);
-			item->itemText.setStyle(item->itemText.length()-1, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, lastStyle->Style);
+			story.setStyle(story.length() - 1, newStyle);
+			story.setCharStyle(story.length() - 1, 1, lastStyle->Style);
 		}
 		else if (tName == "trail")
 		{
 			ParagraphStyle newStyle;
 			readParagraphStyle(doc, reader, newStyle);
-			item->itemText.setStyle(item->itemText.length(), newStyle);
+			story.setStyle(story.length(), newStyle);
 		}
 		else if (tName == "tab")
 		{
 			CharStyle newStyle;
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::TAB);
+			story.insertChars(story.length(), SpecialChars::TAB);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 		else if (tName == "breakline")
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::LINEBREAK);
+			story.insertChars(story.length(), SpecialChars::LINEBREAK);
 		else if (tName == "breakcol")
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::COLBREAK);
+			story.insertChars(story.length(), SpecialChars::COLBREAK);
 		else if (tName == "breakframe")
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::FRAMEBREAK);
+			story.insertChars(story.length(), SpecialChars::FRAMEBREAK);
 		else if (tName == "nbhyphen")
 		{
 			CharStyle newStyle;
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::NBHYPHEN);
+			story.insertChars(story.length(), SpecialChars::NBHYPHEN);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 		else if (tName == "nbspace")
 		{
 			CharStyle newStyle;
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::NBSPACE);
+			story.insertChars(story.length(), SpecialChars::NBSPACE);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 		else if (tName == "zwnbspace")
 		{
 			CharStyle newStyle;
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::ZWNBSPACE);
+			story.insertChars(story.length(), SpecialChars::ZWNBSPACE);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 		else if (tName == "zwspace")
 		{
 			CharStyle newStyle;
-			item->itemText.insertChars(item->itemText.length(), SpecialChars::ZWSPACE);
+			story.insertChars(story.length(), SpecialChars::ZWSPACE);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 		else if (tName == "var")
 		{
 			CharStyle newStyle;
 			if (tAtt.value("name") == "pgno")
-				item->itemText.insertChars(item->itemText.length(), SpecialChars::PAGENUMBER);
+				story.insertChars(story.length(), SpecialChars::PAGENUMBER);
 			else
-				item->itemText.insertChars(item->itemText.length(), SpecialChars::PAGECOUNT);
+				story.insertChars(story.length(), SpecialChars::PAGECOUNT);
 			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			item->itemText.setCharStyle(item->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = item->itemText.length()-1;
+			story.setCharStyle(story.length() - 1, 1, newStyle);
+			lastStyle->StyleStart = story.length() - 1;
 			lastStyle->Style = newStyle;
 		}
 
@@ -4781,7 +4973,7 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 					else
 					{
 						mark = m_Doc->newMark(oldMark);
-						getUniqueName(l,doc->marksLabelsList(t), "_");
+						getUniqueName(l, doc->marksLabelsList(t), "_");
 					}
 					mark->label = l;
 					if (t == MARKNoteMasterType)
@@ -4804,10 +4996,10 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 				if (t == MARKAnchorType)
 					mark->setItemPtr(item);
 				mark->OwnPage = item->OwnPage;
-				item->itemText.insertMark(mark, item->itemText.length());
+				story.insertMark(mark, story.length());
 				readCharacterStyleAttrs(doc, tAtt, newStyle);
-				item->itemText.setCharStyle(item->itemText.length() - 1, 1, newStyle);
-				lastStyle->StyleStart = item->itemText.length() - 1;
+				story.setCharStyle(story.length() - 1, 1, newStyle);
+				lastStyle->StyleStart = story.length() - 1;
 				lastStyle->Style = newStyle;
 			}
 		}
@@ -4817,11 +5009,11 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 	return !reader.hasError();
 }
 
-bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs, LastStyles* last)
+bool Scribus150Format::readItemText(StoryText& story, ScXmlStreamAttributes& attrs, LastStyles* last)
 {
 	QString tmp2;
 	CharStyle newStyle;
-	ScribusDoc* doc = obj->doc();
+	ScribusDoc* doc = story.doc();
 	
 	readCharacterStyleAttrs(doc, attrs, newStyle);
 
@@ -4848,7 +5040,7 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 
 	int iobj = attrs.valueAsInt("COBJ", -1);
 
-	for (int cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx = 0; cxx < tmp2.length(); ++cxx)
 	{
 		QChar ch = tmp2.at(cxx);		
 		{ // Legacy mode
@@ -4858,7 +5050,7 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 				ch = SpecialChars::TAB;
 		}
 		
-		int pos = obj->itemText.length();
+		int pos = story.length();
 		if (ch == SpecialChars::OBJECT)
 		{
 			if (LinkID.contains(iobj))
@@ -4866,13 +5058,13 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 				if (FrameItems.contains(LinkID[iobj]))
 				{
 					int fIndex = doc->addToInlineFrames(LinkID[iobj]);
-					obj->itemText.insertObject(pos, fIndex);
+					story.insertObject(pos, fIndex);
 				}
 			}
 			else
 			{
 				if (doc->FrameItems.contains(iobj))
-					obj->itemText.insertObject(pos, iobj);
+					story.insertObject(pos, iobj);
 				else
 					qDebug() << QString("scribus150format: invalid inline frame used in text object : %1").arg(iobj);
 			}
@@ -4881,24 +5073,24 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		{
 //			qDebug() << QString("scribus150format: SHYPHEN at %1").arg(pos);
 			// double SHY means user provided SHY, single SHY is automatic one
-			if (obj->itemText.hasFlag(pos-1, ScLayout_HyphenationPossible))
+			if (story.hasFlag(pos-1, ScLayout_HyphenationPossible))
 			{
-				obj->itemText.clearFlag(pos-1, ScLayout_HyphenationPossible);
-				obj->itemText.insertChars(pos, QString(ch));
+				story.clearFlag(pos-1, ScLayout_HyphenationPossible);
+				story.insertChars(pos, QString(ch));
 			}
 			else
 			{
-				obj->itemText.setFlag(pos-1, ScLayout_HyphenationPossible);
+				story.setFlag(pos-1, ScLayout_HyphenationPossible);
 			}
 		}
 		else {
-			obj->itemText.insertChars(pos, QString(ch));
+			story.insertChars(pos, QString(ch));
 		}
 //		qDebug() << QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style);
 		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
 //			qDebug() << QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString());
-			obj->itemText.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			story.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
 		}
@@ -4908,27 +5100,28 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 			if (!last->ParaStyle.isEmpty()) {
 				pstyle.setParent( last->ParaStyle );
 			}
-			obj->itemText.applyStyle(pos, pstyle);
+			story.applyStyle(pos, pstyle);
 		}
 	}
 
-	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
-	last->StyleStart = obj->itemText.length();
+	story.setCharStyle(last->StyleStart, story.length()-last->StyleStart, last->Style);
+	last->StyleStart = story.length();
 /*
 	QString dbg("");
-	for (int i=0; i < obj->itemText.length(); ++i)
+	for (int i=0; i < story.length(); ++i)
 	{
-		dbg += obj->itemText.text(i,1);
-		if (obj->itemText.item(i)->effects() & ScStyle_HyphenationPossible)
+		dbg += story.text(i,1);
+		if (story.item(i)->effects() & ScStyle_HyphenationPossible)
 			dbg += "~";
 	}
-	qDebug("scribus150format: read itemtext %d '%s'", obj->itemText.length(), dbg.latin1());
+	qDebug("scribus150format: read itemtext %d '%s'", story.length(), dbg.latin1());
 	*/
 	ParagraphStyle pstyle;
 
-	if (!last->ParaStyle.isEmpty()) { // Qt4 >= 0) {
-		pstyle.setParent( last->ParaStyle );
-		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
+	if (!last->ParaStyle.isEmpty())
+	{
+		pstyle.setParent(last->ParaStyle);
+		story.applyStyle(story.length() - 1, pstyle);
 	}
 
 	return true;
@@ -6117,7 +6310,7 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 		else if (reader.name() == "StoryText")
 		{
 			PageItem* newItem = item->cellAt(row, col).textFrame();
-			readStoryText(doc, reader, newItem);
+			readStoryText(doc, reader, newItem->itemText, newItem);
 		}
 		else
 		{

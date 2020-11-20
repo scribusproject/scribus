@@ -168,39 +168,50 @@ public:
 	void setAutoSaveDir(const QString& autoDaveDir) { m_docPrefsData.docSetupPrefs.AutoSaveDir = autoDaveDir; }
 	//FIXME (maybe) :non const, the loaders make a mess here
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
+
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
 	void setItemAttributes(ObjAttrVector& oav) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
 	void clearItemAttributes() { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
 	void appendToItemAttributes(const ObjectAttribute& oa) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
+
 	ToCSetupVector& tocSetups() { return m_docPrefsData.tocPrefs.defaultToCSetups; }
 	void setTocSetups(ToCSetupVector& tsv) { m_docPrefsData.tocPrefs.defaultToCSetups=tsv; }
 	void clearTocSetups() { m_docPrefsData.tocPrefs.defaultToCSetups.clear(); }
 	void appendToTocSetups(const ToCSetup& ts) { m_docPrefsData.tocPrefs.defaultToCSetups.append(ts); }
-	void setArrowStyles(QList<ArrowDesc>& as) { m_docPrefsData.arrowStyles=as; }
+
+	void setArrowStyles(QList<ArrowDesc>& as) { m_docPrefsData.arrowStyles = as; }
 	QList<ArrowDesc>& arrowStyles() { return m_docPrefsData.arrowStyles; }
+	ArrowDesc* arrowStyle(const QString& name);
+	bool hasArrowStyle(const QString& name) const;
 	void appendToArrowStyles(const struct ArrowDesc& as) { m_docPrefsData.arrowStyles.append(as); }
+
 	bool marginColored() const { return m_docPrefsData.displayPrefs.marginColored; }
-	void setMarginColored(bool b) { m_docPrefsData.displayPrefs.marginColored=b; }
+	void setMarginColored(bool b) { m_docPrefsData.displayPrefs.marginColored = b; }
+
 	QMap<QString, CheckerPrefs>& checkerProfiles() { return m_docPrefsData.verifierPrefs.checkerPrefsList; }
-	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { m_docPrefsData.verifierPrefs.checkerPrefsList=cl; }
+	void setCheckerProfiles(const QMap<QString, CheckerPrefs>& cl) { m_docPrefsData.verifierPrefs.checkerPrefsList = cl; }
 	void set1CheckerProfile(const QString& profileName, const struct CheckerPrefs& cs) { m_docPrefsData.verifierPrefs.checkerPrefsList[profileName] = cs; }
 	void clearCheckerProfiles() { m_docPrefsData.verifierPrefs.checkerPrefsList.clear(); }
 	const QString& curCheckProfile() const { return m_docPrefsData.verifierPrefs.curCheckProfile; }
-	void setCurCheckProfile(const QString& s) { m_docPrefsData.verifierPrefs.curCheckProfile=s; }
+	void setCurCheckProfile(const QString& s) { m_docPrefsData.verifierPrefs.curCheckProfile = s; }
+
 	const QString& language() const { return m_docPrefsData.docSetupPrefs.language; }
-	void setLanguage(const QString& s) { m_docPrefsData.docSetupPrefs.language=s; }
+	void setLanguage(const QString& s) { m_docPrefsData.docSetupPrefs.language = s; }
+
 	int pageOrientation() const { return m_docPrefsData.docSetupPrefs.pageOrientation; }
-	void setPageOrientation(int o) { m_docPrefsData.docSetupPrefs.pageOrientation=o; }
+	void setPageOrientation(int o) { m_docPrefsData.docSetupPrefs.pageOrientation = o; }
 	int pagePositioning() const { return m_docPrefsData.docSetupPrefs.pagePositioning; }
-	void setPagePositioning(int p) { m_docPrefsData.docSetupPrefs.pagePositioning=p; }
+	void setPagePositioning(int p) { m_docPrefsData.docSetupPrefs.pagePositioning = p; }
+
 	double pageHeight() const { return m_docPrefsData.docSetupPrefs.pageHeight; }
 	double pageWidth() const { return m_docPrefsData.docSetupPrefs.pageWidth; }
 	const QString& pageSize() const { return m_docPrefsData.docSetupPrefs.pageSize; }
-	void setPageHeight(double h) { m_docPrefsData.docSetupPrefs.pageHeight=h; }
-	void setPageWidth(double w) { m_docPrefsData.docSetupPrefs.pageWidth=w; }
-	void setPageSize(const QString& s) { m_docPrefsData.docSetupPrefs.pageSize=s; }
+	void setPageHeight(double h) { m_docPrefsData.docSetupPrefs.pageHeight = h; }
+	void setPageWidth(double w) { m_docPrefsData.docSetupPrefs.pageWidth = w; }
+	void setPageSize(const QString& s) { m_docPrefsData.docSetupPrefs.pageSize = s; }
+
 	int marginPreset() const { return m_docPrefsData.docSetupPrefs.marginPreset; }
-	void setMarginPreset(int mp) { m_docPrefsData.docSetupPrefs.marginPreset=mp; }
+	void setMarginPreset(int mp) { m_docPrefsData.docSetupPrefs.marginPreset = mp; }
 
 	TypoPrefs& typographicPrefs() { return m_docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return m_docPrefsData.guidesPrefs; }
@@ -209,9 +220,9 @@ public:
 	ColorPrefs& colorPrefs() { return m_docPrefsData.colorPrefs; }
 	CMSData& cmsSettings() { return m_docPrefsData.colorPrefs.DCMSset; }
 	DocumentInformation& documentInfo() { return m_docPrefsData.docInfo; }
-	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo=di; }
+	void setDocumentInfo(DocumentInformation di) { m_docPrefsData.docInfo = di; }
 	DocumentSectionMap& sections() { return m_docPrefsData.docSectionMap; }
-	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap=std::move(dsm); }
+	void setSections(DocumentSectionMap dsm) { m_docPrefsData.docSectionMap = std::move(dsm); }
 	const QMap<QString, int> & usedFonts() { return UsedFonts; }
 
 	const ApplicationPrefs& prefsData() { return m_docPrefsData; }

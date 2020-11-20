@@ -236,7 +236,9 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
 
-	lists.collectColor(backgroundColor());
+	const QString& backgroundColorName = backgroundColor();
+	if (backgroundColorName != CommonStrings::None)
+		lists.collectColor(backgroundColorName);
 
 	QString parEffectStyle = peCharStyleName();
 	if (parEffectStyle.length() > 0)

@@ -155,6 +155,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
+#include "storyloader.h"
 #include "styleoptions.h"
 #include "tocgenerator.h"
 #include "ui/about.h"
@@ -4492,16 +4493,16 @@ void ScribusMainWindow::slotEditCopy()
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
 			itemText.insert(0, cItem->itemText, true);
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-			xmlStream.beginDoc();
-			itemText.saxx(xmlStream, "SCRIBUSTEXT");
-			xmlStream.endDoc();
-			std::string xml(xmlString.str());
-			ScTextMimeData* mimeData = new ScTextMimeData();
-			mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
-			mimeData->setText( itemText.text(0, itemText.length()) );
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+
+			QByteArray storyData;
+			QScopedPointer<StoryLoader> storyLoader(new StoryLoader());
+			if (storyLoader->saveStory(storyData, *doc, itemText))
+			{
+				ScTextMimeData* mimeData = new ScTextMimeData();
+				mimeData->setScribusText(storyData);
+				mimeData->setText(itemText.text(0, itemText.length()));
+				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+			}
 		}
 	}
 	else
@@ -4574,43 +4575,38 @@ void ScribusMainWindow::slotEditPaste()
 		if (currItem->HasSel)
 		{
 			//removing marks and notes from selected text
-//				if (currItem->isTextFrame() && !currItem->asTextFrame()->removeMarksFromText(!ScCore->usingGUI()))
-//					return;
+//			if (currItem->isTextFrame() && !currItem->asTextFrame()->removeMarksFromText(!ScCore->usingGUI()))
+//				return;
 			currItem->deleteSelectedTextFromFrame();
 		}
 
 		if (ScMimeData::clipboardHasScribusText())
 		{
-			Serializer *textSerializer = doc->textSerializer();
-			textSerializer->reset();
-			textSerializer->store<ScribusDoc>("<scribusdoc>", doc);
+			StoryText story(doc);
+			QScopedPointer<StoryLoader> storyLoader(new StoryLoader());
 
 			QByteArray xml = ScMimeData::clipboardScribusText();
-			textSerializer->parseMemory(xml, xml.length());
-
-			StoryText* story = textSerializer->result<StoryText>();
-
-			//avoid pasting notes marks into notes frames
-			if (currItem->isNoteFrame())
+			if (storyLoader->loadStory(xml, *doc, story, currItem))
 			{
-				story->setDoc(doc);
-				for (int pos = story->length() - 1; pos >= 0; --pos)
+				//avoid pasting notes marks into notes frames
+				if (currItem->isNoteFrame())
 				{
-					if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
-						story->removeChars(pos, 1);
+					for (int pos = story.length() - 1; pos >= 0; --pos)
+					{
+						if (story.hasMark(pos) && (story.mark(pos)->isNoteType()))
+							story.removeChars(pos, 1);
+					}
 				}
+				if (UndoManager::undoEnabled())
+				{
+					ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
+					is->set("PASTE_TEXT");
+					is->set("START", currItem->itemText.cursorPosition());
+					is->setItem(story);
+					m_undoManager->action(currItem, is);
+				}
+				currItem->itemText.insert(story);
 			}
-			if (UndoManager::undoEnabled())
-			{
-				ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
-				is->set("PASTE_TEXT");
-				is->set("START", currItem->itemText.cursorPosition());
-				is->setItem(*story);
-				m_undoManager->action(currItem, is);
-			}
-			currItem->itemText.insert(*story);
-
-			delete story;
 		}
 		else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
 		{

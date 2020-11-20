@@ -86,6 +86,7 @@ public:
 	void resetMarksCountChanged();
 	
 	void setDoc(ScribusDoc *docin);
+	ScribusDoc* doc() const { return m_doc; }
 	
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);

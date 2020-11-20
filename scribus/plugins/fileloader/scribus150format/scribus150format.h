@@ -42,19 +42,29 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus150Format();
 		virtual ~Scribus150Format();
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
 		void languageChange() override;
+
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
 		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
 
+		bool storySupported(const QByteArray& storyData) const override;
+
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
 		bool saveFile(const QString & fileName, const FileFormat & fmt) override;
-		bool savePalette(const QString & fileName) override;
-		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) override;
+		
 		bool loadPalette(const QString & fileName) override;
+		bool savePalette(const QString & fileName) override;
+
 		bool loadElements(const QString & data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc) override;
+		QString saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData) override;
+
+		bool loadStory(const QByteArray& data, StoryText& story, PageItem* item) override;
+		bool saveStory(StoryText& story, PageItem* item, QByteArray& data) override;
+
 		void addToMainWindowMenu(ScribusMainWindow *) override {};
 
 		// Special features - .sla page extraction support
@@ -125,8 +135,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
-		bool readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, PageItem* item);
-		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
+		bool readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, StoryText& story, PageItem* item);
+		bool readItemText(StoryText& story, ScXmlStreamAttributes& attrs, LastStyles* last);
 		bool readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
 		bool readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
@@ -171,10 +181,14 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 
 		void writeCheckerProfiles(ScXmlStreamWriter& docu);
 		void writeLineStyles(ScXmlStreamWriter& docu);
+		void writeLineStyles(ScXmlStreamWriter& docu, const QStringList& styleNames);
+		void writeArrowStyles(ScXmlStreamWriter& docu);
 		void writeJavascripts(ScXmlStreamWriter& docu);
 		void writeBookmarks(ScXmlStreamWriter& docu);
 		void writeColors(ScXmlStreamWriter& docu, bool part = false);
+		void writeColors(ScXmlStreamWriter& docu, const QStringList& colorNames);
 		void writeGradients(ScXmlStreamWriter & docu, bool part = false);
+		void writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames);
 		void writeHyphenatorLists(ScXmlStreamWriter& docu);
 		void writePStyles(ScXmlStreamWriter& docu);
 		void writeCStyles(ScXmlStreamWriter& docu);
@@ -185,8 +199,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
 		void putTableStyle(ScXmlStreamWriter& docu, const TableStyle & style);
 		void putCellStyle(ScXmlStreamWriter& docu, const CellStyle & style);
-		void writeStoryText(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
-		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
+		void writeStoryText(ScribusDoc *doc, ScXmlStreamWriter&, StoryText& story, PageItem* item = nullptr);
+		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, StoryText& story, PageItem* item = nullptr);
 		void writeLayers(ScXmlStreamWriter& docu);
 		void writePrintOptions(ScXmlStreamWriter& docu);
 		void writePdfOptions(ScXmlStreamWriter& docu);

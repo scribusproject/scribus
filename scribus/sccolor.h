@@ -165,7 +165,7 @@ private:
 	colorModel m_Model {colorModelRGB};
 };
 
-class SCRIBUS_API ColorList : public QMap<QString,ScColor>
+class SCRIBUS_API ColorList : public QMap<QString, ScColor>
 {
 protected:
 	QPointer<ScribusDoc> m_doc;

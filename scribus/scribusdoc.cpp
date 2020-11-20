@@ -3572,6 +3572,26 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot) const
 	}
 }
 
+ArrowDesc* ScribusDoc::arrowStyle(const QString& name)
+{
+	for (ArrowDesc& arrowDesc : m_docPrefsData.arrowStyles)
+	{
+		if (arrowDesc.name == name)
+			return &arrowDesc;
+	}
+	return nullptr;
+}
+
+bool ScribusDoc::hasArrowStyle(const QString& name) const
+{
+	for (const ArrowDesc& arrowDesc : m_docPrefsData.arrowStyles)
+	{
+		if (arrowDesc.name == name)
+			return true;
+	}
+	return false;
+}
+
 bool ScribusDoc::lineStylesUseColor(const QString& colorName) const
 {
 	bool found = false;

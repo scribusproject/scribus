@@ -424,6 +424,16 @@ QImage LoadSavePlugin::readThumbnail(const QString& /*fileName*/)
 	return QImage();
 }
 
+bool LoadSavePlugin::loadStory(const QByteArray& /*data*/, StoryText& /*story*/, PageItem* /*item*/)
+{
+	return false;
+}
+
+bool LoadSavePlugin::saveStory(StoryText& /*story*/, PageItem* /*item*/, QByteArray& /*data*/)
+{
+	return false;
+}
+
 bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 {
 	if (plug && load)
@@ -545,5 +555,12 @@ QImage FileFormat::readThumbnail(const QString& fileName) const
 	return (plug && load && thumb) ? plug->readThumbnail(fileName) : QImage();
 }
 
+bool  FileFormat::loadStory(const QByteArray& data, StoryText& story, PageItem* item) const
+{
+	return (plug && load) ? plug->loadStory(data, story, item) : false;
+}
 
-
+bool  FileFormat::saveStory(StoryText& story, PageItem* item, QByteArray& data) const
+{
+	return plug ? plug->saveStory(story, item, data) : false;
+}

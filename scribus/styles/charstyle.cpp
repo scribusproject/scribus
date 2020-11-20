@@ -394,12 +394,25 @@ void CharStyle::setStyle(const CharStyle& other)
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
 {
+	QString colorName;
+
 	for (const BaseStyle* sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectCharStyle(sty->name());
-	lists.collectColor(fillColor());
+	
+	const QString& fillColorName = fillColor();
+	if (fillColorName != CommonStrings::None)
+		lists.collectColor(fillColorName);
+
 	lists.collectFontfeatures(fontFeatures());
-	lists.collectColor(strokeColor());
-	lists.collectColor(backColor());
+
+	const QString& strokeColorName = strokeColor();
+	if (strokeColorName != CommonStrings::None)
+		lists.collectColor(strokeColorName);
+
+	const QString& backColorName = backColor();
+	if (backColorName != CommonStrings::None)
+		lists.collectColor(backColorName);
+
 	lists.collectFont(font().scName());
 }
 

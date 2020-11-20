@@ -1538,13 +1538,11 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	invalidate(pos, qMin(i, length()));
 }
 
-
 void StoryText::setStyle(int pos, const ParagraphStyle& style)
 {
 	eraseStyle(pos, paragraphStyle(pos));
 	applyStyle(pos, style);
 }
-
 
 void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 {
@@ -1571,8 +1569,6 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	invalidate(pos, pos + len);
 }
 
-
-
 void StoryText::getNamedResources(ResourceCollection& lists) const
 {
 	d->defaultStyle.getNamedResources(lists);
@@ -1588,7 +1584,6 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 			charStyle(i).getNamedResources(lists);
 	}
 }
-
 
 void StoryText::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
@@ -1619,7 +1614,6 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 	
 	invalidate(0, len);	
 }
-
 
 void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 {

@@ -316,6 +316,7 @@ set(SCRIBUS_MOC_CLASSES
 	scribuswin.h
 	selection.h
 	selectionrubberband.h
+	storyloader.h
 	styleitem.h
 	tocgenerator.h
 	undogui.h
@@ -774,6 +775,7 @@ set(SCRIBUS_SOURCES
 	selection.cpp
 	selectionrubberband.cpp
 	serializer.cpp
+	storyloader.cpp
 	styleitem.cpp
 	tableborder.cpp
 	tablecell.cpp
