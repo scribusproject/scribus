@@ -1,0 +1,5 @@
+The base language of Scribus is en_US.
+
+scribus.untranslated.ts is a base file kept up to date with empty strings for the translated strings. It is not meant to be translated.
+
+scribus.en_US.ts is a US ts file with all strings set to the same as the source strings.
