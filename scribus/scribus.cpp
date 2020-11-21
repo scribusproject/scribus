@@ -4626,16 +4626,6 @@ void ScribusMainWindow::slotEditPaste()
 			m_undoManager->setUndoEnabled(false);
 			QString buffer  = ScMimeData::clipboardScribusElem();
 			slotElemRead(buffer, 0, 0, false, true, doc, view);
-			// update style lists:
-			m_styleManager->setDoc(doc);
-			propertiesPalette->unsetDoc();
-			propertiesPalette->setDoc(doc);
-			contentPalette->unsetDoc();
-			contentPalette->setDoc(doc);
-			marksManager->setDoc(doc);
-			nsEditor->setDoc(doc);
-			symbolPalette->unsetDoc();
-			symbolPalette->setDoc(doc);
 
 			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
@@ -4683,8 +4673,6 @@ void ScribusMainWindow::slotEditPaste()
 			}
 			currItem->itemText.insertObject(fIndex);
 			doc->m_Selection->delaySignalsOff();
-			inlinePalette->unsetDoc();
-			inlinePalette->setDoc(doc);
 		}
 		else if (ScMimeData::clipboardHasKnownData())
 		{
@@ -4707,15 +4695,6 @@ void ScribusMainWindow::slotEditPaste()
 				double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
 				retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 				retObj->setXYPos(x, y, true);
-				m_styleManager->setDoc(doc);
-				propertiesPalette->unsetDoc();
-				propertiesPalette->setDoc(doc);
-				contentPalette->unsetDoc();
-				contentPalette->setDoc(doc);
-				marksManager->setDoc(doc);
-				nsEditor->setDoc(doc);
-				symbolPalette->unsetDoc();
-				symbolPalette->setDoc(doc);
 				doc->SnapGrid = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				doc->SnapElement = savedAlignElement;
@@ -4775,76 +4754,76 @@ void ScribusMainWindow::slotEditPaste()
 			selItem->asTable()->update();
 		else
 			currItem->update();
-		view->DrawNew();
 	}
-	else
+	else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
 	{
-		if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
+		view->deselectItems(true);
+		int docItemCount = doc->Items->count();
+		bool savedAlignGrid = doc->SnapGrid;
+		bool savedAlignGuides = doc->SnapGuides;
+		bool savedAlignElement = doc->SnapElement;
+		doc->SnapGrid = false;
+		doc->SnapGuides = false;
+		doc->SnapElement = false;
+		if (internalCopy)
+			slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+		else
 		{
-			view->deselectItems(true);
-			int docItemCount = doc->Items->count();
-			bool savedAlignGrid = doc->SnapGrid;
-			bool savedAlignGuides = doc->SnapGuides;
-			bool savedAlignElement = doc->SnapElement;
-			doc->SnapGrid = false;
-			doc->SnapGuides = false;
-			doc->SnapElement = false;
-			if (internalCopy)
-				slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-			else
-			{
-				QString buffer  = ScMimeData::clipboardScribusElem();
-				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-			}
-			// update style lists:
-			m_styleManager->setDoc(doc);
-			propertiesPalette->unsetDoc();
-			propertiesPalette->setDoc(doc);
-			contentPalette->unsetDoc();
-			contentPalette->setDoc(doc);
-			marksManager->setDoc(doc);
-			nsEditor->setDoc(doc);
-			symbolPalette->unsetDoc();
-			symbolPalette->setDoc(doc);
-			inlinePalette->unsetDoc();
-			inlinePalette->setDoc(doc);
+			QString buffer  = ScMimeData::clipboardScribusElem();
+			slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+		}
 
-			doc->SnapGrid = savedAlignGrid;
-			doc->SnapGuides = savedAlignGuides;
-			doc->SnapElement = savedAlignElement;
-			doc->m_Selection->delaySignalsOn();
-			for (int i = docItemCount; i < doc->Items->count(); ++i)
-			{
-				PageItem* currItem = doc->Items->at(i);
-				if (currItem->isBookmark)
-					AddBookMark(currItem);
-				doc->m_Selection->addItem(currItem);
-			}
-			doc->m_Selection->delaySignalsOff();
-			if (doc->m_Selection->count() > 1)
-				doc->m_Selection->setGroupRect();
-		}
-		else if (ScMimeData::clipboardHasKnownData())
+		doc->SnapGrid = savedAlignGrid;
+		doc->SnapGuides = savedAlignGuides;
+		doc->SnapElement = savedAlignElement;
+		doc->m_Selection->delaySignalsOn();
+		for (int i = docItemCount; i < doc->Items->count(); ++i)
 		{
-			QString ext = ScMimeData::clipboardKnownDataExt();
-			QByteArray bitsBits = ScMimeData::clipboardKnownDataData();
-			double x0 = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale());
-			double y0 = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale());
-			PageItem *retObj = getVectorFileFromData(doc, bitsBits, ext, x0, y0);
-			if (retObj != nullptr)
-			{
-				double x = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale()) - (retObj->width() / 2.0);
-				double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
-				retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-				retObj->setXYPos(x, y, true);
-			}
+			PageItem* currItem = doc->Items->at(i);
+			if (currItem->isBookmark)
+				AddBookMark(currItem);
+			doc->m_Selection->addItem(currItem);
 		}
-		view->DrawNew();
+		doc->m_Selection->delaySignalsOff();
+		if (doc->m_Selection->count() > 1)
+			doc->m_Selection->setGroupRect();
+	}
+	else if (ScMimeData::clipboardHasKnownData())
+	{
+		QString ext = ScMimeData::clipboardKnownDataExt();
+		QByteArray bitsBits = ScMimeData::clipboardKnownDataData();
+		double x0 = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale());
+		double y0 = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale());
+		PageItem *retObj = getVectorFileFromData(doc, bitsBits, ext, x0, y0);
+		if (retObj != nullptr)
+		{
+			double x = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale()) - (retObj->width() / 2.0);
+			double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
+			retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+			retObj->setXYPos(x, y, true);
+		}
 	}
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (doc->notesChanged())
 		doc->notesFramesUpdate();
+	
+	// update style lists:
+	requestUpdate(reqColorsUpdate | reqArrowStylesUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
+
+	m_styleManager->setDoc(doc);
+	propertiesPalette->unsetDoc();
+	propertiesPalette->setDoc(doc);
+	contentPalette->unsetDoc();
+	contentPalette->setDoc(doc);
+	marksManager->setDoc(doc);
+	nsEditor->setDoc(doc);
+	symbolPalette->unsetDoc();
+	symbolPalette->setDoc(doc);
+	inlinePalette->unsetDoc();
+	inlinePalette->setDoc(doc);
+
+	view->DrawNew();
 	slotDocCh(false);
 }
 
