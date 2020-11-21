@@ -1851,7 +1851,8 @@ void PageItem_TextFrame::layout()
 			maxYDesc = current.yPos + realDesc;
 			if (style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
 			{
-				maxYAsc = qMin(maxYAsc, qMax(0.0, current.yPos - asce));
+				// #11727, #11628, etc.
+				maxYAsc = qMax(0.0, qMin(maxYAsc, current.yPos - asce));
 				maxYDesc = current.yPos + desc;
 			}
 
@@ -1934,7 +1935,8 @@ void PageItem_TextFrame::layout()
 						maxYDesc = current.yPos + realDesc;
 						if (style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
 						{
-							maxYAsc = qMin(maxYAsc, qMax(0.0, current.yPos - asce));
+							// #11727, #11628, etc.
+							maxYAsc = qMax(0.0, qMin(maxYAsc, current.yPos - asce));
 							maxYDesc = current.yPos + desc;
 						}
 
@@ -2810,7 +2812,12 @@ void PageItem_TextFrame::layout()
 					if (firstLineOffset() == FLOPRealGlyphHeight)
 						addAsce = realAsce;
 					else if (firstLineOffset() == FLOPLineSpacing)
-						addAsce = style.lineSpacing() + offset;
+					{
+						if (DropCmode)
+							addAsce = DropCapDrop + style.lineSpacing();
+						else
+							addAsce = style.lineSpacing();
+					}
 				}
 				maxYAsc = current.yPos - addAsce;
 			}
@@ -2820,16 +2827,15 @@ void PageItem_TextFrame::layout()
 			maxYAsc = qMax(maxYAsc, 0.0);
 			maxYDesc = current.yPos + realDesc;
 
-			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
+			if (style.lineSpacingMode() != ParagraphStyle::AutomaticLineSpacing)
 			{
-				regionMinY = static_cast<int>(floor(maxYAsc));
-				regionMaxY = static_cast<int>(floor(maxYDesc));
+				// #11727, #11628, etc.
+				maxYAsc = qMax(0.0, qMin(maxYAsc, current.yPos - asce));
+				maxYDesc = current.yPos + desc;
 			}
-			else // #11727, #11628, etc.
-			{
-				regionMinY = static_cast<int>(qMax(0.0, floor(current.yPos - (realAsce + offset))));
-				regionMaxY = static_cast<int>(floor(current.yPos + realDesc));
-			}
+
+			regionMinY = static_cast<int>(floor(maxYAsc));
+			regionMaxY = static_cast<int>(floor(maxYDesc));
 
 			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 			current.finishLine(EndX - current.rightIndent);
