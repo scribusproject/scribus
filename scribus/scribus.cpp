@@ -4426,21 +4426,21 @@ void ScribusMainWindow::slotEditCut()
 			StoryText itemText(doc);
 			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
 			itemText.insert(0, cItem->itemText, true);
-			std::ostringstream xmlString;
-			SaxXML xmlStream(xmlString);
-			xmlStream.beginDoc();
-			itemText.saxx(xmlStream, "SCRIBUSTEXT");
-			xmlStream.endDoc();
-			std::string xml(xmlString.str());
-			ScTextMimeData* mimeData = new ScTextMimeData();
-			mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
-			mimeData->setText( itemText.text(0, itemText.length()) ) ;
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-			cItem->deleteSelectedTextFromFrame();
-			if (doc->appMode == modeEditTable)
-				currItem->asTable()->update();
-			else
-				cItem->update();
+
+			QByteArray storyData;
+			QScopedPointer<StoryLoader> storyLoader(new StoryLoader());
+			if (storyLoader->saveStory(storyData, *doc, itemText))
+			{
+				ScTextMimeData* mimeData = new ScTextMimeData();
+				mimeData->setScribusText(storyData);
+				mimeData->setText(itemText.text(0, itemText.length()));
+				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+				cItem->deleteSelectedTextFromFrame();
+				if (doc->appMode == modeEditTable)
+					currItem->asTable()->update();
+				else
+					cItem->update();
+			}
 		}
 	}
 	else
