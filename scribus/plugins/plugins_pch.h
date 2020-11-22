@@ -66,17 +66,17 @@
 #include <QVariant>  // All moc genereated code has this include
 #include <QObject>
 #include <QString>
-#include <QStringlist>
+#include <QStringList>
 #include <QTextCodec>
 
 #include <QApplication>
 #include <QBitmap>
-#include <QBoxlayout>
-#include <QCheckbox>
-#include <QCombobox>
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QComboBox>
 #include <QCursor>
 #include <QEvent>
-#include <QGridlayout>
+#include <QGridLayout>
 #include <QImage>
 #include <QLayout>
 #include <QPainter>
