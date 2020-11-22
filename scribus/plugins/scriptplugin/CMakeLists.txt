@@ -70,9 +70,9 @@ target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
 
-if(WANT_PCH)
-	target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
-endif()
+# if(WANT_PCH)
+	# target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
+# endif()
 
 install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 	LIBRARY

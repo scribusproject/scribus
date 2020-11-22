@@ -71,9 +71,9 @@ target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
 
-if(WANT_PCH)
-	target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
-endif()
+# if(WANT_PCH)
+	# target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
+# endif()
 
 install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 	LIBRARY
@@ -81,7 +81,6 @@ install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-#add_dependencies(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
 add_dependencies(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
 
 # set_target_properties(${SCRIBUS_SCRIPTER_PLUGIN} PROPERTIES VERSION "0.0.0")
