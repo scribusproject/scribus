@@ -35,6 +35,10 @@ add_library(${SCRIBUS_HUNSPELL_PLUGIN} MODULE
 
 target_link_libraries(${SCRIBUS_HUNSPELL_PLUGIN} ${HUNSPELL_LIBRARIES} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_HUNSPELL_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_HUNSPELL_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

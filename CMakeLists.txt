@@ -10,8 +10,19 @@
 # - Fontconfig
 
 cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
-
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
+if (WANT_PCH)
+	if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
+		message(STATUS "Precompiled headers requested however CMake version < 3.16.0")
+		set(WANT_PCH OFF)
+	else()
+		message(STATUS "Precompiled headers enabled")
+	endif()
+else()
+	set(WANT_PCH OFF)
+	message(STATUS "Precompiled headers disabled")
+endif()
+
 
 # Configure CCache if available and wanted
 if (WANT_CCACHE)
@@ -308,7 +319,6 @@ include (CMakeLists_Directories.cmake)
 
 #Convert our simpler command line option to the CMake style
 #None, Debug, Release, .. or custom ones
-# set(WANT_DEBUG ON)
 if(WANT_DEBUG)
 	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Set Debug Build Type" FORCE)
 endif()

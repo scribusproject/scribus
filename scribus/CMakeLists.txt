@@ -30,6 +30,7 @@ include_directories(
 	${HARFBUZZ_INCLUDE_DIRS}
 )
 
+include(api/CMakeLists.txt)
 include(colormgmt/CMakeLists.txt)
 include(desaxe/CMakeLists.txt)
 include(fonts/CMakeLists.txt)
@@ -1226,6 +1227,7 @@ if(HAVE_OSG)
 		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_SOURCES}
+		${SCRIBUS_API_SOURCES}
 		${SCRIBUS_COLORMGMT_SOURCES}
 		${SCRIBUS_DESAXE_SOURCES}
 		${SCRIBUS_FONTS_SOURCES}
@@ -1241,6 +1243,7 @@ else()
 		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_SOURCES}
+		${SCRIBUS_API_SOURCES}
 		${SCRIBUS_COLORMGMT_SOURCES}
 		${SCRIBUS_DESAXE_SOURCES}
 		${SCRIBUS_FONTS_SOURCES}
@@ -1251,6 +1254,10 @@ else()
 		${GESTURE_FRAME_PREVIEW_SOURCES}
 	)
 endif ()
+
+if(WANT_PCH)
+	target_precompile_headers(${EXE_NAME} PRIVATE scribus_pch.h)
+endif()
 
 if(WIN32)
 	set_target_properties(${EXE_NAME}

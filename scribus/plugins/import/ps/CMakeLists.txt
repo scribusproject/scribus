@@ -28,6 +28,10 @@ add_library(${SCRIBUS_IMPORTPS_PLUGIN} MODULE ${IMPORTPS_PLUGIN_SOURCES} ${IMPOR
 
 target_link_libraries(${SCRIBUS_IMPORTPS_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTPS_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 if(HAVE_PODOFO)
 	target_link_libraries(${SCRIBUS_IMPORTPS_PLUGIN}
 		${LIBPODOFO_LIBRARY}

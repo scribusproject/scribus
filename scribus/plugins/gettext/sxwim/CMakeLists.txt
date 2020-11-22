@@ -22,6 +22,10 @@ add_library(${SCRIBUS_SXW_IM_PLUGIN} MODULE ${SXW_IM_PLUGIN_SOURCES} ${SXW_IM_PL
 
 target_link_libraries(${SCRIBUS_SXW_IM_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SXW_IM_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_SXW_IM_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}gettext

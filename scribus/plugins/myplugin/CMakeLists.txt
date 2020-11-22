@@ -21,6 +21,10 @@ add_library(${SCRIBUS_MY_PLUGIN} MODULE ${MY_PLUGIN_SOURCES} ${MY_PLUGIN_MOC_SOU
 
 target_link_libraries(${SCRIBUS_MY_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_MY_PLUGIN} PRIVATE "../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_MY_PLUGIN}
   LIBRARY
   DESTINATION ${PLUGINDIR}

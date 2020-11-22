@@ -19,6 +19,10 @@ add_library(${SCRIBUS_DOC_GT_PLUGIN} MODULE ${DOC_GT_PLUGIN_SOURCES} ${DOC_GT_PL
 
 target_link_libraries(${SCRIBUS_DOC_GT_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_DOC_GT_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_DOC_GT_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}gettext

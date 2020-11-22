@@ -39,6 +39,10 @@ add_library(${SCRIBUS_IMPORTPDF_PLUGIN} MODULE ${IMPORTPDF_PLUGIN_SOURCES} ${IMP
 link_directories( /usr/local/lib )
 target_link_libraries(${SCRIBUS_IMPORTPDF_PLUGIN} ${PLUGIN_LIBRARIES} ${POPPLER_LIBRARY})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTPDF_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_IMPORTPDF_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

@@ -43,6 +43,10 @@ if(HAVE_PODOFO)
 	)
 endif()
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTAI_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_IMPORTAI_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

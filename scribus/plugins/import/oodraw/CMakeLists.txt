@@ -20,6 +20,10 @@ add_library(${SCRIBUS_OODRAW_FL_PLUGIN} MODULE ${OODRAW_FL_PLUGIN_SOURCES} ${OOD
 
 target_link_libraries(${SCRIBUS_OODRAW_FL_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_OODRAW_FL_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_OODRAW_FL_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

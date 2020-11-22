@@ -23,6 +23,10 @@ add_library(${SCRIBUS_IMPORTODG_PLUGIN} MODULE ${IMPORTODG_PLUGIN_SOURCES} ${IMP
 link_directories( /usr/local/lib )
 target_link_libraries(${SCRIBUS_IMPORTODG_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_ZIP_LIB})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTODG_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_IMPORTODG_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

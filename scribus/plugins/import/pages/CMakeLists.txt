@@ -40,6 +40,10 @@ add_library(${SCRIBUS_IMPORTPAGES_PLUGIN} MODULE ${IMPORTPAGES_PLUGIN_SOURCES} $
 link_directories( /usr/local/lib )
 target_link_libraries(${SCRIBUS_IMPORTPAGES_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_ZIP_LIB})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTPAGES_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_IMPORTPAGES_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

@@ -39,6 +39,10 @@ add_library(${SCRIBUS_SHORTWORDS_PLUGIN} MODULE
 
 target_link_libraries(${SCRIBUS_SHORTWORDS_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SHORTWORDS_PLUGIN} PRIVATE "../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_SHORTWORDS_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

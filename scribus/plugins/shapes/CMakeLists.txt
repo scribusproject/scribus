@@ -24,6 +24,10 @@ add_library(${SCRIBUS_SHAPE_PLUGIN} MODULE
 
 target_link_libraries(${SCRIBUS_SHAPE_PLUGIN} ${PLUGIN_LIBRARIES})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SHAPE_PLUGIN} PRIVATE "../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_SHAPE_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}

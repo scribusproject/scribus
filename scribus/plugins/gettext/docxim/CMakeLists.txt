@@ -13,6 +13,10 @@ add_library(${SCRIBUS_DOCX_IM_PLUGIN} MODULE ${DOCX_IM_PLUGIN_SOURCES})
 
 target_link_libraries(${SCRIBUS_DOCX_IM_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_DOCX_LIB})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_DOCX_IM_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_DOCX_IM_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}gettext

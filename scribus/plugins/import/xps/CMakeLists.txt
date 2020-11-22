@@ -31,6 +31,10 @@ add_library(${SCRIBUS_IMPORTXPS_PLUGIN} MODULE ${IMPORTXPS_PLUGIN_SOURCES} ${IMP
 link_directories( /usr/local/lib )
 target_link_libraries(${SCRIBUS_IMPORTXPS_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_ZIP_LIB})
 
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_IMPORTXPS_PLUGIN} PRIVATE "../../plugins_pch.h")
+endif()
+
 install(TARGETS ${SCRIBUS_IMPORTXPS_PLUGIN}
 	LIBRARY
 	DESTINATION ${PLUGINDIR}
