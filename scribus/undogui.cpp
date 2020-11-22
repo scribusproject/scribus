@@ -438,22 +438,24 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 {
 	/*TODO: 16x16 is hardcoded, because images automatically scaled by QIcon are no longer recognizable 
 	would be better to have the icons designed for 16x16*/
-	if (!targetPixmap)
+	if (targetPixmap)
 	{
-		if (actionPixmap)
-			setIcon(actionPixmap->scaled(16,16));
-	}
-	else
-	{
-		QPixmap pixmap(targetPixmap->scaled(16,16));
-		if (actionPixmap)
+		QPixmap pixmap;
+		if (!targetPixmap->isNull())
+			pixmap = targetPixmap->scaled(16, 16);
+		if (actionPixmap && !actionPixmap->isNull())
 		{
 			QPainter p;
 			p.begin(&pixmap);
-			p.drawPixmap(0,0, actionPixmap->scaled(16,16));
+			p.drawPixmap(0,0, actionPixmap->scaled(16, 16));
 			p.end();
 		}
 		setIcon(pixmap);
+	}
+	else
+	{
+		if (actionPixmap && !actionPixmap->isNull())
+			setIcon(actionPixmap->scaled(16, 16));
 	}
 	setText(tr("%1 - %2\n%3").arg(targetName, actionName, actionDescription));
 }
