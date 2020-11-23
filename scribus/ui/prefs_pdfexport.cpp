@@ -27,9 +27,18 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	exportingPDF(false)
 {
 	setupUi(this);
+
+	scrollArea->viewport()->setAutoFillBackground(false);
+	scrollArea->widget()->setAutoFillBackground(false);
+	scrollArea_2->viewport()->setAutoFillBackground(false);
+	scrollArea_2->widget()->setAutoFillBackground(false);
+	scrollArea_3->viewport()->setAutoFillBackground(false);
+	scrollArea_3->widget()->setAutoFillBackground(false);
+
 	exportRangeMorePushButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
 	pageMirrorHorizontalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-horizontal.png"));
 	pageMirrorVerticalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-vertical.png"));
+
 	unitChange(0);
 	languageChange();
 

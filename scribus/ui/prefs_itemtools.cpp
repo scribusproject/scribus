@@ -23,6 +23,12 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	showFontPreview(false)
 {
 	setupUi(this);
+
+	scrollArea->viewport()->setAutoFillBackground(false);
+	scrollArea->widget()->setAutoFillBackground(false);
+	scrollArea_2->viewport()->setAutoFillBackground(false);
+	scrollArea_2->widget()->setAutoFillBackground(false);
+
 	languageChange();
 
 	m_caption = tr("Item Tools");

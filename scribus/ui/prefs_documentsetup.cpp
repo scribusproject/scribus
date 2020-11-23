@@ -27,6 +27,9 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	m_doc(doc)
 {
 	setupUi(this);
+	
+	scrollArea->viewport()->setAutoFillBackground(false);
+	scrollArea->widget()->setAutoFillBackground(false);
 
 	m_caption = tr("Document Setup");
 	m_icon = "scribusdoc16.png";
