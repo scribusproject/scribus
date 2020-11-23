@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-#include <cstring>
 
 #include <QRegExp>
 #include <QVector>
@@ -854,16 +853,15 @@ static const char * getCoord(const char *ptr, double &number)
 	// Check for nan value
 	if (*ptr == 'n' || *ptr == 'N')
 	{
-#if defined(Q_OS_WIN)
-		bool isNan = (_strnicmp(ptr, "nan", 3) == 0);
-#else
-		bool isNan = (strncasecmp(ptr, "nan", 3) == 0);
-#endif
-		if (isNan)
-		{
-			const char* tmpPtr = ptr + 3;
-			isNan &= (*tmpPtr == ' ' || *tmpPtr == '\0');
-		}
+		bool isNan = true;
+		const char *tmpPtr = ptr + 1;
+		isNan &= (*tmpPtr == 'a' || *tmpPtr == 'A');
+		if (*tmpPtr != '\0')
+			++tmpPtr;
+		isNan &= (*tmpPtr == 'n' || *tmpPtr == 'N');
+		if (*tmpPtr != '\0')
+			++tmpPtr;
+		isNan &= (*tmpPtr == ' ' || *tmpPtr == '\0');
 		if (isNan)
 		{
 			number = 0.0;
