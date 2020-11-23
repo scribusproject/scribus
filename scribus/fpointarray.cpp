@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+#include <cstring>
 
 #include <QRegExp>
 #include <QVector>
@@ -729,12 +730,12 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	sin_th = sin(angle * (M_PI / 180.0));
 	cos_th = cos(angle * (M_PI / 180.0));
 	double dx;
-	if(!relative)
+	if (!relative)
 		dx = (curx - x) / 2.0;
 	else
 		dx = -x / 2.0;
 	double dy;
-	if(!relative)
+	if (!relative)
 		dy = (cury - y) / 2.0;
 	else
 		dy = -y / 2.0;
@@ -746,7 +747,7 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	double Py = _y1 * _y1;
 	// Spec : check if radii are large enough
 	double check = Px / Pr1 + Py / Pr2;
-	if(check > 1)
+	if (check > 1)
 	{
 		r1 = r1 * sqrt(check);
 		r2 = r2 * sqrt(check);
@@ -757,11 +758,11 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	a11 = cos_th / r2;
 	x0 = a00 * curx + a01 * cury;
 	y0 = a10 * curx + a11 * cury;
-	if(!relative)
+	if (!relative)
 		x1 = a00 * x + a01 * y;
 	else
 		x1 = a00 * (curx + x) + a01 * (cury + y);
-	if(!relative)
+	if (!relative)
 		y1 = a10 * x + a11 * y;
 	else
 		y1 = a10 * (curx + x) + a11 * (cury + y);
@@ -772,10 +773,10 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	    */
 	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
 	sfactor_sq = 1.0 / d - 0.25;
-	if(sfactor_sq < 0)
+	if (sfactor_sq < 0)
 		sfactor_sq = 0;
 	sfactor = sqrt(sfactor_sq);
-	if(sweepFlag == largeArcFlag)
+	if (sweepFlag == largeArcFlag)
 		sfactor = -sfactor;
 	xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
 	yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
@@ -784,9 +785,9 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 	th0 = atan2(y0 - yc, x0 - xc);
 	th1 = atan2(y1 - yc, x1 - xc);
 	th_arc = th1 - th0;
-	if(th_arc < 0 && sweepFlag)
+	if (th_arc < 0 && sweepFlag)
 		th_arc += 2 * M_PI;
-	else if(th_arc > 0 && !sweepFlag)
+	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
 	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
 	for (i = 0; i < n_segs; i++)
@@ -817,11 +818,11 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 		svgCurveToCubic(a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3);
 	}
 	}
-	if(!relative)
+	if (!relative)
 		curx = x;
 	else
 		curx += x;
-	if(!relative)
+	if (!relative)
 		cury = y;
 	else
 		cury += y;
@@ -842,32 +843,55 @@ static const char * getCoord(const char *ptr, double &number)
 	expsign = 1;
 	
 	// read the sign
-	if(*ptr == '+')
+	if (*ptr == '+')
 		ptr++;
-	else if(*ptr == '-')
+	else if (*ptr == '-')
 	{
 		ptr++;
 		sign = -1;
+	}
+
+	// Check for nan value
+	if (*ptr == 'n' || *ptr == 'N')
+	{
+#if defined(Q_OS_WIN)
+		bool isNan = (_strnicmp(ptr, "nan", 3) == 0);
+#else
+		bool isNan = (strncasecmp(ptr, "nan", 3) == 0);
+#endif
+		if (isNan)
+		{
+			const char* tmpPtr = ptr + 3;
+			isNan &= (*tmpPtr == ' ' || *tmpPtr == '\0');
+		}
+		if (isNan)
+		{
+			number = 0.0;
+			ptr += 3;
+			if (*ptr == ' ')
+				++ptr;
+			return ptr;
+		}
 	}
 	
 	// read the integer part
 	while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
-	if(*ptr == '.') // read the decimals
+	if (*ptr == '.') // read the decimals
 	{
 		ptr++;
 		while (*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
 	}
 	
-	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	if (*ptr == 'e' || *ptr == 'E') // read the exponent part
 	{
 		ptr++;
 		
 		// read the sign of the exponent
-		if(*ptr == '+')
+		if (*ptr == '+')
 			ptr++;
-		else if(*ptr == '-')
+		else if (*ptr == '-')
 		{
 			ptr++;
 			expsign = -1;
@@ -884,7 +908,7 @@ static const char * getCoord(const char *ptr, double &number)
 	number = integer + decimal;
 	number *= sign * pow(static_cast<double>(10), static_cast<double>(expsign * exponent));
 	// skip the following space
-	if(*ptr == ' ')
+	if (*ptr == ' ')
 		ptr++;
 	
 	return ptr;
