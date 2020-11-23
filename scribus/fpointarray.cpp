@@ -48,7 +48,7 @@ FPointArray FPointArray::copy() const
 }
 
 
-FPointArray & FPointArray::operator=( const FPointArray &a )
+FPointArray & FPointArray::operator=(const FPointArray &a)
 { 
 	QVector<FPoint>::operator=(a);
 	m_svgState = nullptr;
@@ -90,59 +90,59 @@ void FPointArray::reverse()
 	}
 }
 
-bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
+bool FPointArray::setPoints(int nPoints, double firstx, double firsty, ...)
 {
 	va_list ap;
-	if ( nPoints < 0 || !FPointArray::resize(nPoints) )
+	if (nPoints < 0 || !FPointArray::resize(nPoints))
 		return false;
-	setPoint( 0, firstx, firsty );
+	setPoint(0, firstx, firsty);
 	int i = 1;
 	double x, y;
 	nPoints--;
-	va_start( ap, firsty );
-	while ( nPoints-- )
-	{
-		x = static_cast<double>(va_arg( ap, double ));
-		y = static_cast<double>(va_arg( ap, double ));
-		setPoint( i++, x, y );
-    }
-	va_end( ap );
-	return true;
-}
-
-bool FPointArray::putPoints( int index, int nPoints, double firstx, double firsty,  ... )
-{
-	va_list ap;
-	if ( index + nPoints > QVector<FPoint>::count())
-	{
-		if ( !FPointArray::resize(index + nPoints) )
-			return false;
-	}
-	if ( nPoints <= 0 )
-		return true;
-	setPoint( index, firstx, firsty );		// set first point
-	int i = index + 1;
-	double x, y;
-	nPoints--;
-	va_start( ap, firsty );
-	while ( nPoints-- )
+	va_start(ap, firsty);
+	while (nPoints--)
 	{
 		x = static_cast<double>(va_arg(ap, double));
 		y = static_cast<double>(va_arg(ap, double));
-		setPoint( i++, x, y );
-	}
-	va_end( ap );
+		setPoint(i++, x, y);
+    }
+	va_end(ap);
 	return true;
 }
 
-bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, int fromIndex )
+bool FPointArray::putPoints(int index, int nPoints, double firstx, double firsty,  ...)
 {
-	if ( index + nPoints > QVector<FPoint>::count() )
-	{	// extend array
-		if ( !FPointArray::resize(index + nPoints) )
+	va_list ap;
+	if (index + nPoints > QVector<FPoint>::count())
+	{
+		if (!FPointArray::resize(index + nPoints))
 			return false;
 	}
-	if ( nPoints <= 0 )
+	if (nPoints <= 0)
+		return true;
+	setPoint(index, firstx, firsty);		// set first point
+	int i = index + 1;
+	double x, y;
+	nPoints--;
+	va_start(ap, firsty);
+	while (nPoints--)
+	{
+		x = static_cast<double>(va_arg(ap, double));
+		y = static_cast<double>(va_arg(ap, double));
+		setPoint(i++, x, y);
+	}
+	va_end(ap);
+	return true;
+}
+
+bool FPointArray::putPoints(int index, int nPoints, const FPointArray & from, int fromIndex)
+{
+	if (index + nPoints > QVector<FPoint>::count())
+	{	// extend array
+		if (!FPointArray::resize(index + nPoints))
+			return false;
+	}
+	if (nPoints <= 0)
 		return true;
 	Iterator p = begin();
 	p += index;
@@ -178,9 +178,9 @@ QPointF FPointArray::pointQF(int i) const
 	return r;
 }
 
-void FPointArray::translate( double dx, double dy )
+void FPointArray::translate(double dx, double dy)
 {
-	FPoint pt( dx, dy );
+	FPoint pt(dx, dy);
 	Iterator pend = begin();
 	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
@@ -190,7 +190,7 @@ void FPointArray::translate( double dx, double dy )
 	}
 }
 
-void FPointArray::scale( double sx, double sy )
+void FPointArray::scale(double sx, double sy)
 {
 	Iterator pend = begin();
 	pend += QVector<FPoint>::count();
@@ -210,35 +210,35 @@ QRectF FPointArray::boundingRect() const
 
 FPoint FPointArray::widthHeight() const
 {
-	if ( QVector<FPoint>::count() == 0 )
-		return FPoint( 0.0, 0.0 );		// null rectangle
+	if (QVector<FPoint>::count() == 0)
+		return FPoint(0.0, 0.0);		// null rectangle
 	ConstIterator pd = begin();
 	ConstIterator pend = begin();
 	pend += QVector<FPoint>::count();
 	double minx, maxx, miny, maxy;
 	minx = maxx = pd->xp;
 	miny = maxy = pd->yp;
-	for ( ++pd; pd != pend; ++pd )
+	for (++pd; pd != pend; ++pd)
 	{	// find min+max x and y
 		if (isMarkerI(pd))
 		{
 			continue;
 		}
-		if ( pd->xp < minx )
+		if (pd->xp < minx)
 			minx = pd->xp;
 		else
-			if ( pd->xp > maxx )
+			if (pd->xp > maxx)
 		    	maxx = pd->xp;
-		if ( pd->y() < miny )
+		if (pd->y() < miny)
 			miny = pd->yp;
 		else
-			if ( pd->yp > maxy )
+			if (pd->yp > maxy)
 	    		maxy = pd->yp;
     }
 	return FPoint(maxx - minx,maxy - miny);
 }
 
-void FPointArray::map( const QTransform& m )
+void FPointArray::map(const QTransform& m)
 {
 	const double m11 = m.m11();
 	const double m12 = m.m12();
@@ -395,30 +395,30 @@ double FPointArray::lenPathDist(int seg, double t1, double t2) const
 	return newLen;
 }
 
-void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const
+void FPointArray::pointTangentNormalAt(int seg, double t, FPoint* p, FPoint* tn, FPoint* n) const
 {
 	// Calculate derivative if necessary.
 	FPoint d;
-	if( tn || n )
-		pointDerivativesAt( seg, t, p, &d, nullptr );
+	if (tn || n)
+		pointDerivativesAt(seg, t, p, &d, nullptr);
 	else
-		pointDerivativesAt( seg, t, p, nullptr, nullptr );
+		pointDerivativesAt(seg, t, p, nullptr, nullptr);
 	// Normalize derivative.
-	if( tn || n )
+	if (tn || n)
 	{
-		const double norm = sqrt( d.x() * d.x() + d.y() * d.y() );
-		d = norm ? d * ( 1.0 / norm ) : FPoint( 0.0, 0.0 );
+		const double norm = sqrt(d.x() * d.x() + d.y() * d.y());
+		d = norm ? d * (1.0 / norm) : FPoint(0.0, 0.0);
 	}
 	// Assign tangent vector.
-	if( tn )
+	if (tn)
 		*tn = d;
 	// Calculate normal vector.
-	if( n )
+	if (n)
 	{
 		// Calculate vector product of "binormal" x tangent
 		// (0,0,1) x (dx,dy,0), which is simply (dy,-dx,0).
-		n->setX( d.y() );
-		n->setY( -d.x() );
+		n->setX(d.y());
+		n->setY(-d.x());
 	}
 	FPoint p1 = point(seg);
 	FPoint k1 = point(seg+1);
@@ -428,7 +428,7 @@ void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn
 	*p = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * (t * t) * tm * k2 + (t * t * t) * p2);
 }
 
-void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const
+void FPointArray::pointDerivativesAt(int seg, double t, FPoint* p, FPoint* d1, FPoint* d2) const
 {
 	// Copy points.
 	FPoint* q = new FPoint[ 4 ];
@@ -441,25 +441,25 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 	{
 		for (unsigned short i = 0; i <= 3 - j; i++)
 		{
-			q[ i ] = ( 1.0 - t ) * q[ i ] + t * q[ i + 1 ];
+			q[ i ] = (1.0 - t) * q[ i ] + t * q[ i + 1 ];
 		}
 		// Save second derivative now that we have it.
-		if( j == 1 )
+		if (j == 1)
 		{
-			if( d2 )
-				*d2 = 6 * ( q[ 2 ] - 2 * q[ 1 ] + q[ 0 ] );
+			if (d2)
+				*d2 = 6 * (q[ 2 ] - 2 * q[ 1 ] + q[ 0 ]);
 		}
 		// Save first derivative now that we have it.
-		else if( j == 2 )
+		else if (j == 2)
 		{
-			if( d1 )
-				*d1 = 3 * ( q[ 1 ] - q[ 0 ] );
+			if (d1)
+				*d1 = 3 * (q[ 1 ] - q[ 0 ]);
 		}
 	}
 	// Save point.
-	if( p )
+	if (p)
 		*p = q[ 0 ];
-	delete[]( q );
+	delete[] (q);
 }
 
 bool FPointArray::isBezierClosed() const
@@ -603,7 +603,7 @@ void FPointArray::fromQPainterPath(QPainterPath &path, bool close)
 				svgLineTo(elm.x, elm.y);
 				break;
 			case QPainterPath::CurveToElement:
-				svgCurveToCubic(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
+				svgCurveToCubic(elm.x, elm.y, path.elementAt(i + 1).x, path.elementAt(i + 1).y, path.elementAt(i + 2).x, path.elementAt(i + 2).y);
 				break;
 			default:
 				break;
@@ -814,7 +814,7 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 		y3 = yc + sin(_th1);
 		x2 = x3 + t * sin(_th1);
 		y2 = y3 - t * cos(_th1);
-		svgCurveToCubic(a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
+		svgCurveToCubic(a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3);
 	}
 	}
 	if(!relative)
@@ -828,7 +828,7 @@ void FPointArray::calculateArc(bool relative, double &curx, double &cury, double
 }
 
 
-static const char * getCoord( const char *ptr, double &number )
+static const char * getCoord(const char *ptr, double &number)
 {
 	int integer, exponent;
 	double decimal, frac;
@@ -882,7 +882,7 @@ static const char * getCoord( const char *ptr, double &number )
 		}
 	}
 	number = integer + decimal;
-	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+	number *= sign * pow(static_cast<double>(10), static_cast<double>(expsign * exponent));
 	// skip the following space
 	if(*ptr == ' ')
 		ptr++;
@@ -894,7 +894,7 @@ static const char * getCoord( const char *ptr, double &number )
 bool FPointArray::parseSVG(const QString& svgPath)
 {
 	QString d = svgPath;
-	d = d.replace( QRegExp( "," ), " ");
+	d = d.replace(QRegExp(","), " ");
 
 	bool ret = false;
 	if (d.isEmpty())
@@ -921,19 +921,19 @@ bool FPointArray::parseSVG(const QString& svgPath)
 		case 'f':
 		case 'F':
 			{
-				ptr = getCoord( ptr, tox );
+				ptr = getCoord(ptr, tox);
 				break;
 			}
 		case 'm':
 			relative = true;
 		case 'M':
 			{
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
 				m_svgState->WasM = true;
 				subpathx = curx = relative ? curx + tox : tox;
 				subpathy = cury = relative ? cury + toy : toy;
-				svgMoveTo(curx, cury );
+				svgMoveTo(curx, cury);
 				moveCount++;
 				break;
 			}
@@ -941,39 +941,39 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			relative = true;
 		case 'L':
 			{
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
 				curx = relative ? curx + tox : tox;
 				cury = relative ? cury + toy : toy;
-				svgLineTo( curx, cury );
+				svgLineTo(curx, cury);
 				break;
 			}
 		case 'h':
 			{
-				ptr = getCoord( ptr, tox );
+				ptr = getCoord(ptr, tox);
 				curx = curx + tox;
-				svgLineTo( curx, cury );
+				svgLineTo(curx, cury);
 				break;
 			}
 		case 'H':
 			{
-				ptr = getCoord( ptr, tox );
+				ptr = getCoord(ptr, tox);
 				curx = tox;
-				svgLineTo( curx, cury );
+				svgLineTo(curx, cury);
 				break;
 			}
 		case 'v':
 			{
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, toy);
 				cury = cury + toy;
-				svgLineTo( curx, cury );
+				svgLineTo(curx, cury);
 				break;
 			}
 		case 'V':
 			{
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, toy);
 				cury = toy;
-				svgLineTo(  curx, cury );
+				svgLineTo( curx, cury);
 				break;
 			}
 		case 'z':
@@ -988,19 +988,19 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			relative = true;
 		case 'C':
 			{
-				ptr = getCoord( ptr, x1 );
-				ptr = getCoord( ptr, y1 );
-				ptr = getCoord( ptr, x2 );
-				ptr = getCoord( ptr, y2 );
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, x1);
+				ptr = getCoord(ptr, y1);
+				ptr = getCoord(ptr, x2);
+				ptr = getCoord(ptr, y2);
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
 				px1 = relative ? curx + x1 : x1;
 				py1 = relative ? cury + y1 : y1;
 				px2 = relative ? curx + x2 : x2;
 				py2 = relative ? cury + y2 : y2;
 				px3 = relative ? curx + tox : tox;
 				py3 = relative ? cury + toy : toy;
-				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				svgCurveToCubic(px1, py1, px2, py2, px3, py3);
 				contrlx = relative ? curx + x2 : x2;
 				contrly = relative ? cury + y2 : y2;
 				curx = relative ? curx + tox : tox;
@@ -1011,17 +1011,17 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			relative = true;
 		case 'S':
 			{
-				ptr = getCoord( ptr, x2 );
-				ptr = getCoord( ptr, y2 );
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, x2);
+				ptr = getCoord(ptr, y2);
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
 				px1 = 2 * curx - contrlx;
 				py1 = 2 * cury - contrly;
 				px2 = relative ? curx + x2 : x2;
 				py2 = relative ? cury + y2 : y2;
 				px3 = relative ? curx + tox : tox;
 				py3 = relative ? cury + toy : toy;
-				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				svgCurveToCubic(px1, py1, px2, py2, px3, py3);
 				contrlx = relative ? curx + x2 : x2;
 				contrly = relative ? cury + y2 : y2;
 				curx = relative ? curx + tox : tox;
@@ -1032,17 +1032,17 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			relative = true;
 		case 'Q':
 			{
-				ptr = getCoord( ptr, x1 );
-				ptr = getCoord( ptr, y1 );
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
+				ptr = getCoord(ptr, x1);
+				ptr = getCoord(ptr, y1);
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
 				px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
 				py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
 				px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
 				py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
 				px3 = relative ? curx + tox : tox;
 				py3 = relative ? cury + toy : toy;
-				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				svgCurveToCubic(px1, py1, px2, py2, px3, py3);
 				contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
 				contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
 				curx = relative ? curx + tox : tox;
@@ -1063,7 +1063,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 				py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
 				px3 = relative ? curx + tox : tox;
 				py3 = relative ? cury + toy : toy;
-				svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+				svgCurveToCubic(px1, py1, px2, py2, px3, py3);
 				contrlx = xc;
 				contrly = yc;
 				curx = relative ? curx + tox : tox;
@@ -1076,16 +1076,16 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			{
 				bool largeArc, sweep;
 				double angle, rx, ry;
-				ptr = getCoord( ptr, rx );
-				ptr = getCoord( ptr, ry );
-				ptr = getCoord( ptr, angle );
-				ptr = getCoord( ptr, tox );
+				ptr = getCoord(ptr, rx);
+				ptr = getCoord(ptr, ry);
+				ptr = getCoord(ptr, angle);
+				ptr = getCoord(ptr, tox);
 				largeArc = tox == 1;
-				ptr = getCoord( ptr, tox );
+				ptr = getCoord(ptr, tox);
 				sweep = tox == 1;
-				ptr = getCoord( ptr, tox );
-				ptr = getCoord( ptr, toy );
-				calculateArc( relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
+				ptr = getCoord(ptr, tox);
+				ptr = getCoord(ptr, toy);
+				calculateArc(relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep);
 			}
 		}
 		lastCommand = command;
