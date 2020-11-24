@@ -1645,15 +1645,15 @@ void StoryEditor::loadPrefs()
 	int vwidth  = qMax(600, prefs->getInt("width", 600));
 	int vheight = qMax(400, prefs->getInt("height", 400));
 	// Check values against current screen size
-	QRect scr = this->screen()->geometry();
-	if ( vleft >= scr.width() )
-		vleft = 0;
-	if ( vtop >= scr.height() )
-		vtop = 64;
-	if ( vwidth >= scr.width() )
-		vwidth = qMax( 0, scr.width() - vleft );
-	if ( vheight >= scr.height() )
-		vheight = qMax( 0, scr.height() - vtop );
+	QRect scr = this->screen()->availableGeometry();
+	if (vleft >= scr.width())
+		vleft = scr.left();
+	if (vtop >= scr.height())
+		vtop = qMax(64, scr.top());
+	if (vwidth >= scr.width())
+		vwidth = qMax(0, scr.width() - vleft);
+	if (vheight >= scr.height())
+		vheight = qMax(0, scr.height() - vtop);
 	setGeometry(vleft, vtop, vwidth, vheight);
 	QByteArray state = "";
 	state = prefs->get("winstate","").toLatin1();
