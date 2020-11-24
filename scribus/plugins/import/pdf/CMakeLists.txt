@@ -20,6 +20,7 @@ set(IMPORTPDF_PLUGIN_SOURCES
 	importpdfplugin.cpp
 	pdfimportoptions.cpp
 	slaoutput.cpp
+	pdftextrecognition.cpp
 )
 
 if(HAVE_POPPLER)

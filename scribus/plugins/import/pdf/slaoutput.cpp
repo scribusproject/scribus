@@ -20,6 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
+#ifndef DEBUG_TEXT_IMPORT
+	#define DEBUG_TEXT_IMPORT
+#endif
 namespace
 {
 	// Compute the intersection of two paths while considering the fillrule of each of them.
@@ -2570,9 +2573,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, 3);
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2639,9 +2642,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, colorMap->getNumPixelComps());
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2761,7 +2764,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 
     // Determine the width and height of the image by undoing the rotation part
 	// of the CTM and applying the result to the unit square.
-	QTransform without_rotation; 
+	QTransform without_rotation;
 	without_rotation = m_ctm * without_rotation.rotate(angle);
 	QRectF trect_wr = without_rotation.mapRect(QRectF(0, 0, 1, 1));
 
@@ -3249,7 +3252,7 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
@@ -3295,11 +3298,11 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
 				}
 				else
-					qPath.lineTo(x1,y1);
+					qPath.lineTo(x1, y1);
 				if (f & splashPathLast)
 					qPath.closeSubpath();
 			}
-			const double *ctm = state->getCTM();
+			const double * ctm = state->getCTM();
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
@@ -3318,37 +3321,16 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			{
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* ite = m_doc->Items->at(z);
+
+				// todo: merge this between vector and text implementations.
 				QTransform mm;
 				mm.scale(1, -1);
 				mm.translate(x, -y);
 				textPath.map(mm);
 				textPath.map(m_ctm);
 				ite->PoLine = textPath.copy();
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				ite->setLineEnd(PLineEnd);
-				ite->setLineJoin(PLineJoin);
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				setFillAndStrokeForPDF(state, ite);
 				// Fill text rendering modes. See above
-				if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
-				{
-					CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
-					ite->setFillColor(CurrColorFill);
-					ite->setFillShade(CurrFillShade);
-					ite->setFillEvenOdd(false);
-					ite->setFillTransparency(1.0 - state->getFillOpacity());
-					ite->setFillBlendmode(getBlendMode(state));
-				}
-				// Stroke text rendering modes. See above
-				if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
-				{
-					CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
-					ite->setLineColor(CurrColorStroke);
-					ite->setLineWidth(state->getTransformedLineWidth());
-					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
-					ite->setLineBlendmode(getBlendMode(state));
-					ite->setLineShade(CurrStrokeShade);
-				}
 				m_doc->adjustItemSize(ite);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
@@ -3356,11 +3338,13 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					m_groupStack.top().Items.append(ite);
 					applyMask(ite);
 				}
-				delete fontPath;
 			}
+			delete fontPath;
+
 		}
 	}
 }
+
 
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
 {
@@ -3892,4 +3876,65 @@ bool SlaOutputDev::checkClip()
 			ret = true;
 	}
 	return ret;
+}
+
+void SlaOutputDev::setFillAndStrokeForPDF(GfxState* state, PageItem* textNode)
+{
+
+	textNode->ClipEdited = true;
+	textNode->FrameType = 3;
+	textNode->setLineEnd(PLineEnd);
+	textNode->setLineJoin(PLineJoin);
+	textNode->setTextFlowMode(PageItem::TextFlowDisabled);
+
+	int textRenderingMode = state->getRender();
+	// Invisible or only used for clipping
+	if (textRenderingMode == 3)
+		return;
+
+	// Fill text rendering modes. See above
+	if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
+	{
+
+		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+		if (textNode->isTextFrame()) {
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity())); //fill colour sets the background colour for the frame not the fill colour fore  the text
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None);
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillShade(CurrFillShade);
+		}
+		else
+		{
+			textNode->setFillColor(CurrColorFill);
+			textNode->setFillShade(CurrFillShade);
+			textNode->setFillEvenOdd(false);
+			textNode->setFillTransparency(1.0 - state->getFillOpacity());
+			textNode->setFillBlendmode(getBlendMode(state));
+		}
+	}
+	// Stroke text rendering modes. See above
+	if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
+	{
+		CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
+		if (textNode->isTextFrame()) { //fill color sets the background color for the frame not the fill color fore  the text
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity()));
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None); //TODO: Check if we override the stroke color with the fill color when there is a choice
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillBlendmode(getBlendMode(state));
+			textNode->setFillShade(CurrFillShade);
+		}
+		else
+		{
+			textNode->setLineColor(CurrColorStroke);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillTransparency(1.0 - state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity());
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setLineBlendmode(getBlendMode(state));
+			textNode->setLineShade(CurrStrokeShade);
+		}
+	}
 }
