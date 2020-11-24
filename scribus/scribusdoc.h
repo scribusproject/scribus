@@ -107,6 +107,7 @@ public:
 	bool isLoading() const;
 	void setModified(bool);
 	bool isModified() const;
+	bool isUndoRedoOngoing() const;
 /** Setzt die Seitenattribute */
 	void setPage(double w, double h, double t, double l, double r, double b, double sp, double ab, bool atf, int fp);
 
@@ -1087,7 +1088,7 @@ public:
 	PageItem* groupObjectsSelection(Selection* customSelection = nullptr);
 	PageItem* groupObjectsList(QList<PageItem*> &itemList);
 	void groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemList);
-	PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection = nullptr);
+	PageItem * itemSelection_GroupObjects  (bool changeLock, bool lock, Selection* customSelection = nullptr, PageItem_Group* groupItem = nullptr);
 	void itemSelection_UnGroupObjects(Selection* customSelection = nullptr);
 	void addToGroup(PageItem* group, PageItem* item);
 	void removeFromGroup(PageItem* item);
@@ -1283,6 +1284,7 @@ protected:
 	UndoManager * const m_undoManager;
 	bool m_loading {false};
 	bool m_modified {false};
+	int  m_undoRedoOngoing {0};
 	int m_ActiveLayer {0};
 	double m_docUnitRatio;
 	int m_rotMode {0};
@@ -1369,11 +1371,13 @@ public: // Public attributes
 	PageItem *DraggedElem {nullptr};
 	PageItem *ElemToLink {nullptr};
 	QList<PageItem*> DragElements;
+
 private:
 	StyleSet<ParagraphStyle> m_docParagraphStyles;
 	StyleSet<CharStyle> m_docCharStyles;
 	StyleSet<TableStyle> m_docTableStyles;
 	StyleSet<CellStyle> m_docCellStyles;
+
 public:
 	ScLayers Layers;
 	//bool marginColored;
