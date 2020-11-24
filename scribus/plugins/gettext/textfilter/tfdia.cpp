@@ -47,15 +47,14 @@ tfDia::tfDia()
 	int vheight = qMax(300, prefs->getInt("height", 300));
 	// Check values against current available space
 	QRect scr = QApplication::desktop()->availableGeometry(this);
-	QSize gStrut = QApplication::globalStrut();
 	if ( vleft >= scr.width() )
 		vleft = 0;
 	if ( vtop >= scr.height() )
 		vtop = 64;
 	if ( vwidth >= scr.width() )
-		vwidth = qMax( gStrut.width(), scr.width() - vleft );
+		vwidth = qMax( 0, scr.width() - vleft );
 	if ( vheight >= scr.height() )
-		vheight = qMax( gStrut.height(), scr.height() - vtop );
+		vheight = qMax( 0, scr.height() - vtop );
 
 	setGeometry(vleft, vtop, vwidth, vheight);
    	createLayout();
