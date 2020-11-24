@@ -1645,7 +1645,7 @@ void StoryEditor::loadPrefs()
 	int vwidth  = qMax(600, prefs->getInt("width", 600));
 	int vheight = qMax(400, prefs->getInt("height", 400));
 	// Check values against current screen size
-	QRect scr = ScCore->primaryMainWindow()->getScreen()->geometry();
+	QRect scr = this->screen()->geometry();
 	if ( vleft >= scr.width() )
 		vleft = 0;
 	if ( vtop >= scr.height() )
