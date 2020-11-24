@@ -154,27 +154,26 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 	if (m_palettePrefs && !showEvent->spontaneous() && isFloating())
 	{
 		QDesktopWidget *d = QApplication::desktop();
-		QSize gStrut = QApplication::globalStrut();
 		if (m_palettePrefs->contains("left"))
 		{
 			QRect scr = QApplication::desktop()->availableGeometry(this);
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = qMin(qMax(3 * gStrut.width(), m_palettePrefs->getInt("width")),
+			int vwidth  = qMin(qMax(0, m_palettePrefs->getInt("width")),
 			                   d->width());
-			int vheight = qMin(qMax(3 * gStrut.height(), m_palettePrefs->getInt("height")),
+			int vheight = qMin(qMax(0, m_palettePrefs->getInt("height")),
 			                   d->height());
 			// palettes should not use too much screen space
 			if (vwidth > d->width() / 3 && vheight > d->height()/3)
 				vwidth = d->width() / 3;
 			// and should be partly visible
-			int vleft   = qMin(qMax(scr.left() - vwidth + gStrut.width(), m_palettePrefs->getInt("left")),
-			                   scr.right() - gStrut.width());
-			int vtop = qMin(m_palettePrefs->getInt("top"), d->height() - gStrut.height());
+			int vleft   = qMin(qMax(scr.left() - vwidth, m_palettePrefs->getInt("left")),
+							   scr.right());
+			int vtop = qMin(m_palettePrefs->getInt("top"), d->height());
 #if defined(Q_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
 #else
-			vtop    = qMax(-vheight + gStrut.height(), vtop);
+			vtop    = qMax(-vheight, vtop);
 #endif
 			// Check values against current screen size
 			if (vleft <= scr.left())
@@ -186,9 +185,9 @@ void ScDockPalette::showEvent(QShowEvent *showEvent)
 			if (vtop <= scr.top())
 				vtop = scr.top();
 			if (vwidth >= scr.width())
-				vwidth = qMax(gStrut.width(), scr.width() - vleft);
+				vwidth = qMax(0, scr.width() - vleft);
 			if ( vheight >= scr.height() )
-				vheight = qMax(gStrut.height(), scr.height() - vtop);
+				vheight = qMax(0, scr.height() - vtop);
 //			qDebug() << QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
 //				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name());
 //			setGeometry(vleft, vtop, vwidth, vheight);

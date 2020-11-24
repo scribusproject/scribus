@@ -70,8 +70,7 @@ QSize ScListBoxPixmap<pixWidth, pixHeight>::sizeHint(const QStyleOptionViewItem 
 		w = pmap->width() + metrics.horizontalAdvance(textData) + 6;
 	}
 
-	QSize globalStrut = QApplication::globalStrut();
-	return QSize(qMax(w, globalStrut.width()), qMax(h, globalStrut.height()));
+	return QSize(qMax(w, 0), qMax(h, 0));
 }
 
 template<unsigned int pixWidth, unsigned int pixHeight>

@@ -2292,7 +2292,6 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.uiPrefs.mainWinSettings.height = dc.attribute("Height", "480").toInt();
 			appPrefs.uiPrefs.mainWinSettings.maximized = static_cast<bool>(dc.attribute("Maximized", "0").toInt());
 			appPrefs.uiPrefs.mainWinSettings.screenNumber = dc.attribute("ScreenNumber", "0").toInt();
-			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
 			int minY = 0;
 #ifdef Q_OS_MAC
@@ -2306,8 +2305,8 @@ bool PrefsManager::readPref(const QString& filePath)
 				if (appPrefs.uiPrefs.mainWinSettings.yPosition <  minY)
 					appPrefs.uiPrefs.mainWinSettings.yPosition = minY;
 			}
-			int minWidth = 5*gStrut.width();
-			int minHeight = 5*gStrut.width();
+			int minWidth = 0;
+			int minHeight = 0;
 			QScreen* s=QGuiApplication::screens().at(qMin(appPrefs.uiPrefs.mainWinSettings.screenNumber, QGuiApplication::screens().count()-1));
 			int maxWidth = s->availableSize().width();
 			int maxHeight = s->availableSize().height();
