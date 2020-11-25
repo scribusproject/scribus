@@ -97,7 +97,7 @@ QStringList LoadSavePlugin::getExtensionsForColors(const int id)
 	else
 		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
 	// Avoid duplicate entries in the list
-	QSet<QString> fSet = filterList.toSet();
+	QSet<QString> fSet(filterList.begin(), filterList.end());
 	filterList = fSet.values();
 	std::sort(filterList.begin(), filterList.end());
 	return filterList;
@@ -133,7 +133,7 @@ QStringList LoadSavePlugin::getExtensionsForImport(const int id)
 	else
 		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
 	// Avoid duplicate entries in the list
-	QSet<QString> fSet = filterList.toSet();
+	QSet<QString> fSet(filterList.begin(), filterList.end());
 	filterList = fSet.values();
 	std::sort(filterList.begin(), filterList.end());
 	return filterList;
@@ -169,7 +169,7 @@ QStringList LoadSavePlugin::getExtensionsForPreview(const int id)
 	else
 		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
 	// Avoid duplicate entries in the list
-	QSet<QString> fSet = filterList.toSet();
+	QSet<QString> fSet(filterList.begin(), filterList.end());
 	filterList = fSet.values();
 	std::sort(filterList.begin(), filterList.end());
 	return filterList;
