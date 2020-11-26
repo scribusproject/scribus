@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPair>
 #include <QString>
-#include <QMatrix>
+#include <QTransform>
 #include "scconfig.h"
 
 #ifdef HAVE_PODOFO
@@ -87,7 +87,7 @@ struct PDFFont
 };
 struct PDFGraphicState
 {
-	QMatrix ctm;
+	QTransform ctm;
 	PDFColorSpace strokeCS;
 	PDFColorSpace fillCS;
 	QList<double> strokeColor;

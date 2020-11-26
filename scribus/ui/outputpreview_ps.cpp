@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QMap>
+#include <QTransform>
 #include <QTemporaryFile>
 
 #include "outputpreview_ps.h"
@@ -530,7 +531,7 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 
 	const ScPage* page = m_doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
-		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
+		image = image.transformed( QTransform(0, 1, -1, 0, 0, 0) );
 	if (m_optionsUi->showTransparency->isChecked())
 	{
 		pixmap = QPixmap(image.width(), image.height());

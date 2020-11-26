@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QImage>
 #include <QTemporaryFile>
+#include <QTransform>
 
 #include "commonstrings.h"
 #include "cmsettings.h"
@@ -303,7 +304,7 @@ QPixmap PrintPreviewCreator_PS::createPreview(int pageIndex)
 
 	const ScPage* page = m_doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
-		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
+		image = image.transformed( QTransform(0, 1, -1, 0, 0, 0) );
 	if (m_showTransparency)
 	{
 		pixmap = QPixmap(image.width(), image.height());

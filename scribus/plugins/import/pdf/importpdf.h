@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSizeF>
 #include <QString>
 #include <QTextStream>
-#include <QTransform>
 
 #include <memory>
 
@@ -30,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 
 class QColor;
-class QMatrix;
 
 class MultiProgressDialog;
 class ScribusDoc;

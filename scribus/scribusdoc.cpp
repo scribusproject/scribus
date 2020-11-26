@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QtAlgorithms>
 #include <QTime>
+#include <QTransform>
 //#include <qtconcurrentmap.h>
 
 #include "actionmanager.h"
@@ -16366,10 +16367,10 @@ void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
 		return;
 	Canvas::FrameHandle fh = (Canvas::FrameHandle) direction;
 	ScPage *currPage = Pages->at(item->OwnPage);
-	QMatrix ma;
-	ma.translate(item->xPos(), item->yPos());
-	double inX = ma.dx() - m_currentPage->xOffset();
-	double inY = ma.dy() - m_currentPage->yOffset();
+	QTransform transform;
+	transform.translate(item->xPos(), item->yPos());
+	double inX = transform.dx() - m_currentPage->xOffset();
+	double inY = transform.dy() - m_currentPage->yOffset();
 	if (fh == Canvas::NORTH || fh == Canvas::NORTHWEST || fh == Canvas::NORTHEAST)
 	{
 		double top = currPage->topMargin();
