@@ -97,7 +97,7 @@ for which a new license (GPL+exception) is in place.
 extern const char ARG_CONSOLE[] =  "--console";
 extern const char ARG_CONSOLE_SHORT[] = "-cl";
 
-bool ScribusQApp::useGUI=false;
+bool ScribusQApp::useGUI = false;
 
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
@@ -132,18 +132,18 @@ void ScribusQApp::parseCommandLine()
 {
 	m_showSplash=!neverSplashExists();
 	QString arg;
-	bool usage=false;
-	bool header=false;
-	bool availlangs=false;
-	bool version=false;
-	bool runUpgradeCheck=false;
+	bool usage = false;
+	bool header = false;
+	bool availlangs = false;
+	bool version = false;
+	bool runUpgradeCheck = false;
 #ifdef WITH_TESTS
 	bool runtests = false;
 	char** testargsv;
 	int testargsc;
 #endif
-	m_showFontInfo=false;
-	m_showProfileInfo=false;
+	m_showFontInfo = false;
+	m_showProfileInfo = false;
 	bool neversplash = false;
 
 	//Parse for command line options
@@ -158,7 +158,7 @@ void ScribusQApp::parseCommandLine()
 		arg = args[argi];
 		if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT)
 		{
-			if (argi+1 == argsc)
+			if (argi + 1 == argsc)
 			{
 				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
@@ -194,19 +194,19 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT)
 		{
-			header=true;
-			version=true;
+			header = true;
+			version = true;
 		}
 		else if (arg == ARG_HELP || arg == ARG_HELP_SHORT)
 		{
-			header=true;
-			usage=true;
+			header = true;
+			usage = true;
 		}
 #ifdef WITH_TESTS
 		else if (arg == ARG_TESTS || arg == ARG_TESTS_SHORT)
 		{
-			header=true;
-			runtests=true;
+			header = true;
+			runtests = true;
 			testargsc = argc() - argi;
 			testargsv = argv() + argi;
 			break;
@@ -214,18 +214,19 @@ void ScribusQApp::parseCommandLine()
 #endif
 		else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT)
 		{
-			header=true;
-			availlangs=true;
+			header = true;
+			availlangs = true;
 		}
 		else if (arg == ARG_UPGRADECHECK || arg == ARG_UPGRADECHECK_SHORT)
 		{
-			header=true;
-			runUpgradeCheck=true;
+			header = true;
+			runUpgradeCheck = true;
 		}
-		else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT )
+		else if (arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT)
 		{
 			continue;
-		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT)
+		}
+		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT)
 		{
 			m_showSplash = false;
 		}
@@ -236,17 +237,17 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT)
 		{
-			useGUI=false;
+			useGUI = false;
 		}
 		else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT)
 		{
-			m_showFontInfo=true;
+			m_showFontInfo = true;
 		}
 		else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT)
 		{
-			m_showProfileInfo=true;
+			m_showProfileInfo = true;
 		}
-		else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++argi < argsc)
+		else if ((arg == ARG_DISPLAY || arg == ARG_DISPLAY_SHORT || arg == ARG_DISPLAY_QT) && ++argi < argsc)
 		{
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
@@ -254,7 +255,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT)
 		{
-			if (argi+1 == argsc)
+			if (argi + 1 == argsc)
 			{
 				std::cout << tr("Option %1 requires an argument.").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
@@ -270,7 +271,7 @@ void ScribusQApp::parseCommandLine()
 				++argi;
 			}
 		}
-		else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
+		else if (strncmp(arg.toLocal8Bit().data(), "-psn_", 4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		}
@@ -340,18 +341,18 @@ void ScribusQApp::parseCommandLine()
 	if (header)
 		std::exit(EXIT_SUCCESS);
 	//proceed
-	if(neversplash)
+	if (neversplash)
 		neverSplash(true);
 	
 }
 
 int ScribusQApp::init()
 {
-	m_ScCore=new ScribusCore();
+	m_ScCore = new ScribusCore();
 	Q_CHECK_PTR(m_ScCore);
 	if (!m_ScCore)
 		return EXIT_FAILURE;
-	ScCore=m_ScCore;
+	ScCore = m_ScCore;
 	processEvents(QEventLoop::ExcludeUserInputEvents|QEventLoop::ExcludeSocketNotifiers, 1000);
 	ScCore->init(useGUI, m_filesToLoad);
 	processEvents();
@@ -361,7 +362,7 @@ int ScribusQApp::init()
 	 * and delete if (true)
 	 */
 	// if (useGUI)
-	int retVal=ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
+	int retVal = ScCore->startGUI(m_showSplash, m_showFontInfo, m_showProfileInfo, m_lang);
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
 	// built and shown) before running their setup.
@@ -388,7 +389,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = ScPaths::preferencesDir();
-		QString prefsXMLFile=QDir::toNativeSeparators(PrefsPfad + "prefs150.xml");
+		QString prefsXMLFile = QDir::toNativeSeparators(PrefsPfad + "prefs150.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
 		{
@@ -398,7 +399,7 @@ QStringList ScribusQApp::getLang(QString lang)
 				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 				if (userprefsContext)
 				{
-					QString prefslang(cleanupLang(userprefsContext->get("gui_language","")));
+					QString prefslang(cleanupLang(userprefsContext->get("gui_language", "")));
 					if (!prefslang.isEmpty())
 						langs.append(prefslang);
 				}
@@ -410,24 +411,24 @@ QStringList ScribusQApp::getLang(QString lang)
 	if (!(lang = ::getenv("LANG")).isEmpty())
 	{
 		lang = cleanupLang(lang);
-		if (lang=="C")
-			lang="en";
+		if (lang == "C")
+			lang = "en";
 		if (!lang.isEmpty())
 			langs.append(lang);
 	}
 	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
 	{
 		lang = cleanupLang(lang);
-		if (lang=="C")
-			lang="en";
+		if (lang == "C")
+			lang = "en";
 		if (!lang.isEmpty())
 			langs.append(lang);
 	}
 	if (!(lang = ::getenv("LC_ALL")).isEmpty())
 	{
 		lang = cleanupLang(lang);
-		if (lang=="C")
-			lang="en";
+		if (lang == "C")
+			lang = "en";
 		if (!lang.isEmpty())
 			langs.append(lang);
 	}
@@ -439,14 +440,14 @@ QStringList ScribusQApp::getLang(QString lang)
 	WORD sortId = SORTIDFROMLCID(lcIdo);
 	LANGID langId = GetUserDefaultUILanguage();
 	LCID lcIdn = MAKELCID(langId, sortId);
-	if ( GetLocaleInfoW(lcIdn, LOCALE_SISO639LANGNAME , out, 255) )
+	if (GetLocaleInfoW(lcIdn, LOCALE_SISO639LANGNAME , out, 255))
 	{
 		language = QString::fromUtf16( (ushort*)out );
-		if ( GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255) )
+		if (GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255))
 		{
 			sublanguage = QString::fromUtf16( (ushort*)out ).toLower();
 			lang = language;
-			if ( sublanguage != language && !sublanguage.isEmpty() )
+			if (sublanguage != language && !sublanguage.isEmpty() )
 				lang += "_" + sublanguage.toUpper();
 			langs.append(lang);
 		}
@@ -475,13 +476,13 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	{
 		removeTranslator( transQt );
 		delete transQt;
-		transQt=nullptr;
+		transQt = nullptr;
 	}
 	if (trans)
 	{
 		removeTranslator( trans );
 		delete trans;
-		trans=nullptr;
+		trans = nullptr;
 	}
 
 	transQt = new QTranslator(nullptr);
@@ -518,10 +519,10 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	if (loadedScribus)
 	{
 		installTranslator(trans);
-		m_GUILang=lang;
+		m_GUILang = lang;
 	}
 	else if (lang == "en")
-		m_GUILang=lang;
+		m_GUILang = lang;
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -643,20 +644,20 @@ void ScribusQApp::showHeader()
 	QFile f;
 	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
-	Qt::endl(ts);
+	ts << Qt::endl;
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
 	// Build a separator of ----s the same width as the heading
 	QString separator = QString("").rightJustified(heading.length(),'-');
 	// Then output the heading, separator, and docs/www/etc info in an aligned table
 	const int urlwidth = 23;
 	const int descwidth = -(heading.length() - urlwidth - 1);
-	ts << heading; Qt::endl(ts);
-	ts << separator; Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); Qt::endl(ts);
-	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); Qt::endl(ts);
-	Qt::endl(ts);
+	ts << heading << Qt::endl;
+	ts << separator << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Homepage") + ":",      descwidth).arg("http://www.scribus.net" ) << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Documentation") + ":", descwidth).arg("http://docs.scribus.net") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Wiki") + ":",          descwidth).arg("http://wiki.scribus.net") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Issues") + ":",        descwidth).arg("http://bugs.scribus.net") << Qt::endl;
+	ts << Qt::endl;
 }
 
 void ScribusQApp::neverSplash(bool splashOff)
