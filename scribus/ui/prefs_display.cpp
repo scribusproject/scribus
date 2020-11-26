@@ -21,6 +21,9 @@ for which a new license (GPL+exception) is in place.
 Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(parent), m_doc(doc)
 {
 	setupUi(this);
+	scrollArea->viewport()->setAutoFillBackground(false);
+	scrollArea->widget()->setAutoFillBackground(false);
+
 	languageChange();
 
 	m_caption = tr("Display");

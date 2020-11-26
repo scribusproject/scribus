@@ -13,6 +13,9 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
+	scrollArea->viewport()->setAutoFillBackground(false);
+	scrollArea->widget()->setAutoFillBackground(false);
+
 	languageChange();
 
 	m_caption = tr("Document Information");
