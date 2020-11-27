@@ -3071,7 +3071,7 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(NumerationRestart))
 		newStyle.setNumRestart(attrs.valueAsInt(NumerationRestart));
 
-	static const QString NumerationOther("NumeartionOther");
+	static const QString NumerationOther("NumerationOther");
 	if (attrs.hasAttribute(NumerationOther))
 		newStyle.setNumOther(static_cast<bool>(attrs.valueAsInt(NumerationOther)));
 
