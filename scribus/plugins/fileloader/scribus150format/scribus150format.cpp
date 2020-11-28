@@ -3075,9 +3075,9 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(NumerationOther))
 		newStyle.setNumOther(static_cast<bool>(attrs.valueAsInt(NumerationOther)));
 
-	static const QString NumearationHigher("NumerationHigher");
-	if (attrs.hasAttribute(NumearationHigher))
-		newStyle.setNumHigher(static_cast<bool>(attrs.valueAsInt(NumearationHigher)));
+	static const QString NumerationHigher("NumerationHigher");
+	if (attrs.hasAttribute(NumerationHigher))
+		newStyle.setNumHigher(static_cast<bool>(attrs.valueAsInt(NumerationHigher)));
 
 	static const QString PSHORTCUT("PSHORTCUT");
 	if (attrs.hasAttribute(PSHORTCUT))
