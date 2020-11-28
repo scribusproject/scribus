@@ -26759,7 +26759,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="483"/>
         <source>Oji-Cree</source>
-        <translation>Oji-Cree</translation>
+        <translation>Oji-cree</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="484"/>
@@ -27915,7 +27915,7 @@ Collegamenti esterni
     <message>
         <location filename="../../scribus/langmgr.cpp" line="180"/>
         <source>Cajun French</source>
-        <translation>Francese Cajun</translation>
+        <translation>Francese cajun</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="181"/>

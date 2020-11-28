@@ -439,12 +439,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1515"/>
         <source>PDF...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
@@ -569,7 +569,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1589"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hev</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
@@ -584,7 +584,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1611"/>
         <source>Embed Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Innebygg bilde</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1616"/>
@@ -864,7 +864,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1750"/>
         <source>&amp;Manage Images...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Håndter bilder…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1751"/>
@@ -1267,7 +1267,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1638"/>
         <source>Sample Text...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prøvetekst…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1661"/>
@@ -1625,42 +1625,42 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1596"/>
         <source>Insert Rows...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett inn rader…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>Insert Columns...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett inn kolonner…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Delete Rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Slett rader</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>Delete Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Slett kolonner</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Merge Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Flett celler</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
         <source>Split Cells...</source>
-        <translation type="unfinished"></translation>
+        <translation>Del opp celler…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
         <source>Set Row Heights...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett radhøyder…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1603"/>
         <source>Set Column Widths...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett kolonnebredder…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1604"/>
@@ -22223,12 +22223,12 @@ for å få flere utskriftsvalg</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="406"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;En måte å skru av noen av gråskyggene som er laget 
-av cyan, gult og magenta ved å  bruke svart istedenfor. 
-Virker best på de delene av bilder som er nøytrale og/eller i mørke toner 
+        <translation>&lt;qt&gt;En måte å skru av noen av gråskyggene som består
+av cyan, gult og magenta er å bruke svart istedenfor. 
+Det virker best på de delene av bilder som er nøytrale og/eller i mørke toner 
 som ligger nært opptil grått. Dette får noen bilder til å se bedre ut. 
 Litt eksperimentering og testing er nødvendig fra gang til gang.
-Reduserer muligheten for overmetning med CMY-farger.&gt;</translation>
+Reduserer muligheten for overmetning med CMY-farger.&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="416"/>

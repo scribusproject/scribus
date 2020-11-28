@@ -12181,7 +12181,7 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="79"/>
         <source>After Page</source>
-        <translation>Nach Seite </translation>
+        <translation>Nach Seite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="80"/>
@@ -14506,7 +14506,7 @@ Bitte deaktivieren Sie die Einbettung von PDF- und PostScript-Dateien (experimen
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="596"/>
         <source>DPI</source>
-        <translation>dpi</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="598"/>
@@ -27361,7 +27361,7 @@ Externe Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="180"/>
         <source>Cajun French</source>
-        <translation></translation>
+        <translation>Cajun-Französisch</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="181"/>
@@ -30617,7 +30617,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="70"/>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
-        <translation>Scribus 1.3.0-&gt;1.3.3 Support </translation>
+        <translation>Scribus 1.3.0-&gt;1.3.3 Support</translation>
     </message>
     <message>
         <location filename="../../scribus/units.cpp" line="163"/>
@@ -33069,7 +33069,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="513"/>
         <source>Glyph Extension </source>
-        <translation>Glyphenstauchung</translation>
+        <translation>Glyphenstauchung </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="219"/>
@@ -35263,7 +35263,7 @@ Drehung: %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="1524"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
-        <translation>Importiert </translation>
+        <translation>Importiert</translation>
     </message>
 </context>
 <context>
