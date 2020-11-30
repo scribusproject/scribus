@@ -961,10 +961,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 //	QTime tim;
 //	tim.start();
 // 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
-	int docPagesCount=m_doc->Pages->count();
-	ScPainter *painter=nullptr;
-	QImage img = QImage(clipw * devicePixelRatio(), cliph * devicePixelRatio(), QImage::Format_ARGB32_Premultiplied);
-	img.setDevicePixelRatio(devicePixelRatio());
+	int docPagesCount = m_doc->Pages->count();
+	ScPainter *painter = nullptr;
+	QImage img = QImage(clipw * devicePixelRatioF(), cliph * devicePixelRatioF(), QImage::Format_ARGB32_Premultiplied);
+	img.setDevicePixelRatio(devicePixelRatioF());
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 	painter->clear(palette().color(QPalette::Window));
 	painter->newPath();
@@ -2405,17 +2405,17 @@ void Canvas::calculateFrameLinkPoints(PageItem *pi1, PageItem *pi2, FPoint & sta
 
 QPixmap Canvas::createPixmap(double w, double h)
 {
-	QPixmap p(w * devicePixelRatio(), h * devicePixelRatio());
-	p.setDevicePixelRatio(devicePixelRatio());
+	QPixmap p(w * devicePixelRatioF(), h * devicePixelRatioF());
+	p.setDevicePixelRatio(devicePixelRatioF());
 	return p;
 }
 
 void Canvas::drawPixmap(QPainter& painter, double x, double y, const QPixmap& pixmap, double sx, double sy, double sw, double sh)
 {
-	sx *= devicePixelRatio();
-	sy *= devicePixelRatio();
-	sw *= devicePixelRatio();
-	sh *= devicePixelRatio();
+	sx *= devicePixelRatioF();
+	sy *= devicePixelRatioF();
+	sw *= devicePixelRatioF();
+	sh *= devicePixelRatioF();
 	painter.drawPixmap(x, y, pixmap, sx, sy, sw, sh);
 }
 
