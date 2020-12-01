@@ -797,7 +797,7 @@ bool PdfPlug::convert(const QString& fn)
 									LinkAction *linkAction = nullptr;
 									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 #endif
-									if (linkAction)
+									if (linkAction && (linkAction.get()->getKind() == actionJavaScript))
 									{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 										LinkJavaScript *jsa = (LinkJavaScript*) linkAction.get();
