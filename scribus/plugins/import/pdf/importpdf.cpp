@@ -791,19 +791,15 @@ bool PdfPlug::convert(const QString& fn)
 								if (names.isDict())
 								{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-									std::unique_ptr<LinkAction> linkAction;
-									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+									std::unique_ptr<LinkAction> linkActionUPtr = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+									LinkAction *linkAction = linkActionUPtr.get();
 #else
 									LinkAction *linkAction = nullptr;
 									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 #endif
-									if (linkAction && (linkAction.get()->getKind() == actionJavaScript))
+									if (linkAction && (linkAction->getKind() == actionJavaScript))
 									{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-										LinkJavaScript *jsa = (LinkJavaScript*) linkAction.get();
-#else
 										LinkJavaScript *jsa = (LinkJavaScript*) linkAction;
-#endif
 										if (jsa->isOk())
 										{
 											QString script = UnicodeParsedString(jsa->getScript());
