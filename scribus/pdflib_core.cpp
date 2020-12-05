@@ -1094,7 +1094,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 	else if (Options.displayThumbs)
 		PutDoc("/PageMode /UseThumbs\n");
 	else if ((Options.Version == PDFVersion::PDF_15 || Options.Version == PDFVersion::PDF_16) && (Options.displayLayers))
-			PutDoc("/PageMode /UseOC\n");
+		PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
 		writer.OpenActionObj = writer.newObject();
