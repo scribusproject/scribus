@@ -49,8 +49,8 @@ ImportIdml::~ImportIdml()
 void ImportIdml::languageChange()
 {
 	FileFormat* fmt = getFormatByExt("idml");
-	fmt->trName = tr("Adobe Indesign IDML");
-	fmt->filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
+	fmt->trName = tr("Adobe InDesign IDML");
+	fmt->filter = tr("Adobe InDesign IDML (*.idml *.IDML)");
 }
 
 const QString ImportIdml::fullTrName() const
@@ -62,8 +62,8 @@ const ScActionPlugin::AboutData* ImportIdml::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Jain Basil Aliyas<jainbasil@gmail.com>";
-	about->shortDescription = tr("Imports Adobe Idml Packages");
-	about->description = tr("Imports Adobe Indesign's idml packages into Scribus\n converting Indesign objects into scribus pageitems; not all are supported in Scribus, but all those supported are being imported here");
+	about->shortDescription = tr("Imports Adobe IDML Packages");
+	about->description = tr("Imports Adobe InDesign's IDML packages into Scribus\n converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here");
 	about->license = tr("GPL");
 	Q_CHECK_PTR(about);
 	return about;
@@ -78,7 +78,7 @@ void ImportIdml::deleteAboutData(const AboutData* about) const
 void ImportIdml::registerFormats()
 {
 	FileFormat fmt(this);
-	QString idmlName=tr("Adobe Indesign IDML");
+	QString idmlName=tr("Adobe InDesign IDML");
 	fmt.trName = idmlName;
 	fmt.formatId = 0;
 	fmt.filter =idmlName + "(*.idml *.IDML)"; // QFileDialog filter

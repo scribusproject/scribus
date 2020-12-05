@@ -131,7 +131,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	iconCombo->addItem( tr("Comment"));
 	iconCombo->addItem( tr("Key"));
 	iconCombo->addItem( tr("Help"));
-	iconCombo->addItem( tr("NewParagraph"));
+	iconCombo->addItem( tr("New Paragraph"));
 	iconCombo->addItem( tr("Paragraph"));
 	iconCombo->addItem( tr("Insert"));
 	iconCombo->addItem( tr("Cross"));

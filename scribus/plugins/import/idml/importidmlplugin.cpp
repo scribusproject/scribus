@@ -58,11 +58,11 @@ void ImportIdmlPlugin::languageChange()
 {
 	importAction->setText( tr("Import Idml..."));
 	FileFormat* fmt = getFormatByExt("idml");
-	fmt->trName = tr("Adobe Indesign IDML");
-	fmt->filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
+	fmt->trName = tr("Adobe InDesign IDML");
+	fmt->filter = tr("Adobe InDesign IDML (*.idml *.IDML)");
 	FileFormat* fmt2 = getFormatByExt("idms");
-	fmt2->trName = tr("Adobe Indesign IDMS");
-	fmt2->filter = tr("Adobe Indesign IDMS (*.idms *.IDMS)");
+	fmt2->trName = tr("Adobe InDesign IDMS");
+	fmt2->filter = tr("Adobe InDesign IDMS (*.idms *.IDMS)");
 }
 
 ImportIdmlPlugin::~ImportIdmlPlugin()
@@ -96,8 +96,8 @@ void ImportIdmlPlugin::deleteAboutData(const AboutData* about) const
 void ImportIdmlPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Adobe Indesign IDML");
-	fmt.filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
+	fmt.trName = tr("Adobe InDesign IDML");
+	fmt.filter = tr("Adobe InDesign IDML (*.idml *.IDML)");
 	fmt.formatId = 0;
 	fmt.fileExtensions = QStringList() << "idml";
 	fmt.load = true;
@@ -110,8 +110,8 @@ void ImportIdmlPlugin::registerFormats()
 	registerFormat(fmt);
 
 	FileFormat fmt2(this);
-	fmt2.trName = tr("Adobe Indesign IDMS");
-	fmt2.filter = tr("Adobe Indesign IDMS (*.idms *.IDMS)");
+	fmt2.trName = tr("Adobe InDesign IDMS");
+	fmt2.filter = tr("Adobe InDesign IDMS (*.idms *.IDMS)");
 	fmt2.formatId = 0;
 	fmt2.fileExtensions = QStringList() << "idms";
 	fmt2.load = true;

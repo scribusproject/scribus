@@ -167,8 +167,8 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 				msgBox.setText( tr("This file contains 2 versions of the data."));
 				msgBox.setInformativeText( tr("Choose which one should be imported"));
 				msgBox.setIcon(QMessageBox::Question);
-				QPushButton *pdfButton = msgBox.addButton( tr("Use the pdf part"), QMessageBox::ActionRole);
-				msgBox.addButton( tr("Use the ai part"), QMessageBox::ActionRole);
+				QPushButton *pdfButton = msgBox.addButton( tr("Use the PDF part"), QMessageBox::ActionRole);
+				msgBox.addButton( tr("Use the AI part"), QMessageBox::ActionRole);
 				msgBox.setDefaultButton(pdfButton);
 				msgBox.exec();
 				if ((QPushButton *)msgBox.clickedButton() == pdfButton)
