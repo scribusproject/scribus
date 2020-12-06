@@ -59,6 +59,21 @@ void BaseStyle::update(const StyleContext* b)
 		m_contextversion = m_context->version(); 
 }
 
+QString BaseStyle::baseName() const
+{
+	if (m_name.isEmpty())
+		return QString();
+
+	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+	if (rx.indexIn(m_name) != -1)
+	{
+		QStringList matches = rx.capturedTexts();
+		if (matches.count() >= 3)
+			return matches[1];
+	}
+	return m_name;
+}
+
 const BaseStyle* BaseStyle::parentStyle() const
 { 
 	//qDebug() << QString("follow %1").arg(reinterpret_cast<uint>(m_context),16);

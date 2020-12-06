@@ -613,7 +613,9 @@ public:
 		ResourceCollection m_newNames;
 	};
 	void replaceNamedResources(ResourceCollection& newNames);
-	bool styleExists(const QString& styleName);
+	
+	bool styleExists(const QString& styleName) const;
+	bool charStyleExists(const QString& styleName) const;
 	
 	QList<int> getSortedStyleList();
 	QList<int> getSortedCharStyleList();

@@ -1048,14 +1048,14 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	}
 }
 
-bool ScribusDoc::styleExists(const QString& styleName)
+bool ScribusDoc::styleExists(const QString& styleName) const
 {
-	for (int i = 0; i < paragraphStyles().count(); ++i)
-	{
-		if (paragraphStyles()[i].name() == styleName)
-			return true;
-	}
-	return false;
+	return m_docParagraphStyles.contains(styleName);
+}
+
+bool ScribusDoc::charStyleExists(const QString& styleName) const
+{
+	return m_docCharStyles.contains(styleName);
 }
 
 QList<int> ScribusDoc::getSortedStyleList()

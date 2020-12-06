@@ -21,6 +21,11 @@ public:
 	{ 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
+
+	const STYLE* getPointer(const QString& name) const
+	{ 
+		return dynamic_cast<const STYLE*>(resolve(name)); 
+	}
 	
 	STYLE& operator[] (int index)
 	{
@@ -37,6 +42,8 @@ public:
 	inline bool contains(const QString& name) const;
 
 	inline int find(const QString& name) const;
+
+	const STYLE* findEquivalent(const STYLE& style) const;
 
 	inline const BaseStyle* resolve(const QString& name) const;
 
@@ -149,6 +156,17 @@ inline int StyleSet<STYLE>::find(const QString& name) const
 		if (styles[i]->name() == name)
 			return i;
 	return -1;
+}
+
+template<class STYLE>
+const STYLE* StyleSet<STYLE>::findEquivalent(const STYLE& style) const
+{
+	for (int i = 0; i < styles.count(); ++i)
+	{
+		if (style.equiv(*styles[i]))
+			return styles[i];
+	}
+	return nullptr;
 }
 
 template<class STYLE>

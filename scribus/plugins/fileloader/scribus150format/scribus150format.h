@@ -117,7 +117,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		
 		QIODevice* slaReader(const QString & fileName);
 
-		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
+		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool equiv);
+		void getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *docCharStyles, ScribusDoc* doc, bool equiv);
 
 		void readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 		void readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
@@ -190,8 +191,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeGradients(ScXmlStreamWriter & docu, bool part = false);
 		void writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames);
 		void writeHyphenatorLists(ScXmlStreamWriter& docu);
-		void writePStyles(ScXmlStreamWriter& docu);
-		void writeCStyles(ScXmlStreamWriter& docu);
+		void writeParagraphStyles(ScXmlStreamWriter& docu);
+		void writeCharStyles(ScXmlStreamWriter& docu);
 		void writeTableStyles(ScXmlStreamWriter& docu);
 		void writeCellStyles(ScXmlStreamWriter& docu);
 		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName);
@@ -221,7 +222,8 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master);
 		void WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir);
-
+		
+		QMap<QString, QString> charStyleMap;
 		QMap<QString, QString> parStyleMap;
 		
 		QMap<int, int> itemRemap;

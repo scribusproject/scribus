@@ -92,20 +92,9 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 		}
 	}
 
-	// Write paragraph styles
-	QList<QString>::Iterator it;
-	QList<QString> names = lists.styleNames();
-	QList<int> styleList = m_Doc->getSortedStyleList();
-	for (int i = 0; i < styleList.count(); ++i)
-	{
-		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
-		if (names.contains(paragraphStyle.name()))
-			putPStyle(writer, paragraphStyle, "STYLE");
-	}
-
 	// Write character styles
-	names = lists.charStyleNames();
-	styleList = m_Doc->getSortedCharStyleList();
+	QList<QString> names = lists.charStyleNames();
+	QList<int> styleList = m_Doc->getSortedCharStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
 	{
 		const CharStyle& charStyle = m_Doc->charStyles()[styleList[i]];
@@ -114,6 +103,16 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 		writer.writeStartElement("CHARSTYLE");
 		putNamedCStyle(writer, charStyle);
 		writer.writeEndElement();
+	}
+
+	// Write paragraph styles
+	names = lists.styleNames();
+	styleList = m_Doc->getSortedStyleList();
+	for (int i = 0; i < styleList.count(); ++i)
+	{
+		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
+		if (names.contains(paragraphStyle.name()))
+			putPStyle(writer, paragraphStyle, "STYLE");
 	}
 
 	writeLineStyles(writer, lists.lineStyleNames());
@@ -189,21 +188,10 @@ bool Scribus150Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 		if (pi && !embeddedFrames.contains(pi))
 			embeddedFrames.append(pi);
 	}
-
-	// Write paragraph styles
-	QList<QString>::Iterator it;
-	QList<QString> names = lists.styleNames();
-	QList<int> styleList = m_Doc->getSortedStyleList();
-	for (int i = 0; i < styleList.count(); ++i)
-	{
-		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
-		if (names.contains(paragraphStyle.name()))
-			putPStyle(writer, paragraphStyle, "STYLE");
-	}
-
+	
 	// Write character styles
-	names = lists.charStyleNames();
-	styleList = m_Doc->getSortedCharStyleList();
+	QList<QString> names = lists.charStyleNames();
+	QList<int> styleList = m_Doc->getSortedCharStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
 	{
 		const CharStyle& charStyle = m_Doc->charStyles()[styleList[i]];
@@ -212,6 +200,16 @@ bool Scribus150Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 		writer.writeStartElement("CHARSTYLE");
 		putNamedCStyle(writer, charStyle);
 		writer.writeEndElement();
+	}
+
+	// Write paragraph styles
+	names = lists.styleNames();
+	styleList = m_Doc->getSortedStyleList();
+	for (int i = 0; i < styleList.count(); ++i)
+	{
+		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
+		if (names.contains(paragraphStyle.name()))
+			putPStyle(writer, paragraphStyle, "STYLE");
 	}
 
 	writeLineStyles(writer, lists.lineStyleNames());
@@ -525,8 +523,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeColors(docu);
 	writeGradients(docu);
 	writeHyphenatorLists(docu);
-	writePStyles(docu);
-	writeCStyles(docu);
+	writeCharStyles(docu);
+	writeParagraphStyles(docu);
 	writeTableStyles(docu);
 	writeCellStyles(docu);
 	writeLineStyles(docu);
@@ -801,7 +799,7 @@ void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePStyles(ScXmlStreamWriter & docu)
+void Scribus150Format::writeParagraphStyles(ScXmlStreamWriter & docu)
 {
 	QList<int> styleList = m_Doc->getSortedStyleList();
 	for (int a = 0; a < styleList.count(); ++a)
@@ -927,7 +925,7 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 }
 
 
-void Scribus150Format::writeCStyles(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeCharStyles(ScXmlStreamWriter & docu) 
 {
 	QList<int> styleList = m_Doc->getSortedCharStyleList();
 	for (int a = 0; a < styleList.count(); ++a)

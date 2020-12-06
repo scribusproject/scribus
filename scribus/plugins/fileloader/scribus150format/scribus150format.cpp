@@ -202,7 +202,6 @@ void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 
 bool Scribus150Format::loadElements(const QString& data, const QString& fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
 {
-	ParagraphStyle vg;
 	isNewFormat = false;
 	LayerToPaste = toLayer;
 	Xp = Xp_in;
@@ -214,10 +213,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	QList<PageItem*> TableItemsF;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> WeldItems;
-	QMap<int,PageItem*> TableID;
-	QMap<int,PageItem*> TableIDF;
-	QMap<int,PageItem*> TableIDM;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> TableID;
+	QMap<int, PageItem*> TableIDF;
+	QMap<int, PageItem*> TableIDM;
+	QMap<int, PageItem*> WeldID;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
 	QStack< QList<PageItem*> > groupStackPI;
@@ -228,6 +227,8 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
 
+	parStyleMap.clear();
+	charStyleMap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -283,7 +284,12 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("NAME");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
 			readColor(m_Doc->PageColors, attrs);
+		}
 		if (tagName == "Gradient")
 		{
 			VGradient gra;
@@ -292,31 +298,27 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			if (!success)
 				break;
 			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
-			if (!grName.isEmpty())
-			{
+			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
-			}
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg);
-			StyleSet<ParagraphStyle>tmp;
-			tmp.create(vg);
-			m_Doc->redefineStyles(tmp, false);
+			ParagraphStyle pstyle;
+			getStyle(pstyle, reader, nullptr, m_Doc, true);
 		}
 		if (tagName == "CHARSTYLE")
 		{
 			CharStyle cstyle;
-			StyleSet<CharStyle> temp;
-			ScXmlStreamAttributes attrs = reader.scAttributes();
-			readNamedCharacterStyleAttrs(m_Doc, attrs, cstyle);
-			temp.create(cstyle);
-			m_Doc->redefineCharStyles(temp, false);
+			getStyle(cstyle, reader, nullptr, m_Doc, true);
 		}
 		if (tagName == "TableStyle")
 		{
 			TableStyle tstyle;
 			readTableStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->tableStyles().contains(tstyle.name()))
+				continue;
 			StyleSet<TableStyle> temp;
 			temp.create(tstyle);
 			m_Doc->redefineTableStyles(temp, false);
@@ -325,6 +327,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		{
 			CellStyle tstyle;
 			readCellStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->cellStyles().contains(tstyle.name()))
+				continue;
 			StyleSet<CellStyle> temp;
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
@@ -339,11 +345,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 			multiLine ml;
 			QString mlName = attrs.valueAsString("Name");
 			success = readMultiline(ml, reader);
-			if (!success) break;
-			if (!mlName.isEmpty())
-			{
+			if (!success)
+				break;
+			if (!mlName.isEmpty() && !m_Doc->docLineStyles.contains(mlName))
 				m_Doc->docLineStyles.insert(mlName, ml);
-			}
 		}
 		if ((tagName == "ITEM") || (tagName == "PAGEOBJECT") || (tagName == "FRAMEOBJECT"))
 		{
@@ -746,9 +751,10 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 
 bool Scribus150Format::loadStory(const QByteArray& data, StoryText& story, PageItem* item)
 {
-	ParagraphStyle vg;
 	isNewFormat = false;
 
+	parStyleMap.clear();
+	charStyleMap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -816,13 +822,14 @@ bool Scribus150Format::loadStory(const QByteArray& data, StoryText& story, PageI
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg);
+			ParagraphStyle pstyle;
+			readParagraphStyle(m_Doc, reader, pstyle);
 			// FIXME: import style under new name if existing
 			// Do not break current doc for now
-			if (m_Doc->paragraphStyles().contains(vg.name()))
+			if (m_Doc->paragraphStyles().contains(pstyle.name()))
 				continue;
 			StyleSet<ParagraphStyle> tmp;
-			tmp.create(vg);
+			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
 		if (tagName == "CHARSTYLE")
@@ -930,20 +937,20 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		Q_ASSERT(m_Doc == nullptr || m_AvailableFonts == nullptr);
 		return false;
 	}
-	ParagraphStyle vg;
+
 	Xp = 0.0;
 	Yp = 0.0;
 	GrX = 0.0;
 	GrY = 0.0;
 	isNewFormat = false;
 
-	QMap<int,PageItem*> TableID;
-	QMap<int,PageItem*> TableIDM;
-	QMap<int,PageItem*> TableIDF;
+	QMap<int, PageItem*> TableID;
+	QMap<int, PageItem*> TableIDM;
+	QMap<int, PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
@@ -1501,7 +1508,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
 		return false;
 	}
-	ParagraphStyle vg;
+
 	Xp = 0.0;
 	Yp = 0.0;
 	GrX = 0.0;
@@ -1511,13 +1518,13 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	isNewFormat = false;
 
-	QMap<int,PageItem*> TableID;
-	QMap<int,PageItem*> TableIDM;
-	QMap<int,PageItem*> TableIDF;
+	QMap<int, PageItem*> TableID;
+	QMap<int, PageItem*> TableIDM;
+	QMap<int, PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,PageItem*> WeldID;
+	QMap<int, PageItem*> WeldID;
 	QList<PageItem*> WeldItems;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
@@ -1555,6 +1562,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_Doc->autoSaveTimer->isActive())
 		m_Doc->autoSaveTimer->stop();
 
+	parStyleMap.clear();
+	charStyleMap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -1665,9 +1674,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg);
+			ParagraphStyle pstyle;
+			readParagraphStyle(m_Doc, reader, pstyle);
 			StyleSet<ParagraphStyle>tmp;
-			tmp.create(vg);
+			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
 		if (tagName == "CHARSTYLE")
@@ -2789,7 +2799,12 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 {
 	static const QString CPARENT("CPARENT");
 	if (attrs.hasAttribute(CPARENT))
-		newStyle.setParent(attrs.valueAsString(CPARENT));
+	{
+		QString parentStyle = attrs.valueAsString(CPARENT);
+		if (!parentStyle.isEmpty())
+			parentStyle = charStyleMap.value(parentStyle, parentStyle);
+		newStyle.setParent(parentStyle);
+	}
 
 	static const QString FONT("FONT");
 	if (attrs.hasAttribute(FONT))
@@ -2956,13 +2971,12 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	else
 		newStyle.setDefaultStyle(false);
 
-	QString parentStyle = attrs.valueAsString("PARENT", "");
+	QString parentStyle = attrs.valueAsString("PARENT", QString());
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 	{
+		parentStyle = parStyleMap.value(parentStyle, parentStyle);
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);
-		else if (parStyleMap.contains(parentStyle))
-			newStyle.setParent(parStyleMap.value(parentStyle));
 		else
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -3133,7 +3147,7 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(BSHADE))
 		newStyle.setBackgroundShade(attrs.valueAsInt(BSHADE, 100));
 
-	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
+	readCharacterStyleAttrs(doc, attrs, newStyle.charStyle());
 
 	//	newStyle.tabValues().clear();
 	QList<ParagraphStyle::TabRecord> tbs;
@@ -6361,7 +6375,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
 		return false;
 	}
-	ParagraphStyle vg;
+
 	Xp = 0.0;
 	Yp = 0.0;
 	GrX = 0.0;
@@ -6397,6 +6411,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	parStyleMap.clear();
+	charStyleMap.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -6458,7 +6473,12 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 
 		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("NAME");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
 			readColor(m_Doc->PageColors, attrs);
+		}
 		if (tagName == "Gradient" && attrs.valueAsString("Name") != CommonStrings::None)
 		{
 			VGradient gra;
@@ -6467,10 +6487,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (!success)
 				break;
 			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
-			if (!grName.isEmpty())
-			{
+			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
-			}
 		}
 		if (tagName == "JAVA")
 		{
@@ -6506,9 +6524,9 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QString mlName  = attrs.valueAsString("Name");
 			QString mlName2 = mlName;
 			readMultiline(ml, reader);
-			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.find(mlName2);
+			QHash<QString, multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
 			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+				mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
 			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
@@ -6526,7 +6544,37 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "STYLE")
 		{
-			getStyle(vg, reader, nullptr, m_Doc, true);
+			ParagraphStyle pstyle;
+			getStyle(pstyle, reader, nullptr, m_Doc, true);
+		}
+		if (tagName == "CHARSTYLE")
+		{
+			CharStyle cstyle;
+			getStyle(cstyle, reader, nullptr, m_Doc, true);
+		}
+		if (tagName == "TableStyle")
+		{
+			TableStyle tstyle;
+			readTableStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->tableStyles().contains(tstyle.name()))
+				continue;
+			StyleSet<TableStyle> temp;
+			temp.create(tstyle);
+			m_Doc->redefineTableStyles(temp, false);
+		}
+		if (tagName == "CellStyle")
+		{
+			CellStyle tstyle;
+			readCellStyle(m_Doc, reader, tstyle);
+			// FIXME: import style under new name if existing
+			// Do not break current doc for now
+			if (m_Doc->cellStyles().contains(tstyle.name()))
+				continue;
+			StyleSet<CellStyle> temp;
+			temp.create(tstyle);
+			m_Doc->redefineCellStyles(temp, false);
 		}
 		if (((tagName == "PAGE") || (tagName == "MASTERPAGE")) && (attrs.valueAsInt("NUM") == pageNumber))
 		{
@@ -7026,52 +7074,92 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	return true;
 }
 
-void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool fl)
+void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool equiv)
 {
 	bool  found(false);
 	const StyleSet<ParagraphStyle> &docParagraphStyles = tempStyles ? *tempStyles : doc->paragraphStyles();
+	
+	style.erase();
 	readParagraphStyle(doc, reader, style);
-	for (int xx = 0; xx < docParagraphStyles.count(); ++xx)
+
+	// Do not duplicate default style
+	if (style.isDefaultStyle())
+		style.setDefaultStyle(false);
+
+	const ParagraphStyle* foundStyle = docParagraphStyles.getPointer(style.name());
+	if (foundStyle)
 	{
-		const ParagraphStyle& paraStyle = docParagraphStyles[xx];
-		if (style.name() == paraStyle.name())
+		found = style.equiv(*foundStyle);
+		if (found)
+			return;
+		QString newName = docParagraphStyles.getUniqueCopyName(style.name());
+		parStyleMap[style.name()] = newName;
+		style.setName(newName);
+	}
+
+	if (equiv)
+	{
+		const ParagraphStyle* equivStyle = docParagraphStyles.findEquivalent(style);
+		if (equivStyle)
 		{
-			if (style.equiv(paraStyle))
-			{
-				found = true;
-			}
-			else
-			{
-				style.setName(docParagraphStyles.getUniqueCopyName(paraStyle.name()));
-				found = false;
-			}
-			break;
+			parStyleMap[style.name()] = equivStyle->name();
+			style.setName(equivStyle->name());
+			return;
 		}
 	}
-	if (!found && fl)
+
+	if (tempStyles)
+		tempStyles->create(style);
+	else
 	{
-		for (int xx = 0; xx < docParagraphStyles.count(); ++xx)
+		StyleSet<ParagraphStyle> tmp;
+		tmp.create(style);
+		doc->redefineStyles(tmp, false);
+	}
+}
+
+void Scribus150Format::getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *tempStyles, ScribusDoc* doc, bool equiv)
+{
+	bool  found(false);
+	const StyleSet<CharStyle> &docCharStyles = tempStyles ? *tempStyles : doc->charStyles();
+	
+	style.erase();
+	ScXmlStreamAttributes attrs = reader.scAttributes();
+	readNamedCharacterStyleAttrs(m_Doc, attrs, style);
+
+	// Do not duplicate default style
+	if (style.isDefaultStyle())
+		style.setDefaultStyle(false);
+
+	const CharStyle* foundStyle = docCharStyles.getPointer(style.name());
+	if (foundStyle)
+	{
+		found = style.equiv(*foundStyle);
+		if (found)
+			return;
+		QString newName = docCharStyles.getUniqueCopyName(style.name());
+		parStyleMap[style.name()] = newName;
+		style.setName(newName);
+	}
+
+	if (equiv)
+	{
+		const CharStyle* equivStyle = docCharStyles.findEquivalent(style);
+		if (equivStyle)
 		{
-			const ParagraphStyle& paraStyle = docParagraphStyles[xx];
-			if (style.equiv(paraStyle))
-			{
-				parStyleMap[style.name()] = paraStyle.name();
-				style.setName(paraStyle.name());
-				found = true;
-				break;
-			}
+			charStyleMap[style.name()] = equivStyle->name();
+			style.setName(equivStyle->name());
+			return;
 		}
 	}
-	if (!found)
+
+	if (tempStyles)
+		tempStyles->create(style);
+	else
 	{
-		if (tempStyles)
-			tempStyles->create(style);
-		else
-		{
-			StyleSet<ParagraphStyle> tmp;
-			tmp.create(style);
-			doc->redefineStyles(tmp, false);
-		}
+		StyleSet<CharStyle> tmp;
+		tmp.create(style);
+		doc->redefineCharStyles(tmp, false);
 	}
 }
 
@@ -7084,6 +7172,9 @@ bool Scribus150Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
 		return false;
+
+	parStyleMap.clear();
+	charStyleMap.clear();
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
@@ -7121,6 +7212,9 @@ bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
 		return false;
+
+	parStyleMap.clear();
+	charStyleMap.clear();
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;

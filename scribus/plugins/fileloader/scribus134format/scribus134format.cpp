@@ -191,13 +191,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
 		return false;
 	}
-	ParagraphStyle vg;
+
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	QMap<int,PageItem*> TableID;
-	QMap<int,PageItem*> TableIDM;
-	QMap<int,PageItem*> TableIDF;
+	QMap<int, PageItem*> TableID;
+	QMap<int, PageItem*> TableIDM;
+	QMap<int, PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
 	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
@@ -230,6 +230,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_Doc->autoSaveTimer->isActive())
 		m_Doc->autoSaveTimer->stop();
 	
+	parStyleMap.clear();
+	charStyleMap.clear();
 	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
@@ -323,9 +325,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (tagName == "STYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg);
+			ParagraphStyle pstyle;
+			readParagraphStyle(m_Doc, reader, pstyle);
 			StyleSet<ParagraphStyle>tmp;
-			tmp.create(vg);
+			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
 		if (tagName == "CHARSTYLE")
@@ -1216,7 +1219,12 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 {
 	static const QString CPARENT("CPARENT");
 	if (attrs.hasAttribute(CPARENT))
-		newStyle.setParent(attrs.valueAsString(CPARENT));
+	{
+		QString parentStyle = attrs.valueAsString(CPARENT);
+		if (!parentStyle.isEmpty())
+			parentStyle = charStyleMap.value(parentStyle, parentStyle);
+		newStyle.setParent(parentStyle);
+	}
 
 	static const QString FONT("FONT");
 	if (attrs.hasAttribute(FONT))
@@ -1364,13 +1372,12 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	else
 		newStyle.setDefaultStyle(false);
 
-	QString parentStyle = attrs.valueAsString("PARENT", "");
+	QString parentStyle = attrs.valueAsString("PARENT", QString());
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 	{
+		parentStyle = parStyleMap.value(parentStyle, parentStyle);
 		if (m_Doc->styleExists(parentStyle))
 			newStyle.setParent(parentStyle);
-		else if (parStyleMap.contains(parentStyle))
-			newStyle.setParent(parStyleMap.value(parentStyle));
 		else
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
@@ -1447,7 +1454,7 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(MaxGlyphExtend))
 		newStyle.setMaxGlyphExtension(attrs.valueAsDouble(MaxGlyphExtend));
 	
-	readCharacterStyleAttrs( doc, attrs, newStyle.charStyle());
+	readCharacterStyleAttrs(doc, attrs, newStyle.charStyle());
 
 	//	newStyle.tabValues().clear();
 	int numTabs = attrs.valueAsInt("NUMTAB", 0);
@@ -2172,7 +2179,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
-	QMap<int,PageItem*> TableID2;
+	QMap<int, PageItem*> TableID2;
 	QList<PageItem*> TableItems2;
 
 	pat.setDoc(doc);
@@ -3178,14 +3185,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		Q_ASSERT(m_Doc==nullptr || m_AvailableFonts==nullptr);
 		return false;
 	}
-	ParagraphStyle vg;
+
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
 	ScPage* newPage = nullptr;
 	
 	QString tmp;
-	QMap<int,PageItem*> TableID;
+	QMap<int, PageItem*> TableID;
 	QList<PageItem*> TableItems;
 	QStack< QList<PageItem*> > groupStackFI;
 	QStack< QList<PageItem*> > groupStackMI;
@@ -3218,6 +3225,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemCountM = 0;
 
 	parStyleMap.clear();
+	charStyleMap.clear();
 	legacyStyleMap.clear();
 	legacyStyleMap[0] = "0";
 	legacyStyleMap[1] = "1";
@@ -3299,7 +3307,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			readMultiline(ml, reader);
 			QHash<QString,multiLine>::ConstIterator mlit = m_Doc->docLineStyles.constFind(mlName2);
 			if (mlit != m_Doc->docLineStyles.constEnd() && ml != mlit.value())
-					mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
+				mlName2 = getUniqueName(mlName2, m_Doc->docLineStyles);
 			m_Doc->docLineStyles.insert(mlName2, ml);
 		}
 		if (tagName == "Pattern")
@@ -3317,7 +3325,13 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (tagName == "STYLE")
 		{
-			getStyle(vg, reader, nullptr, m_Doc, true);
+			ParagraphStyle pStyle;
+			getStyle(pStyle, reader, nullptr, m_Doc, true);
+		}
+		if (tagName == "CHARSTYLE")
+		{
+			CharStyle cstyle;
+			getStyle(cstyle, reader, nullptr, m_Doc, true);
 		}
 		if (((tagName == "PAGE") || (tagName == "MASTERPAGE")) && (attrs.valueAsInt("NUM") == pageNumber))
 		{
@@ -3677,64 +3691,106 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	return true;
 }
 
-void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool fl)
+void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *tempStyles, ScribusDoc* doc, bool equiv)
 {
 	bool  found(false);
 	const StyleSet<ParagraphStyle> &docParagraphStyles = tempStyles ? *tempStyles : doc->paragraphStyles();
+	
+	style.erase();
 	readParagraphStyle(doc, reader, style);
-	for (int i = 0; i < docParagraphStyles.count(); ++i)
+
+	// Do not duplicate default style
+	if (style.isDefaultStyle())
+		style.setDefaultStyle(false);
+
+	const ParagraphStyle* foundStyle = docParagraphStyles.getPointer(style.name());
+	if (foundStyle)
 	{
-		const ParagraphStyle& paraStyle = docParagraphStyles[i];
-		if (style.name() == paraStyle.name())
+		found = style.equiv(*foundStyle);
+		if (found)
 		{
-			if (style.equiv(paraStyle))
+			if (equiv)
 			{
-				if (fl)
-				{
-					legacyStyleMap[legacyStyleCount] = style.name();
-					legacyStyleCount++;
-				}
-				found = true;
-			}
-			else
-			{
-				style.setName(docParagraphStyles.getUniqueCopyName(paraStyle.name()));
-				found = false;
-			}
-			break;
-		}
-	}
-	if (!found && fl)
-	{
-		for (int i = 0; i < docParagraphStyles.count(); ++i)
-		{
-			const ParagraphStyle& paraStyle = docParagraphStyles[i];
-			if (style.equiv(paraStyle))
-			{
-				parStyleMap[style.name()] = paraStyle.name();
-				style.setName(paraStyle.name());
 				legacyStyleMap[legacyStyleCount] = style.name();
 				legacyStyleCount++;
-				found = true;
-				break;
 			}
+			return;
 		}
+		QString newName = docParagraphStyles.getUniqueCopyName(style.name());
+		parStyleMap[style.name()] = newName;
+		style.setName(newName);
 	}
-	if (!found)
+
+	if (equiv)
 	{
-		if (tempStyles)
-			tempStyles->create(style);
-		else
+		const ParagraphStyle* equivStyle = docParagraphStyles.findEquivalent(style);
+		if (equivStyle)
 		{
-			StyleSet<ParagraphStyle> tmp;
-			tmp.create(style);
-			doc->redefineStyles(tmp, false);
-		}
-		if (fl)
-		{
+			parStyleMap[style.name()] = equivStyle->name();
+			style.setName(equivStyle->name());
 			legacyStyleMap[legacyStyleCount] = style.name();
 			legacyStyleCount++;
+			return;
 		}
+	}
+
+	if (tempStyles)
+		tempStyles->create(style);
+	else
+	{
+		StyleSet<ParagraphStyle> tmp;
+		tmp.create(style);
+		doc->redefineStyles(tmp, false);
+	}
+	if (equiv)
+	{
+		legacyStyleMap[legacyStyleCount] = style.name();
+		legacyStyleCount++;
+	}
+}
+
+void Scribus134Format::getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *tempStyles, ScribusDoc* doc, bool equiv)
+{
+	bool  found(false);
+	const StyleSet<CharStyle> &docCharStyles = tempStyles ? *tempStyles : doc->charStyles();
+	
+	style.erase();
+	ScXmlStreamAttributes attrs = reader.scAttributes();
+	readNamedCharacterStyleAttrs(m_Doc, attrs, style);
+
+	// Do not duplicate default style
+	if (style.isDefaultStyle())
+		style.setDefaultStyle(false);
+
+	const CharStyle* foundStyle = docCharStyles.getPointer(style.name());
+	if (foundStyle)
+	{
+		found = style.equiv(*foundStyle);
+		if (found)
+			return;
+		QString newName = docCharStyles.getUniqueCopyName(style.name());
+		parStyleMap[style.name()] = newName;
+		style.setName(newName);
+	}
+
+	if (equiv)
+	{
+		const CharStyle* equivStyle = docCharStyles.findEquivalent(style);
+		if (equivStyle)
+		{
+			charStyleMap[style.name()] = equivStyle->name();
+			style.setName(equivStyle->name());
+			return;
+		}
+	}
+
+	if (tempStyles)
+		tempStyles->create(style);
+	else
+	{
+		StyleSet<CharStyle> tmp;
+		tmp.create(style);
+		doc->redefineCharStyles(tmp, false);
 	}
 }
 
@@ -3747,6 +3803,9 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
 		return false;
+
+	parStyleMap.clear();
+	charStyleMap.clear();
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
@@ -3784,6 +3843,9 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
 		return false;
+
+	parStyleMap.clear();
+	charStyleMap.clear();
 
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;

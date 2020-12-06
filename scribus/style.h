@@ -24,7 +24,6 @@
 #include "styles/stylecontext.h"
 #include "desaxe/saxio.h"
 
-
 /**
  *  This is the base class for all style-like objects: CharStyles, 
  *  ParagraphStyles, LineStyles, FrameStyles, CellStyles,
@@ -34,7 +33,8 @@
  *  the stored m_contextversion against the StyleContext's version and updates all
  *  attributes if they are different.
  */
-class SCRIBUS_API BaseStyle : public SaxIO {
+class SCRIBUS_API BaseStyle : public SaxIO
+{
 protected:
 	bool m_isDefaultStyle;
 	QString m_name;
@@ -42,6 +42,7 @@ protected:
 	int m_contextversion;
 	QString m_parent;
 	QString m_shortcut;
+
 public:
 //	static const short NOVALUE = -16000;
 
@@ -81,6 +82,8 @@ public:
 	QString name() const             { return m_name; }
 	void setName(const QString& n)   { m_name = n.isEmpty() ? "" : n; }
 	bool hasName() const             { return ! m_name.isEmpty(); }
+
+	QString baseName() const;
 
 	virtual QString displayName() const = 0;/*{ 	
 		if ( hasName() || !hasParent() || !m_context)

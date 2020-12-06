@@ -38,6 +38,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		// Standard plugin implementation
 		Scribus134Format();
 		virtual ~Scribus134Format();
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -83,7 +84,8 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		
 		QIODevice* slaReader(const QString & fileName);
 
-		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
+		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool equiv);
+		void getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *docCharStyles, ScribusDoc* doc, bool equiv);
 
 		void readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
 		void readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs);
@@ -116,7 +118,8 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
 
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pagenr = -2 /* currentPage*/);
-
+		
+		QMap<QString, QString> charStyleMap;
 		QMap<QString, QString> parStyleMap;
 		QMap<uint, QString> legacyStyleMap;
 		uint legacyStyleCount;
