@@ -27,5 +27,6 @@
     <glob pattern="*.scd" />
     <glob pattern="*.scd.gz" />
     <glob pattern="*.slaz" />
+    <generic-icon name="net.scribus.Scribus"/>
   </mime-type>
 </mime-info>

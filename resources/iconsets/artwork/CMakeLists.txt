@@ -11,7 +11,7 @@ if(NOT WIN32 AND NOT APPLE)
 	FOREACH(res 16x16 32x32 128x128 256x256 512x512 1024x1024)
 		INSTALL(FILES
 			icon_${res}.png
-			RENAME scribus${TAG_VERSION}.png
+			RENAME net.scribus.Scribus.png
 			DESTINATION ${SYSICONDIR}/${res}/apps/
 		)
 	ENDFOREACH(res)

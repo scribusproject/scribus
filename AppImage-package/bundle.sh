@@ -46,10 +46,7 @@ make DESTDIR=appdir -j$(nproc) install
 cp AppImage-package/AppRun appdir/
 chmod +x appdir/AppRun
 
-cp ./appdir/usr/share/icons/hicolor/256x256/apps/scribus.png ./appdir/
-
-# TODO: is this needed?
-sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop
+cp ./appdir/usr/share/icons/hicolor/256x256/apps/net.scribus.Scribus.png ./appdir/
 
 ########################################################################
 # Bundle everyhting
@@ -121,7 +118,7 @@ EOF
 # Finalize AppDir but do not turn into AppImage just yet
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
+ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/net.scribus.Scribus.desktop \
                                                -appimage -unsupported-bundle-everything \
                                                -executable=appdir/usr/bin/python3.6 \
                                                -executable=appdir/usr/lib/python3.6/lib-dynload/_tkinter.cpython-36m-x86_64-linux-gnu.so \
