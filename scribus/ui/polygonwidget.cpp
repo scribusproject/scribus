@@ -209,13 +209,22 @@ void PolygonWidget::updatePreview()
 	}
 	double roundness = curvatureSpinBox->value() / 100.0;
 	double innerround = outerCurvatureSpinBox->value() / 100.0;
-	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);
+
+	int polyWidth = Preview->width() - 6;
+	int polyHeight = Preview->height() - 6;
+	int pixWidth = (Preview->width() - 5) * devicePixelRatioF();
+	int pixHeight = (Preview->height() - 5) * devicePixelRatioF();
+
+	QPixmap pm(pixWidth, pixHeight);
+	pm.setDevicePixelRatio(devicePixelRatioF());
 	pm.fill(Qt::white);
+
 	QPainter p;
 	p.begin(&pm);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	QPainterPath pp = regularPolygonPath(Preview->width() - 6, Preview->height() - 6, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
+	QPainterPath pp = regularPolygonPath(polyWidth, polyHeight, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
 	{
@@ -230,15 +239,16 @@ void PolygonWidget::updatePreview()
 		pp = pp * m;
 	}
 	br = pp.boundingRect();
-	if ((br.height() > Preview->height() - 6) || (br.width() > Preview->width() - 6))
+	if ((br.height() > polyHeight) || (br.width() > polyWidth))
 	{
 		QTransform ma;
-		double sca = static_cast<double>(qMax(Preview->height() - 6, Preview->width() - 6)) / static_cast<double>(qMax(br.width(), br.height()));
+		double sca = static_cast<double>(qMax(polyHeight, polyWidth)) / static_cast<double>(qMax(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = pp * ma;
 	}
 	p.strokePath(pp, p.pen());
 	p.end();
+
 	Preview->setPixmap(pm);
 }
 

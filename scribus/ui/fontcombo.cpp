@@ -501,8 +501,11 @@ FontFamilyDelegate::FontFamilyDelegate(QObject *parent)
 
 void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+	double pixelRatio = painter->device()->devicePixelRatioF();
+	int pixmapW = qRound(pixelRatio * option.rect.width());
+	int pixmapH = qRound(pixelRatio * option.rect.height());
 	QString text(index.data(Qt::DisplayRole).toString());
-	QString wh=QString("-w%1h%2").arg(option.rect.width()).arg(option.rect.height());
+	QString wh = QString("-w%1h%2").arg(pixmapW).arg(pixmapH);
 	QPixmap cachedPixmap;
 	QString cacheKey = text + wh;
 	if (option.state & QStyle::State_Selected)
@@ -516,8 +519,11 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	const ScFace& scFace = getScFace(this->parent()->metaObject()->className(), text);
 
-	QPixmap  pixmap(option.rect.width(), option.rect.height());
-	QPixmap  invPixmap(option.rect.width(), option.rect.height());
+	QPixmap  pixmap(pixmapW, pixmapH);
+	QPixmap  invPixmap(pixmapW, pixmapH);
+	pixmap.setDevicePixelRatio(pixelRatio);
+	invPixmap.setDevicePixelRatio(pixelRatio);
+
 	QPainter pixPainter(&pixmap);
 	QPainter invpixPainter(&invPixmap);
 

@@ -57,6 +57,11 @@ public:
 	virtual void setAntialisingEnabled(bool enabled);
 
 	/**
+	* @brief Set device pixel ratio
+	*/
+	virtual void setDevicePixelRatio(double ratio);
+
+	/**
 	 * @brief Set preview resolution (in dot per inch)
 	 */
 	virtual void setPreviewResolution(int res);
@@ -79,6 +84,8 @@ public:
 protected:
 	ScribusDoc* m_doc { nullptr };
 	PrintOptions m_printOptions;
+
+	double m_devicePixelRatio { 1.0 };
 
 	int  m_previewResolution { 72 };
 	bool m_useAntialiasing { true };

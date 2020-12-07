@@ -30,6 +30,9 @@ class SCRIBUS_API SampleItem : QObject
 		SampleItem();
 		~SampleItem();
 
+		/*! \brief Set device pixel ratio */
+		void setDevicePixelRatio(double ratio) { m_devicePixelRatio = ratio; }
+
 		/*! \brief Set sample text.
 		\param aText QString to set. */
 		void setText(const QString& aText);
@@ -106,6 +109,8 @@ class SCRIBUS_API SampleItem : QObject
 		ScribusDoc *m_Doc;
 		//! \brief Is the doc created used only? true = used
 		int m_bgShade;
+		//! \brief Device pixel ratio
+		double m_devicePixelRatio { 1.0 };
 };
 
 #endif

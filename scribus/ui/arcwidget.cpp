@@ -63,20 +63,29 @@ void ArcWidget::saveGuiToPrefs(struct ItemToolPrefs *prefsData)
 
 void ArcWidget::updatePreview()
 {
-	QPixmap pm = QPixmap(Preview->width() - 5, Preview->height() - 5);
+	int arcWidth = Preview->width() - 11;
+	int arcHeight = Preview->height() - 11;
+	int pixWidth = Preview->width() - 5;
+	int pixHeight = Preview->height() - 5;
+
+	QPixmap pm = QPixmap(pixWidth * devicePixelRatioF(), pixHeight * devicePixelRatioF());
+	pm.setDevicePixelRatio(devicePixelRatioF());
 	pm.fill(Qt::white);
+
 	QPainter p;
 	p.begin(&pm);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
 	QPainterPath path;
-	path.moveTo(pm.width() / 2.0, pm.height() / 2.0);
+	path.moveTo(pixWidth / 2.0, pixHeight / 2.0);
 	double nSweep = endAngle->value() - startAngle->value();
 	if (nSweep < 0)
 		nSweep += 360;
-	path.arcTo(3.0, 3.0, pm.width() - 6, pm.height() - 6, startAngle->value(), nSweep);
+	path.arcTo(3.0, 3.0, arcWidth, arcHeight, startAngle->value(), nSweep);
 	path.closeSubpath();
 	p.strokePath(path, p.pen());
 	p.end();
+
 	Preview->setPixmap(pm);
 }

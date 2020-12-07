@@ -379,6 +379,7 @@ void Prefs_ItemTools::updateFontPreview()
 		return;
 
 	SampleItem si;
+	si.setDevicePixelRatio(devicePixelRatioF());
 	si.setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (textFrameFillColorComboBox->currentText() != CommonStrings::tr_NoneColor)
 	{
@@ -388,8 +389,8 @@ void Prefs_ItemTools::updateFontPreview()
 		}
 		else
 		{
-			PrefsManager& prefsManager=PrefsManager::instance();
-			ColorList* colorList=prefsManager.colorSetPtr();
+			PrefsManager& prefsManager = PrefsManager::instance();
+			ColorList* colorList = prefsManager.colorSetPtr();
 			si.setBgColor((*colorList)[textFrameFillColorComboBox->currentText()].getRawRGBColor());
 		}
 		si.setBgShade(textFrameFillShadingSpinBox->value());
@@ -405,8 +406,8 @@ void Prefs_ItemTools::updateFontPreview()
 		}
 		else
 		{
-			PrefsManager& prefsManager=PrefsManager::instance();
-			ColorList* colorList=prefsManager.colorSetPtr();
+			PrefsManager& prefsManager = PrefsManager::instance();
+			ColorList* colorList = prefsManager.colorSetPtr();
 			si.setTxColor((*colorList)[textColorComboBox->currentText()].getRawRGBColor());
 		}
 		si.setTxShade(textColorShadingSpinBox->value());

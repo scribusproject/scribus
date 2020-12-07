@@ -74,8 +74,9 @@ void PrintPreviewCreator_PDF::cleanupTemporaryFiles()
 QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 {
 	int ret = -1;
-	double w = m_doc->Pages->at(pageIndex)->width() * m_previewResolution / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * m_previewResolution / 72.0;
+	int gsRes = qRound(m_previewResolution * m_devicePixelRatio);
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * gsRes / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * gsRes / 72.0);
 
 	QPixmap pixmap;
 	if (m_printOptionsChanged || (m_pageIndex != pageIndex))
@@ -91,9 +92,9 @@ QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 	if (m_printOptionsChanged || m_renderingOptionsChanged || (m_pageIndex != pageIndex))
 	{
 		if (m_sepPreviewEnabled && m_haveTiffSep)
-			ret = renderPreviewSep(pageIndex, m_previewResolution);
+			ret = renderPreviewSep(pageIndex, gsRes);
 		else
-			ret = renderPreview(pageIndex, m_previewResolution);
+			ret = renderPreview(pageIndex, gsRes);
 		if (ret > 0)
 		{
 			imageLoadError(pixmap, pageIndex);
@@ -109,8 +110,8 @@ QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 
 		ScImage im;
 		bool mode;
-		int w2 = qRound(w);
-		int h2 = qRound(h);
+		int w2 = w;
+		int h2 = h;
 		image = QImage(w2, h2, QImage::Format_ARGB32);
 		image.fill(qRgba(0, 0, 0, 0));
 		
@@ -306,9 +307,11 @@ QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 		}
 	}
 
+	image.setDevicePixelRatio(m_devicePixelRatio);
 	if (m_showTransparency)
 	{
 		pixmap = QPixmap(image.width(), image.height());
+		pixmap.setDevicePixelRatio(m_devicePixelRatio);
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pixmap);
@@ -318,6 +321,7 @@ QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 	}
 	else
 		pixmap = QPixmap::fromImage(image);
+	pixmap.setDevicePixelRatio(m_devicePixelRatio);
 
 	m_pageIndex = pageIndex;
 	m_printOptionsChanged = false;
@@ -361,14 +365,14 @@ int PrintPreviewCreator_PDF::renderPreview(int pageIndex, int res)
 
 	QStringList args;
 	QString tmp, tmp2, tmp3;
-	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * res / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * res / 72.0);
 
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(w)), tmp3.setNum(qRound(h))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(w), tmp3.setNum(h)) );
 	if (m_sepPreviewEnabled)
 	{
 		if (!m_haveTiffSep)
@@ -439,14 +443,14 @@ int PrintPreviewCreator_PDF::renderPreviewSep(int pageIndex, int res)
 	QStringList args, args1, args2, args3;
 
 	QString tmp, tmp2, tmp3;
-	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * res / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * res / 72.0);
 
 	args1.append( "-q" );
 	args1.append( "-dNOPAUSE" );
 	args1.append( "-dPARANOIDSAFER" );
 	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(w)), tmp3.setNum(qRound(h))) );
+	args1.append( QString("-g%1x%2").arg(tmp2.setNum(w), tmp3.setNum(h)) );
 	if (m_useAntialiasing)
 	{
 		args1.append("-dTextAlphaBits=4");
