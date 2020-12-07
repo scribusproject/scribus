@@ -23,10 +23,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <cassert>
 #include <iostream>
+
 #include <QByteArray>
 #include <QDebug>
 #include <QGlobalStatic>
 #include <QMessageBox>
+#include <QScreen>
 
 #include "colormgmt/sccolormgmtenginefactory.h"
 #include "commonstrings.h"
@@ -208,7 +210,20 @@ void ScribusCore::initSplash(bool showSplash)
 	m_SplashScreen = nullptr;
 	if (!showSplash)
 		return;
+
+	QScreen* primaryScreeen = qApp->primaryScreen();
+	double pixelRatio = primaryScreeen ? primaryScreeen->devicePixelRatio() : 1.0;
 	QPixmap pix = IconManager::instance().loadPixmap("scribus_splash.png", true);
+	if (pixelRatio != 1.0)
+	{
+		int w = qRound(pix.width() * pixelRatio);
+		int h = qRound(pix.height() * pixelRatio);
+		double integralPart = 0;
+		bool isIntegerRatio = (modf(pixelRatio, &integralPart) == 0.0);
+		pix = pix.scaled(w, h, Qt::IgnoreAspectRatio, isIntegerRatio ? Qt::FastTransformation : Qt::SmoothTransformation);
+		pix.setDevicePixelRatio(pixelRatio);
+	}
+
 	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != nullptr)
 	{

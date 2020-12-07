@@ -106,9 +106,24 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1 = new QVBoxLayout( tab );
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
+
+	double pixelRatio = devicePixelRatioF();
+	QPixmap splashPixmap = IconManager::instance().loadPixmap("scribus_splash.png", true);
+	double splashPixmapW = splashPixmap.width();
+	double splashPixmapH = splashPixmap.height();
+	if (pixelRatio != 1.0)
+	{
+		int w = qRound(splashPixmap.width() * pixelRatio);
+		int h = qRound(splashPixmap.height() * pixelRatio);
+		double integralPart = 0;
+		bool isIntegerRatio = (modf(pixelRatio, &integralPart) == 0.0);
+		splashPixmap = splashPixmap.scaled(w, h, Qt::IgnoreAspectRatio, isIntegerRatio ? Qt::FastTransformation : Qt::SmoothTransformation);
+		splashPixmap.setDevicePixelRatio(pixelRatio);
+	}
+
 	pixmapLabel1 = new QLabel( tab );
-	pixmapLabel1->setPixmap(IconManager::instance().loadPixmap("scribus_splash.png", true));
-	pixmapLabel1->setFixedSize(QSize(pixmapLabel1->pixmap()->width(), pixmapLabel1->pixmap()->height()));
+	pixmapLabel1->setPixmap(splashPixmap);
+	pixmapLabel1->setFixedSize(QSize(splashPixmapW, splashPixmapH));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab );
