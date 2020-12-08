@@ -10,6 +10,9 @@
 # - Fontconfig
 
 cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
+if (WANT_QT6)
+	cmake_minimum_required(VERSION 3.16.0)
+endif()
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
 	if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
@@ -72,8 +75,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 ########## toplevel compiler flags                                                                  ##########
 message(STATUS "Shared Library Flags: ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 
-#Project Setup
-project(scribus)
 #Set our version values
 #Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX}
 #where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
@@ -88,10 +89,17 @@ endif()
 if (VERSION_PATCH GREATER -1)
 	set (VERSION ${VERSION}.${VERSION_PATCH})
 endif()
+
+#Project Setup
+#Do this now, prior to adding the suffix for SVN
+project(scribus VERSION ${VERSION})
+#LANGUAGES CXX)
+
 if (VERSION_SUFFIX)
 	set (VERSION ${VERSION}.${VERSION_SUFFIX})
 endif()
 message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
+
 
 #Set the permissions to be used when installing plugins
 set(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROUP_READ OWNER_READ OWNER_WRITE)
@@ -372,6 +380,9 @@ endif()
 
 #C++11 Support
 #as of 1.5.5.svn, require C++11
+if (WANT_QT6)
+	set (WANT_CPP17 ON)
+endif()
 if(NOT WANT_CPP14 AND NOT WANT_CPP17)
 	message(STATUS "Enabling C++11 compiler features")
 	set(CMAKE_CXX_STANDARD 11)
@@ -383,6 +394,7 @@ elseif(WANT_CPP17)
 		message(STATUS "Enabling C++17 compiler features")
 		set(CMAKE_CXX_STANDARD 17)
 endif()
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ##############################################################################################################
 ########## Find Dependencies                                                                        ##########

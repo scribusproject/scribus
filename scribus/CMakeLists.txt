@@ -1296,20 +1296,27 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_CAIRO_LIB}")
 
 message("RPATH: ${CMAKE_INSTALL_RPATH}")
 
+IF(NOT WANT_QT6)
+    target_link_libraries(${EXE_NAME}
+		${Qt5Core_LIBRARIES}
+		${Qt5Widgets_LIBRARIES}
+		${Qt5Gui_LIBRARIES}
+		${Qt5Xml_LIBRARIES}
+		${Qt5Network_LIBRARIES}
+		${Qt5OpenGL_LIBRARIES}
+		${Qt5PrintSupport_LIBRARIES}
+	)
+else()
+	target_link_libraries(${EXE_NAME}
+		Qt6::Widgets
+		)
+endif()
+
 target_link_libraries(${EXE_NAME}
-	${Qt5Core_LIBRARIES}
-	${Qt5Widgets_LIBRARIES}
-	${Qt5Gui_LIBRARIES}
-	${Qt5Xml_LIBRARIES}
-	${Qt5Network_LIBRARIES}
-	${Qt5OpenGL_LIBRARIES}
-	${Qt5PrintSupport_LIBRARIES}
-#	${Qt5Quick_LIBRARIES}
 	${CUPS_LIBRARIES}
 	${FREETYPE_LIBRARIES}
 	${HARFBUZZ_LIBRARIES}
 	${ICU_LIBRARIES}
-#	${FONTCONFIG_LIBRARIES}
 	${LIBXML2_LIBRARIES}
 	${TIFF_LIBRARIES}
 	${PNG_LIBRARIES}
@@ -1318,6 +1325,7 @@ target_link_libraries(${EXE_NAME}
 	${WIN32_ONLY_LIBS}
 	${GMAGICK_LIBRARIES}
 )
+
 
 if (TARGET Fontconfig::Fontconfig)
 	target_link_libraries(${EXE_NAME}
