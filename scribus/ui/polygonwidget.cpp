@@ -215,15 +215,19 @@ void PolygonWidget::updatePreview()
 	int pixWidth = (Preview->width() - 5) * devicePixelRatioF();
 	int pixHeight = (Preview->height() - 5) * devicePixelRatioF();
 
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	const QColor& windowColor = palette.color(QPalette::Base);
+
 	QPixmap pm(pixWidth, pixHeight);
 	pm.setDevicePixelRatio(devicePixelRatioF());
-	pm.fill(Qt::white);
+	pm.fill(windowColor);
 
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setBrush(Qt::NoBrush);
-	p.setPen(Qt::black);
+	p.setPen(textColor);
 	QPainterPath pp = regularPolygonPath(polyWidth, polyHeight, cornersSpinBox->value(), applyConvexGroupBox->isChecked(), GetFactor(), rotationSlider->value(), roundness, innerRotationSpinBox->value(), innerround);
 	QRectF br = pp.boundingRect();
 	if (br.x() < 0)
