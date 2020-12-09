@@ -31,11 +31,13 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <libxml/HTMLparser.h>
 
+#include <QMap>
 #include <QString>
-#include <QXmlAttributes>
 
 #include <gtparagraphstyle.h>
 #include <gtwriter.h>
+
+typedef QMap<QString, QString> HTMLAttributesMap;
 
 /*! \brief Parse and import a HTML file.
 Supported tags: P, CENTER, BR, A, UL, OL, LI, H1, H2, H3, H4,
@@ -52,8 +54,8 @@ public:
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar * name);
 	static void characters(void *user_data, const xmlChar * ch, int len);
-	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
-	bool endElement(const QString&, const QString&, const QString &name);
+	bool startElement(const QString &name, const HTMLAttributesMap &attrs);
+	bool endElement(const QString &name);
 	bool characters(const QString &ch);
 
 private:

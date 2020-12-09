@@ -111,16 +111,20 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 	elemJustStarted = true;
 	elemJustFinished = false;
 	QString name(QString((const char*) fullname).toLower());
-	QXmlAttributes attrs;
+	HTMLAttributesMap attrs;
 	if (atts)
 	{
 		for (const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
+		{
+			QString attrName((char*)*cur);
+			QString attrValue((char*)*(cur + 1));
+			attrs[attrName] = attrValue;
+		}
 	}
-	hreader->startElement(nullptr, nullptr, name, attrs);
+	hreader->startElement(name, attrs);
 }
 
-bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
+bool HTMLReader::startElement(const QString &name, const HTMLAttributesMap &attrs) 
 {
 	if (name == "p")
 		inP = true;
@@ -132,14 +136,10 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 	{
 		toggleEffect(UNDERLINE);
 		setBlueFont();
-		for (int i = 0; i < attrs.count(); i++)
-		{
-			if (attrs.localName(i) == "href")
-			{
-				href = attrs.value(i);
-			}
-			inA = true;
-		}
+		QString hRefVal = attrs.value("href");
+		if (!hRefVal.isEmpty())
+			href = hRefVal;
+		inA = true;
 	} 
 	else if (name == "ul")
 	{
@@ -192,26 +192,22 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 	else if (name == "img")
 	{
 		QString imgline("(img,");
-		for (int i = 0; i < attrs.count(); i++)
+		QString srcValue = attrs.value("src");
+		if (!srcValue.isEmpty())
 		{
-			if (attrs.localName(i) == "src")
+			QString attrValue = srcValue;
+			if (attrValue.indexOf("data:image") < 0)
+				imgline +=  " src: " + attrValue;
+			else
 			{
-				QString attrValue = attrs.value(i);
-				if (attrValue.indexOf("data:image") < 0)
-					imgline +=  " src: " + attrValue;
-				else
-				{
-					// TODO: correctly embed the image (just putting the source in the
-					// text frame crashes scribus for big images; ale/20120808)
-					imgline +=  " src: embedded image";
-				}
-			}
-			if (attrs.localName(i) == "alt")
-			{
-				if (!attrs.value(i).isEmpty())
-					imgline += ", alt: " + attrs.value(i);
+				// TODO: correctly embed the image (just putting the source in the
+				// text frame crashes scribus for big images; ale/20120808)
+				imgline +=  " src: embedded image";
 			}
 		}
+		QString altValue = attrs.value("alt");
+		if (!altValue.isEmpty())
+			imgline += ", alt: " + altValue;
 		imgline += ")\n\n";
 		writer->append(imgline, pstyle);
 	}
@@ -317,10 +313,10 @@ void HTMLReader::endElement(void*, const xmlChar * name)
 	elemJustStarted = false;
 	elemJustFinished = true;
 	QString nname(QString((const char*) name).toLower());
-	hreader->endElement(nullptr, nullptr, nname);
+	hreader->endElement(nname);
 }
 
-bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
+bool HTMLReader::endElement(const QString &name)
 {
 	if (name == "center")
 	{

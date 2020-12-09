@@ -35,12 +35,13 @@ for which a new license (GPL+exception) is in place.
  #include <libxml/SAX.h>
 #endif
 #include <QMap>
-#include <QXmlAttributes>
+
 #include <gtstyle.h>
 #include <gtwriter.h>
 
 typedef QMap<QString, gtStyle*> StyleMap;
 typedef QMap<QString, QString> FontMap;
+typedef QMap<QString, QString> SXWAttributesMap;
 typedef QMap<QString, int> CounterMap;
 
 class StyleReader
@@ -48,17 +49,20 @@ class StyleReader
 public:
 	StyleReader(const QString& documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
 	~StyleReader();
+	
+	void parse(const QString& fileName);
 
-	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
 	static void endElement(void *user_data, const xmlChar * name);
-	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
-	bool endElement(const QString&, const QString&, const QString &name);
-	void parse(const QString& fileName);
+	bool startElement(const QString &name, const SXWAttributesMap &attrs);
+	bool endElement(const QString &name);
+
 	gtStyle* getDefaultStyle();
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);
 	QString getFont(const QString& key);
+
+	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 
 private:
 	static StyleReader *sreader;
@@ -81,10 +85,10 @@ private:
 	bool defaultStyleCreated { false };
 
 	double getSize(const QString& s, double parentSize = -1);
-	void styleProperties(const QXmlAttributes& attrs);
-	void defaultStyle(const QXmlAttributes& attrs);
-	void styleStyle(const QXmlAttributes& attrs);
-	void tabStop(const QXmlAttributes& attrs);
+	void styleProperties(const SXWAttributesMap& attrs);
+	void defaultStyle(const SXWAttributesMap& attrs);
+	void styleStyle(const SXWAttributesMap& attrs);
+	void tabStop(const SXWAttributesMap& attrs);
 	void setupFrameStyle();
 };
 
