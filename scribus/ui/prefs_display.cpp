@@ -188,7 +188,7 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	displayScale=prefsData->displayPrefs.displayScale;
 
 	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
-	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+	displayDPI->setText(QString::number(qRound(displayScale * 72.0))+ tr(" dpi"));
 	rulerUnitComboBox->clear();
 	rulerUnitComboBox->addItems(unitGetTextUnitList());
 	rulerUnitComboBox->setCurrentIndex(docUnitIndex);
@@ -237,7 +237,7 @@ void Prefs_Display::drawRuler()
 	double xl;
 	for (xl = 0; xl < maxi; xl += iter)
 		p.drawLine(QPointF(xl, 13.0), QPointF(xl, 19.0));
-	for (xl = 0; xl < maxi+10; xl += iter2)
+	for (xl = 0; xl < maxi + 10; xl += iter2)
 	{
 		p.drawLine(QPointF(xl, 6.0), QPointF(xl, 19.0));
 		p.save();
@@ -247,14 +247,14 @@ void Prefs_Display::drawRuler()
 		{
 			case 2:
 			case 4:
-				val=xl/iter2;
+				val = xl / iter2;
 				break;
 			case 3:
 			case 5:
-				val=xl/iter;
+				val = xl / iter;
 				break;
 			default:
-				val=xl/iter*10;
+				val=xl / iter * 10;
 				break;
 		}
 		p.drawText(static_cast<int>((xl+qRound(2/displayScale)) * displayScale), 12, QString::number(val));
@@ -273,7 +273,7 @@ void Prefs_Display::restoreDisScale()
 	displayScale = dpi / 72.0;
 	adjustDisplaySlider->setValue(qRound(100 * displayScale) - 150);
 	drawRuler();
-	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+	displayDPI->setText(QString::number(qRound(displayScale * 72.0))+ tr(" dpi"));
 	connect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
@@ -281,7 +281,7 @@ void Prefs_Display::setDisScale()
 {
 	displayScale = qMax((150.0 + adjustDisplaySlider->value()) / 100.0, 0.01);
 	drawRuler();
-	displayDPI->setText(QString::number(qRound(displayScale*72.0))+ tr(" dpi"));
+	displayDPI->setText(QString::number(qRound(displayScale * 72.0))+ tr(" dpi"));
 }
 
 void Prefs_Display::changePaperColor()
@@ -426,15 +426,15 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value() / unitRatio;
 	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value() / unitRatio;
 
-	prefsData->displayPrefs.paperColor=colorPaper;
-	prefsData->displayPrefs.scratchColor=colorScratch;
-	prefsData->displayPrefs.frameColor=colorFrame;
-	prefsData->displayPrefs.frameNormColor=colorFrameNorm;
-	prefsData->displayPrefs.frameGroupColor=colorFrameGroup;
-	prefsData->displayPrefs.frameLinkColor=colorFrameLinked;
-	prefsData->displayPrefs.frameLockColor=colorFrameLocked;
-	prefsData->displayPrefs.frameAnnotationColor=colorFrameAnnotation;
-	prefsData->displayPrefs.pageBorderColor=colorPageBorder;
-	prefsData->displayPrefs.controlCharColor=colorControlChars;
-	prefsData->displayPrefs.displayScale=displayScale;
+	prefsData->displayPrefs.paperColor = colorPaper;
+	prefsData->displayPrefs.scratchColor = colorScratch;
+	prefsData->displayPrefs.frameColor = colorFrame;
+	prefsData->displayPrefs.frameNormColor = colorFrameNorm;
+	prefsData->displayPrefs.frameGroupColor = colorFrameGroup;
+	prefsData->displayPrefs.frameLinkColor = colorFrameLinked;
+	prefsData->displayPrefs.frameLockColor = colorFrameLocked;
+	prefsData->displayPrefs.frameAnnotationColor = colorFrameAnnotation;
+	prefsData->displayPrefs.pageBorderColor = colorPageBorder;
+	prefsData->displayPrefs.controlCharColor = colorControlChars;
+	prefsData->displayPrefs.displayScale = displayScale;
 }
