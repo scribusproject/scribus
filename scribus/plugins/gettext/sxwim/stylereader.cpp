@@ -163,7 +163,7 @@ bool StyleReader::startElement(const QString &name, const SXWAttributesMap &attr
 		QString key;
 		QString family;
 		QString style;
-		for (auto& attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
+		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
 			QString attrName = attr.key();
 			if (attrName == "style:name")
