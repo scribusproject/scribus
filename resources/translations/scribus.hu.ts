@@ -2499,7 +2499,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="134"/>
         <source>New Paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Új bekezdés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="149"/>
@@ -13695,7 +13695,7 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="56"/>
         <source>Printer</source>
-        <translation>Nyomtatás</translation>
+        <translation>Nyomtató</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="61"/>
@@ -22377,7 +22377,7 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Nyomtatási kép</translation>
+        <translation>Nyomtatási kép</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

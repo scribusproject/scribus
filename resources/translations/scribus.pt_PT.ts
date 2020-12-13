@@ -22394,7 +22394,7 @@ uma entrada pode ser * para todas as páginas,
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Pré-visualizar Impressão</translation>
+        <translation>Pré-visualizar Impressão</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

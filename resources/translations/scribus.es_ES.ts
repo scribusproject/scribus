@@ -22394,7 +22394,7 @@ donde un símbolo puede ser * para todas las páginas, 1-5 para una cadena de p�
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Vista previa de la impresión</translation>
+        <translation>Vista previa de la impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

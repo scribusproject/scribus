@@ -22412,7 +22412,7 @@ berriagoa behar da.</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Inprimatzeko aurrebista</translation>
+        <translation>Inprimatzeko aurrebista</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

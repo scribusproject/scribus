@@ -11,6 +11,7 @@ get, ColorCMYKFloat, "Get a color by its name in CMYK format. Decimals will be r
 get, ColorLAB, "Get a color by its name in Lab format", tuple, string name
 get, ColorRGB, "Get a color by its name in RGB format", tuple, string name
 get, ColorRGBFloat, "Get a color by its name in RGB format. Decimals will be returned for each channel (0.0-1.0)", tuple, string name
+get, ColorNames, "Get the list of color names in this document", list, void
 is, SpotColor, "Check if a named color is a spot color", void, string name
 replace, Color, "Replace one named color by another", bool, string name, string name
 set, ColorCMYK, "Set the color values to specified CMYK values", tuple, string name
@@ -19,3 +20,4 @@ set, ColorLAB, "Set the color values to specified Lab values", tuple, string nam
 set, ColorRGB, "Set the color values to specified RGB values", tuple, string name
 set, ColorRGBFloat, "Set the color values to specified RGB decimal values (0.0-1.0)", tuple, string name
 set, SpotColor, "Set a named color to be a spot color", bool, string name
+exists, Color, "Check if a named color exists", bool, string name

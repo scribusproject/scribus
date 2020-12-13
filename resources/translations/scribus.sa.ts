@@ -22305,7 +22305,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">मुद्रणपूर्वदृश्यः</translation>
+        <translation>मुद्रणपूर्वदृश्यः</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

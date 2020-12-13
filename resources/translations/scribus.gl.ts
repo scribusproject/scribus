@@ -22391,7 +22391,7 @@ un intervalo de páxinaa ou un único número de páxina</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Previsualización da impresión</translation>
+        <translation>Previsualización da impresión</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>

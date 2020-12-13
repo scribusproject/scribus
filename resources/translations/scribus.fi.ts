@@ -22341,7 +22341,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Tulostuksen esikatselu</translation>
+        <translation>Tulostuksen esikatselu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="83"/>
