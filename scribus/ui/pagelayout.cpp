@@ -72,8 +72,8 @@ PageLayouts::PageLayouts(QWidget* parent)  : QGroupBox( parent )
 
 	modus = false;
 	layoutGroupLayout = new QVBoxLayout(this);
-	layoutGroupLayout->setSpacing( 5 );
-	layoutGroupLayout->setMargin( 10 );
+	layoutGroupLayout->setSpacing(6);
+	layoutGroupLayout->setContentsMargins(9, 9, 9, 9);
 
 	layoutsCombo = new QComboBox( this );
 	layoutGroupLayout->addWidget( layoutsCombo );
@@ -94,8 +94,8 @@ PageLayouts::PageLayouts(QWidget* parent, const QList<PageSet>& pSets, bool mode
 	pageSets = pSets;
 	modus = mode;
 	layoutGroupLayout = new QVBoxLayout(this);
-	layoutGroupLayout->setSpacing( 5 );
-	layoutGroupLayout->setMargin( 10 );
+	layoutGroupLayout->setSpacing(6);
+	layoutGroupLayout->setContentsMargins(9, 9, 9, 9);
 	if (modus)
 	{
 		layoutsView = new PageListWidget( this );

@@ -38,9 +38,9 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	
 	setupUi(this);
 	
-	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-	masterPageList->setMinimumSize(QSize(130,70));
+	masterPageList->setMinimumSize(QSize(200, 40));
 	masterPageList->m_thumb = false;
 	masterPageList->setIconSize(QSize(60, 60));
 
@@ -57,7 +57,6 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	pageView->setRowCount(1);
 	pageView->setColumnCount(1);
 	pageView->setIconSize(QSize(60, 60));
-	pageView->setMinimumSize(QSize(130,120));
 
 	trash->setMinimumSize(QSize(32,32));
 	trash->setMaximumSize(QSize(32,32));

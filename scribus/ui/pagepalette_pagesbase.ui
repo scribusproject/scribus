@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
+    <width>220</width>
     <height>286</height>
    </rect>
   </property>
@@ -34,6 +34,9 @@
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
+     <property name="childrenCollapsible">
+      <bool>false</bool>
+     </property>
      <widget class="QWidget" name="widget" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="spacing">
@@ -60,12 +63,6 @@
        </item>
        <item>
         <widget class="SeList" name="masterPageList">
-         <property name="minimumSize">
-          <size>
-           <width>130</width>
-           <height>70</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>&lt;qt&gt;List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.&lt;/qt&gt;</string>
          </property>
@@ -105,12 +102,6 @@
        </item>
        <item>
         <widget class="SeView" name="pageView">
-         <property name="minimumSize">
-          <size>
-           <width>130</width>
-           <height>120</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</string>
          </property>

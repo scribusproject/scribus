@@ -192,6 +192,7 @@ UndoWidget::~UndoWidget()
 UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, name)
 {
 	setObjectName(QString::fromLocal8Bit(name));
+	setMinimumSize( QSize(220, 240) );
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	container = new QWidget(this);

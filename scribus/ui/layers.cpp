@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags()), m_Doc(nullptr)
 {
 	setObjectName(QString::fromLocal8Bit("Layers"));
+	setMinimumSize( QSize(220, 240) );
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	containerWidget = new QWidget(this);
 	LayerPaletteLayout = new QVBoxLayout();
