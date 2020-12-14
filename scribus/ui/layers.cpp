@@ -89,6 +89,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt
 	header->setSectionsMovable( false );
 	header->setSectionResizeMode(QHeaderView::Fixed);
 	header->setHighlightSections(false);
+	header->setMaximumSectionSize(24);
 
 	Table->setColumnWidth(0, 24);
 	Table->setColumnWidth(1, 24);
