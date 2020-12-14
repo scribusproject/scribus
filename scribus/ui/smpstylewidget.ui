@@ -138,10 +138,10 @@
                  <string>Line Spacing</string>
                 </property>
                 <property name="minimum">
-                 <number>1</number>
+                 <double>1.000000000000000</double>
                 </property>
                 <property name="maximum">
-                 <number>300</number>
+                 <double>300.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -190,7 +190,7 @@
                  <string>Space Above</string>
                 </property>
                 <property name="maximum">
-                 <number>300</number>
+                 <double>300.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -235,7 +235,7 @@
                  <string>Space Below</string>
                 </property>
                 <property name="maximum">
-                 <number>300</number>
+                 <double>300.000000000000000</double>
                 </property>
                </widget>
               </item>
@@ -1204,10 +1204,10 @@
             <string>Paragraph Effects characters offset</string>
            </property>
            <property name="minimum">
-            <number>-3000</number>
+            <double>-3000.000000000000000</double>
            </property>
            <property name="maximum">
-            <number>3000</number>
+            <double>3000.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -1302,25 +1302,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QFrame" name="characterBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <layout class="QGridLayout">
-          <item row="0" column="0">
-           <widget class="SMCStyleWidget" name="cpage" native="true"/>
-          </item>
-         </layout>
-        </widget>
+        <widget class="SMCStyleWidget" name="cpage" native="true"/>
        </item>
       </layout>
      </widget>
@@ -1328,7 +1310,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="5" margin="5"/>
  <customwidgets>
   <customwidget>
    <class>SMScComboBox</class>
@@ -1351,6 +1332,11 @@
    <header>ui/smshadebutton.h</header>
   </customwidget>
   <customwidget>
+   <class>SMSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/smspinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>SMRadioButton</class>
    <extends>QRadioButton</extends>
    <header>ui/smradiobutton.h</header>
@@ -1365,11 +1351,6 @@
    <extends>QWidget</extends>
    <header>ui/smalignselect.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SMSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>ui/smspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>SMTabruler</class>

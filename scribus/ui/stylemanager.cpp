@@ -1371,6 +1371,7 @@ void StyleManager::loadType(const QString &name)
 	//insertShortcutPage(m_widget);
 	//>>
 	m_widget->setParent(mainFrame);
+	m_layout->setContentsMargins(0, 0, 0, 0);
 	m_layout->addWidget(m_widget, 0, 0);
 	layout()->activate();
 	m_widget->resize(m_widget->minimumSizeHint());
