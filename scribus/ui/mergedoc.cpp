@@ -106,7 +106,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	importButton->setEnabled(false);
 	importCancelLayout->addWidget( importButton );
 	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
-	cancelButton->setDefault( true );
+	cancelButton->setDefault(true);
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
 	resize(minimumSizeHint());
@@ -160,6 +160,7 @@ void MergeDoc::changeFile()
 			{
 				fromDocData->setText( QDir::toNativeSeparators(fn) );
 				importButton->setEnabled(true);
+				importButton->setDefault(true);
 				if (masterPages)
 				{
 					masterPageNameData->clear();
@@ -182,6 +183,7 @@ void MergeDoc::changeFile()
 		fromDocData->setText("");
 		count = 0;
 		importButton->setEnabled(false);
+		cancelButton->setDefault(true);
 		if (masterPages)
 		{
 			masterPageNameData->clear();
