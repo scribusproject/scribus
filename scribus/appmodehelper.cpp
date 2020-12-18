@@ -142,7 +142,8 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				scmw->charPalette->setEnabled(false, nullptr);
 				if (currItem != nullptr)
 				{
-					currItem->update();
+					currItem->layout();
+					doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 					if (currItem->isTextFrame())
 						enableTextActions(false);
 					//		scrMenuMgr->setMenuEnabled("Item", true);
@@ -836,7 +837,10 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		{
 			PageItem* it = doc->m_Selection->itemAt(i);
 			if ((!it->isPolygon()) && (!it->isPolyLine()))
+			{
 				hPoly = false;
+				break;
+			}
 		}
 		(*a_scrActions)["itemCombinePolygons"]->setEnabled(hPoly);
 
