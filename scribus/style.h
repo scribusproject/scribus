@@ -85,14 +85,7 @@ public:
 
 	QString baseName() const;
 
-	virtual QString displayName() const = 0;/*{ 	
-		if ( hasName() || !hasParent() || !m_context)
-			return name();
-		//	else if ( inheritsAll() )
-		//		return parent()->displayName();
-		else 
-			return parentStyle()->displayName();
-	}*/
+	virtual QString displayName() const = 0;
 	
 	QString parent() const           { return m_parent; }
 	void setParent(const QString& p);

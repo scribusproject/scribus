@@ -85,9 +85,9 @@ class SCRIBUS_API LineStyleItemDelegate : public ScListBoxPixmap<37, 37>
 	Q_OBJECT
 	public:
 		LineStyleItemDelegate() : ScListBoxPixmap<37, 37>() {}
-		virtual int rtti() const { return 148523874; }
-		virtual QString text(const QVariant&) const;
-		virtual void redraw(const QVariant&) const;
+
+		QString text(const QVariant&) const override;
+		void redraw(const QVariant&) const override;
 };
 
 class SCRIBUS_API NameWidget : public QLineEdit
