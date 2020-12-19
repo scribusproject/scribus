@@ -39,22 +39,22 @@ for which a new license (GPL+exception) is in place.
 //using namespace std;
 
 
-LineFormatValue::LineFormatValue() : m_doc(nullptr), m_name() {};
+LineStyleValue::LineStyleValue() : m_doc(nullptr), m_name() {};
 
-LineFormatValue::LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString& name ) :
+LineStyleValue::LineStyleValue(const multiLine& line, ScribusDoc* doc, const QString& name) :
 	m_Line(line),
 	m_doc(doc),
 	m_name(name)
 {};
 
-LineFormatValue::LineFormatValue(const LineFormatValue& other)
+LineStyleValue::LineStyleValue(const LineStyleValue& other)
 {
 	m_name = other.m_name;
 	m_Line = other.m_Line;
 	m_doc = other.m_doc;
 }
 
-LineFormatValue& LineFormatValue::operator= (const LineFormatValue& other)
+LineStyleValue& LineStyleValue::operator= (const LineStyleValue& other)
 {
 	m_name = other.m_name;
 	m_Line = other.m_Line;
@@ -63,37 +63,37 @@ LineFormatValue& LineFormatValue::operator= (const LineFormatValue& other)
 }
 
 
-void LineFormatItemDelegate::redraw(const QVariant& data) const  
+void LineStyleItemDelegate::redraw(const QVariant& data) const  
 {
-	const LineFormatValue& item(data.value<LineFormatValue>());
-	QColor tmpf;
+	const LineStyleValue& item(data.value<LineStyleValue>());
 	pmap->fill(Qt::white);
 	QPainter p;
 	p.begin(pmap.data());
-	for (int its = item.m_Line.size()-1; its > -1; its--)
+	for (int i = item.m_Line.size() - 1; i > -1; i--)
 	{
-		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
-		tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, item.m_Line[its].Shade);
+		const SingleLine& sLine = item.m_Line.at(i);
+		const ScColor& col = item.m_doc->PageColors[sLine.Color];
+		QColor tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, sLine.Shade);
 		QPen pen;
 		QVector<double> m_array;
-		if (item.m_Line[its].Dash == 1)
+		if (sLine.Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
 		{
-			getDashArray(item.m_Line[its].Dash, 1, m_array);
+			getDashArray(sLine.Dash, 1, m_array);
 			pen.setDashPattern(m_array);
 		}
 		pen.setColor(tmpf);
-		pen.setWidth(qMax(static_cast<int>(item.m_Line[its].Width), 1));
-		pen.setCapStyle(static_cast<Qt::PenCapStyle>(item.m_Line[its].LineEnd));
-		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>(item.m_Line[its].LineJoin));
+		pen.setWidth(qMax(static_cast<int>(sLine.Width), 1));
+		pen.setCapStyle(static_cast<Qt::PenCapStyle>(sLine.LineEnd));
+		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>(sLine.LineJoin));
 		p.setPen(pen);
 		p.drawLine(0, 18, 37, 18);
 	}
 	p.end();
 }
 
-QString LineFormatItemDelegate::text(const QVariant& data) const
+QString LineStyleItemDelegate::text(const QVariant& data) const
 {
 	return data.toString();
 }

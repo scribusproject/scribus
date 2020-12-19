@@ -42,49 +42,49 @@ class QWidget;
 class ScribusDoc;
 class ScribusMainWindow;
 
-struct SCRIBUS_API LineFormatValue
+struct SCRIBUS_API LineStyleValue
 {
 	multiLine m_Line;
 	ScGuardedPtr<ScribusDoc> m_doc;
 	QString m_name;
 	
-	LineFormatValue();
-	LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString& name );
-	LineFormatValue(const LineFormatValue& other);
-	LineFormatValue& operator= (const LineFormatValue& other);
+	LineStyleValue();
+	LineStyleValue(const multiLine& line, ScribusDoc* doc, const QString& name);
+	LineStyleValue(const LineStyleValue& other);
+	LineStyleValue& operator= (const LineStyleValue& other);
 };
 
 
-Q_DECLARE_METATYPE(LineFormatValue);
+Q_DECLARE_METATYPE(LineStyleValue);
 
 
-class SCRIBUS_API LineFormatItem : public QListWidgetItem
+class SCRIBUS_API LineStyleItem : public QListWidgetItem
 {
 	enum usrType {
-		LineFormatUserType = UserType + 2
+		LineStyleUserType = UserType + 2
 	};
 	
 public:	
-	LineFormatItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineFormatUserType)
+	LineStyleItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineStyleUserType)
 	{		
 		setText(name);
-		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue(line, doc, name))); 
+		setData(Qt::UserRole, QVariant::fromValue(LineStyleValue(line, doc, name))); 
 	};
-	LineFormatItem( ) : QListWidgetItem(NULL, LineFormatUserType)
+	LineStyleItem( ) : QListWidgetItem(NULL, LineStyleUserType)
 	{		
 		setText("");
-		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue())); 
+		setData(Qt::UserRole, QVariant::fromValue(LineStyleValue())); 
 	};
-	LineFormatItem * clone () const { return new LineFormatItem(*this); }
+	LineStyleItem * clone () const { return new LineStyleItem(*this); }
 };
 
 
 
-class SCRIBUS_API LineFormatItemDelegate : public ScListBoxPixmap<37, 37>
+class SCRIBUS_API LineStyleItemDelegate : public ScListBoxPixmap<37, 37>
 {
 	Q_OBJECT
 	public:
-		LineFormatItemDelegate() : ScListBoxPixmap<37, 37>() {}
+		LineStyleItemDelegate() : ScListBoxPixmap<37, 37>() {}
 		virtual int rtti() const { return 148523874; }
 		virtual QString text(const QVariant&) const;
 		virtual void redraw(const QVariant&) const;

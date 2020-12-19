@@ -59,7 +59,7 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	lineJoinLabel->setBuddy(lineJoinStyle);
 	lineEndLabel->setBuddy(lineEndStyle);
 
-	lineStyles->setItemDelegate(new LineFormatItemDelegate);
+	lineStyles->setItemDelegate(new LineStyleItemDelegate());
 	lineStyles->addItem( "No Style" );
 
 	languageChange();
@@ -365,7 +365,7 @@ void PropertiesPalette_Line::updateLineStyles(ScribusDoc *doc)
 	{
 		QHash<QString,multiLine>::Iterator it;
 		for (it = doc->docLineStyles.begin(); it != doc->docLineStyles.end(); ++it)
-			lineStyles->addItem( new LineFormatItem(doc, it.value(), it.key()) );
+			lineStyles->addItem( new LineStyleItem(doc, it.value(), it.key()) );
 		lineStyles->sortItems();
 		lineStyles->insertItem( 0, tr("No Style"));
 		if (lineStyles->currentItem())
