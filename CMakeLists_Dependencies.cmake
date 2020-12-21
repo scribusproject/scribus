@@ -272,12 +272,12 @@ endif()
 #>> GraphicsMagick for image import
 
 #<<Poppler for PDF import
-find_package(POPPLER REQUIRED)
-if (POPPLER_FOUND)
+find_package(poppler REQUIRED)
+if (poppler_FOUND)
 	set(HAVE_POPPLER ON)
 	message(STATUS "Found poppler")
-	message(STATUS "Found poppler libs: ${POPPLER_LIBRARY}")
-	message(STATUS "Found poppler includes: ${POPPLER_INCLUDE_DIR}")
+	message(STATUS "Found poppler libs: ${poppler_LIBRARY}")
+	message(STATUS "Found poppler includes: ${poppler_INCLUDE_DIR}")
 else()
 	message(FATAL_ERROR "Could not find poppler library")
 endif()
