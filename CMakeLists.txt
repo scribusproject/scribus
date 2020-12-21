@@ -6,13 +6,13 @@
 #Require 3.1.0 for Qt 5.7 C++ 11 easy support
 #Require 3.2.0 for add_custom_target with byproducts
 #Require 3.12 for new Find Python modules
-#TODO: as soon as we require 3.14.0, use the Cmake own modules for
-# - Fontconfig
+#Require 3.14 for new Fontconfig module
 
-cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
 if (WANT_QT6)
 	cmake_minimum_required(VERSION 3.16.0)
 endif()
+cmake_policy(SET CMP0048 NEW)
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
 	if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
@@ -26,6 +26,29 @@ else()
 	message(STATUS "Precompiled headers disabled")
 endif()
 
+#Set our version values
+#Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX}
+#where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
+set (VERSION_MAJOR "1")
+set (VERSION_MINOR "5")
+set (VERSION_PATCH "7")
+set (VERSION_SUFFIX "svn")
+set (VERSION ${VERSION_MAJOR})
+if (VERSION_MINOR GREATER -1)
+	set (VERSION ${VERSION}.${VERSION_MINOR})
+endif()
+if (VERSION_PATCH GREATER -1)
+	set (VERSION ${VERSION}.${VERSION_PATCH})
+endif()
+
+#Project Setup
+#Do this now, prior to adding the suffix for SVN
+project(scribus VERSION ${VERSION}) # LANGUAGES CXX C)
+
+if (VERSION_SUFFIX)
+	set (VERSION ${VERSION}.${VERSION_SUFFIX})
+endif()
+message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
 
 # Configure CCache if available and wanted
 if (WANT_CCACHE)
@@ -75,30 +98,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 ########## toplevel compiler flags                                                                  ##########
 message(STATUS "Shared Library Flags: ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
 
-#Set our version values
-#Final version is ${VERSION} = ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_SUFFIX}
-#where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
-set (VERSION_MAJOR "1")
-set (VERSION_MINOR "5")
-set (VERSION_PATCH "7")
-set (VERSION_SUFFIX "svn")
-set (VERSION ${VERSION_MAJOR})
-if (VERSION_MINOR GREATER -1)
-	set (VERSION ${VERSION}.${VERSION_MINOR})
-endif()
-if (VERSION_PATCH GREATER -1)
-	set (VERSION ${VERSION}.${VERSION_PATCH})
-endif()
 
-#Project Setup
-#Do this now, prior to adding the suffix for SVN
-project(scribus VERSION ${VERSION})
-#LANGUAGES CXX)
-
-if (VERSION_SUFFIX)
-	set (VERSION ${VERSION}.${VERSION_SUFFIX})
-endif()
-message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
 
 
 #Set the permissions to be used when installing plugins
