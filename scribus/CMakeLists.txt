@@ -1218,9 +1218,9 @@ else()
 	set(EXE_NAME "scribus${TAG_VERSION}" CACHE STRING "Scribus version")
 endif()
 
-if(COMMAND cmake_policy)
-	cmake_policy(SET CMP0003 OLD)
-endif()
+#if(COMMAND cmake_policy)
+#	cmake_policy(SET CMP0003 OLD)
+#endif()
 
 if(HAVE_OSG)
 	add_executable(${EXE_NAME}

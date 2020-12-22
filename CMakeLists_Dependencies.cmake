@@ -164,12 +164,12 @@ else()
 endif()
 #>> FreeType2
 
-set(CAIRO_DIR ${CMAKE_MODULE_PATH})
-find_package(CAIRO REQUIRED)
-if(CAIRO_FOUND)
-	message("CAIRO Library Found OK")
+set(cairo_DIR ${CMAKE_MODULE_PATH})
+find_package(cairo REQUIRED)
+if(cairo_FOUND)
+	message("cairo Library found OK")
 else()
-	message(FATAL_ERROR "No Cairo Found")
+	message(FATAL_ERROR "No cairo library found")
 endif()
 #>>Render Library
 
