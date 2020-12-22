@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <cstdlib>
 #include <memory>
 #include <utility>
 #include <sstream>
@@ -36,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPointer>
 #include <QProgressBar>
+#include <QRandomGenerator>
 #include <QRegExp>
 #include <QtAlgorithms>
 #include <QTime>
@@ -16297,12 +16299,13 @@ void ScribusDoc::itemSelection_EditWeld()
 
 int ScribusDoc::addToInlineFrames(PageItem *item)
 {
-	int fIndex = qrand();
+	QRandomGenerator* randGen = QRandomGenerator::global();
+
+	int fIndex = randGen->bounded(RAND_MAX);
 	while (FrameItems.contains(fIndex))
-	{
-		fIndex = qrand();
-	}
+		fIndex = randGen->bounded(RAND_MAX);
 	item->inlineCharID = fIndex;
+
 	double lw = item->visualLineWidth() / 2.0;
 	item->setXYPos(lw, lw, true);
 	FrameItems.insert(fIndex, item);
