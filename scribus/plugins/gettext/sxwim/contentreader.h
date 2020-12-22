@@ -75,7 +75,7 @@ private:
 	gtStyle *currentStyle { nullptr };
 	gtStyle *lastStyle { nullptr };
 	gtStyle *pstyle { nullptr };
-	bool importTextOnly;
+	bool importTextOnly { false };
 	bool inList { false };
 	bool inNote { false };
 	bool inNoteBody { false };
