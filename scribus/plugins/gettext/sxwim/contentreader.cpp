@@ -43,18 +43,6 @@ ContentReader::ContentReader(const QString& documentName, StyleReader *s, gtWrit
 	sreader = s;
 	writer  = w;
 	importTextOnly = textOnly;
-	defaultStyle = nullptr;
-	currentStyle = nullptr;
-	inList = false;
-	inNote = false;
-	inNoteBody = false;
-	inSpan = false;
-	append    = 0;
-	listIndex = 0;
-	listLevel = 0;
-	currentList = "";
-	inT = false;
-	tName = "";
 }
 
 bool ContentReader::startElement(const QString &name, const SXWAttributesMap &attrs) 
