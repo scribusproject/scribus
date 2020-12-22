@@ -47,36 +47,36 @@ public:
 	bool   moveObjects() const;
 
 private:
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
 
-	QLabel* insCountLabel;
-	QLabel* masterPageLabel;
-	QLabel* pagesLabel;
-	QPushButton* cancelButton;
-	QPushButton* okButton;
-	QComboBox* insWhereData;
-	QSpinBox* insWherePageData;
-	QSpinBox* insCountData;
-	QVBoxLayout* dialogLayout;
-	QGridLayout* whereLayout;
-	QGridLayout* masterPageLayout;
-	QHBoxLayout* okCancelLayout;
-	QGridLayout* dsGroupBox7Layout;
+	QLabel* insCountLabel { nullptr };
+	QLabel* masterPageLabel { nullptr };
+	QLabel* pagesLabel { nullptr };
+	QPushButton* cancelButton { nullptr };
+	QPushButton* okButton { nullptr };
+	QComboBox* insWhereData { nullptr };
+	QSpinBox* insWherePageData { nullptr };
+	QSpinBox* insCountData { nullptr };
+	QVBoxLayout* dialogLayout { nullptr };
+	QGridLayout* whereLayout { nullptr };
+	QGridLayout* masterPageLayout { nullptr };
+	QHBoxLayout* okCancelLayout { nullptr };
+	QGridLayout* dsGroupBox7Layout { nullptr };
 
-	QGroupBox*  dsGroupBox7;
-	QGroupBox*  masterPageGroup;
-	ScrSpinBox* widthSpinBox;
-	ScrSpinBox* heightSpinBox;
-	QLabel*	    widthQLabel;
-	QLabel*	    heightQLabel;
-	QLabel*     TextLabel1;
-	QLabel*     TextLabel2;
-	QComboBox*  sizeQComboBox;
-	QComboBox*  orientationQComboBox;
-	QCheckBox*  moveObjectsCheckBox;
-	QCheckBox*  overrideMPSizingCheckBox;
+	QGroupBox*  dsGroupBox7 { nullptr };
+	QGroupBox*  masterPageGroup { nullptr };
+	ScrSpinBox* widthSpinBox { nullptr };
+	ScrSpinBox* heightSpinBox { nullptr };
+	QLabel*	    widthQLabel { nullptr };
+	QLabel*	    heightQLabel { nullptr };
+	QLabel*     textLabel1 { nullptr };
+	QLabel*     textLabel2 { nullptr };
+	QComboBox*  sizeQComboBox { nullptr };
+	QComboBox*  orientationQComboBox { nullptr };
+	QCheckBox*  moveObjectsCheckBox { nullptr };
+	QCheckBox*  overrideMPSizingCheckBox { nullptr };
 	
-	double m_unitRatio;
+	double m_unitRatio { 1.0 };
 	QList<QComboBox*> masterPageCombos;
 
 private slots:
