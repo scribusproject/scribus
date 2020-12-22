@@ -1289,10 +1289,10 @@ endif ()
 
 
 #Set up libraries to link with all found packages
-include_directories(${CAIRO_INCLUDE_DIR})
-target_link_libraries(${EXE_NAME} ${CAIRO_LIBRARIES})
-link_directories(${PREFIX_CAIRO_LIB})
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_CAIRO_LIB}")
+include_directories(${cairo_INCLUDE_DIR})
+target_link_libraries(${EXE_NAME} ${cairo_LIBRARIES})
+link_directories(${PREFIX_cairo_LIB})
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_cairo_LIB}")
 
 message("RPATH: ${CMAKE_INSTALL_RPATH}")
 
