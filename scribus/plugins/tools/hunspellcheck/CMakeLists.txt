@@ -1,7 +1,7 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-	${HUNSPELL_INCLUDE_DIR}
+	${hunspell_INCLUDE_DIR}
 )
 
 set(HUNSPELL_PLUGIN_UI_SRC
