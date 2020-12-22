@@ -33,15 +33,15 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	unitRatio = doc->unitRatio();
 	dialogLayout = new QVBoxLayout(this);
-	dialogLayout->setMargin(10);
-	dialogLayout->setSpacing(5);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
+	dialogLayout->setSpacing(6);
 	
 	dsGroupBox7 = new QGroupBox(this);
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7Layout = new QGridLayout(dsGroupBox7);
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
-	dsGroupBox7Layout->setSpacing( 5 );
-	dsGroupBox7Layout->setMargin( 10 );
+	dsGroupBox7Layout->setSpacing(6);
+	dsGroupBox7Layout->setContentsMargins(9, 9, 9, 9);
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7 );
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
 
@@ -121,8 +121,8 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 	groupMaster = new QGroupBox( this );
 	groupMaster->setTitle( tr( "Other Settings" ) );
 	masterLayout = new QHBoxLayout( groupMaster );
-	masterLayout->setSpacing( 5 );
-	masterLayout->setMargin( 10 );
+	masterLayout->setSpacing(6);
+	masterLayout->setContentsMargins(9, 9, 9, 9);
 	masterPageLabel = new QLabel( groupMaster );
 	masterLayout->addWidget( masterPageLabel );
 	if (!doc->masterPageMode())
@@ -147,8 +147,8 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc ) :
 		groupMaster->hide();
 
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 5 );
-	okCancelLayout->setMargin( 0 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this );
