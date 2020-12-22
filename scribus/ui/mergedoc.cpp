@@ -40,11 +40,11 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	dialogLayout = new QVBoxLayout(this);
-	dialogLayout->setMargin(10);
-	dialogLayout->setSpacing(5);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
+	dialogLayout->setSpacing(6);
 	fromInfoLayout = new QGridLayout;
 	fromInfoLayout->setMargin(0);
-	fromInfoLayout->setSpacing(5);
+	fromInfoLayout->setSpacing(6);
 	fromDocData = new QLineEdit( this );
 	fromDocData->setMinimumWidth(QWidget::fontMetrics().horizontalAdvance('a') * 50);
 	fromDocLabel = new QLabel( tr( "&From Document:"), this );
@@ -98,8 +98,8 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 
 	dialogLayout->addLayout( fromInfoLayout );
 	importCancelLayout = new QHBoxLayout;
-	importCancelLayout->setMargin(0);
-	importCancelLayout->setSpacing(5);
+	importCancelLayout->setContentsMargins(0, 0, 0, 0);
+	importCancelLayout->setSpacing(6);
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importCancelLayout->addItem( spacer );
 	importButton = new QPushButton( tr( "&Import" ), this );

@@ -29,11 +29,11 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(true);
 	dialogLayout = new QVBoxLayout( this );
-	dialogLayout->setSpacing( 5 );
-	dialogLayout->setMargin( 10 );
+	dialogLayout->setSpacing(6);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
 	fromToLayout = new QGridLayout();
-	fromToLayout->setSpacing( 5 );
-	fromToLayout->setMargin( 5 );
+	fromToLayout->setSpacing(6);
+	fromToLayout->setContentsMargins(0, 0, 0, 0);
 	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this );
 	fromPageData = new ScrSpinBox(this);
 	fromPageData->setDecimals(0);
@@ -97,8 +97,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout();
-	okCancelLayout->setSpacing( 6 );
-	okCancelLayout->setMargin( 0 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this );

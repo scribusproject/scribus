@@ -18,11 +18,11 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	setModal(true);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
-	dialogLayout->setSpacing( 5 );
-	dialogLayout->setMargin( 10 );
+	dialogLayout->setSpacing(6);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
 	fromToLayout = new QHBoxLayout;
-	fromToLayout->setSpacing( 5 );
-	fromToLayout->setMargin( 5 );
+	fromToLayout->setSpacing(6);
+	fromToLayout->setContentsMargins(0, 0, 0, 0);
 	fromLabel = new QLabel( tr( "Delete From:" ), this );
 	fromToLayout->addWidget( fromLabel );
 	fromPageData = new ScrSpinBox(this);
@@ -47,8 +47,8 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 5 );
-	okCancelLayout->setMargin( 0 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this );
