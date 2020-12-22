@@ -57,20 +57,14 @@ ContentReader::ContentReader(const QString& documentName, StyleReader *s, gtWrit
 	tName = "";
 }
 
-bool ContentReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
+bool ContentReader::startElement(const QString &name, const SXWAttributesMap &attrs) 
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
 		++append;
-		QString name = "";
-		for (int i = 0; i < attrs.count(); ++i)
-		{
-			if (attrs.localName(i) == "text:style-name")
-			{
-				name = attrs.value(i);
-				styleNames.push_back(attrs.value(i));
-			}
-		}
+		QString name = attrs.value("text:style-name");
+		if (!name.isEmpty())
+			styleNames.push_back(name);
 		if (!inList)
 		{
 			pstyle = sreader->getStyle(name);
@@ -88,15 +82,11 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if (name == "text:span")
 	{
 		inSpan = true;
-		QString styleName = "";
-		for (int i = 0; i < attrs.count(); ++i)
+		QString styleName = attrs.value("text:style-name");
+		if (!styleName.isEmpty())
 		{
-			if (attrs.localName(i) == "text:style-name")
-			{
-				currentStyle = sreader->getStyle(attrs.value(i));
-				styleName = attrs.value(i);
-				styleNames.push_back(styleName);
-			}
+			currentStyle = sreader->getStyle(styleName);
+			styleNames.push_back(styleName);
 		}
 		gtStyle *tmp = sreader->getStyle(getName());
 		if ((tmp->getName()).indexOf("default-style") != -1)
@@ -110,11 +100,9 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		++listLevel;
 		if (static_cast<int>(listIndex2.size()) < listLevel)
 			listIndex2.push_back(0);
-		for (int i = 0; i < attrs.count(); ++i)
-		{
-			if (attrs.localName(i) == "text:style-name")
-				currentList = attrs.value(i);
-		}
+		QString styleName = attrs.value("text:style-name");
+		if (!styleName.isEmpty())
+			currentList = styleName;
 		currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
 		styleNames.clear();
 		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
@@ -149,11 +137,12 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	{
 		QString sname = "";
 		bool isTextStyle = false;
-		for (int i = 0; i < attrs.count(); ++i)
+		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			if (attrs.localName(i) == "style:name")
-				sname = attrs.value(i);
-			else if ((attrs.localName(i) == "style:family") && (attrs.value(i) == "text"))
+			QString attrName = attr.key();
+			if (attrName == "style:name")
+				sname = attr.value();
+			else if ((attrName == "style:family") && (attr.value() == "text"))
 				isTextStyle = true;
 		}
 		if (isTextStyle)
@@ -165,9 +154,9 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if ((name == "style:properties") && (inT))
 	{
 		Properties p;
-		for (int i = 0; i < attrs.count(); ++i)
+		for (auto attr = attrs.cbegin(); attr != attrs.cend(); ++attr)
 		{
-			std::pair<QString, QString> pair(attrs.localName(i), attrs.value(i));
+			std::pair<QString, QString> pair(attr.key(), attr.value());
 			p.push_back(pair);
 		}
 		tmap[tName] = p;
@@ -175,15 +164,13 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	else if (name == "text:s")
 	{
 		int count = 1;
-		for (int i = 0; i < attrs.count(); ++i)
+		QString textC = attrs.value("text:c");
+		if (!textC.isEmpty())
 		{
-			if (attrs.localName(i) == "text:c")
-			{
-				bool ok = false;
-				int tmpcount = (attrs.value(i)).toInt(&ok);
-				if (ok)
-					count = tmpcount;
-			}
+			bool ok = false;
+			int tmpcount = textC.toInt(&ok);
+			if (ok)
+				count = tmpcount;
 		}
 		for (int i = 0; i < count; ++i)
 			write(" ");
@@ -203,7 +190,7 @@ bool ContentReader::characters(const QString &ch)
 	return true;
 }
 
-bool ContentReader::endElement(const QString&, const QString&, const QString &name)
+bool ContentReader::endElement(const QString &name)
 {
 	if ((name == "text:p") || (name == "text:h"))
 	{
@@ -325,13 +312,14 @@ xmlSAXHandlerPtr cSAXHandler = &cSAXHandlerStruct;
 void ContentReader::startElement(void*, const xmlChar *fullname, const xmlChar ** atts)
 {
 	QString name(QString((const char*) fullname).toLower());
-	QXmlAttributes attrs;
-	if (atts)
+	SXWAttributesMap attrs;
+	for (const xmlChar** cur = atts; cur && *cur; cur += 2)
 	{
-		for (const xmlChar** cur = atts; cur && *cur; cur += 2)
-			attrs.append(QString((char*)*cur), nullptr, QString((char*)*cur), QString((char*)*(cur + 1)));
+		QString attrName((char*)*cur);
+		QString attrValue((char*)*(cur + 1));
+		attrs[attrName] = attrValue;
 	}
-	creader->startElement(nullptr, nullptr, name, attrs);
+	creader->startElement(name, attrs);
 }
 
 void ContentReader::characters(void*, const xmlChar *ch, int len)
@@ -343,7 +331,7 @@ void ContentReader::characters(void*, const xmlChar *ch, int len)
 void ContentReader::endElement(void*, const xmlChar *name)
 {
 	QString nname(QString((const char*) name).toLower());
-	creader->endElement(nullptr, nullptr, nname);
+	creader->endElement(nname);
 }
 
 QString ContentReader::getName()

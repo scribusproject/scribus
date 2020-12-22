@@ -38,19 +38,35 @@ for which a new license (GPL+exception) is in place.
 #else
  #include <libxml/SAX.h>
 #endif
-#include <QXmlAttributes>
+
 #include <QMap>
+
 #include <gtstyle.h>
 #include <gtwriter.h>
 #include "stylereader.h"
 
 typedef std::vector<std::pair<QString, QString> > Properties;
+typedef QMap<QString, QString> SXWAttributesMap;
 typedef QMap<QString, Properties > TMap;
 
 class ContentReader
 {
+public:
+	ContentReader(const QString& documentName, StyleReader* s, gtWriter *w, bool textOnly);
+	~ContentReader();
+	
+	void parse(const QString& fileName);
+
+	static void startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts);
+	static void endElement(void *user_data, const xmlChar *name);
+	static void characters(void *user_data, const xmlChar *ch, int len);
+	bool startElement(const QString &name, const SXWAttributesMap &attrs);
+	bool endElement(const QString &name);
+	bool characters(const QString &ch);
+
 private:
 	static ContentReader *creader;
+
 	TMap tmap;
 	QString docname;
 	StyleReader* sreader;
@@ -76,16 +92,6 @@ private:
 	void write(const QString& text);
 	QString getName();
 	void getStyle();
-public:
-	ContentReader(const QString& documentName, StyleReader* s, gtWriter *w, bool textOnly);
-	~ContentReader();
-	static void startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts);
-	static void endElement(void *user_data, const xmlChar *name);
-	static void characters(void *user_data, const xmlChar *ch, int len);
-	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
-	bool endElement(const QString&, const QString&, const QString &name);
-	bool characters(const QString &ch);
-	void parse(const QString& fileName);
 };
 
 #endif // HAVE_XML
