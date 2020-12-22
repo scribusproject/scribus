@@ -28,17 +28,20 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	: QDialog(parent, Qt::WindowFlags())
 {
 	m_doc = currentDoc;
-
 	masterPageCombos.clear();
+
 	setModal(true);
 	setWindowTitle( tr( "Insert Page" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setSpacing(6);
 	dialogLayout->setContentsMargins(9, 9, 9, 9);
+
 	whereLayout = new QGridLayout();
 	whereLayout->setSpacing(6);
 	whereLayout->setContentsMargins(0, 0, 0, 0);
+
 	insCountData = new QSpinBox(this);
 	insCountData->setMinimum(1);
 	insCountData->setMaximum(999);
@@ -47,6 +50,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	insCountLabel->setBuddy(insCountData);
 	whereLayout->addWidget(insCountLabel, 0, 0);
 	whereLayout->addWidget(insCountData, 0, 1);
+
 	pagesLabel = new QLabel( tr( "Page(s)" ), this);
 	whereLayout->addWidget(pagesLabel, 0, 2);
 
@@ -249,31 +253,37 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 	textLabel1->setBuddy(sizeQComboBox);
 	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 1, 1, 3);
+
 	textLabel2 = new QLabel( tr( "Orie&ntation:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget(textLabel2, 1, 0);
+
 	orientationQComboBox = new QComboBox(dsGroupBox7);
 	orientationQComboBox->addItem( tr( "Portrait" ) );
 	orientationQComboBox->addItem( tr( "Landscape" ) );
 	orientationQComboBox->setCurrentIndex(m_doc->pageOrientation() );
 	textLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addWidget(orientationQComboBox, 1, 1, 1, 3);
+
 	widthSpinBox = new ScrSpinBox(1, 10000, dsGroupBox7, m_doc->unitIndex());
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7);
 	widthSpinBox->setValue(m_doc->pageWidth() * m_doc->unitRatio());
 	widthQLabel->setBuddy(widthSpinBox);
 	dsGroupBox7Layout->addWidget(widthQLabel, 2, 0);
 	dsGroupBox7Layout->addWidget(widthSpinBox, 2, 1);
+
 	heightSpinBox = new ScrSpinBox(1, 10000, dsGroupBox7, m_doc->unitIndex());
 	heightSpinBox->setValue(m_doc->pageHeight() * m_doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7);
 	heightQLabel->setBuddy(heightSpinBox);
 	dsGroupBox7Layout->addWidget(heightQLabel, 3, 0);
 	dsGroupBox7Layout->addWidget(heightSpinBox, 3, 1);
+
 	moveObjectsCheckBox = new QCheckBox( dsGroupBox7);
 	moveObjectsCheckBox->setText( tr( "Move Objects with their Page" ) );
 	moveObjectsCheckBox->setChecked(true);
 	dsGroupBox7Layout->addWidget(moveObjectsCheckBox, 4, 0, 1, 4);
 	dialogLayout->addWidget(dsGroupBox7);
+
 	dsGroupBox7->setEnabled(false);
 	bool b = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
 	heightSpinBox->setEnabled(b);
