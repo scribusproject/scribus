@@ -285,11 +285,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	QSpacerItem* spacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	okCancelLayout->addItem(spacer);
 
-	okButton = new QPushButton( CommonStrings::tr_OK, this);
+	okButton = new QPushButton(CommonStrings::tr_OK, this);
 	okButton->setDefault(true);
 	okCancelLayout->addWidget(okButton);
 
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this);
+	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this);
 	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout(okCancelLayout);
 	setMaximumSize(sizeHint());
