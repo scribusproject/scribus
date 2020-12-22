@@ -33,11 +33,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	setWindowTitle( tr( "Insert Page" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout(this);
-	dialogLayout->setSpacing( 5 );
-	dialogLayout->setMargin( 5 );
+	dialogLayout->setSpacing(6);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
 	whereLayout = new QGridLayout();
-	whereLayout->setSpacing( 5 );
-	whereLayout->setMargin( 5 );
+	whereLayout->setSpacing(6);
+	whereLayout->setContentsMargins(0, 0, 0, 0);
 	insCountData = new QSpinBox( this );
 	insCountData->setMinimum(1);
 	insCountData->setMaximum(999);
@@ -71,8 +71,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageLayout = new QGridLayout( masterPageGroup );
 	masterPageLayout->setAlignment( Qt::AlignTop );
-	masterPageLayout->setSpacing( 5 );
-	masterPageLayout->setMargin( 5 );
+	masterPageLayout->setSpacing(6);
+	masterPageLayout->setContentsMargins(9, 9, 9, 9);
 	if (m_doc->pagePositioning() == 0)
 	{
 		QComboBox* pageData = new QComboBox(masterPageGroup);
@@ -221,13 +221,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		}
 	}
 	dialogLayout->addWidget(masterPageGroup);
-	overrideMPSizingCheckBox=new QCheckBox( tr("Override Master Page Sizing"));
+	overrideMPSizingCheckBox = new QCheckBox( tr("Override Master Page Sizing"));
 	dialogLayout->addWidget(overrideMPSizingCheckBox);
 	dsGroupBox7 = new QGroupBox( this );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7Layout = new QGridLayout( dsGroupBox7 );
-	dsGroupBox7Layout->setSpacing( 5 );
-	dsGroupBox7Layout->setMargin( 5 );
+	dsGroupBox7Layout->setSpacing(6);
+	dsGroupBox7Layout->setContentsMargins(9, 9, 9, 9);
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7);
 	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0);
 
@@ -235,16 +235,16 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	prefsPageSizeName = ps->name();
 	sizeQComboBox = new QComboBox(dsGroupBox7);
 	QStringList insertList(ps->activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName)==-1)
-		insertList<<prefsPageSizeName;
+	if (insertList.indexOf(prefsPageSizeName) == -1)
+		insertList << prefsPageSizeName;
 	insertList.sort();
-	insertList<<CommonStrings::trCustomPageSize;
+	insertList << CommonStrings::trCustomPageSize;
 	sizeQComboBox->addItems(insertList);
 	int sizeIndex = insertList.indexOf(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentIndex(sizeIndex);
 	else
-		sizeQComboBox->setCurrentIndex(sizeQComboBox->count()-1);
+		sizeQComboBox->setCurrentIndex(sizeQComboBox->count() - 1);
 
 	TextLabel1->setBuddy(sizeQComboBox);
 	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 1, 1, 3);
@@ -266,12 +266,12 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	heightSpinBox->setValue(m_doc->pageHeight() * m_doc->unitRatio());
 	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7);
 	heightQLabel->setBuddy(heightSpinBox);
-	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
-	dsGroupBox7Layout->addWidget( heightSpinBox, 2, 3 );
+	dsGroupBox7Layout->addWidget( heightQLabel, 3, 0 );
+	dsGroupBox7Layout->addWidget( heightSpinBox, 3, 1 );
 	moveObjectsCheckBox = new QCheckBox( dsGroupBox7);
 	moveObjectsCheckBox->setText( tr( "Move Objects with their Page" ) );
 	moveObjectsCheckBox->setChecked( true );
-	dsGroupBox7Layout->addWidget( moveObjectsCheckBox, 3, 0, 1, 4 );
+	dsGroupBox7Layout->addWidget( moveObjectsCheckBox, 4, 0, 1, 4 );
 	dialogLayout->addWidget( dsGroupBox7 );
 	dsGroupBox7->setEnabled(false);
 	bool b = (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
@@ -280,8 +280,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	delete ps;
 
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 5 );
-	okCancelLayout->setMargin( 5 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 
