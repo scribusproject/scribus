@@ -66,6 +66,9 @@ public:
 	/// Returns <code>true</code> if this table border line is thinner than @a other.
 	bool operator<(const TableBorderLine& other) const { return width() < other.width(); }
 
+	/// Returns <code>true</code> if this table border line is thicker than @a other.
+	bool operator>(const TableBorderLine& other) const { return width() > other.width(); }
+
 private:
 	/// The width of the table border line.
 	double m_width {0.0};

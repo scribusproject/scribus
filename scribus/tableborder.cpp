@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <algorithm>
+#include <functional>
+
 #include <QList>
 #include <QString>
 #include <QStringList>
@@ -61,7 +63,7 @@ TableBorderLine TableBorder::borderLine(int index) const
 void TableBorder::addBorderLine(const TableBorderLine& borderLine)
 {
 	m_borderLines.append(borderLine);
-	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
+	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), std::greater<TableBorderLine>());
 }
 
 void TableBorder::removeBorderLine(int index)
@@ -78,7 +80,7 @@ void TableBorder::replaceBorderLine(int index, const TableBorderLine& borderLine
 		return;
 
 	m_borderLines.replace(index, borderLine);
-	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), qGreater<TableBorderLine>());
+	std::stable_sort(m_borderLines.begin(), m_borderLines.end(), std::greater<TableBorderLine>());
 }
 
 QString TableBorder::asString() const
