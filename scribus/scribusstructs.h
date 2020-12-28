@@ -177,6 +177,12 @@ struct Bullet  //used by style reader while importing ODT files
 	    { name = n; charStr = ch, firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
 };
 
+enum class ArrowDirection
+{
+	StartArrow = 0,
+	EndArrow
+};
+
 struct ArrowDesc
 {
 	QString name;

@@ -34,7 +34,7 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
 	m_caption = tr("Item Tools");
 	m_icon = "tools_16.png";
 
-	lineEndArrowComboBox->setStartDirection(false);
+	lineEndArrowComboBox->setArrowDirection(ArrowDirection::EndArrow);
 	shapeLineWidthSpinBox->setNewUnit(0);
 	shapeLineWidthSpinBox->setMaximum(36);
 	shapeLineWidthSpinBox->setDecimals(1);

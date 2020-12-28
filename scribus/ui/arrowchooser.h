@@ -8,23 +8,24 @@ for which a new license (GPL+exception) is in place.
 #define ARROWCHOOSER_H
 
 #include <QComboBox>
-#include "scribusapi.h"
 #include <QList>
 
-struct ArrowDesc;
+#include "scribusapi.h"
+#include "scribusstructs.h"
 
 class SCRIBUS_API ArrowChooser : public QComboBox
 {
     Q_OBJECT
 
 public:
-	ArrowChooser(QWidget* pa, bool direction=true);
+	ArrowChooser(QWidget* pa, ArrowDirection direction = ArrowDirection::StartArrow);
 	~ArrowChooser() {};
+
 	void rebuildList(QList<ArrowDesc> *arrowStyles);
-	void setStartDirection(bool);
+	void setArrowDirection(ArrowDirection direction);
 
 private:
-	bool arrowDirection;
+	ArrowDirection m_arrowDirection { ArrowDirection::StartArrow };
 };
 
 #endif

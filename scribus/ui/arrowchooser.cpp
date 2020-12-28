@@ -16,18 +16,18 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "util_math.h"
 
-ArrowChooser::ArrowChooser(QWidget* pa, bool direction) : QComboBox(pa)
+ArrowChooser::ArrowChooser(QWidget* pa, ArrowDirection direction) : QComboBox(pa)
 {
 	setEditable(false);
 	clear();
 	setIconSize(QSize(22, 22));
 	addItem(CommonStrings::tr_None);
-	setStartDirection(direction);
+	setArrowDirection(direction);
 }
 
-void ArrowChooser::setStartDirection(bool direction)
+void ArrowChooser::setArrowDirection(ArrowDirection direction)
 {
-	arrowDirection = direction;
+	m_arrowDirection = direction;
 }
 
 void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
@@ -57,7 +57,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		FPoint max = path.widthHeight();
 		QTransform mm;
 		QTransform mm2;
-		if (arrowDirection)
+		if (m_arrowDirection == ArrowDirection::StartArrow)
 		{
 			mm2.scale(-1, 1);
 			mm2.translate(-max.x(), 0);
