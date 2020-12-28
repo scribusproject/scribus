@@ -5,13 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "arrowchooser.h"
-#include <QPixmap>
+
 #include <QImage>
+#include <QPalette>
+#include <QPixmap>
+
+#include "commonstrings.h"
 #include "fpointarray.h"
 #include "scpainter.h"
-#include "util_math.h"
-#include "commonstrings.h"
 #include "scribusstructs.h"
+#include "util_math.h"
 
 ArrowChooser::ArrowChooser(QWidget* pa, bool direction) : QComboBox(pa)
 {
@@ -29,22 +32,26 @@ void ArrowChooser::setStartDirection(bool direction)
 
 void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 {
-	clear();
 	FPointArray path;
-	path.resize(0);
+
+	clear();
+
+	const QPalette& pal = this->palette();
+	QColor textColor = pal.color(QPalette::Active, QPalette::Text);
+
 	addItem(CommonStrings::tr_None);
-	for (int a = 0; a < arrowStyles->count(); ++a)
+	for (int i = 0; i < arrowStyles->count(); ++i)
 	{
 		QImage image(22, 22, QImage::Format_ARGB32_Premultiplied);
 		image.fill(0);
 		ScPainter *painter = new ScPainter(&image, 22, 22);
 //		painter->clear();
-		painter->setBrush(qRgb(0, 0, 0));
-		painter->setPen(qRgb(0, 0, 0), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setBrush(textColor);
+		painter->setPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		path.resize(0);
-		path = arrowStyles->at(a).points.copy();
+		path = arrowStyles->at(i).points.copy();
 		FPoint min = getMinClipF(&path);
 		path.translate(-min.x(), -min.y());
 		FPoint max = path.widthHeight();
@@ -74,8 +81,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 				s++;
 			}
 		} */
-		QPixmap Ico;
-		Ico=QPixmap::fromImage(image);
-		addItem(Ico, arrowStyles->at(a).name);
+		QPixmap ico = QPixmap::fromImage(image);
+		addItem(ico, arrowStyles->at(i).name);
 	}
 }
