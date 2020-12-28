@@ -67,12 +67,12 @@ ParagraphStyle::~ParagraphStyle()
 
 QString ParagraphStyle::displayName() const
 {
-	if ( isDefaultStyle() )
+	if (isDefaultStyle())
 		return CommonStrings::trDefaultParagraphStyle;
-	if ( hasName() || !hasParent() || !m_context)
+	if (hasName() || !hasParent() || !m_context)
 		return name();
-	//	else if ( inheritsAll() )
-	//		return parent()->displayName();
+//	else if ( inheritsAll() )
+//		return parent()->displayName();
 	return parentStyle()->displayName() + "+";
 }
 
