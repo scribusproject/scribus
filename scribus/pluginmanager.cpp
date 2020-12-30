@@ -65,7 +65,7 @@ void* PluginManager::loadDLL( const QString& plugin )
 	HINSTANCE hdll = LoadLibraryW( (const wchar_t*) libpath.utf16() );
 	lib = (void*) hdll;
 #else
-	if( QFile::exists(plugin) )
+	if (QFile::exists(plugin))
 		lib = (void*) new QLibrary( plugin );
 	else
 		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(), plugin.toLocal8Bit().data());
@@ -87,7 +87,7 @@ void* PluginManager::resolveSym( void* plugin, const char* sym )
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
-	if ( symAddr == nullptr)
+	if (symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #else
 	QLibrary* qlib = (QLibrary*) plugin;
@@ -126,17 +126,19 @@ QString PluginManager::getPluginName(const QString& fileName)
 	QFileInfo fi(fileName);
 	QString baseName(fi.baseName());
 	if (baseName.startsWith("lib"))
-		baseName = baseName.remove(0,3);
+		baseName = baseName.remove(0, 3);
 	if (baseName.endsWith(platformDllExtension()))
 		baseName.chop(1 + platformDllExtension().length());
 	// check name
-	for (int i = 0; i < (int)baseName.length(); i++)
+	for (int i = 0; i < (int) baseName.length(); i++)
+	{
 		if (! baseName[i].isLetterOrNumber() && baseName[i] != '_' )
 		{
 			qDebug("Invalid character in plugin name for %s; skipping",
 					fileName.toLocal8Bit().data());
 			return QString();
 		}
+	}
 	return baseName.toLatin1();
 }
 
@@ -158,7 +160,7 @@ int PluginManager::initPlugin(const QString& fileName)
 	{
 		//HACK: Always enable our only persistent plugin, scripter
 		if (pda.plugin->inherits("ScPersistentPlugin"))
-			pda.enableOnStartup=true;
+			pda.enableOnStartup = true;
 		if (pda.enableOnStartup)
 			enablePlugin(pda);
 		pluginMap.insert(pda.pluginName, pda);
@@ -196,7 +198,7 @@ void PluginManager::initPlugs()
 	}
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
-	QMap<QString,int>::Iterator it;
+	QMap<QString, int>::Iterator it;
 	while (loaded < allPlugs.count() && changes!=0)
 	{
 		changes = 0;
@@ -227,7 +229,7 @@ void PluginManager::initPlugs()
 				ScCore->showSplash(false);
 			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
 								 "<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net."
-										).arg(allPlugs.count()-loaded).arg(allPlugs.count()).arg(failedStr)
+										).arg(allPlugs.count() - loaded).arg(allPlugs.count()).arg(failedStr)
 									 + "</qt>");
 			if (splashShown)
 				ScCore->showSplash(true);
@@ -280,77 +282,76 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	//mw->scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		if (it.value().plugin->inherits("ScActionPlugin"))
+		if (!it.value().plugin->inherits("ScActionPlugin"))
 		{
-			//Add in ScrAction based plugin linkage
-			//Insert DLL Action into Dictionary with values from plugin interface
-			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
-			assert(plugin);
-			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, mw);
-			Q_CHECK_PTR(action);
-			action->setStatusTip(ai.helpText);
-			action->setToolTip(ai.helpText);
-			mw->scrActions.insert(ai.name, action);
+			it.value().plugin->addToMainWindowMenu(mw);
+			continue;
+		}
 
-			// then enable and connect up the action
-			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
-			// Connect action's activated signal with the plugin's run method
-			it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)),
-							plugin, SLOT(run(ScribusDoc*)) );
+		//Add in ScrAction based plugin linkage
+		//Insert DLL Action into Dictionary with values from plugin interface
+		plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
+		assert(plugin);
+		ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+		ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, mw);
+		Q_CHECK_PTR(action);
+		action->setStatusTip(ai.helpText);
+		action->setToolTip(ai.helpText);
+		mw->scrActions.insert(ai.name, action);
 
-			 //Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-			if ( ai.menuAfterName.isEmpty() )
+		// then enable and connect up the action
+		mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+		// Connect action's activated signal with the plugin's run method
+		it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)),
+						plugin, SLOT(run(ScribusDoc*)) );
+
+			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+		if ( ai.menuAfterName.isEmpty() )
+		{
+			if (!ai.menu.isEmpty())
 			{
-				if (!ai.menu.isEmpty())
-				{
-					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
-					{
-						if (!mw->scrMenuMgr->menuExists(ai.menu))
-						{
-							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
-						}
-					}
-					mw->scrMenuMgr->addMenuItemString(ai.name, ai.menu);
-				}
-			}
-			else
-			{
-//				QString actionName(ai.menu.toLower()+ai.menuAfterName);
-			//	QString actionName(ai.menuAfterName);
-			//	ScrAction* afterAction=0;
-			//	if (mw->scrActions.contains(actionName))
-			//		afterAction=mw->scrActions[actionName];
 				if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 				{
 					if (!mw->scrMenuMgr->menuExists(ai.menu))
+					{
 						mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
+					}
 				}
-				mw->scrMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
+				mw->scrMenuMgr->addMenuItemString(ai.name, ai.menu);
 			}
-			if (!ai.toolbar.isEmpty())
-			{
-				QString tbName = ai.toolbar;
-				if (mw->scrToolBars.contains(tbName))
-					mw->scrToolBars[tbName]->addAction(mw->scrActions[ai.name]);
-				else
-				{
-					ScToolBar *tb = new ScToolBar(ai.toolBarName, ai.toolbar, mw);
-					tb->addAction(mw->scrActions[ai.name]);
-					mw->addScToolBar(tb, tbName);
-				}
-			}
-			if (it.value().enabled)
-				ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager").arg(plugin->fullTrName()));
-			else
-				ScCore->setSplashStatus( tr("Plugin: %1 failed post initialization", "plugin manager").arg(plugin->fullTrName()));
 		}
 		else
 		{
-			it.value().plugin->addToMainWindowMenu(mw);
+//			QString actionName(ai.menu.toLower()+ai.menuAfterName);
+		//	QString actionName(ai.menuAfterName);
+		//	ScrAction* afterAction = nullptr;
+		//	if (mw->scrActions.contains(actionName))
+		//		afterAction = mw->scrActions[actionName];
+			if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+			{
+				if (!mw->scrMenuMgr->menuExists(ai.menu))
+					mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
+			}
+			mw->scrMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
 		}
-
+		if (!ai.toolbar.isEmpty())
+		{
+			QString tbName = ai.toolbar;
+			if (mw->scrToolBars.contains(tbName))
+				mw->scrToolBars[tbName]->addAction(mw->scrActions[ai.name]);
+			else
+			{
+				ScToolBar *tb = new ScToolBar(ai.toolBarName, ai.toolbar, mw);
+				tb->addAction(mw->scrActions[ai.name]);
+				mw->addScToolBar(tb, tbName);
+			}
+		}
+		if (it.value().enabled)
+			ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager").arg(plugin->fullTrName()));
+		else
+			ScCore->setSplashStatus( tr("Plugin: %1 failed post initialization", "plugin manager").arg(plugin->fullTrName()));
 	}
+
 	//CB maybe we should just call mw->createMenuBar() here instead...
 	mw->scrMenuMgr->clearMenu("File");
 	mw->scrMenuMgr->addMenuItemStringsToMenuBar("File", mw->scrActions);
@@ -370,6 +371,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	mw->scrMenuMgr->addMenuItemStringsToMenuBar("View", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Help");
 	mw->scrMenuMgr->addMenuItemStringsToMenuBar("Help", mw->scrActions);
+
 	return true;
 }
 
@@ -381,54 +383,54 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 	//sew->seMenuMgr->addMenuSeparator("Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		if (it.value().plugin->inherits("ScActionPlugin"))
+		if (!it.value().plugin->inherits("ScActionPlugin"))
+			continue;
+
+		//Add in ScrAction based plugin linkage
+		//Insert DLL Action into Dictionary with values from plugin interface
+		plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
+		assert(plugin);
+		ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+		if (!ai.enabledForStoryEditor)
+			continue;
+
+		ScrAction* action = new ScrAction(ScrAction::ActionDLLSE, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, sew);
+		Q_CHECK_PTR(action);
+		sew->seActions.insert(ai.name, action);
+
+		// then enable and connect up the action
+		sew->seActions[ai.name]->setEnabled(ai.enabledForStoryEditor);
+
+		// Connect action's activated signal with the plugin's run method
+		it.value().enabled = connect( sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)),
+					plugin, SLOT(run(QWidget*, ScribusDoc*)) );
+		//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+		if (ai.menuAfterName.isEmpty())
 		{
-			//Add in ScrAction based plugin linkage
-			//Insert DLL Action into Dictionary with values from plugin interface
-			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
-			assert(plugin);
-			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			if (ai.enabledForStoryEditor)
+			if (!ai.seMenu.isEmpty())
 			{
-				ScrAction* action = new ScrAction(ScrAction::ActionDLLSE, ai.iconPath1, ai.iconPath2, ai.text, ai.keySequence, sew);
-				Q_CHECK_PTR(action);
-				sew->seActions.insert(ai.name, action);
-
-				// then enable and connect up the action
-				sew->seActions[ai.name]->setEnabled(ai.enabledForStoryEditor);
-
-				// Connect action's activated signal with the plugin's run method
-				it.value().enabled = connect( sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)),
-							plugin, SLOT(run(QWidget*, ScribusDoc*)) );
-				//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-				if ( ai.menuAfterName.isEmpty() )
+				if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 				{
-					if (!ai.seMenu.isEmpty())
-					{
-						if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
-						{
-							if (!sew->seMenuMgr->menuExists(ai.seMenu))
-								sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
-						}
-//						sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu, true);
-						sew->seMenuMgr->addMenuItemString(ai.name, ai.menu);
-					}
+					if (!sew->seMenuMgr->menuExists(ai.seMenu))
+						sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
 				}
-				else
-				{
-				//	QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
-				//	ScrAction* afterAction=0;
-				//	if (sew->seActions.contains(actionName))
-				//		afterAction=sew->seActions[actionName];
-					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
-					{
-						if (!sew->seMenuMgr->menuExists(ai.seMenu))
-							sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
-					}
-//					sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, true, afterAction);
-					sew->seMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
-				}
+//				sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu, true);
+				sew->seMenuMgr->addMenuItemString(ai.name, ai.menu);
 			}
+		}
+		else
+		{
+		//	QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
+		//	ScrAction* afterAction = nullptr;
+		//	if (sew->seActions.contains(actionName))
+		//		afterAction = sew->seActions[actionName];
+			if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+			{
+				if (!sew->seMenuMgr->menuExists(ai.seMenu))
+					sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
+			}
+//			sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, true, afterAction);
+			sew->seMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
 		}
 	}
 	return true;
