@@ -39,12 +39,12 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		QByteArray pythonHome;
 };
 
-extern "C" PLUGIN_API int scriptplugin_getPluginAPIVersion();
-extern "C" PLUGIN_API ScPlugin* scriptplugin_getPlugin();
-extern "C" PLUGIN_API void scriptplugin_freePlugin(ScPlugin* plugin);
+extern "C" PLUGIN_API int scriptplugin_py2x_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* scriptplugin_py2x_getPlugin();
+extern "C" PLUGIN_API void scriptplugin_py2x_freePlugin(ScPlugin* plugin);
 
 /** Some useful Subroutines */
-/*static */PyObject *scribus_retval(PyObject *self, PyObject* args);
-/*static */PyObject *scribus_getval(PyObject *self);
+/*static */PyObject *scribus_py2x_retval(PyObject *self, PyObject* args);
+/*static */PyObject *scribus_py2x_getval(PyObject *self);
 
 #endif // CMSPLUG_H

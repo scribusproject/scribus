@@ -90,12 +90,12 @@ PyObject* wrappedQApp;
 ScripterCore* scripterCore;
 
 
-int scriptplugin_getPluginAPIVersion()
+int scriptplugin_py2x_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
 }
 
-ScPlugin* scriptplugin_getPlugin()
+ScPlugin* scriptplugin_py2x_getPlugin()
 {
 	scripterCore=nullptr;
 	ScriptPlugin* plug = new ScriptPlugin();
@@ -103,7 +103,7 @@ ScPlugin* scriptplugin_getPlugin()
 	return plug;
 }
 
-void scriptplugin_freePlugin(ScPlugin* plugin)
+void scriptplugin_py2x_freePlugin(ScPlugin* plugin)
 {
 	ScriptPlugin* plug = qobject_cast<ScriptPlugin*>(plugin);
 	Q_ASSERT(plug);
@@ -225,7 +225,7 @@ void run()
 /*                                                                                      */
 /****************************************************************************************/
 
-/*static */PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
+/*static */PyObject *scribus_py2x_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = nullptr;
 	if (!PyArg_ParseTuple(args, (char*) "s", &Name))
@@ -239,7 +239,7 @@ void run()
 	return PyInt_FromLong(0L);
 }
 
-/*static */PyObject *scribus_getval(PyObject* /*self*/)
+/*static */PyObject *scribus_py2x_getval(PyObject* /*self*/)
 {
 	return PyString_FromString(scripterCore->inValue.toUtf8().data());
 }
@@ -606,8 +606,8 @@ PyMethodDef scribus_methods[] = {
 	// by Tj (hacker@iam.tj>
 	{const_cast<char*>("combinePolygons"), (PyCFunction)scribus_combinepolygons, METH_NOARGS, tr(scribus_combinepolygons__doc__)},
 	// Internal methods - Not for public use
-	{const_cast<char*>("retval"), (PyCFunction)scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
-	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
+	{const_cast<char*>("retval"), (PyCFunction)scribus_py2x_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
+	{const_cast<char*>("getval"), (PyCFunction)scribus_py2x_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("setLinkAnnotation"), scribus_setlinkannotation, METH_VARARGS,tr(scribus_setlinkannotation__doc__)},
 	{const_cast<char*>("setFileAnnotation"), (PyCFunction)scribus_setfileannotation, METH_VARARGS|METH_KEYWORDS,tr(scribus_setfileannotation__doc__)},
 	{const_cast<char*>("setURIAnnotation"), scribus_seturiannotation, METH_VARARGS,tr(scribus_seturiannotation__doc__)},
