@@ -77,10 +77,6 @@ public:
 	 */
 	void enablePluginActionsForSelection(ScribusMainWindow*);
 
-	/*! \brief Called when selection change
-	 */
-	void enablePluginActionsForSelection(ScribusDoc*);
-
 	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
 	 *
 	 * \param pluginName name of plugin to get
@@ -203,9 +199,6 @@ protected:
 	 the plug-in from the GUI, calls its cleanup routine, etc.
 	 DOES NOT destroy the ScPlugin instance or unload the plugin. */
 	void disablePlugin(PluginData & pda);
-
-	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */
-	QString callDLLForNewLanguage(const PluginData & pluginData);
 
 	/*! \brief Shuts down one plug-in. The DLL may not be unloaded, but
 	 *         it is cleaned up and its ScPlugin instance is destroyed.
