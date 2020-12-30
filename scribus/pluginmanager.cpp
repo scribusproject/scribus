@@ -46,11 +46,11 @@ PluginManager::~PluginManager()
 {
 }
 
-void* PluginManager::loadDLL( const QString& plugin )
+void* PluginManager::loadDLL(const QString& plugin)
 {
 	void* lib = nullptr;
 #ifdef HAVE_DLFCN_H
-	QString libpath = QDir::toNativeSeparators( plugin );
+	QString libpath = QDir::toNativeSeparators(plugin);
 	lib = dlopen(libpath.toLocal8Bit().data(), RTLD_LAZY | RTLD_GLOBAL);
 	if (!lib)
 	{
@@ -61,52 +61,53 @@ void* PluginManager::loadDLL( const QString& plugin )
 	}
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-	QString libpath = QDir::toNativeSeparators( plugin );
-	HINSTANCE hdll = LoadLibraryW( (const wchar_t*) libpath.utf16() );
+	QString libpath = QDir::toNativeSeparators(plugin);
+	HINSTANCE hdll = LoadLibraryW((const wchar_t*) libpath.utf16());
 	lib = (void*) hdll;
 #else
 	if (QFile::exists(plugin))
-		lib = (void*) new QLibrary( plugin );
+		lib = (void*) new QLibrary(plugin);
 	else
 		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(), plugin.toLocal8Bit().data());
 #endif
 	return lib;
 }
 
-void* PluginManager::resolveSym( void* plugin, const char* sym )
+void* PluginManager::resolveSym(void* plugin, const char* sym)
 {
 	void* symAddr = nullptr;
 #ifdef HAVE_DLFCN_H
 	const char* error;
 	dlerror();
-	symAddr = dlsym( plugin, sym );
+	symAddr = dlsym(plugin, sym);
 	if ((error = dlerror()) != nullptr)
 	{
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).toLocal8Bit().data());
 		symAddr = nullptr;
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
+	symAddr = (void* ) GetProcAddress((HMODULE) plugin, sym);
 	if (symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #else
 	QLibrary* qlib = (QLibrary*) plugin;
-	if( plugin ) symAddr = qlib->resolve(sym);
-	if ( symAddr == nullptr)
+	if (plugin)
+		symAddr = qlib->resolve(sym);
+	if (symAddr == nullptr)
 		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #endif
 	return symAddr;
 }
 
-void  PluginManager::unloadDLL( void* plugin )
+void  PluginManager::unloadDLL(void* plugin)
 {
 #ifdef HAVE_DLFCN_H
-	dlclose( plugin );
+	dlclose(plugin);
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-	FreeLibrary( (HMODULE) plugin );
+	FreeLibrary((HMODULE) plugin);
 #else
-	delete ( (QLibrary*) plugin );
+	delete ((QLibrary*) plugin);
 #endif
 }
 
@@ -301,12 +302,12 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 
 		// then enable and connect up the action
 		mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+
 		// Connect action's activated signal with the plugin's run method
-		it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)),
-						plugin, SLOT(run(ScribusDoc*)) );
+		it.value().enabled = connect(mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)), plugin, SLOT(run(ScribusDoc*)) );
 
 			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-		if ( ai.menuAfterName.isEmpty() )
+		if (ai.menuAfterName.isEmpty())
 		{
 			if (!ai.menu.isEmpty())
 			{
@@ -402,8 +403,8 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 		sew->seActions[ai.name]->setEnabled(ai.enabledForStoryEditor);
 
 		// Connect action's activated signal with the plugin's run method
-		it.value().enabled = connect( sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)),
-					plugin, SLOT(run(QWidget*, ScribusDoc*)) );
+		it.value().enabled = connect(sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)), plugin, SLOT(run(QWidget*, ScribusDoc*)));
+
 		//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 		if (ai.menuAfterName.isEmpty())
 		{
@@ -462,7 +463,7 @@ void PluginManager::enablePluginActionsForSelection(ScribusMainWindow* mw)
 		return;
 
 	int selectedType = -1;
-	if ( doc->m_Selection->count() > 0)
+	if (doc->m_Selection->count() > 0)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		selectedType = currItem->itemType();
@@ -528,7 +529,7 @@ bool PluginManager::loadPlugin(PluginData& pluginData)
 	if (getPluginAPIVersion)
 	{
 		int gotVersion = (*getPluginAPIVersion)();
-		if ( gotVersion != PLUGIN_API_VERSION )
+		if (gotVersion != PLUGIN_API_VERSION)
 		{
 			qDebug("API version mismatch when loading %s: Got %i, expected %i",
 					pluginData.pluginFile.toLocal8Bit().data(), gotVersion, PLUGIN_API_VERSION);
@@ -571,10 +572,9 @@ void PluginManager::finalizePlug(PluginData & pluginData)
 		if (pluginData.enabled)
 			disablePlugin(pluginData);
 		Q_ASSERT(!pluginData.enabled);
-		freePluginPtr freePlugin =
-			(freePluginPtr) resolveSym(pluginData.pluginDLL, QString(pluginData.pluginName + "_freePlugin").toLocal8Bit().data());
-		if ( freePlugin )
-			(*freePlugin)( pluginData.plugin );
+		freePluginPtr freePlugin = (freePluginPtr) resolveSym(pluginData.pluginDLL, QString(pluginData.pluginName + "_freePlugin").toLocal8Bit().data());
+		if (freePlugin)
+			(*freePlugin)(pluginData.plugin);
 		pluginData.plugin = nullptr;
 	}
 	Q_ASSERT(!pluginData.enabled);
@@ -668,7 +668,7 @@ void PluginManager::languageChange()
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != nullptr)
-					pluginAction->setText( ai.text );
+					pluginAction->setText(ai.text);
 				if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
 					ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
 			}
@@ -712,7 +712,7 @@ bool PluginManager::enabled(const QString & pluginName)
 	return pluginMap[pluginName].enabled;
 }
 
-QStringList PluginManager::pluginNames( bool includeDisabled, const char* inherits) const
+QStringList PluginManager::pluginNames(bool includeDisabled, const char* inherits) const
 {
 	// Scan the plugin map for plugins...
 	QStringList names;
