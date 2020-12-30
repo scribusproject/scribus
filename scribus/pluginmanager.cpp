@@ -55,11 +55,12 @@ void* PluginManager::loadDLL(const QString& plugin)
 	if (!lib)
 	{
 		const char* error = dlerror();
-		qDebug("%s: %s",
-				tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(),
-				error ? error : tr("unknown error","plugin manager").toLocal8Bit().data());
+		qDebug() << tr("Error loading plugin", "plugin manager").toLocal8Bit().data();
+		if (error)
+			qDebug("%s", error);
+		else
+			qDebug() << tr("Unknown error","plugin manager").toLocal8Bit().data();
 	}
-	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	QString libpath = QDir::toNativeSeparators(plugin);
 	HINSTANCE hdll = LoadLibraryW((const wchar_t*) libpath.utf16());
@@ -68,7 +69,10 @@ void* PluginManager::loadDLL(const QString& plugin)
 	if (QFile::exists(plugin))
 		lib = (void*) new QLibrary(plugin);
 	else
-		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(), plugin.toLocal8Bit().data());
+	{
+		qDebug() << tr("Error loading plugin", "plugin manager").toLocal8Bit().data();
+		qDebug("%s", plugin.toLocal8Bit().data());
+	}
 #endif
 	return lib;
 }
