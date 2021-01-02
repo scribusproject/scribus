@@ -98,14 +98,14 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png", true));
 	setModal(true);
 	aboutLayout = new QVBoxLayout( this );
-	aboutLayout->setSpacing( 6 );
-	aboutLayout->setMargin( 10 );
+	aboutLayout->setSpacing(6);
+	aboutLayout->setContentsMargins(9, 9, 9, 9);
 	tabWidget2 = new QTabWidget( this );
 //	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
 	tab = new QWidget( tabWidget2 );
 	tabLayout1 = new QVBoxLayout( tab );
-	tabLayout1->setSpacing( 6 );
-	tabLayout1->setMargin( 15 );
+	tabLayout1->setSpacing(6);
+	tabLayout1->setContentsMargins(9, 9, 9, 9);
 
 	double pixelRatio = devicePixelRatioF();
 	QPixmap splashPixmap = IconManager::instance().loadPixmap("scribus_splash.png", true);
@@ -191,8 +191,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	/*! AUTHORS tab */
 	tab_2 = new QWidget( tabWidget2 );
 	tabLayout = new QHBoxLayout( tab_2 );
-	tabLayout->setSpacing( 6 );
-	tabLayout->setMargin( 10 );
+	tabLayout->setSpacing(6);
+	tabLayout->setContentsMargins(9, 9, 9, 9);
 	authorView = new QTextBrowser( tab_2 );
 	authorView->setHtml(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
 	tabLayout->addWidget( authorView );
@@ -201,8 +201,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	/*! TRANSLATION tab */
 	tab_3 = new QWidget( tabWidget2 );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
-	tabLayout_2->setSpacing( 6 );
-	tabLayout_2->setMargin( 10 );
+	tabLayout_2->setSpacing(6);
+	tabLayout_2->setContentsMargins(9, 9, 9, 9);
 	transView = new QTextBrowser( tab_3);
 	transView->setHtml(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
 	tabLayout_2->addWidget( transView );
@@ -214,8 +214,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	onlineView->setHtml(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
 	onlineView->setOpenExternalLinks(true);
 	tabLayout_4 = new QHBoxLayout( tab_4 );
-	tabLayout_4->setSpacing( 6 );
-	tabLayout_4->setMargin( 10 );
+	tabLayout_4->setSpacing(6);
+	tabLayout_4->setContentsMargins(9, 9, 9, 9);
 	tabLayout_4->addWidget( onlineView );
 	tabWidget2->addTab( tab_4, tr( "&Online" ) );
 
@@ -224,8 +224,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tab_5 = new QWidget( tabWidget2 );
 	tabWidget2->addTab( tab_5, tr( "&Updates" ) );
 	updateLayout = new QVBoxLayout( tab_5 );
-	updateLayout->setSpacing( 6 );
-	updateLayout->setMargin( 10 );
+	updateLayout->setSpacing(6);
+	updateLayout->setContentsMargins(9, 9, 9, 9);
 	checkForUpdateButton = new QPushButton( tr( "Check for Updates" ), tab_5 );
 	updateView = new QTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
@@ -235,8 +235,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tab_Licence = new QWidget( tabWidget2 );
 	tabWidget2->addTab( tab_Licence, tr( "&Licence" ) );
 	licenceLayout = new QVBoxLayout( tab_Licence );
-	licenceLayout->setSpacing( 6 );
-	licenceLayout->setMargin( 10 );
+	licenceLayout->setSpacing(6);
+	licenceLayout->setContentsMargins(9, 9, 9, 9);
 	textViewLicence = new QTextBrowser( tab_Licence);
 	licenceLayout->addWidget( textViewLicence );
 	
@@ -256,8 +256,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	aboutLayout->addWidget( tabWidget2 );
 
 	layout2 = new QHBoxLayout;
-	layout2->setSpacing( 6 );
-	layout2->setMargin( 0 );
+	layout2->setSpacing(6);
+	layout2->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer );
 	okButton = new QPushButton( tr( "&Close" ), this );

@@ -13,12 +13,6 @@
    <string>Scribus: About Plug-ins</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>10</number>
-   </property>
-   <property name="spacing" >
-    <number>5</number>
-   </property>
    <item>
     <widget class="QSplitter" name="splitter" >
      <property name="orientation" >
