@@ -16,9 +16,6 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="2">
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>8</number>
-     </property>
      <item>
       <widget class="QRadioButton" name="fitToWindowRadiobutton">
        <property name="text">
