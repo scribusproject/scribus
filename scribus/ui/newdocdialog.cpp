@@ -102,14 +102,20 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 
 	setWindowTitle( tr( "New Document" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	TabbedNewDocLayout = new QVBoxLayout( this );
-	TabbedNewDocLayout->setMargin(10);
-	TabbedNewDocLayout->setSpacing(5);
 	if (startUp)
-		tabWidget = new QTabWidget( this );
+		setContentsMargins(0, 0, 0, 0);
+	else
+		setContentsMargins(9, 9, 9, 9);
+	TabbedNewDocLayout = new QVBoxLayout( this );
+	if (startUp)
+		TabbedNewDocLayout->setContentsMargins(9, 9, 9, 9);
+	else
+		TabbedNewDocLayout->setContentsMargins(0, 0, 0, 0);
+	TabbedNewDocLayout->setSpacing(6);
 	createNewDocPage();
 	if (startUp)
 	{
+		tabWidget = new QTabWidget( this );
 		tabWidget->addTab(newDocFrame, tr("&New Document"));
 		createNewFromTempPage();
 		nftGui->setupSettings(lang);
@@ -125,8 +131,8 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 		TabbedNewDocLayout->addWidget(newDocFrame);
 
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 5 );
-	Layout1->setMargin( 0 );
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
 	if (startUp)
 	{
 		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this );
@@ -180,8 +186,8 @@ void NewDocDialog::createNewDocPage()
 	pageSizeGroupBox = new QGroupBox(newDocFrame );
 	pageSizeGroupBox->setTitle( tr( "Document Layout" ) );
 	pageSizeGroupBoxLayout = new QGridLayout( pageSizeGroupBox );
-	pageSizeGroupBoxLayout->setMargin(10);
-	pageSizeGroupBoxLayout->setSpacing(5);
+	pageSizeGroupBoxLayout->setContentsMargins(9, 9, 9, 9);
+	pageSizeGroupBoxLayout->setSpacing(6);
 	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
 
 	layoutsView = new PageLayoutsWidget( pageSizeGroupBox );
@@ -275,8 +281,8 @@ void NewDocDialog::createNewDocPage()
 	optionsGroupBox = new QGroupBox( newDocFrame );
 	optionsGroupBox->setTitle( tr( "Options" ) );
 	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox );
-	optionsGroupBoxLayout->setSpacing( 5 );
-	optionsGroupBoxLayout->setMargin( 10 );
+	optionsGroupBoxLayout->setSpacing(6);
+	optionsGroupBoxLayout->setContentsMargins(9, 9, 9, 9);
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox );
 
@@ -332,8 +338,11 @@ void NewDocDialog::createNewDocPage()
 	optionsGroupBoxLayout->addWidget(startDocSetup, 5, 0, 1, 2, Qt::AlignLeft);
 
 	NewDocLayout = new QGridLayout( newDocFrame );
-	NewDocLayout->setMargin(10);
-	NewDocLayout->setSpacing(5);
+	if (m_onStartup)
+		NewDocLayout->setContentsMargins(9, 9, 9, 9);
+	else
+		NewDocLayout->setContentsMargins(0, 0, 0, 0);
+	NewDocLayout->setSpacing(6);
 	NewDocLayout->addWidget( marginGroup, 1, 0 );
 	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
 	NewDocLayout->addWidget( pageSizeGroupBox, 0, 0, 1, 2);
@@ -343,6 +352,7 @@ void NewDocDialog::createNewFromTempPage()
 {
 	newFromTempFrame = new QFrame(this);
 	verticalLayout = new QVBoxLayout(newFromTempFrame);
+	verticalLayout->setContentsMargins(0, 0, 0, 0);
 	nftGui = new nftwidget(newFromTempFrame);
 	verticalLayout->addWidget(nftGui);
 }
@@ -360,8 +370,8 @@ void NewDocDialog::createOpenDocPage()
 //	formats.remove("PDF (*.pdf *.PDF);;");
 	openDocFrame = new QFrame(this);
 	openDocLayout = new QVBoxLayout(openDocFrame);
-	openDocLayout->setMargin(5);
-	openDocLayout->setSpacing(5);
+	openDocLayout->setContentsMargins(0, 0, 0, 0);
+	openDocLayout->setSpacing(6);
 	m_selectedFile = "";
 
 	// With Qt 5.15 we have to be in careful so that new document dialog doesn't display too large on startup.
@@ -410,8 +420,8 @@ void NewDocDialog::createRecentDocPage()
 {
 	recentDocFrame = new QFrame(this);
 	recentDocLayout = new QVBoxLayout(recentDocFrame);
-	recentDocLayout->setMargin(5);
-	recentDocLayout->setSpacing(5);
+	recentDocLayout->setContentsMargins(9, 9, 9, 9);
+	recentDocLayout->setSpacing(6);
 	recentDocListBox = new QListWidget(recentDocFrame);
 	recentDocLayout->addWidget(recentDocListBox);
 	int max = qMin(prefsManager.appPrefs.uiPrefs.recentDocCount, recentDocList.count());
