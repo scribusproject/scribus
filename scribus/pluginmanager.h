@@ -34,11 +34,9 @@ class StoryEditor;
  */
 class SCRIBUS_API PluginManager : public QObject
 {
-
 	Q_OBJECT
 
 public:
-
 	PluginManager();
 	~PluginManager();
 
@@ -137,14 +135,10 @@ public:
 	 */
 	QStringList pluginNames(bool includeDisabled = false, const char* inherits = nullptr) const;
 	
-	virtual void changeEvent(QEvent *e);
-
 public slots:
-
 	void languageChange();
 
 protected:
-
 	/**
 	 * \brief PluginData is structure for plugin related informations.
 	 * \param pluginFile path to the share library (with name).

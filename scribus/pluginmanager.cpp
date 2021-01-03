@@ -118,8 +118,11 @@ void  PluginManager::unloadDLL(void* plugin)
 void PluginManager::savePreferences()
 {
 	// write configuration
-	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		prefs->set(it.value().pluginName, it.value().enableOnStartup);
+	for (auto it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
+	{
+		const PluginData& pluginData = it.value();
+		prefs->set(pluginData.pluginName, pluginData.enableOnStartup);
+	}
 }
 
 QString PluginManager::getPluginName(const QString& fileName)
@@ -178,7 +181,7 @@ void PluginManager::initPlugs()
 {
 	Q_ASSERT(!pluginMap.count());
 	QString libPattern = QString("*.%1*").arg(platformDllExtension());
-	QMap<QString,int> allPlugs;
+	QMap<QString, int> allPlugs;
 	int loaded = 0;
 	uint changes = 1;
 	QStringList failedPlugs; // output string for warn dialog
@@ -192,14 +195,14 @@ void PluginManager::initPlugs()
 
 	if ((!dirList.exists()) || (dirList.count() == 0))
 		return;
-	for (uint dc = 0; dc < dirList.count(); ++dc)
+	for (uint i = 0; i < dirList.count(); ++i)
 	{
-		int res = initPlugin(dirList[dc]);
-		allPlugs[dirList[dc]] = res;
+		int res = initPlugin(dirList[i]);
+		allPlugs[dirList[i]] = res;
 		if (res != 0)
 			++loaded;
 		else
-			failedPlugs.append(dirList[dc]);
+			failedPlugs.append(dirList[i]);
 	}
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
@@ -248,12 +251,12 @@ void PluginManager::enablePlugin(PluginData & pda)
 {
 	Q_ASSERT(pda.enabled == false);
 	QString failReason;
-	bool isActionPlugin=false;
+	bool isActionPlugin = false;
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
 // 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
 // 		Q_ASSERT(plugin);
-		isActionPlugin=true;
+		isActionPlugin = true;
 		/*
 		pda.enabled = setupPluginActions(plugin);
 		if (!pda.enabled)
@@ -273,6 +276,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 		pda.enabled = true;
 	else
 		failReason = tr("unknown plugin type", "plugin load error");
+
 	if (pda.enabled || isActionPlugin)
 		ScCore->setSplashStatus(tr("Plugin: %1 loaded", "plugin manager").arg(pda.plugin->fullTrName()));
 	else
@@ -448,14 +452,13 @@ void PluginManager::enableOnlyStartupPluginActions(ScribusMainWindow* mw)
 	ScActionPlugin* plugin = nullptr;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		if (it.value().plugin->inherits("ScActionPlugin"))
-		{
-			plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
-			assert(plugin);
-			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			if (mw->scrActions.contains(ai.name))
-				mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
-		}
+		if (!it.value().plugin->inherits("ScActionPlugin"))
+			continue;
+		plugin = qobject_cast<ScActionPlugin*>(it.value().plugin);
+		assert(plugin);
+		ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+		if (mw->scrActions.contains(ai.name))
+			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 	}
 }
 
@@ -564,8 +567,11 @@ bool PluginManager::loadPlugin(PluginData& pluginData)
 void PluginManager::cleanupPlugins()
 {
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		if (it.value().enabled)
-			finalizePlug(it.value());
+	{
+		if (!it.value().enabled)
+			continue;
+		finalizePlug(it.value());
+	}
 }
 
 void PluginManager::finalizePlug(PluginData & pluginData)
@@ -647,14 +653,6 @@ int PluginManager::platformDllSearchFlags()
 #endif
 }
 
-void PluginManager::changeEvent(QEvent *e)
-{
-	if (e->type() == QEvent::LanguageChange)
-	{
-		languageChange();
-	}
-}
-
 void PluginManager::languageChange()
 {
 	ScPlugin* plugin = nullptr;
@@ -663,20 +661,20 @@ void PluginManager::languageChange()
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		plugin = it.value().plugin;
-		if (plugin)
-		{
-			plugin->languageChange();
-			ixplug = qobject_cast<ScActionPlugin*>(plugin);
-			if (ixplug)
-			{
-				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
-				if (pluginAction != nullptr)
-					pluginAction->setText(ai.text);
-				if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
-					ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
-			}
-		}
+		if (!plugin)
+			continue;
+		plugin->languageChange();
+
+		ixplug = qobject_cast<ScActionPlugin*>(plugin);
+		if (!ixplug)
+			continue;
+
+		ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+		pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
+		if (pluginAction != nullptr)
+			pluginAction->setText(ai.text);
+		if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
+			ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
 	}
 }
 
@@ -721,10 +719,14 @@ QStringList PluginManager::pluginNames(bool includeDisabled, const char* inherit
 	// Scan the plugin map for plugins...
 	QStringList names;
 	for (PluginMap::ConstIterator it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
-		if (includeDisabled || it.value().enabled)
-			// Only including plugins that inherit a named parent (if
-			// specified), using the QMetaObject system.
-			if (!inherits || it.value().plugin->inherits(inherits))
-				names.append(it.value().pluginName);
+	{
+		if (!includeDisabled && !it.value().enabled)
+			continue;
+
+		// Only including plugins that inherit a named parent (if
+		// specified), using the QMetaObject system.
+		if (!inherits || it.value().plugin->inherits(inherits))
+			names.append(it.value().pluginName);
+	}
 	return names;
 }
