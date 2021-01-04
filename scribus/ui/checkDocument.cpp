@@ -46,12 +46,12 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	iconSetChange();
 
 	checkDocumentLayout = new QVBoxLayout( this );
-	checkDocumentLayout->setMargin(5);
-	checkDocumentLayout->setSpacing(5);
+	checkDocumentLayout->setContentsMargins(9, 9, 9, 9);
+	checkDocumentLayout->setSpacing(6);
 
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	textLabel1 = new QLabel( this );
 	layout1->addWidget( textLabel1 );
 	curCheckProfile = new QComboBox( this );
@@ -66,8 +66,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	checkDocumentLayout->addWidget( reportDisplay );
 
 	layout2 = new QHBoxLayout;
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	reScan = new QPushButton(this );
 	layout2->addWidget( reScan );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );

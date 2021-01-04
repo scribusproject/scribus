@@ -14,20 +14,17 @@
    <string>Dialog</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <item>
     <layout class="QHBoxLayout" name="topHLayout">
@@ -83,9 +80,6 @@
       <widget class="QLabel" name="scaleLabel">
        <property name="text">
         <string>Scaling:</string>
-       </property>
-       <property name="margin">
-        <number>6</number>
        </property>
       </widget>
      </item>

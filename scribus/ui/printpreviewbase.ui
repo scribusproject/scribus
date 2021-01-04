@@ -14,20 +14,17 @@
    <string>Print Preview</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <item>
     <layout class="QHBoxLayout" name="topHLayout">
@@ -83,21 +80,6 @@
              <string>Preview Settings</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_2">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-             <property name="leftMargin">
-              <number>5</number>
-             </property>
-             <property name="topMargin">
-              <number>5</number>
-             </property>
-             <property name="rightMargin">
-              <number>5</number>
-             </property>
-             <property name="bottomMargin">
-              <number>5</number>
-             </property>
              <item>
               <widget class="PrintLanguageCombo" name="printLanguageCombo"/>
              </item>
@@ -159,21 +141,6 @@
              <string>Display Settings</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
-             <property name="spacing">
-              <number>5</number>
-             </property>
-             <property name="leftMargin">
-              <number>5</number>
-             </property>
-             <property name="topMargin">
-              <number>5</number>
-             </property>
-             <property name="rightMargin">
-              <number>5</number>
-             </property>
-             <property name="bottomMargin">
-              <number>5</number>
-             </property>
              <item>
               <widget class="QCheckBox" name="antiAliasing">
                <property name="text">
@@ -277,9 +244,6 @@
       <widget class="QLabel" name="scaleLabel">
        <property name="text">
         <string>Scaling:</string>
-       </property>
-       <property name="margin">
-        <number>6</number>
        </property>
       </widget>
      </item>

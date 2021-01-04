@@ -20,20 +20,17 @@
    <bool>true</bool>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>9</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>9</number>
    </property>
    <item>
     <widget class="QTreeWidget" name="dataTree">
@@ -131,21 +128,6 @@ p, li { white-space: pre-wrap; }
         <string>Color Sets</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="spacing">
-         <number>5</number>
-        </property>
-        <property name="leftMargin">
-         <number>5</number>
-        </property>
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <property name="rightMargin">
-         <number>5</number>
-        </property>
-        <property name="bottomMargin">
-         <number>5</number>
-        </property>
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
