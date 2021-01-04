@@ -247,20 +247,20 @@ void getFontFormat(FT_Face face, ScFace::FontFormat & fmt, ScFace::FontType & ty
 	type = ScFace::UNKNOWN_TYPE;
 	if (ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
 	{
-		if (strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
+		if (strncmp(buf, T42_HEAD, strlen(T42_HEAD)) == 0) 
 		{
 			fmt = ScFace::TYPE42;
 			type = ScFace::TTF;
 		}
-		else if (strncmp(buf,T1_HEAD,strlen(T1_HEAD)) == 0 ||
-			     strncmp(buf,T1_ADOBE_HEAD,strlen(T1_ADOBE_HEAD)) == 0) 
+		else if (strncmp(buf, T1_HEAD, strlen(T1_HEAD)) == 0 ||
+			     strncmp(buf, T1_ADOBE_HEAD, strlen(T1_ADOBE_HEAD)) == 0) 
 		{
 			fmt = ScFace::PFA;
 			type = ScFace::TYPE1;
 		}
-		else if (strncmp(buf,PSFONT_ADOBE2_HEAD,strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
-			     strncmp(buf,PSFONT_ADOBE21_HEAD,strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
-			     strncmp(buf,PSFONT_ADOBE3_HEAD,strlen(PSFONT_ADOBE3_HEAD)) ==0) 
+		else if (strncmp(buf, PSFONT_ADOBE2_HEAD, strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
+			     strncmp(buf, PSFONT_ADOBE21_HEAD, strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
+			     strncmp(buf, PSFONT_ADOBE3_HEAD, strlen(PSFONT_ADOBE3_HEAD)) == 0) 
 		{
 			// Type2(CFF), Type0(Composite/CID), Type 3, Type 14 etc would end here
 			fmt = ScFace::PFA;
@@ -277,17 +277,17 @@ void getFontFormat(FT_Face face, ScFace::FontFormat & fmt, ScFace::FontType & ty
 			fmt = ScFace::SFNT;
 			type = ScFace::TTF;
 		}
-		else if (strncmp(buf,"true",4) == 0)
+		else if (strncmp(buf, "true", 4) == 0)
 		{
 			fmt = ScFace::SFNT;
 			type = ScFace::TTF;
 		}
-		else if (strncmp(buf,"ttcf",4) == 0)
+		else if (strncmp(buf, "ttcf", 4) == 0)
 		{
 			fmt = ScFace::TTCF;
 			type = ScFace::OTF;
 		}
-		else if (strncmp(buf,"OTTO",4) == 0)
+		else if (strncmp(buf, "OTTO", 4) == 0)
 		{
 			fmt = ScFace::SFNT;
 			type = ScFace::OTF;
@@ -378,7 +378,9 @@ static bool nameComp(const FT_SfntName a, const FT_SfntName b)
 
 static QString decodeNameRecord(FT_SfntName name)
 {
-	QString string;
+	if (!name.string || name.string_len == 0)
+		return QString();
+
 	QByteArray encoding;
 	if (name.platform_id == TT_PLATFORM_APPLE_UNICODE)
 	{
@@ -396,7 +398,7 @@ static QString decodeNameRecord(FT_SfntName name)
 			encoding = "Shift-JIS";
 			break;
 		case TT_MS_ID_GB2312:
-			encoding = "GB18030-0";
+			encoding = "GB18030";
 			break;
 		case TT_MS_ID_BIG_5:
 			encoding = "Big5";
@@ -406,13 +408,24 @@ static QString decodeNameRecord(FT_SfntName name)
 		}
 	}
 
-	if (!encoding.isEmpty())
+	if (encoding.isEmpty())
+		return QString();
+
+	QTextCodec* codec = QTextCodec::codecForName(encoding);
+	if (!codec)
+		return QString();
+
+	QByteArray bytes((const char*) name.string, name.string_len);
+	if (name.encoding_id == TT_MS_ID_GB2312 && bytes.startsWith('\0'))
 	{
-		QTextCodec* codec = QTextCodec::codecForName(encoding);
-		QByteArray bytes((const char*) name.string, name.string_len);
-		string = codec->toUnicode(bytes);
+		// 16 bytes chars appears to be used as transport type for 8 bytes values.
+		// We have to fix this so that Qt GB18030 codec process strings correctly
+		for (int i = 0; i < (int) name.string_len / 2; ++i)
+			bytes[i] = bytes[2 * i + 1];
+		bytes.resize(name.string_len / 2);
 	}
 
+	QString string = codec->toUnicode(bytes);
 	return string;
 }
 
@@ -442,7 +455,7 @@ static QString getFamilyName(const FT_Face face)
 	if (!names.isEmpty())
 	{
 		std::sort(names.begin(), names.end(), nameComp);
-		foreach (const FT_SfntName& name, names)
+		for (const FT_SfntName& name : qAsConst(names))
 		{
 			QString string(decodeNameRecord(name));
 			if (!string.isEmpty())
@@ -667,6 +680,15 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 			sDebug(QObject::tr("Font %1 is broken, discarding it. Error message: \"%2\"").arg(filename, getFtError(error)));
 		return true;
 	}
+	if (face->family_name == nullptr)
+	{
+		addRejectedFont(filename, QObject::tr("Failed to load font: font family unspecified"));
+		if (m_showFontInfo)
+			sDebug(QObject::tr("Failed to load font %1 - font family unspecified").arg(filename));
+		FT_Done_Face(face);
+		m_checkedFonts.insert(filename, foCache);
+		return true;
+	}
 	getFontFormat(face, format, type);
 	if (format == ScFace::UNKNOWN_FORMAT) 
 	{
@@ -783,11 +805,12 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 		QString fam(getFamilyName(face));
 		QStringList features(getFontFeatures(face));
 		QString sty(face->style_name);
-		if (sty == "Regular")
+		if ((sty == "Regular" && face->style_flags != 0) || sty.isEmpty())
 		{
 			switch (face->style_flags)
 			{
 				case 0:
+					sty = "Regular";
 					break;
 				case 1:
 					sty = "Italic";
@@ -802,52 +825,53 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 					break;
 			}
 		}
-		QString ts(fam + " " + sty);
-		QString alt("");
+		QString fullName(fam);
+		if (!sty.isEmpty())
+			fullName += " " + sty;
 		const char* psName = FT_Get_Postscript_Name(face);
 		QString qpsName;
 		if (psName)
 			qpsName = QString(psName);
 		else
-			qpsName = ts;
+			qpsName = fullName;
 		ScFace t;
-		if (contains(ts))
+		if (contains(fullName))
 		{
-			t = (*this)[ts];
+			t = (*this)[fullName];
 			if (t.psName() != qpsName)
 			{
-				alt = " ("+qpsName+")";
-				ts += alt;
+				QString alt = " (" + qpsName + ")";
+				fullName += alt;
 				sty += alt;
 			}
 		}
-		t = (*this)[ts];
+		t = (*this)[fullName];
 		if (t.isNone())
 		{
 			switch (format) 
 			{
 				case ScFace::PFA:
-					t = ScFace(new ScFace_PFA(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_PFA(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::PFB:
-					t = ScFace(new ScFace_PFB(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_PFB(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					t.subset(Subset);
 					break;
 				case ScFace::SFNT:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
 				case ScFace::TTCF:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					t.m_m->formatCode = ScFace::TTCF;
 					t.m_m->typeCode = ScFace::TTF;
 					getSFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
 				case ScFace::TYPE42:
-					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					getSFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
@@ -855,7 +879,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 				/* catching any types not handled above to silence compiler */
 					break;
 			}
-			insert(ts,t);
+			insert(fullName, t);
 			t.m_m->hasGlyphNames = HasNames;
 			t.embedPs(true);
 			t.usable(true);
@@ -871,7 +895,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 //debug
 			QByteArray bb;
 			t->rawData(bb);
-			QFile dump(QString("/tmp/fonts/%1-%2").arg(ts, psName));
+			QFile dump(QString("/tmp/fonts/%1-%2").arg(fullName, psName));
 			dump.open(IO_WriteOnly);
 			QDataStream os(&dump);
 			os.writeRawBytes(bb.data(), bb.size());
@@ -881,7 +905,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 		else 
 		{
 			if (m_showFontInfo)
-				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceIndex+1).arg(t.fontPath()));
+				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceIndex + 1).arg(t.fontPath()));
 			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
 			if (faceIndex > 0) {
 				break;
