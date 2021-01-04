@@ -6,10 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pdfimportoptions.h"
 #include "ui_pdfimportoptions.h"
+
+#include "iconmanager.h"
 #include "importpdf.h"
 #include "ui/createrange.h"
+#include "ui/scmessagebox.h"
 #include "usertaskstructs.h"
-#include "iconmanager.h"
+#include "util.h"
 
 PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui::PdfImportOptions)
 {
@@ -18,11 +21,41 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 	m_plugin = nullptr;
 	m_maxPage = 0;
 	m_resized = false;
+
+	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(onOkButtonClicked()));
+	connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 PdfImportOptions::~PdfImportOptions()
 {
 	delete ui;
+}
+
+void PdfImportOptions::onOkButtonClicked()
+{
+	// Check the page ranges
+	bool hasInvalidPageRange = false;
+	QString pageString(this->getPagesString());
+	std::vector<int> pageNumbers;
+
+	parsePagesString(pageString, &pageNumbers, m_maxPage);
+	for (size_t i = 0; i < pageNumbers.size(); ++i)
+	{
+		int pageNumber = pageNumbers[i];
+		if (pageNumber < 1 || pageNumber > m_maxPage)
+		{
+			hasInvalidPageRange = true;
+			break;
+		}
+	}
+
+	if ((pageNumbers.empty()) || hasInvalidPageRange)
+	{
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("The range of pages to import is invalid.\nPlease check it and try again."));
+		return;
+	}
+
+	accept();
 }
 
 void PdfImportOptions::resizeEvent(QResizeEvent *e)

@@ -43,6 +43,9 @@ private:
 	PdfPlug* m_plugin;
 	int m_maxPage;
 	bool m_resized;
+
+private slots:
+	void onOkButtonClicked();
 };
 
 #endif // PDFIMPORTOPTIONS_H

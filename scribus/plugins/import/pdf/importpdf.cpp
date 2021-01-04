@@ -469,9 +469,13 @@ bool PdfPlug::convert(const QString& fn)
 					if (progressDialog)
 						progressDialog->show();
 				}
+
 				parsePagesString(pageString, &pageNs, lastPage);
+				if (pageNs.size() <= 0)
+					return false;
+
 				firstPage = pageNs[0];
-				SlaOutputDev* dev = {};
+				SlaOutputDev* dev = nullptr;
 				if (importTextAsVectors)
 					dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				else
