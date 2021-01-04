@@ -141,18 +141,19 @@ public:
 	void fill(GfxState *state) override;
 	void drawString(GfxState *state, POPPLER_CONST GooString *s) override;
 
-	QString CurrColorText;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double m_fontSize {12};
-	GooString *m_fontName {nullptr};
-	GooString *m_itemText {nullptr};
+	QString currColorText;
+	QString currColorFill;
+	QString currColorStroke;
+	double  fontSize {12};
+	GooString *fontName {nullptr};
+	GooString *itemText {nullptr};
 
 private:
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	ScribusDoc* m_doc;
 	QStringList *m_importedColors;
 };
+
 
 
 class SlaOutputDev : public OutputDev
@@ -263,7 +264,7 @@ public:
 
 	void updateFillColor(GfxState *state) override;
 	void updateStrokeColor(GfxState *state) override;
-	void updateFont(GfxState *state) override;
+	void updateFont(GfxState* state) override;
 
 	//----- text drawing
 	void  beginTextObject(GfxState *state) override;
@@ -285,14 +286,39 @@ public:
 	double cropOffsetY {0.0};
 	int rotate;
 
+protected:
+	void setItemFillAndStroke(GfxState* state, PageItem* textNode);
+	void applyMask(PageItem* ite);
+	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
+
+	ScribusDoc* m_doc;
+	Qt::PenCapStyle m_lineEnd{ Qt::FlatCap };
+	Qt::PenJoinStyle m_lineJoin{ Qt::MiterJoin };
+	QList<PageItem*>* m_Elements;
+
+	struct groupEntry
+	{
+		QList<PageItem*> Items;
+		GBool forSoftMask;
+		GBool isolated;
+		GBool alpha;
+		QString maskName;
+		QPointF maskPos;
+		bool inverted;
+	};
+
+	QStack<groupEntry> m_groupStack;
+	QString m_currColorFill;
+	QString m_currColorStroke;
+	int m_currFillShade{ 100 };
+	int m_currStrokeShade {100};
+
 private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(POPPLER_CONST_083 GfxPath *path);
 	int getBlendMode(GfxState *state);
-	void applyMask(PageItem *ite);
-	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	QString UnicodeParsedString(const std::string& s1);
 	bool checkClip();
@@ -308,12 +334,6 @@ private:
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
 
 	bool pathIsClosed {false};
-	QString CurrColorFill;
-	int CurrFillShade {100};
-	QString CurrColorStroke;
-	int CurrStrokeShade {100};
-	Qt::PenCapStyle PLineEnd {Qt::FlatCap};
-	Qt::PenJoinStyle PLineJoin {Qt::MiterJoin};
 	QVector<double> DashValues;
 	double DashOffset {0.0};
 	QString Coords;
@@ -328,22 +348,9 @@ private:
 	// Collect the paths of character glyphs for clipping of a whole text group.
 	QPainterPath  m_clipTextPath;
 
-	struct groupEntry
-	{
-		QList<PageItem*> Items;
-		GBool forSoftMask;
-		GBool isolated;
-		GBool alpha;
-		QString maskName;
-		QPointF maskPos;
-		bool inverted;
-	};
-	QStack<groupEntry> m_groupStack;
 	QString m_currentMask;
 	QPointF m_currentMaskPosition;
-	ScribusDoc* m_doc;
 	Selection* tmpSel;
-	QList<PageItem*> *m_Elements;
 	QStringList *m_importedColors;
 	QTransform m_ctm;
 	struct F3Entry
@@ -373,5 +380,4 @@ private:
 	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
 };
-
 #endif

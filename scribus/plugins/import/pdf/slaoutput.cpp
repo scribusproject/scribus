@@ -20,6 +20,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include <tiffio.h>
 
+//#ifndef DEBUG_TEXT_IMPORT
+//	#define DEBUG_TEXT_IMPORT
+//#endif
+
 namespace
 {
 	// Compute the intersection of two paths while considering the fillrule of each of them.
@@ -129,45 +133,45 @@ LinkImportData::~LinkImportData()
 
 AnoOutputDev::~AnoOutputDev()
 {
-	delete m_fontName;
-	delete m_itemText;
+	delete fontName;
+	delete itemText;
 }
 
 AnoOutputDev::AnoOutputDev(ScribusDoc* doc, QStringList *importedColors)
 {
 	m_doc = doc;
 	m_importedColors = importedColors;
-	CurrColorText = "Black";
-	CurrColorFill = CommonStrings::None;
-	CurrColorStroke = CommonStrings::None;
+	currColorText = "Black";
+	currColorFill = CommonStrings::None;
+	currColorStroke = CommonStrings::None;
 }
 
 void AnoOutputDev::eoFill(GfxState *state)
 {
 	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	currColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 }
 
 void AnoOutputDev::fill(GfxState *state)
 {
 	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	currColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 }
 
 void AnoOutputDev::stroke(GfxState *state)
 {
 	int shade = 100;
-	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
+	currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 }
 
 void AnoOutputDev::drawString(GfxState *state, POPPLER_CONST GooString *s)
 {
 	int shade = 100;
-	CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-	m_fontSize = state->getFontSize();
+	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	fontSize = state->getFontSize();
 	if (state->getFont())
-		m_fontName = state->getFont()->getName()->copy();
-	m_itemText = s->copy();
+		fontName = state->getFont()->getName()->copy();
+	itemText = s->copy();
 }
 
 QString AnoOutputDev::getColor(GfxColorSpace *color_space, POPPLER_CONST_070 GfxColor *color, int *shade)
@@ -277,8 +281,8 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_Elements = Elements;
 	pushGroup();
 	m_importedColors = importedColors;
-	CurrColorStroke = "Black";
-	CurrColorFill = "Black";
+	m_currColorStroke = "Black";
+	m_currColorFill = "Black";
 	tmpSel = new Selection(m_doc, false);
 	importerFlags = flags;
 	currentLayer = m_doc->activeLayer();
@@ -670,47 +674,47 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				if (bgCol)
 				{
 					bgFound = true;
-					CurrColorFill = getAnnotationColor(bgCol);
+					m_currColorFill = getAnnotationColor(bgCol);
 				}
 				else
-					CurrColorFill = CommonStrings::None;
+					m_currColorFill = CommonStrings::None;
 				POPPLER_CONST AnnotColor *fgCol = achar->getBorderColor();
 				if (fgCol)
 				{
 					fgFound = true;
-					CurrColorStroke = getAnnotationColor(fgCol);
+					m_currColorStroke = getAnnotationColor(fgCol);
 				}
 				else
 				{
 					fgCol = achar->getBackColor();
 					if (fgCol)
-						CurrColorStroke = getAnnotationColor(fgCol);
+						m_currColorStroke = getAnnotationColor(fgCol);
 					else
-						CurrColorStroke = CommonStrings::None;
+						m_currColorStroke = CommonStrings::None;
 				}
 			}
-			QString CurrColorText = "Black";
+			QString m_currColorText = "Black";
 			double fontSize = 12;
 			QString fontName = "";
 			QString itemText = "";
 			AnnotAppearance *apa = annota->getAppearStreams();
 			if (apa || !achar)
 			{
-				AnoOutputDev *Adev = new AnoOutputDev(m_doc, m_importedColors);
-				Gfx *gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
+				AnoOutputDev *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
+				Gfx *gfx = new Gfx(pdfDoc, annotOutDev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
 				ano->draw(gfx, false);
 				if (!bgFound)
-					CurrColorFill = Adev->CurrColorFill;
+					m_currColorFill = annotOutDev->currColorFill;
 				if (!fgFound)
-					CurrColorStroke = Adev->CurrColorStroke;
-				CurrColorText = Adev->CurrColorText;
-				fontSize = Adev->m_fontSize;
-				fontName = UnicodeParsedString(Adev->m_fontName);
-				itemText = UnicodeParsedString(Adev->m_itemText);
+					m_currColorStroke = annotOutDev->currColorStroke;
+				m_currColorText = annotOutDev->currColorText;
+				fontSize = annotOutDev->fontSize;
+				fontName = UnicodeParsedString(annotOutDev->fontName);
+				itemText = UnicodeParsedString(annotOutDev->itemText);
 				delete gfx;
-				delete Adev;
+				delete annotOutDev;
 			}
-			int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None);
+			int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, m_currColorFill, CommonStrings::None);
 			PageItem *ite = m_doc->Items->at(z);
 			int flg = annota->getFlags();
 			if (!(flg & 16))
@@ -742,7 +746,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				else if (bsty == AnnotBorder::borderUnderlined)
 					bsty = 2;
 				ite->annotation().setBorderStyle(bsty);
-				ite->annotation().setBorderColor(CurrColorStroke);
+				ite->annotation().setBorderColor(m_currColorStroke);
 				ite->annotation().setBorderWidth(qRound(brd->getWidth()));
 			}
 			else
@@ -778,12 +782,12 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				ite->annotation().setVis(3);
 			if (wtyp == Annotation::Button)
 			{
-				ite->setFillColor(CurrColorFill);
+				ite->setFillColor(m_currColorFill);
 				if (achar)
 					ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
 				else
 					ite->itemText.insertChars(itemText);
-				applyTextStyle(ite, fontName, CurrColorText, fontSize);
+				applyTextStyle(ite, fontName, m_currColorText, fontSize);
 				ite->annotation().addToFlag(Annotation::Flag_PushButton);
 				FormWidgetButton *btn = (FormWidgetButton*)fm;
 				if (!btn->isReadOnly())
@@ -796,7 +800,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				if (btn)
 				{
 					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
-					applyTextStyle(ite, fontName, CurrColorText, fontSize);
+					applyTextStyle(ite, fontName, m_currColorText, fontSize);
 					ite->itemText.trim();
 					if (btn->isMultiline())
 						ite->annotation().addToFlag(Annotation::Flag_Multiline);
@@ -859,7 +863,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						ite->itemText.insertChars(inh);
 					}
-					applyTextStyle(ite, fontName, CurrColorText, fontSize);
+					applyTextStyle(ite, fontName, m_currColorText, fontSize);
 					if (!btn->isReadOnly())
 						ite->annotation().addToFlag(Annotation::Flag_Edit);
 					handleActions(ite, ano);
@@ -1594,14 +1598,14 @@ void SlaOutputDev::clearSoftMask(GfxState * /*state*/)
 
 void SlaOutputDev::updateFillColor(GfxState *state)
 {
-	CurrFillShade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+	m_currFillShade = 100;
+	m_currColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &m_currFillShade);
 }
 
 void SlaOutputDev::updateStrokeColor(GfxState *state)
 {
-	CurrStrokeShade = 100;
-	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
+	m_currStrokeShade = 100;
+	m_currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &m_currStrokeShade);
 }
 
 void SlaOutputDev::clip(GfxState *state)
@@ -1654,10 +1658,10 @@ void SlaOutputDev::stroke(GfxState *state)
 	if ((m_Elements->count() != 0) && (output == Coords))			// Path is the same as in last fill
 	{
 		PageItem* ite = m_Elements->last();
-		ite->setLineColor(CurrColorStroke);
-		ite->setLineShade(CurrStrokeShade);
-		ite->setLineEnd(PLineEnd);
-		ite->setLineJoin(PLineJoin);
+		ite->setLineColor(m_currColorStroke);
+		ite->setLineShade(m_currStrokeShade);
+		ite->setLineEnd(m_lineEnd);
+		ite->setLineJoin(m_lineJoin);
 		ite->setLineWidth(state->getTransformedLineWidth());
 		ite->setDashes(DashValues);
 		ite->setDashOffset(DashOffset);
@@ -1672,12 +1676,12 @@ void SlaOutputDev::stroke(GfxState *state)
 		FPoint wh = out.widthHeight();
 		if ((out.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 		{
-			CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
+			m_currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &m_currStrokeShade);
 			int z;
 			if (pathIsClosed)
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, CurrColorStroke);
+				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, m_currColorStroke);
 			else
-				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, CurrColorStroke);
+				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, state->getTransformedLineWidth(), CommonStrings::None, m_currColorStroke);
 			PageItem* ite = m_doc->Items->at(z);
 			ite->PoLine = out.copy();
 			ite->ClipEdited = true;
@@ -1689,13 +1693,13 @@ void SlaOutputDev::stroke(GfxState *state)
 				PageItem* lItem = m_Elements->last();
 				if ((lItem->lineColor() == CommonStrings::None) && (lItem->PoLine == ite->PoLine))
 				{
-					lItem->setLineColor(CurrColorStroke);
+					lItem->setLineColor(m_currColorStroke);
 					lItem->setLineWidth(state->getTransformedLineWidth());
-					lItem->setLineShade(CurrStrokeShade);
+					lItem->setLineShade(m_currStrokeShade);
 					lItem->setLineTransparency(1.0 - state->getStrokeOpacity());
 					lItem->setLineBlendmode(getBlendMode(state));
-					lItem->setLineEnd(PLineEnd);
-					lItem->setLineJoin(PLineJoin);
+					lItem->setLineEnd(m_lineEnd);
+					lItem->setLineJoin(m_lineJoin);
 					lItem->setDashes(DashValues);
 					lItem->setDashOffset(DashOffset);
 					lItem->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1703,11 +1707,11 @@ void SlaOutputDev::stroke(GfxState *state)
 				}
 				else
 				{
-					ite->setLineShade(CurrStrokeShade);
+					ite->setLineShade(m_currStrokeShade);
 					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 					ite->setLineBlendmode(getBlendMode(state));
-					ite->setLineEnd(PLineEnd);
-					ite->setLineJoin(PLineJoin);
+					ite->setLineEnd(m_lineEnd);
+					ite->setLineJoin(m_lineJoin);
 					ite->setDashes(DashValues);
 					ite->setDashOffset(DashOffset);
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1718,11 +1722,11 @@ void SlaOutputDev::stroke(GfxState *state)
 			}
 			else
 			{
-				ite->setLineShade(CurrStrokeShade);
+				ite->setLineShade(m_currStrokeShade);
 				ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 				ite->setLineBlendmode(getBlendMode(state));
-				ite->setLineEnd(PLineEnd);
-				ite->setLineJoin(PLineJoin);
+				ite->setLineEnd(m_lineEnd);
+				ite->setLineJoin(m_lineJoin);
 				ite->setDashes(DashValues);
 				ite->setDashOffset(DashOffset);
 				ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -1773,17 +1777,17 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	QRectF bbox = clippedPath.boundingRect();
 	if (!clippedPath.isEmpty() && !bbox.isNull())
 	{
-		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+		m_currColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &m_currFillShade);
 		int z;
 		if (pathIsClosed)
-			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
+			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, m_currColorFill, CommonStrings::None);
 		else
-			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None);
+			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, m_currColorFill, CommonStrings::None);
 		PageItem* ite = m_doc->Items->at(z);
 		ite->PoLine.fromQPainterPath(clippedPath, true);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(CurrFillShade);
+		ite->setFillShade(m_currFillShade);
 		ite->setLineShade(100);
 		ite->setRotation(-angle);
 		// Only the new path has to be interpreted according to fillRule. QPainterPath
@@ -1792,8 +1796,8 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 		ite->setFillEvenOdd(clippedPath.fillRule() == Qt::OddEvenFill);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		ite->setLineEnd(PLineEnd);
-		ite->setLineJoin(PLineJoin);
+		ite->setLineEnd(m_lineEnd);
+		ite->setLineJoin(m_lineJoin);
 		ite->setWidthHeight(bbox.width(),bbox.height());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_doc->adjustItemSize(ite);
@@ -1898,7 +1902,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), bb.width(), bb.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), bb.width(), bb.height(), 0, m_currColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
@@ -1908,12 +1912,12 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	ite->setRotation(-angle);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
+	ite->setFillShade(m_currFillShade);
 	ite->setLineShade(100);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 6;
 	if (!shading->getExtend0() || !shading->getExtend1())
@@ -2017,7 +2021,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, m_currColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	if (checkClip())
 	{
@@ -2029,12 +2033,12 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
+	ite->setFillShade(m_currFillShade);
 	ite->setLineShade(100);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 7;
 	if (!shading->getExtend0() || !shading->getExtend1())
@@ -2079,17 +2083,17 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	Coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, m_currColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
+	ite->setFillShade(m_currFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
@@ -2159,17 +2163,17 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	Coords = output;
 	const double *ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, m_currColorFill, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
+	ite->setFillShade(m_currFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
@@ -2379,7 +2383,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	output += QString("Z");
 	pathIsClosed = true;
 	Coords = output;
-	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, CurrColorFill, CommonStrings::None);
+	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, m_currColorFill, CommonStrings::None);
 	ite = m_doc->Items->at(z);
 
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
@@ -2398,12 +2402,12 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(CurrFillShade);
+	ite->setFillShade(m_currFillShade);
 	ite->setLineShade(100);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->setLineEnd(PLineEnd);
-	ite->setLineJoin(PLineJoin);
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 8;
 	ite->setPattern(id);
@@ -2471,7 +2475,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			}
 		}
 	}
-	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[CurrColorFill], m_doc, CurrFillShade);
+	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[m_currColorFill], m_doc, m_currFillShade);
 	QImage res = QImage(width, height, QImage::Format_ARGB32);
 	res.fill(backColor.rgb());
 	unsigned char cc, cm, cy, ck;
@@ -2570,9 +2574,9 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, 3);
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2639,9 +2643,9 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 			t++;
 		}
 	}
-	
+
 	createImageFrame(res, state, colorMap->getNumPixelComps());
-	
+
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2761,7 +2765,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 
     // Determine the width and height of the image by undoing the rotation part
 	// of the CTM and applying the result to the unit square.
-	QTransform without_rotation; 
+	QTransform without_rotation;
 	without_rotation = m_ctm * without_rotation.rotate(angle);
 	QRectF trect_wr = without_rotation.mapRect(QRectF(0, 0, 1, 1));
 
@@ -3039,13 +3043,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 	tmpBuf = nullptr;
 	fontLoc = nullptr;
 
-	if (!(gfxFont = state->getFont())) {
+	gfxFont = state->getFont();
+	if (!gfxFont)
 		goto err1;
-	}
+
 	fontType = gfxFont->getType();
-	if (fontType == fontType3) {
+	if (fontType == fontType3)
 		goto err1;
-	}
 
 	// check the font file cache
 	id = new SlaOutFontFileID(gfxFont->getID());
@@ -3249,7 +3253,7 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode *u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
@@ -3295,11 +3299,11 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					qPath.cubicTo(x1,y1,x2,y2,x3,y3);
 				}
 				else
-					qPath.lineTo(x1,y1);
+					qPath.lineTo(x1, y1);
 				if (f & splashPathLast)
 					qPath.closeSubpath();
 			}
-			const double *ctm = state->getCTM();
+			const double * ctm = state->getCTM();
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
@@ -3318,37 +3322,16 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			{
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* ite = m_doc->Items->at(z);
+
+				// todo: merge this between vector and text implementations.
 				QTransform mm;
 				mm.scale(1, -1);
 				mm.translate(x, -y);
 				textPath.map(mm);
 				textPath.map(m_ctm);
 				ite->PoLine = textPath.copy();
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				ite->setLineEnd(PLineEnd);
-				ite->setLineJoin(PLineJoin);
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
+				setItemFillAndStroke(state, ite);
 				// Fill text rendering modes. See above
-				if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
-				{
-					CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
-					ite->setFillColor(CurrColorFill);
-					ite->setFillShade(CurrFillShade);
-					ite->setFillEvenOdd(false);
-					ite->setFillTransparency(1.0 - state->getFillOpacity());
-					ite->setFillBlendmode(getBlendMode(state));
-				}
-				// Stroke text rendering modes. See above
-				if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
-				{
-					CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
-					ite->setLineColor(CurrColorStroke);
-					ite->setLineWidth(state->getTransformedLineWidth());
-					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
-					ite->setLineBlendmode(getBlendMode(state));
-					ite->setLineShade(CurrStrokeShade);
-				}
 				m_doc->adjustItemSize(ite);
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
@@ -3356,11 +3339,13 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 					m_groupStack.top().Items.append(ite);
 					applyMask(ite);
 				}
-				delete fontPath;
 			}
+			delete fontPath;
+
 		}
 	}
 }
+
 
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
 {
@@ -3398,8 +3383,8 @@ void SlaOutputDev::endType3Char(GfxState *state)
 			ite = m_doc->m_Selection->itemAt(0);
 		if (!f3e.colored)
 		{
-			m_doc->itemSelection_SetItemBrush(CurrColorFill);
-			m_doc->itemSelection_SetItemBrushShade(CurrFillShade);
+			m_doc->itemSelection_SetItemBrush(m_currColorFill);
+			m_doc->itemSelection_SetItemBrushShade(m_currFillShade);
 			m_doc->itemSelection_SetItemFillTransparency(1.0 - state->getFillOpacity());
 			m_doc->itemSelection_SetItemFillBlend(getBlendMode(state));
 		}
@@ -3667,25 +3652,25 @@ void SlaOutputDev::getPenState(GfxState *state)
 	switch (state->getLineCap())
 	{
 		case 0:
-			PLineEnd = Qt::FlatCap;
+			m_lineEnd = Qt::FlatCap;
 			break;
 		case 1:
-			PLineEnd = Qt::RoundCap;
+			m_lineEnd = Qt::RoundCap;
 			break;
 		case 2:
-			PLineEnd = Qt::SquareCap;
+			m_lineEnd = Qt::SquareCap;
 			break;
 	}
 	switch (state->getLineJoin())
 	{
 		case 0:
-			PLineJoin = Qt::MiterJoin;
+			m_lineJoin = Qt::MiterJoin;
 			break;
 		case 1:
-			PLineJoin = Qt::RoundJoin;
+			m_lineJoin = Qt::RoundJoin;
 			break;
 		case 2:
-			PLineJoin = Qt::BevelJoin;
+			m_lineJoin = Qt::BevelJoin;
 			break;
 	}
 	double lw = state->getLineWidth();
@@ -3892,4 +3877,67 @@ bool SlaOutputDev::checkClip()
 			ret = true;
 	}
 	return ret;
+}
+
+void SlaOutputDev::setItemFillAndStroke(GfxState* state, PageItem* textNode)
+{
+
+	textNode->ClipEdited = true;
+	textNode->FrameType = 3;
+	textNode->setLineEnd(m_lineEnd);
+	textNode->setLineJoin(m_lineJoin);
+	textNode->setTextFlowMode(PageItem::TextFlowDisabled);
+
+	int textRenderingMode = state->getRender();
+	// Invisible or only used for clipping
+	if (textRenderingMode == 3)
+		return;
+
+	// Fill text rendering modes. See above
+	if (textRenderingMode == 0 || textRenderingMode == 2 || textRenderingMode == 4 || textRenderingMode == 6)
+	{
+		m_currColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &m_currFillShade);
+		if (textNode->isTextFrame())
+		{
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity())); //fill colour sets the background colour for the frame not the fill colour fore  the text
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None);
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillShade(m_currFillShade);
+		}
+		else
+		{
+			textNode->setFillColor(m_currColorFill);
+			textNode->setFillShade(m_currFillShade);
+			textNode->setFillEvenOdd(false);
+			textNode->setFillTransparency(1.0 - state->getFillOpacity());
+			textNode->setFillBlendmode(getBlendMode(state));
+		}
+	}
+	// Stroke text rendering modes. See above
+	if (textRenderingMode == 1 || textRenderingMode == 2 || textRenderingMode == 5 || textRenderingMode == 6)
+	{
+		m_currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &m_currStrokeShade);
+		if (textNode->isTextFrame())
+		{
+			//fill color sets the background color for the frame not the fill color fore  the text
+			textNode->setFillTransparency(1.0 - (state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity()));
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setFillColor(CommonStrings::None); //TODO: Check if we override the stroke color with the fill color when there is a choice
+			textNode->setLineColor(CommonStrings::None);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillBlendmode(getBlendMode(state));
+			textNode->setFillShade(m_currFillShade);
+		}
+		else
+		{
+			textNode->setLineColor(m_currColorStroke);
+			textNode->setLineWidth(0);//line  width doesn't effect drawing text, it creates a bounding box state->getTransformedLineWidth());
+			textNode->setFillTransparency(1.0 - state->getFillOpacity() > state->getStrokeOpacity() ? state->getFillOpacity() : state->getStrokeOpacity());
+			textNode->setLineTransparency(1.0); // this sets the transparency of the textbox border and we don't want to see it
+			textNode->setLineBlendmode(getBlendMode(state));
+			textNode->setLineShade(m_currStrokeShade);
+		}
+	}
 }

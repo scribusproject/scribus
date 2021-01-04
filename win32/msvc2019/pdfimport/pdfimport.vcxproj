@@ -208,6 +208,7 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\importpdf.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\pdftextrecognition.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\slaoutput.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -218,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\pdf\importpdfconfig.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\pdftextrecognition.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdf.h" />
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.h" />

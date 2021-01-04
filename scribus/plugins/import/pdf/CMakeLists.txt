@@ -19,6 +19,7 @@ set(IMPORTPDF_PLUGIN_SOURCES
 	importpdf.cpp
 	importpdfplugin.cpp
 	pdfimportoptions.cpp
+	pdftextrecognition.cpp
 	slaoutput.cpp
 )
 

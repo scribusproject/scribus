@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\pdftextrecognition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\pdf\slaoutput.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\import\pdf\importpdfconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\import\pdf\pdftextrecognition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
