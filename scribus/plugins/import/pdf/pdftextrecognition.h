@@ -87,6 +87,8 @@ public:
 	qreal maxWidth = {};
 	QPointF lineBaseXY = QPointF({ }, { }); //updated with the best match left value from all the textRegionLines and the best bottom value from the textRegionLines.segments;
 	QPointF lastXY = QPointF({}, {});
+	std::vector<PdfGlyph> glyphs;
+
 	static bool collinear(qreal a, qreal b);
 	bool isCloseToX(qreal x1, qreal x2);
 	bool isCloseToY(qreal y1, qreal y2);
@@ -97,7 +99,6 @@ public:
 	PdfTextRegion::LineType moveToPoint(QPointF newPoint);
 	PdfTextRegion::LineType addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
 	void renderToTextFrame(PageItem* textNode);
-	std::vector<PdfGlyph> glyphs;
 	bool isNew();
 };
 
