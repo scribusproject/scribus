@@ -433,7 +433,7 @@ bool PdfPlug::convert(const QString& fn)
 				bool cropped = false;
 				bool importTextAsVectors = true;
 				int contentRect = Media_Box;
-				if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && ((lastPage > 1) || boxesAreDifferent))
+				if ((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc))
 				{
 					if (progressDialog)
 						progressDialog->hide();
