@@ -563,15 +563,18 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 		charcode = FT_Get_Next_Char(face, charcode, &gindex);
 	}
 
-	int faceIndex=0;
+	// Warning: code below is also present in addScalableFont, so if you do
+	// any modification here, think also about modifying code in addScalableFont
+	int faceIndex = 0;
 	QString fam(getFamilyName(face));;
 	QStringList features(getFontFeatures(face));
 	QString sty(face->style_name);
-	if (sty == "Regular")
+	if ((sty == "Regular" && face->style_flags != 0) || sty.isEmpty())
 	{
 		switch (face->style_flags)
 		{
 			case 0:
+				sty = "Regular";
 				break;
 			case 1:
 				sty = "Italic";
@@ -586,29 +589,31 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 				break;
 		}
 	}
-	QString ts(fam + " " + sty);
+	QString fullName(fam);
+	if (!sty.isEmpty())
+		fullName += " " + sty;
 	const char* psName = FT_Get_Postscript_Name(face);
 	QString qpsName;
 	if (psName)
 		qpsName = QString(psName);
 	else
-		qpsName = ts;
+		qpsName = fullName;
 	if (t.isNone())
 	{
 		switch (format)
 		{
 			case ScFace::PFA:
-				t = ScFace(new ScFace_PFA(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+				t = ScFace(new ScFace_PFA(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::PFB:
-				t = ScFace(new ScFace_PFB(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+				t = ScFace(new ScFace_PFB(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 				t.subset(Subset);
 				break;
 			case ScFace::SFNT:
 			case ScFace::TTCF:
 			case ScFace::TYPE42:
-				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceIndex, features));
+				t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 				getSFontType(face, t.m_m->typeCode);
 				t.subset(Subset);
 				break;
@@ -799,6 +804,8 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 		}
 	}
 
+	// Warning: code below is also present in loadScalableFont, so if you do
+	// any modification here, think also about modifying code in loadScalableFont
 	int faceIndex = 0;
 	while (!error)
 	{
@@ -889,7 +896,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 			t.m_m->forDocument = DocName;
 			//setBestEncoding(face); //AV
 			if (m_showFontInfo)
-				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName(), filename).arg(faceIndex+1));
+				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName(), filename).arg(faceIndex + 1));
 
 /*
 //debug
