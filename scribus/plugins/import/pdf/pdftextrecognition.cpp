@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "pdftextrecognition.h"
 
+constexpr double PdfTextRegion::boundingBoxShape[32];
+
 /*
 *	constructor, initialize the textRegions vector and set the addChar mode
 */

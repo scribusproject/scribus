@@ -61,22 +61,23 @@ public:
 #
 	/*
 * the bounding box shape splines in percentage of width and height. In this case 100% as we want to clip shape to be the full TextBox width and height. */
-	static constexpr double boundingBoxShape[32] = { 0.0,0.0
-							,0.0,0.0
-							,100.0,0.0
-							,100.0,0.0
-							,100.0,0.0
-							,100.0,0.0
-							,100.0,100.0
-							,100.0,100.0
-							,100.0,100.0
-							,100.0,100.0
-							,0.0,100.0
-							,0.0,100.0
-							,0.0,100.0
-							,0.0,100.0
-							,0.0,0.0
-							,0.0,0.0
+	static constexpr double boundingBoxShape[32] = {
+		0.0, 0.0,
+		0.0, 0.0,
+		100.0, 0.0,
+		100.0, 0.0,
+		100.0, 0.0,
+		100.0, 0.0,
+		100.0, 100.0,
+		100.0, 100.0,
+		100.0, 100.0,
+		100.0, 100.0,
+		0.0, 100.0,
+		0.0, 100.0,
+		0.0, 100.0,
+		0.0, 100.0,
+		0.0, 0.0,
+		0.0, 0.0
 	};
 
 	QPointF pdfTextRegionBasenOrigin = QPointF({}, {});
