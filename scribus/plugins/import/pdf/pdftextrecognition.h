@@ -120,10 +120,12 @@ public:
 		m_addCharMode = mode;
 	}
 
-	PdfTextRegion&& activePdfTextRegion = PdfTextRegion(); //faster and cleaner than calling back on the vector all the time.
+	PdfTextRegion* activePdfTextRegion = nullptr; //faster and cleaner than calling back on the vector all the time.
+
 	void addPdfTextRegion();
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen);
 	bool isNewLineOrRegion(QPointF newPosition);
+
 private:
 	std::vector<PdfTextRegion> m_pdfTextRegions = std::vector<PdfTextRegion>();
 	AddCharMode m_addCharMode = AddCharMode::ADDFIRSTCHAR;
