@@ -77,10 +77,16 @@ bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
 */
 PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
 {
+	const double * ctm = state->getCTM();
+	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	QPointF charDelta1 = trans.map(QPointF(0.0, 0.0));
+	QPointF charDelta2 = trans.map(QPointF(dx, dy));
+	QPointF charDelta = charDelta2 - charDelta1;
+
 	//qDebug() << "AddBasicChar() '" << u << " : " << uLen;
 	PdfGlyph newGlyph;
-	newGlyph.dx = dx;
-	newGlyph.dy = dy;
+	newGlyph.dx = charDelta.x();
+	newGlyph.dy = charDelta.y();
 
 	// Convert the character to UTF-16 since that's our SVG document's encoding
 
@@ -104,7 +110,11 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 	setCharMode(AddCharMode::ADDBASICCHAR);
 
 	//only need to be called for the very first point
-	auto success = activePdfTextRegion->addGlyphAtPoint(QPointF(x, y), newGlyph);
+	const double * ctm = state->getCTM();
+	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	QPointF glyphPos = trans.map(QPointF(x, y));
+
+	auto success = activePdfTextRegion->addGlyphAtPoint(glyphPos, newGlyph);
 	if (success == PdfTextRegion::LineType::FAIL)
 		qDebug("FIXME: Rogue glyph detected, this should never happen because the cursor should move before glyphs in new regions are added.");
 	return newGlyph;
@@ -115,8 +125,11 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 */
 PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
+	const double * ctm = state->getCTM();
+	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+
 	PdfGlyph newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
-	activePdfTextRegion->lastXY = QPointF(x, y);
+	activePdfTextRegion->lastXY = trans.map(QPointF(x, y));
 	activePdfTextRegion->glyphs.push_back(newGlyph);
 	return newGlyph;
 }
@@ -166,7 +179,6 @@ bool PdfTextRegion::collinear(qreal a, qreal b)
 */
 bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
 {
-
 	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->pdfTextRegionBasenOrigin.x()) <= lineSpacing);
 }
 
@@ -233,7 +245,7 @@ PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits,
 	}
 	else if (isCloseToX(point.x(), pdfTextRegionBasenOrigin.x()))
 	{
-		if (isCloseToY(point.y(), lastXY.y()) && !collinear(point.y(), lastXY.y()))
+		if (isCloseToY(lastXY.y(), point.y()) && !collinear(point.y(), lastXY.y()))
 		{
 			if (pdfTextRegionLines.size() >= 2)
 				return LineType::NEWLINE;
@@ -268,7 +280,7 @@ PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(QPointF newPoint)
 	}
 
 	bool xInLimits = isCloseToX(newPoint.x(), lastXY.x());
-	bool yInLimits = isCloseToY(newPoint.y(), lastXY.y());
+	bool yInLimits = isCloseToY(lastXY.y(), newPoint.y());
 	LineType pass = linearTest(newPoint, xInLimits, yInLimits);
 	return pass;
 }
@@ -437,7 +449,10 @@ PdfTextOutputDev::~PdfTextOutputDev()
  */
 void PdfTextOutputDev::updateTextPos(GfxState* state)
 {
-	QPointF newPosition = QPointF(state->getCurX(), state->getCurY());
+	const double * ctm = state->getCTM();
+	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+
+	QPointF newPosition = trans.map(QPointF(state->getCurX(), state->getCurY()));
 	PdfTextRegion *activePdfTextRegion = m_pdfTextRecognition.activePdfTextRegion;
 
 	if (activePdfTextRegion->isNew())
@@ -487,7 +502,7 @@ void PdfTextOutputDev::renderTextFrame()
 		return;
 
 	qreal xCoor = m_doc->currentPage()->xOffset() + activePdfTextRegion->pdfTextRegionBasenOrigin.x();
-	qreal yCoor = m_doc->currentPage()->initialHeight() + m_doc->currentPage()->yOffset() - ( (double)activePdfTextRegion->pdfTextRegionBasenOrigin.y() + activePdfTextRegion->lineSpacing); // don't know if y is top down or bottom up
+	qreal yCoor = m_doc->currentPage()->yOffset() + activePdfTextRegion->pdfTextRegionBasenOrigin.y() - activePdfTextRegion->lineSpacing; // don't know if y is top down or bottom up
 	qreal  lineWidth = 0.0;
 #ifdef DEBUG_TEXT_IMPORT
 	qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activePdfTextRegion->lineSpacing << "Height:" << activePdfTextRegion->maxHeight << " Width:" << activePdfTextRegion->maxWidth;
@@ -495,10 +510,14 @@ void PdfTextOutputDev::renderTextFrame()
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, 40, 40, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* textNode = m_doc->Items->at(z);
 
-	ParagraphStyle& pStyle = (ParagraphStyle&)textNode->itemText.defaultStyle();
+	ParagraphStyle pStyle;
 	pStyle.setLineSpacingMode(pStyle.AutomaticLineSpacing);
 	pStyle.setHyphenationMode(pStyle.AutomaticHyphenation);
+	Selection tempSelection(nullptr, false);
+	tempSelection.addItem(textNode);
+	m_doc->itemSelection_ApplyParagraphStyle(pStyle, &tempSelection);
 	finishItem(textNode);
+
 	//_setFillAndStrokeForPdf(state, text_node);
 	textNode->ClipEdited = true;
 	textNode->FrameType = 3;

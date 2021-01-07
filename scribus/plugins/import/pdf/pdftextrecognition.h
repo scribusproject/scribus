@@ -155,6 +155,7 @@ public:
 	void  endType3Char(GfxState* /*state*/) override;
 	void  type3D0(GfxState* /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState* /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
+
 private:
 	void setFillAndStrokeForPDF(GfxState* state, PageItem* text_node);
 	void updateTextPos(GfxState* state) override;
