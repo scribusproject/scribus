@@ -72,8 +72,8 @@ PageLayouts::PageLayouts(QWidget* parent)  : QGroupBox( parent )
 
 	modus = false;
 	layoutGroupLayout = new QVBoxLayout(this);
-	layoutGroupLayout->setSpacing(6);
-	layoutGroupLayout->setContentsMargins(9, 9, 9, 9);
+	layoutGroupLayout->setSpacing(3);
+	layoutGroupLayout->setContentsMargins(6, 6, 6, 6);
 
 	layoutsCombo = new QComboBox( this );
 	layoutGroupLayout->addWidget( layoutsCombo );

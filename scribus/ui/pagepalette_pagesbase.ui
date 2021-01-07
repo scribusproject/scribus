@@ -14,20 +14,17 @@
    <string>Arrange Pages</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QSplitter" name="splitter">

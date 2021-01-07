@@ -49,12 +49,12 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	containerWidget = new QWidget(this);
 	LayerPaletteLayout = new QVBoxLayout();
-	LayerPaletteLayout->setMargin(2);
-	LayerPaletteLayout->setSpacing(2);
+	LayerPaletteLayout->setContentsMargins(3, 3, 3, 3);
+	LayerPaletteLayout->setSpacing(3);
 
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(2);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(3);
 	textLabel1 = new QLabel( this);
 	layout1->addWidget( textLabel1 );
 	blendMode = new QComboBox( this);
@@ -107,7 +107,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt
 	LayerPaletteLayout->addWidget( Table );
 
 	Layout1 = new QHBoxLayout;
-	Layout1->setMargin(0);
+	Layout1->setContentsMargins(0, 0, 0, 0);
 	Layout1->setSpacing(0);
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );

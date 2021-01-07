@@ -152,6 +152,7 @@ bool SymbolView::viewportEvent(QEvent *event)
 
 SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette(parent, "Symb", Qt::WindowFlags())
 {
+	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Symb"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

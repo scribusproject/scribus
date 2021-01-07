@@ -103,6 +103,7 @@ void InlineView::dropEvent(QDropEvent *e)
 
 InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette(parent, "Inline", Qt::WindowFlags())
 {
+	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize( 220, 240 ) );
 	setObjectName(QString::fromLocal8Bit("Inline"));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

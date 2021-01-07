@@ -285,11 +285,11 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette(parent, "Shap", Qt:
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	containerWidget = new QWidget(this);
 	vLayout = new QVBoxLayout( containerWidget );
-	vLayout->setSpacing( 0 );
-	vLayout->setMargin( 0 );
+	vLayout->setSpacing(3);
+	vLayout->setContentsMargins(3, 3, 3, 3);
 	buttonLayout = new QHBoxLayout;
-	buttonLayout->setSpacing( 5 );
-	buttonLayout->setMargin( 0 );
+	buttonLayout->setSpacing(6);
+	buttonLayout->setContentsMargins(0, 0, 0, 0);
 
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));

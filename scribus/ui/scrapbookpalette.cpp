@@ -724,12 +724,12 @@ Biblio::Biblio(QWidget* parent) : ScDockPalette(parent, "Sclib", Qt::WindowFlags
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	containerWidget = new QWidget(this);
 	BiblioLayout = new QVBoxLayout( containerWidget );
-	BiblioLayout->setSpacing( 0 );
-	BiblioLayout->setMargin( 0 );
+	BiblioLayout->setSpacing(3);
+	BiblioLayout->setContentsMargins(3, 3, 3, 3);
 
 	buttonLayout = new QHBoxLayout;
-	buttonLayout->setSpacing( 5 );
-	buttonLayout->setMargin( 0 );
+	buttonLayout->setSpacing(3);
+	buttonLayout->setContentsMargins(0, 0, 0, 0);
 	newButton = new QToolButton(this);
 	newButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	newButton->setIcon(IconManager::instance().loadPixmap("16/document-new.png"));

@@ -15,6 +15,18 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <property name="leftMargin">
+     <number>3</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
+     <number>3</number>
+    </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -25,8 +37,26 @@
         <string>Align</string>
        </attribute>
        <layout class="QVBoxLayout">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="_2">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <spacer>
             <property name="orientation">
@@ -115,6 +145,9 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="_4">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <spacer>
             <property name="orientation">
@@ -306,8 +339,26 @@
         <string>Distribute</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="_6">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <spacer>
             <property name="orientation">
@@ -586,6 +637,9 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="_9">
+            <property name="spacing">
+             <number>3</number>
+            </property>
             <item>
              <widget class="QLabel" name="distributeDistLabel">
               <property name="text">
@@ -634,6 +688,9 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <spacer name="spacer">
             <property name="orientation">
@@ -698,8 +755,26 @@
         <string>Swap</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>3</number>
+        </property>
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="topMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">

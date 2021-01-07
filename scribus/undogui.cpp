@@ -199,8 +199,8 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 	currentSelection = 0;
 	redoItems = 0;
 	QVBoxLayout* layout = new QVBoxLayout(container);
-	layout->setMargin(5);
-	layout->setSpacing(5);
+	layout->setContentsMargins(3, 3, 3, 3);
+	layout->setSpacing(3);
 	objectBox = new QCheckBox(this);
 	layout->addWidget(objectBox);
 
@@ -210,8 +210,8 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 	layout->addWidget(undoList);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
-	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(5);
+	buttonLayout->setContentsMargins(0, 0, 0, 0);
+	buttonLayout->setSpacing(6);
 	undoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-undo.png"), "", this);
 	buttonLayout->addWidget(undoButton);
 	redoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-redo.png"), "", this);

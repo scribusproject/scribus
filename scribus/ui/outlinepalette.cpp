@@ -473,7 +473,8 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette(parent, "Tree",
 	layout->addWidget( filterLabel, 0, 0 );
 	layout->addWidget( filterEdit, 0, 1 );
 	layout->addWidget( reportDisplay, 1, 0, 1, 2 );
-	layout->setContentsMargins( 3, 3, 3, 3);
+	layout->setSpacing(3);
+	layout->setContentsMargins(3, 3, 3, 3);
 	containerWidget->setLayout( layout );
 	setWidget( containerWidget );
 
