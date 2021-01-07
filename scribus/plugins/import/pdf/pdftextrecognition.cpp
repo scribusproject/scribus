@@ -513,6 +513,12 @@ void PdfTextOutputDev::renderTextFrame()
 	ParagraphStyle pStyle;
 	pStyle.setLineSpacingMode(pStyle.AutomaticLineSpacing);
 	pStyle.setHyphenationMode(pStyle.AutomaticHyphenation);
+
+	CharStyle& cStyle = pStyle.charStyle();
+	cStyle.setScaleH(1000.0);
+	cStyle.setScaleV(1000.0);
+	cStyle.setHyphenChar(SpecialChars::BLANK.unicode());
+
 	Selection tempSelection(nullptr, false);
 	tempSelection.addItem(textNode);
 	m_doc->itemSelection_ApplyParagraphStyle(pStyle, &tempSelection);
@@ -549,10 +555,6 @@ void PdfTextOutputDev::renderTextFrame()
 	QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);
 	*/
-	CharStyle& cStyle = static_cast<CharStyle&>(pStyle.charStyle());
-	cStyle.setScaleH(1000.0);
-	cStyle.setScaleV(1000.0);
-	cStyle.setHyphenChar(SpecialChars::BLANK.unicode());
 
 	textNode->itemText.setDefaultStyle(pStyle);
 	textNode->invalid = true;
