@@ -26,11 +26,20 @@
    <bool>false</bool>
   </property>
   <layout class="QVBoxLayout">
-   <property name="spacing">
-    <number>7</number>
-   </property>
    <property name="sizeConstraint">
     <enum>QLayout::SetMinimumSize</enum>
+   </property>
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
