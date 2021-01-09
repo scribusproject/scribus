@@ -29,6 +29,18 @@
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item row="1" column="0">
     <widget class="QPushButton" name="UpdateButton">
      <property name="sizePolicy">

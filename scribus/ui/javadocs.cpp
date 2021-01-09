@@ -33,8 +33,8 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 	m_Doc = doc;
 	m_View = vie;
 	JavaDocsLayout = new QHBoxLayout(this);
-	JavaDocsLayout->setMargin(10);
-	JavaDocsLayout->setSpacing(5);
+	JavaDocsLayout->setContentsMargins(9, 9, 9, 9);
+	JavaDocsLayout->setSpacing(6);
 
 	Scripts = new QListWidget( this );
 	Scripts->setMinimumSize( QSize( 150, 200 ) );
@@ -44,8 +44,8 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 	JavaDocsLayout->addWidget( Scripts );
 
 	Layout1 = new QVBoxLayout;
-	Layout1->setMargin(0);
-	Layout1->setSpacing(5);
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
 
 	EditScript = new QPushButton( tr( "&Edit..." ), this);
 	Layout1->addWidget( EditScript );
