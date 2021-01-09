@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>replaceColorsDialog</class>
- <widget class="QDialog" name="replaceColorsDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="replaceColorsDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,30 +10,42 @@
     <height>400</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Replace Colors</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <property name="modal" >
+  <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QTableWidget" name="replacementTable" >
-       <property name="minimumSize" >
+      <widget class="QTableWidget" name="replacementTable">
+       <property name="minimumSize">
         <size>
          <width>150</width>
          <height>150</height>
         </size>
        </property>
-       <property name="selectionBehavior" >
+       <property name="selectionBehavior">
         <enum>QAbstractItemView::SelectRows</enum>
        </property>
-       <property name="columnCount" >
+       <property name="columnCount">
         <number>2</number>
        </property>
        <column/>
@@ -40,46 +53,46 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QPushButton" name="addButton" >
-         <property name="text" >
+        <widget class="QPushButton" name="addButton">
+         <property name="text">
           <string>Add ...</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="removeButton" >
-         <property name="enabled" >
+        <widget class="QPushButton" name="removeButton">
+         <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Remove</string>
          </property>
-         <property name="autoDefault" >
+         <property name="autoDefault">
           <bool>false</bool>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="editButton" >
-         <property name="enabled" >
+        <widget class="QPushButton" name="editButton">
+         <property name="enabled">
           <bool>false</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Edit...</string>
          </property>
         </widget>
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>75</width>
            <height>41</height>
@@ -92,12 +105,12 @@
     </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -111,11 +124,11 @@
    <receiver>replaceColorsDialog</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -127,11 +140,11 @@
    <receiver>replaceColorsDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>
