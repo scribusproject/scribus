@@ -97,6 +97,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	m_ui->printLanguageCombo->setCurrentLanguage(engine);
 
 	m_previewCreator = PrintPreviewCreatorFactory::create(docu, m_ui->printLanguageCombo->currentLanguage());
+	m_previewCreator->setDevicePixelRatio(devicePixelRatioF());
 
 	m_useGhostscript = m_previewCreator->isGhostscriptBased();
 	m_haveTiffSep  = ScCore->haveTIFFSep() && (m_ui->printLanguageCombo->hasPDF() || m_ui->printLanguageCombo->hasPostscript());
@@ -431,6 +432,8 @@ void PrintPreview::onPrintLanguageChange(int /*langIndex*/)
 	m_previewCreator = PrintPreviewCreatorFactory::create(m_doc, newPrnLanguage);
 	m_useGhostscript = m_previewCreator->isGhostscriptBased();
 
+	m_previewCreator->setDevicePixelRatio(devicePixelRatioF());
+
 	m_ui->antiAliasing->setEnabled(m_useGhostscript);
 	m_ui->showTransparency->setEnabled(m_useGhostscript);
 
@@ -534,6 +537,7 @@ QPixmap PrintPreview::createPreview(int pageIndex, int res)
 		m_previewCreator->setPrintOptions(options);
 	}
 
+	m_previewCreator->setDevicePixelRatio(devicePixelRatioF());
 	m_previewCreator->setPreviewResolution(res);
 	m_previewCreator->setAntialisingEnabled(m_ui->antiAliasing->isChecked());
 	m_previewCreator->setShowTransparency(m_ui->showTransparency->isChecked());

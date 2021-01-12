@@ -255,7 +255,8 @@ void CWDialog::setPreview()
 	int y = previewLabel->height();
 	QList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
-	QPixmap pm = QPixmap(x, y);
+	QPixmap pm = QPixmap(x * devicePixelRatioF(), y * devicePixelRatioF());
+	pm.setDevicePixelRatio(devicePixelRatioF());
 	QPainter *p = new QPainter(&pm);
 	QFontMetrics fm = p->fontMetrics();
 

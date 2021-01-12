@@ -24,9 +24,10 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	m_Doc=doc;
+	m_Doc = doc;
 
 	sampleItem = new SampleItem();
+	sampleItem->setDevicePixelRatio(devicePixelRatioF());
 
 	languageChange();
 
@@ -46,7 +47,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 	uint srt = prefs->getUInt("sortColumn", 0);
 	bool extend = prefs->getBool("extendedView", false);
 	extendedCheckBox->setChecked(extend);
-	Qt::SortOrder srtOrder = (Qt::SortOrder)prefs->getUInt("sortColumnOrder", 0);
+	Qt::SortOrder srtOrder = (Qt::SortOrder) prefs->getUInt("sortColumnOrder", 0);
 
 	proxyModel->sort(srt, srtOrder);
 	fontList->horizontalHeader()->setSortIndicatorShown(true);

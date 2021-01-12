@@ -290,12 +290,17 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
+	int pmWidth = qRound(width * m_devicePixelRatio);
+	int pmHeight = qRound(height * m_devicePixelRatio);
 	double frameWidth  = width / PrefsManager::instance().appPrefs.displayPrefs.displayScale;
 	double frameHeight = height / PrefsManager::instance().appPrefs.displayPrefs.displayScale;
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
-	QImage pm(width, height, QImage::Format_ARGB32);
-	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
+	
+	QImage pm(pmWidth, pmHeight, QImage::Format_ARGB32);
+	pm.setDevicePixelRatio(m_devicePixelRatio);
+
+	ScPainter *painter = new ScPainter(&pm, pmWidth, pmHeight, 1.0, 0);
 	painter->setZoomFactor(PrefsManager::instance().appPrefs.displayPrefs.displayScale);
 
 	if (m_Doc->UsedFonts.contains(m_tmpStyle.charStyle().font().scName()))
@@ -328,5 +333,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	}
 //	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);
-	return QPixmap::fromImage(pm);
+
+	QPixmap pixmap = QPixmap::fromImage(pm);
+	return pixmap;
 }

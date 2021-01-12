@@ -41,6 +41,14 @@ void PrintPreviewCreator::setAntialisingEnabled(bool enabled)
 	m_renderingOptionsChanged = true;
 }
 
+void PrintPreviewCreator::setDevicePixelRatio(double ratio)
+{
+	if (m_devicePixelRatio == ratio)
+		return;
+	m_devicePixelRatio = ratio;
+	m_renderingOptionsChanged = true;
+}
+
 void PrintPreviewCreator::setPreviewResolution(int res)
 {
 	if (m_previewResolution == res)

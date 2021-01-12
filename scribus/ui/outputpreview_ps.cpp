@@ -292,8 +292,9 @@ void OutputPreview_PS::cleanupTemporaryFiles()
 QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 {
 	int ret = -1;
-	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
+	int gsRes = qRound(res * devicePixelRatioF());
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * gsRes / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * gsRes / 72.0);
 
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -311,9 +312,9 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 	if (optionsHaveChanged(pageIndex))
 	{
 		if (m_optionsUi->enableCMYK->isChecked() && m_haveTiffSep)
-			ret = renderPreviewSep(pageIndex, res);
+			ret = renderPreviewSep(pageIndex, gsRes);
 		else
-			ret = renderPreview(pageIndex, res);
+			ret = renderPreview(pageIndex, gsRes);
 		if (ret > 0)
 		{
 			imageLoadError(pixmap);
@@ -329,8 +330,8 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 
 		ScImage im;
 		bool mode;
-		int w2 = qRound(w);
-		int h2 = qRound(h);
+		int w2 = w;
+		int h2 = h;
 		if (m_doc->Pages->at(pageIndex)->orientation() == 1)
 			std::swap(w2, h2);
 		image = QImage(w2, h2, QImage::Format_ARGB32);
@@ -531,9 +532,12 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 	const ScPage* page = m_doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
 		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
+
+	image.setDevicePixelRatio(devicePixelRatioF());
 	if (m_optionsUi->showTransparency->isChecked())
 	{
 		pixmap = QPixmap(image.width(), image.height());
+		pixmap.setDevicePixelRatio(devicePixelRatioF());
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pixmap);
@@ -543,6 +547,7 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 	}
 	else
 		pixmap = QPixmap::fromImage(image);
+	pixmap.setDevicePixelRatio(devicePixelRatioF());
 
 	qApp->restoreOverrideCursor();
 	updateOptionsFromUI();
@@ -609,8 +614,8 @@ int OutputPreview_PS::renderPreview(int pageIndex, int res)
 
 	QStringList args;
 	QString tmp, tmp2, tmp3;
-	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * res / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * res / 72.0);
 	if (m_doc->Pages->at(pageIndex)->orientation() == 1)
 		std::swap(w, h);
 
@@ -618,7 +623,7 @@ int OutputPreview_PS::renderPreview(int pageIndex, int res)
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(w)), tmp3.setNum(qRound(h))) );
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(w), tmp3.setNum(h)) );
 	if (m_optionsUi->enableCMYK->isChecked())
 	{
 		if (!m_haveTiffSep)
@@ -689,8 +694,8 @@ int OutputPreview_PS::renderPreviewSep(int pageIndex, int res)
 	QStringList args, args1, args2, args3;
 
 	QString tmp, tmp2, tmp3;
-	double w = m_doc->Pages->at(pageIndex)->width() * res / 72.0;
-	double h = m_doc->Pages->at(pageIndex)->height() * res / 72.0;
+	int w = qRound(m_doc->Pages->at(pageIndex)->width() * res / 72.0);
+	int h = qRound(m_doc->Pages->at(pageIndex)->height() * res / 72.0);
 	if (m_doc->Pages->at(pageIndex)->orientation() == 1)
 		std::swap(w, h);
 
@@ -698,7 +703,7 @@ int OutputPreview_PS::renderPreviewSep(int pageIndex, int res)
 	args1.append( "-dNOPAUSE" );
 	args1.append( "-dPARANOIDSAFER" );
 	args1.append( QString("-r%1").arg(tmp.setNum(res)) );
-	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(w)), tmp3.setNum(qRound(h))) );
+	args1.append( QString("-g%1x%2").arg(tmp2.setNum(w), tmp3.setNum(h)) );
 	if (m_optionsUi->antiAliasing->isChecked())
 	{
 		args1.append("-dTextAlphaBits=4");
@@ -821,7 +826,7 @@ bool OutputPreview_PS::optionsHaveChanged(int pageIndex) const
 {
 	if (m_currentPage != pageIndex)
 		return true;
-	if (m_scaleFactor != m_uiBase->scaleBox->currentIndex())
+	if (m_scaleMode != m_uiBase->scaleBox->currentIndex())
 		return true;
 	if (m_cmykPreviewMode != m_optionsUi->enableCMYK->isChecked())
 		return true;
@@ -930,7 +935,7 @@ void OutputPreview_PS::updateOptionsFromUI()
 	m_enableGCR = m_optionsUi->enableGCR->isChecked();
 
 	m_currentPage = m_uiBase->pageSelector->getCurrentPage() - 1;
-	m_scaleFactor = m_uiBase->scaleBox->currentIndex();
+	m_scaleMode = m_uiBase->scaleBox->currentIndex();
 	m_cmykPreviewMode = m_optionsUi->enableCMYK->isChecked();
 	m_useAntialiasing = m_optionsUi->antiAliasing->isChecked();
 	m_showTransparency = m_optionsUi->showTransparency->isChecked();

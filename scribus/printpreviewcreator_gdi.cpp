@@ -85,9 +85,12 @@ QPixmap PrintPreviewCreator_GDI::createPreview(int pageIndex)
 	const ScPage* page = m_doc->Pages->at(pageIndex);
 	if ((page->orientation() == 1) && (image.width() < image.height()))
 		image = image.transformed( QMatrix(0, 1, -1, 0, 0, 0) );
+
+	image.setDevicePixelRatio(m_devicePixelRatio);
 	if (m_showTransparency)
 	{
 		pixmap = QPixmap(image.width(), image.height());
+		pixmap.setDevicePixelRatio(m_devicePixelRatio);
 		QPainter p;
 		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
 		p.begin(&pixmap);
@@ -97,6 +100,8 @@ QPixmap PrintPreviewCreator_GDI::createPreview(int pageIndex)
 	}
 	else
 		pixmap = QPixmap::fromImage(image);
+	pixmap.setDevicePixelRatio(m_devicePixelRatio);
+
 	return pixmap;
 }
 
@@ -117,7 +122,7 @@ bool PrintPreviewCreator_GDI::createPreviewFile(int pageIndex, int res)
 	options.toFile = false;
 	options.useColor = m_printOptions.useColor;
 	options.useSpotColors = false;
-	bool done = winPrint.gdiPrintPreview(page, &image, options, res / 72.0);
+	bool done = winPrint.gdiPrintPreview(page, &image, options, res / 72.0 * m_devicePixelRatio);
 	if (done)
 		image.save( ScPaths::tempFileDir() + m_tempBaseName + ".png", "PNG" );
 	return done;
