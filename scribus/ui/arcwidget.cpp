@@ -68,15 +68,19 @@ void ArcWidget::updatePreview()
 	int pixWidth = Preview->width() - 5;
 	int pixHeight = Preview->height() - 5;
 
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	const QColor& windowColor = palette.color(QPalette::Base);
+
 	QPixmap pm = QPixmap(pixWidth * devicePixelRatioF(), pixHeight * devicePixelRatioF());
 	pm.setDevicePixelRatio(devicePixelRatioF());
-	pm.fill(Qt::white);
+	pm.fill(windowColor);
 
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setBrush(Qt::NoBrush);
-	p.setPen(Qt::black);
+	p.setPen(textColor);
 	QPainterPath path;
 	path.moveTo(pixWidth / 2.0, pixHeight / 2.0);
 	double nSweep = endAngle->value() - startAngle->value();

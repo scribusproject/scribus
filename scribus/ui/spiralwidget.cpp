@@ -73,15 +73,19 @@ void SpiralWidget::updatePreview()
 	int pixWidth = (Preview->width() - 5) * devicePixelRatioF();
 	int pixHeight = (Preview->height() - 5) * devicePixelRatioF();
 
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+	const QColor& windowColor = palette.color(QPalette::Base);
+
 	QPixmap pm(pixWidth, pixHeight);
 	pm.setDevicePixelRatio(devicePixelRatioF());
-	pm.fill(Qt::white);
+	pm.fill(windowColor);
 
 	QPainter p;
 	p.begin(&pm);
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setBrush(Qt::NoBrush);
-	p.setPen(Qt::black);
+	p.setPen(textColor);
 	QPainterPath path = spiralPath(spiralWidth, spiralHeight, startAngle->value(), endAngle->value(), (static_cast<int>(arcFactor->value()) + 100) / 100.0);
 	path.translate(3, 3);
 	p.strokePath(path, p.pen());
