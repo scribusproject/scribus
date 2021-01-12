@@ -259,7 +259,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 						{
 							mt[i] = args[i].GetReal();
 						}
-						QTransform transMatrix(mt[0], mt[1], mt[2], mt[3], mt[4], mt[5]);
+						QMatrix transMatrix(mt[0], mt[1], mt[2], mt[3], mt[4], mt[5]);
 						currGS.ctm = transMatrix*currGS.ctm;
 					}
 					}
