@@ -321,8 +321,10 @@ void ScribusView::togglePreview(bool inPreview)
 		// warning popping up in case colour management and out-of-gamut-display are active
 		// as from #4346: Add a preview for daltonian - PV
 		if (m_doc->HasCMS && m_doc->Gamut)
+		{
 			ScMessageBox::information(m_ScMW, tr("Preview Mode"),
-									  "<qt>" + tr("CMS is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
+									  "<qt>" + tr("Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
+		}
 	}
 	else
 	{
