@@ -139,7 +139,9 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 					{
 						pBase = cs->GetOwner()->GetObject(base.GetReference());
 					}
+#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 9, 7))
 					pBase->SetOwner(cs->GetOwner());
+#endif
 					return getCSType(pBase);
 				}
 				if (csTypeName == "Separation")
@@ -257,7 +259,7 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 						{
 							mt[i] = args[i].GetReal();
 						}
-						QMatrix transMatrix(mt[0], mt[1], mt[2], mt[3], mt[4], mt[5]);
+						QTransform transMatrix(mt[0], mt[1], mt[2], mt[3], mt[4], mt[5]);
 						currGS.ctm = transMatrix*currGS.ctm;
 					}
 					}
