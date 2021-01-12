@@ -139,7 +139,9 @@ PDFColorSpace PDFAnalyzer::getCSType(PdfObject* cs)
 					{
 						pBase = cs->GetOwner()->GetObject(base.GetReference());
 					}
+#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 9, 7))
 					pBase->SetOwner(cs->GetOwner());
+#endif
 					return getCSType(pBase);
 				}
 				if (csTypeName == "Separation")
