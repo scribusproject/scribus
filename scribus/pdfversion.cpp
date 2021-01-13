@@ -31,7 +31,11 @@ bool PDFVersion::supports128BitsEncryption() const
 
 bool PDFVersion::supportsEmbeddedOpenTypeFonts() const
 {
-	return (m_version == PDF_16);
+	if (m_version == PDF_16)
+		return true;
+	if (m_version == PDF_X4)
+		return true;
+	return false;
 }
 
 bool PDFVersion::supportsOCGs() const

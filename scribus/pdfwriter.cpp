@@ -739,11 +739,11 @@ namespace Pdf
 			case PDFVersion::PDF_14:
 				write("%PDF-1.4\n");
 				break;
-			case PDFVersion::PDF_X4:
 			case PDFVersion::PDF_15:
 				write("%PDF-1.5\n");
 				break;
 			case PDFVersion::PDF_16:
+			case PDFVersion::PDF_X4:
 				write("%PDF-1.6\n");
 				break;
 		}
