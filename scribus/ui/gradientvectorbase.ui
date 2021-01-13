@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>251</width>
-    <height>180</height>
+    <width>267</width>
+    <height>178</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,6 +23,18 @@
    <string>Gradient Vector</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
@@ -30,33 +42,18 @@
      </property>
      <widget class="QWidget" name="pageLinear">
       <layout class="QGridLayout" name="gridLayout_3">
-       <property name="margin">
-        <number>5</number>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Start:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="ScrSpinBox" name="gX1">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="3">
         <widget class="ScrSpinBox" name="gY1">
          <property name="minimum">
@@ -67,32 +64,8 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>End:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="ScrSpinBox" name="gX2">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="ScrSpinBox" name="gY2">
+       <item row="0" column="1">
+        <widget class="ScrSpinBox" name="gX1">
          <property name="minimum">
           <double>-3000.000000000000000</double>
          </property>
@@ -108,6 +81,40 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="3">
+        <widget class="ScrSpinBox" name="gY2">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ScrSpinBox" name="gX2">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Start:</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
         <widget class="ScrSpinBox" name="gSk">
          <property name="minimum">
@@ -118,17 +125,69 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>End:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageRadial">
       <layout class="QGridLayout" name="gridLayout">
-       <property name="margin">
-        <number>5</number>
+       <property name="leftMargin">
+        <number>0</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Start:</string>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="4" column="1">
+        <widget class="ScrSpinBox" name="gSc">
+         <property name="minimum">
+          <double>0.010000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>100.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>100.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ScrSpinBox" name="gX2_2">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -149,35 +208,22 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="ScrSpinBox" name="gY1_2">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_9">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>End:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="ScrSpinBox" name="gX2_2">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
+          <string>Focal:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_12">
          <property name="text">
           <string>/</string>
          </property>
@@ -193,10 +239,13 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>Focal:</string>
+       <item row="0" column="3">
+        <widget class="ScrSpinBox" name="gY1_2">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -207,30 +256,6 @@
          </property>
          <property name="maximum">
           <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="ScrSpinBox" name="gFY">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Skew:</string>
          </property>
         </widget>
        </item>
@@ -251,27 +276,165 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="ScrSpinBox" name="gSc">
-         <property name="minimum">
-          <double>0.010000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>100.000000000000000</double>
-         </property>
-         <property name="value">
-          <double>100.000000000000000</double>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>End:</string>
          </property>
         </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Skew:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="ScrSpinBox" name="gFY">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Start:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageFourColor">
       <layout class="QGridLayout" name="gridLayout_4">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>3. Point:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="ScrSpinBox" name="gC2Y">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>4. Point:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="ScrSpinBox" name="gC3X">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>/</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ScrSpinBox" name="gC2X">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
           <string>1. Point:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="ScrSpinBox" name="gC3Y">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="ScrSpinBox" name="gC4X">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="ScrSpinBox" name="gC4Y">
+         <property name="minimum">
+          <double>-3000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>3000.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -285,8 +448,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_18">
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_20">
          <property name="text">
           <string>/</string>
          </property>
@@ -309,105 +472,35 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="ScrSpinBox" name="gC2X">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
+       <item row="4" column="1">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_17">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="ScrSpinBox" name="gC2Y">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_15">
-         <property name="text">
-          <string>3. Point:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="ScrSpinBox" name="gC3X">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_14">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="ScrSpinBox" name="gC3Y">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_21">
-         <property name="text">
-          <string>4. Point:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="ScrSpinBox" name="gC4X">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLabel" name="label_20">
-         <property name="text">
-          <string>/</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="ScrSpinBox" name="gC4Y">
-         <property name="minimum">
-          <double>-3000.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>3000.000000000000000</double>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="pageDiamond">
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label_23">
          <property name="text">
@@ -582,6 +675,18 @@
      </widget>
      <widget class="QWidget" name="pageMesh">
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
@@ -747,7 +852,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>62</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -756,6 +861,18 @@
      </widget>
      <widget class="QWidget" name="pagePatch">
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
@@ -926,7 +1043,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>32</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
