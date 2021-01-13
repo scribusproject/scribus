@@ -22,9 +22,11 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "colorchart.h"
+
 #include <QPainter>
-#include "util_color.h"
+
 #include "iconmanager.h"
+#include "util_color.h"
 #include "sccolorengine.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -80,10 +82,10 @@ void ColorChart::paintEvent(QPaintEvent *e)
 	if (doDrawMark)
 	{
 		p2.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p2.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
-		p2.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
-		p2.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
-		p2.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
+		p2.drawLine(Xp - 5, Yp - 5, Xp - 1, Yp - 1);
+		p2.drawLine(Xp - 5, Yp + 5, Xp - 1, Yp + 1);
+		p2.drawLine(Xp + 2, Yp + 2, Xp + 6, Yp + 6);
+		p2.drawLine(Xp + 2, Yp - 2, Xp + 6, Yp - 6);
 	}
 	p2.end();
 	p.drawImage(0, 0, tmp);
@@ -104,7 +106,7 @@ void ColorChart::setMark(int h, int s)
 	if (drawMode > 0)
 		drawMark((h + 128) / 256.0 * width(), (-s + 128) / 256.0 * height());
 	else
-		drawMark(h * width() / 359, (255-s) * height() / 255);
+		drawMark(h * width() / 359, (255 - s) * height() / 255);
 }
 
 void ColorChart::drawPalette(int val)
@@ -119,7 +121,7 @@ void ColorChart::drawPalette(int val)
 		if (doSoftProofing && doGamutCheck)
 		{
 			QPainter p;
-			QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+			QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 			p.begin(&image);
 			p.fillRect(0, 0, image.width(), image.height(), b);
 			p.end();
@@ -158,7 +160,7 @@ void ColorChart::drawPalette(int val)
 			unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
 			for(int x = 0; x < xSize; ++x)
 			{
-				color.setHsv(360*x/xSize, 256*( ySize - 1 - y )/ySize, val);
+				color.setHsv(360 * x / xSize, 256 * (ySize - 1 - y) / ySize, val);
 				*p = color.rgb();
 				++p;
 			}
