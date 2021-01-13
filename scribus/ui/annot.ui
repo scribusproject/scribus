@@ -6,14 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>638</width>
-    <height>613</height>
+    <width>537</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Field Properties</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -61,6 +73,12 @@
    </item>
    <item>
     <widget class="QStackedWidget" name="Fram">
+     <property name="minimumSize">
+      <size>
+       <width>519</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -84,16 +102,6 @@
           <string>Properties</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="1">
-           <widget class="NameWidget" name="Name"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Tooltip:</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -120,13 +128,6 @@
                  <string>Text</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_2">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_4">
-                   <property name="text">
-                    <string>Font for use with PDF 1.3:</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="0" column="1">
                   <widget class="QComboBox" name="Schrift">
                    <item>
@@ -199,6 +200,13 @@
                      <string>Symbols</string>
                     </property>
                    </item>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Font for use with PDF 1.3:</string>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -354,6 +362,19 @@
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_14">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -638,95 +659,86 @@
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QGroupBox" name="OptTextFeld_2">
-                    <property name="title">
-                     <string/>
+                   <widget class="QCheckBox" name="MultiL">
+                    <property name="text">
+                     <string>Multi-Line</string>
                     </property>
-                    <layout class="QVBoxLayout" name="OptTextFeldLayout">
-                     <item>
-                      <widget class="QCheckBox" name="MultiL">
-                       <property name="text">
-                        <string>Multi-Line</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="Passwd">
-                       <property name="text">
-                        <string>Password</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_7">
-                       <item>
-                        <widget class="QCheckBox" name="Limit">
-                         <property name="text">
-                          <string>Limit of</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QSpinBox" name="MaxChars">
-                         <property name="minimum">
-                          <number>0</number>
-                         </property>
-                         <property name="maximum">
-                          <number>32768</number>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_11">
-                         <property name="text">
-                          <string>Characters</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_2">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="NoScroll">
-                       <property name="text">
-                        <string>Do Not Scroll</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="NoSpell">
-                       <property name="text">
-                        <string>Do Not Spell Check</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer_5">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
                    </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="Passwd">
+                    <property name="text">
+                     <string>Password</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_7">
+                    <item>
+                     <widget class="QCheckBox" name="Limit">
+                      <property name="text">
+                       <string>Limit of</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="MaxChars">
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>32768</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_11">
+                      <property name="text">
+                       <string>Characters</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_2">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="NoScroll">
+                    <property name="text">
+                     <string>Do Not Scroll</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="NoSpell">
+                    <property name="text">
+                     <string>Do Not Spell Check</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_5">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </widget>
@@ -745,91 +757,82 @@
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QGroupBox" name="OptCheck">
-                    <property name="title">
-                     <string/>
-                    </property>
-                    <layout class="QVBoxLayout" name="OptCheckLayout">
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_8">
-                       <item>
-                        <widget class="QLabel" name="CText1">
-                         <property name="text">
-                          <string>Check Style:</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="ChkStil">
-                         <item>
-                          <property name="text">
-                           <string>Check</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Cross</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Diamond</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Circle</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Star</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>Square</string>
-                          </property>
-                         </item>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_3">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="isChkd">
+                   <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <item>
+                     <widget class="QLabel" name="CText1">
+                      <property name="text">
+                       <string>Check Style:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="ChkStil">
+                      <item>
                        <property name="text">
-                        <string>Default is Checked</string>
+                        <string>Check</string>
                        </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer_4">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Cross</string>
                        </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Diamond</string>
                        </property>
-                      </spacer>
-                     </item>
-                    </layout>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Circle</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Star</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Square</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="isChkd">
+                    <property name="text">
+                     <string>Default is Checked</string>
+                    </property>
                    </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </widget>
@@ -848,37 +851,41 @@
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QGroupBox" name="OptCombo">
-                    <property name="title">
-                     <string/>
+                   <widget class="QCheckBox" name="CanEdit">
+                    <property name="text">
+                     <string>Editable</string>
                     </property>
-                    <layout class="QVBoxLayout" name="OptComboLayout">
-                     <item>
-                      <widget class="QCheckBox" name="CanEdit">
-                       <property name="text">
-                        <string>Editable</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer_6">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                    </layout>
                    </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                  </layout>
                 </widget>
                </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -1095,31 +1102,24 @@
                      <string>Destination</string>
                     </property>
                     <layout class="QGridLayout" name="GroupBoxDestinationLayout">
-                     <item row="4" column="1">
-                      <widget class="QSpinBox" name="SpinBox31">
-                       <property name="suffix">
-                        <string> pt</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="1">
-                      <widget class="QSpinBox" name="SpinBox21">
-                       <property name="suffix">
-                        <string> pt</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="4" column="0">
-                      <widget class="QLabel" name="label_17">
+                     <item row="0" column="2">
+                      <widget class="QPushButton" name="ChFile">
                        <property name="text">
-                        <string>Y-Pos:</string>
+                        <string>Change...</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="label_16">
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_15">
                        <property name="text">
-                        <string>X-Pos:</string>
+                        <string>Page:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="Destfile">
+                       <property name="readOnly">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
@@ -1133,24 +1133,24 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_15">
+                     <item row="4" column="0">
+                      <widget class="QLabel" name="label_17">
                        <property name="text">
-                        <string>Page:</string>
+                        <string>Y-Pos:</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="2">
-                      <widget class="QPushButton" name="ChFile">
+                     <item row="1" column="0" colspan="3">
+                      <widget class="QCheckBox" name="useAbsolute">
                        <property name="text">
-                        <string>Change...</string>
+                        <string>Export absolute Filename</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="Destfile">
-                       <property name="readOnly">
-                        <bool>true</bool>
+                     <item row="4" column="1">
+                      <widget class="QSpinBox" name="SpinBox31">
+                       <property name="suffix">
+                        <string> pt</string>
                        </property>
                       </widget>
                      </item>
@@ -1161,12 +1161,32 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="0" colspan="3">
-                      <widget class="QCheckBox" name="useAbsolute">
+                     <item row="3" column="0">
+                      <widget class="QLabel" name="label_16">
                        <property name="text">
-                        <string>Export absolute Filename</string>
+                        <string>X-Pos:</string>
                        </property>
                       </widget>
+                     </item>
+                     <item row="3" column="1">
+                      <widget class="QSpinBox" name="SpinBox21">
+                       <property name="suffix">
+                        <string> pt</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="5" column="1">
+                      <spacer name="verticalSpacer_12">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
                      </item>
                     </layout>
                    </widget>
@@ -1556,6 +1576,19 @@
                         </item>
                        </layout>
                       </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_10">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
                      </item>
                     </layout>
                    </widget>
@@ -1990,6 +2023,19 @@
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <spacer name="verticalSpacer_11">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
                     </layout>
                    </widget>
                   </item>
@@ -2005,81 +2051,72 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_34">
               <item>
-               <widget class="QGroupBox" name="ValidateGroup">
-                <property name="title">
-                 <string/>
+               <widget class="QRadioButton" name="NoValid">
+                <property name="text">
+                 <string>Value is not validated</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_35">
-                 <item>
-                  <widget class="QRadioButton" name="NoValid">
-                   <property name="text">
-                    <string>Value is not validated</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_10">
-                   <item row="0" column="0">
-                    <widget class="QRadioButton" name="SimpleValid">
-                     <property name="text">
-                      <string>Value must be greater than or equal to:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_27">
-                     <property name="text">
-                      <string>and less or equal to:</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="MinValid"/>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="MaxValid"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="CustomValid">
-                   <property name="text">
-                    <string>Custom validate script:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_19">
-                   <item>
-                    <widget class="QTextEdit" name="ValidScript">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>50</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="EditValScript">
-                     <property name="text">
-                      <string>Edit...</string>
-                     </property>
-                     <property name="autoDefault">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_10">
+                <item row="0" column="0">
+                 <widget class="QRadioButton" name="SimpleValid">
+                  <property name="text">
+                   <string>Value must be greater than or equal to:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_27">
+                  <property name="text">
+                   <string>and less or equal to:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="MinValid"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="MaxValid"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="CustomValid">
+                <property name="text">
+                 <string>Custom validate script:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <item>
+                 <widget class="QTextEdit" name="ValidScript">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="EditValScript">
+                  <property name="text">
+                   <string>Edit...</string>
+                  </property>
+                  <property name="autoDefault">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -2089,124 +2126,125 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_36">
               <item>
-               <widget class="QGroupBox" name="CalcGroup">
-                <property name="title">
-                 <string/>
+               <widget class="QRadioButton" name="NoCalc">
+                <property name="text">
+                 <string>Value is not calculated</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_37">
-                 <item>
-                  <widget class="QRadioButton" name="NoCalc">
-                   <property name="text">
-                    <string>Value is not calculated</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_20">
-                   <item>
-                    <widget class="QRadioButton" name="SimpleCalc">
-                     <property name="text">
-                      <string>Value is the</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="CalcArt">
-                     <item>
-                      <property name="text">
-                       <string>sum</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>product</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>average</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>minimum</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>maximum</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_28">
-                     <property name="text">
-                      <string>of the following fields:</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_21">
-                   <item>
-                    <widget class="QLineEdit" name="CalcFields"/>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="SeField">
-                     <property name="text">
-                      <string>Pick...</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="CustomCalc">
-                   <property name="text">
-                    <string>Custom calculation script:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_22">
-                   <item>
-                    <widget class="QTextEdit" name="CalcScript">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>50</height>
-                      </size>
-                     </property>
-                     <property name="focusPolicy">
-                      <enum>Qt::NoFocus</enum>
-                     </property>
-                     <property name="autoFillBackground">
-                      <bool>true</bool>
-                     </property>
-                     <property name="readOnly">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="EditCalc">
-                     <property name="text">
-                      <string>Edit...</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_20">
+                <item>
+                 <widget class="QRadioButton" name="SimpleCalc">
+                  <property name="text">
+                   <string>Value is the</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="CalcArt">
+                  <item>
+                   <property name="text">
+                    <string>sum</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>product</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>average</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>minimum</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>maximum</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_28">
+                  <property name="text">
+                   <string>of the following fields:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_21">
+                <item>
+                 <widget class="QLineEdit" name="CalcFields"/>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="SeField">
+                  <property name="text">
+                   <string>Pick...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="CustomCalc">
+                <property name="text">
+                 <string>Custom calculation script:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_22">
+                <item>
+                 <widget class="QTextEdit" name="CalcScript">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::NoFocus</enum>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>true</bool>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="EditCalc">
+                  <property name="text">
+                   <string>Edit...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="NameWidget" name="Name"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Tooltip:</string>
+            </property>
            </widget>
           </item>
          </layout>
