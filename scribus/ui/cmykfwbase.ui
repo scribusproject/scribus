@@ -6,28 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>652</width>
-    <height>361</height>
+    <width>530</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Edit Color</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="topMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -209,20 +206,33 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <property name="spacing">
-        <number>20</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="QPushButton" name="buttonOK">
          <property name="text">
@@ -234,11 +244,37 @@
         </widget>
        </item>
        <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QPushButton" name="buttonCancel">
          <property name="text">
           <string>Cancel</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -253,9 +289,6 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="spacing">
-       <number>5</number>
-      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -286,6 +319,12 @@
       </item>
       <item>
        <widget class="QStackedWidget" name="TabStack">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
@@ -294,9 +333,6 @@
         </property>
         <widget class="QWidget" name="page">
          <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <property name="spacing">
-           <number>0</number>
-          </property>
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -318,8 +354,26 @@
              <enum>QFrame::Sunken</enum>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QFrame" name="frame_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
                  <width>182</width>
@@ -339,9 +393,6 @@
                 <enum>QFrame::Sunken</enum>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_7">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
                 <property name="leftMargin">
                  <number>0</number>
                 </property>
@@ -403,6 +454,19 @@
        </widget>
       </item>
       <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <layout class="QGridLayout" name="slidersLayout">
         <item row="0" column="1">
          <widget class="ScColorSlider" name="CyanSL">
@@ -444,6 +508,12 @@
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="BlackT">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>K:</string>
           </property>
@@ -470,6 +540,12 @@
         </item>
         <item row="3" column="2">
          <widget class="ScrSpinBox" name="BlackSp">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="suffix">
            <string> %</string>
           </property>
@@ -502,6 +578,12 @@
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="CyanT">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>C:</string>
           </property>
@@ -509,6 +591,12 @@
         </item>
         <item row="2" column="2">
          <widget class="ScrSpinBox" name="YellowSp">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="suffix">
            <string> %</string>
           </property>
@@ -522,6 +610,12 @@
         </item>
         <item row="1" column="2">
          <widget class="ScrSpinBox" name="MagentaSp">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="suffix">
            <string> %</string>
           </property>
@@ -535,6 +629,12 @@
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="MagentaT">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>M:</string>
           </property>
@@ -542,6 +642,12 @@
         </item>
         <item row="0" column="2">
          <widget class="ScrSpinBox" name="CyanSp">
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="suffix">
            <string> %</string>
           </property>
@@ -555,6 +661,12 @@
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="YellowT">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Y:</string>
           </property>
@@ -562,25 +674,17 @@
         </item>
        </layout>
       </item>
-      <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
   <customwidget>
    <class>SwatchCombo</class>
    <extends>QToolButton</extends>
@@ -596,11 +700,6 @@
    <class>ColorListBox</class>
    <extends>QListView</extends>
    <header>ui/colorlistbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>ScColorSlider</class>
