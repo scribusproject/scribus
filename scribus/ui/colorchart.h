@@ -56,14 +56,16 @@ public:
 	void setMark(int h, int s);
 	void drawPalette(int val);
 
-	int Xp {0};
-	int Yp {0};
-	bool doDrawMark {false};
 	int drawMode {0};
-	QPixmap pmx;
 
 protected:
 	ScribusDoc* m_doc;
+
+	int m_markX { 0 };
+	int m_markY { 0 };
+	bool m_drawMark {false};
+	
+	QPixmap m_pixmap;
 
 signals:
 	void ColorVal(int h, int s, bool ende);
