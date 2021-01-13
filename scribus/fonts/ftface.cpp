@@ -211,7 +211,8 @@ void FtFace::loadGlyph(ScFace::gid_type gl) const
 		sDebug(QObject::tr("Font %1 has broken glyph %2").arg(fontFile).arg(gl));
 		m_glyphWidth[gl] = 1;
 	}
-	else {
+	else
+	{
 		qreal ww = qreal(face->glyph->metrics.horiAdvance) / m_uniEM;
 		qreal w  = (face->glyph->metrics.width + qAbs(qreal(face->glyph->metrics.horiBearingX))) / m_uniEM;
 		GRec.bbox_width = qMax(w, ww);
