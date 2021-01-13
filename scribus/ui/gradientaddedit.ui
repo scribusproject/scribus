@@ -23,6 +23,18 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="sizeConstraint">
@@ -47,12 +59,6 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>210</width>
-       <height>180</height>
-      </size>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
