@@ -23,7 +23,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorchart.h"
 
+#include <QMouseEvent>
 #include <QPainter>
+#include <QPaintEvent>
+#include <QResizeEvent>
 
 #include "iconmanager.h"
 #include "util_color.h"
@@ -34,13 +37,13 @@ for which a new license (GPL+exception) is in place.
 ColorChart::ColorChart(QWidget *parent) : QWidget(parent), m_doc(nullptr)
 {
 	setAutoFillBackground(false);
-	drawPalette(255);
+	drawPalette(m_currentValue);
 }
 
 ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_doc(doc)
 {
 	setAutoFillBackground(false);
-	drawPalette(255);
+	drawPalette(m_currentValue);
 }
 
 void ColorChart::mouseMoveEvent(QMouseEvent *m)
@@ -74,9 +77,8 @@ void ColorChart::paintEvent(QPaintEvent *e)
 {
 	QPainter p;
 	QPainter p2;
-	p.begin(this);
-	p.setClipRect(e->rect());
-	QImage tmp = QImage(width(), height(), QImage::Format_ARGB32_Premultiplied);
+
+	QImage tmp(width(), height(), QImage::Format_ARGB32_Premultiplied);
 	p2.begin(&tmp);
 	p2.drawPixmap(0, 0, m_pixmap);
 	if (m_drawMark)
@@ -86,11 +88,26 @@ void ColorChart::paintEvent(QPaintEvent *e)
 		p2.drawLine(m_markX - 5, m_markY + 5, m_markX - 1, m_markY + 1);
 		p2.drawLine(m_markX + 2, m_markY + 2, m_markX + 6, m_markY + 6);
 		p2.drawLine(m_markX + 2, m_markY - 2, m_markX + 6, m_markY - 6);
+		m_drawMark = false;
 	}
 	p2.end();
+
+	p.begin(this);
+	p.setClipRect(e->rect());
 	p.drawImage(0, 0, tmp);
 	p.end();
-	m_drawMark = false;
+}
+
+void ColorChart::resizeEvent(QResizeEvent *e)
+{
+	if (e->oldSize() != e->size())
+	{
+		if (drawMode > 0)
+			drawLabColorMap(m_currentValue);
+		else
+			drawHsvColorMap(m_currentValue);
+	}
+	QWidget::resizeEvent(e);
 }
 
 void ColorChart::drawMark(int x, int y)
@@ -111,61 +128,73 @@ void ColorChart::setMark(int h, int s)
 
 void ColorChart::drawPalette(int val)
 {
+	m_currentValue = std::max(0, std::min(val, 255));
+
+	if (drawMode > 0)
+		drawLabColorMap(m_currentValue);
+	else
+		drawHsvColorMap(m_currentValue);
+	update();
+}
+
+void ColorChart::drawHsvColorMap(int val)
+{
 	int xSize = width();
 	int ySize = height();
-	if (drawMode > 0)
+
+	QImage image(xSize, ySize, QImage::Format_ARGB32_Premultiplied);
+	QColor color;
+	for (int y = 0; y < ySize; ++y)
 	{
-		QImage image(128, 128, QImage::Format_ARGB32);
-		bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
-		bool doGamutCheck   = m_doc ? m_doc->Gamut : false;
-		if (doSoftProofing && doGamutCheck)
+		unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
+		for(int x = 0; x < xSize; ++x)
 		{
-			QPainter p;
-			QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
-			p.begin(&image);
-			p.fillRect(0, 0, image.width(), image.height(), b);
-			p.end();
+			color.setHsv(360 * x / xSize, 256 * (ySize - 1 - y) / ySize, val);
+			*p = color.rgb();
+			++p;
 		}
-		QColor color;
-		double L = val /  2.55;
-		for (int y = 0; y < 128; y++)
+	}
+	m_pixmap = QPixmap::fromImage(ProofImage(&image, m_doc));
+}
+
+void ColorChart::drawLabColorMap(int val)
+{
+	int xSize = width();
+	int ySize = height();
+
+	QImage image(128, 128, QImage::Format_ARGB32);
+	bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
+	bool doGamutCheck   = m_doc ? m_doc->Gamut : false;
+	if (doSoftProofing && doGamutCheck)
+	{
+		QPainter p;
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
+		p.begin(&image);
+		p.fillRect(0, 0, image.width(), image.height(), b);
+		p.end();
+	}
+	QColor color;
+	double L = val /  2.55;
+	for (int y = 0; y < 128; y++)
+	{
+		unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
+		for (int x = 0; x < 128; x++)
 		{
-			unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
-			for (int x = 0; x < 128; x++)
+			double yy = 256 - (y * 2.0);
+			if (doSoftProofing && doGamutCheck)
 			{
-				double yy = 256 - (y * 2.0);
-				if (doSoftProofing && doGamutCheck)
-				{
-					bool outOfG = false;
-					color = ScColorEngine::getDisplayColorGC(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc, &outOfG);
-					if (!outOfG)
-						*p = color.rgb();
-				}
-				else
-				{
-					color = ScColorEngine::getDisplayColor(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc);
+				bool outOfG = false;
+				color = ScColorEngine::getDisplayColorGC(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc, &outOfG);
+				if (!outOfG)
 					*p = color.rgb();
-				}
-				++p;
 			}
-		}
-		m_pixmap = QPixmap::fromImage(image.scaled(xSize, ySize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-	}
-	else
-	{
-		QImage image(xSize, ySize, QImage::Format_ARGB32_Premultiplied);
-		QColor color;
-		for (int y = 0; y < ySize; ++y)
-		{
-			unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
-			for(int x = 0; x < xSize; ++x)
+			else
 			{
-				color.setHsv(360 * x / xSize, 256 * (ySize - 1 - y) / ySize, val);
+				color = ScColorEngine::getDisplayColor(ScColor(L, (x * 2.0) - 128.0, yy - 128.0), m_doc);
 				*p = color.rgb();
-				++p;
 			}
+			++p;
 		}
-		m_pixmap = QPixmap::fromImage(ProofImage(&image, m_doc));
 	}
-	update();
+	m_pixmap = QPixmap::fromImage(image.scaled(xSize, ySize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
