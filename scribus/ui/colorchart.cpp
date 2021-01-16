@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorchart.h"
 
+#include <algorithm>
+
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPaintEvent>
