@@ -40,7 +40,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	setWindowTitle( tr( "Extended Image Properties" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	ExtImagePropsLayout = new QVBoxLayout( this );
-	ExtImagePropsLayout->setMargin(6);
+	ExtImagePropsLayout->setContentsMargins(9, 9, 9, 9);
 	ExtImagePropsLayout->setSpacing(6);
 	m_view  = view;
 	m_timer = nullptr;
@@ -103,10 +103,10 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	{
 		tab = new QWidget( propsTab );
 		tabLayout = new QVBoxLayout( tab );
-		tabLayout->setMargin(6);
+		tabLayout->setContentsMargins(9, 9, 9, 9);
 		tabLayout->setSpacing(6);
 		layout1 = new QHBoxLayout;
-		layout1->setMargin(0);
+		layout1->setContentsMargins(0, 0, 0, 0);
 		layout1->setSpacing(6);
 		textLabel1 = new QLabel( tab );
 		textLabel1->setText( tr( "Blend Mode:" ) );
@@ -230,7 +230,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	}
 	tab_2 = new QWidget( propsTab );
 	tabLayout_2 = new QVBoxLayout( tab_2 );
-	tabLayout_2->setMargin(6);
+	tabLayout_2->setContentsMargins(9, 9, 9, 9);
 	tabLayout_2->setSpacing(6);
 	pathList = new QListWidget( tab_2 );
 	pathList->clear();
@@ -285,7 +285,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->addWidget( propsTab );
 
 	layoutBottom = new QHBoxLayout;
-	layoutBottom->setMargin(0);
+	layoutBottom->setContentsMargins(0, 0, 0, 0);
 	layoutBottom->setSpacing(6);
 	livePreview = new QCheckBox( this );
 	livePreview->setText( tr( "Live Preview" ) );

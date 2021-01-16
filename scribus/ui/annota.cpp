@@ -71,12 +71,12 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	}
 
 	AnnotLayout = new QVBoxLayout( this );
-	AnnotLayout->setSpacing( 5 );
-	AnnotLayout->setMargin( 10 );
+	AnnotLayout->setSpacing(6);
+	AnnotLayout->setContentsMargins(9, 9, 9, 9);
 
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 5 );
-	Layout1->setMargin( 0 );
+	Layout1->setSpacing(6);
+	Layout1->setContentsMargins(0, 0, 0, 0);
 
 	typeCombo = new QComboBox(this);
 	if (!m_view->m_doc->masterPageMode())
@@ -123,8 +123,8 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	GroupBox2->setTitle( tr( "Options" ) );
 	GroupBox2Layout = new QGridLayout( GroupBox2 );
 	GroupBox2Layout->setAlignment( Qt::AlignTop );
-	GroupBox2Layout->setSpacing( 5 );
-	GroupBox2Layout->setMargin( 10 );
+	GroupBox2Layout->setSpacing(6);
+	GroupBox2Layout->setContentsMargins(9, 9, 9, 9);
 	iconComboLabel = new QLabel( tr("Icon:"), GroupBox2);
 	iconCombo = new QComboBox(GroupBox2);
 	iconCombo->addItem( tr("Note"));
@@ -149,8 +149,8 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	GroupBox1->setTitle( tr( "Destination" ) );
 	GroupBox1Layout = new QGridLayout( GroupBox1 );
 	GroupBox1Layout->setAlignment( Qt::AlignTop );
-	GroupBox1Layout->setSpacing( 5 );
-	GroupBox1Layout->setMargin( 10 );
+	GroupBox1Layout->setSpacing(6);
+	GroupBox1Layout->setContentsMargins(9, 9, 9, 9);
 
 	destFile = new QLineEdit(GroupBox1);
 	destFile->setText(m_item->annotation().Extern());
@@ -219,8 +219,8 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	Fram->addWidget(GroupBox1);
 
 	Layout1_2 = new QHBoxLayout;
-	Layout1_2->setSpacing( 5 );
-	Layout1_2->setMargin( 0 );
+	Layout1_2->setSpacing(6);
+	Layout1_2->setContentsMargins(0, 0, 0, 0);
 
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1_2->addItem( spacer );

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PageItemAttributes</class>
- <widget class="QDialog" name="PageItemAttributes" >
-  <property name="geometry" >
+ <widget class="QDialog" name="PageItemAttributes">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,98 +10,110 @@
     <height>188</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Attributes</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
-    <widget class="ScTableWidget" name="attributesTable" >
+    <widget class="ScTableWidget" name="attributesTable">
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Name</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Type</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Value</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Parameter</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Relationship</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Relationship To</string>
       </property>
      </column>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="addButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="addButton">
+       <property name="text">
         <string>&amp;Add</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+A</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="copyButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="copyButton">
+       <property name="text">
         <string>&amp;Copy</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+C</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="deleteButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
         <string>&amp;Delete</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+D</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="clearButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
         <string>C&amp;lear</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+L</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>90</width>
          <height>20</height>
@@ -109,30 +122,30 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
@@ -141,7 +154,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
    <class>ScTableWidget</class>
@@ -150,7 +162,7 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="local" >pagestructs.h</include>
+  <include location="local">pagestructs.h</include>
  </includes>
  <resources/>
  <connections/>

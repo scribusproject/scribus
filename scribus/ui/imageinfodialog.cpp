@@ -24,13 +24,13 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	ImageInfoDialogLayout = new QVBoxLayout( this );
-	ImageInfoDialogLayout->setMargin(10);
-	ImageInfoDialogLayout->setSpacing(5);
+	ImageInfoDialogLayout->setContentsMargins(9, 9, 9, 9);
+	ImageInfoDialogLayout->setSpacing(6);
 	GenGroup = new QGroupBox(this);
 	GenGroup->setTitle( tr("General Info"));
 	layout3 = new QGridLayout(GenGroup);
-	layout3->setMargin(5);
-	layout3->setSpacing(5);
+	layout3->setContentsMargins(9, 9, 9, 9);
+	layout3->setSpacing(6);
 	Text0g = new QLabel( tr( "Date / Time:" ), GenGroup);
 	layout3->addWidget( Text0g, 0, 0 );
 	timeInfo = new QLabel( info->exifInfo.dateTime, GenGroup);
@@ -68,8 +68,8 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	ExGroup = new QGroupBox(this);
 	ExGroup->setTitle( tr("EXIF Info"));
 	layout2 = new QGridLayout(ExGroup);
-	layout2->setMargin(5);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(9, 9, 9, 9);
+	layout2->setSpacing(6);
 	Text1 = new QLabel( "", ExGroup);
 	layout2->addWidget( Text1, 0, 0 );
 	Comment = new QLabel(info->exifInfo.comment, ExGroup);
@@ -147,8 +147,8 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 			break;
 	}
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(5);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this);
