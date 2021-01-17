@@ -23,7 +23,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase(parent, "Measurem
 {
 	setupUi(this);
 
-	const QString widthString="10000.0000";
+	const QString widthString = "10000.0000 mm";
 	int textWidth = fontMetrics().horizontalAdvance(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);
