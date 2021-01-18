@@ -352,7 +352,7 @@ void NewDocDialog::createNewFromTempPage()
 {
 	newFromTempFrame = new QFrame(this);
 	verticalLayout = new QVBoxLayout(newFromTempFrame);
-	verticalLayout->setContentsMargins(0, 0, 0, 0);
+	verticalLayout->setContentsMargins(9, 9, 9, 9);
 	nftGui = new nftwidget(newFromTempFrame);
 	verticalLayout->addWidget(nftGui);
 }
