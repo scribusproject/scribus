@@ -55,12 +55,12 @@ public:
 	int drawMode {0};
 
 protected:
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
 
 	int m_currentValue { 255 };
-	int m_markX { 0 };
-	int m_markY { 0 };
-	bool m_drawMark {false};
+	double m_markX { 0.0 };
+	double m_markY { 0.0 };
+	bool m_drawMark { false };
 	
 	QPixmap m_pixmap;
 

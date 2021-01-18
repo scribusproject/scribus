@@ -85,11 +85,13 @@ void ColorChart::paintEvent(QPaintEvent *e)
 	p2.drawPixmap(0, 0, m_pixmap);
 	if (m_drawMark)
 	{
+		double markX = m_markX * width();
+		double markY = m_markY * height();
 		p2.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p2.drawLine(m_markX - 5, m_markY - 5, m_markX - 1, m_markY - 1);
-		p2.drawLine(m_markX - 5, m_markY + 5, m_markX - 1, m_markY + 1);
-		p2.drawLine(m_markX + 2, m_markY + 2, m_markX + 6, m_markY + 6);
-		p2.drawLine(m_markX + 2, m_markY - 2, m_markX + 6, m_markY - 6);
+		p2.drawLine(markX - 5, markY - 5, markX - 1, markY - 1);
+		p2.drawLine(markX - 5, markY + 5, markX - 1, markY + 1);
+		p2.drawLine(markX + 2, markY + 2, markX + 6, markY + 6);
+		p2.drawLine(markX + 2, markY - 2, markX + 6, markY - 6);
 		m_drawMark = false;
 	}
 	p2.end();
@@ -114,8 +116,8 @@ void ColorChart::resizeEvent(QResizeEvent *e)
 
 void ColorChart::drawMark(int x, int y)
 {
-	m_markX = x;
-	m_markY = y;
+	m_markX = x / (double) width();
+	m_markY = y / (double) height();
 	m_drawMark = true;
 	update();
 }
