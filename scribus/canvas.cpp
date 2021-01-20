@@ -27,7 +27,6 @@
 #include "canvasmode.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
-#include "pageitemiterator.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -1386,33 +1385,21 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 			continue;
 		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 			continue;
-		double oldX = currItem->xPos();
-		double oldY = currItem->yPos();
-		double oldBX = currItem->BoundingX;
-		double oldBY = currItem->BoundingY;
+		double OldX = currItem->xPos();
+		double OldY = currItem->yPos();
+		double OldBX = currItem->BoundingX;
+		double OldBY = currItem->BoundingY;
 		if (!currItem->ChangedMasterItem)
 		{
 			//Hack to not check for undo changes, indicate drawing only
 			currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-			currItem->BoundingX = oldBX - Mp->xOffset() + page->xOffset();
-			currItem->BoundingY = oldBY - Mp->yOffset() + page->yOffset();
+			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 		}
-		// Save PageItem's OwnPage and set its value to page number
-		// so that page number placed in text frames can work, also modify
-		// OwnPage of items embeded inside groups for same reason
 		currItem->savedOwnPage = currItem->OwnPage;
 		currItem->OwnPage = page->pageNr();
-		if (currItem->isGroup())
-		{
-			PageItem_Group *groupItem = currItem->asGroupFrame();
-			PageItemIterator itemIt(groupItem->groupItemList, PageItemIterator::IterateInGroups);
-			for ( ; *itemIt; ++itemIt)
-			{
-				PageItem* item = *itemIt;
-				item->savedOwnPage = currItem->OwnPage;
-				item->OwnPage = page->pageNr();
-			}
-		}
+//FIXME						if (!evSpon || forceRedraw)
+//					currItem->invalid = true;
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
 			if (!((m_viewMode.operItemMoving) && (currItem->isSelected())))
@@ -1422,27 +1409,16 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 				currItem->DrawObj(painter, cullingArea);
 				currItem->DrawObj_Decoration(painter);
 			}
-//			else 
-//				qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
-		}
-		// Restore items' OwnPage including those of item embedded inside groups 
-		if (currItem->isGroup())
-		{
-			PageItem_Group *groupItem = currItem->asGroupFrame();
-			PageItemIterator itemIt(groupItem->groupItemList, PageItemIterator::IterateInGroups);
-			for ( ; *itemIt; ++itemIt)
-			{
-				PageItem* item = *itemIt;
-				item->OwnPage = item->savedOwnPage;
-			}
+//							else 
+//								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 		}
 		currItem->OwnPage = currItem->savedOwnPage;
 		if (!currItem->ChangedMasterItem)
 		{
 			//Hack to not check for undo changes, indicate drawing only
-			currItem->setXYPos(oldX, oldY, true);
-			currItem->BoundingX = oldBX;
-			currItem->BoundingY = oldBY;
+			currItem->setXYPos(OldX, OldY, true);
+			currItem->BoundingX = OldBX;
+			currItem->BoundingY = OldBY;
 		}
 	}
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
