@@ -789,11 +789,11 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 					QRgb *s;
 					uchar *d;
 					unsigned char cc, cm, cy, ck;
-					for (int yit=0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit)
+					for (int yit = 0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit)
 					{
-						s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
-						d = r_image.scanLine( yit );
-						for (int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
+						s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine(yit));
+						d = r_image.scanLine(yit);
+						for (int xit = 0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
 						{
 							if (isCMYK)
 							{
@@ -1372,20 +1372,20 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 			if (header.color_mode == CM_CMYK)
 			{
 				if (channel_num == 6)
-					components[channel] = channel_num-2;
+					components[channel] = channel_num - 2;
 				else
-					components[channel] = channel_num-1;
+					components[channel] = channel_num - 1;
 			}
 			else
 			{
 				if (channel_num == 5)
-					components[channel] = channel_num-2;
+					components[channel] = channel_num - 2;
 				else
 				{
 					if (header.color_mode == CM_GRAYSCALE)
 						components[channel] = 3;
 					else
-						components[channel] = channel_num-1;
+						components[channel] = channel_num - 1;
 				}
 			}
 			hasAlpha = true;
@@ -1401,7 +1401,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	{
 		if (layerInfo[layer].channelType[channel] == -2)
 		{
-			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 1 ))
+			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 1))
 				break;
 			mask.fill(0);
 			if (!loadChannel(s, header, layerInfo, layer, channel, 0, mask))

@@ -1385,16 +1385,16 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 			continue;
 		if ((m_viewMode.viewAsPreview) && (!currItem->printEnabled()))
 			continue;
-		double OldX = currItem->xPos();
-		double OldY = currItem->yPos();
-		double OldBX = currItem->BoundingX;
-		double OldBY = currItem->BoundingY;
+		double oldX = currItem->xPos();
+		double oldY = currItem->yPos();
+		double oldBX = currItem->BoundingX;
+		double oldBY = currItem->BoundingY;
 		if (!currItem->ChangedMasterItem)
 		{
 			//Hack to not check for undo changes, indicate drawing only
 			currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-			currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-			currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+			currItem->BoundingX = oldBX - Mp->xOffset() + page->xOffset();
+			currItem->BoundingY = oldBY - Mp->yOffset() + page->yOffset();
 		}
 		currItem->savedOwnPage = currItem->OwnPage;
 		currItem->OwnPage = page->pageNr();
@@ -1416,9 +1416,9 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 		if (!currItem->ChangedMasterItem)
 		{
 			//Hack to not check for undo changes, indicate drawing only
-			currItem->setXYPos(OldX, OldY, true);
-			currItem->BoundingX = OldBX;
-			currItem->BoundingY = OldBY;
+			currItem->setXYPos(oldX, oldY, true);
+			currItem->BoundingX = oldBX;
+			currItem->BoundingY = oldBY;
 		}
 	}
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))

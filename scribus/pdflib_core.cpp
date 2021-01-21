@@ -1814,7 +1814,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 	result.name = Pdf::toName(fontName);
 	result.usage = Used_in_Content;
 	result.method = glyphmap.isEmpty()? Use_Embedded : Use_Subset;
-	result.encoding = glyphmap.isEmpty()? Encode_IdentityH : Encode_Subset;
+	result.encoding = glyphmap.isEmpty() ? Encode_IdentityH : Encode_Subset;
 	result.glyphmap = glyphmap;
 	
 	PdfId fontWidths2 = writer.newObject();
@@ -1829,7 +1829,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 	bool seenNotDef = false;
 	for (auto git = keys.begin(); git != keys.end(); ++git)
 	{
-		uint gid = result.encoding == Encode_Subset? glyphmap[*git] : *git;
+		uint gid = (result.encoding == Encode_Subset) ? glyphmap[*git] : *git;
 		if (gid > 0 || !seenNotDef)
 		{
 			seenNotDef |= (gid == 0);
