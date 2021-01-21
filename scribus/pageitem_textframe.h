@@ -55,6 +55,7 @@ public:
 
 	PageItem_TextFrame * asTextFrame() override { return this; }
 	bool isTextFrame() const override { return true; }
+	bool isTextContainer() const override { return true; }
 
 	void clearContents() override;
 	void truncateContents() override;

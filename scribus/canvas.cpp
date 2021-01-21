@@ -27,6 +27,7 @@
 #include "canvasmode.h"
 #include "pageitem_textframe.h"
 #include "pageitem_group.h"
+#include "pageitemiterator.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -1373,7 +1374,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 	int layerCount = m_doc->layerCount();
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
-	int pageFromMasterCount=page->FromMaster.count();
+	int pageFromMasterCount = page->FromMaster.count();
 	for (int a = 0; a < pageFromMasterCount; ++a)
 	{
 		currItem = page->FromMaster.at(a);
@@ -1396,10 +1397,22 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 			currItem->BoundingX = oldBX - Mp->xOffset() + page->xOffset();
 			currItem->BoundingY = oldBY - Mp->yOffset() + page->yOffset();
 		}
+		// Save PageItem's OwnPage and set its value to page number
+		// so that page number placed in text frames can work, also modify
+		// OwnPage of items embeded inside groups for same reason
 		currItem->savedOwnPage = currItem->OwnPage;
 		currItem->OwnPage = page->pageNr();
-//FIXME						if (!evSpon || forceRedraw)
-//					currItem->invalid = true;
+		if (currItem->isGroup())
+		{
+			PageItem_Group *groupItem = currItem->asGroupFrame();
+			PageItemIterator itemIt(groupItem->groupItemList, PageItemIterator::IterateInGroups);
+			for ( ; *itemIt; ++itemIt)
+			{
+				PageItem* item = *itemIt;
+				item->savedOwnPage = currItem->OwnPage;
+				item->OwnPage = page->pageNr();
+			}
+		}
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
 			if (!((m_viewMode.operItemMoving) && (currItem->isSelected())))
@@ -1409,8 +1422,19 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 				currItem->DrawObj(painter, cullingArea);
 				currItem->DrawObj_Decoration(painter);
 			}
-//							else 
-//								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
+//			else 
+//				qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
+		}
+		// Restore items' OwnPage including those of item embedded inside groups 
+		if (currItem->isGroup())
+		{
+			PageItem_Group *groupItem = currItem->asGroupFrame();
+			PageItemIterator itemIt(groupItem->groupItemList, PageItemIterator::IterateInGroups);
+			for ( ; *itemIt; ++itemIt)
+			{
+				PageItem* item = *itemIt;
+				item->OwnPage = item->savedOwnPage;
+			}
 		}
 		currItem->OwnPage = currItem->savedOwnPage;
 		if (!currItem->ChangedMasterItem)

@@ -141,12 +141,7 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 		}
 		QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
 		if (clip.intersects(oldR.toRect()))
-		{
-			// relayout necessary to get page number ok
-			currItem->invalidateLayout();
-			currItem->layout();
 			drawItem(currItem, painter, clip);
-		}
 		currItem->OwnPage = savedOwnPage;
 		if (!currItem->ChangedMasterItem)
 		{
@@ -723,10 +718,13 @@ void ScPageOutput::drawItem_Group(PageItem_Group* item, ScPainterExBase* painter
 		PageItem* embedded = item->groupItemList.at(em);
 		painter->save();
 		painter->translate(embedded->gXpos, embedded->gYpos);
+		embedded->savedOwnPage = embedded->OwnPage;
+		embedded->OwnPage = item->OwnPage;
 		embedded->isEmbedded = true;
 		embedded->invalidateLayout();
 		drawItem(embedded, painter, QRect());
 		embedded->isEmbedded = false;
+		embedded->OwnPage = embedded->savedOwnPage;
 		painter->restore();
 	}
 	//painter->endLayer();
@@ -1505,6 +1503,13 @@ void ScPageOutput::drawItem_Text(PageItem* item, ScPainterExBase* painter, QRect
 		if (!item->pixm.qImage().isNull())
 			painter->drawImage(&item->pixm, ScPainterExBase::rgbImages);
 		painter->restore();
+	}
+
+	if (item->isMasterItem())
+	{
+		// relayout necessary to get page number ok
+		item->invalidateLayout();
+		item->layout();
 	}
 
 	ScPageOutputPainter p(item, painter, this);

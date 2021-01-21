@@ -2680,10 +2680,10 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool)
 												"/OPM 1\n");
 				PutPage(Pdf::toName(ShName) + " gs\n");
 			}
-/* Bookmarks on Master Pages do not make any sense */
+			/* Bookmarks on Master Pages do not make any sense */
 //			if ((ite->isBookmark) && (Options.Bookmarks))
 //				PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-			if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageNameEmpty())))
+			if (!ite->printEnabled() || (ite->isTextContainer() && !pag->pageNameEmpty()))
 			{
 				PutPage("Q\n");
 				continue;
@@ -3853,43 +3853,43 @@ bool PDFLibCore::PDF_ProcessMasterElements(const ScLayer& layer, const ScPage* p
 
 	if (Options.exportsLayers())
 		PutPage("/OC /" + OCGEntries[layer.Name].Name + " BDC\n");
-	for (int am = 0; am < pag->FromMaster.count() && !abortExport; ++am)
+	for (int i = 0; i < pag->FromMaster.count() && !abortExport; ++i)
 	{
-		ite = pag->FromMaster.at(am);
+		ite = pag->FromMaster.at(i);
 		if (usingGUI)
 			qApp->processEvents();
 		if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 			continue;
 		if ((!pag->pageNameEmpty()) && (ite->OwnPage != pag->pageNr()) && (ite->OwnPage != -1))
 			continue;
+
 		QByteArray name = QByteArray("/master_page_obj_%1_%2")
 			                            .replace("%1", Pdf::toPdf(mPageIndex))
 			                            .replace("%2", Pdf::toPdf(qHash(ite)));
-		if ((!ite->isTextFrame()) && (!ite->isPathText()) && (!ite->isTable()))
+		if (!ite->isTextContainer())
 		{
 			if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
 				content += (name + " Do\n");
 			else
 				PutPage(name + " Do\n");
+			continue;
 		}
+
+		double oldX = ite->xPos();
+		double oldY = ite->yPos();
+		double oldBX = ite->BoundingX;
+		double oldBY = ite->BoundingY;
+		ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+		ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
+		if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
+			return false;
+		if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
+			content += output;
 		else
-		{
-			double oldX = ite->xPos();
-			double oldY = ite->yPos();
-			double OldBX = ite->BoundingX;
-			double OldBY = ite->BoundingY;
-			ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
-			ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
-			if (!PDF_ProcessItem(output, ite, pag, pag->pageNr()))
-				return false;
-			if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())
-				content += output;
-			else
-				PutPage(output);
-			ite->setXYPos(oldX, oldY, true);
-			ite->BoundingX = OldBX;
-			ite->BoundingY = OldBY;
-		}
+			PutPage(output);
+		ite->setXYPos(oldX, oldY, true);
+		ite->BoundingX = oldBX;
+		ite->BoundingY = oldBY;
 	}
 	// Couldn't we use Write_TransparencyGroup() here?
 	if (((layer.transparency != 1) || (layer.blendMode != 0)) && Options.supportsTransparency())

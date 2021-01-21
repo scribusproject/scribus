@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "pageitem_group.h"
+#include "pageitemiterator.h"
 #include "prefsmanager.h"
 #include "scpainter.h"
 #include "scpage.h"
@@ -57,6 +58,21 @@ PageItem_Group::~PageItem_Group()
 //	{
 //		delete groupItemList.takeFirst();
 //	}
+}
+
+bool PageItem_Group::isTextContainer() const
+{
+	PageItemIterator it(groupItemList, PageItemIterator::IterateInGroups);
+	for (; *it; ++it)
+	{
+		PageItem* item = *it;
+		if (item->isGroup())
+			continue;
+		if (item->isTextContainer())
+			return true;
+	}
+
+	return false;
 }
 
 void PageItem_Group::adjustXYPosition()

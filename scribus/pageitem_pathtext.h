@@ -41,6 +41,7 @@ public:
 	
 	PageItem_PathText * asPathText() override { return this; }
 	bool isPathText() const override { return true; }
+	bool isTextContainer() const override { return true; }
 
 	void layout() override;
 	bool createInfoGroup(QFrame *, QGridLayout *) override;

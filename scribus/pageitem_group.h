@@ -42,7 +42,9 @@ public:
 
 	PageItem_Group * asGroupFrame() override { return this; }
 	bool isGroup() const override { return true; }
+	bool isTextContainer() const override;
 	ItemType realItemType() const override { return PageItem::Group; }
+
 	void adjustXYPosition();
 	void setLayer(int layerId) override;
 	void setMasterPage(int page, const QString& mpName) override;

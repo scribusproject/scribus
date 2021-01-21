@@ -736,6 +736,17 @@ PageItem::~PageItem()
 //			unWeldChild();
 }
 
+bool PageItem::isMasterItem() const
+{
+	if (Parent == nullptr)
+		return !OnMasterPage.isEmpty();
+
+	PageItem* parentItem = Parent;
+	while (parentItem && parentItem->Parent)
+		parentItem = parentItem->Parent;
+	return !parentItem->OnMasterPage.isEmpty();
+}
+
 bool PageItem::isGroupChild() const
 {
 	return (dynamic_cast<PageItem_Group*>(Parent) != nullptr);

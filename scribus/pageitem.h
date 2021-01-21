@@ -270,8 +270,10 @@ public: // Start public functions
 	virtual bool isTable()			const { return false; } ///< Return true if Table item, otherwise false
 	virtual bool isTextFrame()		const { return false; } ///< Return true if Text item, otherwise false
 
+	virtual bool isMasterItem() const; ///< Return true if item is placed on a master page
 	virtual bool isGroupChild() const;
 	virtual bool isTableCell() const;
+	virtual bool isTextContainer() const { return false; } ///< Return true if item is susceptible to display text in a way or another
 
 	PageItem_Group* parentGroup() const { return (Parent ? Parent->asGroupFrame() : nullptr); }
 	PageItem_Table* parentTable() const { return (Parent ? Parent->asTable() : nullptr); }

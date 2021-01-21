@@ -494,6 +494,9 @@ public:
 	/// Returns PageItem::Table.
 	ItemType realItemType() const override { return PageItem::Table; }
 
+	/// Return true if item is susceptible to contain text in a way or another
+	bool isTextContainer() const override { return true; }
+
 	/// Adds the applicable actions for this table to @a actionList.
 	void applicableActions(QStringList& actionList) override;
 

@@ -20,6 +20,7 @@ public:
 	PageItem_NoteFrame * asNoteFrame() override { return this; }
 	bool isNoteFrame() const override { return true; }
 	bool isAutoNoteFrame() const override { return m_nstyle->isAutoRemoveEmptyNotesFrames(); }
+	bool isTextContainer() const override { return true; }
 
 	//overloaded text frame layouting
 	void layout() override;
