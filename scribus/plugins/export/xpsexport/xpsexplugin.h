@@ -100,13 +100,13 @@ private:
 	void drawArrow(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, FPointArray &arrow);
 	void addFontRelationship(QDomElement &rel_root, const XPSResourceInfo& fontInfo);
 	XPSResourceInfo embedFont(const ScFace& font, QDomElement &rel_root);
-	void GetMultiStroke(struct SingleLine *sl, QDomElement &parentElem);
+	void getMultiStroke(struct SingleLine *sl, QDomElement &parentElem);
 	void getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool forArrow = false);
 	void getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool withTransparency = true);
 	void handleMask(int type, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset);
-	QString SetColor(const QString& farbe, int shad, double transparency);
-	void    SetClipAttr(QDomElement &elem, FPointArray *ite, bool fillRule);
-	QString SetClipPath(FPointArray *ite, bool closed);
+	QString setColor(const QString& farbe, int shad, double transparency);
+	void    setClipAttr(QDomElement &elem, FPointArray *ite, bool fillRule);
+	QString setClipPath(FPointArray *ite, bool closed);
 	void writeDocRels();
 	void writeCore();
 	void writeContentType();
