@@ -304,6 +304,7 @@ void XPSExPlug::writePages(QDomElement &root)
 	for (int a = 0; a < m_Doc->Pages->count(); a++)
 	{
 		ScPage* Page = m_Doc->Pages->at(a);
+
 		p_docu.setContent(QString("<FixedPage></FixedPage>"));
 		QDomElement droot  = p_docu.documentElement();
 		droot.setAttribute("xmlns", "http://schemas.microsoft.com/xps/2005/06");
@@ -312,12 +313,17 @@ void XPSExPlug::writePages(QDomElement &root)
 		QString lang = QLocale::system().name();
 		lang.replace("_", "-");
 		droot.setAttribute("xml:lang", lang);
+
 		r_docu.setContent(QString("<Relationships></Relationships>"));
 		QDomElement rroot  = r_docu.documentElement();
 		rroot.setAttribute("xmlns", "http://schemas.openxmlformats.org/package/2006/relationships");
+		xps_fontRel.clear();
+
 		writePage(droot, rroot, Page);
+
 		p_docu.appendChild(droot);
 		r_docu.appendChild(rroot);
+
 		QFile ft(baseDir + QString("/Documents/1/Pages/%1.fpage").arg(a+1));
 		if (ft.open(QIODevice::WriteOnly))
 		{
@@ -328,6 +334,7 @@ void XPSExPlug::writePages(QDomElement &root)
 			s.writeRawData(utf8wr.data(), utf8wr.length());
 			ft.close();
 		}
+
 		QFile ftr(baseDir + QString("/Documents/1/Pages/_rels/%1.fpage.rels").arg(a+1));
 		if (ftr.open(QIODevice::WriteOnly))
 		{
@@ -338,6 +345,7 @@ void XPSExPlug::writePages(QDomElement &root)
 			s.writeRawData(utf8wr.data(), utf8wr.length());
 			ftr.close();
 		}
+
 		QDomElement rel1 = f_docu.createElement("PageContent");
 		rel1.setAttribute("Source", QString("Pages/%1.fpage").arg(a+1));
 		root.appendChild(rel1);
@@ -803,7 +811,8 @@ class XPSPainter: public TextLayoutPainter
 	//PageItem *m_item;
 	QDomElement m_group;
 	XPSExPlug *m_xps;
-	QMap<QString, QString> &m_fontMap;
+	QMap<QString, XPSResourceInfo> &m_fontMap;
+	QSet<QString> &m_fontRel;
 	QDomElement &m_relRoot;
 
 	bool    m_restart { true };
@@ -816,11 +825,12 @@ class XPSPainter: public TextLayoutPainter
 	QDomElement m_glyphElem;
 
 public:
-	XPSPainter(PageItem *item, QDomElement &group, XPSExPlug *xps, QMap<QString, QString> &XPSfontMap, QDomElement &rel_root):
+	XPSPainter(PageItem *item, QDomElement &group, XPSExPlug *xps, QMap<QString, XPSResourceInfo> &xpsFontMap, QSet<QString> &xpsFontRel, QDomElement &rel_root):
 //		m_item(item),
 		m_group(group),
 		m_xps(xps),
-		m_fontMap(XPSfontMap),
+		m_fontMap(xpsFontMap),
+		m_fontRel(xpsFontRel),
 		m_relRoot(rel_root)
 	{ }
 
@@ -829,11 +839,21 @@ public:
 		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
 
-		if (!m_fontMap.contains(font().replacementName()))
-			m_fontMap.insert(font().replacementName(), m_xps->embedFont(font(), m_relRoot));
+		XPSResourceInfo fontInfo;
+		QString replacementName = font().replacementName();
+		if (!m_fontMap.contains(replacementName))
+			m_fontMap.insert(replacementName, m_xps->embedFont(font(), m_relRoot));
+		fontInfo = m_fontMap.value(replacementName);
+
+		if (!m_fontRel.contains(replacementName))
+		{
+			m_xps->addFontRelationship(m_relRoot, fontInfo);
+			m_fontRel.insert(replacementName);
+		}
+
 		QTransform transform = matrix();
 		double size = fontSize() * qMax(gc.scaleV(), gc.scaleH()) * m_xps->conversionFactor;
-		QString fontUri = m_fontMap[font().replacementName()];
+		QString fontUri = fontInfo.uri;
 
 		if (m_restart || (size != m_fontSize) || (m_fillColor != fillColor()) || (m_fontUri != fontUri) ||
 			(qAbs(m_current_x - x()) > 1e-6) || (m_current_y != y()) || (m_transform != transform))
@@ -1122,7 +1142,7 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 			grp2.setAttribute("Name", grp.attribute("Name"));
 		if (grp.hasAttribute("Opacity"))
 			grp2.setAttribute("Opacity", grp.attribute("Opacity"));
-		XPSPainter p(Item, grp2, this, xps_fontMap, rel_root);
+		XPSPainter p(Item, grp2, this, xps_fontMap, xps_fontRel, rel_root);
 		Item->textLayout.renderBackground(&p);
 		Item->textLayout.render(&p);
 		parentElem.appendChild(grp2);
@@ -1809,7 +1829,16 @@ void XPSExPlug::drawArrow(double xOffset, double yOffset, PageItem *Item, QDomEl
 	}
 }
 
-QString XPSExPlug::embedFont(const ScFace& font, QDomElement &rel_root)
+void XPSExPlug::addFontRelationship(QDomElement &rel_root, const XPSResourceInfo& fontInfo)
+{
+	QDomElement rel = r_docu.createElement("Relationship");
+	rel.setAttribute("Id", fontInfo.id);
+	rel.setAttribute("Type", "http://schemas.microsoft.com/xps/2005/06/required-resource");
+	rel.setAttribute("Target", fontInfo.uri);
+	rel_root.appendChild(rel);
+}
+
+XPSResourceInfo XPSExPlug::embedFont(const ScFace& font, QDomElement &rel_root)
 {
 	QByteArray fontData;
 	loadRawText(font.fontFilePath(), fontData);
@@ -1839,13 +1868,13 @@ QString XPSExPlug::embedFont(const ScFace& font, QDomElement &rel_root)
 		ft.write(fontData);
 		ft.close();
 	}
-	QDomElement rel = r_docu.createElement("Relationship");
-	rel.setAttribute("Id", QString("rIDf%1").arg(fontCounter));
-	rel.setAttribute("Type", "http://schemas.microsoft.com/xps/2005/06/required-resource");
-	rel.setAttribute("Target", "/Resources/Fonts/" + guidString + ".odttf");
-	rel_root.appendChild(rel);
+
+	XPSResourceInfo rsrcInfo;
+	rsrcInfo.id =  QString("rIDf%1").arg(fontCounter);
+	rsrcInfo.uri = "/Resources/Fonts/" + guidString + ".odttf";
 	fontCounter++;
-	return "/Resources/Fonts/" + guidString + ".odttf";
+
+	return rsrcInfo;
 }
 
 void XPSExPlug::GetMultiStroke(struct SingleLine *sl, QDomElement &parentElem)

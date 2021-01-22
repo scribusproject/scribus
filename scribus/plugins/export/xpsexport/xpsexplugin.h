@@ -16,6 +16,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QDomElement>
+#include <QMap>
+#include <QSet>
+
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "tableborder.h"
@@ -29,6 +32,12 @@ class PageItem;
 class ScPage;
 class ScText;
 class ScZipHandler;
+
+struct XPSResourceInfo
+{
+	QString id;
+	QString uri;
+};
 
 class PLUGIN_API XPSExportPlugin : public ScActionPlugin
 {
@@ -89,7 +98,8 @@ private:
 	void processSymbolStroke(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processArrows(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void drawArrow(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, FPointArray &arrow);
-	QString embedFont(const ScFace& font, QDomElement &rel_root);
+	void addFontRelationship(QDomElement &rel_root, const XPSResourceInfo& fontInfo);
+	XPSResourceInfo embedFont(const ScFace& font, QDomElement &rel_root);
 	void GetMultiStroke(struct SingleLine *sl, QDomElement &parentElem);
 	void getStrokeStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool forArrow = false);
 	void getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool withTransparency = true);
@@ -107,15 +117,17 @@ private:
 	QString MatrixToStr(QTransform &mat, double factor);
 	int hex2int(char hex);
 	bool checkForFallback(PageItem *Item);
+
 	ScribusDoc* m_Doc {nullptr};
 	QString baseDir;
 	QDomDocument f_docu;
 	QDomDocument p_docu;
 	QDomDocument r_docu;
-	double conversionFactor;
-	int imageCounter;
-	int fontCounter;
-	QMap<QString, QString> xps_fontMap;
+	double conversionFactor { 96.0 / 72.0 };
+	int imageCounter { 0 };
+	int fontCounter { 0 };
+	QMap<QString, XPSResourceInfo> xps_fontMap;
+	QSet<QString> xps_fontRel;
 	struct txtRunItem
 	{
 		QChar chr;
