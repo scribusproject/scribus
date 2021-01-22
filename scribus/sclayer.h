@@ -82,14 +82,14 @@ public:
 	 * @param  level the layer level
 	 * @return layer with the specified level or NULL if not found
 	 */
-	ScLayer* byLevel(const int level);
+	ScLayer* byLevel(int level);
 
 	/**
 	 * @brief  Get layer with a specific number
 	 * @param  nr the layer number
 	 * @return layer with the specified number or NULL if not found
 	 */
-	ScLayer* byID(const int nr);
+	ScLayer* byID(int nr);
 
 	/**
 	 * @brief  Get layer above the layer with the specified ID

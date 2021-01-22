@@ -126,7 +126,7 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 ScLayer* ScLayers::byLevel(int level)
 {
 	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
+	for (ScLayers::Iterator it = begin(); it != itend; ++it)
 	{
 		if (it->Level == level)
 			return &(*it);
@@ -137,7 +137,7 @@ ScLayer* ScLayers::byLevel(int level)
 ScLayer* ScLayers::byID(int nr)
 {
 	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = nullptr; it != itend; ++it)
+	for (ScLayers::Iterator it = begin(); it != itend; ++it)
 	{
 		if (it->ID == nr)
 			return &(*it);
@@ -358,7 +358,7 @@ ScLayer* ScLayers::newLayer(const QString& layerName)
 	if (layerName.isEmpty())
 	{
 		QString tmp;
-		lname = QObject::tr("New Layer")+" "+tmp.setNum(lId);
+		lname = QObject::tr("New Layer") + " " + tmp.setNum(lId);
 	}
 	else
 		lname = layerName;
@@ -386,8 +386,8 @@ bool ScLayers::removeLayerByID(int id)
 		ScLayers::Iterator it, itEnd = end();
 		for (it = begin(); it != itEnd; ++it)
 		{
-			if ((*it).Level > layerLevel)
-				(*it).Level -= 1;
+			if (it->Level > layerLevel)
+				it->Level -= 1;
 		}
 		return true;
 	}
@@ -411,8 +411,8 @@ bool ScLayers::removeLayerByLevel(int level)
 		ScLayers::Iterator it, itEnd = end();
 		for (it = begin(); it != itEnd; ++it)
 		{
-			if ((*it).Level > level)
-				(*it).Level -= 1;
+			if (it->Level > level)
+				it->Level -= 1;
 		}
 	}
 	return false;
@@ -427,8 +427,8 @@ bool ScLayers::raiseLayer(int nr)
 	if ((!alyr) || (clyr == alyr))
 		return false;
 	
-	clyr->ID += 1;
-	alyr->ID -= 1;
+	clyr->Level += 1;
+	alyr->Level -= 1;
 	return true;
 }
 
@@ -441,8 +441,8 @@ bool ScLayers::lowerLayer(int nr)
 	if (!blyr || (clyr == blyr))
 		return false;
 
-	clyr->ID -= 1;
-	blyr->ID += 1;
+	clyr->Level -= 1;
+	blyr->Level += 1;
 	return true;
 }
 
