@@ -301,9 +301,9 @@ bool XPSExPlug::doExport(const QString& fName)
 
 void XPSExPlug::writePages(QDomElement &root)
 {
-	for (int a = 0; a < m_Doc->Pages->count(); a++)
+	for (int i = 0; i < m_Doc->Pages->count(); ++i)
 	{
-		ScPage* Page = m_Doc->Pages->at(a);
+		ScPage* Page = m_Doc->Pages->at(i);
 
 		p_docu.setContent(QString("<FixedPage></FixedPage>"));
 		QDomElement droot  = p_docu.documentElement();
@@ -321,7 +321,7 @@ void XPSExPlug::writePages(QDomElement &root)
 
 		writePage(droot, rroot, Page);
 
-		QFile ft(baseDir + QString("/Documents/1/Pages/%1.fpage").arg(a+1));
+		QFile ft(baseDir + QString("/Documents/1/Pages/%1.fpage").arg(i + 1));
 		if (ft.open(QIODevice::WriteOnly))
 		{
 			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -332,7 +332,7 @@ void XPSExPlug::writePages(QDomElement &root)
 			ft.close();
 		}
 
-		QFile ftr(baseDir + QString("/Documents/1/Pages/_rels/%1.fpage.rels").arg(a+1));
+		QFile ftr(baseDir + QString("/Documents/1/Pages/_rels/%1.fpage.rels").arg(i + 1));
 		if (ftr.open(QIODevice::WriteOnly))
 		{
 			QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
@@ -344,7 +344,7 @@ void XPSExPlug::writePages(QDomElement &root)
 		}
 
 		QDomElement rel1 = f_docu.createElement("PageContent");
-		rel1.setAttribute("Source", QString("Pages/%1.fpage").arg(a+1));
+		rel1.setAttribute("Source", QString("Pages/%1.fpage").arg(i + 1));
 		root.appendChild(rel1);
 		p_docu.clear();
 		r_docu.clear();
@@ -395,11 +395,12 @@ void XPSExPlug::writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScP
 		double y = page->yOffset();
 		double w = page->width();
 		double h = page->height();
-		double x2 = item->BoundingX;
-		double y2 = item->BoundingY;
-		double w2 = item->BoundingW;
-		double h2 = item->BoundingH;
-		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
+		double lw = item->visualLineWidth();
+		double x2 = item->BoundingX - lw / 2.0;
+		double y2 = item->BoundingY - lw / 2.0;
+		double w2 = item->BoundingW + lw;
+		double h2 = item->BoundingH + lw;
+		if (!QRectF(x2, y2, w2, h2).intersects(QRectF(x, y, w, h)))
 			continue;
 		if ((!page->pageNameEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
 			continue;
