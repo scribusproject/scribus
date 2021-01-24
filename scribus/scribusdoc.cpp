@@ -16737,6 +16737,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 						itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
 						continue;
 					}
+
 					Mark* mark = item->itemText.mark(pos);
 					NumStruct* numStyle = numerations.value(style.numName());
 					bool resetNums = false;
@@ -16760,6 +16761,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 						item->itemText.insertMark(bnMark, pos);
 						CharStyle emptyCS;
 						item->itemText.setCharStyle(pos, 1, emptyCS);
+						mark = item->itemText.mark(pos);
 					}
 					if (mark && mark->getString() != prefixStr)
 					{
