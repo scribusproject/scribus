@@ -235,6 +235,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(n
 	auto* numS = new NumStruct;
 	numS->m_name = "default";
 	Numeration newNum;
+	newNum.suffix = ".";
 	numS->m_nums.insert(0, newNum);
 	numS->m_counters.insert(0, 0);
 	numS->m_lastlevel = -1;
