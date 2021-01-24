@@ -1158,19 +1158,20 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 void PageItem_TextFrame::adjustParagraphEndings ()
 {
 	// More text to go - let's apply paragraph flowing options - orphans/widows, etc
-	int pos = textLayout.endOfFrame() - 1;
-	if (pos >= itemText.length() - 1)
+	int start = textLayout.startOfFrame();
+	int end = textLayout.endOfFrame() - 1;
+	if ((start > end) || (end >= itemText.length() - 1))
 		return;
 
-	ParagraphStyle style = itemText.paragraphStyle (pos);
-	int paragraphStart = itemText.prevParagraph (pos) + 1;
-	QChar lastChar = itemText.text (pos);
+	ParagraphStyle style = itemText.paragraphStyle (end);
+	int paragraphStart = itemText.prevParagraph (end) + 1;
+	QChar lastChar = itemText.text (end);
 	bool keepWithNext = style.keepWithNext() && (lastChar == SpecialChars::PARSEP);
 	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true)))
 	{
 		// paragraph continues in the next frame, or needs to be kept with the next one
 		// check how many lines are in this frame
-		int lineStart = textLayout.startOfLine (pos);
+		int lineStart = textLayout.startOfLine (end);
 		incompleteLines = 1;
 		incompletePositions.prepend (lineStart);
 		while (lineStart > paragraphStart)
