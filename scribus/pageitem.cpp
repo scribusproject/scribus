@@ -8661,7 +8661,7 @@ QTransform PageItem::getTransform(double deltaX, double deltaY) const
 
 QRectF PageItem::getBoundingRect() const
 {
-	double x,y,x2,y2;
+	double x, y, x2, y2;
 	getBoundingRect(&x, &y, &x2, &y2);
 	return QRectF(x, y, x2 - x, y2 - y);
 }
@@ -8678,16 +8678,16 @@ QRectF PageItem::getCurrentBoundingRect(double moreSpace) const
 
 QRectF PageItem::getOldBoundingRect() const
 {
-	double x,y,x2,y2;
+	double x, y, x2, y2;
 	getOldBoundingRect(&x, &y, &x2, &y2);
 	return QRectF(x, y, x2 - x, y2 - y);
 }
 
 QRectF PageItem::getVisualBoundingRect() const
 {
-	double x,y,x2,y2;
+	double x, y, x2, y2;
 	getVisualBoundingRect(&x, &y, &x2, &y2);
-	return QRectF(x,y,x2-x,y2-y);
+	return QRectF(x, y, x2 - x, y2 - y);
 }
 
 void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
