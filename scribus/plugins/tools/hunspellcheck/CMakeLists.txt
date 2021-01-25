@@ -33,7 +33,7 @@ add_library(${SCRIBUS_HUNSPELL_PLUGIN} MODULE
 	${HUNSPELL_PLUGIN_UI_SOURCES}
 )
 
-target_link_libraries(${SCRIBUS_HUNSPELL_PLUGIN} ${HUNSPELL_LIBRARIES} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_HUNSPELL_PLUGIN} ${hunspell_LIBRARIES} ${PLUGIN_LIBRARIES})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_HUNSPELL_PLUGIN} PRIVATE "../../plugins_pch.h")
