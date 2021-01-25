@@ -1823,28 +1823,29 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 	QList<int> toUnicodeMapsCount;
 	QByteArray toUnicodeMap;
 	int toUnicodeMapCounter = 0;
-	
-	PutDoc("[ ");
+
 	QList<uint> keys = gl.uniqueKeys();
 	bool seenNotDef = false;
+	
+	PutDoc("[ ");
 	for (auto git = keys.begin(); git != keys.end(); ++git)
 	{
-		uint gid = (result.encoding == Encode_Subset) ? glyphmap[*git] : *git;
-		if (gid > 0 || !seenNotDef)
+		uint gid = (result.encoding == Encode_Subset) ? glyphmap.value(*git, 0) : *git;
+		if (gid == 0 && seenNotDef)
+			continue;
+		seenNotDef |= (gid == 0);
+
+		PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] ");
+		QString tmp = QString::asprintf("%04X", gid);
+		QString tmp2 = gl.value(*git).toUnicode;
+		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
+		toUnicodeMapCounter++;
+		if (toUnicodeMapCounter == 100)
 		{
-			seenNotDef |= (gid == 0);
-			PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] ");
-			QString tmp = QString::asprintf("%04X", gid);
-			QString tmp2 = gl.value(*git).toUnicode;
-			toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
-			toUnicodeMapCounter++;
-			if (toUnicodeMapCounter == 100)
-			{
-				toUnicodeMaps.append(toUnicodeMap);
-				toUnicodeMapsCount.append(toUnicodeMapCounter);
-				toUnicodeMap.clear();
-				toUnicodeMapCounter = 0;
-			}
+			toUnicodeMaps.append(toUnicodeMap);
+			toUnicodeMapsCount.append(toUnicodeMapCounter);
+			toUnicodeMap.clear();
+			toUnicodeMapCounter = 0;
 		}
 	}
 	PutDoc("]");
