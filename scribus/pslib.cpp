@@ -957,9 +957,9 @@ void PSLib::PS_end_page()
 			for (int bl = 0; bl < 11; bl++)
 			{
 				PutStream("0 0 0 " + ToStr(col) + " cmyk\n");
-				PutStream(ToStr(startX+bl*14.0) + " " + ToStr(startY) + " 14 14 rectfill\n");
+				PutStream(ToStr(startX + bl * 14.0) + " " + ToStr(startY) + " 14 14 rectfill\n");
 				PutStream("0 0 0 1 cmyk\n");
-				PutStream(ToStr(startX+bl*14.0) + " " + ToStr(startY) + " 14 14 rectstroke\n");
+				PutStream(ToStr(startX + bl * 14.0) + " " + ToStr(startY) + " 14 14 rectstroke\n");
 				col -= 0.1;
 			}
 			startX = maxBoxX - bleedRight - markOffs - 20.0;
