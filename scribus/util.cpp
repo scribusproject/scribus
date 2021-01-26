@@ -305,7 +305,7 @@ QString String2Hex(QString *in, bool lang)
 		// Qt4 .cell() added ???
 		out += toHex(QChar(in->at(j)).cell());
 		++i;
-		if ((i>40) && (lang))
+		if ((i > 40) && (lang))
 		{
 			out += '\n';
 			i=0;

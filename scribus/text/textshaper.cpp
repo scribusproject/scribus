@@ -426,7 +426,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			const CharStyle& charStyle(m_story.charStyle(firstChar));
 			const StyleFlag& effects = charStyle.effects();
 
-			QString str = m_text.mid(firstChar - fromPos, lastChar-firstChar+1);
+			QString str = m_text.mid(firstChar - fromPos, lastChar - firstChar + 1);
 			GlyphCluster run(&charStyle, flags, firstChar, lastChar, m_story.object(firstChar), result.glyphs().length(), str);
 
 			run.clearFlag(ScLayout_HyphenationPossible);

@@ -1687,7 +1687,6 @@ namespace cff {
 		// create new private dict
 		QHash<operator_type, uint> privatePatches;
 		QByteArray privateBytes = result.makeDict(privateDict, m_strings, privatePatches);
-
 		
 		// write new header, name and topdict, remember offset positions for patching
 		QHash<operator_type, uint> patchPositions;
