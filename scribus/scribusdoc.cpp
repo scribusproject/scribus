@@ -16505,6 +16505,7 @@ void ScribusDoc::setupNumerations()
 		numS = new NumStruct;
 		numS->m_name = "default";
 		Numeration newNum;
+		newNum.suffix = ".";
 		numS->m_nums.insert(0, newNum);
 		numS->m_counters.insert(0, 0);
 		numS->m_lastlevel = -1;
@@ -16576,14 +16577,21 @@ int ScribusDoc::updateLocalNums(StoryText& itemText)
 	{
 		if (pos != 0 && itemText.text(pos - 1) != SpecialChars::PARSEP)
 			continue;
-		Mark* mark = itemText.mark(pos);
-		if (mark == nullptr)
-			continue;
-		if (!mark->isType(MARKBullNumType) || !itemText.paragraphStyle(pos).hasNum())
-			continue;
 
 		const ParagraphStyle& style = itemText.paragraphStyle(pos);
-		if (style.numName() != "<local block>")
+		if (!style.hasNum() || (style.numName() != "<local block>"))
+			continue;
+
+		Mark* mark = itemText.mark(pos);
+		if (mark == nullptr)
+		{
+			BulNumMark* bnMark = new BulNumMark;
+			itemText.insertMark(bnMark, pos);
+			CharStyle emptyCS;
+			itemText.setCharStyle(pos, 1, emptyCS);
+			mark = itemText.mark(pos);
+		}
+		if (!mark->isType(MARKBullNumType))
 			continue;
 
 		int level = style.numLevel();
@@ -16640,7 +16648,8 @@ int ScribusDoc::updateLocalNums(StoryText& itemText)
 		if (mark->getString() != result)
 		{
 			mark->setString(result);
-			firstInvalidChar = pos;
+			if (firstInvalidChar < 0)
+				firstInvalidChar = pos;
 		}
 	}
 	return firstInvalidChar;
@@ -16772,7 +16781,8 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 					if (mark && mark->getString() != prefixStr)
 					{
 						mark->setString(prefixStr);
-						firstInvalidChar1 = pos;
+						if (firstInvalidChar1 < 0)
+							firstInvalidChar1 = pos;
 					}
 				}
 				if (item->itemText.text(pos) == SpecialChars::PARSEP)
