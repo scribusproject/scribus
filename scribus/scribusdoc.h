@@ -686,8 +686,8 @@ public:
 	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
-	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);
-	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPointArray> > & Really, uint lc);
+	void getUsedFonts(QMap<QString,QMap<uint, QString> > &Really);
+	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QString> > & Really, uint lc);
 
 	/*!
 	 * @brief Replace line style colors

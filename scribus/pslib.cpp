@@ -303,7 +303,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 
 	QMap<QString, QString> psNameMap;
 	SCFonts& allFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
-	QMap<QString, QMap<uint, FPointArray> > docFonts;
+	QMap<QString, QMap<uint, QString> > docFonts;
 	doc->getUsedFonts(docFonts);
 
 	for (auto it = docFonts.begin(); it != docFonts.end(); ++it)
@@ -312,7 +312,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 		// Subset also font whose postscript name conflicts with an already used font
 		// Subset always now with new boxes code.
 		ScFace &face (allFonts[it.key()]);
-		QMap<uint, FPointArray>& RealGlyphs(it.value());
+		QMap<uint, QString>& usedGlyphs(it.value());
 		QString encodedName = face.psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
 
 		// Handle possible PostScript name conflict in oft/ttf fonts
@@ -323,19 +323,22 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 			encodedName = QString("%1-%2").arg(initialName).arg(psNameIndex);
 			++psNameIndex;
 		}
-		FontDesc += "/" + encodedName + " " + IToStr(RealGlyphs.count()+1) + " dict def\n";
+		FontDesc += "/" + encodedName + " " + IToStr(usedGlyphs.count() + 1) + " dict def\n";
 		FontDesc += encodedName + " begin\n";
-		QMap<uint,FPointArray>::Iterator ig;
-		for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+
+		for (auto ig = usedGlyphs.begin(); ig != usedGlyphs.end(); ++ig)
 		{
-			FontDesc += "/G" + IToStr(ig.key()) + " { newpath\n";
+			uint gid = ig.key();
+			FPointArray glyphOutline = face.glyphOutline(gid);
+
+			FontDesc += "/G" + IToStr(gid) + " { newpath\n";
 			FPoint np, np1, np2;
 			bool nPath = true;
-			if (ig.value().size() > 3)
+			if (glyphOutline.size() > 3)
 			{
-				for (int poi = 0; poi < ig.value().size() - 3; poi += 4)
+				for (int poi = 0; poi < glyphOutline.size() - 3; poi += 4)
 				{
-					if (ig.value().isMarker(poi))
+					if (glyphOutline.isMarker(poi))
 					{
 						FontDesc += "cl\n";
 						nPath = true;
@@ -343,13 +346,13 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 					}
 					if (nPath)
 					{
-						np = ig.value().point(poi);
+						np = glyphOutline.point(poi);
 						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
 						nPath = false;
 					}
-					np = ig.value().point(poi + 1);
-					np1 = ig.value().point(poi + 3);
-					np2 = ig.value().point(poi + 2);
+					np = glyphOutline.point(poi + 1);
+					np1 = glyphOutline.point(poi + 3);
+					np2 = glyphOutline.point(poi + 2);
 					FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
 							ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
 							ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";

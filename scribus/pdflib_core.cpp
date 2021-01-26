@@ -618,7 +618,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 		return false;
 	}
 
-	QMap<QString, QMap<uint, FPointArray> > usedFonts;
+	QMap<QString, QMap<uint, QString> > usedFonts;
 	doc.getUsedFonts(usedFonts);
 
 	if (PDF_Begin_Doc(fn, PrefsManager::instance().appPrefs.fontPrefs.AvailFonts, usedFonts, doc.scMW()->bookmarkPalette->BView))
@@ -1001,7 +1001,7 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, PdfId ObjNum, ColorSpace
 	return (succeed ? bytesWritten : 0);
 }
 
-bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts, BookmarkView* vi)
+bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts, BookmarkView* vi)
 {
 	if (!writer.open(fn))
 		return false;
@@ -1201,11 +1201,10 @@ void PDFLibCore::PDF_Begin_MetadataAndEncrypt()
 	writer.endObj(writer.InfoObj);
 }
 
-QMap<QString, QMap<uint, FPointArray> >
-PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& DocFonts)
+QMap<QString, QMap<uint, QString> >
+PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& DocFonts)
 {
-	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
-	ReallyUsed.clear();
+	QMap<QString, QMap<uint, QString> > usedFonts;
 	PageItem* pgit;
 	QMap<int, QByteArray> ind2PDFabr;
 	const QByteArray tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
@@ -1238,7 +1237,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 					if (Options.Version < PDFVersion::PDF_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					QString replacementName = pgit->itemText.defaultStyle().charStyle().font().replacementName();
-					ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+					usedFonts.insert(replacementName, DocFonts[replacementName]);
 				}
 			}
 			uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
@@ -1246,7 +1245,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 			for (uint e = start; e < stop; ++e)
 			{
 				QString replacementName = pgit->itemText.charStyle(e).font().replacementName();
-				ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+				usedFonts.insert(replacementName, DocFonts[replacementName]);
 			}
 		}
 	}
@@ -1273,7 +1272,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 					if (Options.Version < PDFVersion::PDF_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					QString replacementName = pgit->itemText.defaultStyle().charStyle().font().replacementName();
-					ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+					usedFonts.insert(replacementName, DocFonts[replacementName]);
 				}
 			}
 			uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
@@ -1281,7 +1280,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 			for (uint e = start; e < stop; ++e)
 			{
 				QString replacementName = pgit->itemText.charStyle(e).font().replacementName();
-				ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+				usedFonts.insert(replacementName, DocFonts[replacementName]);
 			}
 		}
 	}
@@ -1308,7 +1307,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 					if (Options.Version < PDFVersion::PDF_14)
 						StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 					QString replacementName = pgit->itemText.defaultStyle().charStyle().font().replacementName();
-					ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+					usedFonts.insert(replacementName, DocFonts[replacementName]);
 				}
 			}
 			uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
@@ -1316,7 +1315,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 			for (uint e = start; e < stop; ++e)
 			{
 				QString replacementName = pgit->itemText.charStyle(e).font().replacementName();
-				ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+				usedFonts.insert(replacementName, DocFonts[replacementName]);
 			}
 		}
 	}
@@ -1348,7 +1347,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 						if (Options.Version < PDFVersion::PDF_14)
 							StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 						QString replacementName = pgit->itemText.defaultStyle().charStyle().font().replacementName();
-						ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+						usedFonts.insert(replacementName, DocFonts[replacementName]);
 					}
 				}
 				uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
@@ -1356,12 +1355,12 @@ PDFLibCore::PDF_Begin_FindUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<
 				for (uint e = start; e < stop; ++e)
 				{
 					QString replacementName = pgit->itemText.charStyle(e).font().replacementName();
-					ReallyUsed.insert(replacementName, DocFonts[replacementName]);
+					usedFonts.insert(replacementName, DocFonts[replacementName]);
 				}
 			}
 		}
 	}
-	return ReallyUsed;
+	return usedFonts;
 }
 
 static QByteArray sanitizeFontName(QString fn)
@@ -1421,7 +1420,7 @@ void PDFLibCore::PDF_WriteStandardFonts()
 }
 
 
-PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 	PdfFont result;
 	result.name = Pdf::toName(name);
@@ -1456,15 +1455,17 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 	ScFace::FaceEncoding gl;
 	face.glyphNames(gl);
 
-	QMap<uint,FPointArray>::ConstIterator ig;
-	for (ig = RealGlyphs.cbegin(); ig != RealGlyphs.cend(); ++ig)
+	for (auto ig = usedGlyphs.cbegin(); ig != usedGlyphs.cend(); ++ig)
 	{
 		FPoint np, np1, np2;
 		bool nPath = true;
 		fon.resize(0);
-		if (ig.value().size() > 3)
+
+		uint gid = ig.key();
+		FPointArray glyphOutline = face.glyphOutline(gid);
+		if (glyphOutline.size() > 3)
 		{
-			FPointArray gly = ig.value();
+			FPointArray gly = glyphOutline;
 			QTransform mat;
 			mat.scale(100.0, -100.0);
 			gly.map(mat);
@@ -1483,9 +1484,9 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 					fon += FToStr(np.x()) + " " + FToStr(np.y()) + " m\n";
 					nPath = false;
 				}
-				np = gly.point(poi+1);
-				np1 = gly.point(poi+3);
-				np2 = gly.point(poi+2);
+				np = gly.point(poi + 1);
+				np1 = gly.point(poi + 3);
+				np2 = gly.point(poi + 2);
 				fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
 			}
 			fon += useNonZeroRule? "h f\n" : "h f*\n";
@@ -1522,16 +1523,22 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		// using ScFace's glyphNames(), so generate custom glyph names using glyph index.
 		// With Type 3 fonts we have more flexibility than with other fonts.
 		QString glGlyphName, glToUnicode;
-		auto  glyphIt = gl.constFind(ig.key());
+		auto  glyphIt = gl.constFind(gid);
 		if ((glyphIt != gl.constEnd()) && (glyphIt->charcode > 0))
 			glToUnicode = QString::asprintf("%04X", glyphIt->charcode);
-		else
+		if (glToUnicode.isEmpty() && usedGlyphs.contains(gid))
+		{
+			QString uniStr = usedGlyphs.value(gid);
+			for (int i = 0; i < uniStr.length(); ++i)
+				glToUnicode += QString::asprintf("%04X", uniStr.at(i).unicode());
+		}
+		if (glToUnicode.isEmpty())
 			glToUnicode = QString("0000");
-		glGlyphName = "gly" + QString::asprintf("%04X", ig.key());
+		glGlyphName = "gly" + QString::asprintf("%04X", gid);
 
 		charProcs.append(Pdf::toName(glGlyphName) + " " + Pdf::toPdf(charProcObject) + " 0 R\n");
 		encoding += Pdf::toName(glGlyphName) + " ";
-		glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
+		glyphMapping.insert(gid, glyphCount + SubFonts * 256);
 
 		QString tmp = QString::asprintf("%02X", glyphCount);
 		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(glToUnicode) + ">\n";
@@ -1545,7 +1552,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 		}
 
 		glyphCount++;
-		int glyphsLeft = RealGlyphs.count() - SubFonts * 256;
+		int glyphsLeft = usedGlyphs.count() - SubFonts * 256;
 		if ((glyphCount > 255) || (glyphCount == glyphsLeft))
 		{
 			PdfId fontWidths = writer.newObject();
@@ -1641,7 +1648,7 @@ PdfFont PDFLibCore::PDF_WriteType3Font(const QByteArray& name, ScFace& face, con
 }
 
 
-PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
@@ -1657,15 +1664,17 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 	bool useNonZeroRule = (face.type() == ScFace::TTF);
 
 	QByteArray fon;
-	QMap<uint,FPointArray>::ConstIterator ig;
-	for (ig = RealGlyphs.cbegin(); ig != RealGlyphs.cend(); ++ig)
+	for (auto ig = usedGlyphs.cbegin(); ig != usedGlyphs.cend(); ++ig)
 	{
 		FPoint np, np1, np2;
 		bool nPath = true;
 		fon.resize(0);
-		if (ig.value().size() > 3)
+
+		uint gid = ig.key();
+		FPointArray glyphOutline = face.glyphOutline(gid);
+		if (glyphOutline.size() > 3)
 		{
-			FPointArray gly = ig.value();
+			FPointArray gly = glyphOutline;
 			QTransform mat;
 			mat.scale(0.1, 0.1);
 			gly.map(mat);
@@ -1683,9 +1692,9 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 					fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " m\n";
 					nPath = false;
 				}
-				np = gly.point(poi+1);
-				np1 = gly.point(poi+3);
-				np2 = gly.point(poi+2);
+				np = gly.point(poi + 1);
+				np1 = gly.point(poi + 3);
+				np2 = gly.point(poi + 2);
 				fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
 				FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
 				FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
@@ -1716,7 +1725,7 @@ PdfFont PDFLibCore::PDF_WriteGlyphsAsXForms(const QByteArray& fontName, ScFace& 
 			PutDoc("\n/Filter /FlateDecode");
 		PutDoc(" >>\nstream\n" + EncStream(fon, fontGlyphXForm) + "\nendstream");
 		writer.endObj(fontGlyphXForm);
-		pageData.XObjects[fontName + "_gl" + Pdf::toPdf(ig.key())] = fontGlyphXForm;
+		pageData.XObjects[fontName + "_gl" + Pdf::toPdf(gid)] = fontGlyphXForm;
 	}
 	return result;
 }
@@ -1808,7 +1817,7 @@ PdfId PDFLibCore::PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& fa
 	return fontDescriptor;
 }
 
-PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const ScFace::FaceEncoding& gl, const QMap<uint,uint>& glyphmap)
+PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const QMap<uint, QString>& usedGlyphs, const QMap<uint,uint>& glyphmap)
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
@@ -1824,7 +1833,9 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 	QByteArray toUnicodeMap;
 	int toUnicodeMapCounter = 0;
 
-	QList<uint> keys = gl.uniqueKeys();
+	ScFace::FaceEncoding encoding;
+	face.glyphNames(encoding);
+	QList<uint> keys = encoding.uniqueKeys();
 	bool seenNotDef = false;
 	
 	PutDoc("[ ");
@@ -1837,7 +1848,18 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 
 		PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] ");
 		QString tmp = QString::asprintf("%04X", gid);
-		QString tmp2 = gl.value(*git).toUnicode;
+		QString tmp2;
+		auto  glyphIt = encoding.constFind(*git);
+		if ((glyphIt != encoding.constEnd()) && (glyphIt->charcode > 0))
+			tmp2 = glyphIt->toUnicode;
+		if (tmp2.isEmpty() && usedGlyphs.contains(*git))
+		{
+			QString uniStr = usedGlyphs.value(*git);
+			for (int i = 0; i < uniStr.length(); ++i)
+				tmp2 += QString::asprintf("%04X", uniStr.at(i).unicode());
+		}
+		if (tmp2.isEmpty())
+			tmp2 = "0000";
 		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
 		toUnicodeMapCounter++;
 		if (toUnicodeMapCounter == 100)
@@ -1909,13 +1931,16 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 }
 
 
-PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const ScFace::FaceEncoding& gl)
+PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& face, const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const QMap<uint, QString>& usedGlyphs)
 {
 	PdfFont result;
 	result.name = Pdf::toName(fontName);
 	result.usage = Used_in_Content;
 	result.method = isEmbedded? Use_Embedded : Use_System;
 	result.encoding = Encode_224;
+
+	ScFace::FaceEncoding gl;
+	face.glyphNames(gl);
 	
 	int nglyphs = 0;
 	for (auto gli = gl.cbegin(); gli != gl.cend(); ++gli)
@@ -1974,9 +1999,16 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 				}
 				PutDoc(Pdf::toName(glEncoding.glyphName) + " ");
 				QString tmp = QString::asprintf("%02X", ww2);
-				QString tmp2 = glEncoding.toUnicode;
+				QString tmp2 = (glEncoding.charcode > 0) ? glEncoding.toUnicode : QString();
+				if (tmp2.isEmpty() && usedGlyphs.contains(glyph))
+				{
+					QString uniStr = usedGlyphs.value(glyph);
+					for (int i = 0; i < uniStr.length(); ++i)
+						tmp2 += QString::asprintf("%04X", uniStr.at(i).unicode());
+				}
+				if (tmp2.isEmpty())
+					tmp2 = "0000";
 				toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
-				//QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
 				toUnicodeMapCounter++;
 				if (toUnicodeMapCounter == 100)
 				{
@@ -2131,12 +2163,12 @@ static void dumpCFF(QString name, cff::CFF font)
 */
 
 
-PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 	QByteArray font;
 	face.rawData(font);
 	/*dumpFont(face.psName() + ".ttf", font);*/
-	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
+	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 	QByteArray subset = sfnt::subsetFace(font, glyphs);
@@ -2147,21 +2179,19 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
 	
-	ScFace::FaceEncoding fullEncoding;
 	QMap<uint,uint> glyphmap;
-	face.glyphNames(fullEncoding);
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
 		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphmap);
 	return result;
 }
 
 
-PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint,FPointArray>& RealGlyphs)
+PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 //	QByteArray sfnt; //TEST
 //	face.rawData(sfnt);
@@ -2180,7 +2210,7 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	face.rawData(data);
 	font = sfnt::getTable(data, "CFF ");
 	/*dumpFont(face.psName() + ".cff", font);*/
-	QList<ScFace::gid_type> glyphs = RealGlyphs.uniqueKeys();
+	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
 	QByteArray subset = cff::subsetFace(font, glyphs);
@@ -2191,16 +2221,14 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
 
-	ScFace::FaceEncoding fullEncoding;
 	QMap<uint,uint> glyphmap;
-	face.glyphNames(fullEncoding);
 	for (int i = 0; i < glyphs.length(); ++i)
 	{
 		glyphmap[glyphs[i]] = i;
 		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
 	}
 	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, fullEncoding, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphmap);
 	return result;
 }
 
@@ -2335,21 +2363,21 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
 }
 
 
-void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, FPointArray> >& ReallyUsed)
+void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString, QMap<uint, QString> >& usedFonts)
 {
 	qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
 	qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
 	qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
-	QMap<QString,QMap<uint, FPointArray> >::ConstIterator it;
+
 	int a = 0;
-	for (it = ReallyUsed.cbegin(); it != ReallyUsed.cend(); ++it)
+	for (auto it = usedFonts.cbegin(); it != usedFonts.cend(); ++it)
 	{
 		ScFace& face(AllFonts[it.key()]);
 		ScFace::FontFormat fformat = face.format();
 		PdfFont pdfFont;
 		QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
 		
-		QMap<uint, FPointArray> usedGlyphs = it.value();
+		QMap<uint, QString> usedGlyphs = it.value();
 		if (usedGlyphs.count() <= 0)
 			continue;
 		
@@ -2400,8 +2428,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				bool hasNeededGlyphNames = face.hasNames() && (gl.count() >= usedGlyphs.count());
 				if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 				{
-					QMap<uint, FPointArray>::const_iterator it;
-					for (it = usedGlyphs.constBegin(); it != usedGlyphs.constEnd(); ++it)
+					for (auto it = usedGlyphs.constBegin(); it != usedGlyphs.constEnd(); ++it)
 					{
 						int glyphIndex = it.key();
 						hasNeededGlyphNames &= gl.contains(glyphIndex);
@@ -2415,11 +2442,11 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 				if ((face.isSymbolic() || !hasNeededGlyphNames || Options.Version == PDFVersion::PDF_X4 || face.type() == ScFace::OTF) &&
 					(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 				{
-					pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, gl, QMap<uint,uint>());
+					pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, usedGlyphs, QMap<uint,uint>());
 				}
 				else
 				{
-					pdfFont = PDF_EncodeSimpleFont(fontName, face, baseFont, subtype, embeddedFontObject != 0, fontDescriptor, gl);
+					pdfFont = PDF_EncodeSimpleFont(fontName, face, baseFont, subtype, embeddedFontObject != 0, fontDescriptor, usedGlyphs);
 				}
 
 				if ((Options.Version != PDFVersion::PDF_X4) && (face.type() != ScFace::OTF))
