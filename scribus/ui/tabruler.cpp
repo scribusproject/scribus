@@ -48,8 +48,8 @@ RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tab
 	QPalette palette;
 	palette.setColor(backgroundRole(), QColor(255,255,255));
 	setPalette(palette);
-	iter=unitRulerGetIter1FromIndex(unitIndex);
-	iter2=unitRulerGetIter2FromIndex(unitIndex);
+	iter = unitRulerGetIter1FromIndex(unitIndex);
+	iter2 = unitRulerGetIter2FromIndex(unitIndex);
 
 	setMouseTracking(true);
 	if (wid < 0)
@@ -62,8 +62,8 @@ RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tab
 	else
 	{
 		Width = wid;
-		setMinimumSize(QSize(qMin(static_cast<int>(Width), 400),25));
-		setMaximumSize(QSize(4000,25));
+		setMinimumSize(QSize(qMin(static_cast<int>(Width), 400), 25));
+		setMaximumSize(QSize(4000, 25));
 		resize(qMin(static_cast<int>(wid), 400), 25);
 	}
 }
@@ -88,13 +88,14 @@ void RulerT::paintEvent(QPaintEvent *)
 	p.setBrush(Qt::black);
 	p.setFont(font());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	for (xl = 0; xl < width()+offset; xl += iter)
+	for (xl = 0; xl < width() + offset; xl += iter)
 	{
 		if (xl < offset)
 			continue;
 		p.drawLine(qRound(xl), 18, qRound(xl), 24);
 	}
-	for (xl = 0; xl < width()+(iter2/2)+offset; xl += iter2)
+
+	for (xl = 0; xl < width() + (iter2 / 2) + offset; xl += iter2)
 	{
 		if (xl < offset)
 			continue;
@@ -114,44 +115,45 @@ void RulerT::paintEvent(QPaintEvent *)
 					tx += QChar(0xBD);
 				if ((frac > 0.74) && (frac < 0.76))
 					tx += QChar(0xBE);
-				p.drawText(qRound(xl+2), 17, tx);
+				p.drawText(qRound(xl + 2), 17, tx);
 				break;
 			}
 			case 3:
-				p.drawText(qRound(xl+2), 17, QString::number(xl / iter));
+				p.drawText(qRound(xl + 2), 17, QString::number(xl / iter));
 				break;
 			default:
-				p.drawText(qRound(xl+2), 17, QString::number(xl / iter * 10));
+				p.drawText(qRound(xl + 2), 17, QString::number(xl / iter * 10));
 				break;
 		}
 	}
+
 	if (tabValues.count() != 0)
 	{
-		for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
+		for (int i = 0; i < tabValues.count(); i++)
 		{
-			if (yg == actTab)
+			if (i == actTab)
 				p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			else
 				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			switch (static_cast<int>(tabValues[yg].tabType))
+			switch (static_cast<int>(tabValues[i].tabType))
 			{
 				case 0:
-					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
-					p.drawLine(qRound(tabValues[yg].tabPosition), 23, qRound(tabValues[yg].tabPosition+8), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition + 8), 23);
 					break;
 				case 1:
-					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
-					p.drawLine(qRound(tabValues[yg].tabPosition), 23, qRound(tabValues[yg].tabPosition-8), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition - 8), 23);
 					break;
 				case 2:
 				case 3:
-					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
-					p.drawLine(qRound(tabValues[yg].tabPosition-4), 23, qRound(tabValues[yg].tabPosition+4), 23);
-					p.drawLine(qRound(tabValues[yg].tabPosition+3), 20, qRound(tabValues[yg].tabPosition+2), 20);
+					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition + 3), 20, qRound(tabValues[i].tabPosition + 2), 20);
 					break;
 				case 4:
-					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
-					p.drawLine(qRound(tabValues[yg].tabPosition-4), 23, qRound(tabValues[yg].tabPosition+4), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+					p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
 					break;
 				default:
 					break;
@@ -163,10 +165,10 @@ void RulerT::paintEvent(QPaintEvent *)
 		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setBrush(Qt::blue);
 		QPolygon cr;
-		cr.setPoints(3, qRound(firstLine+leftIndent), 12, qRound(firstLine+leftIndent-4), 0, qRound(firstLine+leftIndent+4), 0);
+		cr.setPoints(3, qRound(firstLine + leftIndent), 12, qRound(firstLine + leftIndent - 4), 0, qRound(firstLine + leftIndent + 4), 0);
 		p.drawPolygon(cr);
 		QPolygon cr2;
-		cr2.setPoints(3, qRound(leftIndent), 12, qRound(leftIndent+4), 24, qRound(leftIndent-4), 24);
+		cr2.setPoints(3, qRound(leftIndent), 12, qRound(leftIndent + 4), 24, qRound(leftIndent - 4), 24);
 		p.drawPolygon(cr2);
 	}
 	p.end();
@@ -180,14 +182,14 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	rulerCode = 0;
 	if (haveInd)
 	{
-		fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
+		fpo = QRect(static_cast<int>(firstLine + leftIndent - offset) - 4, 0, 8, 12);
 		if (fpo.contains(m->pos()))
 		{
 			rulerCode = 1;
 			mouseX = m->x();
 			return;
 		}
-		fpo = QRect(static_cast<int>(leftIndent-offset)-4, 12, 8, 12);
+		fpo = QRect(static_cast<int>(leftIndent - offset) - 4, 12, 8, 12);
 		if (fpo.contains(m->pos()))
 		{
 			rulerCode = 2;
@@ -197,13 +199,13 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	}
 	if (tabValues.count() != 0)
 	{
-		for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
+		for (int i = 0; i < tabValues.count(); ++i)
 		{
-			fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
+			fpo = QRect(static_cast<int>(tabValues[i].tabPosition - offset) - 3, 15, 8, 8);
 			if (fpo.contains(m->pos()))
 			{
 				rulerCode = 3;
-				actTab = yg;
+				actTab = i;
 				mouseX = m->x();
 				emit tabSelected();
 				emit typeChanged(tabValues[actTab].tabType);
@@ -287,7 +289,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				if (firstLine+leftIndent+offset < offset)
 					firstLine += mouseX - m->x();
 				if (firstLine+leftIndent > Width)
-					firstLine  = Width-leftIndent;
+					firstLine  = Width - leftIndent;
 				emit firstLineMoved(firstLine);
 				repaint();
 				break;
@@ -324,13 +326,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		setCursor(IconManager::instance().loadCursor("tab.png", 3));
 		if (haveInd)
 		{
-			fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
+			fpo = QRect(static_cast<int>(firstLine + leftIndent - offset) - 4, 0, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
 				return;
 			}
-			fpo = QRect(static_cast<int>(leftIndent-offset)-4, 12, 8, 12);
+			fpo = QRect(static_cast<int>(leftIndent - offset) - 4, 12, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
@@ -339,9 +341,9 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (tabValues.count() != 0)
 		{
-			for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
+			for (int i = 0; i < static_cast<int>(tabValues.count()); ++i)
 			{
-				fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
+				fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
 					setCursor(QCursor(Qt::SizeHorCursor));
@@ -376,10 +378,10 @@ void RulerT::updateTabList()
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
 	tabValues.removeAt(actTab);
-	for (int yg = static_cast<int>(tabValues.count()-1); yg > -1; yg--)
+	for (int i = tabValues.count() - 1; i > -1; --i)
 	{
-		if (tb.tabPosition < tabValues[yg].tabPosition)
-			g = yg;
+		if (tb.tabPosition < tabValues[i].tabPosition)
+			g = i;
 	}
 	actTab = g;
 	if (gg == g)
@@ -481,11 +483,11 @@ void RulerT::moveFirstLine(double t)
 
 void RulerT::moveLeftIndent(double t)
 {
-	double oldInd = leftIndent+firstLine;
+	double oldInd = leftIndent + firstLine;
 	leftIndent = t;
 	if (leftIndent > Width-1)
 	{
-		leftIndent  = Width-1;
+		leftIndent  = Width - 1;
 		emit leftIndentMoved(leftIndent);
 	}
 	firstLine = oldInd - leftIndent;
@@ -883,35 +885,32 @@ void Tabruler::setTabFillChar(QChar t)
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentIndex(0);
 	}
+	else if (t == '.')
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentIndex(1);
+	}
+	else if (t == '-')
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentIndex(2);
+	}
+	else if (t == '_')
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentIndex(3);
+	}
 	else
-		if (t == '.')
+	{
+		tabFillCombo->setCurrentIndex(4);
+		tabFillCombo->setEditable(true);
+		if (!t.isNull())
 		{
-			tabFillCombo->setEditable(false);
-			tabFillCombo->setCurrentIndex(1);
+			bool sigBlocked = tabFillCombo->blockSignals(true);
+			tabFillCombo->setEditText(QString(t));
+			tabFillCombo->blockSignals(sigBlocked);
 		}
-		else
-			if (t == '-')
-			{
-				tabFillCombo->setEditable(false);
-				tabFillCombo->setCurrentIndex(2);
-			}
-			else
-				if (t == '_')
-				{
-					tabFillCombo->setEditable(false);
-					tabFillCombo->setCurrentIndex(3);
-				}
-				else
-				{
-					tabFillCombo->setCurrentIndex(4);
-					tabFillCombo->setEditable(true);
-					if (!t.isNull())
-					{
-						bool sigBlocked = tabFillCombo->blockSignals(true);
-						tabFillCombo->setEditText(QString(t));
-						tabFillCombo->blockSignals(sigBlocked);
-					}
-				}
+	}
 	emit tabrulerChanged();
 	emit tabsChanged();
 }

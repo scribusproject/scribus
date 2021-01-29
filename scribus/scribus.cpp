@@ -2218,7 +2218,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//Independent finishing tasks after tempDoc setup
 	if (showView)
 	{
-		if ( mdiArea->subWindowList().count() == 1)
+		if (mdiArea->subWindowList().count() == 1)
 			w->showMaximized();
 		else
 			w->show();

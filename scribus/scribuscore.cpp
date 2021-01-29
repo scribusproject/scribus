@@ -105,15 +105,15 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		return(EXIT_FAILURE);
 	
 	closeSplash();
-	m_scribusInitialized=true;
+	m_scribusInitialized = true;
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
 	scribus->setupMainWindow();
 
 	QStringList recoverFiles = scribus->findRecoverableFile();
-	int subsRet=scribus->ShowSubs();
-	if (subsRet==0)
+	int subsRet = scribus->ShowSubs();
+	if (subsRet == 0)
 	{
 		if (!m_Files.isEmpty())
 		{
