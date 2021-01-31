@@ -320,12 +320,12 @@ bool KCurve::isLinear()
 CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 {
 	CurveWidgetLayout = new QHBoxLayout(this);
-	CurveWidgetLayout->setMargin(5);
-	CurveWidgetLayout->setSpacing(5);
+	CurveWidgetLayout->setContentsMargins(0, 0, 0, 0);
+	CurveWidgetLayout->setSpacing(6);
 
 	layout1 = new QVBoxLayout;
 	layout1->setMargin(0);
-	layout1->setSpacing(5);
+	layout1->setSpacing(6);
 
 	invertButton = new QPushButton( this );
 	invertButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
