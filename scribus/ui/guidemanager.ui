@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>432</width>
+    <width>428</width>
     <height>368</height>
    </rect>
   </property>
@@ -38,6 +38,18 @@
        <string>&amp;Single</string>
       </attribute>
       <layout class="QGridLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item row="0" column="0" colspan="2">
         <layout class="QHBoxLayout">
          <item>
@@ -165,6 +177,18 @@
        <string>&amp;Column/Row</string>
       </attribute>
       <layout class="QGridLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item row="2" column="0" colspan="2">
         <widget class="QPushButton" name="applyToAllAutoButton">
          <property name="toolTip">
@@ -408,6 +432,18 @@
        <string>&amp;Misc</string>
       </attribute>
       <layout class="QGridLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item row="0" column="0">
         <widget class="QPushButton" name="deletePageButton">
          <property name="toolTip">
@@ -456,7 +492,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
