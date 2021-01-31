@@ -14,26 +14,29 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scimage.h"
 
-class PageItem;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QLabel;
-class QPushButton;
 class QComboBox;
-class ColorCombo;
-class ScribusDoc;
-class ShadeButton;
-class QStackedWidget;
-class QWidget;
-class QSlider;
-class QMenu;
-class QWidgetAction;
-class QToolButton;
-class QListWidgetItem;
+class QGridLayout;
+class QGroupBox;
+class QHBoxLayout;
+class QLabel;
 class QListWidget;
-class ScrSpinBox;
+class QListWidgetItem;
+class QMenu;
+class QPushButton;
+class QSlider;
+class QSpacerItem;
+class QStackedWidget;
+class QToolButton;
+class QVBoxLayout;
+class QWidget;
+class QWidgetAction;
+
+class ColorCombo;
 class CurveWidget;
+class PageItem;
+class ScribusDoc;
+class ScrSpinBox;
+class ShadeButton;
 
 class SCRIBUS_API EffectsDialog : public QDialog
 {
@@ -158,6 +161,10 @@ public:
 	QPushButton* cancelButton;
 	QListWidgetItem* currentOptions;
 
+	QGroupBox *groupBox;
+	QSpacerItem* spacer;
+	QSpacerItem* spacer3;
+
 	ScImageEffectList effectsList;
 
 public slots:
@@ -185,7 +192,8 @@ protected:
 	QElapsedTimer m_time;
 	QMap<QListWidgetItem*, QString> m_effectValMap;
 
-	QHBoxLayout* EffectsDialogLayout;
+	QGridLayout* layoutGrid;
+	QVBoxLayout* EffectsDialogLayout;
 	QVBoxLayout* WStackPageLayout;
 	QVBoxLayout* WStackPage3Layout;
 	QHBoxLayout* layout20;
@@ -204,14 +212,9 @@ protected:
 	QHBoxLayout* layout26;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
-	QGridLayout* layout10;
 	QVBoxLayout* layout8;
 	QHBoxLayout* layout7;
-	QVBoxLayout* layout1;
-	QVBoxLayout* layout2;
-	QVBoxLayout* layout16;
-	QVBoxLayout* layout18;
-	QHBoxLayout* layout9;
+	QHBoxLayout* layoutDialogButtonBox;
 };
 
 #endif // EFFECTSDIALOG_H

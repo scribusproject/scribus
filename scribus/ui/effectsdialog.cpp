@@ -5,24 +5,27 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "effectsdialog.h"
-#include <QHBoxLayout>
+
 #include <QGridLayout>
-#include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QPixmap>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QImage>
 #include <QLabel>
-#include <QPushButton>
-#include <QToolButton>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QToolTip>
-#include <QSlider>
-#include <QImage>
-#include <QWidget>
 #include <QMenu>
-#include <QWidgetAction>
-#include <QTime>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSlider>
+#include <QSpacerItem>
+#include <QSpacerItem>
 #include <QStackedWidget>
+#include <QTime>
+#include <QToolButton>
+#include <QToolTip>
+#include <QVBoxLayout>
+#include <QWidget>
+#include <QWidgetAction>
 
 #include "cmsettings.h"
 #include "colorcombo.h"
@@ -69,12 +72,15 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			m_image.createLowRes(sy);
 		m_imageScale = qMin(sx, sy);
 	}
-	EffectsDialogLayout = new QHBoxLayout( this );
-	EffectsDialogLayout->setMargin(10);
-	EffectsDialogLayout->setSpacing(5);
-	layout16 = new QVBoxLayout;
-	layout16->setMargin(0);
-	layout16->setSpacing(5);
+	EffectsDialogLayout = new QVBoxLayout( this );
+	EffectsDialogLayout->setContentsMargins(9, 9, 9, 9);
+	EffectsDialogLayout->setSpacing(6);
+	layoutGrid = new QGridLayout();
+	layoutGrid->setContentsMargins(0, 0, 0, 0);
+	layoutGrid->setSpacing(6);
+
+	textLabel5 = new QLabel( this );
+	textLabel5->setText( tr( "Preview" ) );
 	pixmapLabel1 = new QLabel( this );
 	pixmapLabel1->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	pixmapLabel1->setMinimumSize( QSize( 220, 220 ) );
@@ -82,25 +88,22 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	pixmapLabel1->setFrameShape( QLabel::StyledPanel );
 	pixmapLabel1->setFrameShadow( QLabel::Sunken );
 	pixmapLabel1->setScaledContents( false );
-	layout16->addWidget( pixmapLabel1 );
-	textLabel5 = new QLabel( this );
-	textLabel5->setText( tr( "Options:" ) );
-	layout16->addWidget( textLabel5 );
+
 	optionStack = new QStackedWidget( this );
 //	optionStack->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, optionStack->sizePolicy().hasHeightForWidth() ) );
-	optionStack->setMinimumSize( QSize( 220, 180 ) );
-	optionStack->setFrameShape( QFrame::Box );
+//	optionStack->setMinimumSize( QSize( 220, 280 ) );
+	optionStack->setFrameShape( QFrame::NoFrame );
 	WStackPage = new QWidget( optionStack );
 	optionStack->addWidget( WStackPage );
 
 	WStackPage_2 = new QWidget( optionStack );
 	WStackPageLayout = new QVBoxLayout( WStackPage_2 );
-	WStackPageLayout->setMargin(5);
-	WStackPageLayout->setSpacing(5);
+	WStackPageLayout->setContentsMargins(0, 0, 0, 0);
+	WStackPageLayout->setSpacing(6);
 	WStackPageLayout->setAlignment( Qt::AlignTop );
 	layout17 = new QHBoxLayout;
-	layout17->setMargin(0);
-	layout17->setSpacing(5);
+	layout17->setContentsMargins(0, 0, 0, 0);
+	layout17->setSpacing(6);
 	textLabel3 = new QLabel( tr( "Color:" ), WStackPage_2 );
 	layout17->addWidget( textLabel3 );
 
@@ -111,8 +114,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPageLayout->addLayout( layout17 );
 
 	layout19 = new QHBoxLayout;
-	layout19->setMargin(0);
-	layout19->setSpacing(5);
+	layout19->setContentsMargins(0, 0, 0, 0);
+	layout19->setSpacing(6);
 	textLabel4 = new QLabel( tr( "Shade:" ), WStackPage_2 );
 	layout19->addWidget( textLabel4 );
 	shade = new ShadeButton(WStackPage_2);
@@ -123,12 +126,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_3 = new QWidget( optionStack );
 	WStackPage3Layout = new QVBoxLayout( WStackPage_3 );
-	WStackPage3Layout->setMargin(5);
-	WStackPage3Layout->setSpacing(5);
+	WStackPage3Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage3Layout->setSpacing(6);
 	WStackPage3Layout->setAlignment( Qt::AlignTop );
 	layout20 = new QHBoxLayout;
-	layout20->setMargin(0);
-	layout20->setSpacing(5);
+	layout20->setContentsMargins(0, 0, 0, 0);
+	layout20->setSpacing(6);
 	textLabel6 = new QLabel( tr( "Brightness:" ), WStackPage_3 );
 	layout20->addWidget( textLabel6, Qt::AlignLeft );
 	textLabel7 = new QLabel( "0", WStackPage_3 );
@@ -145,12 +148,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_4 = new QWidget( optionStack );
 	WStackPage4Layout = new QVBoxLayout( WStackPage_4 );
-	WStackPage4Layout->setMargin(5);
-	WStackPage4Layout->setSpacing(5);
+	WStackPage4Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage4Layout->setSpacing(6);
 	WStackPage4Layout->setAlignment( Qt::AlignTop );
 	layout21 = new QHBoxLayout;
-	layout21->setMargin(0);
-	layout21->setSpacing(5);
+	layout21->setContentsMargins(0, 0, 0, 0);
+	layout21->setSpacing(6);
 	textLabel8 = new QLabel( tr( "Contrast:" ), WStackPage_4 );
 	layout21->addWidget( textLabel8, Qt::AlignLeft );
 	textLabel9 = new QLabel( "0", WStackPage_4 );
@@ -167,12 +170,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_5 = new QWidget( optionStack );
 	WStackPage5Layout = new QVBoxLayout( WStackPage_5 );
-	WStackPage5Layout->setMargin(5);
-	WStackPage5Layout->setSpacing(5);
+	WStackPage5Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage5Layout->setSpacing(6);
 	WStackPage5Layout->setAlignment( Qt::AlignTop );
 	layout22 = new QHBoxLayout;
-	layout22->setMargin(0);
-	layout22->setSpacing(5);
+	layout22->setContentsMargins(0, 0, 0, 0);
+	layout22->setSpacing(6);
 	textLabel10 = new QLabel( tr( "Radius:" ), WStackPage_5 );
 	layout22->addWidget( textLabel10 );
 	shRadius = new ScrSpinBox( 0.0, 10.0, WStackPage_5, 1 );
@@ -182,8 +185,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout22->addWidget( shRadius );
 	WStackPage5Layout->addLayout( layout22 );
 	layout23 = new QHBoxLayout;
-	layout23->setMargin(0);
-	layout23->setSpacing(5);
+	layout23->setContentsMargins(0, 0, 0, 0);
+	layout23->setSpacing(6);
 	textLabel11 = new QLabel( tr("Value:"), WStackPage_5 );
 	layout23->addWidget( textLabel11 );
 	shValue = new ScrSpinBox( 0.0, 5.0, WStackPage_5, 1 );
@@ -196,12 +199,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_6 = new QWidget( optionStack );
 	WStackPage6Layout = new QVBoxLayout( WStackPage_6 );
-	WStackPage6Layout->setMargin(5);
-	WStackPage6Layout->setSpacing(5);
+	WStackPage6Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage6Layout->setSpacing(6);
 	WStackPage6Layout->setAlignment( Qt::AlignTop );
 	layout24 = new QHBoxLayout;
-	layout24->setMargin(0);
-	layout24->setSpacing(5);
+	layout24->setContentsMargins(0, 0, 0, 0);
+	layout24->setSpacing(6);
 	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6 );
 	layout24->addWidget( textLabel12 );
 	blRadius = new ScrSpinBox( 0.0, 30.0, WStackPage_6, 1 );
@@ -214,12 +217,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_7 = new QWidget( optionStack );
 	WStackPage7Layout = new QVBoxLayout( WStackPage_7 );
-	WStackPage7Layout->setMargin(5);
-	WStackPage7Layout->setSpacing(5);
+	WStackPage7Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage7Layout->setSpacing(6);
 	WStackPage7Layout->setAlignment( Qt::AlignTop );
 	layout26 = new QHBoxLayout;
-	layout26->setMargin(0);
-	layout26->setSpacing(5);
+	layout26->setContentsMargins(0, 0, 0, 0);
+	layout26->setSpacing(6);
 	textLabel14 = new QLabel( tr( "Posterize:" ), WStackPage_7 );
 	layout26->addWidget( textLabel14, Qt::AlignLeft );
 	textLabel15 = new QLabel( "0", WStackPage_7 );
@@ -236,8 +239,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_8 = new QWidget( optionStack );
 	WStackPage8Layout = new QGridLayout( WStackPage_8 );
-	WStackPage8Layout->setMargin(4);
-	WStackPage8Layout->setSpacing(5);
+	WStackPage8Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage8Layout->setSpacing(6);
 	WStackPage8Layout->setAlignment( Qt::AlignTop );
 	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8 );
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
@@ -288,8 +291,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_9 = new QWidget( optionStack );
 	WStackPage9Layout = new QGridLayout( WStackPage_9 );
-	WStackPage9Layout->setMargin(4);
-	WStackPage9Layout->setSpacing(5);
+	WStackPage9Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage9Layout->setSpacing(6);
 	WStackPage9Layout->setAlignment( Qt::AlignTop );
 	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9 );
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
@@ -358,8 +361,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_10 = new QWidget( optionStack );
 	WStackPage10Layout = new QGridLayout( WStackPage_10 );
-	WStackPage10Layout->setMargin(4);
-	WStackPage10Layout->setSpacing(5);
+	WStackPage10Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage10Layout->setSpacing(6);
 	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10 );
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
 	colDataq1 = new ColorCombo(false, WStackPage_10);
@@ -448,28 +451,17 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 	WStackPage_11 = new QWidget( optionStack );
 	WStackPage11Layout = new QVBoxLayout( WStackPage_11 );
-	WStackPage11Layout->setMargin(5);
-	WStackPage11Layout->setSpacing(5);
+	WStackPage11Layout->setContentsMargins(0, 0, 0, 0);
+	WStackPage11Layout->setSpacing(6);
 	WStackPage11Layout->setAlignment( Qt::AlignTop );
 	Kdisplay = new CurveWidget(WStackPage_11);
 	WStackPage11Layout->addWidget( Kdisplay );
+	spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding );
+	WStackPage11Layout->addItem( spacer );
 	optionStack->addWidget( WStackPage_11 );
 
-	layout16->addWidget( optionStack );
-	EffectsDialogLayout->addLayout( layout16 );
-
-	layout18 = new QVBoxLayout;
-	layout18->setMargin(0);
-	layout18->setSpacing(5);
-	layout10 = new QGridLayout;
-	layout10->setMargin(0);
-	layout10->setSpacing(5);
-	layout2 = new QVBoxLayout;
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
 	textLabel1 = new QLabel( this );
 	textLabel1->setText( tr( "Available Effects" ) );
-	layout2->addWidget( textLabel1 );
 	availableEffects = new QListWidget( this );
 	availableEffects->clear();
 	availableEffects->addItem( tr("Blur"));
@@ -489,32 +481,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	int availableEffectsAdvance = ftMetrics.horizontalAdvance( tr("Available Effects"));
 
 	availableEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
-	layout2->addWidget(availableEffects);
-	layout10->addLayout(layout2, 0, 0);
-
-	layout1 = new QVBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
-	auto* spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	layout1->addItem( spacer1 );
 	toEffects = new QPushButton( this );
 	toEffects->setText( tr( "Add" ) );
 	toEffects->setEnabled(false);
-	layout1->addWidget( toEffects );
-	fromEffects = new QPushButton( this );
-	fromEffects->setText( tr( "Remove" ) );
-	fromEffects->setEnabled(false);
-	layout1->addWidget( fromEffects );
-	auto* spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	layout1->addItem( spacer2 );
-	layout10->addLayout( layout1, 0, 1 );
 
-	layout8 = new QVBoxLayout;
-	layout8->setMargin(0);
-	layout8->setSpacing(5);
 	textLabel2 = new QLabel( this );
 	textLabel2->setText( tr( "Applied Effects" ) );
-	layout8->addWidget( textLabel2 );
 	usedEffects = new QListWidget( this );
 	usedEffects->setMinimumSize(availableEffectsAdvance + 40, 180);
 	usedEffects->clear();
@@ -603,12 +575,13 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			m_effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(i).effectParameters);
 		}
 	}
-	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout;
-	layout7->setMargin(0);
-	layout7->setSpacing(5);
-	QSpacerItem* spacer4 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout7->addItem( spacer4 );
+	layout7->setContentsMargins(0, 0, 0, 0);
+	layout7->setSpacing(6);
+	fromEffects = new QPushButton( this );
+	fromEffects->setText( tr( "Remove" ) );
+	fromEffects->setEnabled(false);
+	layout7->addWidget( fromEffects );
 	effectUp = new QPushButton( this );
 	effectUp->setText( "" );
 	effectUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
@@ -619,27 +592,40 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	effectDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
 	effectDown->setEnabled(false);
 	layout7->addWidget( effectDown );
-	QSpacerItem* spacer5 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout7->addItem( spacer5 );
-	layout8->addLayout( layout7 );
-	layout10->addLayout( layout8, 0, 2 );
-	layout18->addLayout( layout10 );
 
-	layout9 = new QHBoxLayout;
-	layout9->setMargin(0);
-	layout9->setSpacing(5);
-	QSpacerItem* spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout9->addItem( spacer3 );
+	groupBox = new QGroupBox( this );
+	groupBox->setTitle( tr( "Options:" ) );
+	layout8 = new QVBoxLayout( groupBox );
+	layout8->addWidget( optionStack );
+	layout8->setAlignment( Qt::AlignTop );
+	layout8->setSpacing(6);
+	layout8->setContentsMargins(9, 9, 9, 9);
 
+	layoutGrid->addWidget(textLabel1,       0, 0, 1, 1);
+	layoutGrid->addWidget(textLabel2,       0, 1, 1, 1);
+	layoutGrid->addWidget(textLabel5,       0, 2, 1, 1);
+	layoutGrid->addWidget(availableEffects, 1, 0, 2, 1);
+	layoutGrid->addWidget(usedEffects,      1, 1, 2, 1);
+	layoutGrid->addWidget(pixmapLabel1,     1, 2, 1, 1);
+	layoutGrid->addWidget(groupBox,         2, 2, 2, 1);
+	layoutGrid->addWidget(toEffects,        3, 0, 1, 1);
+	layoutGrid->addLayout(layout7,          3, 1, 1, 1);
+	EffectsDialogLayout->addLayout( layoutGrid );
+
+	layoutDialogButtonBox = new QHBoxLayout;
+	layoutDialogButtonBox->setContentsMargins(0, 0, 0, 0);
+	layoutDialogButtonBox->setSpacing(6);
+	spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layoutDialogButtonBox->addItem( spacer3 );
 	okButton = new QPushButton( this );
 	okButton->setText( tr( "OK" ) );
-	layout9->addWidget( okButton );
-
+	layoutDialogButtonBox->addWidget( okButton );
 	cancelButton = new QPushButton( this );
 	cancelButton->setText( tr( "Cancel" ) );
-	layout9->addWidget( cancelButton );
-	layout18->addLayout( layout9 );
-	EffectsDialogLayout->addLayout( layout18 );
+	layoutDialogButtonBox->addWidget( cancelButton );
+	EffectsDialogLayout->addLayout( layoutDialogButtonBox );
+
+
 	optionStack->setCurrentIndex(0);
 	usedEffects->clearSelection();
 	availableEffects->clearSelection();
