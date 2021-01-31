@@ -3763,7 +3763,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Error: </source>
-        <translation>Грешка:</translation>
+        <translation>Грешка: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
@@ -5697,7 +5697,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="418"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
-        <translation>Произвољно:</translation>
+        <translation>Произвољно: </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="367"/>
@@ -6158,7 +6158,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
-        <translation>Штампај:</translation>
+        <translation>Штампај: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
@@ -6748,7 +6748,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/dcolor.cpp" line="47"/>
         <source>Replace With:</source>
-        <translation>Замени са: </translation>
+        <translation>Замени са:</translation>
     </message>
 </context>
 <context>
@@ -7976,7 +7976,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="465"/>
         <source> was replaced by: </source>
-        <translation>је замењен са:</translation>
+        <translation> је замењен са: </translation>
     </message>
 </context>
 <context>
@@ -10993,7 +10993,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="360"/>
         <source>Status: </source>
-        <translation>Стање:</translation>
+        <translation>Стање: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="173"/>
@@ -11459,7 +11459,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="266"/>
         <source>Paragraphs:</source>
-        <translation>Пасуси: </translation>
+        <translation>Пасуси:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="270"/>
@@ -14644,17 +14644,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5006"/>
         <source>Lines: </source>
-        <translation>Редови:</translation>
+        <translation>Редови: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5012"/>
         <source>Words: </source>
-        <translation>Речи:</translation>
+        <translation>Речи: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5020"/>
         <source>Chars: </source>
-        <translation>Знаци:</translation>
+        <translation>Знаци: </translation>
     </message>
 </context>
 <context>
@@ -15741,7 +15741,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="53"/>
         <source>Search Results for: </source>
-        <translation>Нађи резултате за:</translation>
+        <translation>Нађи резултате за: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="121"/>
@@ -18533,7 +18533,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="314"/>
         <source>Command: </source>
-        <translation>Наредба:</translation>
+        <translation>Наредба: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="222"/>
@@ -29360,7 +29360,7 @@ External Links
         <location filename="../../scribus/scribus.cpp" line="2014"/>
         <location filename="../../scribus/scribus.cpp" line="2259"/>
         <source>Document Template: </source>
-        <translation>Шаблон документа:</translation>
+        <translation>Шаблон документа: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="243"/>
@@ -31695,27 +31695,27 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/qtiocompressor.cpp" line="129"/>
         <location filename="../../scribus/qtiocompressor.cpp" line="595"/>
         <source>Internal zlib error when compressing: </source>
-        <translation>Унутрашња грешка злиб-а приликом паковања:</translation>
+        <translation>Унутрашња грешка злиб-а приликом паковања: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="161"/>
         <source>Error writing to underlying device: </source>
-        <translation>Грешка писања у основни уређај:</translation>
+        <translation>Грешка писања у основни уређај: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="362"/>
         <source>Error opening underlying device: </source>
-        <translation>Грешка отварања основног уређаја:</translation>
+        <translation>Грешка отварања основног уређаја: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="532"/>
         <source>Error reading data from underlying device: </source>
-        <translation>Грешка читања података из основног уређаја:</translation>
+        <translation>Грешка читања података из основног уређаја: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="552"/>
         <source>Internal zlib error when decompressing: </source>
-        <translation>Унутрашња грешка злиб-а приликом распакивања:</translation>
+        <translation>Унутрашња грешка злиб-а приликом распакивања: </translation>
     </message>
 </context>
 <context>
@@ -31728,7 +31728,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="412"/>
         <source>Internal zlib error: </source>
-        <translation>Унутрашња грешка злиб-а:</translation>
+        <translation>Унутрашња грешка злиб-а: </translation>
     </message>
 </context>
 <context>
@@ -35297,7 +35297,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3542"/>
         <source> was replaced by: </source>
-        <translation> замењени су са:</translation>
+        <translation> замењени су са: </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3572"/>
@@ -36004,7 +36004,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10368"/>
         <source>Print: </source>
-        <translation>За штампу:</translation>
+        <translation>За штампу: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10370"/>
@@ -41741,7 +41741,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="193"/>
         <source>Line Width</source>
-        <translation>Дебљина линије:</translation>
+        <translation>Дебљина линије</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/selectobjects.ui" line="210"/>

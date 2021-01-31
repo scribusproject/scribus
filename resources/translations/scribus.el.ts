@@ -1485,12 +1485,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1772"/>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>έλεγχος για ενημερώσεις</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1853"/>
         <source>Number of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>αριθμός των σελίδων</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1610"/>
@@ -1525,7 +1525,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2036"/>
         <source>&amp;Style</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;στυλ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2038"/>
@@ -1590,7 +1590,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2052"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>βοήθεια</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2052"/>
@@ -1640,22 +1640,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Delete Rows</source>
-        <translation type="unfinished"></translation>
+        <translation>διέγραψε σειρές</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>Delete Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>διέγραψε στήλες</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Merge Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>ένωση κελιών</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
         <source>Split Cells...</source>
-        <translation type="unfinished"></translation>
+        <translation>χωριση κελιών</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
@@ -33817,7 +33817,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="913"/>
         <location filename="../../scribus/ui/annot.cpp" line="1385"/>
         <source>Go To</source>
-        <translation>Μετάβαση&#xa0;σε</translation>
+        <translation>Μετάβαση σε</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="918"/>
