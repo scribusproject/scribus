@@ -9,19 +9,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
     <height>464</height>
+    <width>720</width>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Manage Images</string>
   </property>
   <layout class="QVBoxLayout">
-   <property name="spacing">
-    <number>5</number>
+   <property name="leftMargin">
+    <number>9</number>
    </property>
-   <property name="margin">
-    <number>10</number>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
    </property>
    <item>
     <widget class="QListWidget" name="imageViewArea">
@@ -576,12 +582,6 @@
        <string>Image Tools</string>
       </attribute>
       <layout class="QGridLayout">
-       <property name="margin">
-        <number>10</number>
-       </property>
-       <property name="spacing">
-        <number>5</number>
-       </property>
        <item row="0" column="0">
         <widget class="QCheckBox" name="isPrinting">
          <property name="toolTip">
@@ -657,9 +657,6 @@
    </item>
    <item>
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>5</number>
-     </property>
      <item>
       <spacer>
        <property name="orientation">
@@ -690,7 +687,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="5" margin="10"/>
  <resources/>
  <connections/>
 </ui>

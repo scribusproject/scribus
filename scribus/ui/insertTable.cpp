@@ -16,11 +16,11 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(true);
 	InsertTableLayout = new QVBoxLayout( this );
-	InsertTableLayout->setMargin(10);
-	InsertTableLayout->setSpacing(5);
+	InsertTableLayout->setContentsMargins(9, 9, 9, 9);
+	InsertTableLayout->setSpacing(6);
 	layout2 = new QGridLayout();
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	Cols = new QSpinBox(this);
 	Cols->setRange(1, maxCol);
 	Cols->setValue(1);
@@ -35,14 +35,14 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 	layout2->addWidget( Rows, 0, 1 );
 	InsertTableLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout();
-	layout1->setSpacing(5);
+	layout1->setSpacing(6);
 	okButton = new QPushButton( CommonStrings::tr_OK, this);
 	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this);
 	okButton->setDefault( true );
 	layout1->addWidget( okButton );
 	layout1->addWidget( cancelButton );
 	InsertTableLayout->addLayout( layout1 );
-	resize( QSize(200, 111).expandedTo(minimumSizeHint()) );
+	resize( QSize(200, 100).expandedTo(minimumSizeHint()) );
 
 	setTabOrder ( Rows, Cols );
 	setTabOrder ( Cols, okButton );

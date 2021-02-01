@@ -15,38 +15,20 @@
    <string>Result</string>
   </property>
   <layout class="QVBoxLayout">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="topMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="rightMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>10</number>
+    <number>9</number>
    </property>
    <item>
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
      <item>
       <widget class="QLabel" name="textLabel1">
        <property name="text">
@@ -80,41 +62,11 @@
    </item>
    <item>
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
      <item>
       <widget class="QListWidget" name="foundFilesBox"/>
      </item>
      <item>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>5</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <widget class="QCheckBox" name="previewCheckBox">
          <property name="text">
@@ -145,21 +97,6 @@
      </item>
      <item>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>5</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <widget class="QLabel" name="previewLabel">
          <property name="minimumSize">
@@ -276,7 +213,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
