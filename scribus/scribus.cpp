@@ -1760,7 +1760,7 @@ QVariant ScribusMainWindow::inputMethodQuery ( Qt::InputMethodQuery query ) cons
 //AV -> CanvasMode
 void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
-	if (HaveDoc && view)
+	if (HaveDoc && view && (view->hasFocus() || view->widget()->hasFocus()))
 	{
 		view->canvasMode()->keyPressEvent(k);
 		return;
@@ -1771,7 +1771,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	if (HaveDoc && view)
+	if (HaveDoc && view && (view->hasFocus() || view->widget()->hasFocus()))
 	{
 		view->canvasMode()->keyReleaseEvent(k);
 		return;
