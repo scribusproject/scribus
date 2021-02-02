@@ -153,14 +153,14 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	m_doc  = d;
 	m_item = nullptr;
 
-	m_unitRatio   = m_doc->unitRatio();
-	m_unitIndex   = m_doc->unitIndex();
+	m_unitRatio = m_doc->unitRatio();
+	m_unitIndex = m_doc->unitIndex();
 
 	m_haveDoc  = true;
 	m_haveItem = false;
 
-	fontSize->setValues( 0.5, 2048, 2, 1);
-	lineSpacing->setValues( 1, 2048, 2, 1);
+	fontSize->setValues(0.5, 2048, 2, 1);
+	lineSpacing->setValues(1, 2048, 2, 1);
 
 	advancedWidgets->setDoc(m_doc);
 	fontfeaturesWidget->setDoc(m_doc);

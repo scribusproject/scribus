@@ -22,7 +22,7 @@ PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFra
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
-	layout()->setAlignment( Qt::AlignTop );
+	layout()->setAlignment(Qt::AlignTop);
 
 	initWidgets();
 	languageChange();

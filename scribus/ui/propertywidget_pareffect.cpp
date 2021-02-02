@@ -27,7 +27,7 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 	setupUi(this);
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
-	layout()->setAlignment( Qt::AlignTop );
+	layout()->setAlignment(Qt::AlignTop);
 
 	languageChange();
 	dropCapLines->setValue(2);

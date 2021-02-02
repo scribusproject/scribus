@@ -24,7 +24,7 @@ PropertyWidget_OptMargins::PropertyWidget_OptMargins(QWidget* parent) : QFrame(p
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
-	layout()->setAlignment( Qt::AlignTop );
+	layout()->setAlignment(Qt::AlignTop);
 
 	languageChange();
 }

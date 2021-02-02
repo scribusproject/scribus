@@ -16,7 +16,7 @@ PropertyWidget_Orphans::PropertyWidget_Orphans(QWidget* parent) : QFrame(parent)
 
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
-	layout()->setAlignment( Qt::AlignTop );
+	layout()->setAlignment(Qt::AlignTop);
 	keepLinesStart->setDecimals(0);
 	keepLinesEnd->setDecimals(0);
 

@@ -45,8 +45,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-
-
 #include "appmodes.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
@@ -63,8 +61,6 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
-
-
 
 PropertiesPalette_Group::PropertiesPalette_Group( QWidget* parent)
 	: QWidget(parent)

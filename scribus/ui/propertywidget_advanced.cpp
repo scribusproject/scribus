@@ -23,12 +23,12 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
 
-	layout()->setAlignment( Qt::AlignLeft );
+	layout()->setAlignment(Qt::AlignLeft);
 
-	textBase->setValue( 0 );
+	textBase->setValue(0);
 
-	scaleH->setValues(10, 400, 2, 100 );
-	scaleV->setValues(10, 400, 2, 100 );
+	scaleH->setValues(10, 400, 2, 100);
+	scaleV->setValues(10, 400, 2, 100);
 
 	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
 	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);

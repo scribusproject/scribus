@@ -22,21 +22,21 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 	setFrameStyle(QFrame::Box | QFrame::Plain);
 	setLineWidth(1);
 
-	layout()->setAlignment( Qt::AlignLeft );
+	layout()->setAlignment(Qt::AlignLeft);
 
-	fillLayout->setAlignment( Qt::AlignLeft );
+	fillLayout->setAlignment(Qt::AlignLeft);
 	fillColor->setPixmapType(ColorCombo::fancyPixmaps);
 	fillIcon->setScaledContents( false );
 
-	strokeLayout->setAlignment( Qt::AlignLeft );
+	strokeLayout->setAlignment(Qt::AlignLeft);
 	strokeColor->setPixmapType(ColorCombo::fancyPixmaps);
 	strokeIcon->setScaledContents( false );
 
-	backLayout->setAlignment( Qt::AlignLeft );
+	backLayout->setAlignment(Qt::AlignLeft);
 	backColor->setPixmapType(ColorCombo::fancyPixmaps);
 	backIcon->setScaledContents( false );
 
-	effectsLayout->setAlignment( Qt::AlignLeft );
+	effectsLayout->setAlignment(Qt::AlignLeft);
 
 	iconSetChange();
 	languageChange();
