@@ -139,7 +139,8 @@ bool XPSExportPlugin::run(ScribusDoc* doc, const QString& filename)
 
 		QFrame *Layout = new QFrame(openDia.data());
 		QHBoxLayout *Layout1 = new QHBoxLayout(Layout);
-		Layout1->setSpacing( 5 );
+		Layout1->setSpacing(6);
+		Layout1->setContentsMargins(0, 0, 0, 0);
 		QLabel *text = new QLabel(QObject::tr("Output Settings:"), Layout);
 		Layout1->addWidget(text);
 		QComboBox* compress = new QComboBox(Layout);

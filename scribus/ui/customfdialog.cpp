@@ -288,21 +288,20 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	setWindowTitle(caption);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	vboxLayout = new QVBoxLayout(this);
-	vboxLayout->setSpacing(5);
-	vboxLayout->setMargin(10);
-    hboxLayout = new QHBoxLayout;
-	hboxLayout->setSpacing(5);
-	hboxLayout->setMargin(0);
+	vboxLayout->setSpacing(6);
+	vboxLayout->setContentsMargins(9, 9, 9, 9);
+	hboxLayout = new QHBoxLayout;
+	hboxLayout->setSpacing(6);
+	hboxLayout->setContentsMargins(0, 0, 0, 0);
 	fileDialog = new ScFileWidget(this);
-	hboxLayout->addWidget(fileDialog);
 	fileDialog->setIconProvider(new ImIconProvider());
 	fileDialog->setNameFilter(filter);
 	fileDialog->selectNameFilter(filter);
 	fileDialog->setDirectory(wDir);
+	hboxLayout->addWidget(fileDialog);
 	vboxLayout1 = new QVBoxLayout;
-	vboxLayout1->setSpacing(0);
-	vboxLayout1->setMargin(0);
-	vboxLayout1->setContentsMargins(0, 37, 0, 0);
+	vboxLayout1->setSpacing(6);
+	vboxLayout1->setContentsMargins(0, 28, 0, 0);
 	vboxLayout1->setAlignment( Qt::AlignTop );
 	filePreview = new FDialogPreview( this );
 	filePreview->setMinimumSize(QSize(200, 200));
@@ -310,9 +309,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	vboxLayout1->addWidget(filePreview);
 	hboxLayout->addLayout(vboxLayout1);
 	vboxLayout->addLayout(hboxLayout);
-    QHBoxLayout *hboxLayout1 = new QHBoxLayout;
-	hboxLayout1->setSpacing(5);
-	hboxLayout1->setContentsMargins(9, 0, 0, 0);
+	QHBoxLayout *hboxLayout1 = new QHBoxLayout;
+	hboxLayout1->setSpacing(6);
+	hboxLayout1->setContentsMargins(0, 0, 0, 0);
 	showPreview = new QCheckBox(this);
 	showPreview->setText( tr("Show Preview"));
 	showPreview->setToolTip( tr("Show a preview and information for the selected file"));
@@ -335,8 +334,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	{
 		Layout = new QFrame(this);
 		Layout1 = new QHBoxLayout(Layout);
-		Layout1->setSpacing( 0 );
-		Layout1->setContentsMargins(9, 0, 0, 0);
+		Layout1->setSpacing(6);
+		Layout1->setContentsMargins(0, 0, 0, 0);
 		saveZip = new QCheckBox( tr( "&Compress File" ), Layout);
 		Layout1->addWidget(saveZip, Qt::AlignLeft);
 		QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -344,8 +343,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		vboxLayout->addWidget(Layout);
 		LayoutC = new QFrame(this);
 		Layout1C = new QHBoxLayout(LayoutC);
-		Layout1C->setSpacing( 0 );
-		Layout1C->setContentsMargins(9, 0, 0, 0);
+		Layout1C->setSpacing(6);
+		Layout1C->setContentsMargins(0, 0, 0, 0);
 		withFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC);
 		Layout1C->addWidget(withFonts, Qt::AlignLeft);
 		withProfiles = new QCheckBox( tr( "&Include Color Profiles" ), LayoutC);
@@ -366,8 +365,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		{
 			Layout = new QFrame(this);
 			Layout1 = new QHBoxLayout(Layout);
-			Layout1->setSpacing( 5 );
-			Layout1->setContentsMargins(9, 0, 0, 0);
+			Layout1->setSpacing(6);
+			Layout1->setContentsMargins(0, 0, 0, 0);
 			saveZip = new QCheckBox( tr( "&Compress File" ), Layout);
 			Layout1->addWidget(saveZip);
 			QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -395,8 +394,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		{
 			LayoutC = new QFrame(this);
 			Layout1C = new QHBoxLayout(LayoutC);
-			Layout1C->setSpacing( 0 );
-			Layout1C->setContentsMargins(9, 0, 0, 0);
+			Layout1C->setSpacing(6);
+			Layout1C->setContentsMargins(0, 0, 0, 0);
 			optionLabel = new QLabel(this);
 			optionLabel->setText( tr("Encoding:"));
 			Layout1C->addWidget(optionLabel);
@@ -441,8 +440,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		{
 			LayoutC = new QFrame(this);
 			Layout1C = new QHBoxLayout(LayoutC);
-			Layout1C->setSpacing( 0 );
-			Layout1C->setContentsMargins(9, 0, 0, 0);
+			Layout1C->setSpacing(6);
+			Layout1C->setContentsMargins(0, 0, 0, 0);
 			optionLabel = new QLabel(this);
 			optionLabel->setText( tr("Import Option:"));
 			Layout1C->addWidget(optionLabel);

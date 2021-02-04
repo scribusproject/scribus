@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QStandardPaths>
+#include <QLayout>
 #include <QLineEdit>
 #include <QListView>
 #include <QPushButton>
@@ -28,6 +29,10 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	setModal(false);
 	setViewMode(QFileDialog::List);
 	setWindowFlags(Qt::Widget);
+
+	// The margins' content should be set both on the widget and its layout.
+	setContentsMargins(0, 0, 0, 0);
+	layout()->setContentsMargins(0, 0, 0, 0);
 
 #ifdef Q_OS_MAC
 	QList<QUrl> urls;
