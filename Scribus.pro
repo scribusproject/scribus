@@ -908,6 +908,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/gettext/docxim/docxim.h \
            scribus/plugins/gettext/htmlim/htmlim.h \
            scribus/plugins/gettext/htmlim/htmlreader.h \
+           scribus/plugins/gettext/markdownim/markdownim.h \
            scribus/plugins/gettext/odt2im/importodt.h \
            scribus/plugins/gettext/pdbim/pdbim.h \
            scribus/plugins/gettext/rtfim/rtfim.h \
@@ -2038,6 +2039,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/gettext/docxim/docxim.cpp \
            scribus/plugins/gettext/htmlim/htmlim.cpp \
            scribus/plugins/gettext/htmlim/htmlreader.cpp \
+           scribus/plugins/gettext/markdownim/markdownim.cpp \
            scribus/plugins/gettext/odt2im/importodt.cpp \
            scribus/plugins/gettext/pdbim/pdbim.cpp \
            scribus/plugins/gettext/rtfim/rtfim.cpp \
