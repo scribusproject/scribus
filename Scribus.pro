@@ -995,6 +995,10 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/import/xps/xpsimportoptions.h \
            scribus/plugins/import/zmf/importzmf.h \
            scribus/plugins/import/zmf/importzmfplugin.h \
+           scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.h \
+           scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.h \
+           scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.h \
+           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.h \
            scribus/plugins/tools/flattenpath/flattenpath.h \
            scribus/plugins/tools/hunspellcheck/hunspelldialog.h \
            scribus/plugins/tools/hunspellcheck/hunspelldict.h \
@@ -1010,11 +1014,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/plugins/tools/pathfinder/pathfinderdialog.h \
            scribus/plugins/tools/pathstroker/pathstroker.h \
            scribus/plugins/tools/smoothpath/smoothpath.h \
-           scribus/plugins/tools/subdivide/subdivide.h \
-           scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.h \
-           scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.h \
-           scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.h \
-           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.h
+           scribus/plugins/tools/subdivide/subdivide.h
 
 FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/actionsearchdialog.ui \
@@ -1163,11 +1163,11 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/short-words/prefs_shortwordsbase.ui \
          scribus/plugins/short-words/swdialog.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
-         scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
+         scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui \
          scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui \
          scribus/plugins/tools/lenseffects/lensdialogbase.ui \
          scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui \
-         scribus/plugins/tools/pathfinder/pathfinderbase.ui \
+         scribus/plugins/tools/pathfinder/pathfinderbase.ui
 
 SOURCES += scribus/actionmanager.cpp \
            scribus/actionsearch.cpp \
@@ -2140,7 +2140,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.cpp \
            scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp \
-           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.cpp
+           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.cpp \
            scribus/plugins/tools/flattenpath/flattenpath.cpp \
            scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp \
            scribus/plugins/tools/hunspellcheck/hunspelldict.cpp \
@@ -2155,7 +2155,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/tools/pathfinder/pathfinderdialog.cpp \
            scribus/plugins/tools/pathstroker/pathstroker.cpp \
            scribus/plugins/tools/smoothpath/smoothpath.cpp \
-           scribus/plugins/tools/subdivide/subdivide.cpp \
+           scribus/plugins/tools/subdivide/subdivide.cpp
 
 RESOURCES += scribus/plugins/scripter/python/sceditor/dockwidget_icons.qrc
 
