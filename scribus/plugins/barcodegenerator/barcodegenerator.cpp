@@ -37,6 +37,9 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	setObjectName(name);
 	setModal(true);
 
+	ui.bcodeBox->layout()->setAlignment(Qt::AlignTop);
+	ui.colorBox->layout()->setAlignment(Qt::AlignTop);
+
 	connect(&thread, SIGNAL(renderedImage(QString)),this, SLOT(updatePreview(QString)));
 
 	/*
