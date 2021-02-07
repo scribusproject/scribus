@@ -84,22 +84,22 @@ private:
 	QString UnicodeParsedString(POPPLER_CONST GooString *s1);
 	QString UnicodeParsedString(const std::string& s1);
 	
-	QList<PageItem*> Elements;
+	QList<PageItem*> m_elements;
 
-	QStringList importedColors;
-
-	bool interactive;
-	MultiProgressDialog *progressDialog {nullptr};
-	bool cancel {false};
+	QStringList m_importedColors;
+	
+	bool m_cancel {false};
+	bool m_interactive;
+	bool m_noDialogs;
+	MultiProgressDialog *m_progressDialog {nullptr};
 	ScribusDoc* m_Doc {nullptr};
-	Selection* tmpSele {nullptr};
-	int importerFlags;
-	int oldDocItemCount;
-	QString baseFile;
+	Selection* m_tmpSele {nullptr};
+	int m_importerFlags;
+	QString m_baseFile;
 	PDFDoc *m_pdfDoc {nullptr};
 
 public slots:
-	void cancelRequested() { cancel = true; }
+	void cancelRequested() { m_cancel = true; }
 };
 
 #endif

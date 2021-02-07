@@ -137,7 +137,6 @@ private:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	int importerFlags;
-	int oldDocItemCount;
 	QString baseFile;
 	int pctVersion;
 	bool skipOpcode;

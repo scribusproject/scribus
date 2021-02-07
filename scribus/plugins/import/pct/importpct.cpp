@@ -453,7 +453,6 @@ bool PctPlug::convert(const QString& fn)
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		oldDocItemCount = m_Doc->Items->count();
 		int fSize = (int) f.size();
 		if (progressDialog)
 		{

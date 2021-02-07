@@ -65,10 +65,11 @@ for which a new license (GPL+exception) is in place.
 
 PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 {
-	tmpSele = new Selection(this, false);
+	m_tmpSele = new Selection(this, false);
 	m_Doc = doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_noDialogs = (flags & LoadSavePlugin::lfNoDialogs);
 }
 
 QImage PdfPlug::readThumbnail(const QString& fName)
@@ -159,44 +160,44 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	showProgress = false;
 #endif
 	bool success = false;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	importerFlags = flags;
-	cancel = false;
+	m_interactive = (flags & LoadSavePlugin::lfInteractive);
+	m_importerFlags = flags;
+	m_cancel = false;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
-		interactive = false;
+		m_interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw = (m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
+		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames("GI");
 		QStringList barTexts(tr("Analyzing File:"));
 		QList<bool> barsNumeric;
 		barsNumeric << false;
-		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		progressDialog->setOverallTotalSteps(3);
-		progressDialog->setOverallProgress(0);
-		progressDialog->setProgress("GI", 0);
-		progressDialog->show();
-		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
+		m_progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		m_progressDialog->setOverallTotalSteps(3);
+		m_progressDialog->setOverallProgress(0);
+		m_progressDialog->setProgress("GI", 0);
+		m_progressDialog->show();
+		connect(m_progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else
-		progressDialog = nullptr;
+		m_progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	if (progressDialog)
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(1);
+		m_progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
 	double docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -206,13 +207,13 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 		}
 	}
 
-	if ((ret) || (!interactive))
+	if ((ret) || (!m_interactive))
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -222,7 +223,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	}
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->deselectItems();
-	Elements.clear();
+	m_elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
@@ -233,24 +234,24 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
 	{
-		tmpSele->clear();
+		m_tmpSele->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() == 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
+		if ((m_elements.count() == 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
 		{
-			PageItem *gr = Elements[0];
+			PageItem *gr = m_elements[0];
 			if (gr->isGroup())
 				m_Doc->resizeGroupToContents(gr);
 		}
-		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
+		if ((m_elements.count() > 1) && (!(m_importerFlags & LoadSavePlugin::lfCreateDoc)))
 		{
-			PageItem *gr = m_Doc->groupObjectsList(Elements);
+			PageItem *gr = m_Doc->groupObjectsList(m_elements);
 			m_Doc->resizeGroupToContents(gr);
 		}
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if ((m_elements.count() > 0) && (!ret) && (m_interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -261,9 +262,9 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre=0; dre < m_elements.count(); ++dre)
 					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
+						m_Doc->m_Selection->addItem(m_elements.at(dre), true);
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
@@ -277,13 +278,13 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < m_elements.count(); ++dre)
 				{
-					tmpSele->addItem(Elements.at(dre), true);
+					m_tmpSele->addItem(m_elements.at(dre), true);
 				}
-				tmpSele->setGroupRect();
-				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSele);
-				m_Doc->itemSelection_DeleteItem(tmpSele);
+				m_tmpSele->setGroupRect();
+				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_tmpSele);
+				m_Doc->itemSelection_DeleteItem(m_tmpSele);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -314,12 +315,12 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		success = false;
 	}
-	if (interactive)
+	if (m_interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if ((showProgress) && (!m_interactive))
 			m_Doc->view()->DrawNew();
 	}
 	qApp->restoreOverrideCursor();
@@ -328,8 +329,8 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 
 PdfPlug::~PdfPlug()
 {
-	delete progressDialog;
-	delete tmpSele;
+	delete m_progressDialog;
+	delete m_tmpSele;
 }
 
 bool PdfPlug::convert(const QString& fn)
@@ -337,18 +338,12 @@ bool PdfPlug::convert(const QString& fn)
 	bool firstPg = true;
 	int currentLayer = m_Doc->activeLayer();
 	int baseLayer = m_Doc->activeLayer();
-	importedColors.clear();
-	if (progressDialog)
+	m_importedColors.clear();
+	if (m_progressDialog)
 	{
-		progressDialog->setOverallProgress(2);
-		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
-	}
-	QFile f(fn);
-	oldDocItemCount = m_Doc->Items->count();
-	if (progressDialog)
-	{
-		progressDialog->setBusyIndicator("GI");
+		m_progressDialog->setOverallProgress(2);
+		m_progressDialog->setLabel("GI", tr("Generating Items"));
+		m_progressDialog->setBusyIndicator("GI");
 		qApp->processEvents();
 	}
 
@@ -376,8 +371,8 @@ bool PdfPlug::convert(const QString& fn)
 			{
 				delete pdfDoc;
 				pdfDoc = nullptr;
-				if (progressDialog)
-					progressDialog->hide();
+				if (m_progressDialog)
+					m_progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				ScribusMainWindow* mw = m_Doc->scMW();
 				bool ok;
@@ -395,16 +390,16 @@ bool PdfPlug::convert(const QString& fn)
 				}
 				if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))
 				{
-					if (progressDialog)
-						progressDialog->close();
+					if (m_progressDialog)
+						m_progressDialog->close();
 					delete pdfDoc;
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
 					delete globalParams;
 #endif
 					return false;
 				}
-				if (progressDialog)
-					progressDialog->show();
+				if (m_progressDialog)
+					m_progressDialog->show();
 			}
 			if (pdfDoc->isOk())
 			{
@@ -432,18 +427,18 @@ bool PdfPlug::convert(const QString& fn)
 				bool cropped = false;
 				bool importTextAsVectors = true;
 				int contentRect = Media_Box;
-				if ((interactive && !(importerFlags & LoadSavePlugin::lfNoDialogs)) || (importerFlags & LoadSavePlugin::lfCreateDoc))
+				if ((m_interactive && !m_noDialogs) || (m_importerFlags & LoadSavePlugin::lfCreateDoc))
 				{
-					if (progressDialog)
-						progressDialog->hide();
+					if (m_progressDialog)
+						m_progressDialog->hide();
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					PdfImportOptions *optImp = new PdfImportOptions(ScCore->primaryMainWindow());
 					QFileInfo fi = QFileInfo(fn);
-					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, interactive, boxesAreDifferent, this);
+					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, m_interactive, boxesAreDifferent, this);
 					if (!optImp->exec())
 					{
-						if (progressDialog)
-							progressDialog->close();
+						if (m_progressDialog)
+							m_progressDialog->close();
 						delete optImp;
 						delete pdfDoc;
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
@@ -465,8 +460,8 @@ bool PdfPlug::convert(const QString& fn)
 						useMediaBox = gTrue;
 					delete optImp;
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					if (progressDialog)
-						progressDialog->show();
+					if (m_progressDialog)
+						m_progressDialog->show();
 				}
 
 				parsePagesString(pageString, &pageNs, lastPage);
@@ -476,9 +471,9 @@ bool PdfPlug::convert(const QString& fn)
 				firstPage = pageNs[0];
 				SlaOutputDev* dev = nullptr;
 				if (importTextAsVectors)
-					dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+					dev = new SlaOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags);
 				else
-					dev = new PdfTextOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
+					dev = new PdfTextOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags);
 
 				if (dev->isOk())
 				{
@@ -575,7 +570,7 @@ bool PdfPlug::convert(const QString& fn)
 					dev->rotate = pdfDoc->getPageRotate(firstPage);
 					bool rotated = dev->rotate == 90 || dev->rotate == 270;
 
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
 						if (hasOcg)
 						{
@@ -884,21 +879,18 @@ bool PdfPlug::convert(const QString& fn)
 #endif
 
 //	qDebug() << "converting finished";
-//	qDebug() << "Imported" << Elements.count() << "Elements";
+//	qDebug() << "Imported" << m_elements.count() << "Elements";
 
-	if (Elements.count() == 0)
+	if (m_elements.count() == 0)
 	{
-		if (importedColors.count() != 0)
+		for (int i = 0; i < m_importedColors.count(); i++)
 		{
-			for (int i = 0; i < importedColors.count(); i++)
-			{
-				m_Doc->PageColors.remove(importedColors[i]);
-			}
+			m_Doc->PageColors.remove(m_importedColors[i]);
 		}
 	}
 
-	if (progressDialog)
-		progressDialog->close();
+	if (m_progressDialog)
+		m_progressDialog->close();
 	return true;
 }
 

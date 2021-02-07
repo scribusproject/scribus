@@ -247,7 +247,7 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 			case FORMATID_SLA12XIMPORT:
 				{
 					it->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
-					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
+					ret = it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
@@ -257,7 +257,7 @@ bool FileLoader::loadFile(ScribusDoc* currDoc)
 			case FORMATID_SLA150IMPORT:
 				{
 					it->setupTargets(currDoc, nullptr, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
-					ret=it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
+					ret = it->loadFile(m_fileName, LoadSavePlugin::lfCreateDoc);
 // 					if (ret)
 // 						it->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
