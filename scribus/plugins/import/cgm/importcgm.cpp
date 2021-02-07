@@ -98,8 +98,8 @@ void ScBitReader::alignToWord()
 
 CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
 {
-	tmpSel=new Selection(this, false);
-	m_Doc=doc;
+	tmpSel = new Selection(this, false);
+	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = nullptr;
@@ -139,7 +139,7 @@ QImage CgmPlug::readThumbnail(const QString& fName)
 		QImage tmpImage;
 		if (Elements.count() > 0)
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre =0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -173,15 +173,15 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	bool ret = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -224,7 +224,7 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
 			baseX = 0;
@@ -282,7 +282,7 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre = 0; dre < Elements.count(); ++dre)
 					{
 						m_Doc->m_Selection->addItem(Elements.at(dre), true);
 					}
@@ -298,7 +298,7 @@ bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					tmpSel->addItem(Elements.at(dre), true);
 				}
@@ -488,7 +488,7 @@ bool CgmPlug::convert(const QString& fn)
 			{
 				tmpSel->clear();
 				tmpSel->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					tmpSel->addItem(Elements.at(dre), true);
 				}

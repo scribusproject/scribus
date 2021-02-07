@@ -36,11 +36,13 @@ class ScBitReader
 	public:
 		ScBitReader(QByteArray &data);
 		~ScBitReader();
+
 		quint32 getUInt(uint size);
 		void alignToWord();
+
 	private:
-		int actByte;
-		int actBit;
+		int actByte { 0 };
+		int actBit { 7 };
 		QByteArray buffer;
 };
 
