@@ -762,7 +762,7 @@ void BarcodeGenerator::okButton_pressed()
 
 	if (fmt)
 	{
-		fmt->loadFile(psFile, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+		fmt->loadFile(psFile, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfNoDialogs);
 		if (tran)
 			tran.commit();
 	}

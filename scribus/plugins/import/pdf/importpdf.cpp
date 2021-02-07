@@ -69,7 +69,6 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-
 }
 
 QImage PdfPlug::readThumbnail(const QString& fName)
@@ -433,7 +432,7 @@ bool PdfPlug::convert(const QString& fn)
 				bool cropped = false;
 				bool importTextAsVectors = true;
 				int contentRect = Media_Box;
-				if ((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc))
+				if ((interactive && !(importerFlags & LoadSavePlugin::lfNoDialogs)) || (importerFlags & LoadSavePlugin::lfCreateDoc))
 				{
 					if (progressDialog)
 						progressDialog->hide();
