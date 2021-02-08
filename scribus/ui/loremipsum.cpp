@@ -138,12 +138,12 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	setWindowTitle( tr( "Lorem Ipsum" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	LoremManagerLayout = new QGridLayout(this) ;
-	LoremManagerLayout->setMargin(10);
-	LoremManagerLayout->setSpacing(5);
+	LoremManagerLayout->setContentsMargins(9, 9, 9, 9);
+	LoremManagerLayout->setSpacing(6);
 
 	layout3 = new QVBoxLayout;
-	layout3->setMargin(0);
-	layout3->setSpacing(5);
+	layout3->setContentsMargins(0, 0, 0, 0);
+	layout3->setSpacing(6);
 
 	loremList = new QTreeWidget( this );
 	loremList->setRootIsDecorated(true);
@@ -155,8 +155,8 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	layout3->addWidget( loremList );
 
 	layout2 = new QHBoxLayout;
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 
 	paraLabel = new QLabel( this );
 	layout2->addWidget( paraLabel );
@@ -180,8 +180,8 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 //	layout3->addLayout( layout4 );
 
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	buttonSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( buttonSpacer );
 
