@@ -1485,12 +1485,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1772"/>
         <source>Check for Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Έλεγχος για ενημερώσεις</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1853"/>
         <source>Number of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Αριθμός σελίδων</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1610"/>
@@ -2484,17 +2484,17 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="84"/>
         <source>Link</source>
-        <translation>Δεσμός</translation>
+        <translation>Σύνδεσμος</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="85"/>
         <source>External Link</source>
-        <translation>Εξωτερικός δεσμός</translation>
+        <translation>Εξωτερικός σύνδεσμος</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="86"/>
         <source>External Web-Link</source>
-        <translation>Εξωτερικός δεσμός ιστού</translation>
+        <translation>Εξωτερικός σύνδεσμος Ιστού</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="134"/>
@@ -3311,7 +3311,7 @@
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="121"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="124"/>
@@ -3703,7 +3703,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="262"/>
         <source>Cancel</source>
-        <translation type="unfinished">Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="113"/>
@@ -3872,7 +3872,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="330"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="333"/>
@@ -3882,7 +3882,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="342"/>
         <source>Preview:</source>
-        <translation>Προεπισκόπηση</translation>
+        <translation>Προεπισκόπηση:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="394"/>
@@ -5169,7 +5169,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="191"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
 </context>
 <context>
@@ -5177,12 +5177,12 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="83"/>
         <source>Solid Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Συμπαγή χρώματα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="85"/>
         <source>Gradients</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαβαθμίσεις</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="94"/>
@@ -5398,7 +5398,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="282"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="289"/>
@@ -5455,57 +5455,57 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="385"/>
         <source>Monday</source>
-        <translation>Μάιος</translation>
+        <translation>Δευτέρα</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="386"/>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Τρίτη</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="387"/>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Τετάρτη</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="388"/>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Πέμπτη</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="389"/>
         <source>Friday</source>
-        <translation>Αναζήτηση</translation>
+        <translation>Παρασκευή</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="390"/>
         <source>Saturday</source>
-        <translation>Κορεσμός</translation>
+        <translation>Σάββατο</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="391"/>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Κυριακή</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="392"/>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Ιανουάριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="393"/>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Φεβρουάριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="394"/>
         <source>March</source>
-        <translation>Αναζήτηση</translation>
+        <translation>Μάρτιος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="395"/>
         <source>April</source>
-        <translation>Εφαρμογή</translation>
+        <translation>Απρίλιος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="396"/>
@@ -5515,37 +5515,37 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="397"/>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Ιούνιος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="398"/>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Ιούλιος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="399"/>
         <source>August</source>
-        <translation>Αυτόματα</translation>
+        <translation>Αύγουστος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="400"/>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>Σεπτέμβριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="401"/>
         <source>October</source>
-        <translation>Άλλο</translation>
+        <translation>Οκτώβριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="402"/>
         <source>November</source>
-        <translation>Αριθμός</translation>
+        <translation>Νοέμβριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="403"/>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>Δεκέμβριος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="297"/>
@@ -5721,7 +5721,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="425"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλογή</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="428"/>
@@ -5982,13 +5982,13 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="332"/>
         <source>Link</source>
-        <translation>Δεσμός</translation>
+        <translation>Σύνδεσμος</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="409"/>
         <source>Monochrome</source>
         <comment>Colorspace</comment>
-        <translation type="unfinished"></translation>
+        <translation>Μονόχρωμο</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="476"/>
@@ -6364,7 +6364,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="426"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="429"/>
@@ -6408,7 +6408,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="79"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="59"/>
@@ -6684,7 +6684,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/dasheditor.cpp" line="377"/>
         <source>Offset:</source>
-        <translation>X-Μετατοπ</translation>
+        <translation>Μετατόπιση:</translation>
     </message>
 </context>
 <context>
@@ -7177,7 +7177,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="108"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
 </context>
 <context>
@@ -7341,32 +7341,32 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="624"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="245"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="297"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="366"/>
         <source>Color 1:</source>
-        <translation>Χρώμα:</translation>
+        <translation>Χρώμα 1:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="267"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="318"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="387"/>
         <source>Color 2:</source>
-        <translation>Χρώμα:</translation>
+        <translation>Χρώμα 2:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="339"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="408"/>
         <source>Color 3:</source>
-        <translation>Χρώμα:</translation>
+        <translation>Χρώμα 3:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="429"/>
         <source>Color 4:</source>
-        <translation>Χρώμα:</translation>
+        <translation>Χρώμα 4:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="470"/>
@@ -8953,7 +8953,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="112"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="81"/>
@@ -10235,54 +10235,54 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="87"/>
         <source>&amp;Location</source>
-        <translation>&amp;Περιστροφή:</translation>
+        <translation>&amp;Θέση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="96"/>
         <source>Page Placement</source>
-        <translation>Αντικατάσταση</translation>
+        <translation>Θέση στη σελίδα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="105"/>
         <source>Current Page</source>
-        <translation>Τρέχουσα &amp;σελίδα</translation>
+        <translation>Τρέχουσα Σελίδα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="115"/>
         <source>All Pages</source>
-        <translation>Όλες οι σελίδες</translation>
+        <translation>Όλες οι Σελίδες</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="144"/>
         <location filename="../../scribus/ui/insertaframe.ui" line="572"/>
         <location filename="../../scribus/ui/insertaframe.ui" line="614"/>
         <source>...</source>
-        <translation>Προσ&amp;θήκη...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="172"/>
         <source>Position of Frame</source>
-        <translation>Πλαίσιο προορισμού:</translation>
+        <translation>Θέση πλαισίου</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="181"/>
         <source>Top Left of Margins</source>
-        <translation>Αριστερό περιθώριο</translation>
+        <translation>Επάνω αριστερά περιθώριο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="191"/>
         <source>Top Left of Page</source>
-        <translation>Αριστερή σελίδα</translation>
+        <translation>Επάνω αριστερά της σελίδας</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="201"/>
         <source>Top Left of Bleed</source>
-        <translation>Αριστερή σελίδα</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="245"/>
         <source>X:</source>
-        <translation>X1:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="238"/>
@@ -11962,7 +11962,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multiprogressdialog.ui" line="67"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multiprogressdialog.cpp" line="67"/>
@@ -12102,7 +12102,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="453"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
 </context>
 <context>
@@ -12633,7 +12633,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="301"/>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1147"/>
@@ -12773,7 +12773,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
@@ -13098,12 +13098,12 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/osgeditor.cpp" line="172"/>
         <location filename="../../scribus/ui/osgeditor.cpp" line="173"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλογή</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.cpp" line="237"/>
         <source>Add a new View</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσθήκη νέας προβολής</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.cpp" line="237"/>
@@ -13983,7 +13983,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="143"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="36"/>
@@ -14261,17 +14261,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_osgframe.cpp" line="140"/>
         <location filename="../../scribus/pageitem_osgframe.cpp" line="141"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλογή</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_osgframe.cpp" line="161"/>
         <source>3D Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Μοντέλο 3D</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_osgframe.cpp" line="163"/>
         <source>File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Αρχείο:</translation>
     </message>
 </context>
 <context>
@@ -15464,7 +15464,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="208"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
 </context>
 <context>
@@ -16243,7 +16243,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1701"/>
         <source>Top Left of Bleed</source>
-        <translation>Αριστερή σελίδα</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1706"/>
@@ -16895,7 +16895,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="142"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialog.cpp" line="40"/>
@@ -18825,12 +18825,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="571"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπισκόπηση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="701"/>
         <source>Images</source>
-        <translation>Εικόνες:</translation>
+        <translation>Εικόνες</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="743"/>
@@ -18860,7 +18860,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="944"/>
         <source>...</source>
-        <translation>Προσ&amp;θήκη...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="796"/>
@@ -19043,7 +19043,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation>Αναζήτηση</translation>
+        <translation>Αναζήτηση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="111"/>
@@ -19548,12 +19548,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="851"/>
         <source>Images</source>
-        <translation>Εικόνες:</translation>
+        <translation>Εικόνες</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="872"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Να μην χρησιμοποιούνται ενσωματωμένα προφίλ χρωμάτων</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="925"/>
@@ -20705,17 +20705,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="102"/>
         <source>Command:</source>
-        <translation>&amp;Εντολή:</translation>
+        <translation>Εντολή:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="136"/>
         <source>General Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Γενικές Επιλογές</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="152"/>
         <source>Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Έξοδος:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="160"/>
@@ -20820,7 +20820,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="478"/>
         <source>Offset:</source>
-        <translation>X-Μετατοπ</translation>
+        <translation>Μετατόπιση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="538"/>
@@ -21080,13 +21080,13 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="320"/>
         <source>Language</source>
-        <translation>&amp;Γλώσσα:</translation>
+        <translation>Γλώσσα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="320"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Κωδικός</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="145"/>
@@ -21840,12 +21840,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="518"/>
         <source>Offset:</source>
-        <translation>X-Μετατοπ</translation>
+        <translation>Μετατόπιση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="525"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Υποδεικνύει την απόσταση μετατόπισης για τα σήματα καταχώρησης</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="548"/>
@@ -21855,7 +21855,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="554"/>
         <source>Top:</source>
-        <translation>&amp;Πάνω:</translation>
+        <translation>Πάνω:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="561"/>
@@ -21865,7 +21865,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="568"/>
         <source>Left:</source>
-        <translation>&amp;Αριστερά:</translation>
+        <translation>Αριστερά:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="575"/>
@@ -21875,7 +21875,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="582"/>
         <source>Bottom:</source>
-        <translation>&amp;Κάτω:</translation>
+        <translation>Κάτω:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="589"/>
@@ -21915,7 +21915,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="659"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="346"/>
@@ -24487,22 +24487,22 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="318"/>
         <source>Offset:</source>
-        <translation>X-Μετατοπ</translation>
+        <translation>Μετατόπιση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="119"/>
         <source>Numbered List</source>
-        <translation type="unfinished"></translation>
+        <translation>Αριθμημένη λίστα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
         <source>Bulleted List</source>
-        <translation type="unfinished"></translation>
+        <translation>Λίστα με κουκκίδες</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="106"/>
         <source>Char Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Πίνακας χαρακτήρων</translation>
     </message>
 </context>
 <context>
@@ -24510,7 +24510,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="227"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλογή</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="228"/>
@@ -24829,7 +24829,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="151"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="152"/>
@@ -24882,7 +24882,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="21"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="22"/>
@@ -25252,7 +25252,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="168"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="169"/>
@@ -31514,7 +31514,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="752"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="802"/>
         <source>Language</source>
-        <translation>&amp;Γλώσσα:</translation>
+        <translation>Γλώσσα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
@@ -31522,7 +31522,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="752"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Κωδικός</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="333"/>
@@ -31531,12 +31531,12 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="465"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="504"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Τοποθεσία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="379"/>
         <source>Licence</source>
-        <translation type="unfinished"></translation>
+        <translation>Άδεια</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="652"/>
@@ -31544,7 +31544,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="802"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="847"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Άδεια</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="847"/>
@@ -31842,7 +31842,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
         <source>Email:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ηλεκτρονικό ταχυδρομείο:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="147"/>
@@ -31874,17 +31874,17 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="446"/>
         <source>Language</source>
-        <translation>&amp;Γλώσσα:</translation>
+        <translation>Γλώσσα</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="49"/>
         <source>Based On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Βασισμένο σε:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="436"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Γλώσσα:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="534"/>
@@ -33536,7 +33536,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="920"/>
         <location filename="../../scribus/ui/annot.cpp" line="1385"/>
         <source>Go To</source>
-        <translation>Μετάβαση&#xa0;σε</translation>
+        <translation>Μετάβαση σε</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="925"/>
@@ -33874,7 +33874,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2283"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="450"/>
@@ -34323,7 +34323,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scinputdialog.cpp" line="83"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
 </context>
 <context>
@@ -34466,17 +34466,17 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="74"/>
         <source>Zoom</source>
-        <translation type="unfinished">Μεγέθυνση</translation>
+        <translation>Μεγέθυνση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="75"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπισκόπηση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="76"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέτρηση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="77"/>
@@ -35297,7 +35297,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1179"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπισκόπηση</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1187"/>
@@ -35354,7 +35354,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6161"/>
         <source>Language</source>
-        <translation>&amp;Γλώσσα:</translation>
+        <translation>Γλώσσα</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7513"/>
@@ -35419,7 +35419,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1182"/>
         <source>Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>Μέτρηση</translation>
     </message>
 </context>
 <context>
@@ -35623,7 +35623,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1204"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10379"/>
@@ -37057,7 +37057,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="73"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="62"/>
@@ -37923,7 +37923,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1733"/>
         <source>Offset:</source>
-        <translation>X-Μετατοπ</translation>
+        <translation>Μετατόπιση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1769"/>
@@ -38824,7 +38824,7 @@ W: %3, H: %4</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="609"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="610"/>
@@ -40034,7 +40034,7 @@ X: %4, Y: %5</source>
     <message>
         <location filename="../../scribus/ui/unicodesearch.ui" line="33"/>
         <source>&amp;Search:</source>
-        <translation>&amp;Αναζήτηση</translation>
+        <translation>&amp;Αναζήτηση:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/unicodesearch.ui" line="46"/>
@@ -40224,7 +40224,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="199"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Ακύρωση</translation>
+        <translation>&amp;Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="202"/>
@@ -40490,7 +40490,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="75"/>
         <source>Cancel</source>
-        <translation>Ακύρωση</translation>
+        <translation>Άκυρο</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/xtgim/xtgdialog.cpp" line="55"/>
