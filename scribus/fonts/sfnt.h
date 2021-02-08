@@ -19,8 +19,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-
-
 namespace sfnt
 {
 	uchar byte(QByteArray const & bb, uint pos);
@@ -33,7 +31,6 @@ namespace sfnt
 	bool  copy(QByteArray & dst, uint to, const QByteArray & src, uint from, uint len);
 	QByteArray tag(QByteArray const & bb, uint pos);
 	QByteArray getTable(const QByteArray& ttf, const QByteArray& ttfTag);
-	
 
 	QByteArray subsetFace(const QByteArray& ttf, QList<uint>& glyphs);
 	QByteArray extractFace(const QByteArray& ttfColl, int faceIndex);
