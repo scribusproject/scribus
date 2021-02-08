@@ -22,6 +22,7 @@ namespace sfnt {
 		const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
 		return pp[0];
 	}
+
 	quint32 word(const QByteArray & bb, uint pos)
 	{
 		const unsigned char * pp = reinterpret_cast<const unsigned char*>(bb.data()) + pos;
@@ -95,13 +96,7 @@ namespace sfnt {
 		return true;
 	}
 
-
-
-
-
-
 	const uint post_format10_names_count = 258;
-
 
 	static const char* post_format10_names[] = {
 		".notdef",
@@ -305,8 +300,6 @@ namespace sfnt {
 		"dcroat"
 	};
 
-
-
 	bool PostTable::usable() const
 	{
 		return m_usable;
@@ -342,7 +335,6 @@ namespace sfnt {
 			return post_format10_names[glyph];
 		return ".notdef";
 	}
-
 
 	void PostTable::readFrom(FT_Face face)
 	{
@@ -425,8 +417,6 @@ namespace sfnt {
 		m_usable = true;
 	}
 
-
-
 	int copyTable(QByteArray& ttf, uint destDirEntry, uint pos, const QByteArray& source, uint dirEntry)
 	{
 		FT_ULong tag = word(source, dirEntry + ttf_TableRecord_tag);
@@ -444,7 +434,6 @@ namespace sfnt {
 		
 		return tableSize;
 	}
-
 
 	QByteArray extractFace(const QByteArray& coll, int faceIndex)
 	{
@@ -561,7 +550,6 @@ namespace sfnt {
 		return result;
 	}
 
-
 	quint32 calcTableChecksum(QByteArray& table)
 	{
 		quint32 Sum = 0L;
@@ -569,7 +557,6 @@ namespace sfnt {
 			Sum += word(table, pos);
 		return Sum;
 	}
-
 
 	void writeTable(QByteArray& ttf, const QByteArray& tag, QByteArray& table)
 	{
@@ -586,7 +573,6 @@ namespace sfnt {
 		ttf.append(table);
 	}
 
-
 	bool hasLongLocaFormat(const QByteArray& ttf)
 	{
 		const QByteArray head = getTable(ttf, "head");
@@ -594,7 +580,6 @@ namespace sfnt {
 		//		qDebug() << "loca format:" << (void*)idxToLocFormat;
 		return idxToLocFormat == 1;
 	}
-
 
 	QList<quint32> readLoca(const QByteArray& ttf)
 	{
@@ -630,7 +615,6 @@ namespace sfnt {
 		return result;
 	}
 
-
 	QList<std::pair<qint16,quint16> > readHmtx(const QByteArray& ttf)
 	{
 		QList<std::pair<qint16,quint16> > result;
@@ -658,7 +642,6 @@ namespace sfnt {
 		return result;
 	}
 
-
 	QByteArray writeHmtx(const QList<std::pair<qint16,quint16> >& longHorMetrics)
 	{
 		QByteArray result;
@@ -672,7 +655,6 @@ namespace sfnt {
 		}
 		return result;
 	}
-
 
 	QMap<uint, uint> readCMap(const QByteArray& ttf)
 	{
@@ -800,8 +782,6 @@ namespace sfnt {
 		}
 		return result;
 	}
-
-
 
 	QByteArray writeCMap(const QMap<uint, uint>& cmap)
 	{
@@ -944,7 +924,6 @@ namespace sfnt {
 		return result;
 	}
 	
-	
 	QList<uint> copyGlyphComponents(QByteArray& destGlyf, const QByteArray& srcGlyf, uint srcOffset,
 									QMap<uint,uint>& newForOldGid, uint& nextFreeGid)
 	{
@@ -1060,14 +1039,11 @@ namespace sfnt {
 		return compositeElements;
 	}
 	
-	
 	QByteArray subsetFace(const QByteArray& ttf, QList<uint>& glyphs)
 	{
 		QMap<QByteArray,QByteArray> tables;
 		
-		
 		//		qDebug() << "loca table:" << (void*) oldLoca[0] << (void*) oldLoca[1] << (void*) oldLoca[2] << (void*) oldLoca[3] << (void*) oldLoca[4] << (void*) oldLoca[5] << (void*) oldLoca[6] << (void*) oldLoca[7];
-		
 
 		QMap<uint,uint> newForOldGid;
 		if (glyphs.length() == 0)
@@ -1201,12 +1177,10 @@ namespace sfnt {
 		QByteArray fpgm = getTable(ttf, "fpgm");
 		if (fpgm.length() > 0)
 			tables["fpgm"] = fpgm;
-		
 
 		QByteArray head = getTable(ttf, "head");
 		putWord(head, ttf_head_checkSumAdjustment, 0);
 		tables["head"] = head;
-		
 
 		QByteArray font = createTableDir(tables.keys());
 		QMap<QByteArray,QByteArray>::iterator tableP;

@@ -340,8 +340,6 @@ ScImageCacheFile *ScImageCacheManager::MetaAgeList::getOldest()
 	return m_fa.isEmpty() ? 0 : m_fa.front();
 }
 
-
-
 ScImageCacheManager & ScImageCacheManager::instance()
 {
 	static ScImageCacheManager instance;
