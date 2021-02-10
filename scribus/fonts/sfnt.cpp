@@ -14,6 +14,7 @@
 #include FT_TRUETYPE_IDS_H
 
 #include <QDebug>
+#include <QScopedPointer>
 
 #include <harfbuzz/hb.h>
 #include <harfbuzz/hb-subset.h>
