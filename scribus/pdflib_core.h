@@ -109,6 +109,7 @@ private:
 	PdfId PDF_WriteFontDescriptor(const QByteArray& fontName, ScFace& face, ScFace::FontFormat fformat, PdfId embeddedFontObject);
 	PdfFont PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
+	PdfFont PDF_WriteOpenTypeSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_EncodeSimpleFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, bool isEmbedded, PdfId fontDes, const QMap<uint, QString>& usedGlyphs);
 	PdfFont PDF_EncodeCidFont(const QByteArray& fontname, ScFace& face, const QByteArray& baseFont, PdfId fontDes, const QMap<uint, QString>& usedGlyphs, const QMap<uint, uint>& glyphmap);
 	PdfFont PDF_EncodeFormFont(const QByteArray& fontname, ScFace& face,  const QByteArray& baseFont, const QByteArray& subtype, PdfId fontDes);

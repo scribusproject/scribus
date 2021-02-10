@@ -242,7 +242,7 @@ namespace cff {
 	};
 	
 	QByteArray extractFace(const QByteArray& cff, int faceIndex);
-	QByteArray subsetFace(const QByteArray& cff, QList<uint> cids);
+	QByteArray subsetFace(const QByteArray& cff, QList<uint> cids, QMap<uint, uint>& glyphMap);
 }
 
 

@@ -2162,7 +2162,6 @@ static void dumpCFF(QString name, cff::CFF font)
 }
 */
 
-
 PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
 	QByteArray font;
@@ -2171,7 +2170,10 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
-	QByteArray subset = sfnt::subsetFace(font, glyphs);
+
+	QMap<uint, uint> glyphMap;
+	QByteArray subset = sfnt::subsetFace(font, glyphs, glyphMap);
+
 	/*dumpFont(face.psName() + "subs.ttf", subset);*/
 	QByteArray baseFont   = sanitizeFontName(face.psName());
 	QByteArray subsetTag  = PDF_GenerateSubsetTag(baseFont, glyphs);
@@ -2179,17 +2181,9 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, QByteArray());
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
 	
-	QMap<uint,uint> glyphmap;
-	for (int i = 0; i < glyphs.length(); ++i)
-	{
-		glyphmap[glyphs[i]] = i;
-		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
-	}
-	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphMap);
 	return result;
 }
-
 
 PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
@@ -2213,25 +2207,52 @@ PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& f
 	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
-	QByteArray subset = cff::subsetFace(font, glyphs);
+
+	QMap<uint, uint> glyphMap;
+	QByteArray subset = cff::subsetFace(font, glyphs, glyphMap);
+	if (subset.isEmpty())
+	{
+		PdfFont result = PDF_WriteType3Font(fontName, face, usedGlyphs);
+		return result;
+	}
+
 	/*dumpFont(face.psName() + "subs.cff", subset);*/
 	QByteArray baseFont   = sanitizeFontName(face.psName());
 	QByteArray subsetTag  = PDF_GenerateSubsetTag(baseFont, glyphs);
 	QByteArray subsetName = subsetTag + '+' + baseFont;
 	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/CIDFontType0C");
 	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
-
-	QMap<uint,uint> glyphmap;
-	for (int i = 0; i < glyphs.length(); ++i)
-	{
-		glyphmap[glyphs[i]] = i;
-		//qDebug() << glyphs[i] << " --> " << i << QChar(fullEncoding[glyphs[i]].charcode);
-	}
 	
-	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphmap);
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphMap);
 	return result;
 }
 
+PdfFont PDFLibCore::PDF_WriteOpenTypeSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
+{
+	QByteArray data;
+	face.rawData(data);
+	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
+	glyphs.removeAll(0);
+	glyphs.prepend(0);
+
+	QMap<uint, uint> glyphMap;
+	QByteArray subset = sfnt::subsetFaceWithHB(data, glyphs, face.faceIndex(), glyphMap);
+	if (subset.isEmpty())
+	{
+		PdfFont result = PDF_WriteType3Font(fontName, face, usedGlyphs);
+		return result;
+	}
+
+	/*dumpFont(face.psName() + "subs.otf", subset);*/
+	QByteArray baseFont   = sanitizeFontName(face.psName());
+	QByteArray subsetTag  = PDF_GenerateSubsetTag(baseFont, glyphs);
+	QByteArray subsetName = subsetTag + '+' + baseFont;
+	PdfId embeddedFontObj = PDF_EmbedFontObject(subset, "/OpenType");
+	PdfId fontDes = PDF_WriteFontDescriptor(subsetName, face, face.format(), embeddedFontObj);
+	
+	PdfFont result = PDF_EncodeCidFont(fontName, face, subsetName, fontDes, usedGlyphs, glyphMap);
+	return result;
+}
 
 PdfId PDFLibCore::PDF_EmbedType1AsciiFontObject(const QByteArray& fon)
 {
@@ -2395,6 +2416,10 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(SCFonts &AllFonts, const QMap<QString,
 					if (face.type() == ScFace::TTF)
 					{
 						pdfFont = PDF_WriteTtfSubsetFont(fontName, face, usedGlyphs);
+					}
+					else if (face.type() == ScFace::OTF && face.isCIDKeyed() && Options.supportsEmbeddedOpenTypeFonts() && sfnt::canSubsetOpenTypeFonts())
+					{
+						pdfFont = PDF_WriteOpenTypeSubsetFont(fontName, face, usedGlyphs);
 					}
 					else if (face.isCIDKeyed())
 					{

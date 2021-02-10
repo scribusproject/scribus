@@ -550,7 +550,6 @@ namespace cff {
 		}
 	}
 	
-	
 	CFF::CFF(const QByteArray& cff) : m_bytes(cff)
 	{
 		// read header
@@ -1577,8 +1576,7 @@ namespace cff {
 	}
 	
 	
-	CFF CFF::extractSubset(uint faceIndex,
-	                       QList<uint> cids) const
+	CFF CFF::extractSubset(uint faceIndex, QList<uint> cids) const
 	{
 		uint pos;
 		
@@ -1700,10 +1698,10 @@ namespace cff {
 		result.writeSegment(makeIndex(m_globalSubr));
 
 		// write encoding
-		uint encodingOffset = encoding.size() > 1? result.writeSegment(makeEncoding(encoding)) : encoding.size() == 1? encoding[0] : 0;
+		uint encodingOffset = encoding.size() > 1 ? result.writeSegment(makeEncoding(encoding)) : (encoding.size() == 1 ? encoding[0] : 0);
 		
 		// write charset
-		uint charsetOffset = charset.size() > 1? result.writeSegment(makeCharset(charset)) : charset.size() == 1? charset[0] : 0;
+		uint charsetOffset = charset.size() > 1 ? result.writeSegment(makeCharset(charset)) : (charset.size() == 1 ? charset[0] : 0);
 		
 		// write charstrings
 		uint charStringsOffset = result.writeSegment(makeIndex(charStrings));
@@ -1730,16 +1728,21 @@ namespace cff {
 		return result;
 	}
 	
-	
-	
 	QByteArray extractFace(const QByteArray& cff, int faceIndex)
 	{
 		return CFF(cff).extractSubset(faceIndex, QList<uint>()).data();
 	}
 	
-	QByteArray subsetFace(const QByteArray& cff, QList<uint> cids)
+	QByteArray subsetFace(const QByteArray& cff, QList<uint> cids, QMap<uint, uint>& glyphMap)
 	{
-		return CFF(cff).extractSubset(0, cids).data();
+		glyphMap.clear();
+		QByteArray result = CFF(cff).extractSubset(0, cids).data();
+		if (!result.isEmpty())
+		{
+			for (int i = 0; i < cids.length(); ++i)
+				glyphMap[cids[i]] = i;
+		}
+		return result;
 	}
 	
 } // namespace
