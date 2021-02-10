@@ -27,7 +27,6 @@ ScFace::ScFaceData::~ScFaceData()
 	m_hbFont = nullptr;
 }
 
-
 static hb_blob_t* referenceTable(hb_face_t*, hb_tag_t tag, void *userData)
 {
 	FT_Face ftFace = reinterpret_cast<FT_Face>(userData);
@@ -94,12 +93,10 @@ bool ScFace::ScFaceData::glyphNames(FaceEncoding& /*gList*/) const
 	return false; 
 }
 
-
 QMap<QString,QString> ScFace::ScFaceData::fontDictionary(qreal /*sz*/) const
 {
 	return QMap<QString, QString>();
 }
-
 
 GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 {
@@ -120,7 +117,6 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(gid_type gl, qreal sz) const
 	return res;
 }
 
-
 qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
@@ -129,7 +125,6 @@ qreal ScFace::ScFaceData::glyphWidth(gid_type gl, qreal size) const
 		loadGlyph(gl);
 	return m_glyphWidth[gl] * size;
 }
-
 
 FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal size) const
 { 
@@ -143,7 +138,6 @@ FPointArray ScFace::ScFaceData::glyphOutline(gid_type gl, qreal size) const
 	return res;
 }
 
-
 FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal size) const
 {
 	if (gl >= CONTROL_GLYPHS)
@@ -153,7 +147,6 @@ FPoint ScFace::ScFaceData::glyphOrigin(gid_type gl, qreal size) const
 	const struct GlyphData & res(m_glyphOutline[gl]);
 	return FPoint(res.x, res.y) * size;
 }
-
 
 /*****
    ScFace lifecycle:  unchecked -> loaded -> glyphs checked
@@ -179,7 +172,6 @@ ScFace::ScFace() :  m_m(new ScFaceData())
 	m_m->usage = 0;
 }
 
-
 ScFace::ScFace(ScFaceData* data) : m_m(data)
 {
 	++(m_m->refs);
@@ -201,7 +193,6 @@ ScFace::~ScFace()
 	}
 }
 
-
 ScFace& ScFace::operator=(const ScFace& other)
 {
 	if (m_m != other.m_m)
@@ -219,7 +210,6 @@ ScFace& ScFace::operator=(const ScFace& other)
 	return *this;
 }
 
-
 /** two ScFaces are equal if they either are both NULLFACEs or they
 agree on family, style, variant and fontpath
 */
@@ -234,7 +224,6 @@ bool ScFace::operator==(const ScFace& other) const
 				 && m_m->fontFile == other.m_m->fontFile
 				 && m_m-> faceIndex == other.m_m->faceIndex) );
 }
-
 
 const ScFace& ScFace::none() 
 { 
@@ -381,14 +370,12 @@ void ScFace::increaseUsage() const
 	m_m->usage++;
 }
 
-
 void ScFace::decreaseUsage() const
 {
 	if (m_m->usage == 1) 
 		unload();
 	m_m->usage--;
 }
-
 
 void ScFace::unload() const
 {
@@ -418,6 +405,7 @@ ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 		return hyphenGlyph();
 	return 0;
 }
+
 ScFace::gid_type ScFace::hyphenGlyph() const
 {
 	// Try the typographic hyphen first, then the hyphen-minus
@@ -463,6 +451,14 @@ ScFace::gid_type ScFace::char2CMap(uint ch) const
 	return gl;
 }
 
+ScFace::cid_type ScFace::glyphIndexToCID(gid_type index) const
+{
+	if (m_m->status == ScFace::UNKNOWN)
+		m_m->load();
+
+	cid_type cid = m_m->glyphIndexToCID(index);
+	return cid;
+}
 
 bool ScFace::canRender(QChar ch) const 
 {
@@ -486,14 +482,12 @@ bool ScFace::embedFont(QByteArray &str)
 	return m_m->embedFont(str);
 }
 
-
 bool ScFace::glyphNames(FaceEncoding& gList)
 {
 	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
 	return m_m->glyphNames(gList);
 }
-
 
 void ScFace::rawData(QByteArray & bb)
 {

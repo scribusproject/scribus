@@ -84,6 +84,7 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
+	typedef uint cid_type;
 	typedef uint gid_type;
 	typedef uint ucs4_type;
 	struct GlyphEncoding
@@ -194,6 +195,7 @@ public:
 		virtual qreal strokeWidth(qreal /*sz*/)      const { return 0.1; }
 		virtual qreal maxAdvanceWidth(qreal sz)  const { return sz; }
 		virtual gid_type char2CMap(uint /*ch*/)         const { return 0; }
+		virtual cid_type glyphIndexToCID(ScFace::gid_type index) const { return index; }
 		virtual QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
 		virtual GlyphMetrics glyphBBox(gid_type gl, qreal sz) const;
 		virtual bool embedFont(QByteArray &/*str*/)       const { return false; }
@@ -395,6 +397,9 @@ public:
 
 	/// test if the face can render this char
 	bool canRender(QChar ch)   const;
+
+	// translate glyph index to CID (OpenType and CID fonts only)
+	cid_type glyphIndexToCID(gid_type index) const;
 
 	/// translate unicode to glyph index
 	gid_type char2CMap(uint ch)   const;

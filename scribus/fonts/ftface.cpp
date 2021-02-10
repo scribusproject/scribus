@@ -198,6 +198,16 @@ ScFace::gid_type FtFace::char2CMap(uint ch) const
 	return gl;
 }
 
+ScFace::cid_type FtFace::glyphIndexToCID(ScFace::gid_type index) const
+{
+	FT_Face face = ftFace();
+
+	ScFace::cid_type cid = 0;
+	FT_Error err = FT_Get_CID_From_Glyph_Index(face, index, &cid);
+	if (err)
+		cid = index;
+	return cid;
+}
 
 void FtFace::loadGlyph(ScFace::gid_type gl) const
 {
