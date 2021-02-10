@@ -511,7 +511,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 					d++;
 				}
 			}
-			m_pixelFormat = Format_GRAY_8;;
+			m_pixelFormat = Format_GRAY_8;
 		}
 	}
 	(void) jpeg_finish_decompress(&cinfo);
@@ -524,7 +524,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		if (ori != 1)
 		{
 			QTransform M;
-			QTransform flip = QTransform ( -1,0,0,1,0,0 );
+			QTransform flip = QTransform(-1, 0, 0, 1, 0, 0);
 			switch ( ori )
 			{  // notice intentional fallthroughs
 				case 2:

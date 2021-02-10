@@ -731,7 +731,7 @@ namespace cff {
 		result.exponent = 0;
 		bool upperNibble = false;
 		bool haveSeenMinus = false;
-		bool haveSeenE = false;;
+		bool haveSeenE = false;
 		bool haveSeenEminus = false;
 		int decimalPointAt = -1;
 		uchar nibble, twoNibbles;

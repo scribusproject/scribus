@@ -1617,7 +1617,7 @@ int PSLib::createPS(const QString& outputFileName)
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;
-	double gh = 0.0;;
+	double gh = 0.0;
 	PS_set_Info("Author", m_Doc->documentInfo().author());
 	PS_set_Info("Title", m_Doc->documentInfo().title());
 	if (!Options.useColor)

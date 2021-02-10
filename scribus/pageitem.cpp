@@ -795,7 +795,7 @@ int PageItem::level() const
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 {
-	//qDebug()<<"pageitem::moveby"<<dX<<dY;;
+	//qDebug() << "pageitem::moveby" << dX << dY;
 	if (dX==0.0 && dY==0.0)
 		return;
 	invalid = true;

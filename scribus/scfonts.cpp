@@ -566,7 +566,7 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 	// Warning: code below is also present in addScalableFont, so if you do
 	// any modification here, think also about modifying code in addScalableFont
 	int faceIndex = 0;
-	QString fam(getFamilyName(face));;
+	QString fam(getFamilyName(face));
 	QStringList features(getFontFeatures(face));
 	QString sty(face->style_name);
 	if ((sty == "Regular" && face->style_flags != 0) || sty.isEmpty())

@@ -862,7 +862,7 @@ void PropertiesPalette_Image::localeChange()
 
 bool PropertiesPalette_Image::userActionOn()
 {
-	return m_userActionOn;;
+	return m_userActionOn;
 }
 
 void PropertiesPalette_Image::spinboxStartUserAction()

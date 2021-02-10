@@ -246,7 +246,7 @@ void PageItem_ImageFrame::clearContents()
 	setImageFlippedV(false);
 	EmbeddedProfile.clear();
 	UseEmbedded = true; // Otherwise embedded profile will never be used when reloading image
-	ScaleType = m_Doc->prefsData().itemToolPrefs.imageScaleType;;
+	ScaleType = m_Doc->prefsData().itemToolPrefs.imageScaleType;
 	AspectRatio = m_Doc->prefsData().itemToolPrefs.imageAspectRatio;
 	setFillTransparency(0.0);
 	setLineTransparency(0.0);

@@ -263,7 +263,7 @@ void ScPainterEx_Ps2::setGradient(VGradientEx::Type mode, FPoint orig, FPoint ve
 	m_strokeGradient.setType(mode);
 	m_strokeGradient.setOrigin(orig);
 	m_strokeGradient.setVector(vec);
-	m_strokeGradient.setFocalPoint(foc);;
+	m_strokeGradient.setFocalPoint(foc);
 }
 
 void ScPainterEx_Ps2::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY)

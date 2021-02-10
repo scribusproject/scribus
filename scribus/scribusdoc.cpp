@@ -2055,7 +2055,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 				mrk->setItemPtr((PageItem*) is->getItem("itemPtr"));
 			if (mrk->isType(MARKNoteMasterType))
 			{
-				NotesStyle* nStyle = getNotesStyle(is->get("nStyle"));;
+				NotesStyle* nStyle = getNotesStyle(is->get("nStyle"));
 				TextNote* note = newNote(nStyle);
 				mrk->setNotePtr(note);
 				note->setMasterMark(mrk);
@@ -12009,11 +12009,11 @@ void ScribusDoc::itemSelection_AlignRightIn(ScribusDoc::AlignTo currAlignTo, Scr
 			break;
 		case alignPage:
 			newX = m_currentPage->xOffset();
-			newX += m_currentPage->width();;
+			newX += m_currentPage->width();
 			break;
 		case alignMargins:
 			newX = m_currentPage->xOffset();
-			newX += m_currentPage->width();;
+			newX += m_currentPage->width();
 			newX -= m_currentPage->Margins.right();
 			break;
 		case alignGuide:

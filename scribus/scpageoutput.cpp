@@ -1615,7 +1615,7 @@ void ScPageOutput::drawMarks(ScPage* page, ScPainterExBase* painter, const Marks
 	{
 		FPoint start, end;
 		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
-		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;;
+		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;
 		drawBoxMarks(painter, QRectF(QPointF(left, top), QPointF(right, bottom)), bleedBox, markOffs, markLength);
 	}
 	if (options.registrationMarks)

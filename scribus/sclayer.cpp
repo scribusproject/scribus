@@ -45,7 +45,7 @@ ScLayer::ScLayer(const QString& name, int level, int id)
 			markerColor = Qt::magenta;
 			break;
 		case 6:
-			markerColor = Qt::yellow;;
+			markerColor = Qt::yellow;
 			break;
 	}
 }

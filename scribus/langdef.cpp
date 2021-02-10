@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "langdef.h"
 
-LangDef::LangDef() = default;;
+LangDef::LangDef() = default;
 
 LangDef::LangDef(const QString& pri,
 			 const QString& alt,

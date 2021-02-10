@@ -79,7 +79,7 @@ void Prefs_ExternalTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->extToolPrefs.gs_AntiAliasGraphics = psAntialiasGraphicsCheckBox->isChecked();
 	prefsData->extToolPrefs.gs_AntiAliasText = psAntialiasTextCheckBox->isChecked();
 	prefsData->extToolPrefs.gs_exe=QDir::fromNativeSeparators(psToolLineEdit->text());
-	prefsData->extToolPrefs.gs_Resolution = psResolutionSpinBox->value();;
+	prefsData->extToolPrefs.gs_Resolution = psResolutionSpinBox->value();
 
 	prefsData->extToolPrefs.imageEditorExecutable=QDir::fromNativeSeparators(imageToolLineEdit->text());
 	prefsData->extToolPrefs.extBrowserExecutable=QDir::fromNativeSeparators(webBrowserLineEdit->text());

@@ -67,7 +67,7 @@ void Prefs_DocumentSections::updateTable()
 		QTableWidgetItem *item0 = new QTableWidgetItem(it->name);
 		sectionsTable->setItem(row, i++, item0);
 		//Active
-		QTableWidgetItem *item1 = new QTableWidgetItem();;
+		QTableWidgetItem *item1 = new QTableWidgetItem();
 		item1->setCheckState(it->active ? Qt::Checked : Qt::Unchecked);
 		sectionsTable->setItem(row, i++, item1);
 		//Reversed
@@ -154,7 +154,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			}
 			break;
 		case 6:
-			m_localSections[row].sectionstartindex = sectionsTable->item(row, col)->text().toUInt();;
+			m_localSections[row].sectionstartindex = sectionsTable->item(row, col)->text().toUInt();
 			break;
 		case 7:
 			m_localSections[row].pageNumberWidth = sectionsTable->item(row, col)->text().toInt();

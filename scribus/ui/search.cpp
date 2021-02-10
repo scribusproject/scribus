@@ -251,7 +251,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setCurrentComboItem(RStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 8, 1 );
-	RStrokeSVal = new ShadeButton(Replace);;
+	RStrokeSVal = new ShadeButton(Replace);
 	RStrokeSVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeSVal, 9, 1, Qt::AlignLeft );
 	SelLayout->addWidget( Replace );

@@ -611,7 +611,7 @@ void HelpBrowser::loadMenu()
 	helpMenuFiles.append(qMakePair(baseHelpDir, enLanguage));
 	helpMenuFiles.append(qMakePair(installHelpDir, enLanguage));
 
-	QString toLoad;;
+	QString toLoad;
 	for (int i = 0; i < helpMenuFiles.count(); ++i)
 	{
 		auto helpPair = helpMenuFiles.at(i);
