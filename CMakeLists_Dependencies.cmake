@@ -298,3 +298,9 @@ endif()
 # CTL support
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz>=0.9.42 harfbuzz-icu)
 pkg_check_modules(ICU REQUIRED icu-uc)
+
+# OpenType subsetting support
+pkg_check_modules(HARFBUZZ_SUBSET harfbuzz-subset>=2.0.0)
+if (HARFBUZZ_SUBSET_FOUND)
+	set (HAVE_HARFBUZZ_SUBSET ON)
+endif()

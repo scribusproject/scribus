@@ -16,8 +16,12 @@
 #include <QDebug>
 #include <QScopedPointer>
 
+#include "scconfig.h"
+
 #include <harfbuzz/hb.h>
+#ifdef HAVE_HARFBUZZ_SUBSET
 #include <harfbuzz/hb-subset.h>
+#endif
 
 struct HbBlobDeleter
 {
@@ -37,6 +41,7 @@ struct HbFaceDeleter
 	}
 };
 
+#ifdef HAVE_HARFBUZZ_SUBSET
 struct HbSubsetInputDeleter
 {
 	static void cleanup(void *pointer)
@@ -45,6 +50,7 @@ struct HbSubsetInputDeleter
 			hb_subset_input_destroy((hb_subset_input_t*) pointer);
 	}
 };
+#endif
 
 namespace sfnt {
 	
@@ -1234,7 +1240,7 @@ namespace sfnt {
 	{
 		glyphMap.clear();
 
-#if HB_VERSION_ATLEAST(2, 0, 0)
+#ifdef HAVE_HARFBUZZ_SUBSET
 		QScopedPointer<hb_blob_t, HbBlobDeleter> hbBlob(hb_blob_create(cff.data(), cff.length(), HB_MEMORY_MODE_READONLY, nullptr, nullptr));
 		if (hbBlob.isNull())
 			return QByteArray();
@@ -1280,7 +1286,7 @@ namespace sfnt {
 
 	bool canSubsetOpenTypeFonts()
 	{
-#if HB_VERSION_ATLEAST(2, 0, 0)
+#ifdef HAVE_HARFBUZZ_SUBSET
 		return true;
 #else
 		return false;

@@ -23,6 +23,7 @@
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_LIBZ 1
 #cmakedefine HAVE_FONTCONFIG 1
+#cmakedefine HAVE_HARFBUZZ_SUBSET 1
 #cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_POPPLER 1
 #cmakedefine HAVE_OSG 1

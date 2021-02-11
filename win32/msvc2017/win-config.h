@@ -43,6 +43,9 @@
 /* Defines if your system has the libfontconfig library */
 #undef HAVE_FONTCONFIG
 
+/* Defines if your system has the harfbuzz-subset library */
+#define HAVE_HARFBUZZ_SUBSET 1
+
 /* Define if you have libz */
 #define HAVE_LIBZ 1
 
