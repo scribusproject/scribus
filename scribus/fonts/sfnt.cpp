@@ -1236,12 +1236,12 @@ namespace sfnt {
 		return font;
 	}
 
-	QByteArray subsetFaceWithHB(const QByteArray& cff, QList<uint> cids, int faceIndex, QMap<uint, uint>& glyphMap)
+	QByteArray subsetFaceWithHB(const QByteArray& fontData, QList<uint> cids, int faceIndex, QMap<uint, uint>& glyphMap)
 	{
 		glyphMap.clear();
 
 #ifdef HAVE_HARFBUZZ_SUBSET
-		QScopedPointer<hb_blob_t, HbBlobDeleter> hbBlob(hb_blob_create(cff.data(), cff.length(), HB_MEMORY_MODE_READONLY, nullptr, nullptr));
+		QScopedPointer<hb_blob_t, HbBlobDeleter> hbBlob(hb_blob_create(fontData.data(), fontData.length(), HB_MEMORY_MODE_READONLY, nullptr, nullptr));
 		if (hbBlob.isNull())
 			return QByteArray();
 
