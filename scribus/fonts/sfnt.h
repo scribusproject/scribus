@@ -34,7 +34,7 @@ namespace sfnt
 	
 	QByteArray extractFace(const QByteArray& ttfColl, int faceIndex);
 	QByteArray subsetFace(const QByteArray& ttf, QList<uint>& glyphs, QMap<uint, uint>& glyphMap);
-	QByteArray subsetFaceWithHB(const QByteArray& cff, QList<uint> glyphs, int faceIndex, QMap<uint, uint>& glyphMap);
+	QByteArray subsetFaceWithHB(const QByteArray& fontData, QList<uint> glyphs, int faceIndex, QMap<uint, uint>& glyphMap);
 
 	bool canSubsetOpenTypeFonts();
 
