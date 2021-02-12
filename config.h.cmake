@@ -26,16 +26,13 @@
 #cmakedefine HAVE_HARFBUZZ_SUBSET 1
 #cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_POPPLER 1
+#cmakedefine HAVE_PYTHON 1
 #cmakedefine HAVE_OSG 1
 #cmakedefine HAVE_MEMRCHR 1
 #cmakedefine HAVE_BOOST 1
-#cmakedefine HAVE_SINCOS
-#cmakedefine HAVE_ROUND
-#cmakedefine HAVE_TRUNC
 #cmakedefine HAVE_SYS_TYPES_H 1
 #cmakedefine HAVE_SYS_STAT_H 1
 #cmakedefine FT_FREETYPE_H
-#cmakedefine COMPILE_PYTHON 1
 #cmakedefine WORDS_BIGENDIAN 1
 #cmakedefine GMAGICK_FOUND 1
 #cmakedefine WITH_TESTS 1
