@@ -302,5 +302,6 @@ pkg_check_modules(ICU REQUIRED icu-uc)
 # OpenType subsetting support
 pkg_check_modules(HARFBUZZ_SUBSET harfbuzz-subset>=2.0.0)
 if (HARFBUZZ_SUBSET_FOUND)
+	message("Harfbuzz subset library Found OK")
 	set (HAVE_HARFBUZZ_SUBSET ON)
 endif()
