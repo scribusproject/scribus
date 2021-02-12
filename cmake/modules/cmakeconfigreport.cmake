@@ -42,6 +42,12 @@ else (HAVE_LCMS2)
 	message(STATUS "littleCMS2 not found: Color management support disabled")
 endif (HAVE_LCMS2)
 
+if (HAVE_HARFBUZZ_SUBSET)
+	message(STATUS "harfbuzz-subset found: CID font subsetting support enabled")
+else (HAVE_HARFBUZZ_SUBSET)
+	message(STATUS "harfbuzz-subset not found: CID font subsetting support disabled")
+endif (HAVE_HARFBUZZ_SUBSET)
+
 if (HAVE_HUNSPELL)
 	message(STATUS "Hunspell found: Spell correction support enabled")
 else (HAVE_HUNSPELL)
