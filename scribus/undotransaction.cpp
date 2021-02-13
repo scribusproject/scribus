@@ -43,7 +43,7 @@ UndoTransaction::UndoTransaction(TransactionData* data) : Transaction(data)
 
 UndoTransaction::~UndoTransaction() 
 {
-	if (m_data && (m_data->ref.load() == 1))
+	if (m_data && (m_data->ref.loadRelaxed() == 1))
 		UndoTransaction::cancel(); // no virtual calls in destructor
 }
 
