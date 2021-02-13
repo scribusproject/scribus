@@ -310,7 +310,7 @@ ScImageCacheManager::MetaAgeList::MetaAgeList()
 
 void ScImageCacheManager::MetaAgeList::insert(ScImageCacheFile *p)
 {
-	m_fa.insert(qLowerBound(m_fa.begin(), m_fa.end(), p, ageLessThan), p);
+	m_fa.insert(std::lower_bound(m_fa.begin(), m_fa.end(), p, ageLessThan), p);
 }
 
 void ScImageCacheManager::MetaAgeList::update(ScImageCacheFile *p, const QFileInfo & newInfo)
