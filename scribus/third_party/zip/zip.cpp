@@ -30,6 +30,7 @@
 #include "zipentry_p.h"
 
 // we only use this to seed the random number generator
+#include <algorithm>
 #include <ctime>
 
 #include <QtCore/QCoreApplication>
@@ -1023,8 +1024,7 @@ bool operator<(const char* keyword, const KeywordHelper& helper) {
 bool hasExtension(const QString& ext, const char* const* map, int max) {
     const char* const* start = &map[0];
     const char* const* end = &map[max - 1];
-    const char* const* kw = qBinaryFind(start, end, KeywordHelper(ext));
-    return kw != end;
+    return std::binary_search(start, end, KeywordHelper(ext));
 }
 }
 
