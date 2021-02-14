@@ -11,29 +11,27 @@
 
 #cmakedefine VERSION "1.5.7.svn"
 
+#cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine BUILD_WINDOWS_VERSION 1
 #cmakedefine DLL_USE_NATIVE_API 1
-#cmakedefine BUILD_MAC_BUNDLE
-#cmakedefine HAVE_CMS 1
-#cmakedefine HAVE_LCMS2 1
-#cmakedefine CMS_INC @CMS_INC@
-#cmakedefine HAVE_XML 1
+#cmakedefine GMAGICK_FOUND 1
+#cmakedefine HAVE_BOOST 1
 #cmakedefine HAVE_CAIRO 1
 #cmakedefine HAVE_CUPS 1
-#cmakedefine HAVE_TIFF 1
-#cmakedefine HAVE_LIBZ 1
 #cmakedefine HAVE_FONTCONFIG 1
 #cmakedefine HAVE_HARFBUZZ_SUBSET 1
+#cmakedefine HAVE_LCMS2 1
+#cmakedefine HAVE_LIBZ 1
+#cmakedefine HAVE_MEMRCHR 1
+#cmakedefine HAVE_OSG 1
 #cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_POPPLER 1
 #cmakedefine HAVE_PYTHON 1
-#cmakedefine HAVE_OSG 1
-#cmakedefine HAVE_MEMRCHR 1
-#cmakedefine HAVE_BOOST 1
-#cmakedefine HAVE_SYS_TYPES_H 1
-#cmakedefine HAVE_SYS_STAT_H 1
-#cmakedefine WORDS_BIGENDIAN 1
-#cmakedefine GMAGICK_FOUND 1
-#cmakedefine WITH_TESTS 1
 #cmakedefine HAVE_REVENGE 1
+#cmakedefine HAVE_SYS_STAT_H 1
+#cmakedefine HAVE_SYS_TYPES_H 1
+#cmakedefine HAVE_TIFF 1
+#cmakedefine HAVE_XML 1
 #cmakedefine HUNSPELL_NEWAPI "@HUNSPELL_NEWAPI@"
+#cmakedefine WITH_TESTS 1
+#cmakedefine WORDS_BIGENDIAN 1
