@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QDebug>
 
+#include <limits>
 #include <sys/types.h>
 
 #include "fonts/scface_ttf.h"
@@ -86,7 +87,7 @@ bool ScFace_ttf::glyphNames(ScFace::FaceEncoding& glyphList) const
 		return FtFace::glyphNames(glyphList);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
-	int spaceGlyphIndex = -1;
+	FT_UInt spaceGlyphIndex = std::numeric_limits<FT_UInt>::max();
 
 	charcode = FT_Get_First_Char(face, &gindex);
 	while (gindex != 0)
