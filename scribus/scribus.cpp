@@ -335,7 +335,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_doc->setGUI(false, this, nullptr);
 	CurrStED = nullptr;
 	QString scribusTitle(ScribusAPI::getVersionScribusTranslated());
-	if (ScribusAPI::isSVN())
+	if (ScribusAPI::isSVN() && ScribusAPI::haveSVNRevision())
 		scribusTitle.append(QString(" (r%1)").arg(ScribusAPI::getSVNRevision()));
 	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
