@@ -7945,6 +7945,29 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
 </context>
 <context>
+    <name>FlattenPathPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="76"/>
+        <source>Flatten Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="80"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="101"/>
+        <source>Flattens a Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="102"/>
+        <source>Converts a Bezier Path to a Path made of line segments.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FontComboH</name>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="159"/>
@@ -8848,6 +8871,65 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="110"/>
         <source>D&amp;elete All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialog</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="110"/>
+        <source>Spelling check complete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialogBase</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="14"/>
+        <source>Check Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="22"/>
+        <source>Text Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="49"/>
+        <source>Not in dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="102"/>
+        <source>Ignore Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="109"/>
+        <source>Ignore All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="59"/>
+        <source>Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="71"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="78"/>
+        <source>Change All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="33"/>
+        <source>Check Spelling...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10945,6 +11027,142 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="750"/>
         <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensDialogBase</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="14"/>
+        <source>Optical Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="90"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="100"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="115"/>
+        <source>Lens Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="50"/>
+        <source>Add a new lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="53"/>
+        <source>&amp;Add Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="60"/>
+        <source>Remove selected lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="63"/>
+        <source>&amp;Remove Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="87"/>
+        <source>Zoom In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="97"/>
+        <source>Zoom Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="121"/>
+        <source>&amp;X Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="131"/>
+        <source>Horizontal position of the lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="144"/>
+        <source>&amp;Y Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="154"/>
+        <source>Vertical position of the lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="167"/>
+        <source>The selected lens acts like a magnification lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="170"/>
+        <source>&amp;Magnification Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="180"/>
+        <source>The selected lens acts like a fish eye lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="183"/>
+        <source>&amp;Fish Eye Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="190"/>
+        <source>Ra&amp;dius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="200"/>
+        <source>Radius of the lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="213"/>
+        <source>&amp;Strength:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="223"/>
+        <source>Strength of the lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LensEffectsPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="68"/>
+        <source>Lens Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="72"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="96"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="97"/>
+        <source>Apply fancy lens effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14466,6 +14684,115 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
 </context>
 <context>
+    <name>PathConnectDialogBase</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="14"/>
+        <source>Connect Paths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="40"/>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="61"/>
+        <source>Starting Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="45"/>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="66"/>
+        <source>End Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="82"/>
+        <source>a straight Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="87"/>
+        <source>Points moving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="95"/>
+        <source>Preview on Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="32"/>
+        <source>Connect First Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="53"/>
+        <source>with Second Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="74"/>
+        <source>by using:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathConnectPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="69"/>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="99"/>
+        <source>Connect Paths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="74"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="100"/>
+        <source>Connect 2 Polylines.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="70"/>
+        <source>Connects two Paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathCutPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="73"/>
+        <source>Cut Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="80"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="107"/>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="108"/>
+        <source>Cuts a Polygon by a Polyline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="152"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="152"/>
+        <source>The cutting line must cross the polygon and
+both end points must lie outside of the polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="74"/>
+        <source>Cuts a Polygon with a Path.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PathDialogBase</name>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="14"/>
@@ -14540,6 +14867,211 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="108"/>
         <source>270°</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderBase</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="14"/>
+        <source>Boolean Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="114"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="219"/>
+        <source>=</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="298"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="307"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="326"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="342"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="358"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="375"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="394"/>
+        <source>Swap Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="304"/>
+        <source>Unites the shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="339"/>
+        <source>Intersection of the shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="355"/>
+        <source>Result is the area where the two shapes do not intersect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="371"/>
+        <source>Break apart,
+The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="456"/>
+        <source>Custom Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="468"/>
+        <source>Stroke:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="494"/>
+        <source>Fill:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="67"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="172"/>
+        <source>Keep a copy of the original item after applying the operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="70"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="175"/>
+        <source>Keep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="323"/>
+        <source>Subtracts the second shape from the first shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="391"/>
+        <source>Exchange the Source Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="430"/>
+        <source>The resulting shape uses the color of the first source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="433"/>
+        <source>First Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="443"/>
+        <source>The resulting shape uses the color of the second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="446"/>
+        <source>Second Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="453"/>
+        <source>The resulting shape uses the colors listed below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="484"/>
+        <source>Stroke Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="504"/>
+        <source>Fill Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="424"/>
+        <source>Result Takes Color from:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="48"/>
+        <source>First source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="153"/>
+        <source>Second source shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="258"/>
+        <source>The resulting shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderDialog</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="106"/>
+        <source>Result gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="130"/>
+        <source>Intersection gets Color of:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathFinderPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="80"/>
+        <source>Path Operations...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="84"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="113"/>
+        <source>Path Operations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="114"/>
+        <source>Apply fancy boolean operations to paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PathStrokerPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="80"/>
+        <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="109"/>
+        <source>Create Path from Stroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="84"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="110"/>
+        <source>Converts the stroke of a Path to a filled Path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29650,6 +30182,31 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="88"/>
+        <source>Lens Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="99"/>
+        <source>PathCutter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinder.cpp" line="105"/>
+        <source>PathFinder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="101"/>
+        <source>PathStroker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="83"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="66"/>
         <source>Xfig Importer</source>
         <translation type="unfinished"></translation>
@@ -29711,6 +30268,11 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="77"/>
         <source>Scribus 1.3.4+ Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="91"/>
+        <source>PathConnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -29876,6 +30438,16 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="66"/>
         <source>Sml Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="93"/>
+        <source>FlattenPath</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="99"/>
+        <source>SmoothPath</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -30277,6 +30849,11 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="571"/>
         <source>Spanish (Argentina)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="61"/>
+        <source>Hunspell Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35781,6 +36358,29 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
 </context>
 <context>
+    <name>SmoothPathPlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="77"/>
+        <source>Smooth Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="81"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="107"/>
+        <source>Smoothes a Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="108"/>
+        <source>Converts a Polyline made of straight Lines to a smoothed Bezier Curve.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SpiralVectorBase</name>
     <message>
         <location filename="../../scribus/ui/spiralvectorbase.ui" line="23"/>
@@ -36358,6 +36958,34 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="326"/>
         <source>Shadowed Text. Hold down the button momentarily to change the shadow offset values.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SubdividePlugin</name>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="68"/>
+        <source>Subdivide Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="73"/>
+        <source>Path Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="91"/>
+        <source>Subdivide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="92"/>
+        <source>Subdivide selected Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="69"/>
+        <source>Subdivide a path by inserting new Nodes.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
