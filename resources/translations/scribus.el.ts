@@ -1640,22 +1640,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>Delete Rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαγραφή γραμμών</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>Delete Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαγραφή στηλών</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Merge Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Συγχώνευση κελιών</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
         <source>Split Cells...</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαίρεση κελιών...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
@@ -3115,12 +3115,12 @@
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1187"/>
         <source>Copy To:</source>
-        <translation>Αντιγραφή του</translation>
+        <translation>Αντιγραφή σε:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1188"/>
         <source>Move To:</source>
-        <translation>Μετακίνηση</translation>
+        <translation>Μετακίνηση σε:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="779"/>
@@ -5570,7 +5570,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="343"/>
         <source>Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Αντικριστές σελίδες</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="352"/>
@@ -31822,12 +31822,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="106"/>
         <source>Usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Χρήση:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="119"/>
         <source>Planned usage of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Προγραμματισμένη χρήση του προτύπου εγγράφου</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="126"/>
@@ -31837,7 +31837,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="133"/>
         <source>Author of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation>Συγγραφέας του προτύπου εγγράφου</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
@@ -32133,27 +32133,27 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="486"/>
         <source>Default Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένα Κεφαλαία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="489"/>
         <source>Small Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Μικρά Κεφαλαία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="491"/>
         <source>Small Capitals from Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Μικρά Κεφαλαία από Κεφαλαία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="493"/>
         <source>Petite Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Πολύ μικρά Κεφαλαία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="495"/>
         <source>Petite Capitals from Capitals</source>
-        <translation type="unfinished"></translation>
+        <translation>Πολύ μικρά Κεφαλαία από Κεφαλαία</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="497"/>
@@ -32168,7 +32168,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="507"/>
         <source>Default Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένη θέση</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="510"/>
@@ -32183,12 +32183,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="514"/>
         <source>Ordinals</source>
-        <translation type="unfinished"></translation>
+        <translation>Κανονικά</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="522"/>
         <source>Default Numerals</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένοι αριθμοί</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="525"/>
@@ -32198,12 +32198,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="527"/>
         <source>Old Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Παλιό στυλ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="535"/>
         <source>Default Numeral Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Προεπιλεγμένο Πλάτος Αριθμών</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeatures.cpp" line="538"/>

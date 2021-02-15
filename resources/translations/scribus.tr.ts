@@ -114,8 +114,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="98"/>
         <source>About Scribus %1</source>
-        <translation>Scribus %1 Hakkında
-</translation>
+        <translation>Scribus %1 Hakkında</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="329"/>
@@ -185,7 +184,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="244"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
-        <translation>Bu panel Scribus&apos;un versiyon, yapım tarihi ve kütüphane derlemelerini gösterir. </translation>
+        <translation>Bu panel Scribus&apos;un sürümünü, oluşturulma tarihini ve derlenen kütüphane desteğini gösterir.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="245"/>
@@ -885,8 +884,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1761"/>
         <source>&amp;About Scribus</source>
-        <translation>&amp;Scribus Hakkında
-</translation>
+        <translation>&amp;Scribus Hakkında</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1763"/>
@@ -3757,7 +3755,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Error: </source>
-        <translation>Hata:</translation>
+        <translation>Hata: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
@@ -5669,7 +5667,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="418"/>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
-        <translation>Özel:</translation>
+        <translation>Özel: </translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="367"/>
@@ -6130,7 +6128,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
-        <translation>Yazdır:</translation>
+        <translation>Yazdır: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
@@ -7947,7 +7945,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="465"/>
         <source> was replaced by: </source>
-        <translation>bununla değişti:</translation>
+        <translation> bununla değiştirildi: </translation>
     </message>
 </context>
 <context>
@@ -10773,7 +10771,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="360"/>
         <source>Status: </source>
-        <translation>Durum:</translation>
+        <translation>Durum: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="173"/>
@@ -11212,8 +11210,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="151"/>
         <source>Select Lorem Ipsum</source>
-        <translation>Doldurma metni seç
-</translation>
+        <translation>Doldurma metni seç</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="226"/>
@@ -14294,7 +14291,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="371"/>
         <source>Paragraphs: </source>
-        <translation>Paragraflar:</translation>
+        <translation>Paragraflar: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="379"/>
@@ -14304,12 +14301,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="385"/>
         <source>Words: </source>
-        <translation>Kelimeler:</translation>
+        <translation>Sözcükler: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="393"/>
         <source>Chars: </source>
-        <translation>Karakterler:</translation>
+        <translation>Karakterler: </translation>
     </message>
 </context>
 <context>
@@ -14327,7 +14324,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="4999"/>
         <source>Paragraphs: </source>
-        <translation>Paragraflar:</translation>
+        <translation>Paragraflar: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5007"/>
@@ -14337,12 +14334,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5013"/>
         <source>Words: </source>
-        <translation>Kelimeler:</translation>
+        <translation>Sözcükler: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="5021"/>
         <source>Chars: </source>
-        <translation>Karakterler:</translation>
+        <translation>Karakterler: </translation>
     </message>
 </context>
 <context>
@@ -16162,8 +16159,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1370"/>
         <source>Date</source>
-        <translation>Tarih
-</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1375"/>
@@ -18228,7 +18224,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="314"/>
         <source>Command: </source>
-        <translation>Komut:</translation>
+        <translation>Komut: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="222"/>
@@ -24923,8 +24919,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="26"/>
         <source>Date</source>
-        <translation>Tarih
-</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="27"/>
@@ -25661,7 +25656,8 @@ Dizin ve dosya adını kontrol edin.</translation>
 External Links
 </source>
         <translation>
-Dışarı Link</translation>
+Harici Bağlantılar
+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
@@ -28384,7 +28380,7 @@ Dışarı Link</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="556"/>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Renkler boş isimle silinemez. </translation>
+        <translation>Renkler boş isimle silinemez.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="601"/>
@@ -28425,7 +28421,7 @@ Dışarı Link</translation>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="135"/>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Standart yapılandırma:</translation>
+        <translation>Standart yapılandırma: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="131"/>
@@ -29015,7 +29011,7 @@ Dışarı Link</translation>
         <location filename="../../scribus/scribus.cpp" line="2014"/>
         <location filename="../../scribus/scribus.cpp" line="2259"/>
         <source>Document Template: </source>
-        <translation>Belge Şablonu:</translation>
+        <translation>Belge Şablonu: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="243"/>
@@ -33732,8 +33728,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1417"/>
         <source>Date</source>
-        <translation>Tarih
-</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1422"/>
@@ -35522,7 +35517,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="634"/>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx or scribus --lang xx, xx seçilen dilin kodu.</translation>
+        <translation>scribus -l xx veya scribus --lang xx, xx seçilen dilin kodu.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="639"/>
@@ -35652,7 +35647,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10379"/>
         <source>Print: </source>
-        <translation>Yazdır:</translation>
+        <translation>Yazdır: </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="10381"/>
@@ -35882,7 +35877,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="617"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Python eklentisi başlatılamadı.</translation>
+        <translation>Python eklentisinin kurulumu başarısız oldu. Hata ayrıntıları standart hata çıkışına yazdırıldı. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
@@ -36492,13 +36487,13 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <location filename="../../scribus/ui/storyeditor.cpp" line="2076"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2080"/>
         <source>Words: </source>
-        <translation>Kelimeler:</translation>
+        <translation>Sözcükler: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2077"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2081"/>
         <source>Chars: </source>
-        <translation>Karakterler:</translation>
+        <translation>Karakterler: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2078"/>
@@ -36508,7 +36503,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2079"/>
         <source>Paragraphs: </source>
-        <translation>Paragraflar:</translation>
+        <translation>Paragraflar: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3380"/>
@@ -40041,7 +40036,8 @@ X: %4, Y: %5</translation>
         <location filename="../../scribus/undogui.cpp" line="461"/>
         <source>%1 - %2
 %3</source>
-        <translation>%1 %2 %3</translation>
+        <translation>%1 - %2
+%3</translation>
     </message>
 </context>
 <context>
@@ -41025,8 +41021,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="154"/>
         <source>Date</source>
-        <translation>Tarih
-</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="156"/>
