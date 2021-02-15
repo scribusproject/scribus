@@ -235,6 +235,7 @@
   <ItemGroup>
     <moc Include="..\..\..\scribus\appmodehelper.h" />
     <ClInclude Include="..\..\..\scribus\actionsearch.h" />
+    <ClInclude Include="..\..\..\scribus\api\api_application.h" />
     <ClInclude Include="..\..\..\scribus\appmodes.h" />
     <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h" />
     <ClInclude Include="..\..\..\scribus\colormgmt\scciedata.h" />
@@ -857,6 +858,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\actionsearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\api\api_application.cpp" />
     <ClCompile Include="..\..\..\scribus\appmodehelper.cpp" />
     <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp" />
     <ClCompile Include="..\..\..\scribus\colormgmt\scciedata.cpp" />

@@ -30,6 +30,9 @@
       <UniqueIdentifier>{5004f471-a311-431b-8d7b-e9615135621e}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="api">
+      <UniqueIdentifier>{12400996-97da-49cd-8205-b0beeebf0697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\desaxe\actions.h">
@@ -833,8 +836,8 @@
     <ClInclude Include="..\..\..\scribus\text\scworditerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\storyloader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\..\..\scribus\api\api_application.h">
+      <Filter>api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2572,6 +2575,9 @@
     <ClCompile Include="..\..\..\scribus\storyloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\api\api_application.cpp">
+      <Filter>api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4239,6 +4245,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\printlanguagecombo.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\storyloader.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
