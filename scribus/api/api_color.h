@@ -7,42 +7,44 @@ Scribus is copyright The Scribus Team per the COPYING file.
 
 #include <QString>
 
+#include "scribusapi.h"
+
 namespace ScribusAPI {
 
 	//
 	// Create a new color with CMYK values. Use integers for each channel (0-255)
 	//
-	bool createColorCMYK(const QString& name, int c, int m, int y, int k);
+	bool SCRIBUS_API createColorCMYK(const QString& name, int c, int m, int y, int k);
 
 	//
 	// Create a new color with CMYK values. Use decimals for each channel (0.0-1.0)
 	//
-	bool createColorCMYKFloat(const QString& name, double c, double m, double y, double k);
+	bool SCRIBUS_API createColorCMYKFloat(const QString& name, double c, double m, double y, double k);
 
 	//
 	// Create a new color with Lab values. Use decimals for each channel (0.0-1.0)
 	//
-	bool createColorLAB(const QString& name, double l, double a, double b);
+	bool SCRIBUS_API createColorLAB(const QString& name, double l, double a, double b);
 
 	//
 	// Create a new color with RGB values. Use integers for each channel (0-255)
 	//
-	bool createColorRGB(const QString& name, int r, int g, int b);
+	bool SCRIBUS_API createColorRGB(const QString& name, int r, int g, int b);
 
 	//
 	// Create a new color with CMYK values. Use decimals for each channel (0.0-1.0)
 	//
-	bool createColorRGBFloat(const QString& name, double r, double g, double b);
+	bool SCRIBUS_API createColorRGBFloat(const QString& name, double r, double g, double b);
 
 	//
 	// Delete color from list by its name
 	//
-	bool deleteColor(const QString& name);
+	bool SCRIBUS_API deleteColor(const QString& name);
 
 	//
 	// Check if a color exists by its name
 	//
-	bool existsColor(const QString& name, QString& error);
+	bool SCRIBUS_API existsColor(const QString& name, QString& error);
 
 	//
 	// Get a color by its name in CMYK format
@@ -72,17 +74,17 @@ namespace ScribusAPI {
 	//
 	// Get the list of color names in this document
 	//
-	QStringList getColorNames();
+	QStringList SCRIBUS_API getColorNames();
 
 	//
 	// Check if a named color is a spot color
 	//
-	bool isSpotColor(const QString& name);
+	bool SCRIBUS_API isSpotColor(const QString& name);
 
 	//
 	// Replace one named color by another
 	//
-	bool replaceColor(const QString& oldColorName, const QString& newColorName);
+	bool SCRIBUS_API replaceColor(const QString& oldColorName, const QString& newColorName);
 
 	//
 	// Set the color values to specified CMYK values
@@ -112,7 +114,7 @@ namespace ScribusAPI {
 	//
 	// Set a named color to be a spot color
 	//
-	bool setSpotColor(const QString& name);
+	bool SCRIBUS_API setSpotColor(const QString& name);
 
 }
 

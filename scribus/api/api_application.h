@@ -8,70 +8,72 @@ Scribus is copyright The Scribus Team per the COPYING file.
 #include <QByteArray>
 #include <QString>
 
+#include "scribusapi.h"
+
 namespace ScribusAPI {
 
 	//
 	// Returns the build information of the Scribus application
 	//
-	QString getBuildInformation();
+	QString SCRIBUS_API getBuildInformation();
 
 	//
 	// Returns the version of the Scribus application as a string
 	//
-	QString getVersion();
+	QString SCRIBUS_API getVersion();
 
 	//
 	// Returns the major version of the Scribus application as an integer
 	//
-	int getVersionMajor();
+	int SCRIBUS_API getVersionMajor();
 
 	//
 	// Returns the minor version of the Scribus application as an integer
 	//
-	int getVersionMinor();
+	int SCRIBUS_API getVersionMinor();
 
 	//
 	// Returns the patch version of the Scribus application as an integer
 	//
-	int getVersionPatch();
+	int SCRIBUS_API getVersionPatch();
 
 	//
 	// Returns the suffix of version of the Scribus application as a string: blank or svn
 	//
-	QString getVersionSuffix();
+	QString SCRIBUS_API getVersionSuffix();
 
 	//
 	// Returns the word Scribus followed by the current version eg Scribus 1.5.7
 	//
-	QString getVersionScribus();
+	QString SCRIBUS_API getVersionScribus();
 
 	//
 	// Returns the word Scribus followed by the current version eg Scribus 1.5.7
 	//
-	QByteArray getVersionScribusAsByteArray();
+	QByteArray SCRIBUS_API getVersionScribusAsByteArray();
 
 	//
 	// Returns the word Scribus (translated) followed by the current version eg Scribus 1.5.7
 	//
-	QString getVersionScribusTranslated();
+	QString SCRIBUS_API getVersionScribusTranslated();
 
 	//
 	// Returns the word Scribus (translated) followed by the current version eg Scribus 1.5.7
 	//
-	QByteArray getVersionScribusTranslatedAsByteArray();
+	QByteArray SCRIBUS_API getVersionScribusTranslatedAsByteArray();
 
 	//
 	// Is this a development version, ie unreleased code from our version control system
 	//
-	bool isSVN();
+	bool SCRIBUS_API isSVN();
 
 	//
 	// Returns if we have created a string with the version control system revision
 	//
-	bool haveSVNRevision();
+	bool SCRIBUS_API haveSVNRevision();
 
 	//
 	// Returns the current version control system revision
 	//
-	QString getSVNRevision();
+	QString SCRIBUS_API getSVNRevision();
 }
