@@ -131,8 +131,10 @@ namespace ScribusAPI {
 
 	QString getSVNRevision()
 	{
-		if (isSVN() && haveSVNRevision())
+#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
+		if (isSVN())
 			return QString("%1").arg(SVNVERSION);
+#endif
 		return QString();
 	}
 
