@@ -113,8 +113,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	// We set it in the dialog showEvent().
 	// Swatches->setCurrentComboItem( tr( "Color Map" ));
 
-	slidersLayout->setSpacing(5);
-	slidersLayout->setMargin(0);
+	slidersLayout->setSpacing(6);
+	slidersLayout->setContentsMargins(0, 0, 0, 0);
 
 	CyanSp->setNewUnit(0);
 	CyanSp->setMinimum(0);

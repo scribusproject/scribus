@@ -53,7 +53,7 @@
       <enum>QListView::Adjust</enum>
      </property>
      <property name="spacing">
-      <number>5</number>
+      <number>6</number>
      </property>
      <property name="viewMode">
       <enum>QListView::IconMode</enum>

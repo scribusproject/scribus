@@ -14,14 +14,26 @@
    <string>Open</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item row="0" column="0" colspan="3">
     <widget class="ScFileWidget" name="fileWidget" native="true"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label">
-     <property name="text">
-      <string>&amp;Importer:</string>
-     </property>
+      <property name="text">
+        <string>&amp;Importer:</string>
+      </property>
      <property name="buddy">
       <cstring>importerCombo</cstring>
      </property>
