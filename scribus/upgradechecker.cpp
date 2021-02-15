@@ -21,21 +21,18 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "api/api_application.h"
 #include "scribuscore.h"
 #include "upgradechecker.h"
 
 UpgradeChecker::UpgradeChecker()
 {
-	m_version = (VERSION);
 	m_stability = "unstablesvn";
-	QString versionStripped = m_version.toLower();
-	m_isCVS = versionStripped.contains("svn");
-	if (m_isCVS)
-		versionStripped.remove("svn");
-	major = versionStripped.section('.', 0, 0).toInt();
-	minor = versionStripped.section('.', 1, 1).toInt();
-	m_revision1 = versionStripped.section('.', 2, 2).toInt();
-	m_revision2 = versionStripped.section('.', 3, 4).toInt();
+	m_isSVN = ScribusAPI::isSVN();
+	major = ScribusAPI::getVersionMajor();
+	minor = ScribusAPI::getVersionMinor();
+	m_patchLevel = ScribusAPI::getVersionPatch();
+	m_versionSuffix = ScribusAPI::getVersionSuffix().toLower().remove("svn").toInt();
 #if defined(Q_OS_MAC)
 	m_platform = "MacOSX";
 #elif defined(Q_OS_WIN32)
@@ -127,7 +124,7 @@ bool UpgradeChecker::process()
 	QString errorMsg;
 	int eline;
 	int ecol;
-	QDomDocument doc( "scribusversions" );
+	QDomDocument doc("scribusversions");
 	QString data(ts.readAll());
 	if (!doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
@@ -162,15 +159,15 @@ bool UpgradeChecker::process()
 			uint verRevsion1 = verAStripped.section('.', 2, 2).toInt();
 			uint verRevsion2 = verAStripped.section('.', 3, 3).toInt();
 			//If we found a release whe a user is running an old CVS version
-			if (verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 == m_revision2 && m_isCVS && !verIsCVS && !m_updates.contains(verA))
+			if (verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix && m_isSVN && !verIsCVS && !m_updates.contains(verA))
 				newVersion = true;
-			else if (!(verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 == m_revision2))
+			else if (!(verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix))
 			{
 				//If we found a version that is not the same as what we are running
 				if (((verMajor > major) ||
 					(verMajor == major && verMinor > minor) ||
-					(verMajor == major && verMinor == minor && verRevsion1 > m_revision1) ||
-					(verMajor == major && verMinor == minor && verRevsion1 == m_revision1 && verRevsion2 > m_revision2))
+					(verMajor == major && verMinor == minor && verRevsion1 > m_patchLevel) ||
+					(verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 > m_versionSuffix))
 					&& !m_updates.contains(verA))
 				{
 					newVersion = true;
@@ -210,10 +207,10 @@ void UpgradeChecker::show(bool error)
 		return;
 	}
 	if (m_updates.isEmpty())
-		outputText("<b>" + tr("No updates are available for your version of Scribus %1").arg(m_version) + "</b>");
+		outputText("<b>" + tr("No updates are available for your version of Scribus %1").arg(ScribusAPI::getVersion()) + "</b>");
 	else
 	{
-		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(m_version) + "</b>");
+		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(ScribusAPI::getVersion()) + "</b>");
 		outputText( tr("This list may contain development/unstable versions."));
 		for ( QStringList::Iterator it = m_updates.begin(); it != m_updates.end(); ++it )
 			outputText(*it);

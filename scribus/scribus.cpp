@@ -96,6 +96,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "actionsearch.h"
+#include "api/api_application.h"
 #include "appmodehelper.h"
 #include "appmodes.h"
 #include "canvasmode.h"
@@ -333,11 +334,9 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_doc->addPage(0);
 	m_doc->setGUI(false, this, nullptr);
 	CurrStED = nullptr;
-	QString scribusTitle(tr("Scribus") + " " + QString(VERSION));
-#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
-	if (QString(VERSION).contains("svn", Qt::CaseInsensitive))
-		scribusTitle.append(QString(" (r%1)").arg(SVNVERSION));
-#endif
+	QString scribusTitle(ScribusAPI::getVersionScribusTranslated());
+	if (ScribusAPI::isSVN())
+		scribusTitle.append(QString(" (r%1)").arg(ScribusAPI::getSVNRevision()));
 	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);

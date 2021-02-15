@@ -49,6 +49,14 @@ const ScActionPlugin::AboutData* MyPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	// about->authors = QString::fromUtf8("";
+	// about->shortDescription = tr("");
+	// about->description = tr("Write me!")
+	// about->version;
+	// about->releaseDate
+	// about->copyright
+	// about->license
+	// about->provide
 	return about;
 }
 

@@ -394,7 +394,7 @@ void CharStyle::setStyle(const CharStyle& other)
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
 {
-	QString colorName;
+//	QString colorName;
 
 	for (const BaseStyle* sty = parentStyle(); sty != nullptr; sty = sty->parentStyle())
 		lists.collectCharStyle(sty->name());

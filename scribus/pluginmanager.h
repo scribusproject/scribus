@@ -43,7 +43,7 @@ public:
 	/*! \brief Static methods for loading, unloading plugins and resolving symbols
 	 These methods are platform independent, but each platform uses a different
 	 implementation. */
-	static void* loadDLL(const QString& plugin );
+	static void* loadDLL(const QString& plugin);
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
@@ -165,6 +165,7 @@ protected:
 		ScPlugin* plugin;
 		bool enableOnStartup;
 		bool enabled;
+		QString version;
 	};
 
 	/*! \brief Init one plugin.

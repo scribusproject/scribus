@@ -13,13 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "scconfig.h"
+
+#include "api/api_application.h"
 #include "splash.h"
-
 #include "util.h"
-
-#ifdef HAVE_SVNVERSION
-	#include "svnversion.h"
-#endif
 
 ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
 {
@@ -70,18 +67,18 @@ void ScSplashScreen::drawContents(QPainter* painter)
 #else
 	lgf.setPointSize(29);
 #endif
-	QString versionText(VERSION);
 	painter->setFont(lgf);
-	painter->drawText(r, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, versionText );
+	painter->drawText(r, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, ScribusAPI::getVersion() );
 
-	if (versionText.contains("svn"))
+	if (ScribusAPI::isSVN())
 	{
-#if defined(HAVE_SVNVERSION) && defined(SVNVERSION)
-		QString revText=QString("SVN Revision: %1").arg(SVNVERSION);
-		QRect r2 = rect().adjusted(0, 0, -15, -30);
-		painter->setFont(f);
-		painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
-#endif
+		if (ScribusAPI::haveSVNRevision())
+		{
+			QString revText=QString("SVN Revision: %1").arg(ScribusAPI::getSVNRevision());
+			QRect r2 = rect().adjusted(0, 0, -15, -30);
+			painter->setFont(f);
+			painter->drawText(r2, Qt::AlignRight | Qt::AlignAbsolute | Qt::AlignBottom, revText );
+		}
 		QFont wf(font());
 #if defined _WIN32
 		wf.setPointSize(10);

@@ -20,6 +20,7 @@
 #include <QTextStream>
 #include <QDomDocument>
 
+#include "api/api_application.h"
 #include "iconmanager.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
@@ -154,9 +155,9 @@ void IconManager::readIconConfigFiles()
 			int curr_minor = m_activeSetVersion.section(".", 1, 1).toInt();
 			int curr_patch = m_activeSetVersion.section(".", 2, 2).toInt();
 			int curr_fullver = curr_major * 10000 + curr_minor * 100 + curr_patch;
-			int ver_major = QString(VERSION).section(".", 0, 0).toInt();
-			int ver_minor = QString(VERSION).section(".", 1, 1).toInt();
-			int ver_patch = QString(VERSION).section(".", 2, 2).toInt();
+			int ver_major = ScribusAPI::getVersionMajor();
+			int ver_minor = ScribusAPI::getVersionMinor();
+			int ver_patch = ScribusAPI::getVersionPatch();
 			int ver_fullver = ver_major * 10000 + ver_minor * 100 + ver_patch;
 			//If iconset version <= app version, and iconset version >= current active iconset version
 			if ((av_fullver <= ver_fullver) && (av_fullver >= curr_fullver))

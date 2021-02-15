@@ -49,9 +49,9 @@ protected:
 	QStringList m_updates;
 	bool m_errorReported {false};
 	bool m_fin {false};
-	bool m_isCVS {false};
+	bool m_isSVN {false};
 	bool m_writeToConsole {true};
-	uint major, minor, m_revision1, m_revision2;
+	uint major, minor, m_patchLevel, m_versionSuffix;
 };
 
 class UpgradeCheckerGUI : public UpgradeChecker

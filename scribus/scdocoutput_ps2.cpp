@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scdocoutput_ps2.h"
 
+#include "api/api_application.h"
 #include "commonstrings.h"
 #include "scpage.h"
 #include "scpageoutput_ps2.h"
@@ -26,7 +27,7 @@ ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, const QString& fileName, vecto
 	m_status = 0;
 	m_author = doc->documentInfo().author();
 	m_title  = doc->documentInfo().title();
-	m_creator = QString("Scribus ") + QString(VERSION);
+	m_creator = ScribusAPI::getVersionScribus();
 }
 
 ScDocOutput_Ps2::~ScDocOutput_Ps2()

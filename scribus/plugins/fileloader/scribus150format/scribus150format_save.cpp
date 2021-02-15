@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
 
+#include "api/api_application.h"
+
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
@@ -64,7 +66,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 	writer.writeAttribute("W", wp);
 	writer.writeAttribute("H", hp);
 	writer.writeAttribute("COUNT",   selection->count());
-	writer.writeAttribute("Version", QString(VERSION));
+	writer.writeAttribute("Version", ScribusAPI::getVersion());
 	writer.writeAttribute("previewData", QString(prevData));
 	writeColors(writer, true);
 	writeGradients(writer, true);
@@ -172,7 +174,7 @@ bool Scribus150Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 	writer.setAutoFormatting(true);
 //	writer.writeStartDocument();
 	writer.writeStartElement("ScribusStory");
-	writer.writeAttribute("Version", QString(VERSION));
+	writer.writeAttribute("Version", ScribusAPI::getVersion());
 
 	writeColors(writer, lists.colorNames());
 	writeGradients(writer, lists.gradientNames());
@@ -317,7 +319,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
 	docu.writeStartElement("SCRIBUSUTF8NEW");
-	docu.writeAttribute("Version", QString(VERSION));
+	docu.writeAttribute("Version", ScribusAPI::getVersion());
 
 	docu.writeStartElement("DOCUMENT");
 	docu.writeAttribute("ANZPAGES"    , m_Doc->DocPages.count());

@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+//#include "api/api_color.h"
 #include "cmdcolor.h"
 #include "cmdutil.h"
 #include "prefsmanager.h"
@@ -620,6 +621,20 @@ PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 	
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return nullptr;
+
+//	QString errorMsg;
+//	QString colorName = QString::fromUtf8(Name);
+//	if (!ScribusAPI::existsColor(colorName, errorMsg))
+//	{
+//		PyErr_SetString(PyExc_ValueError, errorMsg.toLocal8Bit().constData());
+//		return nullptr;
+//	}
+//	return PyBool_FromLong(static_cast<long>(ScribusAPI::isSpotColor(Name)));
+
+
+
+
+
 	if (!checkHaveDocument())
 		return nullptr;
 	if (strcmp(Name, "") == 0)

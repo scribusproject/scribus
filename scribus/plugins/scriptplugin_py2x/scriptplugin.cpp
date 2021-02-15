@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmwmenumanager.h"
 #include "units.h"
 
+#include "api/api_application.h"
 
 #include <QApplication>
 #include <QMessageBox>
@@ -133,7 +134,7 @@ void ScriptPlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 
 QString ScriptPlugin::fullTrName() const
 {
-	return QObject::tr("Scripter");
+	return QObject::tr("Scripter for Python 2.x");
 }
 
 const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
@@ -146,7 +147,6 @@ const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
 			"Craig Ringer <craig@scribus.info>");
 	about->shortDescription = tr("Embedded Python scripting support for Python 2.x.");
 	// about->description = tr("Write me!")
-	// about->version
 	// about->releaseDate
 	// about->copyright
 	// about->license
@@ -895,28 +895,18 @@ void initscribus(ScribusMainWindow *mainWin)
 	}
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
-	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));
+	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(ScribusAPI::getVersion().toLatin1().constData()));
 	// Now build a version tuple like that provided by Python in sys.version_info
 	// The tuple is of the form (major, minor, patchlevel, extraversion, reserved)
-	QRegExp version_re("(\\d+)\\.(\\d+)\\.(\\d+)(.*)");
-	int pos = version_re.indexIn(QString(VERSION));
-	// We ignore errors, causing the scribus_version_info attribute to simply not be created.
-	// This will make acceses raise AttrbuteError.
-	if (pos > -1)
-	{
-		int majorVersion = version_re.cap(1).toInt();
-		int minorVersion = version_re.cap(2).toInt();
-		int patchVersion = version_re.cap(3).toInt();
-		QString extraVersion = version_re.cap(4);
-		PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"),\
-				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
-		if (versionTuple != nullptr)
-			PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
-		else
-			qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
-	}
+	int majorVersion = ScribusAPI::getVersionMajor();
+	int minorVersion = ScribusAPI::getVersionMinor();
+	int patchVersion = ScribusAPI::getVersionPatch();
+	QString extraVersion = ScribusAPI::getVersionSuffix();
+	PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"), majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
+	if (versionTuple != nullptr)
+		PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
 	else
-		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
+		qDebug()<<"Failed to build version tuple for version string "<< ScribusAPI::getVersion() << " in scripter";
 
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run

@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QStack>
 
+#include "api/api_application.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -82,11 +83,11 @@ class PSPainter:public TextLayoutPainter
 	void drawObject(PageItem* item) override;
 
 	private:
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc {nullptr};
 		uint m_argh;
-		ScPage* m_page;
+		ScPage* m_page {nullptr};
 		bool m_master;
-		PSLib* m_ps;
+		PSLib* m_ps {nullptr};
 
 		void applyTransform()
 		{
@@ -245,7 +246,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 {
 	Options = options;
 	User = "";
-	Creator = "Scribus" + QString(VERSION);
+	Creator = ScribusAPI::getVersionScribus();
 	Title = "";
 	FillColor = "0.0 0.0 0.0 0.0";
 	StrokeColor = "0.0 0.0 0.0 0.0";

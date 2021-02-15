@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "satemplate.h"
 #include "satdialog.h"
 
+#include "api/api_application.h"
 #include "scpaths.h"
 #include "ui/scmessagebox.h"
 #include "scribuscore.h"
@@ -287,7 +288,7 @@ QString sat::getTemplateTag()
 	QString usage = QString(dia->usageEdit->toPlainText());
 	replaceIllegalChars(usage);
 	tag += "\t\t<usage>"+usage+"</usage>\n";
-	QString scribus_version = QString(VERSION);
+	QString scribus_version(ScribusAPI::getVersion());
 	replaceIllegalChars(scribus_version);
 	tag += "\t\t<scribus_version>" + scribus_version + "</scribus_version>\n";
 	QString date = QString(now.toString(Qt::ISODate));
