@@ -75,7 +75,6 @@ namespace ScribusAPI {
 		if (!match.hasMatch())
 			return -1;
 		return match.captured(2).toInt();
-
 	}
 
 	int getVersionPatch()
