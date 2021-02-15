@@ -441,6 +441,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 
 			if (SpecialChars::isExpandingSpace(ch))
 				run.setFlag(ScLayout_ExpandingSpace);
+			else if (SpecialChars::isFixedSpace(ch))
+				run.setFlag(ScLayout_FixedSpace);
 			else if (justificationTracking.contains(firstCluster))
 				run.setFlag(ScLayout_JustificationTracking);
 

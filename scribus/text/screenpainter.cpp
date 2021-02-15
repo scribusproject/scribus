@@ -107,7 +107,11 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		if (gid >= ScFace::CONTROL_GLYPHS)
 			gid -= ScFace::CONTROL_GLYPHS;
 		else if (gid != 0)
-			gid = 32;
+		{
+			gid = gc.getText().at(0).unicode();
+			if (gid != SpecialChars::NBSPACE && gid != SpecialChars::NNBSPACE)
+				gid = 32;
+		}
 		QTransform chma, chma4;
 		FPointArray outline;
 		if (gid == 0)
@@ -159,6 +163,12 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		else if (gid == SpecialChars::NBSPACE.unicode() || gid == 32)
 		{
 			stroke = (gid == 32);
+			outline = m_item->doc()->symNonBreak.copy();
+			chma4.translate(gc.xoffset, -fontSize() * gc.scaleV() * 0.4);
+		}
+		else if (gid == SpecialChars::NNBSPACE.unicode())
+		{
+			stroke = false;
 			outline = m_item->doc()->symNonBreak.copy();
 			chma4.translate(gc.xoffset, -fontSize() * gc.scaleV() * 0.4);
 		}

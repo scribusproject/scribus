@@ -55,6 +55,11 @@ bool SpecialChars::isExpandingSpace(QChar c)
 	return c == BLANK || c == NBSPACE;
 }
 
+bool SpecialChars::isFixedSpace(QChar c)
+{
+	return c == NNBSPACE;
+}
+
 bool SpecialChars::isImplicitSpace(QChar c1, QChar c2)
 {
 	uint uni1 = c1.unicode();

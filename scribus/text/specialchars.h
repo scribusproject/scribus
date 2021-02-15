@@ -55,6 +55,7 @@ public:
 	static bool isBreak(QChar c, bool includeColBreak = true);
 	static bool isBreakingSpace(QChar c);
 	static bool isExpandingSpace(QChar c);
+	static bool isFixedSpace(QChar c);
 	static bool isImplicitSpace(QChar c1, QChar c2);
 	static bool isImplicitSpace(uint c1, uint c2);
 
