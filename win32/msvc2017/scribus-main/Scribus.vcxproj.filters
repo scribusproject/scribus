@@ -2578,6 +2578,9 @@
     <ClCompile Include="..\..\..\scribus\api\api_application.cpp">
       <Filter>api</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\prefs_pane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">

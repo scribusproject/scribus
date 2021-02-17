@@ -1264,6 +1264,7 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_miscellaneous.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_operatortools.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_pagesizes.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\prefs_pane.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_paths.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_pdfexport.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_plugins.cpp" />
