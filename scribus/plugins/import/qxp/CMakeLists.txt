@@ -3,7 +3,15 @@ if (HAVE_REVENGE)
 	pkg_check_modules(LIBQXP libqxp-0.0)
 	if (LIBQXP_FOUND)
 		message("Building QuarkXPress Importer")
-		include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/scribus ${LIBREVENGE_INCLUDE_DIRS} ${LIBREVENGE_GENERATORS_INCLUDE_DIRS} ${LIBREVENGE_STREAM_INCLUDE_DIRS} ${LIBQXP_INCLUDE_DIRS})
+		include_directories(
+			${CMAKE_SOURCE_DIR}
+			${CMAKE_SOURCE_DIR}/scribus
+			${LIBREVENGE_INCLUDE_DIRS}
+			${LIBREVENGE_GENERATORS_INCLUDE_DIRS}
+			${LIBREVENGE_STREAM_INCLUDE_DIRS}
+			${LIBQXP_INCLUDE_DIRS}
+			${SCRIBUS_AUTOGEN_INCLUDE_PATH}
+			)
 		set(IMPORTQXP_PLUGIN_SOURCES ../revenge/rawpainter.cpp importqxp.cpp importqxpplugin.cpp)
 		set(SCRIBUS_IMPORTQXP_PLUGIN "importqxp")
 
