@@ -17,6 +17,18 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
@@ -100,9 +112,6 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="spacing">
-             <number>3</number>
-            </property>
             <property name="leftMargin">
              <number>15</number>
             </property>
@@ -184,7 +193,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string/>
+          <string>Text</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
