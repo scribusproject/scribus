@@ -50,7 +50,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 
 		//Not the same as readSLA. This one only reads max 4k of the file for speed.
 		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
-
+		bool paletteSupported(QIODevice* file, const QString & fileName=QString()) const override;
 		bool storySupported(const QByteArray& storyData) const override;
 
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
@@ -116,6 +116,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void registerFormats();
 		
 		QIODevice* slaReader(const QString & fileName);
+		QIODevice* paletteReader(const QString & fileName);
 
 		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool equiv);
 		void getStyle(CharStyle& style, ScXmlStreamReader& reader, StyleSet<CharStyle> *docCharStyles, ScribusDoc* doc, bool equiv);

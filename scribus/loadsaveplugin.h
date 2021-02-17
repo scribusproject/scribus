@@ -106,6 +106,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// All plugins must implement this method.
 		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString()) const = 0;
 
+		// Examine if the passed palette data to see whether it appears to be loadable with this plugin
+		virtual bool paletteSupported(QIODevice* file, const QString & fileName=QString()) const { return false; }
+
 		// Examine if the passed story data to see whether it appears to be loadable with this plugin
 		virtual bool storySupported(const QByteArray& storyData) const { return false; }
 

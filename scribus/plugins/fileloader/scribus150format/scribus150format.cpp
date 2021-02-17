@@ -152,6 +152,30 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	return false;
 }
 
+bool Scribus150Format::paletteSupported(QIODevice* /* file */, const QString & fileName) const
+{
+	QByteArray docBytes("");
+	if (fileName.right(2) == "gz")
+	{
+		QFile file(fileName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::ReadOnly);
+		docBytes = compressor.read(1024);
+		compressor.close();
+		if (docBytes.isEmpty())
+			return false;
+	}
+	else
+	{
+		// Not gzip encoded, just load it
+		loadRawBytes(fileName, docBytes, 1024);
+	}
+
+	int startElemPos = docBytes.indexOf("<SCRIBUSCOLORS");
+	return (startElemPos >= 0);
+}
+
 bool Scribus150Format::storySupported(const QByteArray& storyData) const
 {
 	QRegExp regExp150("Version=\"1.5.[0-9]");
@@ -167,6 +191,36 @@ bool Scribus150Format::storySupported(const QByteArray& storyData) const
 QIODevice* Scribus150Format::slaReader(const QString & fileName)
 {
 	if (!fileSupported(nullptr, fileName))
+		return nullptr;
+
+	QIODevice* ioDevice = nullptr;
+	if (fileName.right(2) == "gz")
+	{
+		aFile.setFileName(fileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
+		if (!compressor->open(QIODevice::ReadOnly))
+		{
+			delete compressor;
+			return nullptr;
+		}
+		ioDevice = compressor;
+	}
+	else
+	{
+		ioDevice = new QFile(fileName);
+		if (!ioDevice->open(QIODevice::ReadOnly))
+		{
+			delete ioDevice;
+			return nullptr;
+		}
+	}
+	return ioDevice;
+}
+
+QIODevice* Scribus150Format::paletteReader(const QString & fileName)
+{
+	if (!paletteSupported(nullptr, fileName))
 		return nullptr;
 
 	QIODevice* ioDevice = nullptr;
@@ -962,7 +1016,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
 
-	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	QScopedPointer<QIODevice> ioDevice(paletteReader(fileName));
 	if (ioDevice.isNull())
 	{
 		setFileReadError();
