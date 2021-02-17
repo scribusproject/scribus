@@ -71,6 +71,7 @@ There is no need to preallocate the buffer, and the new data replaces any
 old contents. */
 bool SCRIBUS_API loadRawText(const QString & filename, QByteArray & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
+bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf, int maxLength);
 /**
 * @brief Synchronously execute a new process, optionally saving its output
    *

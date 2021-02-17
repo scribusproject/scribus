@@ -170,8 +170,7 @@ bool loadRawText(const QString & filename, QByteArray & buf)
 		QByteArray tempBuf(f.size() /*+ 1*/, ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			unsigned int bytesRead = f.read(tempBuf.data(), f.size());
-			/*tempBuf[bytesRead] = '\0';*/
+			qint64 bytesRead = f.read(tempBuf.data(), f.size());
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
@@ -192,7 +191,7 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 		QByteArray tempBuf(f.size(), ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			unsigned int bytesRead = f.read(tempBuf.data(), f.size());
+			qint64 bytesRead = f.read(tempBuf.data(), f.size());
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
@@ -203,6 +202,32 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 	return ret;
 }
 
+bool loadRawBytes(const QString & filename, QByteArray & buf, int maxLength)
+{
+	if (maxLength < 0)
+		return false;
+	bool ret = false;
+
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
+	{
+		QByteArray tempBuf(maxLength, ' ');
+		if (f.open(QIODevice::ReadOnly))
+		{
+			qint64 bytesRead = f.read(tempBuf.data(), (qint64) maxLength);
+			ret = (bytesRead > 0);
+			if (ret)
+			{
+				tempBuf.resize((int) bytesRead);
+				buf = tempBuf; // sharing makes this efficient
+			}
+		}
+	}
+	if (f.isOpen())
+		f.close();
+	return ret;
+}
 
 QString CompressStr(QString *in)
 {

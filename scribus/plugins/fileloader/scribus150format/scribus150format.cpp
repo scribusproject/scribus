@@ -139,7 +139,7 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	else
 	{
 		// Not gzip encoded, just load it
-		loadRawText(fileName, docBytes);
+		loadRawBytes(fileName, docBytes, 1024);
 	}
 
 	QRegExp regExp150("Version=\"1.5.[0-9]");
@@ -962,19 +962,17 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
 
-	QByteArray docBytes("");
-	loadRawText(fileName, docBytes);
-	QString f = QString::fromUtf8(docBytes);
-	if (f.isEmpty())
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 	{
 		setFileReadError();
 		return false;
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
-		m_mwProgressBar->setMaximum(f.length());
+		m_mwProgressBar->setMaximum(ioDevice->size());
 		m_mwProgressBar->setValue(0);
 	}
 
@@ -1009,7 +1007,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 	readObjectParams.itemKind = PageItem::StandardItem;
 	readObjectParams.loadingPage = false;
 
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while (!reader.atEnd() && !reader.hasError())
 	{
@@ -1021,7 +1019,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 
 		if (m_mwProgressBar != nullptr)
 		{
-			int newProgress = qRound(reader.characterOffset() / (double) f.length() * 100);
+			int newProgress = qRound(ioDevice->pos() / (double) ioDevice->size() * 100);
 			if (newProgress != progress)
 			{
 				m_mwProgressBar->setValue(reader.characterOffset());
@@ -1553,7 +1551,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	int firstPage = 0;
 	int layerToSetActive = 0;
 	
-	if (m_mwProgressBar!=nullptr)
+	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(ioDevice->size());
 		m_mwProgressBar->setValue(0);

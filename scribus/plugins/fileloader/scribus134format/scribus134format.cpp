@@ -133,7 +133,7 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	else
 	{
 		// Not gzip encoded, just load it
-		loadRawText(fileName, docBytes);
+		loadRawBytes(fileName, docBytes, 1024);
 	}
 
 	QRegExp regExp134("Version=\"1.3.[4-9]");
