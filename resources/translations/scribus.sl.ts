@@ -2967,12 +2967,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="37"/>
         <source>Colors</source>
-        <translation type="unfinished">Barve</translation>
+        <translation>Barve</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="186"/>
         <source>Options</source>
-        <translation type="unfinished">Možnosti</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
@@ -3017,7 +3017,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="322"/>
         <source>Type</source>
-        <translation type="unfinished">Vrsta</translation>
+        <translation>Vrsta</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="358"/>
@@ -27715,7 +27715,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="221"/>
         <source>Dinka</source>
-        <translation type="unfinished"></translation>
+        <translation>dinka</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="222"/>
@@ -27730,7 +27730,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="226"/>
         <source>Ebira</source>
-        <translation type="unfinished"></translation>
+        <translation>ebira</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="235"/>
@@ -27740,7 +27740,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="237"/>
         <source>Erzya</source>
-        <translation type="unfinished"></translation>
+        <translation>erzjančina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="239"/>
@@ -27750,12 +27750,12 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="240"/>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>evenščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="241"/>
         <source>Evenki</source>
-        <translation type="unfinished"></translation>
+        <translation>evenkiščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="242"/>
@@ -27770,7 +27770,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="244"/>
         <source>Fijian</source>
-        <translation type="unfinished"></translation>
+        <translation>fidžijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="245"/>
@@ -27780,17 +27780,17 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="247"/>
         <source>Fon</source>
-        <translation type="unfinished"></translation>
+        <translation>fonščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="248"/>
         <source>Forest Maninka</source>
-        <translation type="unfinished"></translation>
+        <translation>gozdnomaninščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="249"/>
         <source>Franco-Provençal</source>
-        <translation type="unfinished"></translation>
+        <translation>frankoprovansalščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="251"/>
@@ -27810,32 +27810,32 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="254"/>
         <source>Ga</source>
-        <translation type="unfinished"></translation>
+        <translation>gajščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="255"/>
         <source>Gagauz</source>
-        <translation type="unfinished"></translation>
+        <translation>gagauzščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="257"/>
         <source>Ganda</source>
-        <translation type="unfinished"></translation>
+        <translation>ganda</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="258"/>
         <source>Garhwali</source>
-        <translation type="unfinished"></translation>
+        <translation>garhvalščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="259"/>
         <source>Garo</source>
-        <translation type="unfinished"></translation>
+        <translation>garojščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="260"/>
         <source>Ge&apos;ez</source>
-        <translation type="unfinished"></translation>
+        <translation>ge&apos;ez</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="261"/>
@@ -27845,42 +27845,42 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="266"/>
         <source>Gilaki</source>
-        <translation type="unfinished"></translation>
+        <translation>gilaki</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="267"/>
         <source>Gilyak</source>
-        <translation type="unfinished"></translation>
+        <translation>giljakščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="268"/>
         <source>Gogo</source>
-        <translation type="unfinished"></translation>
+        <translation>gogojščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="269"/>
         <source>Gondi</source>
-        <translation type="unfinished"></translation>
+        <translation>gondijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="270"/>
         <source>Gondi Northern</source>
-        <translation type="unfinished"></translation>
+        <translation>severna gondijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="273"/>
         <source>Guarani</source>
-        <translation type="unfinished"></translation>
+        <translation>gvaranščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="275"/>
         <source>Gumuz</source>
-        <translation type="unfinished"></translation>
+        <translation>gumuz</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="276"/>
         <source>Gusii</source>
-        <translation type="unfinished"></translation>
+        <translation>gusiščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="277"/>
@@ -27890,7 +27890,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="279"/>
         <source>Harari</source>
-        <translation type="unfinished"></translation>
+        <translation>harari</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="280"/>
@@ -27915,7 +27915,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="284"/>
         <source>Haya</source>
-        <translation type="unfinished"></translation>
+        <translation>haja</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="285"/>
@@ -27925,7 +27925,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="287"/>
         <source>Herero</source>
-        <translation type="unfinished"></translation>
+        <translation>hererojšina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="288"/>
@@ -27935,32 +27935,32 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="289"/>
         <source>Hiligaynon</source>
-        <translation type="unfinished"></translation>
+        <translation>ilongojščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="291"/>
         <source>Hindko (Northern)</source>
-        <translation type="unfinished"></translation>
+        <translation>hindko (severni)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="292"/>
         <source>Hindko (Southern)</source>
-        <translation type="unfinished"></translation>
+        <translation>hindko (južni)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="293"/>
         <source>Hiri Motu</source>
-        <translation type="unfinished"></translation>
+        <translation>hirisko-motujščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="294"/>
         <source>Hmong Daw</source>
-        <translation type="unfinished"></translation>
+        <translation>hmong daw</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="295"/>
         <source>Ho</source>
-        <translation type="unfinished"></translation>
+        <translation>hojščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="296"/>
@@ -27970,17 +27970,17 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="297"/>
         <source>Ibibio</source>
-        <translation type="unfinished"></translation>
+        <translation>ibibio</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="299"/>
         <source>Ido</source>
-        <translation type="unfinished"></translation>
+        <translation>ido</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="300"/>
         <source>Igbo</source>
-        <translation type="unfinished"></translation>
+        <translation>igbojščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="301"/>
@@ -27990,7 +27990,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="302"/>
         <source>Ilokano</source>
-        <translation type="unfinished"></translation>
+        <translation>ilokanščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="303"/>
@@ -28000,7 +28000,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="304"/>
         <source>Ingush</source>
-        <translation type="unfinished"></translation>
+        <translation>inguščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="305"/>
@@ -28010,7 +28010,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="306"/>
         <source>Inuktitut</source>
-        <translation type="unfinished"></translation>
+        <translation>inuktituščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="307"/>
@@ -28035,7 +28035,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="311"/>
         <source>Izon</source>
-        <translation type="unfinished"></translation>
+        <translation>izonščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="312"/>
@@ -28050,7 +28050,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="315"/>
         <source>Jula</source>
-        <translation type="unfinished"></translation>
+        <translation>djula</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="316"/>
@@ -28060,12 +28060,12 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="317"/>
         <source>Kabardian</source>
-        <translation type="unfinished"></translation>
+        <translation>kabardinščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="318"/>
         <source>Kabyle</source>
-        <translation type="unfinished"></translation>
+        <translation>kabile</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="319"/>
@@ -28075,32 +28075,32 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="320"/>
         <source>Kalmyk</source>
-        <translation type="unfinished"></translation>
+        <translation>kalmikščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="321"/>
         <source>Kalenjin</source>
-        <translation type="unfinished"></translation>
+        <translation>kalenjin</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="322"/>
         <source>Kamba (Kenya)</source>
-        <translation type="unfinished"></translation>
+        <translation>kambajščina (Kenija)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="323"/>
         <source>Kanauji</source>
-        <translation type="unfinished"></translation>
+        <translation>kanaujiščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="325"/>
         <source>Kanuri</source>
-        <translation type="unfinished"></translation>
+        <translation>kanurščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="326"/>
         <source>Kapampangan</source>
-        <translation type="unfinished"></translation>
+        <translation>kapampanganščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="327"/>
@@ -28110,17 +28110,17 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="328"/>
         <source>Karakalpak</source>
-        <translation type="unfinished"></translation>
+        <translation>karakalpakščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="329"/>
         <source>Karelian</source>
-        <translation type="unfinished"></translation>
+        <translation>karelščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="330"/>
         <source>Karen</source>
-        <translation type="unfinished"></translation>
+        <translation>karenščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="331"/>
@@ -28150,7 +28150,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="336"/>
         <source>Khakass</source>
-        <translation type="unfinished"></translation>
+        <translation>kakaščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="337"/>
@@ -28170,7 +28170,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="341"/>
         <source>Kikuyu</source>
-        <translation type="unfinished"></translation>
+        <translation>kikujuščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="342"/>

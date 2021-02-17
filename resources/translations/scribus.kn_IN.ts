@@ -2972,7 +2972,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="186"/>
         <source>Options</source>
-        <translation type="unfinished">ಆಯ್ಕೆಗಳು</translation>
+        <translation>ಆಯ್ಕೆಗಳು</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
