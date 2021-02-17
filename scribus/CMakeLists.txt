@@ -49,9 +49,6 @@ endif ()
 add_subdirectory(third_party)
 
 if(HAVE_OSG)
-	set(SCRIBUS_OSG_UI_SRC
-		ui/osgeditor.ui
-	)
 	set(SCRIBUS_OSG_CLASS
 		ui/AdapterWidget.h
 		ui/osgeditor.h
@@ -72,20 +69,6 @@ endif()
 
 # We setup something like a group to gather setter related stuff
 # because it could expand into a huge amount of files at some point.
-set(SCRIBUS_ITEMSETTERS_UI_SRC
-	ui/positionsetter.ui
-	ui/rotationsetter.ui
-)
-
-set(SCRIBUS_ITEMSETTERS_CLASS
-	openpalettemanager.h
-	openpalettemodel.h
-	pageitemsettersmanager.h
-	ui/openpalette.h
-	ui/openpaletteview.h
-	ui/pageitempositionsetter.h
-	ui/pageitemrotationsetter.h
-)
 
 set(SCRIBUS_ITEMSETTERS_SRC
 	openpalettemanager.cpp
@@ -98,496 +81,6 @@ set(SCRIBUS_ITEMSETTERS_SRC
 	ui/pageitemrotationsetter.cpp
 )
 
-set(SCRIBUS_UI_SRC
-	ui/aboutplugins.ui
-	ui/actionsearchdialog.ui
-	ui/aligndistribute.ui
-	ui/annot.ui
-	ui/arcvectorbase.ui
-	ui/arcwidgetbase.ui
-	ui/charselect.ui
-	ui/charselectenhanced.ui
-	ui/cmsprefsbase.ui
-	ui/cmykfwbase.ui
-	ui/colorpalette.ui
-	ui/colorsandfillsbase.ui
-	ui/contentpalette_defaultbase.ui
-	ui/contentpalette_pagebase.ui
-	ui/cxfimportdialogbase.ui
-	ui/downloadspalettebase.ui
-	ui/gradientaddedit.ui
-	ui/gradienteditor.ui
-	ui/gradientvectorbase.ui
-	ui/gtfiledialog.ui
-	ui/guidemanager.ui
-	ui/insertaframe.ui
-	ui/inserttablecolumnsdialog.ui
-	ui/inserttablerowsdialog.ui
-	ui/latexeditor.ui
-	ui/newmarginwidgetbase.ui
-	ui/mark2item.ui
-	ui/mark2mark.ui
-	ui/markanchor.ui
-	ui/marknote.ui
-	ui/marksmanager.ui
-	ui/markvariabletext.ui
-	ui/measurementsbase.ui
-	ui/multipleduplicate.ui
-	ui/multiprogressdialog.ui
-	ui/nftdialog.ui
-	ui/nftwidget.ui
-	ui/notesstyleseditor.ui
-	ui/outputpreview_pdf.ui
-	ui/outputpreview_ps.ui
-	ui/outputpreviewbase.ui
-	ui/pageitemattributes.ui
-	ui/pagepalette_pagesbase.ui
-	ui/pagepalette_masterpagesbase.ui
-	ui/picsearch.ui
-	ui/picsearchoptions.ui
-	ui/picstatus.ui
-	ui/polygonwidgetbase.ui
-	ui/preferencesdialogbase.ui
-	ui/prefs_colormanagementbase.ui
-	ui/prefs_displaybase.ui
-	ui/prefs_documentinformationbase.ui
-	ui/prefs_documentsectionsbase.ui
-	ui/prefs_documentsetupbase.ui
-	ui/prefs_externaltoolsbase.ui
-	ui/prefs_fontsbase.ui
-	ui/prefs_guidesbase.ui
-	ui/prefs_hyphenatorbase.ui
-	ui/prefs_imagecachebase.ui
-	ui/prefs_keyboardshortcutsbase.ui
-	ui/prefs_miscellaneousbase.ui
-	ui/prefs_pathsbase.ui
-	ui/prefs_pagesizesbase.ui
-	ui/prefs_pluginsbase.ui
-	ui/prefs_preflightverifierbase.ui
-	ui/prefs_printerbase.ui
-	ui/prefs_scrapbookbase.ui
-	ui/prefs_spellingbase.ui
-	ui/prefs_typographybase.ui
-	ui/prefs_userinterfacebase.ui
-	ui/prefs_itemtoolsbase.ui
-	ui/prefs_operatortoolsbase.ui
-	ui/prefs_pdfexportbase.ui
-	ui/prefs_tableofcontentsbase.ui
-	ui/prefs_documentitemattributesbase.ui
-	ui/printdialogbase.ui
-	ui/printpreviewbase.ui
-	ui/propertiespalette_groupbase.ui
-	ui/propertiespalette_imagebase.ui
-	ui/propertiespalette_linebase.ui
-	ui/propertiespalette_shapebase.ui
-	ui/propertiespalette_tablebase.ui
-	ui/propertiespalette_textbase.ui
-	ui/propertiespalette_xyzbase.ui
-	ui/propertywidget_advancedbase.ui
-	ui/propertywidget_distancebase.ui
-	ui/propertywidget_pareffectbase.ui
-	ui/propertywidget_flopbase.ui
-	ui/propertywidget_fontfeaturesbase.ui
-	ui/propertywidget_hyphenationbase.ui
-	ui/propertywidget_optmarginsbase.ui
-	ui/propertywidget_orphansbase.ui
-	ui/propertywidget_pathtextbase.ui
-	ui/propertywidget_textcolorbase.ui
-	ui/recoverdialog.ui
-	ui/replacecolors.ui
-	ui/replaceonecolor.ui
-	ui/resourcemanagerbase.ui
-	ui/resourcemanagerlicensebase.ui
-	ui/selectobjects.ui
-	ui/shortcutwidget.ui
-	ui/smcellstylewidget.ui
-	ui/smcstylewidget.ui
-	ui/smfontfeaturesbase.ui
-	ui/smlinestylewidget.ui
-	ui/smtablestylewidget.ui
-	ui/smpstylewidget.ui
-	ui/smreplacedia.ui
-	ui/smstyleimport.ui
-	ui/spiralvectorbase.ui
-	ui/spiralwidgetbase.ui
-	ui/stylemanager.ui
-	ui/tablecolumnwidthsdialog.ui
-	ui/tablerowheightsdialog.ui
-	ui/tabpdfoptions.ui
-	ui/transformdialogbase.ui
-	ui/transparencypalette.ui
-	ui/copypagetomasterpage.ui
-	ui/createrange.ui
-	ui/helpbrowser.ui
-	ui/helpbrowsernavigation.ui
-	ui/unicodesearch.ui
-	ui/useprintermarginsdialog.ui
-	ui/weldeditbase.ui
-#	#{SCRIBUS_ITEMSETTERS_UI_SRC}
-	${SCRIBUS_OSG_UI_SRC}
-)
-
-set(SCRIBUS_MOC_CLASSES
-	actionmanager.h
-	appmodehelper.h
-	canvas.h
-	canvasgesture.h
-	canvasgesture_cellselect.h
-	canvasgesture_columnresize.h
-	canvasgesture_rowresize.h
-	canvasgesture_rulermove.h
-	canvasgesture_table.h
-	canvasgesture_tableresize.h
-	canvasmode.h
-	canvasmode_create.h
-	canvasmode_edit.h
-	canvasmode_editarc.h
-	canvasmode_editpolygon.h
-	canvasmode_editspiral.h
-	canvasmode_edittable.h
-	canvasmode_editweldpoint.h
-	canvasmode_eyedropper.h
-	canvasmode_framelinks.h
-	canvasmode_imageimport.h
-	canvasmode_measurements.h
-	canvasmode_normal.h
-	canvasmode_objimport.h
-	chartablemodel.h
-	chartableview.h
-	collect4output.h
-	colorblind.h
-	commonstrings.h
-	deferredtask.h
-	docinfo.h
-	downloadmanager/scdlmgr.h
-	downloadmanager/scdlthread.h
-	fileloader.h
-	filesearch.h
-	filewatcher.h
-	fontlistmodel.h
-	guidesdelegate.h
-	guidesmodel.h
-	guidesview.h
-	hyphenator.h
-	iconmanager.h
-	latexhelpers.h
-	loadsaveplugin.h
-	menumanager.h
-	navigator.h
-	notesstyles.h
-	observable.h
-	pageitem.h
-	pageitem_arc.h
-	pageitem_group.h
-	pageitem_imageframe.h
-	pageitem_latexframe.h
-	pageitem_line.h
-	pageitem_pathtext.h
-	pageitem_polygon.h
-	pageitem_polyline.h
-	pageitem_regularpolygon.h
-	pageitem_spiral.h
-	pageitem_symbol.h
-	pageitem_table.h
-	pageitem_textframe.h
-	pageitem_noteframe.h
-	pageitempointer.h
-	pdf_analyzer.h
-	pdflib.h
-	pdflib_core.h
-	pluginmanager.h
-	pp_proxy.h
-	prefsmanager.h
-	pslib.h
-	qtiocompressor.h
-	sampleitem.h
-	scgtplugin.h
-	schelptreemodel.h
-	scimagecachedir.h
-	scimagecachefile.h
-	scimagecachemanager.h
-	scmimedata.h
-	scplugin.h
-	scprintengine.h
-	scraction.h
-	scribus.h
-	scribusapp.h
-	scribuscore.h
-	scribusdoc.h
-	scribusview.h
-	scribuswin.h
-	selection.h
-	selectionrubberband.h
-	storyloader.h
-	styleitem.h
-	tocgenerator.h
-	undogui.h
-	undomanager.h
-	upgradechecker.h
-	urllauncher.h
-	ui/about.h
-	ui/aboutplugins.h
-	ui/actionsearchdialog.h
-	ui/adjustcmsdialog.h
-	ui/aligndistribute.h
-	ui/alignselect.h
-	ui/directionselect.h
-	ui/annot.h
-	ui/annota.h
-	ui/applytemplatedialog.h
-	ui/arcwidget.h
-	ui/arcvectordialog.h
-	ui/arrowchooser.h
-	ui/autoform.h
-	ui/autoformbuttongroup.h
-	ui/basepointwidget.h
-	ui/bookmarkpalette.h
-	ui/bookmwin.h
-	ui/buttonicon.h
-	ui/charselect.h
-	ui/charselectenhanced.h
-	ui/charzoom.h
-	ui/checkDocument.h
-	ui/clockwidget.h
-	ui/cmsprefs.h
-	ui/cmykfw.h
-	ui/collectforoutput_ui.h
-	ui/colorchart.h
-	ui/colorcombo.h
-	ui/colorlistbox.h
-	ui/colorlistmodel.h
-	ui/colorsandfills.h
-	ui/contentpalette.h
-	ui/contentpalette_default.h
-	ui/contentpalette_page.h
-	ui/contextmenu.h
-	ui/cpalette.h
-	ui/cupsoptions.h
-	ui/curvewidget.h
-	ui/customfdialog.h
-	ui/cxfimportdialog.h
-	ui/dasheditor.h
-	ui/dcolor.h
-	ui/delpages.h
-	ui/downloadspalette.h
-	ui/editor.h
-	ui/effectsdialog.h
-	ui/extimageprops.h
-	ui/filedialogeventcatcher.h
-	ui/fontcombo.h
-	ui/fontembeddingcombo.h
-	ui/fontembeddingmodel.h
-	ui/fontlistview.h
-	ui/fontreplacedialog.h
-	ui/gradientaddedit.h
-	ui/gradienteditor.h
-	ui/gradientvectordialog.h
-	ui/gradientpreview.h
-	ui/gtdialogs.h
-	ui/gtfiledialog.h
-	ui/guidemanager.h
-	ui/helpbrowser.h
-	ui/helpnavigation.h
-	ui/hruler.h
-	ui/hyask.h
-	ui/imageinfodialog.h
-	ui/inlinepalette.h
-	ui/insertTable.h
-	ui/insertaframe.h
-	ui/inserttablecolumnsdialog.h
-	ui/inserttablerowsdialog.h
-	ui/inspage.h
-	ui/javadocs.h
-	ui/latexeditor.h
-	ui/layers.h
-	ui/linecombo.h
-	ui/linkbutton.h
-	ui/loremipsum.h
-	ui/markinsert.h
-	ui/mark2item.h
-	ui/mark2mark.h
-	ui/markanchor.h
-	ui/marknote.h
-	ui/marksmanager.h
-	ui/markvariabletext.h
-	ui/marginpresetlayout.h
-	ui/marginwidget.h
-	ui/newmarginwidget.h
-	ui/measurements.h
-	ui/mergedoc.h
-	ui/missing.h
-	ui/movepage.h
-	ui/multipleduplicate.h
-	ui/multiprogressdialog.h
-	ui/newdocdialog.h
-	ui/newtemp.h
-	ui/nftdialog.h
-	ui/nftwidget.h
-	ui/nodeeditpalette.h
-	ui/notesstyleseditor.h
-	ui/numformatcombo.h
-	ui/outlinepalette.h
-	ui/outputpreview_pdf.h
-	ui/outputpreview_ps.h
-	ui/outputpreviewbase.h
-	ui/pageitemattributes.h
-	ui/pagelayout.h
-	ui/pagepalette.h
-	ui/pagepalette_pages.h
-	ui/pagepalette_masterpages.h
-	ui/pagepalette_widgets.h
-	ui/pagepropertiesdialog.h
-	ui/pageselector.h
-	ui/patternpropsdialog.h
-	ui/pdfexportdialog.h
-	ui/pdfversioncombo.h
-	ui/pdfversionmodel.h
-	ui/picsearch.h
-	ui/picsearchoptions.h
-	ui/picstatus.h
-	ui/polygonwidget.h
-	ui/polyprops.h
-	ui/preferencesdialog.h
-	ui/prefs_colormanagement.h
-	ui/prefs_display.h
-	ui/prefs_documentinformation.h
-	ui/prefs_documentsections.h
-	ui/prefs_documentsetup.h
-	ui/prefs_externaltools.h
-	ui/prefs_fonts.h
-	ui/prefs_guides.h
-	ui/prefs_hyphenator.h
-	ui/prefs_imagecache.h
-	ui/prefs_keyboardshortcuts.h
-	ui/prefs_miscellaneous.h
-	ui/prefs_pagesizes.h
-	ui/prefs_paths.h
-	ui/prefs_pane.h
-	ui/prefs_plugins.h
-	ui/prefs_preflightverifier.h
-	ui/prefs_printer.h
-	ui/prefs_scrapbook.h
-	ui/prefs_spelling.h
-	ui/prefs_typography.h
-	ui/prefs_userinterface.h
-	ui/prefs_itemtools.h
-	ui/prefs_operatortools.h
-	ui/prefs_pdfexport.h
-	ui/prefs_tableofcontents.h
-	ui/prefs_documentitemattributes.h
-	ui/printdialog.h
-	ui/printlanguagecombo.h
-	ui/printpreview.h
-	ui/propertiespalette.h
-	ui/propertiespalette_group.h
-	ui/propertiespalette_image.h
-	ui/propertiespalette_line.h
-	ui/propertiespalette_shadow.h
-	ui/propertiespalette_shape.h
-	ui/propertiespalette_table.h
-	ui/propertiespalette_text.h
-	ui/propertiespalette_utils.h
-	ui/propertiespalette_xyz.h
-	ui/propertywidget_advanced.h
-	ui/propertywidget_distance.h
-	ui/propertywidget_pareffect.h
-	ui/propertywidget_flop.h
-	ui/propertywidget_hyphenation.h
-	ui/propertywidget_optmargins.h
-	ui/propertywidget_orphans.h
-	ui/propertywidget_pathtext.h
-	ui/propertywidget_textcolor.h
-	ui/propertywidget_fontfeatures.h
-	ui/proptree.h
-	ui/query.h
-	ui/recoverdialog.h
-	ui/replacecolors.h
-	ui/replaceonecolor.h
-	ui/resourcemanager.h
-	ui/resourcemanagerlicense.h
-	ui/rulermover.h
-	ui/sccolorslider.h
-	ui/scdockpalette.h
-	ui/scescapecatcher.h
-	ui/scfilewidget.h
-	ui/scinputdialog.h
-	ui/sclistwidgetdelegate.h
-	ui/scmenu.h
-	ui/scmessagebox.h
-	ui/scmwmenumanager.h
-	ui/scrapbookpalette.h
-	ui/scrpalettebase.h
-	ui/scrspinbox.h
-	ui/sctablewidget.h
-	ui/sctextbrowser.h
-	ui/sctoolbar.h
-	ui/sctreewidget.h
-	ui/search.h
-	ui/selectobjects.h
-	ui/selfield.h
-	ui/shadebutton.h
-	ui/shortcutwidget.h
-	ui/smalignselect.h
-	ui/smcellstylewidget.h
-	ui/smcellstyle.h
-	ui/smcheckbox.h
-	ui/smcolorcombo.h
-	ui/smcstylewidget.h
-	ui/smdirectionselect.h
-	ui/smfontfeatures.h
-	ui/smtablestylewidget.h
-	ui/smfontcomboh.h
-	ui/smlinestyle.h
-	ui/smlinestylewidget.h
-	ui/smnumformatcombo.h
-	ui/smpstylewidget.h
-	ui/smradiobutton.h
-	ui/smreplacedia.h
-	ui/smsccombobox.h
-	ui/smscrspinbox.h
-	ui/smshadebutton.h
-	ui/smspinbox.h
-	ui/smlineedit.h
-	ui/smstyleimport.h
-	ui/smstyleselect.h
-	ui/smtablestyle.h
-	ui/smtabruler.h
-	ui/smtextstyles.h
-	ui/spiralvectordialog.h
-	ui/spiralwidget.h
-	ui/splash.h
-	ui/storyeditor.h
-	ui/stylecombos.h
-	ui/stylemanager.h
-	ui/styleselect.h
-	ui/styleview.h
-	ui/swatchcombo.h
-	ui/symbolpalette.h
-	ui/tablecolumnwidthsdialog.h
-	ui/tablesideselector.h
-	ui/tablerowheightsdialog.h
-	ui/tabmanager.h
-	ui/tabpdfoptions.h
-	ui/tabruler.h
-	ui/transformdialog.h
-	ui/transparencypalette.h
-	tt/simpletreemodel/treemodel.h
-	ui/copypagetomasterpagedialog.h
-	ui/createrange.h
-	ui/edittoolbar.h
-	ui/filetoolbar.h
-	ui/modetoolbar.h
-	ui/pdftoolbar.h
-	ui/viewtoolbar.h
-	ui/unicodesearch.h
-	ui/useprintermarginsdialog.h
-	ui/vruler.h
-	ui/weldedit.h
-#	#{SCRIBUS_ITEMSETTERS_CLASS}
-	${SCRIBUS_OSG_CLASS}
-	${SCRIBUS_STYLES_MOC_CLASSES}
-	${SCRIBUS_TEXT_MOC_CLASSES}
-)
 
 set(SCRIBUS_SOURCES
 	actionmanager.cpp
@@ -755,6 +248,7 @@ set(SCRIBUS_SOURCES
 	scpattern.cpp
 	scplugin.cpp
 	scpreview.cpp
+	scprintengine.cpp
 	scprintengine_pdf.cpp
 	scprintengine_ps.cpp
 	scraction.cpp
@@ -922,6 +416,7 @@ set(SCRIBUS_SOURCES
 	ui/mark2item.cpp
 	ui/mark2mark.cpp
 	ui/markanchor.cpp
+	ui/markinsert.cpp
 	ui/marknote.cpp
 	ui/marksmanager.cpp
 	ui/markvariabletext.cpp
@@ -976,6 +471,7 @@ set(SCRIBUS_SOURCES
 	ui/prefs_keyboardshortcuts.cpp
 	ui/prefs_miscellaneous.cpp
 	ui/prefs_pagesizes.cpp
+	ui/prefs_pane.cpp
 	ui/prefs_paths.cpp
 	ui/prefs_plugins.cpp
 	ui/prefs_preflightverifier.cpp
@@ -1118,7 +614,6 @@ endif()
 
 
 if(WIN32)
-	set(SCRIBUS_MOC_WIN32_ONLY_CLASSES scprintengine_gdi.h)
 	set(SCRIBUS_WIN32_ONLY_SOURCES
 		printpreviewcreator_gdi.cpp
 		scpainterex_cairo.cpp
@@ -1126,17 +621,14 @@ if(WIN32)
 		)
 	set(SCRIBUS_MAIN_CPP main_win32.cpp)
 else()
-	set(SCRIBUS_MOC_WIN32_ONLY_CLASSES)
 	set(SCRIBUS_WIN32_ONLY_SOURCES)
 	set(SCRIBUS_MAIN_CPP main.cpp)
 endif()
 
-QT5_WRAP_UI(SCRIBUS_UI_SOURCES ${SCRIBUS_UI_SRC} )
+set(CMAKE_AUTOUIC_SEARCH_PATHS ui/)
 
-QT5_WRAP_CPP(SCRIBUS_MOC_SOURCES
-	${SCRIBUS_MOC_CLASSES}
-	${SCRIBUS_MOC_WIN32_ONLY_CLASSES}
-	)
+set_property(SOURCE third_party/fparser/file.hh PROPERTY SKIP_AUTOGEN ON)
+set_property(SOURCE third_party/fparser/fparser.hh PROPERTY SKIP_AUTOGEN ON)
 
 link_directories(
 	${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
@@ -1224,9 +716,17 @@ endif()
 #	cmake_policy(SET CMP0003 OLD)
 #endif()
 
+
+if (NOT DEFINED CMAKE_GLOBAL_AUTOGEN_TARGET_NAME)
+	set(SCRIBUS_AUTOGEN_INCLUDE_PATH "${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}_autogen/include")
+else()
+	set(SCRIBUS_AUTOGEN_INCLUDE_PATH "${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}_${CMAKE_GLOBAL_AUTOGEN_TARGET_NAME}/include")
+endif()
+message(STATUS "Autogen Include Path: ${SCRIBUS_AUTOGEN_INCLUDE_PATH}")
+#set(CMAKE_AUTOUIC_SEARCH_PATHS ${SCRIBUS_AUTOGEN_INCLUDE_PATH})
+
 if(HAVE_OSG)
 	add_executable(${EXE_NAME}
-		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_API_SOURCES}
@@ -1235,14 +735,12 @@ if(HAVE_OSG)
 		${SCRIBUS_FONTS_SOURCES}
 		${SCRIBUS_STYLES_SOURCES}
 		${SCRIBUS_TEXT_SOURCES}
-		${SCRIBUS_UI_SOURCES}
 		${SCRIBUS_WIN32_ONLY_SOURCES}
 		${GESTURE_FRAME_PREVIEW_SOURCES}
 		${SCRIBUS_PRC_SOURCES}
 	)
 else()
 	add_executable(${EXE_NAME}
-		${SCRIBUS_MOC_SOURCES}
 		${SCRIBUS_MAIN_CPP}
 		${SCRIBUS_SOURCES}
 		${SCRIBUS_API_SOURCES}
@@ -1251,7 +749,6 @@ else()
 		${SCRIBUS_FONTS_SOURCES}
 		${SCRIBUS_STYLES_SOURCES}
 		${SCRIBUS_TEXT_SOURCES}
-		${SCRIBUS_UI_SOURCES}
 		${SCRIBUS_WIN32_ONLY_SOURCES}
 		${GESTURE_FRAME_PREVIEW_SOURCES}
 	)
@@ -1310,6 +807,9 @@ IF(NOT WANT_QT6)
 	)
 else()
 	target_link_libraries(${EXE_NAME}
+		Qt6::Core
+		Qt6::Core5Compat
+		Qt6::Gui
 		Qt6::Widgets
 		)
 endif()
@@ -1414,17 +914,27 @@ if (HAVE_BOOST)
 endif()
 
 # Now build plugins
-
-set(PLUGIN_LIBRARIES
-	${Qt5Core_LIBRARIES}
-	${Qt5Widgets_LIBRARIES}
-	${Qt5Gui_LIBRARIES}
-	${Qt5Xml_LIBRARIES}
-	${Qt5Network_LIBRARIES}
-	${Qt5OpenGL_LIBRARIES}
-	${LIBXML2_LIBRARIES}
-	${ZLIB_LIBRARIES}
-)
+IF(NOT WANT_QT6)
+    set(PLUGIN_LIBRARIES
+		${Qt5Core_LIBRARIES}
+		${Qt5Widgets_LIBRARIES}
+		${Qt5Gui_LIBRARIES}
+		${Qt5Xml_LIBRARIES}
+		${Qt5Network_LIBRARIES}
+		${Qt5OpenGL_LIBRARIES}
+		${LIBXML2_LIBRARIES}
+		${ZLIB_LIBRARIES}
+	)
+else()
+	set(PLUGIN_LIBRARIES
+		${Qt6Core_LIBRARIES}
+		${Qt6Core5Compat_LIBRARIES}
+		${Qt6Widgets_LIBRARIES}
+		${Qt6Gui_LIBRARIES}
+		${LIBXML2_LIBRARIES}
+		${ZLIB_LIBRARIES}
+	)
+endif()
 
 if(WIN32)
 	# IF your plugin needs more than this, please link them privately

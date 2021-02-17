@@ -28,8 +28,8 @@
 #ifndef OSDAB_ZIPGLOBAL__H
 #define OSDAB_ZIPGLOBAL__H
 
-#include <QtCore/QDateTime>
-#include <QtCore/QtGlobal>
+#include <QDateTime>
+#include <QtGlobal>
 //#define OSDAB_ZIP_LIB
 #define OSDAB_ZIP_BUILD_LIB
 /* If you want to build the OSDaB Zip code as

@@ -10,20 +10,6 @@ if (NOT WANT_NOEXAMPLES)
 endif ()
 add_subdirectory(scripts)
 
-set(SCRIPTER_PLUGIN_UI_SRC
-	pconsole.ui
-	runscriptdialog.ui
-	prefs_scripterbase.ui
-)
-
-set(SCRIPTER_PLUGIN_MOC_CLASSES
-	pconsole.h
-	scriptplugin.h
-	scriptercore.h
-	runscriptdialog.h
-	prefs_scripter.h
-)
-
 set(SCRIPTER_PLUGIN_SOURCES
 	cmdannotations.cpp
 	cmdcell.cpp
@@ -55,13 +41,8 @@ set(SCRIPTER_PLUGIN_SOURCES
 
 set(SCRIBUS_SCRIPTER_PLUGIN "scriptplugin")
 
-QT5_WRAP_UI(SCRIPTER_PLUGIN_UI_SOURCES ${SCRIPTER_PLUGIN_UI_SRC} )
-QT5_WRAP_CPP(SCRIPTER_PLUGIN_MOC_SOURCES ${SCRIPTER_PLUGIN_MOC_CLASSES})
-
 add_library(${SCRIBUS_SCRIPTER_PLUGIN} MODULE 
 	${SCRIPTER_PLUGIN_SOURCES}
-	${SCRIPTER_PLUGIN_MOC_SOURCES}
-	${SCRIPTER_PLUGIN_UI_SOURCES}
 )
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
@@ -81,5 +62,3 @@ install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 )
 
 add_dependencies(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
-
-# set_target_properties(${SCRIBUS_SCRIPTER_PLUGIN} PROPERTIES VERSION "0.0.0")

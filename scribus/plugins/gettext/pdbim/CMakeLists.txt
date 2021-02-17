@@ -4,7 +4,7 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 set(PDB_GT_PLUGIN_SOURCES
-pdbim.cpp
+	pdbim.cpp
 )
 
 set(SCRIBUS_PDB_GT_PLUGIN "pdbim")
@@ -23,4 +23,3 @@ install(TARGETS ${SCRIBUS_PDB_GT_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-# set_target_properties(${SCRIBUS_FONTPREVIEW_PLUGIN} PROPERTIES VERSION "0.0.0")

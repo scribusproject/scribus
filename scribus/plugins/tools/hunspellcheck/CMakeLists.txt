@@ -4,16 +4,6 @@ include_directories(
 	${hunspell_INCLUDE_DIR}
 )
 
-set(HUNSPELL_PLUGIN_UI_SRC
-	hunspelldialogbase.ui
-)
-
-set(HUNSPELL_PLUGIN_MOC_CLASSES
-	hunspelldialog.h
-	hunspellplugin.h
-	hunspellpluginimpl.h
-)
-
 set(HUNSPELL_PLUGIN_SOURCES
 	hunspelldialog.cpp
 	hunspelldict.cpp
@@ -23,14 +13,9 @@ set(HUNSPELL_PLUGIN_SOURCES
 
 set(SCRIBUS_HUNSPELL_PLUGIN "hunspellplugin")
 
-QT5_WRAP_UI(HUNSPELL_PLUGIN_UI_SOURCES ${HUNSPELL_PLUGIN_UI_SRC} )
-QT5_WRAP_CPP(HUNSPELL_PLUGIN_MOC_SOURCES ${HUNSPELL_PLUGIN_MOC_CLASSES})
-
 
 add_library(${SCRIBUS_HUNSPELL_PLUGIN} MODULE
 	${HUNSPELL_PLUGIN_SOURCES}
-	${HUNSPELL_PLUGIN_MOC_SOURCES}
-	${HUNSPELL_PLUGIN_UI_SOURCES}
 )
 
 target_link_libraries(${SCRIBUS_HUNSPELL_PLUGIN} ${hunspell_LIBRARIES} ${PLUGIN_LIBRARIES})
@@ -46,6 +31,3 @@ install(TARGETS ${SCRIBUS_HUNSPELL_PLUGIN}
 )
 
 add_dependencies(${SCRIBUS_HUNSPELL_PLUGIN} ${EXE_NAME})
-
-# set_target_properties(${SCRIBUS_ASPELL_PLUGIN} PROPERTIES VERSION "0.0.1")
-

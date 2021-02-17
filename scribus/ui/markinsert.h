@@ -2,7 +2,7 @@
 #define MARKINSERT_H
 
 #include <QDialog>
-#include <scribusapi.h>
+#include "scribusapi.h"
 
 class NotesStyle;
 class Mark;

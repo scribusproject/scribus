@@ -1,20 +1,7 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-)
-
-set(SHORTWORDS_PLUGIN_UI_SRC
-	swdialog.ui
-	prefs_shortwordsbase.ui
-)
-
-set(SHORTWORDS_PLUGIN_MOC_CLASSES
-	configuration.h
-	parse.h
-	prefs_shortwords.h
-	shortwords.h
-	swdialog.h
-	swsyntaxhighlighter.h
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
 )
 
 set(SHORTWORDS_PLUGIN_SOURCES
@@ -28,13 +15,8 @@ set(SHORTWORDS_PLUGIN_SOURCES
 
 set(SCRIBUS_SHORTWORDS_PLUGIN "scribusshortwords")
 
-QT5_WRAP_UI(SHORTWORDS_PLUGIN_UI_SOURCES ${SHORTWORDS_PLUGIN_UI_SRC} )
-QT5_WRAP_CPP(SHORTWORDS_PLUGIN_MOC_SOURCES ${SHORTWORDS_PLUGIN_MOC_CLASSES})
-
 add_library(${SCRIBUS_SHORTWORDS_PLUGIN} MODULE
 	${SHORTWORDS_PLUGIN_SOURCES}
-	${SHORTWORDS_PLUGIN_MOC_SOURCES}
-	${SHORTWORDS_PLUGIN_UI_SOURCES}
 )
 
 target_link_libraries(${SCRIBUS_SHORTWORDS_PLUGIN} ${PLUGIN_LIBRARIES})
@@ -54,5 +36,3 @@ install(FILES scribus-short-words.rc
 )
 
 add_dependencies(${SCRIBUS_SHORTWORDS_PLUGIN} ${EXE_NAME})
-
-# set_target_properties(${SCRIBUS_FONTPREVIEW_PLUGIN} PROPERTIES VERSION "0.0.0")

@@ -1,25 +1,17 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-)
-
-set(IMPORTXAR_PLUGIN_MOC_CLASSES
-#	qtiocompressor.h
-	importxar.h
-	importxarplugin.h
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
 )
 
 set(IMPORTXAR_PLUGIN_SOURCES
-#	qtiocompressor.cpp
 	importxar.cpp
 	importxarplugin.cpp
 )
 
 set(SCRIBUS_IMPORTXAR_PLUGIN "importxar")
 
-QT5_WRAP_CPP(IMPORTXAR_PLUGIN_MOC_SOURCES ${IMPORTXAR_PLUGIN_MOC_CLASSES})
-
-add_library(${SCRIBUS_IMPORTXAR_PLUGIN} MODULE ${IMPORTXAR_PLUGIN_SOURCES} ${IMPORTXAR_PLUGIN_MOC_SOURCES})
+add_library(${SCRIBUS_IMPORTXAR_PLUGIN} MODULE ${IMPORTXAR_PLUGIN_SOURCES})
 
 target_link_libraries(${SCRIBUS_IMPORTXAR_PLUGIN} ${PLUGIN_LIBRARIES})
 

@@ -44,11 +44,14 @@ endif()
 #Project Setup
 #Do this now, prior to adding the suffix for SVN
 project(scribus VERSION ${VERSION}) # LANGUAGES CXX C)
-
 if (VERSION_SUFFIX)
 	set (VERSION ${VERSION}.${VERSION_SUFFIX})
 endif()
 message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+
 
 # Configure CCache if available and wanted
 if (WANT_CCACHE)
