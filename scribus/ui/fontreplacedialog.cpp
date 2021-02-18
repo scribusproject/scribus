@@ -31,8 +31,8 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	ReplaceList = RList;
 	FontReplaceDialogLayout = new QVBoxLayout( this );
-	FontReplaceDialogLayout->setMargin(10);
-	FontReplaceDialogLayout->setSpacing(5);
+	FontReplaceDialogLayout->setContentsMargins(9, 9, 9, 9);
+	FontReplaceDialogLayout->setSpacing(6);
 
 	textLabel1 = new QLabel(this);
 	textLabel1->setAlignment(Qt::AlignVCenter);
@@ -66,8 +66,8 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	FontReplaceDialogLayout->addWidget( replacementTable );
 
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	stickyReplacements = new QCheckBox( this );
 	stickyReplacements->setText( tr( "Make these substitutions permanent" ) );
 	layout1->addWidget(stickyReplacements);

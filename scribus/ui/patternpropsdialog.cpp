@@ -30,13 +30,13 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	setModal(true);
 	forStroke = isStroke;
 	frame3Layout = new QVBoxLayout( this );
-	frame3Layout->setMargin(0);
-	frame3Layout->setSpacing(2);
+	frame3Layout->setContentsMargins(9, 9, 9, 9);
+	frame3Layout->setSpacing(6);
 
 	groupOffset = new QGroupBox( this );
 	groupOffsetLayout = new QHBoxLayout( groupOffset );
-	groupOffsetLayout->setSpacing( 2 );
-	groupOffsetLayout->setMargin( 3 );
+	groupOffsetLayout->setSpacing(6);
+	groupOffsetLayout->setContentsMargins(9, 9, 9, 9);
 	groupOffsetLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( groupOffset );
 	groupOffsetLayout->addWidget( textLabel1 );
@@ -50,8 +50,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 
 	groupScale = new QGroupBox( this );
 	groupScaleLayout = new QGridLayout( groupScale );
-	groupScaleLayout->setSpacing( 2 );
-	groupScaleLayout->setMargin( 3 );
+	groupScaleLayout->setSpacing(6);
+	groupScaleLayout->setContentsMargins(9, 9, 9, 9);
 	groupScaleLayout->setAlignment( Qt::AlignTop );
 	textLabel5 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel5, 0, 0 );
@@ -71,8 +71,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	frame3Layout->addWidget( groupScale );
 	groupRotation = new QGroupBox( this );
 	groupRotationLayout = new QHBoxLayout( groupRotation );
-	groupRotationLayout->setSpacing( 2 );
-	groupRotationLayout->setMargin( 3 );
+	groupRotationLayout->setSpacing(6);
+	groupRotationLayout->setContentsMargins(9, 9, 9, 9);
 	groupRotationLayout->setAlignment( Qt::AlignTop );
 	textLabel7 = new QLabel( groupRotation );
 	groupRotationLayout->addWidget( textLabel7 );
@@ -82,8 +82,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 
 	groupSkew = new QGroupBox( this );
 	groupSkewLayout = new QGridLayout( groupSkew );
-	groupSkewLayout->setSpacing( 2 );
-	groupSkewLayout->setMargin( 3 );
+	groupSkewLayout->setSpacing(6);
+	groupSkewLayout->setContentsMargins(9, 9, 9, 9);
 	groupSkewLayout->setAlignment( Qt::AlignTop );
 	textLabel8 = new QLabel( groupSkew );
 	groupSkewLayout->addWidget( textLabel8, 0, 0 );
@@ -101,8 +101,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	{
 		groupSpace = new QGroupBox( this );
 		groupSpaceLayout = new QHBoxLayout( groupSpace );
-		groupSpaceLayout->setSpacing( 2 );
-		groupSpaceLayout->setMargin( 3 );
+		groupSpaceLayout->setSpacing(6);
+		groupSpaceLayout->setContentsMargins(9, 9, 9, 9);
 		groupSpaceLayout->setAlignment( Qt::AlignTop );
 		textLabel20 = new QLabel( groupSpace );
 		groupSpaceLayout->addWidget( textLabel20 );
@@ -113,8 +113,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	}
 
 	groupFlipLayout = new QHBoxLayout();
-	groupFlipLayout->setSpacing( 2 );
-	groupFlipLayout->setMargin( 3 );
+	groupFlipLayout->setSpacing(6);
+	groupFlipLayout->setContentsMargins(0, 0, 0, 0);
 	textLabel15 = new QLabel( this );
 	groupFlipLayout->addWidget( textLabel15 );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -130,8 +130,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	frame3Layout->addLayout( groupFlipLayout );
 
 	buttonLayout = new QHBoxLayout;
-	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(5);
+	buttonLayout->setContentsMargins(0, 0, 0, 0);
+	buttonLayout->setSpacing(6);
 	QSpacerItem* hspacing = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(hspacing);
 	buttonOk = new QPushButton( this );

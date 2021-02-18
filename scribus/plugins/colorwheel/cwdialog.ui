@@ -28,9 +28,6 @@
    <property name="bottomMargin">
     <number>9</number>
    </property>
-   <property name="spacing">
-    <number>6</number>
-   </property>
    <item row="0" column="0">
     <widget class="ColorWheel" name="colorWheel" native="true">
      <property name="sizePolicy">
@@ -41,13 +38,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>300</width>
+       <width>307</width>
        <height>300</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>300</width>
+       <width>307</width>
        <height>300</height>
       </size>
      </property>
@@ -62,21 +59,6 @@
       <string>Result Colors</string>
      </property>
      <layout class="QGridLayout">
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
-       <number>9</number>
-      </property>
-      <property name="spacing">
-       <number>6</number>
-      </property>
       <item row="1" column="0">
        <widget class="QTableWidget" name="currentColorTable">
         <property name="sizePolicy">
@@ -112,14 +94,14 @@
         <attribute name="horizontalHeaderVisible">
          <bool>false</bool>
         </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>42</number>
+        </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>42</number>
         </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>42</number>
         </attribute>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
@@ -183,26 +165,8 @@
       <string>Color Scheme Method</string>
      </property>
      <layout class="QGridLayout">
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
-       <number>9</number>
-      </property>
-      <property name="spacing">
-       <number>6</number>
-      </property>
       <item row="1" column="0">
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
         <property name="leftMargin">
          <number>0</number>
         </property>
@@ -264,9 +228,6 @@
    </item>
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -342,21 +303,6 @@
       <string>Preview:</string>
      </property>
      <layout class="QGridLayout">
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
-       <number>9</number>
-      </property>
-      <property name="spacing">
-       <number>6</number>
-      </property>
       <item row="2" column="0">
        <widget class="QLabel" name="previewLabel">
         <property name="minimumSize">
@@ -432,25 +378,19 @@
       </attribute>
       <layout class="QGridLayout">
        <property name="leftMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="topMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="rightMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="bottomMargin">
-        <number>11</number>
-       </property>
-       <property name="spacing">
-        <number>6</number>
+        <number>9</number>
        </property>
        <item row="0" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -487,9 +427,6 @@
        </item>
        <item row="1" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -526,9 +463,6 @@
        </item>
        <item row="2" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -565,9 +499,6 @@
        </item>
        <item row="3" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -604,9 +535,6 @@
        </item>
        <item row="4" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -649,9 +577,6 @@
        </item>
        <item row="5" column="0">
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -716,25 +641,19 @@
       </attribute>
       <layout class="QGridLayout">
        <property name="leftMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="topMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="rightMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="bottomMargin">
-        <number>11</number>
-       </property>
-       <property name="spacing">
-        <number>6</number>
+        <number>9</number>
        </property>
        <item row="0" column="0">
         <layout class="QVBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -749,9 +668,6 @@
          </property>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -785,9 +701,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -821,9 +734,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -857,9 +767,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -899,9 +806,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -965,25 +869,19 @@
       </attribute>
       <layout class="QGridLayout">
        <property name="leftMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="topMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="rightMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="bottomMargin">
-        <number>11</number>
-       </property>
-       <property name="spacing">
-        <number>6</number>
+        <number>9</number>
        </property>
        <item row="0" column="0">
         <layout class="QVBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -998,9 +896,6 @@
          </property>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1034,9 +929,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1070,9 +962,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1106,9 +995,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1151,9 +1037,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -1217,19 +1100,16 @@
       </attribute>
       <layout class="QGridLayout">
        <property name="leftMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="topMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="rightMargin">
-        <number>11</number>
+        <number>9</number>
        </property>
        <property name="bottomMargin">
-        <number>11</number>
-       </property>
-       <property name="spacing">
-        <number>6</number>
+        <number>9</number>
        </property>
        <item row="0" column="0">
         <widget class="ColorListBox" name="documentColorList" native="true"/>
