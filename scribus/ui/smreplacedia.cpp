@@ -15,8 +15,8 @@ SMRowWidget::SMRowWidget(const QString &toBeDeleted, const QStringList& replaceO
 : QWidget(parent)
 {
 	layout = new QHBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(5);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(6);
 	deleteLabel = new QLabel(toBeDeleted, this);
 	layout->addWidget(deleteLabel);
 	optionsCombo = new QComboBox(this);
@@ -58,10 +58,10 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	}
 
 	layout = new QVBoxLayout(mainFrame);
-	layout->setMargin(0);
-	layout->setSpacing(5);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(6);
 	headerLayout = new QHBoxLayout();
-	headerLayout->setMargin(5);
+	headerLayout->setContentsMargins(0, 0, 0, 0);
 	deleteHeader = new QLabel("<b>" + tr("Remove") + "</b>", mainFrame);
 	optionsHeader = new QLabel("<b>" + tr("Replace with") + "</b>", mainFrame);
 	headerLayout->addWidget(deleteHeader);

@@ -28,11 +28,11 @@ DelColor::DelColor( QWidget* parent, const ColorList& colorList, const QString& 
 	setWindowTitle( tr( "Delete Color" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
-	dialogLayout->setMargin(10);
-	dialogLayout->setSpacing(5);
+	dialogLayout->setContentsMargins(9, 9, 9, 9);
+	dialogLayout->setSpacing(6);
 	delColorLayout = new QGridLayout;
-	delColorLayout->setSpacing( 5 );
-	delColorLayout->setMargin( 5 );
+	delColorLayout->setSpacing(6);
+	delColorLayout->setContentsMargins(0, 0, 0, 0);
 	deleteLabel = new QLabel( tr( "Delete Color:" ), this );
 	delColorLayout->addWidget( deleteLabel, 0, 0 );
 	colorToDelLabel = new QLabel( colorName, this );
@@ -57,8 +57,8 @@ DelColor::DelColor( QWidget* parent, const ColorList& colorList, const QString& 
 	dialogLayout->addLayout( delColorLayout );
 
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 5 );
-	okCancelLayout->setMargin( 0 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this );

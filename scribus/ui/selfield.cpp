@@ -29,14 +29,14 @@ SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	FTyp = Art;
 	SelectFieldsLayout = new QVBoxLayout( this );
-	SelectFieldsLayout->setMargin(10);
-	SelectFieldsLayout->setSpacing(5);
+	SelectFieldsLayout->setContentsMargins(9, 9, 9, 9);
+	SelectFieldsLayout->setSpacing(6);
 	Layout5 = new QHBoxLayout;
-	Layout5->setMargin(0);
-	Layout5->setSpacing(5);
+	Layout5->setContentsMargins(0, 0, 0, 0);
+	Layout5->setSpacing(6);
 	Layout1 = new QVBoxLayout;
-	Layout1->setMargin(0);
-	Layout1->setSpacing(5);
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
 
 	Text1 = new QLabel( tr( "Available Fields" ), this );
 	Layout1->addWidget( Text1 );
@@ -76,8 +76,8 @@ SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString
 	if (Art > 1)
 	{
 		Layout2 = new QVBoxLayout;
-		Layout2->setMargin(0);
-		Layout2->setSpacing(5);
+		Layout2->setContentsMargins(0, 0, 0, 0);
+		Layout2->setSpacing(6);
 		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer );
 		ToSel = new QPushButton( tr( "&>>" ), this );
@@ -88,8 +88,8 @@ SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString
 		Layout2->addItem( spacer_2 );
 		Layout5->addLayout( Layout2 );
 		Layout3 = new QVBoxLayout;
-		Layout3->setMargin(0);
-		Layout3->setSpacing(5);
+		Layout3->setContentsMargins(0, 0, 0, 0);
+		Layout3->setSpacing(6);
 		Text2 = new QLabel( tr( "Selected Fields" ), this );
 		Layout3->addWidget( Text2 );
 		SelFields = new QListWidget( this );
@@ -112,8 +112,8 @@ SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString
 	SelectFieldsLayout->addLayout( Layout5 );
 	S_Fields = "";
 	Layout4 = new QHBoxLayout;
-	Layout4->setMargin(0);
-	Layout4->setSpacing(5);
+	Layout4->setContentsMargins(0, 0, 0, 0);
+	Layout4->setSpacing(6);
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_3 );
 	OK = new QPushButton( CommonStrings::tr_OK, this );

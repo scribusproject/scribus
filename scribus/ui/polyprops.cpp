@@ -19,8 +19,8 @@ PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, boo
 	setWindowTitle( tr( "Polygon Properties" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
-	PolygonPropsLayout->setMargin(10);
-	PolygonPropsLayout->setSpacing(5);
+	PolygonPropsLayout->setContentsMargins(9, 9, 9, 9);
+	PolygonPropsLayout->setSpacing(6);
 	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature, true);
 	PolygonPropsLayout->addWidget( polyWidget );
 	// signals and slots connections
@@ -39,13 +39,13 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, double polyF, bool polyS,
 	setWindowTitle( tr( "Polygon Properties" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PolygonPropsLayout = new QVBoxLayout( this );
-	PolygonPropsLayout->setMargin(10);
-	PolygonPropsLayout->setSpacing(5);
+	PolygonPropsLayout->setContentsMargins(9, 9, 9, 9);
+	PolygonPropsLayout->setSpacing(6);
 	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature);
 	PolygonPropsLayout->addWidget( polyWidget );
 	Layout1 = new QHBoxLayout;
-	Layout1->setMargin(0);
-	Layout1->setSpacing(5);
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
 	okButton = new QPushButton(this);

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SMReplaceDia</class>
- <widget class="QDialog" name="SMReplaceDia" >
-  <property name="geometry" >
+ <widget class="QDialog" name="SMReplaceDia">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,49 +10,61 @@
     <height>271</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Delete Styles</string>
   </property>
-  <property name="sizeGripEnabled" >
+  <property name="sizeGripEnabled">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>5</number>
+  <layout class="QVBoxLayout">
+   <property name="leftMargin">
+    <number>9</number>
    </property>
-   <property name="spacing" >
-    <number>5</number>
+   <property name="topMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
    </property>
    <item>
-    <widget class="QFrame" name="mainFrame" >
-     <property name="frameShape" >
+    <widget class="QFrame" name="mainFrame">
+     <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <property name="lineWidth" >
+     <property name="lineWidth">
       <number>0</number>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
+    <layout class="QHBoxLayout">
+     <property name="leftMargin">
       <number>0</number>
      </property>
-     <property name="spacing" >
-      <number>6</number>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint">
         <size>
          <width>20</width>
          <height>20</height>
@@ -60,30 +73,30 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonOk" >
-       <property name="text" >
+      <widget class="QPushButton" name="buttonOk">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string/>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
-       <property name="default" >
+       <property name="default">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonCancel" >
-       <property name="text" >
+      <widget class="QPushButton" name="buttonCancel">
+       <property name="text">
         <string>Ca&amp;ncel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <string>Alt+N</string>
        </property>
-       <property name="autoDefault" >
+       <property name="autoDefault">
         <bool>true</bool>
        </property>
       </widget>
@@ -92,9 +105,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
- <customwidgets>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -103,11 +113,11 @@
    <receiver>SMReplaceDia</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>
@@ -119,11 +129,11 @@
    <receiver>SMReplaceDia</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>20</x>
      <y>20</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>20</x>
      <y>20</y>
     </hint>

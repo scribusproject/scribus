@@ -49,15 +49,15 @@ enum {
 ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( parent )
 {
 	setModal(true);
-	setWindowTitle( tr( "Possible Hyphenation" ));
+	setWindowTitle( tr( "Apply Master Page" ));
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	ApplyMasterPageDialogLayout = new QVBoxLayout(this);
-	ApplyMasterPageDialogLayout->setMargin(10);
-	ApplyMasterPageDialogLayout->setSpacing(5);
+	ApplyMasterPageDialogLayout->setContentsMargins(9, 9, 9, 9);
+	ApplyMasterPageDialogLayout->setSpacing(6);
 
 	templateNameLayout = new QHBoxLayout;
-	templateNameLayout->setMargin(0);
-	templateNameLayout->setSpacing(5);
+	templateNameLayout->setContentsMargins(0, 0, 0, 0);
+	templateNameLayout->setSpacing(6);
 
 	masterPageLabel = new QLabel( this );
 	templateNameLayout->addWidget( masterPageLabel );
@@ -72,8 +72,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	applyToPageButtonGroup = new QGroupBox(this);
 	applyToPageButtonGroup->setMinimumSize( QSize( 250, 0 ) );
 	applyToPageButtonGroupLayout = new QVBoxLayout(applyToPageButtonGroup);
-	applyToPageButtonGroupLayout->setSpacing( 5 );
-	applyToPageButtonGroupLayout->setMargin( 10 );
+	applyToPageButtonGroupLayout->setSpacing(6);
+	applyToPageButtonGroupLayout->setContentsMargins(9, 9, 9, 9);
 
 	currentPageRadioButton = new QRadioButton( applyToPageButtonGroup );
 	currentPageRadioButton->setChecked( true );
@@ -89,8 +89,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	applyToPageButtonGroupLayout->addWidget( allPagesRadioButton );
 
 	rangeLayout = new QHBoxLayout;
-	rangeLayout->setSpacing( 5 );
-	rangeLayout->setMargin( 0 );
+	rangeLayout->setSpacing(6);
+	rangeLayout->setContentsMargins(0, 0, 0, 0);
 
 	useRangeCheckBox = new QCheckBox( applyToPageButtonGroup );
 	useRangeCheckBox->setEnabled( false );	
@@ -118,8 +118,8 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	ApplyMasterPageDialogLayout->addWidget( applyToPageButtonGroup );
 
 	layout8 = new QHBoxLayout;
-	layout8->setSpacing( 5 );
-	layout8->setMargin( 0 );
+	layout8->setSpacing(6);
+	layout8->setContentsMargins(0, 0, 0, 0);
 	spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout8->addItem( spacer1 );
 
@@ -130,7 +130,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	layout8->addWidget( cancelButton );
 	ApplyMasterPageDialogLayout->addLayout( layout8 );
 	languageChange();
-	resize( QSize(272, 230).expandedTo(minimumSizeHint()) );
+	resize( QSize(268, 230).expandedTo(minimumSizeHint()) );
 
 	// signals and slots connections
 	connect( useRangeCheckBox, SIGNAL( toggled(bool) ), this, SLOT( enableRange(bool) ) );

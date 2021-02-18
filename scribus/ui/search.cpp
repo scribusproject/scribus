@@ -55,16 +55,16 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 
 	SearchReplaceLayout = new QVBoxLayout( this );
-	SearchReplaceLayout->setMargin(10);
-	SearchReplaceLayout->setSpacing(5);
+	SearchReplaceLayout->setContentsMargins(9, 9, 9, 9);
+	SearchReplaceLayout->setSpacing(6);
 	SelLayout = new QHBoxLayout;
-	SelLayout->setMargin(0);
-	SelLayout->setSpacing(5);
+	SelLayout->setContentsMargins(0, 0, 0, 0);
+	SelLayout->setSpacing(6);
 	Search = new QGroupBox( this );
 	Search->setTitle( tr( "Search for:" ) );
 	SearchLayout = new QGridLayout( Search );
-	SearchLayout->setMargin(5);
-	SearchLayout->setSpacing(2);
+	SearchLayout->setContentsMargins(9, 9, 9, 9);
+	SearchLayout->setSpacing(6);
 	SearchLayout->setAlignment( Qt::AlignTop );
 	SText = new QCheckBox( Search );
 	SText->setText( tr( "Text" ) );
@@ -162,8 +162,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	Replace = new QGroupBox( this );
 	Replace->setTitle( tr( "Replace with:" ) );
 	ReplaceLayout = new QGridLayout( Replace );
-	ReplaceLayout->setSpacing( 2 );
-	ReplaceLayout->setMargin( 5 );
+	ReplaceLayout->setSpacing(6);
+	ReplaceLayout->setContentsMargins(9, 9, 9, 9);
 	ReplaceLayout->setAlignment( Qt::AlignTop );
 	RText = new QCheckBox( Replace );
 	RText->setText( tr( "Text" ) );
@@ -258,8 +258,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchReplaceLayout->addLayout( SelLayout );
 
 	OptsLayout = new QHBoxLayout;
-	OptsLayout->setSpacing( 5 );
-	OptsLayout->setMargin( 0 );
+	OptsLayout->setSpacing(6);
+	OptsLayout->setContentsMargins(0, 0, 0, 0);
 	Word = new QCheckBox( tr( "&Whole Word" ), this );
 	if (mode)
 		Word->setEnabled(false);
@@ -271,8 +271,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchReplaceLayout->addLayout( OptsLayout );
 
 	ButtonsLayout = new QHBoxLayout;
-	ButtonsLayout->setSpacing( 5 );
-	ButtonsLayout->setMargin( 0 );
+	ButtonsLayout->setSpacing(6);
+	ButtonsLayout->setContentsMargins(0, 0, 0, 0);
 	DoSearch = new QPushButton( tr( "&Search" ), this );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );

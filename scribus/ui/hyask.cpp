@@ -50,8 +50,8 @@ HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 	setWindowTitle( tr( "Possible Hyphenation" ));
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	HyAskLayout = new QVBoxLayout(this);
-	HyAskLayout->setMargin(10);
-	HyAskLayout->setSpacing(5);
+	HyAskLayout->setContentsMargins(9, 9, 9, 9);
+	HyAskLayout->setSpacing(6);
 
 	Wort = new WortEdit ( this );
 	Wort->setMinimumSize ( QSize ( 300, 0 ) );
@@ -60,20 +60,20 @@ HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 	HyAskLayout->addWidget ( Wort );
 
 	Layout1 = new QHBoxLayout;
-	Layout1->setMargin(0);
-	Layout1->setSpacing(5);
+	Layout1->setContentsMargins(0, 0, 0, 0);
+	Layout1->setSpacing(6);
 
 	vboxLayout1 = new QVBoxLayout();
-	vboxLayout1->setSpacing(5);
-	vboxLayout1->setMargin(0);
+	vboxLayout1->setSpacing(6);
+	vboxLayout1->setContentsMargins(0, 0, 0, 0);
 	OK = new QPushButton(this);
 	OK->setText( tr("Accept"));
 	OK->setToolTip(tr("Accept the proposed hyphenation"));
 	OK->setDefault(true);
 	vboxLayout1->addWidget(OK);
 	hboxLayout1 = new QHBoxLayout();
-	hboxLayout1->setSpacing(0);
-	hboxLayout1->setMargin(0);
+	hboxLayout1->setSpacing(6);
+	hboxLayout1->setContentsMargins(0, 0, 0, 0);
 	addToExceptionList = new QCheckBox(this);
 	addToExceptionList->setToolTip(tr("Add edited hyphen to local hyphenation dictionary list"));
 	hboxLayout1->addWidget(addToExceptionList);
@@ -87,14 +87,14 @@ HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 	addToExceptionList->setChecked(false);
 
 	vboxLayout2 = new QVBoxLayout();
-	vboxLayout2->setSpacing(5);
-	vboxLayout2->setMargin(0);
+	vboxLayout2->setSpacing(6);
+	vboxLayout2->setContentsMargins(0, 0, 0, 0);
 	Skip = new QPushButton(this);
 	Skip->setText( tr("Skip"));
 	vboxLayout2->addWidget(Skip);
 	hboxLayout2 = new QHBoxLayout();
-	hboxLayout2->setSpacing(0);
-	hboxLayout2->setMargin(0);
+	hboxLayout2->setSpacing(6);
+	hboxLayout2->setContentsMargins(0, 0, 0, 0);
 	addToIgnoreList = new QCheckBox(this);
 	addToIgnoreList->setToolTip(tr("Add edited word to words that should not be hyphenated"));
 	hboxLayout2->addWidget(addToIgnoreList);
@@ -106,8 +106,8 @@ HyAsk::HyAsk ( QWidget* parent, const QString& HWort ) : QDialog ( parent )
 	addToIgnoreList->setChecked(false);
 
 	vboxLayout3 = new QVBoxLayout();
-	vboxLayout3->setSpacing(5);
-	vboxLayout3->setMargin(0);
+	vboxLayout3->setSpacing(6);
+	vboxLayout3->setContentsMargins(0, 0, 0, 0);
 	Cancel = new QPushButton(this);
 	Cancel->setText( tr("Cancel"));
 	Cancel->setToolTip(tr("Do not apply the proposed hyphenation"));

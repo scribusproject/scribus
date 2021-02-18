@@ -25,13 +25,13 @@ TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabReco
 	m_docUnitRatio = unitGetRatioFromIndex(dEin);
 	m_tabList = inTab;
 	TabManagerLayout = new QVBoxLayout( this );
-	TabManagerLayout->setMargin(5);
-	TabManagerLayout->setSpacing(5);
+	TabManagerLayout->setContentsMargins(9, 9, 9, 9);
+	TabManagerLayout->setSpacing(6);
 	TabList = new Tabruler(this, false, dEin, inTab, -1);
 	TabManagerLayout->addWidget( TabList );
 	layout10 = new QHBoxLayout;
-	layout10->setSpacing( 5 );
-	layout10->setMargin( 0 );
+	layout10->setSpacing(6);
+	layout10->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout10->addItem( spacer );
 	OKButton = new QPushButton( CommonStrings::tr_OK, this);
