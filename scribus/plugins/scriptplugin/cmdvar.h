@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 	#undef _POSIX_C_SOURCE
 #endif
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__GNUC__) || defined(__clang__)
 #pragma push_macro("slots")
 #undef slots
 #endif
@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Python.h>
 #endif
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__GNUC__) || defined(__clang__)
 #pragma pop_macro("slots")
 #endif
 
