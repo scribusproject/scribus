@@ -392,7 +392,9 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
 
-	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor(Qt::white);
+	// Do not override default text background color in story editor unless user has explicitly modified it.
+	// To do that, we initialize text background color to an invalid color and test its validity in the code. 
+	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor() /*qApp->palette().color(QPalette::Active, QPalette::Base)*/;
 	appPrefs.storyEditorPrefs.smartTextSelection = false;
 
 	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.clear();
@@ -1468,7 +1470,8 @@ bool PrefsManager::writePref(const QString& filePath)
 
 	QDomElement deSE = docu.createElement("StoryEditor");
 	deSE.setAttribute("Font", appPrefs.storyEditorPrefs.guiFont);
-	deSE.setAttribute("FontColorBackground", appPrefs.storyEditorPrefs.guiFontColorBackground.name());
+	if (appPrefs.storyEditorPrefs.guiFontColorBackground.isValid())
+		deSE.setAttribute("FontColorBackground", appPrefs.storyEditorPrefs.guiFontColorBackground.name());
 	deSE.setAttribute("SmartTextSelection", static_cast<int>(appPrefs.storyEditorPrefs.smartTextSelection));
 	elem.appendChild(deSE);
 
@@ -2157,7 +2160,12 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (dc.tagName() == "StoryEditor")
 		{
 			appPrefs.storyEditorPrefs.guiFont  = dc.attribute("Font", "");
-			appPrefs.storyEditorPrefs.guiFontColorBackground  = QColor(dc.attribute("FontColorBackground", "#FFFFFF"));
+			if (dc.hasAttribute("FontColorBackground"))
+			{
+				QString colorName = dc.attribute("FontColorBackground");
+				if (QColor::isValidColor(colorName))
+					appPrefs.storyEditorPrefs.guiFontColorBackground  = QColor(colorName);
+			}
 			appPrefs.storyEditorPrefs.smartTextSelection = static_cast<bool>(dc.attribute("SmartTextSelection", "0").toInt());
 		}
 		if (dc.tagName() == "Typography")

@@ -2000,12 +2000,15 @@ void StoryEditor::setupEditorGUI()
 	QFont fo;
 	fo.fromString(prefsManager.appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
-	QPalette pal;
 	QColor newColor(prefsManager.appPrefs.storyEditorPrefs.guiFontColorBackground);
-	pal.setColor(QPalette::Active, QPalette::Base, newColor);
-	pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
-	pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
-	Editor->setPalette(pal);
+	if (newColor.isValid())
+	{
+		QPalette pal;
+		pal.setColor(QPalette::Active, QPalette::Base, newColor);
+		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
+		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
+		Editor->setPalette(pal);
+	}
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 }

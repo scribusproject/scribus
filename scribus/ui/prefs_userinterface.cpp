@@ -109,7 +109,10 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	seFont.fromString(prefsData->storyEditorPrefs.guiFont);
 	storyEditorFontPushButton->setText(seFont.family());
 	QPixmap pm(100, 30);
-	pm.fill(prefsData->storyEditorPrefs.guiFontColorBackground);
+	QColor backgroundColor = prefsData->storyEditorPrefs.guiFontColorBackground;
+	if (!backgroundColor.isValid())
+		backgroundColor = this->palette().color(QPalette::Active, QPalette::Base);
+	pm.fill(backgroundColor);
 	seFontColor = prefsData->storyEditorPrefs.guiFontColorBackground;
 	storyEditorFontColorPushButton->setIcon(pm);
 }
@@ -131,7 +134,8 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.useSmallWidgets = useSmallWidgetsCheckBox->isChecked();
 
 	prefsData->storyEditorPrefs.guiFont = seFont.toString();
-	prefsData->storyEditorPrefs.guiFontColorBackground = seFontColor;
+	if (seFontColor.isValid())
+		prefsData->storyEditorPrefs.guiFontColorBackground = seFontColor;
 	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();
 }
 
@@ -144,9 +148,14 @@ void Prefs_UserInterface::setSelectedGUILang(const QString &newLang)
 
 void Prefs_UserInterface::changeStoryEditorFontColor()
 {
-	QColor newColor(QColorDialog::getColor(seFontColor, this));
+	QColor fontBkgndColor = seFontColor;
+	if (!fontBkgndColor.isValid())
+		fontBkgndColor = this->palette().color(QPalette::Active, QPalette::Base);
+
+	QColor newColor(QColorDialog::getColor(fontBkgndColor, this));
 	if (!newColor.isValid())
 		return;
+
 	QPixmap pm(100, 30);
 	pm.fill(newColor);
 	seFontColor = newColor;
