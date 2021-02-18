@@ -21,6 +21,7 @@ class XpsImportOptions : public QDialog
 public:
 	explicit XpsImportOptions(QWidget* parent = nullptr);
 	~XpsImportOptions();
+
 	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact);
 	QString getPagesString();
 
@@ -28,8 +29,8 @@ public slots:
 	void createPageNumberRange();
 
 private:
-	Ui::XpsImportOptions *ui;
-	int m_maxPage;
+	Ui::XpsImportOptions *ui { nullptr };
+	int m_maxPage { 0 };
 };
 
 #endif // PDFIMPORTOPTIONS_H
