@@ -44,18 +44,18 @@ set(SCRIBUS_SCRIPTER_PLUGIN "scriptplugin_py2x")
 
 add_library(${SCRIBUS_SCRIPTER_PLUGIN} MODULE 
 	${SCRIPTER_PLUGIN_SOURCES}
-	)
+)
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
 	${Python2_LIBRARIES}
 	${SCRIBUS_API_LIB}
-	)
+)
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
 
-# if(WANT_PCH)
-	# target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
-# endif()
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
+endif()
 
 install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 	LIBRARY

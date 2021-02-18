@@ -48,13 +48,14 @@ add_library(${SCRIBUS_SCRIPTER_PLUGIN} MODULE
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
 	${Python3_LIBRARIES}
+	${SCRIBUS_API_LIB}
 )
 
 target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
 
-# if(WANT_PCH)
-	# target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
-# endif()
+if(WANT_PCH)
+	target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
+endif()
 
 install(TARGETS ${SCRIBUS_SCRIPTER_PLUGIN}
 	LIBRARY
