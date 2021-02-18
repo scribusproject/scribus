@@ -52,22 +52,22 @@ bool ScPrintEngine_PDF::print(PrintOptions& options)
 	QByteArray cmd;
 	if (options.useAltPrintCommand)
 	{
-		cmd += options.printerCommand;
+		cmd += options.printerCommand.toLocal8Bit();
 		cmd += " ";
-		cmd += "\"" + fileName + "\"";
+		cmd += "\"" + fileName.toLocal8Bit() + "\"";
 		system(cmd.data());
 	}
 	else
 	{
 		QByteArray cc;
 		cmd += "lpr -P '";
-		cmd += options.printer;
+		cmd += options.printer.toLocal8Bit();
 		cmd += "'";
 		if (options.copies > 1)
 			cmd += " -#" + cc.setNum(options.copies);
-		cmd += options.printerOptions;
+		cmd += options.printerOptions.toLocal8Bit();
 		cmd += " ";
-		cmd += "\"" + fileName + "\"";
+		cmd += "\"" + fileName.toLocal8Bit() + "\"";
 		system(cmd.data());
 	}
 	// Disabled that for now, as kprinter won't work otherwise
