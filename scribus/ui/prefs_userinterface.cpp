@@ -117,26 +117,26 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->uiPrefs.language=selectedGUILang;
-	prefsData->uiPrefs.userPreferredLocale=numberFormatComboBox->currentData().toString();
-	prefsData->uiPrefs.style=themeComboBox->currentText();
-	prefsData->uiPrefs.iconSet=IconManager::instance().baseNameForTranslation(iconSetComboBox->currentText());
-	prefsData->uiPrefs.applicationFontSize=fontSizeMenuSpinBox->value();
-	prefsData->uiPrefs.paletteFontSize=fontSizePaletteSpinBox->value();
-	prefsData->uiPrefs.wheelJump=wheelJumpSpinBox->value();
-	prefsData->uiPrefs.mouseMoveTimeout=resizeMoveDelaySpinBox->value();
-	prefsData->uiPrefs.recentDocCount=recentDocumentsSpinBox->value();
-	prefsData->uiPrefs.showStartupDialog=showStartupDialogCheckBox->isChecked();
-	prefsData->uiPrefs.useTabs=useTabsForDocumentsCheckBox->isChecked();
-	prefsData->uiPrefs.showSplashOnStartup=showSplashCheckBox->isChecked();
-	prefsData->uiPrefs.useSmallWidgets=useSmallWidgetsCheckBox->isChecked();
+	prefsData->uiPrefs.userPreferredLocale = numberFormatComboBox->currentData().toString();
+	prefsData->uiPrefs.style = themeComboBox->currentText();
+	prefsData->uiPrefs.iconSet = IconManager::instance().baseNameForTranslation(iconSetComboBox->currentText());
+	prefsData->uiPrefs.applicationFontSize = fontSizeMenuSpinBox->value();
+	prefsData->uiPrefs.paletteFontSize = fontSizePaletteSpinBox->value();
+	prefsData->uiPrefs.wheelJump = wheelJumpSpinBox->value();
+	prefsData->uiPrefs.mouseMoveTimeout = resizeMoveDelaySpinBox->value();
+	prefsData->uiPrefs.recentDocCount = recentDocumentsSpinBox->value();
+	prefsData->uiPrefs.showStartupDialog = showStartupDialogCheckBox->isChecked();
+	prefsData->uiPrefs.useTabs = useTabsForDocumentsCheckBox->isChecked();
+	prefsData->uiPrefs.showSplashOnStartup = showSplashCheckBox->isChecked();
+	prefsData->uiPrefs.useSmallWidgets = useSmallWidgetsCheckBox->isChecked();
 
-	prefsData->storyEditorPrefs.guiFont=seFont.toString();
-	prefsData->storyEditorPrefs.guiFontColorBackground=seFontColor;
-	prefsData->storyEditorPrefs.smartTextSelection=storyEditorUseSmartSelectionCheckBox->isChecked();
+	prefsData->storyEditorPrefs.guiFont = seFont.toString();
+	prefsData->storyEditorPrefs.guiFontColorBackground = seFontColor;
+	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();
 }
 
 
-void Prefs_UserInterface::setSelectedGUILang( const QString &newLang )
+void Prefs_UserInterface::setSelectedGUILang(const QString &newLang)
 {
 	selectedGUILang = LanguageManager::instance()->getAbbrevFromLang(newLang);
 }
