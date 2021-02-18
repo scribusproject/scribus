@@ -49,23 +49,23 @@ protected:
 
 private:
 	QList<StyleItem*>   m_items;
-	StyleItem          *m_item;
-	QGridLayout        *m_layout;
-	QTabWidget         *m_widget;
-	ShortcutWidget     *m_shortcutWidget;
+	StyleItem          *m_item { nullptr };
+	QGridLayout        *m_layout { nullptr };
+	QTabWidget         *m_widget { nullptr };
+	ShortcutWidget     *m_shortcutWidget { nullptr };
 	QString             m_currentType;
-	QMenu              *m_newPopup;
-	QMenu              *m_rightClickPopup;
+	QMenu              *m_newPopup { nullptr };
+	QMenu              *m_rightClickPopup { nullptr };
 
-	QAction            *m_rcpNewId;
-	QAction            *m_rcpDeleteId;
-	QAction            *m_rcpEditId;
-	QAction            *m_rcpCloneId;
+	QAction            *m_rcpNewId { nullptr };
+	QAction            *m_rcpDeleteId { nullptr };
+	QAction            *m_rcpEditId { nullptr };
+	QAction            *m_rcpCloneId { nullptr };
 //	QAction            *m_rcpToScrapId;
-	ScrAction	*m_selectedStyleAction;
+	ScrAction	*m_selectedStyleAction { nullptr };
 
-	bool                m_isEditMode;
-	bool                m_isStoryEditMode;
+	bool                m_isEditMode { true };
+	bool                m_isStoryEditMode { false };
 	QPoint              m_editPosition;
 	QString             m_rcStyle;
 	QString             m_rcType;
@@ -74,8 +74,8 @@ private:
 	QString             m_doneText;
 	QString             m_editText;
 
-	ScribusDoc         *m_doc;
-	PrefsContext       *m_prefs;
+	ScribusDoc         *m_doc { nullptr };
+	PrefsContext       *m_prefs { nullptr };
 
 	QMap<QString, QPointer<ScrAction> > m_styleActions;
 

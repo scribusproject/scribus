@@ -36,8 +36,7 @@ for which a new license (GPL+exception) is in place.
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
 StyleManager::StyleManager(QWidget *parent, const char *name)
-	: ScrPaletteBase(parent, name), m_item(nullptr), m_widget(nullptr),
-	m_shortcutWidget(nullptr), m_isEditMode(true), m_doc(nullptr)
+	: ScrPaletteBase(parent, name)
 {
 	setupUi(this);
 	styleView->hideColumn(SHORTCUT_COL);
@@ -55,8 +54,6 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	if (pname.isEmpty())
 		pname = "styleManager";
 	m_prefs = PrefsManager::instance().prefsFile->getContext(pname);
-	m_isEditMode = true;
-	m_isStoryEditMode = false;
 	m_editPosition.setX(m_prefs->getInt("eX", x()));
 	m_editPosition.setY(m_prefs->getInt("eY", y()));
 
@@ -66,8 +63,6 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	deleteButton->setEnabled(false);
 	m_rightClickPopup->setEnabled(false);
 	m_newPopup->setEnabled(false);
-	
-	m_selectedStyleAction = nullptr;
 
 	connect(m_newPopup, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
