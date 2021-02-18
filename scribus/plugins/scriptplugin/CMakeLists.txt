@@ -2,6 +2,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
 	${Python3_INCLUDE_DIRS}
+	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
 )
 
 # Gentoo has an option for no examples. Let's make the ebuild simpler and open up the option to others, but leave as a default for us
