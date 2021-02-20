@@ -339,7 +339,6 @@ set(SCRIBUS_SOURCES
 	ui/about.cpp
 	ui/aboutplugins.cpp
 	ui/actionsearchdialog.cpp
-	ui/adjustcmsdialog.cpp
 	ui/aligndistribute.cpp
 	ui/alignselect.cpp
 	ui/directionselect.cpp
@@ -360,7 +359,6 @@ set(SCRIBUS_SOURCES
 	ui/charzoom.cpp
 	ui/checkDocument.cpp
 	ui/clockwidget.cpp
-	ui/cmsprefs.cpp
 	ui/cmykfw.cpp
 	ui/collectforoutput_ui.cpp
 	ui/colorchart.cpp

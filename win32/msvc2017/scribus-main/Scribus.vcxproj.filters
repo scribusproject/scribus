@@ -868,9 +868,6 @@
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\adjustcmsdialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\aligndistribute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1055,9 +1052,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\cmsettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\cmsprefs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\cmykfw.cpp">
@@ -2611,9 +2605,6 @@
     <uic Include="..\..\..\scribus\ui\charselectenhanced.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\cmsprefsbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
     <uic Include="..\..\..\scribus\ui\colorpalette.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -3188,9 +3179,6 @@
     <moc Include="..\..\..\scribus\actionmanager.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\adjustcmsdialog.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\aligndistribute.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3300,9 +3288,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\clockwidget.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\cmsprefs.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\cmykfw.h">

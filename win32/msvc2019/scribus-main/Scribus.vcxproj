@@ -269,7 +269,6 @@
     <moc Include="..\..\..\scribus\ui\about.h" />
     <moc Include="..\..\..\scribus\ui\aboutplugins.h" />
     <moc Include="..\..\..\scribus\actionmanager.h" />
-    <moc Include="..\..\..\scribus\ui\adjustcmsdialog.h" />
     <moc Include="..\..\..\scribus\ui\aligndistribute.h" />
     <moc Include="..\..\..\scribus\ui\alignselect.h" />
     <moc Include="..\..\..\scribus\ui\annot.h" />
@@ -367,7 +366,6 @@
     <moc Include="..\..\..\scribus\ui\clockwidget.h" />
     <ClInclude Include="..\..\..\scribus\cmserrorhandling.h" />
     <ClInclude Include="..\..\..\scribus\cmsettings.h" />
-    <moc Include="..\..\..\scribus\ui\cmsprefs.h" />
     <moc Include="..\..\..\scribus\ui\cmykfw.h" />
     <ClInclude Include="..\..\..\scribus\collapsedtablepainter.h" />
     <moc Include="..\..\..\scribus\collect4output.h" />
@@ -929,7 +927,6 @@
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\actionsearchdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\adjustcmsdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aligndistribute.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\alignselect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\annot.cpp" />
@@ -992,7 +989,6 @@
     <ClCompile Include="..\..\..\scribus\ui\clockwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\cmserrorhandling.cpp" />
     <ClCompile Include="..\..\..\scribus\cmsettings.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\cmsprefs.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\cmykfw.cpp" />
     <ClCompile Include="..\..\..\scribus\collapsedtablepainter.cpp" />
     <ClCompile Include="..\..\..\scribus\collect4output.cpp" />
@@ -1567,7 +1563,6 @@
     <uic Include="..\..\..\scribus\ui\arcwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\charselect.ui" />
     <uic Include="..\..\..\scribus\ui\charselectenhanced.ui" />
-    <uic Include="..\..\..\scribus\ui\cmsprefsbase.ui" />
     <uic Include="..\..\..\scribus\ui\cmykfwbase.ui" />
     <uic Include="..\..\..\scribus\ui\colorpalette.ui" />
     <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui" />

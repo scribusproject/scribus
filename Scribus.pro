@@ -394,7 +394,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/aboutplugins.h \
            scribus/ui/actionsearchdialog.h \
            scribus/ui/AdapterWidget.h \
-           scribus/ui/adjustcmsdialog.h \
            scribus/ui/aligndistribute.h \
            scribus/ui/alignselect.h \
            scribus/ui/annot.h \
@@ -414,7 +413,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/charzoom.h \
            scribus/ui/checkDocument.h \
            scribus/ui/clockwidget.h \
-           scribus/ui/cmsprefs.h \
            scribus/ui/cmykfw.h \
            scribus/ui/collectforoutput_ui.h \
            scribus/ui/colorchart.h \
@@ -1023,7 +1021,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/arcwidgetbase.ui \
          scribus/ui/charselect.ui \
          scribus/ui/charselectenhanced.ui \
-         scribus/ui/cmsprefsbase.ui \
          scribus/ui/cmykfwbase.ui \
          scribus/ui/colorpalette.ui \
          scribus/ui/colorsandfillsbase.ui \
@@ -1510,7 +1507,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/aboutplugins.cpp \
            scribus/ui/actionsearchdialog.cpp \
            scribus/ui/AdapterWidget.cpp \
-           scribus/ui/adjustcmsdialog.cpp \
            scribus/ui/aligndistribute.cpp \
            scribus/ui/alignselect.cpp \
            scribus/ui/annot.cpp \
@@ -1530,7 +1526,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/charzoom.cpp \
            scribus/ui/checkDocument.cpp \
            scribus/ui/clockwidget.cpp \
-           scribus/ui/cmsprefs.cpp \
            scribus/ui/cmykfw.cpp \
            scribus/ui/collectforoutput_ui.cpp \
            scribus/ui/colorchart.cpp \

@@ -162,7 +162,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/about.h"
 #include "ui/aboutplugins.h"
 #include "ui/actionsearchdialog.h"
-#include "ui/adjustcmsdialog.h"
 #include "ui/aligndistribute.h"
 #include "ui/annot.h"
 #include "ui/annota.h"
