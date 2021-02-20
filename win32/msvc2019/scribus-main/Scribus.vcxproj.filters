@@ -1837,9 +1837,6 @@
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\scinputdialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\sclayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -3870,9 +3867,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\scimagecachemanager.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\scinputdialog.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\sclayer.h">

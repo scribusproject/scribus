@@ -687,7 +687,6 @@
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.h" />
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.h" />
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.h" />
-    <moc Include="..\..\..\scribus\ui\scinputdialog.h" />
     <moc Include="..\..\..\scribus\sclayer.h" />
     <ClInclude Include="..\..\..\scribus\sclimits.h" />
     <ClInclude Include="..\..\..\scribus\sclistboxpixmap.h" />
@@ -1379,7 +1378,6 @@
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\scinputdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\sclayer.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\sclistwidgetdelegate.cpp" />
     <ClCompile Include="..\..\..\scribus\sclockedfile.cpp" />

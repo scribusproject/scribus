@@ -521,7 +521,6 @@ set(SCRIBUS_SOURCES
 	ui/scdockpalette.cpp
 	ui/scescapecatcher.cpp
 	ui/scfilewidget.cpp
-	ui/scinputdialog.cpp
 	ui/sclistwidgetdelegate.cpp
 	ui/scmenu.cpp
 	ui/scmessagebox.cpp

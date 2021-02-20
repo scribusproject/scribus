@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidesdelegate.h"
 #include "guidesmodel.h"
-#include "scinputdialog.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"

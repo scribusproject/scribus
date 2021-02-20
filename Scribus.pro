@@ -592,7 +592,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/scdockpalette.h \
            scribus/ui/scescapecatcher.h \
            scribus/ui/scfilewidget.h \
-           scribus/ui/scinputdialog.h \
            scribus/ui/sclistwidgetdelegate.h \
            scribus/ui/scmenu.h \
            scribus/ui/scmessagebox.h \
@@ -1707,7 +1706,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/scdockpalette.cpp \
            scribus/ui/scescapecatcher.cpp \
            scribus/ui/scfilewidget.cpp \
-           scribus/ui/scinputdialog.cpp \
            scribus/ui/sclistwidgetdelegate.cpp \
            scribus/ui/scmenu.cpp \
            scribus/ui/scmessagebox.cpp \
