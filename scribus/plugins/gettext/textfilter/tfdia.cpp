@@ -67,12 +67,12 @@ void tfDia::createLayout()
 	currentIndex = 0;
 	
 	layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(9, 9, 9, 9);
+	layout->setSpacing(6);
 
 	QBoxLayout* layout1 = new QHBoxLayout;
-	layout1->setMargin(5);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	clearButton = new QPushButton( tr("C&lear"), this);
 	layout1->addWidget(clearButton);
 	layout1->addStretch(10);
@@ -96,8 +96,8 @@ void tfDia::createLayout()
 	layout->addLayout(layout1);
 
 	QBoxLayout* flayout = new QHBoxLayout;
-	flayout->setMargin(0);
-	flayout->setSpacing(0);
+	flayout->setContentsMargins(0, 0, 0, 0);
+	flayout->setSpacing(6);
 	QFrame* f = new QFrame(this);
 	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout->addWidget(f);
@@ -106,8 +106,8 @@ void tfDia::createLayout()
 	
 	qsv = new QScrollArea(this);
 	QVBoxLayout *a1layout = new QVBoxLayout;
-	a1layout->setMargin(5);
-	a1layout->setSpacing(12);
+	a1layout->setContentsMargins(0, 0, 0, 0);
+	a1layout->setSpacing(6);
 	vbox = new QFrame(this);
 	vbox->setFixedWidth(qsv->viewport()->width());
 	qsv->viewport()->resize(width() - 12, vbox->height());
@@ -116,23 +116,23 @@ void tfDia::createLayout()
 	layout->addLayout(a1layout);
 	
 	alayout = new QVBoxLayout(vbox);
-	alayout->setMargin(5);
-	alayout->setSpacing(12);
+	alayout->setContentsMargins(9, 9, 9, 9);
+	alayout->setSpacing(6);
 	
 	createFilter(prefs->getTable("tf_lastUsed"));
 	filters[0]->setRemovable((filters.size() >= 2));
 	
 	QBoxLayout* flayout2 = new QHBoxLayout;
-	flayout2->setMargin(0);
-	flayout2->setSpacing(0);
+	flayout2->setContentsMargins(0, 0, 0, 0);
+	flayout2->setSpacing(6);
 	QFrame* f2 = new QFrame(this);
 	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
 
 	QBoxLayout* layout2 = new QHBoxLayout;
-	layout2->setMargin(5);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	saveEdit = new QLineEdit(this);
 	saveEdit->setToolTip( tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);

@@ -103,8 +103,8 @@ void tfFilter::createWidget()
 	history = prefs->getTable("history");
 
 	QHBoxLayout *layout = new QHBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(6);
 
 	enableCheck = new QCheckBox(this);
 	enableCheck->setMinimumSize(QSize(25,25));
@@ -116,16 +116,16 @@ void tfFilter::createWidget()
 	layout->addWidget(actionFrame, 0, Qt::AlignTop);
 
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
-	layout2->setMargin(0);
-	layout2->setSpacing(0);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 	alayout = new QHBoxLayout();
-	alayout->setMargin(0);
-	alayout->setSpacing(0);
+	alayout->setContentsMargins(0, 0, 0, 0);
+	alayout->setSpacing(6);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
 	blayout = new QHBoxLayout();
-	blayout->setSpacing(0);
-	blayout->setMargin(0);
+	blayout->setSpacing(6);
+	blayout->setContentsMargins(0, 0, 0, 0);
 	layout2->addLayout(blayout);
 
 	currentAction = REMOVE;

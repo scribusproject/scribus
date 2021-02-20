@@ -126,7 +126,7 @@ void ScGTFileDialog::customize()
 	m_showOptionsBox->setObjectName("showOptionsBox_");
 
 	QHBoxLayout *layout = new QHBoxLayout;
-	layout->setSpacing(5);
+	layout->setSpacing(6);
 	layout->addWidget(m_appendBox);
 	layout->addWidget(m_showOptionsBox);
 

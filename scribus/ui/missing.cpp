@@ -27,11 +27,11 @@ MissingFont::MissingFont( QWidget* parent, const QString& fon, ScribusDoc* doc )
 	setWindowTitle( tr("Missing Font"));
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	missingFontLayout = new QHBoxLayout( this );
-	missingFontLayout->setMargin(10);
-	missingFontLayout->setSpacing(0);
+	missingFontLayout->setContentsMargins(9, 9, 9, 9);
+	missingFontLayout->setSpacing(6);
 	missingFontGridLayout = new QGridLayout;
-	missingFontGridLayout->setSpacing( 10 );
-	missingFontGridLayout->setMargin( 0 );
+	missingFontGridLayout->setSpacing(6);
+	missingFontGridLayout->setContentsMargins(0, 0, 0, 0);
 	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this );
 	missingFontGridLayout->addWidget( notInstalledLabel, 0, 0, 1, 4 );
 	pixmapLabel = new QLabel( this );
