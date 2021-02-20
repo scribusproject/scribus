@@ -1718,13 +1718,11 @@ void StoryEditor::initActions()
 	connect(seActions["insertSampleText"], SIGNAL(triggered()), this, SLOT(insertSampleText()));
 
 	//Settings Menu
-	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this));
 	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this));
 	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this));
 	seActions["settingsSmartTextSelection"]->setChecked(m_smartSelection);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
 
-	connect( seActions["settingsBackground"], SIGNAL(triggered()), this, SLOT(setBackPref()) );
 	connect( seActions["settingsDisplayFont"], SIGNAL(triggered()), this, SLOT(setFontPref()) );
 	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
 
@@ -1838,7 +1836,6 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItemString("insertSampleText", "Insert");
 
 	seMenuMgr->createMenu("Settings", tr("&Settings"));
-	seMenuMgr->addMenuItemString("settingsBackground", "Settings");
 	seMenuMgr->addMenuItemString("settingsDisplayFont", "Settings");
 //	seMenuMgr->addMenuItemString("settingsSmartTextSelection", "Settings");
 
@@ -2000,15 +1997,6 @@ void StoryEditor::setupEditorGUI()
 	QFont fo;
 	fo.fromString(prefsManager.appPrefs.storyEditorPrefs.guiFont);
 	Editor->setFont(fo);
-	QColor newColor(prefsManager.appPrefs.storyEditorPrefs.guiFontColorBackground);
-	if (newColor.isValid())
-	{
-		QPalette pal;
-		pal.setColor(QPalette::Active, QPalette::Base, newColor);
-		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
-		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
-		Editor->setPalette(pal);
-	}
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 }
@@ -2066,7 +2054,6 @@ void StoryEditor::languageChange()
 
 	//Settings Menu
 	seMenuMgr->setText("Settings", tr("&Settings"));
-	seActions["settingsBackground"]->setTexts( tr("&Background..."));
 	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
 	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart Text Selection"));
 
@@ -2294,22 +2281,6 @@ bool StoryEditor::eventFilter(QObject* ob, QEvent *ev)
 		}
 	}
 	return QMainWindow::eventFilter(ob, ev);
-}
-
-void StoryEditor::setBackPref()
-{
-	m_blockUpdate = true;
-	QColor newColor(QColorDialog::getColor(Editor->palette().color(QPalette::Base), this));
-	if (newColor.isValid())
-	{
-		QPalette pal;
-		pal.setColor(QPalette::Active, QPalette::Base, newColor);
-		pal.setColor(QPalette::Inactive, QPalette::Base, newColor);
-		pal.setColor(QPalette::Disabled, QPalette::Base, newColor);
-		Editor->setPalette(pal);
-		prefsManager.appPrefs.storyEditorPrefs.guiFontColorBackground = newColor;
-	}
-	m_blockUpdate = false;
 }
 
 void StoryEditor::setFontPref()

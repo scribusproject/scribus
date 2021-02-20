@@ -53,7 +53,6 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* doc)
 
 	connect(languageComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(storyEditorFontPushButton, SIGNAL(clicked()), this, SLOT(changeStoryEditorFont()));
-	connect(storyEditorFontColorPushButton, SIGNAL(clicked()) , this, SLOT(changeStoryEditorFontColor()));
 }
 
 Prefs_UserInterface::~Prefs_UserInterface() = default;
@@ -108,18 +107,11 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	storyEditorUseSmartSelectionCheckBox->setChecked(prefsData->storyEditorPrefs.smartTextSelection);
 	seFont.fromString(prefsData->storyEditorPrefs.guiFont);
 	storyEditorFontPushButton->setText(seFont.family());
-	QPixmap pm(100, 30);
-	QColor backgroundColor = prefsData->storyEditorPrefs.guiFontColorBackground;
-	if (!backgroundColor.isValid())
-		backgroundColor = this->palette().color(QPalette::Active, QPalette::Base);
-	pm.fill(backgroundColor);
-	seFontColor = prefsData->storyEditorPrefs.guiFontColorBackground;
-	storyEditorFontColorPushButton->setIcon(pm);
 }
 
 void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->uiPrefs.language=selectedGUILang;
+	prefsData->uiPrefs.language = selectedGUILang;
 	prefsData->uiPrefs.userPreferredLocale = numberFormatComboBox->currentData().toString();
 	prefsData->uiPrefs.style = themeComboBox->currentText();
 	prefsData->uiPrefs.iconSet = IconManager::instance().baseNameForTranslation(iconSetComboBox->currentText());
@@ -134,34 +126,13 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.useSmallWidgets = useSmallWidgetsCheckBox->isChecked();
 
 	prefsData->storyEditorPrefs.guiFont = seFont.toString();
-	if (seFontColor.isValid())
-		prefsData->storyEditorPrefs.guiFontColorBackground = seFontColor;
 	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();
 }
-
 
 void Prefs_UserInterface::setSelectedGUILang(const QString &newLang)
 {
 	selectedGUILang = LanguageManager::instance()->getAbbrevFromLang(newLang);
 }
-
-
-void Prefs_UserInterface::changeStoryEditorFontColor()
-{
-	QColor fontBkgndColor = seFontColor;
-	if (!fontBkgndColor.isValid())
-		fontBkgndColor = this->palette().color(QPalette::Active, QPalette::Base);
-
-	QColor newColor(QColorDialog::getColor(fontBkgndColor, this));
-	if (!newColor.isValid())
-		return;
-
-	QPixmap pm(100, 30);
-	pm.fill(newColor);
-	seFontColor = newColor;
-	storyEditorFontColorPushButton->setIcon(pm);
-}
-
 
 void Prefs_UserInterface::changeStoryEditorFont()
 {

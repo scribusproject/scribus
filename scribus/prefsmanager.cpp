@@ -392,9 +392,9 @@ void PrefsManager::initDefaults()
 	appPrefs.extToolPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.extToolPrefs.gs_Resolution = 72;
 
-	// Do not override default text background color in story editor unless user has explicitly modified it.
-	// To do that, we initialize text background color to an invalid color and test its validity in the code. 
-	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor() /*qApp->palette().color(QPalette::Active, QPalette::Base)*/;
+	// Keep SE background color for now, we still load this value and save it in prefs
+	// so as not to break prefs for user also using older versions of Scribus
+	appPrefs.storyEditorPrefs.guiFontColorBackground = QColor();
 	appPrefs.storyEditorPrefs.smartTextSelection = false;
 
 	appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile.clear();

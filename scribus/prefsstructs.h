@@ -401,7 +401,7 @@ struct MiscellaneousPrefs
 
 struct StoryEditorPrefs
 {
-	QColor guiFontColorBackground; //! Color of the background for text used in the Story Editor window
+	QColor guiFontColorBackground; //! Legacy, kept for now so as to not break prefs for users using older Scribus versions
 	QString guiFont; //! Font of the text used in the Story Editor window
 	bool smartTextSelection; //! Use smart text selection (relates to spacing mostly)
 };

@@ -459,7 +459,6 @@ private:
 	int m_result { QDialog::Rejected };
 
 protected slots:
-	void setBackPref();
 	void setFontPref();
 	void newTxScale();
 	void newTxScaleV();

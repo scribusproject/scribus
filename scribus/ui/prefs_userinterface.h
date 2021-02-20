@@ -34,13 +34,11 @@ class SCRIBUS_API Prefs_UserInterface : public Prefs_Pane, Ui::Prefs_UserInterfa
 
 	protected:
 		QString selectedGUILang;
-		QColor seFontColor;
 		QFont seFont;
 
 	private slots:
 		void setSelectedGUILang( const QString &newLang );
 		void changeStoryEditorFont();
-		void changeStoryEditorFontColor();
 };
 
 #endif // PREFS_USERINTERFACE_H
