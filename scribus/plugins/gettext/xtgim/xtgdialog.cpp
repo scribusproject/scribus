@@ -26,13 +26,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "xtgdialog.h"
 
-#include <QToolTip>
 #include <QBoxLayout>
-#include <QVBoxLayout>
-#include <QPixmap>
-#include <QHBoxLayout>
 #include <QCheckBox>
+#include <QHBoxLayout>
+#include <QPixmap>
 #include <QPushButton>
+#include <QToolTip>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "iconmanager.h"

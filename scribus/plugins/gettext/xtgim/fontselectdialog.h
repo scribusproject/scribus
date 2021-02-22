@@ -27,20 +27,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef FONTSELECTDIALOG_H
 #define FONTSELECTDIALOG_H
 
-#include <QString>
-#include <QStringList>
+#include <QComboBox>
 #include <QDialog>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QSpacerItem>
-#include <QComboBox>
+#include <QString>
+#include <QStringList>
+#include <QVBoxLayout>
+#include <QWidget>
 
-class QPushButton;
 class QComboBox;
 class QLabel;
+class QPushButton;
 class QWidget;
 
 class FontSelect:public QDialog
