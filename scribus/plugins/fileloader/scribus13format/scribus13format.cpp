@@ -7,6 +7,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribus13format.h"
 #include "scribus13formatimpl.h"
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+#include <QDataStream>
+// #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
+#include <QMessageBox>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
@@ -31,14 +40,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/missing.h"
 #include "ui/scmessagebox.h"
-
-#include <QCursor>
-// #include <QDebug>
-#include <QFileInfo>
-#include <QByteArray>
-#include <QDataStream>
-#include <QApplication>
-#include <QMessageBox>
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -1529,7 +1530,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(offsX, offsY);
 		currItem->setImageRotation(rot);
-		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+		currItem->Pfile = Relative2Path(obj->attribute("PFILE"), baseDir);
+		currItem->Pfile = QDir::fromNativeSeparators(currItem->Pfile);
 		currItem->ImageProfile = obj->attribute("PRFILE","");
 		currItem->ImageIntent  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 		currItem->EmbeddedProfile = obj->attribute("EPROF","");
@@ -1824,6 +1826,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
+			currItem->Pfile  = QDir::fromNativeSeparators(currItem->Pfile);
+			currItem->Pfile2 = QDir::fromNativeSeparators(currItem->Pfile2);
+			currItem->Pfile3 = QDir::fromNativeSeparators(currItem->Pfile3);
 			currItem->ImageProfile    = obj->attribute("PRFILE","");
 			currItem->ImageIntent     = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 			currItem->EmbeddedProfile = obj->attribute("EPROF","");

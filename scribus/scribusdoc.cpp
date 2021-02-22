@@ -5623,9 +5623,10 @@ bool ScribusDoc::loadPict(const QString& fn, PageItem *pageItem, bool reload, bo
 {
 	if (!reload)
 	{
-		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->imageIsAvailable))
+		if (pageItem->imageIsAvailable)
 		{
-			ScCore->fileWatcher->removeFile(pageItem->Pfile);
+			if (ScCore->fileWatcher->isWatching(pageItem->Pfile))
+				ScCore->fileWatcher->removeFile(pageItem->Pfile);
 			if (pageItem->isTempFile)
 			{
 				QFile::remove(pageItem->Pfile);
@@ -11054,7 +11055,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWar
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem->isImageFrame())
 		{
-			if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable))
+			if (ScCore->fileWatcher->isWatching(currItem->Pfile) && currItem->imageIsAvailable)
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
 		}
 		currItem->clearContents();
@@ -11185,7 +11186,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		itemList = groupOfItem(Items, currItem);
 		if (itemList == nullptr)
 			continue;
-		if ((currItem->isImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->imageIsAvailable)))
+		if (currItem->isImageFrame() && ScCore->fileWatcher->isWatching(currItem->Pfile) && currItem->imageIsAvailable)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		//delete marks pointed to that item
 		for (int a=0; a < m_docMarksList.count(); a++)

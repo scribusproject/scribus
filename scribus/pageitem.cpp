@@ -717,9 +717,9 @@ PageItem::~PageItem()
 
 	if (isTextFrame())
 	{
-		if (!asTextFrame()->isInChain() && itemText.length() >0)
+		if (!asTextFrame()->isInChain() && itemText.length() > 0)
 		{
-			for (int pos=0; pos < itemText.length(); ++pos)
+			for (int pos = 0; pos < itemText.length(); ++pos)
 			{
 				if (itemText.hasMark(pos))
 				{
@@ -10442,7 +10442,7 @@ void PageItem::makeImageInline()
 	isInlineImage = true;
 	isTempFile = true;
 	copyFile(Pfile, fileName);
-	Pfile = fileName;
+	Pfile = QDir::fromNativeSeparators(fileName);
 	delete tempFile;
 }
 

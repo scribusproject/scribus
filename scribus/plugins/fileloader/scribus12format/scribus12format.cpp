@@ -7,6 +7,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribus12format.h"
 #include "scribus12formatimpl.h"
 
+#include <QApplication>
+#include <QByteArray>
+#include <QCursor>
+#include <QDir>
+#include <QFileInfo>
+#include <QList>
+#include <QMessageBox>
+
 #include "../../formatidlist.h"
 #include "commonstrings.h"
 #include "langmgr.h"
@@ -28,13 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_layer.h"
 #include "util_math.h"
-#include <QCursor>
-#include <QFileInfo>
-#include <QList>
-#include <QByteArray>
-#include <QApplication>
-#include <QMessageBox>
-
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -1615,6 +1616,9 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	OB->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
 	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
 	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
+	OB->Pfile  = QDir::fromNativeSeparators(OB->Pfile);
+	OB->Pfile2 = QDir::fromNativeSeparators(OB->Pfile2);
+	OB->Pfile3 = QDir::fromNativeSeparators(OB->Pfile3);
 	OB->ImageProfile = obj->attribute("PRFILE","");
 	OB->ImageIntent  = (eRenderIntent) obj->attribute("IRENDER", "1").toInt();
 	OB->EmbeddedProfile = obj->attribute("EPROF","");

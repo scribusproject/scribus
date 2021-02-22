@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <QDebug>
+#include <QDir>
 #include <QStringList>
 
 #include "filewatcher.h"
@@ -42,7 +43,7 @@ FileWatcher::~FileWatcher()
 
 void FileWatcher::setTimeOut(int newTimeOut, bool restartTimer)
 {
-	m_timeOut=newTimeOut;
+	m_timeOut = newTimeOut;
 	if (restartTimer)
 		start();
 }
@@ -59,11 +60,13 @@ void FileWatcher::addFile(const QString& fileName, bool fast, ScribusDoc* doc)
 		qDebug()<<"Attempt to add empty filename to filewatcher";
 		return;
 	}
+	QString qtFileName = QDir::fromNativeSeparators(fileName);
+
 	m_watchTimer->stop();
-	if (!m_watchedFiles.contains(fileName))
+	if (!m_watchedFiles.contains(qtFileName))
 	{
 		struct fileMod fi;
-		fi.info = QFileInfo(fileName);
+		fi.info = QFileInfo(qtFileName);
 		fi.timeInfo = fi.info.lastModified();
 		fi.pendingCount = 0;
 		fi.pending = false;
@@ -71,22 +74,23 @@ void FileWatcher::addFile(const QString& fileName, bool fast, ScribusDoc* doc)
 		fi.isDir = fi.info.isDir();
 		fi.fast = fast;
 		fi.doc = doc;
-		m_watchedFiles.insert(fileName, fi);
+		m_watchedFiles.insert(qtFileName, fi);
 	}
 	else
-		m_watchedFiles[fileName].refCount++;
+		m_watchedFiles[qtFileName].refCount++;
 	if (!(m_stateFlags & TimerStopped))
 		m_watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::removeFile(const QString& fileName)
 {
+	QString qtFileName = QDir::fromNativeSeparators(fileName);
 	m_watchTimer->stop();
-	if (m_watchedFiles.contains(fileName))
+	if (m_watchedFiles.contains(qtFileName))
 	{
-		m_watchedFiles[fileName].refCount--;
-		if (m_watchedFiles[fileName].refCount == 0)
-			m_watchedFiles.remove(fileName);
+		m_watchedFiles[qtFileName].refCount--;
+		if (m_watchedFiles[qtFileName].refCount == 0)
+			m_watchedFiles.remove(qtFileName);
 	}
 	if (!(m_stateFlags & TimerStopped))
 		m_watchTimer->start(m_timeOut);
@@ -127,6 +131,12 @@ void FileWatcher::forceScan()
 bool FileWatcher::isActive()
 {
 	return (m_stateFlags & AddRemoveBlocked);
+}
+
+bool FileWatcher::isWatching(const QString& fileName)
+{
+	QString qtFileName = QDir::fromNativeSeparators(fileName);
+	return m_watchedFiles.contains(qtFileName);
 }
 
 QList<QString> FileWatcher::files()
@@ -227,7 +237,7 @@ void FileWatcher::checkFiles()
 		m_watchedFiles.clear();
 	else
 	{
-		for (int i=0; i<toRemove.count(); ++i)
+		for (int i = 0; i<toRemove.count(); ++i)
 			m_watchedFiles.remove(toRemove[i]);
 		m_stateFlags &= ~AddRemoveBlocked;
 		m_stateFlags &= ~TimerStopped;

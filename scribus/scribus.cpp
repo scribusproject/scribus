@@ -3926,7 +3926,7 @@ void ScribusMainWindow::toogleInlineState()
 		QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fiB.fileName(), fdHidePreviewCheckBox);
 		if (!fileName.isEmpty())
 		{
-			if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+			if (ScCore->fileWatcher->isWatching(currItem->Pfile))
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
 			docContext->set("place_as", fileName.left(fileName.lastIndexOf("/")));
 			if (overwrite(this, fileName))
@@ -3943,7 +3943,7 @@ void ScribusMainWindow::toogleInlineState()
 	}
 	else
 	{
-		if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+		if (ScCore->fileWatcher->isWatching(currItem->Pfile))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		currItem->makeImageInline();
 		ScCore->fileWatcher->addFile(currItem->Pfile);

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QCursor>
 // #include <QDebug>
+#include <QDir>
 #include <QFileInfo>
 #include <QIODevice>
 #include <QList>
@@ -2635,14 +2636,17 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 						outFil.write(inlineImageData);
 						outFil.close();
 						currItem->isInlineImage = true;
-						currItem->Pfile = fileName;
+						currItem->Pfile = QDir::fromNativeSeparators(fileName);
 						currItem->isTempFile = true;
 					}
 					delete tempFile;
 				}
 			}
 			else
+			{
 				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
+				currItem->Pfile = QDir::fromNativeSeparators(currItem->Pfile);
+			}
 		}
 		currItem->ImageProfile    = attrs.valueAsString("PRFILE", "");
 		currItem->ImageIntent     = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
@@ -2910,6 +2914,9 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->Pfile  = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
 			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
 			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
+			currItem->Pfile  = QDir::fromNativeSeparators(currItem->Pfile);
+			currItem->Pfile2 = QDir::fromNativeSeparators(currItem->Pfile2);
+			currItem->Pfile3 = QDir::fromNativeSeparators(currItem->Pfile3);
 			currItem->ImageProfile    = attrs.valueAsString("PRFILE", "");
 			currItem->ImageIntent     = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
 			currItem->EmbeddedProfile = attrs.valueAsString("EPROF", "");
