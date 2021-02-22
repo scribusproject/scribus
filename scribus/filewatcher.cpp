@@ -128,12 +128,12 @@ void FileWatcher::forceScan()
 	checkFiles();
 }
 
-bool FileWatcher::isActive()
+bool FileWatcher::isActive() const
 {
 	return (m_stateFlags & AddRemoveBlocked);
 }
 
-bool FileWatcher::isWatching(const QString& fileName)
+bool FileWatcher::isWatching(const QString& fileName) const
 {
 	QString qtFileName = QDir::fromNativeSeparators(fileName);
 	return m_watchedFiles.contains(qtFileName);

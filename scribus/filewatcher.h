@@ -26,9 +26,9 @@ public:
 	~FileWatcher() override;
 
 	// Get if file check loop is running
-	bool isActive();
+	bool isActive() const;
 	// Check if a file is currently being watched
-	bool isWatching(const QString& fileName);
+	bool isWatching(const QString& fileName) const;
 	// Set the timer length in milliseconds
 	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
