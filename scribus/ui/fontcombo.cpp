@@ -119,24 +119,24 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	fontComboLayout = new QGridLayout(this);
 	fontComboLayout->setMargin(0);
 	fontComboLayout->setSpacing(0);
-	int col=0;
+	int col = 0;
 	if (showLabels)
 	{
-		fontFaceLabel=new QLabel("", this);
-		fontStyleLabel=new QLabel("", this);
-		fontComboLayout->addWidget(fontFaceLabel,0,0);
-		fontComboLayout->addWidget(fontStyleLabel,1,0);
-		fontComboLayout->setColumnStretch(1,10);
-		col=1;
+		fontFaceLabel = new QLabel("", this);
+		fontStyleLabel = new QLabel("", this);
+		fontComboLayout->addWidget(fontFaceLabel, 0, 0);
+		fontComboLayout->addWidget(fontStyleLabel, 1, 0);
+		fontComboLayout->setColumnStretch(1, 10);
+		col = 1;
 	}
 	fontFamily = new QComboBox(this);
 	fontFamily->setEditable(true);
 	fontFamily->setValidator(new FontComboValidator(fontFamily));
 	fontFamily->setInsertPolicy(QComboBox::NoInsert);
 	fontFamily->setItemDelegate(new FontFamilyDelegate(this));
-	fontComboLayout->addWidget(fontFamily,0,col);
+	fontComboLayout->addWidget(fontFamily, 0, col);
 	fontStyle = new QComboBox(this);
-	fontComboLayout->addWidget(fontStyle,1,col);
+	fontComboLayout->addWidget(fontStyle, 1, col);
 	isForAnnotation = true;  // this is merely to ensure that the list is rebuilt
 	rebuildList(nullptr);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
@@ -184,12 +184,10 @@ void FontComboH::familySelected(int id)
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
 		setCurrentComboItem(fontStyle, curr);
-	else
-		if (slist.contains("Regular"))
-			setCurrentComboItem(fontStyle, "Regular");
-		else
-			if (slist.contains("Roman"))
-				setCurrentComboItem(fontStyle, "Roman");
+	else if (slist.contains("Regular"))
+		setCurrentComboItem(fontStyle, "Regular");
+	else if (slist.contains("Roman"))
+		setCurrentComboItem(fontStyle, "Roman");
 	emit fontSelected(fontFamily->itemText(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
