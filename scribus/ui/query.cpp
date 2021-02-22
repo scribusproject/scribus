@@ -23,11 +23,11 @@ Query::Query( QWidget* parent,  const char* name, bool modal, const QString& tex
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );
-	queryLayout->setMargin(5);
-	queryLayout->setSpacing(10);
+	queryLayout->setContentsMargins(9, 9, 9, 9);
+	queryLayout->setSpacing(6);
 	editLayout = new QHBoxLayout;
-	editLayout->setSpacing( 5 );
-	editLayout->setMargin( 0 );
+	editLayout->setSpacing(6);
+	editLayout->setContentsMargins(0, 0, 0, 0);
 	answerEdit = new QLineEdit( this );
 	questionLabel = new QLabel( text, this );
 	questionLabel->setBuddy(answerEdit);
@@ -36,8 +36,8 @@ Query::Query( QWidget* parent,  const char* name, bool modal, const QString& tex
 	editLayout->addWidget( answerEdit );
 	queryLayout->addLayout( editLayout );
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 5 );
-	okCancelLayout->setMargin( 0 );
+	okCancelLayout->setSpacing(6);
+	okCancelLayout->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this);

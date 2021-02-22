@@ -30,7 +30,7 @@ PageSelector::PageSelector( QWidget* parent, int maximumPage ) : QWidget( parent
 	pageCountString = "%1";
 	m_lastPage = maximumPage;
 	pageSelectorLayout = new QHBoxLayout( this );
-	pageSelectorLayout->setMargin(0);
+	pageSelectorLayout->setContentsMargins(0, 0, 0, 0);
 	pageSelectorLayout->setSpacing(1);
 
 	startButton = new QPushButton( this );

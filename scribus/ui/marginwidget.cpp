@@ -56,8 +56,8 @@ MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const Mar
 
 	// layout
 	GroupLayout = new QGridLayout( marginPage );
-	GroupLayout->setSpacing( 5 );
-	GroupLayout->setMargin( 10 );
+	GroupLayout->setSpacing(6);
+	GroupLayout->setContentsMargins(9, 9, 9, 9);
 	GroupLayout->addWidget(presetLabel, 0, 0);
 	GroupLayout->addWidget(presetCombo, 0, 1);
 	GroupLayout->addWidget( leftR, 1, 1 );
@@ -72,8 +72,8 @@ MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const Mar
 	if (showChangeAll)
 	{
 		marginsForPagesLayout = new QHBoxLayout;
-		marginsForPagesLayout->setMargin(5);
-		marginsForPagesLayout->setSpacing(5);
+		marginsForPagesLayout->setContentsMargins(9, 9, 9, 9);
+		marginsForPagesLayout->setSpacing(6);
 		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage );
 		marginsForPagesLayout->addWidget(marginsForPages);
 		marginsForAllPages = new QCheckBox( marginPage );
@@ -88,15 +88,8 @@ MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const Mar
 		marginsForAllPages->setToolTip( "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
 		marginsForAllMasterPages->setToolTip( "<qt>" + tr( "Apply the margin changes to all existing master pages in the document" ) + "</qt>" );
 	}
-	else
-	{
-		marginsForPagesLayout=nullptr;
-		marginsForPages=nullptr;
-		marginsForAllPages=nullptr;
-		marginsForAllMasterPages=nullptr;
-	}
 
-	usePrinterMarginsButton=nullptr;
+	usePrinterMarginsButton = nullptr;
 	usePrinterMarginsButton = new QPushButton( tr("Printer Margins..."),marginPage );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
 	usePrinterMarginsButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers" ) + "</qt>");
@@ -108,8 +101,8 @@ MarginWidget::MarginWidget( QWidget* parent, const QString& /*title*/, const Mar
 	{
 		bleedPage = new QWidget(this);
 		BleedGroupLayout = new QGridLayout( bleedPage );
-		BleedGroupLayout->setSpacing( 5 );
-		BleedGroupLayout->setMargin( 10 );
+		BleedGroupLayout->setSpacing(6);
+		BleedGroupLayout->setContentsMargins(9, 9, 9, 9);
 		BleedGroupLayout->setAlignment( Qt::AlignTop );
 		BleedTxt3 = new QLabel( bleedPage );
 		BleedGroupLayout->addWidget( BleedTxt3, 0, 0 );

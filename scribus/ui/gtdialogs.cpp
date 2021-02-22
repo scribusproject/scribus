@@ -57,8 +57,8 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* llayout = new QHBoxLayout;
-	llayout->setMargin(5);
-	llayout->setSpacing(5);
+	llayout->setContentsMargins(0, 0, 0, 0);
+	llayout->setSpacing(6);
 
 	QString labelText;
 	if (ext.length() > 0)
@@ -70,8 +70,8 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 	layout->addLayout(llayout);
 
 	QBoxLayout* ilayout = new QHBoxLayout;
-	ilayout->setMargin(5);
-	ilayout->setSpacing(5);
+	ilayout->setContentsMargins(0, 0, 0, 0);
+	ilayout->setSpacing(6);
 	importerCombo = new QComboBox(this);
 	importerCombo->setMinimumSize(QSize(150, 0));
 	importerCombo->setToolTip( tr("Choose the importer to use"));
@@ -84,8 +84,8 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 	layout->addLayout(ilayout);
 
 	QBoxLayout* dlayout = new QHBoxLayout;
-	dlayout->setMargin(5);
-	dlayout->setSpacing(5);
+	dlayout->setContentsMargins(0, 0, 0, 0);
+	dlayout->setSpacing(6);
 	rememberCheck = new QCheckBox( tr("Remember association"), this);
 	rememberCheck->setChecked(false);
 	rememberCheck->setToolTip( "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
@@ -94,8 +94,8 @@ gtImporterDialog::gtImporterDialog(const QString& fileName, const QStringList& i
 	layout->addLayout(dlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout;
-	blayout->setMargin(5);
-	blayout->setSpacing(5);
+	blayout->setContentsMargins(0, 0, 0, 0);
+	blayout->setSpacing(6);
 	blayout->addStretch(10);
 	okButton = new QPushButton( CommonStrings::tr_OK, this);
 	blayout->addWidget(okButton);

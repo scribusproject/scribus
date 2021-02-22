@@ -506,11 +506,11 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	m_docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww = (wid < 0) ? 4000 : wid;
 	tabrulerLayout = new QVBoxLayout( this );
-	tabrulerLayout->setMargin(0);
-	tabrulerLayout->setSpacing(5);
+	tabrulerLayout->setContentsMargins(0, 0, 0, 0);
+	tabrulerLayout->setSpacing(6);
 	layout2 = new QHBoxLayout;
-	layout2->setMargin(0);
-	layout2->setSpacing(5);
+	layout2->setContentsMargins(0, 0, 0, 0);
+	layout2->setSpacing(6);
 
 	rulerScrollL = new QToolButton(this);
 	rulerScrollL->setArrowType(Qt::LeftArrow);
@@ -525,8 +525,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	layout2->addWidget( rulerScrollR );
 
 	layout1 = new QHBoxLayout;
-	layout1->setMargin(0);
-	layout1->setSpacing(5);
+	layout1->setContentsMargins(0, 0, 0, 0);
+	layout1->setSpacing(6);
 	layout1->setAlignment( Qt::AlignTop );
 	typeCombo = new QComboBox(this);
 	typeCombo->setEditable(false);
@@ -556,12 +556,12 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	layout1->addWidget( tabFillCombo );
 
 	layout4 = new QHBoxLayout;
-	layout4->setMargin(0);
-	layout4->setSpacing(5);
+	layout4->setContentsMargins(0, 0, 0, 0);
+	layout4->setSpacing(6);
 
 	indentLayout = new QHBoxLayout;
-	indentLayout->setMargin(0);
-	indentLayout->setSpacing(5);
+	indentLayout->setContentsMargins(0, 0, 0, 0);
+	indentLayout->setSpacing(6);
 	if (haveFirst)
 	{
 		firstLineData = new ScrSpinBox( -3000, ww / m_docUnitRatio, this, dEin);
