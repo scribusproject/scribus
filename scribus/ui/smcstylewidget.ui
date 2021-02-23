@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>402</width>
-    <height>624</height>
+    <height>563</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -77,21 +77,6 @@
             <string>Basic Formatting</string>
            </property>
            <layout class="QVBoxLayout" name="_4">
-            <property name="spacing">
-             <number>3</number>
-            </property>
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
             <item>
              <widget class="SMFontComboH" name="fontFace_" native="true">
               <property name="sizePolicy">
@@ -103,7 +88,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>62</height>
+                <height>20</height>
                </size>
               </property>
              </widget>
@@ -249,8 +234,8 @@
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>20</width>
-                  <height>40</height>
+                  <width>40</width>
+                  <height>20</height>
                  </size>
                 </property>
                </spacer>
@@ -282,21 +267,6 @@
             <string>Advanced Formatting</string>
            </property>
            <layout class="QVBoxLayout" name="_7">
-            <property name="spacing">
-             <number>3</number>
-            </property>
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
             <item>
              <layout class="QHBoxLayout" name="_8">
               <item>
@@ -564,21 +534,6 @@
             <string>Colors</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
-            <property name="spacing">
-             <number>3</number>
-            </property>
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
             <item>
              <layout class="QHBoxLayout" name="_2">
               <item>

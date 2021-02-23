@@ -359,9 +359,6 @@
      </item>
      <item>
       <layout class="QHBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -446,7 +443,6 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>StyleView</class>

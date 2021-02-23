@@ -23,9 +23,6 @@
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
         <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>5</number>
-         </property>
          <item>
           <widget class="QLabel" name="parentLabel">
            <property name="text">
@@ -66,7 +63,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <layout class="QHBoxLayout">
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
                <widget class="SMAlignSelect" name="alignment" native="true">
                 <property name="sizePolicy">
@@ -81,7 +78,7 @@
                <widget class="SMDirectionSelect" name="direction" native="true"/>
               </item>
               <item>
-               <spacer>
+               <spacer name="horizontalSpacer_4">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -96,7 +93,7 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout">
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
               <item>
                <widget class="QLabel" name="lineSpacingLabel">
                 <property name="minimumSize">
@@ -146,7 +143,7 @@
                </widget>
               </item>
               <item>
-               <spacer>
+               <spacer name="horizontalSpacer_8">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -195,7 +192,7 @@
                </widget>
               </item>
               <item>
-               <spacer>
+               <spacer name="horizontalSpacer_9">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -240,7 +237,7 @@
                </widget>
               </item>
               <item>
-               <spacer>
+               <spacer name="horizontalSpacer_11">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -619,7 +616,7 @@
          </property>
          <layout class="QVBoxLayout">
           <item>
-           <layout class="QHBoxLayout">
+           <layout class="QHBoxLayout" name="tabsBoxLayout">
             <item>
              <widget class="SMTabruler" name="tabList" native="true">
               <property name="sizePolicy">
@@ -631,7 +628,7 @@
              </widget>
             </item>
             <item>
-             <spacer>
+             <spacer name="horizontalSpacer_13">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -654,23 +651,8 @@
           <string>Colors</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
-          <property name="spacing">
-           <number>3</number>
-          </property>
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
-           <number>5</number>
-          </property>
           <item>
-           <layout class="QHBoxLayout" name="_6">
+           <layout class="QHBoxLayout" name="smColorGroupLayout">
             <item>
              <widget class="QLabel" name="backIcon">
               <property name="minimumSize">
@@ -727,7 +709,7 @@
              </widget>
             </item>
             <item>
-             <spacer>
+             <spacer name="horizontalSpacer_12">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1071,7 +1053,7 @@
          </property>
          <layout class="QVBoxLayout" name="_2">
           <item>
-           <layout class="QHBoxLayout" name="_3">
+           <layout class="QHBoxLayout" name="dropCapsBoxLayout">
             <item>
              <widget class="QLabel" name="dropCapsLineLabel">
               <property name="text">
@@ -1178,7 +1160,7 @@
           </widget>
          </item>
          <item>
-          <spacer>
+          <spacer name="horizontalSpacer_14">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -1252,9 +1234,6 @@
        <string>Character Style</string>
       </attribute>
       <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>5</number>
-       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>

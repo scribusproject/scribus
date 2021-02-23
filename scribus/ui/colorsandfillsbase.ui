@@ -172,9 +172,6 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_4">
-       <property name="spacing">
-        <number>5</number>
-       </property>
        <item>
         <widget class="QPushButton" name="okButton">
          <property name="toolTip">
