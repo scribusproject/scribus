@@ -1473,7 +1473,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	fontsAction=addWidget(Fonts);
 	fontsAction->setVisible(true);
 
-	Size = new ScrSpinBox( 0.5, 2048, this, SC_POINTS );
+	Size = new ScrSpinBox(0.5, 2048, this, SC_POINTS);
 	PrefsManager& prefsManager = PrefsManager::instance();
 	Size->setSuffix( unitGetSuffixFromIndex(SC_POINTS) );
 	Size->setValue(prefsManager.appPrefs.itemToolPrefs.textSize / 10.0);
@@ -1481,26 +1481,26 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	sizeAction = addWidget(Size);
 	sizeAction->setVisible(true);
 
-	lblScaleTxtH = new QLabel("", this);
+	lblScaleTxtH = new QLabel(this);
 	lblScaleTxtH->setPixmap(IconManager::instance().loadPixmap("textscaleh.png"));
 	scaleTxtHAction = addWidget(lblScaleTxtH);
 	scaleTxtHAction->setVisible(true);
 
-	charScaleH = new ScrSpinBox( 10, 400,  this, SC_PERCENT );
-	charScaleH->setValue( 100 );
-	charScaleH->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
+	charScaleH = new ScrSpinBox(10, 400,  this, SC_PERCENT);
+	charScaleH->setValue(100);
+	charScaleH->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 
 	chScaleHAction = addWidget(charScaleH);
 	chScaleHAction->setVisible(true);
 
-	lblScaleTxtV = new QLabel("", this);
+	lblScaleTxtV = new QLabel(this);
 	lblScaleTxtV->setPixmap(IconManager::instance().loadPixmap("textscalev.png"));
 
 	scaleTxtVAction = addWidget(lblScaleTxtV);
 	scaleTxtVAction->setVisible(true);
-	charScaleV = new ScrSpinBox( 10, 400, this, SC_PERCENT );
-	charScaleV->setValue( 100 );
-	charScaleV->setSuffix( unitGetSuffixFromIndex(SC_PERCENT) );
+	charScaleV = new ScrSpinBox(10, 400, this, SC_PERCENT);
+	charScaleV->setValue(100);
+	charScaleV->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	chScaleVAction = addWidget(charScaleV);
 	chScaleVAction->setVisible(true);
 

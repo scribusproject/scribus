@@ -122,8 +122,8 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	int col = 0;
 	if (showLabels)
 	{
-		fontFaceLabel = new QLabel("", this);
-		fontStyleLabel = new QLabel("", this);
+		fontFaceLabel = new QLabel(this);
+		fontStyleLabel = new QLabel(this);
 		fontComboLayout->addWidget(fontFaceLabel, 0, 0);
 		fontComboLayout->addWidget(fontStyleLabel, 1, 0);
 		fontComboLayout->setColumnStretch(1, 10);
