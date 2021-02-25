@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPainter>
+#include <QPalette>
 #include <QPixmap>
 #include <QPolygon>
 #include <QPushButton>
@@ -81,13 +82,17 @@ void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
 void RulerT::paintEvent(QPaintEvent *)
 {
 	double xl;
+
+	const QPalette& palette = this->palette();
+	const QColor& textColor = palette.color(QPalette::Text);
+
 	QPainter p;
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
 	p.translate(-offset, 0);
-	p.setBrush(Qt::black);
+	p.setBrush(textColor);
 	p.setFont(font());
-	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setPen(QPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	for (xl = 0; xl < width() + offset; xl += iter)
 	{
 		if (xl < offset)
@@ -127,39 +132,37 @@ void RulerT::paintEvent(QPaintEvent *)
 		}
 	}
 
-	if (tabValues.count() != 0)
+	for (int i = 0; i < tabValues.count(); i++)
 	{
-		for (int i = 0; i < tabValues.count(); i++)
+		if (i == actTab)
+			p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		else
+			p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		switch (static_cast<int>(tabValues[i].tabType))
 		{
-			if (i == actTab)
-				p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			else
-				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			switch (static_cast<int>(tabValues[i].tabType))
-			{
-				case 0:
-					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-					p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition + 8), 23);
-					break;
-				case 1:
-					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-					p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition - 8), 23);
-					break;
-				case 2:
-				case 3:
-					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-					p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
-					p.drawLine(qRound(tabValues[i].tabPosition + 3), 20, qRound(tabValues[i].tabPosition + 2), 20);
-					break;
-				case 4:
-					p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-					p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
-					break;
-				default:
-					break;
-			}
+			case 0:
+				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+				p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition + 8), 23);
+				break;
+			case 1:
+				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+				p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition - 8), 23);
+				break;
+			case 2:
+			case 3:
+				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+				p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
+				p.drawLine(qRound(tabValues[i].tabPosition + 3), 20, qRound(tabValues[i].tabPosition + 2), 20);
+				break;
+			case 4:
+				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
+				p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
+				break;
+			default:
+				break;
 		}
 	}
+
 	if (haveInd)
 	{
 		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
