@@ -48,7 +48,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 //		painter->clear();
 		painter->setBrush(textColor);
 		painter->setPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		painter->setFillMode(1);
+		painter->setFillMode(ScPainter::Solid);
 		painter->translate(3.0, 3.0);
 		path.resize(0);
 		path = arrowStyles->at(i).points.copy();

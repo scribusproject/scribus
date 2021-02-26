@@ -91,7 +91,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 			gly.map(chma);
 			p->translate(ww / 2, 1);
 			p->setBrush(Qt::black);
-			p->setFillMode(1);
+			p->setFillMode(ScPainter::Solid);
 			p->setupPolygon(&gly);
 			p->fillPath();
 			p->end();

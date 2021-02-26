@@ -3549,8 +3549,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 
 		int fm = p->fillMode();
 		int sm = p->strokeMode();
-		p->setFillMode(1);
-		p->setStrokeMode(1);
+		p->setFillMode(ScPainter::Solid);
+		p->setStrokeMode(ScPainter::Solid);
 		ScreenPainter painter(p, this);
 		textLayout.renderBackground(&painter);
 		textLayout.render(&painter, this);
@@ -3698,7 +3698,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			if (m_Locked)
 				p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
-			p->setFillMode(0);
+			p->setFillMode(ScPainter::None);
 			p->setupSharpPolygon(&PoLine);
 			p->strokePath();
 		}

@@ -1773,7 +1773,7 @@ void ScPainter::drawText(QRectF area, const QString& text, bool filled, int alig
 
 void ScPainter::drawShadeCircle(const QRectF &re, const QColor& color, bool sunken, int lineWidth)
 {
-	setStrokeMode(1);
+	setStrokeMode(ScPainter::Solid);
 	double bezierCircle = 0.55228475;
 	double dx = re.width();
 	double dy = re.height();

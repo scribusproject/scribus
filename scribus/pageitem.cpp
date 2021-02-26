@@ -1998,7 +1998,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
 					p->setPen(PrefsManager::instance().appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				p->setFillMode(0);
+				p->setFillMode(ScPainter::None);
 				if (itemType() == PathText)
 				{
 					if (Clip.count() != 0)

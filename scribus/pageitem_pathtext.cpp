@@ -335,7 +335,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	if (!m_Doc->RePos)
 	{
 		int fm = p->fillMode();
-		p->setFillMode(1);
+		p->setFillMode(ScPainter::Solid);
 		p->save();
 		ScreenPainter painter(p, this);
 		textLayout.render(&painter);

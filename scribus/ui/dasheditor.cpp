@@ -68,7 +68,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	p->clear(QColor(128, 128, 128));
 	double startX = 0.0;
 	p->setLineWidth(0);
-	p->setFillMode(1);
+	p->setFillMode(ScPainter::Solid);
 	p->setBrush(Qt::black);
 	for (int i = 0; i < m_dashValues.count(); i++)
 	{
@@ -83,7 +83,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 			m_stops.append(startX);
 	}
 	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	p->setFillMode(0);
+	p->setFillMode(ScPainter::None);
 	p->drawRect(0, 0, pWidth, 10);
 	p->end();
 	delete p;

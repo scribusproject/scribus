@@ -208,7 +208,7 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		if (stroke)
 		{
 			QColor tmp = m_painter->pen();
-			m_painter->setStrokeMode(1);
+			m_painter->setStrokeMode(ScPainter::Solid);
 			m_painter->setPen(m_painter->brush(), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			m_painter->setLineWidth(fontSize() * gc.scaleV() / 20.0);
 			m_painter->strokePath();
@@ -216,7 +216,7 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		}
 		else
 		{
-			m_painter->setFillMode(1);
+			m_painter->setFillMode(ScPainter::Solid);
 			m_painter->fillPath();
 		}
 		m_painter->setBrush(oldBrush);

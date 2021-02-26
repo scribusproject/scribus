@@ -980,7 +980,7 @@ public:
 		int fm = m_painter->fillMode();
 
 		m_painter->setFillRule(false);
-		m_painter->setFillMode(1);
+		m_painter->setFillMode(ScPainterExBase::Solid);
 
 		setupState();
 
@@ -1057,8 +1057,8 @@ public:
 	{
 		m_painter->save();
 		setupState();
-		m_painter->setFillMode(1);
-		m_painter->setStrokeMode(1);
+		m_painter->setFillMode(ScPainterExBase::Solid);
+		m_painter->setStrokeMode(ScPainterExBase::Solid);
 		m_painter->drawRect(rect.x(), rect.y(), rect.width(), rect.height());
 		m_painter->restore();
 	}

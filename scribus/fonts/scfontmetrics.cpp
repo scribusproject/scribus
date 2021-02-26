@@ -260,7 +260,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 	ymax = 0.0;
 	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
 	p->clear(back);
-	p->setFillMode(1);
+	p->setFillMode(ScPainter::Solid);
 	p->setLineWidth(0.0);
 //	p->setBrush(back);
 //	p->drawRect(0.0, 0.0, static_cast<qreal>(w), static_cast<qreal>(h));
