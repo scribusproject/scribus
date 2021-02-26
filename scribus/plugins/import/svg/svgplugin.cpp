@@ -1588,7 +1588,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 		{
 			int startData = fname.indexOf(",");
 			QString dataType = fname.left(startData);
-			fname.remove(0, startData+1);
+			fname.remove(0, startData + 1);
 			QByteArray ba;
 			ba.append(fname);
 			if (dataType.contains("base64"))

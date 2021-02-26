@@ -410,7 +410,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		else if (PyUnicode_Check(objValue))
 		{
 			// Get a pointer to the internal buffer of the Py_Unicode object, which is UCS2 formatted
-			const unsigned short * ucs2Data = (const unsigned short *)PyUnicode_AS_UNICODE(objValue);
+			const unsigned short * ucs2Data = (const unsigned short *) PyUnicode_AS_UNICODE(objValue);
 			// and make a new QString from it (the string is copied)
 			success = obj->setProperty(propertyName, QString::fromUtf16(ucs2Data));
 		}
