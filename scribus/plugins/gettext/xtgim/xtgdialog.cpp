@@ -44,12 +44,12 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	setWindowTitle( tr("Quark XPress Tags Importer Options"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-	layout->setSpacing(0);
+	layout->setContentsMargins(9, 9, 9, 9);
+	layout->setSpacing(6);
 
 	QBoxLayout* playout = new QHBoxLayout;
-	playout->setMargin(5);
-	playout->setSpacing(5);
+	playout->setContentsMargins(0, 0, 0, 0);
+	playout->setSpacing(6);
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for Styles"), this);
 	prefixCheck->setChecked(prefix);
 	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the Style name in Scribus") +"</qt>");
@@ -57,8 +57,8 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout;
-	dlayout->setMargin(5);
-	dlayout->setSpacing(5);
+	dlayout->setContentsMargins(0, 0, 0, 0);
+	dlayout->setSpacing(6);
 	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
 	doNotAskCheck->setChecked(false);
 	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an XPress Tags document") +"</qt>");
@@ -67,8 +67,8 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	layout->addLayout(dlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout;
-	blayout->setMargin(5);
-	blayout->setSpacing(5);
+	blayout->setContentsMargins(0, 0, 0, 0);
+	blayout->setSpacing(6);
 	blayout->addStretch(10);
 	okButton = new QPushButton( tr("OK"), this);
 	blayout->addWidget(okButton);
