@@ -300,7 +300,7 @@ void getFontFormat(FT_Face face, ScFace::FontFormat & fmt, ScFace::FontType & ty
  * Checks face, which must be sfnt based, for the subtype.
  * Possible values: TTF, CFF, OTF
  */
-void getSFontType(FT_Face face, ScFace::FontType & type) 
+void getSubFontType(FT_Face face, ScFace::FontType & type) 
 {
 	if (FT_IS_SFNT(face)) 
 	{
@@ -614,7 +614,7 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 			case ScFace::TTCF:
 			case ScFace::TYPE42:
 				t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
-				getSFontType(face, t.m_m->typeCode);
+				getSubFontType(face, t.m_m->typeCode);
 				t.subset(Subset);
 				break;
 			default:
@@ -867,19 +867,19 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 					break;
 				case ScFace::SFNT:
 					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
-					getSFontType(face, t.m_m->typeCode);
+					getSubFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
 				case ScFace::TTCF:
 					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
 					t.m_m->formatCode = ScFace::TTCF;
 					t.m_m->typeCode = ScFace::TTF;
-					getSFontType(face, t.m_m->typeCode);
+					getSubFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
 				case ScFace::TYPE42:
 					t = ScFace(new ScFace_ttf(fam, sty, "", fullName, qpsName, filename, faceIndex, features));
-					getSFontType(face, t.m_m->typeCode);
+					getSubFontType(face, t.m_m->typeCode);
 					t.subset(Subset);
 					break;
 				default:
