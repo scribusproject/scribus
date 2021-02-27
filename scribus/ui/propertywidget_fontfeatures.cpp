@@ -20,8 +20,6 @@ PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFra
 	m_ScMW = nullptr;
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
 	layout()->setAlignment(Qt::AlignTop);
 
 	initWidgets();

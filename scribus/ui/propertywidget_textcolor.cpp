@@ -19,9 +19,6 @@ PropertyWidget_TextColor::PropertyWidget_TextColor(QWidget* parent) : QFrame(par
 {
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
-
 	layout()->setAlignment(Qt::AlignLeft);
 
 	fillLayout->setAlignment(Qt::AlignLeft);

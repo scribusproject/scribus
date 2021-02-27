@@ -6,25 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>218</width>
-    <height>118</height>
+    <width>243</width>
+    <height>143</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Frame</string>
   </property>
-  <property name="frameShape">
-   <enum>QFrame::StyledPanel</enum>
-  </property>
-  <property name="frameShadow">
-   <enum>QFrame::Raised</enum>
-  </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="margin">
-    <number>5</number>
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
    </property>
    <property name="spacing">
-    <number>2</number>
+    <number>3</number>
    </property>
    <item row="0" column="0">
     <widget class="QLabel" name="pathTextTypeLabel">

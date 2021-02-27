@@ -20,9 +20,6 @@ PropertyWidget_Advanced::PropertyWidget_Advanced(QWidget* parent) : QFrame(paren
 {
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
-
 	layout()->setAlignment(Qt::AlignLeft);
 
 	textBase->setValue(0);

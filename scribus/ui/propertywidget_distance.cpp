@@ -24,9 +24,6 @@ PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(paren
 {
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
-
 	layout()->setAlignment(Qt::AlignTop);
 
 	columnsLabel->setBuddy(columns);

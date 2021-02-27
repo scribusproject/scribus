@@ -25,8 +25,7 @@ for which a new license (GPL+exception) is in place.
 PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent)
 {
 	setupUi(this);
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
+
 	layout()->setAlignment(Qt::AlignTop);
 
 	languageChange();

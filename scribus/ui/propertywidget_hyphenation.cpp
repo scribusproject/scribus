@@ -24,8 +24,6 @@ PropertyWidget_Hyphenation::PropertyWidget_Hyphenation(QWidget* parent)
 
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
 	hyphenCharLineEdit->setMaxLength(1);
 	layout()->setAlignment( Qt::AlignTop );
 	languageChange();

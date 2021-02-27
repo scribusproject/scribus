@@ -14,10 +14,8 @@ PropertyWidget_Flop::PropertyWidget_Flop(QWidget* parent) : QFrame(parent)
 {
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
 	layout()->setAlignment(Qt::AlignTop);
-	
+
 	flopRealHeight->setChecked(true);
 
 	flopGroup->setId(flopRealHeight,  RealHeightID);

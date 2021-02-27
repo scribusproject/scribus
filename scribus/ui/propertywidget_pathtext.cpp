@@ -19,10 +19,8 @@ PropertyWidget_PathText::PropertyWidget_PathText(QWidget* parent) : QFrame(paren
 {
 	setupUi(this);
 
-	setFrameStyle(QFrame::Box | QFrame::Plain);
-	setLineWidth(1);
 	layout()->setAlignment(Qt::AlignTop);
-	
+
 	startOffset->setValues(0, 30000, 2, 0);
 	startOffset->setSingleStep(10);
 
