@@ -15,22 +15,25 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>2</number>
+    <number>3</number>
    </property>
    <property name="leftMargin">
-    <number>2</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>2</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>2</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>2</number>
+    <number>3</number>
    </property>
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -40,6 +43,9 @@
      </item>
      <item row="3" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item>
         <widget class="QToolButton" name="textFlowDisabled">
          <property name="sizePolicy">
@@ -227,6 +233,9 @@
      </item>
      <item row="1" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item>
         <widget class="Autoforms" name="customShape">
          <property name="toolTip">
@@ -304,6 +313,9 @@
      </item>
      <item row="5" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item>
         <widget class="QToolButton" name="evenOdd">
          <property name="toolTip">

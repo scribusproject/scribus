@@ -14,17 +14,20 @@
    <string notr="true">Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>3</number>
+   </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabFillStroke">
@@ -37,22 +40,25 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="spacing">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="leftMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="topMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="rightMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="bottomMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>3</number>
+         </property>
          <item>
           <widget class="QLabel" name="fillModeLabel">
            <property name="text">
@@ -80,7 +86,7 @@
          <widget class="QWidget" name="solidFillPage">
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <property name="spacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -99,6 +105,9 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item>
               <widget class="QLabel" name="fillShadeLabel">
                <property name="text">
@@ -126,7 +135,7 @@
          <widget class="QWidget" name="gradientFillPage">
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <property name="spacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -142,6 +151,9 @@
            </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item>
               <widget class="QComboBox" name="gradientType">
                <item>
@@ -200,6 +212,21 @@
              </property>
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_4">
+               <property name="spacing">
+                <number>3</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item>
                 <widget class="QComboBox" name="namedGradient"/>
                </item>
@@ -221,6 +248,9 @@
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                 <property name="spacing">
+                  <number>3</number>
+                 </property>
                  <item>
                   <widget class="QLabel" name="gradientExtendLabel">
                    <property name="text">
@@ -248,6 +278,9 @@
              </widget>
              <widget class="QWidget" name="page_4">
               <layout class="QVBoxLayout" name="verticalLayout_8">
+               <property name="spacing">
+                <number>3</number>
+               </property>
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -262,6 +295,9 @@
                </property>
                <item>
                 <layout class="QGridLayout" name="gridLayout_4">
+                 <property name="spacing">
+                  <number>3</number>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="colorPointLabel">
                    <property name="text">
@@ -482,8 +518,26 @@
              </widget>
              <widget class="QWidget" name="page_5">
               <layout class="QVBoxLayout" name="verticalLayout_9">
+               <property name="spacing">
+                <number>3</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item>
                 <layout class="QGridLayout" name="gridLayout_5">
+                 <property name="spacing">
+                  <number>3</number>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="colorMeshPointLabel">
                    <property name="text">
@@ -563,6 +617,9 @@
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <property name="spacing">
+                  <number>3</number>
+                 </property>
                  <item>
                   <widget class="QToolButton" name="editMeshColors">
                    <property name="text">
@@ -609,8 +666,26 @@
          </widget>
          <widget class="QWidget" name="page">
           <layout class="QVBoxLayout" name="verticalLayout_12">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <layout class="QGridLayout" name="gridLayout">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item row="0" column="0">
               <widget class="QLabel" name="hatchDistLabel">
                <property name="text">
@@ -704,7 +779,7 @@
          <widget class="QWidget" name="patternFillPage">
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <property name="spacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -743,7 +818,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <property name="spacing">
-              <number>5</number>
+              <number>3</number>
              </property>
              <item>
               <widget class="QToolButton" name="editPatternProps">
@@ -779,22 +854,25 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_11">
        <property name="spacing">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="leftMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="topMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="rightMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="bottomMargin">
-        <number>2</number>
+        <number>3</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <property name="spacing">
+          <number>3</number>
+         </property>
          <item>
           <widget class="QLabel" name="strokeModeLabel">
            <property name="text">
@@ -822,7 +900,7 @@
          <widget class="QWidget" name="solidStrokePage">
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <property name="spacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -841,6 +919,9 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item>
               <widget class="QLabel" name="strokeShadeLabel">
                <property name="text">
@@ -867,8 +948,26 @@
          </widget>
          <widget class="QWidget" name="gradientStrokePage">
           <layout class="QVBoxLayout" name="verticalLayout_10">
+           <property name="spacing">
+            <number>3</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item>
               <widget class="QComboBox" name="gradientTypeStroke">
                <item>
@@ -916,6 +1015,9 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <property name="spacing">
+              <number>3</number>
+             </property>
              <item>
               <widget class="QLabel" name="GradientExtendSLabel">
                <property name="text">
@@ -944,7 +1046,7 @@
          <widget class="QWidget" name="patternStrokePage">
           <layout class="QVBoxLayout" name="verticalLayout_14">
            <property name="spacing">
-            <number>2</number>
+            <number>3</number>
            </property>
            <property name="leftMargin">
             <number>0</number>
@@ -983,7 +1085,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <property name="spacing">
-              <number>5</number>
+              <number>3</number>
              </property>
              <item>
               <widget class="QToolButton" name="editPatternPropsStroke">
@@ -1027,6 +1129,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item>
       <widget class="QLabel" name="overPrintLabel">
        <property name="text">

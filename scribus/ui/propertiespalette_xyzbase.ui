@@ -15,19 +15,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>5</number>
+    <number>3</number>
    </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>3</number>
    </property>
    <item>
     <widget class="QGroupBox" name="nameGroup">
@@ -42,19 +42,19 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
-       <number>2</number>
+       <number>3</number>
       </property>
       <property name="leftMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="topMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="rightMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="bottomMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <item>
        <widget class="NameWidget" name="nameEdit">
@@ -81,34 +81,37 @@
       <string>Geometry</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>3</number>
+      </property>
       <property name="leftMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="topMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="rightMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <property name="bottomMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <item>
        <layout class="QGridLayout" name="geoGroupLayout">
         <property name="leftMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="spacing">
-         <number>4</number>
+         <number>3</number>
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="xposLabel">
@@ -243,6 +246,9 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item>
       <widget class="QGroupBox" name="levelGroup">
        <property name="title">
@@ -250,19 +256,19 @@
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">
-         <number>5</number>
+         <number>6</number>
         </property>
         <property name="topMargin">
-         <number>5</number>
+         <number>6</number>
         </property>
         <property name="rightMargin">
-         <number>5</number>
+         <number>6</number>
         </property>
         <property name="bottomMargin">
-         <number>5</number>
+         <number>6</number>
         </property>
         <property name="spacing">
-         <number>4</number>
+         <number>3</number>
         </property>
         <item row="0" column="0">
          <widget class="QToolButton" name="levelUp">
@@ -356,6 +362,9 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="spacing">
+        <number>3</number>
+       </property>
        <item row="0" column="0">
         <widget class="QToolButton" name="doGroup">
          <property name="toolTip">
