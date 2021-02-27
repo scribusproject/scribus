@@ -143,6 +143,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>detailButton</tabstop>
+  <tabstop>catsCombo</tabstop>
+  <tabstop>psizeEdit</tabstop>
+  <tabstop>colorsEdit</tabstop>
+  <tabstop>descrEdit</tabstop>
+  <tabstop>usageEdit</tabstop>
+  <tabstop>authorEdit</tabstop>
+  <tabstop>emailEdit</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
