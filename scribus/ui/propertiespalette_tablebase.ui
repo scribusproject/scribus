@@ -14,12 +14,42 @@
    <string notr="true">Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>3</number>
+   </property>
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Styles</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <property name="spacing">
+       <number>3</number>
+      </property>
       <item row="0" column="0">
        <widget class="QLabel" name="labelTable">
         <property name="text">
@@ -101,10 +131,34 @@
       <string>Fill</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
       <item>
        <layout class="QHBoxLayout" name="fillLayout1" stretch="0,0">
+        <property name="spacing">
+         <number>3</number>
+        </property>
         <item>
          <layout class="QFormLayout" name="fillLayout1_1">
+          <property name="horizontalSpacing">
+           <number>3</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>3</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="fillColorLabel">
             <property name="enabled">
@@ -138,6 +192,12 @@
         </item>
         <item>
          <layout class="QFormLayout" name="fillLayout1_2">
+          <property name="horizontalSpacing">
+           <number>3</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>3</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="fillShadeLabel">
             <property name="enabled">
@@ -192,10 +252,31 @@
       <string>Borders</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
       <item>
        <layout class="QHBoxLayout" name="bordesLayout1">
+        <property name="spacing">
+         <number>3</number>
+        </property>
         <item>
          <layout class="QVBoxLayout" name="bordersLayout1_1">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item alignment="Qt::AlignTop">
            <widget class="QPushButton" name="addBorderLineButton">
             <property name="enabled">
@@ -315,10 +396,19 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="bordersLayout2" stretch="0,0">
+        <property name="spacing">
+         <number>3</number>
+        </property>
         <item>
          <layout class="QFormLayout" name="bordersLayout2_1">
           <property name="fieldGrowthPolicy">
            <enum>QFormLayout::ExpandingFieldsGrow</enum>
+          </property>
+          <property name="horizontalSpacing">
+           <number>3</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>3</number>
           </property>
           <item row="0" column="0">
            <widget class="QLabel" name="borderLineWidthLabel">
@@ -388,6 +478,12 @@
         </item>
         <item>
          <layout class="QFormLayout" name="bordersLayout2_2">
+          <property name="horizontalSpacing">
+           <number>3</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>3</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="borderLineStyleLabel">
             <property name="enabled">
@@ -479,7 +575,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>0</height>
       </size>
      </property>
     </spacer>
