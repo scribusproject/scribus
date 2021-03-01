@@ -1259,7 +1259,9 @@ namespace sfnt {
 	
 		hb_subset_input_set_retain_gids(hbSubsetInput.get(), true);
 		hb_subset_input_set_drop_hints(hbSubsetInput.get(), false);
+#if HB_VERSION_ATLEAST(2, 6, 5)
 		hb_subset_input_set_name_legacy(hbSubsetInput.get(), true);
+#endif
 
 		QScopedPointer<hb_face_t, HbFaceDeleter> hbSubsetFace(hb_subset(hbFullFace.get(), hbSubsetInput.get()));
 		if (hbSubsetFace.isNull())
