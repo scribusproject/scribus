@@ -2336,7 +2336,11 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	// Unset the clip path as it is unrelated to the pattern's coordinate space.
 	QPainterPath savedClip = m_currentClipPath;
 	m_currentClipPath = QPainterPath();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
+	gfx->display(tPat->getContentStream());
+#else
 	gfx->display(str);
+#endif
 	m_currentClipPath = savedClip;
 	inPattern--;
 	gElements = m_groupStack.pop();
