@@ -56,7 +56,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	m_width = static_cast<int>(m_doc->pageWidth());
 	m_height = static_cast<int>(m_doc->pageHeight());
 	m_oriWidth = static_cast<int>(m_doc->pageWidth());
-	m_oriHeight = static_cast<int>(m_doc->pageWidth());
+	m_oriHeight = static_cast<int>(m_doc->pageHeight());
 
 	QStringList tl;
 	if ((m_item->annotation().ActionType() == Annotation::Action_GoTo) || (m_item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (m_item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs))
@@ -67,7 +67,7 @@ Annota::Annota(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* view
 	else
 	{
 		tl.append("0");
-		tl.append("0");
+		tl.append(QString::number(m_height));
 	}
 
 	AnnotLayout = new QVBoxLayout( this );
