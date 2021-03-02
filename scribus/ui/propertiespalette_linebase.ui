@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>340</width>
+    <width>265</width>
     <height>421</height>
    </rect>
   </property>
@@ -29,27 +29,33 @@
    <property name="spacing">
     <number>3</number>
    </property>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="lineModeLabel">
-     <property name="text">
-      <string>&amp;Basepoint:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QComboBox" name="lineMode"/>
-   </item>
-   <item row="1" column="0" colspan="2">
+   <item row="1" column="0">
     <widget class="QLabel" name="lineTypeLabel">
      <property name="text">
       <string>T&amp;ype of Line:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="2" colspan="2">
-    <widget class="LineCombo" name="lineType"/>
+   <item row="7" column="0">
+    <widget class="QLabel" name="lineWidthLabel">
+     <property name="text">
+      <string>Line &amp;Width:</string>
+     </property>
+    </widget>
    </item>
-   <item row="2" column="0" colspan="4">
+   <item row="9" column="1">
+    <widget class="QComboBox" name="lineEndStyle"/>
+   </item>
+   <item row="8" column="1">
+    <widget class="QComboBox" name="lineJoinStyle"/>
+   </item>
+   <item row="10" column="0" colspan="2">
+    <widget class="QListWidget" name="lineStyles"/>
+   </item>
+   <item row="4" column="1">
+    <widget class="ArrowChooser" name="endArrow"/>
+   </item>
+   <item row="2" column="0" colspan="2">
     <widget class="DashEditor" name="dashEditor">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -59,68 +65,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="startArrowLabel">
-     <property name="text">
-      <string>Start Arrow:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QLabel" name="endArrowLabel">
-     <property name="text">
-      <string>End Arrow:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="ArrowChooser" name="startArrow"/>
-   </item>
-   <item row="4" column="2" colspan="2">
-    <widget class="ArrowChooser" name="endArrow"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="startArrowScaleLabel">
-     <property name="text">
-      <string>Scaling:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="ScrSpinBox" name="startArrowScale">
-     <property name="minimum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>300.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="2">
-    <widget class="QLabel" name="endArrowScaleLabel">
-     <property name="text">
-      <string>Scaling:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <widget class="ScrSpinBox" name="endArrowScale">
-     <property name="minimum">
-      <double>1.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>300.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QLabel" name="lineWidthLabel">
-     <property name="text">
-      <string>Line &amp;Width:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2" colspan="2">
+   <item row="7" column="1">
     <widget class="ScrSpinBox" name="lineWidth">
      <property name="specialValueText">
       <string>Hairline</string>
@@ -130,28 +75,109 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="4" column="0">
+    <widget class="ArrowChooser" name="startArrow"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="LineCombo" name="lineType"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="lineMode"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="lineModeLabel">
+     <property name="text">
+      <string>&amp;Basepoint:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="startArrowScaleLabel">
+       <property name="text">
+        <string>Scaling:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ScrSpinBox" name="startArrowScale">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>300.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="endArrowScaleLabel">
+       <property name="text">
+        <string>Scaling:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ScrSpinBox" name="endArrowScale">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>300.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="startArrowLabel">
+     <property name="text">
+      <string>Start Arrow:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="endArrowLabel">
+     <property name="text">
+      <string>End Arrow:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
     <widget class="QLabel" name="lineJoinLabel">
      <property name="text">
       <string>Ed&amp;ges:</string>
      </property>
     </widget>
    </item>
-   <item row="7" column="2" colspan="2">
-    <widget class="QComboBox" name="lineJoinStyle"/>
-   </item>
-   <item row="8" column="0">
+   <item row="9" column="0">
     <widget class="QLabel" name="lineEndLabel">
      <property name="text">
       <string>&amp;Endings:</string>
      </property>
     </widget>
-   </item>
-   <item row="8" column="2" colspan="2">
-    <widget class="QComboBox" name="lineEndStyle"/>
-   </item>
-   <item row="9" column="0" colspan="4">
-    <widget class="QListWidget" name="lineStyles"/>
    </item>
   </layout>
  </widget>
