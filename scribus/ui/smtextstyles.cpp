@@ -1423,9 +1423,12 @@ void SMParagraphStyle::slotEffectProperties()
 void SMParagraphStyle::slotFillColor()
 {
 	if (m_pwidget->cpage->fillColor_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetFillColor();
-	else {
+	}
+	else
+	{
 		QString col( m_pwidget->cpage->fillColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
@@ -1439,11 +1442,13 @@ void SMParagraphStyle::slotFillColor()
 void SMParagraphStyle::slotFillShade()
 {
 	if (m_pwidget->cpage->fillShade_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetFillShade();
-	else {
+	}
+	else
+	{
 		int fs = m_pwidget->cpage->fillShade_->getValue();
-
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setFillShade(fs);
 	}
@@ -1454,9 +1459,12 @@ void SMParagraphStyle::slotFillShade()
 void SMParagraphStyle::slotBackPColor()
 {
 	if (m_pwidget->backColor_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetBackgroundColor();
-	else {
+	}
+	else
+	{
 		QString col( m_pwidget->backColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
@@ -1470,11 +1478,13 @@ void SMParagraphStyle::slotBackPColor()
 void SMParagraphStyle::slotBackPShade()
 {
 	if (m_pwidget->backShade_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetBackgroundShade();
-	else {
+	}
+	else
+	{
 		int fs = m_pwidget->backShade_->getValue();
-
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setBackgroundShade(fs);
 	}
@@ -1485,9 +1495,12 @@ void SMParagraphStyle::slotBackPShade()
 void SMParagraphStyle::slotBackColor()
 {
 	if (m_pwidget->cpage->backColor_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetBackColor();
-	else {
+	}
+	else
+	{
 		QString col( m_pwidget->cpage->backColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
@@ -1501,11 +1514,13 @@ void SMParagraphStyle::slotBackColor()
 void SMParagraphStyle::slotBackShade()
 {
 	if (m_pwidget->cpage->backShade_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetBackShade();
-	else {
+	}
+	else
+	{
 		int fs = m_pwidget->cpage->backShade_->getValue();
-
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setBackShade(fs);
 	}
@@ -1516,9 +1531,12 @@ void SMParagraphStyle::slotBackShade()
 void SMParagraphStyle::slotStrokeColor()
 {
 	if (m_pwidget->cpage->strokeColor_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetStrokeColor();
-	else {
+	}
+	else
+	{
 		QString col(m_pwidget->cpage->strokeColor_->currentText());
 		if (col == CommonStrings::tr_NoneColor)
 			col = CommonStrings::None;
@@ -1532,12 +1550,13 @@ void SMParagraphStyle::slotStrokeColor()
 void SMParagraphStyle::slotStrokeShade()
 {
 	if (m_pwidget->cpage->strokeShade_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetStrokeShade();
+	}
 	else 
 	{
 		int ss = m_pwidget->cpage->strokeShade_->getValue();
-
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setStrokeShade(ss);
 	}
@@ -1569,12 +1588,13 @@ void SMParagraphStyle::slotLanguage()
 void SMParagraphStyle::slotWordMin()
 {
 	if (m_pwidget->cpage->smallestWordSpinBox->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetHyphenWordMin();
+	}
 	else
 	{
 		int wm = m_pwidget->cpage->smallestWordSpinBox->value();
-
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setHyphenWordMin(wm);
 	}
@@ -1585,8 +1605,10 @@ void SMParagraphStyle::slotWordMin()
 void SMParagraphStyle::slotHyphenChar()
 {
 	if (m_pwidget->cpage->hyphenCharLineEdit->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetHyphenChar();
+	}
 	else
 	{
 		QString hyphenText = m_pwidget->cpage->hyphenCharLineEdit->text();
@@ -1601,8 +1623,10 @@ void SMParagraphStyle::slotHyphenChar()
 void SMParagraphStyle::slotScaleH()
 {
 	if (m_pwidget->cpage->fontHScale_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetScaleH();
+	}
 	else
 	{
 		double a, b, value;
@@ -1619,8 +1643,10 @@ void SMParagraphStyle::slotScaleH()
 void SMParagraphStyle::slotScaleV()
 {
 	if (m_pwidget->cpage->fontVScale_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetScaleV();
+	}
 	else
 	{
 		double a, b, value;
@@ -1637,8 +1663,10 @@ void SMParagraphStyle::slotScaleV()
 void SMParagraphStyle::slotTracking()
 {
 	if (m_pwidget->cpage->tracking_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetTracking();
+	}
 	else
 	{
 		double a, b, value;
@@ -1655,8 +1683,10 @@ void SMParagraphStyle::slotTracking()
 void SMParagraphStyle::slotWordTracking()
 {
 	if (m_pwidget->cpage->widthSpaceSpin->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetWordTracking();
+	}
 	else
 	{
 		double a, b, value;
@@ -1673,8 +1703,10 @@ void SMParagraphStyle::slotWordTracking()
 void SMParagraphStyle::slotBaselineOffset()
 {
 	if (m_pwidget->cpage->baselineOffset_->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetBaselineOffset();
+	}
 	else
 	{
 		double a, b, value;
@@ -1691,11 +1723,13 @@ void SMParagraphStyle::slotBaselineOffset()
 void SMParagraphStyle::slotFont(const QString& s)
 {
 	if (m_pwidget->cpage->fontFace_->useParentFont())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetFont();
-	else {
+	}
+	else
+	{
 		ScFace sf = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[s];
-		
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().setFont(sf);
 	}
@@ -1765,8 +1799,10 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 void SMParagraphStyle::slotFontFeatures()
 {
 	if (m_pwidget->cpage->fontfeaturesSetting->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->charStyle().resetFontFeatures();
+	}
 	else
 	{
 		QString fontfeatures = m_pwidget->cpage->fontfeaturesSetting->fontFeatures();
