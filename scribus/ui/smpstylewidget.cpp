@@ -113,9 +113,9 @@ void SMPStyleWidget::languageChange()
 {
 	retranslateUi(this);
 	alignment->languageChange();
-	tabList->first_->setToolTip( tr("First Line Indent"));
-	tabList->left_->setToolTip(  tr("Left Indent"));
-	tabList->right_->setToolTip( tr("Right Indent"));
+	tabList->firstLineSpin->setToolTip( tr("First Line Indent"));
+	tabList->leftIndentSpin->setToolTip(  tr("Left Indent"));
+	tabList->rightIndentSpin->setToolTip( tr("Right Indent"));
 
 	int  oldLineSpacingModeIndex = lineSpacingMode->currentIndex();
 	bool lineSpacingModeBlocked = lineSpacingMode->blockSignals(true);
@@ -938,7 +938,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	if (l < -3800.0)
 	{
 		tabList->setLeftIndentValue(0.0);
-		tabList->left_->clear();
+		tabList->leftIndentSpin->clear();
 	}
 	else
 		tabList->setLeftIndentValue(l * unitRatio);
@@ -956,7 +956,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	if (l < -3800.0)
 	{
 		tabList->setFirstLineValue(0.0);
-		tabList->first_->clear();
+		tabList->firstLineSpin->clear();
 	}
 	else
 		tabList->setFirstLineValue(l * unitRatio);
@@ -974,7 +974,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	if (l < -3800.0)
 	{
 		tabList->setRightIndentData(0.0);
-		tabList->right_->clear();
+		tabList->rightIndentSpin->clear();
 	}
 	else
 		tabList->setRightIndentValue(l * unitRatio);

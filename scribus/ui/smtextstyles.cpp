@@ -538,9 +538,9 @@ void SMParagraphStyle::setupConnections()
 
 	connect(m_pwidget->tabList, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
 	connect(m_pwidget->tabList, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
-	connect(m_pwidget->tabList->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	connect(m_pwidget->tabList->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	connect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	connect(m_pwidget->tabList->leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	connect(m_pwidget->tabList->rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	connect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	connect(m_pwidget->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 	connect(m_pwidget->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackPColor()));
@@ -638,9 +638,9 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
 	disconnect(m_pwidget->tabList, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	disconnect(m_pwidget->tabList->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	disconnect(m_pwidget->tabList->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	disconnect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	disconnect(m_pwidget->tabList->leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	disconnect(m_pwidget->tabList->rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	disconnect(m_pwidget->tabList->firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 	disconnect(m_pwidget->backColor_, SIGNAL(activated(const QString&)), this, SLOT(slotBackPColor()));
 	disconnect(m_pwidget->backShade_, SIGNAL(clicked()), this, SLOT(slotBackPShade()));
 
@@ -1039,8 +1039,10 @@ void SMParagraphStyle::slotSelectionDirty()
 void SMParagraphStyle::slotNumFormat(int)
 {
 	if (m_pwidget->numFormatCombo->useParentFormat())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumFormat();
+	}
 	else
 	{
 		NumFormat numFormat = m_pwidget->numFormatCombo->currentFormat();
@@ -1054,13 +1056,15 @@ void SMParagraphStyle::slotNumFormat(int)
 void SMParagraphStyle::slotNumLevel(int level)
 {
 	if (m_pwidget->numLevelSpin->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumLevel();
+	}
 	else
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
-		{
-			m_selection[i]->setNumLevel(level-1);
-		}
+			m_selection[i]->setNumLevel(level - 1);
+	}
 	
 	if (level == 0)
 		slotNumHigher(false);
@@ -1087,11 +1091,15 @@ void SMParagraphStyle::slotNumSuffix(const QString &str)
 void SMParagraphStyle::slotNumStart(int start)
 {
 	if (m_pwidget->numStartSpin->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumStart();
+	}
 	else
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setNumStart(start);
+	}
 
 	slotSelectionDirty();
 }
@@ -1101,11 +1109,15 @@ void SMParagraphStyle::slotNumRestart(int restart)
 	int restartRange = m_pwidget->numRestartCombo->itemData(restart).toInt();
 
 	if (m_pwidget->numRestartCombo->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumRestart();
+	}
 	else
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setNumRestart(restartRange);
+	}
 
 	slotSelectionDirty();
 }
@@ -1113,8 +1125,10 @@ void SMParagraphStyle::slotNumRestart(int restart)
 void SMParagraphStyle::slotNumOther(bool isOn)
 {
 	if (m_pwidget->numRestartOtherBox->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumOther();
+	}
 	else 
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
@@ -1127,8 +1141,10 @@ void SMParagraphStyle::slotNumOther(bool isOn)
 void SMParagraphStyle::slotNumHigher(bool isOn)
 {
 	if (m_pwidget->numRestartHigherBox->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetNumHigher();
+	}
 	else 
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
@@ -1142,8 +1158,10 @@ void SMParagraphStyle::slotNumHigher(bool isOn)
 void SMParagraphStyle::handleKeepLinesStart()
 {
 	if (m_pwidget->keepLinesStart->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetKeepLinesStart();
+	}
 	else 
 	{
 		int value = m_pwidget->keepLinesStart->value();
@@ -1157,8 +1175,10 @@ void SMParagraphStyle::handleKeepLinesStart()
 void SMParagraphStyle::handleKeepLinesEnd()
 {
 	if (m_pwidget->keepLinesEnd->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetKeepLinesEnd();
+	}
 	else 
 	{
 		int value = m_pwidget->keepLinesEnd->value();
@@ -1172,8 +1192,10 @@ void SMParagraphStyle::handleKeepLinesEnd()
 void SMParagraphStyle::handleKeepTogether()
 {
 	if (m_pwidget->keepTogether->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetKeepTogether();
+	}
 	else 
 	{
 		bool value = m_pwidget->keepTogether->isChecked();
@@ -1187,8 +1209,10 @@ void SMParagraphStyle::handleKeepTogether()
 void SMParagraphStyle::handleKeepWithNext()
 {
 	if (m_pwidget->keepWithNext->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetKeepWithNext();
+	}
 	else 
 	{
 		bool value = m_pwidget->keepWithNext->isChecked();
@@ -1219,14 +1243,16 @@ void SMParagraphStyle::slotTabRuler()
 void SMParagraphStyle::slotLeftIndent()
 {
 	if (m_pwidget->tabList->useParentLeftIndent())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetLeftMargin();
+	}
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		m_pwidget->tabList->left_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->leftIndentSpin->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setLeftMargin(value);
@@ -1238,14 +1264,16 @@ void SMParagraphStyle::slotLeftIndent()
 void SMParagraphStyle::slotRightIndent()
 {
 	if (m_pwidget->tabList->useParentRightIndent())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetRightMargin();
+	}
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		m_pwidget->tabList->right_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->rightIndentSpin->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setRightMargin(value);
@@ -1257,14 +1285,16 @@ void SMParagraphStyle::slotRightIndent()
 void SMParagraphStyle::slotFirstLine()
 {
 	if (m_pwidget->tabList->useParentFirstLine())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetFirstIndent();
+	}
 	else 
 	{
 		double a, b, value;
 		int c;
 		
-		m_pwidget->tabList->first_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->firstLineSpin->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setFirstIndent(value);

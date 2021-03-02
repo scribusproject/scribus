@@ -46,12 +46,12 @@ public:
 	bool useParentLeftIndent();
 	bool useParentRightIndent();
 
-	SMScrSpinBox *first_;
-	SMScrSpinBox *left_;
-	SMScrSpinBox *right_;
+	SMScrSpinBox *firstLineSpin { nullptr };
+	SMScrSpinBox *leftIndentSpin { nullptr };
+	SMScrSpinBox *rightIndentSpin { nullptr };
 
 private:
-	QList<ParagraphStyle::TabRecord> m_pTabs;
+	QList<ParagraphStyle::TabRecord> m_parentTabs;
 	int  m_unitIndex = 0;
 	QToolButton *m_parentButton = nullptr;
 	bool m_hasParent = false;

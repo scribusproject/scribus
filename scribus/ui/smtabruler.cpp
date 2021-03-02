@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QToolButton>
+#include <QSignalBlocker>
 
 #include "smtabruler.h"
 #include "smscrspinbox.h"
@@ -23,35 +24,35 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<Paragrap
 	f.setBold(true);
 	m_parentButton->setFont(f);
 	connect(m_parentButton, SIGNAL(clicked()), this, SLOT(pbClicked()));
-	first_ = new SMScrSpinBox(-3000, 4000, this, dEin);
-	Q_CHECK_PTR(first_);
-	left_ = new SMScrSpinBox(0, 4000, this, dEin);
-	Q_CHECK_PTR(left_);
-	right_ = new SMScrSpinBox(0, 4000, this, dEin);
-	Q_CHECK_PTR(right_);
+	firstLineSpin = new SMScrSpinBox(-3000, 4000, this, dEin);
+	Q_CHECK_PTR(firstLineSpin);
+	leftIndentSpin = new SMScrSpinBox(0, 4000, this, dEin);
+	Q_CHECK_PTR(leftIndentSpin);
+	rightIndentSpin = new SMScrSpinBox(0, 4000, this, dEin);
+	Q_CHECK_PTR(rightIndentSpin);
 
 	indentLayout->removeWidget(firstLineData);
 	firstLineData->hide();
-	indentLayout->insertWidget(1, first_);
-	first_->show();
+	indentLayout->insertWidget(1, firstLineSpin);
+	firstLineSpin->show();
 
 	layout4->removeWidget(leftIndentData);
 	leftIndentData->hide();
-	layout4->insertWidget(1, left_);
-	left_->show();
+	layout4->insertWidget(1, leftIndentSpin);
+	leftIndentSpin->show();
 
 	indentLayout->removeWidget(rightIndentData);
 	rightIndentData->hide();
-	indentLayout->insertWidget(3, right_);
-	right_->show();
+	indentLayout->insertWidget(3, rightIndentSpin);
+	rightIndentSpin->show();
 
 	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	connect(firstLineSpin, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::unitChange(int unitIndex)
@@ -60,19 +61,19 @@ void SMTabruler::unitChange(int unitIndex)
 	Tabruler::setTabs(ruler->tabValues, unitIndex);
 	Tabruler::repaint();
 
-	first_->blockSignals(true);
-	left_->blockSignals(true);
-	right_->blockSignals(true);
+	firstLineSpin->blockSignals(true);
+	leftIndentSpin->blockSignals(true);
+	rightIndentSpin->blockSignals(true);
 	tabData->blockSignals(true);
 
-	first_->setNewUnit(unitIndex);
-	left_->setNewUnit(unitIndex);
-	right_->setNewUnit(unitIndex);
+	firstLineSpin->setNewUnit(unitIndex);
+	leftIndentSpin->setNewUnit(unitIndex);
+	rightIndentSpin->setNewUnit(unitIndex);
 	tabData->setNewUnit(unitIndex);
 
-	first_->blockSignals(false);
-	left_->blockSignals(false);
-	right_->blockSignals(false);
+	firstLineSpin->blockSignals(false);
+	leftIndentSpin->blockSignals(false);
+	rightIndentSpin->blockSignals(false);
 	tabData->blockSignals(false);
 
 	m_unitIndex = unitIndex;
@@ -87,9 +88,9 @@ void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitI
 	m_parentButton->hide();
 	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
-	first_->setNewUnit(unitIndex);
-	left_->setNewUnit(unitIndex);
-	right_->setNewUnit(unitIndex);
+	firstLineSpin->setNewUnit(unitIndex);
+	leftIndentSpin->setNewUnit(unitIndex);
+	rightIndentSpin->setNewUnit(unitIndex);
 	tabData->setNewUnit(unitIndex);
 }
 
@@ -105,9 +106,9 @@ void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitI
 		m_parentButton->show();
 	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
-	first_->setNewUnit(unitIndex);
-	left_->setNewUnit(unitIndex);
-	right_->setNewUnit(unitIndex);
+	firstLineSpin->setNewUnit(unitIndex);
+	leftIndentSpin->setNewUnit(unitIndex);
+	rightIndentSpin->setNewUnit(unitIndex);
 	tabData->setNewUnit(unitIndex);
 
 	connect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
@@ -117,151 +118,121 @@ void SMTabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int unitI
 void SMTabruler::setParentTabs(const QList<ParagraphStyle::TabRecord>& Tabs)
 {
 	m_hasParent = true;
-	m_pTabs = Tabs;
+	m_parentTabs = Tabs;
 }
 
 void SMTabruler::setFirstLineValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	first_->setValue(t);
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
+	firstLineSpin->setValue(t);
 	firstLineData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setFirstLineValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	m_isSetupFirst = true;
-	first_->setValue(t, isParentValue);
+	firstLineSpin->setValue(t, isParentValue);
 	firstLineData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentFirstLine(double t)
 {
-	first_->setParentValue(t);
+	firstLineSpin->setParentValue(t);
 }
 
 void SMTabruler::setLeftIndentValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	left_->setValue(t);
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
+	leftIndentSpin->setValue(t);
 	leftIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setLeftIndentValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	m_isSetupLeft = true;
-	left_->setValue(t, isParentValue);
+	leftIndentSpin->setValue(t, isParentValue);
 	leftIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentLeftIndent(double t)
 {
-	left_->setParentValue(t);
+	leftIndentSpin->setParentValue(t);
 }
 
 void SMTabruler::setRightIndentValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	right_->setValue(t);
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
+	rightIndentSpin->setValue(t);
 	rightIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setRightIndentValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	m_isSetupRight = true;
-	right_->setValue(t, isParentValue);
+	rightIndentSpin->setValue(t, isParentValue);
 	rightIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentRightIndent(double t)
 {
-	right_->setParentValue(t);
+	rightIndentSpin->setParentValue(t);
 }
 
 bool SMTabruler::useParentTabs()
@@ -269,7 +240,7 @@ bool SMTabruler::useParentTabs()
 	bool ret = m_useParentTabs;
 	if (ret && m_hasParent)
 	{
-		setTabs(m_pTabs, m_unitIndex, true);
+		setTabs(m_parentTabs, m_unitIndex, true);
 		Tabruler::repaint();
 		m_parentButton->hide();
 	}
@@ -283,17 +254,17 @@ bool SMTabruler::useParentTabs()
 
 bool SMTabruler::useParentFirstLine()
 {
-	return first_->useParentValue();
+	return firstLineSpin->useParentValue();
 }
 
 bool SMTabruler::useParentLeftIndent()
 {
-	return left_->useParentValue();
+	return leftIndentSpin->useParentValue();
 }
 
 bool SMTabruler::useParentRightIndent()
 {
-	return right_->useParentValue();
+	return rightIndentSpin->useParentValue();
 }
 
 void SMTabruler::slotTabsChanged()
@@ -316,111 +287,99 @@ void SMTabruler::pbClicked()
 
 void SMTabruler::leftDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	double a, b, value;
 	int c;
 	leftIndentData->getValues(&a, &b, &c, &value);
 	if (m_hasParent && !m_isSetupLeft)
-		left_->setValue(value, false);
+		leftIndentSpin->setValue(value, false);
 	else if (!m_hasParent)
-		left_->setValue(value);
+		leftIndentSpin->setValue(value);
 
 	m_isSetupLeft = false;
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::rightDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	double a, b, value;
 	int c;
 	rightIndentData->getValues(&a, &b, &c, &value);
 	if (m_hasParent && !m_isSetupRight)
-		right_->setValue(value, false);
+		rightIndentSpin->setValue(value, false);
 	else if (!m_hasParent)
-		right_->setValue(value);
+		rightIndentSpin->setValue(value);
 
 	m_isSetupRight = false;
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::firstDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
+	QSignalBlocker firstLineSpinBlocker(firstLineSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+
 	double a, b, value;
 	int c;
 	firstLineData->getValues(&a, &b, &c, &value);
 	if (m_hasParent && !m_isSetupFirst)
-		first_->setValue(value, false);
+		firstLineSpin->setValue(value, false);
 	else if (!m_hasParent)
-		first_->setValue(value);
+		firstLineSpin->setValue(value);
 
 	m_isSetupFirst = false;
-	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::firstValueChanged()
 {
-//	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-//	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-//	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+//	QSignalBlocker firstLineDataBlocker(firstLineData);
+//	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+//	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+
 	double a, b, value;
 	int c;
-	first_->getValues(&a, &b, &c, &value);
+	firstLineSpin->getValues(&a, &b, &c, &value);
 	setFirstLineData(value / m_docUnitRatio);
 	setFirstLine();
 	setLeftIndent();
 	setRightIndent();
 	m_isSetupFirst = true;
-//	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-//	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-//	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 void SMTabruler::leftValueChanged()
 {
-//	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-//	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+//	QSignalBlocker firstLineDataBlocker(firstLineData);
+//	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+
 	double a, b, value;
 	int c;
-	left_->getValues(&a, &b, &c, &value);
+	leftIndentSpin->getValues(&a, &b, &c, &value);
 	setLeftIndentData(value / m_docUnitRatio);
 	setLeftIndent();
 //	setFirstLine();
 	setRightIndent();
 	m_isSetupLeft = true;
-//	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-//	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 void SMTabruler::rightValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	QSignalBlocker firstLineDataBlocker(firstLineData);
+	QSignalBlocker rightIndentDataBlocker(rightIndentData);
+	QSignalBlocker leftIndentDataBlocker(leftIndentData);
+
 	double a, b, value;
 	int c;
-	right_->getValues(&a, &b, &c, &value);
+	rightIndentSpin->getValues(&a, &b, &c, &value);
 	setRightIndentData(value / m_docUnitRatio);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
 	m_isSetupRight = true;
-	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
