@@ -243,6 +243,7 @@ bool SMTabruler::useParentTabs()
 		setTabs(m_parentTabs, m_unitIndex, true);
 		Tabruler::repaint();
 		m_parentButton->hide();
+		m_useParentTabs = false;
 	}
 	else if (m_hasParent)
 	{
