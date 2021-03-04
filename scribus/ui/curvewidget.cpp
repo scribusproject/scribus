@@ -324,7 +324,7 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	CurveWidgetLayout->setSpacing(6);
 
 	layout1 = new QVBoxLayout;
-	layout1->setMargin(0);
+	layout1->setContentsMargins(0, 0, 0, 0);
 	layout1->setSpacing(6);
 
 	invertButton = new QPushButton( this );

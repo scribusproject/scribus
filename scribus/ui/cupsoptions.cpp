@@ -59,7 +59,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
-	CupsOptionsLayout->setMargin( 10 );
+	CupsOptionsLayout->setContentsMargins(10, 10, 10, 10);
 	Table = new QTableWidget(0, 2, this);
 	Table->setSortingEnabled(false);
 	Table->setSelectionMode(QAbstractItemView::NoSelection);
@@ -212,7 +212,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 5 );
-	Layout2->setMargin( 0 );
+	Layout2->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 	PushButton1 = new QPushButton( CommonStrings::tr_OK, this );

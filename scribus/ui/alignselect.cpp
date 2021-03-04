@@ -23,7 +23,7 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 
 	GroupAlignLayout = new QHBoxLayout( this );
 	GroupAlignLayout->setSpacing( 0 );
-	GroupAlignLayout->setMargin( 0 );
+	GroupAlignLayout->setContentsMargins(0, 0, 0, 0);
 
 	TextL = new QToolButton( this );
 	TextL->setMaximumSize( QSize( 22, 22 ) );

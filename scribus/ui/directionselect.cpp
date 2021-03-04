@@ -19,7 +19,7 @@ DirectionSelect::DirectionSelect(QWidget* parent) : QWidget(parent)
 
 	groupSelectLayout = new QHBoxLayout( this );
 	groupSelectLayout->setSpacing( 0 );
-	groupSelectLayout->setMargin( 5 );
+	groupSelectLayout->setContentsMargins(5, 5, 5, 5);
 	groupSelectLayout->setAlignment(Qt::AlignRight);
 
 	LTR = new QToolButton( this );

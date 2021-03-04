@@ -123,7 +123,7 @@ void ContextMenu::createMenuItems_Selection()
 		QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
 		infoGroupLayout->setAlignment( Qt::AlignTop );
 		infoGroupLayout->setSpacing( 2 );
-		infoGroupLayout->setMargin( 0 );
+		infoGroupLayout->setContentsMargins(0, 0, 0, 0);
 		if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) 
 		{
 			int row = infoGroupLayout->rowCount(); // <a.l.e>

@@ -958,7 +958,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 							eFont.setItalic(italic);
 							QFontMetricsF ft(eFont);
 							obState.currentPath.addText(origin, eFont, utfChar);
-							origin += QPointF(ft.width(utfChar), 0);
+							origin += QPointF(ft.horizontalAdvance(utfChar), 0);
 						}
 						glInd++;
 					}

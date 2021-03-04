@@ -27,10 +27,10 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	unitRatio = 1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(2);
-	vboxLayout->setMargin(5);
+	vboxLayout->setContentsMargins(5, 5, 5, 5);
 	gridLayout = new QGridLayout();
 	gridLayout->setSpacing(2);
-	gridLayout->setMargin(0);
+	gridLayout->setContentsMargins(0, 0, 0, 0);
 	MoveNode = new QToolButton(this);
 	MoveNode->setText( "" );
 	MoveNode->setIcon(im.loadIcon("MoveNode.png"));
@@ -167,7 +167,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 
 	gridLayout1 = new QGridLayout();
 	gridLayout1->setSpacing(5);
-	gridLayout1->setMargin(0);
+	gridLayout1->setContentsMargins(0, 0, 0, 0);
 
 	RotateCCW = new QToolButton(this);
 	RotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
@@ -231,7 +231,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 
 	gridLayout2 = new QGridLayout();
 	gridLayout2->setSpacing(5);
-	gridLayout2->setMargin(0);
+	gridLayout2->setContentsMargins(0, 0, 0, 0);
 
 	QSpacerItem* spacer = new QSpacerItem( 3, 3, QSizePolicy::Fixed, QSizePolicy::Fixed );
 	vboxLayout->addItem(spacer);
@@ -241,7 +241,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	AbsMode->setChecked(false);
 	vboxLayout1 = new QVBoxLayout(AbsMode);
 	vboxLayout1->setSpacing(2);
-	vboxLayout1->setMargin(5);
+	vboxLayout1->setContentsMargins(5, 5, 5, 5);
 	absToCanvas = new QRadioButton( tr("to Canvas"), AbsMode);
 	vboxLayout1->addWidget(absToCanvas);
 	absToPage = new QRadioButton( tr("to Page"), AbsMode);

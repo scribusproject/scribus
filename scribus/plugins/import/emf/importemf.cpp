@@ -2770,9 +2770,9 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 	if (currentDC.textAlignment == 0)
 		painterPath.translate(0, fm.ascent());
 	if (currentDC.textAlignment & 0x0002)
-		painterPath.translate(-fm.width(aTxt), 0);
+		painterPath.translate(-fm.horizontalAdvance(aTxt), 0);
 	else if (currentDC.textAlignment & 0x0006)
-		painterPath.translate(-fm.width(aTxt) / 2.0, 0);
+		painterPath.translate(-fm.horizontalAdvance(aTxt) / 2.0, 0);
 	if (currentDC.textAlignment & 0x0008)
 		painterPath.translate(0, fm.descent());
 	textPath.fromQPainterPath(painterPath);
@@ -2790,9 +2790,9 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 		if (currentDC.textAlignment & 0x0002)
 			currentDC.currentPoint = p1;
 		else if (currentDC.textAlignment & 0x0006)
-			currentDC.currentPoint = QPointF(p1.x() + (fm.width(aTxt) / 2.0), p1.y());
+			currentDC.currentPoint = QPointF(p1.x() + (fm.horizontalAdvance(aTxt) / 2.0), p1.y());
 		else
-			currentDC.currentPoint = QPointF(p1.x() + fm.width(aTxt), p1.y());
+			currentDC.currentPoint = QPointF(p1.x() + fm.horizontalAdvance(aTxt), p1.y());
 	}
 }
 
@@ -2892,7 +2892,7 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 		}
 		else
 			painterPath.addText(p1.x(), p1.y(), font, aTxt);
-		aTextWidth = fm.width(aTxt);
+		aTextWidth = fm.horizontalAdvance(aTxt);
 	}
 	if (currentDC.textAlignment == 0)
 		painterPath.translate(0, fm.ascent());

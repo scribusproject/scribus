@@ -1339,7 +1339,7 @@ void ScribusMainWindow::initStatusBar()
 
 	QWidget* zoomWidget = new QWidget( statusBar() );
 	QHBoxLayout* zoomLayout = new QHBoxLayout( zoomWidget );
-	zoomLayout->setMargin(0);
+	zoomLayout->setContentsMargins(0, 0, 0, 0);
 	zoomLayout->setSpacing(1);
 
 	zoomSpinBox = new ScrSpinBox( 1, 32000, zoomWidget, 6 );

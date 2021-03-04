@@ -29,15 +29,13 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	QueryLayout = new QVBoxLayout( this );
 	QueryLayout->setSpacing( 5 );
-	QueryLayout->setMargin( 5 );
+	QueryLayout->setContentsMargins(5, 5, 5, 5);
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 5 );
-	Layout2->setMargin( 0 );
+	Layout2->setContentsMargins(0, 0, 0, 0);
 	Answer = new QLineEdit( this );
 	Frage = new QLabel( text, this );
 	Frage->setBuddy(Answer);
-// Qt4 	Frage->setFrameShape( QLabel::MShape );
-// Qt4 	Frage->setFrameShadow( QLabel::MShadow );
 	Frage->adjustSize();
 	Layout2->addWidget( Frage );
 	Layout2->addWidget( Answer );
@@ -49,7 +47,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 	{
 		Layout3 = new QHBoxLayout;
 		Layout3->setSpacing( 5 );
-		Layout3->setMargin( 0 );
+		Layout3->setContentsMargins(0, 0, 0, 0);
 		Links = new QComboBox( this );
 		QStringList::Iterator pNames;
 		QList<PageSet> pageSet(doc->pageSets());
@@ -70,7 +68,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 	}
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
-	Layout1->setMargin( 0 );
+	Layout1->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 	PushButton1 = new QPushButton( CommonStrings::tr_OK, this );

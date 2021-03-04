@@ -117,7 +117,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
 	substFont = IconManager::instance().loadPixmap("font_subst16.png");
 	fontComboLayout = new QGridLayout(this);
-	fontComboLayout->setMargin(0);
+	fontComboLayout->setContentsMargins(0, 0, 0, 0);
 	fontComboLayout->setSpacing(0);
 	int col = 0;
 	if (showLabels)

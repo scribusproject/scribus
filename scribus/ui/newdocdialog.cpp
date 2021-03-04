@@ -387,7 +387,7 @@ void NewDocDialog::createOpenDocPage()
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
 	fileDialog->setIconProvider(new ImIconProvider());
 	fileDialog->setOption(QFileDialog::HideNameFilterDetails, true);
-	fileDialog->setReadOnly(true);
+	fileDialog->setOption(QFileDialog::ReadOnly, true);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QList<QPushButton *> pushButtons = fileDialog->findChildren<QPushButton *>();

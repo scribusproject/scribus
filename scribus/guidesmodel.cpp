@@ -50,7 +50,7 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 	if (role == Qt::UserRole)
 		return m_values.at(index.row());
 
-	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
+	if (role == Qt::BackgroundRole && m_values.at(index.row()) == 0.0)
 		return QVariant(QColor(Qt::red));
 	return QVariant();
 }

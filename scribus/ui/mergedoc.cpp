@@ -43,7 +43,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	dialogLayout->setContentsMargins(9, 9, 9, 9);
 	dialogLayout->setSpacing(6);
 	fromInfoLayout = new QGridLayout;
-	fromInfoLayout->setMargin(0);
+	fromInfoLayout->setContentsMargins(0, 0, 0, 0);
 	fromInfoLayout->setSpacing(6);
 	fromDocData = new QLineEdit( this );
 	fromDocData->setMinimumWidth(QWidget::fontMetrics().horizontalAdvance('a') * 50);

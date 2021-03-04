@@ -15,7 +15,7 @@ StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 2 );
+	group1Layout->setContentsMargins(2, 2, 2, 2);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -48,7 +48,7 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout(this);
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 2 );
+	group1Layout->setContentsMargins(2, 2, 2, 2);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
@@ -81,7 +81,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 2 );
+	group1Layout->setContentsMargins(2, 2, 2, 2);
 	group1Layout->setAlignment( Qt::AlignTop );
 	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
@@ -102,7 +102,7 @@ ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 2 );
+	group1Layout->setContentsMargins(2, 2, 2, 2);
 	group1Layout->setAlignment( Qt::AlignTop );
 	Xoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Xoffset->setValue( 5 );
@@ -132,7 +132,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 	IconManager& im = IconManager::instance();
 	ssLayout = new QHBoxLayout(this);
 	ssLayout->setSpacing( 0 );
-	ssLayout->setMargin( 0 );
+	ssLayout->setContentsMargins(0, 0, 0, 0);
 
 	UnderlineVal = new UnderlineValues( nullptr );
 	UnderlinePop = new QMenu();

@@ -1865,7 +1865,7 @@ void StoryEditor::buildGUI()
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	StoryEd2Layout = new QHBoxLayout;
 	StoryEd2Layout->setSpacing( 5 );
-	StoryEd2Layout->setMargin( 5 );
+	StoryEd2Layout->setContentsMargins(5, 5, 5, 5);
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
@@ -1948,7 +1948,7 @@ void StoryEditor::buildGUI()
 	ButtonGroup1Layout = new QGridLayout( ButtonGroup1 );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 2 );
-	ButtonGroup1Layout->setMargin( 0 );
+	ButtonGroup1Layout->setContentsMargins(0, 0, 0, 0);
 	WordCT1 = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( WordCT1, 0, 0, 1, 3 );
 	WordCT = new QLabel(ButtonGroup1);
@@ -1966,7 +1966,7 @@ void StoryEditor::buildGUI()
 	ButtonGroup2Layout = new QGridLayout( ButtonGroup2 );
 	ButtonGroup2Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup2Layout->setSpacing( 2 );
-	ButtonGroup2Layout->setMargin( 0 );
+	ButtonGroup2Layout->setContentsMargins(0, 0, 0, 0);
 	WordCT3 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( WordCT3, 0, 0, 1, 5 );
 	ParCT = new QLabel(ButtonGroup2);

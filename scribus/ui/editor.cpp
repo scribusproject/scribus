@@ -97,7 +97,7 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 #ifdef Q_OS_MAC
 	Layout1_2 = new QHBoxLayout;
 	Layout1_2->setSpacing( 5 );
-	Layout1_2->setMargin( 0 );
+	Layout1_2->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacerr = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1_2->addItem( spacerr );
 	PushButton1 = new QPushButton( this );

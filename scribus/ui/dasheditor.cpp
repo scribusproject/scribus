@@ -304,7 +304,7 @@ DashEditor::DashEditor(QWidget *pa) : QFrame(pa)
 	setLineWidth( 1 );
 	QGridLayout *gridLayout = new QGridLayout(this);
 	gridLayout->setSpacing(2);
-	gridLayout->setMargin(2);
+	gridLayout->setContentsMargins(2, 2, 2, 2);
 
 	Preview = new DashPreview(this);
 	gridLayout->addWidget(Preview, 0, 0, 1, 2);

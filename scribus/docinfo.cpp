@@ -33,7 +33,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	page1 = new QWidget( this );
 	layout1 = new QGridLayout(page1);
 	layout1->setSpacing( 5 );
-	layout1->setMargin( 5 );
+	layout1->setContentsMargins(5, 5, 5, 5);
 
 	titleEdit = new QLineEdit( page1 );
 	titleLabel = new QLabel( tr("&Title:"), page1);
@@ -76,7 +76,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	page2 = new QWidget( this );
 	layout2 = new QGridLayout(page2);
 	layout2->setSpacing( 5 );
-	layout2->setMargin( 5 );
+	layout2->setContentsMargins(5, 5, 5, 5);
 
 	publisherEdit = new QLineEdit( page2 );
 	publisherLabel = new QLabel( tr("P&ublisher:") , page2);

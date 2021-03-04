@@ -74,7 +74,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	propWidget = new QWidget();
 	group1Layout = new QGridLayout( propWidget );
 	group1Layout->setSpacing( 3 );
-	group1Layout->setMargin( 2 );
+	group1Layout->setContentsMargins(2, 2, 2, 2);
 	group1Layout->setAlignment( Qt::AlignTop );
 	Angle = new ScrSpinBox( -180, 180, propWidget, 6 );
 	Angle->setValue( 0 );

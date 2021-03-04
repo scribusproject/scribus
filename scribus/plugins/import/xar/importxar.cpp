@@ -1317,7 +1317,7 @@ void XarPlug::endTextLine()
 						mat.shear(-tSkew, 0);
 						painterPath = mat.map(painterPath);
 						painterPath = textMatrix.map(painterPath);
-						xpos += QFontMetricsF(textFont).width(ch) / 10.0;
+						xpos += QFontMetricsF(textFont).horizontalAdvance(ch) / 10.0;
 						Coords.resize(0);
 						Coords.fromQPainterPath(painterPath);
 						QPointF np = textMatrix.map(QPointF(TextX, TextY));
@@ -1421,12 +1421,12 @@ void XarPlug::endTextLine()
 				Coords.translate(TextX, TextY);
 				if (gc->TextAlignment == 1)
 				{
-					double dist = (qMax(gc->LineWidth, gc->LineWidth2) - (QFontMetricsF(textFont).width(txDat.itemText) / 10.0)) / 2.0;
+					double dist = (qMax(gc->LineWidth, gc->LineWidth2) - (QFontMetricsF(textFont).horizontalAdvance(txDat.itemText) / 10.0)) / 2.0;
 					Coords.translate(dist, 0);
 				}
 				else if (gc->TextAlignment == 2)
 				{
-					double dist = qMax(gc->LineWidth, gc->LineWidth2) - (QFontMetricsF(textFont).width(txDat.itemText) / 10.0);
+					double dist = qMax(gc->LineWidth, gc->LineWidth2) - (QFontMetricsF(textFont).horizontalAdvance(txDat.itemText) / 10.0);
 					Coords.translate(dist, 0);
 				}
 				if (!Coords.empty())
@@ -1490,7 +1490,7 @@ void XarPlug::endTextLine()
 						}
 					}
 				}
-				xpos += QFontMetricsF(textFont).width(txDat.itemText) / 10.0;
+				xpos += QFontMetricsF(textFont).horizontalAdvance(txDat.itemText) / 10.0;
 			}
 		}
 	}

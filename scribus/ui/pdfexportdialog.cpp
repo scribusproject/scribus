@@ -63,12 +63,12 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
-	PDFExportLayout->setMargin( 10 );
+	PDFExportLayout->setContentsMargins(10, 10, 10, 10);
 	Name = new QGroupBox( this );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	NameLayout = new QGridLayout( Name );
 	NameLayout->setSpacing( 5 );
-	NameLayout->setMargin( 10 );
+	NameLayout->setContentsMargins(10, 10, 10, 10);
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
@@ -114,7 +114,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
-	Layout7->setMargin( 0 );
+	Layout7->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer_2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_2 );
 	okButton = new QPushButton( tr( "&Save" ), this );
