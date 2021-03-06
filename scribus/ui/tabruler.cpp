@@ -557,10 +557,19 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	tabFillComboT->setBuddy(tabFillCombo);
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
-
-	layout4 = new QHBoxLayout;
-	layout4->setContentsMargins(0, 0, 0, 0);
-	layout4->setSpacing(6);
+	clearOneButton = new QPushButton( this );
+	clearOneButton->setText("");
+	clearOneButton->setIcon(IconManager::instance().loadIcon("16/edit-delete.png"));
+	clearOneButton->setMinimumSize(24, 24);
+	clearOneButton->setMaximumSize(24, 24);
+	layout1->addSpacing(12);
+	layout1->addWidget(clearOneButton);
+	clearButton = new QPushButton( this );
+	clearButton->setText("");
+	clearButton->setIcon(IconManager::instance().loadIcon("16/edit-delete-all.png"));
+	clearButton->setMinimumSize(24, 24);
+	clearButton->setMaximumSize(24, 24);
+	layout1->addWidget(clearButton);
 
 	indentLayout = new QHBoxLayout;
 	indentLayout->setContentsMargins(0, 0, 0, 0);
@@ -579,9 +588,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 		leftIndentLabel = new QLabel(this);
 		leftIndentLabel->setText("");
 		leftIndentLabel->setPixmap(IconManager::instance().loadPixmap("leftindent.png"));
-		layout4->addWidget( leftIndentLabel );
-		layout4->addWidget( leftIndentData );
-		layout4->addStretch(10);
+		indentLayout->addWidget(leftIndentLabel);
+		indentLayout->addWidget(leftIndentData);
 		rightIndentLabel = new QLabel(this);
 		rightIndentLabel->setText("");
 		rightIndentLabel->setPixmap(IconManager::instance().loadPixmap("rightindent.png"));
@@ -590,14 +598,6 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 		indentLayout->addWidget(rightIndentLabel);
 		indentLayout->addWidget(rightIndentData);
 	}
-	clearButton = new QPushButton( this );
-	clearButton->setText( tr( "Delete All" ) );
-	indentLayout->addSpacing(20);
-	indentLayout->addWidget( clearButton);
-	clearOneButton = new QPushButton( this );
-	clearOneButton->setText( tr( "Delete Selected" ) );
-	indentLayout->addWidget( clearOneButton);
-	indentLayout->addStretch(10);
 	if (!haveFirst)
 	{
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -609,7 +609,6 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	tabrulerLayout->addLayout( layout2 );
 	indentLayout->addStretch( 10 );
 	tabrulerLayout->addLayout( indentLayout );
-	tabrulerLayout->addLayout(layout4);
 
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
@@ -701,9 +700,13 @@ void Tabruler::iconSetChange()
 
 	if (leftIndentLabel)
 		leftIndentLabel->setPixmap(iconManager.loadPixmap("leftindent.png"));
-	
+
 	if (rightIndentLabel)
 		rightIndentLabel->setPixmap(iconManager.loadPixmap("rightindent.png"));
+
+	clearOneButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
+	clearButton->setIcon(iconManager.loadIcon("16/edit-delete-all.png"));
+
 }
 
 void Tabruler::languageChange()

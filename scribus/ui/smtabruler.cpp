@@ -36,14 +36,14 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin, QList<Paragrap
 	indentLayout->insertWidget(1, firstLineSpin);
 	firstLineSpin->show();
 
-	layout4->removeWidget(leftIndentData);
+	indentLayout->removeWidget(leftIndentData);
 	leftIndentData->hide();
-	layout4->insertWidget(1, leftIndentSpin);
+	indentLayout->insertWidget(3, leftIndentSpin);
 	leftIndentSpin->show();
 
 	indentLayout->removeWidget(rightIndentData);
 	rightIndentData->hide();
-	indentLayout->insertWidget(3, rightIndentSpin);
+	indentLayout->insertWidget(5, rightIndentSpin);
 	rightIndentSpin->show();
 
 	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));

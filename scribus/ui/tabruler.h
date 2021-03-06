@@ -142,8 +142,6 @@ protected:
 	QHBoxLayout* layout2 { nullptr };
 	QHBoxLayout* layout1 { nullptr };
 	QHBoxLayout* indentLayout { nullptr };
-//	QVBoxLayout* layout3 { nullptr };
-	QHBoxLayout* layout4 { nullptr };
 	QComboBox* typeCombo { nullptr };
 	QComboBox* tabFillCombo { nullptr };
 	QLabel* tabFillComboT { nullptr };
