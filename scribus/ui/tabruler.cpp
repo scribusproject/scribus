@@ -33,37 +33,28 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tabs, bool ind, double wid) : QWidget(pa),
-	mousePressed(false),
 	tabValues(Tabs),
 	haveInd(ind),
-	unitIndex(ein),
-	offset(0),
-	actTab(-1),
-	leftIndent(0),
-	firstLine(0),
-	Width(0.0),
-	rulerCode(0),
-	mouseX(0),
-	offsetIncrement(5)
+	unitIndex(ein)
 {
 	QPalette palette;
 	palette.setColor(backgroundRole(), QColor(255,255,255));
 	setPalette(palette);
-	iter = unitRulerGetIter1FromIndex(unitIndex);
-	iter2 = unitRulerGetIter2FromIndex(unitIndex);
+	m_iter = unitRulerGetIter1FromIndex(unitIndex);
+	m_iter2 = unitRulerGetIter2FromIndex(unitIndex);
 
 	setMouseTracking(true);
 	if (wid < 0)
 	{
 		setMinimumSize(QSize(400,25));
 		setMaximumSize(QSize(4000,25));
-		Width = 4000;
+		m_rulerWidth = 4000;
 		resize(400, 25);
 	}
 	else
 	{
-		Width = wid;
-		setMinimumSize(QSize(qMin(static_cast<int>(Width), 400), 25));
+		m_rulerWidth = wid;
+		setMinimumSize(QSize(qMin(static_cast<int>(m_rulerWidth), 400), 25));
 		setMaximumSize(QSize(4000, 25));
 		resize(qMin(static_cast<int>(wid), 400), 25);
 	}
@@ -72,8 +63,8 @@ RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tab
 void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
 {
 	unitIndex = dEin;
-	iter  = unitRulerGetIter1FromIndex(unitIndex);
-	iter2 = unitRulerGetIter2FromIndex(unitIndex);
+	m_iter  = unitRulerGetIter1FromIndex(unitIndex);
+	m_iter2 = unitRulerGetIter2FromIndex(unitIndex);
 	tabValues = Tabs;
 	actTab    = -1;
 	repaint();
@@ -93,14 +84,14 @@ void RulerT::paintEvent(QPaintEvent *)
 	p.setBrush(textColor);
 	p.setFont(font());
 	p.setPen(QPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	for (xl = 0; xl < width() + offset; xl += iter)
+	for (xl = 0; xl < width() + offset; xl += m_iter)
 	{
 		if (xl < offset)
 			continue;
 		p.drawLine(qRound(xl), 18, qRound(xl), 24);
 	}
 
-	for (xl = 0; xl < width() + (iter2 / 2) + offset; xl += iter2)
+	for (xl = 0; xl < width() + (m_iter2 / 2) + offset; xl += m_iter2)
 	{
 		if (xl < offset)
 			continue;
@@ -110,10 +101,10 @@ void RulerT::paintEvent(QPaintEvent *)
 			case 2:
 			{
 				QString tx;
-				int num1 = static_cast<int>(xl / iter2);
+				int num1 = static_cast<int>(xl / m_iter2);
 				if (num1 != 0)
 					tx = QString::number(num1);
-				double frac = (xl / iter2) - num1;
+				double frac = (xl / m_iter2) - num1;
 				if ((frac > 0.24) && (frac < 0.26))
 					tx += QChar(0xBC);
 				if ((frac > 0.49) && (frac < 0.51))
@@ -124,10 +115,10 @@ void RulerT::paintEvent(QPaintEvent *)
 				break;
 			}
 			case 3:
-				p.drawText(qRound(xl + 2), 17, QString::number(xl / iter));
+				p.drawText(qRound(xl + 2), 17, QString::number(xl / m_iter));
 				break;
 			default:
-				p.drawText(qRound(xl + 2), 17, QString::number(xl / iter * 10));
+				p.drawText(qRound(xl + 2), 17, QString::number(xl / m_iter * 10));
 				break;
 		}
 	}
@@ -289,10 +280,10 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		{
 			case 1:
 				firstLine -= mouseX - m->x();
-				if (firstLine+leftIndent+offset < offset)
+				if (firstLine + leftIndent + offset < offset)
 					firstLine += mouseX - m->x();
-				if (firstLine+leftIndent > Width)
-					firstLine  = Width - leftIndent;
+				if (firstLine + leftIndent > m_rulerWidth)
+					firstLine  = m_rulerWidth - leftIndent;
 				emit firstLineMoved(firstLine);
 				repaint();
 				break;
@@ -301,8 +292,8 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				leftIndent -= mouseX - m->x();
 				if (leftIndent < 0)
 					leftIndent = 0;
-				if (leftIndent > Width-1)
-					leftIndent  = Width-1;
+				if (leftIndent > m_rulerWidth - 1)
+					leftIndent  = m_rulerWidth - 1;
 				firstLine = oldInd - leftIndent;
 				emit leftIndentMoved(leftIndent);
 				emit firstLineMoved(firstLine);
@@ -312,8 +303,8 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				tabValues[actTab].tabPosition -= mouseX - m->x();
 				if (tabValues[actTab].tabPosition < 0)
 					tabValues[actTab].tabPosition = 0;
-				if (tabValues[actTab].tabPosition > Width-1)
-					tabValues[actTab].tabPosition = Width-1;
+				if (tabValues[actTab].tabPosition > m_rulerWidth - 1)
+					tabValues[actTab].tabPosition = m_rulerWidth - 1;
 				updateTabList();
 				emit tabMoved(tabValues[actTab].tabPosition);
 				repaint();
@@ -409,7 +400,7 @@ void RulerT::increaseOffset()
 	offsetIncrement++;
 	if (offsetIncrement > 30)
 		offsetIncrement = 30;
-	if (offset + width() > static_cast<int>(Width))
+	if (offset + width() > static_cast<int>(m_rulerWidth))
 		offset -= 5;
 	repaint();
 }
@@ -476,9 +467,9 @@ void RulerT::moveFirstLine(double t)
 		firstLine = 0-leftIndent;
 		emit firstLineMoved(firstLine);
 	}
-	if (firstLine+leftIndent > Width)
+	if (firstLine+leftIndent > m_rulerWidth)
 	{
-		firstLine = Width-leftIndent;
+		firstLine = m_rulerWidth - leftIndent;
 		emit firstLineMoved(firstLine);
 	}
 	repaint();
@@ -488,9 +479,9 @@ void RulerT::moveLeftIndent(double t)
 {
 	double oldInd = leftIndent + firstLine;
 	leftIndent = t;
-	if (leftIndent > Width-1)
+	if (leftIndent > m_rulerWidth - 1)
 	{
-		leftIndent  = Width - 1;
+		leftIndent  = m_rulerWidth - 1;
 		emit leftIndentMoved(leftIndent);
 	}
 	firstLine = oldInd - leftIndent;
@@ -506,7 +497,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	leftIndentData(nullptr),
 	rightIndentData(nullptr)
 {
-	m_docUnitRatio=unitGetRatioFromIndex(dEin);
+	m_docUnitRatio = unitGetRatioFromIndex(dEin);
 	double ww = (wid < 0) ? 4000 : wid;
 	tabrulerLayout = new QVBoxLayout( this );
 	tabrulerLayout->setContentsMargins(0, 0, 0, 0);

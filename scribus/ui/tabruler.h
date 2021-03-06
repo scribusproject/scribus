@@ -36,18 +36,17 @@ public:
 	void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
 	void updateTabList();
 
-	bool mousePressed;
+	bool mousePressed { false };
 	QList<ParagraphStyle::TabRecord> tabValues;
-	bool haveInd;
-	int unitIndex;
-	int offset;
-	int actTab;
-	double leftIndent;
-	double firstLine;
-	double Width;
-	int rulerCode;
-	int mouseX;
-	int offsetIncrement;
+	bool haveInd { false };
+	int unitIndex { 0 };
+	int offset { 0 };
+	int actTab { -1 };
+	double leftIndent { 0.0 };
+	double firstLine { 0.0 };
+	int rulerCode { 0 };
+	int mouseX { 0 };
+	int offsetIncrement { 5 };
 
 public slots:
 	void resetOffsetInc();
@@ -79,7 +78,9 @@ protected:
 	virtual void leaveEvent(QEvent*);
 	
 private:
-	double iter, iter2;
+	double m_iter { 10.0 }; // Result of unitRulerGetIter1FromIndex() for point unit
+	double m_iter2 { 100.0 }; // Result of unitRulerGetIter2FromIndex() for point unit
+	double m_rulerWidth { 0.0 };
 };
 
 class SCRIBUS_API Tabruler : public QWidget
