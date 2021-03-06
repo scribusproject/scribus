@@ -706,7 +706,6 @@ void Tabruler::iconSetChange()
 
 	clearOneButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
 	clearButton->setIcon(iconManager.loadIcon("16/edit-delete-all.png"));
-
 }
 
 void Tabruler::languageChange()

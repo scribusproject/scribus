@@ -7,16 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef AUTOFORMBUTTONGROUP_H
 #define AUTOFORMBUTTONGROUP_H
 
-#include <QWidget>
-#include <QMenu>
-#include <QSignalMapper>
-//#include <QToolButton>
-//#include <QFrame>
-//#include <QGridLayout>
-#include <QPixmap>
-//#include <QButtonGroup>
-//#include <QCheckBox>
 #include <QEvent>
+#include <QMenu>
+#include <QPixmap>
+#include <QSignalMapper>
+#include <QWidget>
+
 #include "scribusapi.h"
 
 class SCRIBUS_API AutoformButtonGroup : public QMenu

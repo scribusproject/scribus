@@ -7,13 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef AUTOFORM_H
 #define AUTOFORM_H
 
-#include <QPixmap>
 #include <QMenu>
-#include <QWidgetAction>
+#include <QPixmap>
 #include <QToolButton>
+#include <QWidgetAction>
+
 #include "scribusapi.h"
 class AutoformButtonGroup;
-
 
 class SCRIBUS_API Autoforms : public QToolButton
 {
@@ -22,6 +22,7 @@ class SCRIBUS_API Autoforms : public QToolButton
 public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
+
 	QPixmap getIconPixmap(int nr);
 
 public slots:
