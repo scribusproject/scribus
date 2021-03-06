@@ -69,7 +69,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/colorsetmanager.h \
            scribus/commonstrings.h \
            scribus/deferredtask.h \
-           scribus/docinfo.h \
            scribus/documentbuilder.h \
            scribus/documentchecker.h \
            scribus/documentinformation.h \
@@ -1216,7 +1215,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/colorsetmanager.cpp \
            scribus/commonstrings.cpp \
            scribus/deferredtask.cpp \
-           scribus/docinfo.cpp \
            scribus/documentbuilder.cpp \
            scribus/documentchecker.cpp \
            scribus/documentinformation.cpp \

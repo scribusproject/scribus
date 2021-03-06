@@ -105,7 +105,6 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/digester.h"
 #include "desaxe/saxXML.h"
 #include "desaxe/simple_actions.h"
-#include "docinfo.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "fileloader.h"

@@ -1117,9 +1117,6 @@
     <ClCompile Include="..\..\..\scribus\ui\delpages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\docinfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\documentchecker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -3345,9 +3342,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\delpages.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\docinfo.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\editor.h">

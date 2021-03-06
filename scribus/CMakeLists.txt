@@ -134,7 +134,6 @@ set(SCRIBUS_SOURCES
 	colorsetmanager.cpp
 	commonstrings.cpp
 	deferredtask.cpp
-	docinfo.cpp
 	documentchecker.cpp
 	documentinformation.cpp
 	exif.cpp
