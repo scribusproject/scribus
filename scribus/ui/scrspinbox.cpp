@@ -145,14 +145,14 @@ void ScrSpinBox::setConstants(const QMap<QString, double>* constants)
 	m_constants = constants;
 }
 
-double ScrSpinBox::valueFromText ( const QString & text ) const
+double ScrSpinBox::valueFromText(const QString & text) const
 {
 	//Get a copy for use
 	QString ts = text.trimmed();
 	//Find our suffix
 	QString su(unitGetStrFromIndex(m_unitIndex));
 	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
-	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP)!=0)
+	if (CommonStrings::trStrP.localeAwareCompare(CommonStrings::strP) != 0)
 		ts.replace(CommonStrings::trStrP, CommonStrings::strP);
 
 //	const lconv * lc(localeconv());
@@ -170,7 +170,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	QString crtSepDecimal(LocaleManager::instance().userPreferredLocale().decimalPoint());
 //	qDebug()<<"crtSepDecimal"<<crtSepDecimal;
 	QRegExp rxP;
-	if (m_unitIndex==SC_PICAS)
+	if (m_unitIndex == SC_PICAS)
 		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "?(\\d+\\" + crtSepDecimal + "?\\d*)?\\b");
 	else
 		rxP.setPattern("\\b(\\d+)" + CommonStrings::strP + "(\\d+\\" + crtSepDecimal + "?\\d*)?\\b");
@@ -251,15 +251,15 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	//To return to previous functionality, remove the follow replacement ifs,
 	//S&R in the trStr* assignments trStrPT->strPT and remove the current str* ones. 
 	//IE, send the translated strings through to the regexp.
-	if (CommonStrings::trStrPT.localeAwareCompare(CommonStrings::strPT)!=0)
+	if (CommonStrings::trStrPT.localeAwareCompare(CommonStrings::strPT) != 0)
 		ts.replace(CommonStrings::trStrPT, CommonStrings::strPT);
-	if (CommonStrings::trStrMM.localeAwareCompare(CommonStrings::strMM)!=0)
+	if (CommonStrings::trStrMM.localeAwareCompare(CommonStrings::strMM) != 0)
 		ts.replace(CommonStrings::trStrMM, CommonStrings::strMM);
-	if (CommonStrings::trStrIN.localeAwareCompare(CommonStrings::strIN)!=0)
+	if (CommonStrings::trStrIN.localeAwareCompare(CommonStrings::strIN) != 0)
 		ts.replace(CommonStrings::trStrIN, CommonStrings::strIN);
-	if (CommonStrings::trStrCM.localeAwareCompare(CommonStrings::strCM)!=0)
+	if (CommonStrings::trStrCM.localeAwareCompare(CommonStrings::strCM) != 0)
 		ts.replace(CommonStrings::trStrCM, CommonStrings::strCM);
-	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strC)!=0)
+	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strC) != 0)
 		ts.replace(CommonStrings::trStrC, CommonStrings::strC);
 
 	//Add in the fparser constants using our unit strings, and the conversion factors.
@@ -296,13 +296,12 @@ QString ScrSpinBox::textFromValue(double value) const
 {
 	if (m_unitIndex == SC_PICAS)
 	{
-// 		QString r=QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
 		int a = (static_cast<int>(value)) / 12;
 		double b = fabs(fmod(value, 12));
-		QString prefix((a==0 && value < 0.0) ? "-" : "");
+		QString prefix((a == 0 && value < 0.0) ? "-" : "");
 		return QString("%1%2%3%4").arg(prefix).arg(a).arg(unitGetStrFromIndex(m_unitIndex)).arg(b);
 	}
-	return QDoubleSpinBox::textFromValue ( value );
+	return QDoubleSpinBox::textFromValue(value);
 }
 
 QValidator::State ScrSpinBox::validate(QString & input, int & pos) const

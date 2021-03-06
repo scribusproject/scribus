@@ -27,10 +27,10 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		~ScrSpinBox() override;
 		
 		//overridden members
-		double valueFromText ( const QString & text ) const override;
-		QString textFromValue ( double value ) const override;
-		QValidator::State validate ( QString & input, int & pos ) const override;
-		void fixup ( QString & input ) const override;
+		double valueFromText (const QString & text) const override;
+		QString textFromValue (double value) const override;
+		QValidator::State validate (QString & input, int & pos) const override;
+		void fixup (QString & input) const override;
 
 		// call QDoubleSpinBox::setValue() without emitting valueChanged() signal
 		void showValue(double val);
@@ -54,7 +54,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void setValues(double min, double max, int deci, double val);
 	
 	protected:
-		uint m_unitIndex;
+		uint m_unitIndex { 0 };
 		const QMap<QString, double>* m_constants;
 
 		void setParameters(int s);
