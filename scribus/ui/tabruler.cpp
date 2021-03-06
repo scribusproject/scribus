@@ -32,10 +32,10 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 
-RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tabs, bool ind, double wid) : QWidget(pa),
-	tabValues(Tabs),
+RulerT::RulerT(QWidget *pa, int unit, const QList<ParagraphStyle::TabRecord>& tabs, bool ind, double wid) : QWidget(pa),
+	tabValues(tabs),
 	haveInd(ind),
-	unitIndex(ein)
+	unitIndex(unit)
 {
 	QPalette palette;
 	palette.setColor(backgroundRole(), QColor(255,255,255));
@@ -60,12 +60,12 @@ RulerT::RulerT(QWidget *pa, int ein, const QList<ParagraphStyle::TabRecord>& Tab
 	}
 }
 
-void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
+void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit)
 {
-	unitIndex = dEin;
+	unitIndex = unit;
 	m_iter  = unitRulerGetIter1FromIndex(unitIndex);
 	m_iter2 = unitRulerGetIter2FromIndex(unitIndex);
-	tabValues = Tabs;
+	tabValues = tabs;
 	actTab    = -1;
 	repaint();
 }
@@ -489,15 +489,9 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<ParagraphStyle::TabRecord>& Tabs, double wid ) : QWidget( parent ),
-	firstLineLabel(nullptr),
-	leftIndentLabel(nullptr),
-	rightIndentLabel(nullptr),
-	firstLineData(nullptr),
-	leftIndentData(nullptr),
-	rightIndentData(nullptr)
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<ParagraphStyle::TabRecord>& tabs, double wid ): QWidget( parent )
 {
-	m_docUnitRatio = unitGetRatioFromIndex(dEin);
+	m_docUnitRatio = unitGetRatioFromIndex(unit);
 	double ww = (wid < 0) ? 4000 : wid;
 	tabrulerLayout = new QVBoxLayout( this );
 	tabrulerLayout->setContentsMargins(0, 0, 0, 0);
@@ -510,7 +504,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	rulerScrollL->setArrowType(Qt::LeftArrow);
 	rulerScrollL->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollL );
-	ruler = new RulerT( this, dEin, Tabs, haveFirst, wid );
+	ruler = new RulerT( this, unit, tabs, haveFirst, wid );
 	ruler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	layout2->addWidget( ruler );
 	rulerScrollR = new QToolButton(this);
@@ -531,7 +525,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	typeCombo->addItem( tr( "Comma" ) );
 	typeCombo->addItem( tr( "Center" ) );
 	layout1->addWidget( typeCombo );
-	tabData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, dEin );
+	tabData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, unit );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tr("&Position:"), this );
 	positionLabel->setBuddy(tabData);
@@ -567,14 +561,14 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	indentLayout->setSpacing(6);
 	if (haveFirst)
 	{
-		firstLineData = new ScrSpinBox( -3000, ww / m_docUnitRatio, this, dEin);
+		firstLineData = new ScrSpinBox( -3000, ww / m_docUnitRatio, this, unit);
 		firstLineData->setValue(0);
 		firstLineLabel = new QLabel(this);
 		firstLineLabel->setText("");
 		firstLineLabel->setPixmap(IconManager::instance().loadPixmap("firstline.png"));
 		indentLayout->addWidget( firstLineLabel );
 		indentLayout->addWidget( firstLineData );
-		leftIndentData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, dEin );
+		leftIndentData = new ScrSpinBox( 0, ww / m_docUnitRatio, this, unit);
 		leftIndentData->setValue(0);
 		leftIndentLabel = new QLabel(this);
 		leftIndentLabel->setText("");
@@ -584,7 +578,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 		rightIndentLabel = new QLabel(this);
 		rightIndentLabel->setText("");
 		rightIndentLabel->setPixmap(IconManager::instance().loadPixmap("rightindent.png"));
-		rightIndentData = new ScrSpinBox(0, ww / m_docUnitRatio, this, dEin);
+		rightIndentData = new ScrSpinBox(0, ww / m_docUnitRatio, this, unit);
 		rightIndentData->setValue(0);
 		indentLayout->addWidget(rightIndentLabel);
 		indentLayout->addWidget(rightIndentData);
@@ -604,7 +598,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	tabData->setEnabled(false);
 	tabFillCombo->setEnabled(false);
 	typeCombo->setEnabled(false);
-	if (Tabs.count() == 0)
+	if (tabs.count() == 0)
 		clearButton->setEnabled(false);
 	clearOneButton->setEnabled(false);
 	resize( minimumSizeHint() );
@@ -649,8 +643,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
 	clearOneButton->setToolTip( tr("Delete selected Tabulator"));
 
-	QString ein = unitGetSuffixFromIndex(dEin);
-	if (dEin == 2)
+	if (unit == SC_INCHES)
 	{
 		if (haveFirst)
 		{
@@ -660,13 +653,6 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, const QList<Parag
 		}
 		tabData->setDecimals(4);
 	}
-	if (haveFirst)
-	{
-		firstLineData->setSuffix(ein);
-		leftIndentData->setSuffix(ein);
-		rightIndentData->setSuffix(ein);
-	}
-	tabData->setSuffix(ein);
 	m_haveFirst = haveFirst;
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
@@ -756,18 +742,18 @@ void Tabruler::languageChange()
 	tabData->setSuffix(unitSuffix);
 }
 
-void Tabruler::setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin)
+void Tabruler::setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit)
 {
-	m_docUnitRatio = unitGetRatioFromIndex(dEin);
-	tabData->setNewUnit(dEin);
+	m_docUnitRatio = unitGetRatioFromIndex(unit);
+	tabData->setNewUnit(unit);
 	if (m_haveFirst)
 	{
-		firstLineData->setNewUnit(dEin);
-		leftIndentData->setNewUnit(dEin);
-		rightIndentData->setNewUnit(dEin);
+		firstLineData->setNewUnit(unit);
+		leftIndentData->setNewUnit(unit);
+		rightIndentData->setNewUnit(unit);
 	}
-	ruler->setTabs(Tabs, dEin);
-	if (Tabs.count() == 0)
+	ruler->setTabs(tabs, unit);
+	if (tabs.count() == 0)
 		clearButton->setEnabled(false);
 	clearOneButton->setEnabled(false);
 	tabData->setEnabled(false);

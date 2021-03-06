@@ -7,33 +7,33 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABRULER_H
 #define TABRULER_H
 
-#include <QVariant>
-#include <QWidget>
-#include <QHBoxLayout>
-#include <QPaintEvent>
+#include <QEvent>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
-#include <QEvent>
+#include <QPaintEvent>
+#include <QVariant>
 #include <QVBoxLayout>
+#include <QWidget>
 
 #include "scribusapi.h"
 #include "sctextstruct.h"
 
 class QComboBox;
 class QPushButton;
-class ScrSpinBox;
 class QToolButton;
+class ScrSpinBox;
 
 class SCRIBUS_API RulerT : public QWidget
 {
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, const QList<ParagraphStyle::TabRecord>& Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int unit, const QList<ParagraphStyle::TabRecord>& tabs, bool ind, double wid);
 	~RulerT() {};
 
-	void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
+	void setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit);
 	void updateTabList();
 
 	bool mousePressed { false };
@@ -90,12 +90,12 @@ class SCRIBUS_API Tabruler : public QWidget
 public:
 	Tabruler(QWidget* parent,
 			 bool haveFirst = true,
-			 int dEin = 1,
-			 const QList<ParagraphStyle::TabRecord>& Tabs = QList<ParagraphStyle::TabRecord>(),
+			 int unit = 1,
+			 const QList<ParagraphStyle::TabRecord>& tabs = QList<ParagraphStyle::TabRecord>(),
 			 double wid = -1);
 	~Tabruler() {};
 
-	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& Tabs, int dEin);
+	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit);
 
 	QList<ParagraphStyle::TabRecord> getTabVals();
 	double getFirstLine();
