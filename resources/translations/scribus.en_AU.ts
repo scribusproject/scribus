@@ -39,7 +39,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="146"/>
         <source>SVN Revision: </source>
-        <translation type="unfinished"></translation>
+        <translation>SVN Revision: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="169"/>
@@ -79,7 +79,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="289"/>
         <source>AppImage for Linux:</source>
-        <translation type="unfinished"></translation>
+        <translation>AppImage for Linux:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="304"/>
@@ -2491,7 +2491,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="134"/>
         <source>New Paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>New Paragraph</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="149"/>
@@ -2955,12 +2955,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="37"/>
         <source>Colors</source>
-        <translation type="unfinished">Colours</translation>
+        <translation>Colours</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="186"/>
         <source>Options</source>
-        <translation type="unfinished">Options</translation>
+        <translation>Options</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="221"/>
@@ -3005,7 +3005,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="322"/>
         <source>Type</source>
-        <translation type="unfinished">Type</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="358"/>
@@ -3854,12 +3854,12 @@ Height: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
         <source>The selected color does not exist in the document&apos;s color set.</source>
-        <translation type="unfinished"></translation>
+        <translation>The selected colour does not exist in the document&apos;s colour set.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
         <source>Please enter a name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Please enter a name for this new colour.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
@@ -3874,12 +3874,12 @@ Height: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
         <source>The name you have selected already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>The name you have selected already exists.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
-        <source> Please enter a different name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <source>Please enter a different name for this new color.</source>
+        <translation>Please enter a different name for this new colour.</translation>
     </message>
 </context>
 <context>
@@ -4914,7 +4914,7 @@ currently %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="38"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>If colour management is enabled, an exclamation mark indicates that the colour may be outside of the colour gamut of the current printer profile selected. What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. More hints about gamut warnings are in the online help under Colour Management. Registration colors will have a registration mark next to the colour. Use Registration only for printers marks and crop marks.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="45"/>
@@ -6885,7 +6885,7 @@ failed!</translation>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="83"/>
         <source>Preview</source>
-        <translation type="unfinished">Preview</translation>
+        <translation>Preview</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="119"/>
@@ -8818,12 +8818,12 @@ Ignore List</translation>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
         <source>Use the PDF part</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the PDF part</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="171"/>
         <source>Use the AI part</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the AI part</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="190"/>
@@ -9102,23 +9102,24 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="52"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="81"/>
         <source>Adobe InDesign IDML</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDML</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="53"/>
         <source>Adobe InDesign IDML (*.idml *.IDML)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDML (*.idml *.IDML)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="65"/>
         <source>Imports Adobe IDML Packages</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports Adobe IDML Packages</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
         <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports Adobe InDesign&apos;s IDML packages into Scribus
+ converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="67"/>
@@ -9147,25 +9148,25 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="99"/>
         <source>Adobe InDesign IDML</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDML</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
         <source>Adobe InDesign IDML (*.idml *.IDML)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDML (*.idml *.IDML)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="113"/>
         <source>Adobe InDesign IDMS</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDMS</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="65"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
         <source>Adobe InDesign IDMS (*.idms *.IDMS)</source>
-        <translation type="unfinished"></translation>
+        <translation>Adobe InDesign IDMS (*.idms *.IDMS)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
@@ -14959,28 +14960,29 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="196"/>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="205"/>
         <source>Import Text As Vectors</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Text As Vectors</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="215"/>
         <source>Import Text As Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Import Text As Text</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
-        <translation type="unfinished"></translation>
+        <translation>Note: importing text as text may significantly alter PDF visual aspect</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="54"/>
         <source>The range of pages to import is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>The range of pages to import is invalid.
+Please check it and try again.</translation>
     </message>
 </context>
 <context>
@@ -16387,13 +16389,13 @@ Please choose another one.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="73"/>
         <source>Error loading plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Error loading plugin</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="62"/>
         <source>Unknown error</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Unknown error</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="89"/>
@@ -21781,7 +21783,7 @@ a range of pages or a single page number</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="14"/>
         <source>Print Preview</source>
-        <translation type="unfinished">Print Preview</translation>
+        <translation>Print Preview</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="80"/>
@@ -29262,12 +29264,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="690"/>
         <source>Failed to load font: font family unspecified</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to load font: font family unspecified</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="692"/>
         <source>Failed to load font %1 - font family unspecified</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to load font %1 - font family unspecified</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="700"/>
@@ -31021,7 +31023,7 @@ Therefore the image may be not correct</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/markdownim/markdownim.cpp" line="33"/>
         <source>MarkDown Document</source>
-        <translation type="unfinished"></translation>
+        <translation>MarkDown Document</translation>
     </message>
 </context>
 <context>
@@ -35377,7 +35379,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="326"/>
         <source>Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired</source>
-        <translation type="unfinished"></translation>
+        <translation>Out of gamut colours display is active. Therefore the color display may not match the perception by visually impaired</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1063"/>

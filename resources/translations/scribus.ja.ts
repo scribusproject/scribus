@@ -3876,7 +3876,7 @@ Height: %2</source>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
-        <source> Please enter a different name for this new color.</source>
+        <source>Please enter a different name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
