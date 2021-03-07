@@ -680,49 +680,50 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	{
 		if (nr < 18)
 		{
-			QString strSize=QString("%1").arg(pixmapSize);
-			IconManager& im=IconManager::instance();
+			QString strSize = QString("%1").arg(pixmapSize);
+			IconManager& im = IconManager::instance();
 			switch (nr)
 			{
 				case 0:
-					return im.loadPixmap(strSize+"/draw-rectangle.png");
+					return im.loadPixmap(strSize + "/draw-rectangle.png");
 				case 1:
-					return im.loadPixmap(strSize+"/draw-ellipse.png");
+					return im.loadPixmap(strSize + "/draw-ellipse.png");
 				case 2:
-					return im.loadPixmap(strSize+"/draw-triangle.png");
+					return im.loadPixmap(strSize + "/draw-triangle.png");
 				case 3:
-					return im.loadPixmap(strSize+"/draw-cross.png");
+					return im.loadPixmap(strSize + "/draw-cross.png");
 				case 4:
-					return im.loadPixmap(strSize+"/draw-arrow-back.png");
+					return im.loadPixmap(strSize + "/draw-arrow-back.png");
 				case 5:
-					return im.loadPixmap(strSize+"/draw-arrow-forward.png");
+					return im.loadPixmap(strSize + "/draw-arrow-forward.png");
 				case 6:
-					return im.loadPixmap(strSize+"/draw-arrow-up.png");
+					return im.loadPixmap(strSize + "/draw-arrow-up.png");
 				case 7:
-					return im.loadPixmap(strSize+"/draw-arrow-down.png");
+					return im.loadPixmap(strSize + "/draw-arrow-down.png");
 				case 8:
-					return im.loadPixmap(strSize+"/draw-halfcircle1.png");
+					return im.loadPixmap(strSize + "/draw-halfcircle1.png");
 				case 9:
-					return im.loadPixmap(strSize+"/draw-halfcircle2.png");
+					return im.loadPixmap(strSize + "/draw-halfcircle2.png");
 				case 10:
-					return im.loadPixmap(strSize+"/draw-halfcircle3.png");
+					return im.loadPixmap(strSize + "/draw-halfcircle3.png");
 				case 11:
-					return im.loadPixmap(strSize+"/draw-halfcircle4.png");
+					return im.loadPixmap(strSize + "/draw-halfcircle4.png");
 				case 12:
-					return im.loadPixmap(strSize+"/draw-triangle1.png");
+					return im.loadPixmap(strSize + "/draw-triangle1.png");
 				case 13:
-					return im.loadPixmap(strSize+"/draw-triangle2.png");
+					return im.loadPixmap(strSize + "/draw-triangle2.png");
 				case 14:
-					return im.loadPixmap(strSize+"/draw-triangle3.png");
+					return im.loadPixmap(strSize + "/draw-triangle3.png");
 				case 15:
-					return im.loadPixmap(strSize+"/draw-triangle4.png");
+					return im.loadPixmap(strSize + "/draw-triangle4.png");
 				case 16:
-					return im.loadPixmap(strSize+"/draw-square-inverted-corners.png");
+					return im.loadPixmap(strSize + "/draw-square-inverted-corners.png");
 				case 17:
-					return im.loadPixmap(strSize+"/draw-donut.png");
+					return im.loadPixmap(strSize + "/draw-donut.png");
 			}
 		}
 	}
+
 	QImage Ico(32, 32, QImage::Format_ARGB32_Premultiplied);
 	Ico.fill(0);
 	int count = 0;
@@ -730,20 +731,21 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	FPointArray Path;
 	Path.resize(0);
 	AutoShapes = getShapeData(nr, &count);
-	for (int a = 0; a < count-3; a += 4)
+	for (int i = 0; i < count - 3; i += 4)
 	{
-		if (AutoShapes[a] < 0)
+		if (AutoShapes[i] < 0)
 		{
 			Path.setMarker();
 			continue;
 		}
-		qreal x1 = 28 * AutoShapes[a] / 100.0;
-		qreal y1 = 28 * AutoShapes[a+1] / 100.0;
-		qreal x2 = 28 * AutoShapes[a+2] / 100.0;
-		qreal y2 = 28 * AutoShapes[a+3] / 100.0;
+		qreal x1 = 28 * AutoShapes[i] / 100.0;
+		qreal y1 = 28 * AutoShapes[i + 1] / 100.0;
+		qreal x2 = 28 * AutoShapes[i + 2] / 100.0;
+		qreal y2 = 28 * AutoShapes[i + 3] / 100.0;
 		Path.addPoint(x1, y1);
 		Path.addPoint(x2, y2);
 	}
+
 	ScPainter *painter = new ScPainter(&Ico, 32, 32);
 	painter->setBrush(qRgb(238, 238, 236));
 	painter->setPen(qRgb(137, 139, 134), 2.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -755,6 +757,7 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	painter->drawPolyLine();
 	painter->end();
 	delete painter;
+
 	return QPixmap::fromImage(Ico.scaled(16, 16, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
