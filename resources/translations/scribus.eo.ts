@@ -3853,8 +3853,13 @@ Alto: %2</translation>
     <name>CanvasMode_EyeDropper</name>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
-        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation>La elektita koloro ne ekzistas en la kolor-aro de la dokumento. Bonvolu enmeti nomon por ĉi tiu nova koloro.</translation>
+        <source>The selected color does not exist in the document&apos;s color set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
+        <source>Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
@@ -3868,8 +3873,13 @@ Alto: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
-        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation>La nomo enmetita jam ekzistas. Bonvolu elekti alian por ĉi tiu nova koloro.</translation>
+        <source>The name you have selected already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
+        <source> Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14950,7 +14960,7 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="196"/>
         <source>Text</source>
-        <translation type="unfinished">Teksto</translation>
+        <translation>Teksto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="205"/>

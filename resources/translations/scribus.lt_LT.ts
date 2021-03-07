@@ -3851,8 +3851,13 @@ Aukštis: %2</translation>
     <name>CanvasMode_EyeDropper</name>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
-        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation>Pasirinktos spalvos nėra dokumento spalvų rinkinyje. Prašome parašyti šios spalvos pavadinimą.</translation>
+        <source>The selected color does not exist in the document&apos;s color set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
+        <source>Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
@@ -3866,8 +3871,13 @@ Aukštis: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
-        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation>Pasirinktas pavadinimas jau yra. Prašome įvesti kitą pavadinimą šiai spalvai pavadinti.</translation>
+        <source>The name you have selected already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
+        <source> Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

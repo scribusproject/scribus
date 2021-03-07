@@ -3851,8 +3851,13 @@ Height: %2</source>
     <name>CanvasMode_EyeDropper</name>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
-        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation>所選的顔色在檔案的顔色組合中不存在。請爲這個新顔色輸入一個名字。</translation>
+        <source>The selected color does not exist in the document&apos;s color set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
+        <source>Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
@@ -3866,8 +3871,13 @@ Height: %2</source>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
-        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation>你爲新顔色選擇的名稱已經存在。請輸入一個新名稱。</translation>
+        <source>The name you have selected already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
+        <source> Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
