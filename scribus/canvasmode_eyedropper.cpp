@@ -178,14 +178,14 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	{
 		bool ok;
 		bool nameFound = false;
-		QString questionString = "<qt>" + tr("The selected color does not exist in the document's color set. Please enter a name for this new color.") + "</qt>";
+		QString questionString = "<qt>" + tr("The selected color does not exist in the document's color set.") + "<br/>" + tr("Please enter a name for this new color.") + "</qt>";
 		do
 		{
 			colorName = QInputDialog::getText(m_ScMW, tr("Color Not Found"), questionString, QLineEdit::Normal, tr("RGB %1").arg(selectedColor.name()), &ok);
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
-					questionString = "<qt>" + tr("The name you have selected already exists. Please enter a different name for this new color.") + "</qt>";
+					questionString = "<qt>" + tr("The name you have selected already exists.") + "<br/>" + tr(" Please enter a different name for this new color.") + "</qt>";
 				else
 					nameFound = true;
 			}
