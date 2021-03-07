@@ -185,7 +185,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 			if (ok)
 			{
 				if (m_doc->PageColors.contains(colorName))
-					questionString = "<qt>" + tr("The name you have selected already exists.") + "<br/>" + tr(" Please enter a different name for this new color.") + "</qt>";
+					questionString = "<qt>" + tr("The name you have selected already exists.") + "<br/>" + tr("Please enter a different name for this new color.") + "</qt>";
 				else
 					nameFound = true;
 			}
