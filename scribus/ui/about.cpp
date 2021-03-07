@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QWidget>
 
-
-
 #include "about.h"
 #include "api/api_application.h"
 #include "commonstrings.h"
@@ -40,7 +38,6 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "upgradechecker.h"
 #include "langmgr.h"
-
 
 /*
 * The content for the About dialog is mostly built from the files in
@@ -252,15 +249,12 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	resize(minimumSizeHint());
 }
 
-
 void About::showEvent (QShowEvent * event)
 {
 	if (m_mode == About::CheckUpdates && m_firstShow)
 		tabWidget2->setCurrentIndex(4);
 	QDialog::showEvent(event);
 }
-
-
 
 QString About::trAuthorTitle(const QString& title)
 {
@@ -302,6 +296,7 @@ QString About::trAuthorTitle(const QString& title)
 	}
 	return result;
 }
+
 QString About::trTranslationTitle(const QString& title)
 {
 	QString result;
@@ -316,7 +311,6 @@ QString About::trTranslationTitle(const QString& title)
 	}
 	return result;
 }
-
 
 QString About::trLinksTitle(const QString& title)
 {
@@ -340,7 +334,6 @@ QString About::trLinksTitle(const QString& title)
 	}
 	return result;
 }
-
 
 /*!
 * parse a text file and return an author list in an html table:
@@ -643,9 +636,7 @@ QString About::parseLinksFile(const QString& fileName)
 		{
 			QStringList field = fileName.split("/");
 			if (!field.isEmpty())
-			{
 				file = field.takeLast();
-			}
 		}
 		result = tr("Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.").arg(file);
 		result = "";
