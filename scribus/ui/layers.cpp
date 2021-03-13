@@ -33,13 +33,13 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "iconmanager.h"
+#include "sclayer.h"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
-
 
 LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt::WindowFlags()), m_Doc(nullptr)
 {
@@ -170,6 +170,12 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette(parent, "Layers", Qt
 	connect(header, SIGNAL(sectionClicked(int)), this, SLOT(toggleAllfromHeader(int)));
 }
 
+void LayerPalette::installEventFilter(QObject *obj)
+{
+	ScDockPalette::installEventFilter(obj);
+	Table->installEventFilter(obj);
+}
+
 void LayerPalette::clearContent()
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -194,7 +200,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	disconnect(Table, SIGNAL(cellChanged(int,int)), this, SLOT(changeName(int,int)));
 	if (!m_Doc)
 	{
-		layers=nullptr;
+		layers = nullptr;
 		newLayerButton->setEnabled(false);
 		duplicateLayerButton->setEnabled(false);
 		deleteLayerButton->setEnabled(false);
