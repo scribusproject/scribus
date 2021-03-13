@@ -39,9 +39,6 @@
        <property name="toolTip">
         <string>Edit Line Color Properties</string>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
@@ -54,9 +51,6 @@
       <widget class="QToolButton" name="editFillSelector">
        <property name="toolTip">
         <string>Edit Fill Color Properties</string>
-       </property>
-       <property name="text">
-        <string/>
        </property>
        <property name="checkable">
         <bool>true</bool>

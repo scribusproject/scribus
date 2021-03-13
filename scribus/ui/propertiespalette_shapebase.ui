@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>280</width>
-    <height>97</height>
+    <height>95</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,23 +48,8 @@
        </property>
        <item>
         <widget class="QToolButton" name="textFlowDisabled">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>22</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>Text flow around frame disabled</string>
-         </property>
-         <property name="text">
-          <string>Disabled</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -82,23 +67,8 @@
        </item>
        <item>
         <widget class="QToolButton" name="textFlowUsesFrameShape">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>22</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>Text flow around frame shape</string>
-         </property>
-         <property name="text">
-          <string>Use Frame &amp;Shape</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -116,23 +86,8 @@
        </item>
        <item>
         <widget class="QToolButton" name="textFlowUsesBoundingBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>22</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>Text flow around bounding box</string>
-         </property>
-         <property name="text">
-          <string>Use &amp;Bounding Box</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -150,23 +105,8 @@
        </item>
        <item>
         <widget class="QToolButton" name="textFlowUsesContourLine">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>22</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>Text flow around contour line</string>
-         </property>
-         <property name="text">
-          <string>&amp;Use Contour Line</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -184,23 +124,8 @@
        </item>
        <item>
         <widget class="QToolButton" name="textFlowUsesImageClipping">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>22</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="toolTip">
           <string>Text flow around image clip path</string>
-         </property>
-         <property name="text">
-          <string>Use Image Clip Path</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -241,13 +166,16 @@
          <property name="toolTip">
           <string>Choose the shape of frame...</string>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="editShape">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>23</height>
+          </size>
+         </property>
          <property name="text">
           <string>&amp;Edit...</string>
          </property>
@@ -270,8 +198,8 @@
         <widget class="QLabel" name="roundRectIcon">
          <property name="minimumSize">
           <size>
-           <width>10</width>
-           <height>10</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
          <property name="toolTip">
@@ -284,12 +212,6 @@
        </item>
        <item>
         <widget class="ScrSpinBox" name="roundRect">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="toolTip">
           <string>Set radius of corner rounding</string>
          </property>
@@ -321,9 +243,6 @@
          <property name="toolTip">
           <string>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</string>
          </property>
-         <property name="text">
-          <string>...</string>
-         </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
@@ -339,9 +258,6 @@
         <widget class="QToolButton" name="nonZero">
          <property name="toolTip">
           <string>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</string>
-         </property>
-         <property name="text">
-          <string>...</string>
          </property>
          <property name="checkable">
           <bool>true</bool>

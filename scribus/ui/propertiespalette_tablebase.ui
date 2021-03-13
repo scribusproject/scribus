@@ -75,9 +75,6 @@
         <property name="toolTip">
          <string>Remove Direct Table Formatting</string>
         </property>
-        <property name="text">
-         <string/>
-        </property>
         <property name="iconSize">
          <size>
           <width>16</width>
@@ -110,9 +107,6 @@
        <widget class="QToolButton" name="buttonClearCellStyle">
         <property name="toolTip">
          <string>Remove Direct Cell Formatting</string>
-        </property>
-        <property name="text">
-         <string/>
         </property>
         <property name="iconSize">
          <size>
@@ -277,8 +271,8 @@
           <property name="spacing">
            <number>3</number>
           </property>
-          <item alignment="Qt::AlignTop">
-           <widget class="QPushButton" name="addBorderLineButton">
+          <item>
+           <widget class="QToolButton" name="addBorderLineButton">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -287,26 +281,11 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignTop">
-           <widget class="QPushButton" name="removeBorderLineButton">
+          <item>
+           <widget class="QToolButton" name="removeBorderLineButton">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -315,21 +294,6 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
             </property>
            </widget>
           </item>

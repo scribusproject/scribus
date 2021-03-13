@@ -20,7 +20,6 @@ class QEvent;
 class QHBoxLayout;
 class QHeaderView;
 class QLabel;
-class QPushButton;
 class QTableWidget;
 class QTableWidgetItem;
 class QToolButton;
@@ -79,11 +78,11 @@ protected:
 	QLabel* textLabel2 { nullptr };
 	ScrSpinBox* opacitySpinBox { nullptr };
 	QHeaderView* Header { nullptr };
-	QPushButton* newLayerButton { nullptr };
-	QPushButton* duplicateLayerButton { nullptr };
-	QPushButton* deleteLayerButton { nullptr };
-	QPushButton* raiseLayerButton { nullptr };
-	QPushButton* lowerLayerButton { nullptr };
+	QToolButton* newLayerButton { nullptr };
+	QToolButton* duplicateLayerButton { nullptr };
+	QToolButton* deleteLayerButton { nullptr };
+	QToolButton* raiseLayerButton { nullptr };
+	QToolButton* lowerLayerButton { nullptr };
 	ScLayers *layers { nullptr };
 
 	void changeEvent(QEvent *e) override;

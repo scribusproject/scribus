@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>280</width>
-    <height>333</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -228,9 +228,6 @@
           <property name="toolTip">
            <string>Keep the aspect ratio</string>
           </property>
-          <property name="text">
-           <string>...</string>
-          </property>
           <property name="checkable">
            <bool>true</bool>
           </property>
@@ -272,65 +269,29 @@
         </property>
         <item row="0" column="0">
          <widget class="QToolButton" name="levelUp">
-          <property name="maximumSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
           <property name="toolTip">
            <string>Move one level up</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QToolButton" name="levelDown">
-          <property name="maximumSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
           <property name="toolTip">
            <string>Move one level down</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QToolButton" name="levelTop">
-          <property name="maximumSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
           <property name="toolTip">
            <string>Move to front</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QToolButton" name="levelBottom">
-          <property name="maximumSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
           <property name="toolTip">
            <string>Move to back</string>
-          </property>
-          <property name="text">
-           <string/>
           </property>
          </widget>
         </item>
@@ -370,18 +331,12 @@
          <property name="toolTip">
           <string>Group the selected objects</string>
          </property>
-         <property name="text">
-          <string/>
-         </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QToolButton" name="doUnGroup">
          <property name="toolTip">
           <string>Ungroup the selected group</string>
-         </property>
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -390,18 +345,12 @@
          <property name="toolTip">
           <string>Flip horizontally</string>
          </property>
-         <property name="text">
-          <string/>
-         </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QToolButton" name="flipV">
          <property name="toolTip">
           <string>Flip vertically</string>
-         </property>
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -410,9 +359,6 @@
          <property name="toolTip">
           <string>Lock or unlock the object</string>
          </property>
-         <property name="text">
-          <string/>
-         </property>
         </widget>
        </item>
        <item row="1" column="2">
@@ -420,18 +366,12 @@
          <property name="toolTip">
           <string>Enable or disable exporting of the object</string>
          </property>
-         <property name="text">
-          <string/>
-         </property>
         </widget>
        </item>
        <item row="0" column="3">
         <widget class="QToolButton" name="noResize">
          <property name="toolTip">
           <string>Lock or unlock the size of the object</string>
-         </property>
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
