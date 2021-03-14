@@ -62,13 +62,13 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	setWindowTitle( tr( "Save as PDF" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	PDFExportLayout = new QVBoxLayout( this );
-	PDFExportLayout->setSpacing( 5 );
-	PDFExportLayout->setContentsMargins(10, 10, 10, 10);
+	PDFExportLayout->setSpacing(6);
+	PDFExportLayout->setContentsMargins(9, 9, 9, 9);
 	Name = new QGroupBox( this );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	NameLayout = new QGridLayout( Name );
-	NameLayout->setSpacing( 5 );
-	NameLayout->setContentsMargins(10, 10, 10, 10);
+	NameLayout->setSpacing(6);
+	NameLayout->setContentsMargins(9, 9, 9, 9);
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
@@ -113,7 +113,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts, currView->m_doc );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
-	Layout7->setSpacing( 5 );
+	Layout7->setSpacing(6);
 	Layout7->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer_2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_2 );

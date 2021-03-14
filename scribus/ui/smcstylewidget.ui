@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>601</height>
+    <width>531</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -99,6 +99,12 @@
                <widget class="QLabel" name="fontSizeLabel_">
                 <property name="minimumSize">
                  <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
                   <width>22</width>
                   <height>22</height>
                  </size>
@@ -127,6 +133,12 @@
               <item>
                <widget class="QLabel" name="trackingLabel_">
                 <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
                  <size>
                   <width>22</width>
                   <height>22</height>
@@ -159,6 +171,12 @@
               <item>
                <widget class="QLabel" name="widthSpaceLabel">
                 <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
                  <size>
                   <width>22</width>
                   <height>22</height>
@@ -333,7 +351,7 @@
                <widget class="QLabel" name="baselineOffsetLabel_">
                 <property name="minimumSize">
                  <size>
-                  <width>10</width>
+                  <width>20</width>
                   <height>0</height>
                  </size>
                 </property>
@@ -423,342 +441,355 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="hyphenGroup">
-           <property name="title">
-            <string>Hyphenation</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="smColorGroup">
+             <property name="title">
+              <string>Colors</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Hyphenation Character:</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="_2">
+                <item>
+                 <widget class="QLabel" name="FillIcon">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>fillColor_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMColorCombo" name="fillColor_">
+                  <property name="toolTip">
+                   <string>Fill Color</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="fillShadeLabel">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>fillShade_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMShadeButton" name="fillShade_">
+                  <property name="toolTip">
+                   <string>Fill Shade</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="SMLineEdit" name="hyphenCharLineEdit">
-                <property name="maximumSize">
-                 <size>
-                  <width>60</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="_10">
+                <item>
+                 <widget class="QLabel" name="StrokeIcon">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>strokeColor_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMColorCombo" name="strokeColor_">
+                  <property name="toolTip">
+                   <string>Stroke Color</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="strokeShadeLabel">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>strokeShade_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMShadeButton" name="strokeShade_">
+                  <property name="toolTip">
+                   <string>Stroke Shade</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
+               <layout class="QHBoxLayout" name="_11">
+                <item>
+                 <widget class="QLabel" name="backIcon">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>fillColor_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMColorCombo" name="backColor_">
+                  <property name="toolTip">
+                   <string>Background Color</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="backShadeLabel">
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>22</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="buddy">
+                   <cstring>fillShade_</cstring>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMShadeButton" name="backShade_">
+                  <property name="toolTip">
+                   <string>Background Shade</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
              </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QGroupBox" name="hyphenGroup">
+             <property name="title">
+              <string>Hyphenation</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
               <item>
-               <widget class="QLabel" name="smallestWordLabel">
-                <property name="text">
-                 <string>Smallest Word:</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Hyphenation Character:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMLineEdit" name="hyphenCharLineEdit">
+                  <property name="maximumSize">
+                   <size>
+                    <width>60</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="SMSpinBox" name="smallestWordSpinBox">
-                <property name="minimum">
-                 <number>3</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="smallestWordLabel2">
-                <property name="text">
-                 <string>Characters</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="smColorGroup">
-           <property name="title">
-            <string>Colors</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <layout class="QHBoxLayout" name="_2">
-              <item>
-               <widget class="QLabel" name="FillIcon">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>fillColor_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMColorCombo" name="fillColor_">
-                <property name="toolTip">
-                 <string>Fill Color</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="fillShadeLabel">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>fillShade_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMShadeButton" name="fillShade_">
-                <property name="toolTip">
-                 <string>Fill Shade</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="smallestWordLabel">
+                  <property name="text">
+                   <string>Smallest Word:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="SMSpinBox" name="smallestWordSpinBox">
+                  <property name="suffix">
+                   <string> characters</string>
+                  </property>
+                  <property name="minimum">
+                   <number>3</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>0</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
                <spacer>
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::MinimumExpanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>20</width>
+                  <height>0</height>
                  </size>
                 </property>
                </spacer>
               </item>
              </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="_10">
-              <item>
-               <widget class="QLabel" name="StrokeIcon">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>strokeColor_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMColorCombo" name="strokeColor_">
-                <property name="toolTip">
-                 <string>Stroke Color</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="strokeShadeLabel">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>strokeShade_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMShadeButton" name="strokeShade_">
-                <property name="toolTip">
-                 <string>Stroke Shade</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="_11">
-              <item>
-               <widget class="QLabel" name="backIcon">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>fillColor_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMColorCombo" name="backColor_">
-                <property name="toolTip">
-                 <string>Background Color</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="backShadeLabel">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>22</width>
-                  <height>22</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="buddy">
-                 <cstring>fillShade_</cstring>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="SMShadeButton" name="backShade_">
-                <property name="toolTip">
-                 <string>Background Shade</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
        <item>
-        <spacer>
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::MinimumExpanding</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>300</width>
+           <width>20</width>
            <height>0</height>
           </size>
          </property>

@@ -28,10 +28,10 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 	setWindowTitle(titel);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	QueryLayout = new QVBoxLayout( this );
-	QueryLayout->setSpacing( 5 );
-	QueryLayout->setContentsMargins(5, 5, 5, 5);
+	QueryLayout->setSpacing(6);
+	QueryLayout->setContentsMargins(9, 9, 9, 9);
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 5 );
+	Layout2->setSpacing(6);
 	Layout2->setContentsMargins(0, 0, 0, 0);
 	Answer = new QLineEdit( this );
 	Frage = new QLabel( text, this );
@@ -46,7 +46,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 	if (doc->pagePositioning() != singlePage)
 	{
 		Layout3 = new QHBoxLayout;
-		Layout3->setSpacing( 5 );
+		Layout3->setSpacing(6);
 		Layout3->setContentsMargins(0, 0, 0, 0);
 		Links = new QComboBox( this );
 		QStringList::Iterator pNames;
@@ -67,7 +67,7 @@ NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, Scribu
 		QueryLayout->addLayout( Layout3 );
 	}
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 5 );
+	Layout1->setSpacing(6);
 	Layout1->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );

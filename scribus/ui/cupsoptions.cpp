@@ -58,8 +58,8 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 	prefs = PrefsManager::instance().prefsFile->getContext("cups_options");
 
 	CupsOptionsLayout = new QVBoxLayout( this );
-	CupsOptionsLayout->setSpacing( 5 );
-	CupsOptionsLayout->setContentsMargins(10, 10, 10, 10);
+	CupsOptionsLayout->setSpacing(6);
+	CupsOptionsLayout->setContentsMargins(9, 9, 9, 9);
 	Table = new QTableWidget(0, 2, this);
 	Table->setSortingEnabled(false);
 	Table->setSelectionMode(QAbstractItemView::NoSelection);
@@ -211,7 +211,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 	CupsOptionsLayout->addWidget( Table );
 
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 5 );
+	Layout2->setSpacing(6);
 	Layout2->setContentsMargins(0, 0, 0, 0);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );

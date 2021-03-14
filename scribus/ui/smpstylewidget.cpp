@@ -103,6 +103,8 @@ void SMPStyleWidget::iconSetChange()
 	lineSpacingLabel->setPixmap(iconManager.loadPixmap("linespacing2.png"));
 	spaceAboveLabel->setPixmap(iconManager.loadPixmap("above.png") );
 	spaceBelowLabel->setPixmap(iconManager.loadPixmap("below.png") );
+	keepLabelStart->setPixmap(iconManager.loadPixmap("22/orphan.png") );
+	keepLabelEnd->setPixmap(iconManager.loadPixmap("22/widow.png") );
 	backIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
 	backShadeLabel->setPixmap(iconManager.loadPixmap("shade.png"));
 
