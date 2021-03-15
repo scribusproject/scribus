@@ -60,28 +60,26 @@ ContextMenu::ContextMenu(ScribusMainWindow *actionsParent, ScribusDoc* doc, doub
 
 void ContextMenu::processSelection()
 {
-	int selectedItemCount=m_Sel.count();
+	int selectedItemCount = m_Sel.count();
 	if (selectedItemCount == 0)
 		return;
 	
-	PageItem* currItem=nullptr;
+	PageItem* currItem = nullptr;
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = m_Sel.itemAt(i);
 		if (currItem)
-		{
 			currItem->applicableActions(m_actionList);
-		}
 	}
 }
 
 void ContextMenu::createMenuItems_Selection()
 {
 	//CB TODO clean
-	int selectedItemCount=m_Sel.count();
-	if (selectedItemCount==0)
+	int selectedItemCount = m_Sel.count();
+	if (selectedItemCount == 0)
 		return;
-	bool itemsAreSameType=m_Sel.itemsAreSameType();
+	bool itemsAreSameType = m_Sel.itemsAreSameType();
 	//Find our doc from first item in selection if we have an item
 	PageItem *currItem = m_Sel.itemAt(0);
 	assert(m_doc!=nullptr && currItem!=nullptr);
@@ -103,7 +101,7 @@ void ContextMenu::createMenuItems_Selection()
 
 	//<-- Add Info
 	//Test new method with image frames first
-	if (selectedItemCount==1 && currItem->isImageFrame())
+	if (selectedItemCount == 1 && currItem->isImageFrame())
 	{
 		QAction *act = addMenu(menuInfo);
 		act->setText( tr("In&fo"));
@@ -174,7 +172,7 @@ void ContextMenu::createMenuItems_Selection()
 		}
 	if (m_actionList.contains("fileImportImage"))
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportImage"]);
-	if (selectedItemCount==1 && currItem->isImageFrame())
+	if (selectedItemCount == 1 && currItem->isImageFrame())
 	{
 		if (QApplication::clipboard()->mimeData()->hasImage())
 			menuEditContent->addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
@@ -305,7 +303,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuImage->addAction(m_ScMW->scrActions["styleImageEffects"]);
 		if (m_actionList.contains("editEditWithImageEditor"))
 			menuImage->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
-		if (selectedItemCount==1 && currItem->isImageFrame())
+		if (selectedItemCount == 1 && currItem->isImageFrame())
 		{
 			if (currItem->imageIsAvailable)
 			{
@@ -346,7 +344,7 @@ void ContextMenu::createMenuItems_Selection()
 			}
 		}
 		
-		if ((selectedItemCount==1) && currItem->isTextFrame())
+		if ((selectedItemCount == 1) && currItem->isTextFrame())
 		{
 			if (currItem->itemText.length() > 0)
 				m_ScMW->scrActions["itemAdjustFrameHeightToText"]->setEnabled(true);
@@ -360,7 +358,7 @@ void ContextMenu::createMenuItems_Selection()
 	addSeparator();
 
 	
-	if (selectedItemCount>0)
+	if (selectedItemCount > 0)
 	{
 		//<-- Item Locking
 		menuLocking->addAction(m_ScMW->scrActions["itemLock"]);
