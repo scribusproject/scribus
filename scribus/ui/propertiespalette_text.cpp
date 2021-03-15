@@ -58,10 +58,12 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	fontSize->setPrefix( "" );
 	fontSizeLabel->setPixmap(IconManager::instance().loadPixmap("zeichen.png"));
 	lineSpacingLabel->setPixmap(IconManager::instance().loadPixmap("linespacing2.png"));
+	textAlignmentLabel->setPixmap(IconManager::instance().loadPixmap("22/text-align.png"));
+	langLabel->setPixmap(IconManager::instance().loadPixmap("22/language.png"));
+	paraStyleLabel->setPixmap(IconManager::instance().loadPixmap("22/paragraph-style.png"));
+	charStyleLabel->setPixmap(IconManager::instance().loadPixmap("22/character-style.png"));
 
-	paraStyleLabel->setBuddy(paraStyleCombo);
 	paraStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
-	charStyleLabel->setBuddy(charStyleCombo);
 	charStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);

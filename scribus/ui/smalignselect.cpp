@@ -12,7 +12,6 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 	: AlignSelect(parent)
 {
 	parentButton = new QToolButton(this);
-	parentButton->setMaximumSize( QSize( 22, 22 ) );
 	parentButton->setCheckable( true );
 	parentButton->setText( tr("P", "P as in Parent"));
 	parentButton->setToolTip( tr("Use parent style's alignment instead of overriding it"));

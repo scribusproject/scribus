@@ -39,11 +39,17 @@
      </property>
      <item>
       <widget class="QLabel" name="fontSizeLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
        </property>
        <property name="text">
         <string/>
@@ -75,24 +81,23 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
       <number>3</number>
      </property>
      <item>
       <widget class="QLabel" name="lineSpacingLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
        </property>
        <property name="text">
         <string/>
@@ -138,11 +143,30 @@
      <property name="spacing">
       <number>3</number>
      </property>
-     <item alignment="Qt::AlignLeft">
-      <widget class="DirectionSelect" name="textDirection" native="true"/>
+     <item>
+      <widget class="QLabel" name="textAlignmentLabel">
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="AlignSelect" name="textAlignment" native="true"/>
+     </item>
+     <item alignment="Qt::AlignLeft">
+      <widget class="DirectionSelect" name="textDirection" native="true"/>
      </item>
      <item>
       <spacer name="horizontalSpacer_2">
@@ -157,8 +181,40 @@
        </property>
       </spacer>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="langLabel">
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QComboBox" name="langCombo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="toolTip">
         <string>Text Language</string>
        </property>
@@ -170,34 +226,26 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <property name="spacing">
-      <number>3</number>
-     </property>
-    </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
       <number>3</number>
      </property>
      <item>
       <widget class="QLabel" name="paraStyleLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
        </property>
        <property name="text">
-        <string>Paragraph St&amp;yle:</string>
+        <string/>
        </property>
        <property name="pixmap">
         <pixmap>../../resources/icons/zeichen.png</pixmap>
@@ -219,12 +267,6 @@
      </item>
      <item>
       <widget class="QToolButton" name="paraStyleClear">
-       <property name="maximumSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Remove Direct Paragraph Formatting</string>
        </property>
@@ -246,14 +288,20 @@
      </property>
      <item>
       <widget class="QLabel" name="charStyleLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimumSize">
+        <size>
+         <width>20</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>22</width>
+         <height>22</height>
+        </size>
        </property>
        <property name="text">
-        <string>Character St&amp;yle:</string>
+        <string/>
        </property>
        <property name="pixmap">
         <pixmap>../../resources/icons/zeichen.png</pixmap>
@@ -275,12 +323,6 @@
      </item>
      <item>
       <widget class="QToolButton" name="charStyleClear">
-       <property name="maximumSize">
-        <size>
-         <width>22</width>
-         <height>22</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Remove Direct Character Formatting</string>
        </property>
@@ -294,13 +336,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="ScTreeWidget" name="textTree">

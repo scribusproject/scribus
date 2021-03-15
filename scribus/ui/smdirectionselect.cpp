@@ -4,7 +4,6 @@ SMDirectionSelect::SMDirectionSelect(QWidget *parent)
 : DirectionSelect(parent)
 {
 	parentButton = new QToolButton(this);
-	parentButton->setMaximumSize( QSize( 22, 22 ) );
 	parentButton->setCheckable( true );
 	parentButton->setText( tr("P", "P as in Parent"));
 	parentButton->setToolTip( tr("Use parent style's direction instead of overriding it"));
