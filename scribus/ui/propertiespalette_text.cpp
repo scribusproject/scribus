@@ -56,15 +56,8 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	setupUi(this);
 
 	fontSize->setPrefix( "" );
-	fontSizeLabel->setPixmap(IconManager::instance().loadPixmap("zeichen.png"));
-	lineSpacingLabel->setPixmap(IconManager::instance().loadPixmap("linespacing2.png"));
-	textAlignmentLabel->setPixmap(IconManager::instance().loadPixmap("22/text-align.png"));
-	langLabel->setPixmap(IconManager::instance().loadPixmap("22/language.png"));
-	paraStyleLabel->setPixmap(IconManager::instance().loadPixmap("22/paragraph-style.png"));
-	charStyleLabel->setPixmap(IconManager::instance().loadPixmap("22/character-style.png"));
-
-	paraStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
-	charStyleClear->setIcon(IconManager::instance().loadPixmap("16/edit-clear.png"));
+	
+	iconSetChange();
 
 	colorWidgets = new PropertyWidget_TextColor(textTree);
 	colorWidgetsItem = textTree->addItem( colorWidgets, tr("Color && Effects") );
@@ -118,7 +111,9 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(fontfeaturesWidget, SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 	connect(parEffectWidgets,   SIGNAL(needsRelayout()), this, SLOT(updateTreeLayout()));
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+
 	setEnabled(false);
 }
 
@@ -355,6 +350,21 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *item)
 	{
 		setEnabled(false);
 	}
+}
+
+void PropertiesPalette_Text::iconSetChange()
+{
+	IconManager& iconManager = IconManager::instance();
+
+	fontSizeLabel->setPixmap(iconManager.loadPixmap("zeichen.png"));
+	lineSpacingLabel->setPixmap(iconManager.loadPixmap("linespacing2.png"));
+	textAlignmentLabel->setPixmap(iconManager.loadPixmap("22/text-align.png"));
+	langLabel->setPixmap(iconManager.loadPixmap("22/language.png"));
+	paraStyleLabel->setPixmap(iconManager.loadPixmap("22/paragraph-style.png"));
+	charStyleLabel->setPixmap(iconManager.loadPixmap("22/character-style.png"));
+
+	paraStyleClear->setIcon(iconManager.loadPixmap("16/edit-clear.png"));
+	charStyleClear->setIcon(iconManager.loadPixmap("16/edit-clear.png"));
 }
 
 void PropertiesPalette_Text::unitChange()
