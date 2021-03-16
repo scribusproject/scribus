@@ -157,8 +157,8 @@ protected:
 	ScrSpinBox* firstLineData { nullptr };
 	ScrSpinBox* leftIndentData { nullptr };
 	ScrSpinBox* rightIndentData { nullptr };
-	QPushButton* clearButton { nullptr };
-	QPushButton* clearOneButton { nullptr };
+	QToolButton* clearButton { nullptr };
+	QToolButton* clearOneButton { nullptr };
 
 	bool   m_haveFirst;
 	double m_docUnitRatio;

@@ -542,18 +542,12 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<Parag
 	tabFillComboT->setBuddy(tabFillCombo);
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
-	clearOneButton = new QPushButton( this );
-	clearOneButton->setText("");
+	clearOneButton = new QToolButton( this );
 	clearOneButton->setIcon(IconManager::instance().loadIcon("16/edit-delete.png"));
-	clearOneButton->setMinimumSize(24, 24);
-	clearOneButton->setMaximumSize(24, 24);
 	layout1->addSpacing(12);
 	layout1->addWidget(clearOneButton);
-	clearButton = new QPushButton( this );
-	clearButton->setText("");
+	clearButton = new QToolButton( this );
 	clearButton->setIcon(IconManager::instance().loadIcon("16/edit-delete-all.png"));
-	clearButton->setMinimumSize(24, 24);
-	clearButton->setMaximumSize(24, 24);
 	layout1->addWidget(clearButton);
 
 	indentLayout = new QHBoxLayout;
