@@ -1913,7 +1913,7 @@ void Biblio::objFromCopyAction(const QString& text, const QString& name)
 
 void Biblio::objFromMainMenu(QString text, int scrapID)
 {
-	QString nam = "";
+	QString nam;
 	QString tmp;
 	int scID = scrapID;
 	if (scID > 0)

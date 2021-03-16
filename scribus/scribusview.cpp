@@ -1033,8 +1033,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		update();
 		return;
 	}
-	//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
-	//		if (Doc->m_Selection->count()>0 && (m_canvas->frameHitTest(dropPosDocQ, Doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && !vectorFile) // && (img))
 	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, m_doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
 	{
 		PageItem *item = m_doc->m_Selection->itemAt(0);
@@ -1101,13 +1099,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	{
 		deselectItems(true);
 		int oldDocItemCount = m_doc->Items->count();
-		if (((!img) || (vectorFile)) && (m_doc->DraggedElem == nullptr))
+		if ((!img || vectorFile) && (m_doc->DraggedElem == nullptr))
 		{
 			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
+			bool fromScrapbook = false;
 			if (fi.exists())
 			{
 				if (fi.suffix().toLower() == "sce")
 				{
+					fromScrapbook = true;
 					emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, m_doc, this);
 				}
 				else
@@ -1118,7 +1118,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 					{
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						if( fmt )
+						if (fmt)
 						{
 							// We disable undo here as we are only interested by the item creation undo actions
 							// We create them manually after import
@@ -1163,30 +1163,22 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			Selection tmpSelection(this, false);
 			tmpSelection.copy(*m_doc->m_Selection, true);
-			for (int as = oldDocItemCount; as < m_doc->Items->count(); ++as)
+			for (int i = oldDocItemCount; i < m_doc->Items->count(); ++i)
 			{
-				currItem = m_doc->Items->at(as);
+				currItem = m_doc->Items->at(i);
 				m_doc->setRedrawBounding(currItem);
 				tmpSelection.addItem(currItem, true);
 				if (currItem->isBookmark)
 					emit AddBM(currItem);
 			}
 			m_doc->m_Selection->copy(tmpSelection, false);
-			if (m_doc->m_Selection->count() == 1)
+			if (!fromScrapbook && m_doc->m_Selection->count() == 1)
 			{
 				PageItem *newItem = m_doc->m_Selection->itemAt(0);
 				if ((newItem->width() > m_doc->currentPage()->width()) || (newItem->height() > m_doc->currentPage()->height()))
 				{
-					//	QMenu *pmen = new QMenu();
-					//	pmen->addAction( tr("Keep original Size"));
-					//	pmen->addAction( tr("Scale to Page Size"));
-					//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
-					//	delete pmen;
-					//	if (re == 1)
-					//	{
 					m_doc->rescaleGroup(newItem, qMin(qMin(m_doc->currentPage()->width() / newItem->width(), m_doc->currentPage()->height() / newItem->height()), 1.0));
 					newItem->update();
-					//	}
 				}
 			}
 			activeTransaction.commit();
@@ -1202,9 +1194,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					pmen->addAction( tr("Copy Here"));
 					QAction* mov = pmen->addAction( tr("Move Here"));
 					pmen->addAction( tr("Cancel"));
-					for (int dre=0; dre<m_doc->DragElements.count(); ++dre)
+					for (int i=0; i<m_doc->DragElements.count(); ++i)
 					{
-						if (m_doc->DragElements[dre]->locked())
+						if (m_doc->DragElements[i]->locked())
 						{
 							mov->setEnabled(false);
 							break;
@@ -1225,9 +1217,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					QList<PageItem*> pasted;
 					emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, m_doc, this);
-					for (int as = oldDocItemCount; as < m_doc->Items->count(); ++as)
+					for (int i = oldDocItemCount; i < m_doc->Items->count(); ++i)
 					{
-						pasted.append(m_doc->Items->at(as));
+						pasted.append(m_doc->Items->at(i));
 					}
 					Selection tmpSelection(this, false);
 					tmpSelection.copy(*m_doc->m_Selection, true);
@@ -1238,10 +1230,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					m_doc->m_Selection->copy(tmpSelection, false);
 					PageItem* bb;
 					int fin;
-					for (int dre=0; dre<m_doc->DragElements.count(); ++dre)
+					for (int i=0; i<m_doc->DragElements.count(); ++i)
 					{
-						bb = pasted.at(dre);
-						currItem = m_doc->m_Selection->itemAt(dre);
+						bb = pasted.at(i);
+						currItem = m_doc->m_Selection->itemAt(i);
 						if ((currItem->isTextFrame()) && ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr)))
 						{
 							PageItem* before = currItem->prevInChain();
@@ -1268,15 +1260,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					m_doc->itemSelection_DeleteItem();
 				}
 			}
-			if ((!img) && ((re == 0)))
+			if (!img && (re == 0))
 				emit LoadElem(QString(text), dropPosDoc.x(), dropPosDoc.y(), false, false, m_doc, this);
 			m_doc->DraggedElem = nullptr;
 			m_doc->DragElements.clear();
 			Selection tmpSelection(this, false);
 			tmpSelection.copy(*m_doc->m_Selection, true);
-			for (int as = oldDocItemCount; as < m_doc->Items->count(); ++as)
+			for (int i = oldDocItemCount; i < m_doc->Items->count(); ++i)
 			{
-				currItem = m_doc->Items->at(as);
+				currItem = m_doc->Items->at(i);
 				m_doc->setRedrawBounding(currItem);
 				tmpSelection.addItem(currItem, true);
 				if (currItem->isBookmark)
