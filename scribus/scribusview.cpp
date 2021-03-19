@@ -776,7 +776,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	m_doc->m_Selection->delaySignalsOn();
 	for (int i = m_doc->Items->count() - 1; i >= 0 ; --i)
 	{
-		if (m_doc->Items->at(i)->m_layerID==m_doc->activeLayer())
+		if (m_doc->Items->at(i)->m_layerID == m_doc->activeLayer())
 		{
 			if (m_canvas->frameHitTest(dropPosDocQ, m_doc->Items->at(i)) >= Canvas::INSIDE)
 			{
@@ -1204,7 +1204,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
 					delete pmen;
-					pmen=nullptr;
+					pmen = nullptr;
 				}
 				else
 					re = 1;
@@ -1223,14 +1223,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					Selection tmpSelection(this, false);
 					tmpSelection.copy(*m_doc->m_Selection, true);
-					for (int dre=0; dre<m_doc->DragElements.count(); ++dre)
+					for (int i = 0; i < m_doc->DragElements.count(); ++i)
 					{
-						tmpSelection.addItem(m_doc->DragElements[dre], true);
+						tmpSelection.addItem(m_doc->DragElements[i], true);
 					}
 					m_doc->m_Selection->copy(tmpSelection, false);
 					PageItem* bb;
 					int fin;
-					for (int i=0; i<m_doc->DragElements.count(); ++i)
+					for (int i = 0; i < m_doc->DragElements.count(); ++i)
 					{
 						bb = pasted.at(i);
 						currItem = m_doc->m_Selection->itemAt(i);
@@ -1299,9 +1299,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			m_doc->ApplyGuides(&nx, &ny,true);
 			m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
+			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			{
-				PageItem *currItem = m_doc->m_Selection->itemAt(a);
+				PageItem *currItem = m_doc->m_Selection->itemAt(i);
 				currItem->m_layerID = m_doc->activeLayer();
 				currItem->gXpos = currItem->xPos() - gx;
 				currItem->gYpos = currItem->yPos() - gy;
@@ -1337,8 +1337,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	if (!m_doc->masterPageMode())
 	{
-		int docPagesCount=m_doc->Pages->count();
-		int docCurrPageNo=m_doc->currentPageNumber();
+		int docPagesCount = m_doc->Pages->count();
+		int docCurrPageNo = m_doc->currentPageNumber();
 		for (int i = 0; i < docPagesCount; ++i)
 		{
 			double x = m_doc->Pages->at(i)->xOffset();
@@ -1416,9 +1416,9 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 	{
 		an = Start.y() > End.y() ? End : Start;
 		en = an == End ? Start : End;
-		for (int a=an.y(); a<en.y(); ++a)
+		for (int i = an.y(); i < en.y(); ++i)
 		{
-			if (MArea.contains(an.x(), a))
+			if (MArea.contains(an.x(), i))
 				return true;
 		}
 	}
@@ -1426,9 +1426,9 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 	{
 		an = Start.x() > End.x() ? End : Start;
 		en = an == End ? Start : End;
-		for (int a=an.x(); a<en.x(); ++a)
+		for (int i = an.x(); i < en.x(); ++i)
 		{
-			if (MArea.contains(a, an.y()))
+			if (MArea.contains(i, an.y()))
 				return true;
 		}
 	}
@@ -1437,9 +1437,9 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 		an = Start.x() > End.x() ? End : Start;
 		en = an == End ? Start : End;
 		double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
-		for (int a = an.x(); a < en.x(); ++a)
+		for (int i = an.x(); i < en.x(); ++i)
 		{
-			if (MArea.contains(a, an.y()+qRound((a-an.x())*stg)))
+			if (MArea.contains(i, an.y() + qRound((i - an.x()) * stg)))
 				return true;
 		}
 	}
@@ -1448,9 +1448,9 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 		an = Start.y() > End.y() ? End : Start;
 		en = an == End ? Start : End;
 		double stg = (en.x() - an.x()) / static_cast<double>((en.y() - an.y()));
-		for (int a = an.y(); a < en.y(); ++a)
+		for (int i = an.y(); i < en.y(); ++i)
 		{
-			if (MArea.contains(an.x()+qRound((a-an.y())*stg), a))
+			if (MArea.contains(an.x() + qRound((i - an.y()) * stg), i))
 				return true;
 		}
 	}
