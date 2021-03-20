@@ -1295,9 +1295,6 @@
               <property name="toolTip">
                <string>Select a directory</string>
               </property>
-              <property name="text">
-               <string>...</string>
-              </property>
              </widget>
             </item>
            </layout>

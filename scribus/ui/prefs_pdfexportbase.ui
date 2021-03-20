@@ -194,9 +194,6 @@
          </item>
          <item>
           <widget class="QToolButton" name="pageMirrorHorizontalToolButton">
-           <property name="text">
-            <string>...</string>
-           </property>
            <property name="checkable">
             <bool>true</bool>
            </property>
@@ -204,9 +201,6 @@
          </item>
          <item>
           <widget class="QToolButton" name="pageMirrorVerticalToolButton">
-           <property name="text">
-            <string>...</string>
-           </property>
            <property name="checkable">
             <bool>true</bool>
            </property>

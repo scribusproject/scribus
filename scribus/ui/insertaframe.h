@@ -56,6 +56,7 @@ protected slots:
 	void slotLinkToExistingFrame(int state);
 	void locateImageFile();
 	void locateDocFile();
+	void iconSetChange();
 };
 
 #endif

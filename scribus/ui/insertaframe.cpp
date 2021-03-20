@@ -44,8 +44,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	m_Doc(doc)
 {
 	setupUi(this);
-	
-	placementPagesRangeButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	iconSetChange();
 	
 	//set tab order
 	QWidget::setTabOrder(radioButtonCustomPosition, xPosScrSpinBox);
@@ -269,4 +268,13 @@ void InsertAFrame::slotLinkToExistingFrame(int state)
 	comboBoxLinkToExistingFrameName->setEnabled(state == Qt::Checked);
 	sourceDocLineEdit->setEnabled(state == Qt::Unchecked);
 	selectDocFileButton->setEnabled(state == Qt::Unchecked);
+}
+
+void InsertAFrame::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	placementPagesRangeButton->setIcon(im.loadIcon("ellipsis.png"));
+	selectDocFileButton->setIcon(im.loadIcon("ellipsis.png"));
+	selectImageFileButton->setIcon(im.loadIcon("ellipsis.png"));
 }

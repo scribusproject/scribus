@@ -1627,6 +1627,8 @@ void PictureBrowser::loadIcons()
 	closeButton->setIcon(iconClose);
 
 	moreButton->setIcon(iconArrowDown);
+
+	filterSearchDirButton->setIcon(im.loadIcon("ellipsis.png"));
 }
 
 

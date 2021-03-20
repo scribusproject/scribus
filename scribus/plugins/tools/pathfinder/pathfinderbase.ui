@@ -303,9 +303,6 @@
             <property name="toolTip">
              <string>Unites the shapes</string>
             </property>
-            <property name="text">
-             <string>...</string>
-            </property>
             <property name="checkable">
              <bool>true</bool>
             </property>
@@ -322,9 +319,6 @@
             <property name="toolTip">
              <string>Subtracts the second shape from the first shape</string>
             </property>
-            <property name="text">
-             <string>...</string>
-            </property>
             <property name="checkable">
              <bool>true</bool>
             </property>
@@ -337,9 +331,6 @@
            <widget class="QToolButton" name="opIntersection">
             <property name="toolTip">
              <string>Intersection of the shapes</string>
-            </property>
-            <property name="text">
-             <string>...</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -354,9 +345,6 @@
             <property name="toolTip">
              <string>Result is the area where the two shapes do not intersect</string>
             </property>
-            <property name="text">
-             <string>...</string>
-            </property>
             <property name="checkable">
              <bool>true</bool>
             </property>
@@ -370,9 +358,6 @@
             <property name="toolTip">
              <string>Break apart,
 The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</string>
-            </property>
-            <property name="text">
-             <string>...</string>
             </property>
             <property name="checkable">
              <bool>true</bool>

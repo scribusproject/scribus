@@ -140,9 +140,6 @@
               <property name="toolTip">
                <string/>
               </property>
-              <property name="text">
-               <string>...</string>
-              </property>
              </widget>
             </item>
            </layout>
@@ -568,9 +565,6 @@
              </item>
              <item>
               <widget class="QToolButton" name="selectDocFileButton">
-               <property name="text">
-                <string>...</string>
-               </property>
               </widget>
              </item>
             </layout>
@@ -610,9 +604,6 @@
              </item>
              <item>
               <widget class="QToolButton" name="selectImageFileButton">
-               <property name="text">
-                <string>...</string>
-               </property>
               </widget>
              </item>
             </layout>

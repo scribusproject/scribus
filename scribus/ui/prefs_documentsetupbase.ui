@@ -139,9 +139,6 @@
            </item>
            <item>
             <widget class="QToolButton" name="pageSizeLinkToolButton">
-             <property name="text">
-              <string>...</string>
-             </property>
              <property name="arrowType">
               <enum>Qt::NoArrow</enum>
              </property>
