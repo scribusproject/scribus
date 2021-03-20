@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>AboutPlugins</class>
- <widget class="QDialog" name="AboutPlugins" >
-  <property name="geometry" >
+ <widget class="QDialog" name="AboutPlugins">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,10 +10,10 @@
     <height>401</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Scribus: About Plug-ins</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <property name="leftMargin">
     <number>9</number>
    </property>
@@ -26,18 +27,18 @@
     <number>9</number>
    </property>
    <item>
-    <widget class="QSplitter" name="splitter" >
-     <property name="orientation" >
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="opaqueResize" >
+     <property name="opaqueResize">
       <bool>false</bool>
      </property>
-     <property name="childrenCollapsible" >
+     <property name="childrenCollapsible">
       <bool>false</bool>
      </property>
-     <widget class="QListWidget" name="pluginList" >
-      <property name="sizePolicy" >
+     <widget class="QListWidget" name="pluginList">
+      <property name="sizePolicy">
        <sizepolicy>
         <hsizetype>7</hsizetype>
         <vsizetype>7</vsizetype>
@@ -46,15 +47,15 @@
        </sizepolicy>
       </property>
      </widget>
-     <widget class="QTextBrowser" name="infoBrowser" />
+     <widget class="QTextBrowser" name="infoBrowser"/>
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
+     <property name="standardButtons">
       <set>QDialogButtonBox::Close</set>
      </property>
     </widget>
@@ -69,11 +70,11 @@
    <receiver>AboutPlugins</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>248</x>
      <y>254</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>157</x>
      <y>274</y>
     </hint>
@@ -85,11 +86,11 @@
    <receiver>AboutPlugins</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>316</x>
      <y>260</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>
