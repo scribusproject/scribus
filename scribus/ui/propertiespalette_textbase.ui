@@ -54,9 +54,6 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>../../resources/icons/zeichen.png</pixmap>
-       </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
@@ -101,9 +98,6 @@
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>../../resources/icons/linespacing2.png</pixmap>
        </property>
       </widget>
      </item>
@@ -247,9 +241,6 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>../../resources/icons/zeichen.png</pixmap>
-       </property>
       </widget>
      </item>
      <item>
@@ -272,10 +263,6 @@
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../../resources/icons/16/edit-clear.png</normaloff>../../resources/icons/16/edit-clear.png</iconset>
        </property>
       </widget>
      </item>
@@ -303,9 +290,6 @@
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap>../../resources/icons/zeichen.png</pixmap>
-       </property>
       </widget>
      </item>
      <item>
@@ -328,10 +312,6 @@
        </property>
        <property name="text">
         <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../../resources/icons/16/edit-clear.png</normaloff>../../resources/icons/16/edit-clear.png</iconset>
        </property>
       </widget>
      </item>
