@@ -20,6 +20,9 @@
    <string notr="true">Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>3</number>
+   </property>
    <property name="sizeConstraint">
     <enum>QLayout::SetDefaultConstraint</enum>
    </property>
@@ -37,6 +40,9 @@
    </property>
    <item>
     <layout class="QHBoxLayout" name="buttonLayout">
+     <property name="spacing">
+      <number>3</number>
+     </property>
      <item>
       <widget class="QToolButton" name="newButton">
        <property name="text">
