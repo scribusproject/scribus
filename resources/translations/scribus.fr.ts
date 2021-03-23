@@ -4923,7 +4923,7 @@ pour la sortie du fichier %1</translation>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="45"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="55"/>
@@ -12409,7 +12409,7 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
         <source>Superscript in text</source>
-        <translation>Text en superscript</translation>
+        <translation>Texte en superscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
@@ -12476,7 +12476,7 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="95"/>
         <source>Story</source>
-        <translation type="unfinished">Récit</translation>
+        <translation>Récit</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
@@ -12506,7 +12506,7 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="204"/>
         <source>No Style</source>
-        <translation type="unfinished">Aucun style</translation>
+        <translation>Aucun style</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
@@ -33487,7 +33487,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1049"/>
         <source>Script:</source>
-        <translation type="unfinished">Script :</translation>
+        <translation>Script :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1074"/>
@@ -33579,7 +33579,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1355"/>
         <source>Action Name</source>
-        <translation type="unfinished">Nom de l&apos;action</translation>
+        <translation>Nom de l&apos;action</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="251"/>
@@ -33589,7 +33589,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="252"/>
         <source>Previous Page</source>
-        <translation type="unfinished">Page précédente</translation>
+        <translation>Page précédente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="253"/>
@@ -33624,7 +33624,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="259"/>
         <source>Go To Page</source>
-        <translation type="unfinished">Aller à la Page</translation>
+        <translation>Aller à la Page</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="260"/>
@@ -33649,27 +33649,27 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="264"/>
         <source>Fit Visible</source>
-        <translation type="unfinished">Ajuster à la Vue</translation>
+        <translation>Ajuster à la Vue</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="265"/>
         <source>Single Page</source>
-        <translation type="unfinished">Page simple</translation>
+        <translation>Page simple</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="266"/>
         <source>Two Pages</source>
-        <translation type="unfinished">Deux Pages</translation>
+        <translation>Deux Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="267"/>
         <source>One Column</source>
-        <translation type="unfinished">Une Colonne</translation>
+        <translation>Une Colonne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="268"/>
         <source>Two Columns</source>
-        <translation type="unfinished">Deux Colonnes</translation>
+        <translation>Deux Colonnes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="269"/>
@@ -33689,17 +33689,17 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="272"/>
         <source>Print</source>
-        <translation type="unfinished">Imprimer</translation>
+        <translation>Imprimer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="273"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="274"/>
         <source>Quit</source>
-        <translation type="unfinished">Quitter</translation>
+        <translation>Quitter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="275"/>
@@ -33844,7 +33844,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="894"/>
         <source>Action</source>
-        <translation type="unfinished">Action</translation>
+        <translation>Action</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1394"/>
@@ -33874,7 +33874,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1427"/>
         <source>Custom</source>
-        <translation type="unfinished">Sur mesure</translation>
+        <translation>Sur mesure</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1482"/>
@@ -33895,7 +33895,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1536"/>
         <source>Prepend Currency Symbol</source>
-        <translation type="unfinished">Symbole monétaire</translation>
+        <translation>Préfixer avec le symbole monétaire</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1543"/>
@@ -33921,7 +33921,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1955"/>
         <source>Custom Scripts</source>
-        <translation type="unfinished">Scripts sur mesure</translation>
+        <translation>Scripts personnalisés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1963"/>
@@ -33936,47 +33936,47 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1386"/>
         <source>Format</source>
-        <translation type="unfinished">Format</translation>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2056"/>
         <source>Value is not validated</source>
-        <translation type="unfinished">La valeur n&apos;est pas validée</translation>
+        <translation>La valeur n&apos;est pas validée</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2068"/>
         <source>Value must be greater than or equal to:</source>
-        <translation type="unfinished">La valeur doit être supérieure ou égale à :</translation>
+        <translation>La valeur doit être supérieure ou égale à :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2075"/>
         <source>and less or equal to:</source>
-        <translation type="unfinished">et inférieure ou égale à :</translation>
+        <translation>et inférieure ou égale à :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2093"/>
         <source>Custom validate script:</source>
-        <translation type="unfinished">Script de validation sur mesure :</translation>
+        <translation>Script de validation personnalisé :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2050"/>
         <source>Validate</source>
-        <translation type="unfinished">Valider</translation>
+        <translation>Valider</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1402"/>
         <source>Plain Text</source>
-        <translation type="unfinished">Texte brut</translation>
+        <translation>Texte brut</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2131"/>
         <source>Value is not calculated</source>
-        <translation type="unfinished">La valeur n&apos;est pas calculée</translation>
+        <translation>La valeur n&apos;est pas calculée</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2143"/>
         <source>Value is the</source>
-        <translation type="unfinished">La valeur est</translation>
+        <translation>La valeur est</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2151"/>
@@ -33986,12 +33986,12 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2156"/>
         <source>product</source>
-        <translation type="unfinished">le produit</translation>
+        <translation>le produit</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2161"/>
         <source>average</source>
-        <translation type="unfinished">la moyenne</translation>
+        <translation>la moyenne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2166"/>
@@ -34016,12 +34016,12 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2202"/>
         <source>Custom calculation script:</source>
-        <translation type="unfinished">Script de calcul sur mesure :</translation>
+        <translation>Script de calcul personnalisé :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2125"/>
         <source>Calculate</source>
-        <translation type="unfinished">Calculer</translation>
+        <translation>Calculer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2276"/>
@@ -34047,7 +34047,7 @@ Attention : ceci augmentera la taille du fichier !</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="453"/>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation type="unfinished">Vous avez au moins besoin de l&apos;icône « Normal » pour pouvoir utiliser les icônes comme boutons</translation>
+        <translation>Vous avez au moins besoin de l&apos;icône « Normal » pour pouvoir utiliser les icônes comme boutons</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="572"/>
@@ -34976,12 +34976,12 @@ Rotation : %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6159"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Langue :</translation>
+        <translation>&amp;Langue :</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6159"/>
         <source>Language</source>
-        <translation type="unfinished">Langue</translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7511"/>
@@ -40676,7 +40676,7 @@ veuillez choisir un autre nom.</translation>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="68"/>
         <source>Prefix Styles with Item Name</source>
-        <translation type="unfinished">Préfixer les styles avec le nom du cadre</translation>
+        <translation>Préfixer les styles avec le nom du cadre</translation>
     </message>
 </context>
 <context>
