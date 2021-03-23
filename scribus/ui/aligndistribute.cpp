@@ -55,19 +55,10 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	setObjectName(name);
-	
-	//hide spare controls 
-	toolButtonDummy1->hide();
-	toolButtonDummy2->hide();
 
 	//set up scrspinboxes
 	distributeDistSpinBox->setValues(-10000.0, 10000.0, 2, 0.0);
 
-	// buddies
-	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
-	alignGuideLabel->setBuddy( alignGuideLineEdit );
-	distributeDistLabel->setBuddy( distributeDistSpinBox );
-	
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	languageChange();
 	init();
@@ -232,71 +223,6 @@ void AlignDistributePalette::iconSetChange()
 
 	swapLeftToolButton->setIcon(im.loadIcon("22/swap-left.png"));
 	swapRightToolButton->setIcon(im.loadIcon("22/swap-right.png"));
-
-	QSize s(24,24);
-	alignLeftOutToolButton->setMinimumSize(s);
-	alignLeftInToolButton->setMinimumSize(s);
-	alignCenterHorToolButton->setMinimumSize(s);
-	alignRightInToolButton->setMinimumSize(s);
-	alignRightOutToolButton->setMinimumSize(s);
-
-	alignTopOutToolButton->setMinimumSize(s);
-	alignTopInToolButton->setMinimumSize(s);
-	alignCenterVerToolButton->setMinimumSize(s);
-	alignBottomInToolButton->setMinimumSize(s);
-	alignBottomOutToolButton->setMinimumSize(s);
-
-	distributeLeftToolButton->setMinimumSize(s);
-	distributeCenterHToolButton->setMinimumSize(s);
-	distributeRightToolButton->setMinimumSize(s);
-	distributeDistHToolButton->setMinimumSize(s);
-
-	distributeBottomToolButton->setMinimumSize(s);
-	distributeCenterVToolButton->setMinimumSize(s);
-	distributeTopToolButton->setMinimumSize(s);
-	distributeDistVToolButton->setMinimumSize(s);
-
-	distributeAcrossPageToolButton->setMinimumSize(s);
-	distributeDownPageToolButton->setMinimumSize(s);
-	distributeAcrossMarginsToolButton->setMinimumSize(s);
-	distributeDownMarginsToolButton->setMinimumSize(s);
-	distributeDistValueHToolButton->setMinimumSize(s);
-	distributeDistValueVToolButton->setMinimumSize(s);
-
-	swapLeftToolButton->setMinimumSize(s);
-	swapRightToolButton->setMinimumSize(s);
-
-	alignLeftOutToolButton->setMaximumSize(s);
-	alignLeftInToolButton->setMaximumSize(s);
-	alignCenterHorToolButton->setMaximumSize(s);
-	alignRightInToolButton->setMaximumSize(s);
-	alignRightOutToolButton->setMaximumSize(s);
-
-	alignTopOutToolButton->setMaximumSize(s);
-	alignTopInToolButton->setMaximumSize(s);
-	alignCenterVerToolButton->setMaximumSize(s);
-	alignBottomInToolButton->setMaximumSize(s);
-	alignBottomOutToolButton->setMaximumSize(s);
-
-	distributeLeftToolButton->setMaximumSize(s);
-	distributeCenterHToolButton->setMaximumSize(s);
-	distributeRightToolButton->setMaximumSize(s);
-	distributeDistHToolButton->setMaximumSize(s);
-
-	distributeBottomToolButton->setMaximumSize(s);
-	distributeCenterVToolButton->setMaximumSize(s);
-	distributeTopToolButton->setMaximumSize(s);
-	distributeDistVToolButton->setMaximumSize(s);
-
-	distributeAcrossPageToolButton->setMaximumSize(s);
-	distributeDownPageToolButton->setMaximumSize(s);
-	distributeAcrossMarginsToolButton->setMaximumSize(s);
-	distributeDownMarginsToolButton->setMaximumSize(s);
-	distributeDistValueHToolButton->setMaximumSize(s);
-	distributeDistValueVToolButton->setMaximumSize(s);
-
-	swapLeftToolButton->setMaximumSize(s);
-	swapRightToolButton->setMaximumSize(s);
 }
 
 void AlignDistributePalette::unitChange()
