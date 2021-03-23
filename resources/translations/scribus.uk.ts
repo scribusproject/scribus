@@ -302,7 +302,7 @@
         <translation>Ліцензія:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.ui" line="13"/>
+        <location filename="../../scribus/ui/aboutplugins.ui" line="14"/>
         <source>Scribus: About Plug-ins</source>
         <translation>Scribus: Про додатки</translation>
     </message>
@@ -2195,22 +2195,22 @@
         <translation>&amp;Вирівняти сторони за:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="339"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="309"/>
         <source>Distribute</source>
         <translation>Розподілити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="646"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="568"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Відстань:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="713"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="635"/>
         <source>Reverse Distribution</source>
         <translation>Обернений розподіл</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="755"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="677"/>
         <source>Swap</source>
         <translation>Прокрутити</translation>
     </message>
@@ -2436,27 +2436,27 @@
 <context>
     <name>AlignSelect</name>
     <message>
-        <location filename="../../scribus/ui/alignselect.cpp" line="128"/>
+        <location filename="../../scribus/ui/alignselect.cpp" line="123"/>
         <source>Align Text Left</source>
         <translation>Вирівняти текст за лівим краєм</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/alignselect.cpp" line="129"/>
+        <location filename="../../scribus/ui/alignselect.cpp" line="124"/>
         <source>Align Text Right</source>
         <translation>Вирівняти текст за правим краєм</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/alignselect.cpp" line="130"/>
+        <location filename="../../scribus/ui/alignselect.cpp" line="125"/>
         <source>Align Text Center</source>
         <translation>Вирівняти текст по центру</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/alignselect.cpp" line="131"/>
+        <location filename="../../scribus/ui/alignselect.cpp" line="126"/>
         <source>Align Text Justified</source>
         <translation>Вирівняти текст з обох сторін</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/alignselect.cpp" line="132"/>
+        <location filename="../../scribus/ui/alignselect.cpp" line="127"/>
         <source>Align Text Forced Justified</source>
         <translation>Примусово вирівняти текст з обох боків</translation>
     </message>
@@ -4992,32 +4992,27 @@ currently %2 x %3 DPI</source>
         <translation>Активний набір кольорів:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="140"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="150"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="147"/>
         <source>Save the current color set</source>
         <translation>Записати активний набір кольорів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="153"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="150"/>
         <source>&amp;Save Color Set</source>
         <translation>Зберегти &amp;набір кольорів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="178"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="175"/>
         <source>Make the current colorset the default color set</source>
         <translation>Використовувати активний набір кольорів, як основний</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="181"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="178"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="188"/>
+        <location filename="../../scribus/ui/colorsandfillsbase.ui" line="185"/>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
@@ -5952,109 +5947,109 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="300"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="298"/>
         <source>Preview Settings</source>
         <translation>Параметри попереднього перегляду</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="584"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="582"/>
         <source>Paste File...</source>
         <translation>Вставити файл…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="619"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="617"/>
         <source>Delete Page</source>
         <translation>Видалити сторінку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="148"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="107"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="146"/>
         <source>In&amp;fo</source>
         <translation>&amp;Інформація</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="131"/>
         <source>Print: </source>
         <translation>Друкувати: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="134"/>
         <source>Enabled</source>
         <translation>Ввімкнено</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Disabled</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="211"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="209"/>
         <source>Edit 3D Annotation...</source>
         <translation>Змінити 3D-примітку...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="225"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="223"/>
         <source>Insert Mark</source>
         <translation>Вставити позначку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="344"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="342"/>
         <source>Image</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="369"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="367"/>
         <source>Locking</source>
         <translation>Блокування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="372"/>
         <source>Send to</source>
         <translation>Надіслати в</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="376"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="374"/>
         <source>Scrapbook</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="407"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="405"/>
         <source>Send to La&amp;yer</source>
         <translation>Перемістити на &amp;шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="437"/>
         <source>Le&amp;vel</source>
         <translation>&amp;Рівень</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="462"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="460"/>
         <source>Conve&amp;rt to</source>
         <translation>&amp;Конвертувати в</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="478"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="476"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;Параметри PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="525"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="523"/>
         <source>Edit</source>
         <translation>Зміни</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="511"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="567"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="509"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="565"/>
         <source>&amp;Paste Here</source>
         <translation>Вставити &amp;тут</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="575"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>Paste Recent</source>
         <translation>Вставити недавнє</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="198"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="196"/>
         <source>Content</source>
         <translation>Вміст</translation>
     </message>
@@ -6597,12 +6592,12 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>DirectionSelect</name>
     <message>
-        <location filename="../../scribus/ui/directionselect.cpp" line="92"/>
+        <location filename="../../scribus/ui/directionselect.cpp" line="90"/>
         <source>Left to right paragraph</source>
         <translation>Абзац зліва направо</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/directionselect.cpp" line="93"/>
+        <location filename="../../scribus/ui/directionselect.cpp" line="91"/>
         <source>Right to left paragraph</source>
         <translation>Абзац справа наліво</translation>
     </message>
@@ -7117,27 +7112,27 @@ failed!</source>
 <context>
     <name>ExceptHookDialog</name>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="13"/>
+        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="14"/>
         <source>Script error</source>
         <translation>Помилка сценарію</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="24"/>
+        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
         <source>An exception occured while running the script.</source>
         <translation>При виконанні сценарію трапилась виняткова ситуація.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="31"/>
+        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрити</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="44"/>
+        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="45"/>
         <source>Exception</source>
         <translation>Виняток</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="51"/>
+        <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="52"/>
         <source>&amp;Details &gt;&gt;</source>
         <translation>&amp;Подробиці &gt;&gt;</translation>
     </message>
@@ -8422,13 +8417,13 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Термін для пошуку:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="76"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="347"/>
         <source>&amp;Delete</source>
         <translation>&amp;Видалити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="46"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="47"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="341"/>
         <source>&amp;Print...</source>
         <translation>&amp;Друк…</translation>
@@ -8439,7 +8434,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="56"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="57"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="343"/>
         <source>&amp;Find...</source>
         <translation>&amp;Пошук…</translation>
@@ -8470,7 +8465,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>&amp;Додати закладку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="81"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="82"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="348"/>
         <source>D&amp;elete All</source>
         <translation>Вид&amp;алити всі</translation>
@@ -8481,28 +8476,28 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>&amp;Закладки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="13"/>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="35"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="14"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="36"/>
         <source>Scribus Help</source>
         <translation>Довідка Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="51"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="52"/>
         <source>&amp;Exit</source>
         <translation>В&amp;ийти</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="61"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="62"/>
         <source>Find &amp;Next...</source>
         <translation>Знайти &amp;наступний…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="66"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="67"/>
         <source>Find &amp;Previous...</source>
         <translation>Знайти &amp;попередній…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowser.ui" line="71"/>
+        <location filename="../../scribus/ui/helpbrowser.ui" line="72"/>
         <source>&amp;Add</source>
         <translation>&amp;Додати</translation>
     </message>
@@ -9117,7 +9112,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
+        <source>Imports Adobe InDesign's IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9912,7 +9907,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>InsertAFrame</name>
     <message>
-        <location filename="../../scribus/ui/insertaframe.cpp" line="234"/>
+        <location filename="../../scribus/ui/insertaframe.cpp" line="233"/>
         <source>Open</source>
         <translation>Відкрити</translation>
     </message>
@@ -9952,104 +9947,97 @@ converting their vector data into Scribus objects.</source>
         <translation>Всі сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="144"/>
-        <location filename="../../scribus/ui/insertaframe.ui" line="572"/>
-        <location filename="../../scribus/ui/insertaframe.ui" line="614"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="172"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="169"/>
         <source>Position of Frame</source>
         <translation>Положення рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="181"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="178"/>
         <source>Top Left of Margins</source>
         <translation>До лівого поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="191"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="188"/>
         <source>Top Left of Page</source>
         <translation>До лівого краю сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="201"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="198"/>
         <source>Top Left of Bleed</source>
         <translation>Вгору вліво до випуску</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="245"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="242"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="238"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="235"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="300"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="297"/>
         <source>&amp;Size</source>
         <translation>&amp;Розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="323"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="320"/>
         <source>Same as the Page Margins</source>
         <translation>За розмірами полів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="333"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="330"/>
         <source>Same as the Page</source>
         <translation>За розмірами сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="343"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="340"/>
         <source>Same as the Bleed</source>
         <translation>За розмірами випусків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="353"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="350"/>
         <source>Same as the Imported Image</source>
         <translation>За розмірами імпортованого зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="390"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="387"/>
         <source>Height:</source>
         <translation>Висота:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="397"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="394"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="451"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="448"/>
         <source>&amp;Options</source>
         <translation>&amp;Параметри</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="600"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="594"/>
         <source>Source Image:</source>
         <translation>Джерельне зображення:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="640"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="631"/>
         <source>There are no options for this type of frame</source>
         <translation>Рамки цього типу не мають параметрів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="492"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="489"/>
         <source>Columns:</source>
         <translation>Колонки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="478"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="475"/>
         <source>Gap:</source>
         <translation>Проміжок:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="558"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="555"/>
         <source>Source Document:</source>
         <translation>Джерельний документ:</translation>
     </message>
@@ -10059,22 +10047,22 @@ converting their vector data into Scribus objects.</source>
         <translation>Діапазон сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="211"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="208"/>
         <source>Custom Position</source>
         <translation>Особливе розташування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="363"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="360"/>
         <source>Custom Size</source>
         <translation>Особливий розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.cpp" line="130"/>
+        <location filename="../../scribus/ui/insertaframe.cpp" line="129"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable formats from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the Story Editor.</source>
         <translation>&lt;b&gt;Вставити текстову рамку&lt;/b&gt;&lt;br/&gt;Текстова рамка дозволяє вводити у потрібному місці текст з можливістю форматування. На вкладці Параметри можна вибрати текстовий файл, якщо потрібно зразу імпортувати текст у рамку. Scribus підтримує імпортування з багатьох різних форматів від простого тексту до OpenOffice.org.&lt;br/&gt;Текст можна редагувати і форматувати безпосередньо на сторінці або в редакторі тексту.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.cpp" line="134"/>
+        <location filename="../../scribus/ui/insertaframe.cpp" line="133"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, and posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
         <translation>&lt;b&gt;Вставляння рамки для зображення&lt;/b&gt;&lt;br/&gt;Рамка для зображення дозволяє розмістити на сторінці зображення. До зображення можна застосувати різні ефекти, комбінуючи їх, включно з прозорістю, яскравістю, постеризацією, що дозволяє виправити його або отримати цікаві візуальні результати. Масштабування та зміна форми зображення доступні на панелі властивостей.</translation>
     </message>
@@ -10114,117 +10102,117 @@ converting their vector data into Scribus objects.</source>
         <translation>Діапазон сторінок для вставляння рамок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="169"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="166"/>
         <source>Position the new frame in relation to the page</source>
         <translation>Розташування нової рамки відносно сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="178"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="175"/>
         <source>Insert the frame at the top left of the page margins</source>
         <translation>Вставити рамку у верхньому лівому кутку відносно полів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="188"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="185"/>
         <source>Insert the frame at the top left of the page</source>
         <translation>Вставити рамку у верхньому лівому кутку сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="198"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="195"/>
         <source>Insert the frame at the top left of the page bleed</source>
         <translation>Вставити рамку у верхньому лівому кутку випусків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="208"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="205"/>
         <source>Insert the frame at a custom position on the page</source>
         <translation>Вставити рамку на нетипове місце сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="252"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="249"/>
         <source>Top position of the inserted frame</source>
         <translation>Положення верхнього краю вставленої рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="259"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="256"/>
         <source>Left position of the inserted frame</source>
         <translation>Положення лівого краю вставленої рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="320"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="317"/>
         <source>Insert the new frame with the same dimensions as the page margins</source>
         <translation>Вставити нову рамку розміру, який збігається із розмірами полів сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="330"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="327"/>
         <source>Insert the new frame with the same dimensions as the page</source>
         <translation>Вставити нову рамку розміру, який збігається із розміром сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="340"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="337"/>
         <source>Insert the new frame with the same dimensions as the bleed area outside the boundary of the page itself</source>
         <translation>Вставити нову рамку за розмірами сторінки разом з випусками</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="350"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="347"/>
         <source>Insert the new frame with the same dimensions as the image that will be imported</source>
         <translation>Вставити нову рамку такого самого розміру, як і зображення, яке буде імпортовано</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="360"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="357"/>
         <source>Insert the new frame with a custom size</source>
         <translation>Вставити нову рамку нетипового розміру</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="404"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="401"/>
         <source>Width of the inserted frame</source>
         <translation>Ширина вставленої рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="411"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="408"/>
         <source>Height of the inserted frame</source>
         <translation>Висота вставленої рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="468"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="465"/>
         <source>Number of columns for the inserted text frame</source>
         <translation>Число колонок у вставленій рамці</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="485"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="482"/>
         <source>Distance between the columns in the text frame</source>
         <translation>Відстань між стовпцями тексту у текстовій рамці</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="516"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="513"/>
         <source>Link the inserted text frames together to form a chain of frames</source>
         <translation>Зв&apos;язати вставлені текстові рамки, сформувавши ланцюжок рамок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="519"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="516"/>
         <source>Link Inserted Frames</source>
         <translation>Зв&apos;язати вставлені рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="528"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="525"/>
         <source>Link the first inserted frame to a preexisting text frame</source>
         <translation>Зв&apos;язати першу вставлену рамку з попередньою текстовою рамкою</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="531"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="528"/>
         <source>Link to Existing Frame</source>
         <translation>Зв&apos;язати з наявною рамкою</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="547"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="544"/>
         <source>Name of existing text frame to link to</source>
         <translation>Назва наявної текстової рамки для зв&apos;язування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="565"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="562"/>
         <source>Source document to load into the text frame</source>
         <translation>Документ для завантаження у текстову рамку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/insertaframe.ui" line="607"/>
+        <location filename="../../scribus/ui/insertaframe.ui" line="601"/>
         <source>Source image to load into the inserted image frame</source>
         <translation>Зображення для завантаження у вставлену графічну рамку</translation>
     </message>
@@ -10540,191 +10528,191 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LayerPalette</name>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="701"/>
+        <location filename="../../scribus/ui/layers.cpp" line="711"/>
         <source>Layers</source>
         <translation>Шари</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="355"/>
-        <location filename="../../scribus/ui/layers.cpp" line="738"/>
+        <location filename="../../scribus/ui/layers.cpp" line="365"/>
+        <location filename="../../scribus/ui/layers.cpp" line="748"/>
         <source>Delete Layer</source>
         <translation>Видалити шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="84"/>
-        <location filename="../../scribus/ui/layers.cpp" line="728"/>
+        <location filename="../../scribus/ui/layers.cpp" line="83"/>
+        <location filename="../../scribus/ui/layers.cpp" line="738"/>
         <source>Name</source>
         <translation>Назва</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="356"/>
+        <location filename="../../scribus/ui/layers.cpp" line="366"/>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>Ви бажаєте також видалити всі об&apos;єкти на цьому шарі?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="63"/>
-        <location filename="../../scribus/ui/layers.cpp" line="726"/>
+        <location filename="../../scribus/ui/layers.cpp" line="62"/>
+        <location filename="../../scribus/ui/layers.cpp" line="736"/>
         <source>Opacity:</source>
         <translation>Непрозорість:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="70"/>
-        <location filename="../../scribus/ui/layers.cpp" line="727"/>
+        <location filename="../../scribus/ui/layers.cpp" line="69"/>
+        <location filename="../../scribus/ui/layers.cpp" line="737"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="702"/>
+        <location filename="../../scribus/ui/layers.cpp" line="712"/>
         <source>Blend Mode:</source>
         <translation>Режим змішування:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="707"/>
+        <location filename="../../scribus/ui/layers.cpp" line="717"/>
         <source>Normal</source>
         <translation>Звичайна</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="708"/>
+        <location filename="../../scribus/ui/layers.cpp" line="718"/>
         <source>Darken</source>
         <translation>Затемнити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="709"/>
+        <location filename="../../scribus/ui/layers.cpp" line="719"/>
         <source>Lighten</source>
         <translation>Освітлити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="710"/>
+        <location filename="../../scribus/ui/layers.cpp" line="720"/>
         <source>Multiply</source>
         <translation>Перемножити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="711"/>
+        <location filename="../../scribus/ui/layers.cpp" line="721"/>
         <source>Screen</source>
         <translation>Екран</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="712"/>
+        <location filename="../../scribus/ui/layers.cpp" line="722"/>
         <source>Overlay</source>
         <translation>Перекрити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="713"/>
+        <location filename="../../scribus/ui/layers.cpp" line="723"/>
         <source>Hard Light</source>
         <translation>Різке світло</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="714"/>
+        <location filename="../../scribus/ui/layers.cpp" line="724"/>
         <source>Soft Light</source>
         <translation>М&apos;яке світло</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="715"/>
+        <location filename="../../scribus/ui/layers.cpp" line="725"/>
         <source>Difference</source>
         <translation>Різниця</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="717"/>
+        <location filename="../../scribus/ui/layers.cpp" line="727"/>
         <source>Color Dodge</source>
         <translation>Освітлення кольору</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="718"/>
+        <location filename="../../scribus/ui/layers.cpp" line="728"/>
         <source>Color Burn</source>
         <translation>Затемнення кольору</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="716"/>
+        <location filename="../../scribus/ui/layers.cpp" line="726"/>
         <source>Exclusion</source>
         <translation>Виключення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="719"/>
+        <location filename="../../scribus/ui/layers.cpp" line="729"/>
         <source>Hue</source>
         <translation>Відтінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="720"/>
+        <location filename="../../scribus/ui/layers.cpp" line="730"/>
         <source>Saturation</source>
         <translation>Насиченість</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="721"/>
+        <location filename="../../scribus/ui/layers.cpp" line="731"/>
         <source>Color</source>
         <translation>Колір</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="722"/>
+        <location filename="../../scribus/ui/layers.cpp" line="732"/>
         <source>Luminosity</source>
         <translation>Яскравість</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="741"/>
+        <location filename="../../scribus/ui/layers.cpp" line="751"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
         <translation>Вибір режиму змішування; діє лише у PDF 1.4</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="742"/>
+        <location filename="../../scribus/ui/layers.cpp" line="752"/>
         <source>Layer Transparency, works only in PDF 1.4 and SVG</source>
         <translation>Прозорість шару; діє лише в PDF 1.4 і SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="736"/>
+        <location filename="../../scribus/ui/layers.cpp" line="746"/>
         <source>Add a New Layer</source>
         <translation>Додати новий шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="737"/>
+        <location filename="../../scribus/ui/layers.cpp" line="747"/>
         <source>Duplicate the Current Layer</source>
         <translation>Дублювати поточний шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="739"/>
+        <location filename="../../scribus/ui/layers.cpp" line="749"/>
         <source>Raise Layer</source>
         <translation>Підняти шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="740"/>
+        <location filename="../../scribus/ui/layers.cpp" line="750"/>
         <source>Lower Layer</source>
         <translation>Опустити шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="743"/>
+        <location filename="../../scribus/ui/layers.cpp" line="753"/>
         <source>Color of the Layer Indicator. Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color.</source>
         <translation>Колір індикатора шару. Кожному шару призначається колір для показу на полотні, коли увімкнені індикатори шарів. Двічі клацнувши, можна змінити колір.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="744"/>
+        <location filename="../../scribus/ui/layers.cpp" line="754"/>
         <source>Make Layer Visible. Uncheck to hide the layer from the display.</source>
         <translation>Зробити шар видимим. Зніміть, щоб приховати шар з екрана </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="745"/>
+        <location filename="../../scribus/ui/layers.cpp" line="755"/>
         <source>Print Layer. Uncheck to disable printing.</source>
         <translation>Друкувати шар. Зніміть, щоб заборонити друкування. </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="746"/>
+        <location filename="../../scribus/ui/layers.cpp" line="756"/>
         <source>Lock or Unlock Layer. Unchecked is unlocked.</source>
         <translation>Блокування шару. Зніміть, щоб розблокувати </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="747"/>
+        <location filename="../../scribus/ui/layers.cpp" line="757"/>
         <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
         <translation>Обтікати об&apos;єкти текстом з нижніх шарів. Змушує текст з нижніх шарів обтікати об&apos;єкти шару, для якого це увімкнено</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="748"/>
+        <location filename="../../scribus/ui/layers.cpp" line="758"/>
         <source>Outline Mode. Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation>Режим контурів. Перемикає &quot;дротяний&quot; вигляд об&apos;єктів, який дозволяє прискорити вимальовування складних об&apos;єктів.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="749"/>
+        <location filename="../../scribus/ui/layers.cpp" line="759"/>
         <source>Select Objects on Layer. Check to enable selecting.</source>
         <translation>Вибір об&apos;єктів на шарі. Позначте, щоб дозволити вибір.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/layers.cpp" line="750"/>
+        <location filename="../../scribus/ui/layers.cpp" line="760"/>
         <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
         <translation>Назва шару. Двічі клацніть на назві шару, щоб змінити її.</translation>
     </message>
@@ -11786,22 +11774,17 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="380"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="393"/>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="390"/>
         <source>&amp;Link Text Frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="437"/>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/multipleduplicate.ui" line="453"/>
+        <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
         <source>&amp;Cancel</source>
         <translation>Скасуват&amp;и</translation>
     </message>
@@ -13014,22 +12997,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="96"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="101"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="106"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="111"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
@@ -14605,16 +14588,7 @@ both end points must lie outside of the polygon</source>
         <translation>Операція</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="307"/>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="326"/>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="342"/>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="358"/>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="375"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="394"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="379"/>
         <source>Swap Shapes</source>
         <translation>Обміняти форми</translation>
     </message>
@@ -14624,34 +14598,34 @@ both end points must lie outside of the polygon</source>
         <translation>Об&apos;єднати форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="339"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="333"/>
         <source>Intersection of the shapes</source>
         <translation>Переріз форм</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="355"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="346"/>
         <source>Result is the area where the two shapes do not intersect</source>
         <translation>Результатом є ділянка, де форми не перетинаються</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="371"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="359"/>
         <source>Break apart,
 The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot;</source>
         <translation>Розбиття,
 результат - комбінація &quot;Перерізу&quot; і &quot;Виключення&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="456"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="441"/>
         <source>Custom Colors</source>
         <translation>Інші кольори</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="468"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="453"/>
         <source>Stroke:</source>
         <translation>Штрих:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="494"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="479"/>
         <source>Fill:</source>
         <translation>Заливка:</translation>
     </message>
@@ -14668,52 +14642,52 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <translation>Зберегти</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="323"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="320"/>
         <source>Subtracts the second shape from the first shape</source>
         <translation>Відняти другу форму від першої форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="391"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="376"/>
         <source>Exchange the Source Shapes</source>
         <translation>Обміняти початкові форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="430"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="415"/>
         <source>The resulting shape uses the color of the first source shape</source>
         <translation>Форма-результат використовує колір першої початкової форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="433"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="418"/>
         <source>First Shape</source>
         <translation>Перша форма</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="443"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="428"/>
         <source>The resulting shape uses the color of the second source shape</source>
         <translation>Форма-результат використовує колір другої початкової форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="446"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="431"/>
         <source>Second Shape</source>
         <translation>Друга форма</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="453"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="438"/>
         <source>The resulting shape uses the colors listed below</source>
         <translation>Форма-результат використовує кольори зі списку нижче</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="484"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="469"/>
         <source>Stroke Color</source>
         <translation>Колір штриха</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="504"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="489"/>
         <source>Fill Color</source>
         <translation>Колір заливки</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="424"/>
+        <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="409"/>
         <source>Result Takes Color from:</source>
         <translation>Кінцевий колір взяти з:</translation>
     </message>
@@ -15057,21 +15031,21 @@ Please check it and try again.</source>
 <context>
     <name>PermitDialog</name>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="13"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="14"/>
         <source>Confirm to run unsafe script</source>
         <translation>Підтвердьте запуск ризикового сценарію </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="29"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="30"/>
         <source>scriptname.py</source>
         <translation>назвасценарію.py</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="42"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="43"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15084,16 +15058,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Дозвольте виконання цього сценарію тільки якщо впевнені, що він надійшов з надійного джерела. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="60"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="61"/>
         <source>De&amp;tails &gt;&gt;</source>
         <translation>&amp;Детальніше &gt;&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="72"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="73"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -15102,17 +15076,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="83"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="84"/>
         <source>&amp;Remember preference for this file</source>
         <translation>&amp;Запам&apos;ятати налаштування для цього файлу</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="105"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="106"/>
         <source>&amp;Allow</source>
         <translation>&amp;Дозволити</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="112"/>
+        <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="113"/>
         <source>&amp;Deny</source>
         <translation>&amp;Відхилити</translation>
     </message>
@@ -15666,7 +15640,7 @@ Please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="562"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1897"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1899"/>
         <source>More</source>
         <translation>Більше</translation>
     </message>
@@ -15793,7 +15767,7 @@ Please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1123"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1778"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1775"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
@@ -15804,7 +15778,7 @@ Please choose another one.</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1179"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1788"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1785"/>
         <source>Height:</source>
         <translation>Висота:</translation>
     </message>
@@ -15854,208 +15828,203 @@ Please choose another one.</source>
         <translation>Фільтрувати колекцію</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1299"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1339"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1336"/>
         <source>Criteria</source>
         <translation>Критерії</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1354"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1351"/>
         <source>&lt;&lt; Add</source>
         <translation>&lt;&lt; Додати</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1365"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1362"/>
         <source>Name (Wildcards Allowed)</source>
         <translation>Назва (допускаються шаблони)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1370"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1367"/>
         <source>Date</source>
         <translation>Дата</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1375"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1769"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1372"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1766"/>
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1380"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1377"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1385"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1382"/>
         <source>Tag</source>
         <translation>Мітка</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1422"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1419"/>
         <source>Contains</source>
         <translation>Містить</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1427"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1424"/>
         <source>Doesn&apos;t Contain</source>
         <translation>Не містить</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1462"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1459"/>
         <source>Newer than</source>
         <translation>Новіше ніж</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1467"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1464"/>
         <source>Older than</source>
         <translation>Старіше ніж</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1502"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1499"/>
         <source>Smaller than</source>
         <translation>Менше ніж</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1507"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1504"/>
         <source>Bigger than</source>
         <translation>Більше ніж</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1518"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1515"/>
         <source> KB</source>
         <translation>КБ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1567"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1564"/>
         <source>add</source>
         <translation>додати</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1587"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1584"/>
         <source>Apply Filters</source>
         <translation>Застосувати фільтри</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1600"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1597"/>
         <source>Clear Filters</source>
         <translation>Очистити фільтри</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1608"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1605"/>
         <source>Insert Image</source>
         <translation>Вставити зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1620"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1617"/>
         <source>Image Placement</source>
         <translation>Розташування зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1681"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1678"/>
         <source>Position of New Frame(s)</source>
         <translation>Позиція нової рамки(ок)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1691"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1688"/>
         <source>Top Left of Margins</source>
         <translation>До лівого поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1696"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1693"/>
         <source>Top Left of Page</source>
         <translation>До лівого краю сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1701"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1698"/>
         <source>Top Left of Bleed</source>
         <translation>Вгору вліво до випуску</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1706"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1703"/>
         <source>Custom Position</source>
         <translation>Особливе розташування</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1727"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1724"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1717"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1714"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1825"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1822"/>
         <source>Same as Page Margins</source>
         <translation>Як поля сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1830"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1827"/>
         <source>Same as Page</source>
         <translation>Як сторінка</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1835"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1832"/>
         <source>Same as Bleed</source>
         <translation>Як випуски</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1840"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1837"/>
         <source>Same as Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1845"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1842"/>
         <source>Custom Size</source>
         <translation>Особливий розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1864"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1861"/>
         <source>Insert Image into</source>
         <translation>Вставити зображення в</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1880"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1877"/>
         <source>0 Page(s)</source>
         <translation>0 сторінка(ки,ок)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1893"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1890"/>
         <source>0 Frame(s)</source>
         <translation>0 рамка(ки,ок)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1906"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1903"/>
         <source>Insert</source>
         <translation>Вставка</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1916"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1913"/>
         <source>Tag Image(s)</source>
         <translation>Мітки зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1922"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1919"/>
         <source>Selected Images:</source>
         <translation>Вибрані зображення:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1951"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1948"/>
         <source>Tag Selected Image(s)</source>
         <translation>Додати мітки до вибраних зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1967"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1964"/>
         <source>Add New Tag</source>
         <translation>Додати нову мітку</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1974"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1971"/>
         <source>Set Tags</source>
         <translation>Встановити мітку</translation>
     </message>
@@ -16135,57 +16104,57 @@ Please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1759"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1761"/>
         <source>Image still loading</source>
         <translation>Зображення ще завантажується</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1767"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1769"/>
         <source>JPG</source>
         <translation>JPG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1771"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1773"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1775"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1777"/>
         <source>PSD</source>
         <translation>PSD</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1779"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1781"/>
         <source>EPS/PS</source>
         <translation>EPS/PS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1783"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1785"/>
         <source>PDF</source>
         <translation>PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1787"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1789"/>
         <source>JPG2000</source>
         <translation>JPG2000</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1795"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1797"/>
         <source>emb. PSD</source>
         <translation>вкл. PSD</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1799"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1801"/>
         <source>not available</source>
         <translation>не доступне</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1820"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1822"/>
         <source>No image selected</source>
         <translation>Зображення не вибрано</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1889"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1891"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16200,12 +16169,12 @@ Please choose another one.</source>
         <translation>Перегляд лише зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1632"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1629"/>
         <source>Page(s):</source>
         <translation>Сторінка(ки):</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1655"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1652"/>
         <source>Image Frame(s):</source>
         <translation>Рамка(и) зображень:</translation>
     </message>
@@ -16255,84 +16224,84 @@ Please choose another one.</source>
         <translation>Вибрати теку</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1351"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1348"/>
         <source>Add filter</source>
         <translation>Додати фільтр</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1361"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1358"/>
         <source>Filter criteria</source>
         <translation>Критерії фільтру</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1418"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1458"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1498"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1415"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1455"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1495"/>
         <source>Search criteria</source>
         <translation>Критерії пошуку</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1435"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1432"/>
         <source>Type name</source>
         <translation>Введіть назву</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1475"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1472"/>
         <source>Set date</source>
         <translation>Задайте дату</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1515"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1512"/>
         <source>Set size</source>
         <translation>Задайте розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1550"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1547"/>
         <source>Select file type(s)</source>
         <translation>Виберіть тип(и) файлів</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1642"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1639"/>
         <source>Select the page(s) where to insert the image(s)</source>
         <translation>Виберіть сторінки, на які буде вставлено зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1665"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1662"/>
         <source>Select which frame(s) to use</source>
         <translation>Виберіть, які рамки використати</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1687"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1684"/>
         <source>Set the position of the image frame(s) to insert</source>
         <translation>Задайте положення вставлених рамок для зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1737"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1734"/>
         <source>Horizontal position</source>
         <translation>Позиція по горизонталі</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1750"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1747"/>
         <source>Vertical position</source>
         <translation>Позиція по вертикалі</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1821"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1818"/>
         <source>Set the size of the image frame(s) to insert</source>
         <translation>Задайте розміри вставлених рамок для зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1811"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1808"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1798"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1795"/>
         <source>Height</source>
         <translation>Висота</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1960"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1957"/>
         <source>Type Tag name</source>
         <translation>Введіть назву мітки</translation>
     </message>
@@ -16589,11 +16558,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/positionsetter.ui" line="80"/>
         <source>Height:</source>
         <translation>Висота:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="101"/>
-        <source>...</source>
-        <translation>…</translation>
     </message>
 </context>
 <context>
@@ -17448,149 +17412,144 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Розмір:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="143"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="155"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="152"/>
         <source>Orientation:</source>
         <translation>Орієнтація:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="168"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="165"/>
         <source>Units:</source>
         <translation>Одиниці виміру:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="181"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="178"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="191"/>
         <source>Height:</source>
         <translation>Висота:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="209"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="435"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="206"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="432"/>
         <source>Apply changes to all pages</source>
         <translation>Застосувати зміни до всіх сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="216"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="442"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="213"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="439"/>
         <source>Apply changes to all master pages</source>
         <translation>Застосувати зміни до всіх зразків сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="237"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="234"/>
         <source>Layout</source>
         <translation>Схема</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="249"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="246"/>
         <source>Page Layout</source>
         <translation>Макет сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="302"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="299"/>
         <source>Facing Pages</source>
         <translation>Титульні сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="535"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="532"/>
         <source>Saving &amp;&amp; Undo</source>
         <translation>Збереження і скасування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="541"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="538"/>
         <source>Save in Compressed Format</source>
         <translation>Записувати в стисненому форматі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="548"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="545"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
         <translation>В разі падіння спробувати записати &quot;аварійний файл&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="577"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="574"/>
         <source>Autosave</source>
         <translation>Автоматичне збереження</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="591"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="588"/>
         <source>Enable automatic saving of documents</source>
         <translation>Дозволяє автоматичне збереження документа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="602"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="599"/>
         <source>Interval:</source>
         <translation>Інтервал:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="609"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="606"/>
         <source> min</source>
         <translation>хв</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="619"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="616"/>
         <source>Number of files to keep:</source>
         <translation>Зберігати файлів:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="652"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="649"/>
         <source>Save into the same directory as the document</source>
         <translation>Записувати в теку з документом</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="662"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="659"/>
         <source>Save into:</source>
         <translation>Записувати до:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="672"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="669"/>
         <source>Change...</source>
         <translation>Змінити…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="684"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="681"/>
         <source>Keep backup files after closing the document</source>
         <translation>Зберігати резервні файли після закриття документа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="691"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="688"/>
         <source>Show autosave countdown clock on the canvas</source>
         <translation>Показувати відлік часу до автозбереження на полотні</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="720"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="717"/>
         <source>Undo / Redo</source>
         <translation>Скасування / повернення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="734"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="731"/>
         <source>Enable Undo/Redo System</source>
         <translation>Увімкнути підтримку скасування/повернення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="743"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="740"/>
         <source>Action History Length:</source>
         <translation>Довжина історії дій:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="312"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="309"/>
         <source>Single Page</source>
         <translation>Односторінковий</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="292"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="289"/>
         <source>3-Fold</source>
         <translation>3-сторінкова складка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="282"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="279"/>
         <source>4-Fold</source>
         <translation>4-сторінкова складка</translation>
     </message>
@@ -17600,22 +17559,22 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Мова:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="265"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="262"/>
         <source>First Page is:</source>
         <translation>Перша сторінка:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="341"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="338"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation>Поля і випуски</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="389"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="386"/>
         <source>Margins</source>
         <translation>Поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="471"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="468"/>
         <source>Bleeds</source>
         <translation>Випуски</translation>
     </message>
@@ -18465,18 +18424,18 @@ Do you want to use this?</source>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="514"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1002"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1224"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1516"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="999"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1221"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1513"/>
         <source>Fill Color:</source>
         <translation>Колір заповнення:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="414"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1036"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1124"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1398"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1482"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1033"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1121"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1395"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1479"/>
         <source>Line Color:</source>
         <translation>Колір ліній:</translation>
     </message>
@@ -18485,13 +18444,13 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="311"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="457"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="487"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1009"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1069"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1117"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1161"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1318"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1475"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1006"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1066"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1114"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1158"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1472"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1530"/>
         <source>Shading:</source>
         <translation>Затінення:</translation>
     </message>
@@ -18501,14 +18460,14 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="441"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="494"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="909"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="963"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="992"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1026"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1131"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1178"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1379"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1445"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1492"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="960"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="989"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1023"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1128"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1175"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1376"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1442"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1489"/>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -18593,11 +18552,6 @@ Do you want to use this?</source>
         <translation>Вертикальний масштаб:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="944"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="796"/>
         <source>Scale Image to Frame Size</source>
         <translation>Масштабувати зображення за розміром рамки</translation>
@@ -18658,41 +18612,41 @@ Do you want to use this?</source>
         <translation>Низька роздільність</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1096"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1093"/>
         <source>Shapes</source>
         <translation>Форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1141"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1365"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1458"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1138"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1362"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1455"/>
         <source>Line Style:</source>
         <translation>Стиль лінії:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1148"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1358"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1509"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1145"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1355"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1506"/>
         <source>Line Width:</source>
         <translation>Товщина лінії:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1250"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1247"/>
         <source>Regular Polygons</source>
         <translation>Правильний багатокутник</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1297"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1294"/>
         <source>Lines</source>
         <translation>Лінії</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1372"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1369"/>
         <source>Start Arrow:</source>
         <translation>Початкова стрілка:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1351"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1348"/>
         <source>End Arrow:</source>
         <translation>Кінцева стрілка:</translation>
     </message>
@@ -18736,17 +18690,17 @@ Do you want to use this?</source>
         <translation>Нестандартний</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1424"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1421"/>
         <source>Calligraphic Pen</source>
         <translation>Каліграфічне перо</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1502"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1499"/>
         <source>Pen Angle:</source>
         <translation>Кут пера:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1569"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1566"/>
         <source>Pen Width:</source>
         <translation>Ширина пера:</translation>
     </message>
@@ -18756,12 +18710,12 @@ Do you want to use this?</source>
         <translation>Утримувати горизонтальне масштабування рівним вертикальному</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1592"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1589"/>
         <source>Arc</source>
         <translation>Дуга</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1639"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1636"/>
         <source>Spiral</source>
         <translation>Спіраль</translation>
     </message>
@@ -19086,12 +19040,6 @@ Do you want to use this?</source>
         <translation>Виберіть сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="198"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="208"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="148"/>
         <source>Rotation and Mirroring</source>
         <translation>Обертання і відображення</translation>
@@ -19107,38 +19055,38 @@ Do you want to use this?</source>
         <translation>Відображення сторінки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="307"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="301"/>
         <source>Page Binding:</source>
         <translation>Підшивання сторінок:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="474"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="468"/>
         <source>Resolution for EPS Graphics:</source>
         <translation>Роздільність для графіки формату EPS:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="444"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="481"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="438"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="475"/>
         <source> dpi</source>
         <translation> тнд</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="321"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="315"/>
         <source>Clip to Printer Margins</source>
         <translation>За розмірами полів принтера</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="437"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="431"/>
         <source>Limit Maximum Image Resolution to:</source>
         <translation>Межа найбільшої роздільності зображень:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="661"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="655"/>
         <source>Allow Copying Text and Graphics</source>
         <translation>Дозволити копіювання тексту і зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="250"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="244"/>
         <source>File Options</source>
         <translation>Параметри файлу</translation>
     </message>
@@ -19148,396 +19096,396 @@ Do you want to use this?</source>
         <translation>Сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="297"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="291"/>
         <source>Compatibility:</source>
         <translation>Сумісність:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="328"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="322"/>
         <source>Generate Thumbnails</source>
         <translation>Створити мініатюри</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="335"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="329"/>
         <source>Save Linked Text Frames as PDF Articles</source>
         <translation>Зберегти зв&apos;язані текстові рамки як статті PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="342"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="336"/>
         <source>Include Layers</source>
         <translation>Включити шари</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="349"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="343"/>
         <source>Include Bookmarks</source>
         <translation>Включити закладки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="356"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="350"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
         <translation>Вбудувати файли PDF і EPS (експеримент)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="387"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="381"/>
         <source>Compression</source>
         <translation>Стиснення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="401"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="395"/>
         <source>Compress Text and Vector Graphics</source>
         <translation>Стиснути текст та векторну графіку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="413"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="407"/>
         <source>Image Compression Method:</source>
         <translation>Метод стиснення зображень:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="423"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="417"/>
         <source>Image Compression Quality:</source>
         <translation>Рівень стиснення зображень:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="527"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="521"/>
         <source>Security</source>
         <translation>Захист</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="533"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="527"/>
         <source>Use Encryption</source>
         <translation>Використовувати шифрування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="562"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="556"/>
         <source>Passwords</source>
         <translation>Паролі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="581"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="575"/>
         <source>Owner:</source>
         <translation>Власник:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="595"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="589"/>
         <source>User:</source>
         <translation>Користувач:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="633"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="627"/>
         <source>Settings</source>
         <translation>Параметри</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="647"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="641"/>
         <source>Allow Printing the Document</source>
         <translation>Дозволити друкування документа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="654"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="648"/>
         <source>Allow Changing the Document</source>
         <translation>Дозволити внесення змін у документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="668"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="662"/>
         <source>Allow Adding Annotations and Fields</source>
         <translation>Дозволити додавання приміток і полів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="689"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="683"/>
         <source>Color</source>
         <translation>Колір</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="736"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="730"/>
         <source>Output Intended For:</source>
         <translation>Вихідний документ призначений для:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="748"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="742"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Конвертувати плашкові кольори в процесні кольори</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="777"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="771"/>
         <source>Solid Colors</source>
         <translation>Однотонні кольори</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="798"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="865"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="792"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="859"/>
         <source>Use Color Profile</source>
         <translation>Застосувати колірний профіль</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="807"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="881"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="801"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="875"/>
         <source>Profile:</source>
         <translation>Профіль:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="817"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="891"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="811"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="885"/>
         <source>Rendering Intent:</source>
         <translation>Схема перерахунку кольорів:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="851"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="845"/>
         <source>Images</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="872"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="866"/>
         <source>Do not use Embedded Color Profiles</source>
         <translation>Не використовувати вбудованих колірних профілів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="925"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="919"/>
         <source>Custom Rendering</source>
         <translation>Власна візуалізація</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="939"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="933"/>
         <source>Use Custom Rendering</source>
         <translation>Використати власну візуалізацію</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="951"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="945"/>
         <source>Color:</source>
         <translation>Колір:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="961"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="955"/>
         <source>Frequency:</source>
         <translation>Частота:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="978"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="972"/>
         <source>Angle:</source>
         <translation>Кут:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="985"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="979"/>
         <source> °</source>
         <translation> °</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="998"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="992"/>
         <source>Spot Function:</source>
         <translation>Локальна функція:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1028"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1022"/>
         <source>Pre-Press</source>
         <translation>До друку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1076"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1070"/>
         <source>Printer Marks</source>
         <translation>Позначки принтера</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1137"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1131"/>
         <source>Page Information</source>
         <translation>Інформація про сторінку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1333"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1327"/>
         <source>Embedding</source>
         <translation>Вбудовування шрифтів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1639"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1633"/>
         <source>Facing Pages Left</source>
         <translation>Титульна сторінка ліва</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1646"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
         <source>Facing Pages Right</source>
         <translation>Титульна сторінка права</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1130"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1124"/>
         <source>Registration Marks</source>
         <translation>Реєстраційні позначки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1152"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1146"/>
         <source>Crop Marks</source>
         <translation>Позначки обрізки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1116"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1110"/>
         <source>Bleed Marks</source>
         <translation>Позначки випусків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1123"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1117"/>
         <source>Color Bars</source>
         <translation>Кольорові прямокутники</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1199"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1193"/>
         <source>Bleed Settings</source>
         <translation>Параметри випуску</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1213"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1207"/>
         <source>Use Document Bleeds</source>
         <translation>Випуски як у документі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1281"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1275"/>
         <source>Output Profile:</source>
         <translation>Профіль виводу:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1291"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1285"/>
         <source>Information String:</source>
         <translation>Інформаційний рядок:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1321"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1315"/>
         <source>Fonts</source>
         <translation>Шрифти</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1381"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1375"/>
         <source>Embed All</source>
         <translation>Вбудувати всі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1371"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1365"/>
         <source>Fonts to Embed</source>
         <translation>Шрифти для вбудовування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1463"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1457"/>
         <source>Extras</source>
         <translation>Інше</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1469"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1463"/>
         <source>Enable Presentation Effects</source>
         <translation>Ввімкнути презентаційні ефекти</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1488"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1482"/>
         <source>Display Duration:</source>
         <translation>Тривалість показу:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1495"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1489"/>
         <source>Effect Duration:</source>
         <translation>Тривалість ефекту:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1502"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1496"/>
         <source>Effect Type:</source>
         <translation>Тип ефекту:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1512"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1506"/>
         <source>Moving Lines:</source>
         <translation>Рухливі лінії:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1522"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1516"/>
         <source>From the:</source>
         <translation>Від:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1532"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1526"/>
         <source>Direction:</source>
         <translation>Напрямок:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1542"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1552"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1536"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1546"/>
         <source> s</source>
         <translation> сек</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1567"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1561"/>
         <source>Apply Effect to All Pages</source>
         <translation>Застосувати ефект на всіх сторінках</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1591"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1585"/>
         <source>Show Page Previews</source>
         <translation>Попередній перегляд сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1599"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1593"/>
         <source>Viewer</source>
         <translation>Програма показу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1611"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1605"/>
         <source>Document Layout</source>
         <translation>Макет документа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1625"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1619"/>
         <source>Single Page</source>
         <translation>Односторінковий</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1632"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1626"/>
         <source>Continuous Pages</source>
         <translation>Суцільні сторінки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1675"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1669"/>
         <source>Visual Appearance</source>
         <translation>Візуальне враження</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1693"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1687"/>
         <source>Use Viewer&apos;s Default</source>
         <translation>Використати стандартні налаштування переглядача</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1700"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1694"/>
         <source>Use Full Screen Mode</source>
         <translation>Використовувати повноекранний режим</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1707"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1701"/>
         <source>Display Bookmarks Tab</source>
         <translation>Показувати панель закладок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1714"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1708"/>
         <source>Display Thumbnails</source>
         <translation>Показувати зменшені зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1721"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1715"/>
         <source>Display Layers Tab</source>
         <translation>Показувати панель шарів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1732"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1726"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
         <translation>Сховати панель меню програми перегляду</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1739"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1733"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
         <translation>Сховати панель інструментів програми перегляду</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1746"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1740"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Установити масштаб сторінок для заповнення вікна програми показу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1792"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1786"/>
         <source>Special Actions</source>
         <translation>Особливі дії</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1808"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1802"/>
         <source>Javascript to be executed when PDF document is opened:</source>
         <translation>Сценарій Javascript , який буде виконано при відкритті PDF-документа:</translation>
     </message>
@@ -19996,12 +19944,12 @@ Do you want to use this?</source>
         <translation>Приховує панель інструментів, на якій розміщено кнопки позначення та інші кнопки редагування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1094"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1088"/>
         <source>Mark Length:</source>
         <translation>Довжина позначки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1163"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1157"/>
         <source>Mark Offset:</source>
         <translation>Зміщення позначки:</translation>
     </message>
@@ -20021,17 +19969,17 @@ Do you want to use this?</source>
         <translation>Створити діапазон сторінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1355"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1349"/>
         <source>Embedding mode:</source>
         <translation>Режим вбудовування:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1441"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1435"/>
         <source>Fonts to Subset</source>
         <translation>Шрифти в підмножину</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1451"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1445"/>
         <source>Subset All</source>
         <translation>Підмножина для всіх</translation>
     </message>
@@ -20111,7 +20059,7 @@ Do you want to use this?</source>
         <translation>Вбудувати лише підмножину шрифтів зі знаками, використаними в PDF-документі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1262"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1256"/>
         <source>PDF/X Output Intent</source>
         <translation>Призначення вихідного документа PDF/X</translation>
     </message>
@@ -21244,8 +21192,8 @@ Do you want to use this?</source>
         <translation>Час до початку зміни розміру або переміщення забезпечує невелику затримку між моментом, коли ви натискаєте кнопку, і початком операції, щоб уникнути випадкових рухів. Це може бути корисно при роботі з настройками чутливості миші або за наявності проблем доступності, пов&apos;язаних з ергономічними мишами, сенсорними панелями або рухливістю зап&apos;ясть і кистей рук.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="101"/>
@@ -21877,22 +21825,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="265"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="270"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="275"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
@@ -22109,22 +22057,22 @@ a range of pages or a single page number</source>
         <translation>Масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
         <source>X-Sc&amp;ale:</source>
         <translation>Масштаб за &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="178"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="175"/>
         <source>Resize the image horizontally</source>
         <translation>Змінити розмір зображення по горизонталі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="185"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="182"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Масштаб за &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="260"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
         <source>Resize the image vertically</source>
         <translation>Змінити розмір зображення по вертикалі</translation>
     </message>
@@ -22134,118 +22082,112 @@ a range of pages or a single page number</source>
         <translation>Утримувати однаковий масштаб за осями X та Y</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="149"/>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="238"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="192"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
         <source>Actual X-DPI:</source>
         <translation>Справжні X-ТНД:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="205"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>Ефективна горизонтальна роздільність зображення після масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="212"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="209"/>
         <source>Actual Y-DPI:</source>
         <translation>Справжні Y-ТНД:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="225"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="222"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>Ефективна вертикальна роздільність зображення після масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="277"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Дозволити розбіжність розмірів зображення та рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Вільне масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="287"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Використовувати відношення сторін зображення, а не рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="267"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Змусити зображення вміститися в рамку</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="264"/>
         <source>&amp;To Frame Size</source>
         <translation>&amp;До розміру рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="321"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="315"/>
         <source>Input Profile:</source>
         <translation>Профіль вводу:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="334"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="328"/>
         <source>Source profile of the image</source>
         <translation>Стартовий профіль зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="341"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="335"/>
         <source>Rendering Intent:</source>
         <translation>Схема перерахунку кольорів:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="354"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="348"/>
         <source>Rendering intent for the image</source>
         <translation>Схема перерахунку кольорів зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="290"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="284"/>
         <source>Proportional</source>
         <translation>Пропорційно</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="300"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="294"/>
         <source>Color Management</source>
         <translation>Керування кольорами</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="364"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="358"/>
         <source>PDF Compression</source>
         <translation>Стиснення PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="385"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="379"/>
         <source>Method:</source>
         <translation>Метод:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="398"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="392"/>
         <source>Compression method used in PDF export for the image</source>
         <translation>Метод стискання зображень під час експорту в PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="405"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="399"/>
         <source>Quality:</source>
         <translation>Якість:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="418"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Рівень стискання зображень під час експорту в PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="439"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="433"/>
         <source>Image Effects</source>
         <translation>Ефекти зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="452"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="446"/>
         <source>Extended Properties</source>
         <translation>Додаткові властивості</translation>
     </message>
@@ -22758,46 +22700,24 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_ShapeBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="242"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="167"/>
         <source>Choose the shape of frame...</source>
         <translation>Вибрати форму для рамки…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="245"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="325"/>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="344"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="252"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="180"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Змінити…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="67"/>
-        <source>Disabled</source>
-        <translation>Вимкнено</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="166"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="109"/>
         <source>Text flow around contour line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="216"/>
         <source>Set radius of corner rounding</source>
         <translation>Задати радіус заокруглення кутів</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="101"/>
-        <source>Use Frame &amp;Shape</source>
-        <translation>За &amp;формою в рамці</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="135"/>
-        <source>Use &amp;Bounding Box</source>
-        <translation>За об&amp;межувальною рамкою</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="40"/>
@@ -22805,52 +22725,42 @@ Transparency</source>
         <translation>Форма:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="90"/>
         <source>Text flow around bounding box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="98"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="71"/>
         <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="52"/>
         <source>Text flow around frame disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="169"/>
-        <source>&amp;Use Contour Line</source>
-        <translation>За лінією &amp;контуру</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="128"/>
         <source>Text flow around image clip path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="203"/>
-        <source>Use Image Clip Path</source>
-        <translation>За лінією обрізки зображення</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="303"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="225"/>
         <source>Text Flow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="310"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="232"/>
         <source>Fill Rule:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="322"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="244"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="341"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="260"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22863,55 +22773,55 @@ Transparency</source>
         <translation>Табель:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="92"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
         <source>Cells:</source>
         <translation>Комірки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="105"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="102"/>
         <source>Cell style of currently selected cell</source>
         <translation>Стиль вибраних комірок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="112"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="109"/>
         <source>Remove Direct Cell Formatting</source>
         <translation>Вилучити пряме форматування комірок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="252"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="246"/>
         <source>Borders</source>
         <translation>Межі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="419"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="383"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="168"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="432"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="396"/>
         <source>Color:</source>
         <translation>Колір:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="493"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="457"/>
         <source>Type:</source>
         <translation>Тип:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="207"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="525"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="201"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="489"/>
         <source>Shade:</source>
         <translation>Насиченість:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="229"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="550"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="223"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="514"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="131"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="125"/>
         <source>Fill</source>
         <translation>Заповнення</translation>
     </message>
@@ -22934,92 +22844,92 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_Text</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="743"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="66"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="755"/>
         <source>First Line Offset</source>
         <translation>Висота першого рядка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="84"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="760"/>
         <source>Optical Margins</source>
         <translation>Оптичні поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="88"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="744"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="756"/>
         <source>Hyphenation</source>
         <translation>Переноси</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="92"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="749"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="87"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="761"/>
         <source>Advanced Settings</source>
         <translation>Додаткові параметри</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="99"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="751"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="94"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="763"/>
         <source>Path Text Properties</source>
         <translation>Властивості контуру для тексту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="479"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="491"/>
         <source>Auto</source>
         <translation>Автоматично</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="481"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="493"/>
         <source>Baseline</source>
         <translation>Базова лінія</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="96"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="750"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="91"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="762"/>
         <source>Font Features</source>
         <translation>Особливості шрифту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="707"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="719"/>
         <source>remove direct paragraph formatting</source>
         <translation>прибрати пряме форматування абзаців</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="756"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="768"/>
         <source>Fixed Linespacing</source>
         <translation>Фіксований міжрядковий інтервал</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="757"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="769"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматичний міжрядковий інтервал</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="770"/>
         <source>Align to Baseline Grid</source>
         <translation>Вирівняти за базовою сіткою</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="74"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="745"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="69"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="757"/>
         <source>Orphans and Widows</source>
         <translation>Висячі рядки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="68"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="742"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="63"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="754"/>
         <source>Color &amp;&amp; Effects</source>
         <translation>Колір і ефекти</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="80"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="747"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="75"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="759"/>
         <source>Columns &amp;&amp; Text Distances</source>
         <translation>Колонки і відстані до тексту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="77"/>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="746"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="72"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source>Paragraph Effects</source>
         <translation>Ефекти абзацу</translation>
     </message>
@@ -23027,58 +22937,48 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
         <source>Font Size</source>
         <translation>Розмір шрифту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="130"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="129"/>
         <source> pt</source>
         <translation> пт</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="114"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="113"/>
         <source>Select the line spacing mode</source>
         <translation>Виберіть режим міжрядкового інтервалу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="127"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="126"/>
         <source>Line Spacing</source>
         <translation>Інтервал між рядками</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="163"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
         <source>Text Language</source>
         <translation>Мова тексту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="200"/>
-        <source>Paragraph St&amp;yle:</source>
-        <translation>Стиль &amp;абзацу:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="216"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="255"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Стиль абзацу вибраного тексту або поточного абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="229"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="262"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Прибрати пряме форматування абзаців</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="256"/>
-        <source>Character St&amp;yle:</source>
-        <translation>Стиль &amp;знака:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="272"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="304"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Стиль знака вибраного тексту або поточного абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="285"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="311"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Прибрати пряме форматування знаків</translation>
     </message>
@@ -23244,77 +23144,72 @@ Transparency</source>
         <translation>Зберігати відношення сторін</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="232"/>
-        <source>...</source>
-        <translation>…</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="255"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="252"/>
         <source>Level</source>
         <translation>Рівень</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="282"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="273"/>
         <source>Move one level up</source>
         <translation>Перемістити на один шар вгору</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
         <source>Move one level down</source>
         <translation>Перемістити на один рівень вниз</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="314"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="287"/>
         <source>Move to front</source>
         <translation>Перемістити на передній план</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="330"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="294"/>
         <source>Move to back</source>
         <translation>Перемістити на задній план</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="340"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="301"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation>Вказує на рівень, на якому розташовано об&apos;єкт, 1 означає, що об&apos;єкт знаходиться на найнижчому рівні</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="343"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="304"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="371"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="332"/>
         <source>Group the selected objects</source>
         <translation>Згрупувати вибрані об&apos;єкти</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="381"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="339"/>
         <source>Ungroup the selected group</source>
         <translation>Розгрупувати вибрану групу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="391"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="346"/>
         <source>Flip horizontally</source>
         <translation>Віддзеркалити горизонтально</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="401"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="353"/>
         <source>Flip vertically</source>
         <translation>Віддзеркалити вертикально</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="411"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="360"/>
         <source>Lock or unlock the object</source>
         <translation>Замкнути або відімкнути об&apos;єкт</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="421"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="367"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Увімкнути або вимкнути експортування об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="431"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="374"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Замкнути або відімкнути розмір об&apos;єкта</translation>
     </message>
@@ -23322,80 +23217,80 @@ Transparency</source>
 <context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
         <source>Offset to baseline of characters</source>
         <translation>Відступ від основи знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="51"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="74"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="91"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="108"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="132"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="151"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="191"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="210"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="66"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="104"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="136"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="168"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="192"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="211"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="251"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="270"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="101"/>
         <source>Manual Tracking</source>
         <translation>Ручний трекінг</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="88"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
         <source>Scaling width of characters</source>
         <translation>Масштаб ширини знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="105"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="165"/>
         <source>Scaling height of characters</source>
         <translation>Масштаб висоти знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="115"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="175"/>
         <source>Word Tracking</source>
         <translation>Трекінг слів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="122"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="181"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="182"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="241"/>
         <source>Min:</source>
         <translation>Мін:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="129"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="189"/>
         <source>Minimal width of spaces between words</source>
         <translation>Найменша ширина пропусків між словами</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="148"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="208"/>
         <source>Normal width of spaces between words</source>
         <translation>Звичайна ширина пропусків між словами</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="227"/>
         <source>Norm:</source>
         <translation>Звичайний:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="188"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Найменший розтяг знаків для корекції</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="207"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Найбільший розтяг знаків для корекції</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="226"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="286"/>
         <source>Max:</source>
         <translation>Макс:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="234"/>
         <source>Glyph Extension</source>
         <translation>Розтяг знаків</translation>
     </message>
@@ -24327,32 +24222,32 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_TextColorBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="91"/>
         <source>Saturation of color of text fill</source>
         <translation>Насиченість кольору заповнення знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="65"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="136"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="162"/>
         <source>Saturation of color of text stroke</source>
         <translation>Насиченість кольору знакових силуетів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="159"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="204"/>
         <source>Background color of selected text</source>
         <translation>Колір тла вибраного тексту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="176"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="230"/>
         <source>Saturation of color of text background</source>
         <translation>Насиченість кольору тла тексту</translation>
     </message>
@@ -24384,37 +24279,37 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>PythonConsole</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="93"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="94"/>
         <source>&amp;Open...</source>
         <translation>&amp;Відкрити…</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="98"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="99"/>
         <source>&amp;Save</source>
         <translation>&amp;Записати</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="71"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="72"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="113"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="114"/>
         <source>&amp;Run</source>
         <translation>&amp;Запустити</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="123"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="124"/>
         <source>&amp;Save Output...</source>
         <translation>За&amp;писати результат…</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="81"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="82"/>
         <source>&amp;Script</source>
         <translation>С&amp;ценарій</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="13"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="14"/>
         <source>Script Console</source>
         <translation>Консоль сценаріїв</translation>
     </message>
@@ -24439,12 +24334,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Записати поточне виведення</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="103"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="104"/>
         <source>Save &amp;As...</source>
         <translation>Записати &amp;як…</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="118"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="119"/>
         <source>Run As &amp;Console</source>
         <translation>Виконати в ко&amp;нсолі</translation>
     </message>
@@ -24490,7 +24385,7 @@ Scripter documentation for further information. </source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="108"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="109"/>
         <source>&amp;Quit</source>
         <translation>&amp;Вихід</translation>
     </message>
@@ -28686,7 +28581,7 @@ External Links
         <translation>елемент &lt;lpiSettingsEntry&gt; не містить атрибут `name&apos; </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="847"/>
+        <location filename="../../scribus/scribus.cpp" line="846"/>
         <source>Scribus Development Version</source>
         <translation>Версія Scribus в стадії розробки</translation>
     </message>
@@ -28746,8 +28641,8 @@ External Links
         <translation>Файл вже існує</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2012"/>
-        <location filename="../../scribus/scribus.cpp" line="2257"/>
+        <location filename="../../scribus/scribus.cpp" line="2011"/>
+        <location filename="../../scribus/scribus.cpp" line="2256"/>
         <source>Document Template: </source>
         <translation>Шаблон документа: </translation>
     </message>
@@ -29037,18 +28932,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Модуль інтерфейсу Python
@@ -29322,7 +29217,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
         <translation>Пошук шрифтів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3985"/>
+        <location filename="../../scribus/scribus.cpp" line="3984"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Зміни внесені в документ не були записані і ви бажаєте їх скасувати. Продовжити виконання цієї операції?</translation>
     </message>
@@ -30669,7 +30564,7 @@ Therefore the image may be not correct</source>
         <translation>Непальська</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="848"/>
+        <location filename="../../scribus/scribus.cpp" line="847"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>Ви користуєтесь нестабільною версією Scribus 1.5.x. Відкритий вами документ було створено в Scribus 1.2.x. Якщо ви збережете його в 1.5.x, його буде неможливо відкрити в Scribus 1.2.x. Щоб зберегти можливість відкрити цей документ в 1.2.x, збережіть його під іншою назвою і далі редагуйте тільки новий файл. Справді бажаєте продовжити?</translation>
     </message>
@@ -30679,7 +30574,7 @@ Therefore the image may be not correct</source>
         <translation>Імпортер PUB</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3167"/>
+        <location filename="../../scribus/scribus.cpp" line="3166"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Ви намагаєтесь імпортувати більше сторінок, ніж доступно в документі, починаючи з поточної сторінки.&lt;/p&gt;Виберіть варіант продовження:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Створити&lt;/b&gt; відсутні сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Імпортувати&lt;/b&gt; лише до останньої наявної сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Скасувати&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -31641,13 +31536,13 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>SMAlignSelect</name>
     <message>
-        <location filename="../../scribus/ui/smalignselect.cpp" line="17"/>
+        <location filename="../../scribus/ui/smalignselect.cpp" line="16"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation>п</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smalignselect.cpp" line="18"/>
+        <location filename="../../scribus/ui/smalignselect.cpp" line="17"/>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
         <translation>Використати вирівнювання стилю-предка, а не перекрити його</translation>
     </message>
@@ -31655,12 +31550,12 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>SMCStyleWidget</name>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="146"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="158"/>
         <source>Tracking</source>
         <translation>Трекінг</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="400"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="418"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
@@ -31670,7 +31565,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Базується на:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="390"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="408"/>
         <source>Language:</source>
         <translation>Мова:</translation>
     </message>
@@ -31692,46 +31587,46 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Основне форматування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="149"/>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="181"/>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="284"/>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="322"/>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="360"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="161"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="199"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="302"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="340"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="378"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="251"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="269"/>
         <source>Advanced Formatting</source>
         <translation>Розширене форматування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="428"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="691"/>
         <source>Hyphenation</source>
         <translation>Переноси</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="436"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="699"/>
         <source>Hyphenation Character:</source>
         <translation>Знак переносу:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="470"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="733"/>
         <source>Smallest Word:</source>
         <translation>Найкоротше слово:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="484"/>
-        <source>Characters</source>
-        <translation>Знаки</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="509"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="448"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="777"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
+        <source> characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="808"/>
         <source>Font Features</source>
         <translation>Особливості шрифту</translation>
     </message>
@@ -31741,52 +31636,52 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Батьківський стиль</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="117"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="123"/>
         <source>Font Size</source>
         <translation>Розмір шрифту</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="357"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="375"/>
         <source>Baseline Offset</source>
         <translation>Зсув базової лінії:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="281"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="299"/>
         <source>Horizontal Scaling</source>
         <translation>Горизонтальне масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="319"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="337"/>
         <source>Vertical Scaling</source>
         <translation>Вертикальне масштабування</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="539"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="478"/>
         <source>Fill Color</source>
         <translation>Колір заливки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="568"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="507"/>
         <source>Fill Shade</source>
         <translation>Насиченість заповнення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="617"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="556"/>
         <source>Stroke Color</source>
         <translation>Колір штриха</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="646"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="585"/>
         <source>Stroke Shade</source>
         <translation>Насиченість штриха</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="695"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="634"/>
         <source>Background Color</source>
         <translation>Колір тла</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="724"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="663"/>
         <source>Background Shade</source>
         <translation>Насиченість тла</translation>
     </message>
@@ -31796,7 +31691,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Типовому стилю неможливо призначити предка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.ui" line="178"/>
+        <location filename="../../scribus/ui/smcstylewidget.ui" line="196"/>
         <source>Default width for space</source>
         <translation>Типова ширина пропусків</translation>
     </message>
@@ -31897,13 +31792,13 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>SMDirectionSelect</name>
     <message>
-        <location filename="../../scribus/ui/smdirectionselect.cpp" line="9"/>
+        <location filename="../../scribus/ui/smdirectionselect.cpp" line="8"/>
         <source>P</source>
         <comment>P as in Parent</comment>
         <translation>п</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smdirectionselect.cpp" line="10"/>
+        <location filename="../../scribus/ui/smdirectionselect.cpp" line="9"/>
         <source>Use parent style&apos;s direction instead of overriding it</source>
         <translation>Використати напрямок стилю-предка, а не перекрити його</translation>
     </message>
@@ -32099,30 +31994,30 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <name>SMPStyleWidget</name>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="123"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="243"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="579"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
         <source>Fixed Linespacing</source>
         <translation>Фіксований міжрядковий інтервал</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="124"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="580"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="246"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Automatic Linespacing</source>
         <translation>Автоматичний міжрядковий інтервал</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="247"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
         <source>Align to Baseline Grid</source>
         <translation>Вирівняти за базовою сіткою</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1055"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1105"/>
         <source>Drop Caps</source>
         <translation>Буквиця</translation>
     </message>
@@ -32132,32 +32027,32 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Властивості</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1125"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1175"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Задайте стиль символу або залиште порожнім, щоб використати стиль абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1161"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1211"/>
         <source>Paragraph Effects characters offset</source>
         <translation>Зміщення символів у ефекті абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1190"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1240"/>
         <source>Auto-Indent</source>
         <translation>Автовідступ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1217"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1267"/>
         <source>Use Parent Values</source>
         <translation>Використати значення предка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1243"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1293"/>
         <source>Character Style</source>
         <translation>Стиль символу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1151"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1201"/>
         <source>Distance from Text:</source>
         <translation>Відстань від тексту:</translation>
     </message>
@@ -32167,330 +32062,321 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <translation>Батьківський стиль</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="128"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="519"/>
         <source>Line Spacing Mode</source>
         <translation>Режим міжрядкового інтервалу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="135"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="526"/>
         <source>Line Spacing</source>
         <translation>Інтервал між рядками</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="187"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="578"/>
         <source>Space Above</source>
         <translation>Простір над</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="232"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="610"/>
         <source>Space Below</source>
         <translation>Простір під</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="510"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="105"/>
         <source>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</source>
         <translation>Найбільший допустимий стиск пропусків. Розраховується у відсотках від поточного значення пропуску.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="528"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="123"/>
         <source>Min:</source>
         <translation>Мін:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="551"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="146"/>
         <source>Max:</source>
         <translation>Макс:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="584"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="179"/>
         <source>Consecutive Hyphenations Allowed:</source>
         <translation>Дозволити послідовних переносів:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="624"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="674"/>
         <source>Tabs and Indentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="767"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="817"/>
         <source>Bulleted List</source>
         <translation>Маркований список</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="781"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="831"/>
         <source>Bullet Char(s):</source>
         <translation>Символ(и)-маркер:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="826"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="876"/>
         <source>Enhanced Character Table for inserting custom characters as bullets</source>
         <translation>Розширена таблиця символів для вибору власних маркерів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="829"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="879"/>
         <source>Char Table</source>
         <translation>Таблиця символів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="863"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="913"/>
         <source>Numbered List</source>
         <translation>Нумерований список</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1079"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1129"/>
         <source>Drop Cap Lines</source>
         <translation>Рядки буквиці</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="116"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="118"/>
         <source>First Line Indent</source>
         <translation>Відступ першого рядка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="117"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="119"/>
         <source>Left Indent</source>
         <translation>Відступ зліва</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="118"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="120"/>
         <source>Right Indent</source>
         <translation>Відступ справа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="986"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="476"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Based On:</source>
         <translation>Базується на:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="660"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="710"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="419"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="247"/>
         <source>None</source>
         <translation>Немає</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="544"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="139"/>
         <source>Maximum compression of glyphs</source>
         <translation>Найбільший стиск знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="567"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="162"/>
         <source>Maximum extension of glyphs</source>
         <translation>Найбільший розтяг символів</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="385"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="211"/>
         <source>Optical Margins</source>
         <translation>Оптичні поля</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="480"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Типовому стилю неможливо призначити предка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="449"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="289"/>
         <source>Use Parent Value</source>
         <translation>Використати значення предка</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="442"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="276"/>
         <source>Reset to Default</source>
         <translation>Скинути до типових</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="476"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="71"/>
         <source>Advanced Settings</source>
         <translation>Додаткові параметри</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="406"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="234"/>
         <source>Both Sides</source>
         <translation>З обох боків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="393"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="221"/>
         <source>Left Only</source>
         <translation>Лише ліворуч</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="435"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="263"/>
         <source>Right Only</source>
         <translation>Лише праворуч</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="279"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="322"/>
         <source>Orphans and Widows</source>
         <translation>Висячі рядки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="287"/>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="297"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="342"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="349"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Перевіряти, чи перші рядки абзацу не виявилися відокремленими від решти (так звані висячі рядки)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="290"/>
-        <source>Don&apos;t separate first</source>
-        <translation>Не відривати перших</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="300"/>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="337"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="133"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="134"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="352"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="384"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="135"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="136"/>
         <source> lines</source>
         <translation>рядків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="327"/>
-        <source>Don&apos;t separate last</source>
-        <translation>Не відривати останніх</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="365"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="412"/>
         <source>Do not split paragraph</source>
         <translation>Не розривати абзац</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="375"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="422"/>
         <source>Keep with next paragraph</source>
         <translation>Не відривати від наступного</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="334"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="374"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="381"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Перевіряти, чи останні рядки абзацу не виявилися відокремленими від решти (так звані висячі рядки)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="362"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="409"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
         <translation>Позначте, щоб абзац не ділився на декілька сторінок чи колонок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="372"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="419"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
         <translation>Позначте, щоб абзац переносився на наступну колонку або сторінку, якщо наступний абзац не помістився на одній сторінці з ним</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="469"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="472"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1207"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="471"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>Без стилю</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1069"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1119"/>
         <source>Lines:</source>
         <translation>Рядки:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="755"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="805"/>
         <source>Paragraph Effects</source>
         <translation>Ефекти абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1118"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1168"/>
         <source>Character Style for Effect:</source>
         <translation>Стиль символу для ефекту:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="887"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
         <source>Set:</source>
         <translation>Встановити:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="964"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1014"/>
         <source>Create New Set:</source>
         <translation>Створити новий набір:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1015"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1065"/>
         <source>Restart after other format</source>
         <translation>Перезапустити після іншого формату</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1035"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1085"/>
         <source>Restart after higher level</source>
         <translation>Перезапустити після вищого рівня</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="1187"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Hang Paragraph Effect before paragraph indent</source>
         <translation>Скинути абзацний ефект перед відступанням абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="219"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="221"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="220"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="222"/>
         <source>Story</source>
         <translation>Стаття</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="62"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="451"/>
         <source>Alignment and Distances</source>
         <translation>Вирівнювання і відстані</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="519"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="114"/>
         <source>Glyph Extension </source>
         <translation>Розтяг знаків</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="687"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="737"/>
         <source>Background Color</source>
         <translation>Колір тла</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="713"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="763"/>
         <source>Background Shade</source>
         <translation>Насиченість тла</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="488"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="83"/>
         <source>Min. Space Width:</source>
         <translation>Мін. ширина пропуску:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="550"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="552"/>
         <source>Shade</source>
         <translation>Затінити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1007"/>
         <source>Level:</source>
         <translation>Рівень:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="897"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="947"/>
         <source>Numbering Style:</source>
         <translation>Стиль нумерації:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="877"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="927"/>
         <source>Start with:</source>
         <translation>Почати з:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="937"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="987"/>
         <source>Prefix:</source>
         <translation>Перед:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="907"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="957"/>
         <source>Suffix:</source>
         <translation>Після:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.ui" line="992"/>
+        <location filename="../../scribus/ui/smpstylewidget.ui" line="1042"/>
         <source>Restart:</source>
         <translation>Перезапуск:</translation>
     </message>
@@ -34599,291 +34485,291 @@ Vertical gap: %4</source>
         <translation>Зчитування альбому</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3333"/>
+        <location filename="../../scribus/scribus.cpp" line="3332"/>
         <source>Fatal Error</source>
         <translation>Фатальна помилка</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="881"/>
+        <location filename="../../scribus/scribus.cpp" line="880"/>
         <source>Open &amp;Recent</source>
         <translation>Відкрити &amp;недавній документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="889"/>
-        <location filename="../../scribus/scribus.cpp" line="3172"/>
+        <location filename="../../scribus/scribus.cpp" line="888"/>
+        <location filename="../../scribus/scribus.cpp" line="3171"/>
         <source>&amp;Import</source>
         <translation>І&amp;мпортувати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="896"/>
+        <location filename="../../scribus/scribus.cpp" line="895"/>
         <source>&amp;Export</source>
         <translation>&amp;Експортувати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1001"/>
+        <location filename="../../scribus/scribus.cpp" line="1000"/>
         <source>Preview Settings</source>
         <translation>Параметри попереднього перегляду</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="976"/>
+        <location filename="../../scribus/scribus.cpp" line="975"/>
         <source>Level</source>
         <translation>Рівень</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="982"/>
+        <location filename="../../scribus/scribus.cpp" line="981"/>
         <source>Send to La&amp;yer</source>
         <translation>Перемістити на &amp;шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2040"/>
-        <location filename="../../scribus/scribus.cpp" line="2080"/>
-        <location filename="../../scribus/scribus.cpp" line="3643"/>
-        <location filename="../../scribus/scribus.cpp" line="4090"/>
-        <location filename="../../scribus/scribus.cpp" line="4164"/>
-        <location filename="../../scribus/scribus.cpp" line="4319"/>
-        <location filename="../../scribus/scribus.cpp" line="6538"/>
-        <location filename="../../scribus/scribus.cpp" line="8562"/>
+        <location filename="../../scribus/scribus.cpp" line="2039"/>
+        <location filename="../../scribus/scribus.cpp" line="2079"/>
+        <location filename="../../scribus/scribus.cpp" line="3642"/>
+        <location filename="../../scribus/scribus.cpp" line="4089"/>
+        <location filename="../../scribus/scribus.cpp" line="4163"/>
+        <location filename="../../scribus/scribus.cpp" line="4318"/>
+        <location filename="../../scribus/scribus.cpp" line="6537"/>
+        <location filename="../../scribus/scribus.cpp" line="8561"/>
         <source>Ready</source>
         <translation>Готовий</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2998"/>
-        <location filename="../../scribus/scribus.cpp" line="3113"/>
-        <location filename="../../scribus/scribus.cpp" line="3734"/>
+        <location filename="../../scribus/scribus.cpp" line="2997"/>
+        <location filename="../../scribus/scribus.cpp" line="3112"/>
+        <location filename="../../scribus/scribus.cpp" line="3733"/>
         <source>Open</source>
         <translation>Відкрити</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3134"/>
+        <location filename="../../scribus/scribus.cpp" line="3133"/>
         <source>Importing Pages...</source>
         <translation>Імпортування Сторінок…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3165"/>
+        <location filename="../../scribus/scribus.cpp" line="3164"/>
         <source>Import Page(s)</source>
         <translation>Імпортувати сторінку(и)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3211"/>
+        <location filename="../../scribus/scribus.cpp" line="3210"/>
         <source>Import done</source>
         <translation>Імпортування закінчено</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3215"/>
+        <location filename="../../scribus/scribus.cpp" line="3214"/>
         <source>Found nothing to import</source>
         <translation>Не знаходжу, що імпортувати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3288"/>
+        <location filename="../../scribus/scribus.cpp" line="3287"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>В зазначеному місці файл не знайдено :
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3334"/>
+        <location filename="../../scribus/scribus.cpp" line="3333"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Файл %1 - в форматі, що не підтримується</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3375"/>
+        <location filename="../../scribus/scribus.cpp" line="3374"/>
         <source>Loading...</source>
         <translation>Завантаження…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3540"/>
+        <location filename="../../scribus/scribus.cpp" line="3539"/>
         <source> was replaced by: </source>
         <translation>був підмінений на:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3570"/>
+        <location filename="../../scribus/scribus.cpp" line="3569"/>
         <source>(converted)</source>
         <translation>(конвертовано)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3925"/>
+        <location filename="../../scribus/scribus.cpp" line="3924"/>
         <source>Filename and Path for Image</source>
         <translation>Назва файлу і шлях до зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3925"/>
+        <location filename="../../scribus/scribus.cpp" line="3924"/>
         <source>All Files (*)</source>
         <translation>Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4020"/>
-        <location filename="../../scribus/scribus.cpp" line="4085"/>
-        <location filename="../../scribus/scribus.cpp" line="7008"/>
-        <location filename="../../scribus/scribus.cpp" line="7166"/>
-        <location filename="../../scribus/scribus.cpp" line="7180"/>
+        <location filename="../../scribus/scribus.cpp" line="4019"/>
+        <location filename="../../scribus/scribus.cpp" line="4084"/>
+        <location filename="../../scribus/scribus.cpp" line="7007"/>
+        <location filename="../../scribus/scribus.cpp" line="7165"/>
+        <location filename="../../scribus/scribus.cpp" line="7179"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Неможливо записати файл: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4070"/>
-        <location filename="../../scribus/scribus.cpp" line="6997"/>
+        <location filename="../../scribus/scribus.cpp" line="4069"/>
+        <location filename="../../scribus/scribus.cpp" line="6996"/>
         <source>Save As</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4099"/>
+        <location filename="../../scribus/scribus.cpp" line="4098"/>
         <source>Saving...</source>
         <translation>Запис…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4227"/>
-        <location filename="../../scribus/scribus.cpp" line="6678"/>
-        <location filename="../../scribus/scribus.cpp" line="6755"/>
-        <location filename="../../scribus/scribus.cpp" line="6827"/>
+        <location filename="../../scribus/scribus.cpp" line="4226"/>
+        <location filename="../../scribus/scribus.cpp" line="6677"/>
+        <location filename="../../scribus/scribus.cpp" line="6754"/>
+        <location filename="../../scribus/scribus.cpp" line="6826"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus знайшов помилки. Спробуйте використати доекспортну перевірку для їх виправлення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4262"/>
+        <location filename="../../scribus/scribus.cpp" line="4261"/>
         <source>Printing...</source>
         <translation>Друк…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1194"/>
-        <location filename="../../scribus/scribus.cpp" line="2109"/>
-        <location filename="../../scribus/scribus.cpp" line="4266"/>
-        <location filename="../../scribus/scribus.cpp" line="6976"/>
-        <location filename="../../scribus/scribus.cpp" line="8297"/>
+        <location filename="../../scribus/scribus.cpp" line="1193"/>
+        <location filename="../../scribus/scribus.cpp" line="2108"/>
+        <location filename="../../scribus/scribus.cpp" line="4265"/>
+        <location filename="../../scribus/scribus.cpp" line="6975"/>
+        <location filename="../../scribus/scribus.cpp" line="8296"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4307"/>
+        <location filename="../../scribus/scribus.cpp" line="4306"/>
         <source>Printing failed!</source>
         <translation>Друк не вдався!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4397"/>
+        <location filename="../../scribus/scribus.cpp" line="4396"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Неможливо вирізати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4397"/>
+        <location filename="../../scribus/scribus.cpp" line="4396"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операцію вирізання буде скасовано</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5009"/>
+        <location filename="../../scribus/scribus.cpp" line="5008"/>
         <source>About Qt</source>
         <translation>Про Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5040"/>
+        <location filename="../../scribus/scribus.cpp" line="5039"/>
         <source>Scribus Manual</source>
         <translation>Довідка Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6146"/>
+        <location filename="../../scribus/scribus.cpp" line="6145"/>
         <source>&amp;Size:</source>
         <translation>&amp;Розмір:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1521"/>
-        <location filename="../../scribus/scribus.cpp" line="6146"/>
+        <location filename="../../scribus/scribus.cpp" line="1520"/>
+        <location filename="../../scribus/scribus.cpp" line="6145"/>
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6524"/>
+        <location filename="../../scribus/scribus.cpp" line="6523"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Виникла помилка при відкриванні профілю монітора.
 Буде використано попередній профіль монітора.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6943"/>
+        <location filename="../../scribus/scribus.cpp" line="6942"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus знайшов деякі помилки. Спробуйте використати
 доекспортну перевірку для їх виправлення.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7039"/>
+        <location filename="../../scribus/scribus.cpp" line="7038"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Знайдено деякі помилки. Спробуйте використати
 доекспортну перевірку для їх виправлення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7162"/>
+        <location filename="../../scribus/scribus.cpp" line="7161"/>
         <source>-Page%1</source>
         <translation>-Сторінка%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7697"/>
+        <location filename="../../scribus/scribus.cpp" line="7696"/>
         <source>Some objects are locked.</source>
         <translation>Деякі об&quot;єкти - замкнені.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7693"/>
+        <location filename="../../scribus/scribus.cpp" line="7692"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Замкнути все</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7194"/>
+        <location filename="../../scribus/scribus.cpp" line="7193"/>
         <source>Locate your PDF viewer</source>
         <translation>Знайдіть оглядач PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7694"/>
+        <location filename="../../scribus/scribus.cpp" line="7693"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Розімкнути всі об&quot;єкти</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3844"/>
-        <location filename="../../scribus/scribus.cpp" line="8761"/>
+        <location filename="../../scribus/scribus.cpp" line="3843"/>
+        <location filename="../../scribus/scribus.cpp" line="8760"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ви справді бажаєте замінити наявне зображення?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="932"/>
+        <location filename="../../scribus/scribus.cpp" line="931"/>
         <source>Contents</source>
         <translation>Вміст</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1065"/>
+        <location filename="../../scribus/scribus.cpp" line="1064"/>
         <source>&amp;Character</source>
         <translation>&amp;Знак</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1086"/>
+        <location filename="../../scribus/scribus.cpp" line="1085"/>
         <source>&amp;Quote</source>
         <translation>&amp;Лапки</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1128"/>
+        <location filename="../../scribus/scribus.cpp" line="1127"/>
         <source>Liga&amp;ture</source>
         <translation>&amp;Лігатура</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="930"/>
+        <location filename="../../scribus/scribus.cpp" line="929"/>
         <source>Paste Recent</source>
         <translation>Вставити недавнє</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4068"/>
+        <location filename="../../scribus/scribus.cpp" line="4067"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Документи (*.sla *.sla.gz);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3756"/>
+        <location filename="../../scribus/scribus.cpp" line="3755"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3537"/>
+        <location filename="../../scribus/scribus.cpp" line="3536"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Деякі колірні профілі, використані в цьому документі, не встановлено:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6997"/>
+        <location filename="../../scribus/scribus.cpp" line="6996"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Всі файли (*)</translation>
     </message>
@@ -34893,67 +34779,67 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Застосування користувацьких сполучень клавіш</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6560"/>
+        <location filename="../../scribus/scribus.cpp" line="6559"/>
         <source>Updating Images</source>
         <translation>Оновлення зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4018"/>
-        <location filename="../../scribus/scribus.cpp" line="4083"/>
+        <location filename="../../scribus/scribus.cpp" line="4017"/>
+        <location filename="../../scribus/scribus.cpp" line="4082"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ваш документ збережений до тимчасової теки і не може бути переміщений: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4370"/>
+        <location filename="../../scribus/scribus.cpp" line="4369"/>
         <source>Print engine initialization failed</source>
         <translation>Не вдалося ініціалізувати рушій друку</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2971"/>
+        <location filename="../../scribus/scribus.cpp" line="2970"/>
         <source>All Supported Formats</source>
         <translation>Всі підтримувані формати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9038"/>
-        <location filename="../../scribus/scribus.cpp" line="9116"/>
+        <location filename="../../scribus/scribus.cpp" line="9037"/>
+        <location filename="../../scribus/scribus.cpp" line="9115"/>
         <source>&amp;Name:</source>
         <translation>&amp;Назва:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9038"/>
-        <location filename="../../scribus/scribus.cpp" line="9116"/>
+        <location filename="../../scribus/scribus.cpp" line="9037"/>
+        <location filename="../../scribus/scribus.cpp" line="9115"/>
         <source>New Entry</source>
         <translation>Новий екземпляр</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6719"/>
+        <location filename="../../scribus/scribus.cpp" line="6718"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Відсутній Ghostscript : перегляд друку PostScript недоступний</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3319"/>
+        <location filename="../../scribus/scribus.cpp" line="3318"/>
         <source>Document is already opened</source>
         <translation>Документ вже відкритий</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3335"/>
+        <location filename="../../scribus/scribus.cpp" line="3334"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Файл пошкоджений або підготовлений новішою версією Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7460"/>
+        <location filename="../../scribus/scribus.cpp" line="7459"/>
         <source>Editing Symbol: %1</source>
         <translation>Редагується символ: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1475"/>
+        <location filename="../../scribus/scribus.cpp" line="1474"/>
         <source>Unknown</source>
         <translation>Невідомий</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1526"/>
+        <location filename="../../scribus/scribus.cpp" line="1525"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation>Вибрано %1 об&apos;єктів, розмір вибраного = %2 x %3</translation>
     </message>
@@ -34968,233 +34854,233 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Всі підтримувані формати (%1);;%2Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1141"/>
+        <location filename="../../scribus/scribus.cpp" line="1140"/>
         <source>Marks</source>
         <translation>Позначки</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9460"/>
+        <location filename="../../scribus/scribus.cpp" line="9459"/>
         <source>Insert new </source>
         <translation>Вставити новий </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9487"/>
-        <location filename="../../scribus/scribus.cpp" line="9716"/>
+        <location filename="../../scribus/scribus.cpp" line="9486"/>
+        <location filename="../../scribus/scribus.cpp" line="9715"/>
         <source>Anchor mark</source>
         <translation>Позначка якоря</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9495"/>
-        <location filename="../../scribus/scribus.cpp" line="9729"/>
+        <location filename="../../scribus/scribus.cpp" line="9494"/>
+        <location filename="../../scribus/scribus.cpp" line="9728"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Позначка зі змінним текстом &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9503"/>
-        <location filename="../../scribus/scribus.cpp" line="9767"/>
+        <location filename="../../scribus/scribus.cpp" line="9502"/>
+        <location filename="../../scribus/scribus.cpp" line="9766"/>
         <source>Mark to %1 item</source>
         <translation>Позначку в елемент %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9513"/>
-        <location filename="../../scribus/scribus.cpp" line="9788"/>
+        <location filename="../../scribus/scribus.cpp" line="9512"/>
+        <location filename="../../scribus/scribus.cpp" line="9787"/>
         <source>Mark to %1 mark</source>
         <translation>Позначка в позначку %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="962"/>
+        <location filename="../../scribus/scribus.cpp" line="961"/>
         <source>Duplicate/Transform</source>
         <translation>Дублювання/Зміна форми</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="911"/>
+        <location filename="../../scribus/scribus.cpp" line="910"/>
         <source>&amp;Output Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="967"/>
+        <location filename="../../scribus/scribus.cpp" line="966"/>
         <source>Grouping</source>
         <translation>Групування</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="972"/>
+        <location filename="../../scribus/scribus.cpp" line="971"/>
         <source>Locking</source>
         <translation>Блокування</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="984"/>
+        <location filename="../../scribus/scribus.cpp" line="983"/>
         <source>Send to</source>
         <translation>Надіслати в</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="986"/>
+        <location filename="../../scribus/scribus.cpp" line="985"/>
         <source>Scrapbook</source>
         <translation>Альбом</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="990"/>
+        <location filename="../../scribus/scribus.cpp" line="989"/>
         <source>Adjust</source>
         <translation>Підгонка</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="995"/>
+        <location filename="../../scribus/scribus.cpp" line="994"/>
         <source>Image</source>
         <translation>Зображення</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1008"/>
+        <location filename="../../scribus/scribus.cpp" line="1007"/>
         <source>P&amp;DF Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1022"/>
+        <location filename="../../scribus/scribus.cpp" line="1021"/>
         <source>Text Frame Links</source>
         <translation>Зв&apos;язування текстових рамок</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1027"/>
+        <location filename="../../scribus/scribus.cpp" line="1026"/>
         <source>Path Tools</source>
         <translation>Робота з контурами</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1037"/>
+        <location filename="../../scribus/scribus.cpp" line="1036"/>
         <source>Welding</source>
         <translation>Зчеплювання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1112"/>
+        <location filename="../../scribus/scribus.cpp" line="1111"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Пропуски та розриви</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1168"/>
+        <location filename="../../scribus/scribus.cpp" line="1167"/>
         <source>Zoom</source>
         <translation>Масштаб</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1177"/>
+        <location filename="../../scribus/scribus.cpp" line="1176"/>
         <source>Preview</source>
         <translation>Попередній перегляд</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1185"/>
+        <location filename="../../scribus/scribus.cpp" line="1184"/>
         <source>Text Frames</source>
         <translation>Текстові рамки</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1191"/>
+        <location filename="../../scribus/scribus.cpp" line="1190"/>
         <source>Image Frames</source>
         <translation>Рамки зображень</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1200"/>
+        <location filename="../../scribus/scribus.cpp" line="1199"/>
         <source>Grids and Guides</source>
         <translation>Сітки і напрямні</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1349"/>
+        <location filename="../../scribus/scribus.cpp" line="1348"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1390"/>
-        <location filename="../../scribus/scribus.cpp" line="8558"/>
+        <location filename="../../scribus/scribus.cpp" line="1389"/>
+        <location filename="../../scribus/scribus.cpp" line="8557"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1392"/>
-        <location filename="../../scribus/scribus.cpp" line="8559"/>
+        <location filename="../../scribus/scribus.cpp" line="1391"/>
+        <location filename="../../scribus/scribus.cpp" line="8558"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3319"/>
+        <location filename="../../scribus/scribus.cpp" line="3318"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5094"/>
+        <location filename="../../scribus/scribus.cpp" line="5093"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Текстові файли (*.txt);;Всі файли (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5094"/>
+        <location filename="../../scribus/scribus.cpp" line="5093"/>
         <source>Save as</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6159"/>
+        <location filename="../../scribus/scribus.cpp" line="6158"/>
         <source>&amp;Language:</source>
         <translation>&amp;Мова:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6159"/>
+        <location filename="../../scribus/scribus.cpp" line="6158"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7511"/>
+        <location filename="../../scribus/scribus.cpp" line="7510"/>
         <source>Editing Inline Item</source>
         <translation>Зміна рядкового об&apos;єкта</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8408"/>
+        <location filename="../../scribus/scribus.cpp" line="8407"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Програма %1 відсутня або не відкрилась</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8552"/>
+        <location filename="../../scribus/scribus.cpp" line="8551"/>
         <source>Current zoom level</source>
         <translation>Поточний масштаб</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8553"/>
+        <location filename="../../scribus/scribus.cpp" line="8552"/>
         <source>Zoom to 100%</source>
         <translation>Масштаб 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8554"/>
+        <location filename="../../scribus/scribus.cpp" line="8553"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Зменшити масштаб на крок, який визначено у налаштуваннях інструментів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8555"/>
+        <location filename="../../scribus/scribus.cpp" line="8554"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Збільшити масштаб на крок, який визначено у налаштуваннях інструментів</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8556"/>
+        <location filename="../../scribus/scribus.cpp" line="8555"/>
         <source>Select the current layer</source>
         <translation>Виберіть поточний шар</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8557"/>
+        <location filename="../../scribus/scribus.cpp" line="8556"/>
         <source>Select the current unit</source>
         <translation>Виберіть поточну одиницю вимірювання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9698"/>
+        <location filename="../../scribus/scribus.cpp" line="9697"/>
         <source>Edit %1</source>
         <translation>Змінити %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1014"/>
+        <location filename="../../scribus/scribus.cpp" line="1013"/>
         <source>C&amp;onvert to</source>
         <translation>&amp;Конвертувати в</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1521"/>
+        <location filename="../../scribus/scribus.cpp" line="1520"/>
         <source>%1 selected</source>
         <translation>Вибрано %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3171"/>
+        <location filename="../../scribus/scribus.cpp" line="3170"/>
         <source>C&amp;reate</source>
         <translation>С&amp;творити</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1180"/>
+        <location filename="../../scribus/scribus.cpp" line="1179"/>
         <source>Measurement</source>
         <translation>Вимірювання</translation>
     </message>
@@ -35383,22 +35269,22 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1063"/>
+        <location filename="../../scribus/scribusview.cpp" line="1061"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1202"/>
+        <location filename="../../scribus/scribusview.cpp" line="1194"/>
         <source>Copy Here</source>
         <translation>Копіювати сюди</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1203"/>
+        <location filename="../../scribus/scribusview.cpp" line="1195"/>
         <source>Move Here</source>
         <translation>Перемістити сюди</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1204"/>
+        <location filename="../../scribus/scribusview.cpp" line="1196"/>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
@@ -35418,17 +35304,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3171"/>
+        <location filename="../../scribus/scribusview.cpp" line="3163"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Неможливо конвертувати об&apos;єкт під час його використання</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3171"/>
+        <location filename="../../scribus/scribusview.cpp" line="3163"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція конвертування в контурні лінії буде пропущена</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2131"/>
+        <location filename="../../scribus/scribusview.cpp" line="2123"/>
         <source>Page %1 to %2</source>
         <translation>Від сторінки %1 до %2</translation>
     </message>
@@ -36034,17 +35920,17 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>ShortcutWidget</name>
     <message>
-        <location filename="../../scribus/ui/shortcutwidget.ui" line="16"/>
+        <location filename="../../scribus/ui/shortcutwidget.ui" line="17"/>
         <source>&amp;No Key</source>
         <translation>&amp;Без ключа</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/shortcutwidget.ui" line="23"/>
+        <location filename="../../scribus/ui/shortcutwidget.ui" line="24"/>
         <source>&amp;User Defined Key</source>
         <translation>Ключ визначений &amp;користувачем</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/shortcutwidget.ui" line="30"/>
+        <location filename="../../scribus/ui/shortcutwidget.ui" line="31"/>
         <source>Set &amp;Key</source>
         <translation>&amp;Задайте клавішу</translation>
     </message>
@@ -38077,132 +37963,132 @@ when PDF document is opened:</source>
     <name>Tabruler</name>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="522"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="693"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="687"/>
         <source>Left</source>
         <translation>Лівий край</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="523"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="694"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="688"/>
         <source>Right</source>
         <translation>Правий край</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="525"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="696"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="690"/>
         <source>Comma</source>
         <translation>Кома</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="526"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="697"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="691"/>
         <source>Center</source>
         <translation>Центр</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="716"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="710"/>
         <source>Delete All</source>
         <translation>Видалити всі</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="636"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="725"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="630"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="719"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Відступ для першого рядка абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="637"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="726"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="631"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="720"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Лівий відступ для всього абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="643"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="732"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="637"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="726"/>
         <source>Delete all Tabulators</source>
         <translation>Видалити всі табулятори</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="530"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="701"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="695"/>
         <source>&amp;Position:</source>
         <translation>По&amp;зиція:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="541"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="714"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="708"/>
         <source>Fill Char:</source>
         <translation>Символ заповнення:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="537"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="707"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="701"/>
         <source>Dot</source>
         <translation>Точка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="538"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="708"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="702"/>
         <source>Hyphen</source>
         <translation>Тире</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="539"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="709"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="703"/>
         <source>Underscore</source>
         <translation>Підкреслення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="540"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="710"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="704"/>
         <source>Custom</source>
         <translation>Нестандартний</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="536"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="706"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="700"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Немає</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="638"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="727"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="632"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="721"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Відступ праворуч для всього абзацу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="623"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="719"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="617"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="713"/>
         <source>Fill Character of Tab</source>
         <translation>Символ-заповнювач табуляції</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="624"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="720"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="618"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="714"/>
         <source>Type/Orientation of Tab</source>
         <translation>Тип/орієнтація табуляції</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="625"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="721"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="619"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="715"/>
         <source>Position of Tab</source>
         <translation>Позиція табуляції</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="524"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="695"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="689"/>
         <source>Period</source>
         <translation>Період</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="717"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="711"/>
         <source>Delete Selected</source>
         <translation>Видалити вибране</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="644"/>
-        <location filename="../../scribus/ui/tabruler.cpp" line="733"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="638"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="727"/>
         <source>Delete selected Tabulator</source>
         <translation>Видалити вибраний табулятор</translation>
     </message>
@@ -41475,178 +41361,178 @@ please choose another one.</source>
         <translation>Змінити властивості кольору штриха</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="56"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="53"/>
         <source>Edit Fill Color Properties</source>
         <translation>Змінити властивості кольору заливки</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="114"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="295"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="108"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="289"/>
         <source>Opacity:</source>
         <translation>Непрозорість:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="121"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="302"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
         <source>Set the transparency for the color selected</source>
         <translation>Зробити вибраний колір прозорим</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="124"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="305"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="118"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="299"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="140"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="518"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="134"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="512"/>
         <source>Blend Mode:</source>
         <translation>Режим змішування:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="148"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="526"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="142"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="520"/>
         <source>Normal</source>
         <translation>Звичайний</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="153"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="531"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="147"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="525"/>
         <source>Darken</source>
         <translation>Затемнити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="158"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="536"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="152"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="530"/>
         <source>Lighten</source>
         <translation>Освітлити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="163"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="541"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="157"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="535"/>
         <source>Multiply</source>
         <translation>Перемножити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="168"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="546"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="162"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="540"/>
         <source>Screen</source>
         <translation>Екран</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="173"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="551"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="167"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="545"/>
         <source>Overlay</source>
         <translation>Перекрити</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="178"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="556"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="172"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="550"/>
         <source>Hard Light</source>
         <translation>Різке світло</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="183"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="561"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="177"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="555"/>
         <source>Soft Light</source>
         <translation>М&apos;яке світло</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="188"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="566"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="182"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="560"/>
         <source>Difference</source>
         <translation>Різниця</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="193"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="571"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="187"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="565"/>
         <source>Exclusion</source>
         <translation>Виключення</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="198"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="576"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="192"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="570"/>
         <source>Color Dodge</source>
         <translation>Освітлення кольору</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="203"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="581"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="197"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="575"/>
         <source>Color Burn</source>
         <translation>Затемнення кольору</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="208"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="586"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="202"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="580"/>
         <source>Hue</source>
         <translation>Відтінок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="213"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="591"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="207"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="585"/>
         <source>Saturation</source>
         <translation>Насиченість</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="218"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="596"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="212"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="590"/>
         <source>Color</source>
         <translation>Колір</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="223"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="601"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="217"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="595"/>
         <source>Luminosity</source>
         <translation>Яскравість</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="269"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="263"/>
         <source>Solid</source>
         <translation>Суцільна</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="337"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="331"/>
         <source>Gradient</source>
         <translation>Градієнт</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="364"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="358"/>
         <source>Linear</source>
         <translation>Лінійний</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="369"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="363"/>
         <source>Radial</source>
         <translation>Радіальний</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="377"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="371"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Перемістити початок вектора градієнта натиснувши ліву клавішу миші, або перемістити кінець вектора градієнта натиснувши праву клавішу миші</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="380"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="374"/>
         <source>Move Vector</source>
         <translation>Перемістити вектор</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="417"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="495"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="411"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="489"/>
         <source>Use Luminosity as Alpha</source>
         <translation>Використати яскравість, як альфу</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="425"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="419"/>
         <source>Pattern</source>
         <translation>Візерунок</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="473"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="467"/>
         <source>Properties...</source>
         <translation>Властивості…</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="502"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="496"/>
         <source>Use inverted Pattern</source>
         <translation>Використати інвертований візерунок</translation>
     </message>
