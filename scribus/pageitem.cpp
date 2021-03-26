@@ -799,13 +799,13 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	if (dX==0.0 && dY==0.0)
 		return;
 	invalid = true;
-	if (dX!=0.0)
+	if (dX != 0.0)
 	{
 		m_xPos += dX;
 		gXpos += dX;
 		BoundingX += dX;
 	}
-	if (dY!=0.0)
+	if (dY != 0.0)
 	{
 		m_yPos += dY;
 		gYpos += dY;

@@ -214,21 +214,21 @@ void CanvasMode_EditWeldPoint::keyPressEvent(QKeyEvent *e)
 			if (m_doc->unitIndex()!=SC_INCHES)
 			{
 				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1;
+					moveBy = 0.1;
 				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=10.0;
+					moveBy = 10.0;
 				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01;
-				moveBy/=m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+					moveBy = 0.01;
+				moveBy /= m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			}
 			else
 			{
 				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1/m_doc->unitRatio();
+					moveBy = 0.1 / m_doc->unitRatio();
 				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=1.0/m_doc->unitRatio();
+					moveBy = 1.0 / m_doc->unitRatio();
 				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01/m_doc->unitRatio();
+					moveBy = 0.01 /m_doc->unitRatio();
 			}
 			moveBy /= m_canvas->m_viewMode.scale;
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
