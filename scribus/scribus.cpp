@@ -3144,7 +3144,7 @@ bool ScribusMainWindow::slotPageImport()
 	}
 	else if (dia->getCreatePageChecked())
 	{
-		int importWhere=dia->getImportWhere();
+		int importWhere = dia->getImportWhere();
 		if (importWhere == 0)
 			startPage = dia->getImportWherePage();
 		else if (importWhere == 1)
@@ -5156,8 +5156,8 @@ void ScribusMainWindow::slotNewPageM()
 	if (dia->exec())
 	{
 		QStringList base(dia->getMasterPages());
-		double height = dia->pageWidth();
-		double width = dia->pageHeight();
+		double width = dia->pageWidth();
+		double height = dia->pageHeight();
 		int orientation = dia->orientation();
 		addNewPages(dia->getWherePage(), dia->getWhere(), dia->getCount(), height, width, orientation, 
 			dia->prefsPageSizeName, dia->moveObjects(), &base, dia->overrideMasterPageSizing());
