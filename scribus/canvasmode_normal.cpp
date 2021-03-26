@@ -1159,7 +1159,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				if (m_doc->canSelectItemOnLayer(docItem->m_layerID))
 				{
 					// get current item rect/bounding box
-					QRect apr2 = m_canvas->canvasToLocal( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
+					QRectF apr2 = m_canvas->canvasToLocalF( docItem->getCurrentBoundingRect(docItem->lineWidth()) );
 
 					bool is_selected = docItem->isSelected();
 
