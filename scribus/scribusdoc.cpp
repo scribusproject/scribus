@@ -6107,7 +6107,10 @@ void ScribusDoc::reformPages(bool moveObjects)
 				if (item->isWelded())
 					weldedItems.append(item->itemsWeldedTo());
 				if (!weldedItems.contains(item))
-					item->moveBy(-oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset(), -oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset());
+				{
+					const ScPage* oldPage = Pages->at(oldPg.newPg);
+					item->moveBy(-oldPg.oldXO + oldPage->xOffset(), -oldPg.oldYO + oldPage->yOffset());
+				}
 				item->OwnPage = static_cast<int>(oldPg.newPg);
 				if (item->isGroup())
 				{
