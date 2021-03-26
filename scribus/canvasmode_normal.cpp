@@ -1121,7 +1121,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		double dx = m_mouseSavedPoint.x() - m_mousePressPoint.x();
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
 		QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
-		QRectF localSele  = m_canvas->canvasToLocal(canvasSele).normalized();
+		QRectF localSele  = m_canvas->canvasToLocalF(canvasSele).normalized();
 		if (!m_doc->masterPageMode())
 		{
 			uint docPagesCount = m_doc->Pages->count();
