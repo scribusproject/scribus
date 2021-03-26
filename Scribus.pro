@@ -112,8 +112,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/notesstyles.h \
            scribus/numeration.h \
            scribus/observable.h \
-           scribus/openpalettemanager.h \
-           scribus/openpalettemodel.h \
            scribus/pageitem.h \
            scribus/pageitem_arc.h \
            scribus/pageitem_group.h \
@@ -133,7 +131,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/pageitemiterator.h \
            scribus/pageitempointer.h \
            scribus/pageitempreview.h \
-           scribus/pageitemsettersmanager.h \
            scribus/pagesize.h \
            scribus/pagestructs.h \
            scribus/pdf_analyzer.h \
@@ -496,17 +493,12 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/notesstyleseditor.h \
            scribus/ui/numformatcombo.h \
            scribus/ui/oneclick.h \
-           scribus/ui/openpalette.h \
-           scribus/ui/openpaletteview.h \
            scribus/ui/osgeditor.h \
            scribus/ui/outlinepalette.h \
            scribus/ui/outputpreview_pdf.h \
            scribus/ui/outputpreview_ps.h \
            scribus/ui/outputpreviewbase.h \
            scribus/ui/pageitemattributes.h \
-           scribus/ui/pageitempositionsetter.h \
-           scribus/ui/pageitemrotationsetter.h \
-           scribus/ui/pageitemsetterbase.h \
            scribus/ui/pagelayout.h \
            scribus/ui/pagepalette.h \
            scribus/ui/pagepalette_masterpages.h \
@@ -1064,7 +1056,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/picsearchoptions.ui \
          scribus/ui/picstatus.ui \
          scribus/ui/polygonwidgetbase.ui \
-         scribus/ui/positionsetter.ui \
          scribus/ui/preferencesdialogbase.ui \
          scribus/ui/prefs_colormanagementbase.ui \
          scribus/ui/prefs_displaybase.ui \
@@ -1118,7 +1109,6 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/replaceonecolor.ui \
          scribus/ui/resourcemanagerbase.ui \
          scribus/ui/resourcemanagerlicensebase.ui \
-         scribus/ui/rotationsetter.ui \
          scribus/ui/selectobjects.ui \
          scribus/ui/shortcutwidget.ui \
          scribus/ui/smcellstylewidget.ui \
@@ -1260,8 +1250,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/notesstyles.cpp \
            scribus/numeration.cpp \
            scribus/observable.cpp \
-           scribus/openpalettemanager.cpp \
-           scribus/openpalettemodel.cpp \
            scribus/pageitem.cpp \
            scribus/pageitem_arc.cpp \
            scribus/pageitem_group.cpp \
@@ -1281,7 +1269,6 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/pageitemiterator.cpp \
            scribus/pageitempointer.cpp \
            scribus/pageitempreview.cpp \
-           scribus/pageitemsettersmanager.cpp \
            scribus/pagesize.cpp \
            scribus/pdf_analyzer.cpp \
            scribus/pdflib.cpp \
@@ -1607,17 +1594,12 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/notesstyleseditor.cpp \
            scribus/ui/numformatcombo.cpp \
            scribus/ui/oneclick.cpp \
-           scribus/ui/openpalette.cpp \
-           scribus/ui/openpaletteview.cpp \
            scribus/ui/osgeditor.cpp \
            scribus/ui/outlinepalette.cpp \
            scribus/ui/outputpreview_pdf.cpp \
            scribus/ui/outputpreview_ps.cpp \
            scribus/ui/outputpreviewbase.cpp \
            scribus/ui/pageitemattributes.cpp \
-           scribus/ui/pageitempositionsetter.cpp \
-           scribus/ui/pageitemrotationsetter.cpp \
-           scribus/ui/pageitemsetterbase.cpp \
            scribus/ui/pagelayout.cpp \
            scribus/ui/pagepalette.cpp \
            scribus/ui/pagepalette_masterpages.cpp \

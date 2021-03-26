@@ -67,21 +67,6 @@ else()
 	set(SCRIBUS_GMAGICK_SRC)
 endif()
 
-# We setup something like a group to gather setter related stuff
-# because it could expand into a huge amount of files at some point.
-
-set(SCRIBUS_ITEMSETTERS_SRC
-	openpalettemanager.cpp
-	openpalettemodel.cpp
-	pageitemsettersmanager.cpp
-	ui/openpalette.cpp
-	ui/openpaletteview.cpp
-	ui/pageitemsetterbase.cpp
-	ui/pageitempositionsetter.cpp
-	ui/pageitemrotationsetter.cpp
-)
-
-
 set(SCRIBUS_SOURCES
 	actionmanager.cpp
 	actionsearch.cpp
@@ -593,7 +578,6 @@ set(SCRIBUS_SOURCES
 	ui/vruler.cpp
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
-#	#{SCRIBUS_ITEMSETTERS_SRC}
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
 )

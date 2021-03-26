@@ -2707,9 +2707,6 @@
     <uic Include="..\..\..\scribus\ui\polygonwidgetbase.ui">
       <Filter>Form Files</Filter>
     </uic>
-    <uic Include="..\..\..\scribus\ui\positionsetter.ui">
-      <Filter>Form Files</Filter>
-    </uic>
     <uic Include="..\..\..\scribus\ui\preferencesdialogbase.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -2846,9 +2843,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\replaceonecolor.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\rotationsetter.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\selectobjects.ui">
