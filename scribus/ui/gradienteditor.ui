@@ -10,9 +10,6 @@
     <height>178</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string notr="true">Frame</string>
-  </property>
   <property name="frameShape">
    <enum>QFrame::NoFrame</enum>
   </property>
