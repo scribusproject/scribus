@@ -772,19 +772,21 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 
 	//Loop through all items and see which one(s) were under the drop point on the current layer
 	//Should make a nice function for this.
-	//#9051 :  loop in reverse order so that items in front of others are prioritized
+	//#9051: loop in reverse order so that items in front of others are prioritized
 	m_doc->m_Selection->delaySignalsOn();
 	for (int i = m_doc->Items->count() - 1; i >= 0 ; --i)
 	{
-		if (m_doc->Items->at(i)->m_layerID == m_doc->activeLayer())
+		PageItem* item = m_doc->Items->at(i);
+		if (item->m_layerID != m_doc->activeLayer())
+			continue;
+		if ((m_doc->masterPageMode())  && (!((item->OwnPage == -1) || (item->OwnPage == m_doc->currentPage()->pageNr()))))
+			continue;
+		if (m_canvas->frameHitTest(dropPosDocQ, item) >= Canvas::INSIDE)
 		{
-			if (m_canvas->frameHitTest(dropPosDocQ, m_doc->Items->at(i)) >= Canvas::INSIDE)
-			{
-				deselectItems(false);
-				m_doc->m_Selection->addItem(m_doc->Items->at(i));
-				selectedItemByDrag = true;
-				break;
-			}
+			deselectItems(false);
+			m_doc->m_Selection->addItem(item);
+			selectedItemByDrag = true;
+			break;
 		}
 	}
 	m_doc->m_Selection->delaySignalsOff();
@@ -876,16 +878,18 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_doc->m_Selection->delaySignalsOn();
 		for (int i = m_doc->Items->count() - 1; i >= 0 ; --i)
 		{
-			if (m_doc->Items->at(i)->m_layerID==m_doc->activeLayer())
+			PageItem* item = m_doc->Items->at(i);
+			if (item->m_layerID != m_doc->activeLayer())
+				continue;
+			if ((m_doc->masterPageMode())  && (!((item->OwnPage == -1) || (item->OwnPage == m_doc->currentPage()->pageNr()))))
+				continue;
+			if ((m_canvas->frameHitTest(dropPosDocQ, m_doc->Items->at(i)) >= Canvas::INSIDE) && (m_doc->Items->at(i)->itemType() == PageItem::Symbol))
 			{
-				if ((m_canvas->frameHitTest(dropPosDocQ, m_doc->Items->at(i)) >= Canvas::INSIDE) && (m_doc->Items->at(i)->itemType() == PageItem::Symbol))
-				{
-					deselectItems(false);
-					m_doc->m_Selection->addItem(m_doc->Items->at(i));
-					m_doc->Items->at(i)->setPattern(patternVal);
-					selectedItemByDrag=true;
-					break;
-				}
+				deselectItems(false);
+				m_doc->m_Selection->addItem(m_doc->Items->at(i));
+				m_doc->Items->at(i)->setPattern(patternVal);
+				selectedItemByDrag = true;
+				break;
 			}
 		}
 		m_doc->m_Selection->delaySignalsOff();
