@@ -455,9 +455,9 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
-		for (int i=0; i < m_doc->m_Selection->count(); ++i)
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		{
-			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
+			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), m_doc->m_Selection->itemAt(i)) >= 0)
 			{
 				currItem = m_doc->m_Selection->itemAt(i);
 				m_doc->m_Selection->removeItem(currItem);
