@@ -2195,22 +2195,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="309"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
         <source>Distribute</source>
         <translation>배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="568"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="836"/>
         <source>&amp;Distance:</source>
         <translation>거리(&amp;D):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="635"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
         <source>Reverse Distribution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="677"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="945"/>
         <source>Swap</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2223,212 +2223,212 @@
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
         <source>First Selected</source>
         <translation>처음 선택</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="92"/>
         <source>Last Selected</source>
         <translation>마지막 선택</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="102"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="93"/>
         <source>Page</source>
         <translation>페이지</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
         <source>Margins</source>
         <translation>여백</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>Selection</source>
         <translation>선택</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="111"/>
         <source>Align bottoms</source>
         <translation>단추 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
         <source>Align right sides</source>
         <translation>오른쪽 면 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
         <source>Center on vertical axis</source>
         <translation>수직축 중앙</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="115"/>
         <source>Align left sides</source>
         <translation>왼쪽 면 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
         <source>Center on horizontal axis</source>
         <translation>수평축 중앙</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
         <source>Align tops</source>
         <translation>상단에 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Distribute left sides equidistantly</source>
         <translation>왼쪽면 등거리 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>하단에 등거리로 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>수평 등거리 중앙에 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="138"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>수직 등거리 중앙 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute tops equidistantly</source>
         <translation>상단 등거리 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Distribute right sides equidistantly</source>
         <translation>오른쪽 면에 등거리로 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="95"/>
         <source>Guide</source>
         <translation>안내선</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="145"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
         <source>Distribute the items with the distance specified</source>
         <translation>지정 거리에 객체 배치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="146"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="148"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
         <source>None Selected</source>
         <translation>선택없음</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="150"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
         <source>Swap items to the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="151"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
         <source>Swap items to the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="530"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="456"/>
         <source>Y: %1%2</source>
         <translation>Y위치: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="538"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="464"/>
         <source>X: %1%2</source>
         <translation>X위치: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="109"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>객체 오른쪽면을 조절점 왼쪽면으로 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="110"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>객체 왼쪽 면을 조절점 오른쪽 면으로 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>객체 상단을 조절점 하단으로 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>객체 하단을 조절점 상단에 정렬</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>객체 사이 수평 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>객체 사이 수평 간격을 지정 값으로 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
         <source>Make vertical gaps between items equal</source>
         <translation>객체 사이 수직 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>객체 사이 수직 간격을 지정 값으로 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="140"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="131"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>객체와 페이지 면 사이 수평 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="143"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>객체와 페이지 여백의 상단과 하단 사이 수직 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>객체와 페이지 여백 면 사이 수평 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>객체와 페이지 하단 사이 수평 간격을 동일하게 생성</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="107"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="98"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;비례 정렬:&lt;ul&gt;&lt;li&gt;처음 선택된 객체&lt;/li&gt;&lt;li&gt;둘째 선택된 객체&lt;/li&gt;&lt;li&gt;현재 페이지&lt;/li&gt;&lt;li&gt;현재 페이지의 여백&lt;/li&gt;&lt;li&gt;안내선&lt;/li&gt;&lt;li&gt;선택&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="108"/>
         <source>The location of the selected guide to align to</source>
         <translation>정렬할 선택된 안내선 위치</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
         <source>Move</source>
         <translation>이동</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
         <source>Resize</source>
         <translation>크기 재조정</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12805,27 +12805,6 @@ If no handle is selected all handles will be reset.</source>
     </message>
 </context>
 <context>
-    <name>OpenPalette</name>
-    <message>
-        <location filename="../../scribus/ui/openpalette.cpp" line="46"/>
-        <source>empty palette</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>OpenPaletteModel</name>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="109"/>
-        <source>Elements</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="111"/>
-        <source>Visible</source>
-        <translation>보임</translation>
-    </message>
-</context>
-<context>
     <name>OutlinePalette</name>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="465"/>
@@ -14100,7 +14079,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16493,29 +16472,6 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="296"/>
         <source>Outer Curvature:</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PositionSetterWidget</name>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
-        <source>X-pos:</source>
-        <translation>X 위치:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="41"/>
-        <source>Y-pos:</source>
-        <translation>Y(노란색):</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="67"/>
-        <source>Width:</source>
-        <translation>너비:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="80"/>
-        <source>Height:</source>
-        <translation>높이:</translation>
     </message>
 </context>
 <context>
@@ -29611,7 +29567,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <location filename="../../scribus/sclayer.cpp" line="19"/>
-        <location filename="../../scribus/sclayer.cpp" line="361"/>
+        <location filename="../../scribus/sclayer.cpp" line="366"/>
         <source>New Layer</source>
         <translation>새 레이어</translation>
     </message>
@@ -30491,7 +30447,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17981"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31213,19 +31169,6 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>RotationWidget</name>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
-        <source>Rotation:</source>
-        <translation>회전:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="42"/>
-        <source>+90</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -34264,7 +34207,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16431"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
         <source>Document</source>
         <translation>문서</translation>
     </message>
@@ -34274,27 +34217,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>배경</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>사용 중인 객체를 삭제할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>객체 %1을 스토리 편집기에서 편집 중입니다. 삭제 작업을 취소합니다</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>Some objects are locked.</source>
         <translation>몇몇 객체를 잠금.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11749"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
         <source>&amp;Unlock All</source>
         <translation>전체 잠금 해제(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11750"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
         <source>&amp;Skip locked objects</source>
         <translation>잠긴 객체 건너뛰기(&amp;S)</translation>
     </message>
@@ -34305,22 +34248,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16111"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
         <source>Adjusting Colors</source>
         <translation>색상 조정 중</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8983"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
         <source>remove direct paragraph formatting</source>
         <translation>직접 문단 형식 제거</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9452"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
         <source>remove direct char formatting</source>
         <translation>직접 문자 형태 제거</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13400"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34331,7 +34274,7 @@ Rotation: %4</source>
 회전: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13433"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34339,14 +34282,14 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13554"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
         <source>Copied %1 items on %2 pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14800"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15017"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
         <source>Group%1</source>
         <translation>그룹 %1</translation>
     </message>
@@ -34357,23 +34300,23 @@ Vertical gap: %4</source>
         <translation>읽어옴</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17608"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17647"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>스타일 없음</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17975"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11046"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>

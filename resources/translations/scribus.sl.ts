@@ -2195,22 +2195,22 @@
         <translation>&amp;Poravnaj strani glede na:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="309"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
         <source>Distribute</source>
         <translation>Razporedi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="568"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="836"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Razdalja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="635"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
         <source>Reverse Distribution</source>
         <translation>Obratna porazdelitev</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="677"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="945"/>
         <source>Swap</source>
         <translation>Zamenjaj</translation>
     </message>
@@ -2223,212 +2223,212 @@
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
         <source>First Selected</source>
         <translation>Prvo izbiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="92"/>
         <source>Last Selected</source>
         <translation>Zadnjo izbiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="102"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="93"/>
         <source>Page</source>
         <translation>Stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
         <source>Margins</source>
         <translation>Robove</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>Selection</source>
         <translation>Izbor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="111"/>
         <source>Align bottoms</source>
         <translation>Poravnaj spodnje strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
         <source>Align right sides</source>
         <translation>Poravnaj desne strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
         <source>Center on vertical axis</source>
         <translation>Sredinsko po navpični osi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="115"/>
         <source>Align left sides</source>
         <translation>Poravnaj leve strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
         <source>Center on horizontal axis</source>
         <translation>Sredinsko po vodoravni osi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
         <source>Align tops</source>
         <translation>Poravnaj vrhnje strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Enakomerno razporedi leve strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Enakomerno razporedi spodnje strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Enakomerno vodoravno razporedi središča</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="138"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Enakomerno navpično razporedi središča</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute tops equidistantly</source>
         <translation>Enakomerno razporedi vrhnje strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Enakomerno razporedi desne strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="95"/>
         <source>Guide</source>
         <translation>Vodilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="145"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Predmete razporedi z dano razdaljo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="146"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
         <translation>Pri razporejanju na določene razdalje obrni smer razporejanja predmetov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="148"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
         <source>None Selected</source>
         <translation>Nič ni izbrano</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="150"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
         <source>Swap items to the left</source>
         <translation>Zamenjaj s predmeti na levi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="151"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
         <source>Swap items to the right</source>
         <translation>Zamenjaj s predmeti na desni</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="530"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="456"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="538"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="464"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="109"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Desne strani predmetov poravnaj na levo stran sidra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="110"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Leve strani predmetov poravnaj na desno stran sidra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Vrh predmetov poravnaj na dno sidra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Dno predmetov poravnaj na vrh sidra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Vodoravni razmik med predmeti naj bo enako širok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Vodoravni razmik med predmeti naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Navpični razmik med predmeti naj bo enako širok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Navpični razmik med predmeti naj bo enak navedeni vrednosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="140"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="131"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Vodoravni razmik med predmeti in konci strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="143"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Navpični razmik med predmeti in robovi strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Vodoravni razmik med predmeti in robovi strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Navpični razmik med predmeti, vrhom in dnom strani naj bo enak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="107"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="98"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Poravnaj glede na:&lt;ul&gt;&lt;li&gt;Prvi izbrani predmet&lt;/li&gt;&lt;li&gt;Drugi izbrani predmet&lt;/li&gt;&lt;li&gt;Trenutno stran&lt;/li&gt;&lt;li&gt;Robove trenutne strani&lt;/li&gt;&lt;li&gt;Vodilo&lt;/li&gt;&lt;li&gt;Izbor&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="108"/>
         <source>The location of the selected guide to align to</source>
         <translation>Položaj izbranega vodila za poravnavo nanj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
         <source>Move</source>
         <translation>Premakni</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
         <source>Resize</source>
         <translation>Spremeni velikost</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Pri priravnavanju ene strani predmeta naredite nekaj od skledečega:&lt;ul&gt;&lt;li&gt;Vedno premakni tudi drugo stran (ohrani obstoječe širino in višino)&lt;/li&gt;&lt;li&gt;Obdrži drugo stran na mestu (namesto premika prevelikosti predmet) kadar je le mogoče&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
@@ -12824,27 +12824,6 @@ If no handle is selected all handles will be reset.</source>
     </message>
 </context>
 <context>
-    <name>OpenPalette</name>
-    <message>
-        <location filename="../../scribus/ui/openpalette.cpp" line="46"/>
-        <source>empty palette</source>
-        <translation>prazna paleta</translation>
-    </message>
-</context>
-<context>
-    <name>OpenPaletteModel</name>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="109"/>
-        <source>Elements</source>
-        <translation>Elementi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="111"/>
-        <source>Visible</source>
-        <translation>Viden</translation>
-    </message>
-</context>
-<context>
     <name>OutlinePalette</name>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="465"/>
@@ -14121,7 +14100,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Vrnitev na navadni način strani</translation>
     </message>
@@ -16532,29 +16511,6 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="296"/>
         <source>Outer Curvature:</source>
         <translation>Zunanja ukrivljenost:</translation>
-    </message>
-</context>
-<context>
-    <name>PositionSetterWidget</name>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
-        <source>X-pos:</source>
-        <translation>X:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="41"/>
-        <source>Y-pos:</source>
-        <translation>Y:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="67"/>
-        <source>Width:</source>
-        <translation>Širina:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="80"/>
-        <source>Height:</source>
-        <translation>Višina:</translation>
     </message>
 </context>
 <context>
@@ -27717,12 +27673,12 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="345"/>
         <source>Kita Maninkakan</source>
-        <translation type="unfinished"></translation>
+        <translation>kita maninkakanščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="346"/>
         <source>Kituba (Congo)</source>
-        <translation type="unfinished"></translation>
+        <translation>kitubščina (Kongo)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="347"/>
@@ -27732,32 +27688,32 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="349"/>
         <source>Komi</source>
-        <translation type="unfinished"></translation>
+        <translation>komijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="350"/>
         <source>Komi-Permyak</source>
-        <translation type="unfinished"></translation>
+        <translation>permajska komijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="351"/>
         <source>Komi-Zyrian</source>
-        <translation type="unfinished"></translation>
+        <translation>zirijska komijščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="352"/>
         <source>Komo (Congo)</source>
-        <translation type="unfinished"></translation>
+        <translation>komo (Kongo)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="353"/>
         <source>Komo (Sudan)</source>
-        <translation type="unfinished"></translation>
+        <translation>komo (Sudan)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="354"/>
         <source>Komso</source>
-        <translation type="unfinished"></translation>
+        <translation>komso</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="355"/>
@@ -27767,12 +27723,12 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/langmgr.cpp" line="356"/>
         <source>Konkani</source>
-        <translation type="unfinished"></translation>
+        <translation>konkanščina</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="357"/>
         <source>Koorete</source>
-        <translation type="unfinished"></translation>
+        <translation>korete</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="358"/>
@@ -29692,7 +29648,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     </message>
     <message>
         <location filename="../../scribus/sclayer.cpp" line="19"/>
-        <location filename="../../scribus/sclayer.cpp" line="361"/>
+        <location filename="../../scribus/sclayer.cpp" line="366"/>
         <source>New Layer</source>
         <translation>Nova plast</translation>
     </message>
@@ -30572,7 +30528,7 @@ Zato je lahko podoba napačna</translation>
         <translation>&lt;p&gt;Uvoziti skušate več strani, kot jih je v tem dokumentu trenutno na voljo od dejavne strani dalje.&lt;/p&gt;Izberite eno izmed naslednjih možnosti:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt;manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt;kolikor gre do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17981"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nesprejemljive nastavitve opombnega sloga</translation>
     </message>
@@ -31304,19 +31260,6 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     </message>
 </context>
 <context>
-    <name>RotationWidget</name>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
-        <source>Rotation:</source>
-        <translation>Sukanje:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="42"/>
-        <source>+90</source>
-        <translation>+90</translation>
-    </message>
-</context>
-<context>
     <name>RowResize</name>
     <message>
         <location filename="../../scribus/canvasgesture_rowresize.cpp" line="93"/>
@@ -31616,7 +31559,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
         <source> characters</source>
-        <translation type="unfinished"></translation>
+        <translation>znaki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="808"/>
@@ -34351,7 +34294,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16431"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -34361,27 +34304,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Brisanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11749"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11750"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
@@ -34392,22 +34335,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16111"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8983"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
         <source>remove direct paragraph formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9452"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
         <source>remove direct char formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13400"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34418,7 +34361,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13433"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34429,14 +34372,14 @@ Vodoravni razmik: %3
 Navpični razmik: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13554"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>Kopiranih %1 predmetov na %2 straneh</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14800"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15017"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -34447,23 +34390,23 @@ Navpični razmik: %4</translation>
         <translation>Uvoženo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
         <source>File %1 autosaved</source>
         <translation>Datoteka %1 samodejno shranjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17608"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17647"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17975"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 slog zapisa ima dokument kot obseg in ponuja enak slog oštevilčenja, kot skupek %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11046"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ali res želite počistiti vsebino vseh izbranih okvirjev?</translation>
     </message>

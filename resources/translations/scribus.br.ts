@@ -2195,22 +2195,22 @@
         <translation>&amp;Desteudañ an tuioù dre :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="309"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
         <source>Distribute</source>
         <translation>Dasparzhañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="568"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="836"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Pellder :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="635"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
         <source>Reverse Distribution</source>
         <translation>Tuginañ an dasparzhadur</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="677"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="945"/>
         <source>Swap</source>
         <translation>Kevamsaviñ</translation>
     </message>
@@ -2223,212 +2223,212 @@
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
         <source>First Selected</source>
         <translation>Ergorenn gentañ diuzet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="92"/>
         <source>Last Selected</source>
         <translation>Ergorenn diwezhañ diuzet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="102"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="93"/>
         <source>Page</source>
         <translation>Pajenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
         <source>Margins</source>
         <translation>Marzioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>Selection</source>
         <translation>Diuzañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="111"/>
         <source>Align bottoms</source>
         <translation>Desteudañ traoñioù an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
         <source>Align right sides</source>
         <translation>Desteudañ an tuioù dehou</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
         <source>Center on vertical axis</source>
         <translation>Kreizañ ouzh an ahel a-serzh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="115"/>
         <source>Align left sides</source>
         <translation>Desteudañ an tuioù kleiz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
         <source>Center on horizontal axis</source>
         <translation>Kreizañ ouzh an ahel a-zremm</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
         <source>Align tops</source>
         <translation>Desteudañ al leinioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Dasparzhañ an tuioù kleiz ent keitpell</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Dasparzhañ an traoñioù ent keitpell</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Dasparzhañ ar c&apos;heizioù ent keitpell a-blaen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="138"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Dasparzhañ ar c&apos;heizioù ent keitpell a-serzh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute tops equidistantly</source>
         <translation>Dasparzhañ al leinioù ent keitpell</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Dasparzhañ an tuioù dehou ent keitpell</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="95"/>
         <source>Guide</source>
         <translation>Dealf</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="145"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Dasparzhañ an ergorennoù gant ar pellder erspizet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="146"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
         <translation>Pa vez dasparzhet dre ur pellder despizet, tuginañ tuadur dasparzhadur an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="148"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
         <source>None Selected</source>
         <translation>Diuzad ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="150"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
         <source>Swap items to the left</source>
         <translation>Kevamsaviñ ergorennoù betek an tu kleiz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="151"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
         <source>Swap items to the right</source>
         <translation>Kevamsaviñ ergorennoù betek an tu dehou</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="530"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="456"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="538"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="464"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="109"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Desteudañ tuioù dehou an ergorennoù ouzh tu kleiz an eor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="110"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Desteudañ tuioù kleiz an ergorennoù ouzh tu dehou an eor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Desteudañ leinioù an ergorennoù ouzh traoñ an eor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Desteudañ traoñioù an ergorennoù ouzh lein an eor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Lakaat da vezañ ingal an esaouioù a-blaen etre an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Lakaat da gevatal d&apos;ar werzh erspizet, an esaouioù a-blaen etre an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Lakaat da gavatal an esaouioù a-serzh etre an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Lakaat da gevatal d&apos;ar werzh erspizet, an esaouioù a-serzh etre an ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="140"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="131"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Lakaat da gevatal an esaouioù a-blaen etre an ergorennoù ha tuioù ar bajenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="143"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Lakaat da gavatal an esaouioù a-serzh etre an ergorennoù ha lein ha traoñ marzioù ar bajenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Lakaat da gevatal an esaouioù a-blaen etre an ergorennoù ha tuioù marzhioù ar bajenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Lakaat da gavatal an esaouioù a-serzh etre an ergorennoù ha lein ha traoñ ar bajenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="107"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="98"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Desteudañ daveel ouzh :&lt;ul&gt;&lt;li&gt;An ergorenn gentañ bet diuzet&lt;/li&gt;&lt;li&gt;An eil ergorenn bet diuzet&lt;/li&gt;&lt;li&gt;Ar bajenn vremanel&lt;/li&gt;&lt;li&gt;Marzioù ar bajenn vremanel&lt;/li&gt;&lt;li&gt;Un dealf&lt;/li&gt;&lt;li&gt;An diuzad&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="108"/>
         <source>The location of the selected guide to align to</source>
         <translation>Lec&apos;hiadur an dealf diuzet da zesteudañ outañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
         <source>Move</source>
         <translation>Dilec&apos;hiañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
         <source>Resize</source>
         <translation>Adventañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Pa vez desteudet un tu eus un ergorenn :&lt;ul&gt;&lt;li&gt;Dilec&apos;hiañ bepred an tu all ivez (mirout al led hag an hed ez eus anezho), pe &lt;/li&gt;&lt;li&gt;Mirout an tu all stag (kemmañ ment an ergorenn e-lec&apos;h he dilec&apos;hiañ) mar bez tro&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
@@ -12826,27 +12826,6 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
     </message>
 </context>
 <context>
-    <name>OpenPalette</name>
-    <message>
-        <location filename="../../scribus/ui/openpalette.cpp" line="46"/>
-        <source>empty palette</source>
-        <translation>livaoueg c&apos;houllo</translation>
-    </message>
-</context>
-<context>
-    <name>OpenPaletteModel</name>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="109"/>
-        <source>Elements</source>
-        <translation>Ergorennoù</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="111"/>
-        <source>Visible</source>
-        <translation>Hewel</translation>
-    </message>
-</context>
-<context>
     <name>OutlinePalette</name>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="465"/>
@@ -14122,7 +14101,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Distreiñ da vod ar bajenn reizh</translation>
     </message>
@@ -16533,29 +16512,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="296"/>
         <source>Outer Curvature:</source>
         <translation>Krommadur diavaez :</translation>
-    </message>
-</context>
-<context>
-    <name>PositionSetterWidget</name>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
-        <source>X-pos:</source>
-        <translation>X :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="41"/>
-        <source>Y-pos:</source>
-        <translation>Y :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="67"/>
-        <source>Width:</source>
-        <translation>Led :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="80"/>
-        <source>Height:</source>
-        <translation>Sav :</translation>
     </message>
 </context>
 <context>
@@ -29692,7 +29648,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
     </message>
     <message>
         <location filename="../../scribus/sclayer.cpp" line="19"/>
-        <location filename="../../scribus/sclayer.cpp" line="361"/>
+        <location filename="../../scribus/sclayer.cpp" line="366"/>
         <source>New Layer</source>
         <translation>Treuzfollenn nevez</translation>
     </message>
@@ -30573,7 +30529,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>&lt;p&gt;Emaoc&apos;h o klask enporzhiañ muioc&apos;h a bajennoù eget pezh zo hegerz en teul, eus ar bajenn vremanel betek an dibenn. &lt;/p&gt;An dibaboù zo : &lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Krouiñ&lt;/b&gt; ar pajennoù a vank&lt;/li&gt;&lt;li&gt;&lt;b&gt;Enprozhiañ&lt;/b&gt; ar pajennoù betek an hini diwezhañ eus an teul&lt;/li&gt;&lt;li&gt;&lt;b&gt;Dilezel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17981"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Arventennoù n&apos;hall ket bezañ bet degemeret evit ar stil notenn</translation>
     </message>
@@ -31302,19 +31258,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
         <translation>Lañvaz</translation>
-    </message>
-</context>
-<context>
-    <name>RotationWidget</name>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
-        <source>Rotation:</source>
-        <translation>C&apos;hwelañ :</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="42"/>
-        <source>+90</source>
-        <translation>+90</translation>
     </message>
 </context>
 <context>
@@ -34352,7 +34295,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16431"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
         <source>Document</source>
         <translation>Teul</translation>
     </message>
@@ -34362,27 +34305,27 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <translation>Drekleur</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>N&apos;haller ket diverkañ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Emañ an ergorenn %1 o vezañ embannet gant an embanner diabarzh. Freuzet e vo ar gwezhiadur dilemel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>Some objects are locked.</source>
         <translation>Prennet ez eus ergorennoù zo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11749"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11750"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
         <source>&amp;Skip locked objects</source>
         <translation>Lammat drei&amp;st an ergorenn prennet</translation>
     </message>
@@ -34393,22 +34336,22 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16111"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
         <source>Adjusting Colors</source>
         <translation>Kengeidadur al livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8983"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
         <source>remove direct paragraph formatting</source>
         <translation>dilemel mentrezhadur end-eeun ar rannbennad </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9452"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
         <source>remove direct char formatting</source>
         <translation>dilemel mentrezhañ eeun an arouezennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13400"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34419,7 +34362,7 @@ Linkañ a-serzh : %3
 C&apos;hwelañ : %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13433"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34427,14 +34370,14 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13554"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
         <source>Copied %1 items on %2 pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14800"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15017"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -34445,23 +34388,23 @@ Vertical gap: %4</source>
         <translation>Enporzhiet </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
         <source>File %1 autosaved</source>
         <translation>Restr %1 bet enrollet ent-emgefreek</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17608"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17647"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Stil ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17975"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Un teul a dalv da lijorenn evit stil notenn %1 ha pourchas a ra an hevelep stil niverenniñ ouzh spletad %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11046"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ha fellout a ra deoc&apos;h skarzhañ endalc&apos;had an holl sterniadoù bet diuzet ?</translation>
     </message>

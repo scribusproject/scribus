@@ -2203,22 +2203,22 @@
         <translation>&amp;Allinea lati mediante:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="309"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
         <source>Distribute</source>
         <translation>Distribuisci</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="568"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="836"/>
         <source>&amp;Distance:</source>
         <translation>&amp;Distanza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="635"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
         <source>Reverse Distribution</source>
         <translation>Inverti direzione distribuzione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="677"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="945"/>
         <source>Swap</source>
         <translation>Scambia posizioni</translation>
     </message>
@@ -2226,212 +2226,212 @@
 <context>
     <name>AlignDistributePalette</name>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="100"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
         <source>First Selected</source>
         <translation>Primo selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="92"/>
         <source>Last Selected</source>
         <translation>Ultimo selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="102"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="93"/>
         <source>Page</source>
         <translation>Pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
         <source>Margins</source>
         <translation>Margini</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="96"/>
         <source>Selection</source>
         <translation>Selezione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="111"/>
         <source>Align bottoms</source>
         <translation>Allinea i lati inferiori</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
         <source>Align right sides</source>
         <translation>Allinea i lati destri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
         <source>Center on vertical axis</source>
         <translation>Centra sull&apos;asse verticale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="115"/>
         <source>Align left sides</source>
         <translation>Allinea i lati sinistri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
         <source>Center on horizontal axis</source>
         <translation>Centra sull&apos;asse orizzontale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
         <source>Align tops</source>
         <translation>Allinea i lati superiori</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Distribute left sides equidistantly</source>
         <translation>Rendi i lati sinistri equidistanti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="124"/>
         <source>Distribute bottoms equidistantly</source>
         <translation>Rendi i lati inferiori equidistanti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
         <source>Distribute centers equidistantly horizontally</source>
         <translation>Rendi i centri equidistanti orizzontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="138"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute centers equidistantly vertically</source>
         <translation>Rendi i centri equidistanti verticalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Distribute tops equidistantly</source>
         <translation>Rendi i lati superiori equidistanti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Distribute right sides equidistantly</source>
         <translation>Rendi i lati destri equidistanti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="95"/>
         <source>Guide</source>
         <translation>Guida</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="112"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="103"/>
         <source>Move</source>
         <translation>Sposta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
         <source>Resize</source>
         <translation>Ridimensiona</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="114"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="105"/>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Allinea un lato di un elemento con una delle seguenti modalità:&lt;ul&gt;&lt;li&gt;sposta sempre anche l&apos;altro lato (mantieni larghezza e altezza)&lt;/li&gt;&lt;li&gt;tieni fisso l&apos;altro lato (ridimensiona l&apos;elemento invece di spostarlo) quando possibile&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="145"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
         <source>Distribute the items with the distance specified</source>
         <translation>Distribuisci gli elementi con la distanza specificata</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="146"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="137"/>
         <source>When distributing by a set distance, reverse the direction of the distribution of items</source>
         <translation>In caso di distribuzione con distanza prefissata, inverti la direzione della distribuzione degli elementi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="148"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="139"/>
         <source>None Selected</source>
         <translation>Nessuna selezionata</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="150"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
         <source>Swap items to the left</source>
         <translation>Scambia posizioni verso sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="151"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
         <source>Swap items to the right</source>
         <translation>Scambia posizioni verso destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="530"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="456"/>
         <source>Y: %1%2</source>
         <translation>Y: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="538"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="464"/>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="118"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="109"/>
         <source>Align right sides of items to left side of anchor</source>
         <translation>Allinea i lati destri degli oggetti al lato sinistro dell&apos;ancora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="119"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="110"/>
         <source>Align left sides of items to right side of anchor</source>
         <translation>Allinea i lati sinistri degli oggetti al lato destro dell&apos;ancora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="113"/>
         <source>Align tops of items to bottom of anchor</source>
         <translation>Allinea i lati superiori degli oggetti al lato inferiore dell&apos;ancora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Align bottoms of items to top of anchor</source>
         <translation>Allinea i lati inferiori degli oggetti al lato superiore dell&apos;ancora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="120"/>
         <source>Make horizontal gaps between items equal</source>
         <translation>Rendi uguale la distanza orizzontale tra gli oggetti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="121"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
         <translation>Fissa la distanza orizzontale tra gli oggetti al valore specificato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="135"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="126"/>
         <source>Make vertical gaps between items equal</source>
         <translation>Rendi uguale la distanza verticale tra gli oggetti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="136"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make vertical gaps between items equal to the value specified</source>
         <translation>Fissa la distanza verticale tra gli oggetti al valore specificato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="140"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="131"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
         <translation>Rendi uguale la distanza orizzontale tra gli oggetti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="143"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="134"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
         <translation>Rendi uguale la distanza verticale tra gli oggetti e i margini superiore e inferiore della pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="142"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="133"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
         <translation>Rendi uguale la distanza orizzontale tra gli oggetti e i margini laterali della pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="141"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Rendi uguale la distanza verticale tra gli oggetti e i lati superiore e inferiore della pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="107"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="98"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Allinea relativamente a:&lt;ul&gt;&lt;li&gt;Primo oggetto selezionato&lt;/li&gt;&lt;li&gt;Secondo oggetto selezionato&lt;/li&gt;&lt;li&gt;Pagina corrente&lt;/li&gt;&lt;li&gt;Margini della pagina corrente&lt;/li&gt;&lt;li&gt;Una guida&lt;/li&gt;&lt;li&gt;Selezione&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
+        <location filename="../../scribus/ui/aligndistribute.cpp" line="108"/>
         <source>The location of the selected guide to align to</source>
         <translation>La posizione della guida selezionata a cui allineare</translation>
     </message>
@@ -12861,27 +12861,6 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     </message>
 </context>
 <context>
-    <name>OpenPalette</name>
-    <message>
-        <location filename="../../scribus/ui/openpalette.cpp" line="46"/>
-        <source>empty palette</source>
-        <translation>pannello vuoto</translation>
-    </message>
-</context>
-<context>
-    <name>OpenPaletteModel</name>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="109"/>
-        <source>Elements</source>
-        <translation>Elementi</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/openpalettemodel.cpp" line="111"/>
-        <source>Visible</source>
-        <translation>Visibile</translation>
-    </message>
-</context>
-<context>
     <name>OutlinePalette</name>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="454"/>
@@ -14159,7 +14138,7 @@ Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamen
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="108"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Ritorna alla modalità pagina normale</translation>
     </message>
@@ -16571,29 +16550,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="303"/>
         <source> %</source>
         <translation> %</translation>
-    </message>
-</context>
-<context>
-    <name>PositionSetterWidget</name>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="24"/>
-        <source>X-pos:</source>
-        <translation>Pos X:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="41"/>
-        <source>Y-pos:</source>
-        <translation>Pos Y:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="67"/>
-        <source>Width:</source>
-        <translation>Larghezza:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/positionsetter.ui" line="80"/>
-        <source>Height:</source>
-        <translation>Altezza:</translation>
     </message>
 </context>
 <context>
@@ -29928,7 +29884,7 @@ forniti nella documentazione delle funzioni.
     </message>
     <message>
         <location filename="../../scribus/sclayer.cpp" line="19"/>
-        <location filename="../../scribus/sclayer.cpp" line="361"/>
+        <location filename="../../scribus/sclayer.cpp" line="366"/>
         <source>New Layer</source>
         <translation>Nuovo livello</translation>
     </message>
@@ -30776,7 +30732,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Plugin Hunspell</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17981"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Impostazioni non accettabili per lo stile note</translation>
     </message>
@@ -31341,19 +31297,6 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
         <translation>Licenza</translation>
-    </message>
-</context>
-<context>
-    <name>RotationWidget</name>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="24"/>
-        <source>Rotation:</source>
-        <translation>Rotazione:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/rotationsetter.ui" line="42"/>
-        <source>+90</source>
-        <translation>+90</translation>
     </message>
 </context>
 <context>
@@ -34395,7 +34338,7 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16431"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -34405,22 +34348,22 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
         <translation>Sfondo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Impossibile eliminare un oggetto in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11148"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;oggetto %1 è attualmente in modifica dall&apos;editor interno. L&apos;operazione di eliminazione sarà annullata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>Some objects are locked.</source>
         <translation>Alcuni oggetti sono bloccati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13433"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34431,33 +34374,33 @@ Distanza orizzontale: %3
 Distanza verticale: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13554"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>Copiati %1 elementi su %2 pagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16447"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
         <source>File %1 autosaved</source>
         <translation>File %1 salvato automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17608"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17647"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Nessuno stile</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17975"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Lo stile note %1 ha come portata il documento e fornisce lo stesso stile numerazione di %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11749"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
         <source>&amp;Unlock All</source>
         <translation>S&amp;blocca tutti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11750"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Salta oggetti bloccati</translation>
     </message>
@@ -34468,27 +34411,27 @@ Distanza verticale: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16111"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
         <source>Adjusting Colors</source>
         <translation>Regolazione colori</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8983"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
         <source>remove direct paragraph formatting</source>
         <translation>elimina la formattazione diretta del paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9452"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
         <source>remove direct char formatting</source>
         <translation>elimina la formattazione diretta del carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11046"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Vuoi veramente pulire il contenuto delle cornici selezionate?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13400"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34499,9 +34442,9 @@ Spostamento vert.: %3
 Rotazione: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14800"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14855"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15017"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
         <source>Group%1</source>
         <translation>Gruppo%1</translation>
     </message>
