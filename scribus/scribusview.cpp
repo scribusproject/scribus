@@ -883,11 +883,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				continue;
 			if ((m_doc->masterPageMode())  && (!((item->OwnPage == -1) || (item->OwnPage == m_doc->currentPage()->pageNr()))))
 				continue;
-			if ((m_canvas->frameHitTest(dropPosDocQ, m_doc->Items->at(i)) >= Canvas::INSIDE) && (m_doc->Items->at(i)->itemType() == PageItem::Symbol))
+			if ((m_canvas->frameHitTest(dropPosDocQ, item) >= Canvas::INSIDE) && (item->itemType() == PageItem::Symbol))
 			{
 				deselectItems(false);
-				m_doc->m_Selection->addItem(m_doc->Items->at(i));
-				m_doc->Items->at(i)->setPattern(patternVal);
+				m_doc->m_Selection->addItem(item);
+				item->setPattern(patternVal);
 				selectedItemByDrag = true;
 				break;
 			}
