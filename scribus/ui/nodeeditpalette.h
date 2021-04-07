@@ -142,6 +142,7 @@ protected:
 	QHBoxLayout *hboxLayout { nullptr };
 	QGridLayout *gridLayout { nullptr };
 	QGridLayout *gridLayout2 { nullptr };
+	QGridLayout *gridLayout3 { nullptr };
 
 	ScribusDoc *m_doc { nullptr };
 	ScribusView *m_view { nullptr };

@@ -183,13 +183,15 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	gridLayout = new QGridLayout();
 	gridLayout->setSpacing(6);
 	gridLayout->setContentsMargins(0, 0, 0, 0);
+	gridLayout->setColumnStretch(0, 1);
+	gridLayout->setColumnStretch(5, 1);
 	gridLayout->addWidget(MoveNode,        0, 1, 1, 1);
 	gridLayout->addWidget(AddNode,         0, 2, 1, 1);
 	gridLayout->addWidget(DeleteNode,      0, 3, 1, 1);
-	gridLayout->addWidget(MoveControl,     0, 4, 1, 1);
-	gridLayout->addWidget(AsymMove,        1, 1, 1, 1);
-	gridLayout->addWidget(SymMove,         1, 2, 1, 1);
-	gridLayout->addWidget(ResNode,         1, 3, 1, 1);
+	gridLayout->addWidget(ResNode,         0, 4, 1, 1);
+	gridLayout->addWidget(MoveControl,     1, 1, 1, 1);
+	gridLayout->addWidget(AsymMove,        1, 2, 1, 1);
+	gridLayout->addWidget(SymMove,         1, 3, 1, 1);
 	gridLayout->addWidget(Res1Node,        1, 4, 1, 1);
 	gridLayout->addWidget(PolySplit,       2, 1, 1, 1);
 	gridLayout->addWidget(BezierClose,     2, 2, 1, 1);
@@ -199,20 +201,21 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	gridLayout->addWidget(PolyShearR,      3, 2, 1, 1);
 	gridLayout->addWidget(PolyShearU,      3, 3, 1, 1);
 	gridLayout->addWidget(PolyShearD,      3, 4, 1, 1);
-	gridLayout->addWidget(RotVal,          4, 0, 1, 4);
-	gridLayout->addWidget(RotateCCW,       4, 4, 1, 1);
-	gridLayout->addWidget(RotateCW,        4, 5, 1, 1);
-	gridLayout->addWidget(scalePercentage, 5, 0, 1, 4);
-	gridLayout->addWidget(Expand,          5, 4, 1, 1);
-	gridLayout->addWidget(Shrink,          5, 5, 1, 1);
-	gridLayout->addWidget(scaleDistance,   6, 0, 1, 4);
-	gridLayout->addWidget(Enlarge,         6, 4, 1, 1);
-	gridLayout->addWidget(Reduce,          6, 5, 1, 1);
 	vboxLayout->addLayout(gridLayout);
 
 	gridLayout2 = new QGridLayout();
 	gridLayout2->setSpacing(6);
 	gridLayout2->setContentsMargins(0, 0, 0, 0);
+	gridLayout2->addWidget(RotVal,          0, 0, 1, 4);
+	gridLayout2->addWidget(RotateCCW,       0, 4, 1, 1);
+	gridLayout2->addWidget(RotateCW,        0, 5, 1, 1);
+	gridLayout2->addWidget(scalePercentage, 1, 0, 1, 4);
+	gridLayout2->addWidget(Expand,          1, 4, 1, 1);
+	gridLayout2->addWidget(Shrink,          1, 5, 1, 1);
+	gridLayout2->addWidget(scaleDistance,   2, 0, 1, 4);
+	gridLayout2->addWidget(Enlarge,         2, 4, 1, 1);
+	gridLayout2->addWidget(Reduce,          2, 5, 1, 1);
+	vboxLayout->addLayout(gridLayout2);
 
 	QSpacerItem* spacer = new QSpacerItem( 6, 6, QSizePolicy::Fixed, QSizePolicy::Fixed );
 	vboxLayout->addItem(spacer);
@@ -231,28 +234,28 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	absToCanvas->setChecked(true);
 	vboxLayout->addWidget(AbsMode);
 
-	gridLayout2 = new QGridLayout();
-	gridLayout2->setSpacing(6);
-	gridLayout2->setContentsMargins(0, 0, 0, 0);
-	gridLayout2->setColumnStretch(0, 0);
-	gridLayout2->setColumnStretch(1, 1);
+	gridLayout3 = new QGridLayout();
+	gridLayout3->setSpacing(6);
+	gridLayout3->setContentsMargins(0, 0, 0, 0);
+	gridLayout3->setColumnStretch(0, 0);
+	gridLayout3->setColumnStretch(1, 1);
 
 	TextLabel1 = new QLabel(this);
-	gridLayout2->addWidget(TextLabel1, 0, 0, 1, 1);
+	gridLayout3->addWidget(TextLabel1, 0, 0, 1, 1);
 
 	XSpin = new ScrSpinBox( 0, 16777215, this, 2 );
 	XSpin->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed));
 	XSpin->setEnabled(false);
-	gridLayout2->addWidget(XSpin, 0, 1, 1, 1);
+	gridLayout3->addWidget(XSpin, 0, 1, 1, 1);
 
 	TextLabel2 = new QLabel(this);
-	gridLayout2->addWidget(TextLabel2, 1, 0, 1, 1);
+	gridLayout3->addWidget(TextLabel2, 1, 0, 1, 1);
 
 	YSpin = new ScrSpinBox( 0, 16777215, this, 2 );
 	YSpin->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed));
 	YSpin->setEnabled(false);
-	gridLayout2->addWidget(YSpin, 1, 1, 1, 1);
-	vboxLayout->addLayout(gridLayout2);
+	gridLayout3->addWidget(YSpin, 1, 1, 1, 1);
+	vboxLayout->addLayout(gridLayout3);
 
 	TextLabel1->setBuddy(XSpin);
 	TextLabel2->setBuddy(YSpin);
@@ -283,7 +286,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	resetDefaultButton->setEnabled(true);
 	vboxLayout->addWidget(resetDefaultButton);
 
-	hboxLayout = new QHBoxLayout(this);
+	hboxLayout = new QHBoxLayout();
 	hboxLayout->setSpacing(6);
 	hboxLayout->setContentsMargins(0, 0, 0, 0);
 	editEditButton = new QPushButton(IconManager::instance().loadIcon("22/exit.png"), tr("OK"), this);
