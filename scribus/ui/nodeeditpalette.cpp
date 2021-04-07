@@ -221,7 +221,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	vboxLayout->addItem(spacer);
 
 	AbsMode = new QGroupBox( "&Absolute Coordinates", this );
-	AbsMode->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred));
 	AbsMode->setCheckable(true);
 	AbsMode->setChecked(false);
 	vboxLayout1 = new QVBoxLayout(AbsMode);
