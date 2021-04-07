@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRadioButton>
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QCloseEvent>
 
 class QEvent;
@@ -138,8 +139,8 @@ protected:
 
 	QVBoxLayout *vboxLayout { nullptr };
 	QVBoxLayout *vboxLayout1 { nullptr };
+	QHBoxLayout *hboxLayout { nullptr };
 	QGridLayout *gridLayout { nullptr };
-	QGridLayout *gridLayout1 { nullptr };
 	QGridLayout *gridLayout2 { nullptr };
 
 	ScribusDoc *m_doc { nullptr };
