@@ -58,11 +58,16 @@ bool ScLayer::operator< (const ScLayer& other) const
 bool ScLayer::operator== (const ScLayer& other) const
 {
 	// ignore markerColor?
-	return Name == other.Name && ID == other.ID && Level == other.Level &&
-		   isPrintable == other.isPrintable && isViewable  == other.isViewable &&
-		   flowControl == other.flowControl && outlineMode == other.outlineMode &&
-		   transparency == other.transparency && isEditable == other.isEditable &&
-		   blendMode == other.blendMode;
+	return Name == other.Name &&
+		ID == other.ID &&
+		Level == other.Level &&
+		isPrintable == other.isPrintable &&
+		isViewable  == other.isViewable &&
+		flowControl == other.flowControl &&
+		outlineMode == other.outlineMode &&
+		transparency == other.transparency &&
+		isEditable == other.isEditable &&
+		blendMode == other.blendMode;
 }
 
 int ScLayers::getMaxID()
