@@ -15,6 +15,7 @@ lilypond.png
 dot.svg
 500_povray.xml
 povray_32.png
+600_xelatex.xml
 
   DESTINATION ${SHAREDIR}/editorconfig
 )
