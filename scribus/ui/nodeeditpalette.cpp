@@ -24,7 +24,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	QSize iconSize = QSize(22, 22);
 	QSize buttonSize = QSize(24,24);
 	m_doc = nullptr;
-	unitRatio = 1.0;
+	m_unitRatio = 1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setContentsMargins(9, 9, 9, 9);
@@ -613,7 +613,7 @@ void NodePalette::MovePoint()
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		FPoint zp;
-		FPoint np(XSpin->value()/m_doc->unitRatio(), YSpin->value()/m_doc->unitRatio());
+		FPoint np(XSpin->value() / m_doc->unitRatio(), YSpin->value() / m_doc->unitRatio());
 		if (AbsMode->isChecked())
 		{
 			if (absToCanvas->isChecked())
@@ -971,15 +971,15 @@ void NodePalette::CancelEdit()
 		// position in the item's coordinate space (which is rotated and translated,
 		// but the translation does not matter for the delta)
 		QTransform m = QTransform().rotate(-currItem->rotation());
-		QPointF delta = m.map(QPointF(xPos, yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+		QPointF delta = m.map(QPointF(m_xPos, m_yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
 		// During operation the image offsets and possibly other values are changed.
 		// To not remember everything we move the clip path to the original position
 		// relative to the current position (in the item's coordinate space).
 		// adjustItemSize will then take care of moving the position and changing
 		// image offsets, etc.
-		currItem->PoLine = itemPath.copy();
+		currItem->PoLine = m_itemPath.copy();
 		currItem->PoLine.translate(delta.x(), delta.y());
-		currItem->ContourLine = itemContourPath.copy();
+		currItem->ContourLine = m_itemContourPath.copy();
 		m_doc->adjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
@@ -1006,18 +1006,18 @@ void NodePalette::ResetToEditDefaults()
 
 	// See comment in NodePalette::CancelEdit
 	QTransform m = QTransform().rotate(-currItem->rotation());
-	QPointF delta = m.map(QPointF(xPos, yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
+	QPointF delta = m.map(QPointF(m_xPos, m_yPos)) - m.map(QPointF(currItem->xPos(), currItem->yPos()));
 	if (EditCont->isChecked())
 	{
-		currItem->ContourLine = itemContourPath.copy();
+		currItem->ContourLine = m_itemContourPath.copy();
 		currItem->ContourLine.translate(delta.x(), delta.y());
 	}
 	else
 	{
 		// See comment in NodePalette::CancelEdit
-		currItem->PoLine = itemPath;
+		currItem->PoLine = m_itemPath;
  		currItem->PoLine.translate(delta.x(), delta.y());
- 		currItem->ContourLine = itemContourPath;
+ 		currItem->ContourLine = m_itemContourPath;
 		m_doc->adjustItemSize(currItem);
 	}
 	if (currItem->itemType() == PageItem::PathText)
@@ -1044,10 +1044,10 @@ void NodePalette::reject()
 
 void NodePalette::setDefaults(PageItem* currItem)
 {
-	xPos = currItem->xPos();
-	yPos = currItem->yPos();
-	itemPath = currItem->PoLine.copy();
-	itemContourPath = currItem->ContourLine.copy();
+	m_xPos = currItem->xPos();
+	m_yPos = currItem->yPos();
+	m_itemPath = currItem->PoLine.copy();
+	m_itemContourPath = currItem->ContourLine.copy();
 }
 
 void NodePalette::iconSetChange()
@@ -1133,7 +1133,7 @@ void NodePalette::unitChange()
 {
 	if (m_doc == nullptr)
 		return;
-	unitRatio = m_doc->unitRatio();
+	m_unitRatio = m_doc->unitRatio();
 
 	bool sigBlocked1 = XSpin->blockSignals(true);
 	bool sigBlocked2 = YSpin->blockSignals(true);

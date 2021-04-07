@@ -148,11 +148,11 @@ protected:
 	ScribusDoc *m_doc { nullptr };
 	ScribusView *m_view { nullptr };
 	
-	double unitRatio { 1.0 };
-	double xPos { 0.0 };
-	double yPos { 0.0 };
-	FPointArray itemPath;
-	FPointArray itemContourPath;
+	double m_unitRatio { 1.0 };
+	double m_xPos { 0.0 };
+	double m_yPos { 0.0 };
+	FPointArray m_itemPath;
+	FPointArray m_itemContourPath;
 	
 signals:
 	void DocChanged();
