@@ -285,10 +285,10 @@ public:
 	//----- links
 	void processLink(AnnotLink * /*link*/) override { qDebug() << "Draw Link"; }
 
-	bool layersSetByOCG;
-	double cropOffsetX {0.0};
-	double cropOffsetY {0.0};
-	int rotate;
+	bool layersSetByOCG { false };
+	double cropOffsetX { 0.0 };
+	double cropOffsetY { 0.0 };
+	int rotate { 0 };
 
 protected:
 	void setItemFillAndStroke(GfxState* state, PageItem* textNode);
@@ -296,26 +296,26 @@ protected:
 	void pushGroup(const QString& maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
 
 	ScribusDoc* m_doc;
-	Qt::PenCapStyle m_lineEnd{ Qt::FlatCap };
-	Qt::PenJoinStyle m_lineJoin{ Qt::MiterJoin };
+	Qt::PenCapStyle m_lineEnd { Qt::FlatCap };
+	Qt::PenJoinStyle m_lineJoin { Qt::MiterJoin };
 	QList<PageItem*>* m_Elements;
 
 	struct groupEntry
 	{
 		QList<PageItem*> Items;
-		GBool forSoftMask;
-		GBool isolated;
-		GBool alpha;
+		GBool forSoftMask { gFalse };
+		GBool isolated { gFalse };
+		GBool alpha { gFalse };
 		QString maskName;
 		QPointF maskPos;
-		bool inverted;
+		bool inverted { false };
 	};
 
 	QStack<groupEntry> m_groupStack;
 	QString m_currColorFill;
 	QString m_currColorStroke;
-	int m_currFillShade{ 100 };
-	int m_currStrokeShade {100};
+	int m_currFillShade { 100 };
+	int m_currStrokeShade { 100 };
 
 private:
 	void getPenState(GfxState *state);
@@ -337,9 +337,9 @@ private:
 
 	void createImageFrame(QImage& image, GfxState *state, int numColorComponents);
 
-	bool pathIsClosed {false};
+	bool pathIsClosed { false };
 	QVector<double> DashValues;
-	double DashOffset {0.0};
+	double DashOffset { 0.0 };
 	QString Coords;
 	// The currently visible area. If it is empty, everything is visible.
 	// QPainterPath has the drawback that it sometimes approximates Bezier curves
@@ -354,7 +354,7 @@ private:
 
 	QString m_currentMask;
 	QPointF m_currentMaskPosition;
-	Selection* tmpSel;
+	Selection* tmpSel { nullptr };
 	QStringList *m_importedColors;
 	QTransform m_ctm;
 	struct F3Entry
@@ -370,7 +370,7 @@ private:
 	QStack<mContent> m_mcStack;
 	int inPattern {0};
 	int layerNum {1};
-	int currentLayer;
+	int currentLayer { 0 };
 	bool firstLayer {true};
 	int importerFlags;
 	int updateGUICounter {0};
@@ -386,6 +386,6 @@ private:
 #endif
 	QHash<QString, QList<int> > m_radioMap;
 	QHash<int, PageItem*> m_radioButtons;
-	int m_actPage;
+	int m_actPage { 1 };
 };
 #endif

@@ -2310,11 +2310,6 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	QString id;
 	PageItem *ite;
 	groupEntry gElements;
-	gElements.forSoftMask = gFalse;
-	gElements.alpha = gFalse;
-	gElements.inverted = false;
-	gElements.maskName = "";
-	gElements.Items.clear();
 	m_groupStack.push(gElements);
 	double width, height;
 	width = bbox[2] - bbox[0];
