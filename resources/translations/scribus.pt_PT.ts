@@ -2725,17 +2725,17 @@
 <context>
     <name>ArcWidgetBase</name>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="48"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="45"/>
         <source>Start Angle:</source>
         <translation>Ângulo Inicial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="68"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="65"/>
         <source>End Angle:</source>
         <translation>Ângulo Final:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="129"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="126"/>
         <source>Sample Polygon</source>
         <translation>Polígono de Exemplo</translation>
     </message>
@@ -5931,7 +5931,7 @@ Veja a secção de Editar de Cores da documentação para mais informações.</t
 <context>
     <name>ContentPalette_DefaultBase</name>
     <message>
-        <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="35"/>
+        <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="32"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Open a document&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5939,7 +5939,7 @@ Veja a secção de Editar de Cores da documentação para mais informações.</t
 <context>
     <name>ContentPalette_PageBase</name>
     <message>
-        <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="35"/>
+        <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="32"/>
         <source>Select an item to see its properties.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7957,29 +7957,29 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="72"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="69"/>
         <source>Position:</source>
         <translation>Posição:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="79"/>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="106"/>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="129"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="76"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="103"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="126"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="89"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="86"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="99"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="96"/>
         <source>Opacity:</source>
         <translation>Opacidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="122"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="119"/>
         <source>Shade:</source>
         <translation>Intensidade:</translation>
     </message>
@@ -8515,48 +8515,48 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>HelpBrowserNavigation</name>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="31"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="28"/>
         <source>&amp;Contents</source>
         <translation>&amp;Conteúdos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="45"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="42"/>
         <source>Se&amp;arch</source>
         <translation>Procur&amp;ar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="53"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="50"/>
         <source>Searching is case insensitive</source>
         <translation>A procura não distingue maiúsculas de minúsculas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="60"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="57"/>
         <source>&amp;Search</source>
         <translation>&amp;Procurar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="70"/>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="86"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="67"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="83"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="79"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="76"/>
         <source>Book&amp;marks</source>
         <translation>&amp;Marcadores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="96"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="93"/>
         <source>&amp;New</source>
         <translation>&amp;Novo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="103"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="100"/>
         <source>&amp;Delete</source>
         <translation>E&amp;liminar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="110"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
         <translation>&amp;Eliminar Tudo</translation>
     </message>
@@ -9111,7 +9111,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11992,32 +11992,32 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
 <context>
     <name>NewMarginWidget</name>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="80"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="77"/>
         <source>Preset Layouts:</source>
         <translation>Layouts Pré-Definidos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="50"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="47"/>
         <source>Left:</source>
         <translation>Esquerda:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="70"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="67"/>
         <source>Right:</source>
         <translation>Direita:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="87"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="84"/>
         <source>Top:</source>
         <translation>Topo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="40"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
         <translation>Fundo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="137"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
         <source>Printer Margins...</source>
         <translation>Margens da Impressora...</translation>
     </message>
@@ -12100,231 +12100,231 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1132"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1083"/>
         <source>Nodes</source>
         <translation>Nós</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1149"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
         <source>Move Nodes</source>
         <translation>Mover Nós</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1150"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source>Move Control Points</source>
         <translation>Mover Pontos de Controlo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1151"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1102"/>
         <source>Add Nodes</source>
         <translation>Adicionar Nós</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1152"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
         <source>Delete Nodes</source>
         <translation>Eliminar Nós</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1155"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>Reset Control Points</source>
         <translation>Repor os Pontos de Controlo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1156"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>Reset this Control Point</source>
         <translation>Repor este Ponto de Controlo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1086"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>Coordenadas &amp;Absolutas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1138"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1089"/>
         <source>&amp;X-Pos:</source>
         <translation>Posição &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1139"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1090"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posição &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1140"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1091"/>
         <source>Hide Nodes</source>
         <translation>Ocultar Nós</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1141"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1092"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Editar Linha de &amp;Contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1142"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1093"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Repor Linha de Contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1153"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
         <source>Move Control Points Independently</source>
         <translation>Mover Pontos de Controlo de Forma Independente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1154"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Mover Pontos de Controlo Simetricamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1157"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Abrir um Polígono ou Cortar uma Curva de Bézier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1158"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Close this Bezier Curve</source>
         <translation>Fechar esta Curva de Bézier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1159"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Espelhar o Caminho Horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1160"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Mirror the Path Vertically</source>
         <translation>Espelhar o Caminho Verticalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1162"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Deformar o Caminho Horizontalmente para a Esquerda</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1163"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Deformar o Caminho Verticalmente para Cima</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1164"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Deformar o Caminho Verticalmente para Baixo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1165"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1116"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Rodar o Caminho no Sentido Anti-Horário</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1166"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Rodar o Caminho no Sentido Horário</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1168"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Aumentar o Tamanho do Caminho na Percentagem Definida</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1171"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
         <source>Angle of Rotation</source>
         <translation>Ângulo de Rotação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1174"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Ativar Modo de Edição da Linha de Contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1175"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Repõe a Linha de Contorno na Forma Original da Caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1161"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Deformar o Caminho Horizontalmente para a Direita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1133"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1084"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1167"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Encolher o Tamanho do Caminho na Percentagem Mostrada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1169"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Reduzir o Tamanho do Caminho no valor definido</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1170"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Aumentar o Tamanho do Caminho no valor definido</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1172"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% para Alargar ou Encolher em</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1173"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Valor para Alargar ou Encolher em</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1094"/>
         <source>Set Contour to Image Clip</source>
         <translation>Definir Contorno no Recorte da Imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1176"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Repor a Linha de Contorno no Caminho de Recorte da Imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="245"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1136"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="229"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1087"/>
         <source>to Canvas</source>
         <translation>para a Área de Desenho</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="247"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1137"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="231"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1088"/>
         <source>to Page</source>
         <translation>para a Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1095"/>
         <source>Set Shape to Image Clip</source>
         <translation>Definir Forma no Recorte da Imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1177"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Definir a Forma no Caminho de Recorte da Imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="296"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="291"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1096"/>
         <source>OK</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="301"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1097"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1147"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1098"/>
         <source>Reset all edits</source>
         <translation>Limpar todas as edições</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1178"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
         <translation>Quando ativado usar as coordenadas relativas à página, se desativado as coordenadas são relativas ao objeto</translation>
     </message>
@@ -12974,22 +12974,22 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="96"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="101"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="106"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="111"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
@@ -13020,97 +13020,92 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
 <context>
     <name>OutputPreview_PDF</name>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulário</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="38"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="35"/>
         <source>Preview Settings</source>
         <translation>Configurações de Pré-Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="51"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="48"/>
         <source>Screen / Web</source>
         <translation>Ecrã / Web</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="56"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="53"/>
         <source>Printer</source>
         <translation>Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="61"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="58"/>
         <source>Grayscale</source>
         <translation>Tons de cinza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="69"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="66"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Espelhar Páginas Horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="76"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="83"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
         <source>Clip to Printer Margins</source>
         <translation>Recortar pelas Margens da Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="90"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="87"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Ativa a conversão de cores diretas para cores compostas (quadricromia). A não ser que esteja a planear imprimir com cores diretas numa gráfica de impressão, provavelmente é melhor deixar esta opção ativada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="93"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="90"/>
         <source>Convert Spot Colors</source>
         <translation>Converter Cores Diretas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="103"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="100"/>
         <source>Display Settings</source>
         <translation>Configurações de Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="109"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="106"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Fornece uma visão mais agradável das fontes Type 1 True Type e Open Type, EPS, PDF e imagens vetoriais na pré-visualização, com a desvantagem de uma ligeira lentidão na visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="112"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="109"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Ativar &amp;Suavização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="119"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="116"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation>Mostra transparência e itens transparentes no documento. Necessita do Ghostscript 7.07 ou posterior.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="122"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="119"/>
         <source>Display Trans&amp;parency</source>
         <translation>Mostrar Trans&amp;parência</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="129"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="126"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Fornece uma pré-visualização da impressão usando simulações de tintas CMYK genéricas, ao invés de cores RGB</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="132"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="129"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Mostrar CMYK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="161"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="158"/>
         <source>Display Ink Coverage</source>
         <translation>Mostrar Cobertura da Tinta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="173"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="170"/>
         <source>Threshold:</source>
         <translation>Limiar:</translation>
     </message>
@@ -13153,102 +13148,97 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
 <context>
     <name>OutputPreview_PS</name>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulário</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="38"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="35"/>
         <source>Preview Settings</source>
         <translation>Configurações de Pré-Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="51"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="48"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="56"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="53"/>
         <source>Grayscale</source>
         <translation>Tons de cinza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="64"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="61"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Espelhar Páginas Horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="71"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="78"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
         <source>Clip to Printer Margins</source>
         <translation>Recortar pelas Margens da Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="85"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="82"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Ativa a conversão de cores diretas para cores compostas (quadricromia). A não ser que esteja a planear imprimir com cores diretas numa gráfica de impressão, provavelmente é melhor deixar esta opção ativada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="88"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="85"/>
         <source>Convert Spot Colors</source>
         <translation>Converter Cores Diretas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="95"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="92"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Uma forma de substituir alguns dos tons de cinza que são compostos por ciano, amarelo e magenta, usando em vez disso o preto. O Remover da Cor Inferior (Under Color Removal - UCR) afeta mais as partes da imagem que são neutras ou em tons escuros, mais próximos do cinza. O uso disto pode melhorar a impressão de algumas imagens, mas recomenda-se a realização de testes caso a caso. O Remover da Cor Inferior reduz a possibilidade de sobressaturação com tintas CMY.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="98"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="95"/>
         <source>&amp;Under Color Removal</source>
         <translation>Remover da Cor Inferior (&amp;UCR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="108"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="105"/>
         <source>Display Settings</source>
         <translation>Configurações de Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="114"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="111"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Fornece uma visão mais agradável das fontes Type 1 True Type e Open Type, EPS, PDF e imagens vetoriais na pré-visualização, com a desvantagem de uma ligeira lentidão na visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="117"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="114"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Ativar &amp;Suavização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="124"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="121"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation>Mostra transparência e itens transparentes no documento. Necessita do Ghostscript 7.07 ou posterior.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="127"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="124"/>
         <source>Display Trans&amp;parency</source>
         <translation>Mostrar Trans&amp;parência</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="134"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="131"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>Fornece uma pré-visualização da impressão usando simulações de tintas CMYK genéricas, ao invés de cores RGB</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="137"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="134"/>
         <source>&amp;Display CMYK</source>
         <translation>&amp;Mostrar CMYK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="166"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="163"/>
         <source>Display Ink Coverage</source>
         <translation>Mostrar Cobertura da Tinta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="178"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="175"/>
         <source>Threshold:</source>
         <translation>Limiar:</translation>
     </message>
@@ -14099,7 +14089,7 @@ Por favor desative a opção de embutir experimental de PDF e PostScript e tente
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="111"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Voltar ao Modo de Página Normal</translation>
     </message>
@@ -14984,7 +14974,7 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="49"/>
         <source>PDF 1.6 (Acrobat 7)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF 1.5 (Acrobat 6) {1.6 ?} {7)?}</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="51"/>
@@ -15019,7 +15009,7 @@ Please check it and try again.</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15041,7 +15031,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16626,93 +16616,93 @@ Quer migrá-las para a nova versão do Scribus?</translation>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="41"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="38"/>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="22"/>
         <source>Color Management</source>
         <translation>Gestão de Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="95"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
         <translation>Opções do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="109"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
         <translation>Ativar Gestão de Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="116"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
         <translation>Simular Impressora no Ecrã</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="123"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
         <translation>Converter todas as cores para o espaço de cores da impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="130"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
         <translation>Marcar Cores fora da Gama</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="137"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
         <translation>Usar Compensação de Ponto Preto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="166"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
         <translation>Perfis do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
         <translation>Imagens RGB:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="208"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
         <translation>Imagens CMYK:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="228"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
         <translation>Cores Sólidas RGB:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="241"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
         <translation>Cores Sólidas CMYK:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="254"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
         <translation>Impressora:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="288"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
         <translation>Propósitos de Renderização do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="307"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
         <translation>Imagens:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="317"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
         <translation>Cores Sólidas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="351"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="348"/>
         <source>Monitor Profile</source>
         <translation>Perfil do Monitor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="373"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
         <translation>Monitor:</translation>
     </message>
@@ -16750,178 +16740,178 @@ Quer migrá-las para a nova versão do Scribus?</translation>
 <context>
     <name>Prefs_Display</name>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_display.cpp" line="29"/>
         <source>Display</source>
         <translation>Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="84"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
         <translation>Mostrar Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="98"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
         <translation>Mostrar Caracteres de Controlo do Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
         <translation>Mostrar Réguas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="70"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="67"/>
         <source>Show Rulers Relative to Page</source>
         <translation>Mostrar Réguas Relativas à Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
         <translation>Mostrar Cadeias de Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="77"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
         <translation>Mostrar Caixas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="105"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
         <translation>Mostrar Indicadores de Camada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="109"/>
         <source>Show Unprintable Area in Margin Color</source>
         <translation>Mostrar Área não Imprimível na Cor da Margem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
         <translation>Mostrar Área de Sangria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="126"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
         <translation>Mostrar Sombra da Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="133"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="130"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
         <translation>Mostrar avisos do Verificador Pré-Impressão na Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
         <translation>Área de Rascunho</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
         <translation>Esquerda:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
         <translation>Direita:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
         <translation>Topo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="192"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
         <translation>Fundo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="278"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="275"/>
         <source>Display Scaling</source>
         <translation>Escalonamento de Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="426"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
         <translation>Área de Rascunho:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="226"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
         <translation>Intervalos Entre Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
         <translation>Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="242"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
         <translation>Horizontal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
         <translation>Vertical:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="302"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
         <translation>Escala%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="312"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
         <translation>Repõe a escala no DPI padrão do seu monitor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="370"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
         <translation>Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="412"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="409"/>
         <source>Page Fill:</source>
         <translation>Preenchimento da Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="440"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
         <translation>Borda Selecionada da Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="454"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
         <translation>Caixas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="465"/>
         <source>Locked Frames:</source>
         <translation>Caixas Bloqueadas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="482"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="479"/>
         <source>Selected Frames:</source>
         <translation>Caixas Selecionadas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="496"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="493"/>
         <source>Linked Frames:</source>
         <translation>Caixas Ligadas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="510"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="507"/>
         <source>Grouped Frames:</source>
         <translation>Caixas Agrupadas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="524"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="521"/>
         <source>Annotation Frames:</source>
         <translation>Caixas de Anotações:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="535"/>
         <source>Text Control Characters:</source>
         <translation>Caracteres de Controlo do Texto:</translation>
     </message>
@@ -17006,98 +16996,98 @@ Quer migrá-las para a nova versão do Scribus?</translation>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_documentinformation.cpp" line="21"/>
         <source>Document Information</source>
         <translation>Informações do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
         <translation>Título:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="80"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
         <translation>Autor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
         <translation>Assunto:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
         <translation>Palavras-chave:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="107"/>
         <source>Description:</source>
         <translation>Descrição:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="118"/>
         <source>Further Information</source>
         <translation>Mais Informações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="159"/>
         <source>Publisher:</source>
         <translation>Publicador:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="169"/>
         <source>Contributors:</source>
         <translation>Colaboradores:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="179"/>
         <source>Date:</source>
         <translation>Data:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="192"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="189"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="202"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="199"/>
         <source>Format:</source>
         <translation>Formato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="209"/>
         <source>Identifier:</source>
         <translation>Identificador:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="222"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="219"/>
         <source>Source:</source>
         <translation>Fonte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="232"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="229"/>
         <source>Language:</source>
         <translation>Idioma:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="242"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="239"/>
         <source>Relation:</source>
         <translation>Relação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="249"/>
         <source>Coverage:</source>
         <translation>Cobertura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="262"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="259"/>
         <source>Rights:</source>
         <translation>Direitos:</translation>
     </message>
@@ -17342,190 +17332,190 @@ Quer migrá-las para a nova versão do Scribus?</translation>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
         <translation>Configuração do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="54"/>
         <source>General</source>
         <translation>Geral</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="109"/>
         <source>Page Size</source>
         <translation>Tamanho da Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="125"/>
         <source>Size:</source>
         <translation>Tamanho:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="152"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="149"/>
         <source>Orientation:</source>
         <translation>Orientação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="162"/>
         <source>Units:</source>
         <translation>Unidades:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="175"/>
         <source>Width:</source>
         <translation>Largura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="188"/>
         <source>Height:</source>
         <translation>Altura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="206"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="432"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="203"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all pages</source>
         <translation>Aplicar alterações em todas as páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="213"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="439"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="210"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="436"/>
         <source>Apply changes to all master pages</source>
         <translation>Aplicar alterações em todas as páginas mestres</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="234"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="231"/>
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="246"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="243"/>
         <source>Page Layout</source>
         <translation>Layout da Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="299"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="296"/>
         <source>Facing Pages</source>
         <translation>Páginas Frente a Frente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="532"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="529"/>
         <source>Saving &amp;&amp; Undo</source>
         <translation>Gravar e Desfazer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="535"/>
         <source>Save in Compressed Format</source>
         <translation>Gravar em Formato Comprimido</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="545"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="542"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
         <translation>Tentar gravar um &quot;ficheiro de emergência&quot; caso haja um bloqueio do programa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="574"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="571"/>
         <source>Autosave</source>
         <translation>Gravar Automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="588"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="585"/>
         <source>Enable automatic saving of documents</source>
         <translation>Ativar gravação automática de documentos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="599"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="596"/>
         <source>Interval:</source>
         <translation>Intervalo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="606"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="603"/>
         <source> min</source>
         <translation>mín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="616"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="613"/>
         <source>Number of files to keep:</source>
         <translation>Número de ficheiros a manter:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="649"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="646"/>
         <source>Save into the same directory as the document</source>
         <translation>Gravar na mesma pasta do documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="659"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="656"/>
         <source>Save into:</source>
         <translation>Gravar em:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="669"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="666"/>
         <source>Change...</source>
         <translation>Alterar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="681"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="678"/>
         <source>Keep backup files after closing the document</source>
         <translation>Manter cópias de segurança apṍs fechar o documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="688"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="685"/>
         <source>Show autosave countdown clock on the canvas</source>
         <translation>Mostrar um relógio em contagem decrescente na área de desenho</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="717"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="714"/>
         <source>Undo / Redo</source>
         <translation>Desfazer / Refazer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="731"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="728"/>
         <source>Enable Undo/Redo System</source>
         <translation>Ativar Sistema de Desfazer/Refazer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="740"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="737"/>
         <source>Action History Length:</source>
         <translation>Tamanho do Histórico de Ações:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="309"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="306"/>
         <source>Single Page</source>
         <translation>Página Única</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="289"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="286"/>
         <source>3-Fold</source>
         <translation>Página Tripla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="279"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="276"/>
         <source>4-Fold</source>
         <translation>Página Quádrupla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="65"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="62"/>
         <source>Language:</source>
         <translation>Idioma:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="262"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="259"/>
         <source>First Page is:</source>
         <translation>Primeira Página é:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="338"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="335"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation>Margens e Sangrias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="386"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="383"/>
         <source>Margins</source>
         <translation>Margens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="465"/>
         <source>Bleeds</source>
         <translation>Sangrias</translation>
     </message>
@@ -17900,66 +17890,66 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Fonts</name>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="46"/>
         <source>Fonts</source>
         <translation>Fontes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="114"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
         <translation>Alt&amp;erar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
         <translation>A&amp;dicionar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="128"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
         <translation>&amp;Remover</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="179"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="176"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Rejected Fonts</source>
         <translation>Fontes rejeitadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="186"/>
         <source>Font name</source>
         <translation>Nome da fonte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <source>Error message</source>
         <translation>Mensagem de erro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="199"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="196"/>
         <source>Font file</source>
         <translation>Ficheiro da fonte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="54"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Available Fonts</source>
         <translation>Fontes Disponíveis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="67"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="64"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Font Substitutions</source>
         <translation>Substituição de Fontes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="98"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Additional Paths</source>
         <translation>Caminhos Adicionais</translation>
@@ -17989,8 +17979,8 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Guides</name>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="39"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="374"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="371"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="24"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="63"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="131"/>
@@ -17998,103 +17988,103 @@ Quer usar isto?</translation>
         <translation>Guias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="66"/>
         <source>Placement</source>
         <translation>Posicionamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="174"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
         <translation>Distância de Atração:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="181"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="201"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
         <translation> px </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
         <translation>Raio de Agarrar:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="364"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="361"/>
         <source>Visibility</source>
         <translation>Visibilidade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="387"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="384"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="69"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
         <translation>Margens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="400"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="397"/>
         <source>Page Grid</source>
         <translation>Grelha da Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="424"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="421"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="67"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
         <translation>Grelha Base</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="271"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
         <translation>Distâncias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="299"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="296"/>
         <source>Minor Grid Spacing:</source>
         <translation>Espaçamento da Grelha Pequena:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="309"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="306"/>
         <source>Baseline Grid Spacing:</source>
         <translation>Espaçamento da Grelha Base:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="289"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="286"/>
         <source>Major Grid Spacing:</source>
         <translation>Espaçamento da Grelha Grande:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="323"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid Offset:</source>
         <translation>Deslocamento da Grelha Base:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="462"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
         <translation>Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="473"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="470"/>
         <source>Guides:</source>
         <translation>Guias:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="487"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="484"/>
         <source>Margins:</source>
         <translation>Margens:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="501"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="498"/>
         <source>Major Grid:</source>
         <translation>Grelha Grande:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="515"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="512"/>
         <source>Minor Grid:</source>
         <translation>Grelha Pequena:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="529"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
         <translation>Grelha Base:</translation>
     </message>
@@ -18174,7 +18164,7 @@ Quer usar isto?</translation>
         <translation>Mostra ou esconde as margens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="407"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
@@ -18209,43 +18199,43 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="36"/>
         <source>Hyphenation</source>
         <translation>Hifenização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="66"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="63"/>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>Sugestões de &amp;Hifenização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="76"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
         <translation>Hifenizar Texto Automaticamente ao Intro&amp;duzir texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="54"/>
         <source>Behaviour</source>
         <translation>Comportamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="97"/>
         <source>Word Lists</source>
         <translation>Listas de Palavras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="108"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="105"/>
         <source>Exceptions</source>
         <translation>Exceções</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="124"/>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="177"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="174"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="151"/>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="91"/>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="103"/>
         <source>Ignore List</source>
@@ -18275,12 +18265,12 @@ Quer usar isto?</translation>
         <translation>Lista de Exceções</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="60"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
         <translation>Irá aparecer uma janela com todas as hifenizações possíveis ao usar a opção Extras &gt; Hifenizar Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="70"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation>Ativa a hifenização automática do texto ao introduzir texto</translation>
     </message>
@@ -18298,33 +18288,33 @@ Quer usar isto?</translation>
         <translation>Definir o nível de compressão das imagens na cache. Os valores altos resultam em ficheiros da cache mais pequenos mas também tornam a gravação deles no disco mais lenta.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
         <translation>Cache de Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
         <translation>Ativar Cache de Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="95"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="92"/>
         <source>Cache Size Limit:</source>
         <translation>Limite do Tamanho da Cache:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="126"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
         <translation> Mb</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="145"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="142"/>
         <source>Cache Entry Limit:</source>
         <translation>Limite de Entradas na Cache:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="186"/>
         <source>Compression Level:</source>
         <translation>Nível de Compressão:</translation>
     </message>
@@ -18342,262 +18332,262 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_itemtools.cpp" line="34"/>
         <source>Item Tools</source>
         <translation>Ferramentas de Itens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="69"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="149"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="66"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="146"/>
         <source>Text</source>
         <translation>Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="209"/>
         <source>Columns:</source>
         <translation>Colunas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="216"/>
         <source>Column Gap:</source>
         <translation>Intervalo de Colunas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="434"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="431"/>
         <source>Tab Fill Character:</source>
         <translation>Caractere de Preenchimento da Tabulação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="474"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="471"/>
         <source>Tab Width:</source>
         <translation>Largura da Tabulação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="514"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="999"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1221"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1513"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="511"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="996"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1218"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1510"/>
         <source>Fill Color:</source>
         <translation>Cor do Preenchimento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="414"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1033"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1121"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1395"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1479"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="411"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1030"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1118"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1392"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1476"/>
         <source>Line Color:</source>
         <translation>Cor da Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="291"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="311"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="457"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="487"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1006"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1066"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1114"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1158"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1315"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1472"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1530"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="288"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="308"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="454"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="484"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1003"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1063"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1111"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1155"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1312"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1469"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1527"/>
         <source>Shading:</source>
         <translation>Intensidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="301"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="325"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="441"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="494"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="909"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="960"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="989"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1023"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1128"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1175"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1376"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1442"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1489"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="298"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="438"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="491"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="906"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="957"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="986"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1020"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1125"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1172"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1373"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1439"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1486"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="282"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="279"/>
         <source>Columns &amp; Text Distances</source>
         <translation>Colunas e Distâncias do Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="185"/>
         <source>Top:</source>
         <translation>Cima:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="198"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="195"/>
         <source>Bottom:</source>
         <translation>Baixo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="202"/>
         <source>Left:</source>
         <translation>Esquerda:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="229"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="226"/>
         <source>Right:</source>
         <translation>Direita:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="335"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="332"/>
         <source>Font:</source>
         <translation>Fonte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="355"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="352"/>
         <source>Size:</source>
         <translation>Tamanho:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="345"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="342"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="318"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="315"/>
         <source>Stroke:</source>
         <translation>Traço:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="571"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="568"/>
         <source>Preview</source>
         <translation>Prever</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="701"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="698"/>
         <source>Images</source>
         <translation>Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="743"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="740"/>
         <source>Use Embedded Clipping Path</source>
         <translation>Usar Caminho de Recorte Embutido</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="772"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="769"/>
         <source>Scaling</source>
         <translation>Escala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="786"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="783"/>
         <source>Free Scaling</source>
         <translation>Escalonamento Livre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="919"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="916"/>
         <source>Horizontal Scaling:</source>
         <translation>Escala Horizontal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="896"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="893"/>
         <source>Vertical Scaling:</source>
         <translation>Escala Vertical:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="796"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="793"/>
         <source>Scale Image to Frame Size</source>
         <translation>Redimensionar Imagem no Tamanho da Caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="584"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="581"/>
         <source>First Line Offset</source>
         <translation>Deslocamento da Primeira Linha</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="650"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="647"/>
         <source>Offset:</source>
         <translation>Deslocamento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="658"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="655"/>
         <source>Maximum Ascent</source>
         <translation>Ascendente Máximo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="663"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="660"/>
         <source>Font Ascent</source>
         <translation>Ascendente da Fonte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="668"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="665"/>
         <source>Line Spacing</source>
         <translation>Espaço Entre as Linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="673"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="670"/>
         <source>Baseline Grid</source>
         <translation>Grelha Base</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="806"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="803"/>
         <source>Keep Aspect Ratio</source>
         <translation>Manter Proporção</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="835"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>
         <source>On Screen Preview</source>
         <translation>Pré-Visualização no Ecrã</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="849"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="846"/>
         <source>Full Resolution</source>
         <translation>Resolução Total</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="859"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="856"/>
         <source>Normal Resolution</source>
         <translation>Resolução Normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="869"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="866"/>
         <source>Low Resolution</source>
         <translation>Resolução Baixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1093"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1090"/>
         <source>Shapes</source>
         <translation>Formas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1138"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1362"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1455"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1135"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1359"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Line Style:</source>
         <translation>Estilo da Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1145"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1355"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1506"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1142"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1352"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1503"/>
         <source>Line Width:</source>
         <translation>Espessura da Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1247"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1244"/>
         <source>Regular Polygons</source>
         <translation>Polígonos Regulares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1291"/>
         <source>Lines</source>
         <translation>Linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1369"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1366"/>
         <source>Start Arrow:</source>
         <translation>Seta Inicial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1348"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1345"/>
         <source>End Arrow:</source>
         <translation>Seta Final:</translation>
     </message>
@@ -18641,17 +18631,17 @@ Quer usar isto?</translation>
         <translation>Personalizado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1421"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1418"/>
         <source>Calligraphic Pen</source>
         <translation>Caneta Caligráfica:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1499"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1496"/>
         <source>Pen Angle:</source>
         <translation>Ângulo da Caneta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1566"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1563"/>
         <source>Pen Width:</source>
         <translation>Espessura da Caneta:</translation>
     </message>
@@ -18661,12 +18651,12 @@ Quer usar isto?</translation>
         <translation>Manter as escalas horizontal e vertical iguais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1589"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1586"/>
         <source>Arc</source>
         <translation>Arco</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1636"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1633"/>
         <source>Spiral</source>
         <translation>Espiral</translation>
     </message>
@@ -18840,33 +18830,33 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
         <translation>Outros</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation>Ao abrir um documento perguntar sempre antes das fontes serem substituídas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
         <translation>A pré-visualização do Estilo de Parágrafo atual é visível ao editar Estilos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
         <translation>Texto de Exemplo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="133"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
         <translation>Usar sempre o texto Lorem Ipsum padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="142"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
         <translation>Contagem de Parágrafos:</translation>
     </message>
@@ -18874,65 +18864,65 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_operatortools.cpp" line="21"/>
         <source>Operator Tools</source>
         <translation>Ferramentas de Operadores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
         <translation>Aproximação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="80"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
         <translation>Mínimo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="87"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
         <translation>Máximo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="94"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
         <translation>Incrementos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="101"/>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="114"/>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="127"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="156"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
         <translation>Outros</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="168"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
         <translation>Duplicar Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="187"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
         <translation>Deslocamento X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
         <translation>Deslocamento Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="231"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
         <translation>Ferramenta de Rotação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="250"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
         <translation>Limitar a:</translation>
     </message>
@@ -18970,473 +18960,473 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
         <translation>Exportar para PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
         <translation>Intervalo a Exportar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
         <translation>Todas as Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
         <translation>Escolher Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="148"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
         <translation>Rotação e Espelho</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="164"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
         <translation>Rotação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
         <translation>Espelhamento de Páginas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="301"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
         <translation>Encadernação da Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
         <translation>Resolução para Gráficos EPS:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="438"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="475"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="315"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
         <translation>Recortar pelas Margens da Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="431"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
         <translation>Limitar Resolução Máxima de Imagens a:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="655"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
         <translation>Permitir Copiar Texto e Gráficos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
         <translation>Opções do Ficheiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
         <translation>Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="291"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
         <translation>Compatibilidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
         <translation>Gerar Miniaturas de Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="329"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
         <translation>Gravar Caixas de Texto Ligadas como Artigos PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="336"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
         <translation>Incluir Camadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="343"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
         <translation>Incluir Marcadores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="350"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
         <translation>Embutir ficheiros PDF e EPS (experimental)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="381"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
         <translation>Compressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="395"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
         <translation>Comprimir Texto e Gráficos Vetoriais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="407"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
         <translation>Método de Compressão de Imagens:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="417"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
         <translation>Qualidade da Compressão das Imagens:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="521"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
         <translation>Segurança</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="527"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
         <translation>Usar Encriptação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="556"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
         <translation>Palavra-passe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="575"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
         <translation>Proprietário:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="589"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
         <translation>Utilizador:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="627"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
         <translation>Configurações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="641"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
         <translation>Permitir Imprimir o Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="648"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
         <translation>Permitir Alterar o Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="662"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
         <translation>Permitir Adicionar Anotações e Campos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="683"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="730"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
         <translation>Saída Destinada a:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="742"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Converter Cores Diretas em Cores Compostas (quadricromia)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="771"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
         <translation>Cores Sólidas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="792"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="859"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
         <translation>Usar Perfil de Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="801"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="875"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
         <translation>Perfil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="811"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="885"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
         <translation>Propósito de Renderização:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="845"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
         <translation>Imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="866"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
         <translation>Não usar Perfis de Cores Embutidos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="919"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
         <translation>Renderização Personalizada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="933"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
         <translation>Usar Renderização Personalizada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="945"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="955"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
         <translation>Frequência:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="972"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
         <translation>Ângulo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="979"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
         <translation> °</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="992"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
         <translation>Função de Cor Direta:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1022"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
         <translation>Pré-Impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1070"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
         <translation>Miras de Impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1131"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
         <translation>Informação da Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1327"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
         <translation>Embutir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1633"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1630"/>
         <source>Facing Pages Left</source>
         <translation>Páginas Frente a Frente à Esquerda</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1637"/>
         <source>Facing Pages Right</source>
         <translation>Páginas Frente a Frente à Direita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1124"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
         <translation>Miras de Registo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1146"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
         <translation>Miras de Corte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1110"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
         <translation>Miras de Sangria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1117"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
         <translation>Barras de Calibração de Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1193"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
         <translation>Configurações das Sangrias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1207"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
         <translation>Usar Sangrias do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1275"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
         <translation>Perfil de Saída:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1285"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
         <translation>Expressão de Informação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
         <translation>Fontes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1375"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
         <translation>Embutir Tudo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1365"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
         <translation>Fontes a Embutir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1457"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
         <translation>Extras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1463"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
         <translation>Ativar Efeitos de Apresentação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1482"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
         <translation>Duração da Visualização:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1489"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
         <translation>Duração do Efeito:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1496"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
         <translation>Tipo de Efeito:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1506"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
         <translation>Linhas em Movimento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1516"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
         <translation>A partir de:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1526"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
         <translation>Direção:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1536"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1546"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
         <translation> seg</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1561"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
         <translation>Aplicar Efeito em Todas as Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1585"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
         <translation>Mostrar Pré-Visualizações das Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1593"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
         <translation>Visualizador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1605"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
         <translation>Layout do Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1619"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
         <translation>Página Única</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1626"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1623"/>
         <source>Continuous Pages</source>
         <translation>Páginas Contínuas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1669"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
         <translation>Aparência Visual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1687"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1684"/>
         <source>Use Viewer&apos;s Default</source>
         <translation>Usar Padrão do Visualizador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1694"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
         <translation>Usar Modo Ecrã Total</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1701"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
         <translation>Mostrar Aba de Marcadores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1708"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
         <translation>Mostrar Miniaturas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1715"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
         <translation>Mostrar Aba de Camadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1726"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1723"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
         <translation>Ocultar Barra de Menu do Visualizador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1733"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1730"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
         <translation>Ocultar Barra de Ferramentas do Visualizador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1740"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Aproximar Páginas para Ajustar à Janela de Visualização</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1786"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
         <translation>Ações Especiais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1802"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1799"/>
         <source>Javascript to be executed when PDF document is opened:</source>
         <translation>JavaScript a executar quando o documento PDF é aberto:</translation>
     </message>
@@ -19894,12 +19884,12 @@ Quer usar isto?</translation>
         <translation>Oculta a Barra de Ferramentas com funcionalidades de seleção e outras de edição</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1088"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1085"/>
         <source>Mark Length:</source>
         <translation>Comprimento das Miras:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1157"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1154"/>
         <source>Mark Offset:</source>
         <translation>Deslocamento das Miras:</translation>
     </message>
@@ -19919,17 +19909,17 @@ Quer usar isto?</translation>
         <translation>Criar um intervalo de páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1349"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
         <translation>Modo de embutir:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1435"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1432"/>
         <source>Fonts to Subset</source>
         <translation>Fontes a Incluir como Sub-conjunto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1445"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1442"/>
         <source>Subset All</source>
         <translation>Incluir Sub-conjunto de Todas as Fontes</translation>
     </message>
@@ -20009,7 +19999,7 @@ Quer usar isto?</translation>
         <translation>Embutir no PDF apenas os sub-conjuntos de fontes com glifos usados no documento, isto é, embutir apenas os caracteres utilizados da fonte e não a fonte toda</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1256"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
         <translation>Propósito de Saída PDF/X</translation>
     </message>
@@ -20022,18 +20012,18 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_pagesizes.cpp" line="25"/>
         <source>Page Sizes</source>
         <translation>Tamanhos das Páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="54"/>
         <source>Available Sizes</source>
         <translation>Tamanhos Disponíveis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="125"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="122"/>
         <source>Active Sizes</source>
         <translation>Tamanhos Ativos</translation>
     </message>
@@ -20041,68 +20031,68 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Paths</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
         <translation>Caminhos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
         <translation>Documentos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="117"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
         <translation>Alte&amp;rar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="120"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
         <translation>Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="127"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="124"/>
         <source>Color Profiles:</source>
         <translation>Perfis de Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
         <translation>Alt&amp;erar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="153"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="160"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
         <translation>Script:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="183"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
         <translation>&amp;Alterar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="186"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="193"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
         <translation>Modelos de Documento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="216"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
         <translation>A&amp;lterar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
         <translation>Alt+L</translation>
     </message>
@@ -20138,43 +20128,43 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Plugins</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
         <translation>Plugin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="68"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
         <translation>Como executar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="73"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
         <translation>Tipo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="78"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
         <translation>Carregar?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
         <translation>ID do Plugin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
         <translation>Ficheiro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="96"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
         <translation>Tem de reiniciar a aplicação para aplicar as alterações.</translation>
     </message>
@@ -20182,139 +20172,139 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Verificador Pré-Impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="53"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="50"/>
         <source>Show pages without errors</source>
         <translation>Mostrar páginas sem erros</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="60"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="57"/>
         <source>Show errors for items on layers that will not print</source>
         <translation>Mostrar erros para itens em camadas que não serão impressos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="89"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="86"/>
         <source>Profile Setup</source>
         <translation>Configuração do Perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="122"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="119"/>
         <source>Output Profile:</source>
         <translation>Perfil de Saída:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="140"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="137"/>
         <source>Add New Profile</source>
         <translation>Adicionar Novo Perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="147"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="144"/>
         <source>Remove Profile</source>
         <translation>Remover Perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="188"/>
         <source>Profile Options</source>
         <translation>Opções do Perfil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="202"/>
         <source>Ignore all errors</source>
         <translation>Ignorar todos os erros</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="209"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Verificar automaticamente antes de imprimir ou exportar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="216"/>
         <source>Check for missing glyphs</source>
         <translation>Verificar caracteres que faltam</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="226"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="223"/>
         <source>Check for items not on a page</source>
         <translation>Verificar itens fora das páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="240"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="237"/>
         <source>Check for overflow in text frames</source>
         <translation>Verificar transbordo de texto nas caixas de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="247"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="244"/>
         <source>Check for used transparencies</source>
         <translation>Verificar utilização de transparências</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="251"/>
         <source>Check for missing images</source>
         <translation>Verificar imagens em falta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="268"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="265"/>
         <source>Check image resolution</source>
         <translation>Verificar resolução das imagens</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="280"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="277"/>
         <source>Minimum Resolution:</source>
         <translation>Resolução Mínima:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="287"/>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="300"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="284"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="297"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="313"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Maximum Resolution:</source>
         <translation>Resolução Máxima:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="319"/>
         <source>Check for placed PDF files</source>
         <translation>Verificar PDFs colocados no documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="329"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="326"/>
         <source>Check for GIF images</source>
         <translation>Verificar imagens GIF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="336"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="333"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>Verificar anotações e campos de PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="343"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="340"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation>Verificar disparidade de Visível/Imprimível nas camadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="350"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="347"/>
         <source>Ignore non-printable layers</source>
         <translation>Ignorar camadas não imprimíveis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
         <source>Check for part filled image frames</source>
         <translation>Verificar caixas de imagens parcialmente preenchidas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="233"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
         <source>Check for empty text frames</source>
         <translation>Verificar se existem caixas de texto vazias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="357"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="354"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
         <translation>Verificar se a localização da página mestre aplicada é igual à localização de cada página</translation>
     </message>
@@ -20322,142 +20312,142 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Printer</name>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="41"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="38"/>
         <source>Printing</source>
         <translation>Impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="76"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
         <translation>Destino</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
         <translation>Comando Alternativo de Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="102"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
         <translation>Comando:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="136"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
         <translation>Opções Gerais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="152"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="149"/>
         <source>Output:</source>
         <translation>Saída:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="160"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="162"/>
         <source>Separations</source>
         <translation>Separações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
         <translation>Incluir Anotações e Ligações PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="217"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
         <translation>Página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="231"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="228"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Espelhar Páginas Horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="238"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="235"/>
         <source>Mirror Page(s) Vertically</source>
         <translation>Espelhar Páginas Verticalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="245"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
         <translation>Definir Tamanho do Media</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
         <translation>Recortar pelas Margens da Impressora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="281"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="333"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
         <translation>Aplicar Remover da Cor Inferior (UCR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="340"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Converter Cores Diretas em Cores Compostas (quadricromia)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="297"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="294"/>
         <source>Print In:</source>
         <translation>Imprimir em:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="305"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="302"/>
         <source>Color (If Available)</source>
         <translation>Cores (se disponível)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="310"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
         <translation>Tons de cinza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="369"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="366"/>
         <source>Printing Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="432"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
         <translation>Marcas e Sangrias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="448"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
         <translation>Miras de Corte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="455"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
         <translation>Miras de Sangria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="462"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
         <translation>Miras de Registo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="469"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
         <translation>Barras de Calibração de Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="478"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
         <translation>Deslocamento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
         <translation>Configurações das Sangrias</translation>
     </message>
@@ -20493,7 +20483,7 @@ Quer usar isto?</translation>
         <translation>Ativa a conversão de cores diretas para cores compostas (quadricromia). A não ser que esteja a planear imprimir com cores diretas numa gráfica de impressão, provavelmente é melhor deixar esta opção ativada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="492"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
         <translation>Comprimento:</translation>
     </message>
@@ -20506,28 +20496,28 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
         <translation>Bloco de Rascunhos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="86"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
         <translation>Enviar itens copiados automaticamente para o Bloco de Rascunhos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
         <translation>Manter itens copiados permanentemente entre sessões</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
         <translation>Gravar previsões de itens na pasta do Bloco de Rascunhos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
         <translation>Número de itens copiados a manter no Bloco de Rascunhos</translation>
     </message>
@@ -20555,68 +20545,68 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Scripter</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="39"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="36"/>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="28"/>
         <source>Scripter</source>
         <translation>Scripter</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="89"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <source>Extensions</source>
         <translation>Extensões</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="103"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="100"/>
         <source>Enable Extension Scripts</source>
         <translation>Ativar os Scripts de Extensão</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="112"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="109"/>
         <source>Startup Script:</source>
         <translation>Script de Inicialização:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="122"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="119"/>
         <source>Change...</source>
         <translation>Alterar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="153"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="150"/>
         <source>Console</source>
         <translation>Consola</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="174"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="171"/>
         <source>Base Texts:</source>
         <translation>Textos Base:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="188"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="185"/>
         <source>Comments:</source>
         <translation>Comentários:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="202"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="199"/>
         <source>Keywords:</source>
         <translation>Palavras-chave:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="216"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="213"/>
         <source>Signs:</source>
         <translation>Símbolos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="230"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="227"/>
         <source>Errors:</source>
         <translation>Erros:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="244"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="241"/>
         <source>Strings:</source>
         <translation>Expressões:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="255"/>
         <source>Numbers:</source>
         <translation>Números:</translation>
     </message>
@@ -20629,12 +20619,12 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_ShortWords</name>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="78"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="75"/>
         <source>Save</source>
         <translation>Gravar</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="85"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="82"/>
         <source>Reset</source>
         <translation>Repor</translation>
     </message>
@@ -20649,7 +20639,7 @@ Quer usar isto?</translation>
         <translation>Configuração ao nível do sistema</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="39"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="36"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="24"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="72"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="85"/>
@@ -20685,28 +20675,28 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Spelling</name>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="36"/>
         <source>Spelling</source>
         <translation>Ortografia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="72"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
         <translation>Dicionários de Ortografia Instalados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
         <translation>Dicionários de Ortografia Descarregáveis</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="143"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
         <translation>Atualizar Lista Descarregável</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="150"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
         <translation>Descarregar Dicionários Selecionados</translation>
     </message>
@@ -20738,7 +20728,7 @@ Quer usar isto?</translation>
         <translation>Descarregar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="110"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
         <translation>A descarregar</translation>
     </message>
@@ -20746,82 +20736,82 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="36"/>
         <source>Table of Contents</source>
         <translation>Tabela de Conteúdos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="88"/>
         <source>&amp;Add</source>
         <translation>&amp;Adicionar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="94"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="91"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="98"/>
         <source>&amp;Delete</source>
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="104"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="101"/>
         <source>Alt+D</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="135"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="132"/>
         <source>Properties</source>
         <translation>Propriedades</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="151"/>
         <source>Item Attribute Name:</source>
         <translation>Nome do Atributo do Item:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="164"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="161"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation>O Atributo do Item que será definido nas caixas utilizadas como base para criação das entradas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="171"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="168"/>
         <source>Destination Frame:</source>
         <translation>Caixa de Destino:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="181"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="178"/>
         <source>The frame the table of contents will be placed into</source>
         <translation>A caixa em que será colocada a tabela de conteúdos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="185"/>
         <source>Page Number Placement:</source>
         <translation>Posicionamento do Número da Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="198"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="195"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation>Coloque os números das entradas no início ou no final da linha, ou não forneça nenhum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="202"/>
         <source>Paragraph Style:</source>
         <translation>Estilo do Parágrafo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="215"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="212"/>
         <source>The paragraph style used for the entry lines</source>
         <translation>O estilo do parágrafo usado pelas linhas de entrada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="222"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="219"/>
         <source>Include frames that are set to not print as well</source>
         <translation>Incluir também as caixas que estão configuradas para não serem impressas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="225"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="222"/>
         <source>List Non-Printing Entries</source>
         <translation>Listar Entradas Não Imprimíveis</translation>
     </message>
@@ -20854,87 +20844,87 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_Typography</name>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="18"/>
         <source>Typography</source>
         <translation>Tipografia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="74"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="60"/>
         <source>Subscript</source>
         <translation>Subscrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="96"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="179"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="262"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="360"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="82"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="315"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="413"/>
         <source>Displacement:</source>
         <translation>Deslocamento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="103"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="113"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="186"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="203"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="282"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="301"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="373"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="399"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="465"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="528"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="89"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="99"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="255"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="335"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="354"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="426"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="452"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="518"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="126"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="196"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="458"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="248"/>
         <source>Scaling:</source>
         <translation>Escala:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="157"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="143"/>
         <source>Superscript</source>
         <translation>Sobrescrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="240"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="293"/>
         <source>Underline</source>
         <translation>Sublinhado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="269"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="386"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="439"/>
         <source>Line Width:</source>
         <translation>Espessura da Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="279"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="298"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="370"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="396"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="332"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="351"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="423"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="449"/>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="26"/>
         <source>Auto</source>
         <translation>Automático</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="338"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="391"/>
         <source>Strikeout</source>
         <translation>Riscado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="436"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="226"/>
         <source>Small Caps</source>
         <translation>Versaletes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="499"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="489"/>
         <source>Automatic Line Spacing</source>
         <translation>Espaço Entre Linhas Automático</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="521"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="511"/>
         <source>Line Spacing:</source>
         <translation>Espaço Entre Linhas:</translation>
     </message>
@@ -20988,124 +20978,124 @@ Quer usar isto?</translation>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="27"/>
         <source>User Interface</source>
         <translation>Interface do Utilizador</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="54"/>
         <source>Main Window</source>
         <translation>Janela Principal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="66"/>
         <source>Appearance</source>
         <translation>Aparência</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="175"/>
         <source>&amp;Language:</source>
         <translation>&amp;Idioma:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="85"/>
         <source>&amp;Theme:</source>
         <translation>&amp;Tema:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="111"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="108"/>
         <source>Use Small Widgets on Palettes</source>
         <translation>Usar Fontes Pequenas nos Painéis Laterais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="118"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="115"/>
         <source>Use Tabs for Documents</source>
         <translation>Usar Abas de Documentos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="125"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="122"/>
         <source>&amp;Recent Documents:</source>
         <translation>Documentos &amp;Recentes:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="159"/>
         <source>Language and Regionalization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="188"/>
         <source>Number Format:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="228"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="225"/>
         <source>Font Sizes</source>
         <translation>Tamanhos das Fontes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="241"/>
         <source>&amp;Menus:</source>
         <translation>&amp;Menus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="251"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="268"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="261"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="258"/>
         <source>&amp;Palettes:</source>
         <translation>&amp;Painéis:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="294"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="291"/>
         <source>Story Editor</source>
         <translation>Editor de História</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="305"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="302"/>
         <source>Font:</source>
         <translation>Fonte:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="319"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="316"/>
         <source>Use Smart Text Selection</source>
         <translation>Usar Seleção Inteligente de Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="342"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="339"/>
         <source>Interactivity</source>
         <translation>Interatividade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="353"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="350"/>
         <source>Time before resize or move starts:</source>
         <translation>Tempo antes do redimensionamento ou movimento começar:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="363"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="360"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="373"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="370"/>
         <source>&amp;Wheel Jump:</source>
         <translation>&amp;Salto da Roda do Rato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="402"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="399"/>
         <source>Start Up</source>
         <translation>Arranque</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="417"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="414"/>
         <source>Show Splashscreen</source>
         <translation>Mostrar Janela de Arranque</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="410"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="407"/>
         <source>Show Startup Dialog</source>
         <translation>Mostrar Janela de Início de Configuração de Novo Documento</translation>
     </message>
@@ -21140,11 +21130,11 @@ Quer usar isto?</translation>
         <translation>Tempo em que o redimensionar ou mover de objetos começa. Isto permite atrasar um pouco estas ações para evitar ações não pretendidas por acidente. Isto pode ser útil para lidar com configurações da sensibilidade do rato ou problemas de acessibilidade relacionados com ratos ergonómicos, painéis táteis ou movimentos do pulso e mão.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
         <source>Icon Set:</source>
         <translation>Conjunto de Ícones:</translation>
     </message>
@@ -21769,22 +21759,22 @@ uma entrada pode ser * para todas as páginas,
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="265"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="270"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="275"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
@@ -21853,12 +21843,12 @@ uma entrada pode ser * para todas as páginas,
 <context>
     <name>PropertiesPalette_GroupBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>Group clips Contents</source>
         <translation>Agrupar Conteúdos de Caminhos Recortados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="32"/>
         <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
         <translation>Quando for editado a caixa de limites do grupo, recortar os conteúdos dos itens da página pela caixa de limites editada</translation>
     </message>
@@ -21961,177 +21951,177 @@ uma entrada pode ser * para todas as páginas,
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="60"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
         <translation>Rotação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="74"/>
         <source>&amp;Page Number:</source>
         <translation>Número da &amp;Página:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
         <translation>Posição &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="53"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Deslocamento horizontal da imagem dentro da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posição &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
         <translation>Deslocamento vertical da imagem dentro da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="110"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="107"/>
         <source>Auto</source>
         <translation>Automático</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="116"/>
         <source>Scaling</source>
         <translation>Escala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="159"/>
         <source>X-Sc&amp;ale:</source>
         <translation>Escala &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="172"/>
         <source>Resize the image horizontally</source>
         <translation>Redimensionar a imagem na horizontal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="182"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="179"/>
         <source>Y-Scal&amp;e:</source>
         <translation>Escala &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Resize the image vertically</source>
         <translation>Redimensionar a imagem na vertical</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="146"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="143"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Manter a mesma escala em X e Y</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="186"/>
         <source>Actual X-DPI:</source>
         <translation>DPI em X atual:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>DPI reais na horizontal da imagem após o escalonamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="209"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="206"/>
         <source>Actual Y-DPI:</source>
         <translation>DPI em Y atual:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="222"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="219"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>DPI reais na vertical da imagem após o escalonamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="268"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>Permitir que a imagem seja de tamanho diferente da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
         <source>&amp;Free Scaling</source>
         <translation>Escala &amp;Livre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="278"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>Usar as proporções da imagem e não as da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>Dimensionar a imagem ao tamanho da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="264"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
         <source>&amp;To Frame Size</source>
         <translation>No &amp;Tamanho da Caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="315"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="312"/>
         <source>Input Profile:</source>
         <translation>Perfil de Entrada:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="328"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="325"/>
         <source>Source profile of the image</source>
         <translation>Perfil de origem da imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="335"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="332"/>
         <source>Rendering Intent:</source>
         <translation>Propósito de Renderização:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="348"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="345"/>
         <source>Rendering intent for the image</source>
         <translation>Propósito de renderização para a imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="284"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
         <source>Proportional</source>
         <translation>Proporcional</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="291"/>
         <source>Color Management</source>
         <translation>Gestão de Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="358"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="355"/>
         <source>PDF Compression</source>
         <translation>Compressão PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="379"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="376"/>
         <source>Method:</source>
         <translation>Método:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="392"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="389"/>
         <source>Compression method used in PDF export for the image</source>
         <translation>Método de compressão de imagem usado ao exportar para PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="399"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="396"/>
         <source>Quality:</source>
         <translation>Qualidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="409"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Qualidade da compressão usada na exportação PDF para a imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="433"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
         <source>Image Effects</source>
         <translation>Efeitos de Imagem</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="446"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="443"/>
         <source>Extended Properties</source>
         <translation>Propriedades Estendidas</translation>
     </message>
@@ -22307,48 +22297,48 @@ uma entrada pode ser * para todas as páginas,
 <context>
     <name>PropertiesPalette_LineBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="87"/>
         <source>&amp;Basepoint:</source>
         <translation>Ponto-&amp;base:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="32"/>
         <source>T&amp;ype of Line:</source>
         <translation>T&amp;ipo de Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="157"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="154"/>
         <source>Start Arrow:</source>
         <translation>Seta Inicial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="99"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="129"/>
         <source>Scaling:</source>
         <translation>Escala:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="161"/>
         <source>End Arrow:</source>
         <translation>Seta Final:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="42"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="39"/>
         <source>Line &amp;Width:</source>
         <translation>Espessura da &amp;Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="68"/>
         <source>Hairline</source>
         <translation>Fio de Cabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="171"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="168"/>
         <source>Ed&amp;ges:</source>
         <translation>Bor&amp;das:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="178"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="175"/>
         <source>&amp;Endings:</source>
         <translation>T&amp;erminações:</translation>
     </message>
@@ -22510,133 +22500,133 @@ do Objeto</translation>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="32"/>
         <source>Object has a drop shadow</source>
         <translation>O objeto tem uma sombra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="44"/>
         <source>X-Offset:</source>
         <translation>Deslocamento X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="60"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="57"/>
         <source>Y-Offset:</source>
         <translation>Deslocamento Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="70"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="86"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="83"/>
         <source>Shade:</source>
         <translation>Intensidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="96"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="93"/>
         <source>Opacity:</source>
         <translation>Opacidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="106"/>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="236"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="103"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="233"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="116"/>
         <source>Blendmode:</source>
         <translation>Modo de Mistura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="130"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="127"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="132"/>
         <source>Darken</source>
         <translation>Escurecer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="140"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="137"/>
         <source>Lighten</source>
         <translation>Clarear</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="145"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="142"/>
         <source>Multiply</source>
         <translation>Multiplicar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="150"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="147"/>
         <source>Screen</source>
         <translation>Cortiça</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="155"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="152"/>
         <source>Overlay</source>
         <translation>Sobrepor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="160"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="157"/>
         <source>Hard Light</source>
         <translation>Luz Dura</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="162"/>
         <source>Soft Light</source>
         <translation>Luz Suave</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="170"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="167"/>
         <source>Difference</source>
         <translation>Diferença</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="172"/>
         <source>Exclusion</source>
         <translation>Exclusão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="180"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="177"/>
         <source>Color Dodge</source>
         <translation>Clarear Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="185"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="182"/>
         <source>Color Burn</source>
         <translation>Escurecer Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="187"/>
         <source>Hue</source>
         <translation>Matiz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="195"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="192"/>
         <source>Saturation</source>
         <translation>Saturação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="197"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="205"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="202"/>
         <source>Luminosity</source>
         <translation>Luminosidade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="210"/>
         <source>Blur:</source>
         <translation>Desfocagem:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="223"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="220"/>
         <source> px</source>
         <translation> px </translation>
     </message>
@@ -22644,67 +22634,67 @@ do Objeto</translation>
 <context>
     <name>PropertiesPalette_ShapeBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="164"/>
         <source>Choose the shape of frame...</source>
         <translation>Escolha a forma da caixa...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="180"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="177"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Editar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="106"/>
         <source>Text flow around contour line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="216"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="213"/>
         <source>Set radius of corner rounding</source>
         <translation>Configurar o raio do arredondamento do canto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="37"/>
         <source>Shape:</source>
         <translation>Forma:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="87"/>
         <source>Text flow around bounding box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="68"/>
         <source>Text flow around frame shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="52"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="49"/>
         <source>Text flow around frame disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="128"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="125"/>
         <source>Text flow around image clip path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="225"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
         <source>Text Flow:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="232"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
         <source>Fill Rule:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="244"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="241"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="260"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="257"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22712,75 +22702,75 @@ do Objeto</translation>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="53"/>
         <source>Table:</source>
         <translation>Tabela:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="86"/>
         <source>Cells:</source>
         <translation>Células:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="99"/>
         <source>Cell style of currently selected cell</source>
         <translation>Estilo da célula selecionada atualmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="106"/>
         <source>Remove Direct Cell Formatting</source>
         <translation>Remover Formatação de Célula Direta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="246"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="243"/>
         <source>Borders</source>
         <translation>Bordas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="383"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="380"/>
         <source>Width:</source>
         <translation>Largura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="162"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="396"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="159"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="393"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="457"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="454"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="201"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="489"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="198"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="486"/>
         <source>Shade:</source>
         <translation>Intensidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="223"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="514"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="220"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="511"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="125"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="122"/>
         <source>Fill</source>
         <translation>Preenchimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="32"/>
         <source>Styles</source>
         <translation>Estilos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="69"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="66"/>
         <source>Table style of currently selected table</source>
         <translation>Estilo da tabela selecionada atualmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="73"/>
         <source>Remove Direct Table Formatting</source>
         <translation>Remover Formatação de Tabela Direta</translation>
     </message>
@@ -22881,48 +22871,48 @@ do Objeto</translation>
 <context>
     <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
         <source>Font Size</source>
         <translation>Tamanho da Fonte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="74"/>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="129"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="126"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="113"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="110"/>
         <source>Select the line spacing mode</source>
         <translation>Selecionar modo de espaço entre linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="123"/>
         <source>Line Spacing</source>
         <translation>Espaço Entre as Linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="210"/>
         <source>Text Language</source>
         <translation>Idioma do Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="255"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="252"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>Estilo de Parágrafo do texto ou parágrafo atualmente selecionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="262"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="259"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Remover Formatação de Parágrafo Direto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="304"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="301"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Estilo de caractere do texto ou parágrafo atualmente selecionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="311"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="308"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Remover Formatação de Caractere Direto</translation>
     </message>
@@ -23008,152 +22998,152 @@ do Objeto</translation>
 <context>
     <name>PropertiesPalette_XYZBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="41"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="38"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="62"/>
         <source>Name of selected object</source>
         <translation>Nome do objeto selecionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="78"/>
         <source>Geometry</source>
         <translation>Geometria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="116"/>
         <source>&amp;X-Pos:</source>
         <translation>Posição &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Posição horizontal do ponto base atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="142"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
         <source>&amp;Width:</source>
         <translation>&amp;Largura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="152"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="149"/>
         <source>&amp;Y-Pos:</source>
         <translation>Posição &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
         <translation>Posição vertical do ponto base atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="169"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
         <source>Width of current selection</source>
         <translation>Largura da seleção atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="176"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
         <source>&amp;Height:</source>
         <translation>&amp;Altura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="186"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="183"/>
         <source>Height of current selection</source>
         <translation>Altura da seleção atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="193"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="190"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotação:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Rotação do objeto no ponto base atual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>Ponto de referência para as medições e ângulos de rotação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
         <source>Basepoint:</source>
         <translation>Ponto-base:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
         <translation>Manter a proporção</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="252"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="249"/>
         <source>Level</source>
         <translation>Nível</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="273"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="270"/>
         <source>Move one level up</source>
         <translation>Mover para um nível acima</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="277"/>
         <source>Move one level down</source>
         <translation>Mover para um nível abaixo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="287"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="284"/>
         <source>Move to front</source>
         <translation>Mover para a frente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="291"/>
         <source>Move to back</source>
         <translation>Mover para trás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="301"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="298"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation>Indica o nível em que o objeto está. 1 significa que o objeto está no fundo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="304"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="301"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="332"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="329"/>
         <source>Group the selected objects</source>
         <translation>Agrupar objetos selecionados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="339"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="336"/>
         <source>Ungroup the selected group</source>
         <translation>Desagrupar o grupo selecionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="346"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="343"/>
         <source>Flip horizontally</source>
         <translation>Espelhar na horizontal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="353"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="350"/>
         <source>Flip vertically</source>
         <translation>Espelhar na vertical</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="360"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="357"/>
         <source>Lock or unlock the object</source>
         <translation>Bloquear ou desbloquear o objeto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="367"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="364"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Ativar ou desativar a exportação do objeto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="374"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="371"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Bloquear ou desbloquear o tamanho do objeto</translation>
     </message>
@@ -23161,80 +23151,80 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="60"/>
         <source>Offset to baseline of characters</source>
         <translation>Deslocamento para as linha de base dos caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="66"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="104"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="136"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="168"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="192"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="211"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="251"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="208"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="98"/>
         <source>Manual Tracking</source>
         <translation>Espaçamento Entre Letras Manual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="130"/>
         <source>Scaling width of characters</source>
         <translation>Escalonar largura dos caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="162"/>
         <source>Scaling height of characters</source>
         <translation>Escalonar altura dos caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="172"/>
         <source>Word Tracking</source>
         <translation>Espaçamento Entre Palavras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="182"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="241"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="179"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="238"/>
         <source>Min:</source>
         <translation>Mín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="186"/>
         <source>Minimal width of spaces between words</source>
         <translation>Largura mínima dos espaços entre palavras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="208"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="205"/>
         <source>Normal width of spaces between words</source>
         <translation>Largura normal dos espaços entre palavras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="227"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="224"/>
         <source>Norm:</source>
         <translation>Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="245"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>Encolhimento mínimo de glifos para a justificação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="264"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Alargamento máximo dos caracteres para a justificação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="286"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="283"/>
         <source>Max:</source>
         <translation>Máx:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="234"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="231"/>
         <source>Glyph Extension</source>
         <translation>Largura dos Caracteres</translation>
     </message>
@@ -23285,102 +23275,102 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_DistanceBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="32"/>
         <source>Vertical Alignment:</source>
         <translation>Alinhamento Vertical:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="61"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="58"/>
         <source>Colu&amp;mns:</source>
         <translation>Colu&amp;nas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="65"/>
         <source>Number of columns in text frame</source>
         <translation>Número de colunas na caixa de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="78"/>
         <source>Switches between Gap or Column width</source>
         <translation>Muda entre a largura do intervalo e largura da coluna</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="82"/>
         <source>Gap:</source>
         <translation>Intervalo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
         <source>Width:</source>
         <translation>Largura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="98"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="95"/>
         <source>Distance between columns</source>
         <translation>Distância entre as colunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="105"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="102"/>
         <source>To&amp;p:</source>
         <translation>&amp;Superior:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="112"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="109"/>
         <source>Distance of text from top of frame</source>
         <translation>Distância do texto ao topo da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="116"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Inferior:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="123"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Distância do texto ao fundo da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="130"/>
         <source>&amp;Left:</source>
         <translation>&amp;Esquerda:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="140"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="137"/>
         <source>Distance of text from left of frame</source>
         <translation>Distância do texto ao lado esquerdo da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="144"/>
         <source>&amp;Right:</source>
         <translation>&amp;Direita:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="154"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="151"/>
         <source>Distance of text from right of frame</source>
         <translation>Distância do texto ao lado direito da caixa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="164"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Editar configurações de tabuladores da caixa de texto...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="170"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
         <source>T&amp;abulators...</source>
         <translation>T&amp;abuladores...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="43"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="40"/>
         <source>Top</source>
         <translation>Cima</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="45"/>
         <source>Middle</source>
         <translation>Central</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="53"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="50"/>
         <source>Bottom</source>
         <translation>Abaixo</translation>
     </message>
@@ -23416,32 +23406,32 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_DropCapBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="23"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Height</source>
         <translation>Altura</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="30"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="27"/>
         <source> lines</source>
         <translation>linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="37"/>
         <source>Offset</source>
         <translation>Deslocamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="61"/>
         <source>use Drop Caps</source>
         <translation>usar Letras Capitulares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="44"/>
         <source>Use Character Style</source>
         <translation>Usar Estilo de Caractere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="17"/>
         <source>Number of lines used by the drop cap</source>
         <translation>Número de linhas usadas nas letras capitulares</translation>
     </message>
@@ -23449,42 +23439,42 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_FlopBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="32"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation>Definir a altura da primeira linha da caixa de texto para usar a altura máxima dos caracteres incluídos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
         <source>Maximum Ascent</source>
         <translation>Ascendente Máximo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="45"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation>Definir a altura da primeira linha da caixa de texto para usar o ascendente máximo das fontes usadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
         <source>Font Ascent</source>
         <translation>Ascendente da Fonte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="61"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="58"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation>Definir a altura da primeira linha da caixa de texto para a altura da linha especificada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="61"/>
         <source>Line Spacing</source>
         <translation>Espaço Entre as Linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="71"/>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
         <translation>Definir linha base da primeira linha da caixa de texto para a linha base da grelha</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="74"/>
         <source>Baseline Grid</source>
         <translation>Grelha Base</translation>
     </message>
@@ -23492,357 +23482,357 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_FontFeatures</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="32"/>
         <source>Common Ligatures (liga)</source>
         <translation>Ligaduras Comuns (liga)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="35"/>
         <source>Common Ligatures</source>
         <translation>Ligaduras Comuns</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="45"/>
         <source>Contextual Ligatures (clig)</source>
         <translation>Ligaduras Contextuais (clig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="48"/>
         <source>Contextual Ligatures</source>
         <translation>Ligaduras Contextuais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="70"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="67"/>
         <source>Discretionary Ligatures (dlig)</source>
         <translation>Ligaduras Discricionárias (dlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="70"/>
         <source>Discretionary Ligatures</source>
         <translation>Ligaduras Discricionárias</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="83"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="80"/>
         <source>Historical Ligatures (hlig)</source>
         <translation>Ligaduras Históricas (hlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="86"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="83"/>
         <source>Historical Ligatures</source>
         <translation>Ligaduras Históricas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="106"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="103"/>
         <source>Normal capitals</source>
         <translation>Maiúsculas Normais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="106"/>
         <source>Default Capitals</source>
         <translation>Maiúsculas Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="119"/>
         <source>Small capitals (smcp)</source>
         <translation>Versaletes Pequenas (smcp)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="125"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
         <source>Small Capitals</source>
         <translation>Versaletes Pequenas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="132"/>
         <source>Small capitals from capitals (c2sc)</source>
         <translation>Versaletes pequenas das maiúsculas (c2sc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="138"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
         <source>Small Capitals from Capitals</source>
         <translation>Versaletes pequenas das maiúsculas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="148"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="145"/>
         <source>Petite capitals (pcap)</source>
         <translation>Maiúsculas pequenas (pcap)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="148"/>
         <source>Petite Capitals</source>
         <translation>Maiúsculas Pequenas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="161"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="158"/>
         <source>Petite capitals from capitals (c2pc)</source>
         <translation>Maiúsculas pequenas das maiúsculas (c2pc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="161"/>
         <source>Petite Capitals from Capitals</source>
         <translation>Maiúsculas Pequenas das Maiúsculas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="171"/>
         <source>Unicase (unic)</source>
         <translation>Casa única (unic)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="177"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="174"/>
         <source>Unicase</source>
         <translation>Casa Única</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="187"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="184"/>
         <source>Titling (titl)</source>
         <translation>Maiúsculas Titulares (titl)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="187"/>
         <source>Titling</source>
         <translation>Maiúsculas Titulares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="210"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="207"/>
         <source>Default numbers style</source>
         <translation>Estilo padrão de números</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="210"/>
         <source>Default Numerals</source>
         <translation>Numerais Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="229"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="226"/>
         <source>Lining Figures (lnum)</source>
         <translation>Numerais Lineares (lnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="232"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="229"/>
         <source>Lining</source>
         <translation>Numerais Lineares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="245"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="242"/>
         <source>Oldstyle Figures (onum)</source>
         <translation>Numerais Antigos (onum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="245"/>
         <source>Old Style</source>
         <translation>Numerais Antigos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="268"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="265"/>
         <source>Default numbers width</source>
         <translation>Largura padrão dos numerais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="268"/>
         <source>Default Numeral Width</source>
         <translation>Largura Padrão dos Numerais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="287"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="284"/>
         <source>Proportional Figures (pnum)</source>
         <translation>Figuras Proporcionais (pnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="290"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="287"/>
         <source>Proportional</source>
         <translation>Proporcional</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="303"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="300"/>
         <source>Tabular Figures (tnum)</source>
         <translation>Figuras Tabulares (tnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="306"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="303"/>
         <source>Tabular</source>
         <translation>Tabular</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="326"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="323"/>
         <source>No fractions</source>
         <translation>Sem frações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="329"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="326"/>
         <source>No Fractions</source>
         <translation>Sem Frações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="345"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="342"/>
         <source>Fractions (frac)</source>
         <translation>Frações (frac)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="348"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="345"/>
         <source>Diagonal Fractions</source>
         <translation>Frações Diagonais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="361"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="358"/>
         <source>Alternative Fractions (afrc)</source>
         <translation>Frações Alternativas (afrc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="364"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="361"/>
         <source>Stacked Fractions</source>
         <translation>Frações Empilhadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="381"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="378"/>
         <source>Normal position</source>
         <translation>Posição normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="381"/>
         <source>Default Position</source>
         <translation>Posição Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="397"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="394"/>
         <source>Subscript (subs)</source>
         <translation>Subscrito (subs)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="400"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="397"/>
         <source>Subscript</source>
         <translation>Subscrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="410"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="407"/>
         <source>Superscript (sups)</source>
         <translation>Sobrescrito (sups)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="413"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="410"/>
         <source>Superscript</source>
         <translation>Sobrescrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="426"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="423"/>
         <source>Ordinals (ordn)</source>
         <translation>Ordinais (ordn)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="429"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="426"/>
         <source>Ordinals</source>
         <translation>Ordinais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="449"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="446"/>
         <source>Slashed Zero (zero)</source>
         <translation>Zero com Barra Oblíqua (zero)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="452"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="449"/>
         <source>Slashed Zero</source>
         <translation>Zero com Barra Oblíqua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="466"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="463"/>
         <source>Stylistic sets</source>
         <translation>Conjuntos estilísticos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="484"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="494"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="491"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="501"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="498"/>
         <source>9</source>
         <translation>9</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="508"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="505"/>
         <source>13</source>
         <translation>13</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="515"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="512"/>
         <source>17</source>
         <translation>17</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="522"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="519"/>
         <source>2</source>
         <translation>2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="529"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="526"/>
         <source>6</source>
         <translation>6</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="536"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="533"/>
         <source>10</source>
         <translation>10</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="543"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="540"/>
         <source>14</source>
         <translation>14</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="550"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="547"/>
         <source>18</source>
         <translation>18</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="557"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="554"/>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="564"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="561"/>
         <source>7</source>
         <translation>7</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="571"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="568"/>
         <source>11</source>
         <translation>11</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="578"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="575"/>
         <source>15</source>
         <translation>15</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="585"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="582"/>
         <source>19</source>
         <translation>19</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="592"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="589"/>
         <source>4</source>
         <translation>4</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="599"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="596"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="606"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="603"/>
         <source>12</source>
         <translation>12</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="613"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="610"/>
         <source>16</source>
         <translation>16</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="620"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="617"/>
         <source>20</source>
         <translation>20</translation>
     </message>
@@ -23850,39 +23840,39 @@ do Objeto</translation>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="37"/>
         <source>Smallest Word:</source>
         <translation>Palavra Mais Pequena:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="44"/>
         <source>Length of the smallest word to be hyphenated</source>
         <translation>Comprimento da palavra mais curta a ser hifenizada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="54"/>
         <source>Characters</source>
         <translation>Caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="81"/>
         <source>Consecutive Hyphenations Allowed:</source>
         <translation>Hifenizações Consecutivas Permitidas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="88"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
         <translation>Número máximo de Hifenizações consecutivas.
 Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="106"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
         <source>Hyphenation Character:</source>
         <translation>Caractere de Hifenização:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="113"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
         <source>The character used for automatic hyphen. Can be empty.</source>
         <translation>O caractere usado para a hifenização automática. Pode ser deixado em branco.</translation>
     </message>
@@ -23890,27 +23880,27 @@ Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
 <context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
         <translation>Nenhum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="42"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="39"/>
         <source>Both Sides</source>
         <translation>Ambos os Lados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="49"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="46"/>
         <source>Left Only</source>
         <translation>Apenas à Esquerda</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="53"/>
         <source>Right Only</source>
         <translation>Apenas à Direita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="60"/>
         <source>Reset</source>
         <translation>Repor</translation>
     </message>
@@ -23918,49 +23908,49 @@ Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="32"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="42"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Garante que as primeiras linhas de um parágrafo não fiquem separadas do resto (conhecido como controlo de viúvas/órfãs)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="48"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="65"/>
         <source> lines</source>
         <translation>linhas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
         <source>Don&apos;t separate first:</source>
         <translation>Não separar o primeiro:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="58"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="55"/>
         <source>Don&apos;t separate last:</source>
         <translation>Não separar o último:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="62"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Garante que as últimas linhas de um parágrafo não fiquem separadas do resto (conhecido como controlo de viúvas/órfãs)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="78"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="75"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
         <translation>Se ativado, garante que o parágrafo não será dividido ao longo de várias páginas ou colunas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="78"/>
         <source>Do not split paragraph</source>
         <translation>Não separar o parágrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="88"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="85"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
         <translation>Se ativado, move automaticamente o parágrafo para a próxima coluna ou página caso o próximo parágrafo não esteja na mesma coluna ou página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="88"/>
         <source>Keep with next paragraph</source>
         <translation>Manter com o parágrafo seguinte</translation>
     </message>
@@ -23991,97 +23981,97 @@ Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
 <context>
     <name>PropertyWidget_ParEffectBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="342"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="339"/>
         <source>Effect Parameters</source>
         <translation>Parâmetros do Efeito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="35"/>
         <source>Drop Caps</source>
         <translation>Capitulares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="59"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="56"/>
         <source>Number of lines used by the drop cap</source>
         <translation>Número de linhas usadas nas letras capitulares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="59"/>
         <source>Lines:</source>
         <translation>Linhas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="129"/>
         <source>Bullet Char(s):</source>
         <translation>Caracteres Bala:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="148"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="145"/>
         <source>Enhanced Character Table to choose bullet characters</source>
         <translation>Tabela de Caracteres Melhorada para escolher caracteres bala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="187"/>
         <source>Level:</source>
         <translation>Nível:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="220"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="217"/>
         <source>Start:</source>
         <translation>Início:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="244"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="241"/>
         <source>Set:</source>
         <translation>Conjunto:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="268"/>
         <source>Format:</source>
         <translation>Formato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="295"/>
         <source>Prefix:</source>
         <translation>Prefixo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="324"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="321"/>
         <source>Suffix:</source>
         <translation>Sufixo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="363"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="360"/>
         <source>Char Style:</source>
         <translation>Estilo do Caractere:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="373"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="370"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Escolha o Estilo do Caractere ou deixe em branco para usar o Estilo de Parágrafo padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="385"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="382"/>
         <source>Auto-Indent</source>
         <translation>Indentar Automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="405"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="402"/>
         <source>Offset:</source>
         <translation>Deslocamento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="161"/>
         <source>Numbered List</source>
         <translation>Lista Numerada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="92"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="89"/>
         <source>Bulleted List</source>
         <translation>Lista de Balas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="148"/>
         <source>Char Table</source>
         <translation>Tabela de Caracteres</translation>
     </message>
@@ -24137,27 +24127,27 @@ Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="42"/>
         <source>Start Offset:</source>
         <translation>Deslocamento Inicial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="55"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="52"/>
         <source>Distance from Curve:</source>
         <translation>Distância da Curva:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="62"/>
         <source>Flip Text</source>
         <translation>Espelhar Texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="72"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation>Mostrar Curva</translation>
     </message>
@@ -24165,32 +24155,32 @@ Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
 <context>
     <name>PropertyWidget_TextColorBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="88"/>
         <source>Saturation of color of text fill</source>
         <translation>Saturação da cor do preenchimento do texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Cor do texto selecionado. Se a decoração de contorno do texto estiver ativada, esta cor será a cor de preenchimento.&lt;br/&gt;Se estiver ativada a sombra do texto, então isto será a cor de cima.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="136"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="133"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</source>
         <translation>Cor da linha do texto e/ou sombra, dependendo do que é escolhido.&lt;br/&gt;Se forem ambos escolhidos então partilham ambos a mesma cor.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="159"/>
         <source>Saturation of color of text stroke</source>
         <translation>Saturação da cor do traço do texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="204"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
         <source>Background color of selected text</source>
         <translation>Cor do fundo do texto selecionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="230"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="227"/>
         <source>Saturation of color of text background</source>
         <translation>Saturação da cor do fundo do texto</translation>
     </message>
@@ -28873,18 +28863,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Módulo de interface Python do Scribus
@@ -30525,7 +30515,7 @@ Por isso a imagem pode não estar correta</translation>
         <translation>&lt;p&gt;Está a tentar importar mais páginas do que as que estão disponíveis no documento atual a contar da página ativa.&lt;/p&gt;Escolha uma das opções seguintes:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Criar&lt;/b&gt; páginas que faltam&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; páginas até à última página&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
         <source>Unacceptable settings for note style</source>
         <translation>Definições não aceites no estilo da nota</translation>
     </message>
@@ -34292,7 +34282,7 @@ Se o gravar nesta versão, não poderá abri-lo em versões mais antigas do Scri
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16438"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -34302,27 +34292,27 @@ Se o gravar nesta versão, não poderá abri-lo em versões mais antigas do Scri
         <translation>Fundo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11155"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Não é possível eliminar um item a ser utilizado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11155"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>O item %1 está atualmente a ser editado pelo Editor de História. A operação de eliminar será cancelada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11760"/>
         <source>Some objects are locked.</source>
         <translation>Alguns objetos estão bloqueados.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11756"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloquear Todos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Ignorar os objetos bloqueados</translation>
     </message>
@@ -34333,22 +34323,22 @@ Se o gravar nesta versão, não poderá abri-lo em versões mais antigas do Scri
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16118"/>
         <source>Adjusting Colors</source>
         <translation>A Ajustar Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8990"/>
         <source>remove direct paragraph formatting</source>
         <translation>remover formatação de parágrafo direto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9459"/>
         <source>remove direct char formatting</source>
         <translation>remover formatação de caractere direto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13407"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34359,7 +34349,7 @@ Deslocamento vertical: %3
 Rotação: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13440"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34370,14 +34360,14 @@ Intervalo horizontal: %3
 Intervalo vertical: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>Copiados %1 itens em %2 páginas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -34388,23 +34378,23 @@ Intervalo vertical: %4</translation>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>Ficheiro %1 gravado automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
         <source>No Style</source>
         <translation>Sem Estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 tem documento como intervalo e fornece o mesmo estilo de numeração do conjunto %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Quer mesmo eliminar o conteúdo de todas as caixas selecionadas?</translation>
     </message>
@@ -35206,22 +35196,22 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1061"/>
+        <location filename="../../scribus/scribusview.cpp" line="1065"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Quer mesmo apagar todo o texto?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1194"/>
+        <location filename="../../scribus/scribusview.cpp" line="1198"/>
         <source>Copy Here</source>
         <translation>Copiar Aqui</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1195"/>
+        <location filename="../../scribus/scribusview.cpp" line="1199"/>
         <source>Move Here</source>
         <translation>Mover Aqui</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1196"/>
+        <location filename="../../scribus/scribusview.cpp" line="1200"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -35241,17 +35231,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Desativado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3163"/>
+        <location filename="../../scribus/scribusview.cpp" line="3167"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Não é possível converter um item que está a ser utilizado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3163"/>
+        <location filename="../../scribus/scribusview.cpp" line="3167"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>O item %1 está atualmente a ser editado pelo Editor de História. A operação de conversão para traços será ignorada para este item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2123"/>
+        <location filename="../../scribus/scribusview.cpp" line="2127"/>
         <source>Page %1 to %2</source>
         <translation>Página %1 a %2</translation>
     </message>
@@ -36016,27 +36006,27 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>SpiralWidgetBase</name>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="45"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="42"/>
         <source>Start Angle:</source>
         <translation>Ângulo Inicial:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="65"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="62"/>
         <source>End Angle:</source>
         <translation>Ângulo Final:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="85"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="82"/>
         <source>Factor:</source>
         <translation>Fator:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="92"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="89"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="148"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="145"/>
         <source>Sample Polygon</source>
         <translation>Polígono de Exemplo</translation>
     </message>
@@ -40189,211 +40179,211 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>colorPalette</name>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="114"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="564"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="928"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="111"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="561"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="925"/>
         <source>Shade:</source>
         <translation>Intensidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="335"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="354"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="380"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="399"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="425"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="444"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="470"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="489"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="574"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="603"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="332"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="351"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="377"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="396"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="422"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="441"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="467"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="486"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="571"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="600"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="161"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="975"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="158"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="972"/>
         <source>Linear</source>
         <translation>Linear</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="166"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="980"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="163"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="977"/>
         <source>Radial</source>
         <translation>Radial</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="199"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="988"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="196"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="985"/>
         <source>Move Vector</source>
         <translation>Mover Vetor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1116"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1113"/>
         <source>Pattern follows Path</source>
         <translation>Padrão ao longo do Caminho</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="826"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1093"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="823"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1090"/>
         <source>Properties...</source>
         <translation>Propriedades...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="176"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="173"/>
         <source>4 Colors</source>
         <translation>4 Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="181"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="178"/>
         <source>Diamond</source>
         <translation>Losango</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="186"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="183"/>
         <source>Mesh</source>
         <translation>Malha</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="304"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="301"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="311"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="308"/>
         <source>Shade</source>
         <translation>Intensidade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="318"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="315"/>
         <source>Transparency</source>
         <translation>Transparência</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="544"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="541"/>
         <source>Color:</source>
         <translation>Cor:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="626"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="623"/>
         <source>Edit Colors</source>
         <translation>Editar Cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1164"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1161"/>
         <source>Display only used colors</source>
         <translation>Mostrar apenas as cores usadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1138"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1135"/>
         <source>Overprinting</source>
         <translation>Sobre-impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1146"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1143"/>
         <source>Knockout</source>
         <translation>Encolhimento (Knockout)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1151"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1148"/>
         <source>Overprint</source>
         <translation>Sobre-impressão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="39"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="36"/>
         <source>Fill</source>
         <translation>Preenchimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="65"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="62"/>
         <source>Fill Mode</source>
         <translation>Modo de Preenchimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="121"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="935"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="118"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="932"/>
         <source>%</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="853"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
         <translation>Traço</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="879"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
         <source>Stroke Mode</source>
         <translation>Modo de Traço</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="171"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="168"/>
         <source>Conical</source>
         <translation>Cónico</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="191"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="188"/>
         <source>Patch Mesh</source>
         <translation>Malha de Remendos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="692"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="689"/>
         <source>Distance:</source>
         <translation>Distância:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="702"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="699"/>
         <source>Angle:</source>
         <translation>Ângulo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="719"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="716"/>
         <source>Type:</source>
         <translation>Tipo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="727"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="724"/>
         <source>Single</source>
         <translation>Único</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="732"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="729"/>
         <source>Double</source>
         <translation>Duplo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="737"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="734"/>
         <source>Triple</source>
         <translation>Triplo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="745"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="742"/>
         <source>Line Color:</source>
         <translation>Cor da Linha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="257"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1024"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="254"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1021"/>
         <source>Extend:</source>
         <translation>Estender:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="265"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1032"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="262"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1029"/>
         <source>None</source>
         <translation>Nenhum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="270"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1037"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="267"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1034"/>
         <source>Pad</source>
         <translation>Almofada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="593"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="590"/>
         <source>Opacity:</source>
         <translation>Opacidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="755"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="752"/>
         <source>Background:</source>
         <translation>Fundo:</translation>
     </message>
@@ -40669,17 +40659,17 @@ por favor escolha outro nome.</translation>
         <translation>Copie um modelo template.xml existente para um ficheiro chamado template.idioma_PAÍS.xml (use o mesmo código de idioma que está presente no ficheiro qm do seu idioma). Por exemplo, template.fi.xml para o idioma finlandês. A cópia deve estar localizada no mesmo diretório do template.xml original, assim o Scribus poderá abri-la.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="91"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="88"/>
         <source>&amp;About</source>
         <translation>&amp;Sobre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="124"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="121"/>
         <source>&amp;Preview</source>
         <translation>&amp;Pré-Visualizar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="161"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="158"/>
         <source>&amp;Help</source>
         <translation>%Ajuda</translation>
     </message>
@@ -40949,207 +40939,207 @@ por favor escolha outro nome.</translation>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="20"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;A fonte atual selecionada não tem quaisquer funcionalidades de fonte.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="64"/>
         <source>Discretionary Ligatures (dlig)</source>
         <translation>Ligaduras Discricionárias (dlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="83"/>
         <source>Contextual Ligatures (clig)</source>
         <translation>Ligaduras Contextuais (clig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="111"/>
         <source>Historical Ligatures (hlig)</source>
         <translation>Ligaduras Históricas (hlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="139"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="136"/>
         <source>Capitals &amp;&amp; Position</source>
         <translation>Maiúsculas e Posição</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="186"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="183"/>
         <source>Capitals:</source>
         <translation>Maiúsculas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="148"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="145"/>
         <source>Default Capitals</source>
         <translation>Maiúsculas Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="153"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="150"/>
         <source>Small Capitals</source>
         <translation>Versaletes Pequenas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="158"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="155"/>
         <source>Petite Capitals</source>
         <translation>Maiúsculas Pequenas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="163"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="160"/>
         <source>Unicase</source>
         <translation>Casa Única</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="168"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="165"/>
         <source>Titling</source>
         <translation>Maiúsculas Titulares </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="45"/>
         <source>Common Ligatures (liga)</source>
         <translation>Ligaduras Comuns (liga)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="33"/>
         <source>Ligatures</source>
         <translation>Ligaduras</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common</source>
         <translation>Comum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
         <source>Discretionary</source>
         <translation>Discricionário</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="89"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
         <source>Contextual</source>
         <translation>Contextual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="117"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
         <source>Historical</source>
         <translation>Histórico</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="173"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Petite Capitals from Capitals</source>
         <translation>Maiúsculas Pequenas das Maiúsculas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
         <source>Small Capitals from Capitals</source>
         <translation>Versaletes pequenas das maiúsculas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="206"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="203"/>
         <source>Position:</source>
         <translation>Posição:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="214"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="211"/>
         <source>Default Position</source>
         <translation>Posição Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="219"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="216"/>
         <source>Subscript</source>
         <translation>Subscrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="224"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="221"/>
         <source>Superscript</source>
         <translation>Sobrescrito</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="229"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="226"/>
         <source>Ordinals</source>
         <translation>Ordinais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="261"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="258"/>
         <source>Numerals</source>
         <translation>Numerais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="301"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="298"/>
         <source>Style:</source>
         <translation>Estilo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="270"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="267"/>
         <source>Default Numerals</source>
         <translation>Numerais Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="275"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="272"/>
         <source>Lining</source>
         <translation>Numerais Lineares</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="280"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="277"/>
         <source>Old Style</source>
         <translation>Numerais Antigos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="308"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="305"/>
         <source>Width:</source>
         <translation>Espessura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="329"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="326"/>
         <source>Default Numeral Width</source>
         <translation>Largura Padrão dos Numerais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="334"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="331"/>
         <source>Proportional</source>
         <translation>Proporcional</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="339"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="336"/>
         <source>Tabular</source>
         <translation>Tabular</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="347"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="344"/>
         <source>Fraction:</source>
         <translation>Fração:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="355"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="352"/>
         <source>No Fractions</source>
         <translation>Sem Frações</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="360"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="357"/>
         <source>Diagonal Fractions</source>
         <translation>Frações Diagonais</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="365"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="362"/>
         <source>Stacked Fractions</source>
         <translation>Frações Empilhadas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="388"/>
         <source>Slashed Zero (zero)</source>
         <translation>Zero com Barra Oblíqua (zero)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="394"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
         <source>Slashed Zero</source>
         <translation>Zero com Barra Oblíqua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="406"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
         <source>Stylistic Sets:</source>
         <translation>Conjuntos Estilísticos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="425"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="422"/>
         <source>click to select</source>
         <translation>clique para selecionar</translation>
     </message>
@@ -41291,183 +41281,183 @@ por favor escolha outro nome.</translation>
 <context>
     <name>transparencyPalette</name>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="40"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="37"/>
         <source>Edit Line Color Properties</source>
         <translation>Editar Propriedades da Cor da Linha</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="53"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="50"/>
         <source>Edit Fill Color Properties</source>
         <translation>Editar Propriedades da Cor do Preenchimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="108"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="289"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="105"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="286"/>
         <source>Opacity:</source>
         <translation>Opacidade:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="112"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="293"/>
         <source>Set the transparency for the color selected</source>
         <translation>Definir a transparência para a cor selecionada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="118"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="299"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="134"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="512"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="131"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="509"/>
         <source>Blend Mode:</source>
         <translation>Modo de Mistura:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="142"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="520"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="139"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="517"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="147"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="525"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="144"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="522"/>
         <source>Darken</source>
         <translation>Escurecer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="152"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="530"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="149"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="527"/>
         <source>Lighten</source>
         <translation>Clarear</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="157"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="535"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="154"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="532"/>
         <source>Multiply</source>
         <translation>Multiplicar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="162"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="540"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="159"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="537"/>
         <source>Screen</source>
         <translation>Cortina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="167"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="545"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="164"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="542"/>
         <source>Overlay</source>
         <translation>Sobrepor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="172"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="550"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="169"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="547"/>
         <source>Hard Light</source>
         <translation>Luz Dura</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="177"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="555"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="174"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="552"/>
         <source>Soft Light</source>
         <translation>Luz Suave</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="182"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="560"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="179"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="557"/>
         <source>Difference</source>
         <translation>Diferença</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="187"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="565"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="184"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="562"/>
         <source>Exclusion</source>
         <translation>Exclusão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="192"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="570"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="189"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="567"/>
         <source>Color Dodge</source>
         <translation>Clarear Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="197"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="575"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="194"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="572"/>
         <source>Color Burn</source>
         <translation>Escurecer Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="202"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="580"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="199"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="577"/>
         <source>Hue</source>
         <translation>Matiz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="207"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="585"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="204"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="582"/>
         <source>Saturation</source>
         <translation>Saturação</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="212"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="590"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="209"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="587"/>
         <source>Color</source>
         <translation>Cor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="217"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="595"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="214"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="592"/>
         <source>Luminosity</source>
         <translation>Luminosidade</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="263"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="260"/>
         <source>Solid</source>
         <translation>Sólido</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="331"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="328"/>
         <source>Gradient</source>
         <translation>Gradiente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="358"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="355"/>
         <source>Linear</source>
         <translation>Linear</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="363"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="360"/>
         <source>Radial</source>
         <translation>Radial</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="371"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="368"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>Mova o início do vetor do gradiente com o botão esquerdo do rato pressionado e mova o final do vetor do gradiente com o botão direito do rato pressionado</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="374"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="371"/>
         <source>Move Vector</source>
         <translation>Mover Vetor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="411"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="489"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="408"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="486"/>
         <source>Use Luminosity as Alpha</source>
         <translation>Usar Luminosidade como Alfa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="419"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="416"/>
         <source>Pattern</source>
         <translation>Padrão</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="467"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="464"/>
         <source>Properties...</source>
         <translation>Propriedades...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="496"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="493"/>
         <source>Use inverted Pattern</source>
         <translation>Usar Padrão invertido</translation>
     </message>

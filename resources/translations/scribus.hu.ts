@@ -2725,17 +2725,17 @@
 <context>
     <name>ArcWidgetBase</name>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="48"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="45"/>
         <source>Start Angle:</source>
         <translation>Kezdő szög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="68"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="65"/>
         <source>End Angle:</source>
         <translation>Végszög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/arcwidgetbase.ui" line="129"/>
+        <location filename="../../scribus/ui/arcwidgetbase.ui" line="126"/>
         <source>Sample Polygon</source>
         <translation>Minta sokszög</translation>
     </message>
@@ -5925,7 +5925,7 @@ További információk a dokumentáció Színek szerkesztése fejezetében.</tra
 <context>
     <name>ContentPalette_DefaultBase</name>
     <message>
-        <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="35"/>
+        <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="32"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Open a document&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Dokumentum megnyitása&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;után egy elem kijelölésével lesznek láthatóak a tulajdonságai&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -5933,7 +5933,7 @@ További információk a dokumentáció Színek szerkesztése fejezetében.</tra
 <context>
     <name>ContentPalette_PageBase</name>
     <message>
-        <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="35"/>
+        <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="32"/>
         <source>Select an item to see its properties.</source>
         <translation>Jelöljön ki egy elemet a tulajdonságai megjelenítéséhez.</translation>
     </message>
@@ -7950,29 +7950,29 @@ Wesselényinél mázol Quitóban</translation>
 <context>
     <name>GradientEditorBase</name>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="72"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="69"/>
         <source>Position:</source>
         <translation>Pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="79"/>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="106"/>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="129"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="76"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="103"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="126"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="89"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="86"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="99"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="96"/>
         <source>Opacity:</source>
         <translation>Átlátszatlanság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.ui" line="122"/>
+        <location filename="../../scribus/ui/gradienteditor.ui" line="119"/>
         <source>Shade:</source>
         <translation>Árnyalat:</translation>
     </message>
@@ -8508,48 +8508,48 @@ Wesselényinél mázol Quitóban</translation>
 <context>
     <name>HelpBrowserNavigation</name>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="31"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="28"/>
         <source>&amp;Contents</source>
         <translation>&amp;Tartalom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="45"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="42"/>
         <source>Se&amp;arch</source>
         <translation>&amp;Keresés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="53"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="50"/>
         <source>Searching is case insensitive</source>
         <translation>A keresés érzéketlen a kis- és nagybetűkre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="60"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="57"/>
         <source>&amp;Search</source>
         <translation>&amp;Keresés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="70"/>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="86"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="67"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="83"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="79"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="76"/>
         <source>Book&amp;marks</source>
         <translation>&amp;Könyvjelzők</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="96"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="93"/>
         <source>&amp;New</source>
         <translation>&amp;Új</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="103"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="100"/>
         <source>&amp;Delete</source>
         <translation>&amp;Törlés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="110"/>
+        <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
         <translation>&amp;Minden törlése</translation>
     </message>
@@ -9102,7 +9102,7 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>A legtöbb Adobe InDesign IDML csomagot képes az aktuális dokumentumba importálni, az InDesign objektumokat Scribus-objektumokká konvertálva; nem minden objektum támogatott, de minden támogatott importálásra kerül itt</translation>
     </message>
@@ -11981,32 +11981,32 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
 <context>
     <name>NewMarginWidget</name>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="80"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="77"/>
         <source>Preset Layouts:</source>
         <translation>Ismert elrendezések:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="50"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="47"/>
         <source>Left:</source>
         <translation>Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="70"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="67"/>
         <source>Right:</source>
         <translation>Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="87"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="84"/>
         <source>Top:</source>
         <translation>Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="40"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
         <translation>Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="137"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
         <source>Printer Margins...</source>
         <translation>Nyomtatási margók...</translation>
     </message>
@@ -12089,231 +12089,231 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1132"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1083"/>
         <source>Nodes</source>
         <translation>Csomópontok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1149"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
         <source>Move Nodes</source>
         <translation>Csomópontok mozgatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1150"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source>Move Control Points</source>
         <translation>Vezérlőpontok mozgatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1151"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1102"/>
         <source>Add Nodes</source>
         <translation>Csomópontok hozzáadása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1152"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
         <source>Delete Nodes</source>
         <translation>Csomópontok törlése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1155"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>Reset Control Points</source>
         <translation>Vezérlőpontok alapállapotba hozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1156"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>Reset this Control Point</source>
         <translation>Ezen vezérlőpont alapállapotba hozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1086"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Abszolút koordináták</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1138"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1089"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1139"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1090"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1140"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1091"/>
         <source>Hide Nodes</source>
         <translation>Csomópontok elrejtése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1141"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1092"/>
         <source>Edit &amp;Contour Line</source>
         <translation>&amp;Kontúrvonal szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1142"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1093"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Kontúrvonal alaphelyzetbe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1153"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
         <source>Move Control Points Independently</source>
         <translation>Vezérlőpontok mozgatása egymástól függetlenül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1154"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Vezérlőpontok mozgatása szimmetrikusan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1157"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Sokszög megnyitása vagy Bézier-görbe elvágása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1158"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Close this Bezier Curve</source>
         <translation>Bézier-görbe bezárása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1159"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Útvonal vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1160"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Mirror the Path Vertically</source>
         <translation>Útvonal függőleges tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1162"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Útvonal balra döntése vízszintesen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1163"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Útvonal felfelé döntése függőlegesen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1164"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Útvonal lefelé döntése függőlegesen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1165"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1116"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Útvonal forgatása órajárással szembe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1166"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Útvonal forgatása az órajárás irányába</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1168"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Útvonal növelése a megadott %-kal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1171"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
         <source>Angle of Rotation</source>
         <translation>Forgatási szög</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1174"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Kontúrvonal szerkesztési mód aktiválása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1175"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Kontúrvonal alaphelyzetbe állítása a keret eredeti alakjához</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1161"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Útvonal jobbra döntése vízszintesen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1133"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1084"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1167"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Útvonal zsugorítása a megadott %-kal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1169"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Útvonal zsugorítása a megadott értékkel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1170"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Útvonal növelése a megadott értékkel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1172"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>%, amellyel növelhető vagy csökkenthető az útvonal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1173"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Érték, amellyel növelhető vagy csökkenthető az útvonal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1094"/>
         <source>Set Contour to Image Clip</source>
         <translation>Kontúrvonal a vágógörbéhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1176"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Kontúrvonal alaphelyzetbe állítása a kép vágóútvonalához</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="245"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1136"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="229"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1087"/>
         <source>to Canvas</source>
         <translation>a rajzvászonhoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="247"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1137"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="231"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1088"/>
         <source>to Page</source>
         <translation>az oldalhoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1095"/>
         <source>Set Shape to Image Clip</source>
         <translation>Alak a vágógörbéhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1177"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Alak a kép vágóútvonalához igazítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="296"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="291"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1096"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="301"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1097"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1147"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1098"/>
         <source>Reset all edits</source>
         <translation>Minden módosítás elvetése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1178"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
         <translation>Kijelölés esetén a koordináták az oldalhoz viszonyítva értendők, egyébként az objektumhoz viszonyítva</translation>
     </message>
@@ -13009,97 +13009,92 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
 <context>
     <name>OutputPreview_PDF</name>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="20"/>
-        <source>Form</source>
-        <translation>Űrlap</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="38"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="35"/>
         <source>Preview Settings</source>
         <translation>Előnézeti beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="51"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="48"/>
         <source>Screen / Web</source>
         <translation>Képernyő, web</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="56"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="53"/>
         <source>Printer</source>
         <translation>Nyomtató</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="61"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="58"/>
         <source>Grayscale</source>
         <translation>Szürkeárnyalatos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="69"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="66"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="76"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="83"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
         <source>Clip to Printer Margins</source>
         <translation>Vágás a nyomtatási margókra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="90"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="87"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Direkt színek összetett színekké való konvertálásának engedélyezése. Hacsak nem nyomdai gépen lesznek kinyomva a direkt színek, valószínűleg a legjobb ezt engedélyezni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="93"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="90"/>
         <source>Convert Spot Colors</source>
         <translation>Direkt színek átalakítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="103"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="100"/>
         <source>Display Settings</source>
         <translation>Megjelenítési beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="109"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="106"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Kellemesebb előnézetet ad Type 1, TrueType, OpenType betűkről, EPS, PDF és vektorgrafikákról az előnézet gyorsaságának enyhe rovására</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="112"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="109"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Élsimítás &amp;engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="119"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="116"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation>Átlátszóság és átlátszó elemek megjelenítése a dokumentumban. Ghostscript 7.07 vagy frissebb kell hozzá.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="122"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="119"/>
         <source>Display Trans&amp;parency</source>
         <translation>&amp;Átlátszóság kijelzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="129"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="126"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>RGB helyett CMYK színek szimulációjával jeleníti meg az előnézetet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="132"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="129"/>
         <source>&amp;Display CMYK</source>
         <translation>CMYK &amp;megjelenítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="161"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="158"/>
         <source>Display Ink Coverage</source>
         <translation>Felületkitöltés megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="173"/>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="170"/>
         <source>Threshold:</source>
         <translation>Küszöb:</translation>
     </message>
@@ -13142,102 +13137,97 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
 <context>
     <name>OutputPreview_PS</name>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="20"/>
-        <source>Form</source>
-        <translation>Űrlap</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="38"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="35"/>
         <source>Preview Settings</source>
         <translation>Előnézeti beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="51"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="48"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="56"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="53"/>
         <source>Grayscale</source>
         <translation>Szürkeárnyalatos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="64"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="61"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="71"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="78"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
         <source>Clip to Printer Margins</source>
         <translation>Vágás a nyomtatási margókra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="85"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="82"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Direkt színek összetett színekké való konvertálásának engedélyezése. Hacsak nem nyomdai gépen lesznek kinyomva a direkt színek, valószínűleg a legjobb ezt engedélyezni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="88"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="85"/>
         <source>Convert Spot Colors</source>
         <translation>Direkt színek átalakítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="95"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="92"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Egy lehetőség néhány sötét árnyalat feketével történő kiváltására, melyek eredetileg ciánkék, sárga és bíborvörös színekből álltak volna össze. A szín-visszavétel (UCR) leginkább a képek semleges és/vagy sötét tónusait érinti, amelyek közel állnak a szürkéhez. Ezáltal néhány kép nyomtatása javítható, de némi kísérletezés és vizsgálat szükséges az esetek többségében. A szín-visszavétel a CMY festékek túltelítettségének esélyét csökkenti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="98"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="95"/>
         <source>&amp;Under Color Removal</source>
         <translation>Szín&amp;visszavétel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="108"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="105"/>
         <source>Display Settings</source>
         <translation>Megjelenítési beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="114"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="111"/>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Kellemesebb előnézetet ad Type 1, TrueType, OpenType betűkről, EPS, PDF és vektorgrafikákról az előnézet gyorsaságának enyhe rovására</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="117"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="114"/>
         <source>Enable &amp;Antialiasing</source>
         <translation>Élsimítás &amp;engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="124"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="121"/>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later.</source>
         <translation>Átlátszóság és átlátszó elemek megjelenítése a dokumentumban. Ghostscript 7.07 vagy frissebb kell hozzá.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="127"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="124"/>
         <source>Display Trans&amp;parency</source>
         <translation>&amp;Átlátszóság kijelzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="134"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="131"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
         <translation>RGB helyett CMYK színek szimulációjával jeleníti meg az előnézetet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="137"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="134"/>
         <source>&amp;Display CMYK</source>
         <translation>CMYK &amp;megjelenítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="166"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="163"/>
         <source>Display Ink Coverage</source>
         <translation>Felületkitöltés megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="178"/>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="175"/>
         <source>Threshold:</source>
         <translation>Küszöb:</translation>
     </message>
@@ -14089,7 +14079,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
 <context>
     <name>PagePalette_MasterPagesBase</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="114"/>
+        <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="111"/>
         <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation>&lt;&lt;&lt; Vissza a szerkesztett oldalakhoz</translation>
     </message>
@@ -15008,7 +14998,7 @@ Javító ellenőrzés után érdemes újra megpróbálni.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15030,7 +15020,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16614,93 +16604,93 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="41"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="38"/>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="22"/>
         <source>Color Management</source>
         <translation>Színkezelés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="95"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
         <translation>Dokumentumbeállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="109"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
         <translation>Színkezelés aktiválása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="116"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
         <translation>Nyomtató szimulálása a képernyőn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="123"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
         <translation>Minden szín átalakítása a nyomtató színterére</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="130"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
         <translation>Színkorláton kívüli színek megjelölése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="137"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
         <translation>Feketepont-kompenzáció alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="166"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
         <translation>Dokumentumprofilok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
         <translation>RGB képek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="208"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
         <translation>CMYK képek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="228"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
         <translation>RGB homogén színek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="241"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
         <translation>CMYK homogén színek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="254"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
         <translation>Nyomtató:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="288"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
         <translation>Dokumentum leképzési módja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="307"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
         <translation>Képek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="317"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
         <translation>Homogén színek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="351"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="348"/>
         <source>Monitor Profile</source>
         <translation>Képernyőprofil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="373"/>
+        <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
         <translation>Képernyő:</translation>
     </message>
@@ -16738,178 +16728,178 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_Display</name>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_display.cpp" line="29"/>
         <source>Display</source>
         <translation>Kijelző</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="84"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
         <translation>Képek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="98"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
         <translation>Szövegvezérlő-karakterek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
         <translation>Vonalzók megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="70"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="67"/>
         <source>Show Rulers Relative to Page</source>
         <translation>Oldalhoz relatív vonalzók megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
         <translation>Kapcsolt keret-jelzők megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="77"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
         <translation>Keretek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="105"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
         <translation>Rétegjelzők megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="109"/>
         <source>Show Unprintable Area in Margin Color</source>
         <translation>Nem nyomtatható terület megjelenítése a margó színével</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
         <translation>Kifutó terület megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="126"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
         <translation>Oldalárnyék megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="133"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="130"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
         <translation>Elővizsgáló figyelmeztetéseinek megjelenítése az oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
         <translation>Firkahely</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
         <translation>Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
         <translation>Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
         <translation>Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="192"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
         <translation>Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="278"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="275"/>
         <source>Display Scaling</source>
         <translation>Kijelző méretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="426"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
         <translation>Firkahely:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="226"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
         <translation>Oldalak közötti térköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
         <translation>Oldalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="242"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
         <translation>Vízszintes:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
         <translation>Függőleges:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="302"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
         <translation>Méretezés%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="312"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
         <translation>Méretezés alapállapotba hozása a képernyő alapértelmezett DPI-jéhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="370"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
         <translation>Színek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="412"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="409"/>
         <source>Page Fill:</source>
         <translation>Oldalkitöltés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="440"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
         <translation>Kijelölt oldal szegélye:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="454"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
         <translation>Keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="465"/>
         <source>Locked Frames:</source>
         <translation>Zárolt keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="482"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="479"/>
         <source>Selected Frames:</source>
         <translation>Kijelölt keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="496"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="493"/>
         <source>Linked Frames:</source>
         <translation>Összekapcsolt keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="510"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="507"/>
         <source>Grouped Frames:</source>
         <translation>Csoportosított keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="524"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="521"/>
         <source>Annotation Frames:</source>
         <translation>Megjegyzés keretek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_displaybase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_displaybase.ui" line="535"/>
         <source>Text Control Characters:</source>
         <translation>Szövegvezérlő-karakterek:</translation>
     </message>
@@ -16994,98 +16984,98 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_documentinformation.cpp" line="21"/>
         <source>Document Information</source>
         <translation>Dokumentuminformáció</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
         <translation>Cím:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="80"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
         <translation>Szerző:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
         <translation>Tárgy:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
         <translation>Kulcsszavak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="110"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="107"/>
         <source>Description:</source>
         <translation>Leírás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="118"/>
         <source>Further Information</source>
         <translation>További információk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="159"/>
         <source>Publisher:</source>
         <translation>Kiadó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="169"/>
         <source>Contributors:</source>
         <translation>Közreműködők:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="179"/>
         <source>Date:</source>
         <translation>Dátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="192"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="189"/>
         <source>Type:</source>
         <translation>Típus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="202"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="199"/>
         <source>Format:</source>
         <translation>Formátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="209"/>
         <source>Identifier:</source>
         <translation>Azonosító:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="222"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="219"/>
         <source>Source:</source>
         <translation>Forrás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="232"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="229"/>
         <source>Language:</source>
         <translation>Nyelv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="242"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="239"/>
         <source>Relation:</source>
         <translation>Kapcsolat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="249"/>
         <source>Coverage:</source>
         <translation>Terjedelem:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="262"/>
+        <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="259"/>
         <source>Rights:</source>
         <translation>Jogok:</translation>
     </message>
@@ -17330,190 +17320,190 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
         <translation>Dokumentumbeállítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="54"/>
         <source>General</source>
         <translation>Általános</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="109"/>
         <source>Page Size</source>
         <translation>Oldalméret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="128"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="125"/>
         <source>Size:</source>
         <translation>Méret:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="152"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="149"/>
         <source>Orientation:</source>
         <translation>Tájolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="162"/>
         <source>Units:</source>
         <translation>Mértékegység:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="175"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="188"/>
         <source>Height:</source>
         <translation>Magasság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="206"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="432"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="203"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all pages</source>
         <translation>Változások alkalmazása minden oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="213"/>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="439"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="210"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="436"/>
         <source>Apply changes to all master pages</source>
         <translation>Változások alkalmazása minden mesteroldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="234"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="231"/>
         <source>Layout</source>
         <translation>Elrendezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="246"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="243"/>
         <source>Page Layout</source>
         <translation>Oldalelrendezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="299"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="296"/>
         <source>Facing Pages</source>
         <translation>Oldalpár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="532"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="529"/>
         <source>Saving &amp;&amp; Undo</source>
         <translation>Mentés és visszavonás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="535"/>
         <source>Save in Compressed Format</source>
         <translation>Mentés tömörített formátumban</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="545"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="542"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
         <translation>Összeomlás esetén megpróbál elmenteni egy &quot;Vészhelyzeti fájlt&quot;-t</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="574"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="571"/>
         <source>Autosave</source>
         <translation>Automatikus mentés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="588"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="585"/>
         <source>Enable automatic saving of documents</source>
         <translation>Dokumentumok automatikus mentésének engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="599"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="596"/>
         <source>Interval:</source>
         <translation>Időköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="606"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="603"/>
         <source> min</source>
         <translation> perc</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="616"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="613"/>
         <source>Number of files to keep:</source>
         <translation>Folyamatos fájlszámozás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="649"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="646"/>
         <source>Save into the same directory as the document</source>
         <translation>Ugyanabba a könyvtárba mentse, mint a dokumentumot</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="659"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="656"/>
         <source>Save into:</source>
         <translation>Mentés ide:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="669"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="666"/>
         <source>Change...</source>
         <translation>Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="681"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="678"/>
         <source>Keep backup files after closing the document</source>
         <translation>Biztonsági másolat megőrzése a dokumentum bezárása után</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="688"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="685"/>
         <source>Show autosave countdown clock on the canvas</source>
         <translation>Az automatikus mentés visszaszámlálójának megjelenítése a vásznon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="717"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="714"/>
         <source>Undo / Redo</source>
         <translation>Visszavonás / ismétlés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="731"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="728"/>
         <source>Enable Undo/Redo System</source>
         <translation>Visszavonási-ismétlési rendszer engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="740"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="737"/>
         <source>Action History Length:</source>
         <translation>Műveletelőzmény hosszúsága:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="309"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="306"/>
         <source>Single Page</source>
         <translation>Egyoldalas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="289"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="286"/>
         <source>3-Fold</source>
         <translation>Háromrét hajtott</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="279"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="276"/>
         <source>4-Fold</source>
         <translation>Négyrét hajtott</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="65"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="62"/>
         <source>Language:</source>
         <translation>Nyelv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="262"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="259"/>
         <source>First Page is:</source>
         <translation>Első oldal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="338"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="335"/>
         <source>Margins &amp;&amp; Bleeds</source>
         <translation>Margók és kifutók</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="386"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="383"/>
         <source>Margins</source>
         <translation>Margók</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="465"/>
         <source>Bleeds</source>
         <translation>Kifutók</translation>
     </message>
@@ -17888,66 +17878,66 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Fonts</name>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="46"/>
         <source>Fonts</source>
         <translation>Betűkészletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
         <translation>Törlés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="114"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
         <translation>&amp;Hozzáadás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="128"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
         <translation>&amp;Eltávolítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="179"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="176"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Rejected Fonts</source>
         <translation>Elutasított betűkészletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="186"/>
         <source>Font name</source>
         <translation>Betűkészlet neve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <source>Error message</source>
         <translation>Hibaüzenet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="199"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="196"/>
         <source>Font file</source>
         <translation>Betűkészlet állománya</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="54"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Available Fonts</source>
         <translation>Elérhető betűkészletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="67"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="64"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Font Substitutions</source>
         <translation>Helyettesítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_fontsbase.ui" line="98"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Additional Paths</source>
         <translation>További útvonalak</translation>
@@ -17977,8 +17967,8 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Guides</name>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="39"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="374"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="371"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="24"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="63"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="131"/>
@@ -17986,103 +17976,103 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Segédvonalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="57"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="66"/>
         <source>Placement</source>
         <translation>Elhelyezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="174"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
         <translation>Illesztési távolság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="181"/>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="201"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
         <translation> px</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
         <translation>Megragadási sugár:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="364"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="361"/>
         <source>Visibility</source>
         <translation>Láthatóság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="387"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="384"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="69"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
         <translation>Margók</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="400"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="397"/>
         <source>Page Grid</source>
         <translation>Oldalrács</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="424"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="421"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="67"/>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
         <translation>Alaprács</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="271"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
         <translation>Távolságok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="299"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="296"/>
         <source>Minor Grid Spacing:</source>
         <translation>Alrács-távolság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="309"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="306"/>
         <source>Baseline Grid Spacing:</source>
         <translation>Alaprács-távolság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="289"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="286"/>
         <source>Major Grid Spacing:</source>
         <translation>Főrács-távolság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="323"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid Offset:</source>
         <translation>Alaprács-eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="462"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
         <translation>Színek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="473"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="470"/>
         <source>Guides:</source>
         <translation>Segédvonalak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="487"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="484"/>
         <source>Margins:</source>
         <translation>Margók:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="501"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="498"/>
         <source>Major Grid:</source>
         <translation>Főrács:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="515"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="512"/>
         <source>Minor Grid:</source>
         <translation>Alrács:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="529"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
         <translation>Alaprács:</translation>
     </message>
@@ -18162,7 +18152,7 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Margók be- vagy kikapcsolása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="407"/>
+        <location filename="../../scribus/ui/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
         <translation>Típus:</translation>
     </message>
@@ -18197,43 +18187,43 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="36"/>
         <source>Hyphenation</source>
         <translation>Elválasztás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="66"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="63"/>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>&amp;Elválasztási javaslat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="76"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
         <translation>Automatikus szöveg-&amp;elválasztás gépelés közben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="54"/>
         <source>Behaviour</source>
         <translation>Viselkedés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="97"/>
         <source>Word Lists</source>
         <translation>Szavak listája</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="108"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="105"/>
         <source>Exceptions</source>
         <translation>Kivételek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="124"/>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="177"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="121"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="174"/>
         <source>Edit</source>
         <translation>Szerkesztés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="151"/>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="91"/>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="103"/>
         <source>Ignore List</source>
@@ -18263,12 +18253,12 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Kivétellista</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="60"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
         <translation>Ha használatban van az Extrák &gt; Szöveg elválasztása opció, a szavak lehetséges elválasztásai egy párbeszédablakban jelennek meg.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
+        <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="70"/>
         <source>Enables automatic hyphenation of your text while typing</source>
         <translation>Automatikus elválasztás engedélyezése gépelés közben</translation>
     </message>
@@ -18286,33 +18276,33 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Beállítja a képek tömörítését a gyorsítótárban. A magasabb érték kisebb fájlméretet eredményez a gyorsítótárban, de ezzel csökken az írási sebesség is.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
         <translation>Kép gyorsítótár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
         <translation>Kép gyorsítótár engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="95"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="92"/>
         <source>Cache Size Limit:</source>
         <translation>Gyorsítótár méretkorlátja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="126"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
         <translation> Mb</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="145"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="142"/>
         <source>Cache Entry Limit:</source>
         <translation>Gyorsítótár bejegyzéskorlátja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="186"/>
         <source>Compression Level:</source>
         <translation>Tömörítési szint:</translation>
     </message>
@@ -18330,262 +18320,262 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_itemtools.cpp" line="34"/>
         <source>Item Tools</source>
         <translation>Eszközök</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="69"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="149"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="66"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="146"/>
         <source>Text</source>
         <translation>Szöveg</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="209"/>
         <source>Columns:</source>
         <translation>Hasábok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="216"/>
         <source>Column Gap:</source>
         <translation>Hasábköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="434"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="431"/>
         <source>Tab Fill Character:</source>
         <translation>Tabulátorkitöltő karakter:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="474"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="471"/>
         <source>Tab Width:</source>
         <translation>Tabulátorszélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="514"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="999"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1221"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1513"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="511"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="996"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1218"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1510"/>
         <source>Fill Color:</source>
         <translation>Kitöltőszín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="414"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1033"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1121"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1395"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1479"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="411"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1030"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1118"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1392"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1476"/>
         <source>Line Color:</source>
         <translation>Vonalszín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="291"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="311"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="457"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="487"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1006"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1066"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1114"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1158"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1315"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1472"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1530"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="288"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="308"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="454"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="484"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1003"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1063"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1111"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1155"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1312"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1469"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1527"/>
         <source>Shading:</source>
         <translation>Árnyalat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="301"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="325"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="441"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="494"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="909"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="960"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="989"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1023"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1128"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1175"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1376"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1442"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1489"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="298"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="438"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="491"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="906"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="957"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="986"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1020"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1125"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1172"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1373"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1439"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1486"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="282"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="279"/>
         <source>Columns &amp; Text Distances</source>
         <translation>Hasábok és szövegtávolságok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="185"/>
         <source>Top:</source>
         <translation>Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="198"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="195"/>
         <source>Bottom:</source>
         <translation>Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="202"/>
         <source>Left:</source>
         <translation>Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="229"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="226"/>
         <source>Right:</source>
         <translation>Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="335"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="332"/>
         <source>Font:</source>
         <translation>Betűkészlet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="355"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="352"/>
         <source>Size:</source>
         <translation>Méret:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="345"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="342"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="318"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="315"/>
         <source>Stroke:</source>
         <translation>Körvonal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="571"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="568"/>
         <source>Preview</source>
         <translation>Előnézet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="701"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="698"/>
         <source>Images</source>
         <translation>Képek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="743"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="740"/>
         <source>Use Embedded Clipping Path</source>
         <translation>Beágyazott vágóútvonal alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="772"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="769"/>
         <source>Scaling</source>
         <translation>Méretezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="786"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="783"/>
         <source>Free Scaling</source>
         <translation>Szabad méretezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="919"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="916"/>
         <source>Horizontal Scaling:</source>
         <translation>Vízszintes méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="896"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="893"/>
         <source>Vertical Scaling:</source>
         <translation>Függőleges méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="796"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="793"/>
         <source>Scale Image to Frame Size</source>
         <translation>Kép átméretezése a keret méretéhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="584"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="581"/>
         <source>First Line Offset</source>
         <translation>Első alapvonal eltolása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="650"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="647"/>
         <source>Offset:</source>
         <translation>Eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="658"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="655"/>
         <source>Maximum Ascent</source>
         <translation>Legmagasabb felnyúló szár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="663"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="660"/>
         <source>Font Ascent</source>
         <translation>Betűkészlet magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="668"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="665"/>
         <source>Line Spacing</source>
         <translation>Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="673"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="670"/>
         <source>Baseline Grid</source>
         <translation>Alaprács</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="806"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="803"/>
         <source>Keep Aspect Ratio</source>
         <translation>Méretarány megtartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="835"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>
         <source>On Screen Preview</source>
         <translation>Előnézet a képernyőn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="849"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="846"/>
         <source>Full Resolution</source>
         <translation>Teljes felbontás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="859"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="856"/>
         <source>Normal Resolution</source>
         <translation>Normál felbontás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="869"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="866"/>
         <source>Low Resolution</source>
         <translation>Alacsony felbontás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1093"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1090"/>
         <source>Shapes</source>
         <translation>Alakzatok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1138"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1362"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1455"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1135"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1359"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Line Style:</source>
         <translation>Vonalstílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1145"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1355"/>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1506"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1142"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1352"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1503"/>
         <source>Line Width:</source>
         <translation>Vonalvastagság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1247"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1244"/>
         <source>Regular Polygons</source>
         <translation>Szabályos sokszögek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1291"/>
         <source>Lines</source>
         <translation>Vonalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1369"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1366"/>
         <source>Start Arrow:</source>
         <translation>Vonalkezdet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1348"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1345"/>
         <source>End Arrow:</source>
         <translation>Vonalvégződés:</translation>
     </message>
@@ -18629,17 +18619,17 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Egyedi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1421"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1418"/>
         <source>Calligraphic Pen</source>
         <translation>Művészi toll</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1499"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1496"/>
         <source>Pen Angle:</source>
         <translation>Toll szöge:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1566"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1563"/>
         <source>Pen Width:</source>
         <translation>Toll szélessége:</translation>
     </message>
@@ -18649,12 +18639,12 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Vízszintes és függőleges méretezés arányának megtartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1589"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1586"/>
         <source>Arc</source>
         <translation>Körív</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1636"/>
+        <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1633"/>
         <source>Spiral</source>
         <translation>Spirál</translation>
     </message>
@@ -18828,33 +18818,33 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
         <translation>Vegyes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
         <translation>Mindig kérdezzen rá a dokumentum betöltésekor a betűkészlet-helyettesítésre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
         <translation>Megjelenik az aktuális bekezdésstílus előnézete a stílus szerkesztése közben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="119"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
         <translation>Helykitöltő szöveg</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="133"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
         <translation>Mindig a szabványos Lorem Ipsum szöveg alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="142"/>
+        <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
         <translation>Bekezdések száma:</translation>
     </message>
@@ -18862,65 +18852,65 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_operatortools.cpp" line="21"/>
         <source>Operator Tools</source>
         <translation>Műveleti eszközök</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
         <translation>Nagyítás/kicsinyítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="80"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
         <translation>Minimum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="87"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
         <translation>Maximum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="94"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
         <translation>Lépésköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="101"/>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="114"/>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="127"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="156"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
         <translation>Vegyes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="168"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
         <translation>Elem kettőzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="187"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
         <translation>X eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="194"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
         <translation>Y eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="231"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
         <translation>Forgatási eszköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="250"/>
+        <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
         <translation>Léptetés:</translation>
     </message>
@@ -18958,473 +18948,473 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
         <translation>PDF exportálás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
         <translation>Exportálási tartomány</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
         <translation>Minden oldal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
         <translation>Oldalak kijelölése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="148"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
         <translation>Forgatás és tükrözés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="164"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
         <translation>Forgatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
         <translation>Oldaltükrözés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="301"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
         <translation>Kötés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="468"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
         <translation>EPS-grafika felbontása:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="438"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="475"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="315"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
         <translation>Vágás a nyomtató margóira</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="431"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
         <translation>Maximális képfelbontás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="655"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
         <translation>Szöveg és grafika másolásának engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
         <translation>Fájlbeállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
         <translation>Oldalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="291"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
         <translation>Kompatibilitás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
         <translation>Előnézetek létrehozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="329"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
         <translation>Kapcsolt szövegkeretek mentése PDF cikkekként</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="336"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
         <translation>Rétegek beágyazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="343"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
         <translation>Könyvjelzők beágyazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="350"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
         <translation>PDF-ek és EPS-ek beágyazása (kísérleti)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="381"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
         <translation>Tömörítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="395"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
         <translation>Szöveg és vektorgrafika tömörítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="407"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
         <translation>Képtömörítési módszer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="417"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
         <translation>Képtömörítési minőség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="521"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
         <translation>Biztonság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="527"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
         <translation>Titkosítás alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="556"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
         <translation>Jelszavak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="575"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
         <translation>Tulajdonosi:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="589"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
         <translation>Felhasználói:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="627"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="641"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
         <translation>Dokumentum nyomtatásának engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="648"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
         <translation>Dokumentum módosításának engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="662"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
         <translation>Megjegyzések és mezők hozzáadásának engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="683"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="730"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
         <translation>Célterület:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="742"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Direkt színek nyomdai alapszínekké alakítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="771"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
         <translation>Homogén színek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="792"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="859"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
         <translation>Színprofil alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="801"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="875"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
         <translation>Profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="811"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="885"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
         <translation>Leképzés módja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="845"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
         <translation>Képek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="866"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
         <translation>Beágyazott színprofil mellőzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="919"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
         <translation>Egyedi leképezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="933"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
         <translation>Egyedi leképzés alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="945"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="955"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
         <translation>Rácssűrűség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="972"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
         <translation>Szög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="979"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
         <translation> °</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="992"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
         <translation>Rácspontalak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1022"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
         <translation>Nyomdai előkészítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1070"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
         <translation>Nyomdai jelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1131"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
         <translation>Oldalinformációk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1327"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
         <translation>Beágyazás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1633"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1630"/>
         <source>Facing Pages Left</source>
         <translation>Bal oldalpár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1640"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1637"/>
         <source>Facing Pages Right</source>
         <translation>Jobb oldalpár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1124"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
         <translation>Passzerjelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1146"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
         <translation>Vágójelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1110"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
         <translation>Kifutójelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1117"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
         <translation>Színellenőrző csíkok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1193"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
         <translation>Kifutó beállításai</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1207"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
         <translation>Kifutók a dokumentumból</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1275"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
         <translation>Kimeneti profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1285"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
         <translation>Információs szöveg:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
         <translation>Betűkészletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1375"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
         <translation>Összes beágyazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1365"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
         <translation>Beágyazandó betűkészletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1457"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
         <translation>Extrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1463"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
         <translation>Prezentációs effektusok engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1482"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
         <translation>Megjelenítés időtartama:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1489"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
         <translation>Effektus hossza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1496"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
         <translation>Effektus típusa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1506"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
         <translation>Mozgó vonalak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1516"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
         <translation>Kezdőpont:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1526"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
         <translation>Irány:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1536"/>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1546"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
         <translation> másodperc</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1561"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
         <translation>Effektus alkalmazása minden oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1585"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
         <translation>Oldalelőnézetek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1593"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
         <translation>Megjelenítő</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1605"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
         <translation>Dokumentum elrendezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1619"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
         <translation>Egyoldalas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1626"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1623"/>
         <source>Continuous Pages</source>
         <translation>Folyamatos oldalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1669"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
         <translation>Látható megjelenés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1687"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1684"/>
         <source>Use Viewer&apos;s Default</source>
         <translation>PDF-megjelenítő alapértelmezései</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1694"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
         <translation>Teljes képernyős</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1701"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
         <translation>Könyvjelző fül megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1708"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
         <translation>Előnézetek megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1715"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
         <translation>Rétegek fül megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1726"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1723"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
         <translation>Menüsor elrejtése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1733"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1730"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
         <translation>Eszköztár elrejtése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1740"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
         <translation>Oldalak átméretezése az ablakhoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1786"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
         <translation>Különleges műveletek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1802"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1799"/>
         <source>Javascript to be executed when PDF document is opened:</source>
         <translation>PDF-dokumentum megnyitásakor lefutó JavaScript parancsfájl:</translation>
     </message>
@@ -19882,12 +19872,12 @@ Kívánja ezt alkalmazni?</translation>
         <translation>A PDF-megjelenítő szerkesztő eszköztárának elrejtése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1088"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1085"/>
         <source>Mark Length:</source>
         <translation>Jel hosszúsága:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1157"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1154"/>
         <source>Mark Offset:</source>
         <translation>Jel eltolása:</translation>
     </message>
@@ -19907,17 +19897,17 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Oldaltartomány létrehozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1349"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
         <translation>Beágyazási mód:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1435"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1432"/>
         <source>Fonts to Subset</source>
         <translation>Betűkészlet-részhalmazok létrehozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1445"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1442"/>
         <source>Subset All</source>
         <translation>Összes részhalmazolása</translation>
     </message>
@@ -19997,7 +19987,7 @@ Kívánja ezt alkalmazni?</translation>
         <translation>Csak azon betűkészletjelek kerülnek beágyazásra a PDF-be, melyek használatban vannak a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1256"/>
+        <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
         <translation>PDF/X-leképezés</translation>
     </message>
@@ -20010,18 +20000,18 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_pagesizes.cpp" line="25"/>
         <source>Page Sizes</source>
         <translation>Oldalméret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="54"/>
         <source>Available Sizes</source>
         <translation>Elérhető méretek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="125"/>
+        <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="122"/>
         <source>Active Sizes</source>
         <translation>Aktív méretek</translation>
     </message>
@@ -20029,68 +20019,68 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Paths</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
         <translation>Útvonalak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
         <translation>Dokumentumok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="117"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
         <translation>&amp;Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="120"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="127"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="124"/>
         <source>Color Profiles:</source>
         <translation>Színprofilok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
         <translation>&amp;Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="153"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
         <translation>Alt+H</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="160"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
         <translation>Parancsfájlok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="183"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
         <translation>&amp;Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="186"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="193"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
         <translation>Dokumentumsablonok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="216"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
         <translation>&amp;Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
     </message>
@@ -20126,43 +20116,43 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Plugins</name>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
         <translation>Bővítmények</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="63"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
         <translation>Bővítmény</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="68"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
         <translation>Hogyan futtatható</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="73"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
         <translation>Típus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="78"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
         <translation>Betölthető?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="83"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
         <translation>Bővítmény ID</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
         <translation>Fájl</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="96"/>
+        <location filename="../../scribus/ui/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
         <translation>Újra kell indítani az alkalmazást a változások érvényre jutásához.</translation>
     </message>
@@ -20170,139 +20160,139 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Elővizsgáló</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="53"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="50"/>
         <source>Show pages without errors</source>
         <translation>Hibátlan oldalak megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="60"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="57"/>
         <source>Show errors for items on layers that will not print</source>
         <translation>Nyomtatásra nem kerülő rétegen lévő elemek hibáinak megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="89"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="86"/>
         <source>Profile Setup</source>
         <translation>Profilbeállítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="122"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="119"/>
         <source>Output Profile:</source>
         <translation>Kimeneti profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="140"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="137"/>
         <source>Add New Profile</source>
         <translation>Új profil hozzáadása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="147"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="144"/>
         <source>Remove Profile</source>
         <translation>Profil eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="188"/>
         <source>Profile Options</source>
         <translation>Profilbeállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="202"/>
         <source>Ignore all errors</source>
         <translation>Minden hiba mellőzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="212"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="209"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Automatikus ellenőrzés nyomtatás vagy exportálás előtt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="219"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="216"/>
         <source>Check for missing glyphs</source>
         <translation>Hiányzó betűkészletjelek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="226"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="223"/>
         <source>Check for items not on a page</source>
         <translation>Oldalon kívül eső elemek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="240"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="237"/>
         <source>Check for overflow in text frames</source>
         <translation>Túlcsordulás ellenőrzés a szövegkeretekben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="247"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="244"/>
         <source>Check for used transparencies</source>
         <translation>Átlátszóság alkalmazásának ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="254"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="251"/>
         <source>Check for missing images</source>
         <translation>Hiányzó képek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="268"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="265"/>
         <source>Check image resolution</source>
         <translation>Képfelbontás ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="280"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="277"/>
         <source>Minimum Resolution:</source>
         <translation>Minimális felbontás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="287"/>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="300"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="284"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="297"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="313"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
         <source>Maximum Resolution:</source>
         <translation>Maximális felbontás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="319"/>
         <source>Check for placed PDF files</source>
         <translation>Beágyazott PDF-fájlok ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="329"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="326"/>
         <source>Check for GIF images</source>
         <translation>GIF-képek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="336"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="333"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>PDF megjegyzések és mezők ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="343"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="340"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation>A rétegek nyomtatás/láthatóság ellentmondásának ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="350"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="347"/>
         <source>Ignore non-printable layers</source>
         <translation>Nem nyomtatható rétegek mellőzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="261"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
         <source>Check for part filled image frames</source>
         <translation>Részlegesen kitöltött képkeretek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="233"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
         <source>Check for empty text frames</source>
         <translation>Üres szövegkeretek ellenőrzése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="357"/>
+        <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="354"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
         <translation>Alkalmazott mesteroldal- és az egyes oldalhelyek azonosságának ellenőrzése</translation>
     </message>
@@ -20310,142 +20300,142 @@ Kívánja ezt alkalmazni?</translation>
 <context>
     <name>Prefs_Printer</name>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="41"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="38"/>
         <source>Printing</source>
         <translation>Nyomtatás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="76"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
         <translation>Cél</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
         <translation>Alternatív nyomtató parancs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="102"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
         <translation>Parancs:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="136"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
         <translation>Általános beállítások</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="152"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="149"/>
         <source>Output:</source>
         <translation>Kimenet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="160"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
         <translation>Normál</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="162"/>
         <source>Separations</source>
         <translation>Színbontás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
         <translation>PDF megjegyzések és hivatkozások beágyazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="217"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
         <translation>Oldal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="231"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="228"/>
         <source>Mirror Page(s) Horizontally</source>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="238"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="235"/>
         <source>Mirror Page(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="245"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
         <translation>Médiaméret beállítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="252"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
         <translation>Vágás a nyomtató margóira</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="281"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="333"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
         <translation>Színvisszavétel alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="340"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Direkt színek nyomdai alapszínekké alakítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="297"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="294"/>
         <source>Print In:</source>
         <translation>Nyomtatási mód:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="305"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="302"/>
         <source>Color (If Available)</source>
         <translation>Színes (ha elérhető)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="310"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
         <translation>Szürkeárnyalatos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="369"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="366"/>
         <source>Printing Language</source>
         <translation>Nyomtatási nyelv</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="432"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
         <translation>Jelek és kifutók</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="448"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
         <translation>Vágójelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="455"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
         <translation>Kifutójelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="462"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
         <translation>Passzerjelek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="469"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
         <translation>Színellenőrző csíkok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="478"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
         <translation>Eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="538"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
         <translation>Kifutó beállításai</translation>
     </message>
@@ -20482,7 +20472,7 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Direkt színek összetett színekké való konvertálásának engedélyezése. Hacsak nem nyomdai gépen lesznek kinyomva a direkt színek, valószínűleg a legjobb ezt engedélyezni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_printerbase.ui" line="492"/>
+        <location filename="../../scribus/ui/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
         <translation>Hosszúság:</translation>
     </message>
@@ -20495,28 +20485,28 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
         <translation>Gyűjtőalbum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="86"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
         <translation>Másolt elemek automatikusan a gyűjtőalbumba kerülnek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="93"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
         <translation>Másolt elemek megtartása a munkamenetek között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="100"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
         <translation>Elemek előnézeteinek kiírása a gyűjtőalbum-mappába</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
         <translation>Gyűjtőalbumban megtartott másolt elemek száma</translation>
     </message>
@@ -20544,68 +20534,68 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_Scripter</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="39"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="36"/>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="28"/>
         <source>Scripter</source>
         <translation>Szkriptelő</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="89"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <source>Extensions</source>
         <translation>Kiegészítők</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="103"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="100"/>
         <source>Enable Extension Scripts</source>
         <translation>Kiegészítő parancsfájlok engedélyezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="112"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="109"/>
         <source>Startup Script:</source>
         <translation>Indítási parancsfájl:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="122"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="119"/>
         <source>Change...</source>
         <translation>Módosítás...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="153"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="150"/>
         <source>Console</source>
         <translation>Konzol</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="174"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="171"/>
         <source>Base Texts:</source>
         <translation>Alapszöveg:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="188"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="185"/>
         <source>Comments:</source>
         <translation>Megjegyzések:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="202"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="199"/>
         <source>Keywords:</source>
         <translation>Kulcsszavak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="216"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="213"/>
         <source>Signs:</source>
         <translation>Jelek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="230"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="227"/>
         <source>Errors:</source>
         <translation>Hibák:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="244"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="241"/>
         <source>Strings:</source>
         <translation>Karakterláncok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="255"/>
         <source>Numbers:</source>
         <translation>Számok:</translation>
     </message>
@@ -20618,12 +20608,12 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_ShortWords</name>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="78"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="75"/>
         <source>Save</source>
         <translation>Mentés</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="85"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="82"/>
         <source>Reset</source>
         <translation>Alapállapot</translation>
     </message>
@@ -20638,7 +20628,7 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Rendszerszintű konfiguráció</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="39"/>
+        <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="36"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="24"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="72"/>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="85"/>
@@ -20674,28 +20664,28 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_Spelling</name>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_spelling.cpp" line="36"/>
         <source>Spelling</source>
         <translation>Helyesírás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="72"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
         <translation>Telepített helyesírási szótárak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="90"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
         <translation>Letölthető helyesírási szótárak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="143"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
         <translation>Letölthető lista frissítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="150"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
         <translation>Kijelölt szótárak letöltése</translation>
     </message>
@@ -20727,7 +20717,7 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Letöltés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="110"/>
+        <location filename="../../scribus/ui/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
         <translation>Letöltés</translation>
     </message>
@@ -20735,82 +20725,82 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="36"/>
         <source>Table of Contents</source>
         <translation>Tartalomjegyzék</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="91"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="88"/>
         <source>&amp;Add</source>
         <translation>&amp;Hozzáadás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="94"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="91"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="98"/>
         <source>&amp;Delete</source>
         <translation>&amp;Törlés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="104"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="101"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="135"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="132"/>
         <source>Properties</source>
         <translation>Tulajdonságok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="154"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="151"/>
         <source>Item Attribute Name:</source>
         <translation>Elemjellemző neve:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="164"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="161"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
         <translation>Elemjellemző, mely be lesz állítva egy kereten és alapként szolgál a bejegyzések létrehozásakor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="171"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="168"/>
         <source>Destination Frame:</source>
         <translation>Célkeret:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="181"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="178"/>
         <source>The frame the table of contents will be placed into</source>
         <translation>A tartalomjegyzék elhelyezésére szolgáló keret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="188"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="185"/>
         <source>Page Number Placement:</source>
         <translation>Oldalszám elhelyezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="198"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="195"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
         <translation>A bejegyzések oldalszámainak elhelyezése a sor elejére, végére, vagy elrejtése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="205"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="202"/>
         <source>Paragraph Style:</source>
         <translation>Bekezdésstílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="215"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="212"/>
         <source>The paragraph style used for the entry lines</source>
         <translation>Bekezdésstílus a bejegyzéssorok számára</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="222"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="219"/>
         <source>Include frames that are set to not print as well</source>
         <translation>Nem nyomtatandónak beállított keretek befoglalása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="225"/>
+        <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="222"/>
         <source>List Non-Printing Entries</source>
         <translation>Nem nyomtatandó bejegyzések listázása</translation>
     </message>
@@ -20843,87 +20833,87 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_Typography</name>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="18"/>
         <source>Typography</source>
         <translation>Tipográfia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="74"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="60"/>
         <source>Subscript</source>
         <translation>Alsó index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="96"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="179"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="262"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="360"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="82"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="165"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="315"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="413"/>
         <source>Displacement:</source>
         <translation>Eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="103"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="113"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="186"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="203"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="282"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="301"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="373"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="399"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="465"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="528"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="89"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="99"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="255"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="335"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="354"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="426"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="452"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="518"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="126"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="196"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="458"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="112"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="182"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="248"/>
         <source>Scaling:</source>
         <translation>Méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="157"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="143"/>
         <source>Superscript</source>
         <translation>Felső index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="240"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="293"/>
         <source>Underline</source>
         <translation>Aláhúzott</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="269"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="386"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="322"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="439"/>
         <source>Line Width:</source>
         <translation>Vonalvastagság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="279"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="298"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="370"/>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="396"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="332"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="351"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="423"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="449"/>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="26"/>
         <source>Auto</source>
         <translation>Automatikus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="338"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="391"/>
         <source>Strikeout</source>
         <translation>Áthúzott</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="436"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="226"/>
         <source>Small Caps</source>
         <translation>Kiskapitális</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="499"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="489"/>
         <source>Automatic Line Spacing</source>
         <translation>Automatikus sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_typographybase.ui" line="521"/>
+        <location filename="../../scribus/ui/prefs_typographybase.ui" line="511"/>
         <source>Line Spacing:</source>
         <translation>Sortávolság:</translation>
     </message>
@@ -20977,124 +20967,124 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="39"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="27"/>
         <source>User Interface</source>
         <translation>Felhasználói felület</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="57"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="54"/>
         <source>Main Window</source>
         <translation>Fő ablak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="69"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="66"/>
         <source>Appearance</source>
         <translation>Megjelenés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="178"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="175"/>
         <source>&amp;Language:</source>
         <translation>&amp;Nyelv:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="88"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="85"/>
         <source>&amp;Theme:</source>
         <translation>&amp;Téma:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="111"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="108"/>
         <source>Use Small Widgets on Palettes</source>
         <translation>Kis méretű felületi elemek használata a palettákon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="118"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="115"/>
         <source>Use Tabs for Documents</source>
         <translation>Fülek a dokumentumok számára</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="125"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="122"/>
         <source>&amp;Recent Documents:</source>
         <translation>&amp;Legutóbbi dokumentumok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="162"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="159"/>
         <source>Language and Regionalization</source>
         <translation>Nyelv és terület</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="191"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="188"/>
         <source>Number Format:</source>
         <translation>Számformátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="228"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="225"/>
         <source>Font Sizes</source>
         <translation>Betűméretek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="244"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="241"/>
         <source>&amp;Menus:</source>
         <translation>&amp;Menük:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="254"/>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="251"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="268"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="261"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="258"/>
         <source>&amp;Palettes:</source>
         <translation>&amp;Paletták:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="294"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="291"/>
         <source>Story Editor</source>
         <translation>Szövegszerkesztő</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="305"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="302"/>
         <source>Font:</source>
         <translation>Betűkészlet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="319"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="316"/>
         <source>Use Smart Text Selection</source>
         <translation>Okos szövegkijelölés alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="342"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="339"/>
         <source>Interactivity</source>
         <translation>Interaktivitás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="353"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="350"/>
         <source>Time before resize or move starts:</source>
         <translation>Átméretezés és mozgatás indítása előtti idő:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="363"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="360"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="373"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="370"/>
         <source>&amp;Wheel Jump:</source>
         <translation>&amp;Görgetés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="402"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="399"/>
         <source>Start Up</source>
         <translation>Indítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="417"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="414"/>
         <source>Show Splashscreen</source>
         <translation>Indítóképernyő megjelenítése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="410"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="407"/>
         <source>Show Startup Dialog</source>
         <translation>Kezdő párbeszédablak megjelenítése</translation>
     </message>
@@ -21129,11 +21119,11 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Késleltetési idő a kattintás és az átméretezés, ill. a mozgatás megkezdése között, amely megakadályozza az akaratlan elmozdítást. Ez akkor lehet hasznos, ha próbáljuk beállítani az egér érzékenységét vagy az ergonomikus egér, érintőpad hozzáférhetőségét vagy a csukló és a kéz mozgathatóságát.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="101"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
         <source>Icon Set:</source>
         <translation>Ikonkészlet:</translation>
     </message>
@@ -21841,12 +21831,12 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
 <context>
     <name>PropertiesPalette_GroupBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
         <source>Group clips Contents</source>
         <translation>A csoportosítás levágja a tartalmakat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="32"/>
         <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
         <translation>Egy csoport határolókeretének szerkesztésekor az oldalon lévő elemek legyenek vágva a szerkesztett határolókeret mentén</translation>
     </message>
@@ -21949,177 +21939,177 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="60"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
         <translation>Forgatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="74"/>
         <source>&amp;Page Number:</source>
         <translation>&amp;Oldalszám:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="53"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
         <source>Horizontal offset of image within frame</source>
         <translation>A kép vízszintes eltolása a kereten belül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
         <source>Vertical offset of image within frame</source>
         <translation>A kép függőleges eltolása a kereten belül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="110"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="107"/>
         <source>Auto</source>
         <translation>Automatikus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="116"/>
         <source>Scaling</source>
         <translation>Méretezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="159"/>
         <source>X-Sc&amp;ale:</source>
         <translation>&amp;X-méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="172"/>
         <source>Resize the image horizontally</source>
         <translation>Kép vízszintes átméretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="182"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="179"/>
         <source>Y-Scal&amp;e:</source>
         <translation>&amp;Y-méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="254"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Resize the image vertically</source>
         <translation>Kép függőleges átméretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="146"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="143"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>X és Y méretezés azonos maradjon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="186"/>
         <source>Actual X-DPI:</source>
         <translation>Érvényes X-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="202"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>A kép tényleges vízszintes DPI-je az átméretezés után</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="209"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="206"/>
         <source>Actual Y-DPI:</source>
         <translation>Érvényes Y-DPI:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="222"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="219"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>A kép tényleges függőleges DPI-je az átméretezés után</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="268"/>
         <source>Allow the image to be a different size to the frame</source>
         <translation>A kép mérete különbözhet a keret méretétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Szabad méretezésű</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="278"/>
         <source>Use image proportions rather than those of the frame</source>
         <translation>A kép arányainak alkalmazása a keret arányai helyett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
         <source>Make the image fit within the size of the frame</source>
         <translation>A képet a keret méretéhez illessze</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="264"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
         <source>&amp;To Frame Size</source>
         <translation>&amp;Keret méretéhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="315"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="312"/>
         <source>Input Profile:</source>
         <translation>Bemeneti profil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="328"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="325"/>
         <source>Source profile of the image</source>
         <translation>Kép forrásprofilja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="335"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="332"/>
         <source>Rendering Intent:</source>
         <translation>Leképzés módja:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="348"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="345"/>
         <source>Rendering intent for the image</source>
         <translation>Leképzés módja a képek számára</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="284"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
         <source>Proportional</source>
         <translation>Arányos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="291"/>
         <source>Color Management</source>
         <translation>Színkezelés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="358"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="355"/>
         <source>PDF Compression</source>
         <translation>PDF tömörítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="379"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="376"/>
         <source>Method:</source>
         <translation>Módszer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="392"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="389"/>
         <source>Compression method used in PDF export for the image</source>
         <translation>Erre a képre vonatkozó PDF tömörítési módszer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="399"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="396"/>
         <source>Quality:</source>
         <translation>Minőség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="409"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Erre a képre vonatkozó PDF tömörítési minőség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="433"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
         <source>Image Effects</source>
         <translation>Képeffektusok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="446"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="443"/>
         <source>Extended Properties</source>
         <translation>Bővített tulajdonságok</translation>
     </message>
@@ -22295,48 +22285,48 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
 <context>
     <name>PropertiesPalette_LineBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="87"/>
         <source>&amp;Basepoint:</source>
         <translation>&amp;Alappont:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="32"/>
         <source>T&amp;ype of Line:</source>
         <translation>&amp;Vonaltípus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="157"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="154"/>
         <source>Start Arrow:</source>
         <translation>Vonalkezdet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="102"/>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="99"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="129"/>
         <source>Scaling:</source>
         <translation>Méretezés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="161"/>
         <source>End Arrow:</source>
         <translation>Vonalvégződés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="42"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="39"/>
         <source>Line &amp;Width:</source>
         <translation>&amp;Vonalvastagság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="68"/>
         <source>Hairline</source>
         <translation>Hajszálvékony</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="171"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="168"/>
         <source>Ed&amp;ges:</source>
         <translation>&amp;Sarkok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="178"/>
+        <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="175"/>
         <source>&amp;Endings:</source>
         <translation>&amp;Vonalvég:</translation>
     </message>
@@ -22498,133 +22488,133 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_ShadowBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="32"/>
         <source>Object has a drop shadow</source>
         <translation>Az objektumnak van vetett árnyéka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="44"/>
         <source>X-Offset:</source>
         <translation>X eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="60"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="57"/>
         <source>Y-Offset:</source>
         <translation>Y eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="70"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="86"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="83"/>
         <source>Shade:</source>
         <translation>Árnyalat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="96"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="93"/>
         <source>Opacity:</source>
         <translation>Átlátszatlanság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="106"/>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="236"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="103"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="233"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="116"/>
         <source>Blendmode:</source>
         <translation>Keverési mód:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="130"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="127"/>
         <source>Normal</source>
         <translation>Normál</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="132"/>
         <source>Darken</source>
         <translation>Sötétítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="140"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="137"/>
         <source>Lighten</source>
         <translation>Világosítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="145"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="142"/>
         <source>Multiply</source>
         <translation>Szorzás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="150"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="147"/>
         <source>Screen</source>
         <translation>Kivetítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="155"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="152"/>
         <source>Overlay</source>
         <translation>Átfedés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="160"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="157"/>
         <source>Hard Light</source>
         <translation>Kemény fény</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="162"/>
         <source>Soft Light</source>
         <translation>Lágy fény</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="170"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="167"/>
         <source>Difference</source>
         <translation>Különbség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="172"/>
         <source>Exclusion</source>
         <translation>Kivétel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="180"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="177"/>
         <source>Color Dodge</source>
         <translation>Színfakítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="185"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="182"/>
         <source>Color Burn</source>
         <translation>Színégetés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="187"/>
         <source>Hue</source>
         <translation>Árnyalat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="195"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="192"/>
         <source>Saturation</source>
         <translation>Telítettség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="197"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="205"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="202"/>
         <source>Luminosity</source>
         <translation>Fényintenzitás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="210"/>
         <source>Blur:</source>
         <translation>Elmosás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="223"/>
+        <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="220"/>
         <source> px</source>
         <translation> px</translation>
     </message>
@@ -22632,67 +22622,67 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_ShapeBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="164"/>
         <source>Choose the shape of frame...</source>
         <translation>Válassza ki a keret alakját...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="180"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="177"/>
         <source>&amp;Edit...</source>
         <translation>S&amp;zerkesztés...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="106"/>
         <source>Text flow around contour line</source>
         <translation>Szöveg körbefuttatása a kontúrvonal körül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="216"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="213"/>
         <source>Set radius of corner rounding</source>
         <translation>A sarok lekerekítési sugarának beállítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="37"/>
         <source>Shape:</source>
         <translation>Alakzat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="87"/>
         <source>Text flow around bounding box</source>
         <translation>Szöveg körbefuttatása a határolódoboz körül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="68"/>
         <source>Text flow around frame shape</source>
         <translation>Szöveg körbefuttatása a keret alakzata körül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="52"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="49"/>
         <source>Text flow around frame disabled</source>
         <translation>Szöveg körbefuttatása a keret körül letiltva</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="128"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="125"/>
         <source>Text flow around image clip path</source>
         <translation>Szöveg körbefuttatása a vágóútvonal körül</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="225"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
         <source>Text Flow:</source>
         <translation>Szöveg körbefuttatása:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="232"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
         <source>Fill Rule:</source>
         <translation>Kitöltési szabály:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="244"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="241"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
         <translation>Az útvonalak önmagukkal való metszései és az alútvonalak üres területeket hoznak létre a kitöltésben (fill-rule: evenodd)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="260"/>
+        <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="257"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
         <translation>A kitöltés egyenletes, kivéve akkor, ha egy alútvonal ellentétes irányú (fill-rule: nonzero)</translation>
     </message>
@@ -22700,75 +22690,75 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_TableBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="53"/>
         <source>Table:</source>
         <translation>Táblázat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="89"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="86"/>
         <source>Cells:</source>
         <translation>Cellák:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="99"/>
         <source>Cell style of currently selected cell</source>
         <translation>Az éppen kijelölt cella cellastílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="106"/>
         <source>Remove Direct Cell Formatting</source>
         <translation>Közvetlen cellaformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="246"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="243"/>
         <source>Borders</source>
         <translation>Szegélyek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="383"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="380"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="162"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="396"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="159"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="393"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="457"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="454"/>
         <source>Type:</source>
         <translation>Típus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="201"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="489"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="198"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="486"/>
         <source>Shade:</source>
         <translation>Árnyalat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="223"/>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="514"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="220"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="511"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="125"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="122"/>
         <source>Fill</source>
         <translation>Kitöltés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="32"/>
         <source>Styles</source>
         <translation>Stílusok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="69"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="66"/>
         <source>Table style of currently selected table</source>
         <translation>Az éppen kijelölt táblázat táblázatstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="76"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="73"/>
         <source>Remove Direct Table Formatting</source>
         <translation>Közvetlen táblázatformázás eltávolítása</translation>
     </message>
@@ -22869,48 +22859,48 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_TextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="68"/>
         <source>Font Size</source>
         <translation>Betűméret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="74"/>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="129"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="71"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="126"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="113"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="110"/>
         <source>Select the line spacing mode</source>
         <translation>Sortávolság módjának meghatározása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="123"/>
         <source>Line Spacing</source>
         <translation>Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="210"/>
         <source>Text Language</source>
         <translation>Szöveg nyelve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="255"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="252"/>
         <source>Paragraph style of currently selected text or paragraph</source>
         <translation>A kiválasztott szöveg vagy bekezdés bekezdésstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="262"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="259"/>
         <source>Remove Direct Paragraph Formatting</source>
         <translation>Közvetlen bekezdésformázások törlése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="304"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="301"/>
         <source>Character style of currently selected text or paragraph</source>
         <translation>A kijelölt szöveg vagy bekezdés karakterstílusa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="311"/>
+        <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="308"/>
         <source>Remove Direct Character Formatting</source>
         <translation>Közvetlen karakterformázások törlése</translation>
     </message>
@@ -22996,152 +22986,152 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_XYZBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="41"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="38"/>
         <source>Name</source>
         <translation>Név</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="62"/>
         <source>Name of selected object</source>
         <translation>Kijelölt objektum neve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="78"/>
         <source>Geometry</source>
         <translation>Elhelyezkedés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="116"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Jelenlegi alappont vízszintes pozíciója</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="142"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
         <source>&amp;Width:</source>
         <translation>&amp;Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="152"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="149"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
         <source>Vertical position of current basepoint</source>
         <translation>Jelenlegi alappont függőleges pozíciója</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="169"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
         <source>Width of current selection</source>
         <translation>Aktuális kijelölés szélessége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="176"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
         <source>&amp;Height:</source>
         <translation>&amp;Magasság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="186"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="183"/>
         <source>Height of current selection</source>
         <translation>Aktuális kijelölés magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="193"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="190"/>
         <source>&amp;Rotation:</source>
         <translation>&amp;Forgatás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Objektum jelenlegi alappont körüli forgatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="207"/>
         <source>Point from which measurements or rotation angles are referenced</source>
         <translation>A mérések vagy a forgatási szögek viszonyítási pontja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
         <source>Basepoint:</source>
         <translation>Alappont:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="229"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
         <source>Keep the aspect ratio</source>
         <translation>Méretarány megtartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="252"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="249"/>
         <source>Level</source>
         <translation>Szint</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="273"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="270"/>
         <source>Move one level up</source>
         <translation>Mozgatás egy szinttel feljebb</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="277"/>
         <source>Move one level down</source>
         <translation>Mozgatás egy szinttel lejjebb</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="287"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="284"/>
         <source>Move to front</source>
         <translation>Felülre helyezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="294"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="291"/>
         <source>Move to back</source>
         <translation>Alulra helyezés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="301"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="298"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation>Meghatározza az objektum szintjét; az 1 azt jelenti, hogy legalul van</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="304"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="301"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="332"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="329"/>
         <source>Group the selected objects</source>
         <translation>Kijelölt objektumok csoportosítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="339"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="336"/>
         <source>Ungroup the selected group</source>
         <translation>Kijelölt objektumok csoportosításának megszüntetése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="346"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="343"/>
         <source>Flip horizontally</source>
         <translation>Vízszintes tükrözés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="353"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="350"/>
         <source>Flip vertically</source>
         <translation>Függőleges tükrözés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="360"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="357"/>
         <source>Lock or unlock the object</source>
         <translation>Objektum zárolása vagy zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="367"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="364"/>
         <source>Enable or disable exporting of the object</source>
         <translation>Az objektum exportálásának engedélyezése vagy tiltása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="374"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="371"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Objektum méretének zárolása vagy zárolás feloldása</translation>
     </message>
@@ -23149,80 +23139,80 @@ Transparency</source>
 <context>
     <name>PropertyWidget_AdvancedBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="60"/>
         <source>Offset to baseline of characters</source>
         <translation>Karakterek alapvonalának eltolása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="66"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="104"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="136"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="168"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="192"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="211"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="251"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="208"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="101"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="98"/>
         <source>Manual Tracking</source>
         <translation>Kézi alávágás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="130"/>
         <source>Scaling width of characters</source>
         <translation>Karakter szélességének méretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="165"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="162"/>
         <source>Scaling height of characters</source>
         <translation>Karakter magasságának méretezése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="175"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="172"/>
         <source>Word Tracking</source>
         <translation>Szavak közti térköz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="182"/>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="241"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="179"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="238"/>
         <source>Min:</source>
         <translation>Min:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="189"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="186"/>
         <source>Minimal width of spaces between words</source>
         <translation>Minimális szélességű térköz a szavak között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="208"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="205"/>
         <source>Normal width of spaces between words</source>
         <translation>Normál szélességű térköz a szavak között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="227"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="224"/>
         <source>Norm:</source>
         <translation>Norm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="245"/>
         <source>Minimal shrinkage of glyphs for justification</source>
         <translation>A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="264"/>
         <source>Maximal extension of glyphs for justification</source>
         <translation>Betűkészletjelek maximális ritkítása sorkizáráskor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="286"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="283"/>
         <source>Max:</source>
         <translation>Max:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="234"/>
+        <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="231"/>
         <source>Glyph Extension</source>
         <translation>Betűkészletjel-ritkítás és -sűrítés</translation>
     </message>
@@ -23273,102 +23263,102 @@ Transparency</source>
 <context>
     <name>PropertyWidget_DistanceBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="32"/>
         <source>Vertical Alignment:</source>
         <translation>Függőleges igazítás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="61"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="58"/>
         <source>Colu&amp;mns:</source>
         <translation>&amp;Hasábok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="65"/>
         <source>Number of columns in text frame</source>
         <translation>Hasábok száma egy szövegkeretben</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="78"/>
         <source>Switches between Gap or Column width</source>
         <translation>Váltás a hasábköz és a hasábszélesség meghatározása között</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="82"/>
         <source>Gap:</source>
         <translation>Hasábköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="90"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="98"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="95"/>
         <source>Distance between columns</source>
         <translation>Hasábok közötti távolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="105"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="102"/>
         <source>To&amp;p:</source>
         <translation>&amp;Felső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="112"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="109"/>
         <source>Distance of text from top of frame</source>
         <translation>Szöveg távolsága a keret tetejétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="119"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="116"/>
         <source>&amp;Bottom:</source>
         <translation>&amp;Alsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="126"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="123"/>
         <source>Distance of text from bottom of frame</source>
         <translation>Szöveg távolsága a keret aljától</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="133"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="130"/>
         <source>&amp;Left:</source>
         <translation>&amp;Bal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="140"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="137"/>
         <source>Distance of text from left of frame</source>
         <translation>Szöveg távolsága a keret bal szélétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="144"/>
         <source>&amp;Right:</source>
         <translation>&amp;Jobb:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="154"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="151"/>
         <source>Distance of text from right of frame</source>
         <translation>Szöveg távolsága a keret jobb szélétől</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="164"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Szövegkeret tabulátor-beállításainak szerkesztése...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="170"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
         <source>T&amp;abulators...</source>
         <translation>&amp;Tabulátorok...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="43"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="40"/>
         <source>Top</source>
         <translation>Felülre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="45"/>
         <source>Middle</source>
         <translation>Középre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="53"/>
+        <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="50"/>
         <source>Bottom</source>
         <translation>Alulra</translation>
     </message>
@@ -23404,32 +23394,32 @@ Transparency</source>
 <context>
     <name>PropertyWidget_DropCapBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="23"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
         <source>Height</source>
         <translation>Magasság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="30"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="27"/>
         <source> lines</source>
         <translation> sor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="37"/>
         <source>Offset</source>
         <translation>Eltolás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="61"/>
         <source>use Drop Caps</source>
         <translation>Iniciálé alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="44"/>
         <source>Use Character Style</source>
         <translation>Alkalmazott karakterstílus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="20"/>
+        <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="17"/>
         <source>Number of lines used by the drop cap</source>
         <translation>Iniciálé által használt sorok száma</translation>
     </message>
@@ -23437,42 +23427,42 @@ Transparency</source>
 <context>
     <name>PropertyWidget_FlopBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="32"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
         <translation>A szövegkeret első sorának magassága a legmagasabb karakter magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
         <source>Maximum Ascent</source>
         <translation>Legmagasabb felnyúló szár</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="45"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
         <translation>A szövegkeret első sorának magassága az alkalmazott betűk teljes felnyúló magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
         <source>Font Ascent</source>
         <translation>Betűkészlet magassága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="61"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="58"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
         <translation>A szövegkeret első sorának magassága az alkalmazott betűkészlet sortávolsága</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="64"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="61"/>
         <source>Line Spacing</source>
         <translation>Sortávolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="74"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="71"/>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
         <translation>A szövegkeretben lévő első sor alapvonalának illesztése az alaprácsra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="77"/>
+        <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="74"/>
         <source>Baseline Grid</source>
         <translation>Alaprács</translation>
     </message>
@@ -23480,357 +23470,357 @@ Transparency</source>
 <context>
     <name>PropertyWidget_FontFeatures</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="32"/>
         <source>Common Ligatures (liga)</source>
         <translation>Bevett ligatúrák (liga)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="35"/>
         <source>Common Ligatures</source>
         <translation>Bevett ligatúrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="48"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="45"/>
         <source>Contextual Ligatures (clig)</source>
         <translation>Környezetfüggő ligatúrák (clig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="51"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="48"/>
         <source>Contextual Ligatures</source>
         <translation>Környezetfüggő ligatúrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="70"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="67"/>
         <source>Discretionary Ligatures (dlig)</source>
         <translation>Szépítő ligatúrák (dlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="70"/>
         <source>Discretionary Ligatures</source>
         <translation>Szépítő ligatúrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="83"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="80"/>
         <source>Historical Ligatures (hlig)</source>
         <translation>Régi ligatúrák (hlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="86"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="83"/>
         <source>Historical Ligatures</source>
         <translation>Régi ligatúrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="106"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="103"/>
         <source>Normal capitals</source>
         <translation>Normál nagybetűk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="109"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="106"/>
         <source>Default Capitals</source>
         <translation>Alapértelmezett nagybetűk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="119"/>
         <source>Small capitals (smcp)</source>
         <translation>Kiskapitális (smcp)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="125"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
         <source>Small Capitals</source>
         <translation>Kiskapitális</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="132"/>
         <source>Small capitals from capitals (c2sc)</source>
         <translation>Kiskapitálisok nagybetűk helyett (c2sc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="138"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
         <source>Small Capitals from Capitals</source>
         <translation>Kiskapitálisok nagybetűk helyett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="148"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="145"/>
         <source>Petite capitals (pcap)</source>
         <translation>Apró kapitálisok (pcap)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="148"/>
         <source>Petite Capitals</source>
         <translation>Apró kapitálisok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="161"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="158"/>
         <source>Petite capitals from capitals (c2pc)</source>
         <translation>Apró kapitálisok nagybetűk helyett (c2pc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="161"/>
         <source>Petite Capitals from Capitals</source>
         <translation>Apró kapitálisok nagybetűk helyett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="171"/>
         <source>Unicase (unic)</source>
         <translation>Kevert (unic)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="177"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="174"/>
         <source>Unicase</source>
         <translation>Kevert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="187"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="184"/>
         <source>Titling (titl)</source>
         <translation>Címváltozatok (titl)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="187"/>
         <source>Titling</source>
         <translation>Címváltozatok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="210"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="207"/>
         <source>Default numbers style</source>
         <translation>Alapértelmezett számstílus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="213"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="210"/>
         <source>Default Numerals</source>
         <translation>Alapértelmezett számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="229"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="226"/>
         <source>Lining Figures (lnum)</source>
         <translation>Álló alakok (lnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="232"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="229"/>
         <source>Lining</source>
         <translation>Álló számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="245"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="242"/>
         <source>Oldstyle Figures (onum)</source>
         <translation>Ugráló alakok (onum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="248"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="245"/>
         <source>Old Style</source>
         <translation>Ugráló számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="268"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="265"/>
         <source>Default numbers width</source>
         <translation>Alapértelmezett számszélesség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="268"/>
         <source>Default Numeral Width</source>
         <translation>Alapértelmezett számszélesség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="287"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="284"/>
         <source>Proportional Figures (pnum)</source>
         <translation>Arányos alakok (pnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="290"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="287"/>
         <source>Proportional</source>
         <translation>Arányos számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="303"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="300"/>
         <source>Tabular Figures (tnum)</source>
         <translation>Helyiértékes alakok (tnum)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="306"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="303"/>
         <source>Tabular</source>
         <translation>Helyiértékes számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="326"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="323"/>
         <source>No fractions</source>
         <translation>Nincsenek törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="329"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="326"/>
         <source>No Fractions</source>
         <translation>Nincsenek törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="345"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="342"/>
         <source>Fractions (frac)</source>
         <translation>Törtek (frac)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="348"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="345"/>
         <source>Diagonal Fractions</source>
         <translation>Átlós törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="361"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="358"/>
         <source>Alternative Fractions (afrc)</source>
         <translation>Alternatív törtek (afrc)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="364"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="361"/>
         <source>Stacked Fractions</source>
         <translation>Vízszintes törtvonalas törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="381"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="378"/>
         <source>Normal position</source>
         <translation>Normál pozíció</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="381"/>
         <source>Default Position</source>
         <translation>Alapértelmezett pozíció</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="397"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="394"/>
         <source>Subscript (subs)</source>
         <translation>Alsó index (subs)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="400"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="397"/>
         <source>Subscript</source>
         <translation>Alsó index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="410"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="407"/>
         <source>Superscript (sups)</source>
         <translation>Felső index (sups)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="413"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="410"/>
         <source>Superscript</source>
         <translation>Felső index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="426"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="423"/>
         <source>Ordinals (ordn)</source>
         <translation>Sorszámok (ordn)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="429"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="426"/>
         <source>Ordinals</source>
         <translation>Sorszámok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="449"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="446"/>
         <source>Slashed Zero (zero)</source>
         <translation>Áthúzott nulla (zero)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="452"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="449"/>
         <source>Slashed Zero</source>
         <translation>Áthúzott nulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="466"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="463"/>
         <source>Stylistic sets</source>
         <translation>Stíluskészlet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="484"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="494"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="491"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="501"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="498"/>
         <source>9</source>
         <translation>9</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="508"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="505"/>
         <source>13</source>
         <translation>13</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="515"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="512"/>
         <source>17</source>
         <translation>17</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="522"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="519"/>
         <source>2</source>
         <translation>2</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="529"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="526"/>
         <source>6</source>
         <translation>6</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="536"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="533"/>
         <source>10</source>
         <translation>10</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="543"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="540"/>
         <source>14</source>
         <translation>14</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="550"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="547"/>
         <source>18</source>
         <translation>18</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="557"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="554"/>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="564"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="561"/>
         <source>7</source>
         <translation>7</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="571"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="568"/>
         <source>11</source>
         <translation>11</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="578"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="575"/>
         <source>15</source>
         <translation>15</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="585"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="582"/>
         <source>19</source>
         <translation>19</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="592"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="589"/>
         <source>4</source>
         <translation>4</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="599"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="596"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="606"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="603"/>
         <source>12</source>
         <translation>12</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="613"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="610"/>
         <source>16</source>
         <translation>16</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="620"/>
+        <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="617"/>
         <source>20</source>
         <translation>20</translation>
     </message>
@@ -23838,39 +23828,39 @@ Transparency</source>
 <context>
     <name>PropertyWidget_HyphenationBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="40"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="37"/>
         <source>Smallest Word:</source>
         <translation>Legrövidebb szó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="47"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="44"/>
         <source>Length of the smallest word to be hyphenated</source>
         <translation>A legrövidebb, már nem elválasztható szó hossza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="57"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="54"/>
         <source>Characters</source>
         <translation>karakter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="84"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="81"/>
         <source>Consecutive Hyphenations Allowed:</source>
         <translation>Megengedett folyamatos elválasztás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="88"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
         <translation>Egymást követő elválasztások maximális száma.
 0 érték esetén nincs elválasztási korlát.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="106"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
         <source>Hyphenation Character:</source>
         <translation>Elválasztó karakter:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="113"/>
+        <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
         <source>The character used for automatic hyphen. Can be empty.</source>
         <translation>Az automatikus elválasztáshoz használt karakter. Lehet üres is.</translation>
     </message>
@@ -23878,27 +23868,27 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_OptMarginsBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="32"/>
         <source>None</source>
         <translation>Nincs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="42"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="39"/>
         <source>Both Sides</source>
         <translation>Mindkét oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="49"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="46"/>
         <source>Left Only</source>
         <translation>Csak bal oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="56"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="53"/>
         <source>Right Only</source>
         <translation>Csak jobb oldalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="63"/>
+        <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="60"/>
         <source>Reset</source>
         <translation>Alapállapot</translation>
     </message>
@@ -23906,49 +23896,49 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_OrphansBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="32"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="42"/>
         <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Biztosítja, hogy a bekezdés első sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="48"/>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="68"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="65"/>
         <source> lines</source>
         <translation> sor</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
         <source>Don&apos;t separate first:</source>
         <translation>Egyben tartott első:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="58"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="55"/>
         <source>Don&apos;t separate last:</source>
         <translation>Egyben tartott utolsó:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="62"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Biztosítja, hogy a bekezdés utolsó sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="78"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="75"/>
         <source>If checked, ensures that the paragraph won&apos;t be split across multiple pages or columns</source>
         <translation>Bejelölve biztosítja, hogy a bekezdés ne törjön meg egy oldal vagy hasáb határán</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="81"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="78"/>
         <source>Do not split paragraph</source>
         <translation>Bekezdés egyben tartása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="88"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="85"/>
         <source>If checked, automatically moves the paragraph to the next column or page if the next paragraph isn&apos;t on the same page or column</source>
         <translation>Bejelölve a bekezdés automatikusan a következő oldalra vagy hasábba kerül, ha a következő bekezdés nincs vele egy oldalon vagy hasábon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="88"/>
         <source>Keep with next paragraph</source>
         <translation>Együtt a következővel</translation>
     </message>
@@ -23979,97 +23969,97 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_ParEffectBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="342"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="339"/>
         <source>Effect Parameters</source>
         <translation>Effektusparaméterek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="38"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="35"/>
         <source>Drop Caps</source>
         <translation>Iniciálé</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="59"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="56"/>
         <source>Number of lines used by the drop cap</source>
         <translation>Iniciálé által használt sorok száma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="62"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="59"/>
         <source>Lines:</source>
         <translation>Sorok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="132"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="129"/>
         <source>Bullet Char(s):</source>
         <translation>Díszpont karakter:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="148"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="145"/>
         <source>Enhanced Character Table to choose bullet characters</source>
         <translation>Kiterjesztett karaktertábla a díszpont karakter kijelöléséhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="190"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="187"/>
         <source>Level:</source>
         <translation>Szint:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="220"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="217"/>
         <source>Start:</source>
         <translation>Vonalkezdet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="244"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="241"/>
         <source>Set:</source>
         <translation>Érvényesítés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="271"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="268"/>
         <source>Format:</source>
         <translation>Formátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="295"/>
         <source>Prefix:</source>
         <translation>Előtag:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="324"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="321"/>
         <source>Suffix:</source>
         <translation>Utótag:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="363"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="360"/>
         <source>Char Style:</source>
         <translation>Karakterstílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="373"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="370"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Üresen hagyva az alapértelmezett stílus lesz alkalmazva, egyébként pedig a kijelölt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="385"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="382"/>
         <source>Auto-Indent</source>
         <translation>Automatikus behúzás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="405"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="402"/>
         <source>Offset:</source>
         <translation>Eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="164"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="161"/>
         <source>Numbered List</source>
         <translation>Számozás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="92"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="89"/>
         <source>Bulleted List</source>
         <translation>Felsorolás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="151"/>
+        <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="148"/>
         <source>Char Table</source>
         <translation>Karakterpaletta</translation>
     </message>
@@ -24125,27 +24115,27 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_PathTextBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="35"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
         <translation>Típus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="45"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="42"/>
         <source>Start Offset:</source>
         <translation>Kezdeti eltolás:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="55"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="52"/>
         <source>Distance from Curve:</source>
         <translation>Távolság a görbétől:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="62"/>
         <source>Flip Text</source>
         <translation>Szöveg tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="72"/>
+        <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
         <source>Show Curve</source>
         <translation>Görbe megjelenítése</translation>
     </message>
@@ -24153,32 +24143,32 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PropertyWidget_TextColorBase</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="91"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="88"/>
         <source>Saturation of color of text fill</source>
         <translation>Szöveg kitöltő szín telítettsége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="62"/>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color.&lt;br/&gt;If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>A kijelölt szöveg színe. Ha a szövegdíszítő körvonal engedélyezve van, akkor ez lesz a kitöltőszín.&lt;br/&gt;Ha a vetett árnyék engedélyezve van, akkor ez lesz a legfelső szín.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="136"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="133"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</source>
         <translation>Attól függően melyik van bekapcsolva, a szöveg körvonalának és/vagy a vetett árnyéknak a színe.&lt;br/&gt;Ha mindkettő be van kapcsolva, akkor ugyanazt a színt alkalmazzák.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="162"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="159"/>
         <source>Saturation of color of text stroke</source>
         <translation>Szövegkörvonal színének telítettsége</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="204"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
         <source>Background color of selected text</source>
         <translation>A kijelölt szöveg háttérszíne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="230"/>
+        <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="227"/>
         <source>Saturation of color of text background</source>
         <translation>A szöveg háttérszínének telítettsége</translation>
     </message>
@@ -28861,18 +28851,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python felület modul
@@ -30512,7 +30502,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -34278,7 +34268,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/scribusdoc.cpp" line="210"/>
         <location filename="../../scribus/scribusdoc.cpp" line="216"/>
         <location filename="../../scribus/scribusdoc.cpp" line="246"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16435"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16438"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -34288,27 +34278,27 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <translation>Háttér</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11155"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Használatban lévő elem nem törölhető</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11152"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11155"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben szerkesztés alatt áll. Törlés megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11760"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11756"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11754"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11757"/>
         <source>&amp;Skip locked objects</source>
         <translation>Zárolt objektumok &amp;kihagyása</translation>
     </message>
@@ -34319,22 +34309,22 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16115"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16118"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="8987"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="8990"/>
         <source>remove direct paragraph formatting</source>
         <translation>Közvetlen bekezdésformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9456"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9459"/>
         <source>remove direct char formatting</source>
         <translation>Közvetlen karakterformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13404"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13407"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34345,7 +34335,7 @@ Függőleges eltolás: %3
 Forgatás: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13437"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13440"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34356,14 +34346,14 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13558"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
         <source>Copied %1 items on %2 pages</source>
         <translation>%1 elem lett másolva a(z) %2 oldalra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14804"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14859"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15021"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -34374,23 +34364,23 @@ Függőleges térköz: %4</translation>
         <translation>Importált </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16451"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11050"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Valóban törölhető az összes kijelölt keret tartalma?</translation>
     </message>
@@ -35191,22 +35181,22 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Színkorláton kívüli színek megjelölése aktív. A színek megjelenítése ezért nem biztos, hogy azonos a látássérültek érzékelésével</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1061"/>
+        <location filename="../../scribus/scribusview.cpp" line="1065"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Valóban törölhető a teljes szöveg?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1194"/>
+        <location filename="../../scribus/scribusview.cpp" line="1198"/>
         <source>Copy Here</source>
         <translation>Másolás ide</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1195"/>
+        <location filename="../../scribus/scribusview.cpp" line="1199"/>
         <source>Move Here</source>
         <translation>Mozgatás ide</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1196"/>
+        <location filename="../../scribus/scribusview.cpp" line="1200"/>
         <source>Cancel</source>
         <translation>Mégse</translation>
     </message>
@@ -35226,17 +35216,17 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Tiltva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3163"/>
+        <location filename="../../scribus/scribusview.cpp" line="3167"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Nem alakítható át a használatban lévő elem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3163"/>
+        <location filename="../../scribus/scribusview.cpp" line="3167"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A konvertálás megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2123"/>
+        <location filename="../../scribus/scribusview.cpp" line="2127"/>
         <source>Page %1 to %2</source>
         <translation>%1 -től %2 -ig oldal</translation>
     </message>
@@ -36001,27 +35991,27 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
 <context>
     <name>SpiralWidgetBase</name>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="45"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="42"/>
         <source>Start Angle:</source>
         <translation>Kezdő szög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="65"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="62"/>
         <source>End Angle:</source>
         <translation>Végszög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="85"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="82"/>
         <source>Factor:</source>
         <translation>Tényező:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="92"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="89"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="148"/>
+        <location filename="../../scribus/ui/spiralwidgetbase.ui" line="145"/>
         <source>Sample Polygon</source>
         <translation>Minta sokszög</translation>
     </message>
@@ -40173,211 +40163,211 @@ Document Liberation Project számára: http://www.documentliberation.org</transl
 <context>
     <name>colorPalette</name>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="114"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="564"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="928"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="111"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="561"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="925"/>
         <source>Shade:</source>
         <translation>Árnyalat:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="335"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="354"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="380"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="399"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="425"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="444"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="470"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="489"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="574"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="603"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="332"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="351"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="377"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="396"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="422"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="441"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="467"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="486"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="571"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="600"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="161"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="975"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="158"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="972"/>
         <source>Linear</source>
         <translation>Lineáris</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="166"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="980"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="163"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="977"/>
         <source>Radial</source>
         <translation>Sugárirányú</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="199"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="988"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="196"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="985"/>
         <source>Move Vector</source>
         <translation>Vektor mozgatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1116"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1113"/>
         <source>Pattern follows Path</source>
         <translation>Minta követi az útvonalat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="826"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1093"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="823"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1090"/>
         <source>Properties...</source>
         <translation>Tulajdonságok...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="176"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="173"/>
         <source>4 Colors</source>
         <translation>4 szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="181"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="178"/>
         <source>Diamond</source>
         <translation>Gyémánt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="186"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="183"/>
         <source>Mesh</source>
         <translation>Színátmenetes háló</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="304"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="301"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="311"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="308"/>
         <source>Shade</source>
         <translation>Árnyalat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="318"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="315"/>
         <source>Transparency</source>
         <translation>Átlátszóság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="544"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="541"/>
         <source>Color:</source>
         <translation>Szín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="626"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="623"/>
         <source>Edit Colors</source>
         <translation>Színek szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1164"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1161"/>
         <source>Display only used colors</source>
         <translation>Csak az alkalmazott színek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1138"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1135"/>
         <source>Overprinting</source>
         <translation>Felülnyomás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1146"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1143"/>
         <source>Knockout</source>
         <translation>Kiütés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1151"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1148"/>
         <source>Overprint</source>
         <translation>Felülnyomás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="39"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="36"/>
         <source>Fill</source>
         <translation>Kitöltés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="65"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="62"/>
         <source>Fill Mode</source>
         <translation>Kitöltési mód</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="121"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="935"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="118"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="932"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="853"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
         <translation>Körvonal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="879"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
         <source>Stroke Mode</source>
         <translation>Körvonal-mód</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="171"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="168"/>
         <source>Conical</source>
         <translation>Kúpos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="191"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="188"/>
         <source>Patch Mesh</source>
         <translation>Foltos színátmenetes háló</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="692"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="689"/>
         <source>Distance:</source>
         <translation>Távolság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="702"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="699"/>
         <source>Angle:</source>
         <translation>Szög:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="719"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="716"/>
         <source>Type:</source>
         <translation>Típus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="727"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="724"/>
         <source>Single</source>
         <translation>Szimpla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="732"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="729"/>
         <source>Double</source>
         <translation>Dupla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="737"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="734"/>
         <source>Triple</source>
         <translation>Tripla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="745"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="742"/>
         <source>Line Color:</source>
         <translation>Vonalszín:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="257"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1024"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="254"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1021"/>
         <source>Extend:</source>
         <translation>Kiegészítés:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="265"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1032"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="262"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1029"/>
         <source>None</source>
         <translation>Nincs</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="270"/>
-        <location filename="../../scribus/ui/colorpalette.ui" line="1037"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="267"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="1034"/>
         <source>Pad</source>
         <translation>Kitöltés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="593"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="590"/>
         <source>Opacity:</source>
         <translation>Átlátszatlanság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpalette.ui" line="755"/>
+        <location filename="../../scribus/ui/colorpalette.ui" line="752"/>
         <source>Background:</source>
         <translation>Háttér:</translation>
     </message>
@@ -40652,17 +40642,17 @@ please choose another one.</source>
         <translation>Egy létező template.xml fájl másolása a template.lang_COUNTRY.xml fájlba (használjuk ugyanazt a nyelvi kódot, mint az saját nyelvünkhöz tartozó qm-fájlban), például template.fi.xml a finn nyelvű template.xml esetében. A másolatnak ugyanabban a mappában kell lennie mint az eredeti template.xml fájlnak, hogy a Scribus betölthesse.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="91"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="88"/>
         <source>&amp;About</source>
         <translation>&amp;Névjegy</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="124"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="121"/>
         <source>&amp;Preview</source>
         <translation>&amp;Előnézet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nftwidget.ui" line="161"/>
+        <location filename="../../scribus/ui/nftwidget.ui" line="158"/>
         <source>&amp;Help</source>
         <translation>&amp;Súgó</translation>
     </message>
@@ -40932,207 +40922,207 @@ please choose another one.</source>
 <context>
     <name>smFontFeaturesBase</name>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="23"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="20"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;The current selected font does not have any font features.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#008000;&quot;&gt;A kijelölt betűkészletnek nincs betűkészlet-képessége.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="64"/>
         <source>Discretionary Ligatures (dlig)</source>
         <translation>Szépítő ligatúrák (dlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="83"/>
         <source>Contextual Ligatures (clig)</source>
         <translation>Környezetfüggő ligatúrák (clig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="111"/>
         <source>Historical Ligatures (hlig)</source>
         <translation>Régi ligatúrák (hlig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="139"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="136"/>
         <source>Capitals &amp;&amp; Position</source>
         <translation>Nagybetűk és pozíció</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="186"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="183"/>
         <source>Capitals:</source>
         <translation>Nagybetűk:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="148"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="145"/>
         <source>Default Capitals</source>
         <translation>Alapértelmezett nagybetűk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="153"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="150"/>
         <source>Small Capitals</source>
         <translation>Kiskapitális</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="158"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="155"/>
         <source>Petite Capitals</source>
         <translation>Apró kapitálisok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="163"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="160"/>
         <source>Unicase</source>
         <translation>Kevert</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="168"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="165"/>
         <source>Titling</source>
         <translation>Címváltozatok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="45"/>
         <source>Common Ligatures (liga)</source>
         <translation>Gyakori ligatúrák (liga)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="33"/>
         <source>Ligatures</source>
         <translation>Ligatúrák</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="51"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common</source>
         <translation>Bevett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="70"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
         <source>Discretionary</source>
         <translation>Szépítő</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="89"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
         <source>Contextual</source>
         <translation>Környezetfüggő</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="117"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
         <source>Historical</source>
         <translation>Régi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="173"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>
         <source>Petite Capitals from Capitals</source>
         <translation>Apró kapitálisok nagybetűk helyett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="175"/>
         <source>Small Capitals from Capitals</source>
         <translation>Kiskapitálisok nagybetűk helyett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="206"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="203"/>
         <source>Position:</source>
         <translation>Pozíció:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="214"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="211"/>
         <source>Default Position</source>
         <translation>Alapértelmezett pozíció</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="219"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="216"/>
         <source>Subscript</source>
         <translation>Alsó index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="224"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="221"/>
         <source>Superscript</source>
         <translation>Felső index</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="229"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="226"/>
         <source>Ordinals</source>
         <translation>Sorszámok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="261"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="258"/>
         <source>Numerals</source>
         <translation>Számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="301"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="298"/>
         <source>Style:</source>
         <translation>Stílus:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="270"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="267"/>
         <source>Default Numerals</source>
         <translation>Alapértelmezett számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="275"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="272"/>
         <source>Lining</source>
         <translation>Álló számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="280"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="277"/>
         <source>Old Style</source>
         <translation>Ugráló számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="308"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="305"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="329"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="326"/>
         <source>Default Numeral Width</source>
         <translation>Alapértelmezett számszélesség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="334"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="331"/>
         <source>Proportional</source>
         <translation>Arányos számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="339"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="336"/>
         <source>Tabular</source>
         <translation>Helyiértékes számok</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="347"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="344"/>
         <source>Fraction:</source>
         <translation>Törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="355"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="352"/>
         <source>No Fractions</source>
         <translation>Nincsenek törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="360"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="357"/>
         <source>Diagonal Fractions</source>
         <translation>Átlós törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="365"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="362"/>
         <source>Stacked Fractions</source>
         <translation>Vízszintes törtvonalas törtek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="388"/>
         <source>Slashed Zero (zero)</source>
         <translation>Áthúzott nulla (zero)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="394"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="391"/>
         <source>Slashed Zero</source>
         <translation>Áthúzott nulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="406"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
         <source>Stylistic Sets:</source>
         <translation>Stíluskészlet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="425"/>
+        <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="422"/>
         <source>click to select</source>
         <translation>kijelölés</translation>
     </message>
@@ -41274,183 +41264,183 @@ please choose another one.</source>
 <context>
     <name>transparencyPalette</name>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="40"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="37"/>
         <source>Edit Line Color Properties</source>
         <translation>Vonalszín tulajdonságainak szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="53"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="50"/>
         <source>Edit Fill Color Properties</source>
         <translation>Kitöltőszín tulajdonságainak szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="108"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="289"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="105"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="286"/>
         <source>Opacity:</source>
         <translation>Átlátszatlanság:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="112"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="293"/>
         <source>Set the transparency for the color selected</source>
         <translation>A kijelölt szín átlátszóságának beállítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="118"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="299"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="134"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="512"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="131"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="509"/>
         <source>Blend Mode:</source>
         <translation>Keverési mód:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="142"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="520"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="139"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="517"/>
         <source>Normal</source>
         <translation>Normál</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="147"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="525"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="144"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="522"/>
         <source>Darken</source>
         <translation>Sötétítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="152"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="530"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="149"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="527"/>
         <source>Lighten</source>
         <translation>Világosítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="157"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="535"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="154"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="532"/>
         <source>Multiply</source>
         <translation>Szorzás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="162"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="540"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="159"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="537"/>
         <source>Screen</source>
         <translation>Kivetítés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="167"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="545"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="164"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="542"/>
         <source>Overlay</source>
         <translation>Átfedés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="172"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="550"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="169"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="547"/>
         <source>Hard Light</source>
         <translation>Kemény fény</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="177"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="555"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="174"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="552"/>
         <source>Soft Light</source>
         <translation>Lágy fény</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="182"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="560"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="179"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="557"/>
         <source>Difference</source>
         <translation>Különbség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="187"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="565"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="184"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="562"/>
         <source>Exclusion</source>
         <translation>Kivétel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="192"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="570"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="189"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="567"/>
         <source>Color Dodge</source>
         <translation>Színfakítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="197"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="575"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="194"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="572"/>
         <source>Color Burn</source>
         <translation>Színégetés</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="202"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="580"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="199"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="577"/>
         <source>Hue</source>
         <translation>Árnyalat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="207"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="585"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="204"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="582"/>
         <source>Saturation</source>
         <translation>Telítettség</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="212"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="590"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="209"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="587"/>
         <source>Color</source>
         <translation>Szín</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="217"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="595"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="214"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="592"/>
         <source>Luminosity</source>
         <translation>Fényintenzitás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="263"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="260"/>
         <source>Solid</source>
         <translation>Folytonos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="331"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="328"/>
         <source>Gradient</source>
         <translation>Színátmenet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="358"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="355"/>
         <source>Linear</source>
         <translation>Lineáris</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="363"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="360"/>
         <source>Radial</source>
         <translation>Sugárirányú</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="371"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="368"/>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation>A színátmenet vektorának kezdőpontja a bal egérgombbal, a végpontja a jobb egérgombbal mozgatható</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="374"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="371"/>
         <source>Move Vector</source>
         <translation>Vektor mozgatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="411"/>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="489"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="408"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="486"/>
         <source>Use Luminosity as Alpha</source>
         <translation>Fényintenzitás mint alfa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="419"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="416"/>
         <source>Pattern</source>
         <translation>Minta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="467"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="464"/>
         <source>Properties...</source>
         <translation>Tulajdonságok...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transparencypalette.ui" line="496"/>
+        <location filename="../../scribus/ui/transparencypalette.ui" line="493"/>
         <source>Use inverted Pattern</source>
         <translation>Inverz minta alkalmazása</translation>
     </message>
