@@ -183,31 +183,31 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	gridLayout = new QGridLayout();
 	gridLayout->setSpacing(6);
 	gridLayout->setContentsMargins(0, 0, 0, 0);
-	gridLayout->addWidget(MoveNode,        0, 0, 1, 1);
-	gridLayout->addWidget(AddNode,         0, 1, 1, 1);
-	gridLayout->addWidget(DeleteNode,      0, 2, 1, 1);
-	gridLayout->addWidget(MoveControl,     0, 3, 1, 1);
-	gridLayout->addWidget(AsymMove,        0, 4, 1, 1);
-	gridLayout->addWidget(SymMove,         0, 5, 1, 1);
-	gridLayout->addWidget(ResNode,         1, 0, 1, 1);
-	gridLayout->addWidget(Res1Node,        1, 1, 1, 1);
-	gridLayout->addWidget(PolySplit,       1, 2, 1, 1);
-	gridLayout->addWidget(BezierClose,     1, 3, 1, 1);
-	gridLayout->addWidget(PolyMirrorH,     1, 4, 1, 1);
-	gridLayout->addWidget(PolyMirrorV,     1, 5, 1, 1);
-	gridLayout->addWidget(PolyShearL,      2, 0, 1, 1);
-	gridLayout->addWidget(PolyShearR,      2, 1, 1, 1);
-	gridLayout->addWidget(PolyShearU,      2, 2, 1, 1);
-	gridLayout->addWidget(PolyShearD,      2, 3, 1, 1);
-	gridLayout->addWidget(RotVal,          3, 0, 1, 4);
-	gridLayout->addWidget(RotateCCW,       3, 4, 1, 1);
-	gridLayout->addWidget(RotateCW,        3, 5, 1, 1);
-	gridLayout->addWidget(scalePercentage, 4, 0, 1, 4);
-	gridLayout->addWidget(Expand,          4, 4, 1, 1);
-	gridLayout->addWidget(Shrink,          4, 5, 1, 1);
-	gridLayout->addWidget(scaleDistance,   5, 0, 1, 4);
-	gridLayout->addWidget(Enlarge,         5, 4, 1, 1);
-	gridLayout->addWidget(Reduce,          5, 5, 1, 1);
+	gridLayout->addWidget(MoveNode,        0, 1, 1, 1);
+	gridLayout->addWidget(AddNode,         0, 2, 1, 1);
+	gridLayout->addWidget(DeleteNode,      0, 3, 1, 1);
+	gridLayout->addWidget(MoveControl,     0, 4, 1, 1);
+	gridLayout->addWidget(AsymMove,        1, 1, 1, 1);
+	gridLayout->addWidget(SymMove,         1, 2, 1, 1);
+	gridLayout->addWidget(ResNode,         1, 3, 1, 1);
+	gridLayout->addWidget(Res1Node,        1, 4, 1, 1);
+	gridLayout->addWidget(PolySplit,       2, 1, 1, 1);
+	gridLayout->addWidget(BezierClose,     2, 2, 1, 1);
+	gridLayout->addWidget(PolyMirrorH,     2, 3, 1, 1);
+	gridLayout->addWidget(PolyMirrorV,     2, 4, 1, 1);
+	gridLayout->addWidget(PolyShearL,      3, 1, 1, 1);
+	gridLayout->addWidget(PolyShearR,      3, 2, 1, 1);
+	gridLayout->addWidget(PolyShearU,      3, 3, 1, 1);
+	gridLayout->addWidget(PolyShearD,      3, 4, 1, 1);
+	gridLayout->addWidget(RotVal,          4, 0, 1, 4);
+	gridLayout->addWidget(RotateCCW,       4, 4, 1, 1);
+	gridLayout->addWidget(RotateCW,        4, 5, 1, 1);
+	gridLayout->addWidget(scalePercentage, 5, 0, 1, 4);
+	gridLayout->addWidget(Expand,          5, 4, 1, 1);
+	gridLayout->addWidget(Shrink,          5, 5, 1, 1);
+	gridLayout->addWidget(scaleDistance,   6, 0, 1, 4);
+	gridLayout->addWidget(Enlarge,         6, 4, 1, 1);
+	gridLayout->addWidget(Reduce,          6, 5, 1, 1);
 	vboxLayout->addLayout(gridLayout);
 
 	gridLayout2 = new QGridLayout();
@@ -296,7 +296,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	vboxLayout->addLayout(hboxLayout);
 
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
-
+	layout()->setSizeConstraint(QLayout::SetFixedSize);
 	iconSetChange();
 	languageChange();
 
