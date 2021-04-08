@@ -109,6 +109,7 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	separationsCombo->addItem( tr("Cyan"), "Cyan" );
 	separationsCombo->addItem( tr("Magenta"), "Magenta" );
 	separationsCombo->addItem( tr("Yellow"), "Yellow" );
+	separationsCombo->addItem( tr("Black"), "Black" );
 	for (int i = 0; i < m_spotColors.count(); ++i)
 	{
 		const QString& spotName = m_spotColors.at(i);
