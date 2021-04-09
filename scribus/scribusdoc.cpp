@@ -8967,7 +8967,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 			else if (currItem->isTextFrame())
 				updateItemNotesFramesStyles(currItem, newStyle);
 			else 
-			currItem->itemText.setDefaultStyle(newStyle);
+				currItem->itemText.setDefaultStyle(newStyle);
 		}
 		if (currItem->isPathText())
 			currItem->updatePolyClip();
