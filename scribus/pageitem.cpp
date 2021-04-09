@@ -1328,18 +1328,18 @@ void PageItem::dropLinks()
 //but copy or cut its content from itemText
 void PageItem::unlinkWithText()
 {
-	PageItem* Next = m_nextBox;
-	PageItem* Prev = m_backBox;
+	PageItem* next = m_nextBox;
+	PageItem* prev = m_backBox;
 	int length = itemText.length();
 
 	if (this->invalid)
 		layout();
 
 	//unlink first frame in chain
-	if (Prev == nullptr)
+	if (prev == nullptr)
 	{
-		if (Next->invalid)
-			Next->layout();
+		if (next->invalid)
+			next->layout();
 		if (lastInFrame() < length -1)
 		{
 			StoryText content(m_Doc);
@@ -1347,8 +1347,8 @@ void PageItem::unlinkWithText()
 			content.insert(0, itemText, true);
 			itemText.removeSelection();
 			unlink(false);
-			Next->itemText.insert(0, content);
-			Next->update();
+			next->itemText.insert(0, content);
+			next->update();
 		}
 		else
 		{
@@ -1357,13 +1357,13 @@ void PageItem::unlinkWithText()
 	}
 	else
 	{
-		if (Prev->invalid)
-			Prev->layout();
+		if (prev->invalid)
+			prev->layout();
 		itemText.select(firstInFrame(), length - firstInFrame());
 		StoryText content(m_Doc);
 		content.insert(0, itemText, true);
 		itemText.removeSelection();
-		Prev->unlink(false);
+		prev->unlink(false);
 		itemText.insert(0, content);
 		update();
 	}
@@ -1371,7 +1371,8 @@ void PageItem::unlinkWithText()
 	{
 		ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
 		is->set("UNLINK_TEXT_FRAME");
-		is->setItem(qMakePair(Prev, Next));
+		is->set("CUT_TEXT", true);
+		is->setItem(qMakePair(prev, next));
 		undoManager->action(this, is);
 	}
 }
