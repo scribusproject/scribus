@@ -1602,16 +1602,16 @@ int PSLib::createPS(const QString& outputFileName)
 		return 1;
 
 	std::vector<int> &pageNs = Options.pageNumbers;
-	bool sep = Options.outputSeparations;
-	QString SepNam = Options.separationName;
-	QStringList spots = Options.allSeparations;
+	bool outputSep = Options.outputSeparations;
+	QString separationName = Options.separationName;
+	QStringList separations = Options.allSeparations;
 	bool Hm = Options.mirrorH;
 	bool Vm = Options.mirrorV;
 	bool doClip = Options.doClip;
 	int sepac;
 	int pagemult;
-	if ((sep) && (SepNam == "All"))
-		pagemult = spots.count();
+	if ((outputSep) && (separationName == "All"))
+		pagemult = separations.count();
 	else
 		pagemult = 1;
 //	QVector<double> dum;
@@ -1743,20 +1743,20 @@ int PSLib::createPS(const QString& outputFileName)
 			PS_translate(0, page->height());
 			PS_scale(1, -1);
 		}
-		if (sep)
+		if (outputSep)
 		{
-			if (SepNam == "Black")
+			if (separationName == "Black")
 				PS_plate(0);
-			else if (SepNam == "Cyan")
+			else if (separationName == "Cyan")
 				PS_plate(1);
-			else if (SepNam == "Magenta")
+			else if (separationName == "Magenta")
 				PS_plate(2);
-			else if (SepNam == "Yellow")
+			else if (separationName == "Yellow")
 				PS_plate(3);
-			else if (SepNam == "All")
-				PS_plate(sepac, spots[sepac]);
+			else if (separationName == "All")
+				PS_plate(sepac, separations[sepac]);
 			else
-				PS_plate(4, SepNam);
+				PS_plate(4, separationName);
 		}
 		ScLayer ll;
 		ll.isPrintable = false;
@@ -1776,13 +1776,13 @@ int PSLib::createPS(const QString& outputFileName)
 		}
 		if (!abortExport && !errorOccured)
 			PS_end_page();
-		if (sep)
+		if (outputSep)
 		{
-			if (SepNam != "All")
+			if (separationName != "All")
 				aa++;
 			else
 			{
-				if (sepac == static_cast<int>(spots.count() - 1))
+				if (sepac == static_cast<int>(separations.count() - 1))
 				{
 					aa++;
 					sepac = 0;
