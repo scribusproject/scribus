@@ -660,6 +660,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			}
 			else
 			{
+				const ParagraphStyle& curStyle = currItem->itemText.defaultStyle();
+				doc->currentStyle.setContext(curStyle.context());
 				doc->currentStyle = currItem->itemText.defaultStyle();
 			}
 
