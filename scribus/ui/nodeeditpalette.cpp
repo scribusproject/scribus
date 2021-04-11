@@ -22,64 +22,75 @@ for which a new license (GPL+exception) is in place.
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette", false, Qt::WindowFlags())
 {
 	QSize iconSize = QSize(22, 22);
-	QSize buttonSize = QSize(24,24);
+	QSize buttonSize = QSize(24, 24);
+	QSize maxButtonSize = QSize(16777215, buttonSize.height());
+	QSizePolicy::Policy buttonSizePolicy = static_cast<QSizePolicy::Policy>(QSizePolicy::GrowFlag | QSizePolicy::ExpandFlag);
+
 	m_doc = nullptr;
 	m_unitRatio = 1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
-	vboxLayout->setContentsMargins(9, 9, 9, 9);
+	vboxLayout->setContentsMargins(6, 6, 6, 6);
 
 	MoveNode = new QToolButton(this);
 	MoveNode->setIconSize(iconSize);
 	MoveNode->setMinimumSize(buttonSize);
-	MoveNode->setMaximumSize(buttonSize);
+	MoveNode->setMaximumSize(maxButtonSize);
+	MoveNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	MoveNode->setCheckable(true);
 	MoveNode->setChecked(true);
 
 	AddNode = new QToolButton(this);
 	AddNode->setIconSize(iconSize);
 	AddNode->setMinimumSize(buttonSize);
-	AddNode->setMaximumSize(buttonSize);
+	AddNode->setMaximumSize(maxButtonSize);
+	AddNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	AddNode->setEnabled(true);
 	AddNode->setCheckable(true);
 
 	DeleteNode = new QToolButton(this);
 	DeleteNode->setIconSize(iconSize);
 	DeleteNode->setMinimumSize(buttonSize);
-	DeleteNode->setMaximumSize(buttonSize);
+	DeleteNode->setMaximumSize(maxButtonSize);
+	DeleteNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	DeleteNode->setEnabled(true);
 	DeleteNode->setCheckable(true);
 
 	ResNode = new QToolButton(this);
 	ResNode->setIconSize(iconSize);
 	ResNode->setMinimumSize(buttonSize);
-	ResNode->setMaximumSize(buttonSize);
+	ResNode->setMaximumSize(maxButtonSize);
+	ResNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	ResNode->setEnabled(true);
 
 	MoveControl = new QToolButton(this);
 	MoveControl->setIconSize(iconSize);
 	MoveControl->setMinimumSize(buttonSize);
-	MoveControl->setMaximumSize(buttonSize);
+	MoveControl->setMaximumSize(maxButtonSize);
+	MoveControl->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	MoveControl->setCheckable(true);
 
 	AsymMove = new QToolButton(this);
 	AsymMove->setIconSize(iconSize);
 	AsymMove->setMinimumSize(buttonSize);
-	AsymMove->setMaximumSize(buttonSize);
+	AsymMove->setMaximumSize(maxButtonSize);
+	AsymMove->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	AsymMove->setEnabled(false);
 	AsymMove->setCheckable(true);
 
 	SymMove = new QToolButton(this);
 	SymMove->setIconSize(iconSize);
 	SymMove->setMinimumSize(buttonSize);
-	SymMove->setMaximumSize(buttonSize);
+	SymMove->setMaximumSize(maxButtonSize);
+	SymMove->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	SymMove->setEnabled(false);
 	SymMove->setCheckable(true);
 
 	Res1Node = new QToolButton(this);
 	Res1Node->setIconSize(iconSize);
 	Res1Node->setMinimumSize(buttonSize);
-	Res1Node->setMaximumSize(buttonSize);
+	Res1Node->setMaximumSize(maxButtonSize);
+	Res1Node->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	Res1Node->setEnabled(false);
 
 	PolySplit = new QToolButton(this);
@@ -87,46 +98,54 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	PolySplit->setCheckable(true);
 	PolySplit->setIconSize(iconSize);
 	PolySplit->setMinimumSize(buttonSize);
-	PolySplit->setMaximumSize(buttonSize);
+	PolySplit->setMaximumSize(maxButtonSize);
+	PolySplit->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
 	BezierClose = new QToolButton(this);
 	BezierClose->setEnabled(false);
 	BezierClose->setIconSize(iconSize);
 	BezierClose->setMinimumSize(buttonSize);
-	BezierClose->setMaximumSize(buttonSize);
+	BezierClose->setMaximumSize(maxButtonSize);
+	BezierClose->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
 	PolyMirrorH = new QToolButton(this);
 	PolyMirrorH->setIconSize(iconSize);
 	PolyMirrorH->setMinimumSize(buttonSize);
-	PolyMirrorH->setMaximumSize(buttonSize);
+	PolyMirrorH->setMaximumSize(maxButtonSize);
+	PolyMirrorH->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
 	PolyMirrorV = new QToolButton(this);
 	PolyMirrorV->setIconSize(iconSize);
 	PolyMirrorV->setMinimumSize(buttonSize);
-	PolyMirrorV->setMaximumSize(buttonSize);
+	PolyMirrorV->setMaximumSize(maxButtonSize);
+	PolyMirrorV->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
 	PolyShearL = new QToolButton(this);
 	PolyShearL->setIconSize(iconSize);
 	PolyShearL->setMinimumSize(buttonSize);
-	PolyShearL->setMaximumSize(buttonSize);
+	PolyShearL->setMaximumSize(maxButtonSize);
+	PolyShearL->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearL->setAutoRepeat(true);
 
 	PolyShearR = new QToolButton(this);
 	PolyShearR->setIconSize(iconSize);
 	PolyShearR->setMinimumSize(buttonSize);
-	PolyShearR->setMaximumSize(buttonSize);
+	PolyShearR->setMaximumSize(maxButtonSize);
+	PolyShearR->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearR->setAutoRepeat(true);
 
 	PolyShearU = new QToolButton(this);
 	PolyShearU->setIconSize(iconSize);
 	PolyShearU->setMinimumSize(buttonSize);
-	PolyShearU->setMaximumSize(buttonSize);
+	PolyShearU->setMaximumSize(maxButtonSize);
+	PolyShearU->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearU->setAutoRepeat(true);
 
 	PolyShearD = new QToolButton(this);
 	PolyShearD->setIconSize(iconSize);
 	PolyShearD->setMinimumSize(buttonSize);
-	PolyShearD->setMaximumSize(buttonSize);
+	PolyShearD->setMaximumSize(maxButtonSize);
+	PolyShearD->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearD->setAutoRepeat(true);
 
 	RotateCCW = new QToolButton(this);
@@ -183,8 +202,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	gridLayout = new QGridLayout();
 	gridLayout->setSpacing(6);
 	gridLayout->setContentsMargins(0, 0, 0, 0);
-	gridLayout->setColumnStretch(0, 1);
-	gridLayout->setColumnStretch(5, 1);
 	gridLayout->addWidget(MoveNode,        0, 1, 1, 1);
 	gridLayout->addWidget(AddNode,         0, 2, 1, 1);
 	gridLayout->addWidget(DeleteNode,      0, 3, 1, 1);
