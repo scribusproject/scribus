@@ -28,10 +28,10 @@ for which a new license (GPL+exception) is in place.
 
 MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 {
-	scribusMenuBar=mb;
+	scribusMenuBar = mb;
 	menuStrings.clear();
-	m_undoMenu=new QMenu("undo");
-	m_redoMenu=new QMenu("redo");
+	m_undoMenu = new QMenu("undo");
+	m_redoMenu = new QMenu("redo");
 	rememberedMenus.clear();
 }
 
@@ -43,7 +43,7 @@ MenuManager::~MenuManager()
 
 bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString& parent, bool checkable, bool rememberMenu)
 {
-	bool retVal=false;
+	bool retVal = false;
 	QList<QString> menuEntries;
 	menuStrings.insert(menuName, menuEntries);
 	menuStringTexts.insert(menuName, menuText);
@@ -57,7 +57,7 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 
 bool MenuManager::clearMenu(const QString &menuName)
 {
-	bool retVal=false;
+	bool retVal = false;
 	if (menuBarMenus.contains(menuName))
 		menuBarMenus[menuName]->clear();
 	return retVal;
@@ -256,7 +256,7 @@ void MenuManager::removeMenuItem(const QString& s, ScrAction *menuAction, const 
 
 bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
-	bool retVal=false;
+	bool retVal = false;
 	/*
 	 if (menuList.contains(parent) && menuList[parent]!=nullptr)
 		retVal=menuList[parent]->removeMenuItem(menuAction);
