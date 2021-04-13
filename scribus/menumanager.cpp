@@ -162,6 +162,9 @@ void MenuManager::addMenuItemStringsToMenuBar(const QString &menuName, const QMa
 			QMenu *subMenu = menuBarMenus[menuName]->addMenu(menuStringTexts[menuString]);
 			if (!subMenu)
 				continue;
+			//#16020 and related Qt bugs for QMenu/QAction Text Heuristics messing up detection. Turn off the role detection except where we explicitly set it in ActionManager
+			if (subMenu->menuAction()->menuRole() == QAction::TextHeuristicRole)
+				subMenu->menuAction()->setMenuRole(QAction::NoRole);
 			menuBarMenus.insert(menuString, subMenu);
 			if (rememberedMenus.contains(menuString))
 				rememberedMenus.insert(menuString, subMenu);
@@ -199,6 +202,9 @@ void MenuManager::addMenuItemStringsToMenu(const QString &menuName, QMenu *menuT
 			QMenu *subMenu = menuToAddTo->addMenu(menuStringTexts[menuString]);
 			if (!subMenu)
 				continue;
+			//#16020 and related Qt bugs for QMenu/QAction Text Heuristics messing up detection. Turn off the role detection except where we explicitly set it in ActionManager
+			if (subMenu->menuAction()->menuRole() == QAction::TextHeuristicRole)
+				subMenu->menuAction()->setMenuRole(QAction::NoRole);
 			menuBarMenus.insert(menuString, subMenu);
 			if (rememberedMenus.contains(menuString))
 				rememberedMenus.insert(menuString, subMenu);
