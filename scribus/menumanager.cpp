@@ -237,8 +237,8 @@ void MenuManager::addMenuItemStringAfter(const QString& s, const QString& after,
 {
 	if (menuStrings.contains(parent))
 	{
-		int i=menuStrings[parent].indexOf(after);
-		menuStrings[parent].insert(i+1, s);
+		int i = menuStrings[parent].indexOf(after);
+		menuStrings[parent].insert(i + 1, s);
 	}
 }
 
@@ -292,12 +292,12 @@ void MenuManager::dumpMenuStrings()
 	while (i.hasNext())
 	{
 		i.next();
-		qDebug() << "Menu name:"<<i.key();// << ": " << i.value() << endl;
+		qDebug() << "Menu name:" << i.key();// << ": " << i.value() << endl;
 
 		QListIterator<QString> li (i.value());
 		while (li.hasNext())
 		{
-			qDebug() << "Menu entry:"<<li.next();
+			qDebug() << "Menu entry:" << li.next();
 		}
 	}
 }
