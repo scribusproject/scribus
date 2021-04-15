@@ -1,5 +1,136 @@
-Scribus - 1.5.7 (Released 202x-xx-xx)
+Scribus - 1.5.7 (Released 2021-04-xx)
 =========================================
+0016462: [User Interface] Update Layout for Node Editor (cbradney)
+0016470: [General] Clean up unused .ui files (jghali)
+0016518: [General] Inserting pages in the middle of a document distorts welded items further down (jghali)
+0016526: [User Interface] Cleanup .ui files: delete "Form", "Frame" window titles (jghali)
+0016527: [User Interface] Refactor and cleanup aligndistribute:ui (jghali)
+0016528: [User Interface] Correct spacing for Manage Masterpages dock palette (jghali)
+0016530: [Translation] German translation updates for 1.5.7, as well as DE and EN doc updates for 1.5.7 (jghali)
+0016532: [Master Pages] Using two times same image on different masterpages removes image from previous masterpage (jghali)
+0016536: [PDF] Page::getFormWidgets() returns unique_ptr in poppler 21.04.0 (jghali)
+0016540: [Usability] Adding XeLaTeX support (cbradney)
+0016541: [Printing] Minor issues regarding print seperations (jghali)
+0016544: [General] Cannot create a page smaller than 1" wide or tall (cbradney)
+0016545: [Translation] Turkish translation update (jghali)
+0016546: [User Interface] XeLaTeX render frame editor not picking up icons (cbradney)
+0016370: [User Interface] [Patch] Rearrange Typography panel in Preferences dialog (cbradney)
+0016543: [Usability] Scribus crashes after applied undo-redo operation on the cut text frame (jghali)
+0016542: [Usability] Scribus crashes after undoing "Unlink Text Frames and Cut Text" (jghali)
+0016491: [General] Unable to select lines at low zoom level (jghali)
+0016385: [User Interface] Page import dialog defaults to cancel (jghali)
+0016142: [Import / Export] Preliminary support for importing PDF text as text (jghali)
+0016413: [PDF] Enable embedding OpenType fonts in PDF/X-4 (jghali)
+0016431: [Story Editor / Text Frames] Page numbers placed in masterpages not displayed correctly when objects are grouped (jghali)
+0016436: [Documentation] File not encoded in UTF-8 (jghali)
+0016443: [Story Editor / Text Frames] Linked text boxes: text re-starts from beginning when text is displaced entirely from one of the linked boxes (jghali)
+0016447: [PDF] Ligatures cannot be extracted from PDF as text (jghali)
+0015682: [General] Scribus crashes when checking fonts on startup (jghali)
+0016457: [Properties Palette] Pressing ENTER in PP adds a paragraph separator in text frame (jghali)
+0009604: [User Interface] Missing possibility to configure first line offset default value for the text box (jghali)
+0009614: [General] Non breaking spaces look the same as normal spaces when "Show Control Characters" is checked (jghali)
+0016315: [Scripter] Scripter's duplicateObject(s) should not affect the clipboard (jghali)
+0016318: [Scripter] Add checkValidPageNumber() (ale)
+0016323: [General] Starting page not stored (jghali)
+0016324: [General] appdata: add content_rating, releases (cbradney)
+0016327: [Build System] libhunspellplugin.so fails to load (jghali)
+0016340: [General] Unable to open one scribus document (jghali)
+0016343: [Story Editor / Text Frames] Scribus crashes when copy/pasting text if style is not in target document (jghali)
+0016347: [Story Editor / Text Frames] Text alignment issue after flow around object (jghali)
+0016359: [General] "Restart after other format" is not persistent after reload (jghali)
+0016365: [General] Opening attached PDF in Scribus leads to crash [due to crippled javascript inside) (jghali)
+0016379: [Fonts] Fonts are ragged (low resolution) in 1.5.6.1 (jghali)
+0016475: [General] Error when trying to open document with size above 2Gb (jghali)
+0016497: [User Interface] Bad behavior of annotation "Y" field (jghali)
+0016519: [Import / Export] [album] object larger than page size copied to an album is resized to page size (cbradney)
+0016525: [Translation] Italian translation updates for 1.5.7 (FirasH)
+0014472: [General] " Manage Masterpages " palette is not completely resizable (FirasH)
+0016432: [User Interface] Update layout for Image Effects dialog (jghali)
+0016394: [User Interface] Update layout for Insert Pages dialog (jghali)
+0012964: [User Interface] Visual glitches in the Preferences / Document Setup dialog (jghali)
+0016334: [User Interface] Unify color picker button sizes in Preferences dialog (jghali)
+0016350: [General] Undo of ungrouped grouped object crashes Scribus (jghali)
+0016353: [User Interface] Missing line after "Guides" panel title in Preference dialog (jghali)
+0016352: [User Interface] Non-transparent scrollreas in preferences dialog (jghali)
+0016361: [User Interface] Remove extra margin around Document sections panels in Preferences dialog (cbradney)
+0016363: [User Interface] Unify margins in Preferences > Fonts tabs (cbradney)
+0016362: [User Interface] Remove margin from arc, polygon, spiral, margin (& bleed) widgets to prevent double and triple margins in Preferences dialog (cbradney)
+0016364: [User Interface] Remove empty groupbox label and groupbox from Document Item Attributes in Preferences dialog (cbradney)
+0016367: [User Interface] Remove frame border from hidden scrollareas in main Preferences dialog (jghali)
+0016388: [User Interface] Add missing vertical spacer to Create Range dialog (jghali)
+0016387: [User Interface] Remove unnecessary group boxes from Insert a frame interface (jghali)
+0016371: [User Interface] Make main list a little heigher to fit all menupoints without scrollbars in Preferences dialog (jghali)
+0016384: [User Interface] Shrink Layers panel (jghali)
+0016389: [User Interface] Update layout for Multiple Duplicate dialog (jghali)
+0016381: [User Interface] Update main layout's margins for Style Manager (jghali)
+0016386: [User Interface] Unify minimum size of dock palettes (jghali)
+0016391: [User Interface] Fix margins for Margins & Bleeds in Document Setup/Document Setup (jghali)
+0016390: [User Interface] Update layout for Manage Guides dialog (jghali)
+0016392: [User Interface] Unify margins in Page Properties dialog (jghali)
+0016395: [User Interface] Unify margins for Import Page, Delete Page, Copy&Move Page dialogs (jghali)
+0016400: [User Interface] Update layout for About and About Plugins dialogs (jghali)
+0016401: [User Interface] Update margins for Picture Browser (jghali)
+0016403: [User Interface] Unify margins for New document (startup)/New document dialog (jghali)
+0016402: [User Interface] Update margins for Preflight Verifier, Colors and Fills and Print/Output preview dialogs (jghali)
+0016407: [User Interface] Unify spacing and margin for dock palettes (jghali)
+0016415: [User Interface] Fix default dialog margins (jghali)
+0016417: [User Interface] Fix minimum size for Note Style Editor (jghali)
+0016418: [User Interface] Unify margin and spacing for Character Palette (jghali)
+0016419: [User Interface] Unify margin and spacing for Replace Colors dialog (jghali)
+0016422: [User Interface] Update layout for Gradient Vector Editor (jghali)
+0016424: [User Interface] Update layout for Edit Colors dialog (jghali)
+0016423: [User Interface] Update layout for Gradient Editor (jghali)
+0016420: [User Interface] Unify margins and spacing for dialogs, set 1 (jghali)
+0016429: [User Interface] Update layout for PDF Field Properties dialog (jghali)
+0016430: [User Interface] Unify margins and spacing for dialogs, set 2 (jghali)
+0016434: [User Interface] Update minimum width for Measurements dialog (jghali)
+0016437: [User Interface] Unify window margin for New From Template dialog (jghali)
+0016452: [User Interface] Update layout for Check Spelling dialog (jghali)
+0016453: [User Interface] Unify margins and spacing for dialogs, set 3 (jghali)
+0016456: [User Interface] Unify margins and spacing for dialogs, set 4 (jghali)
+0016455: [Translation] Clean up HTML header code from translation segments (jghali)
+0016458: [User Interface] Unify window margin for file open/save/export dialog (jghali)
+0016465: [User Interface] Unify margins and spacing for dialogs, set 5 (jghali)
+0016454: [User Interface] Update layout for Barcode Generator (jghali)
+0016467: [User Interface] Unify margins and spacing for dialogs, set 6 (jghali)
+0016472: [User Interface] Unify margins and spacing for dialogs, set 7 (jghali)
+0016477: [User Interface] Update layout for PDF import dialog (jghali)
+0016476: [User Interface] Unify margins and spacing for dialogs, set 8 (jghali)
+0016488: [Graphics / Image Frames] Image file getting deleted on closing document (jghali)
+0016524: [User Interface] Cleanup, pretty code for .ui files (jghali)
+0016522: [User Interface] Cleanup, remove unused "..." text from toolbuttons (jghali)
+0016521: [User Interface] Cleanup, remove broken icon links from .ui files (jghali)
+0016511: [User Interface] Unify margins and spacing, last part (jghali)
+0016507: [User Interface] Update layout for Style Manager: widow and orphans, character layout (cbradney)
+0016505: [User Interface] Unify size of icon buttons on dock palettes (cbradney)
+0016512: [User Interface] Shrink eyedropper dialog for new color name (jghali)
+0016501: [User Interface] Update layout for Style Manager: fontcombo, styleselect, tabruler (jghali)
+0016510: [Internal] Clean up scribus/docinfo.cpp (jghali)
+0016504: [User Interface] Shrink minimal width for Line tab in Propeties Palette (jghali)
+0016499: [Internal] Crash on setting tabs after reverting to parent style's tab (jghali)
+0016494: [User Interface] Unify margins and spacing for properties palette, set 3 (jghali)
+0016493: [User Interface] Unify margins and spacing for properties palette, set 2 (jghali)
+0016483: [Internal] Unify margins and spacing for XTG dialog (jghali)
+0016489: [User Interface] Unify margins and spacing for properties palette, set 1 (jghali)
+0016490: [User Interface] Remove dead bottom space from XYZ and Shape tabs in Properties Palette (jghali)
+0016486: [User Interface] Unify margins and spacing for dialogs, set 12 (jghali)
+0016485: [User Interface] Unify margins and spacing for dialogs, set 11 (jghali)
+0016484: [Internal] Clean up adjustcmsdialog (jghali)
+0016480: [Internal] Clean up scinputdialog (jghali)
+0016482: [User Interface] Unify margins and spacing for dialogs, set 10 (jghali)
+0016481: [User Interface] Unify margins and spacing for dialogs, set 9 (jghali)
+0016479: [Story Editor / Text Frames] Story editor does not follow dark theme (jghali)
+0015294: [Usability] If you change many times the color in "Insert Barcode" window, the window grows (jghali)
+0016464: [Usability] Scribus appimage crashes after patch of barcode (jghali)
+0016459: [Translation] Exclude disabled plugins from translation source (jghali)
+0016442: [Usability] Crash without feedback when starting Extras -- Check Spelling (jghali)
+0016427: [Build System] Does not build with podofo 0.9.7 (jghali)
+0016383: [User Interface] [Patch] Unify margins for dockable interfaces and some modal windows (jghali)
+0011619: [Undo/Redo] Column jump is recorded as document modification (jghali)
+0012538: [Undo/Redo] Undo/Redo cause crash if Group is used multiple times (jghali)
+0012491: [Undo/Redo] Undo/Redo does not restore Group of Groups (jghali)
+0012351: [Undo/Redo] Redo does not restore actions applied after grouping items (jghali)
+0012392: [Undo/Redo] Undo/Redo crashes Scribus deleting a Group + Item (jghali)
 
 Scribus - 1.5.6.1 (Released 2020-11-14)
 =========================================
@@ -380,6 +511,13 @@ Scribus - 1.5.5 (Released 2019-07-31)
 0010720: [Fonts] Right-aligned text does not work as expected with some fonts. (jghali)
 0007006: [Typography] Drop Cap little too large causing text baseline misalignment (jghali)
 
+Scribus - 1.4.8 (Released 2019-03-03)
+=========================================
+0015580: [Fonts] Fonts installed by user are not found by scribus on Windows 10 1809 (jghali)
+0015454: [Graphics / Image Frames] Importing a Lilypond-generated .svg file generates peculiar results (jghali)
+0015431: [Import / Export] EPS import fails with ghostscript 9.24+ (jghali)
+0015397: [Printing] Some text in text frames invisible in print preview/when printed (jghali)
+
 Scribus - 1.5.4 (Released 2018-04-28)
 =========================================
 - 0015267: [Color Management] Colour model switch in the "Colours & Fills" dialogue doesn't work as expected (jghali)
@@ -493,6 +631,70 @@ Scribus - 1.5.4 (Released 2018-04-28)
 - 0014870: [User Interface] Style select is missing colons before spinboxes and does not translate "Auto" string on language change (FirasH)
 - 0014811: [User Interface] Barcode UI crops label text length (jghali)
 - 0014865: [User Interface] Barcode colors QGroupBox does not have margin borders (FirasH)
+
+Scribus - 1.4.7 (Released 2018-04-28)
+=========================================
+0015238: [General] Conflict with Python 3 prevent scribus to run (jghali)
+0015191: [Import / Export] PDF-Bookmarks go to wrong target page on partial export (jghali)
+0015145: [PDF] Javascript fails to execute on PDF opening when PDF security is enabled (jghali)
+0015083: [Translation] German translation for scribus.desktop (jghali)
+0015077: [Import / Export] importing eps-files with Scribus 1.4.6 and Ghostscript 9.22 fails (jghali)
+0015077: [Import / Export]  importing eps-files with Scribus 1.4.6 and Ghostscript 9.22 fails (jghali)
+0015074: [Documentation]  German documentation update for 1.4.7 (cbradney)
+0015061: [Fonts]  Crash with Noto-Coloremoji font (jghali)
+0014905: [Typography]  Portuguese sample text (jghali)
+0014900: [PDF]  Fonts used only in patterns can't be embedded in PDFs (jghali)
+0014891: [Story Editor / Text Frames]  Style replacement isn't correct (jghali)
+0014884: [Import / Export]  A blank character is added when importing an html file (jghali)
+0014877: [Translation]  Backport translation fixes to 1.4.7.svn (FirasH)
+0014820: [Translation]  Incorrect French translation for "Glyph extension" in style manager (jghali)
+0014804: [User Interface]  E-Mail address update for the "About" dialog (cbradney)
+0014751: [Styles]  Document Settings Tab Width spinbox does not accept values below one inch (jghali)
+0014746: [Translation]  Ukrainian UI fixes (jghali)
+0014720: [User Interface]  Text filter dialog unusable (jghali)
+0014707: [Fonts]  Text preview truncated in Font Preview (jghali)
+0014638: [General]  combine polygons results in unexpected displacement (jghali)
+0014619: [General]  "Insert frames" incorrectly place frames on left pages when bleed is involved (jghali)
+0014583: [PDF]  Euro-sign (€) showing as squares or diamond shape in PDF forms (jghali)
+0014547: [PDF]  Submitting PDF form as PDF doesn't work (jghali)
+0014522: [Translation]  Ukrainian UI update and fixes (plinnell)
+0014507: [General]  Typo in PACKAGING (jghali)
+0014501: [Translation]  Ukrainian UI update and fixes (jghali)
+0014494: [Import / Export]  Bad PDF output caused by broken JPEGs embedding incorrect ICC profiles (jghali)
+0014391: [Translation]  Ukrainian UI update (jghali)
+0014380: [Styles]  Crash caused by incorrect handling of reference to deleted styles by style manager (jghali)
+0014377: [General]  Rotate Item show wrong icon when mouse over frame middle point (jghali)
+0014362: [Import / Export]  Inkscape SVG freezes Scribus (jghali)
+0014360: [Properties Palette]  PP Rotation on multiple selections (jghali)
+0014339: [Translation]  Slovak translator spelling (jghali)
+0014328: [PDF]  incorrect export of inline groups to PDF when offset to baseline applied (jghali)
+0014313: [General]  Print preview has cropped shape on second page (also in print) (jghali)
+0014307: [PDF]  Incorrect export of nested groups to PDF (jghali)
+0014270: [Documentation]  Incorrect link to Mac OSX Ghostscript package (jghali)
+0014257: [OS-Linux]  Please stop installing mimelnk/vnd.scribus.desktop (plinnell)
+0014256: [OS-Linux]  Please install the .desktop file (plinnell)
+0014207: [Usability]  After deleting Master Page, wrong master page is shown (jghali)
+0014206: [Typography]  Hyphens align incorrectly when using right alignment (jghali)
+0014205: [OS-Linux]  cmake can't find hunspell anymore since version >= 1.4 (cbradney)
+0014196: [Scripter]  Missing Greek option in calendar script (jghali)
+0014067: [General]  "Print Layer" is not in sync with Preview Mode (Backport from 0014059) (FirasH)
+0014006: [General]  "Lock Guides" checkbox status is not correctly set when switching documents (jghali)
+0014002: [Story Editor / Text Frames]  Shortcut CTRL-D delete two characters instead of one in Story Editor (jghali)
+0013988: [Shape Drawing]  Node Editor Horizontal Shear icons are the wrong way round (jghali)
+0013794: [General]  Scribus crashes while loading document (jghali)
+0013775: [Story Editor / Text Frames]  Alternatively clicking between 2 text blocks crashes w/ Signal 6 (jghali)
+0013762: [PDF]  Font not embedded by default if first used after the first PDF export (jghali)
+0013757: [Graphics / Image Frames]  CMYK jpeg file not imported properly (jghali)
+0013722: [Templates]  Template for creating paperbacks for Lulu and Createspace 6x9 (cbradney)
+0013710: [General]  Duplicating a color, no difference in edit color dialog between OK and cancel (jghali)
+0013688: [Story Editor / Text Frames]  Text highliting in Story Editor disappears after changing font (jghali)
+0013684: [OS-Win32]  Import failure with jpeg files whose path contains chars not supported by current codepage on Windows (jghali)
+0013631: [Translation]  Updated Danish Translation (jghali)
+0013626: [Translation]  Italian documentation update (jghali)
+0013124: [User Interface]  Outline Window is limited in height (in 1.4.x) (jghali)
+0012831: [Scrapbook]  scrapbook doesn't work with images (jghali)
+0012708: [Releases]  GNOME/KDE: Please install the supplied AppData file (plinnell)
+0012681: [Graphics / Image Frames]  Image editing doesn´t remain after saving
 
 Scribus - 1.5.3 (Released 2017-05-23)
 =========================================
@@ -885,9 +1087,9 @@ Scribus - 1.5.2 (Released 2016-05-17)
 - 0008988: [Graphics / Image Frames] expanding the countour line does not respect the measures (fschmid) - closed.
 - 0012463: [Canvas] Multiple Duplicate does not place items on the correct page in Windows > Outline (fschmid) - closed.
 - 0008788: [General] Automatic recovery (fschmid) - closed.
- - 0013847: [General] All / None option in autosave recovery dialog (fschmid) - closed.
- - 0013838: [Usability] Crash Recovery UI missing a 'Continue' option if user chooses to remove found emergency/autosave files (fschmid) - closed.
- - 0013832: [General] Automatic recovery should rename file that was autorecovered as "filename_(recovered)_DD_MM_YYYY_HH_MM" (fschmid) - closed.
+- 0013847: [General] All / None option in autosave recovery dialog (fschmid) - closed.
+- 0013838: [Usability] Crash Recovery UI missing a 'Continue' option if user chooses to remove found emergency/autosave files (fschmid) - closed.
+- 0013832: [General] Automatic recovery should rename file that was autorecovered as "filename_(recovered)_DD_MM_YYYY_HH_MM" (fschmid) - closed.
 - 0013918: [Printing] Borders of text frames are invisible in print preview and when printed (jghali) - closed.
 - 0013917: [Story Editor / Text Frames] [scribusboxes] Tabs & indents don't line up (jghali) - closed.
 - 0013916: [Story Editor / Text Frames] [scribusboxes] some text not displayed (jghali) - closed.
@@ -929,7 +1131,7 @@ Scribus - 1.5.2 (Released 2016-05-17)
 - 0013821: [Usability] use 1 as default for the number of the auto saved documenty to keep (fschmid) - closed.
 - 0013529: [OS-MacOSX] Feature Request: Ability to drop dirs/files in to Qt File dialog result: auto-find and highlight file - closed.
 - 0010220: [General] Configurable directory for .autosaved doc (fschmid) - closed.
- - 0013809: [General] Configurable directory for .autosaved doc is not remembered (fschmid) - closed.
+- 0013809: [General] Configurable directory for .autosaved doc is not remembered (fschmid) - closed.
 - 0013816: [Usability] Move 'Show Autosave Countdown Clock on Canvas' to Prefs > Doc Setup > Saving & Undo (fschmid) - closed.
 - 0006253: [Import / Export] Missing "save 5 last version of saved doc" option (fschmid) - closed.
 - 0013801: [Internal] Compilation warning (cbradney) - closed.
@@ -1100,7 +1302,7 @@ Scribus - 1.5.1 (Released 2016-02-14)
 - 0013393: [General] Edit > Duplicate changes relative levels of selected items (jghali) - closed.
 - 0008697: [Import / Export] Suggested Improvement of RTF Import with UNRTF (fschmid) - closed.
 - 0001474: [Import / Export] rtf import (fschmid) - closed.
- - 0013406: [Import / Export] Paragraph Styles are not being imported from RTF files (fschmid) - closed.
+- 0013406: [Import / Export] Paragraph Styles are not being imported from RTF files (fschmid) - closed.
 - 0013405: [Import / Export] Crash during RTF import (fschmid) - closed.
 - 0013351: [Scripter] remove the "ext" parameter from the scripter arguments (cbradney) - closed.
 - 0013392: [General] Precisense of LC_ALL, LANG and LC_MESSAGES does not comply to POSIX (cbradney) - closed.
@@ -1218,6 +1420,52 @@ Scribus - 1.5.1 (Released 2016-02-14)
 - 0013070: [General] Compiling error on Linux (fschmid) - closed.
 - 0004564: [Import / Export] PDF Export: Subsetting of OTF fonts (TTF variant) as true TTF subsets in PDF version < 1.6 (avox) - closed.
 
+Scribus - 1.4.6 (Released 2016-01-03)
+=========================================
+- 0013605: [General] Scribus crashes immediately on opening a particular file (jghali) - closed.
+- 0013609: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
+- 0008548: [Canvas] redrawing the canvas goes wrong when object moved with arrow keys forcing the canvas to scroll (jghali) - closed.
+- 0013470: [Canvas] Missing Layout Update/Display Refresh for Text boxes using certain 'align and distribute' buttons (jghali) - closed.
+- 0013225: [General] "Replace All" in Search/Replace dialog freezes Scribus in determined condition (jghali) - closed.
+- 0013451: [PDF] Invalid PDF when specifying a non-existing page to export (jghali) - closed.
+- 0013503: [General] Crash when opening file (jghali) - closed.
+- 0013471: [Language Tools] Fix for broken hyphenation language selection (jghali) - closed.
+- 0010391: [Story Editor / Text Frames] add keyboard shortcut Ctrl+F to Search/Replace in Story Editor (jghali) - closed.
+- 0010270: [General] Story Editor: Ctrl-F doesn't open Search window (jghali) - closed.
+- 0013435: [Import / Export] blend modes not imported from SVG file (jghali) - closed.
+- 0013416: [Usability] Assert failure when loading document (jghali) - closed.
+- 0013039: [General] Error at startup prevents using script (psmedley) - closed.
+- 0013407: [Translation] Polish translation update for Scribus 1.4.6 (mhanski) - closed.
+- 0013404: [Translation] Updated Danish Translation (jghali) - closed.
+- 0013355: [Typography] Text effects only retained on first line when you reopen a document. (jghali) - closed.
+- 0013369: [Styles] Multiple Duplicate of text box loses style (jghali) - closed.
+- 0013365: [Undo/Redo] Rename action is wrongly recorded in Action History (FirasH) - closed.
+- 0013214: [General] Crash when reopening field properties dialog (jghali) - closed.
+- 0013154: [OS-Win32] Error message during the startup of scribus (jghali) - closed.
+- 0013180: [PDF] Encoding error in PDF with Symbol font (jghali) - closed.
+- 0013183: [User Interface] Crash when attempting to set keyboard shortcut to menu separator in keyboard shortcut prefs (cbradney) - closed.
+- 0013327: [PDF] Closing PDF "Field Properties" dialog after changing some values leads to crash (jghali) - closed.
+- 0013326: [Translation] Italian translation update for 1.4.6.svn (jghali) - closed.
+- 0013193: [PDF] Doesn't save a javascript script. (jghali) - closed.
+- 0013319: [PDF] [patch] valgrind error "Conditional jump or move depends on uninitialised value" in ScImgDataLoader_PS (jghali) - closed.
+- 0013184: [User Interface] "View rulers" setting not retained across session (jghali) - closed.
+- 0013219: [General] Backport 0012193 (Style Manager styles sorting) to 1.4.6.svn (cbradney) - closed.
+- 0013295: [Translation] Minor Italian translation improvement for 1.5.1.svn + backport to 1.4.6.svn (FirasH) - closed.
+- 0013270: [General] "Defaults" button duplicates Printing Destination in Preferences (cbradney) - closed.
+- 0013067: [User Interface] Better tooltip for fill rules (jghali) - closed.
+- 0013153: [Translation] Italian translation updates for 1.4.6.svn and 1.5.1.svn (FirasH) - closed.
+- 0013098: [Translation] Italian translation update for 1.4.6.svn (FirasH) - closed.
+- 0013065: [PDF] Transparency of layers is lost for object placed in template when exporting in PDF (jghali) - closed.
+- 0013042: [User Interface] Display DPI maximum too small for hi res screens (cbradney) - closed.
+- 0013035: [Build System] Build system does not respect DATAROOTDIR (cbradney) - closed.
+- 0013014: [PDF] PDF export creates XObject for every group on every page (jghali) - closed.
+- 0012986: [General] Multiple duplicate - Cannot enter more than 14 times manually, nor more than 99 times with the incrementor (cbradney) - closed.
+- 0012997: [Story Editor / Text Frames] [PATCH] Kerning between non-CJK and CJK letters does not appear until the text frame containing them is modified. (jghali) - closed.
+- 0012309: [Undo/Redo] "Arrange Pages" changes to pages arrangement might lead to wrong behavior of Undo/Redo (cbradney) - closed.
+- 0010870: [Story Editor / Text Frames] when deleting a linked text frame the content is not refreshed (jghali) - closed.
+- 0012459: [Undo/Redo] Undo/Redo does not restore the correct position using Flip Horizontal/Vertical (cbradney) - closed.
+- 0012893: [Usability] Incorrectly calculates the characters and words (jghali) - closed.
+- 0012904: [-] opening 'About' throws "please add the untranslated title "Haiku Port:" to About::trAuthorTitle()" (cbradney) - closed.
 
 Scribus - 1.5.0 (Released 2015-05-19)
 ========================================
@@ -1287,8 +1535,8 @@ Scribus - 1.5.0 (Released 2015-05-19)
 - 0012928: [Story Editor / Text Frames] Insufficient justification of Japanese text (cbradney) - closed.
 - 0008823: [General] New non modal resource manager (cbradney) - closed.
 - 0012517: [Usability] [PATCH] Port BAlpha swap-pages.patch (cbradney) - closed.
- - 0012916: [General] "Swap with Page" feature does not correctly enable/disable dialog spinboxes (cbradney) - closed.
- - 0012917: [Undo/Redo] "Swap with Page" action is not recorded in Action History (cbradney) - closed.
+- 0012916: [General] "Swap with Page" feature does not correctly enable/disable dialog spinboxes (cbradney) - closed.
+- 0012917: [Undo/Redo] "Swap with Page" action is not recorded in Action History (cbradney) - closed.
 - 0012371: [Undo/Redo] Undo/Redo crashes Scribus deleting items of a group (case 1) (cbradney) - closed.
 - 0012625: [Tables] "Delete Columns" will crash or freeze Scribus using "Merge Cells" (FirasH) - closed.
 - 0012930: [General] CLI output:"SMCStyleWidget::show(): deflan='en_GB'->''" (cbradney) - closed.
@@ -1299,7 +1547,7 @@ Scribus - 1.5.0 (Released 2015-05-19)
 - 0012071: [Scripter] Autoquote script fails when the second quotation mark is placed before a line break. (gpittman) - closed.
 - 0011221: [Scripter] Add a method to get list of all pages in document. (jainbasil) - closed.
 - 0003218: [Import / Export] OO Draw v2 document support (Metabug) - closed.
- - 0003228: [Import / Export] Custom shapes support (OO Draw v2 import) - closed.
+- 0003228: [Import / Export] Custom shapes support (OO Draw v2 import) - closed.
 - 0010122: [Translation] In french, "HSV" should be translatted "TSL" (jghali) - closed.
 - 0012674: [Shape Drawing] [TESTED-PATCH] Nodes tool might lead to strange results if Locking is applied (cbradney) - closed.
 - 0012782: [General] Upgrade libwpg 3rd party code (fschmid) - closed.
@@ -1969,7 +2217,7 @@ Scribus - 1.5.0 (Released 2015-05-19)
 - 0009621: [Typography] Automatic linespacing does not work. (jghali) - closed.
 - 0002003: [User Interface] Tables-issues - closed.
 - 0002142: [Story Editor / Text Frames] Action History does not record all changes (Tsoots) - closed.
- - 0004820: [Undo/Redo] deletion/creation of masterpage is not being recorded by undo system (Chelen) - closed.
+- 0004820: [Undo/Redo] deletion/creation of masterpage is not being recorded by undo system (Chelen) - closed.
 - 0010909: [Color Management] [PATCH] Crash in color palette (Chelen) - closed.
 - 0010905: [Undo/Redo] some more undo added and multiple image import (Chelen) - closed.
 - 0010814: [Story Editor / Text Frames] Error in label or in function of setting Story Editor Font/Background (jghali) - closed.
@@ -2016,10 +2264,10 @@ Scribus - 1.5.0 (Released 2015-05-19)
 - 0006220: [Undo/Redo] Undoing split polygon doesn't work (Chelen) - closed.
 - 0010269: [Shape Drawing] CTRL shape-tool modifier (Chelen) - closed.
 - 0010808: [Undo/Redo] GSoC : git branch about option undo/redo functionnality (Chelen) - closed.
- - 0010809: [Undo/Redo] Undo/redo for rounded corner (Chelen) - closed.
- - 0010811: [Undo/Redo] undo/redo for show image option (Chelen) - closed.
- - 0010812: [Undo/Redo] undo/redo for image resolution option (Chelen) - closed.
- - 0010810: [Undo/Redo] flip item undo/redo (Chelen) - closed.
+- 0010809: [Undo/Redo] Undo/redo for rounded corner (Chelen) - closed.
+- 0010811: [Undo/Redo] undo/redo for show image option (Chelen) - closed.
+- 0010812: [Undo/Redo] undo/redo for image resolution option (Chelen) - closed.
+- 0010810: [Undo/Redo] flip item undo/redo (Chelen) - closed.
 - 0008608: [Undo/Redo] Undo after resizing figure does not work (Chelen) - closed.
 - 0010813: [Build System] Hardcoded multiarch parts in FindPOPPLER.cmake (jghali) - closed.
 - 0010820: [Usability] [PATCH] assigning a shortcut: when scribus warns me that the shortcut is taken, it should tell me by which command (ale) - closed.
