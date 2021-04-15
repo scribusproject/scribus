@@ -16,6 +16,7 @@ dot.svg
 500_povray.xml
 povray_32.png
 600_xelatex.xml
+600_xelatex.tar
 
   DESTINATION ${SHAREDIR}/editorconfig
 )
