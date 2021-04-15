@@ -12132,232 +12132,232 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1083"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
         <source>Nodes</source>
         <translation>Nodi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1098"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Reset all edits</source>
         <translation>Azzera tutti i cambiamenti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
         <source>Move Nodes</source>
         <translation>Sposta nodi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
         <source>Move Control Points</source>
         <translation>Sposta punti di controllo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1102"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
         <source>Add Nodes</source>
         <translation>Aggiungi nodi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
         <source>Delete Nodes</source>
         <translation>Elimina nodi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>Reset Control Points</source>
         <translation>Azzera punti di controllo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Reset this Control Point</source>
         <translation>Azzera questo punto di controllo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1086"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>Coordinate &amp;assolute</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="291"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1096"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="308"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1097"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="312"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1089"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>&amp;X-Pos:</source>
         <translation>Pos &amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1090"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>&amp;Y-Pos:</source>
         <translation>Pos &amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1091"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
         <source>Hide Nodes</source>
         <translation>Nascondi nodi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1092"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Modifica linea &amp;contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1093"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Reimposta linea contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
         <source>Move Control Points Independently</source>
         <translation>Sposta punti di controllo singolarmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Sposta punti di controllo simmetricamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Apri poligono o interrompi curva di Bézier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
         <source>Close this Bezier Curve</source>
         <translation>Chiudi questa curva di Bézier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Rifletti il tracciato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
         <source>Mirror the Path Vertically</source>
         <translation>Ribalta il tracciato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1130"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Distorci il tracciato orizzontalmente verso sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1131"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Distorci il tracciato verticalmente verso l&apos;alto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1132"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Distorci il tracciato verticalmente verso il basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1116"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1133"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Ruota il tracciato in senso antiorario</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1134"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Ruota il tracciato in senso orario</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1136"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Aumenta la dimensione del tracciato del valore percentuale mostrato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1139"/>
         <source>Angle of Rotation</source>
         <translation>Angolo di rotazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1142"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Attiva la modalità di modifica della linea di contorno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Riconfigura la linea di contorno alla forma originale della cornice</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
         <translation>Quando è marcata usa le coordinate relative alla pagina, altrimenti le coordinate relative all&apos;oggetto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Distorci il tracciato orizzontalmente verso destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1084"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Riduci la dimensione del tracciato del valore percentuale mostrato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1137"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Riduci la dimensione del tracciato del valore mostrato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1138"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Aumenta la dimensione del tracciato del valore mostrato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1140"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% di aumento o riduzione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1141"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Valore di ingrandimento o riduzione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1094"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Set Contour to Image Clip</source>
         <translatorcomment>???</translatorcomment>
         <translation>Imposta il contorno a quello della maschera dell&apos;immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Riporta la linea di contorno a quello della maschera di ritaglio dell&apos;immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="229"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1087"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="246"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
         <source>to Canvas</source>
         <translation>allo spazio di lavoro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="231"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1088"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="248"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
         <source>to Page</source>
         <translation>alla pagina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1095"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Set Shape to Image Clip</source>
         <translation>Imposta forma al contorno immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Imposta la forma alla maschera di ritaglio dell&apos;immagine</translation>
     </message>
@@ -13574,8 +13574,8 @@ Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamen
         <translation>Tabella</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7427"/>
         <location filename="../../scribus/pageitem.cpp" line="7428"/>
+        <location filename="../../scribus/pageitem.cpp" line="7429"/>
         <source>Copy of</source>
         <translation>Copia di</translation>
     </message>
@@ -21256,8 +21256,8 @@ Vuoi usarlo?</translation>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="108"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
         <source>All</source>
         <translation>Tutti</translation>
     </message>
@@ -21277,43 +21277,48 @@ Vuoi usarlo?</translation>
         <translation>Giallo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="460"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="112"/>
+        <source>Black</source>
+        <translation type="unfinished">Nero</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printdialog.cpp" line="461"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Stampa pa&amp;gina corrente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="351"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="396"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
         <source>Print Normal</source>
         <translation>Stampa normale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>File PostScript (*.ps);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="313"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="314"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Impossibile ottenere i parametri della stampante</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="120"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
         <source>Inside:</source>
         <translation>Interno:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="122"/>
         <source>Outside:</source>
         <translation>Esterno:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>File PDF (*.pdf);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
         <source>Save As</source>
         <translation>Salva come</translation>
     </message>
@@ -35257,17 +35262,17 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10379"/>
+        <location filename="../../scribus/pageitem.cpp" line="10380"/>
         <source>Print: </source>
         <translation>Stampa: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10381"/>
+        <location filename="../../scribus/pageitem.cpp" line="10382"/>
         <source>Enabled</source>
         <translation>Abilitata</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10383"/>
+        <location filename="../../scribus/pageitem.cpp" line="10384"/>
         <source>Disabled</source>
         <translation>Disabilitata</translation>
     </message>

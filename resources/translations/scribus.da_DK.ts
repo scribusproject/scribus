@@ -12103,231 +12103,231 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1083"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
         <source>Nodes</source>
         <translation>Noder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Reset this Control Point</source>
         <translation>Nulstil dette kontrolpunkt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
         <source>Delete Nodes</source>
         <translation>Slet noder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1102"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
         <source>Add Nodes</source>
         <translation>Tilføj noder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
         <source>Move Nodes</source>
         <translation>Flyt noder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
         <source>Move Control Points</source>
         <translation>Flyt kontrolpunkter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>Reset Control Points</source>
         <translation>Nulstil kontrolpunkter</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1086"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>A&amp;bsolutte koordinater</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="291"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1096"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="308"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1097"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="312"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
         <source>Cancel</source>
         <translation>Annuller</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1089"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X-Pos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1090"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Pos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1091"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
         <source>Hide Nodes</source>
         <translation>Skjul noder</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1092"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Rediger &amp;konturlinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1093"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>&amp;Reset Contour Line</source>
         <translation>Nu&amp;lstil konturlinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
         <source>Move Control Points Independently</source>
         <translation>Flyt kontrolpunkter en af gangen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Flyt kontrolpunkter symmetrisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Åbn en polygon eller overskær en bezierkurve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
         <source>Close this Bezier Curve</source>
         <translation>Luk denne bezierkurve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Spejlvend stien horisontalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
         <source>Mirror the Path Vertically</source>
         <translation>Spejlvend stien vertikalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1130"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Forskyd mod venstre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1131"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Forskyd mod top</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1132"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Forskyd mod bund</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1116"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1133"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Roterer stien mod uret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1134"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Roterer stien med uret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1136"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Forøger størrelsen på stien med den viste %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1139"/>
         <source>Angle of Rotation</source>
         <translation>Rotationsvinkel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1142"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Aktiverer Redigering af konturlinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Nulstil konturlinjen til den originale form på rammen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
         <translation>Sæt kryds for at få koordinater i forhold til siden, ellers er koordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Forskyd mod højre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1084"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Reducer størrelsen på stien med viste %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1098"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Reset all edits</source>
         <translation>Nulstil alle redigeringer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1137"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Formindsk størrelsen på stien med den viste værdi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1138"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Forøg størrelsen på stien med den viste værdi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1140"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% til at forøge eller reducere med</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1141"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Værdi til at forøge eller reducere med</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1094"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Set Contour to Image Clip</source>
         <translation>Indstil kontur til billed-afskæring</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Nulstiller konturlinjen til billedets fritlægningsmaske</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="229"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1087"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="246"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
         <source>to Canvas</source>
         <translation>til dokumentområde</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="231"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1088"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="248"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
         <source>to Page</source>
         <translation>til side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1095"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Set Shape to Image Clip</source>
         <translation>Indstil form til billed-afskæring</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Indstil formen til billedets fritlægningsmaske</translation>
     </message>
@@ -13538,8 +13538,8 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
         <translation>Tabel</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7427"/>
         <location filename="../../scribus/pageitem.cpp" line="7428"/>
+        <location filename="../../scribus/pageitem.cpp" line="7429"/>
         <source>Copy of</source>
         <translation>Kopi af</translation>
     </message>
@@ -21216,8 +21216,8 @@ Do you want to use this?</source>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="108"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
         <source>All</source>
         <translation>Alle</translation>
     </message>
@@ -21237,43 +21237,48 @@ Do you want to use this?</source>
         <translation>Gul</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="460"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="112"/>
+        <source>Black</source>
+        <translation type="unfinished">Sort</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printdialog.cpp" line="461"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Udskriv &amp;denne side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="351"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="396"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
         <source>Print Normal</source>
         <translation>Udskriv normalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>PostScript Filer (*.ps);;Alle Filer (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="313"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="314"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Kunne ikke hente printerindstillinger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="120"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
         <source>Inside:</source>
         <translation>Inderside:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="122"/>
         <source>Outside:</source>
         <translation>Yderside:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
         <source>Save As</source>
         <translation>Gem som</translation>
     </message>
@@ -35210,17 +35215,17 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Annuller</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10379"/>
+        <location filename="../../scribus/pageitem.cpp" line="10380"/>
         <source>Print: </source>
         <translation>Udskriv: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10381"/>
+        <location filename="../../scribus/pageitem.cpp" line="10382"/>
         <source>Enabled</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10383"/>
+        <location filename="../../scribus/pageitem.cpp" line="10384"/>
         <source>Disabled</source>
         <translation>Deaktiveret</translation>
     </message>

@@ -3854,12 +3854,12 @@ Altuera: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
         <source>The selected color does not exist in the document&apos;s color set.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatutako kolorea ez dago dokumentuaren kolore multzoan</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="181"/>
         <source>Please enter a name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu izen bat kolore berri horretarako.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
@@ -3874,12 +3874,12 @@ Altuera: %2</translation>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
         <source>The name you have selected already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hautatutako izena badago lehendik ere.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
         <source>Please enter a different name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sartu beste izen bat kolore berri horretarako.</translation>
     </message>
 </context>
 <context>
@@ -4914,7 +4914,7 @@ unekoa %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="38"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolore-kudeaketa gaituta badago, harridura-marka batek zera adierazten du, hautatutako uneko inprimagailu-profilean kolorea beharbada gamaz kanpo dagoela. Horrek esan nahi du kolorea ez dela pantailan agertzen den bezala inprimatuko. Kolore zuzenak zirkulu gorri batekin adierazten dira. Gama-abisu horiei buruzko informazio gehiago, lineako laguntzan, &quot;Kolore-kudeaketa&quot; atalean. Erregistro-koloreek, erregistro-marka izango dute ondoan. Inprimgailu eta mozte-marketarako baino ez erabili Erregistroa.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="45"/>
@@ -9113,7 +9113,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
+        <source>Imports Adobe InDesign's IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Adobe Indesign aplikazioaren IDML paketeak inportatzen ditu,
 Indesign objektuak Scribus elementu bihurtuz; Scribusek ez ditu denak onartzen, baina onartutako guztiak hona inportatuko dira</translation>
@@ -12105,231 +12105,231 @@ hautatu baduzu.</translation>
 <context>
     <name>NodePalette</name>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1083"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
         <source>Nodes</source>
         <translation>Nodoak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1100"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
         <source>Move Nodes</source>
         <translation>Lekuz aldatu nodoak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
         <source>Move Control Points</source>
         <translation>Lekuz aldatu kontrol-puntuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1102"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
         <source>Add Nodes</source>
         <translation>Gehitu nodoak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
         <source>Delete Nodes</source>
         <translation>Ezabatu nodoak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>Reset Control Points</source>
         <translation>Berrezarri kontrol-puntuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Reset this Control Point</source>
         <translation>Berrezarri kontrol-puntu hau</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1086"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
         <source>&amp;Absolute Coordinates</source>
         <translation>&amp;Koordenatu absolutuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1089"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>&amp;X-Pos:</source>
         <translation>&amp;X posizioa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1090"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y posizioa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1091"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
         <source>Hide Nodes</source>
         <translation>Ezkutatu nodoak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1092"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Edit &amp;Contour Line</source>
         <translation>Editatu ingerada-lerroak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1093"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Berrezarri ingerada-lerroak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
         <source>Move Control Points Independently</source>
         <translation>Mugitu kontrol-puntuak bakarka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
         <source>Move Control Points Symmetrical</source>
         <translation>Mugitu kontrol-puntuak simetrikoki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
         <translation>Ireki poligonoa edo moztu Bezier kurba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
         <source>Close this Bezier Curve</source>
         <translation>Itxi Bezier kurba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
         <source>Mirror the Path Horizontally</source>
         <translation>Ispilatu bidea horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
         <source>Mirror the Path Vertically</source>
         <translation>Ispilatu bidea bertikalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1130"/>
         <source>Shear the Path Horizontally to the Left</source>
         <translation>Zizailatu bidea horizontalki ezkerrera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1131"/>
         <source>Shear the Path Vertically Up</source>
         <translation>Zizailatu bidea bertikalki gora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1132"/>
         <source>Shear the Path Vertically Down</source>
         <translation>Zizailatu bidea bertikalki behera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1116"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1133"/>
         <source>Rotate the Path Counter-Clockwise</source>
         <translation>Biratu bidea erlojuaren aurkako norantzan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1117"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1134"/>
         <source>Rotate the Path Clockwise</source>
         <translation>Biratu bidea erlojuaren norantzan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1119"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1136"/>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Handitu bidearen tamaina % eremukoarekin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1122"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1139"/>
         <source>Angle of Rotation</source>
         <translation>Biraketa-angelua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1125"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1142"/>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Aktibatu ingerada-lerroak editatzeko modua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1126"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Berrezarri ingerada-lerroak markoaren jatorrizko formara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Zizailatu bidea horizontalki eskuinera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1084"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1118"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
         <source>Shrink the Size of the Path by shown %</source>
         <translation>Txikitu bidearen tamaina % eremukoarekin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1120"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1137"/>
         <source>Reduce the Size of the Path by the shown value</source>
         <translation>Bidearen tamaina txikitzen du erakutsitako balioarekin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1138"/>
         <source>Enlarge the Size of the Path by the shown value</source>
         <translation>Bidearen tamaina handitzen du erakutsitako balioarekin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1140"/>
         <source>% to Enlarge or Shrink By</source>
         <translation>% balioa handitzeko edo txikitzeko</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1141"/>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Balioa handitzeko edo txikitzeko</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1094"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Set Contour to Image Clip</source>
         <translation>Ezarri ingerada irudi-mozteari</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1127"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Berrezarri ingerada-lerroa irudiaren mozte-bideari</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="229"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1087"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="246"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1104"/>
         <source>to Canvas</source>
         <translation>oihalera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="231"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1088"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="248"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1105"/>
         <source>to Page</source>
         <translation>orrialdera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1095"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Set Shape to Image Clip</source>
         <translation>Ezarri forma irudi-mozteari</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1128"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Ezarri forma irudiaren mozte-bideari</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="291"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1096"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="308"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1113"/>
         <source>OK</source>
         <translation>Ados</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="295"/>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1097"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="312"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1114"/>
         <source>Cancel</source>
         <translation>Utzi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1098"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Reset all edits</source>
         <translation>Berrezarri edizio guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
+        <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
         <translation>Egiaztatuta dagoenean orrialdearekiko korrdenatu erlatiboak erabiltzen ditu, bestela koordenatuak objektuarekiko erlatiboak dira</translation>
     </message>
@@ -13518,8 +13518,8 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
         <translation>Ikurra</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="7427"/>
         <location filename="../../scribus/pageitem.cpp" line="7428"/>
+        <location filename="../../scribus/pageitem.cpp" line="7429"/>
         <source>Copy of</source>
         <translation>Honen kopia</translation>
     </message>
@@ -14915,23 +14915,24 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="205"/>
         <source>Import Text As Vectors</source>
-        <translation type="unfinished"></translation>
+        <translation>Inportatu testua bektore gisa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="215"/>
         <source>Import Text As Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Inportatu testua testu gisa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
-        <translation type="unfinished"></translation>
+        <translation>Oharra: testua testu gisa inportatzen bada, PDFaren ikusizko itxura asko aldatu daiteke</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="54"/>
         <source>The range of pages to import is invalid.
 Please check it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inportatu nahi den orrialde-barrutia baliogabea da.
+Egiaztatu ondo dagoela eta saiatu berriro.</translation>
     </message>
 </context>
 <context>
@@ -15017,7 +15018,7 @@ Please check it and try again.</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15039,7 +15040,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -16333,13 +16334,13 @@ Hautatu beste bat.</translation>
         <location filename="../../scribus/pluginmanager.cpp" line="73"/>
         <source>Error loading plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Errorea plugina kargatzean</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="62"/>
         <source>Unknown error</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Errore ezezaguna</translation>
     </message>
     <message>
         <location filename="../../scribus/pluginmanager.cpp" line="89"/>
@@ -21143,8 +21144,8 @@ Postscript 1. edo 2. maila ezartzen bada, fitxategi handiak sortu daitezke.</tra
         <translation>Tamaina aldatzea edo mugitzea hasi baino lehen igaroko den denbora. Horrek atzerapen txiki bat sortzen du klik egiten den eta eragiketa gertatzen den artean, elementuak nahi gabe ez mugitzeko. Lagungarria izan daiteke sagu ergonomikoei, ukipen-teklatuei edo eskumuturren eta eskuen mugikortasunari lotutako lotutako sentikortasun-ezarpenekin edo irisgarritasun-kontuekin.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -21232,8 +21233,8 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko.</translation>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="108"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
         <source>All</source>
         <translation>Denak</translation>
     </message>
@@ -21253,43 +21254,48 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau gainidazteko.</translation>
         <translation>Horia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="460"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="112"/>
+        <source>Black</source>
+        <translation>Beltza</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printdialog.cpp" line="461"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Inprimatu uneko &amp;orrialdea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="351"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="396"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="352"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="397"/>
         <source>Print Normal</source>
         <translation>Inprimatu normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>PostScript fitxategiak (*.ps);;Fitxategi guztiak (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="313"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="314"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Huts egin du inprimagailuaren ezarpenak eskuratzean</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="120"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
         <source>Inside:</source>
         <translation>Barruan:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="121"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="122"/>
         <source>Outside:</source>
         <translation>Kanpoan:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="445"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
         <source>Save As</source>
         <translation>Gorde honela</translation>
     </message>
@@ -28885,18 +28891,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribusen Python interfazeko modulua
@@ -29120,12 +29126,12 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
     <message>
         <location filename="../../scribus/scfonts.cpp" line="690"/>
         <source>Failed to load font: font family unspecified</source>
-        <translation type="unfinished"></translation>
+        <translation>Huts egin du letra-tipoa kargatzeak: zehaztu gabeko letra-familia</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="692"/>
         <source>Failed to load font %1 - font family unspecified</source>
-        <translation type="unfinished"></translation>
+        <translation>Huts egin du %1 letra-tipoa kargatzeak - zehaztu gabeko letra-familia</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="700"/>
@@ -30880,7 +30886,7 @@ Baliteke irudia zuzena ez izatea</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/markdownim/markdownim.cpp" line="33"/>
         <source>MarkDown Document</source>
-        <translation type="unfinished"></translation>
+        <translation>MarkDown dokumentua</translation>
     </message>
 </context>
 <context>
@@ -31568,7 +31574,7 @@ Document Liberation Project-era http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
         <source> characters</source>
-        <translation type="unfinished"></translation>
+        <translation>karaktere</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="808"/>
@@ -35214,7 +35220,7 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
     <message>
         <location filename="../../scribus/scribusview.cpp" line="326"/>
         <source>Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamaz kanpoko koloreen bistaratzea aktibatuta dago. Hortaz, koloreen bistaratzea beharbada ez dator bat ikusmena gaizki dutenen pertzepzioarekin</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1065"/>
@@ -35237,17 +35243,17 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Utzi</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10379"/>
+        <location filename="../../scribus/pageitem.cpp" line="10380"/>
         <source>Print: </source>
         <translation>Inprimatu: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10381"/>
+        <location filename="../../scribus/pageitem.cpp" line="10382"/>
         <source>Enabled</source>
         <translation>Gaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10383"/>
+        <location filename="../../scribus/pageitem.cpp" line="10384"/>
         <source>Disabled</source>
         <translation>Desgaituta</translation>
     </message>
