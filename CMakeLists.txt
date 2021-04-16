@@ -529,35 +529,22 @@ if (APPLE)
 endif()
 
 #Install the .desktop file
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop.in
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop
-)
 install(FILES
-	scribus.desktop
-	RENAME scribus${TAG_VERSION}.desktop
+	net.scribus.Scribus.desktop
 	DESTINATION ${DESKTOPDIR}
 )
 
 #Install our MIME data
 install(FILES
-	scribus.xml
-	RENAME scribus${TAG_VERSION}.xml
+	net.scribus.Scribus.xml
 	DESTINATION ${MIMEDIR}
 )
 
-
 #Install the appdata file
-configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml.in
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml
-)
 install(FILES
-	scribus.appdata.xml
-	RENAME scribus${TAG_VERSION}.appdata.xml
+	net.scribus.Scribus.metainfo.xml
 	DESTINATION ${APPDATADIR}
 )
-
 
 #If building an Apple bundle, install these specific files
 if(APPLEBUNDLE)
