@@ -145,6 +145,8 @@
 	<preamble>
 		\documentclass[$scribus_fontsize$]{extarticle}
 		\usepackage{fontspec}
+		\usepackage{amssymb}
+		\usepackage{amsmath}
 		\usepackage{unicode-math}
 		\usepackage[paperwidth=$scribus_realwidth$ pt,
 		            paperheight=$scribus_realheight$ pt,
