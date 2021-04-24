@@ -1,10 +1,10 @@
 Scribus - 1.5.7 (Released 2021-04-25)
 =========================================
-0016357: [OS-MacOSX] Mac Os Catalina refuses to start Scribus 1.5.6 (cbradney)
-0016044: [OS-MacOSX] Scribus was not able to load its preferences (cbradney)
-0013187: [OS-MacOSX] OSX Bug: Unable to access Preferences in Russian Interface (cbradney)
 0015738: [User Interface] preferences > display > color tab is disable when a document is open (cbradney)
+0013187: [OS-MacOSX] OSX Bug: Unable to access Preferences in Russian Interface (cbradney)
 0016548: [General] Updated 600_xelatex.xml (cbradney)
+0016044: [OS-MacOSX] Scribus was not able to load its preferences (cbradney)
+0016357: [OS-MacOSX] Mac Os Catalina refuses to start Scribus 1.5.6 (cbradney)
 0016462: [User Interface] Update Layout for Node Editor (cbradney)
 0016470: [General] Clean up unused .ui files (jghali)
 0016518: [General] Inserting pages in the middle of a document distorts welded items further down (jghali)

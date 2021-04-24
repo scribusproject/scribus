@@ -9095,7 +9095,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12062,22 +12062,22 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="79"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afstand voor afloop vanaf de bovenkant van de fysieke pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="80"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afstand voor afloop vanaf de onderkant van de fysieke pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="81"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afstand voor afloop vanaf de linkerkant van de fysieke pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="82"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afstand voor afloop vanaf de rechterkant van de fysieke pagina</translation>
     </message>
 </context>
 <context>
@@ -12957,22 +12957,22 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="96"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="101"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="106"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="111"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
@@ -14987,7 +14987,7 @@ Please check it and try again.</source>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15009,7 +15009,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19969,7 +19969,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PDF/X Output intentie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
@@ -21098,8 +21098,8 @@ Do you want to use this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -21730,22 +21730,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="265"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="270"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="275"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
@@ -28827,18 +28827,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python interface module
@@ -33968,7 +33968,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="55"/>
         <source>Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kladblok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="56"/>
@@ -33998,12 +33998,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="74"/>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zoomen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="75"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voorbeeld</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="76"/>
@@ -34013,12 +34013,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="77"/>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tekstframes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="78"/>
         <source>Image Frames</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Afbeeldingsframe</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="79"/>
@@ -34171,12 +34171,12 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="94"/>
         <source>Scribus 1.5.0+ File Format Support</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus 1.3.4+ Bestandsondersteuning {1.5.0+?}</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="95"/>
         <source>Allows Scribus to read Scribus 1.5.0 and higher formatted files.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Maakt het Scribus mogelijk om bestanden van versie 1.3.4 en hogere versies te lezen. {1.5.0 ?}</translation>
     </message>
 </context>
 <context>
@@ -37763,7 +37763,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dit is een geavanceerde instelling welke niet standaard is ingeschakeld. Schakel uitsluitend in op aanvraag van uw drukkerij, zij voorzien u daarbij mogelijk van de benodigde details. Mogelijk kan de PDF bij inschakeling niet goed afgedrukt worden en is niet overdraagbaar naar andere systemen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38059,67 +38059,67 @@ als PDF document wordt geopend:</translation>
         <translation>Transformeren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="53"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="559"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="63"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="569"/>
         <source>Remove</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="143"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="169"/>
         <source>Scaling</source>
         <translation>Schalen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="153"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="279"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="371"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="125"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="196"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="360"/>
         <source>Horizontal:</source>
         <translation>Horizontaal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="222"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="296"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="422"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="56"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="213"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="380"/>
         <source>Vertical:</source>
         <translation>Verticaal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="332"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="292"/>
         <source>Angle:</source>
         <translation>Hoek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="172"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="241"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="75"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="106"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="226"/>
         <source>Translation</source>
         <translation>Omzetting</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="322"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
         <source>Rotate</source>
         <translation>Roteer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="361"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="393"/>
         <source>Skew</source>
         <translation>Schuintrekken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="448"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="437"/>
         <source>Basepoint</source>
         <translation>Basispunt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="469"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="484"/>
         <source>Copies</source>
         <translation>Kopiëen</translation>
     </message>

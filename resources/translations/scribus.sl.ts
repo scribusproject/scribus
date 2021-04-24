@@ -1054,7 +1054,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1543"/>
         <source>&amp;JavaScripts...</source>
-        <translation>&amp;JavaSkripti ...</translation>
+        <translation>Skripti &amp;JavaScript ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1656"/>
@@ -6442,7 +6442,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="387"/>
         <source>Compress the Scribus document on save</source>
-        <translation>Ob shranjevanju stisni Scribusov dokument </translation>
+        <translation>Ob shranjevanju stisni Scribusov dokument&#xa0;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
@@ -6822,7 +6822,7 @@ ni uspel!</translation>
         <location filename="../../scribus/ui/editor.cpp" line="154"/>
         <location filename="../../scribus/ui/editor.cpp" line="170"/>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation>JavaSkripti (*.js);; Vse datoteke (*)</translation>
+        <translation>Skripti JavaScript (*.js);; Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="45"/>
@@ -9111,7 +9111,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign's IDML packages into Scribus
+        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Uvozi Adobe Inesign-ove IDML pakete v Sribus
 in pri tem Indesign-ove predmete pretvori v scribusove predmete strani. Niso vsi podprti, tisti ki pa so, bodo uvoženi sem.</translation>
@@ -10343,7 +10343,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="31"/>
         <source>Edit JavaScripts</source>
-        <translation>Uredi Javaskripte</translation>
+        <translation>Uredi skripte Javascript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="50"/>
@@ -10373,12 +10373,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="125"/>
         <source>Do you really want to delete this script?</source>
-        <translation>Ali res želite izbrisati ta skript?</translation>
+        <translation>Ali resnično želite izbrisati ta skript?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="76"/>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
-        <translation>Doda nov skript z vnaprej določeno zmožnostjo in enakim imenom. Če hočete uporabiti skript kot &quot;Open Action&quot;  skript, potem ne smete spremeniti imena zmožnosti.</translation>
+        <translation>Doda nov skript, z istoimensko vnaprej definirano funkcijo. Če hočete uporabiti skript kot skript &quot;Open Action&quot;, potem ne pozabite spremeniti imena funkcije.</translation>
     </message>
 </context>
 <context>
@@ -15011,7 +15011,7 @@ Preverite in ponovno poskusite.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15033,7 +15033,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -19737,7 +19737,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="379"/>
         <source>No Script</source>
-        <translation>Brez skript</translation>
+        <translation>Brez skriptov</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="519"/>
@@ -20106,7 +20106,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
-        <translation>Privzeta mapa s skriptami Skripterke</translation>
+        <translation>Privzeta mapa s skripti Skripterke</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_paths.cpp" line="37"/>
@@ -20566,7 +20566,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="109"/>
         <source>Startup Script:</source>
-        <translation>Začetna skripta:</translation>
+        <translation>Začetni skript:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="119"/>
@@ -20616,7 +20616,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="160"/>
         <source>Locate Startup Script</source>
-        <translation>Poišči začetno skripto</translation>
+        <translation>Poišči začetni skript</translation>
     </message>
 </context>
 <context>
@@ -21133,8 +21133,8 @@ Ali ga želite uporabiti?</translation>
         <translation>Časovni zamik med klikom in začetkom prevelikostenja ali premikanja, da se izogne nehotenim dejanjem. To je lahko koristno, ko imate opravka z nastavitvami občutljivosti miške ali vprašanji dostopnosti, vezane na ergonomsko miško, sledilne ploščice oz. gibljivost zapestja in rok.</translation>
     </message>
     <message>
-        <source/>
-        <translation type="unfinished"></translation>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -24252,7 +24252,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="14"/>
         <source>Script Console</source>
-        <translation>Ukazna miza skripta</translation>
+        <translation>Konzola za skripte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
@@ -24301,13 +24301,13 @@ oglejte dokumentacijo Scribus Scripterja.</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="193"/>
         <source>Open Python Script File</source>
-        <translation>Odpri datoteko s Pythonovim skriptom</translation>
+        <translation>Odpri datoteko s skriptom Python</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="195"/>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="237"/>
         <source>Python Scripts (*.py *.PY)</source>
-        <translation>Python skripti (*.py *.PY)</translation>
+        <translation>Skripti Python (*.py *.PY)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="33"/>
@@ -24333,7 +24333,7 @@ oglejte dokumentacijo Scribus Scripterja.</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="143"/>
         <source>Another script is already running...</source>
-        <translation>Drug skript že poteka ...</translation>
+        <translation>Drug skript se že izvaja ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="144"/>
@@ -24346,12 +24346,12 @@ oglejte dokumentacijo Scribus Scripterja.</translation>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
         <translation>
-&gt;&gt;&gt; Drug skript že poteka ...</translation>
+&gt;&gt;&gt; Drug skript se že izvaja ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="132"/>
         <source>Write your commands here. A selection is processed as script.</source>
-        <translation>Ukaze vpišite sem. Izbira se izvede kot skript.</translation>
+        <translation>Sem vpisujete ukaze. Izbor je izveden kot skript.</translation>
     </message>
 </context>
 <context>
@@ -28828,7 +28828,7 @@ Zunanje povezave
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="54"/>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="591"/>
         <source>&amp;About Script...</source>
-        <translation>&amp;O skriptih ...</translation>
+        <translation>&amp;O skriptu ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="86"/>
@@ -28840,7 +28840,7 @@ Zunanje povezave
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="87"/>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
         <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Skribusovi skripti</translation>
+        <translation>&amp;Scribusovi skripti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="90"/>
@@ -28872,18 +28872,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can't find anything to operate
+raise a NoValidObjectError if it can&apos;t find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn't make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function's documentation, though as with most Python code this list
+function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Scribus Python interface module
@@ -30620,7 +30620,7 @@ Zato je lahko podoba napačna</translation>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
         <source>Corel Draw Importer</source>
-        <translation>Uvozilnik Corel Draw </translation>
+        <translation>Uvozilnik Corel Draw&#xa0;</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="537"/>
@@ -31315,7 +31315,7 @@ Projekt reševanja dokumentov (Document Liberation Project) http://www.documentl
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.cpp" line="28"/>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
-        <translation>Skripte Python (*.py *.PY);; Vse datoteke (*)</translation>
+        <translation>Skripti Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="23"/>
@@ -33206,7 +33206,7 @@ Pozor, to bo povečalo velikost datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1049"/>
         <source>Script:</source>
-        <translation>Skripta:</translation>
+        <translation>Skript:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1074"/>
@@ -33375,7 +33375,7 @@ Pozor, to bo povečalo velikost datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1955"/>
         <source>Custom Scripts</source>
-        <translation>Posebne skripte</translation>
+        <translation>Skripti po meri</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1963"/>
@@ -33410,7 +33410,7 @@ Pozor, to bo povečalo velikost datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2093"/>
         <source>Custom validate script:</source>
-        <translation>Posebna skripta za preverbe:</translation>
+        <translation>Potrditveni skript po meri:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2050"/>
@@ -33465,7 +33465,7 @@ Pozor, to bo povečalo velikost datoteke!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2202"/>
         <source>Custom calculation script:</source>
-        <translation>Posebni skript za izračunavanje:</translation>
+        <translation>Računski skript po meri:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2125"/>
@@ -35192,7 +35192,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="598"/>
         <source>Run script in Python [with optional arguments]. This option must be last option used</source>
-        <translation>Zaženi skript v Pythonu [z možnostjo argumentov]. To mora bit nazadnje uporabljena možnost</translation>
+        <translation>Zaženi skript v Pythonu [z neobveznimi argumenti]. To mora biti nazadnje uporabljena možnost</translation>
     </message>
 </context>
 <context>
@@ -35445,12 +35445,12 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
         <source>Startup Script error</source>
-        <translation>Napaka začetne skripte</translation>
+        <translation>Napaka začetnega skripta</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
         <source>Could not find script: %1.</source>
-        <translation>Ni bilo mogoče najti skripta: %1.</translation>
+        <translation>Skripta ni mogoče najti: %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="617"/>
@@ -35475,7 +35475,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation>Python skripti (*.py *.PY);; Vse datoteke (*)</translation>
+        <translation>Skripti Python (*.py *.PY);; Vse datoteke (*)</translation>
     </message>
 </context>
 <context>
@@ -38113,67 +38113,67 @@ ob odprtju dokumenta PDF:</translation>
         <translation>Preoblikuj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="53"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="559"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="63"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="569"/>
         <source>Remove</source>
         <translation>Odstrani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="143"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="169"/>
         <source>Scaling</source>
         <translation>Prevelikostenje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="153"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="279"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="371"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="125"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="196"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="360"/>
         <source>Horizontal:</source>
         <translation>Vodoravno:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="222"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="296"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="422"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="56"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="213"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="380"/>
         <source>Vertical:</source>
         <translation>Navpično:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="332"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="292"/>
         <source>Angle:</source>
         <translation>Kot:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="172"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="241"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="75"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="106"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="226"/>
         <source>Translation</source>
         <translation>Vzporeden premik</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="322"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
         <source>Rotate</source>
         <translation>Zasukaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="361"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="393"/>
         <source>Skew</source>
         <translation>Poševnost:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="448"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="437"/>
         <source>Basepoint</source>
         <translation>Izhodišče</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="469"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="484"/>
         <source>Copies</source>
         <translation>Kopije</translation>
     </message>

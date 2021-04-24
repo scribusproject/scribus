@@ -37972,67 +37972,67 @@ when PDF document is opened:</source>
         <translation type="unfinished">Dönüşüm</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="53"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="559"/>
         <source>Add</source>
         <translation>Ekle</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="63"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="569"/>
         <source>Remove</source>
         <translation>Kaldır</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="143"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="169"/>
         <source>Scaling</source>
         <translation>Ölçekleme</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="153"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="279"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="371"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="125"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="196"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="360"/>
         <source>Horizontal:</source>
         <translation type="unfinished">Yatay:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="222"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="296"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="422"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="56"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="213"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="380"/>
         <source>Vertical:</source>
         <translation type="unfinished">Dikey:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="332"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="292"/>
         <source>Angle:</source>
         <translation>Açı:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="172"/>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="241"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="75"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="106"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="226"/>
         <source>Translation</source>
         <translation type="unfinished">Çeviri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="322"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="269"/>
         <source>Rotate</source>
         <translation>Döndür</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="361"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="393"/>
         <source>Skew</source>
         <translation type="unfinished">Eğrilik</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="448"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="437"/>
         <source>Basepoint</source>
         <translation type="unfinished">Temel nokta</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/transformdialogbase.ui" line="469"/>
+        <location filename="../../scribus/ui/transformdialogbase.ui" line="484"/>
         <source>Copies</source>
         <translation type="unfinished">Kopyalar</translation>
     </message>
