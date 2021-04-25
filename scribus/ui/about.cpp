@@ -141,7 +141,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	if (BUILD_NAME == "BleedingEdge")
 		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY, BUILD_MONTH, BUILD_YEAR, BUILD_TIME, BUILD_TZ);
 
-	if (ScribusAPI::haveSVNRevision())
+	if (ScribusAPI::isSVN() && ScribusAPI::haveSVNRevision())
 	{
 		QString revText(tr("SVN Revision: "));
 		revText += ScribusAPI::getSVNRevision();
