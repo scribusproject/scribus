@@ -1,5 +1,7 @@
 Scribus - Open Source Desktop Publishing 
 ==============================
+
+[![Join the chat at https://gitter.im/scribusproject/scribus](https://badges.gitter.im/scribusproject/scribus.svg)](https://gitter.im/scribusproject/scribus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/scribusproject/scribus.svg?branch=master)](https://travis-ci.org/scribusproject/scribus) [![Coverity Scan Build Status](https://scan.coverity.com/projects/216/badge.svg)](https://scan.coverity.com/projects/scribus)
 
 ## Status
