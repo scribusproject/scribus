@@ -59,7 +59,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 		yres = 72.0;
 	int resInf = m_imageInfoRecord.lowResType;
 	m_imageInfoRecord.colorspace = ColorSpaceRGB;
-	if (m_image.depth() == 1)
+	if (m_image.depth() == 1 && m_image.allGray())
 		m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
 	else if (m_image.isGrayscale() && m_image.depth() <= 16)
 		m_imageInfoRecord.colorspace = ColorSpaceGray;
