@@ -56,15 +56,15 @@ public:
 
 class ScImgDataLoader_WPG : public ScImgDataLoader
 {
-protected:
-
-	void initSupportedFormatList();
-
 public:
 	ScImgDataLoader_WPG();
 
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+
+protected:
+	void initSupportedFormatList();
 };
+
 #endif

@@ -12,8 +12,16 @@ for which a new license (GPL+exception) is in place.
 
 class ScImgDataLoader_PS : public ScImgDataLoader
 {
-protected:
+public:
+	ScImgDataLoader_PS();
 
+	void initialize() override;
+
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+
+protected:
 	void initSupportedFormatList();
 	void scanForFonts(const QString& fn);
 	bool parseData(const QString& fn);
@@ -55,16 +63,6 @@ protected:
 	QString m_psCommand;
 	QMap<QString,ScColor> m_CustColors;
 	QStringList m_FontListe;
-
-public:
-	ScImgDataLoader_PS();
-
-	virtual void initialize();
-
-//	virtual void preloadAlphaChannel(const QString& fn, int res);
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 };
 
 #endif

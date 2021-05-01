@@ -11,17 +11,15 @@ for which a new license (GPL+exception) is in place.
 
 class ScImgDataLoader_PDF : public ScImgDataLoader
 {
-protected:
-
-	void initSupportedFormatList();
-
 public:
 	ScImgDataLoader_PDF();
 
-//	virtual void preloadAlphaChannel(const QString& fn, int res);
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+
+protected:
+	void initSupportedFormatList();
 };
 
 #endif

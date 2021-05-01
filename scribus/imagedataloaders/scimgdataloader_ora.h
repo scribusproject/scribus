@@ -18,9 +18,10 @@ class ScImgDataLoader_ORA : public ScImgDataLoader
 public:
 	ScImgDataLoader_ORA();
 
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+
 protected:
 	void initSupportedFormatList();
 	void parseStackXML(QDomElement &elem, ScPainter *painter, ScZipHandler *uz);

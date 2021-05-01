@@ -15,8 +15,8 @@ class ScImgDataLoader_PNG : public ScImgDataLoader_QT
 public:
 	ScImgDataLoader_PNG();
 
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
 
 protected:
 	void initSupportedFormatList();

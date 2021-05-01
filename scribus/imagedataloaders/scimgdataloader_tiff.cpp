@@ -51,7 +51,7 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	if (!tif)
 		return;
 
-	uint32 EmbedLen = 0;
+	uint32_t EmbedLen = 0;
 	void*  EmbedBuffer;
 	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
@@ -156,7 +156,7 @@ bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, int /
 	if (!tif)
 		return false;
 
-	uint16 extrasamples, *extratypes;
+	uint16_t extrasamples, *extratypes;
 	hasAlpha = false;
 	do
 	{
@@ -248,9 +248,9 @@ void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
 	}
 }
 
-bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
+bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16_t photometric, uint16_t bitspersample, uint16_t samplesperpixel, bool &bilevel, bool &isCMYK)
 {
-	uint32 *bits = nullptr;
+	uint32_t *bits = nullptr;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
 		if (samplesperpixel > 5)
@@ -266,26 +266,26 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 		{
 			if (TIFFIsTiled(tif))
 			{
-				uint32 columns, rows;
-				uint32 *tile_buf;
-				uint32 xt, yt;
+				uint32_t columns, rows;
+				uint32_t *tile_buf;
+				uint32_t xt, yt;
 				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
 				TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
-				tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
+				tile_buf = (uint32_t*) _TIFFmalloc(columns * rows * sizeof(uint32_t));
 				if (tile_buf == nullptr)
 				{
 					TIFFClose(tif);
 					return false;
 				}
-				uint32 tileW = columns, tileH = rows;
-				for (yt = 0; yt < (uint32) image->height(); yt += rows)
+				uint32_t tileW = columns, tileH = rows;
+				for (yt = 0; yt < (uint32_t) image->height(); yt += rows)
 				{
 					if (yt > (uint) image->height())
 						break;
 					if (image->height()-yt < rows)
 						tileH = image->height()-yt;
 					tileW = columns;
-					uint32 yi;
+					uint32_t yi;
 					int chans = image->channels();
 					for (xt = 0; xt < (uint) image->width(); xt += columns)
 					{
@@ -301,7 +301,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			else
 			{
 				tsize_t bytesperrow = TIFFScanlineSize(tif);
-				bits = (uint32 *) _TIFFmalloc(bytesperrow);
+				bits = (uint32_t *) _TIFFmalloc(bytesperrow);
 				int chans = image->channels();
 				if (bits)
 				{
@@ -351,13 +351,13 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	return true;
 }
 
-bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 bitspersample, uint16 samplesperpixel)
+bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16_t bitspersample, uint16_t samplesperpixel)
 {
-	uint32* bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+	uint32_t* bits = (uint32_t *) _TIFFmalloc(size * sizeof(uint32_t));
 	if (!bits)
 		return false;
 
-	uint16  extrasamples(0), *extratypes(nullptr);
+	uint16_t  extrasamples(0), *extratypes(nullptr);
 	if (!TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes))
 		extrasamples = 0;
 	
@@ -371,7 +371,7 @@ bool ScImgDataLoader_TIFF::getImageData_RGBA(TIFF* tif, RawImage *image, uint wi
 			{
 				unsigned char *s = image->scanLine( heightt - 1 - y );
 				unsigned char r, g, b, a;
-				for (uint xi=0; xi < widtht; ++xi)
+				for (uint xi = 0; xi < widtht; ++xi)
 				{
 					r = s[0];
 					g = s[1];
@@ -693,7 +693,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	bool isCMYK = false;
 	unsigned int widtht, heightt, size;
 	char *description=nullptr, *copyright=nullptr, *datetime=nullptr, *artist=nullptr, *scannerMake=nullptr, *scannerModel=nullptr;
-	uint16 bitspersample, fillorder, planar;
+	uint16_t bitspersample, fillorder, planar;
 
 	TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
 	TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
@@ -723,7 +723,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 	m_imageInfoRecord.exifInfo.artist = QString(artist);
 	m_imageInfoRecord.exifInfo.thumbnail = QImage();
 	m_imageInfoRecord.exifDataValid = true;
-	uint32 EmbedLen = 0;
+	uint32_t EmbedLen = 0;
 	void*  EmbedBuffer;
 	if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
 	{
@@ -1052,7 +1052,7 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 
 bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
-	uint base = s.device()->pos();
+	qint64 base = s.device()->pos();
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
@@ -1060,7 +1060,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 		return false;
 	if (compression == 0)
 	{
-		int count = layerInfo[layer].channelLen[channel]-2;
+		int count = layerInfo[layer].channelLen[channel] - 2;
 		for (int i = 0; i < tmpImg.height(); i++)
 		{
 			uchar *ptr =  tmpImg.scanLine(i);
@@ -1167,7 +1167,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 			}
 		}
 	}
-	s.device()->seek( base+layerInfo[layer].channelLen[channel] );
+	s.device()->seek( base + layerInfo[layer].channelLen[channel] );
 	return true;
 }
 
@@ -1323,8 +1323,8 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	uint base = s.device()->pos();
-	uint base2 = base;
+	qint64 base = s.device()->pos();
+	qint64 base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
 	bool hasMask = false;
 	bool hasAlpha = false;

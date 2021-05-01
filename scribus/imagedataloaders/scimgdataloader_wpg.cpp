@@ -323,6 +323,7 @@ bool ScImgDataLoader_WPG::loadPicture(const QString& fn, int /*page*/, int /*res
 	}
 	QByteArray ba = file.readAll();
 	file.close();
+
 	initialize();
 
 	libwpg::WPGMemoryStream input(ba.constData(), ba.size());

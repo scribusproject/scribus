@@ -25,21 +25,19 @@ extern "C"
 
 class ScImgDataLoader_JPEG : public ScImgDataLoader
 {
-protected:
+public:
+	ScImgDataLoader_JPEG();
 
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+
+protected:
 	void initSupportedFormatList();
 
 	bool marker_is_icc (jpeg_saved_marker_ptr marker);
 	bool marker_is_photoshop (jpeg_saved_marker_ptr marker);
 	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
-
-public:
-	ScImgDataLoader_JPEG();
-
-//	virtual void preloadAlphaChannel(const QString& fn, int res);
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 };
 
 #endif

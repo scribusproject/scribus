@@ -18,6 +18,31 @@ for which a new license (GPL+exception) is in place.
 
 class ScImgDataLoader
 {
+public:
+	virtual ~ScImgDataLoader() {};
+
+	const QStringList& supportedFormats() const { return m_supportedFormats; }
+	bool  supportFormat(const QString& fmt);
+
+	RawImage    r_image;
+
+	QImage&          image() { return m_image; }
+	QByteArray&      embeddedProfile() { return m_embeddedProfile; }
+	ImageInfoRecord& imageInfoRecord() { return m_imageInfoRecord; }
+	eColorFormat     pixelFormat() { return m_pixelFormat; }
+	void             setRequest(bool valid, const QMap<int, ImageLoadRequest>& req);
+
+	bool  issuedErrorMsg(void)      const { return (m_msgType == errorMsg); }
+	bool  issuedWarningMsg(void)    const { return (m_msgType == warningMsg); }
+	const QString& getMessage(void) const { return m_message; }
+
+	virtual void initialize(void);
+
+	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) = 0;
+	virtual void loadEmbeddedProfile(const QString& fn, int page = 0) = 0;
+	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail) = 0;
+	virtual bool useRawImage() const { return false; }
+
 protected:
 	ScImgDataLoader();
 
@@ -44,32 +69,6 @@ protected:
 	QString getPascalString(QDataStream & s);
 	double decodePSDfloat(uint data);
 	void parseResourceData( QDataStream & s, const PSDHeader & header, uint size );
-
-public:
-	virtual ~ScImgDataLoader() {};
-
-	const QStringList& supportedFormats() const { return m_supportedFormats; }
-	bool  supportFormat(const QString& fmt);
-
-	RawImage    r_image;
-
-	QImage&          image() { return m_image; }
-	QByteArray&      embeddedProfile() { return m_embeddedProfile; }
-	ImageInfoRecord& imageInfoRecord() { return m_imageInfoRecord; }
-	eColorFormat     pixelFormat() { return m_pixelFormat; }
-	void             setRequest(bool valid, const QMap<int, ImageLoadRequest>& req);
-
-	bool  issuedErrorMsg(void)      const { return (m_msgType == errorMsg); }
-	bool  issuedWarningMsg(void)    const { return (m_msgType == warningMsg); }
-	const QString& getMessage(void) const { return m_message; }
-
-	void initialize(void);
-
-//	virtual void preloadAlphaChannel(const QString& fn, int res) = 0;
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) = 0;
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0) = 0;
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail) = 0;
-	virtual bool useRawImage() { return false; }
 };
 
 #endif
