@@ -1964,7 +1964,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 				invalidateVariableTextFrames(mrk, false);
 			}
 			if (is->contains("dNameOLD"))
-				mrk->setMark(is->get("dNameOLD"), (MarkType) is->getInt("dTypeOLD"));
+				mrk->setDestMark(is->get("dNameOLD"), (MarkType) is->getInt("dTypeOLD"));
 			if (is->getItem("itemPtrOLD") != nullptr)
 				mrk->setItemPtr((PageItem*) is->getItem("itemPtrOLD"));
 		}
@@ -1996,7 +1996,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 				invalidateVariableTextFrames(mrk, false);
 			}
 			if (is->contains("dName"))
-				mrk->setMark(is->get("dName"), (MarkType) is->getInt("dType"));
+				mrk->setDestMark(is->get("dName"), (MarkType) is->getInt("dType"));
 			if (is->getItem("itemPtr") != nullptr)
 				mrk->setItemPtr((PageItem*) is->getItem("itemPtr"));
 		}
@@ -2050,7 +2050,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 			if (is->contains("strtxt"))
 				mrk->setString(is->get("strtxt"));
 			if (is->contains("dName"))
-				mrk->setMark(is->get("dName"), (MarkType) is->getInt("dType"));
+				mrk->setDestMark(is->get("dName"), (MarkType) is->getInt("dType"));
 			if (is->getItem("itemPtr") != nullptr)
 				mrk->setItemPtr((PageItem*) is->getItem("itemPtr"));
 			if (mrk->isType(MARKNoteMasterType))
@@ -2087,7 +2087,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 				invalidateVariableTextFrames(mrk, false);
 			}
 			if (is->contains("dNameNEW"))
-				mrk->setMark(is->get("dNameNEW"), (MarkType) is->getInt("dTypeNEW"));
+				mrk->setDestMark(is->get("dNameNEW"), (MarkType) is->getInt("dTypeNEW"));
 			if (is->getItem("itemPtrNEW") != nullptr)
 				mrk->setItemPtr((PageItem*) is->getItem("itemPtrNEW"));
 		}
@@ -17005,9 +17005,8 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			continue;
 		if (m->isType(MARK2MarkType))
 		{
-			QString l;
-			MarkType t;
-			m->getMark(l, t);
+			QString l = m->getDestMarkName();
+			MarkType t = m->getDestMarkType();
 			if (mrk == getMark(l, t))
 			{
 				setUndoDelMark(m);
@@ -17042,9 +17041,8 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 			ims->set("at", findMarkCPos(mrk, master));
 			if (mrk->isType(MARK2MarkType))
 			{
-				QString dName;
-				MarkType dType;
-				mrk->getMark(dName, dType);
+				QString dName = mrk->getDestMarkName();
+				MarkType dType = mrk->getDestMarkType();
 				ims->set("dName", dName);
 				ims->set("dType", (int) dType);
 			}
@@ -17200,9 +17198,8 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		}
 		else if (mrk->isType(MARK2MarkType))
 		{
-			QString l;
-			MarkType t;
-			mrk->getMark(l, t);
+			QString l = mrk->getDestMarkName();
+			MarkType t = mrk->getDestMarkType();
 			Mark* destMark = getMark(l, t);
 			if (destMark != nullptr)
 			{

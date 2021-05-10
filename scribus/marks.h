@@ -25,16 +25,14 @@ enum MarkType
 
 struct MarkData
 {
-	QString strtxt;
-	PageItem* itemPtr {nullptr};
-	QString destmarkName;
-	MarkType destmarkType {MARKNoType};
-	TextNote* notePtr {nullptr};
-	//fields used for resolving to pointers for load and copy
-	QString itemName;
-	MarkType markType {MARKNoType};
-	
 	MarkData() {}
+
+	QString   text;
+	QString   itemName;
+	PageItem* itemPtr { nullptr };
+	TextNote* notePtr { nullptr };
+	QString   destMarkName;
+	MarkType  destMarkType {MARKNoType};
 };
 
 class SCRIBUS_API Mark
@@ -42,37 +40,45 @@ class SCRIBUS_API Mark
 	friend class ScribusDoc;
 	friend class ScribusMainWindow;
 	friend class BulNumMark;
+
 	//only ScribusDoc && ScribusMainWindow can create and delete marks
 private:
 	Mark() : m_data() {}
 	Mark(const Mark& other);
 
 public:
+    virtual ~Mark() {}
+
 	QString label;
 	int OwnPage {-1};
 
-	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
-
 	MarkType getType() const { return m_type; }
 	void setType(MarkType t) { m_type = t; }
-	const MarkData getData() const { return m_data; }
-	void setData(const MarkData d) { m_data = d; }
+
+	const MarkData& getData() const { return m_data; }
+	void setData(const MarkData& d) { m_data = d; }
+
 	PageItem* getItemPtr() const { return m_data.itemPtr; }
 	void setItemPtr( PageItem* ptr ) { m_data.itemPtr = ptr; }
-	const QString getItemName() const { return m_data.itemName; }
-	void setItemName( const QString name ) { m_data.itemName = name; }
 
-	//for marks to marks - return label and type of target mark by reference
-	void getMark(QString& l, MarkType &t) const;
-	//for marks to marks - set label and type of target mark from mark pointer
-	void setMark(Mark* mP);
-	void setMark(const QString& l, MarkType t);
-	MarkType getMarkType() const { return m_data.markType; }
-	void setMarkType(MarkType t) { m_data.markType = t; }
-	QString getString() const;
-	void setString(const QString& str );
+	const QString getItemName() const { return m_data.itemName; }
+	void setItemName( const QString name) { m_data.itemName = name; }
+
+	const QString& getString() const { return m_data.text; }
+	void setString(const QString& str) { m_data.text = str; }
+
 	TextNote* getNotePtr() const { return m_data.notePtr; }
 	void setNotePtr(TextNote *note);
+
+	void setValues(const QString& l, int p, MarkType t, const MarkData& d);
+
+	//for marks to marks - return label and type of target mark by reference
+	void getDestMark(QString& l, MarkType &t) const;
+	const QString& getDestMarkName() const { return m_data.destMarkName; }
+	MarkType getDestMarkType() const { return m_data.destMarkType; }
+	//for marks to marks - set label and type of target mark from mark pointer
+	void setDestMark(Mark* mP);
+	void setDestMark(const QString& l, MarkType t);
 
 	bool hasItemPtr() const;
 	bool hasString() const;
@@ -82,8 +88,6 @@ public:
 	bool isType(const MarkType t) const;
 
 	void clearString();
-
-    virtual ~Mark() {}
 
 protected:
 	MarkType m_type {MARKNoType};

@@ -9471,9 +9471,9 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 
 	Mark* mrk = nullptr;
 	Mark oldMark;
-	MarkData markdata;
+	MarkData markData;
 	if (currItem != nullptr)
-		markdata.itemName = currItem->itemName();
+		markData.itemName = currItem->itemName();
 	QString label, text;
 	NotesStyle* NStyle = nullptr;
 	bool insertExistedMark = false;
@@ -9484,7 +9484,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		insertMDialog->values(label);
 		if (label.isEmpty())
 			label = tr("Anchor mark");
-		markdata.itemPtr = currItem;
+		markData.itemPtr = currItem;
 		break;
 	case MARKVariableTextType:
 		mrk = insertMDialog->values(label, text);
@@ -9492,27 +9492,27 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 			return false; //FIX ME here user should be warned that inserting of mark fails and why
 		if (label.isEmpty())
 			label = tr("Mark with <%1> variable text").arg(text);
-		markdata.strtxt = text;
+		markData.text = text;
 		break;
 	case MARK2ItemType:
-		insertMDialog->values(label, markdata.itemPtr);
-		if (markdata.itemPtr == nullptr)
+		insertMDialog->values(label, markData.itemPtr);
+		if (markData.itemPtr == nullptr)
 			return false; //FIX ME here user should be warned that inserting of mark fails and why
 		if (label.isEmpty())
-			label = tr("Mark to %1 item").arg(markdata.itemPtr->itemName());
-		markdata.strtxt = QString::number(markdata.itemPtr->OwnPage +1);
+			label = tr("Mark to %1 item").arg(markData.itemPtr->itemName());
+		markData.text = QString::number(markData.itemPtr->OwnPage +1);
 		break;
 	case MARK2MarkType:
 		//gets pointer to referenced mark
-		Mark* mrkPtr;
-		insertMDialog->values(label, mrkPtr);
-		if (mrkPtr == nullptr)
+		Mark* markPtr;
+		insertMDialog->values(label, markPtr);
+		if (markPtr == nullptr)
 			return false; //FIX ME here user should be warned that inserting of mark fails and why
 		if (label.isEmpty())
-			label = tr("Mark to %1 mark").arg(mrkPtr->label);
-		markdata.strtxt = QString::number(mrkPtr->OwnPage + 1);
-		markdata.destmarkName = mrkPtr->label;
-		markdata.destmarkType = mrkPtr->getType();
+			label = tr("Mark to %1 mark").arg(markPtr->label);
+		markData.text = QString::number(markPtr->OwnPage + 1);
+		markData.destMarkName = markPtr->label;
+		markData.destMarkType = markPtr->getType();
 		break;
 	case MARKNoteMasterType:
 		//gets pointer to chosen notes style
@@ -9520,7 +9520,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		if (NStyle == nullptr)
 			return false;
 
-		markdata.notePtr = doc->newNote(NStyle);
+		markData.notePtr = doc->newNote(NStyle);
 		label = "NoteMark_" + NStyle->name();
 		if (NStyle->range() == NSRstory)
 			label += " in " + currItem->firstInChain()->itemName();
@@ -9546,12 +9546,12 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 		else
 			getUniqueName(label, doc->marksLabelsList(mrkType), "_");
 		mrk = doc->newMark();
-		mrk->setValues(label, currItem->OwnPage, mrkType, markdata);
+		mrk->setValues(label, currItem->OwnPage, mrkType, markData);
 	}
 	else
 	{ // that must be variable text mark
 		oldMark = *mrk;
-		mrk->setString(markdata.strtxt);
+		mrk->setString(markData.text);
 		mrk->label = label;
 		insertExistedMark = true;
 		doc->flag_updateMarksLabels = true;
@@ -9598,9 +9598,8 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 			is->set("strtxt", mrk->getString());
 			if (mrk->isType(MARK2MarkType))
 			{
-				QString dName;
-				MarkType dType;
-				mrk->getMark(dName, dType);
+				QString dName = mrk->getDestMarkName();
+				MarkType dType = mrk->getDestMarkType();
 				is->set("dName", dName);
 				is->set("dType", (int) dType);
 			}
@@ -9648,9 +9647,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 		case MARK2MarkType:
 			{
 				editMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), mrk, this);
-				QString l;
-				MarkType t;
-				mrk->getMark(l,t);
+				QString l = mrk->getDestMarkName();
+				MarkType t = mrk->getDestMarkType();
 				Mark* m = doc->getMark(l,t);
 				editMDialog->setValues(mrk->label, m);
 			}
@@ -9697,13 +9695,14 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 	editMDialog->setWindowTitle(tr("Edit %1").arg(editMDialog->windowTitle()));
 	if (editMDialog->exec())
 	{
-		Mark oldMark = *mrk;
-		Mark* Mrk = nullptr;
-		MarkData markdata;
+		QString  label, text;
+		QString  oldLabel = mrk->label;
+		MarkData oldData = mrk->getData();
+		QString  oldStr = mrk->getString();
+		Mark* diaMark = nullptr;
+		MarkData markData;
 		if (currItem != nullptr)
-			markdata.itemName = currItem->itemName();
-		QString label, text;
-		QString oldStr = mrk->getString();
+			markData.itemName = currItem->itemName();
 		bool newMark = false;
 		bool replaceMark = false;
 		switch (mrk->getType())
@@ -9715,29 +9714,30 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 					label = tr("Anchor mark");
 				if (mrk->label != label)
 				{
-					getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+					getUniqueName(label, doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 					mrk->label = label;
 					emit UpdateRequest(reqMarksUpdate);
 				}
 				break;
 			case MARKVariableTextType:
-				Mrk = editMDialog->values(label, text);
+				diaMark = editMDialog->values(label, text);
 				if (text.isEmpty())
 					return false; //FIX ME here user should be warned that editing of mark fails and why
 				if (label.isEmpty())
 					label = tr("Mark with <%1> variable text").arg(text);
-				if (Mrk != nullptr)
+				if (diaMark != nullptr)
 				{
-					if (Mrk != mrk)
+					if (diaMark != mrk)
 					{
-						currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), Mrk);
-						mrk = Mrk;
-						oldMark = *mrk;
+						currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), diaMark);
+						mrk = diaMark;
+						oldLabel = mrk->label;
+						oldData = mrk->getData();
 						replaceMark = true;
 					}
 					if (mrk->label != label)
 					{
-						getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+						getUniqueName(label, doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 						mrk->label = label;
 						emit UpdateRequest(reqMarksUpdate);
 					}
@@ -9749,48 +9749,48 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				}
 				else
 				{
-					markdata.strtxt = text;
+					markData.text = text;
 					mrk = doc->newMark();
-					getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
-					mrk->setValues(label, currItem->OwnPage, MARKVariableTextType, markdata);
+					getUniqueName(label, doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+					mrk->setValues(label, currItem->OwnPage, MARKVariableTextType, markData);
 					currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), mrk);
 					docWasChanged = true;
 					newMark = true;
 				}
 				break;
 			case MARK2ItemType:
-				editMDialog->values(label, markdata.itemPtr);
-				if (markdata.itemPtr == nullptr)
+				editMDialog->values(label, markData.itemPtr);
+				if (markData.itemPtr == nullptr)
 					return false; //FIX ME here user should be warned that inserting of mark fails and why
 				if (label.isEmpty())
-					label = tr("Mark to %1 item").arg(markdata.itemPtr->itemName());
-				if (markdata.itemPtr != mrk->getItemPtr())
+					label = tr("Mark to %1 item").arg(markData.itemPtr->itemName());
+				if (markData.itemPtr != mrk->getItemPtr())
 				{
-					mrk->setItemPtr(markdata.itemPtr);
-					mrk->setString(doc->getSectionPageNumberForPageIndex(markdata.itemPtr->OwnPage));
+					mrk->setItemPtr(markData.itemPtr);
+					mrk->setString(doc->getSectionPageNumberForPageIndex(markData.itemPtr->OwnPage));
 					docWasChanged = true;
 				}
 				if (mrk->label != label)
 				{
-					getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+					getUniqueName(label, doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 					mrk->label = label;
 				}
 				break;
 			case MARK2MarkType:
 				{
 					//gets pointer to referenced mark
-					Mark* mrkPtr = nullptr;
-					editMDialog->values(label, mrkPtr);
-					if (mrkPtr == nullptr)
+					Mark* markPtr = nullptr;
+					editMDialog->values(label, markPtr);
+					if (markPtr == nullptr)
 						return false; //FIX ME here user should be warned that inserting of mark fails and why
 					if (label.isEmpty())
-						label = tr("Mark to %1 mark").arg(mrkPtr->label);
-					QString destLabel = mrkPtr->label;
-					MarkType destType = mrkPtr->getType();
-					if (markdata.destmarkName != destLabel || markdata.destmarkType != destType)
+						label = tr("Mark to %1 mark").arg(markPtr->label);
+					QString destLabel = markPtr->label;
+					MarkType destType = markPtr->getType();
+					if (markData.destMarkName != destLabel || markData.destMarkType != destType)
 					{
-						mrk->setMark(mrkPtr);
-						mrk->setString(doc->getSectionPageNumberForPageIndex(mrkPtr->OwnPage));
+						mrk->setDestMark(markPtr);
+						mrk->setString(doc->getSectionPageNumberForPageIndex(markPtr->OwnPage));
 						docWasChanged = true;
 					}
 					if (mrk->label != label)
@@ -9831,9 +9831,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				is->set("MARK", QString("new"));
 				if (mrk->isType(MARK2MarkType))
 				{
-					QString dName;
-					MarkType dType;
-					mrk->getMark(dName, dType);
+					QString dName = mrk->getDestMarkName();
+					MarkType dType = mrk->getDestMarkType();
 					is->set("dName", dName);
 					is->set("dType", (int) dType);
 				}
@@ -9849,36 +9848,32 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 					is->set("MARK", QString("replace"));
 				else
 					is->set("MARK", QString("edit"));
-				if (mrk->label != oldMark.label)
+				if (mrk->label != oldLabel)
 				{
-					is->set("labelOLD", oldMark.label);
+					is->set("labelOLD", oldLabel);
 					is->set("labelNEW", mrk->label);
 					doc->flag_updateMarksLabels = true;
 				}
-				if (mrk->getString() != oldMark.getString())
+				if (mrk->getString() != oldData.text)
 				{
-					is->set("strtxtOLD", oldMark.getString());
+					is->set("strtxtOLD", oldData.text);
 					is->set("strtxtNEW", mrk->getString());
 				}
 				if (mrk->isType(MARK2MarkType))
 				{
-					QString dNameOLD;
-					MarkType dTypeOLD;
-					oldMark.getMark(dNameOLD, dTypeOLD);
-					QString dName;
-					MarkType dType;
-					mrk->getMark(dName, dType);
-					if (dName != dNameOLD || dType != dTypeOLD)
+					QString dName = mrk->getDestMarkName();
+					MarkType dType = mrk->getDestMarkType();
+					if (dName != oldData.destMarkName || dType != oldData.destMarkType)
 					{
-						is->set("dNameOLD", dNameOLD);
-						is->set("dTypeOLD", (int) dTypeOLD);
+						is->set("dNameOLD", oldData.destMarkName);
+						is->set("dTypeOLD", (int) oldData.destMarkType);
 						is->set("dNameNEW", dName);
 						is->set("dTypeNEW", (int) dType);
 					}
 				}
-				if (mrk->isType(MARK2ItemType) && mrk->getItemPtr() != oldMark.getItemPtr())
+				if (mrk->isType(MARK2ItemType) && mrk->getItemPtr() != oldData.itemPtr)
 				{
-					is->insertItem("itemPtrOLD", oldMark.getItemPtr());
+					is->insertItem("itemPtrOLD", oldData.itemPtr);
 					is->insertItem("itemPtrNEW", mrk->getItemPtr());
 				}
 			}

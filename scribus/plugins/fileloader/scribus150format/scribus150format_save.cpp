@@ -1472,9 +1472,8 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 			docu.writeAttribute("str", mrk->getString());
 		else if (mrk->isType(MARK2MarkType) && mrk->hasMark())
 		{
-			QString label;
-			MarkType type;
-			mrk->getMark(label, type);
+			QString label = mrk->getDestMarkName();
+			MarkType type = mrk->getDestMarkType();
 			docu.writeAttribute("MARKlabel", label);
 			docu.writeAttribute("MARKtype", type);
 		}

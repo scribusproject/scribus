@@ -2278,10 +2278,9 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 				mark_attr.insert("item", mrk->getItemPtr()->itemName());
 			else if (mrk->isType(MARK2MarkType))
 			{
-				QString l;
-				MarkType t;
-				mrk->getMark(l, t);
-				if (m_doc->getMark(l,t) != nullptr)
+				QString l = mrk->getDestMarkName();
+				MarkType t = mrk->getDestMarkType();
+				if (m_doc->getMark(l, t) != nullptr)
 				{
 					mark_attr.insert("mark_l", l);
 					mark_attr.insert("mark_t", QString::number((int) t));
@@ -2560,7 +2559,7 @@ public:
 					if (mrk->isType(MARK2MarkType) && (m_lIt != attr.end()) && (m_tIt != attr.end()))
 					{
 						Mark* targetMark = doc->getMark(Xml_data(m_lIt), (MarkType) parseInt(Xml_data(m_tIt)));
-						mrk->setMark(targetMark);
+						mrk->setDestMark(targetMark);
 						if (targetMark == nullptr)
 							mrk->setString("0");
 						else

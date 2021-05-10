@@ -20,45 +20,35 @@ void Mark::setValues(const QString& l, int p, MarkType t, const MarkData& d)
 	m_data = d;
 }
 
-void Mark::getMark(QString& l, MarkType& t) const
+void Mark::getDestMark(QString& l, MarkType& t) const
 {
-	l = m_data.destmarkName;
-	t = m_data.destmarkType;
+	l = m_data.destMarkName;
+	t = m_data.destMarkType;
 }
 
-void Mark::setMark(Mark* mP)
+void Mark::setDestMark(Mark* mP)
 {
 	if (mP == nullptr)
 	{
-		m_data.destmarkName.clear();
-		m_data.destmarkType = MARKNoType;
+		m_data.destMarkName.clear();
+		m_data.destMarkType = MARKNoType;
 	}
 	else
 	{
-		m_data.destmarkName = mP->label;
-		m_data.destmarkType = mP->getType();
+		m_data.destMarkName = mP->label;
+		m_data.destMarkType = mP->getType();
 	}
 }
 
-void Mark::setMark(const QString& l, MarkType t)
+void Mark::setDestMark(const QString& l, MarkType t)
 {
-	m_data.destmarkName = l;
-	m_data.destmarkType = t;
-}
-
-QString Mark::getString() const
-{
-	return m_data.strtxt;
-}
-
-void Mark::setString(const QString& str)
-{
-	m_data.strtxt = str;
+	m_data.destMarkName = l;
+	m_data.destMarkType = t;
 }
 
 void Mark::clearString()
 {
-	m_data.strtxt.clear();
+	m_data.text.clear();
 }
 
 void Mark::setNotePtr(TextNote* note)
@@ -73,12 +63,12 @@ bool Mark::hasItemPtr() const
 
 bool Mark::hasString() const
 {
-	return !m_data.strtxt.isEmpty();
+	return !m_data.text.isEmpty();
 }
 
 bool Mark::hasMark() const
 {
-	return !m_data.destmarkName.isEmpty();
+	return !m_data.destMarkName.isEmpty();
 }
 
 bool Mark::isUnique() const
