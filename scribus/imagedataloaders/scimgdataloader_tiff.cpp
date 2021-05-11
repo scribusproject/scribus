@@ -283,7 +283,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 					if (yt > (uint) image->height())
 						break;
 					if (image->height()-yt < rows)
-						tileH = image->height()-yt;
+						tileH = image->height() - yt;
 					tileW = columns;
 					uint32_t yi;
 					int chans = image->channels();
@@ -292,7 +292,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
 						for (yi = 0; yi < tileH; yi++)
 						{
-							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*chans);
+							_TIFFmemcpy(image->scanLine(yt + (tileH - 1 - yi)) + xt, tile_buf + tileW * yi, tileW * chans);
 						}
 					}
 				}

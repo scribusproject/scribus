@@ -204,7 +204,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 				{
 					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
 					d = r_image.scanLine( yit );
-					for (int xit =0 ; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
+					for (int xit = 0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
 					{
 						if (isCMYK)
 						{
