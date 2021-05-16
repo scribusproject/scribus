@@ -458,19 +458,19 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, const QStr
 				}
 				else if (layBlend == "scrn")
 				{
-					src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
-					src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
-					src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
+					src_r = 255 - ((255 - src_r) * (255 - d[0]) / 128);
+					src_g = 255 - ((255 - src_g) * (255 - d[1]) / 128);
+					src_b = 255 - ((255 - src_b) * (255 - d[2]) / 128);
 					if (cmyk)
-						src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
+						src_a = 255 - ((255 - src_a) * (255 - d[3]) / 128);
 				}
 				else if (layBlend == "over")
 				{
-					src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-					src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-					src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+					src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255 - src_r) * (255 - d[0]) / 128);
+					src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255 - src_g) * (255 - d[1]) / 128);
+					src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255 - src_b) * (255 - d[2]) / 128);
 					if (cmyk)
-						src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+						src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255 - src_a) * (255 - d[3]) / 128);
 				}
 				else if (layBlend == "diff")
 				{
@@ -490,19 +490,19 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, const QStr
 				}
 				else if (layBlend == "hLit")
 				{
-					src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-					src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-					src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+					src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255 - src_r) * (255 - d[0]) / 128);
+					src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255 - src_g) * (255 - d[1]) / 128);
+					src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255 - src_b) * (255 - d[2]) / 128);
 					if (cmyk)
-						src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+						src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255 - src_a) * (255 - d[3]) / 128);
 				}
 				else if (layBlend == "sLit")
 				{
-					src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
-					src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
-					src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
+					src_r = src_r * d[0] / 256 + src_r * (255 - ((255 - src_r)*(255 - d[0]) / 256) - src_r * d[0] / 256) / 256;
+					src_g = src_g * d[1] / 256 + src_g * (255 - ((255 - src_g)*(255 - d[1]) / 256) - src_g * d[1] / 256) / 256;
+					src_b = src_b * d[2] / 256 + src_b * (255 - ((255 - src_b)*(255 - d[2]) / 256) - src_b * d[2] / 256) / 256;
 					if (cmyk)
-						src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
+						src_a = src_a * d[3] / 256 + src_a * (255 - ((255 - src_a)*(255 - d[3]) / 256) - src_a * d[3] / 256) / 256;
 				}
 				else if (layBlend == "lite")
 				{
@@ -522,19 +522,19 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, const QStr
 				}
 				else if (layBlend == "div ")
 				{
-					src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
-					src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
-					src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
+					src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255 - src_r)) > 255 ? 255 : (d[0] * 256) / (255 - src_r);
+					src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255 - src_g)) > 255 ? 255 : (d[1] * 256) / (255 - src_g);
+					src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255 - src_b)) > 255 ? 255 : (d[2] * 256) / (255 - src_b);
 					if (cmyk)
-						src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
+						src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255 - src_a)) > 255 ? 255 : (d[3] * 256) / (255 - src_a);
 				}
 				else if (layBlend == "idiv")
 				{
-					src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
-					src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
-					src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
+					src_r = src_r == 0 ? 0 : (255 - (((255 - d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255 - d[0]) * 256) / src_r);
+					src_g = src_g == 0 ? 0 : (255 - (((255 - d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255 - d[1]) * 256) / src_g);
+					src_b = src_b == 0 ? 0 : (255 - (((255 - d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255 - d[2]) * 256) / src_b);
 					if (cmyk)
-						src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
+						src_a = src_a == 0 ? 0 : (255 - (((255 - d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255 - d[3]) * 256) / src_a);
 				}
 				else if (layBlend == "hue ")
 				{
@@ -1608,19 +1608,19 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 						}
 						else if (layBlend == "scrn")
 						{
-							src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
-							src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
-							src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
+							src_r = 255 - ((255 - src_r) * (255 - d[0]) / 128);
+							src_g = 255 - ((255 - src_g) * (255 - d[1]) / 128);
+							src_b = 255 - ((255 - src_b) * (255 - d[2]) / 128);
 							if (header.color_mode == CM_CMYK)
-								src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
+								src_a = 255 - ((255 - src_a) * (255 - d[3]) / 128);
 						}
 						else if (layBlend == "over")
 						{
-							src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-							src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-							src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+							src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255 - src_g) * (255 - d[1]) / 128);
+							src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255 - src_b) * (255 - d[2]) / 128);
+							src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255 - src_a) * (255 - d[3]) / 128);
 							if (header.color_mode == CM_CMYK)
-								src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
+								src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255 - src_r) * (255 - d[0]) / 128);
 						}
 						else if (layBlend == "diff")
 						{
@@ -1640,19 +1640,19 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 						}
 						else if (layBlend == "hLit")
 						{
-							src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-							src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-							src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+							src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255 - src_r) * (255 - d[0]) / 128);
+							src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255 - src_g) * (255 - d[1]) / 128);
+							src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255 - src_b) * (255 - d[2]) / 128);
 							if (header.color_mode == CM_CMYK)
-								src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+								src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255 - src_a) * (255 - d[3]) / 128);
 						}
 						else if (layBlend == "sLit")
 						{
-							src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
-							src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
-							src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
+							src_r = src_r * d[0] / 256 + src_r * (255 - ((255 - src_r)*(255 - d[0]) / 256) - src_r * d[0] / 256) / 256;
+							src_g = src_g * d[1] / 256 + src_g * (255 - ((255 - src_g)*(255 - d[1]) / 256) - src_g * d[1] / 256) / 256;
+							src_b = src_b * d[2] / 256 + src_b * (255 - ((255 - src_b)*(255 - d[2]) / 256) - src_b * d[2] / 256) / 256;
 							if (header.color_mode == CM_CMYK)
-								src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
+								src_a = src_a * d[3] / 256 + src_a * (255 - ((255 - src_a)*(255 - d[3]) / 256) - src_a * d[3] / 256) / 256;
 						}
 						else if (layBlend == "lite")
 						{
@@ -1672,19 +1672,19 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 						}
 						else if (layBlend == "div ")
 						{
-							src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
-							src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
-							src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
+							src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255 - src_r)) > 255 ? 255 : (d[0] * 256) / (255 - src_r);
+							src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255 - src_g)) > 255 ? 255 : (d[1] * 256) / (255 - src_g);
+							src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255 - src_b)) > 255 ? 255 : (d[2] * 256) / (255 - src_b);
 							if (header.color_mode == CM_CMYK)
-								src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
+								src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255 - src_a)) > 255 ? 255 : (d[3] * 256) / (255 - src_a);
 						}
 						else if (layBlend == "idiv")
 						{
-							src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
-							src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
-							src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
+							src_r = src_r == 0 ? 0 : (255 - (((255 - d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255 - d[0]) * 256) / src_r);
+							src_g = src_g == 0 ? 0 : (255 - (((255 - d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255 - d[1]) * 256) / src_g);
+							src_b = src_b == 0 ? 0 : (255 - (((255 - d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255 - d[2]) * 256) / src_b);
 							if (header.color_mode == CM_CMYK)
-								src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
+								src_a = src_a == 0 ? 0 : (255 - (((255 - d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255 - d[3]) * 256) / src_a);
 						}
 						else if (layBlend == "hue ")
 						{
