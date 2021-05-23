@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <cstdint>
 #include <tiffio.h>
 
-#include "scimgdataloader.h"
-//Added by qt3to4:
 #include <QList>
+
+#include "scimgdataloader.h"
 
 class ScImgDataLoader_TIFF : public ScImgDataLoader
 {
@@ -39,10 +39,20 @@ protected:
 		CM_DUOTONE = 8,
 		CM_LABCOLOR = 9
 	};
+
+	struct SampleFormatInfo
+	{
+		uint16_t photometric;
+		uint16_t bitsPerSample;
+		uint16_t samplesPerPixel;
+		uint16_t samplesFormat;
+		uint16_t fillOrder;
+	};
+
 	void initSupportedFormatList();
 	int  getLayers(const QString& fn, int page);
-	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16_t m_photometric, uint16_t bitspersample, uint16_t m_samplesperpixel, bool &bilevel, bool &isCMYK);
-	bool getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16_t bitspersample, uint16_t m_samplesperpixel);
+	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, const SampleFormatInfo& sampleInfo, bool &bilevel, bool &isCMYK);
+	bool getImageData_RGBA(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, const SampleFormatInfo& sampleInfo);
 	void blendOntoTarget(RawImage *tmp, int layOpa, const QString& layBlend, bool cmyk, bool useMask);
 	QString getLayerString(QDataStream & s);
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
@@ -53,7 +63,8 @@ protected:
 	void unmultiplyRGBA(RawImage *image);
 
 	int      m_random_table[4096];
-	uint16_t m_photometric, m_samplesperpixel;
+	uint16_t m_photometric;
+	uint16_t m_samplesPerPixel;
 };
 
 #endif

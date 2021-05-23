@@ -548,6 +548,9 @@
     <ClInclude Include="..\..\..\scribus\util_ghostscript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\util_layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
