@@ -22,6 +22,7 @@
 #include <QString>
 #include <QVariant>
 #include <QColor>
+#include <QTextCodec>
 
 #include "FontTableEntry.h"
 class ParagraphStyle;
