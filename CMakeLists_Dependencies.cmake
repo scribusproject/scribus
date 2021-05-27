@@ -68,21 +68,29 @@ else()
 #WANT QT6
     message(STATUS "Qt6 Requested")
 	find_package(Qt6 COMPONENTS Core REQUIRED)
-	find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
-	find_package(Qt6 COMPONENTS Gui REQUIRED)
-	find_package(Qt6 COMPONENTS Widgets REQUIRED)
-	include_directories(${Qt6Core_INCLUDE_DIRS})
 	add_definitions(${Qt6Core_DEFINITIONS})
+	include_directories(${Qt6Core_INCLUDE_DIRS})
+
+	find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
 	include_directories(${Qt6Core5Compat_INCLUDE_DIRS})
 	add_definitions(${Qt6Core5Compat_DEFINITIONS})
-	include_directories(${Qt6Widgets_INCLUDE_DIRS})
-	add_definitions(${Qt6Widgets_DEFINITIONS})
+
+	find_package(Qt6 COMPONENTS Gui REQUIRED)
 	include_directories(${Qt6Gui_INCLUDE_DIRS})
 	add_definitions(${Qt6Gui_DEFINITIONS})
-#	include_directories(${Qt5Xml_INCLUDE_DIRS})
+
+	find_package(Qt6 COMPONENTS Widgets REQUIRED)
+	include_directories(${Qt6Widgets_INCLUDE_DIRS})
+	add_definitions(${Qt6Widgets_DEFINITIONS})
+
+	find_package(Qt6 COMPONENTS Network REQUIRED)
+	include_directories(${Qt6Network_INCLUDE_DIRS})
+	add_definitions(${Qt6Network_DEFINITIONS})
+
+
+	#	include_directories(${Qt5Xml_INCLUDE_DIRS})
 #	add_definitions(${Qt5Xml_DEFINITIONS})
-#	include_directories(${Qt5Network_INCLUDE_DIRS})
-#	add_definitions(${Qt5Network_DEFINITIONS})
+
 #	include_directories(${Qt5OpenGL_INCLUDE_DIRS})
 #	add_definitions(${Qt5OpenGL_DEFINITIONS})
 #	include_directories(${Qt5PrintSupport_INCLUDE_DIRS})

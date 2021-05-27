@@ -795,6 +795,7 @@ else()
 		Qt6::Core5Compat
 		Qt6::Gui
 		Qt6::Widgets
+		Qt6::Network
 		)
 endif()
 
