@@ -543,7 +543,7 @@ Zip::ErrorCode ZipPrivate::addFiles(const QStringList& files, const QString& roo
         while (b != e) {
             const ZippedDir& zd = b.value();
             if (zd.files <= 0) {
-                ec = createEntry(b.key(), zd.actualRoot, level);
+				ec = createEntry(QFileInfo(b.key()), zd.actualRoot, level);
             }
             ++b;
         }

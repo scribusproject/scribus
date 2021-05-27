@@ -5,7 +5,11 @@ if (WANT_SVNVERSION)
 	# a custom target that is always built
 
 	if (NOT CMAKE_VERSION VERSION_LESS "3.2.0")
-		add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
+		if (WANT_QT6)
+			add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_SOURCE_DIR}/cmake/modules/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
+		else()
+			add_custom_target(svnheader ALL COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/svnversion.h)
+		endif()
 	else ()
 		add_custom_target(svnheader ALL DEPENDS svn_header ) # svn_header is nothing more than a unique string
 		# creates svnheader.h using cmake script

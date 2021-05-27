@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QPair>
 #include <QPixmap>
+#include <QRegularExpression>
 #include <QStack>
 #include <QString>
 #include <QStringList>
@@ -176,10 +177,11 @@ QString getUniqueName(const QString& name, const STRINGLIST& list)
 	// capture the name and the index, if any
 	// fred (5)
 	// ^^^^  ^   (where ^ means captured)
-	static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
-	if (rx.indexIn(newName) != -1)
+	static QRegularExpression rx("^(.*)\\s+\\((\\d+)\\)$");
+	QRegularExpressionMatch match = rx.match(newName);
+	if (match.hasMatch())
 	{
-		QStringList matches = rx.capturedTexts();
+		QStringList matches = rx.namedCaptureGroups();
 		prefix = matches[1];
 		suffixNum = matches[2].toInt();
 	}
