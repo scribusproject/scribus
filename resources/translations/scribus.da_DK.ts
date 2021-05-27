@@ -29428,7 +29428,17 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
         <translation>Islandsk</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="895"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
+        <source>This image uses an unsupported non integer sample format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
+        <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 er måske beskadiget: manglende opløsnings-mærker</translation>
     </message>
@@ -30687,7 +30697,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <translation>PUB Importfilter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Uacceptable indstillinger for noteformat</translation>
     </message>
@@ -34322,13 +34332,13 @@ Vertical gap: %4</source>
         <translation>Fil %1 gemt automatisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Ingen typografi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 noteformat har dokument som rækkevidde og giver samme nummereringsformat som sæt %2</translation>
     </message>
@@ -34841,7 +34851,7 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>&amp;Frigør alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
+        <location filename="../../scribus/scribus.cpp" line="9695"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34882,13 +34892,13 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9486"/>
-        <location filename="../../scribus/scribus.cpp" line="9715"/>
+        <location filename="../../scribus/scribus.cpp" line="9714"/>
         <source>Anchor mark</source>
         <translation>Ankermærke</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9494"/>
-        <location filename="../../scribus/scribus.cpp" line="9728"/>
+        <location filename="../../scribus/scribus.cpp" line="9727"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Mærke med &lt;%1&gt; variabeltekst</translation>
     </message>

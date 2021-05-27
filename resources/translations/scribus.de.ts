@@ -29745,7 +29745,17 @@ is not exhaustive due to exceptions from called functions.
         <translation></translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="895"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
+        <source>This image uses an unsupported non integer sample format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
+        <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 Könnte beschädigt sein: Fehlende Auflösungs-Tags</translation>
     </message>
@@ -30712,7 +30722,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
         <translation>PUB-Importer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation></translation>
     </message>
@@ -34353,13 +34363,13 @@ Vertikaler Abstand: %4</translation>
         <translation>Datei %1 automatisch gespeichert</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Kein Stil</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34863,7 +34873,7 @@ diese zu finden und zu korrigieren</translation>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
+        <location filename="../../scribus/scribus.cpp" line="9695"/>
         <source>Edit %1</source>
         <translation>Bearbeite %1</translation>
     </message>
@@ -34904,13 +34914,13 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9486"/>
-        <location filename="../../scribus/scribus.cpp" line="9715"/>
+        <location filename="../../scribus/scribus.cpp" line="9714"/>
         <source>Anchor mark</source>
         <translation>Ankermarke</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9494"/>
-        <location filename="../../scribus/scribus.cpp" line="9728"/>
+        <location filename="../../scribus/scribus.cpp" line="9727"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Marke mit &lt;%1&gt; Textvariable</translation>
     </message>

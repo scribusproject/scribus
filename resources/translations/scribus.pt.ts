@@ -28161,7 +28161,17 @@ Verifique o caminho e o nome do ficheiro.</translation>
         <translation>%1 pode estar corrompida: etiquetas de resolução erradas ou em falta</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="895"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
+        <source>This image uses an unsupported non integer sample format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
+        <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 pode estar corrompida: faltam etiquetas de resolução</translation>
     </message>
@@ -30668,7 +30678,7 @@ Por isso a imagem pode não estar correta</translation>
         <translation>Importador PUB</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Definições não aceites no estilo da nota</translation>
     </message>
@@ -34340,13 +34350,13 @@ Intervalo vertical: %4</translation>
         <translation>Ficheiro %1 gravado automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Sem Estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 tem documento como intervalo e fornece o mesmo estilo de numeração do conjunto %2</translation>
     </message>
@@ -34759,7 +34769,7 @@ Rotação: %4</translation>
         <translation>&amp;Tamanho:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
+        <location filename="../../scribus/scribus.cpp" line="9695"/>
         <source>Edit %1</source>
         <translation>Editar %1</translation>
     </message>
@@ -34894,13 +34904,13 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9486"/>
-        <location filename="../../scribus/scribus.cpp" line="9715"/>
+        <location filename="../../scribus/scribus.cpp" line="9714"/>
         <source>Anchor mark</source>
         <translation>Marca de âncora</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9494"/>
-        <location filename="../../scribus/scribus.cpp" line="9728"/>
+        <location filename="../../scribus/scribus.cpp" line="9727"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Marca com &lt;%1&gt; texto variável</translation>
     </message>

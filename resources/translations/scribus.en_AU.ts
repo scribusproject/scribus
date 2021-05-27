@@ -29526,7 +29526,17 @@ is not exhaustive due to exceptions from called functions.
         <translation>27x39 (Arch E3)</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="895"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
+        <source>This image uses an unsupported non integer sample format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
+        <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 may be corrupted : missing resolution tags</translation>
     </message>
@@ -30526,7 +30536,7 @@ Therefore the image may be not correct</translation>
         <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation>Unacceptable settings for note style</translation>
     </message>
@@ -34393,13 +34403,13 @@ Vertical gap: %4</translation>
         <translation>File %1 autosaved</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>No Style</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 note style has document as range and provide same numbering style as set %2</translation>
     </message>
@@ -34802,13 +34812,13 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9486"/>
-        <location filename="../../scribus/scribus.cpp" line="9715"/>
+        <location filename="../../scribus/scribus.cpp" line="9714"/>
         <source>Anchor mark</source>
         <translation>Anchor mark</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9494"/>
-        <location filename="../../scribus/scribus.cpp" line="9728"/>
+        <location filename="../../scribus/scribus.cpp" line="9727"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Mark with &lt;%1&gt; variable text</translation>
     </message>
@@ -34997,7 +35007,7 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Select the current unit</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
+        <location filename="../../scribus/scribus.cpp" line="9695"/>
         <source>Edit %1</source>
         <translation>Edit %1</translation>
     </message>

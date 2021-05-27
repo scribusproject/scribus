@@ -29409,7 +29409,17 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">27x39 (Kemer E3)</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="895"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
+        <source>This image uses an unsupported non integer sample format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
+        <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation type="unfinished">%1 bozuk olabilir: çözüm etiketleri eksik</translation>
     </message>
@@ -30389,7 +30399,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished">&lt;p&gt;Etkin sayfadaki mevcut belge sayımındakinden daha fazla sayfayı içe aktarmaya çalışıyorsunuz.&lt;/p&gt;Aşağıdakilerden birini seçin:&lt;ul&gt;&lt;li&gt;Eksik sayfaları&lt;b&gt;oluşturun&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Sayfaları son sayfaya kadar&lt;b&gt;içe aktarın&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;İptal edin&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished">Not stili için kabul edilemez ayarlar</translation>
     </message>
@@ -34256,13 +34266,13 @@ Vertical gap: %4</source>
         <translation type="unfinished">%1 dosyası otomatik olarak kaydedildi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17615"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17654"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17612"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17651"/>
         <source>No Style</source>
         <translation>Stil Yok</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished">%1 not stili, aralık olarak belgeye sahip ve %2 kümesiyle aynı numaralandırma stilini sağlıyor</translation>
     </message>
@@ -34618,13 +34628,13 @@ Vertical gap: %4</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9486"/>
-        <location filename="../../scribus/scribus.cpp" line="9715"/>
+        <location filename="../../scribus/scribus.cpp" line="9714"/>
         <source>Anchor mark</source>
         <translation type="unfinished">Çapa işareti</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9494"/>
-        <location filename="../../scribus/scribus.cpp" line="9728"/>
+        <location filename="../../scribus/scribus.cpp" line="9727"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished">&lt;%1&gt; değişken metinle işaretleyin</translation>
     </message>
@@ -34854,7 +34864,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished">Mevcut birimi seçin</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
+        <location filename="../../scribus/scribus.cpp" line="9695"/>
         <source>Edit %1</source>
         <translation type="unfinished">%1&apos;i düzenle</translation>
     </message>
