@@ -519,6 +519,9 @@ void PdfTextOutputDev::renderTextFrame()
 	cStyle.setScaleV(1000.0);
 	cStyle.setHyphenChar(SpecialChars::BLANK.unicode());
 
+	// #16567: Override user prefs
+	textNode->setColumns(1);
+
 	Selection tempSelection(nullptr, false);
 	tempSelection.addItem(textNode);
 	m_doc->itemSelection_ApplyParagraphStyle(pStyle, &tempSelection);
