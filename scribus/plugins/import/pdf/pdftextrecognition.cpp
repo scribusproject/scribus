@@ -503,7 +503,6 @@ void PdfTextOutputDev::renderTextFrame()
 
 	qreal xCoor = m_doc->currentPage()->xOffset() + activePdfTextRegion->pdfTextRegionBasenOrigin.x();
 	qreal yCoor = m_doc->currentPage()->yOffset() + activePdfTextRegion->pdfTextRegionBasenOrigin.y() - activePdfTextRegion->lineSpacing; // don't know if y is top down or bottom up
-	qreal  lineWidth = 0.0;
 #ifdef DEBUG_TEXT_IMPORT
 	qDebug() << "rendering new frame at:" << xCoor << "," << yCoor << " With lineheight of: " << activePdfTextRegion->lineSpacing << "Height:" << activePdfTextRegion->maxHeight << " Width:" << activePdfTextRegion->maxWidth;
 #endif
@@ -536,7 +535,7 @@ void PdfTextOutputDev::renderTextFrame()
 	textNode->setLineTransparency(1.0);
 	textNode->setFillColor(CommonStrings::None);
 	textNode->setLineColor(CommonStrings::None);
-	textNode->setLineWidth(0);
+	textNode->setLineWidth(0.0);
 	textNode->setFillShade(m_currFillShade);
 
 
@@ -552,9 +551,9 @@ void PdfTextOutputDev::renderTextFrame()
 	g_free(transform);
 	*/
 
-	int shade = 100;
 	/*
 	* This code sets the font and style in a very simplistic way, it's been commented out as it needs to be updated to be used within PdfTextRecognition &co.
+	int shade = 100;
 	QString CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	applyTextStyleToCharStyle(pStyle.charStyle(), _glyphs[0].style->getFont().family(), CurrColorText, _glyphs[0].style->getFont().pointSizeF());// *_font_scaling);
 	*/
