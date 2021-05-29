@@ -53,7 +53,7 @@ void convertImageData<int16_t, uint8_t>(int16_t *dataIn, uint8_t *dataOut, uint6
 	
 	for (uint64_t i = 0; i < samples; ++i)
 	{
-		input = (static_cast<int32>(*dataIn) + 32768);
+		input = (static_cast<int32_t>(*dataIn) + 32768);
 		output = input >> 8;
 		*dataOut = output;
 		++dataIn;
