@@ -3388,6 +3388,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, const QImage& thumb)
 	Content.clear();
 	pageData.AObjects.clear();
 	pageData.radioButtonList.clear();
+	pageData.radioButtonGroups.clear();
 	if (Options.Thumbnails)
 	{
 		ScImage img(thumb);
@@ -3422,7 +3423,7 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, const QImage& thumb)
 void PDFLibCore::PDF_End_Page()
 {
 	if (!pageData.radioButtonList.isEmpty())
-		PDF_RadioButtons();
+		PDF_RadioButtonGroups();
 	uint PgNr =  ActPageP->pageNr();
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
@@ -4686,6 +4687,20 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 				if (ite->annotation().Type() == Annotation::RadioButton)
 				{
 					pageData.radioButtonList.append(ite);
+					if (!pageData.radioButtonGroups.contains(ite->Parent))
+					{
+						PdfRadioButtonGroup radioButtonGroup;
+						radioButtonGroup.groupId = writer.newObject();
+						if (ite->Parent == nullptr)
+							radioButtonGroup.groupName = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
+						else
+							radioButtonGroup.groupName = Pdf::toPdfDocEncoding(ite->Parent->itemName().replace(".", "_"));
+						pageData.radioButtonGroups.insert(ite->Parent, radioButtonGroup);
+					}
+					PdfRadioButtonGroup& radioButtonGroup = pageData.radioButtonGroups[ite->Parent];
+					PdfId parentObject = radioButtonGroup.groupId;
+					PdfId kid = PDF_RadioButton(ite, parentObject, radioButtonGroup.groupName);
+					radioButtonGroup.kids.append(kid);
 					break;
 				}
 				if (!PDF_Annotation(ite, PNr))
@@ -8792,39 +8807,40 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 }
 #endif
 
-void PDFLibCore::PDF_RadioButtons()
+void PDFLibCore::PDF_RadioButtonGroups()
 {
 	QHash<PageItem*, QList<PageItem*> > rbMap;
-	for (int a = 0; a < pageData.radioButtonList.count(); a++)
+	for (int i = 0; i < pageData.radioButtonList.count(); ++i)
 	{
-		PageItem* pa = pageData.radioButtonList[a]->Parent;
-		if (rbMap.contains(pa))
-			rbMap[pa].append(pageData.radioButtonList[a]);
+		PageItem* radioItem = pageData.radioButtonList[i];
+		PageItem* radioParent = radioItem->Parent;
+		if (rbMap.contains(radioParent))
+			rbMap[radioParent].append(radioItem);
 		else
 		{
 			QList<PageItem*> aList;
-			aList.append(pageData.radioButtonList[a]);
-			rbMap.insert(pa, aList);
+			aList.append(radioItem);
+			rbMap.insert(radioParent, aList);
 		}
 	}
-	QHash<PageItem*, QList<PageItem*> >::Iterator it;
-	for (it = rbMap.begin(); it != rbMap.end(); ++it)
+
+	// Do not iterate using rbMap, that would break tab order
+	for (int i = 0; i < pageData.radioButtonList.count(); ++i)
 	{
-		QList<PageItem*> bList = it.value();
-		QList<PdfId> kidsList;
-		PdfId parentObject = writer.newObject();
+		PageItem* radioItem = pageData.radioButtonList[i];
+		PageItem* itemKey = radioItem->Parent;
+		if (!rbMap.contains(itemKey))
+			continue;
+		QList<PageItem*> radioList = rbMap[itemKey];
+		const PdfRadioButtonGroup& pdfRadioButtonGroup = pageData.radioButtonGroups[itemKey];
+		PdfId parentObject = pdfRadioButtonGroup.groupId;
+		QByteArray anTitle = pdfRadioButtonGroup.groupName;
 		QByteArray onState;
-		QByteArray anTitle;
-		if (it.key() == 0)
-			anTitle = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
-		else
-			anTitle = Pdf::toPdfDocEncoding(it.key()->itemName().replace(".", "_"));
-		for (int a = 0; a < bList.count(); a++)
+		for (int j = 0; j < radioList.count(); ++j)
 		{
-			PdfId kid = PDF_RadioButton(bList[a], parentObject, anTitle);
-			kidsList.append(kid);
-			if (bList[a]->annotation().IsChk())
-				onState = Pdf::toName(bList[a]->itemName().replace(".", "_"));
+			PageItem* radioKid = radioList[j];
+			if (radioKid->annotation().IsChk())
+				onState = Pdf::toName(radioKid->itemName().replace(".", "_"));
 		}
 		writer.startObj(parentObject);
 		pageData.AObjects.append(parentObject);
@@ -8838,14 +8854,16 @@ void PDFLibCore::PDF_RadioButtons()
 		PutDoc("/V " + onState + "\n");
 		PutDoc("/DV " + onState + "\n");
 		PutDoc("/Kids\n[\n");
-		for (int a = 0; a < kidsList.count(); a++)
+		QList<PdfId> kidsList = pageData.radioButtonGroups[itemKey].kids;
+		for (int j = 0; j < kidsList.count(); ++j)
 		{
-			PutDoc(Pdf::toPdf(kidsList[a]) + " 0 R\n");
+			PutDoc(Pdf::toPdf(kidsList[j]) + " 0 R\n");
 		}
 		PutDoc("]\n");
 		PutDoc("/Rect [0 0 0 0]\n");
 		PutDoc(">>");
 		writer.endObj(parentObject);
+		rbMap.remove(itemKey);
 	}
 }
 

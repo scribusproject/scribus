@@ -222,7 +222,7 @@ private:
 #ifdef HAVE_OSG
 	bool    PDF_3DAnnotation(PageItem *ite, uint PNr);
 #endif
-	void	PDF_RadioButtons();
+	void    PDF_RadioButtonGroups();
 	uint    PDF_RadioButton(PageItem *ite, uint parent, const QString& parentName);
 	bool    PDF_Annotation(PageItem *ite, uint PNr);
 	void    PDF_Form(const QByteArray& im);

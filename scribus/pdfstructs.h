@@ -9,11 +9,11 @@
 #ifndef Scribus_pdfstructs_h
 #define Scribus_pdfstructs_h
 
-#include<QByteArray>
-#include<QList>
-#include<QMap>
-#include<QRect>
-#include<QString>
+#include <QByteArray>
+#include <QList>
+#include <QMap>
+#include <QRect>
+#include <QString>
 
 class PageItem;
 
@@ -42,7 +42,6 @@ namespace Pdf {
 }
 
 
-
 struct PdfDest
 {
 	QString Name;
@@ -66,6 +65,14 @@ struct PdfPageTree
 };
 
 
+struct PdfRadioButtonGroup
+{
+	PdfId groupId;
+	QByteArray groupName;
+	QList<PdfId> kids;
+};
+
+
 struct PdfPageData
 {
 	PdfId ObjNum;
@@ -76,6 +83,7 @@ struct PdfPageData
 	QList<PdfId> AObjects;
 	QList<PdfId> FormObjects;
 	QList<PageItem*> radioButtonList;
+	QMap<PageItem*, PdfRadioButtonGroup> radioButtonGroups;
 };
 
 
