@@ -40,7 +40,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 	Q_ASSERT(model);
 	if (!model->parent(index).isValid())
 	{
-        // this is a top-level item.
+		// this is a top-level item.
 		QStyleOptionButton buttonOption;
 		buttonOption.state = option.state;
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
@@ -58,7 +58,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		else
 			painter->setBrush(Qt::gray);
 		painter->setPen(Qt::NoPen);
-		QRect rect = QRect(r.left()+6, r.top()+6, r.height()-12, r.height()-12);
+		QRect rect = QRect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
 		QPolygon pa(3);
 		if (m_view->isExpanded(index))
 		{
@@ -76,7 +76,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		painter->drawPolygon(pa);
 		painter->restore();
 			// draw text
-		QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - ((5*i)/2), r.height());
+		QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
 		QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textrect.width(), Qt::TextShowMnemonic);
 		m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
 	}
