@@ -38,52 +38,54 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 {
 	const QAbstractItemModel *model = index.model();
 	Q_ASSERT(model);
-	if (!model->parent(index).isValid())
+
+	if (model->parent(index).isValid())
 	{
-		// this is a top-level item.
-		QStyleOptionButton buttonOption;
-		buttonOption.state = option.state;
+		QItemDelegate::paint(painter, option, index);
+		return;
+	}
+
+	// This is a top-level item.
+	QStyleOptionButton buttonOption;
+	buttonOption.state = option.state;
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
-		buttonOption.state |= QStyle::State_Raised;
+	buttonOption.state |= QStyle::State_Raised;
 #endif
-		buttonOption.state &= ~QStyle::State_HasFocus;
-		buttonOption.rect = option.rect;
-		buttonOption.palette = option.palette;
-		m_view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, m_view);
+	buttonOption.state &= ~QStyle::State_HasFocus;
+	buttonOption.rect = option.rect;
+	buttonOption.palette = option.palette;
+	m_view->style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, m_view);
 
-		// Draw arrow
-		static const int i = 9; // ### hardcoded in qcommonstyle.cpp
-		QRect r = option.rect;
-		QPalette::ColorGroup arrowColorGroup = (option.state & QStyle::State_Enabled) ? QPalette::Active : QPalette::Disabled;
-		QColor arrowColor = option.palette.color(arrowColorGroup, QPalette::ButtonText);
-		painter->save();
-		painter->setBrush(arrowColor);
-		painter->setPen(Qt::NoPen);
-		QRect rect = QRect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
-		QPolygon pa(3);
-		if (m_view->isExpanded(index))
-		{
-			pa.setPoint(0, rect.left(), rect.top());
-			pa.setPoint(1, rect.right(), rect.top());
-			pa.setPoint(2, rect.center().x(), rect.bottom());
-		}
-		else
-		{
-			pa.setPoint(0, rect.left(), rect.top());
-			pa.setPoint(1, rect.left(), rect.bottom());
-			pa.setPoint(2, rect.right(), rect.center().y());
-		}
-		painter->setRenderHint(QPainter::Antialiasing, true);
-		painter->drawPolygon(pa);
-		painter->restore();
-
-		// Draw text
-		QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
-		QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textrect.width(), Qt::TextShowMnemonic);
-		m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
+	// Draw arrow
+	static const int i = 9; // ### hardcoded in qcommonstyle.cpp
+	QRect r = option.rect;
+	QPalette::ColorGroup arrowColorGroup = (option.state & QStyle::State_Enabled) ? QPalette::Active : QPalette::Disabled;
+	QColor arrowColor = option.palette.color(arrowColorGroup, QPalette::ButtonText);
+	painter->save();
+	painter->setBrush(arrowColor);
+	painter->setPen(Qt::NoPen);
+	QRect rect = QRect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
+	QPolygon pa(3);
+	if (m_view->isExpanded(index))
+	{
+		pa.setPoint(0, rect.left(), rect.top());
+		pa.setPoint(1, rect.right(), rect.top());
+		pa.setPoint(2, rect.center().x(), rect.bottom());
 	}
 	else
-		QItemDelegate::paint(painter, option, index);
+	{
+		pa.setPoint(0, rect.left(), rect.top());
+		pa.setPoint(1, rect.left(), rect.bottom());
+		pa.setPoint(2, rect.right(), rect.center().y());
+	}
+	painter->setRenderHint(QPainter::Antialiasing, true);
+	painter->drawPolygon(pa);
+	painter->restore();
+
+	// Draw text
+	QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
+	QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textrect.width(), Qt::TextShowMnemonic);
+	m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
 }
 
 QSize ScTreeWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
