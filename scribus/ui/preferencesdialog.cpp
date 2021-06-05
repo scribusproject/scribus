@@ -263,7 +263,7 @@ void PreferencesDialog::addWidget(Prefs_Pane* tab)
 {
 	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(IconManager::instance().loadIcon(tab->icon()), tab->caption(), preferencesTypeList);
-	newItem->setTextAlignment(Qt::AlignLeft);
+	newItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	int i = prefsStackWidget->addWidget(tab);
 	stackWidgetMap.insert(newItem, i);
 }
