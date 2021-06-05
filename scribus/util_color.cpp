@@ -271,8 +271,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 
 	QPixmap *pa = new QPixmap(60, 15);
 	QPixmap *pm = getSmallPixmap(ScColorEngine::getDisplayColor(col, doc));
-//	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
-	pa->fill(Qt::white);
+	pa->fill(Qt::transparent);
 	paintAlert(*pm, *pa, 0, 0);
 	if (ScColorEngine::isOutOfGamut(col, doc))
 		paintAlert(alertIcon, *pa, 15, 0);
