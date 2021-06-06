@@ -268,6 +268,7 @@ void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 	// draw border mark
 	QPainter p;
 	p.begin(this);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	if (clear)
 	{
 		QColor baseColor = palette().color(QPalette::Base);
