@@ -71,9 +71,8 @@ void ColorWheel::paintEvent(QPaintEvent *)
 	// clear marks
 	for (int i = 0; i < 360; ++i)
 		drawBorderPoint(i, false, true);
-	QList<PaintPoint>::const_iterator it;
-	for (it = pointList.constBegin(); it != pointList.constEnd(); ++it)
-		drawBorderPoint((*it).angle, (*it).base);
+	for (auto it = pointList.constBegin(); it != pointList.constEnd(); ++it)
+		drawBorderPoint(it->angle, it->base);
 }
 
 void ColorWheel::makeColors()
@@ -96,6 +95,7 @@ void ColorWheel::paintCenterSample()
 {
 	QPainter p;
 	p.begin(this);
+	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setPen(QPen(Qt::black, 2));
 	p.setBrush(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
 	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
@@ -112,7 +112,7 @@ void ColorWheel::paintWheel()
 	QPainter p;
 	p.begin(this);
 	p.setWindow( 0, 0, width, height);
-	p.fillRect(0, 0, width, height, Qt::white);
+	p.fillRect(0, 0, width, height, palette().color(QPalette::Base));
 	p.setPen(Qt::black);
 	p.drawRect(0, 0, width, height);
 	// Half sizes
@@ -122,7 +122,7 @@ void ColorWheel::paintWheel()
 	{
 		QTransform matrix;
 		matrix.translate(widthH, heightH);
-		matrix.rotate((float)i);
+		matrix.rotate((float) i);
 		p.setWorldTransform(matrix);
 		QColor c;
 		c.setHsv(i, 255, 255);
@@ -270,18 +270,20 @@ void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 	p.begin(this);
 	if (clear)
 	{
-		p.setPen(QPen(Qt::white, 1));
-		p.setBrush(Qt::white);
+		QColor baseColor = palette().color(QPalette::Base);
+		p.setPen(QPen(baseColor, 1));
+		p.setBrush(baseColor);
 	}
 	else
 	{
-		p.setPen(QPen(Qt::black, 1));
+		QColor textColor = palette().color(QPalette::WindowText);
+		p.setPen(QPen(textColor, 1));
 		if (base)
 			p.setBrush(Qt::red);
 		else
 			p.setBrush(Qt::SolidPattern);
 	}
-	p.drawEllipse(x-4, y-4, 8, 8);
+	p.drawEllipse(x - 4, y - 4, 8, 8);
 	p.end();
 }
 
