@@ -34,6 +34,7 @@ private:
 public slots:
 	void setDoc(ScribusDoc *doc);
 	void languageChange();
+	void paletteChange();
 	void handleUpdateRequest(int updateFlags);
 
 private slots:

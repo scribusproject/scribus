@@ -40,14 +40,14 @@ void MarksManager::addListItem(MarkType typeMrk, const QString& typeStr, const Q
 	QTreeWidgetItem *listItem = new QTreeWidgetItem(listView);
 	listItem->setText(0,typeStr);
 	listItem->setFlags(listItem->flags() & (~Qt::ItemIsSelectable));
-	listItem->setBackground(0,QColor("lightGray"));
+	listItem->setBackground(0, this->palette().color(QPalette::AlternateBase));
 	for (int i = 0; i < marks.size(); ++i)
 	{
 		if (marks[i]->isType(typeMrk))
 		{
 			QTreeWidgetItem *listItem2 = new QTreeWidgetItem(listItem);
 			listItem2->setText(0, marks[i]->label);
-			listItem2->setData(1, Qt::UserRole,QVariant::fromValue<void*>(marks[i]));
+			listItem2->setData(1, Qt::UserRole, QVariant::fromValue<void*>(marks[i]));
 			index++;
 			noSuchMarks = false;
 		}
@@ -75,14 +75,14 @@ void MarksManager::storeColaption()
 void MarksManager::restoreColaption()
 {
 	listView->collapseAll();
-	if (!m_expandedItems.isEmpty())
+	if (m_expandedItems.isEmpty())
+		return;
+
+	for (int i=0; i < listView->topLevelItemCount(); ++i)
 	{
-		for (int i=0; i < listView->topLevelItemCount(); ++i)
-		{
-			QTreeWidgetItem *item = listView->topLevelItem(i);
-			if (m_expandedItems.contains(item->text(0)))
-				listView->topLevelItem(i)->setExpanded(true);
-		}
+		QTreeWidgetItem *item = listView->topLevelItem(i);
+		if (m_expandedItems.contains(item->text(0)))
+			item->setExpanded(true);
 	}
 }
 
@@ -139,6 +139,8 @@ void MarksManager::changeEvent(QEvent *e)
 		languageChange();
 		return;
 	}
+	if (e->type() == QEvent::PaletteChange)
+		paletteChange();
 	ScrPaletteBase::changeEvent(e);
 }
 
@@ -151,6 +153,16 @@ void MarksManager::languageChange()
 	EditButton->setToolTip(tr("Edit selected mark"));
 	if (m_Doc != nullptr)
 		updateListView();
+}
+
+void MarksManager::paletteChange()
+{
+	QColor listItemColor = this->palette().color(QPalette::AlternateBase);
+	for (int i = 0; i < listView->topLevelItemCount(); ++i)
+	{
+		QTreeWidgetItem *listItem = listView->topLevelItem(i);
+		listItem->setBackground(0, listItemColor);
+	}
 }
 
 void MarksManager::handleUpdateRequest(int updateFlags)
