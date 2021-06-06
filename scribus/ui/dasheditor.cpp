@@ -70,7 +70,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	p->setLineWidth(0);
 	p->setFillMode(ScPainter::Solid);
 	p->setBrush(Qt::black);
-	for (int i = 0; i < m_dashValues.count(); i++)
+	for (int i = 0; i < m_dashValues.count(); ++i)
 	{
 		if (i % 2 == 0)
 			p->setBrush(Qt::black);
@@ -103,7 +103,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 		else
 			pw.setBrush(Qt::blue);
 		QPolygon cr;
-		cr.setPoints(3, qRound(center), 16, qRound(center-4), 29, qRound(center+4), 29);
+		cr.setPoints(3, qRound(center), 16, qRound(center - 4), 29, qRound(center + 4), 29);
 		pw.drawPolygon(cr);
 	}
 	pw.end();
