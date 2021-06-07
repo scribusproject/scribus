@@ -29,7 +29,7 @@ typedef QPair<QString, QString> StyleName;
  * @brief Represents a style type that can be added to the Style Manager
  * @brief palette.
  *
- * This class is ment to be used as a parent class for any style types
+ * This class is meant to be used as a parent class for any style types
  * that are wanted to be configured using the Style Manager palette.
  * @author Riku Leino <riku@scribus.info>
  * @date November 2005
@@ -191,7 +191,7 @@ signals:
 */
 
 private:
-	/* hide these two, StyleItem is not ment to be copied */
+	/* hide these two, StyleItem is not meant to be copied */
 	StyleItem(const StyleItem&);
 	void operator=(const StyleItem&);
 

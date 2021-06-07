@@ -149,7 +149,7 @@ setglobal
 /i_shortcut false def
 
 % defines an overloaded function     name proc i_shortcutOverload -
-% equvalent to /name { i_shortcut { //name } { proc } ifelse } bind def
+% equivalent to /name { i_shortcut { //name } { proc } ifelse } bind def
 /i_shortcutOverload
 {
 	[ /i_shortcut /load load [ 5 index load ] cvx 4 index /ifelse load ] cvx 

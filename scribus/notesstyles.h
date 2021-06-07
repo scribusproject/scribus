@@ -16,7 +16,7 @@ class ScribusDoc;
 class PageItem_NoteFrame;
 class PageItem_TextFrame;
 
-//used for map with endnotes frames maped with range item
+//used for map with endnotes frames mapped with range item
 typedef union
 {
 	void* P;
@@ -76,8 +76,8 @@ private:
 	NumerationRange m_numRange {NSRdocument}; //range of numeration for current set
 	QString m_prefixStr;
 	QString m_suffixStr {")"};
-	bool m_autoNotesHeight {true}; //change height of notes frames to its content automaticaly?
-	bool m_autoNotesWidth {true}; //change width of notes frames automaticaly if width of master frame changes?
+	bool m_autoNotesHeight {true}; //change height of notes frames to its content automatically?
+	bool m_autoNotesWidth {true}; //change width of notes frames automatically if width of master frame changes?
 	bool m_autoRemoveEmptyNotesFrames {true};
 	bool m_autoWeldNotesFrames {true};
 	bool m_superscriptInNote {true};

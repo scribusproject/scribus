@@ -64,7 +64,7 @@
 
 #include <qcoreapplication.h>
 #include <qlist.h>
-#include <qvariant.h>  // All moc genereated code has this include
+#include <qvariant.h>  // All moc generated code has this include
 #include <qobject.h>
 #include <qregexp.h>
 #include <qstring.h>

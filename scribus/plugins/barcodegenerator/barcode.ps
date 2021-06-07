@@ -16790,7 +16790,7 @@ begin
     /dcpb dcws ecb1 ecb2 add idiv def                 % Base data codewords per block
     /ecpb ncws ecb1 ecb2 add idiv dcpb sub def        % Error correction codewords per block
 
-    % Complete the message bits by adding the terminator, truncated if neccessary
+    % Complete the message bits by adding the terminator, truncated if necessary
     /term term 0 dmod msgbits length sub term length 2 copy gt {exch} if pop getinterval def
     msgbits length term length add string
     dup 0 msgbits putinterval
@@ -17439,7 +17439,7 @@ begin
             /fid () def
         } ifelse
 
-        % Read the postcode, country code and service code fields seperated by GS
+        % Read the postcode, country code and service code fields separated by GS
         msg <1d> search pop /pcode exch def
         pop <1d> search pop /ccode exch def
         pop <1d> search pop /scode exch def
@@ -21336,7 +21336,7 @@ begin
         } if
 
         % Check for groups of blank rows unless data is encoded horizontally
-        % in a symbol of sufficent width to overcome up to six consecutive 0s
+        % in a symbol of sufficient width to overcome up to six consecutive 0s
         % in two neighbouring 5 of 9 dot patterns
         rows 2 mod 0 eq columns 12 le or {
             /sum 0 def  /p 0 def

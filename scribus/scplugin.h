@@ -42,7 +42,7 @@ class Prefs_Pane;
  * and maintain as little state as possible. Most functionality should be
  * implemented in a private subclass that is not exposed in the header of the
  * scplugin subclass defined by the plugin. That helps keep the plugin's
- * implementation separate from its inteface to Scribus.
+ * implementation separate from its interface to Scribus.
  *
  * Note that the two subclases ScActionPlugin and ScPersistentPlugin, defined
  * below, create two quite different kinds of plugins. One is for import/export
@@ -402,7 +402,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *   A caller is not required to do this, but with the current (August
 		 *   2005) core code it's the only way to operate safely. This is
 		 *   likely to change in future and you should avoid relying on it if
-		 *   at all posssible.
+		 *   at all possible.
 		 *
 		 * If this method is used, the plugin must not be unloaded until all
 		 * DeferredTask instances have been deleted.
@@ -419,7 +419,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		virtual DeferredTask* runAsync(QIODevice* target);
 
 		// Compat kludge ... we store a QString result from any successful
-		// run(...) call in m_runResult and let callers retrive it here.
+		// run(...) call in m_runResult and let callers retrieve it here.
 		// DO NOT USE THIS INTERFACE FOR NEW PLUG-INS; you should
 		// dynamic_cast<> to the plugin type then call a plug-in specific
 		// method instead.

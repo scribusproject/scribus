@@ -285,7 +285,7 @@ int ExifData::ReadJpegSections ( QFile & infile, ReadMode_t ReadMode )
 
 			case M_JFIF:
 				// Regular jpegs always have this tag, exif images have the exif
-				// marker instead, althogh ACDsee will write images with both markers.
+				// marker instead, although ACDsee will write images with both markers.
 				// this program will re-create this marker on absence of exif marker.
 				// hence no need to keep the copy from the file.
 				break;
@@ -643,7 +643,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 						break;
 
 					case 3: FocalplaneUnits = 10;   break;  // centimeter
-					case 4: FocalplaneUnits = 1;    break;  // milimeter
+					case 4: FocalplaneUnits = 1;    break;  // millimeter
 					case 5: FocalplaneUnits = .001; break;  // micrometer
 				}
 				break;
@@ -702,7 +702,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 	{
 		// In addition to linking to subdirectories via exif tags,
 		// there's also a potential link to another directory at the end of each
-		// directory.  this has got to be the result of a comitee!
+		// directory.  this has got to be the result of a committee!
 		unsigned char * SubdirStart;
 		unsigned Offset;
 
@@ -758,7 +758,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 
 //--------------------------------------------------------------------------
 // Process a COM marker.  We want to leave the bytes unchanged.  The
-// progam that displays this text may decide to remove blanks, convert
+// program that displays this text may decide to remove blanks, convert
 // newlines, or otherwise modify the text.  In particular we want to be
 // safe for passing utf-8 text.
 //--------------------------------------------------------------------------
@@ -838,7 +838,7 @@ void ExifData::process_EXIF ( unsigned char * CharBuf, unsigned int length )
 	// This is how far the interesting (non thumbnail) part of the exif went.
 	ExifSettingsLength = LastExifRefd - CharBuf;
 
-	// Compute the CCD width, in milimeters.
+	// Compute the CCD width, in millimeters.
 	if ( FocalplaneXRes != 0 )
 	{
 		ExifData::CCDWidth = ( float ) ( ExifImageWidth * FocalplaneUnits / FocalplaneXRes );
@@ -871,7 +871,7 @@ int ExifData::Exif2tm ( struct tm * timeptr, char * ExifTime )
 }
 
 //--------------------------------------------------------------------------
-// Contructor for initialising
+// Constructor for initialising
 //--------------------------------------------------------------------------
 ExifData::ExifData()
 {

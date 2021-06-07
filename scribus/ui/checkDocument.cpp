@@ -397,7 +397,7 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 		default:
 			break;
 	};
-	// additional informations
+	// additional information
 	const ScLayer* layer = m_Doc->Layers.layerByID(pageItem->m_layerID);
 	if (layer)
 	{

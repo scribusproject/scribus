@@ -59,8 +59,8 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		the whole string is returned. For all the other locales starting
 		with "en", no locale is returned.
 		(Inspired from Klocale.cpp)
-		\param lang QString a two letter string describing the lang environement
-		\retval QStringList A string describing the language environement
+		\param lang QString a two letter string describing the lang environment
+		\retval QStringList A string describing the language environment
 		*/
 		QStringList getLang(QString m_lang);
 		/*!
@@ -68,7 +68,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		\author Alessandro Rimoldi
 		\date Mon Feb  9 14:07:46 CET 2004
 		\brief Loads the translations for Scribus and for the Plugins
-		\param langs QString a two letter string describing the lang environement
+		\param langs QString a two letter string describing the lang environment
 		*/
 		void installTranslators(const QStringList & langs);
 

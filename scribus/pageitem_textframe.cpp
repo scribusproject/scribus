@@ -891,7 +891,7 @@ struct LineControl {
 	}
 
 	/**
-	 Clones the tab fill char as often as necssary after all distances are known
+	 Clones the tab fill char as often as necessary after all distances are known
 	 */
 	void fillInTabLeaders()
 	{
@@ -1006,7 +1006,7 @@ struct LineControl {
 				rightCorr *= 0.5;
 			else {
 #if 0
-				// FIXME HOST: is the kerning with "." a realy reliable way to check this?
+				// FIXME HOST: is the kerning with "." a really reliable way to check this?
 				rightCorr = chStyle.font().realCharWidth(chr, chs / 10.0);
 				rightCorr -= chStyle.font().charWidth(chr, chs / 10.0, QChar('.'));
 #else
@@ -1276,7 +1276,7 @@ void PageItem_TextFrame::layout()
 	//for moving next line if glyphs are higher than that
 	double lastLineY = 0;
 
-	QMap<int, Mark*> noteMarksPosMap;  //maping notes marks and its position in text
+	QMap<int, Mark*> noteMarksPosMap;  //mapping notes marks and its position in text
 
 	// dump styles
 /*
@@ -1415,7 +1415,7 @@ void PageItem_TextFrame::layout()
 		current.mustLineEnd = current.colRight;
 		current.restartX = 0;
 
-		//why emit invalidating signals each time text is changed by appling styles?
+		//why emit invalidating signals each time text is changed by applying styles?
 		//this speed up layouting in case of using notes marks and drop caps
 		itemText.blockSignals(true);
 		setMaxY(-1);
@@ -2193,7 +2193,7 @@ void PageItem_TextFrame::layout()
 					//force break
 					if (!SpecialChars::isBreak(itemText.text(a), m_columns > 1))
 					{
-						//force line end at previouse glyph
+						//force line end at previous glyph
 						i--;
 						currentIndex = i - current.lineData.firstCluster;
 						a = (i >= 0) ? glyphClusters.at(i).firstChar() : (a - 1);
@@ -4498,7 +4498,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				m_nextBox->updateLayout();
 		}
 		//check if cursor need to jump to next linked frame
-		//but not for notes frames can`t be updated as may disapper during update
+		//but not for notes frames can`t be updated as may disappear during update
 		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && m_nextBox != nullptr)
 		{
 			view->deselectItems(true);
@@ -4842,7 +4842,7 @@ void PageItem_TextFrame::updateBulletsNum()
 // Parameters
 //   PageItem *currItem text item to be processed
 //   inc < 0 for left key > 0 for right key
-//  if value is +/-1 work on slection
+//  if value is +/-1 work on selection
 //  if value is +/-2 refresh if text under cursor is selected -- not used
 
 void PageItem_TextFrame::ExpandSel(int oldPos)

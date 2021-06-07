@@ -2873,7 +2873,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	if (inPattern == 0)
 	{
 		outline.translate(xCoor - ite->xPos(), yCoor - ite->yPos());
-		// Undo the rotation of the clipping path as it is rotated together with the iamge.
+		// Undo the rotation of the clipping path as it is rotated together with the image.
 		QTransform mm;
 		mm.rotate(-ite->rotation());
 		outline = mm.map(outline);

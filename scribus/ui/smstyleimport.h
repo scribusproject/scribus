@@ -43,7 +43,7 @@ class SCRIBUS_API SMStyleImport : public QDialog, public Ui::SMStyleImport
 		QTreeWidgetItem * lstyleItem;
 
 		/*! \brief Following constants are used as flags for searching.
-		Soemthing like: give me all character style related items from
+		Something like: give me all character style related items from
 		the list. See commonStyles() for more info.
 		*/
 		static const int cType = QTreeWidgetItem::UserType;

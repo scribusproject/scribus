@@ -843,7 +843,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			break;
 		case 32:
 			cmdText += "DRW Band";
-/* For this record the documentation is completly wrong
+/* For this record the documentation is completely wrong
 
 	offs	meaning
 	0		X-Offset

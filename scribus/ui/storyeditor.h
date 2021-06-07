@@ -488,7 +488,7 @@ protected slots:
 	void Do_del();
 	void Do_insSp();
 	/*! \brief Insert a Lorem Ipsum (from dialog) into
-	current position inthe SE.
+	current position in the SE.
 	*/
 	void insertSampleText();
 	void Do_fontPrev();

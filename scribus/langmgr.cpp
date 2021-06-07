@@ -679,7 +679,7 @@ void LanguageManager::generateInstalledHyphLangList()
 	bool dictPathFound=findHyphDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
-//		qDebug()<<"No preinstalled hyphenation dictonaries or paths found";
+//		qDebug()<<"No preinstalled hyphenation dictionaries or paths found";
 		return;
 	}
 	QMap<QString, QString> dictionaryMap;
@@ -688,7 +688,7 @@ void LanguageManager::generateInstalledHyphLangList()
 		return;
 
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
-//	qDebug()<<"Installed Hyphenation Dictonaries:";
+//	qDebug()<<"Installed Hyphenation Dictionaries:";
 	while (it != dictionaryMap.end())
 	{
 		int j = langTableIndex(it.key());
@@ -708,7 +708,7 @@ void LanguageManager::generateInstalledSpellLangList()
 	bool dictPathFound=findSpellingDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
-		qDebug()<<"No preinstalled spelling dictonaries or paths found";
+		qDebug()<<"No preinstalled spelling dictionaries or paths found";
 		return;
 	}
 	QMap<QString, QString> dictionaryMap;
@@ -717,7 +717,7 @@ void LanguageManager::generateInstalledSpellLangList()
 		return;
 
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
-//	qDebug()<<"Installed Spelling Dictonaries:";
+//	qDebug()<<"Installed Spelling Dictionaries:";
 	while (it != dictionaryMap.end())
 	{
 		int j = langTableIndex(it.key());

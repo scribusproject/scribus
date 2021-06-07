@@ -41,7 +41,7 @@ dropcaplines [optional] -> height (in lines) of the caps if used\n\n\
 dropcapoffset [optional] -> offset of the caps if used\n\n\
 \"charstyle\" [optional] -> char style to use\n\n\
 \"bullet\" [optional] -> string to use as bullet\n\n\
-\"tabs\" [optional] -> a list containg tab definitions\n\n\
+\"tabs\" [optional] -> a list containing tab definitions\n\n\
 -> a tab is defined as a tuple with the following format (position,type,fillchar)\"\n\n\
 -> position [required] -> float value for the position\n\n\
 -> type [optional] -> left: 0 [default], right: 1, period: 2, comma: 3, center: 4\n\n\
@@ -60,7 +60,7 @@ Creates a character style. This function takes the following keyword parameters:
 \"name\" [required] -> name of the char style to create\n\n\
 \"font\" [optional] -> name of the font to use\n\n\
 fontsize [optional] -> font size to set (double)\n\n\
-\"features\" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):\n\n\
+\"features\" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-separated (without spaces!):\n\n\
 -> inherit\n\n\
 -> bold\n\n\
 -> italic\n\n\

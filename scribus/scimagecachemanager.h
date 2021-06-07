@@ -80,7 +80,7 @@ public:
 	/**
 	* @brief Set cache image file compression level
 	* @param level Image compression level. -1 is the default compression level
-	*        for PNG images. 0 is no compression, 1 is fastest comression and
+	*        for PNG images. 0 is no compression, 1 is fastest compression and
 	*        9 is best compression.
 	* @return \c true if the compression level could be set, \c false otherwise
 	*/

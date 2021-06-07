@@ -7,7 +7,7 @@
 #  PNG_FOUND, If false, do not try to use PNG.
 # also defined, but not for general use are
 #  PNG_LIBRARY, where to find the PNG library.
-# None of the above will be defined unles zlib can be found.
+# None of the above will be defined unless zlib can be found.
 # PNG depends on Zlib
 INCLUDE(FindZLIB)
 

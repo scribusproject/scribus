@@ -154,7 +154,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	PyObject *tmp2 = PyUnicode_FromString("File");
 	PyList_Append(self->allPrinters, tmp2);
 	Py_DECREF(tmp2);
-// as defaut set to print into file
+// as default set to print into file
 	PyObject *printer = nullptr;
 	printer = PyUnicode_FromString("File");
 	if (printer) {

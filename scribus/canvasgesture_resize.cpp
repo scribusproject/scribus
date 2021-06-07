@@ -620,7 +620,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 //		qDebug() << "constrained:" << m_bounds << double(m_bounds.width()) / m_bounds.height();
 	}
 
-	// shif key modifier
+	// shift key modifier
 	// move around around the pivot
 	if (centerPivot)
 		m_bounds.moveCenter(m_origBounds.center());

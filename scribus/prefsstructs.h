@@ -303,7 +303,7 @@ struct HyphenatorPrefs
 struct FontPrefs
 {
 	SCFonts AvailFonts; //! Fonts that Scribus has available to it, or the current document has available to use
-	bool askBeforeSubstitute; //! Request that the user confirms a font substituion or not
+	bool askBeforeSubstitute; //! Request that the user confirms a font substitution or not
 	QMap<QString,QString> GFontSub;
 };
 

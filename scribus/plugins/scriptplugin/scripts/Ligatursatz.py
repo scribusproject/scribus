@@ -193,7 +193,7 @@ class Hyphenator:
             # points[1] = points[2] = points[-2] = points[-3] = 0
             # But it is necessary to do at least this, just to avoid empty
             # pieces. Otherwise, the pattern “von1” would lead for the
-            # word “von” to the result “[u"von", u""]” which is not intented.
+            # word “von” to the result “[u"von", u""]” which is not intended.
             points[1] = 0
             points[-2] = 0
         # Examine the points to build the pieces list.
@@ -326,7 +326,7 @@ class GermanLigatureSupport:
 
     4.) Combine both, “wortliste” and “pre-1901” in one single file
     > cat ../wortliste/wortliste ../wortliste/pre-1901 > full-list.utf8
-    The other available word lists currently do not provide informations
+    The other available word lists currently do not provide information
     about morpheme boundaries, so it does not make sense to use them.
 
     5.) Preprocess it
@@ -22235,7 +22235,7 @@ zzug4
         This is the content of the file “german.tr” of the Trennmuster
         project (both capital letters and small letters), adding LATIN
         CAPITAL LETTER SHARP S (ẞ) and LATIN SMALL LETTER LONG S (ſ). So it
-        contains all characters that occure in the original word list from
+        contains all characters that occurred in the original word list from
         which the patterns are generated. (So it is likely
         that is contains more characters than the patterns itself.)
 
@@ -22276,7 +22276,7 @@ class InstructionProvider(GermanLigatureSupport):
         all characters starting from this index position shifting to the
         right. False means that at this index there is a ZWNJ and this
         ZWNJ has to be removed. None means that nothing has to be done.
-        Of course, the list might be emtpy if my_word is empty. my_word
+        Of course, the list might be empty if my_word is empty. my_word
         is supposed to contain a single word, and not various words with
         whitespace. This function handles correctly the soft hyphen
         U+00AD and the following characters with canonical decomposition:
@@ -22291,13 +22291,13 @@ class InstructionProvider(GermanLigatureSupport):
         # Handle normalization…
         #
         # The string is yet folded, so only small letters need to be
-        # handeled. We substitute the decomposed form by the composed
+        # handled. We substitute the decomposed form by the composed
         # form (that is used in the pattern). To avoid a different
         # character count, we introduce a soft hyphen. This is okay,
         # because the soft hyphen will be ignored later anyway, and
         # ZWNJ are always inserted before normal characters and never
         # before soft hyphens. We handle only the minimum of
-        # canonical composition that really occures in our pattern.
+        # canonical composition that really occurs in our pattern.
         #
         # WARNING: This must be kept in synch with
         # GermanLigatureSupport.get_word_characters().
@@ -22537,7 +22537,7 @@ class StoryInterface:
         (constructor argument) currently exists in the current document,
         and it refers to a text frame.
         Postcondition: Returns an integer that represents the length
-        of the text. The mesurement unit of the length is provided
+        of the text. The measurement unit of the length is provided
         by Scribus. It is in Scribus 1.5.2 not “Unicode Scalar Values”,
         but “UTF16 code units”.
         """
@@ -22623,7 +22623,7 @@ def do_ligature_setting():
                     # However, we have made sure earlier that only Unicode
                     # Scalar Values inside BMP are in used_characters, so
                     # it is guaranteed that here the indexes are the same,
-                    # wether it is UTF16 or UTF32. So we can savely use
+                    # whether it is UTF16 or UTF32. So we can savely use
                     # these indexes to do our modifications in Scribus.
                     if instruction_list[j] == True:
                         # Insert here a ZWNJ.
@@ -22784,7 +22784,7 @@ def do_ligature_setting():
             # for the hole story (means, also for all linked text
             # frames). Result: If the user has selected various linked
             # text frames of the same story, than we do all the same
-            # work various times. That’s quite inefficent, but however
+            # work various times. That’s quite inefficient, but however
             # I don’t know how to prevent this.
             ligature_setting_for_story(my_textframe, my_provider)
             # Clean the text selection for this Scribus object

@@ -17,7 +17,7 @@ class ScribusDoc;
 
 
 /*! \brief Model for font views.
-It contains quite all informations about fonts available to display
+It contains quite all information about fonts available to display
 in Qt4 views. It's suggested to use custom FontListView.
 
 You can call view->hideColumn(ColumnType) to hide unneeded columns for

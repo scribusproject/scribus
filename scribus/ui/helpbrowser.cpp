@@ -62,7 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "util.h"
 
-/*! \brief XML parsef for documantation history.
+/*! \brief XML parsed for documentation history.
 This is small helper class which reads saved bookmarks configuration
 from ~/.scribus/doc/history.xml file.
 The reference to historyBrowser is a reference to the dialog.
@@ -105,7 +105,7 @@ class HistoryParser2
 		}
 };
 
-/*! \brief XML parsef for documantation bookmarks.
+/*! \brief XML parsed for documentation bookmarks.
 This is small helper class which reads saved bookmarks configuration
 from ~/.scribus/doc/bookmarks.xml file.
 The reference to QListView *view is a reference to the list view with bookmarks

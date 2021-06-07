@@ -82,7 +82,7 @@ class previewImage
 		ImageInformation *imgInfo;
 		//current size of previewIcon
 		int currentSize;
-		//tells wether previewIcon is loading in thread
+		//tells whether previewIcon is loading in thread
 		bool previewImageLoading;
 		//tells if previewIcon was created previously or needs to be loaded
 		bool previewIconCreated;
@@ -109,17 +109,17 @@ class previewImages
 
 		//little helper function to reduce code
 		bool toRemove ( bool a, bool b );
-		//filters by filename, invert specifies wether to include or to remove file fileName
+		//filters by filename, invert specifies whether to include or to remove file fileName
 		void filterFileName ( const QString &fileName, bool invert );
-		//filters by filesize, smallerThan specifies wether to include or to remove files smaller than fileSize
+		//filters by filesize, smallerThan specifies whether to include or to remove files smaller than fileSize
 		void filterFileSize ( qint64 fileSize, bool smallerThan );
-		//filters by filetype, invert specifies wether to include or to remove files with fileExtension
+		//filters by filetype, invert specifies whether to include or to remove files with fileExtension
 		void filterFileType ( const QStringList &types, bool invert );
-		//filters by date last modified, smallerThan specifies wether to include or to remove files younger than modified
+		//filters by date last modified, smallerThan specifies whether to include or to remove files younger than modified
 		void filterFileModified ( const QDateTime &modified, bool smallerThan );
-		//filters by imageresolution, smallerThan specifies wether to include or to remove images with lower resolution
+		//filters by imageresolution, smallerThan specifies whether to include or to remove images with lower resolution
 		void filterResolution ( qint64 resolution, bool smallerThan );
-		//filters by tag, invert specifies wether to include or to remove item with tag
+		//filters by tag, invert specifies whether to include or to remove item with tag
 		void filterTag ( const QStringList &tags, bool invert );
 		//clears all previously applied filters
 		void clearFilters();
@@ -167,7 +167,7 @@ class PreviewImagesModel : public QAbstractListModel
 
 		//all our precious previewimages are indexed here
 		QList<previewImage *> modelItemsList;
-		//a unique id telling the thread wether to cancel current loading operations because files have changed
+		//a unique id telling the thread whether to cancel current loading operations because files have changed
 		int pId;
 
 	private slots:

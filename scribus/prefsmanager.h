@@ -105,7 +105,7 @@ public:
 
 	/*! \brief Save the preferences.
 	\param fname optional filename with preferences. If is not given,
-	the defualt is used. */
+	the default is used. */
 	void savePrefs();
 	void savePrefsXML();
 

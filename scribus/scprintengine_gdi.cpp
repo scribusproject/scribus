@@ -357,7 +357,7 @@ bool ScPrintEngine_GDI::printPage_GDI(ScPage* page, PrintOptions& options, HDC p
 			else
 				success = true;
 		}
-		// Return if color managament could not be setup
+		// Return if color management could not be setup
 		if (!success)
 		{
 			EndPage(printerDC);
@@ -719,7 +719,7 @@ bool ScPrintEngine_GDI::printerUseFilePort(QString& printerName)
 		PRINTER_INFO_2W* pInfos = (PRINTER_INFO_2W*) malloc(size);
 		if (pInfos)
 		{
-			// Get printer informations
+			// Get printer information
 			done = GetPrinterW(prnHandle, 2, (LPBYTE) pInfos, size, &size);
 			if (done)
 			{

@@ -1035,7 +1035,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 					}
 					//first pass draws all except notes frames
 					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
-					//seconf only for notes frames
+					//second only for notes frames
 					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 				}
 			}
@@ -1399,7 +1399,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 		}
 		// Save PageItem's OwnPage and set its value to page number
 		// so that page number placed in text frames can work, also modify
-		// OwnPage of items embeded inside groups for same reason
+		// OwnPage of items embedded inside groups for same reason
 		currItem->savedOwnPage = currItem->OwnPage;
 		currItem->OwnPage = page->pageNr();
 		if (currItem->isGroup())

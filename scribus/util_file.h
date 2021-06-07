@@ -47,14 +47,14 @@ bool SCRIBUS_API copyFileAtomic(const QString& source, const QString& target);
    *
    * @param  source the source file
    * @param  target the target filter
-   * @return true on success, false on failre.
+   * @return true on success, false on failure.
 **/
 bool SCRIBUS_API copyFileToFilter(const QString& source, ScStreamFilter& target);
 /**
 * @brief Copy a source file to a data stream
    * @param  source the source file
    * @param  target the target stream
-   * @return true on success, false on failre.
+   * @return true on success, false on failure.
 **/
 bool SCRIBUS_API copyFileToStream(const QString& source, QDataStream& target);
 /**
@@ -65,7 +65,7 @@ bool SCRIBUS_API copyFileToStream(const QString& source, QDataStream& target);
    *
    * @param  source the source file
    * @param  target the target file
-   * @return true on success, false on failre.
+   * @return true on success, false on failure.
 **/
 bool SCRIBUS_API moveFile(const QString& source, const QString& target);
 /**

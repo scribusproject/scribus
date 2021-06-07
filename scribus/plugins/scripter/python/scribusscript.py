@@ -1,6 +1,6 @@
 """
 Loader and handler for Scribus descriptor files/headers.
-They help to integrate scripts into Scribus by definining menu-entries, 
+They help to integrate scripts into Scribus by defining menu-entries, 
 shortcuts, etc. Some additional metadata gives useful information and help.
 
 See doc/TUTORIAL for a detailed explanation including examples.

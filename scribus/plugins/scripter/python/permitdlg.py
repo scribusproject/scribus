@@ -23,7 +23,7 @@ class PermitDialog(QDialog):
         QDialog.__init__(self)
         self.ui = Ui_PermitDialog()
         self.ui.setupUi(self)
-        # XXX: re-enable later, remember does currently not work currectly
+        # XXX: re-enable later, remember does currently not work correctly
         self.ui.rememberCheck.hide() 
         self.ui.filenameLabel.setText(filename)
         # XXX: only show specific reasons for found problems
@@ -34,7 +34,7 @@ class PermitDialog(QDialog):
         </ul>
         <p>To ensure safe execution importing external modules is not allowed by default 
         because external modules could access your system directly.
-        <br/>Additonally access to "private" attributes is not allowed because accessing 
+        <br/>Additionally access to "private" attributes is not allowed because accessing 
         them could trigger side-effects which may help to break out of the sandbox.<br/>
         Unfortunately exceptions are also a security problem because they can change 
         the control flow and you could access the stack frame.</p>
@@ -68,7 +68,7 @@ class PermitDialog(QDialog):
 
 def ask(filename, problems):
     """
-    Use this fuction
+    Use this function
     """
     return PermitDialog(filename, problems).exec_()
 

@@ -152,7 +152,7 @@ public:
 	 * Perform the actual inspection on one page of the PDF.
 	 *
 	 * \return A boolean is return indicating whether the process is successful.
-	 * \param pageNum Specifying the page's number (zero-based) in the PDF where the analyzing process is opearted on.
+	 * \param pageNum Specifying the page's number (zero-based) in the PDF where the analyzing process is operated on.
 	 * \param usedColorSpaces List of used color spaces in the page which will be filled while processing.
 	 * \param hasTransparency A boolean which will be set to true after analyzing if the page contains transparency.
 	 * \param usedFonts List of used fonts in the page which will be filled while processing.

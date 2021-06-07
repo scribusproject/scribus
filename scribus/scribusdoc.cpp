@@ -451,7 +451,7 @@ void ScribusDoc::init()
 	
 	Layers.addLayer( tr("Background") );
 	// FIXME: Check PDF version input
-	//TODO: Check if this is needed now we ue appPrefsData --> docPrefsData
+	//TODO: Check if this is needed now we use appPrefsData --> docPrefsData
 	docPatterns.clear();
 	docGradients.clear();
 
@@ -565,7 +565,7 @@ ScribusDoc::~ScribusDoc()
 			delete pa.items.takeFirst();
 		}
 	}
-	//deleting resources alocated for marks and notes
+	//deleting resources allocated for marks and notes
 	while (! m_docNotesList.isEmpty())
 		delete m_docNotesList.takeFirst();
 	while (!m_docMarksList.isEmpty())
@@ -5469,7 +5469,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setLineColor(m_docPrefsData.itemToolPrefs.textLineColor);
 			newItem->setLineShade(m_docPrefsData.itemToolPrefs.textLineColorShade);
 			// 13792 : Commented out because this trigger the first line of a text frame having
-			// default character style explictly assigned, which we don't want
+			// default character style explicitly assigned, which we don't want
 			/*defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 			defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
 			newItem->itemText.setDefaultStyle(defaultParagraphStyle);*/
@@ -6188,7 +6188,7 @@ void ScribusDoc::getBleeds(int pageNumber, MarginStruct &bleedData)
 	if (pageNumber >= 0 && pageNumber < Pages->size())
 		getBleeds(Pages->at(pageNumber), bleedData);
 	else
-		qCritical() << "Attempting to get bleeds for non-existant page";
+		qCritical() << "Attempting to get bleeds for non-existent page";
 }
 
 void ScribusDoc::getBleeds(const ScPage* page, MarginStruct& bleedData)
@@ -6856,7 +6856,7 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(uint pageIndex) const
 	int key=getSectionKeyForPageIndex(pageIndex);
 	if (key==-1)
 		return retVal;
-	//If a section is inactive, theres no page numbers printed
+	//If a section is inactive, there's no page numbers printed
 	if (!m_docPrefsData.docSectionMap[key].active)
 		return "";
 	uint sectionIndexOffset;
@@ -6875,7 +6875,7 @@ const QChar ScribusDoc::getSectionPageNumberFillCharForPageIndex(uint pageIndex)
 	if (key == -1)
 		return retVal;
 
-	//If a section is inactive, theres no page numbers printed
+	//If a section is inactive, there's no page numbers printed
 	if (!m_docPrefsData.docSectionMap[key].active)
 		return retVal;
 	retVal = m_docPrefsData.docSectionMap[key].pageNumberFillChar;
@@ -6891,7 +6891,7 @@ int ScribusDoc::getSectionPageNumberWidthForPageIndex(uint pageIndex) const
 	if (key == -1)
 		return retVal;
 
-	//If a section is inactive, theres no page numbers printed
+	//If a section is inactive, there's no page numbers printed
 	if (!m_docPrefsData.docSectionMap[key].active)
 		return retVal;
 	retVal = qMin(m_docPrefsData.docSectionMap[key].pageNumberWidth, 20);			// added the qmin as a sanity check -> fixes bug #9721
@@ -8720,7 +8720,7 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedRows().isEmpty())
 	{
-		// Distribute each contigous range of selected rows.
+		// Distribute each contiguous range of selected rows.
 		QList<int> selectedRows = table->selectedRows().values();
 		std::sort(selectedRows.begin(), selectedRows.end());
 		int startRow = selectedRows.first();
@@ -8763,7 +8763,7 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedColumns().isEmpty())
 	{
-		// Distribute each contigous range of selected columns.
+		// Distribute each contiguous range of selected columns.
 		QList<int> selectedColumns = table->selectedColumns().values();
 		std::sort(selectedColumns.begin(), selectedColumns.end());
 		int startColumn = selectedColumns.first();
@@ -10986,7 +10986,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 		is->set("CHANGE_SHAPE_TYPE");
 		is->set("OLD_FRAME_TYPE", item->FrameType);
 		is->set("NEW_FRAME_TYPE", frameType);
-		// HACK: this is propably Evil Code (TM). I have to find better way...
+		// HACK: this is probably Evil Code (TM). I have to find better way...
 		FPointArray newShape;
 		int ix = 0;
 		for (int i = 0; i < count/2; ++i)
@@ -14404,7 +14404,7 @@ void ScribusDoc::adjustItemSize(PageItem *currItem, bool includeGroup)
 				if (embedded->isGroup())
 					embedded->asGroupFrame()->adjustXYPosition();
 			}
-			// JG : Break flipped group positionning when resizing on canvas
+			// JG : Break flipped group positioning when resizing on canvas
 			/*if (currItem->imageFlippedH())
 			{
 				if (oldX - currItem->xPos() == 0)

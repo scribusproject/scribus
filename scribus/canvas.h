@@ -193,7 +193,7 @@ public:
 	void setPreviewVisual(int mode);
 	
 	void DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, QRect clip);
-	//notesFramesPass determine if notes frames are drawed or not
+	//notesFramesPass determine if notes frames are drawn or not
 	void DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass);
 	void paintEvent ( QPaintEvent * p ) override;
 	void displayXYHUD(QPoint m);

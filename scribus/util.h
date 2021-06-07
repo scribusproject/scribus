@@ -199,7 +199,7 @@ QString getUniqueName(const QString& name, const STRINGLIST& list)
 /*!
  *\brief
  * check if name exists in list
- * if exist then seprator and numbers are pre/append to name while it will be unique
+ * if exist then separator and numbers are pre/append to name while it will be unique
 */
 void SCRIBUS_API getUniqueName(QString &name, const QStringList& list, const QString& separator = QString(), bool prepend = false);
 

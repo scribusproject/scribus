@@ -28,12 +28,12 @@ public:
 	static void destroy();
 
 	/**
-	* @brief Retrive specific CIE illuminant
+	* @brief Retrieve specific CIE illuminant
 	*/
 	const ScCIEIlluminant& cieIlluminant(eIlluminant illuminant) const;
 
 	/**
-	* @brief Retrive specific CIE illuminant
+	* @brief Retrieve specific CIE illuminant
 	*/
 	const ScCIEObserver& cieObserver(eObserver observer) const;
 	

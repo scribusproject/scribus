@@ -3,7 +3,7 @@
 
 /**
  * \brief The IDs for the load/save format plugins. They must be a macro not a static const member
- * because they must be available even when the specifid plugin is not linked in
+ * because they must be available even when the specified plugin is not linked in
  * or even compiled.
  */
 

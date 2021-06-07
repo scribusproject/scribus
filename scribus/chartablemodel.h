@@ -64,7 +64,7 @@ public:
 public slots:
 	/*! \brief appends an unicode char into m_characters list.
 	\param s a QString with numerical representation of the character.
-	\param base an optional parameter containing base of the numerical converion. See QString::toInt() documentation.
+	\param base an optional parameter containing base of the numerical conversion. See QString::toInt() documentation.
 	The base parameter is used mainly in normal code - not in slot calls.
 	If user adds an already existing glyph it's rejected and the original
 	one is selected (see selectionChanged()).

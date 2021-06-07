@@ -34,7 +34,7 @@ class findImagesThread : public QThread
 		//const QString& path2: path to be searched
 		//const QStringList& nameFilters2: namefilters for the images
 		//QDir::SortFlags sort2: sortflags
-		//bool searchSubfolders2: tells wether to search subfolders
+		//bool searchSubfolders2: tells whether to search subfolders
 		findImagesThread ( const QString& path2, const QStringList& nameFilters2, QDir::SortFlags sort2, bool searchSubfolders2 );
 		//called after thread has been started
 		void run();
@@ -46,7 +46,7 @@ class findImagesThread : public QThread
 
 		//contains the images which have been found
 		QStringList imageFiles;
-		//tells wether the thread should restart
+		//tells whether the thread should restart
 		volatile bool restartThread;
 
 	private:
@@ -56,7 +56,7 @@ class findImagesThread : public QThread
 		QStringList nameFilters;
 		//sortflags for search
 		QDir::SortFlags sort;
-		//tells wether to search subfolders
+		//tells whether to search subfolders
 		bool searchSubfolders;
 };
 

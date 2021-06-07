@@ -89,7 +89,7 @@ void PageSize::init(const QString& sizeName)
 
 	if (!valuesSet)
 	{
-		//qDebug("Non-existant page size selected");
+		//qDebug("Non-existent page size selected");
 		m_width=m_height=0.0;
 		m_pageUnitIndex=-1;
 		m_pageSizeName=CommonStrings::customPageSize;

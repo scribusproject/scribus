@@ -14,7 +14,7 @@ The comment block has to start with two stars.
 There is an empty line between the call-declaration and the description. 
 If an entry is a property, the second line should be "Property".
 You should mention in the line below which type the property is.
-Append (read-only) to this line, if you cannot change the propery.
+Append (read-only) to this line, if you cannot change the property.
 """
 
 import os

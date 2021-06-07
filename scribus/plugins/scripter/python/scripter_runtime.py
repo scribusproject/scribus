@@ -269,5 +269,5 @@ def run_filename(filename, subroutine=None, extension=False, background=False):
     else:
         run_func(run_python, filename, subroutine, extension)
     if not background and not extension:
-        # XXX: make sure this is called if an exception occures...
+        # XXX: make sure this is called if an exception occurs...
         cleanup()

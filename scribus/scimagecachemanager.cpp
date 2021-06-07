@@ -132,7 +132,7 @@ access.
 
 \section ic_dirstructure Directory Structure
 
-Each cache file is uniquely indentified by a hexadecimal MD5 hash. The first
+Each cache file is uniquely identified by a hexadecimal MD5 hash. The first
 two hex digits represent two levels of subdirectories and the remainder forms
 the start of the file's basename, for example:
 

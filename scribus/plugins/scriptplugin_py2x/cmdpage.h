@@ -150,7 +150,7 @@ Returns a tuple with document page dimensions measured in the document's current
 See UNIT_<type> constants and getPageMargins()\n\
 "));
 /**
-returns a tuple with page domensions in used system
+returns a tuple with page dimensions in used system
 e.g. when is the doc in picas returns picas ;)
 (Petr Vanek 02/17/04)
 */

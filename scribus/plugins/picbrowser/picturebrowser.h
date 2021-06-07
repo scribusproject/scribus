@@ -121,7 +121,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//previewImage* imageToLoad: pointer to identify the previewimage
 		//QString path: path to the image
 		//int size: size of the icon, the returned QImage will be resized according to this
-		//int pId: a unique id to check wether the pointer is valid or a different set of images has been chosen while thread was executed
+		//int pId: a unique id to check whether the pointer is valid or a different set of images has been chosen while thread was executed
 		void loadImageJob ( int, QString, int, int );
 		//signals for selecting a page in the current document
 		void selectPage ( int );

@@ -76,7 +76,7 @@ public:
 	using PageItem::invalidateLayout;
 	void layout() override;
 
-	//return true if all previouse frames from chain are valid (including that one)
+	//return true if all previous frames from chain are valid (including that one)
 	bool isValidChainFromBegin();
 	void setTextAnnotationOpen(bool open);
 

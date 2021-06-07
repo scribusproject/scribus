@@ -693,7 +693,7 @@ PluginManager & PluginManager::instance()
 QString PluginManager::getPluginPath(const QString & pluginName) const
 {
 	// It is not legal to call this function without a valid
-	// plug in name.
+	// plugin name.
 	Q_ASSERT(pluginMap.contains(pluginName));
 	return pluginMap[pluginName].pluginFile;
 }
@@ -701,7 +701,7 @@ QString PluginManager::getPluginPath(const QString & pluginName) const
 bool & PluginManager::enableOnStartup(const QString & pluginName)
 {
 	// It is not legal to call this function without a valid
-	// plug in name.
+	// plugin name.
 	Q_ASSERT(pluginMap.contains(pluginName));
 	return pluginMap[pluginName].enableOnStartup;
 }
@@ -709,7 +709,7 @@ bool & PluginManager::enableOnStartup(const QString & pluginName)
 bool PluginManager::enabled(const QString & pluginName)
 {
 	// It is not legal to call this function without a valid
-	// plug in name.
+	// plugin name.
 	Q_ASSERT(pluginMap.contains(pluginName));
 	return pluginMap[pluginName].enabled;
 }

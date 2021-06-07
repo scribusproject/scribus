@@ -306,7 +306,7 @@ Deprecated. Use setParagraphStyle() instead.\n\
 /**
  Craig Ringer, 2004-09-09
  Apply the named style to the currently selected object.
- pv, 2004-09-13, optionaly param objectName + "check the page" stuff
+ pv, 2004-09-13, optionally param objectName + "check the page" stuff
  */
 PyObject *scribus_setparagraphstyle(PyObject * /*self*/, PyObject* args);
 

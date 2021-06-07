@@ -142,7 +142,7 @@ class FatalError
 extern TagTable ProcessTable[];
 
 //--------------------------------------------------------------------------
-// Define comment writing code, impelemented in setcomment.c
+// Define comment writing code, implemented in setcomment.c
 extern int safe_copy_and_modify ( const char * original_filename, const char * comment );
 
 #endif

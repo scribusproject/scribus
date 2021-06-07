@@ -12,7 +12,7 @@ Mark2Item::Mark2Item(QWidget *parent) : MarkInsert(parent)
 	{
 		PageItem* item = scmw->doc->Items->at(i);
 		if (item->isAutoNoteFrame())
-			continue; //omit notes frames automaticaly created and removed
+			continue; //omit notes frames automatically created and removed
 		itemsList.append(item->itemName());
 	}
 	ItemList->addItems(itemsList);

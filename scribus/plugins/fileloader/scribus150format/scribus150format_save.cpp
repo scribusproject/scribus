@@ -1449,7 +1449,7 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 
 void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 {
-	//write list of definied marks to SLA
+	//write list of defined marks to SLA
 	if (m_Doc->marksList().isEmpty())
 		return;
 

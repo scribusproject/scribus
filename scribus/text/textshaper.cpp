@@ -294,7 +294,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 	QVector<int32_t> justificationTracking;
 
 	// Insert implicit spaces in justification between characters
-	// in scripts that do not use spaces to seperate words
+	// in scripts that do not use spaces to separate words
 	for (const TextRun& run : qAsConst(scriptRuns))
 	{
 		switch (run.script) {

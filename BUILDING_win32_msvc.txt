@@ -102,7 +102,7 @@ After having compiled all dependencies, open the Scribus-build-props.props file 
 Scribus\win32\msvc2017 or Scribus\win32\msvc2019 depending on the Visual Studio version you are using in a text editor.
 Update the dependency paths to match your system.
 
-Open the Visual Studio solution located in same directoy and start building. Note: if you built dependencies with a different 
+Open the Visual Studio solution located in same directory and start building. Note: if you built dependencies with a different 
 toolset than the default one, you should either modify toolset directly in all projects or build the solution through command 
 line using msbuild.
 

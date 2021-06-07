@@ -179,7 +179,7 @@ def is_scripter_child(qobj):
 
 class Error(Exception):
     """ 
-    Base error classed. Catch this to handle exceptions comming from C++
+    Base error classed. Catch this to handle exceptions coming from c++
     """
 
 
@@ -435,7 +435,7 @@ def create_pyqt_object(obj):
      @type obj:  QObject
      @param obj: an unwrapped QObject
      @rtype:     PyQtClass object
-     @return:    dynamicaly created object with all available properties and slots
+     @return:    dynamically created object with all available properties and slots
      
      This is probably the only function you need from this module. 
      Everything else are helper functions and classes. 

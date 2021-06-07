@@ -63,7 +63,7 @@
 
 #include <QCoreApplication>
 #include <QList>
-#include <QVariant>  // All moc genereated code has this include
+#include <QVariant>  // All moc generated code has this include
 #include <QObject>
 #include <QString>
 #include <QStringList>

@@ -1416,7 +1416,7 @@ void PageItem_Table::activateCell(const TableCell& cell)
 	textFrame->itemText.deselectAll();
 	textFrame->HasSel = false;
 
-	// Set current style context befor assigning new active cell:
+	// Set current style context before assigning new active cell:
 	// if old active cell ref count is 1, the old context might be deleted
 	const ParagraphStyle& curStyle = newActiveCell.textFrame()->currentStyle();
 	m_Doc->currentStyle.setContext(curStyle.context());

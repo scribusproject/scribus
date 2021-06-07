@@ -1,6 +1,6 @@
 <!-- DTD for Scribus 1.3cvs PDF options -->
 <!-- Craig Ringer - ringerc@scribus.info -->
-<!-- Any modifcations of this file may require changes in
+<!-- Any modifications of this file may require changes in
      scribus/pdfoptions.h and scribus/pdfoptionsio.{cpp,h} -->
 <!ELEMENT ScribusPDFOptions (thumbnails, articles, useLayers, compress, compressMethod, quality, recalcPic, bookmarks, picRes, pdfVersion, resolution, binding, embedFonts, subsetFonts, mirrorH, mirrorV, rotateDegrees, presentMode, presentationSettings, filename, isGrayscale, useRGB, useProfiles, useProfiles2, useLPI, lpiSettings, solidProf, sComp, imageProf, embeddedI, intent2, printProf, info, intent, bleedTop, bleedLeft, bleedRight, bleedBottom, encrypt, passOwner, passUser, permissions)>
 <!ATTLIST ScribusPDFOptions version CDATA #REQUIRED>

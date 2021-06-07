@@ -324,7 +324,7 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	/*bool oldResult = QRegion(rect).subtracted(shape).isEmpty();*/
 
 	// Code adapted from Qt RectInRegion (cf. qregion.cpp) to detect
-	// if a specific rect is stricly contained in a specific region
+	// if a specific rect is strictly contained in a specific region
 	const QRect *pbox, *pboxEnd;
 	bool partIn(false), partOut(false);
 

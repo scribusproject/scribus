@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 
 /*! \brief It create a error/warning list for CheckDocument GUI class.
-All errors and/or warnings are stored in errorCodes (inheritted QMap
+All errors and/or warnings are stored in errorCodes (inherited QMap
 see scribusstructs.h) and parsed into tree view in CheckDocument widgets.
 */
 class SCRIBUS_API DocumentChecker

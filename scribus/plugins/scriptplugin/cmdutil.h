@@ -13,15 +13,15 @@ for which a new license (GPL+exception) is in place.
 double PointToValue(double Val);
 double ValueToPoint(double Val);
 
-/*! \brief Convert an X co-ordinate part in page units to a document co-ordinate in system units.
+/*! \brief Convert an X coordinate part in page units to a document coordinate in system units.
 */
 double pageUnitXToDocX(double pageUnitX);
 /// \brief Doc units -> page-relative units
 double docUnitXToPageX(double pageUnitX);
 
-/*! \brief Convert a Y co-ordinate part in page units to a document co-ordinate
-in system units. The document co-ordinates have their origin somewere
-up and left of the first page, where page co-ordinates have their
+/*! \brief Convert a Y coordinate part in page units to a document coordinate
+in system units. The document coordinates have their origin somewhere
+up and left of the first page, where page coordinates have their
 origin on the top left of the current page. */
 double pageUnitYToDocY(double pageUnitY);
 /// \brief Doc units -> page-relative units

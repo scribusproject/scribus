@@ -77,7 +77,7 @@ public:
 	double minValue();
 	/*!
 	\author Franz Schmid
-	\brief Gets the Maximim Value of the Spinbox
+	\brief Gets the Maximum Value of the Spinbox
 	\retval The Value
 	*/
 	double maxValue();

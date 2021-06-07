@@ -13,11 +13,11 @@ class QString;
 class QStringList;
 class PrefsContext;
 
-/*! \brief This is the Scribus Short Words configuratin specification.
-Methods of this class read config files and PrefsManager context informations.
+/*! \brief This is the Scribus Short Words configuration specification.
+Methods of this class read config files and PrefsManager context information.
 Preferences GUI is in SWPrefsGui.
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 \author Petr Vanek <petr@yarpen.cz> with contributors.

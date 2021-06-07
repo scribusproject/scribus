@@ -4,11 +4,11 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* This is the Scribus Short Words configuratin implementation.
+/* This is the Scribus Short Words configuration implementation.
 There will be interface for the future Scribus central plugin
 config center. maybe :)
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>

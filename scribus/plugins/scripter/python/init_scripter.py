@@ -21,7 +21,7 @@ except ImportError, e:
     print >> sys.stderr, "Please make sure you have also libqt4-script installed."
     raise
 
-# Shows nice looking error dialog if an unhandled exception occures.
+# Shows nice looking error dialog if an unhandled exception occurs.
 import excepthook
 excepthook.install()
 

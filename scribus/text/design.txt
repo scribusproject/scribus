@@ -2,7 +2,7 @@ Rendering complex text can be subdivided in several phases:
 
 0) Storage. Scribus uses Unicode and defines it's own style classes.
 
-1) Itemizing. This involves breaking the text into charater runs which have single language/script, the same font and style. 
+1) Itemizing. This involves breaking the text into character runs which have single language/script, the same font and style. 
 
 2) Shaping. This phase uses font information to associate glyphs to characters. 
 The relationship between characters and glyphs is 1:1 only in the simplest cases. The result is a list of grapheme clusters, where each cluster consists of one and more glyphs which represent one or more characters. 

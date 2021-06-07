@@ -1221,7 +1221,7 @@ void StoryText::replaceMark(int pos, Mark* mrk)
 	if (textItem->mark)
 		this->d->marksCount++;
 
-	// Set marksCountChanged unconditionnaly to force text relayout
+	// Set marksCountChanged unconditionally to force text relayout
 	d->marksCountChanged = true;
 }
 

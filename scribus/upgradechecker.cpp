@@ -158,7 +158,7 @@ bool UpgradeChecker::process()
 			uint verMinor = verAStripped.section('.', 1, 1).toInt();
 			uint verRevsion1 = verAStripped.section('.', 2, 2).toInt();
 			uint verRevsion2 = verAStripped.section('.', 3, 3).toInt();
-			//If we found a release whe a user is running an old CVS version
+			//If we found a release when a user is running an old CVS version
 			if (verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix && m_isSVN && !verIsCVS && !m_updates.contains(verA))
 				newVersion = true;
 			else if (!(verMajor == major && verMinor == minor && verRevsion1 == m_patchLevel && verRevsion2 == m_versionSuffix))

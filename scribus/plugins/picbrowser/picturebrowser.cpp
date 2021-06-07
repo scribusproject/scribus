@@ -171,7 +171,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	collectionsWidget->setHeaderLabels(QStringList("Name"));
 
 	cdbFile = ScPaths::instance().pluginDataDir(true) + QString("collectionsdb.xml");
-//emtpy initialization, maybe accessed before collection is actually loaded
+//empty initialization, maybe accessed before collection is actually loaded
 	currCollection = new imageCollection;
 	currCollection->name = "empty";
 	currCollection->file = "empty";
@@ -310,7 +310,7 @@ void PictureBrowser::callLoadImageThread(int row, int pId)
 
 void PictureBrowser::navigate(int index)
 {
-	//this check shouldnt be necessary but you never know...
+	//this check shouldn't be necessary but you never know...
 	if ((index >= 0) && (index < 3))
 	{
 		if (index == 2)
@@ -357,7 +357,7 @@ void PictureBrowser::previewIconDoubleClicked(const QModelIndex &index)
 
 void PictureBrowser::sortChanged(int index)
 {
-	//this check shouldnt be necessary but you never know...
+	//this check shouldn't be necessary but you never know...
 	if ((index >= 0) && (index < 4))
 	{
 		pbSettings.sortSetting = index;
@@ -1024,7 +1024,7 @@ void PictureBrowser::insertSizeComboboxChanged(int index)
 
 void PictureBrowser::filterCriteriaComboboxChanged(int index)
 {
-	//this check shouldnt be necessary but you never know...
+	//this check shouldn't be necessary but you never know...
 	if ((index >= 0) && (index < 5))
 	{
 		filterStackedwidget->setCurrentIndex(index);

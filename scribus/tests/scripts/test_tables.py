@@ -11,10 +11,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 
 To add a new test, simply add a new test method named 'test_mytest' to the
-TableTests class, and the test will be runned automatically.
+TableTests class, and the test will be run automatically.
 
 Use check() to check a condition and fail(msg) to manually fail a test. The
-tests are runned in a "fail fast" fashion; on failure, the test method will
+tests are run in a "fail fast" fashion; on failure, the test method will
 stop executing and testing move on to the next test method.
 """
 

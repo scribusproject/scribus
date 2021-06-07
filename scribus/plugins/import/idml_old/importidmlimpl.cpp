@@ -775,7 +775,7 @@ PathPoint ImportIdmlImpl::readPathPoint(QDomElement e)
 	return p;
 }
 /**
-\brief A Funtion to find width 
+\brief A Function to find width 
 \return width as double if successful, else return -1
 */
 

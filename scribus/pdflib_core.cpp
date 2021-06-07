@@ -5759,7 +5759,7 @@ QByteArray PDFLibCore::putColor(const QString & colorName, int shade, bool fill)
 	// Cache of last foreground and background colours We cache fg and bg
 	// separately because they're alternated so much.  The primary purpose of
 	// this cache is to avoid re-caculating the fg and bg colors on each char
-	// of text when the color doens't change.
+	// of text when the color doesn't change.
 	static QString lastFGColorName, lastFGOutput, lastBGColorName, lastBGOutput;
 	static int lastFGShade = -1, lastBGShade = -1;
 	if (fill && colorName == lastBGColorName && shade == lastBGShade)

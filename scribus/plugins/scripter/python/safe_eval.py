@@ -25,7 +25,7 @@ Based on the public domain code of Babar K. Zafar
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496746
 (version 0.1 or 1.2 May 27 2006)
 
-The idea is to examine the compiled ast tree and chack for invalid
+The idea is to examine the compiled ast tree and check for invalid
 entries
 
 I have removed the timeout checking as this probably isn't a serious
@@ -58,7 +58,7 @@ all_builtins = [name for (name, obj) in inspect.getmembers(__builtin__)
                 (inspect.isclass(obj) and not issubclass(obj, Exception))]
 
 #----------------------------------------------------------------------
-# Utilties.
+# Utilities.
 #----------------------------------------------------------------------
 
 def classname(obj):
@@ -174,8 +174,8 @@ class SafeEvalError(object):
     Base class for all which occur while walking the AST.
 
     Attributes:
-      errmsg = short decription about the nature of the error
-      lineno = line offset to where error occured in source code
+      errmsg = short description about the nature of the error
+      lineno = line offset to where error occurred in source code
     """
     def __init__(self, errmsg, lineno):
         self.errmsg, self.lineno = errmsg, lineno
@@ -339,7 +339,7 @@ class SafeEvalException(Exception):
 
 class SafeEvalCodeException(SafeEvalException):
     """
-    Exception class for reporting all errors which occured while
+    Exception class for reporting all errors which occurred while
     validating AST for source code in safe_eval().
 
     Attributes:
@@ -354,7 +354,7 @@ class SafeEvalCodeException(SafeEvalException):
 class SafeEvalContextException(SafeEvalException):
     """
     Exception class for reporting unallowed objects found in the dict
-    intended to be used as the local enviroment in safe_eval().
+    intended to be used as the local environment in safe_eval().
 
     Attributes:
       keys   = list of keys of the unallowed objects
@@ -368,7 +368,7 @@ class SafeEvalContextException(SafeEvalException):
         
 class SafeEvalTimeoutException(SafeEvalException):
     """
-    Exception class for reporting that code evaluation execeeded
+    Exception class for reporting that code evaluation exceeded
     the given timelimit.
 
     Attributes:
@@ -377,11 +377,11 @@ class SafeEvalTimeoutException(SafeEvalException):
     def __init__(self, timeout):
         self.timeout = timeout
     def __str__(self):
-        return "Timeout limit execeeded (%s secs) during exec" % self.timeout
+        return "Timeout limit exceeded (%s secs) during exec" % self.timeout
 
 def exec_timed(code, context, timeout_secs):
     """
-    Dynamically execute 'code' using 'context' as the global enviroment.
+    Dynamically execute 'code' using 'context' as the global environment.
     SafeEvalTimeoutException is raised if execution does not finish within
     the given timelimit.
     """
@@ -415,7 +415,7 @@ def timed_safe_eval(code, context = {}, timeout_secs = 5):
     'exec' using 'context' as the global environment. More details on
     how code is executed can be found in the Python Reference Manual
     section 6.14 (ignore the remark on '__builtins__'). The 'context'
-    enviroment is also validated and is not allowed to contain modules
+    environment is also validated and is not allowed to contain modules
     or builtins. The following exception will be raised on errors:
 
       if 'context' contains unallowed objects = 
@@ -460,12 +460,12 @@ class TestSafeEval(unittest.TestCase):
             timed_safe_eval, "open('test.txt', 'w')")
 
     def test_getattr(self):
-        # attempt to get arround direct attr access
+        # attempt to get around direct attr access
         self.assertRaises(SafeEvalException, \
             timed_safe_eval, "getattr(int, '__abs__')")
 
     def test_func_globals(self):
-        # attempt to access global enviroment where fun was defined
+        # attempt to access global environment where fun was defined
         self.assertRaises(SafeEvalException, \
             timed_safe_eval, "def x(): pass; print x.func_globals")
 
@@ -486,7 +486,7 @@ class TestSafeEval(unittest.TestCase):
             timed_safe_eval, "while 1: pass")
 
     def test_invalid_context(self):
-        # can't pass an enviroment with modules or builtins
+        # can't pass an environment with modules or builtins
         env = {'f' : __builtins__.open, 'g' : time}
         self.assertRaises(SafeEvalException, \
             timed_safe_eval, "print 1", env)

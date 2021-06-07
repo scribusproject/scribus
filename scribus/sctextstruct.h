@@ -24,7 +24,7 @@ class PageItem;
 class Mark;
 class ScribusDoc;
 
-/* Strucure for Pageitem Text */
+/* Structure for Pageitem Text */
 
 
 /*
@@ -63,7 +63,7 @@ enum LayoutFlags {
 
 /**
  * simple class to abstract from inline pageitems. You will need a ITextContext
- * to get meaningfull data about the InlineFrame, for other purposes it is opaque
+ * to get meaningful data about the InlineFrame, for other purposes it is opaque
  */
 class SCRIBUS_API InlineFrame
 {
@@ -160,7 +160,7 @@ private:
 
 
 /** @brief First Line Offset Policy
- * Set wether the first line offset is based on max glyph height
+ * Set whether the first line offset is based on max glyph height
  * or some of predefined height.
  * I put a prefix because it could easily conflict 
  */

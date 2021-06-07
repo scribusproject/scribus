@@ -68,7 +68,7 @@ bool HunspellPluginImpl::initHunspell()
 	bool dictPathFound = LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
-		qDebug()<<"No preinstalled dictonary paths found";
+		qDebug()<<"No preinstalled dictionary paths found";
 		return false;
 	}
 	dictionaryMap.clear();

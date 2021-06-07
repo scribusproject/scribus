@@ -9,7 +9,7 @@ cat /proc/1/cgroup # Check if we run in Docker; https://github.com/AppImage/AppI
 SCRIBUS_VERSION=nightly
 
 ########################################################################
-# Build Plaform Theme for Gtk+
+# Build Platform Theme for Gtk+
 # https://askubuntu.com/a/910143
 # https://askubuntu.com/a/748186
 # Deploy with linuxdeployqt using

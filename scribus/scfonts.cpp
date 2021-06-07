@@ -1208,7 +1208,7 @@ void SCFonts::addType1RegistryFonts()
 /* Add an extra path to our font search path,
  * allowing a user to have extra fonts installed
  * only for this user. Can also be used also as an emergency
- * fallback if no suitable fonts are found elsewere */
+ * fallback if no suitable fonts are found elsewhere */
 void SCFonts::addUserPath(const QString& pf)
 {
 	PrefsContext *pc = PrefsManager::instance().prefsFile->getContext("Fonts");

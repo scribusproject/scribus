@@ -140,7 +140,7 @@ public slots:
 
 protected:
 	/**
-	 * \brief PluginData is structure for plugin related informations.
+	 * \brief PluginData is structure for plugin related information.
 	 * \param pluginFile path to the share library (with name).
 	 * \param pluginName internal name of plug-in, used for prefix to dlsym() names
 	 * \param pluginDLL reference to plug-in data for dynamic loading

@@ -194,7 +194,7 @@ void MarksManager::on_UpdateButton_clicked()
 		updateListView();
 	}
 
-	//update lables for "lost" marks (marks not in any text)
+	//update labels for "lost" marks (marks not in any text)
 	QList<Mark*> notUsed;
 	for (int a=0; a < m_Doc->marksList().count(); ++a)
 	{

@@ -77,7 +77,7 @@ cur = conn.cursor()
 # get the list of the databases
 # it's like 'select * from dba_tables' in Oracle
 count = cur.execute('show tables')
-# formating the output
+# formatting the output
 result = str(count) + ' table(s) in the ' + dbname + ' database.\n\n'
 for i in cur.fetchall():
     result = result + i[0] + '\n'

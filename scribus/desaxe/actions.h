@@ -52,7 +52,7 @@ private:
  *   XML attributes or XML text to store this data in other objects. This is usually
  *   done in the end() method.
  *   Warning: end() methods are called in reverse order. This is to ensure that they
- *   see exactly the same stack content as their corresponging begin() method.
+ *   see exactly the same stack content as their corresponding begin() method.
  *   This is the handle class which delegates to the body
  */
 class Action

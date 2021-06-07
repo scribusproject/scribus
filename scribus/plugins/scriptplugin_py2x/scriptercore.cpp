@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
-#include "scribusapp.h" // need it to acces ScQApp->pythonScript & ScQApp->pythonScriptArgs
+#include "scribusapp.h" // need it to access ScQApp->pythonScript & ScQApp->pythonScriptArgs
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
@@ -322,7 +322,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		if (!ScCore->usingGUI())
 			cm += QString("    traceback.print_exc()\n");
 		// We re-raise the exception so the return value of PyRun_StringFlags reflects
-		// the fact that an exception has ocurred.
+		// the fact that an exception has occurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QByteArray cmd = cm.toUtf8();
@@ -338,7 +338,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 			if (errorMsgPyStr == nullptr)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
-				// we'd have to fail to retrive the string we just created.
+				// we'd have to fail to retrieve the string we just created.
 				qDebug("Error retrieving error message content after script exception!");
 				qDebug("Exception was:");
 				PyErr_Print();

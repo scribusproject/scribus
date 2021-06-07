@@ -109,13 +109,13 @@ A considerable amount of work has been spent on new import filters, as well as i
 - Macromedia FreeHand (FH*): An experimental import filter using libfreehand has been added.
 - A filter for text files using Markdown as a formatting language has been added.
 - Micrografx Draw (DRW): This a file format of the once popular Micrografx Draw graphics software for Windows 3 and 95. Since many vector collections using this format are still around, an import filter has been written.
-- Microsoft Publisher (PUB): An importer for PUB files has been made possible by the creation of libmspub, wich is also used for Publisher import into LibreOffice. It is supposed to import all Publisher versions.
+- Microsoft Publisher (PUB): An importer for PUB files has been made possible by the creation of libmspub, which is also used for Publisher import into LibreOffice. It is supposed to import all Publisher versions.
 - Microsoft Visio (VSD, VXD): An importer for Visio files has been made possible by the creation of libvisio, which is also used for Visio import into LibreOffice. It is supposed to import at least Visio versions from 2000–2013.
 - Microsoft Word XML (DOCX): MS Word's XML-based file format has become a new de-facto standard for word processing files. The new import filter supports at least DOCX files created with Word 2010 and later.
 - Open Raster File (ORA): Open Raster is an open standard for complex bitmap files. It’s supported by all major Free image editors, including GIMP and Krita.
 - Photoshop Custom Shapes (CSH): CSH is a vector format used for simple vector graphics collections in Adobe Photoshop. They can be imported via the new "Custom Shapes" manager. 
 - Progressive Graphics File (PGF): This is a fairly new image format, designed to replace JPEG, just like JPEG 2000 does, but emphasizing speed and quality over compression ratio.
-- QuarkXPress (QXD): An importer for QuarkXPress files has been made possible by the creation of libqxp, wich is also used for QuarkXPress import into LibreOffice. It is supposed to import at least QuarkXPress versions 3.1–4.1.
+- QuarkXPress (QXD): An importer for QuarkXPress files has been made possible by the creation of libqxp, which is also used for QuarkXPress import into LibreOffice. It is supposed to import at least QuarkXPress versions 3.1–4.1.
 - Rich Text Format (RTF): One of the most widely used exchange formats for formatted text, RTF is also very common in DTP workflows and can be exported by almost every word processor since the 90s.
 - StarView Metafile (SVM): This is an old Metafile format (similar to WMF) that was used by OpenOffice’s / LibreOffice’s predecessor StarOffice. Since both successors still use SVM in - OpenDocument Graphics, the SVM import filter was a by-product of the new ODG filter. 
 - UniConvertor Plug-in: As with the GraphicsMagick plug-in, Scribus won’t list any of the file types supported by UniConvertor to save space in file selectors. It will also ignore UniConvertor for importing file formats for which Scribus provides generic importers.
@@ -124,7 +124,7 @@ A considerable amount of work has been spent on new import filters, as well as i
 - Xara Designer (XAR): Xara Designer (formerly known as Xara Xtreme) is known as one of the most powerful vector drawing programs. Its file format (XAR) is well-documented, and thanks to many contributions from professional Xara users, the Scribus Team has been able to create an excellent XAR filter, whose implementation resulted in the addition of many new features in Scribus.
 - XML Paper Specification (XPS, OXPS): XPS is an alternative to PDF originally developed by Microsoft and now maintained and updated by ECMA International. Scribus 1.5 can import both the original Microsoft version (XPS) and the modified versions as standardized by ECMA (OXPS).
 - XPress Tags (XTG): XTG is a format created by Quark to exchange text layouts between documents. Scribus 1.5 provides an import filter for XTG files created by Quark XPress, which works almost flawlessly. Note that XPress Tags is not identical to Xtags, which is an enhanced version of XPress Tags provided by a third party via an XPress plug-in. 
-- Zoner Draw/Callisto (ZMF): An importer for Zoner Draw files has been made possible by the creation of libzmf, wich is also used for Zoner Draw import into LibreOffice. It is supposed to import at least Zoner Draw versions 4–5.
+- Zoner Draw/Callisto (ZMF): An importer for Zoner Draw files has been made possible by the creation of libzmf, which is also used for Zoner Draw import into LibreOffice. It is supposed to import at least Zoner Draw versions 4–5.
 
 ==PDF Features==
 
@@ -142,7 +142,7 @@ XPS: A basic XPS exporter has been added.
 
 - New icon set: As of version 1.5.1 Scribus uses a new and modern icon set. It's mostly in black and uses color only where necessary.
 - Docked palettes: All palettes can now be docked to the right or left side of the screen space.
-- Context-sensitive Palette: The Properties Palette has become a bit hard to use, due its many added functions. As as of version 1.5.6 all item-type-specific options have been removed from the PP. They are now available in a separate palette that will change its apperance depending on the kind of object you have selected.
+- Context-sensitive Palette: The Properties Palette has become a bit hard to use, due its many added functions. As as of version 1.5.6 all item-type-specific options have been removed from the PP. They are now available in a separate palette that will change its appearance depending on the kind of object you have selected.
 - Menu bar: The menu bar has been restructured and now takes less screen estate, as well as being much more clearly arranged.
 - Context menu: The context menu has been redesigned and is now much smaller.
 - Visual feedback for rejected fonts: As of version 1.5.6, you don't need to start Scribus from the command line to see which fonts where rejected by Scribus. In the font manager you'll find a new tab called "Rejected Fonts", which list all of them (if any).

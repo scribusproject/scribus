@@ -872,7 +872,7 @@ public:
 	/**
 	 * @brief Rebuild item lists taking into account layer order.
 	 * Utility function used in various places, basically handles keeping items numbered in the way
-	 * they are layered. When layer is a property and not a fuction of storage, this should be removed.
+	 * they are layered. When layer is a property and not a function of storage, this should be removed.
 	 * @sa updateFrameItems();
 	 */
 	void rebuildItemLists();
@@ -1264,8 +1264,8 @@ public:
 	//! \brief Set rotation mode
 	void setRotationMode(int val);
 
-	//! \brief Fonctions which avoid doc updater and update manager to send too much
-	// unncessary signals when doing updates on multiple items
+	//! \brief Functions which avoid doc updater and update manager to send too much
+	// unnecessary signals when doing updates on multiple items
 	void beginUpdate();
 	void endUpdate();
 
@@ -1695,7 +1695,7 @@ public slots:
 	/**
 	 * Distributes rows in a table evenly.
 	 *
-	 * If in table edit mode and there is a cell selection, each contigous range of selected rows
+	 * If in table edit mode and there is a cell selection, each contiguous range of selected rows
 	 * is distributed. If there is no cell selection, all rows in the table are distributed.
 	 *
 	 * If there is no table selected, then this slot does nothing.
@@ -1705,7 +1705,7 @@ public slots:
 	/**
 	 * Distributes columns in a table evenly.
 	 *
-	 * If in table edit mode and there is a cell selection, each contigous range of selected columns
+	 * If in table edit mode and there is a cell selection, each contiguous range of selected columns
 	 * is distributed. If there is no cell selection, all columns in the table are distributed.
 	 *
 	 * If there is no table selected, then this slot does nothing.
@@ -1788,7 +1788,7 @@ public:
 	bool eraseMark(Mark* mrk, bool fromText=false, PageItem* item = nullptr, bool force = false); //force is used only for deleting non-unique marks by MarksManager
 	void setUndoDelMark(Mark* mrk);
 	//invalidate all text frames where given mark will found
-	//useful spacially for varaible text marks after changing its text definition
+	//useful spacially for variable text marks after changing its text definition
 	//if forceUpdate then found master frames are relayouted
 	bool invalidateVariableTextFrames(Mark* mrk, bool forceUpdate = false); //returns if any text was changed
 
@@ -1811,7 +1811,7 @@ public:
 	bool updateNotesNums(NotesStyle* nStyle);
 	//set new text styles for notes marks
 	void updateNotesFramesStyles(NotesStyle* nStyle);
-	//check conflicts beetween notes styles
+	//check conflicts between notes styles
 	bool validateNSet(const NotesStyle& NS, QString newName = "");
 	//update layout remove empty notesframes
 	bool notesFramesUpdate();
@@ -1878,7 +1878,7 @@ protected slots:
 //auto-numerations
 public:
 	QMap<QString, NumStruct*> numerations;
-	QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overrided localy
+	QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overridden localy
 	void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
 	QString getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style);
 	void setNumerationCounter(const QString& numName, int level, int number);

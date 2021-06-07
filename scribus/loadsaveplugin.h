@@ -163,7 +163,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		static QList<FileFormat> formats;
 
 		// Return an iterator referencing the first format structure named `name'.
-		// If specified, only return formats implmented by `plug'.
+		// If specified, only return formats implemented by `plug'.
 		// If `start' is specified, start searching at this iterator rather than the
 		// start of the list.
 		// The end iterator is returned if no match was found.

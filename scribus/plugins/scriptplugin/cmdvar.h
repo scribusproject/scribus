@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScripterCore;
 
-// Globals for testing Qt properties and probably other more intresting future
+// Globals for testing Qt properties and probably other more interesting future
 // uses.
 /** @brief A PyCObject containing a pointer to qApp */
 extern PyObject* wrappedQApp;
@@ -77,7 +77,7 @@ extern PyObject* NotFoundError;
 /*! Exception raised when the user tries to create an object with the same name as one that already exists */
 extern PyObject* NameExistsError;
 
-/*! A helper variable for better string comparsions to reduce warnings:
+/*! A helper variable for better string comparisons to reduce warnings:
 "warning: comparison with string literal results in unspecified behaviour"
 what is criticised by some linux distributors */
 #ifndef EMPTY_STRING

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 /* This is the Scribus Short Words plugin interface implementation.
 
-This code is based on the Scribus-Vlna plug in rewritten for
+This code is based on the Scribus-Vlna plugin rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>

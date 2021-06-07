@@ -11,7 +11,7 @@ The file must be a text file with comma separated values in the following format
 "colorname", c,m,y,k 
 
 There must be a document opend in scribus where the colors can be defined in. 
-If the csv contanins one or more color names that already exist in the document, the colors will be imported with a `*` as prefix.
+If the csv contains one or more color names that already exist in the document, the colors will be imported with a `*` as prefix.
 
 This script is especially helpful if you want to use CMYK color representations of color systems like HKS, Pantone or RAL in Scribus. Lots of such CMYK translation tables can be found on the Web. 
 One can easily copy such a table into a text file, save it in the obove described format and import it into a scribus document.

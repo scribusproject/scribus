@@ -45,7 +45,7 @@ class Ui_ExceptHookDialog(object):
 
     def retranslateUi(self, ExceptHookDialog):
         ExceptHookDialog.setWindowTitle(QtGui.QApplication.translate("ExceptHookDialog", "Script error", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("ExceptHookDialog", "An exception occured while running the script.", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("ExceptHookDialog", "An exception occurred while running the script.", None, QtGui.QApplication.UnicodeUTF8))
         self.closeButton.setText(QtGui.QApplication.translate("ExceptHookDialog", "&Close", None, QtGui.QApplication.UnicodeUTF8))
         self.exceptionLabel.setText(QtGui.QApplication.translate("ExceptHookDialog", "Exception", None, QtGui.QApplication.UnicodeUTF8))
         self.detailsButton.setText(QtGui.QApplication.translate("ExceptHookDialog", "&Details >>", None, QtGui.QApplication.UnicodeUTF8))

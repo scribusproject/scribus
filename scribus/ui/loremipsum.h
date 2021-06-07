@@ -69,7 +69,7 @@ public:
 
 /*! \brief This module provides simple interface to the various Lorem Ipsum variants.
 Scribus LI are stored in the set of XML files.
-The file has followind structure:
+The file has the following structure:
 \<?xml version="1.0" encoding="utf8"?\>
 \<lorem\>
 \<name\>name to display\</name\>

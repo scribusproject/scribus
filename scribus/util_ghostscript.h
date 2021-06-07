@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 /*!
- * @brief GS utility fucntions
+ * @brief GS utility functions
  * Moved functions written or modified by various people over the time from util.cpp
  * 
  * @author Craig Bradney

@@ -1611,7 +1611,7 @@ void ScImgDataLoader_PICT::handleComment(QDataStream &ts, bool longComment)
 		case 170:			// picArrw1 Arrowhead on 2nd point of line
 			qDebug() << "Comment type: picArrw1";
 			break;
-		case 171:			// picArrw2 Arrowhead on 1nd point of line
+		case 171:			// picArrw2 Arrowhead on 1st point of line
 			qDebug() << "Comment type: picArrw2";
 			break;
 		case 172:			// picArrw3 Arrowhead on both endpoints

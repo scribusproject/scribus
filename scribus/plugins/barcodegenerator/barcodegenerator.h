@@ -80,7 +80,7 @@ class BarcodeGenerator : public QDialog
 		QList<QString> encoderlist;
 		//! \brief Descriptions of each encoder.
 		QHash<QString, QString> resdescs;
-		//! \brief Dependancies of each encoder.
+		//! \brief Dependencies of each encoder.
 		QHash<QString, QString> resreqs;
 		//! \brief Example data input for each encoder.
 		QHash<QString, QString> resexams;

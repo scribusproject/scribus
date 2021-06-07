@@ -236,7 +236,7 @@ void CanvasMode_ImageImport::setImage(PageItem *currItem)
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	m_doc->loadPict(fileName, currItem, false, true);
 	// Call to showScaleAndOffset() is now very likely unnecessary
-	// due to mecanisms used to update properties in PP in 1.5.x+
+	// due to mechanisms used to update properties in PP in 1.5.x+
 	// m_ScMW->contentPalette->update(currItem->isImageFrame());
 	m_ScMW->repaint();
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);

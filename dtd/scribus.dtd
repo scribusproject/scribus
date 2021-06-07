@@ -40,11 +40,11 @@ For more information see http://scribus.tagancha.org/xml/
 <!-- Parsed entities that are used in many declarations -->
 <!-- Object origin, e.g. ltop="Left Top corner" and so on. -->
 <!ENTITY % origin "(ltop | rtop | lbottom | rbottom | center) 'ltop'">
-<!-- Object origin co-ordinates on the horizontal axis. Default value reflects
+<!-- Object origin coordinates on the horizontal axis. Default value reflects
 the default units "pt". It is a real number of a form that depends on the
 unit. -->
 <!ENTITY % xorigin "xorigin CDATA '40'">
-<!-- Object origin co-ordinates on the vertical axis. Default value reflects
+<!-- Object origin coordinates on the vertical axis. Default value reflects
 the default units "pt". It is a real number of a form that depends on the
 unit. -->
 <!ENTITY % yorigin "yorigin CDATA '40'">
@@ -145,7 +145,7 @@ parameter entity "namespaces".-->
 <!ENTITY % pageobjectlist "imgframeobj*,textframeobj*,tableobj*,svgobject*,epsobject*">
 <!ENTITY % canvasobjectlist "imgframe*,textframe*,table*,svgobject*,epsobject*">
 
-<!-- Root element of a Scribus document. Contains all other elments, but only
+<!-- Root element of a Scribus document. Contains all other elements, but only
 "canvas" on which we put EVERYTHING else can be its child. -->
 <!ELEMENT scribus (metadata,settings,colors,styles,canvas+,content*)>
 

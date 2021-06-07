@@ -38,7 +38,7 @@ class TkImageAlignmentWizard(Frame):
  
     def __init__(self, master=None):
         """ Setup the dialog """
-        # refernce to the localization dictionary
+        # reference to the localization dictionary
         self.key = 'English'
         Frame.__init__(self, master)
         self.grid()

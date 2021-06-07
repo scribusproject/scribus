@@ -15,7 +15,7 @@
  * The CellArea class is a simple representation of a rectangular area of table cells.
  *
  * CellArea is similar to QRect, but its contains() and intersects() semantics are a bit
- * different and it has a couple of methods that are specifically taylored for table layout
+ * different and it has a couple of methods that are specifically tailored for table layout
  * purposes. The class is used during table layout when keeping track of areas of merged
  * table cells.
  */

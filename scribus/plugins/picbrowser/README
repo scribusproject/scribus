@@ -9,7 +9,7 @@ How to add my Picturebrowser plugin to your current Scribus source snapshot:
 You will find the Picturebrowser at Extras/Picturebrowser
 
 
-I didnt find out how to compile only the plugin yet, the tutorial with qmake specified here:
+I didn't find out how to compile only the plugin yet, the tutorial with qmake specified here:
 http://docs.scribus.net/index.php?lang=en&page=plugin_howto
 
 does not seem to work. Maybe i will figure out later.
@@ -85,7 +85,7 @@ does not seem to work. Maybe i will figure out later.
   to the itemmodel to make signals/slots run in the new thread.
   The third problem was the validity of the passed pointers. I pass the pointer of the previewImage Object
   the image belongs to to the slot which loads the image, however if the user selects a new folder in the 
-  meantime, the pointer is invalid and this will give us a segfault ocasionally. To prevent this, a unique
+  meantime, the pointer is invalid and this will give us a segfault occasionally. To prevent this, a unique
   id is associated with every set of images ("pId"), and passed to the thread. If the id of the itemmodel changes,
   the thread or the method which creates the icon knows and cancels.
   The fourth issue was (and is) how to pass the image and other information between the threads, to copy all this

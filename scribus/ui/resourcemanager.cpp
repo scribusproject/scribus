@@ -1050,7 +1050,7 @@ void ResourceManager::downloadFilesFinished()
 				}
 				if (d.filetype=="plain")
 				{
-					//do nothing as the file is alread in place from dl mgr
+					//do nothing as the file is already in place from dl mgr
 				}
 			}
 			break;
@@ -1090,7 +1090,7 @@ void ResourceManager::downloadFilesFinished()
 					}
 					if (d.filetype=="plain")
 					{
-						//do nothing as the file is alread in place from dl mgr
+						//do nothing as the file is already in place from dl mgr
 					}
 				}
 			}
@@ -1140,7 +1140,7 @@ void ResourceManager::downloadFilesFinished()
 				}
 				if (d.filetype=="plain")
 				{
-					//do nothing as the file is alread in place from dl mgr
+					//do nothing as the file is already in place from dl mgr
 				}
 			}
 			break;

@@ -39,7 +39,7 @@ public:
 	 */
 	static const Xml_string saxxDefaultElem;
 	/**
-	  Fills the digester with rules wich ensure that an object which was
+	  Fills the digester with rules which ensure that an object which was
 	  saved via saxx() will be reconstructed on top of the digester stack.
 	  The prefix pattern shall be used to create patterns which constrain
 	  the added rules to this context.

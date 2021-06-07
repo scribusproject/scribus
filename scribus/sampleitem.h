@@ -39,11 +39,11 @@ class SCRIBUS_API SampleItem : QObject
 		/*! \brief Use lorem ipsum generator as text source.
 		\param para count of the LI paragraphs */
 		void setLoremIpsum(int para);
-		/*! \brief Set backgroud color of the pixmap.
+		/*! \brief Set background color of the pixmap.
 		\param c a QColor */
 		void setBgColor(const QColor& c);
 		void setBgShade(int c);
-		/*! \brief Set color management for backgroud color of the pixmap.
+		/*! \brief Set color management for background color of the pixmap.
 		\param enable if color management should be enabled */
 		void setBgColorMgmt(bool enable);
 		/*! \brief Set Text color of the pixmap.

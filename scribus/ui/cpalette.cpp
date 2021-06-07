@@ -99,7 +99,7 @@ ColorPalette::ColorPalette(QWidget* parent) : QWidget(parent)
 	hatchLineColor->setPixmapType(ColorCombo::fancyPixmaps);
 	hatchBackground->setPixmapType(ColorCombo::fancyPixmaps);
 
-/*  Setting a delegate to dispaly only icons for the patterns */
+/*  Setting a delegate to display only icons for the patterns */
 /*	ScListWidgetDelegate* delegateF = new ScListWidgetDelegate(patternBox, patternBox);
 	delegateF->setIconOnly(true);
 	patternBox->setItemDelegate(delegateF);

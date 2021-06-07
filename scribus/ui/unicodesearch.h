@@ -48,7 +48,7 @@ private:
 	//! Data model
 	UnicodeSearchModel * m_model;
 
-	//! \brief Overriden hide event. Just emit the setVisibleState(false) here.
+	//! \brief Overridden hide event. Just emit the setVisibleState(false) here.
 	void hideEvent(QHideEvent * e);
 
 	private slots:
@@ -131,7 +131,7 @@ protected:
 private:
 	/*! \brief UnicodeSearch reference.
 	The dialog is created in "this" constructor. Showing and hiding
-	is handled by toggled() signal catched in self_toggled() */
+	is handled by toggled() signal caught in self_toggled() */
 	UnicodeSearch* m_searchDialog;
 
 	/* \brief Hold cache timer.

@@ -3175,7 +3175,7 @@ void ScribusView::TextToPath()
 		}
 
 		// We usually don't need any of the undo actions created by TextToPathPainter. If we did take them into account,
-		// the created items woud reappear when redoing an undone TextToPath action
+		// the created items would reappear when redoing an undone TextToPath action
 		int textLen = currItem->itemText.length();
 		if (textLen > 1)
 			undoManager->setUndoEnabled(false);

@@ -293,7 +293,7 @@ def createChart():
     scribus.setRedraw(False)
     for color in colorList:
         if (vSpaceUsedByField * (colorFieldCounter+1)) <= vSpaceAvailable:
-            # when there is enought space left draw a color field...
+            # when there is enough space left draw a color field...
 
             #calculate Position for new colorField
             h=leftMargin
@@ -318,7 +318,7 @@ def createChart():
             stepCompleted = stepCompleted+1
             scribus.progressSet(stepCompleted)
 
-    #make shure pages are redrawn
+    #make sure pages are redrawn
     scribus.setRedraw(True)
 
 

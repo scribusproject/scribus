@@ -1,7 +1,7 @@
 BUILDING SCRIBUS ON MICROSOFT WINDOWS WITH CMAKE
 ================================================
 
-Note : the informations provided in this file are outdated and kept for 
+Note : the information provided in this file are outdated and kept for 
 reference only. The preferred way to build Scribus on Windows is to use 
 Microsoft Visual Studio. Please read BUILDING_WIN32_msvc.txt for 
 instructions related to Visual Studio builds.
@@ -116,7 +116,7 @@ GETTING DEPENDENCIES
 ====================
 
 This is a quick and dirty set of notes that will be filled out once everything's
-verified as correct and working. It asssumes that you'll be building all your
+verified as correct and working. It assumes that you'll be building all your
 dependencies at a single root, like C:\Developer. The root *MUST* not have spaces
 in its path.
 

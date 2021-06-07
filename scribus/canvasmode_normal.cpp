@@ -201,7 +201,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 				//mousePressEvent(m);
 				return;
 			}
-			//If we double click on an image frame and theres no image assigned, open the
+			//If we double click on an image frame and there's no image assigned, open the
 			//load picture dialog, else put it into edit mode if the frame is set to show the image
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
@@ -244,7 +244,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 				//if cursor is in mark`s place
 				m_ScMW->setTBvals(currItem);
 				//CB ignore the double click and go with a single one
-				//if we werent in mode edit before.
+				//if we weren't in mode edit before.
 				//unsure if this is correct, but its ok given we had no
 				//double click select until now.
 //				mousePressEvent(m);

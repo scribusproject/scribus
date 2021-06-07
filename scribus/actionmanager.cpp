@@ -901,7 +901,7 @@ void ActionManager::initToolsMenuActions()
 	name = "toolsPDFAnnot3D";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, "16/annot3d.png", "22/annot3d.png", "", defaultKey(name), mainWindow, modeInsertPDF3DAnnotation));
 #endif
-	//Set the applicaton wide palette shortcuts
+	//Set the application wide palette shortcuts
 	(*scrActions)["toolsProperties"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsContent"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsScrapbook"]->setShortcutContext(Qt::ApplicationShortcut);

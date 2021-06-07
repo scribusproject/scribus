@@ -70,7 +70,7 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 
 void ScFileWidget::forceDoubleClickActivation(bool force)
 {
-	// Hack to make the previews in our file dialogs useable again,
+	// Hack to make the previews in our file dialogs usable again,
 	// needed e.g on OpenSuse KDE. Otherwise file would open on first
 	// click, leaving user no time to see preview.
 	if (m_forceDoubleClickActivation == force)

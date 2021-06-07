@@ -26,7 +26,7 @@ set_target_properties(${SCRIBUS_TESTS_LIB}
 
 # Regular unit tests below.
 #
-# These tests are built as standalone executables and runned using "make test"
+# These tests are built as standalone executables and are run using "make test"
 #
 
 set(TESTS_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})

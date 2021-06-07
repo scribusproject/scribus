@@ -135,7 +135,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
 	It's just a performance vs. functionality test.
 	availFonts->clear();
-	// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
+	// FIXME: This is main performance issue. It's about 90% of all preference reads! - PV
 	availFonts->getFonts(HomeP); */
 	/* Are you wondering why this condition? See the comment at
 	line #102 (or somewhere near) as reference. Hint: PathList

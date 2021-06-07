@@ -59,7 +59,7 @@ protected:
 	/**
 	 * \brief Toggle a search button in the table between "Search" and "Cancel Search",
 	 * fixing signal connections as well.
-	 * \param toCancel true in the "cancelation" state/process
+	 * \param toCancel true in the "cancellation" state/process
 	 * \param searcher a reference to the searcher object 
 	 */
 	void setSearchButton(bool toCancel, const FileSearch* searcher);

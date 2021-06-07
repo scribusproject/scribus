@@ -179,7 +179,7 @@ double ScCLocale::strtod(const char * str, char ** endptr)
 {
 	if (nullptr == that()->cLocale)
 	{
-		// a sade workaround
+		// a sad workaround
 		double result(0.0);
 		std::streamoff bytesRead;
 		std::istringstream sstream(str);

@@ -347,7 +347,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	PDFOptions& pdfOptions = currentDoc->pdfOptions();
 
-	// Defaut save into file
+	// Default save into file
 	QString tf = pdfOptions.fileName;
 	if (tf.isEmpty())
 	{
@@ -1049,13 +1049,13 @@ static int PDFfile_seteffval(PDFfile *self, PyObject *value, void * /*closure*/)
 		PyObject *tmp = PyList_GetItem(value, i);
 		if (!PyList_Check(tmp))
 		{
-			PyErr_SetString(PyExc_TypeError, "elemets of 'effval' must be list of five integers.");
+			PyErr_SetString(PyExc_TypeError, "elements of 'effval' must be list of five integers.");
 			return -1;
 		}
 		int j = PyList_Size(tmp);
 		if (j != 6)
 		{
-			PyErr_SetString(PyExc_TypeError, "elemets of 'effval' must have exactly six integers.");
+			PyErr_SetString(PyExc_TypeError, "elements of 'effval' must have exactly six integers.");
 			return -1;
 		}
 		for (--j; j > -1; --j)
@@ -1492,7 +1492,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		PyObject *ti = PyList_GetItem(self->effval, i);
 		if (!ti)
 			continue;
-		// Do I Need to check if every PyLong_AsLong and PyList_GetItem funtion succeed???
+		// Do I Need to check if every PyLong_AsLong and PyList_GetItem function succeed???
 		t.pageEffectDuration = PyLong_AsLong(PyList_GetItem(ti, 0));
 		t.pageViewDuration = PyLong_AsLong(PyList_GetItem(ti, 1));
 		t.effectType = PyLong_AsLong(PyList_GetItem(ti, 2));

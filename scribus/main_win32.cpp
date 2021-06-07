@@ -148,7 +148,7 @@ int mainApp(ScribusQApp& app)
 \fn void setPythonEnvironment(const QString& appPath)
 \author Jean Ghali
 \date Sat Jul 03 23:00:00 CET 2009
-\brief set the Python envirionment for Scribus
+\brief set the Python environment for Scribus
 \param appPath application Path
 \retval None
 */

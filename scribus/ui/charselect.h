@@ -20,7 +20,7 @@ class CharSelectEnhanced;
 /*! \brief Character Palette for direct glyphs inserting.
 The "classical" one is opened as CharSelectEnhanced instance.
 Both CharSelect/CharSelectEnhanced palettes are split due:
-1) initial and usage performace. The CharSelectEnhanced is too
+1) initial and usage performance. The CharSelectEnhanced is too
 slow to load on startup/doc opening etc. The memory footprint
 is much smaller too.
 2) It was one dialog before split. To show/hide "enhanced" part
@@ -52,7 +52,7 @@ protected:
 	void changeEvent(QEvent *e) override;
 
 signals:
-	/*! \brief A signall emittedthis palette tries to insert glyphs.
+	/*! \brief A signal emitted this palette tries to insert glyphs.
 	It does not have sense in standard "palette" mode, but it's used
 	in StoryEditor workaround. */
 	void insertSpecialChar();

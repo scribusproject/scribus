@@ -7416,7 +7416,7 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 	pageItemAttributes = *map;
 }
 
-//if not `prependCopy` then string "Copy of" wil not be prepended
+//if not `prependCopy` then string "Copy of" will not be prepended
 QString PageItem::generateUniqueCopyName(const QString& originalName, bool prependCopy) const
 {
 	if (!m_Doc->itemNameExists(originalName))

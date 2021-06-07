@@ -2543,7 +2543,7 @@ void ScribusMainWindow::SwitchWin()
 	//if we are switching windows #4357
 	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
-/*	FIXME: check if this is really superflous now
+/*	FIXME: check if this is really superfluous now
 	if (doc->appMode == modeEditClip)
 	{
 		doc->appMode = modeNormal;
@@ -3390,7 +3390,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		setScriptRunning(true);
 		bool loadSuccess = fileLoader->loadFile(doc);
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
-		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
+		//This also gives the user the opportunity to cancel the load when finding there's a replacement required.
 		if (loadSuccess && ScCore->usingGUI())
 			loadSuccess = fileLoader->postLoad(doc);
 		if (!loadSuccess)
@@ -3881,7 +3881,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 	currItem->Pfile = fileName;
 	doc->loadPict(fileName, currItem, false, true);
 	// Call to showScaleAndOffset() is now very likely unnecessary
-	// due to mecanisms used to update properties in PP in 1.5.x+
+	// due to mechanisms used to update properties in PP in 1.5.x+
 	//propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 	view->DrawNew();
@@ -7109,7 +7109,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	if (doc->pdfOptions().useDocBleeds)
 		doc->pdfOptions().bleeds = *doc->bleeds();
 
-	// If necssary, generate thumbnails in one go : if color management is enabled
+	// If necessary, generate thumbnails in one go : if color management is enabled
 	// we gain lots of time by avoiding multiple color management settings change
 	// and hence multiple reloading of images
 	bool cmsCorr = false;
@@ -9366,7 +9366,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 	if (!HaveDoc)
 		return;
 	if (doc->m_docNotesStylesList.count() == 1)
-	{ //fast insert note with the only default notes style avaiable
+	{ //fast insert note with the only default notes style available
 		PageItem* currItem = doc->m_Selection->itemAt(0);
 		Q_ASSERT(currItem->isTextFrame() && !currItem->isNoteFrame());
 		UndoTransaction trans;

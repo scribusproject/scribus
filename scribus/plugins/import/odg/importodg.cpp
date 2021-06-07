@@ -3120,7 +3120,7 @@ int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAng
 		//TODO
 	}
 
-	// split angles bigger than 90° so that it gives a good aproximation to the circle
+	// split angles bigger than 90° so that it gives a good approximation to the circle
 	double parts = ceil(qAbs(sweepAngle / 90.0));
 
 	double sa_rad = startAngle * M_PI / 180.0;

@@ -77,7 +77,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 		return nullptr;
 	objArg = nullptr; // no need to decref, it's borrowed
 
-	// Look up the property and retrive its type information
+	// Look up the property and retrieve its type information
 	const char* type = getpropertytype( (QObject*) obj, propertyname, includesuper);
 	if (type == nullptr)
 	{
@@ -217,7 +217,7 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 		return nullptr;
 	objArg = nullptr; // no need to decref, it's borrowed
 
-	// Retrive the object's meta object so we can query it
+	// Retrieve the object's meta object so we can query it
 	const QMetaObject* objmeta = obj->metaObject();
 	if (!objmeta)
 		return nullptr;

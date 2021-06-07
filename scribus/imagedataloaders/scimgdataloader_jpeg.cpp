@@ -113,7 +113,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 
 bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
-	// No support for aplha in jpeg pictures
+	// No support for alpha in jpeg pictures
 	initialize();
 	hasAlpha = false;
 	return true;

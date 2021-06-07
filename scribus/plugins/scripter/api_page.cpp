@@ -138,7 +138,7 @@ QList<QVariant> PageAPI::selection()
 
 
 // copied from scripter/cmdutil.cpp
-/// Convert an X co-ordinate part in page units to a document co-ordinate
+/// Convert an X coordinate part in page units to a document coordinate
 /// in system units.
 double PageAPI::pageXtoDocX(double x)
 {
@@ -147,9 +147,9 @@ double PageAPI::pageXtoDocX(double x)
 
 
 // copied from scripter/cmdutil.cpp
-/// Convert a Y co-ordinate part in page units to a document co-ordinate
-/// in system units. The document co-ordinates have their origin somewere
-/// up and left of the first page, where page co-ordinates have their
+/// Convert a Y coordinate part in page units to a document coordinate
+/// in system units. The document coordinates have their origin somewhere
+/// up and left of the first page, where page coordinates have their
 /// origin on the top left of the current page.
 double PageAPI::pageYtoDocY(double y)
 {

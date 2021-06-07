@@ -36,7 +36,7 @@ public:
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
-                         // commmited
+                         // committed
 
 	void setLineMode(int lineMode);
 

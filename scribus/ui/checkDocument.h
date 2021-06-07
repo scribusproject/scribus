@@ -112,15 +112,15 @@ protected:
 	QVBoxLayout* checkDocumentLayout { nullptr };
 	QHBoxLayout* layout1 { nullptr };
 	QHBoxLayout* layout2 { nullptr };
-	//! \brief Mappping Page Item - item nr.
+	//! \brief Mapping Page Item - item nr.
 	QMap<QTreeWidgetItem*, QPointer<PageItem> > itemMap;
-	//! \brief Mappping Page - page nr.
+	//! \brief Mapping Page - page nr.
 	QMap<QTreeWidgetItem*, ScPage*> pageMap;
-	//! \brief Mappping Master Page - MP nr.
+	//! \brief Mapping Master Page - MP nr.
 	QMap<QTreeWidgetItem*, ScPage*> masterPageMap;
-	//! \brief Mappping MP Item - MP item nr.
+	//! \brief Mapping MP Item - MP item nr.
 	QMap<QTreeWidgetItem*, QPointer<PageItem> > masterPageItemMap;
-	//! \brief Mappping Page Item - cursor position in item
+	//! \brief Mapping Page Item - cursor position in item
 	QMap<QTreeWidgetItem*, int> posMap;
 
 	//! \brief a reference to the current document

@@ -50,7 +50,7 @@ struct DocumentSection
 	NumFormat type; //Type of section numbering, ie i,ii,iii or a,b,c or 1,2,3, etc
 	uint sectionstartindex; // Start of section, an index in the range of type, eg for type i,ii,iii, this would be 2 for "ii".
 	bool reversed; // Counting 10-1 ?
-	bool active; // Is the section active, ie, if the fromindex is 10, and theres 5 pages, this should be inactive.
+	bool active; // Is the section active, ie, if the fromindex is 10, and there's 5 pages, this should be inactive.
 	QChar pageNumberFillChar; //Prefix to be placed before page number
 	int pageNumberWidth; //Minimum width of page number string
 

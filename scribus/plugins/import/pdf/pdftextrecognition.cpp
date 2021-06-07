@@ -289,7 +289,7 @@ PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(QPointF newPoint)
 *	Move the position of the cursor to a new point,
 *	test if that point is within the current textframe or within a new textframe.
 *	initialize the textregion and setup lines and segments
-*	TODO: iscloseto x and y may need to be different from addGlyph but use thge common isRegionbConcurrent for now
+*	TODO: iscloseto x and y may need to be different from addGlyph but use the common isRegionbConcurrent for now
 *		need to check to see if we are creating a new paragraph or not.
 *		basically if the cursor is returned to x origin before it reached x width.
 *		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation
@@ -353,8 +353,8 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 /*
 *	Add a new glyph to the current line segment, lines and segments should already have been setup by the
 *	moveto function which should generally be called prior to addGlyph to setup the lines and segments correctly.
-*	does some basic calculations to determine and save withs and heights and linespacings of texts etc...
-*	FIXME: these need to be changed to use the mode average of all glyps added to the text frame instead of just picking the first ones we come accross
+*	does some basic calculations to determine and save widths and heights and linespacings of texts etc...
+*	FIXME: these need to be changed to use the mode average of all glyps added to the text frame instead of just picking the first ones we come across
 *		the mode average can also be used to determine the base font style when fonts are added
 *		left and right hand margins however need to use the maximum and minimum, support for right hand justification
 *		and centered text needs to be added as we only support left and fully justified at the moment.

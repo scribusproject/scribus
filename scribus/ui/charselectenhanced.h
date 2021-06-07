@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 /*! \brief Character Palette for batch glyphs inserting.
 Enhanced instance is created/destroyed on every call from CharSelect
-to improve internal performace.
+to improve internal performance.
 */
 class SCRIBUS_API CharSelectEnhanced : public ScrPaletteBase, public Ui::CharSelectEnhanced
 {

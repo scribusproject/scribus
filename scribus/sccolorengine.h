@@ -120,7 +120,7 @@ public:
 	/** \brief Check if a color is inside document output color space gamut. */
 	static bool isOutOfGamut(const ScColor& color, const ScribusDoc* doc);
 
-	/** \brief Applys Gray-Component-Removal to an ScColor */
+	/** \brief Apply Gray-Component-Removal to an ScColor */
 	static void applyGCR(ScColor& color, const ScribusDoc* doc);
 };
 

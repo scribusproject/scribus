@@ -246,9 +246,9 @@ bool SpecialChars::isLetterRequiringSpaceAroundCJK(uint ch) {
 		   (0x0100 <= ch && ch <= 0x017F) ||  // Letters in Latin Extended-A
 		   (0x0180 <= ch && ch <= 0x024F) ||  // Letters in Latin Extended-B
 		   (0x0250 <= ch && ch <= 0x02AF) ||  // Letters in IPA Extensions
-		   (0x1D00 <= ch && ch <= 0x1D25) ||  // Letters in Phonetic Extentions
-		   (0x1D6B <= ch && ch <= 0x1D70) ||  // Letters in Phonetic Extentions
-		   (0x1D80 <= ch && ch <= 0x1D9A) ||  // Letters in Phonetic Extentions Supplement
+		   (0x1D00 <= ch && ch <= 0x1D25) ||  // Letters in Phonetic Extensions
+		   (0x1D6B <= ch && ch <= 0x1D70) ||  // Letters in Phonetic Extensions
+		   (0x1D80 <= ch && ch <= 0x1D9A) ||  // Letters in Phonetic Extensions Supplement
 		   (0x1E02 <= ch && ch <= 0x1EF3) ||  // Letters in Latin Extended Additional
 		   (0x2C60 <= ch && ch <= 0x2C7F) ||  // Letters in Latin Extended-C
 		   (0xA722 <= ch && ch <= 0xA787) ||  // Letters in Latin Extended-D

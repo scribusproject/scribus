@@ -65,9 +65,9 @@ struct NumStruct
 
 //util functions for use without Numeration class
 
-//convert passed num to a string useable when saving file
+//convert passed num to a string usable when saving file
 QString fromNumToString(NumFormat format);
-//convert passed num to a string useable in a combobox
+//convert passed num to a string usable in a combobox
 QString fromNumToUserString(NumFormat format);
 //convert string to its NumFormat representation
 NumFormat fromStringToNum(const QString& str);

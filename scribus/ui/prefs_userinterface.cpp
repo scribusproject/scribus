@@ -61,7 +61,7 @@ void Prefs_UserInterface::languageChange()
 {
 	themeComboBox->setToolTip( "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>");
 	iconSetComboBox->setToolTip( "<qt>" + tr( "Choose the default icon set" ) + "</qt>");
-	useSmallWidgetsCheckBox->setToolTip( "<qt>" + tr( "Palette windows will use smaller (space savy) widgets. Requires application restart." ) + "</qt>");
+	useSmallWidgetsCheckBox->setToolTip( "<qt>" + tr( "Palette windows will use smaller (space savvy) widgets. Requires application restart." ) + "</qt>");
 	recentDocumentsSpinBox->setToolTip( "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>");
 	languageComboBox->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus." )+"</qt>");
 	numberFormatComboBox->setToolTip( "<qt>" + tr( "Use either the system or selected language related definition for number formats for decimals for numbers in the interface" ) + "</qt>");
