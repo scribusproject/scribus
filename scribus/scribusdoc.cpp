@@ -13558,7 +13558,7 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 
 	setCurrentPage(oldCurrentPage);
 
-	tooltip = tr("Copied %1 items on %2 pages").arg(selection.count()).arg(pages.size());
+	tooltip = tr("Copied %1 item(s) on %2 page(s)").arg(selection.count()).arg(pages.size());
 }
 
 
