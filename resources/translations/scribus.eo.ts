@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="eo">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="eo" version="2.1">
 <context>
     <name>AIPlug</name>
     <message>
@@ -7120,7 +7118,7 @@ malsukcesis!</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
         <source>An exception occurred while running the script.</source>
-        <translation type="unfinished"></translation>
+        <translation>Okazis escepto dum la ruliĝo de la skripto.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
@@ -9111,7 +9109,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="66"/>
-        <source>Imports Adobe InDesign&apos;s IDML packages into Scribus
+        <source>Imports Adobe InDesign's IDML packages into Scribus
  converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here</source>
         <translation>Importas IDML&apos;ajn pakaĵojn de Adobe Indesign en Scribus
 konvertante objektojn de InDesign en paĝelementoj de Scribus; ne ĉiuj estas subtenataj de Scribus, sed ĉiuj subtenataj estos importitaj ĉi tie</translation>
@@ -15011,7 +15009,7 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention:&lt;/span&gt; This script file contains code which &lt;span style=&quot; font-style:italic;&quot;&gt;might harm &lt;/span&gt;your system.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;You should only permit execution of this script if you are sure that it comes from a trustworthy source. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -15033,7 +15031,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -17579,7 +17577,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
         <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ebligita, Scribus konservas savkopiojn de via dosiero ĉiam kiam pasas la tempoperiodo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21110,7 +21108,7 @@ Agordado al Nivelo 1 aŭ 2 de Postskripto povus krei grandegajn dosierojn.</tran
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
-        <translation type="unfinished"></translation>
+        <translation>Paletraj fenestroj uzos pli malgrandajn (spacŝparigajn) fenestraĵojn. Tio postulas aplikaĵan restartigon.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
@@ -21138,8 +21136,8 @@ Agordado al Nivelo 1 aŭ 2 de Postskripto povus krei grandegajn dosierojn.</tran
         <translation>La tempo antaŭ ol movo aŭ (mal)grandigo komenciĝos permesas malgrandan malfruon inter la klako kaj la komenco de la operacio, tiel ke oni povas eviti neintencajn movojn. Tio povas utili kaze de musoj kun tre sentivaj agordoj aŭ ergonomiaj, kun tuŝplatoj aŭ kaze de problemoj kun pojnoj kaj manoj.</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source/>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -28871,18 +28869,18 @@ not currently documented in the docstring for each function.
 without a document to operate on.
 - If you do not pass a frame name to a function that requires one,
 the function will use the currently selected frame, if any, or
-raise a NoValidObjectError if it can&apos;t find anything to operate
+raise a NoValidObjectError if it can't find anything to operate
 on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text color on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn't make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation, though as with most Python code this list
+function's documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
         <translation>Pitona interfacmodulo de Scribus
@@ -29527,12 +29525,12 @@ pro la esceptoj de la vokitaj funkcioj.
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
         <source>This image uses an unsupported non integer sample format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tiu bildo uzas nesubtenatan neentjeran specimenan formaton.</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
         <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ĉi tiu bildo uzas nesubtenatan bit-profundecon: %1 bitojn por specimeno.</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>

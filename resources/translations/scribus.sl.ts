@@ -29525,12 +29525,12 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
         <source>This image uses an unsupported non integer sample format</source>
-        <translation>Ta slika ima nepodprt zapis z necelim vzorčenjem.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
         <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
-        <translation>Barvna globina te slike, %1 bitov na vzorec, ni podprta.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>

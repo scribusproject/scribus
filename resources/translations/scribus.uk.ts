@@ -184,7 +184,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="241"/>
         <source>This panel shows the version, build date and compiled in library support in Scribus.</source>
-        <translation>Ця панель показує версію, дату збирання та дані про підтримку бібліотек скомпільованих зі  Scribus.</translation>
+        <translation>Ця панель показує версію, дату збирання та дані про підтримку бібліотек скомпільованих зі Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="242"/>
@@ -194,7 +194,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="243"/>
         <source>Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>Відсутність підтримки бібліотеки позначається *. Тут також зазначена версія  Ghostscript виявлена Scribus.</translation>
+        <translation>Відсутність підтримки бібліотеки позначається *. Тут також зазначена версія Ghostscript виявлена Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="244"/>
@@ -444,12 +444,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1515"/>
         <source>PDF...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
@@ -894,7 +894,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1764"/>
         <source>Action &amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пошук дії</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1765"/>
@@ -914,7 +914,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1849"/>
         <source>Non Breaking Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Нерозривний дефіс</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1850"/>
@@ -1089,7 +1089,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1585"/>
         <source>&amp;Flip Vertically</source>
-        <translation>Віддзеркалити  &amp;вертикально</translation>
+        <translation>Віддзеркалити &amp;вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1682"/>
@@ -1297,7 +1297,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1851"/>
         <source>Narrow No-Break Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Вузький нерозривний пробіл</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1857"/>
@@ -1796,12 +1796,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Content Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості вмісту</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1767"/>
         <source>Scribus &amp;Help...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Довідка Scribus...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1783"/>
@@ -2164,12 +2164,12 @@
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="14"/>
         <source>Action Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук дій</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/actionsearchdialog.ui" line="32"/>
         <source>Search for action...</source>
-        <translation type="unfinished"></translation>
+        <translation>Шукати дії...</translation>
     </message>
 </context>
 <context>
@@ -2290,12 +2290,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="125"/>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation> Рівномірно горизонтально розподілити центри об&apos;єктів</translation>
+        <translation>Рівномірно горизонтально розподілити центри об&apos;єктів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Distribute centers equidistantly vertically</source>
-        <translation> Рівномірно вертикально розподілити центри об&apos;єктів</translation>
+        <translation>Рівномірно вертикально розподілити центри об&apos;єктів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
@@ -3415,7 +3415,7 @@
         <location filename="../../scribus/ui/cmykfw.cpp" line="627"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="633"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1133"/>
@@ -3443,7 +3443,7 @@ It is a reserved name for transparent color</source>
         <location filename="../../scribus/ui/cmykfw.cpp" line="828"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="829"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Якщо увімкнено керування кольором, знак попередження сигналізує, що колір може вийти за межі колірної гами  поточного вибраного профілю принтера. Це означає, що колір неможливо надрукувати саме таким, як на екрані. Більше інформації про попередження щодо гами - в розділі Керування кольором онлайнової довідки.</translation>
+        <translation>Якщо увімкнено керування кольором, знак попередження сигналізує, що колір може вийти за межі колірної гами поточного вибраного профілю принтера. Це означає, що колір неможливо надрукувати саме таким, як на екрані. Докладніше про попередження щодо гами — в розділі Керування кольором мережної довідки.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1126"/>
@@ -3548,7 +3548,7 @@ Please choose another one.</source>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="620"/>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="652"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="639"/>
@@ -3576,7 +3576,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Error: </source>
-        <translation>Помилка:</translation>
+        <translation>Помилка: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
@@ -3727,7 +3727,7 @@ Please choose another one.</source>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="491"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="527"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="445"/>
@@ -3869,7 +3869,7 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="184"/>
         <source>RGB %1</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB %1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_eyedropper.cpp" line="188"/>
@@ -3915,7 +3915,7 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="294"/>
         <source>Frame is already linked. Unlink it before linking it to another frame.</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамку вже пов’язано. Від&apos;єднайте її, перш ніж прив&apos;язувати до іншої рамки.</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_framelinks.cpp" line="301"/>
@@ -3966,7 +3966,7 @@ URL: %1</translation>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1506"/>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1511"/>
         <source>Information</source>
-        <translation>Інформація</translation>
+        <translation>Відомості</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="1510"/>
@@ -3982,7 +3982,7 @@ Page: %2</source>
         <source>Overflow Characters: %1 (%2 White Spaces)
 Click to link to existing text frame or auto-create new linked text frame</source>
         <translation>Надлишок символів: %1 (%2 пробілів)
-Клацніть, щоб зв&apos;язати з наявною текстовою рамкою або автоматично створити нову зв&apos;язану текстову рамку </translation>
+Клацніть, щоб зв&apos;язати з наявною текстовою рамкою або автоматично створити нову зв&apos;язану текстову рамку</translation>
     </message>
 </context>
 <context>
@@ -4048,7 +4048,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="299"/>
         <source>Error reading file %1 - file is probably corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка читання файлу %1 — ймовірно, його пошкоджено.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="328"/>
@@ -4364,7 +4364,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="687"/>
         <source>Page </source>
-        <translation>Сторінка</translation>
+        <translation>Сторінка </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="749"/>
@@ -4461,15 +4461,15 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
         <source>Image resolution below %1 DPI,
 currently %2 x %3 DPI</source>
-        <translation>Роздільність зображення менша ніж %1 ТНД,
-поточна %2 x %3 ТНД</translation>
+        <translation>Роздільність зображення менша ніж %1 DPI,
+поточна %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>Image resolution above %1 DPI,
 currently %2 x %3 DPI</source>
-        <translation>Роздільність малюнка більша ніж %1 ТНД,
-поточна %2 x %3 ТНД</translation>
+        <translation>Роздільність зображення більша ніж %1 DPI,
+поточна %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
@@ -4592,7 +4592,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation>Якщо імпортований документ використовує не вбудовані шрифти, є ризик, що він буде візуалізований неправильно, коли ці шрифти не встановлені в системі. На це слід розраховувати в разі поширення кінцевого документа.</translation>
+        <translation>Якщо імпортований документ використовує не вбудовані шрифти, є ризик, що він буде візуалізований неправильно, коли ці шрифти не встановлені в системі. На це слід розраховувати в разі поширення кінцевого документа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
@@ -5047,7 +5047,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="115"/>
         <source>Merge Color Set</source>
-        <translation>Додати кольори з набору:</translation>
+        <translation>Додати кольори з набору</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="328"/>
@@ -5882,27 +5882,27 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="331"/>
         <source>Content Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості вмісту</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="334"/>
         <source>Group Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості групи</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="337"/>
         <source>Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості зображення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="340"/>
         <source>Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості сторінки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="343"/>
         <source>Table Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивості таблиці</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="346"/>
@@ -5915,17 +5915,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="137"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;p&gt;Open a document&lt;/p&gt;&lt;p&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Відкрийте документ&lt;/p&gt;&lt;p&gt;і виберіть елемент, щоб переглянути його властивості&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="143"/>
         <source>Select a single item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть один елемент, щоб переглянути його властивості</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette_default.cpp" line="145"/>
         <source>Select an item to see its properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть елемент, щоб переглянути його властивості</translation>
     </message>
 </context>
 <context>
@@ -5933,7 +5933,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contentpalette_defaultbase.ui" line="32"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Open a document&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;and select an item to see its properties&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Відкрийте документ&lt;/p&gt;&lt;p align=&quot;center&quot;&gt; і виберіть елемент, щоб побачити його властивості&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -5941,7 +5941,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contentpalette_pagebase.ui" line="32"/>
         <source>Select an item to see its properties.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть елемент, щоб переглянути його властивості.</translation>
     </message>
 </context>
 <context>
@@ -6516,12 +6516,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/cxfimportdialogbase.ui" line="14"/>
         <source>CxF Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт CxF</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cxfimportdialogbase.ui" line="32"/>
         <source>The file you are trying to import contains multiple definitions for colors. Please select how you would like colors to be imported by priority:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл, який ви намагаєтеся імпортувати, містить кілька визначень кольорів. Виберіть спосіб імпортування кольорів за важливістю:</translation>
     </message>
 </context>
 <context>
@@ -6613,7 +6613,8 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/plugins/gettext/docim/docim.cpp" line="179"/>
         <source>Importing Word document failed 
 %1</source>
-        <translation>Імпортувати документ Ворда %1 не вдалося</translation>
+        <translation>Не вдалося імпортувати документ Word 
+%1</translation>
     </message>
 </context>
 <context>
@@ -7010,7 +7011,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="489"/>
         <source>Applied Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосовані ефекти</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="621"/>
@@ -7184,9 +7185,8 @@ failed!</source>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation>Вихідна тека - місце в яке будуть записані Ваші зображення.
-Назва експортованого файлу буде у формі
-&apos;імядокумента-номерсторінки.типфайла&apos;</translation>
+        <translation>Вихідна тека — місце до якого буде записано ваші зображення.
+Назва експортованого файлу буде у формі &apos;імядокумента-номерсторінки.типфайла&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="81"/>
@@ -7242,12 +7242,12 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="162"/>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="245"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="136"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="77"/>
@@ -7279,8 +7279,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
         <translation>Роздільність зображень
-Використовуйте 72 тнд для зображень, 
-призначених для виводу на екран</translation>
+Застосовуйте 72 dpi для зображень, призначених для виводу на екран</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="178"/>
@@ -7474,7 +7473,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="145"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="151"/>
@@ -7574,7 +7573,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="186"/>
         <source>DPI</source>
-        <translation>ТНД</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="192"/>
@@ -7621,7 +7620,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="465"/>
         <source> was replaced by: </source>
-        <translation>був підмінений на:</translation>
+        <translation> був підмінений на: </translation>
     </message>
 </context>
 <context>
@@ -7926,7 +7925,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="83"/>
         <source>Cancels these font substitutions and stops loading the document</source>
-        <translation>Скасовує підміну шрифтів та припиняє завантаження документа.</translation>
+        <translation>Скасовує заміну шрифтів та припиняє завантаження документа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontreplacedialog.cpp" line="85"/>
@@ -7967,7 +7966,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradienteditor.ui" line="103"/>
         <location filename="../../scribus/ui/gradienteditor.ui" line="126"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="86"/>
@@ -8836,7 +8835,7 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="81"/>
         <source>Imports most Illustrator files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Імпортувати файли Illustrator у поточний документ, конвертуючи їхні векторні дані в об&apos;єкти  Scribus.</translation>
+        <translation>Імпортувати файли Illustrator у поточний документ, конвертуючи їхні векторні дані в об&apos;єкти Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="168"/>
@@ -9240,7 +9239,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <source>Imports most PostScript files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Імпортувати файли PostScript у поточний документ,
-конвертуючи їхні векторні дані в об&apos;єкти  Scribus.</translation>
+конвертуючи їхні векторні дані в об&apos;єкти Scribus.</translation>
     </message>
 </context>
 <context>
@@ -10431,7 +10430,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="96"/>
         <source> DPI</source>
-        <translation> ТНД</translation>
+        <translation> DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="109"/>
@@ -10446,7 +10445,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="360"/>
         <source>Status: </source>
-        <translation>Стан:</translation>
+        <translation>Стан: </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="173"/>
@@ -10559,7 +10558,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/layers.cpp" line="69"/>
         <location filename="../../scribus/ui/layers.cpp" line="737"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="712"/>
@@ -10684,22 +10683,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="754"/>
         <source>Make Layer Visible. Uncheck to hide the layer from the display.</source>
-        <translation>Зробити шар видимим. Зніміть, щоб приховати шар з екрана </translation>
+        <translation>Зробити шар видимим. Приберіть позначку, щоб приховати шар з екрана.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="755"/>
         <source>Print Layer. Uncheck to disable printing.</source>
-        <translation>Друкувати шар. Зніміть, щоб заборонити друкування. </translation>
+        <translation>Друкувати шар. Приберіть позначку, щоб заборонити друкування.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="756"/>
         <source>Lock or Unlock Layer. Unchecked is unlocked.</source>
-        <translation>Блокування шару. Зніміть, щоб розблокувати </translation>
+        <translation>Блокування шару. Приберіть позначку, щоб розблокувати.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="757"/>
         <source>Make text in lower layers flow around objects. Enabling this forces text in lower layers to flow around objects of the layer for which this option has been enabled.</source>
-        <translation>Обтікати об&apos;єкти текстом з нижніх шарів. Змушує текст з нижніх шарів обтікати об&apos;єкти шару, для якого це увімкнено</translation>
+        <translation>Обтікати об&apos;єкти текстом з нижніх шарів. Змушує текст з нижніх шарів обтікати об&apos;єкти шару, для яких це увімкнено.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="758"/>
@@ -11102,7 +11101,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="150"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Відстань між напрямною правого поля і краєм сторінки. Якщо вибрано макет двосторінковий, 3 або 4-сторінкову складку, цей простір може бути використано, щоб отримати правильні поля для зшивання</translation>
+        <translation>Віддаль між напрямною правого поля і краєм сторінки. Якщо вибрано макет двосторінковий, 3 або 4-сторінкову складку, цей простір може бути використано, щоб отримати правильні поля для зшивання.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="137"/>
@@ -11411,7 +11410,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="62"/>
         <source>&amp;Import Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпорт головної сторінки:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="82"/>
@@ -11422,7 +11421,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/mergedoc.cpp" line="177"/>
         <location filename="../../scribus/ui/mergedoc.cpp" line="197"/>
         <source> from %1</source>
-        <translation>з %1</translation>
+        <translation> з %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="39"/>
@@ -11751,32 +11750,32 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="327"/>
         <source>By &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>За &amp;сторінкою</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="335"/>
         <source>&amp;Following Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Такі сторінки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="345"/>
         <source>Following &amp;Even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Такі &amp;парні сторінки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="355"/>
         <source>Following &amp;Odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Такі &amp;непарні сторінки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="365"/>
         <source>Ran&amp;ge of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Діа&amp;пазон сторінок:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="390"/>
         <source>&amp;Link Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зв&apos;язати текстові рамки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
@@ -12065,7 +12064,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="74"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Відстань між напрямною правого поля і краєм сторінки. Якщо вибрано макет двосторінковий, 3 або 4-сторінкову складку, цей простір може бути використано, щоб отримати правильні поля для зшивання</translation>
+        <translation>Віддаль між напрямною правого поля і краєм сторінки. Якщо вибрано макет двосторінковий, 3 або 4-сторінкову складку, цей простір може бути використано, щоб отримати правильні поля для зшивання.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="83"/>
@@ -12248,7 +12247,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1101"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1135"/>
@@ -12523,7 +12522,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="91"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Імпортувати файл  &amp;OpenOffice.org Draw…</translation>
+        <translation>Імпортувати файл &amp;OpenOffice.org Draw…</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="109"/>
@@ -12533,8 +12532,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="110"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Імпортує більшість файлів OpenOffice.org Draw в поточний документ, конвертуючи їхні векторні дані в об&apos;єкти
- Scribus.</translation>
+        <translation>Імпортує більшість файлів OpenOffice.org Draw у поточний документ, перетворюючи їхні векторні дані в об&apos;єкти Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="96"/>
@@ -12669,7 +12667,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="359"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="188"/>
@@ -12840,7 +12838,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1280"/>
         <source>Page </source>
-        <translation>Сторінка</translation>
+        <translation>Сторінка </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1374"/>
@@ -12900,7 +12898,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="96"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="97"/>
@@ -12976,22 +12974,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="96"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="101"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="106"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="111"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="116"/>
@@ -13049,7 +13047,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13094,8 +13092,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="126"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Створює перегляд перед друком використовуючи симуляцію  
-звичайних  CMYK чорнил замість RGB кольорів</translation>
+        <translation>Вмикає перегляд перед друком застосовуючи симуляцію звичайних CMYK чорнил замість RGB кольорів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="129"/>
@@ -13115,7 +13112,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="45"/>
         <source>PDF Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд виводу PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="67"/>
@@ -13145,7 +13142,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="128"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
@@ -13173,7 +13170,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -13228,8 +13225,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="131"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Створює перегляд перед друком використовуючи симуляцію  
-звичайних  CMYK чорнил замість RGB кольорів</translation>
+        <translation>Вмикає перегляд перед друком застосовуючи симуляцію звичайних CMYK чорнил замість RGB кольорів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="134"/>
@@ -13249,7 +13245,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.cpp" line="49"/>
         <source>PostScript Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд виводу PostScript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.cpp" line="75"/>
@@ -13279,7 +13275,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.cpp" line="136"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
@@ -13323,8 +13319,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Дозволяє експортування одного індивідуально названого PDF файля для кожної сторінки документа. Номери сторінок
-додаються автоматично. Цей метод найбільш корисний для імпозиції PDF для комерційного друку.</translation>
+        <translation>Дозволяє експортування одного індивідуально названого PDF файла для кожної сторінки документа. Номери сторінок додаються автоматично. Цей метод найкорисніший для імпозиції PDF для комерційного друку.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="186"/>
@@ -13459,7 +13454,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pslib.cpp" line="528"/>
         <source>Failed to open file for writing : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося відкрити файл для запису: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1584"/>
@@ -13822,7 +13817,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="596"/>
         <source>DPI</source>
-        <translation>ТНД</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="598"/>
@@ -13892,13 +13887,13 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
         <location filename="../../scribus/pageitem_noteframe.cpp" line="56"/>
         <source>Endnote frame </source>
-        <translation>Рамка примітки</translation>
+        <translation>Рамка примітки </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_noteframe.cpp" line="23"/>
         <location filename="../../scribus/pageitem_noteframe.cpp" line="56"/>
         <source>Footnote frame </source>
-        <translation>Рамка виноски</translation>
+        <translation>Рамка виноски </translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_noteframe.cpp" line="29"/>
@@ -14010,7 +14005,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="298"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
-        <translation>Число сторінок, що виводяться на полотні поруч.Часто використовується для того, щоб розмістити елемент, що виходить на сусідні сторінки</translation>
+        <translation>Число сторінок, що виводяться на полотні поруч.Часто використовується для того, щоб розмістити елементи, що виходять на сусідні сторінки.</translation>
     </message>
 </context>
 <context>
@@ -14343,7 +14338,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp" line="90"/>
         <source>Bends a Polygon along a Path.</source>
-        <translation>Розтягує багатокутник вздовж контуру</translation>
+        <translation>Розтягує багатокутник вздовж контуру.</translation>
     </message>
 </context>
 <context>
@@ -14417,7 +14412,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnect.cpp" line="70"/>
         <source>Connects two Paths.</source>
-        <translation>З&apos;єднує два контури</translation>
+        <translation>З&apos;єднує два контури.</translation>
     </message>
 </context>
 <context>
@@ -14453,7 +14448,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../../scribus/plugins/tools/pathcut/pathcut.cpp" line="74"/>
         <source>Cuts a Polygon with a Path.</source>
-        <translation>Розрізає багатокутник контуром</translation>
+        <translation>Розрізає багатокутник контуром.</translation>
     </message>
 </context>
 <context>
@@ -14746,7 +14741,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="175"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="176"/>
@@ -14964,37 +14959,37 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="43"/>
         <source>PDF 1.3 (Acrobat 4)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.3 (Acrobat 4)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="45"/>
         <source>PDF 1.4 (Acrobat 5)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.4 (Acrobat 5)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="47"/>
         <source>PDF 1.5 (Acrobat 6)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.5 (Acrobat 6)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="49"/>
         <source>PDF 1.6 (Acrobat 7)</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.6 (Acrobat 7)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="51"/>
         <source>PDF/X-1a</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-1a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="53"/>
         <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfversionmodel.cpp" line="55"/>
         <source>PDF/X-4</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-4</translation>
     </message>
 </context>
 <context>
@@ -15002,7 +14997,7 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="14"/>
         <source>Confirm to run unsafe script</source>
-        <translation>Підтвердьте запуск ризикового сценарію </translation>
+        <translation>Підтвердьте запуск ризикового скрипту</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/permitdlg.ui" line="30"/>
@@ -15075,7 +15070,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="120"/>
         <source>DPI</source>
-        <translation>ТНД</translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="123"/>
@@ -15110,7 +15105,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="148"/>
         <source>Apply to all &amp;matching images</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати до всіх &amp;відповідних зображень</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="151"/>
@@ -15120,7 +15115,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="167"/>
         <source>Since you selected an image with a broken link, only image frames with invalid links will be modified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Оскільки ви вибрали зображення з недійсним посиланням, буде змінено лише кадри зображення з недійсними посиланнями.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="195"/>
@@ -15154,7 +15149,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
         <source>Select a base directory to search for </source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть базовий каталог для пошуку </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
@@ -15212,7 +15207,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
-        <translation>Якщо позначити, пошук файлів виконуватиметься без врахування регістру літер. Пам&apos;ятайте, що в більшості операційних систем, окрім MS Windows, це не є типовим</translation>
+        <translation>Якщо позначити, пошук файлів виконуватиметься без врахування регістру букв. Пам&apos;ятайте, що в більшості операційних систем, окрім MS Windows, це не є типовим.</translation>
     </message>
 </context>
 <context>
@@ -15310,7 +15305,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="303"/>
         <source>DPI:</source>
-        <translation>ТНД:</translation>
+        <translation>DPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="236"/>
@@ -15425,12 +15420,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="210"/>
         <source>Show Image in the File Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати зображення в диспетчері файлів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="213"/>
         <source>Show directory...</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати каталог...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="255"/>
@@ -15485,7 +15480,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="506"/>
         <source>Effective DPI:</source>
-        <translation>Ефективні ТНД:</translation>
+        <translation>Ефективні DPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="525"/>
@@ -15754,7 +15749,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1172"/>
         <source>DPI:</source>
-        <translation>ТНД:</translation>
+        <translation>DPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1165"/>
@@ -15865,7 +15860,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1515"/>
         <source> KB</source>
-        <translation>КБ</translation>
+        <translation> КБ</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1564"/>
@@ -15945,7 +15940,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1837"/>
         <source>Same as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Те саме, що й зображення</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1842"/>
@@ -16070,7 +16065,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1577"/>
         <source>%1 image(s) displayed, %2 image(s) filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>Показано %1 зображень, відфільтровано %2 зображень</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1761"/>
@@ -16125,7 +16120,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1891"/>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Сховати</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="521"/>
@@ -16488,7 +16483,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="273"/>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="303"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="230"/>
@@ -16556,7 +16551,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="874"/>
         <source>Migrate Old Scribus Settings?</source>
-        <translation>Конвертувати старі  налаштування Scribus?</translation>
+        <translation>Конвертувати старі налаштування Scribus?</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2434"/>
@@ -16589,7 +16584,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="1984"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Неможливо прочитати параметри XML  з &quot;%1&quot;: %2 в рядку %3, стовпчику %4</translation>
+        <translation>Неможливо прочитати параметри XML з «%1»: %2 в рядку %3, стовпчику %4</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="2860"/>
@@ -16868,7 +16863,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation>Скидає масштаб до типових тнд вашого монітора</translation>
+        <translation>Скидає масштаб до типових dpi вашого дисплея</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="367"/>
@@ -16963,7 +16958,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="86"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Визначає розмір простору на полотні справа від документа, доступного як чернетка для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
+        <translation>Визначає розмір простору на полотні праворуч від документа, доступного як чернетка для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="87"/>
@@ -16990,12 +16985,12 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_display.cpp" line="276"/>
         <location filename="../../scribus/ui/prefs_display.cpp" line="284"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="79"/>
         <source>Enable or disable the display of linked frames</source>
-        <translation>Ввімкнути або вимкнути показ з&apos;єднаних рамок.</translation>
+        <translation>Ввімкнути або вимкнути показ з&apos;єднаних рамок</translation>
     </message>
 </context>
 <context>
@@ -17437,7 +17432,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="603"/>
         <source> min</source>
-        <translation>хв</translation>
+        <translation> хв</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="613"/>
@@ -17687,7 +17682,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="195"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="711"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="245"/>
@@ -17705,7 +17700,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="274"/>
         <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Розташування файлової системи для графічного редактора&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="315"/>
@@ -17775,7 +17770,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="675"/>
         <source>Force DPI</source>
-        <translation>Примусові ТНД</translation>
+        <translation>Примусове DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="777"/>
@@ -17795,7 +17790,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="103"/>
         <source>Locate Ghostscript</source>
-        <translation>Знайти Ghostscript </translation>
+        <translation>Знайти Ghostscript</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="111"/>
@@ -17889,7 +17884,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation>Завжди використовувати параметри ТНД з конфігурації для розрахунку розміру, навіть якщо у файлі зображення зазначено інше.</translation>
+        <translation>Завжди застосовувати параметри DPI з конфігурації для обчислення розміру, навіть якщо у файлі зображення зазначено інше</translation>
     </message>
 </context>
 <context>
@@ -17924,22 +17919,22 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="176"/>
         <location filename="../../scribus/ui/prefs_fonts.cpp" line="54"/>
         <source>Rejected Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Відхилені шрифти</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="186"/>
         <source>Font name</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва шрифту</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="191"/>
         <source>Error message</source>
-        <translation type="unfinished"></translation>
+        <translation>Повідомлення про помилку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="196"/>
         <source>Font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл шрифту</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="54"/>
@@ -18091,7 +18086,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
-        <translation>Базова сітка</translation>
+        <translation>Базова сітка:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guides.cpp" line="86"/>
@@ -18272,12 +18267,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="60"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation>Діалогове вікно, в якому наведено всі можливі переноси для кожного слова, буде показане якщо ви виберете параметр Інше -&gt; Перенесення тексту.</translation>
+        <translation>Діалогове вікно, в якому наведено всі можливі перенесення для кожного слова, буде показано, якщо ви виберете параметр Інше -&gt; Перенесення тексту</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="70"/>
         <source>Enables automatic hyphenation of your text while typing</source>
-        <translation>Ввімкнути автоматичне перенесення тексту під час друкування.</translation>
+        <translation>Увімкнути автоматичне перенесення тексту під час введення тексту</translation>
     </message>
 </context>
 <context>
@@ -18311,7 +18306,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
-        <translation>МБ</translation>
+        <translation> МБ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="142"/>
@@ -18356,7 +18351,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="216"/>
         <source>Column Gap:</source>
-        <translation>Проміжок між колонками</translation>
+        <translation>Проміжок між колонками:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="431"/>
@@ -18415,7 +18410,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1439"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1486"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="279"/>
@@ -18899,7 +18894,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="111"/>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="153"/>
@@ -19014,7 +19009,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="435"/>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="312"/>
@@ -19463,7 +19458,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="71"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation>Створює зменшені зображення кожної сторінки в PDF.  Деякі програми для перегляду PDF можуть використовувати ці зменшені зображення для навігації.</translation>
+        <translation>Створює зменшені зображення кожної сторінки в PDF. Деякі переглядачі PDF можуть застосовувати ці зменшені зображення для навігації.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="74"/>
@@ -19498,7 +19493,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="80"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Обмежує роздільність ваших растрових зображень вибраними ТНД. Зображення з нижчою роздільністю будуть залишені без змін. Якщо залишити не позначеним, то вони будуть вималювані з власною роздільністю. Якщо позначити - зросте використання пам&apos;яті і експортування сповільниться.</translation>
+        <translation>Обмежує роздільність ваших растрових зображень обраними DPI. Зображення з нижчою роздільністю будуть залишені без змін. Якщо залишити не позначеним, то вони будуть вималювані з власною роздільністю. Якщо позначити — зросте використання пам&apos;яті й експортування сповільниться.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="82"/>
@@ -19613,8 +19608,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="115"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Профіль для друку. При можливості скористайтеся порадами 
-технолога типографії для правильного вибору цього профілю.</translation>
+        <translation>Профіль виводу для друку. За можливості скористайтеся порадами технолога типографії для правильного вибору цього профілю.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="116"/>
@@ -19852,12 +19846,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation>Показувати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної ліворуч.</translation>
+        <translation>Показати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної ліворуч</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation>Показувати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної праворуч.</translation>
+        <translation>Показати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної праворуч</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="622"/>
@@ -19937,7 +19931,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="72"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation>Генерувати PDF-статті, з яких можлива навігація зв&apos;язаних PDF-статей.</translation>
+        <translation>Створювати PDF-статті, з яких можливо переходити до зв&apos;язаних PDF-статей</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="73"/>
@@ -19947,7 +19941,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation>ТНД (точки на дюйм) для експорту зображення</translation>
+        <translation>DPI (точки на дюйм) для експорту зображення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
@@ -19992,12 +19986,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="628"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation>Приховує смужку меню. PDF буде показано у простому вікні. </translation>
+        <translation>Приховує панель меню. PDF буде показано у звичайному вікні</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="629"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation>Вписати сторінку або сторінки документа в доступний простір у вікні перегляду.</translation>
+        <translation>Вписати сторінку або сторінки документа в доступний простір у вікні перегляду</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="617"/>
@@ -20267,7 +20261,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="284"/>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="297"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="310"/>
@@ -20420,7 +20414,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="366"/>
         <source>Printing Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова друку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printerbase.ui" line="429"/>
@@ -20470,14 +20464,14 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="33"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>Використовуйте альтернативний менеджер друку, такий як kprinter чи gtklp, щоб мати 
-доступ до додаткових установок друку</translation>
+        <translation>Використовуйте інший менеджер друку, як-от kprinter чи gtklp, щоб мати доступ до розширених параметрів друку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="34"/>
         <source>Sets the printing language to use.
  Setting to Postscript Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає мову друку.
+Налаштування Postscript Рівня 1 або 2 може створити величезні файли.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
@@ -20881,7 +20875,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="452"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="518"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="112"/>
@@ -21028,12 +21022,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="159"/>
         <source>Language and Regionalization</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова та регіоналізація</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="188"/>
         <source>Number Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Числовий формат:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="225"/>
@@ -21109,8 +21103,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="62"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Виберіть стандартні декорацію вікон та вигляд програми. Scribus має доступ до всіх наявних тем KDE та Qt, якщо Qt
-сконфігурований для пошуку KDE модулів.</translation>
+        <translation>Оберіть стандартні декорацію вікон та вигляд програми. Scribus має доступ до всіх наявних тем KDE та Qt, якщо Qt сконфігурований для пошуку KDE модулів.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
@@ -21159,17 +21152,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation>Виберіть основну мову для використання в Scribus. Залиште порожнім для вибору за змінними середовища. Ви зможете перекрити це налаштування, скориставшись параметрами командного рядка при запуску Scribus</translation>
+        <translation>Виберіть основну мову для використання в Scribus. Залиште порожнім для вибору за змінними середовища. Ви зможете перевизначити це, скориставшись параметрами командного рядка під час запуску Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="51"/>
         <source>Use System Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати системний формат</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="52"/>
         <source>Use Interface Language Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати формат мови інтерфейсу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="71"/>
@@ -21322,8 +21315,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="117"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation>Використовуйте альтернативний менеджер друку, такий як kprinter чи gtklp, щоб мати 
-доступ до додаткових установок друку</translation>
+        <translation>Використовуйте інший менеджер друку, як-от kprinter чи gtklp, щоб мати доступ до розширених параметрів друку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="120"/>
@@ -21568,9 +21560,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="382"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Метод видалення деяких відтінків сірого, скомпонованих з блакитного,
-жовтого та пурпурового кольорів, і використання чорного кольору натомість.
-Віднімання з-під чорного (UCR) найбільше впливає на ті частини зображень, які містять нейтральні чи темні відтінки, близькі до сірого кольору. Використання цього методу може покращити друк деяких зображень, але в окремих випадках можливо доведеться поекспериментувати, зробивши проби. Віднімання з-під чорного  зменшує ймовірність перенасичення паперу CMY чорнилами.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Метод видалення деяких відтінків сірого, скомпонованих з блакитного, жовтого та пурпурового кольорів і використання чорного кольору натомість. Віднімання з-під чорного (UCR) найбільше впливає на ті частини зображень, які містять нейтральні чи темні відтінки, близькі до сірого кольору. Застосування цього методу може покращити друк деяких зображень, але в окремих випадках можливо доведеться поекспериментувати, зробивши проби. Віднімання з-під чорного зменшує ймовірність перенасичення паперу CMY чорнилами.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="392"/>
@@ -21604,7 +21594,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="312"/>
         <source>Sets the PostScript Level. Setting to Level 1 or 2 can create huge files.</source>
-        <translation>Встановлює рівень PostScript. Вибір 1-го чи 2-го рівня може призвести до створення дуже великих файлів</translation>
+        <translation>Встановлює рівень PostScript. Вибір 1-го чи 2-го рівня може призвести до створення величезних файлів.</translation>
     </message>
 </context>
 <context>
@@ -21617,8 +21607,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="254"/>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Створює перегляд перед друком використовуючи симуляцію  
-звичайних  CMYK чорнил замість RGB кольорів</translation>
+        <translation>Вмикає перегляд перед друком застосовуючи симуляцію звичайних CMYK чорнил замість RGB кольорів</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="126"/>
@@ -21668,7 +21657,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="188"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="189"/>
@@ -21716,7 +21705,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінки вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>
@@ -21776,22 +21765,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
         <source>50%</source>
-        <translation type="unfinished">50%</translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="265"/>
         <source>100%</source>
-        <translation type="unfinished">100%</translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="270"/>
         <source>150%</source>
-        <translation type="unfinished">150%</translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="275"/>
         <source>200%</source>
-        <translation type="unfinished">200%</translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="280"/>
@@ -21952,7 +21941,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="824"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="828"/>
@@ -22035,7 +22024,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="186"/>
         <source>Actual X-DPI:</source>
-        <translation>Справжні X-ТНД:</translation>
+        <translation>Справжнє X-DPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
@@ -22045,7 +22034,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="206"/>
         <source>Actual Y-DPI:</source>
-        <translation>Справжні Y-ТНД:</translation>
+        <translation>Справжнє Y-DPI:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="219"/>
@@ -22248,7 +22237,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="713"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="717"/>
@@ -22550,7 +22539,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="103"/>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="233"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="116"/>
@@ -22663,7 +22652,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="106"/>
         <source>Text flow around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтікання контурної лінії текстом</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="213"/>
@@ -22683,27 +22672,27 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="68"/>
         <source>Text flow around frame shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтікання текстом навколо фігури рамки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="49"/>
         <source>Text flow around frame disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтікання текстом навколо рамки вимкнено</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="125"/>
         <source>Text flow around image clip path</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтікання текстом навколо контуру кліпу зображення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
         <source>Text Flow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтікання текстом:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
         <source>Fill Rule:</source>
-        <translation type="unfinished"></translation>
+        <translation>Правило заповнення:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="241"/>
@@ -22769,7 +22758,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="220"/>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="511"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="122"/>
@@ -23182,7 +23171,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="248"/>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="267"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="98"/>
@@ -23334,7 +23323,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="109"/>
         <source>Distance of text from top of frame</source>
-        <translation>Відстань від верхівки рамки до тексту </translation>
+        <translation>Відстань від верхівки рамки до тексту</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="116"/>
@@ -23430,7 +23419,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="27"/>
         <source> lines</source>
-        <translation>рядків</translation>
+        <translation> рядків</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_dropcapbase.ui" line="37"/>
@@ -23880,9 +23869,8 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="88"/>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation>Максимальне число послідовних переносів.
-Нульове значення встановлює необмежену кількість
-переносів.</translation>
+        <translation>Найбільше число послідовних переносів.
+Значення 0 встановлює необмежену кількість перенесень.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
@@ -23935,7 +23923,7 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="45"/>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="65"/>
         <source> lines</source>
-        <translation>рядків</translation>
+        <translation> рядків</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
@@ -24306,7 +24294,7 @@ known limitations. Please consult the Scribus
 Scripter documentation for further information. </source>
         <translation>Це стандартна консоль Python з відомими 
 обмеженнями. Детальніше дивіться в
-документації до Scribus Scripter.</translation>
+документації до Scribus Scripter. </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="193"/>
@@ -24991,7 +24979,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="9"/>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Про Qt&lt;/h3&gt;&lt;p&gt;Ця програма використовує версію %1 Qt .&lt;/p&gt;&lt;p&gt;Qt - багатоплатформний набір для розробки графічних оболонок та програмного забезпечення в C++.&lt;/p&gt;&lt;p&gt;Qt дає можливість портативного використання коду між  MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Лінукс та всіма основними комерційними варіантами UNIX.&lt;br&gt;Існує версія Qt  для вбудованих пристроїв.&lt;/p&gt;&lt;p&gt;Qt - продукт компанії Trolltech. Зверніться до &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; за додатковою інформацією.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Про Qt&lt;/h3&gt;&lt;p&gt;Ця програма використовує Qt версії %1.&lt;/p&gt;&lt;p&gt;Qt — багатоплатформовий набір для розробки графічних оболонок та програмного забезпечення в C++.&lt;/p&gt;&lt;p&gt;Qt дає можливість портативного використання коду між MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Лінукс та всіма основними комерційними варіантами UNIX.&lt;br&gt;Існує версія Qt для вбудованих пристроїв.&lt;/p&gt;&lt;p&gt;Qt — продукт компанії Trolltech. Зверніться до &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; по додаткові подробиці.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -27819,8 +27807,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="63"/>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Неможливо визначити розмір шрифту в нетекстовій рамці.
-</translation>
+        <translation>Неможливо визначити розмір шрифту в нетекстовій рамці.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="88"/>
@@ -27999,13 +27986,13 @@ External Links
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Нетипова (необов&apos;язкова) конфігурація:</translation>
+        <translation>Нетипова (необов&apos;язкова) конфігурація: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="135"/>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Стандартна конфігурація:</translation>
+        <translation>Стандартна конфігурація: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="131"/>
@@ -28263,13 +28250,13 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="818"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося встановити зсув першого рядка на нетекстовій рамці.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Міжрядковий інтервал поза діапазоном, має бути  &gt;= 0.1.</translation>
+        <translation>Міжрядковий інтервал поза діапазоном, має бути &gt;= 0.1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="845"/>
@@ -28281,7 +28268,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="872"/>
         <source>Line space mode invalid, must be 0, 1 or 2</source>
         <comment>python error</comment>
-        <translation>Неправильний режим міжрядкового інтервалу, має бути 0, 1 або 2.</translation>
+        <translation>Неправильний режим міжрядкового інтервалу, має бути 0, 1 або 2</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="880"/>
@@ -28529,7 +28516,7 @@ External Links
         <location filename="../../scribus/pdfoptionsio.cpp" line="736"/>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation>елемент &lt;lpiSettingsEntry&gt; не містить атрибут `name&apos; </translation>
+        <translation>елемент &lt;lpiSettingsEntry&gt; не містить атрибуту `name&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="846"/>
@@ -28897,30 +28884,37 @@ Details of what exceptions each function may throw are provided on the
 function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation>Модуль інтерфейсу Python
+        <translation>Модуль інтерфейсу Python у Scribus
 
-Цей модуль є інтерфейсом Python для Scribus. Він містить функції для керування scribus і для маніпуляції об&apos;єктами на канві. Кожна функція окремо описана внизу. 
+Цей модуль є інтерфейсом Python для Scribus. Він містить функції
+для керування scribus і для маніпуляції об&apos;єктами на полотні. Кожна
+функція окремо описана внизу.
 
 Деякі загальні поняття для всього інтерфейсу.
 
-Більшість функцій оперує рамками. Рамки визначаються назвою, 
-яка є рядковою величиною Python. Багато функцій приймають
-необов&apos;язковий параметр (не ключове слово) - назву рамки. Багато винятків
-також є спільними для більшості функцій. Ці винятки не описуються окремо.
-Багато функцій активують виняток NoDocOpenError, якщо їх застосувати
+Більшість функцій оперує рамками. Рамки визначаються назвами, які є
+рядками, а не справжніми об&apos;єктами Python. Багато функцій приймають
+необов&apos;язковий параметр (не ключове слово) — назву рамки. Багато
+винятків також є спільними для більшості функцій. Ці винятки не
+описуються окремо.
+- Багато функцій активують виняток NoDocOpenError, якщо їх застосувати
 за відсутності активного документа.
-- Якщо функції, яка вимагає назву рамки, не задати цей параметр, то вона спробує
-використати активну рамку, якщо така є, або активує виняток 
-NoValidObjectError, якщо вона не знайде об&apos;єкта над яким можна виконати дії.
-- Багато функцій активують виняток WrongFrameTypeError, якщо їх застосувати
-на рамці, для типу якої вони не підходять. Наприклад, задання кольору
-тексту на рамці для зображень не має сенсу і призведе до активації цього винятку.
-- Помилки, які є результатом викликів стандартного програмного інтерфейсу Python
-повертаються без змін. Тому список можливих винятків, який міститься в 
+- Якщо функції, яка вимагає назву рамки, не призначити цей параметр, то
+вона спробує застосувати активну рамку, якщо така існує, або активує
+виняток NoValidObjectError, якщо вона не знайде об&apos;єкта щодо якого можна
+виконати дії.
+- Багато функцій активують виняток WrongFrameTypeError, якщо їх
+застосувати на рамці, для типу якої вони не підходять. Наприклад,
+призначення кольору тексту на рамці для зображень не має сенсу і
+призведе до введення в дію цього винятку.
+- Помилки, які є наслідком викликів стандартного програмного інтерфейсу Python
+повертаються без змін. Тому список можливих винятків, який міститься у
 документації функції не може бути повним.
 
-Деталі винятків для кожної функції можна знайти в документації функції, хоча
-цей список і не є повним через особливості винятків Python.</translation>
+Подробиці про винятки для кожної функції можна знайти в документації функції,
+хоча, як і в більшості кодів Python, цей список не є вичерпним через винятки з
+викликаних функцій.
+</translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="38"/>
@@ -29104,7 +29098,7 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
     <message>
         <location filename="../../scribus/scfonts.cpp" line="683"/>
         <source>Font is broken: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт пошкоджено: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="685"/>
@@ -29124,12 +29118,12 @@ NoValidObjectError, якщо вона не знайде об&apos;єкта на�
     <message>
         <location filename="../../scribus/scfonts.cpp" line="700"/>
         <source>Failed to load font: font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити шрифт: невідомий тип шрифту</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="711"/>
         <source>Failed to load font: font is not scalable</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити шрифт: шрифт не можна масштабувати</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="713"/>
@@ -30259,7 +30253,7 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="78"/>
         <source>Table row count out of bounds, must be &gt;= 1</source>
         <comment>python error</comment>
-        <translation>Число рядків таблиці поза діапазоном, має бути &gt;= 1.</translation>
+        <translation>Число рядків таблиці поза діапазоном, має бути &gt;= 1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtable.cpp" line="99"/>
@@ -30839,7 +30833,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="346"/>
         <source>which must be 1 to </source>
-        <translation>який має бути від 1 до</translation>
+        <translation>який має бути від 1 до </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="447"/>
@@ -30973,17 +30967,17 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="161"/>
         <source>Error writing to underlying device: </source>
-        <translation>Помилка запису до базового пристрою:</translation>
+        <translation>Помилка запису до базового пристрою: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="362"/>
         <source>Error opening underlying device: </source>
-        <translation>Помилка відкривання базового пристрою:</translation>
+        <translation>Помилка відкривання базового пристрою: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="532"/>
         <source>Error reading data from underlying device: </source>
-        <translation>Помилка читання даних з базового пристрою:</translation>
+        <translation>Помилка читання даних з базового пристрою: </translation>
     </message>
     <message>
         <location filename="../../scribus/qtiocompressor.cpp" line="552"/>
@@ -31541,7 +31535,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="340"/>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="378"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="269"/>
@@ -31591,7 +31585,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="375"/>
         <source>Baseline Offset</source>
-        <translation>Зсув базової лінії:</translation>
+        <translation>Зсув базової лінії</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="299"/>
@@ -32183,7 +32177,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="135"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="136"/>
         <source> lines</source>
-        <translation>рядків</translation>
+        <translation> рядків</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="412"/>
@@ -32276,7 +32270,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="114"/>
         <source>Glyph Extension </source>
-        <translation>Розтяг знаків</translation>
+        <translation>Розтяг знаків </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="737"/>
@@ -32541,7 +32535,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smtabruler.cpp" line="20"/>
         <source> Parent Tabs </source>
-        <translation>Батьківські вкладки</translation>
+        <translation> Батьківські вкладки </translation>
     </message>
 </context>
 <context>
@@ -32676,7 +32670,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="150"/>
         <source>Adds the Page itself as background to the SVG</source>
-        <translation>Додати сторінку як тло SVG.</translation>
+        <translation>Додати сторінку тлом для SVG</translation>
     </message>
 </context>
 <context>
@@ -32684,7 +32678,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="98"/>
         <source>Import &amp;SVG...</source>
-        <translation>Імпортувати  SVG зображ&amp;ення…</translation>
+        <translation>Імпортувати SVG зображ&amp;ення…</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="113"/>
@@ -34011,7 +34005,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="45"/>
         <source>&amp;Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередній перегляд виводу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="49"/>
@@ -34396,7 +34390,7 @@ Vertical gap: %4</source>
         <location filename="../../scribus/scribusdoc.cpp" line="1528"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
-        <translation>Імпортовано </translation>
+        <translation>Імпортовано</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
@@ -34412,7 +34406,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
-        <translation>Стиль примітки %1 має діапазоном весь документ і надає такий самий стиль  нумерації, як набір %2</translation>
+        <translation>Стиль примітки %1 має діапазоном весь документ і надає такий самий стиль нумерації, як набір %2</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
@@ -34527,7 +34521,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3539"/>
         <source> was replaced by: </source>
-        <translation>був підмінений на:</translation>
+        <translation> був підмінений на: </translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3569"/>
@@ -34843,7 +34837,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="910"/>
         <source>&amp;Output Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередній перегляд виводу</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="966"/>
@@ -34878,7 +34872,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1007"/>
         <source>P&amp;DF Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметри P&amp;DF</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1021"/>
@@ -34928,7 +34922,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1348"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1389"/>
@@ -35444,8 +35438,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Це повідомлення також розміщене в блоці копіювання. Використайте 
-Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
+        <translation>Це повідомлення також розміщене в буфері обміну. Застосуйте Ctrl-V для вставляння його в систему відстеження програмних помилок.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
@@ -35751,7 +35744,7 @@ Ctrl-V для вставки його в систему обробітку пр�
         <location filename="../../scribus/ui/styleselect.cpp" line="122"/>
         <location filename="../../scribus/ui/styleselect.cpp" line="124"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="123"/>
@@ -35862,7 +35855,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="101"/>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation>Спеціальний додаток для додавання нерозривних пропусків перед або після так званих коротких слів. Доступний для таких мов:</translation>
+        <translation>Спеціальний плагін для додавання нерозривних пропусків перед або після так званих коротких слів. Доступний для таких мов: </translation>
     </message>
 </context>
 <context>
@@ -36017,7 +36010,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/ui/spiralvectorbase.ui" line="90"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/spiralvectorbase.ui" line="120"/>
@@ -36045,7 +36038,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="89"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/spiralwidgetbase.ui" line="145"/>
@@ -36298,7 +36291,7 @@ Ctrl-V для вставки його в систему обробітку пр�
         <location filename="../../scribus/ui/styleselect.cpp" line="37"/>
         <location filename="../../scribus/ui/styleselect.cpp" line="40"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
@@ -36639,7 +36632,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="35"/>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation>Активація цього налаштування приведе до перезапису стилів,  наявних у поточному документі Scribus</translation>
+        <translation>Увімкнення цього налаштування призведе до перезапису стилів, наявних у поточному документі Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/sxwim/sxwdia.cpp" line="42"/>
@@ -36774,7 +36767,7 @@ Ctrl-V для вставки його в систему обробітку пр�
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="77"/>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="83"/>
         <source> dpi</source>
-        <translation> тнд</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="247"/>
@@ -37283,8 +37276,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="283"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Профіль для друку. При можливості скористайтеся порадами 
-технолога типографії для правильного вибору цього профілю.</translation>
+        <translation>Профіль виводу для друку. За можливості скористайтеся порадами технолога типографії для правильного вибору цього профілю.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="278"/>
@@ -37369,7 +37361,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="208"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation>Створює зменшені зображення кожної сторінки в PDF.  Деякі програми для перегляду PDF можуть використовувати ці зменшені зображення для навігації.</translation>
+        <translation>Створює зменшені зображення кожної сторінки в PDF. Деякі переглядачі PDF можуть застосовувати ці зменшені зображення для навігації.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="211"/>
@@ -37617,12 +37609,12 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="238"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation>Показувати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної ліворуч.</translation>
+        <translation>Показати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної ліворуч</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="239"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation>Показувати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної праворуч.</translation>
+        <translation>Показати документ з титульною сторінкою, починаючи з титульної сторінки, зображеної праворуч</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="240"/>
@@ -37657,7 +37649,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="217"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Обмежує роздільність ваших растрових зображень вибраними ТНД. Зображення з нижчою роздільністю будуть залишені без змін. Якщо залишити не позначеним, то вони будуть вималювані з власною роздільністю. Якщо позначити - зросте використання пам&apos;яті і експортування сповільниться.</translation>
+        <translation>Обмежує роздільність ваших растрових зображень обраними DPI. Зображення з нижчою роздільністю будуть залишені без змін. Якщо залишити не позначеним, то вони будуть вималювані з власною роздільністю. Якщо позначити — зросте використання пам&apos;яті й експортування сповільниться.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="271"/>
@@ -37843,7 +37835,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="209"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation>Генерувати PDF-статті, з яких можлива навігація зв&apos;язаних PDF-статей.</translation>
+        <translation>Створювати PDF-статті, з яких можливо переходити до зв&apos;язаних PDF-статей</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="210"/>
@@ -37853,7 +37845,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="218"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation>ТНД (точки на дюйм) для експорту зображення</translation>
+        <translation>DPI (точки на дюйм) для експорту зображення</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="252"/>
@@ -37868,12 +37860,12 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="246"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation>Приховує смужку меню. PDF буде показано у простому вікні. </translation>
+        <translation>Приховує панель меню. PDF буде показано у звичайному вікні</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="247"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation>Вписати сторінку або сторінки документа в доступний простір у вікні перегляду.</translation>
+        <translation>Вписати сторінку або сторінки документа в доступний простір у вікні перегляду</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="253"/>
@@ -38166,7 +38158,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="75"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="106"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="226"/>
@@ -38302,7 +38294,7 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/styleselect.cpp" line="71"/>
         <location filename="../../scribus/ui/styleselect.cpp" line="74"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="72"/>
@@ -38429,7 +38421,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="607"/>
         <source>Items involved</source>
-        <translation>Задіяні об&apos;єкти</translation>
+        <translation>Пущені в дію об&apos;єкти</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="609"/>
@@ -39044,7 +39036,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="608"/>
         <source>More than 20 items involved</source>
-        <translation>Задіяно більше ніж 20 об&apos;єктів</translation>
+        <translation>Пущено в дію понад 20 об&apos;єктів</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="704"/>
@@ -39144,7 +39136,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="582"/>
         <source>Del master page</source>
-        <translation>Видалити зразок сторінки </translation>
+        <translation>Видалити зразок сторінки</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="583"/>
@@ -39692,7 +39684,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="182"/>
         <source>The SVG Import plugin could not be found</source>
-        <translation>Не знайдено додаток  для імпорту SVG</translation>
+        <translation>Не знайдено плагін для імпорту SVG</translation>
     </message>
 </context>
 <context>
@@ -40220,7 +40212,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="571"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="600"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="158"/>
@@ -40634,7 +40626,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="173"/>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Шаблони документів можна знайти на  http://www.scribus.net/ у розділі матеріалів для отримання.</translation>
+        <translation>Шаблони документів можна знайти на http://www.scribus.net/ у розділі матеріалів для отримання.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="177"/>
@@ -40669,7 +40661,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="193"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Видалення шаблона з вікна «Новий документ з шаблона» лише видалить відповідний пункт з template.xml. Файли не буде видалено.  Діалог видалення активується лише при наявності прав редагування файла template.xml.</translation>
+        <translation>Вилучення шаблона з вікна «Новий документ з шаблона» вилучить лише відповідний пункт з template.xml. Файли не буде видалено. Діалогове вікно вилучення з&apos;явиться лише за наявності прав редагування файла template.xml.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="196"/>
@@ -41329,7 +41321,7 @@ please choose another one.</source>
         <location filename="../../scribus/ui/transparencypalette.ui" line="115"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="296"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="131"/>

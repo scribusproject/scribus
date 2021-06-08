@@ -154,7 +154,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="269"/>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Port de Windows&amp;#174;:</translation>
+        <translation>Adaptació al Windows&amp;#174;:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="285"/>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="157"/>
         <source>Scribus Version</source>
-        <translation>Scribus versió</translation>
+        <translation>Versió de l&apos;Scribus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="199"/>
@@ -219,7 +219,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="327"/>
         <source>Developer Blog</source>
-        <translation>Bloc del desenvolupador</translation>
+        <translation>Blog de desenvolupament</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="206"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="271"/>
         <source>Haiku Port:</source>
-        <translation>Port de Haiku:</translation>
+        <translation>Adaptació al Haiku:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="287"/>
@@ -397,7 +397,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>&amp;Item Action Mode</source>
-        <translation>Mode d&apos;acció de l&apos;ítem</translation>
+        <translation>Mode d&apos;acc&amp;ió de l&apos;element</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1522"/>
@@ -444,12 +444,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1515"/>
         <source>PDF...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
@@ -2860,7 +2860,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="402"/>
         <source>Reset the barcode samples</source>
-        <translation>Restableix els exemples de codi de barres</translation>
+        <translation>Reinicialitza els exemples de codi de barres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="277"/>
@@ -3319,7 +3319,7 @@
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="124"/>
         <source>Reset</source>
-        <translation>Restableix</translation>
+        <translation>Reinicialitza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="55"/>
@@ -6371,7 +6371,7 @@ Per a més detalls consulteu la secció Edició dels colors de la documentació.
     <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="510"/>
         <source>Resets the curve</source>
-        <translation>Restableix la corba</translation>
+        <translation>Reinicialitza la corba</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/curvewidget.cpp" line="511"/>
@@ -7824,7 +7824,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="146"/>
         <source>Reset the text</source>
-        <translation>Restableix el text</translation>
+        <translation>Reinicialitza el text</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="174"/>
@@ -8086,7 +8086,7 @@ Document Liberation Project http://www.documentliberation.org</source>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="775"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="961"/>
         <source>Reset all Control Points</source>
-        <translation>Restableix tots els punts de control</translation>
+        <translation>Reinicialitza tots els punts de control</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="812"/>
@@ -8096,7 +8096,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="819"/>
         <source>Reset Mesh</source>
-        <translation>Restableix la malla</translation>
+        <translation>Reinicialitza la malla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="826"/>
@@ -11486,13 +11486,13 @@ amb la conversió de les dades dels seus vectors en objectes dins de Scribus.</t
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="95"/>
         <source>Resets the selected handles to their initial position.
 If no handle is selected all handles will be reset.</source>
-        <translation>Restableix les anses seleccionades a la seva posició inicial.
+        <translation>Reinicialitza les anses seleccionades a la seva posició inicial.
 Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="99"/>
         <source>&amp;Reset</source>
-        <translation>&amp;Restableix</translation>
+        <translation>&amp;Reinicialitza</translation>
     </message>
 </context>
 <context>
@@ -12108,12 +12108,12 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1123"/>
         <source>Reset Control Points</source>
-        <translation>Restableix els punts de control</translation>
+        <translation>Reinicialitza els punts de control</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1124"/>
         <source>Reset this Control Point</source>
-        <translation>Restableix punt de control</translation>
+        <translation>Reinicialitza punt de control</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1103"/>
@@ -12143,7 +12143,7 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>&amp;Reset Contour Line</source>
-        <translation>&amp;Restableix la línia de contorn</translation>
+        <translation>&amp;Reinicialitza la línia de contorn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
@@ -12218,7 +12218,7 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1143"/>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Restableix el contorn del contorn a la forma original del marc</translation>
+        <translation>Reinicialitza el contorn del contorn a la forma original del marc</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1129"/>
@@ -12302,7 +12302,7 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1115"/>
         <source>Reset all edits</source>
-        <translation>Restableix totes les edicions</translation>
+        <translation>Reinicialitza totes les edicions</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
@@ -15649,7 +15649,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="897"/>
         <source>Reset Settings</source>
-        <translation>Restableix els ajusts</translation>
+        <translation>Reinicialitza els paràmetres</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="904"/>
@@ -16147,7 +16147,7 @@ Trieu-ne un altre.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="894"/>
         <source>Reset Picture Browser to default settings</source>
-        <translation>Restableix el navegador d&apos;imatges als valors predeterminats</translation>
+        <translation>Reinicialitza el navegador d&apos;imatges als valors per defecte</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1296"/>
@@ -16827,7 +16827,7 @@ Voleu migrar-ho a la versió nova de Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation>Restableix l&apos;escala als ppp predeterminats de la vostra pantalla</translation>
+        <translation>Reinicialitza l&apos;escala als ppp predeterminats de la vostra pantalla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="367"/>
@@ -18752,7 +18752,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation>&amp;Restableix</translation>
+        <translation>&amp;Reinicialitza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="357"/>
@@ -20590,7 +20590,7 @@ Voleu utilitzar-la?</translation>
     <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwordsbase.ui" line="82"/>
         <source>Reset</source>
-        <translation>Restableix</translation>
+        <translation>Reinicialitza</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/prefs_shortwords.cpp" line="30"/>
@@ -23870,7 +23870,7 @@ Un valor de 0 significa particions il·limitades.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_optmarginsbase.ui" line="60"/>
         <source>Reset</source>
-        <translation>Restableix</translation>
+        <translation>Reinicialitza</translation>
     </message>
 </context>
 <context>
@@ -25108,7 +25108,7 @@ Comprova el nom i el camí.</translation>
         <location filename="../../scribus/nftrcreader.cpp" line="184"/>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="199"/>
         <source>Posters</source>
-        <translation>Posters</translation>
+        <translation>Cartells</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="165"/>
@@ -25120,7 +25120,7 @@ Comprova el nom i el camí.</translation>
         <location filename="../../scribus/nftrcreader.cpp" line="187"/>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="202"/>
         <source>Text Documents</source>
-        <translation>Documents de Text</translation>
+        <translation>Documents de text</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="173"/>
@@ -25133,7 +25133,7 @@ Comprova el nom i el camí.</translation>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="196"/>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="266"/>
         <source>Own Templates</source>
-        <translation>Plantilles Pròpies</translation>
+        <translation>Plantilles pròpies</translation>
     </message>
     <message>
         <location filename="../../scribus/gtaction.cpp" line="75"/>
@@ -25161,7 +25161,7 @@ Comprova el nom i el camí.</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/txtim/txtim.cpp" line="21"/>
         <source>Text Files</source>
-        <translation>Fitxers de Text</translation>
+        <translation>Fitxers de text</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="16"/>
@@ -25171,12 +25171,12 @@ Comprova el nom i el camí.</translation>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="56"/>
         <source>CSV_data</source>
-        <translation>CSV_data</translation>
+        <translation>Dades_CSV</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvim.cpp" line="60"/>
         <source>CSV_header</source>
-        <translation>CSV_header</translation>
+        <translation>Capçalera_CSV</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="661"/>
@@ -25190,7 +25190,7 @@ Enllaços externs
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/textfilter.cpp" line="26"/>
         <source>Text Filters</source>
-        <translation>Filtres de Text</translation>
+        <translation>Filtres de text</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="178"/>
@@ -31231,7 +31231,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/rulermover.cpp" line="88"/>
         <source>Reset Rulers</source>
-        <translation>Restableix els regles</translation>
+        <translation>Reinicialitza els regles</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/rulermover.cpp" line="95"/>
@@ -32091,12 +32091,12 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="276"/>
         <source>Reset to Default</source>
-        <translation>Restableix als valors predeterminats</translation>
+        <translation>Reinicialitza als valors per defecte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="71"/>
         <source>Advanced Settings</source>
-        <translation>Ajusts avançats</translation>
+        <translation>Paràmetres avançats</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="234"/>
@@ -33118,7 +33118,7 @@ Compte: això incrementarà el pes del fitxer</translation>
         <location filename="../../scribus/ui/annot.ui" line="930"/>
         <location filename="../../scribus/ui/annot.cpp" line="1386"/>
         <source>Reset Form</source>
-        <translation>Restableix el formulari</translation>
+        <translation>Reinicialitza el formulari</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="935"/>
@@ -36258,7 +36258,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
         <location filename="../../scribus/ui/stylemanager.ui" line="433"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="120"/>
         <source>&amp;Reset</source>
-        <translation>&amp;Restableix</translation>
+        <translation>&amp;Reinicialitza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="411"/>
@@ -36301,7 +36301,7 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="108"/>
         <source>Reset all changes</source>
-        <translation>Restableix tots els canvis</translation>
+        <translation>Reinicialitza tots els canvis</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="109"/>
@@ -40965,22 +40965,22 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="48"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Comunes</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="67"/>
         <source>Discretionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Discrecionals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="86"/>
         <source>Contextual</source>
-        <translation type="unfinished"></translation>
+        <translation>Contextuals</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="114"/>
         <source>Historical</source>
-        <translation type="unfinished"></translation>
+        <translation>Històriques</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="170"/>

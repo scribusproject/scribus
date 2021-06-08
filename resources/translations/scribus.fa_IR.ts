@@ -54,7 +54,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="190"/>
         <source>&amp;Online</source>
-        <translation>&amp;آنلاین</translation>
+        <translation>آنلاین</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
@@ -69,12 +69,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Official Documentation:</source>
-        <translation>مستندات رسمی:</translation>
+        <translation>مدارک و راهنمای رسمی:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>Other Documentation:</source>
-        <translation>سایر مستندات:</translation>
+        <translation>سایر مدارک:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="289"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="304"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
-        <translation>ترجمه‌های رسمی و مترجمان (به ترتیب شورت‌کد لوکال)</translation>
+        <translation>ترجمه های رسمی و مترجمان ( به منظور محل کدمختصر )</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Homepage</source>
-        <translation>هوم‌پیج</translation>
+        <translation>صفحهٔ اصلی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
@@ -174,7 +174,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation>OS/2&amp;#174;/eComStation&amp;#8482; پورت:</translation>
+        <translation>OS/2 174؛ eComStation 8482؛ پورت:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="283"/>
@@ -3935,7 +3935,7 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="389"/>
         <source>Go to Page %1</source>
-        <translation>برو به صفحهٔ%1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="391"/>
@@ -38151,7 +38151,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1213"/>
         <source>Unknown error.</source>
-        <translation>ارور ناشناخته</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -40024,7 +40024,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1617"/>
         <source>Unknown error.</source>
-        <translation>ارور ناشناخته.</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
