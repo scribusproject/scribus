@@ -7123,8 +7123,8 @@ d&apos;importer le fichier suivant&#xa0;:
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
-        <source>An exception occured while running the script.</source>
-        <translation>Une exception s&apos;est produite lors de l&apos;exécution du script.</translation>
+        <source>An exception occurred while running the script.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
@@ -11330,17 +11330,17 @@ en assurant la conversion des données vectorielles en objets natifs Scribus.</t
         <translation>Gestionaire de renvois</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="149"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
         <source>Double click to find mark in text</source>
         <translation>Double-cliquez pour trouver un renvoi dans le texte</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="150"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="152"/>
         <source>Update all reference texts for all marks</source>
         <translation>Mettre à jour tous les textes de référence pour tous les renvois</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="153"/>
         <source>Edit selected mark</source>
         <translation>Modifie le renvoi sélectionné</translation>
     </message>
@@ -13392,44 +13392,44 @@ Veuillez le vérifier puis essayer à nouveau.</translation>
         <translation>Qt ne dispose pas des codecs &quot;UTF-16&quot; ou &quot;ISO-10646-UCS-2&quot;, l&apos;export PDF est impossible</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3596"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3597"/>
         <source>Page:</source>
         <translation>Page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3606"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3607"/>
         <source>Date:</source>
         <translation>Date :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10399"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10417"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Échec d&apos;incorporation du fichier PDF : %1.
 Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichiers PS et PDF, puis réessayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11560"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11578"/>
         <source>Failed to load an image : %1</source>
         <translation>Erreur lors du chargement d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11565"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11583"/>
         <source>Failed to write an image : %1</source>
         <translation>Erreur lors de l&apos;écriture d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11570"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11588"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Erreur lors du chargement d&apos;un masque d&apos;image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11575"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Mémoire insuffisante pour traiter une image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11555"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11573"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Une erreur d&apos;écriture s&apos;est produite, veuillez contrôler l&apos;espace disque disponible</translation>
     </message>
@@ -17572,11 +17572,6 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <translation>Unité de mesure par défaut pour l&apos;édition de document</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
-        <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation>Lorsque cette option est activée, Scribus effectue une sauvegarde votre document lorsque la période indiquée est écoulée</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="140"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation>Conserve ces fichiers pendant la session d&apos;édition. Les fichiers de sauvegarde seront supprimés lorsque vous fermerez le document.</translation>
@@ -17590,6 +17585,11 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="136"/>
         <source>Time period between saving automatically</source>
         <translation>Intervalle entre chaque sauvegarde automatique</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21136,11 +21136,6 @@ La sélection du PostScript Niveau 1 ou Niveau 2 peut créer des fichiers de tai
         <translation>Choisissez la langue par défaut utilisée par Scribus dans les dialogues. Laissez vide pour laisser le choix du langage en fonction des variables d&apos;environnement. Vous pourez toujours l&apos;annuler en passant une option à ligne de commande lors du démarrage de Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
-        <translation>Les fenêtres de palette utiliseront des widgets plus petits. Nécessite le redémarrage de l&apos;application.</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="51"/>
         <source>Use System Format</source>
         <translation>Utiliser le format défini par le système</translation>
@@ -21149,6 +21144,11 @@ La sélection du PostScript Niveau 1 ou Niveau 2 peut créer des fichiers de tai
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="52"/>
         <source>Use Interface Language Format</source>
         <translation>Utiliser le format défini par la langue de l&apos;interface</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
@@ -25012,14 +25012,14 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="83"/>
         <location filename="../../scribus/gtgettext.cpp" line="175"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="66"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="57"/>
         <location filename="../../scribus/util_formats.cpp" line="282"/>
         <source>All Supported Formats</source>
         <translation>Tous les formats pris en charge</translation>
     </message>
     <message>
         <location filename="../../scribus/gtgettext.cpp" line="205"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="85"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="76"/>
         <location filename="../../scribus/util_formats.cpp" line="329"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
@@ -33929,17 +33929,17 @@ Attention : ceci augmentera la taille du fichier !</translation>
 <context>
     <name>ScGTFileDialog</name>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="103"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="94"/>
         <source>Select a file to import</source>
         <translation>Choisir un fichier à importer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="123"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="114"/>
         <source>Append</source>
         <translation>Ajouter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="125"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="116"/>
         <source>Show options</source>
         <translation>Afficher les options</translation>
     </message>

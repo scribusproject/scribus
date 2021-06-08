@@ -7106,7 +7106,7 @@ mislyktes</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
-        <source>An exception occured while running the script.</source>
+        <source>An exception occurred while running the script.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11301,17 +11301,17 @@ dokumentet, ved å konvertere deres vektordata til scribusobjekter.</translation
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="149"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
         <source>Double click to find mark in text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="153"/>
         <source>Edit selected mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="150"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="152"/>
         <source>Update all reference texts for all marks</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13362,43 +13362,43 @@ Please check it and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3596"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3597"/>
         <source>Page:</source>
         <translation>Side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3606"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3607"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10399"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10417"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11560"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11578"/>
         <source>Failed to load an image : %1</source>
         <translation>Klarte ikke å laste inn et bilde: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11565"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11583"/>
         <source>Failed to write an image : %1</source>
         <translation>Klarte ikke å lagre et bilde: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11570"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11588"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Klarte ikke å laste inn en bildemaske: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11575"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Ikke nok minne for å behandle bildet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11555"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11573"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Det oppsto en skrivefeil, sjekk om du har nok diskplass</translation>
     </message>
@@ -17518,11 +17518,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Standard måleenhet i dokumentet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
-        <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="140"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation type="unfinished"></translation>
@@ -17536,6 +17531,11 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="136"/>
         <source>Time period between saving automatically</source>
         <translation>Tidsperiode mellom hver automatiske lagring</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21065,6 +21065,11 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Antall nylig brukte filer som vises i filmenyen</translation>
@@ -21106,11 +21111,6 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24995,7 +24995,7 @@ Sjekk stien og filnavnet.</translation>
     </message>
     <message>
         <location filename="../../scribus/gtgettext.cpp" line="205"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="85"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="76"/>
         <location filename="../../scribus/util_formats.cpp" line="329"/>
         <source>All Files (*)</source>
         <translation>Alle filer (*)</translation>
@@ -25141,7 +25141,7 @@ Sjekk stien og filnavnet.</translation>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="83"/>
         <location filename="../../scribus/gtgettext.cpp" line="175"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="66"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="57"/>
         <location filename="../../scribus/util_formats.cpp" line="282"/>
         <source>All Supported Formats</source>
         <translation>Alle støttede formater</translation>
@@ -33819,17 +33819,17 @@ Caution: this will increase the file size!</source>
 <context>
     <name>ScGTFileDialog</name>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="103"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="94"/>
         <source>Select a file to import</source>
         <translation>Velg en fil å importere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="123"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="114"/>
         <source>Append</source>
         <translation>Legg til</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="125"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="116"/>
         <source>Show options</source>
         <translation>Vis valg</translation>
     </message>

@@ -7090,8 +7090,8 @@ failed!</source>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
-        <source>An exception occured while running the script.</source>
-        <translation type="unfinished">Komut dosyası çalıştırılırken bir istisna oluştu.</translation>
+        <source>An exception occurred while running the script.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
@@ -11279,17 +11279,17 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">İşaret Yöneticisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="149"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
         <source>Double click to find mark in text</source>
         <translation type="unfinished">Metinde işareti bulmak için çift tıklayın</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="153"/>
         <source>Edit selected mark</source>
         <translation type="unfinished">Seçili işareti düzenleyin</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/marksmanager.cpp" line="150"/>
+        <location filename="../../scribus/ui/marksmanager.cpp" line="152"/>
         <source>Update all reference texts for all marks</source>
         <translation type="unfinished">Tüm işaretler için tüm referans metinlerini güncelleyin</translation>
     </message>
@@ -13338,43 +13338,43 @@ Please check it and try again.</source>
         <translation type="unfinished">Qt derlemesi hem &quot;UTF-16&quot; hem de &quot;ISO-10646-UCS-2&quot; metin kodekleri eksik, pdf dışa aktarma mümkün değil</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3596"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3597"/>
         <source>Page:</source>
         <translation>Sayfa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3606"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3607"/>
         <source>Date:</source>
         <translation>Tarih:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10399"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10417"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11560"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11578"/>
         <source>Failed to load an image : %1</source>
         <translation type="unfinished">Bir resim yüklenemedi: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11565"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11583"/>
         <source>Failed to write an image : %1</source>
         <translation type="unfinished">Bir resim yazılamadı: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11570"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11588"/>
         <source>Failed to load an image mask : %1</source>
         <translation type="unfinished">Resim maskesi yüklenemedi: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11575"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11593"/>
         <source>Insufficient memory for processing an image</source>
         <translation type="unfinished">Bir görüntüyü işlemek için yetersiz bellek</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11555"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11573"/>
         <source>A write error occurred, please check available disk space</source>
         <translation type="unfinished">Bir yazma hatası oluştu, lütfen kullanılabilir disk alanını kontrol edin</translation>
     </message>
@@ -17493,11 +17493,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Belge düzenlemede kullanılacak öntanımlı ölçü birimi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
-        <source>When enabled, Scribus saves backup copys of your file each time the time period elapses</source>
-        <translation type="unfinished">Etkinleştirildiğinde, Scribus, zaman aralığı her geçtiğinde dosyanızın yedek kopyalarını kaydeder</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="140"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
         <translation type="unfinished">Düzenleme oturumu sırasında bu kadar çok dosyayı saklayın. Belgeyi kapattığınızda yedek dosyalar kaldırılacaktır.</translation>
@@ -17511,6 +17506,11 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="136"/>
         <source>Time period between saving automatically</source>
         <translation type="unfinished">Otomatik olarak kaydetme arasındaki süre</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21036,6 +21036,11 @@ Do you want to use this?</source>
         <translation type="unfinished">Varsayılan pencere dekorasyonunu ve görünümlerini seçin. Qt, KDE eklentilerini arayacak şekilde yapılandırılmışsa, Scribus mevcut KDE veya Qt temalarını devralır.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation type="unfinished">Dosya menüsünde gösterilecek son düzenlenmiş belgelerin sayısı</translation>
@@ -21078,11 +21083,6 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="66"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
         <translation type="unfinished">Scribus&apos;un birlikte çalışması için varsayılan dilinizi seçin. Ortam değişkenlerine göre seçim yapmak için bunu boş bırakın. Scribus&apos;u başlatırken bir komut satırı seçeneği ileterek bunu yine de geçersiz kılabilirsiniz.</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart.</source>
-        <translation type="unfinished">Palet pencereleri daha küçük (alan tasarrufu sağlayan) aletler kullanır. Uygulamanın yeniden başlatılmasını gerektirir.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="51"/>
@@ -24964,7 +24964,7 @@ Check path and filename.</source>
     </message>
     <message>
         <location filename="../../scribus/gtgettext.cpp" line="205"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="85"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="76"/>
         <location filename="../../scribus/util_formats.cpp" line="329"/>
         <source>All Files (*)</source>
         <translation>Tüm dosyalar (*)</translation>
@@ -25110,7 +25110,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="83"/>
         <location filename="../../scribus/gtgettext.cpp" line="175"/>
-        <location filename="../../scribus/scgtplugin.cpp" line="66"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="57"/>
         <location filename="../../scribus/util_formats.cpp" line="282"/>
         <source>All Supported Formats</source>
         <translation>Desteklenen Tüm Biçimler</translation>
@@ -33778,17 +33778,17 @@ Caution: this will increase the file size!</source>
 <context>
     <name>ScGTFileDialog</name>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="103"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="94"/>
         <source>Select a file to import</source>
         <translation type="unfinished">İçe aktarılacak bir dosya seçin</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="123"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="114"/>
         <source>Append</source>
         <translation type="unfinished">Ekle</translation>
     </message>
     <message>
-        <location filename="../../scribus/scgtplugin.cpp" line="125"/>
+        <location filename="../../scribus/scgtplugin.cpp" line="116"/>
         <source>Show options</source>
         <translation type="unfinished">Seçenekleri göster</translation>
     </message>
