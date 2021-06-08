@@ -12,8 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPair>
 
-class QString;
-class QStringList;
+#include <QString>
+#include <QStringList>
 class ScribusDoc;
 class QTabWidget;
 

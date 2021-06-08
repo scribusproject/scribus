@@ -26,6 +26,7 @@ copyright            : Scribus Team
 #include <QSyntaxHighlighter>
 #include <QXmlStreamReader>
 #include <QString>
+#include <QStringRef>
 #include <QObject>
 #include <QPointer>
 

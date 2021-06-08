@@ -6,19 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 // kk2006
 
-
-#include "scgtplugin.h"
-
-#include <QCheckBox>
-#include <QDir>
 #include <QObject>
 #include <QHBoxLayout>
-#include <QString>
-#include <QStringList>
-#include <QWidget>
 
-/***************************************************************************************/
-/***************************************************************************************/
+#include "scgtplugin.h"
 
 ScGTPluginManager* ScGTPluginManager::m_instance = nullptr; // init static variables
 

@@ -12,11 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "ui/customfdialog.h"
 
-class QString;
-class QCheckBox;
-class QStringList;
-class QDir;
-class QWidget;
+#include <QCheckBox>
+#include <QDir>
+#include <QString>
+#include <QStringList>
+#include <QWidget>
 
 /**
   @brief Super class for all text importer plugins.

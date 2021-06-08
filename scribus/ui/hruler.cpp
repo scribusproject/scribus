@@ -296,7 +296,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 	qApp->restoreOverrideCursor();
 }
 
-void Hruler::enterEvent(QEvent *e)
+void Hruler::enterEvent(QEvent* e)
 {
 	if (m_textEditMode)
 		qApp->changeOverrideCursor(IconManager::instance().loadCursor("tab.png", 3));

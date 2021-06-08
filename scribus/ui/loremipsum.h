@@ -21,6 +21,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+#include <QDialog>
+#include <QMap>
+#include <QString>
+#include <QStringList>
+class QCheckBox;
 class QEvent;
 class QGridLayout;
 class QHBoxLayout;
@@ -28,9 +33,6 @@ class QLabel;
 class QPushButton;
 class QSpacerItem;
 class QSpinBox;
-class QCheckBox;
-class QString;
-class QStringList;
 class QTreeWidget;
 class QVBoxLayout;
 
