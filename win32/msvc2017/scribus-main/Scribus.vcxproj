@@ -1723,6 +1723,7 @@
     <lrelease Include="..\..\..\resources\translations\scribus.ms_MY.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.nb_NO.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.nl.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.nn_NO.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.oc.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pl_PL.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pms.ts" />

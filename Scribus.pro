@@ -2172,6 +2172,7 @@ TRANSLATIONS += resources/translations/scribus.af.ts \
                 resources/translations/scribus.mn_MN.ts \
                 resources/translations/scribus.nb_NO.ts \
                 resources/translations/scribus.nl.ts \
+                resources/translations/scribus.nn_NO.ts \
                 resources/translations/scribus.oc.ts \
                 resources/translations/scribus.pl_PL.ts \
                 resources/translations/scribus.pms.ts \
