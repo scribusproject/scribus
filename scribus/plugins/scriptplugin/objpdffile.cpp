@@ -1750,3 +1750,13 @@ PyTypeObject PDFfile_Type = {
 	//    struct _typeobject *tp_next;
 #endif
 };
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void objpdffilewarnings()
+{
+	QStringList s;
+	s << pdffile__doc__
+	  << pdffile_save__doc__;
+}

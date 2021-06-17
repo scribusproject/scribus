@@ -588,3 +588,13 @@ PyTypeObject Printer_Type = {
 	//    struct _typeobject *tp_next;
 #endif
 };
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void objprinterwarnings()
+{
+	QStringList s;
+	s << printer__doc__
+	  << printer_printnow__doc__;
+}
