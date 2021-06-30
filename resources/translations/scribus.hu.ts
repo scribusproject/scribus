@@ -7113,7 +7113,7 @@ importálása sikertelen!</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
         <source>An exception occurred while running the script.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kivétel történt a parancsfájl futtatása közben.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
@@ -17565,7 +17565,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
         <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Engedélyezve a Scribus folyamatos biztonsági mentéseket készíti a fájlról</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21096,7 +21096,7 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
-        <translation type="unfinished"></translation>
+        <translation>A paletták kis méretű felületi elemeket alkalmaznak helyspórolás miatt. Újraindítást igényel.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
@@ -34361,11 +34361,6 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>%1 elem lett másolva a(z) %2 oldalra</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34377,6 +34372,11 @@ Függőleges térköz: %4</translation>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importált </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>

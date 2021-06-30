@@ -34253,7 +34253,7 @@ Vertical gap: %4</source>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
+        <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

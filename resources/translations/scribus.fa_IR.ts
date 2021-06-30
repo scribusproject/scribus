@@ -54,7 +54,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="190"/>
         <source>&amp;Online</source>
-        <translation>آنلاین</translation>
+        <translation>&amp;آنلاین</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
@@ -69,12 +69,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Official Documentation:</source>
-        <translation>مدارک و راهنمای رسمی:</translation>
+        <translation>مستندات رسمی:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>Other Documentation:</source>
-        <translation>سایر مدارک:</translation>
+        <translation>سایر مستندات:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="289"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="304"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
-        <translation>ترجمه های رسمی و مترجمان ( به منظور محل کدمختصر )</translation>
+        <translation>ترجمه‌های رسمی و مترجمان (به ترتیب شورت‌کد لوکال)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Homepage</source>
-        <translation>صفحهٔ اصلی</translation>
+        <translation>هوم‌پیج</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
@@ -174,7 +174,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation>OS/2 174؛ eComStation 8482؛ پورت:</translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; پورت:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="283"/>
@@ -3935,7 +3935,7 @@ Height: %2</source>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="389"/>
         <source>Go to Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>برو به صفحهٔ%1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvasmode_normal.cpp" line="391"/>
@@ -34253,11 +34253,6 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34268,6 +34263,11 @@ Vertical gap: %4</source>
         <location filename="../../scribus/scribusdoc.cpp" line="1528"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -38151,7 +38151,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1213"/>
         <source>Unknown error.</source>
-        <translation type="unfinished"></translation>
+        <translation>ارور ناشناخته</translation>
     </message>
 </context>
 <context>
@@ -40024,7 +40024,7 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1617"/>
         <source>Unknown error.</source>
-        <translation type="unfinished"></translation>
+        <translation>ارور ناشناخته.</translation>
     </message>
 </context>
 <context>

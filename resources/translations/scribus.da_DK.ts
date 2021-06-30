@@ -34322,11 +34322,6 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>Fil %1 gemt automatisk</translation>
@@ -34393,6 +34388,11 @@ Rotation: %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="9459"/>
         <source>remove direct char formatting</source>
         <translation>Fjern direkte tegnformatering</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>

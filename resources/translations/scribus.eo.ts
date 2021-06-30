@@ -7120,7 +7120,7 @@ malsukcesis!</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="25"/>
         <source>An exception occurred while running the script.</source>
-        <translation>Okazis escepto dum la ruliĝo de la skripto.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
@@ -17579,7 +17579,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="135"/>
         <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
-        <translation>Se ebligita, Scribus konservas savkopiojn de via dosiero ĉiam kiam pasas la tempoperiodo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetup.cpp" line="137"/>
@@ -21110,7 +21110,7 @@ Agordado al Nivelo 1 aŭ 2 de Postskripto povus krei grandegajn dosierojn.</tran
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="64"/>
         <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
-        <translation>Paletraj fenestroj uzos pli malgrandajn (spacŝparigajn) fenestraĵojn. Tio postulas aplikaĵan restartigon.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="65"/>
@@ -29527,12 +29527,12 @@ pro la esceptoj de la vokitaj funkcioj.
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
         <source>This image uses an unsupported non integer sample format</source>
-        <translation>Ĉi tiu bildo uzas nesubtenatan neentjeran specimenan formaton.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
         <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
-        <translation>Ĉi tiu bildo uzas nesubtenatan bit-profundecon: %1 bitojn por specimeno.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
@@ -34379,11 +34379,6 @@ Horizontala distanco: %3
 Vertikala distanco: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>Kopiita(j) %1 elemento(j) sur %2 paĝo(j)</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34395,6 +34390,11 @@ Vertikala distanco: %4</translation>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importita</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>

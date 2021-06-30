@@ -29525,12 +29525,12 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="278"/>
         <source>This image uses an unsupported non integer sample format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta slika ima nepodprt zapis z necelim vzorčenjem.</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="285"/>
         <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>Barvna globina te slike, %1 bitov na vzorec, ni podprta.</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="905"/>
@@ -34377,11 +34377,6 @@ Vodoravni razmik: %3
 Navpični razmik: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>Kopiranih %1 predmetov na %2 straneh</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34393,6 +34388,11 @@ Navpični razmik: %4</translation>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Uvoženo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>

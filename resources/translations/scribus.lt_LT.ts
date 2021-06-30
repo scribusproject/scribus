@@ -229,7 +229,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="215"/>
         <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation>Negalima atverti licencijos failo. Informacijos apie licenciją ieškokite  programos diegimo aplanke arba „Scribus“ interneto svetainėje.</translation>
+        <translation>Negalima atverti licencijos failo. Informacijos apie licenciją ieškokite programos diegimo aplanke arba „Scribus“ interneto svetainėje.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="277"/>
@@ -3427,7 +3427,7 @@ It is a reserved name for transparent color</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="216"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation>Pasirinkus tai, spalva taps neskaidoma į kitas spalvas, bus sukuriamas atskiras spalvos skaidinys spaudos plokštei kurti. Tai naudojama tuomet, kai reikia  išgauti spaudoje tikslią, pavyzdžiui, logotipo ar kito spalvoto elemento spalvą ar negalima to pasiekti vien ŽPGJ (CMYK) spalvomis. Metalų ar ryškių plakatinių spalvų dažai yra puikus pavyzdys, ko negalima išgauti vien ŽPGJ spalvomis.</translation>
+        <translation>Pasirinkus tai, spalva taps neskaidoma į kitas spalvas, bus sukuriamas atskiras spalvos skaidinys spaudos plokštei kurti. Tai naudojama tuomet, kai reikia išgauti spaudoje tikslią, pavyzdžiui, logotipo ar kito spalvoto elemento spalvą ar negalima to pasiekti vien ŽPGJ (CMYK) spalvomis. Metalų ar ryškių plakatinių spalvų dažai yra puikus pavyzdys, ko negalima išgauti vien ŽPGJ spalvomis.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="102"/>
@@ -4421,7 +4421,7 @@ Klavišu „Įterpti“ (Insert) įterpiamas rašmuo į žemiau esantį „Atran
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="126"/>
         <source>Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.</source>
-        <translation>Ignoruoti aptiktas klaidas ir tęsti eksportavimą arba spausdinimą. Prieš tęsdami  įsitikinkite, ar iš tikrųjų ignoruoti klaidas.</translation>
+        <translation>Ignoruoti aptiktas klaidas ir tęsti eksportavimą arba spausdinimą. Prieš tęsdami įsitikinkite, ar iš tikrųjų ignoruoti klaidas.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="127"/>
@@ -4464,7 +4464,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>Image dimension is smaller than its frame</source>
-        <translation>Paveikslo matmuo  mažesnis už rėmelio</translation>
+        <translation>Paveikslo matmuo mažesnis už rėmelio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="449"/>
@@ -9475,7 +9475,7 @@ o jų vektorinės grafikos objektus konvertuoja į „Scribus“ objektus.</tran
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="92"/>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
-        <translation>„Kivio“ šabloninės diagramos &quot;*.sml&quot; failas  (*.sml *.SML)</translation>
+        <translation>„Kivio“ šabloninės diagramos &quot;*.sml&quot; failas (*.sml *.SML)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="74"/>
@@ -34333,11 +34333,6 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34349,6 +34344,11 @@ Vertical gap: %4</source>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importuotas </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
@@ -36496,7 +36496,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="318"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Pabraukti tekstą.  Norėdami nustatyti linijos storį ir išdėstymo parinktis nuspauskite keletui akimirkų mygtuką.</translation>
+        <translation>Pabraukti tekstą. Norėdami nustatyti linijos storį ir išdėstymo parinktis, keletui akimirkų nuspauskite mygtuką.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="319"/>
@@ -40615,7 +40615,7 @@ Prašom parinkti kitą.</translation>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="193"/>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Šablono pašalinimas iš  „Naujas dokumentas iš šablono“ dialogo reiškia, kad jis pašalinamas tik iš „template.xml“ failo, dokumento failai nebus pašalinti. Iškylantis meniu su komanda „Pašalinti“ pasirodys tik tuo atveju, jei jums suteikta teisė rašyti į failą „template.xml“.</translation>
+        <translation>Šablono pašalinimas iš „Naujas dokumentas iš šablono“ dialogo reiškia, kad jis pašalinamas tik iš „template.xml“ failo, o dokumento failai nebus pašalinti. Iškylantis meniu su komanda „Pašalinti“ pasirodys tik tuo atveju, jei jums suteikta teisė rašyti į failą „template.xml“.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="196"/>

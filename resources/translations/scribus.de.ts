@@ -4376,47 +4376,47 @@ Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
         <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn ein Bildrahmen erstellt wurde ist damit die Annahme verknüpft, dass geplant war dort ein Bild einzufügen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="134"/>
         <source>If you have created a text frame, there is the presumption that you planned to put text in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn ein Textrahmen erstellt wurde ist damit die Annahme verknüpft, dass geplant war dort Text einzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn ein importiertes Dokument nicht-engebettete Schriftarten verwendet wird ihre Darstellung falsch sein. Es sei denn sie sind zufällig auf Deinem System installiert. Aber dies kann nicht garantiert werden, für den Fall, dass Du das resultierende Dokument weitergeben möchtest</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist eine benutzerdefinierte Einstellung die als Vorsichtsmaßnahme für hochaufgelöste Bilder dient, die zu unnötig großen Dateien führen können</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Bild füllt nicht den gesamten dafür reservierten Platz aus. Vielleicht ist dies beabsichtigt oder es wird durch schlechte innere Platzierung oder Skalierung verursacht. Das Ergebnis wird entweder ein beschnittenes Bild oder weiße Ränder um das Bild sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies ist eine benutzerdefinierte Einstellung die als Vorsichtsmaßnahme für gering aufgelöste Bilder dient, die zu einem schlechten Ausgabeergebnis führen können</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
         <source>You have one or more characters which do not have a corresponding glyph in your chosen font</source>
-        <translation type="unfinished"></translation>
+        <translation>Es gibt ein oder mehrere Zeichen für die keine entsprechende Glyphe in der ausgewählten Schriftart vorhanden ist</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
         <source>The assigned image file cannot be found</source>
-        <translation type="unfinished"></translation>
+        <translation>Die zugewiesene Bilddatei kann nicht gefunden werden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
         <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Objekt ist irgendwo außerhalb der Seitenränder platziert, es wird nicht gedruckt und fehlt vielleicht irgendwo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="433"/>
@@ -4512,33 +4512,33 @@ Der &quot;Einfügen&quot;-Button fügt ein Zeichen in die Textauswahl ein. &quot
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="145"/>
         <source>There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist mehr Text vorhanden, als in diesem Rahmen angezeigt werden kann. Zusätzliche unsichtbare Zeichen, wie Leerzeichen oder Umbrüche können dies verursachen, falls nicht zu fehlen scheint.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
         <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Warnung bedeutet, dass Ihr Dokument Bilder mit einer transparenten Ebene enthält. Dies ist nur ein Problem wenn Sie ältere Druckprofile oder PostScript verwenden. Dies kann ignoriert werden wenn als PDF-Version größer 1.4 exportiert wird.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="147"/>
         <source>Annotation uses a non-TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Anmerkung nutzt eine Nicht-TrueType-Schriftart</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="147"/>
         <source>Annotations support only a standard set of fonts. Choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Anmerkungen unterstützten nur einen Standardsatz an Schriftarten. Wähle eine andere.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="148"/>
         <location filename="../../scribus/ui/checkDocument.cpp" line="150"/>
         <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Ebene verwendet Transparenz, sie ist nur bei älteren Druckprofilen ein Problem. Du kannst dies ignorieren, wenn moderne Druckmethoden verwendet werden oder als PDF-Version größer 1.4 exportiert wird.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="149"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Ebene verwendet Mischungsmodi die Transparenz nutzen. Das ist nur ein Problem wenn ältere Druckprofile verwendet werden. Dies kann getrost ignorieren, wenn moderne Druckmethoden verwendet werden oder als PDF-Version größer 1.4 exportiert wird.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="150"/>
@@ -5979,7 +5979,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="223"/>
         <source>Insert Mark</source>
-        <translation>Marke einfügen</translation>
+        <translation>Textmarke einfügen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="298"/>
@@ -11122,7 +11122,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/mark2item.cpp" line="19"/>
         <source>Mark to Item</source>
-        <translation>Marke zu Objekt</translation>
+        <translation>Textmarke zu Objekt</translation>
     </message>
 </context>
 <context>
@@ -11164,7 +11164,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="53"/>
         <source>Note mark</source>
-        <translation>Notenmarke</translation>
+        <translation>Notizmarke</translation>
     </message>
 </context>
 <context>
@@ -11239,24 +11239,24 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
         <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Beschriftung der ausgewählten Textmarke bearbeiten. Um eine neue Textmarke zu anzulegen, wählen Sie &quot;Neue Textmarke&quot; in der Ausklappliste aus und geben Sie eine neue Beschriftung ein.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Textvariable bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit Textvariable markieren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftung der ausgewählten Textmarke bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -11264,7 +11264,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="32"/>
         <source>Add new Mark for Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine neue Marke für Textvariable hinzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="52"/>
@@ -11274,7 +11274,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="63"/>
         <source>Text to insert:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzufügender Text:</translation>
     </message>
 </context>
 <context>
@@ -11282,7 +11282,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="53"/>
         <source>Update All Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Textmarken aktualisieren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="64"/>
@@ -11307,37 +11307,37 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="103"/>
         <source>Marks to Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarken zu Einträgen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="104"/>
         <source>Marks to Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarken zu Ankern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="105"/>
         <source>Notes marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizentextmarken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="26"/>
         <source>Marks Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarkenverwaltung</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="151"/>
         <source>Double click to find mark in text</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppelt klicken um Textmarke im Text zu finden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="152"/>
         <source>Update all reference texts for all marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Verweistexte für alle Textmarken aktualisieren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="153"/>
         <source>Edit selected mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Textmarke bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -12339,32 +12339,32 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="20"/>
         <source>Notes Styles Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizenstileeditor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="52"/>
         <source>Add New Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Stil hinzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="63"/>
         <source>New Style Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Stilname</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="79"/>
         <source>Footnotes</source>
-        <translation type="unfinished"></translation>
+        <translation>Fußnoten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="92"/>
         <source>Endnotes</source>
-        <translation type="unfinished"></translation>
+        <translation>Endnoten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="99"/>
         <source>Numbering</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufzählung</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="116"/>
@@ -12374,7 +12374,7 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="133"/>
         <source>Start Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Startzahl</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="150"/>
@@ -12389,42 +12389,42 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="177"/>
         <source>Superscript in text</source>
-        <translation type="unfinished"></translation>
+        <translation>Hochgestelltes im Text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="191"/>
         <source>Superscript in notes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hochgestelltes in Notizen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="201"/>
         <source>Mark Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarkenzeichenstil</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="221"/>
         <source>Note Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizenabsatzstil</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="245"/>
         <source>Auto Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-Höhe</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="259"/>
         <source>Auto Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-Breite</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="273"/>
         <source>Auto Welding</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-Verbinden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="287"/>
         <source>Remove if empty</source>
-        <translation type="unfinished"></translation>
+        <translation>Entfernen falls leer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="304"/>
@@ -12466,13 +12466,13 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Dialog ist im Modus &quot;Neuen Notizenstil hinzufügen&quot;. Nach dem Klicken auf die Abbrechen-Schaltfläche wird zurück in den normalen &quot;Notizenstile bearbeiten&quot;-Modus gewechselt.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="392"/>
         <source>Add Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Stil hinzufügen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="159"/>
@@ -12480,7 +12480,7 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="187"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="234"/>
         <source>default</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorgabe</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
@@ -12491,22 +12491,22 @@ Falls kein Anfasser ausgewählt ist, werden alle zurückgesetzt.</translation>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
         <source>Warning! Deleting Notes Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung! Lösche Notizenstil</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="365"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie sind dabei Notizenstil %1 zu löschen. Alle Notizen und Textmarken die diesen Stil nutzen werden ebenfalls gelöscht.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="397"/>
         <source>Cancel Adding</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen abbrechen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Notizenstileditor ist im Modus &quot;Neuen Notizenstil hinzufügen&quot;. Nach dem Klicken auf die Abbrechen-Schaltfläche wechselt der Notizenstileditor in den normalen &quot;Notizenstile bearbeiten&quot;-Modus.</translation>
     </message>
 </context>
 <context>
@@ -19494,7 +19494,7 @@ Möchten Sie diesen verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestimmt die PDF-Kompatibilität.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, die frühste unterstützte Version, sorgt für höchste Kompatibilität für Drucker-RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, die vorgegebene Version, unterstützt Funktionen wie Transparenz und 128-Bit-Verschlüsselung.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; ist nötig, wenn Objekte in separaten Ebenen im PDF erhalten bleiben sollen.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; ist für blinden Austausch mit den Farben streng in CMYK oder Spot-Farben spezifiziert.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; ist für das Exportieren der PDF wenn Sie farbverwaltetes RGB für kommerzielles Drucken möchten und ist auswählbar wenn Sie die Farbverwaltung aktiviert haben. Verwenden Sie es nur wenn Sie von Ihrem Drucker dazu angewiesen wurden oder in einigen Fällen beim Drucken auf einem 4-Farb-Digital-Farblaserdrucker.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; ist eine Erweiterung von PDF/X-3 um Transparenz und Ebenen zu unterstützen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
@@ -21176,7 +21176,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeit bevor die Größenänderung oder Verschiebung beginnt ermöglicht eine leichte Verzögerung zwischen Klicken und der stattfindenen Operation um unbeabsichtigte Änderungen zu verhindern. Dies kann hilfreich bei Problemen mit der Mausempfindlichkeit oder im Zusammenhang mit ergonomischen Mäusen, Tastfeldern oder der Beweglichkeit von Gelenken und Händen sein.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="71"/>
@@ -21871,7 +21871,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="32"/>
         <source>When the group&apos;s bounding frame has been edited, clip the contents of the page items to the edited bounding frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn der Begrenzungsrahmen der Gruppe bearbeitet wurde, beschneide die Inhalte der Seitenobjekte auf den bearbeiteten Begrenzungsrahmen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
@@ -34353,11 +34353,6 @@ Horizontaler Abstand: %3
 Vertikaler Abstand: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>Es wurden %1 Objekte auf %2 Seiten kopiert</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>Datei %1 automatisch gespeichert</translation>
@@ -34371,7 +34366,7 @@ Vertikaler Abstand: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="17979"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizstil %1 hat Dokument als Bereich und bietet den selben Aufzählungsstil wie Satz %2</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="11756"/>
@@ -34419,6 +34414,11 @@ Drehung: %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Möchten Sie wirklich alle Inhalte in den ausgewählten Rahmen entfernen?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
@@ -35440,7 +35440,7 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 3.x.</source>
-        <translation type="unfinished">Integrierte Unterstützung für Scripting mit Python 3.x.</translation>
+        <translation>Integrierte Unterstützung für Scripting mit Python 3.x.</translation>
     </message>
 </context>
 <context>
@@ -37393,7 +37393,7 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="206"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestimmt die PDF-Kompatibilität.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, die frühste unterstützte Version, sorgt für höchste Kompatibilität für Drucker-RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, die vorgegebene Version, unterstützt Funktionen wie Transparenz und 128-Bit-Verschlüsselung.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; ist nötig, wenn Objekte in separaten Ebenen im PDF erhalten bleiben sollen.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; ist für blinden Austausch mit den Farben streng in CMYK oder Spot-Farben spezifiziert.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; ist für das Exportieren der PDF wenn Sie farbverwaltetes RGB für kommerzielles Drucken möchten und ist auswählbar wenn Sie die Farbverwaltung aktiviert haben. Verwenden Sie es nur wenn Sie von Ihrem Drucker dazu angewiesen wurden oder in einigen Fällen beim Drucken auf einem 4-Farb-Digital-Farblaserdrucker.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; ist eine Erweiterung von PDF/X-3 um Transparenz und Ebenen zu unterstützen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="208"/>
@@ -38394,7 +38394,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <location filename="../../scribus/undomanager.cpp" line="579"/>
         <source>Change action PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Aktion ändern</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="580"/>

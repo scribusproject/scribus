@@ -34379,11 +34379,6 @@ Distanza orizzontale: %3
 Distanza verticale: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>Copiati %1 elementi su %2 pagine</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>File %1 salvato automaticamente</translation>
@@ -34445,6 +34440,11 @@ Rotation: %4</source>
 Spostamento orizz.: %2
 Spostamento vert.: %3
 Rotazione: %4</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>

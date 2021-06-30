@@ -34360,11 +34360,6 @@ Gouttière horizontale&#xa0;: %3
 Gouttière verticale&#xa0;: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>%1 objet(s) copié(s) sur %2 pages</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>Fichier %1 sauvegardé automatiquement</translation>
@@ -34426,6 +34421,11 @@ Rotation : %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Voulez-vous vraiment effacer le contenu des cadres sélectionnés&#xa0;?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>

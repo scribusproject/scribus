@@ -34227,11 +34227,6 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished">doğrudan karakter biçimlendirmesini kaldır</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation type="unfinished">%2 sayfada %1 öğe kopyalandı</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
         <location filename="../../scribus/scribusdoc.cpp" line="14862"/>
         <location filename="../../scribus/scribusdoc.cpp" line="15024"/>
@@ -34258,6 +34253,11 @@ Rotation: %4</source>
 Number of columns: %2
 Horizontal gap: %3
 Vertical gap: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

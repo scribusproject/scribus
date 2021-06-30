@@ -34350,11 +34350,6 @@ Horizontaler Abstand: %3
 Vertikaler Abstand: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
-        <source>Copied %1 items on %2 pages</source>
-        <translation>Es wurden %1 Objekte auf %2 Seiten kopiert</translation>
-    </message>
-    <message>
         <location filename="../../scribus/scribusdoc.cpp" line="16454"/>
         <source>File %1 autosaved</source>
         <translation>Datei %1 automatisch gespeichert</translation>
@@ -34416,6 +34411,11 @@ Drehung: %4</translation>
         <location filename="../../scribus/scribusdoc.cpp" line="11053"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Möchten Sie wirklich alle Inhalte in den ausgewählten Rahmen entfernen?</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/scribusdoc.cpp" line="13561"/>
+        <source>Copied %1 item(s) on %2 page(s)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="14807"/>
