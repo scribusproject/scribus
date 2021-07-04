@@ -4,6 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+
+#include <cstdint>
+
 #include <QApplication>
 #include <QFile>
 #include <QFileInfo>
@@ -174,14 +177,11 @@ void PdbIm::loadFile(const QString& fname)
 
 void PdbIm::selectSwap()
 {
-	union { char c[2];  Word n; }  w;
-	strncpy(  w.c, "\1\2",     2 );
+	uint32_t value = 0x01;
+	const void * valuePtr = static_cast<const void *>(&value);
+	const uint8_t * valuePtr8 = static_cast<const unsigned char *>(valuePtr);
 
-	if ( w.n == 0x0201 )
-		m_littlendian = true;
-	else
-		m_littlendian = false;
-
+	m_littlendian = (*valuePtr8 == 0x01);
 }  
 
 Word PdbIm::swap_Word( Word r )
