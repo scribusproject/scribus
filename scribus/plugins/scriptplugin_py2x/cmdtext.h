@@ -651,7 +651,7 @@ PyObject *scribus_dehyphenatetext(PyObject *, PyObject* args);
 PyDoc_STRVAR(scribus_setpdfbookmark__doc__,
 QT_TR_NOOP("setPDFBookmark(\"toggle\", [\"name\"])\n\
 \n\
-Sets whether (toggle = 1) the text frame \"name\" is a bookmark nor not.\n\
+Sets whether (toggle = 1) the text frame \"name\" is a bookmark or not.\n\
 If \"name\" is not given the currently selected item is used.\n\
 \n\
 May raise WrongFrameTypeError if the target frame is not a text frame\n\

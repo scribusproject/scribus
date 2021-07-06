@@ -209,7 +209,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
-	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
+	FIXME: I've add test on containing tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	QString errorMsg;
 	int errorLine, errorColumn;
 	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
@@ -273,7 +273,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		m_Doc->itemToolPrefs().textSize = qRound(ScCLocale::toDoubleC(dc.attribute("DSIZE")) * 10);
 		Defont = dc.attribute("DFONT");
-		//findFont will use that if it doesnt find the font:
+		//findFont will use that if it doesn't find the font:
 		m_Doc->itemToolPrefs().textFont = prefsManager.appPrefs.itemToolPrefs.textFont;
 		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->itemToolPrefs().textFont = Defont;
@@ -2278,7 +2278,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					newItem = PasteItem(&pg, m_Doc, fileDir, itemKind);
 					newItem->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					newItem->setRedrawBounding();
-					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
+					//CB Must run onpage as we can't use pagetoload if the page has been renamed. 
 					//CB TODO Make this accept a page to place onto.
 					//newItem->OwnPage = m_Doc->OnPage(newItem);
 					//newItem->OwnPage = PageToLoad;

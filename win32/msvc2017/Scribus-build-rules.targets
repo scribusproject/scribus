@@ -126,7 +126,7 @@
     </ItemGroup>
     <Delete Files="@(uicFileToDelete)" />
   </Target>
-  <!-- Additionnal include directories for ui_* files -->
+  <!-- Additional include directories for ui_* files -->
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(IntDir)uic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

@@ -3886,7 +3886,7 @@ bool Scribus150Format::readNotes(ScribusDoc* doc, ScXmlStreamReader& reader)
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			TextNote* note = m_Doc->newNote(nullptr);
 			note->setSaxedText(attrs.valueAsString("Text"));
-			//temporaly insert names of master mark and notes style into maps with note pointer
+			//temporarily insert names of master mark and notes style into maps with note pointer
 			//will be resolved to pointers by updateNames2Ptr() after all will read
 			notesMasterMarks.insert(attrs.valueAsString("Master"), note);
 			notesNSets.insert(note, attrs.valueAsString("NStyle"));

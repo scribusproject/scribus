@@ -274,7 +274,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		filterTypeCombobox->addItem(nameFilters.at(i), 1);
 	}
 
-//fix: scrollperitem doesnt work
+//fix: scrollperitem doesn't work
 //imageViewArea->setLayoutMode(QListView::Batched);
 //imageViewArea->setBatchSize(4);
 //imageViewArea->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
@@ -578,7 +578,7 @@ void PictureBrowser::subdirsCheckboxStateChanged()
 // processes chosen dirs in the folderbrowser
 void PictureBrowser::dirChosen(const QModelIndex &index)
 {
-	// as long as the folder doesnt change, only the first signal (click, doubleclick or activated) is processed
+	// as long as the folder doesn't change, only the first signal (click, doubleclick or activated) is processed
 	if (documentChanged || !tmpindex.isValid() || (tmpindex != index))
 	{
 		tmpindex = index;

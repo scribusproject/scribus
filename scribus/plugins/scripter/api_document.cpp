@@ -301,7 +301,7 @@ QList<QVariant> DocumentAPI::items()
 	}
 	return l;
 }
-//FIXME is there a need to make these informations separate properties?
+//FIXME is there a need to make this information separate properties?
 //jainbasil
 
 

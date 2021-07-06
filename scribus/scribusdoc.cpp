@@ -7099,7 +7099,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->setInitialWidth(from->width());
 		destination->setOrientation(from->orientation());
 		destination->setSize(from->size());
-		//CB: Can possibly partially use the code from applyMasterPage here instead of runnin all of this again..
+		//CB: Can possibly partially use the code from applyMasterPage here instead of running all of this again..
 		//TODO make a function to do this margin stuff and use elsewhere too
 		destination->initialMargins.setTop(from->initialMargins.top());
 		destination->initialMargins.setBottom(from->initialMargins.bottom());

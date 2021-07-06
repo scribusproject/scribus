@@ -3709,7 +3709,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 
 bool ScribusMainWindow::postLoadDoc()
 {
-	//FIXME Just return for now, if we arent using the GUI
+	//FIXME Just return for now, if we aren't using the GUI
 	return ScCore->usingGUI();
 }
 

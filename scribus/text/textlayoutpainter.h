@@ -99,7 +99,7 @@ public:
 	/// selecting proper foreground and background colors when drawing text
 	/// selection.
 	virtual void setSelected(bool s);
-	/// The current selection sate.
+	/// The current selection state.
 	virtual bool selected() const;
 
 	/// Sets the transformation matrix to be applied to subsequent drawing

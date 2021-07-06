@@ -10,7 +10,7 @@ def usage():
  
 	Copies all dependent libraries and frameworks into the app bundle.
 	System libraries (/usr/lib*, /System/Library) are not copied.
-	Fixes the dependencies in all executabels contained in bundle.
+	Fixes the dependencies in all executables contained in bundle.
 	
 	bundle:	the path to the *.app bundle
 	-x lib:	dont move lib into the bundle. 

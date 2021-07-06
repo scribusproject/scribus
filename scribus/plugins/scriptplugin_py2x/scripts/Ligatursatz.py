@@ -22396,7 +22396,7 @@ class StoryInterface:
 
     Some of Scribus’ script API is about stories, other parts are about
     the text frames, using different indexes which leads sometime to
-    unexpected bahaviour. This class offers a simple interface to the
+    unexpected behaviour. This class offers a simple interface to the
     story content. It hasn’t many functions, but it’s a consistent
     interface and avoids unexpected side effects. It works as expected
     independently of the current text selection, but it might change
@@ -22623,7 +22623,7 @@ def do_ligature_setting():
                     # However, we have made sure earlier that only Unicode
                     # Scalar Values inside BMP are in used_characters, so
                     # it is guaranteed that here the indexes are the same,
-                    # whether it is UTF16 or UTF32. So we can savely use
+                    # whether it is UTF16 or UTF32. So we can safely use
                     # these indexes to do our modifications in Scribus.
                     if instruction_list[j] == True:
                         # Insert here a ZWNJ.

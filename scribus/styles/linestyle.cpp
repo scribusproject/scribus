@@ -255,7 +255,7 @@ void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	ruleset.addRule(stylePrefix, IdRef<LineStyle>());
 	BaseStyle::desaxeRules<LineStyle>(prefixPattern, ruleset, elemtag);
 
-//  "**" doesnt work yet - av
+//  "**" doesn't work yet - av
 //	Xml_string stylePrefixRec(Digester::concat(stylePrefix, "**"));
 	const Xml_string& stylePrefixRec(stylePrefix);
 	Xml_string subPrefix(Digester::concat(stylePrefixRec, "subline"));

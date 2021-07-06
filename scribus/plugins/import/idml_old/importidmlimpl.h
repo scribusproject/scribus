@@ -106,7 +106,7 @@ struct CStyleRange
 };
 
 /*!
-\brief Stuct PStyleRange will hold the values of all those attributes/elements which can occur in the ParagraphStyleRange in a Story. Since it can contain any number of CharacterStyleRange elements as its children, we use a list to store all of them.
+\brief Struct PStyleRange will hold the values of all those attributes/elements which can occur in the ParagraphStyleRange in a Story. Since it can contain any number of CharacterStyleRange elements as its children, we use a list to store all of them.
 \param properties contain all the common text properties, of which if anyone is skipped, we use the default value for it from the docpreference object.
 \param cstyleRange contain all the CharacterStyleRange elements in the ParagraphStyleRange
 */

@@ -260,7 +260,7 @@ void Prefs_DocumentSections::deleteEntry()
 	}
 	if (found)
 	{
-		//If we arent at the start, copy the toindex of the current item
+		//If we aren't at the start, copy the toindex of the current item
 		//to the toindex of the previous item
 		if (it!=m_localSections.begin())
 		{

@@ -304,7 +304,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
 		// Provide script path to the interpreter
 		cm        += QString("__file__ = \"%1\"\n").arg(escapedAbsFilePath);
-		// tell the script if it's running in the main intepreter or a subinterpreter
+		// tell the script if it's running in the main interpreter or a subinterpreter
 		cm        += QString("import scribus\n");
 		if (inMainInterpreter)
 			cm+= QString("scribus.mainInterpreter = True\n");
