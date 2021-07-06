@@ -64,7 +64,7 @@ void AdapterWidget::mousePressEvent ( QMouseEvent* event )
 			qApp->setOverrideCursor(QCursor(Qt::OpenHandCursor));
 			button = 1;
 			break;
-		case Qt::MidButton:
+		case Qt::MiddleButton:
 			qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor));
 			button = 2;
 			break;
@@ -89,7 +89,7 @@ void AdapterWidget::mouseReleaseEvent ( QMouseEvent* event )
 	switch ( event->button() )
 	{
 		case ( Qt::LeftButton ) : button = 1; break;
-		case ( Qt::MidButton ) : button = 2; break;
+		case ( Qt::MiddleButton ) : button = 2; break;
 		case ( Qt::RightButton ) : button = 3; break;
 		case ( Qt::NoButton ) : button = 0; break;
 		default: button = 0; break;

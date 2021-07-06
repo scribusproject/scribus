@@ -313,7 +313,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	Ryp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).y();
 	Rypd = m_yp - Ryp;
 	m_yp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

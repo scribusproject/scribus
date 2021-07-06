@@ -161,7 +161,7 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 	m_Mxp = qRound(Rxp);
 	double Ryp = m_doc->ApplyGridF(FPoint(m_Mxp, m_Myp)).y();
 	m_Myp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

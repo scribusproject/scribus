@@ -213,7 +213,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_canvasPressCoord.setX( qRound(Rxp) );
 	double Ryp = m_doc->ApplyGridF(m_canvasPressCoord).y();
 	m_canvasPressCoord.setY( qRound(Ryp) );
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

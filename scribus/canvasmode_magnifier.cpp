@@ -154,7 +154,7 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	m_Myp = qRound(Ryp);
 	m_SeRx = m_Mxp;
 	m_SeRy = m_Myp;
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

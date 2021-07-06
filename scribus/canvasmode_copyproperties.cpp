@@ -147,7 +147,7 @@ void CanvasMode_CopyProperties::mousePressEvent(QMouseEvent *m)
 	Mxp = qRound(Rxp);
 	double Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
 	Myp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

@@ -365,7 +365,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 	m_doc->ApplyGuides(&Rxp, &Ryp,true);
 	createObjectPos.setXY(Rxp, Ryp);
 
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

@@ -729,7 +729,7 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 	m_gradientPoint = noPointDefined;
 	m_Mxp = mousePointDoc.x(); //m->x();
 	m_Myp = mousePointDoc.y(); //m->y();
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

@@ -58,7 +58,7 @@ void IView::mousePressEvent ( QMouseEvent * e )
 	if ( !scene() )
 		return;
 
-// 	if ( e->button() == Qt::MidButton )
+// 	if ( e->button() == Qt::MiddleButton )
 	{
 		mouseStartPoint =  e->pos() ;
 		isPanning = true;

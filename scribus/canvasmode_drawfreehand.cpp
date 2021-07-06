@@ -186,7 +186,7 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	m_xp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(m_xp, m_yp)).y();
 	m_yp = qRound(Ryp);
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

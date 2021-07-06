@@ -830,7 +830,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
 
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
@@ -918,7 +918,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 				m_canvas->setRenderModeFillBuffer();
 		}
 	}
-/*	if (m->button() == MidButton)
+/*	if (m->button() == MiddleButton)
 	{
 		MidButt = true;
 		if (m_doc->m_Selection->count() != 0)

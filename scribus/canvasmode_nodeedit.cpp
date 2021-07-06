@@ -358,7 +358,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	m_Mxp = m->x();
 	m_Myp = m->y();
 
-	if (((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
+	if (((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MiddleButton)))
 	{
 		if (!m_panGesture)
 		{

@@ -747,7 +747,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	m_Mxp = mousePointDoc.x(); //m->x();
 	m_Myp = mousePointDoc.y(); //m->y();
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

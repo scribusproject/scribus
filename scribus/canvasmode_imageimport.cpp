@@ -201,7 +201,7 @@ void CanvasMode_ImageImport::mousePressEvent(QMouseEvent *m)
 		else
 			view()->ImageAfterDraw = true;
 	}
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)

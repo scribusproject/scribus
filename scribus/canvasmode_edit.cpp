@@ -564,7 +564,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	SeRx = Mxp;
 	SeRy = Myp;
-	if (m->button() == Qt::MidButton)
+	if (m->button() == Qt::MiddleButton)
 	{
 		m_view->MidButt = true;
 		if (m->modifiers() & Qt::ControlModifier)
@@ -680,7 +680,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					currItem->HasSel = false;
 				}
 				currItem->emitAllToGUI();
-				if (m->button() == Qt::MidButton)
+				if (m->button() == Qt::MiddleButton)
 				{
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
 					m_view->MidButt = false;
