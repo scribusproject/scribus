@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/textshaper.h"
 #include "text/shapedtext.h"
 #include "text/shapedtextfeed.h"
+#include "textnote.h"
 #include "ui/guidemanager.h"
 #include "ui/marksmanager.h"
 #include "undomanager.h"
@@ -5594,7 +5595,7 @@ TextNote* PageItem_TextFrame::selectedNoteMark(int &foundPos, bool onlySelection
 		else
 			return nullptr;
 	}
-	MarkType typ = isNoteFrame()? MARKNoteFrameType : MARKNoteMasterType;
+	MarkType typ = isNoteFrame() ? MARKNoteFrameType : MARKNoteMasterType;
 	for (int pos = start; pos < stop; ++pos)
 	{
 		if (itemText.hasMark(pos) && itemText.mark(pos)->isType(typ))

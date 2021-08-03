@@ -46,28 +46,21 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "textnote.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_text.h"
 #include "ui/contentpalette.h"
 #include "ui/missing.h"
 
-gtAction::gtAction(bool append, PageItem* pageitem) :
-	m_prefsManager(PrefsManager::instance())
-{	m_textFrame = pageitem;
-	m_ScMW=m_textFrame->doc()->scMW();
+gtAction::gtAction(bool append, PageItem* pageitem)
+	    : m_prefsManager(PrefsManager::instance())
+{
+	m_textFrame = pageitem;
+	m_ScMW = m_textFrame->doc()->scMW();
 	m_it = m_textFrame;
-	m_lastParagraphStyle = -1;
-	m_inPara = false;
-	m_isFirstWrite = true;
-	m_lastCharWasLineChange = false;
-	m_currentFrameStyle = "";
 	m_doAppend = append;
-	m_updateParagraphStyles = false;
-	m_overridePStyleFont = true;
 	m_undoManager = UndoManager::instance();
-	m_noteStory = nullptr;
-	m_note = nullptr;
 }
 
 void gtAction::setProgressInfo()

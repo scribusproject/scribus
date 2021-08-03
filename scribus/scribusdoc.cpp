@@ -97,6 +97,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "serializer.h"
 #include "tableborder.h"
+#include "textnote.h"
 #include "text/textlayoutpainter.h"
 #include "text/textshaper.h"
 #include "ui/guidemanager.h"
@@ -1229,14 +1230,14 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 			currItem->replaceNamedResources(newNames);
 	}
 	// replace names in styles...
-	for (int i=m_docParagraphStyles.count()-1; i >= 0; --i)
+	for (int i = m_docParagraphStyles.count() - 1; i >= 0; --i)
 	{
 		if (newNames.styles().contains(m_docParagraphStyles[i].name()))
 			m_docParagraphStyles.remove(i);
 		else
 			m_docParagraphStyles[i].replaceNamedResources(newNames);
 	}
-	for (int i=m_docCharStyles.count()-1; i >= 0; --i)
+	for (int i = m_docCharStyles.count() - 1; i >= 0; --i)
 	{
 		if (newNames.charStyles().contains(m_docCharStyles[i].name()))
 			m_docCharStyles.remove(i);
@@ -1361,7 +1362,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 			replaceStyles(deletion);
 	}
 	// repair charstyle context:
-	for (int i=0; i < m_docParagraphStyles.count(); ++i)
+	for (int i = 0; i < m_docParagraphStyles.count(); ++i)
 	{
 		ParagraphStyle& sty(m_docParagraphStyles[i]);
 		if (m_docParagraphStyles.isDefault(sty))
@@ -1388,7 +1389,7 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
 	{
 		QMap<QString, QString> deletion;
 		QString deflt("");
-		for (int i=0; i < m_docCharStyles.count(); ++i)
+		for (int i = 0; i < m_docCharStyles.count(); ++i)
 		{
 			const QString& nam(m_docCharStyles[i].name());
 			if (newStyles.find(nam) < 0)
@@ -16874,14 +16875,10 @@ PageItem* ScribusDoc::findMarkItem(const Mark* mrk, PageItem* &lastItem) const
 			continue;
 		if (item->prevInChain() != nullptr)
 			continue;
-	//	for (int j = item->firstInFrame(); j <= item->lastInFrame(); ++j)
-		for (int j = 0; j < item->itemText.length(); ++j)
+		if (item->itemText.findMark(mrk) >= 0)
 		{
-			if (item->itemText.hasMark(j, mrk))
-			{
-				lastItem = item;
-				return item;
-			}
+			lastItem = item;
+			return item;
 		}
 	}
 	lastItem = nullptr;
@@ -16968,7 +16965,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			int markPos = findMarkCPos(mrk, item);
 			while (markPos > -1)
 			{
-				if (mrk->isType(MARKNoteFrameType) && markPos > 1 && item->itemText.text(markPos -1) == SpecialChars::PARSEP)
+				if (mrk->isType(MARKNoteFrameType) && markPos > 1 && item->itemText.text(markPos - 1) == SpecialChars::PARSEP)
 					item->itemText.removeChars(markPos - 1, 2);
 				else
 					item->itemText.removeChars(markPos, 1);
@@ -17414,39 +17411,37 @@ void ScribusDoc::updateItemNotesNums(PageItem_TextFrame* frame, NotesStyle* nSty
 
 	for (int pos = frame->firstInFrame(); pos <= frame->lastInFrame(); ++pos)
 	{
+		if (!frame->itemText.hasMark(pos, MARKNoteMasterType))
+			continue;
 		Mark* mark = frame->itemText.mark(pos);
-		if (frame->itemText.hasMark(pos) && mark->isType(MARKNoteMasterType))
+
+		TextNote* note = mark->getNotePtr();
+		if (note == nullptr || note->notesStyle() != nStyle)
+			continue;
+
+		QString numStr = nStyle->prefix() + nStyle->numString(noteNum) + nStyle->suffix();
+		QString mStr = mark->getString();
+		QString label = mark->label;
+		if ((mStr != numStr) || flag_updateMarksLabels || flag_updateEndNotes)
 		{
-			if (mark->getNotePtr() == nullptr)
-				continue;
-			if (mark->getNotePtr()->notesStyle() == nStyle)
-			{
-				QString numStr = nStyle->prefix() + nStyle->numString(noteNum) + nStyle->suffix();
-				QString mStr = mark->getString();
-				QString label = mark->label;
-				if ((mStr != numStr) || flag_updateMarksLabels || flag_updateEndNotes)
-				{
-					doUpdate = true;
-					mark->setString(numStr);
-					label = "NoteMark_" + nStyle->name();
-					if (nStyle->range() == NSRstory)
-						label += " in " + frame->firstInChain()->itemName();
-					label += "_" + QString::number(noteNum);
-					mark->label = label;
-				}
-				TextNote* note = mark->getNotePtr();
-				note->setNum(noteNum);
-				note->masterMark()->setItemPtr(frame);
-				if (note->noteMark() != nullptr)
-				{
-					note->noteMark()->setString(numStr);
-					label = label.replace("NoteMark","NoteFrameMark");
-					note->noteMark()->label = label;
-				}
-				++index;
-				++noteNum;
-			}
+			doUpdate = true;
+			mark->setString(numStr);
+			label = "NoteMark_" + nStyle->name();
+			if (nStyle->range() == NSRstory)
+				label += " in " + frame->firstInChain()->itemName();
+			label += "_" + QString::number(noteNum);
+			mark->label = label;
 		}
+		note->setNum(noteNum);
+		note->masterMark()->setItemPtr(frame);
+		if (note->noteMark() != nullptr)
+		{
+			note->noteMark()->setString(numStr);
+			label = label.replace("NoteMark","NoteFrameMark");
+			note->noteMark()->label = label;
+		}
+		++index;
+		++noteNum;
 	}
 	PageItem_NoteFrame* nF = nullptr;
 	if (nStyle->isEndNotes())
@@ -17933,7 +17928,7 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 		}
 	}
 	m_Selection->delaySignalsOn();
-	if (m_Selection->findItem(nF)!=-1)
+	if (m_Selection->findItem(nF) != -1)
 	{
 		if (appMode == modeEdit)
 			view()->requestMode(modeNormal);

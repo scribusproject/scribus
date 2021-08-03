@@ -403,6 +403,7 @@
     <moc Include="..\..\..\scribus\ui\fontreplacedialog.h" />
     <ClInclude Include="..\..\..\scribus\fpoint.h" />
     <ClInclude Include="..\..\..\scribus\fpointarray.h" />
+    <moc Include="..\..\..\scribus\textnote.h" />
     <ClInclude Include="..\..\..\scribus\text\boxes.h" />
     <ClInclude Include="..\..\..\scribus\text\frect.h" />
     <ClInclude Include="..\..\..\scribus\text\fsize.h" />
@@ -503,7 +504,7 @@
     <ClInclude Include="..\..\..\scribus\nfttemplate.h" />
     <moc Include="..\..\..\scribus\ui\nftwidget.h" />
     <moc Include="..\..\..\scribus\ui\nodeeditpalette.h" />
-    <moc Include="..\..\..\scribus\notesstyles.h" />
+    <ClInclude Include="..\..\..\scribus\notesstyles.h" />
     <moc Include="..\..\..\scribus\ui\notesstyleseditor.h" />
     <ClInclude Include="..\..\..\scribus\numeration.h" />
     <moc Include="..\..\..\scribus\observable.h" />
@@ -907,6 +908,7 @@
     <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\storyloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\textnote.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
     <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
     <ClCompile Include="..\..\..\scribus\text\index.cpp" />

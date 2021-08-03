@@ -229,6 +229,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/tablehandle.h \
            scribus/tablepainter.h \
            scribus/tableutils.h \
+           scribus/textnote.h \
            scribus/textwriter.h \
            scribus/tocgenerator.h \
            scribus/transaction.h \
@@ -1348,6 +1349,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/tableborder.cpp \
            scribus/tablecell.cpp \
            scribus/tableutils.cpp \
+           scribus/textnote.cpp \
            scribus/textwriter.cpp \
            scribus/tocgenerator.cpp \
            scribus/transaction.cpp \

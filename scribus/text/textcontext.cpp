@@ -12,9 +12,8 @@
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
 #include "scribusdoc.h"
+#include "textnote.h"
 #include "util.h"
-
-
 
 static CharStyle* emptyCStyle;
 static ParagraphStyle*  emptyPStyle;

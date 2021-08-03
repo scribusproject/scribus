@@ -264,6 +264,7 @@ set(SCRIBUS_SOURCES
 	tableborder.cpp
 	tablecell.cpp
 	tableutils.cpp
+	textnote.cpp
 	textwriter.cpp
 	tocgenerator.cpp
 	transaction.cpp

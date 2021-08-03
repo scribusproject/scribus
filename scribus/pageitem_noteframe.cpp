@@ -8,6 +8,7 @@
 #include "pageitem_textframe.h"
 
 #include "scribusdoc.h"
+#include "textnote.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_text.h"
@@ -319,42 +320,38 @@ void PageItem_NoteFrame::updateNotesText()
 	int pos = 0;
 	int startPos = 0;
 	TextNote *note = nullptr;
-	Mark* prevMrk = nullptr;
+	Mark* prevMark = nullptr;
 	while (pos < itemText.length())
 	{
-		if (itemText.hasMark(pos))
+		if (itemText.hasMark(pos, MARKNoteFrameType))
 		{
-			Mark* mark = itemText.mark(pos);
-			if  (mark->isType(MARKNoteFrameType))
+			if (prevMark != nullptr)
 			{
-				if (prevMrk != nullptr)
+				note = prevMark->getNotePtr();
+				if (note != nullptr)
 				{
-					note = prevMrk->getNotePtr();
-					if (note != nullptr)
+					int offset = 0;
+					if (itemText.text(pos - 1) == SpecialChars::PARSEP)
+						++offset;
+					int len = pos - startPos -offset;
+					if (len <= 0)
+						note->clearSaxedText();
+					else
 					{
-						int offset = 0;
-						if (itemText.text(pos-1) == SpecialChars::PARSEP)
-							++offset;
-						int len = pos - startPos -offset;
-						if (len <= 0)
-							note->clearSaxedText();
-						else
-						{
-							note->setSaxedText(getItemTextSaxed(startPos, len));
-							note->textLen = len;
-						}
-						itemText.deselectAll();
+						note->setSaxedText(getItemTextSaxed(startPos, len));
+						note->textLen = len;
 					}
+					itemText.deselectAll();
 				}
-				prevMrk = mark;
-				startPos = pos +1;
 			}
+			prevMark = itemText.mark(pos);
+			startPos = pos + 1;
 		}
 		++pos;
 	}
-	if (prevMrk != nullptr)
+	if (prevMark != nullptr)
 	{
-		note = prevMrk->getNotePtr();
+		note = prevMark->getNotePtr();
 		Q_ASSERT(note != nullptr);
 		if (startPos != pos)
 		{
@@ -415,21 +412,4 @@ void PageItem_NoteFrame::unWeld(bool doUndo)
 		}
 		weldList.clear();
 	}
-}
-
-int PageItem_NoteFrame::findNoteCpos(TextNote* note)
-{
-	//find position of note in note`s frame
-	if (itemText.length() == 0)
-		return -1;
-	for (int pos=0; pos < itemText.length(); ++pos)
-	{
-		Mark* mark = itemText.mark(pos);
-		if (itemText.hasMark(pos) && mark->isType(MARKNoteFrameType))
-		{
-			if (mark->getNotePtr() == note)
-				return (pos);
-		}
-	}
-	return -1;
 }

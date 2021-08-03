@@ -59,7 +59,6 @@ public:
 	gtAction(bool append, PageItem *pageitem);
 	~gtAction();
 
-	void setTextFrame(PageItem* frame);
 	void setProgressInfo();
 	void setProgressInfoDone();
 	void setInfo(const QString& infoText);
@@ -84,22 +83,26 @@ public:
 	void setOverridePStyleFont(bool newOPSF);
 
 private:
-	UndoManager* m_undoManager;
-	ScribusMainWindow* m_ScMW;
-	PageItem *m_textFrame;
-	PageItem *m_it;
-	int m_lastParagraphStyle;
-	bool m_inPara;
-	bool m_isFirstWrite;
+	PrefsManager& m_prefsManager;
+	UndoManager* m_undoManager { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
+	PageItem *m_textFrame { nullptr };
+	PageItem *m_it { nullptr };
+	int m_lastParagraphStyle { -1 };
+	bool m_inPara { false };
+	bool m_isFirstWrite { true };
 	bool m_doAppend;
-	bool m_lastCharWasLineChange;
-	bool m_updateParagraphStyles;
+	bool m_lastCharWasLineChange { false };
+	bool m_updateParagraphStyles { false };
 	/* If paragraph style is used should the font style of the gtpstyle be used 
 	   or should writer respect the font set in the real paragraph style
 	*/
-	bool m_overridePStyleFont;
+	bool m_overridePStyleFont { true };
 	QString m_currentFrameStyle;
 	FontFamilyMap m_families;
+
+	StoryText* m_noteStory { nullptr };
+	TextNote* m_note { nullptr };
 
 	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
@@ -109,10 +112,7 @@ private:
 	QString findFontName(gtFont* font);
 	void    updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	QString parseColor(const QString &s);
-	void finalize();
-	PrefsManager& m_prefsManager;
-	StoryText* m_noteStory;
-	TextNote* m_note;
+	void    finalize();
 };
 
 #endif

@@ -842,6 +842,9 @@
     <ClInclude Include="..\..\..\scribus\api\api_application.h">
       <Filter>api</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\textnote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2570,6 +2573,9 @@
       <Filter>api</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\prefs_pane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\textnote.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

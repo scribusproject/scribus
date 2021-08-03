@@ -157,6 +157,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "storyloader.h"
 #include "styleoptions.h"
+#include "textnote.h"
 #include "tocgenerator.h"
 #include "ui/about.h"
 #include "ui/aboutplugins.h"

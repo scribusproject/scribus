@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
+#include "textnote.h"
 #include "undomanager.h"
 #include "ui/missing.h"
 #include "units.h"

@@ -27,6 +27,7 @@ pageitem.cpp  -  description
 //FIXME: this include must go to sctextstruct.h !
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
+
 #include "fpoint.h"
 #include "notesstyles.h"
 #include "scfonts.h"
@@ -34,6 +35,7 @@ pageitem.cpp  -  description
 #include "sctext_shared.h"
 #include "selection.h"
 #include "storytext.h"
+#include "textnote.h"
 //
 #include "util.h"
 #include "resourcecollection.h"
@@ -1142,6 +1144,26 @@ int StoryText::findMark(const Mark* mrk, int startPos) const
 	return -1;
 }
 
+int StoryText::findNote(const TextNote* textNote) const
+{
+	if (d->len <= 0)
+		return -1;
+
+	int len = d->len;
+	for (int i = 0; i < len; ++i)
+	{
+		const ScText* textItem = d->at(i);
+		if (textItem->ch != SpecialChars::OBJECT || textItem->mark == nullptr)
+			continue;
+		if (textItem->mark->getType() != MARKNoteFrameType)
+			continue;
+		if (textItem->mark->getNotePtr() == textNote)
+			return i;
+	}
+
+	return -1;
+}
+
 bool StoryText::hasMark(int pos, const Mark* mrk) const
 {
 	if (pos < 0)
@@ -1150,10 +1172,23 @@ bool StoryText::hasMark(int pos, const Mark* mrk) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-		return that->d->at(pos)->hasMark(mrk);
+	if (d->at(pos)->ch == SpecialChars::OBJECT)
+		return d->at(pos)->hasMark(mrk);
 	return false;
+}
+
+bool StoryText::hasMark(int pos, MarkType markType) const
+{
+	if (pos < 0)
+		pos += length();
+
+	assert(pos >= 0);
+	assert(pos < length());
+
+	const ScText* textItem = d->at(pos);
+	if (textItem->ch != SpecialChars::OBJECT)
+		return false;
+	return (textItem->mark && textItem->mark->isType(markType));
 }
 
 Mark* StoryText::mark(int pos) const
@@ -1164,8 +1199,7 @@ Mark* StoryText::mark(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);
-	return that->d->at(pos)->mark;
+	return d->at(pos)->mark;
 }
 
 
@@ -1205,7 +1239,6 @@ void StoryText::applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const
 		currStyle.setFeatures(s.featureList());
 }
 
-
 void StoryText::replaceMark(int pos, Mark* mrk)
 {
 	if (pos < 0)
@@ -1235,7 +1268,6 @@ bool StoryText::isLowSurrogate(int pos) const
 {
 	return pos >= 0 && pos < length() && text(pos).isLowSurrogate();
 }
-
 
 LayoutFlags StoryText::flags(int pos) const
 {
@@ -2171,13 +2203,13 @@ void StoryText::validate()
 }
 */
 
-ScText*  StoryText::item(int index)
+ScText* StoryText::item(int index)
 {
 	assert( index < length() );
 	return const_cast<StoryText *>(this)->d->at(index);
 }
 
-const ScText*  StoryText::item(int index) const
+const ScText* StoryText::item(int index) const
 {
 	assert( index < length() );
 	return const_cast<StoryText *>(this)->d->at(index);

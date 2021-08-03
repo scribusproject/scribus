@@ -44,10 +44,11 @@ pageitem.cpp  -  description
 class CharStyle;
 class ParagraphStyle;
 class PageItem;
+class ResourceCollection;
 class ScribusDoc;
 class ScText_Shared;
-class ResourceCollection;
 class ShapedTextCache;
+class TextNote;
 
 U_NAMESPACE_BEGIN
 class BreakIterator;
@@ -175,11 +176,15 @@ public:
 
 	bool hasObject(int pos) const;
 	PageItem* getItem(int pos) const; // deprecated
+
 	int  findMark(const Mark* mrk, int startPos = 0) const;
 	bool hasMark(int pos, const Mark* mrk = nullptr) const;
+	bool hasMark(int pos, MarkType markType) const;
 	Mark *mark(int pos) const;
 	void replaceMark(int pos, Mark* mrk);
 	void applyMarkCharstyle(Mark* mrk, CharStyle& currStyle) const;
+
+	int findNote(const TextNote* textNote) const;
 
 	bool isHighSurrogate(int pos) const;
 	bool isLowSurrogate(int pos) const;

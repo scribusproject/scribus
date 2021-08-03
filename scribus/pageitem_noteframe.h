@@ -67,11 +67,6 @@ private:
 
 	//insert note at end of text in noteframe
 	void insertNote(TextNote* note);
-
-//not used???
-	//find position of note marker in text
-	int findNoteCpos(TextNote* note);
-	
 };
 
 #endif // PAGEITEM_NOTEFRAME_H

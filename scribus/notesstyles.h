@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QString>
 #include <QList>
+
 #include "numeration.h"
 #include "pagestructs.h"
 #include "scpage.h"
@@ -30,24 +31,30 @@ class SCRIBUS_API NotesStyle
 public:
 	NotesStyle() {}
 	~NotesStyle() {}
-	bool operator!=(const NotesStyle& n2);
 
-	QString name() const { return m_nameStr; }
+	bool operator!=(const NotesStyle& n2) const;
+
+	const QString& name() const { return m_nameStr; }
 	void setName(const QString& s) { m_nameStr = s; }
+
 	int start() const { return m_startNum; }
-	void setStart(const int i) { m_startNum = i; }
+	void setStart(int i) { m_startNum = i; }
+
 	void setRange(NumerationRange ns) { m_numRange = ns; }
 	const NumerationRange& range() const { return m_numRange; }
-	QString prefix() const { return m_prefixStr; }
+
+	const QString& prefix() const { return m_prefixStr; }
 	void setPrefix (const QString& str) { m_prefixStr = str; }
-	QString suffix() const { return m_suffixStr; }
+
+	const QString& suffix() const { return m_suffixStr; }
 	void setSuffix (const QString& str) { m_suffixStr = str; }
 
-	QString numString(const int num) const { return m_numeration.numString(num); }
-	void setType(const NumFormat type) { m_numeration.numFormat = type; }
+	QString numString(int num) const { return m_numeration.numString(num); }
+	void setType(NumFormat type) { m_numeration.numFormat = type; }
 	const NumFormat& getType() const { return m_numeration.numFormat; }
 
 	bool isEndNotes() const { return m_endNotesStyle; }
+	void setEndNotes(bool isEndnoteStyle);
 	bool isAutoNotesHeight() const { return m_autoNotesHeight; }
 	void setAutoNotesHeight(bool set) { m_autoNotesHeight = set; }
 	bool isAutoNotesWidth() const { return m_autoNotesWidth; }
@@ -60,12 +67,10 @@ public:
 	void setSuperscriptInNote(bool set) { m_superscriptInNote = set; }
 	bool isSuperscriptInMaster() const { return m_superscriptInMaster; }
 	void setSuperscriptInMaster(bool set) { m_superscriptInMaster = set; }
-	const QString marksChStyle() const { return m_marksCharStyle; }
+	const QString& marksChStyle() const { return m_marksCharStyle; }
 	void setMarksCharStyle(const QString& styleName) { m_marksCharStyle = styleName; }
-	const QString notesParStyle() const { return m_notesParaStyle; }
+	const QString& notesParStyle() const { return m_notesParaStyle; }
 	void setNotesParStyle(const QString& styleName) { m_notesParaStyle = styleName; }
-
-	void setEndNotes(bool);
 
 private:
 	QString m_nameStr {"Default"}; //unique name of notes style
@@ -86,37 +91,5 @@ private:
 	QString m_notesParaStyle;
 };
 
-class SCRIBUS_API TextNote : public QObject
-{
-    Q_OBJECT
-	friend class ScribusDoc;
-
-private:
-	//only ScribusDoc can create and delete notes
-	TextNote(NotesStyle *nStyle) : m_notesStyle(nStyle) { }
-	~TextNote() {}
-public:
-	void setNotesStyle (NotesStyle* ns) { m_notesStyle = ns; }
-	NotesStyle* notesStyle() { return m_notesStyle; }
-	int num() { return m_number; }
-	void setNum(const int i) { m_number = i; }
-	QString numString();
-	Mark* masterMark() { return m_noteMasterMark; }
-	void setMasterMark(Mark* m) { m_noteMasterMark = m; }
-	Mark* noteMark() { return m_noteFrameMark; }
-	void setNoteMark(Mark* m) { m_noteFrameMark = m; }
-	const QString saxedText() { return m_noteSaxedText; }
-	void setSaxedText(const QString& string) { m_noteSaxedText = string; }
-	void clearSaxedText() { m_noteSaxedText.clear(); textLen = 0; }
-	bool isEndNote() { return m_notesStyle->isEndNotes(); }
-	int textLen {0};
-
-protected:
-	NotesStyle *m_notesStyle {nullptr};
-	QString m_noteSaxedText;
-	Mark *m_noteMasterMark {nullptr};
-	Mark *m_noteFrameMark {nullptr};
-	int m_number {0};
-};
 
 #endif // NOTESSTYLES_H

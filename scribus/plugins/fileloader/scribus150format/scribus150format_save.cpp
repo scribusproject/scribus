@@ -10,17 +10,16 @@ for which a new license (GPL+exception) is in place.
 #include <ctime>
 #include <memory>
 
+#include <QCursor>
+#include <QFileInfo>
+#include <QList>
+#include <QDataStream>
+#include <QScopedPointer>
+
 #include "../../formatidlist.h"
+
+#include "api/api_application.h"
 #include "commonstrings.h"
-#include "ui/missing.h"
-#include "prefsmanager.h"
-#include "qtiocompressor.h"
-#include "resourcecollection.h"
-#include "scconfig.h"
-#include "scpaths.h"
-#include "scpattern.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
 #include "hyphenator.h"
 #include "notesstyles.h"
 #include "pageitem_arc.h"
@@ -32,20 +31,21 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_regularpolygon.h"
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
-
-#include "api/api_application.h"
-
+#include "prefsmanager.h"
+#include "qtiocompressor.h"
+#include "resourcecollection.h"
+#include "scconfig.h"
+#include "scpaths.h"
+#include "scpattern.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "scxmlstreamwriter.h"
+#include "textnote.h"
+#include "ui/missing.h"
 #include "units.h"
 #include "util.h"
 #include "util_math.h"
 #include "util_color.h"
-#include <QCursor>
-#include <QFileInfo>
-#include <QList>
-#include <QDataStream>
-#include <QScopedPointer>
-
-#include "scxmlstreamwriter.h"
 
 QString Scribus150Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
 {
