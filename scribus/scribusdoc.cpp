@@ -1498,68 +1498,68 @@ void ScribusDoc::loadStylesFromFile(const QString& fileName, StyleSet<ParagraphS
 	StyleSet<CharStyle> *wrkCharStyles      = tempCharStyles;
 	QHash<QString, multiLine> *wrkLineStyles = tempLineStyles;
 	
-	if (!fileName.isEmpty())
+	if (fileName.isEmpty())
+		return;
+
+	FileLoader fl(fileName);
+	if (fl.testFile() == -1)
+	//TODO put in nice user warning
+		return;
+
+	if (!fl.readStyles(this, *wrkStyles))
 	{
-		FileLoader fl(fileName);
-		if (fl.testFile() == -1)
 		//TODO put in nice user warning
-			return;
+	}
 
-		if (!fl.readStyles(this, *wrkStyles))
-		{
-			//TODO put in nice user warning
-		}
+	if (!fl.readCharStyles(this, *wrkCharStyles))
+	{
+		//TODO put in nice user warning
+	}
 
-		if (!fl.readCharStyles(this, *wrkCharStyles))
-		{
-			//TODO put in nice user warning
-		}
-
-		if (!fl.readLineStyles(wrkLineStyles))
-		{
-			//TODO put in nice user warning
-		}
+	if (!fl.readLineStyles(wrkLineStyles))
+	{
+		//TODO put in nice user warning
+	}
 		
-		// Which are the default styles 
-		// Sadly StyleSet is not updated at import
-		// and it might break something to do so. 
-		// We need to loop then - pm
+	// Which are the default styles 
+	// Sadly StyleSet is not updated at import
+	// and it might break something to do so. 
+	// We need to loop then - pm
 				
-		QFileInfo fi(fileName);
-		QString importPrefix(tr("Imported ","Prefix of imported default style"));
-		QString importSuffix(" (" +  fi.baseName() + ")");
+	QFileInfo fi(fileName);
+	QString importPrefix(tr("Imported ", "Prefix of imported default style"));
+	QString importSuffix(" (" +  fi.baseName() + ")");
 		
-		for (int j(0) ; j < wrkStyles->count() ; ++j)
+	for (int j(0) ; j < wrkStyles->count() ; ++j)
+	{
+		if ((*wrkStyles)[j].isDefaultStyle())
 		{
-			if ((*wrkStyles)[j].isDefaultStyle())
+			ParagraphStyle& parDefault((*wrkStyles)[j]);
+			parDefault.setDefaultStyle(false);
+			QMap<QString, QString> namesMap;
+			namesMap[parDefault.name()] = importPrefix + parDefault.name() + importSuffix;
+			for (int i(0) ; i < wrkStyles->count() ; ++i)
 			{
-				ParagraphStyle& parDefault((*wrkStyles)[j]);
-				parDefault.setDefaultStyle(false);
-				QMap<QString, QString> namesMap;
-				namesMap[parDefault.name()] = importPrefix + parDefault.name() + importSuffix;
-				for (int i(0) ; i < wrkStyles->count() ; ++i)
-				{
-					if ((*wrkStyles)[i] != parDefault)
-						namesMap[(*wrkStyles)[i].name()] = (*wrkStyles)[i].name();
-				}
-				wrkStyles->rename(namesMap);
+				if ((*wrkStyles)[i] != parDefault)
+					namesMap[(*wrkStyles)[i].name()] = (*wrkStyles)[i].name();
 			}
+			wrkStyles->rename(namesMap);
 		}
-		for (int j(0) ; j < wrkCharStyles->count() ; ++j)
+	}
+	for (int j(0) ; j < wrkCharStyles->count() ; ++j)
+	{
+		if ((*wrkCharStyles)[j].isDefaultStyle())
 		{
-			if ((*wrkCharStyles)[j].isDefaultStyle())
+			CharStyle& charDefault((*wrkCharStyles)[j]);
+			charDefault.setDefaultStyle(false);
+			QMap<QString, QString> namesMap;
+			namesMap[charDefault.name()] = importPrefix + charDefault.name() + importSuffix;
+			for (int i(0) ; i < wrkCharStyles->count() ; ++i)
 			{
-				CharStyle& charDefault((*wrkCharStyles)[j]);
-				charDefault.setDefaultStyle(false);
-				QMap<QString, QString> namesMap;
-				namesMap[charDefault.name()] = importPrefix + charDefault.name() + importSuffix;
-				for (int i(0) ; i < wrkCharStyles->count() ; ++i)
-				{
-					if ((*wrkCharStyles)[i] != charDefault)
-						namesMap[(*wrkCharStyles)[i].name()] = (*wrkCharStyles)[i].name();
-				}
-				wrkCharStyles->rename(namesMap);
+				if ((*wrkCharStyles)[i] != charDefault)
+					namesMap[(*wrkCharStyles)[i].name()] = (*wrkCharStyles)[i].name();
 			}
+			wrkCharStyles->rename(namesMap);
 		}
 	}
 }
