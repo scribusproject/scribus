@@ -3625,6 +3625,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		{
 			doc->setLoading(true);
 			doc->updateMarks(true);
+			doc->updateChangedEndNotesFrames();
 			doc->setLoading(false);
 		}
 		for (auto itf = doc->FrameItems.begin(); itf != doc->FrameItems.end(); ++itf)
