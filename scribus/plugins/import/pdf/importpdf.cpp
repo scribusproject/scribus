@@ -465,6 +465,11 @@ bool PdfPlug::convert(const QString& fn)
 				}
 
 				parsePagesString(pageString, &pageNs, lastPage);
+				if (m_progressDialog)
+				{
+					m_progressDialog->setTotalSteps("GI", pageNs.size());
+					qApp->processEvents();
+				}
 				if (pageNs.size() <= 0)
 					return false;
 
@@ -657,6 +662,11 @@ bool PdfPlug::convert(const QString& fn)
 					//	m_Doc->pdfOptions().PresentVals.clear();
 						for (size_t i = 0; i < pageNs.size(); ++i)
 						{
+							if (m_progressDialog)
+							{
+								m_progressDialog->setProgress("GI", i);
+								qApp->processEvents();
+							}
 							int pp = pageNs[i];
 							m_Doc->setActiveLayer(baseLayer);
 							if (firstPg)
