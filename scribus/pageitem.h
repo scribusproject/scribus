@@ -802,7 +802,7 @@ public: // Start public functions
 	 * of its Qt name.
 	 * See also PageItem::setItemName()
 	 */
-	QString itemName() const { return m_itemName; }
+	const QString& itemName() const { return m_itemName; }
 	/**
 	 * @brief Set name of the item
 	 * @param newName name for the item

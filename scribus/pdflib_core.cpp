@@ -1368,6 +1368,13 @@ static QByteArray sanitizeFontName(QString fn)
 	return Pdf::toPdfDocEncoding(fn.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_"));
 }
 
+static QString sanitizeItemName(const QString& itemName)
+{
+	QString sanitizedName = itemName;
+	sanitizedName.replace(".", "_");
+	return sanitizedName;
+}
+
 static QList<Pdf::Resource> asColorSpace(const QList<PdfICCD>& iccCSlist)
 {
 	QList<Pdf::Resource> result;
@@ -4694,7 +4701,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 						if (ite->Parent == nullptr)
 							radioButtonGroup.groupName = "Page" + Pdf::toPdf(ActPageP->pageNr() + 1);
 						else
-							radioButtonGroup.groupName = Pdf::toPdfDocEncoding(ite->Parent->itemName().replace(".", "_"));
+							radioButtonGroup.groupName = Pdf::toPdfDocEncoding( sanitizeItemName(ite->Parent->itemName()) );
 						pageData.radioButtonGroups.insert(ite->Parent, radioButtonGroup);
 					}
 					PdfRadioButtonGroup& radioButtonGroup = pageData.radioButtonGroups[ite->Parent];
@@ -8796,10 +8803,10 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PutDoc("/3DD " + Pdf::toPdf(appearanceObj) + " 0 R\n");
 	PutDoc("/3DV " + Pdf::toPdf(viewObj) + " 0 R\n");
 	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
-	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_"));
+	QByteArray onState = Pdf::toName( sanitizeItemName(ite->itemName()) );
 	PutDoc("/AS " + onState + "\n");
 	PutDoc("/AP << /N <<\n" + onState + " " + Pdf::toPdf(appearanceObj1) + " 0 R >> >>\n");
-	PutDoc("/Rect [ " + FToStr(x+bleedDisplacementX) + " " + FToStr(y2+bleedDisplacementY) + " " + FToStr(x2+bleedDisplacementX) + " " + FToStr(y+bleedDisplacementY) + " ]\n");
+	PutDoc("/Rect [ " + FToStr(x + bleedDisplacementX) + " " + FToStr(y2 + bleedDisplacementY) + " " + FToStr(x2 + bleedDisplacementX) + " " + FToStr(y + bleedDisplacementY) + " ]\n");
 	PutDoc(">>");
 	writer.endObj(annotationObj);
 	delete tempImageFile;
@@ -8840,7 +8847,7 @@ void PDFLibCore::PDF_RadioButtonGroups()
 		{
 			PageItem* radioKid = radioList[j];
 			if (radioKid->annotation().IsChk())
-				onState = Pdf::toName(radioKid->itemName().replace(".", "_"));
+				onState = Pdf::toName( sanitizeItemName(radioKid->itemName()) );
 		}
 		writer.startObj(parentObject);
 		pageData.AObjects.append(parentObject);
@@ -8936,7 +8943,7 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 		PutDoc("/R " + Pdf::toPdf(rot) + " ");
 	}
 	PutDoc(">>\n");
-	QByteArray onState = Pdf::toName(ite->itemName().replace(".", "_"));
+	QByteArray onState = Pdf::toName( sanitizeItemName(ite->itemName()) );
 	if (ite->annotation().IsChk())
 		PutDoc("/AS " + onState + "\n");
 	else
@@ -9046,7 +9053,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			bmUtf16 += (cc == QChar(13) ? QChar(10) : cc);
 		}
 	}
-	QByteArray anTitle = Pdf::toPdfDocEncoding(ite->itemName().replace(".", "_"));
+	QByteArray anTitle = Pdf::toPdfDocEncoding( sanitizeItemName(ite->itemName()) );
 	QStringList bmstUtf16 = bmUtf16.split(QChar(10), Qt::SkipEmptyParts);
 	const QByteArray m[] = {"4", "5", "F", "l", "H", "n"};
 	QByteArray ct(m[ite->annotation().ChkStil()]);

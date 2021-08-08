@@ -241,6 +241,13 @@ void PSPainter::drawObject(PageItem* item)
 	m_ps->PS_restore();
 }
 
+static QString sanitizeItemName(const QString& itemName)
+{
+	QString sanitizedName = itemName;
+	sanitizedName.replace(".", "_");
+	return sanitizedName;
+}
+
 PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, ColorList *docColors)
 	: m_Doc(doc), m_outputFormat(outputFmt)
 {
@@ -1549,7 +1556,7 @@ void PSLib::PDF_Annotation(PageItem *item, const QString& text, double x, double
 	}
 	if ((item->annotation().Type() < 2) || (item->annotation().Type() > 9))
 		PutStream("/Border [ 0 0 0 ]\n");
-	PutStream("/Title (" + item->itemName().replace(".", "_" ) + ")\n");
+	PutStream("/Title (" + sanitizeItemName(item->itemName()) + ")\n");
 	PutStream("/ANN pdfmark\n");
 }
 
