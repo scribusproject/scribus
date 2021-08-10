@@ -6432,28 +6432,34 @@ int ScribusDoc::currentPageNumber()
 }
 
 
-bool ScribusDoc::itemNameExists(const QString& checkItemName)
+bool ScribusDoc::itemNameExists(const QString& checkItemName) const
 {
-	bool found = false;
-	QList<PageItem*> allItems;
-	int docItemCount = Items->count();
-	for (int i = 0; i < docItemCount; ++i)
+	std::vector<PageItem*> groups;
+	groups.reserve(32);
+
+	// Process root elements of the doc and remember groups
+	for (PageItem* item: *Items)
 	{
-		PageItem *currItem = Items->at(i);
-		if (checkItemName == currItem->itemName())
+		if (item->itemName() == checkItemName)
 			return true;
-		if (currItem->isGroup())
-		{
-			allItems = currItem->getAllChildren();
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				if (checkItemName == allItems.at(ii)->itemName())
-					return true;
-			}
-		}
-		allItems.clear();
+		if (item->isGroup())
+			groups.push_back(item);
 	}
-	return found;
+
+	// Process groups
+	while (!groups.empty())
+	{
+		PageItem* item = groups.back();
+		groups.pop_back();
+		for (PageItem* item: item->groupItemList)
+		{
+			if (item->itemName() == checkItemName)
+				return true;
+			if (item->isGroup())
+				groups.push_back(item);
+		}
+	}
+	return false;
 }
 
 

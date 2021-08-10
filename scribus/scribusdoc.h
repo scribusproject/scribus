@@ -960,7 +960,7 @@ public:
 	 * @author Craig Ringer
 	 ** CB Moved from PageItem
 	 */
-	bool itemNameExists(const QString& itemName);
+	bool itemNameExists(const QString& itemName) const;
 	
 	/**
 	 * @brief Set the doc into Master page mode
