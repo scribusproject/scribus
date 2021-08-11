@@ -755,18 +755,14 @@ else()
 endif()
 
 ##TEST FIX FOR 6897
-if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 # Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
 # binary are in the public symbol table for plugins. The symbols must also
 # be set as SCRIBUS_API if we're building with -fvisibility=hidden .
 # Should fix bug 6897 .
+if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
 	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
 endif ()
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND NOT WIN32)
-# Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
-# binary are in the public symbol table for plugins. The symbols must also
-# be set as SCRIBUS_API if we're building with -fvisibility=hidden .
-# Should fix bug 6897 .
+if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND NOT WIN32)
 	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
 endif ()
 ##
