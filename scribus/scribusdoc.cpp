@@ -5553,7 +5553,7 @@ bool ScribusDoc::itemAddCommit(PageItem* item)
 }
 
 
-int ScribusDoc::getItemNrFromUniqueID(uint unique)
+int ScribusDoc::getItemNrFromUniqueID(uint unique) const
 {
 	// FIXME : don't work for items inside groups
 	// Needs to fix group/ungroup undo first
@@ -5562,7 +5562,7 @@ int ScribusDoc::getItemNrFromUniqueID(uint unique)
 	{
 		if (Items->at(i)->uniqueNr == unique)
 		{
-			ret = Items->indexOf(Items->at(i));
+			ret = i;
 			break;
 		}
 	}

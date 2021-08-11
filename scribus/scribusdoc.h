@@ -863,11 +863,15 @@ public:
 	 */
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, PageItem* newItem);
 
-	int getItemNrFromUniqueID(uint unique);
-	//return pointer to item
+	/**
+	 * @brief Get index of item in items list
+	 */
+	int getItemNrFromUniqueID(uint unique) const;
+
+	/**
+	 * @brief Return pointer to item
+	 */
 	PageItem* getItemFromName(const QString& name) const;
-	//itemDelete
-	//itemBlah...
 
 	/**
 	 * @brief Rebuild item lists taking into account layer order.
