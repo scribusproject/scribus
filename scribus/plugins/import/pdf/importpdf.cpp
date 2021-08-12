@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <cstdlib>
+#include <memory>
 
 #include <QByteArray>
 #include <QCursor>
@@ -78,80 +79,60 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
 #else
-	globalParams = new GlobalParams();
+	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
+	globalParams = globalParamsPtr.get();
 #endif
-	if (globalParams)
-	{
+
 #if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
-		GooString *fname = new GooString(pdfFile.toUtf8().data());
+	auto fname = new GooString(pdfFile.toUtf8().data());
 #else
-		GooString *fname = new GooString(QFile::encodeName(pdfFile).data());
+	auto fname = new GooString(QFile::encodeName(pdfFile).data());
 #endif
-		globalParams->setErrQuiet(gTrue);
-		PDFDoc *pdfDoc = new PDFDoc(fname, nullptr, nullptr, nullptr);
-		if (pdfDoc)
+	globalParams->setErrQuiet(gTrue);
+
+	PDFDoc pdfDoc{fname, nullptr, nullptr, nullptr};
+	if (!pdfDoc.isOk() || pdfDoc.getErrorCode() == errEncrypted)
+		return QImage();
+
+	double h = pdfDoc.getPageMediaHeight(1);
+	double w = pdfDoc.getPageMediaWidth(1);
+	double scale = qMin(500.0 / h, 500.0 / w);
+	double hDPI = 72.0 * scale;
+	double vDPI = 72.0 * scale;
+	SplashColor bgColor;
+	bgColor[0] = 255;
+	bgColor[1] = 255;
+	bgColor[2] = 255;
+	SplashOutputDev dev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
+	dev.setVectorAntialias(gTrue);
+	dev.setFreeTypeHinting(gTrue, gFalse);
+	dev.startDoc(&pdfDoc);
+	pdfDoc.displayPage(&dev, 1, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
+	SplashBitmap *bitmap = dev.getBitmap();
+	int bw = bitmap->getWidth();
+	int bh = bitmap->getHeight();
+	SplashColorPtr dataPtr = bitmap->getDataPtr();
+	if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
+	{
+		uchar c;
+		int count = bw * bh * 4;
+		for (int k = 0; k < count; k += 4)
 		{
-			if (pdfDoc->getErrorCode() == errEncrypted)
-			{
-				delete pdfDoc;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-				delete globalParams;
-#endif
-				return QImage();
-			}
-			if (pdfDoc->isOk())
-			{
-				double h = pdfDoc->getPageMediaHeight(1);
-				double w = pdfDoc->getPageMediaWidth(1);
-				double scale = qMin(500.0 / h, 500.0 / w);
-				double hDPI = 72.0 * scale;
-				double vDPI = 72.0 * scale;
-				SplashColor bgColor;
-				bgColor[0] = 255;
-				bgColor[1] = 255;
-				bgColor[2] = 255;
-				SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
-				dev->setVectorAntialias(gTrue);
-				dev->setFreeTypeHinting(gTrue, gFalse);
-				dev->startDoc(pdfDoc);
-				pdfDoc->displayPage(dev, 1, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
-				SplashBitmap *bitmap = dev->getBitmap();
-				int bw = bitmap->getWidth();
-				int bh = bitmap->getHeight();
-				SplashColorPtr dataPtr = bitmap->getDataPtr();
-				if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
-				{
-					uchar c;
-					int count = bw * bh * 4;
-					for (int k = 0; k < count; k += 4)
-					{
-						c = dataPtr[k];
-						dataPtr[k] = dataPtr[k+3];
-						dataPtr[k+3] = c;
-						c = dataPtr[k+1];
-						dataPtr[k+1] = dataPtr[k+2];
-						dataPtr[k+2] = c;
-					}
-				}
-				// construct a qimage SHARING the raw bitmap data in memory
-				QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
-				QImage image = tmpimg.copy();
-				image.setText("XSize", QString("%1").arg(w));
-				image.setText("YSize", QString("%1").arg(h));
-				delete dev;
-				delete pdfDoc;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-				delete globalParams;
-#endif
-				return image;
-			}
-			delete pdfDoc;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-			delete globalParams;
-#endif
+			c = dataPtr[k];
+			dataPtr[k] = dataPtr[k + 3];
+			dataPtr[k + 3] = c;
+			c = dataPtr[k + 1];
+			dataPtr[k + 1] = dataPtr[k + 2];
+			dataPtr[k + 2] = c;
 		}
 	}
-	return QImage();
+	// construct a qimage SHARING the raw bitmap data in memory
+	QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
+	QImage image = tmpimg.copy();
+	image.setText("XSize", QString("%1").arg(w));
+	image.setText("YSize", QString("%1").arg(h));
+
+	return image;
 }
 
 bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
@@ -331,6 +312,7 @@ PdfPlug::~PdfPlug()
 {
 	delete m_progressDialog;
 	delete m_tmpSele;
+	delete m_pdfDoc;
 }
 
 bool PdfPlug::convert(const QString& fn)
@@ -350,192 +332,151 @@ bool PdfPlug::convert(const QString& fn)
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
 #else
-	globalParams = new GlobalParams();
+	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
+	globalParams = globalParamsPtr.get();
 #endif
-	GooString *userPW = nullptr;
-	if (globalParams)
-	{
 #if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
-		GooString *fname = new GooString(fn.toUtf8().data());
+	auto fname = new GooString(fn.toUtf8().data());
 #else
-		GooString *fname = new GooString(QFile::encodeName(fn).data());
+	auto fname = new GooString(QFile::encodeName(fn).data());
 #endif
-		globalParams->setErrQuiet(gTrue);
-		GBool hasOcg = gFalse;
-		QList<OptionalContentGroup*> ocgGroups;
-//		globalParams->setPrintCommands(gTrue);
-		PDFDoc *pdfDoc = new PDFDoc(fname, nullptr, nullptr, nullptr);
-		if (pdfDoc)
+	globalParams->setErrQuiet(gTrue);
+//	globalParams->setPrintCommands(gTrue);
+	QList<OptionalContentGroup*> ocgGroups;
+	auto pdfDoc = std::unique_ptr<PDFDoc>(new PDFDoc(fname, nullptr, nullptr, nullptr));
+	if (pdfDoc)
+	{
+		if (pdfDoc->getErrorCode() == errEncrypted)
 		{
-			if (pdfDoc->getErrorCode() == errEncrypted)
+			pdfDoc = nullptr;
+			if (m_progressDialog)
+				m_progressDialog->hide();
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			ScribusMainWindow* mw = m_Doc->scMW();
+			bool ok;
+			QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
+			if (ok && !text.isEmpty())
 			{
-				delete pdfDoc;
-				pdfDoc = nullptr;
+#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
+				auto fname = new GooString(fn.toUtf8().data());
+#else
+				auto fname = new GooString(QFile::encodeName(fn).data());
+#endif
+				auto userPW = new GooString(text.toLocal8Bit().data());
+				pdfDoc.reset(new PDFDoc(fname, userPW, userPW, nullptr));
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			}
+			if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))
+			{
+				if (m_progressDialog)
+					m_progressDialog->close();
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
+				delete globalParams;
+#endif
+				return false;
+			}
+			if (m_progressDialog)
+				m_progressDialog->show();
+		}
+		if (pdfDoc->isOk())
+		{
+			std::vector<int> pageNs;
+			QString pageString = "*";
+			m_pdfDoc = pdfDoc.get();
+			double hDPI = 72.0;
+			double vDPI = 72.0;
+			int firstPage = 1;
+			int lastPage = pdfDoc->getNumPages();
+			GBool useMediaBox = gTrue;
+			GBool crop = gTrue;
+			GBool printing = gFalse;
+			const PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
+			QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
+			bool boxesAreDifferent = false;
+			if (getCBox(Crop_Box, 1) != mediaRect)
+				boxesAreDifferent = true;
+			else if (getCBox(Trim_Box, 1) != mediaRect)
+				boxesAreDifferent = true;
+			else if (getCBox(Bleed_Box, 1) != mediaRect)
+				boxesAreDifferent = true;
+			else if (getCBox(Art_Box, 1) != mediaRect)
+				boxesAreDifferent = true;
+			bool cropped = false;
+			bool importTextAsVectors = true;
+			int contentRect = Media_Box;
+			if ((m_interactive && !m_noDialogs) || (m_importerFlags & LoadSavePlugin::lfCreateDoc))
+			{
 				if (m_progressDialog)
 					m_progressDialog->hide();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				ScribusMainWindow* mw = m_Doc->scMW();
-				bool ok;
-				QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
-				if (ok && !text.isEmpty())
-				{
-#if defined(Q_OS_WIN32) && POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 62, 0)
-					fname = new GooString(fn.toUtf8().data());
-#else
-					fname = new GooString(QFile::encodeName(fn).data());
-#endif
-					userPW = new GooString(text.toLocal8Bit().data());
-					pdfDoc = new PDFDoc(fname, userPW, userPW, nullptr);
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-				}
-				if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))
+				PdfImportOptions optImp(ScCore->primaryMainWindow());
+				QFileInfo fi = QFileInfo(fn);
+				optImp.setUpOptions(fi.fileName(), firstPage, lastPage, m_interactive, boxesAreDifferent, this);
+				if (!optImp.exec())
 				{
 					if (m_progressDialog)
 						m_progressDialog->close();
-					delete pdfDoc;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-					delete globalParams;
-#endif
+					m_pdfDoc = nullptr;
 					return false;
 				}
+				pageString = optImp.getPagesString();
+				contentRect = optImp.getCropBox();
+				cropped = optImp.croppingEnabled();
+				if (!cropped)
+					crop = cropped;
+				importTextAsVectors = optImp.getImportAsVectors();
+				// When displaying	pages slices, we should always set useMediaBox to true
+				// in order to use MediaBox (x, y) as coordinate system
+				if (contentRect != Media_Box)
+					useMediaBox = gFalse;
+				if (cropped)
+					useMediaBox = gTrue;
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				if (m_progressDialog)
 					m_progressDialog->show();
 			}
-			if (pdfDoc->isOk())
+
+			parsePagesString(pageString, &pageNs, lastPage);
+			if (m_progressDialog)
 			{
-				std::vector<int> pageNs;
-				QString pageString = "*";
-				m_pdfDoc = pdfDoc;
-				double hDPI = 72.0;
-				double vDPI = 72.0;
-				int firstPage = 1;
-				int lastPage = pdfDoc->getNumPages();
-				GBool useMediaBox = gTrue;
-				GBool crop = gTrue;
-				GBool printing = gFalse;
-				const PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
-				QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
-				bool boxesAreDifferent = false;
-				if (getCBox(Crop_Box, 1) != mediaRect)
-					boxesAreDifferent = true;
-				else if (getCBox(Trim_Box, 1) != mediaRect)
-					boxesAreDifferent = true;
-				else if (getCBox(Bleed_Box, 1) != mediaRect)
-					boxesAreDifferent = true;
-				else if (getCBox(Art_Box, 1) != mediaRect)
-					boxesAreDifferent = true;
-				bool cropped = false;
-				bool importTextAsVectors = true;
-				int contentRect = Media_Box;
-				if ((m_interactive && !m_noDialogs) || (m_importerFlags & LoadSavePlugin::lfCreateDoc))
+				m_progressDialog->setTotalSteps("GI", pageNs.size());
+				qApp->processEvents();
+			}
+			if (pageNs.size() <= 0) {
+				m_pdfDoc = nullptr;
+				return false;
+			}
+
+			firstPage = pageNs[0];
+			std::unique_ptr<SlaOutputDev> dev;
+			if (importTextAsVectors)
+				dev.reset(new SlaOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags));
+			else
+				dev.reset(new PdfTextOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags));
+
+			if (dev->isOk())
+			{
+				OCGs* ocg = pdfDoc->getOptContentConfig();
+				if (ocg && ocg->hasOCGs())
 				{
-					if (m_progressDialog)
-						m_progressDialog->hide();
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					PdfImportOptions *optImp = new PdfImportOptions(ScCore->primaryMainWindow());
-					QFileInfo fi = QFileInfo(fn);
-					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, m_interactive, boxesAreDifferent, this);
-					if (!optImp->exec())
+					QStringList ocgNames;
+					Array *order = ocg->getOrderArray();
+					if (order)
 					{
-						if (m_progressDialog)
-							m_progressDialog->close();
-						delete optImp;
-						delete pdfDoc;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-						delete globalParams;
-#endif
-						return false;
-					}
-					pageString = optImp->getPagesString();
-					contentRect = optImp->getCropBox();
-					cropped = optImp->croppingEnabled();
-					if (!cropped)
-						crop = cropped;
-					importTextAsVectors = optImp->getImportAsVectors();
-					// When displaying  pages slices, we should always set useMediaBox to true
-					// in order to use MediaBox (x, y) as coordinate system
-					if (contentRect != Media_Box)
-						useMediaBox = gFalse;
-					if (cropped)
-						useMediaBox = gTrue;
-					delete optImp;
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					if (m_progressDialog)
-						m_progressDialog->show();
-				}
-
-				parsePagesString(pageString, &pageNs, lastPage);
-				if (m_progressDialog)
-				{
-					m_progressDialog->setTotalSteps("GI", pageNs.size());
-					qApp->processEvents();
-				}
-				if (pageNs.size() <= 0)
-					return false;
-
-				firstPage = pageNs[0];
-				SlaOutputDev* dev = nullptr;
-				if (importTextAsVectors)
-					dev = new SlaOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags);
-				else
-					dev = new PdfTextOutputDev(m_Doc, &m_elements, &m_importedColors, m_importerFlags);
-
-				if (dev->isOk())
-				{
-					OCGs* ocg = pdfDoc->getOptContentConfig();
-					if (ocg)
-					{
-						hasOcg = ocg->hasOCGs();
-						if (hasOcg)
+						for (int i = 0; i < order->getLength (); ++i)
 						{
-							QStringList ocgNames;
-							Array *order = ocg->getOrderArray();
-							if (order)
+							Object orderItem = order->get(i);
+							if (orderItem.isDict())
 							{
-								for (int i = 0; i < order->getLength (); ++i)
+								POPPLER_CONST_075 Object POPPLER_REF ref = order->getNF(i);
+								if (ref.isRef())
 								{
-									Object orderItem = order->get(i);
-									if (orderItem.isDict())
+									OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
+									QString ocgName = UnicodeParsedString(oc->getName());
+									if (!ocgNames.contains(ocgName))
 									{
-										POPPLER_CONST_075 Object POPPLER_REF ref = order->getNF(i);
-										if (ref.isRef())
-										{
-											OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
-											QString ocgName = UnicodeParsedString(oc->getName());
-											if (!ocgNames.contains(ocgName))
-											{
-												ocgGroups.prepend(oc);
-												ocgNames.append(ocgName);
-											}
-										}
-									}
-									else
-									{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
-										const auto& ocgs = ocg->getOCGs ();
-										for (const auto& ocg : ocgs)
-										{
-											OptionalContentGroup *oc = ocg.second.get();
-											QString ocgName = UnicodeParsedString(oc->getName());
-											if (!ocgNames.contains(ocgName))
-											{
-												ocgGroups.prepend(oc);
-												ocgNames.append(ocgName);
-											}
-										}
-#else
-										GooList *ocgs = ocg->getOCGs ();
-										for (int i = 0; i < ocgs->getLength (); ++i)
-										{
-											OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-											QString ocgName = UnicodeParsedString(oc->getName());
-											if (!ocgNames.contains(ocgName))
-											{
-												ocgGroups.prepend(oc);
-												ocgNames.append(ocgName);
-											}
-										}
-#endif
+										ocgGroups.prepend(oc);
+										ocgNames.append(ocgName);
 									}
 								}
 							}
@@ -569,322 +510,348 @@ bool PdfPlug::convert(const QString& fn)
 							}
 						}
 					}
-
-					const int zeroRotate = 0;
-					dev->startDoc(pdfDoc, pdfDoc->getXRef(), pdfDoc->getCatalog());
-					dev->rotate = pdfDoc->getPageRotate(firstPage);
-					bool rotated = dev->rotate == 90 || dev->rotate == 270;
-
-					if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+					else
 					{
-						if (hasOcg)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
+						const auto& ocgs = ocg->getOCGs ();
+						for (const auto& ocg : ocgs)
 						{
-							QString actL(m_Doc->activeLayerName());
-							for (int i = 0; i < ocgGroups.count(); i++)
+							OptionalContentGroup *oc = ocg.second.get();
+							QString ocgName = UnicodeParsedString(oc->getName());
+							if (!ocgNames.contains(ocgName))
 							{
-								OptionalContentGroup *oc = ocgGroups[i];
-								if (actL != UnicodeParsedString(oc->getName()))
-									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
-								else
-									currentLayer = m_Doc->layerIDFromName(UnicodeParsedString(oc->getName()));
-								if (oc->getState() == OptionalContentGroup::On)
-									m_Doc->setLayerVisible(currentLayer, true);
-								else if (oc->getViewState() == OptionalContentGroup::ocUsageOn)
-									m_Doc->setLayerVisible(currentLayer, true);
-								else
-									m_Doc->setLayerVisible(currentLayer, false);
-								if ((oc->getPrintState() == OptionalContentGroup::ocUsageOn) || (oc->getPrintState() == OptionalContentGroup::ocUsageUnset))
-									m_Doc->setLayerPrintable(currentLayer, true);
-								else
-									m_Doc->setLayerPrintable(currentLayer, false);
-								oc->setState(OptionalContentGroup::Off);
-							}
-							dev->layersSetByOCG = true;
-						}
-
-						Object info = pdfDoc->getDocInfo();
-						if (info.isDict())
-						{
-							Object obj;
-							Dict *infoDict = info.getDict();
-							obj = infoDict->lookup((char*) "Title");
-							if (obj.isString())
-							{
-								m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
-							}
-							obj = infoDict->lookup((char*) "Author");
-							if (obj.isString())
-							{
-								m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
-							}
-							obj = infoDict->lookup((char*) "Subject");
-							if (obj.isString())
-							{
-								m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
-							}
-							obj = infoDict->lookup((char*) "Keywords");
-							if (obj.isString())
-							{
-								//		s1 = obj.getString();
-								m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));
+								ocgGroups.prepend(oc);
+								ocgNames.append(ocgName);
 							}
 						}
-						info = Object();
+#else
+						GooList *ocgs = ocg->getOCGs ();
+						for (int i = 0; i < ocgs->getLength (); ++i)
+						{
+							OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
+							QString ocgName = UnicodeParsedString(oc->getName());
+							if (!ocgNames.contains(ocgName))
+							{
+								ocgGroups.prepend(oc);
+								ocgNames.append(ocgName);
+							}
+						}
+#endif
+					}
+				}
 
+				const int zeroRotate = 0;
+				dev->startDoc(pdfDoc.get(), pdfDoc->getXRef(), pdfDoc->getCatalog());
+				dev->rotate = pdfDoc->getPageRotate(firstPage);
+				bool rotated = dev->rotate == 90 || dev->rotate == 270;
+
+				if (m_importerFlags & LoadSavePlugin::lfCreateDoc)
+				{
+					if (ocg && ocg->hasOCGs())
+					{
+						QString actL(m_Doc->activeLayerName());
+						for (int i = 0; i < ocgGroups.count(); i++)
+						{
+							OptionalContentGroup *oc = ocgGroups[i];
+							if (actL != UnicodeParsedString(oc->getName()))
+								currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
+							else
+								currentLayer = m_Doc->layerIDFromName(UnicodeParsedString(oc->getName()));
+							if (oc->getState() == OptionalContentGroup::On)
+								m_Doc->setLayerVisible(currentLayer, true);
+							else if (oc->getViewState() == OptionalContentGroup::ocUsageOn)
+								m_Doc->setLayerVisible(currentLayer, true);
+							else
+								m_Doc->setLayerVisible(currentLayer, false);
+							if ((oc->getPrintState() == OptionalContentGroup::ocUsageOn) || (oc->getPrintState() == OptionalContentGroup::ocUsageUnset))
+								m_Doc->setLayerPrintable(currentLayer, true);
+							else
+								m_Doc->setLayerPrintable(currentLayer, false);
+							oc->setState(OptionalContentGroup::Off);
+						}
+						dev->layersSetByOCG = true;
+					}
+
+					Object info = pdfDoc->getDocInfo();
+					if (info.isDict())
+					{
+						Object obj;
+						Dict *infoDict = info.getDict();
+						obj = infoDict->lookup((char*) "Title");
+						if (obj.isString())
+						{
+							m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
+						}
+						obj = infoDict->lookup((char*) "Author");
+						if (obj.isString())
+						{
+							m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
+						}
+						obj = infoDict->lookup((char*) "Subject");
+						if (obj.isString())
+						{
+							m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
+						}
+						obj = infoDict->lookup((char*) "Keywords");
+						if (obj.isString())
+						{
+							//		s1 = obj.getString();
+							m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));
+						}
+					}
+					info = Object();
+
+					if (cropped)
+					{
+						QRectF crBox = getCBox(contentRect, pageNs[0]);
+						if (rotated)
+						{
+							m_Doc->setPageWidth(crBox.height());
+							m_Doc->setPageHeight(crBox.width());
+						}
+						else
+						{
+							m_Doc->setPageHeight(crBox.height());
+							m_Doc->setPageWidth(crBox.width());
+						}
+					}
+					else
+					{
+						if (rotated)
+						{
+							m_Doc->setPageWidth(pdfDoc->getPageMediaHeight(pageNs[0]));
+							m_Doc->setPageHeight(pdfDoc->getPageMediaWidth(pageNs[0]));
+						}
+						else
+						{
+							m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
+							m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+						}
+					}
+					m_Doc->setPageSize("Custom");
+				//	m_Doc->pdfOptions().PresentVals.clear();
+					for (size_t i = 0; i < pageNs.size(); ++i)
+					{
+						if (m_progressDialog)
+						{
+							m_progressDialog->setProgress("GI", i);
+							qApp->processEvents();
+						}
+						int pp = pageNs[i];
+						m_Doc->setActiveLayer(baseLayer);
+						if (firstPg)
+							firstPg = false;
+						else
+							m_Doc->addPage(i);
+						QRectF mdBox = getCBox(0, pp);
+						QRectF crBox = getCBox(contentRect, pp);
 						if (cropped)
 						{
-							QRectF crBox = getCBox(contentRect, pageNs[0]);
 							if (rotated)
 							{
-								m_Doc->setPageWidth(crBox.height());
-								m_Doc->setPageHeight(crBox.width());
+								m_Doc->currentPage()->setInitialWidth(crBox.height());
+								m_Doc->currentPage()->setInitialHeight(crBox.width());
+								m_Doc->currentPage()->setWidth(crBox.height());
+								m_Doc->currentPage()->setHeight(crBox.width());
+								dev->cropOffsetX = crBox.y();
+								dev->cropOffsetY = crBox.x();
 							}
 							else
 							{
-								m_Doc->setPageHeight(crBox.height());
-								m_Doc->setPageWidth(crBox.width());
+								m_Doc->currentPage()->setInitialHeight(crBox.height());
+								m_Doc->currentPage()->setInitialWidth(crBox.width());
+								m_Doc->currentPage()->setHeight(crBox.height());
+								m_Doc->currentPage()->setWidth(crBox.width());
+								dev->cropOffsetX = crBox.x();
+								dev->cropOffsetY = crBox.y();
 							}
 						}
 						else
 						{
 							if (rotated)
 							{
-								m_Doc->setPageWidth(pdfDoc->getPageMediaHeight(pageNs[0]));
-								m_Doc->setPageHeight(pdfDoc->getPageMediaWidth(pageNs[0]));
+								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaWidth(pp));
+								m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaWidth(pp));
 							}
 							else
 							{
-								m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
-								m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
+								m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
 							}
 						}
-						m_Doc->setPageSize("Custom");
-					//	m_Doc->pdfOptions().PresentVals.clear();
-						for (size_t i = 0; i < pageNs.size(); ++i)
+						m_Doc->currentPage()->setMasterPageNameNormal();
+						m_Doc->currentPage()->setSize("Custom");
+						m_Doc->reformPages(true);
+						if (ocg && ocg->hasOCGs())
 						{
-							if (m_progressDialog)
+							for (int j = 0; j < ocgGroups.count(); j++)
 							{
-								m_progressDialog->setProgress("GI", i);
-								qApp->processEvents();
-							}
-							int pp = pageNs[i];
-							m_Doc->setActiveLayer(baseLayer);
-							if (firstPg)
-								firstPg = false;
-							else
-								m_Doc->addPage(i);
-							QRectF mdBox = getCBox(0, pp);
-							QRectF crBox = getCBox(contentRect, pp);
-							if (cropped)
-							{
-								if (rotated)
-								{
-									m_Doc->currentPage()->setInitialWidth(crBox.height());
-									m_Doc->currentPage()->setInitialHeight(crBox.width());
-									m_Doc->currentPage()->setWidth(crBox.height());
-									m_Doc->currentPage()->setHeight(crBox.width());
-									dev->cropOffsetX = crBox.y();
-									dev->cropOffsetY = crBox.x();
-								}
-								else
-								{
-									m_Doc->currentPage()->setInitialHeight(crBox.height());
-									m_Doc->currentPage()->setInitialWidth(crBox.width());
-									m_Doc->currentPage()->setHeight(crBox.height());
-									m_Doc->currentPage()->setWidth(crBox.width());
-									dev->cropOffsetX = crBox.x();
-									dev->cropOffsetY = crBox.y();
-								}
-							}
-							else
-							{
-								if (rotated)
-								{
-									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaHeight(pp));
-									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaWidth(pp));
-									m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaHeight(pp));
-									m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaWidth(pp));
-								}
-								else
-								{
-									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
-									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
-									m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
-									m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
-								}
-							}
-							m_Doc->currentPage()->setMasterPageNameNormal();
-							m_Doc->currentPage()->setSize("Custom");
-							m_Doc->reformPages(true);
-							if (hasOcg)
-							{
-								for (int j = 0; j < ocgGroups.count(); j++)
-								{
-									OptionalContentGroup *oc = ocgGroups[j];
-									oc->setState(OptionalContentGroup::On);
-									if (cropped)
-										pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
-									else
-										pdfDoc->displayPage(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
-									oc->setState(OptionalContentGroup::Off);
-								}
-							}
-							else
-							{
+								OptionalContentGroup *oc = ocgGroups[j];
+								oc->setState(OptionalContentGroup::On);
 								if (cropped)
-									pdfDoc->displayPageSlice(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev);
+									pdfDoc->displayPageSlice(dev.get(), pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev.get());
 								else
-									pdfDoc->displayPage(dev, pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
+									pdfDoc->displayPage(dev.get(), pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev.get());
+								oc->setState(OptionalContentGroup::Off);
 							}
-
-							PDFPresentationData ef;
-							Object trans = pdfDoc->getPage(pp)->getTrans();
-							Object *transi = &trans;
-							if (transi->isDict())
-							{
-								m_Doc->pdfOptions().PresentMode = true;
-								PageTransition *pgTrans = new PageTransition(transi);
-								ef.pageViewDuration = pdfDoc->getPage(pp)->getDuration();
-								ef.pageEffectDuration = pgTrans->getDuration();
-								ef.Dm = pgTrans->getAlignment() == transitionHorizontal ? 0 : 1;
-								ef.M = pgTrans->getDirection() == transitionInward ? 0 : 1;
-								int ang = pgTrans->getAngle();
-								if (ang == 0)
-									ef.Di = 0;
-								else if (ang == 270)
-									ef.Di = 1;
-								else if (ang == 90)
-									ef.Di = 2;
-								else if (ang == 180)
-									ef.Di = 3;
-								else if (ang == 315)
-									ef.Di = 4;
-								PageTransitionType trType = pgTrans->getType();
-								if (trType == transitionReplace)
-									ef.effectType = 0;
-								else if (trType == transitionBlinds)
-									ef.effectType = 1;
-								else if (trType == transitionBox)
-									ef.effectType = 2;
-								else if (trType == transitionDissolve)
-									ef.effectType = 3;
-								else if (trType == transitionGlitter)
-									ef.effectType = 4;
-								else if (trType == transitionSplit)
-									ef.effectType = 5;
-								else if (trType == transitionWipe)
-									ef.effectType = 6;
-								else if (trType == transitionPush)
-									ef.effectType = 7;
-								else if (trType == transitionCover)
-									ef.effectType = 8;
-								else if (trType == transitionUncover)
-									ef.effectType = 9;
-								else if (trType == transitionFade)
-									ef.effectType = 10;
-								delete pgTrans;
-							}
-							m_Doc->currentPage()->PresentVals = ef;
 						}
-						int numjs = pdfDoc->getCatalog()->numJS();
-						if (numjs > 0)
+						else
 						{
-							NameTree *jsNameTreeP = new NameTree();
-							Object catDict = pdfDoc->getXRef()->getCatalog();
-							if (catDict.isDict())
+							if (cropped)
+								pdfDoc->displayPageSlice(dev.get(), pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, crBox.x() - mdBox.x(), mdBox.bottom() - crBox.bottom(), crBox.width(), crBox.height(), nullptr, nullptr, dev->annotations_callback, dev.get());
+							else
+								pdfDoc->displayPage(dev.get(), pp, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev.get());
+						}
+
+						PDFPresentationData ef;
+						Object trans = pdfDoc->getPage(pp)->getTrans();
+						Object *transi = &trans;
+						if (transi->isDict())
+						{
+							m_Doc->pdfOptions().PresentMode = true;
+							PageTransition pgTrans(transi);
+							ef.pageViewDuration = pdfDoc->getPage(pp)->getDuration();
+							ef.pageEffectDuration = pgTrans.getDuration();
+							ef.Dm = pgTrans.getAlignment() == transitionHorizontal ? 0 : 1;
+							ef.M = pgTrans.getDirection() == transitionInward ? 0 : 1;
+							int ang = pgTrans.getAngle();
+							if (ang == 0)
+								ef.Di = 0;
+							else if (ang == 270)
+								ef.Di = 1;
+							else if (ang == 90)
+								ef.Di = 2;
+							else if (ang == 180)
+								ef.Di = 3;
+							else if (ang == 315)
+								ef.Di = 4;
+							PageTransitionType trType = pgTrans.getType();
+							if (trType == transitionReplace)
+								ef.effectType = 0;
+							else if (trType == transitionBlinds)
+								ef.effectType = 1;
+							else if (trType == transitionBox)
+								ef.effectType = 2;
+							else if (trType == transitionDissolve)
+								ef.effectType = 3;
+							else if (trType == transitionGlitter)
+								ef.effectType = 4;
+							else if (trType == transitionSplit)
+								ef.effectType = 5;
+							else if (trType == transitionWipe)
+								ef.effectType = 6;
+							else if (trType == transitionPush)
+								ef.effectType = 7;
+							else if (trType == transitionCover)
+								ef.effectType = 8;
+							else if (trType == transitionUncover)
+								ef.effectType = 9;
+							else if (trType == transitionFade)
+								ef.effectType = 10;
+						}
+						m_Doc->currentPage()->PresentVals = ef;
+					}
+					int numjs = pdfDoc->getCatalog()->numJS();
+					if (numjs > 0)
+					{
+						NameTree jsNameTreeP;
+						Object catDict = pdfDoc->getXRef()->getCatalog();
+						if (catDict.isDict())
+						{
+							Object names = catDict.dictLookup("Names");
+							if (names.isDict())
 							{
-								Object names = catDict.dictLookup("Names");
-								if (names.isDict())
-								{
-									Object obj = names.dictLookup("JavaScript");
-									jsNameTreeP->init(pdfDoc->getXRef(), &obj);
-								}
-								for (int a = 0; a < numjs; a++)
-								{
-									m_Doc->JavaScripts.insert(UnicodeParsedString(jsNameTreeP->getName(a)), UnicodeParsedString(pdfDoc->getCatalog()->getJS(a)));
-								}
-								names = catDict.dictLookup("OpenAction");
-								if (names.isDict())
-								{
+								Object obj = names.dictLookup("JavaScript");
+								jsNameTreeP.init(pdfDoc->getXRef(), &obj);
+							}
+							for (int a = 0; a < numjs; a++)
+							{
+								m_Doc->JavaScripts.insert(UnicodeParsedString(jsNameTreeP.getName(a)), UnicodeParsedString(pdfDoc->getCatalog()->getJS(a)));
+							}
+							names = catDict.dictLookup("OpenAction");
+							if (names.isDict())
+							{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
-									std::unique_ptr<LinkAction> linkActionUPtr = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
-									LinkAction *linkAction = linkActionUPtr.get();
+								std::unique_ptr<LinkAction> linkActionUPtr = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+								LinkAction *linkAction = linkActionUPtr.get();
 #else
-									LinkAction *linkAction = nullptr;
-									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+								LinkAction *linkAction = nullptr;
+								linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 #endif
-									if (linkAction && (linkAction->getKind() == actionJavaScript))
+								if (linkAction && (linkAction->getKind() == actionJavaScript))
+								{
+									LinkJavaScript *jsa = (LinkJavaScript*) linkAction;
+									if (jsa->isOk())
 									{
-										LinkJavaScript *jsa = (LinkJavaScript*) linkAction;
-										if (jsa->isOk())
+										QString script = UnicodeParsedString(jsa->getScript());
+										if (script.startsWith("this."))
 										{
-											QString script = UnicodeParsedString(jsa->getScript());
-											if (script.startsWith("this."))
-											{
-												script.remove(0, 5);
-												script.remove("()");
-												if (m_Doc->JavaScripts.contains(script))
-													m_Doc->pdfOptions().openAction = script;
-											}
+											script.remove(0, 5);
+											script.remove("()");
+											if (m_Doc->JavaScripts.contains(script))
+												m_Doc->pdfOptions().openAction = script;
 										}
 									}
 								}
 							}
-							delete jsNameTreeP;
-						}
-						m_Doc->pdfOptions().Version = (PDFVersion::Version) qMin(16, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));
-						ViewerPreferences *viewPrefs = pdfDoc->getCatalog()->getViewerPreferences();
-						if (viewPrefs)
-						{
-							m_Doc->pdfOptions().Binding = viewPrefs->getDirection() == ViewerPreferences::directionL2R ? 0 : 1;
-							m_Doc->pdfOptions().hideMenuBar = viewPrefs->getHideMenubar();
-							m_Doc->pdfOptions().hideToolBar = viewPrefs->getHideToolbar();
-							m_Doc->pdfOptions().fitWindow = viewPrefs->getFitWindow();
-						}
-						Catalog::PageMode pgm = pdfDoc->getCatalog()->getPageMode();
-						m_Doc->pdfOptions().displayFullscreen = (pgm == Catalog::pageModeFullScreen);
-						m_Doc->pdfOptions().displayThumbs = (pgm == Catalog::pageModeThumbs);
-						m_Doc->pdfOptions().displayBookmarks = (pgm == Catalog::pageModeOutlines);
-						m_Doc->pdfOptions().displayLayers = (pgm == Catalog::pageModeOC);
-						Catalog::PageLayout pgl = pdfDoc->getCatalog()->getPageLayout();
-						if (pgl == Catalog::pageLayoutSinglePage)
-							m_Doc->pdfOptions().PageLayout = PDFOptions::SinglePage;
-						else if (pgl == Catalog::pageLayoutOneColumn)
-							m_Doc->pdfOptions().PageLayout = PDFOptions::OneColumn;
-						else if ((pgl == Catalog::pageLayoutTwoColumnLeft) || (pgl == Catalog::pageLayoutTwoPageLeft))
-						{
-							m_Doc->setPagePositioning(1);
-							m_Doc->setPageSetFirstPage(1, 0);
-							m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnLeft;
-						}
-						else if ((pgl == Catalog::pageLayoutTwoColumnRight) || (pgl == Catalog::pageLayoutTwoPageRight))
-						{
-							m_Doc->setPagePositioning(1);
-							m_Doc->setPageSetFirstPage(1, 1);
-							m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnRight;
 						}
 					}
-					else
+					m_Doc->pdfOptions().Version = (PDFVersion::Version) qMin(16, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));
+					ViewerPreferences *viewPrefs = pdfDoc->getCatalog()->getViewerPreferences();
+					if (viewPrefs)
 					{
-						if (hasOcg)
-						{
-							for (int a = 0; a < ocgGroups.count(); a++)
-							{
-								ocgGroups[a]->setState(OptionalContentGroup::On);
-							}
-						}
-						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev);
+						m_Doc->pdfOptions().Binding = viewPrefs->getDirection() == ViewerPreferences::directionL2R ? 0 : 1;
+						m_Doc->pdfOptions().hideMenuBar = viewPrefs->getHideMenubar();
+						m_Doc->pdfOptions().hideToolBar = viewPrefs->getHideToolbar();
+						m_Doc->pdfOptions().fitWindow = viewPrefs->getFitWindow();
+					}
+					Catalog::PageMode pgm = pdfDoc->getCatalog()->getPageMode();
+					m_Doc->pdfOptions().displayFullscreen = (pgm == Catalog::pageModeFullScreen);
+					m_Doc->pdfOptions().displayThumbs = (pgm == Catalog::pageModeThumbs);
+					m_Doc->pdfOptions().displayBookmarks = (pgm == Catalog::pageModeOutlines);
+					m_Doc->pdfOptions().displayLayers = (pgm == Catalog::pageModeOC);
+					Catalog::PageLayout pgl = pdfDoc->getCatalog()->getPageLayout();
+					if (pgl == Catalog::pageLayoutSinglePage)
+						m_Doc->pdfOptions().PageLayout = PDFOptions::SinglePage;
+					else if (pgl == Catalog::pageLayoutOneColumn)
+						m_Doc->pdfOptions().PageLayout = PDFOptions::OneColumn;
+					else if ((pgl == Catalog::pageLayoutTwoColumnLeft) || (pgl == Catalog::pageLayoutTwoPageLeft))
+					{
+						m_Doc->setPagePositioning(1);
+						m_Doc->setPageSetFirstPage(1, 0);
+						m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnLeft;
+					}
+					else if ((pgl == Catalog::pageLayoutTwoColumnRight) || (pgl == Catalog::pageLayoutTwoPageRight))
+					{
+						m_Doc->setPagePositioning(1);
+						m_Doc->setPageSetFirstPage(1, 1);
+						m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnRight;
 					}
 				}
-				delete dev;
+				else
+				{
+					if (ocg && ocg->hasOCGs())
+					{
+						for (int a = 0; a < ocgGroups.count(); a++)
+						{
+							ocgGroups[a]->setState(OptionalContentGroup::On);
+						}
+					}
+					pdfDoc->displayPage(dev.get(), firstPage, hDPI, vDPI, zeroRotate, useMediaBox, crop, printing, nullptr, nullptr, dev->annotations_callback, dev.get());
+				}
 			}
+
+			m_pdfDoc = nullptr;
 		}
-		delete pdfDoc;
+		pdfDoc.reset();
 	}
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
-	globalParams.release();
+	globalParams.reset();
 #else
-	delete globalParams;
 	globalParams = nullptr;
 #endif
 
