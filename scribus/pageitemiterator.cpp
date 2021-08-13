@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 PageItemIterator::PageItemIterator(int options) :
 	m_options(options)
 {
-
+	m_stateStack.reserve(16);
 }
 
 PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options) :
@@ -24,7 +24,8 @@ PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options
 	if (itemList.count() > 0)
 	{
 		State state = { itemList, 0 };
-		m_stateStack.push(state);
+		m_stateStack.reserve(16);
+		m_stateStack.push_back(state);
 		m_current = next();
 	}
 }
@@ -42,33 +43,20 @@ PageItemIterator::PageItemIterator(const ScribusDoc* doc, int options) :
 		{
 			const ScPattern& pattern = it.value();
 			if (pattern.items.count() > 0)
-			{
-				State state = { pattern.items, 0 };
-				m_stateStack.push(state);
-			}
+				m_stateStack.emplace_back(pattern.items, 0);
 		}
 	}
 
 	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
-	{
-		QList<PageItem*> frameItems = doc->FrameItems.values();
-		State state = { frameItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->FrameItems.values(), 0);
 
 	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
-	{
-		State state = { doc->MasterItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->MasterItems, 0);
 
 	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
-	{
-		State state = { doc->DocItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->DocItems, 0);
 
-	if (m_stateStack.count() > 0)
+	if (m_stateStack.size() > 0)
 		m_current = next();
 }
 
@@ -89,33 +77,20 @@ PageItem* PageItemIterator::begin(ScribusDoc* doc, int options)
 		{
 			const ScPattern& pattern = it.value();
 			if (pattern.items.count() > 0)
-			{
-				State state = { pattern.items, 0 };
-				m_stateStack.push(state);
-			}
+				m_stateStack.emplace_back(pattern.items, 0);
 		}
 	}
 
 	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
-	{
-		QList<PageItem*> frameItems = doc->FrameItems.values();
-		State state = { frameItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->FrameItems.values(), 0);
 
 	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
-	{
-		State state = { doc->MasterItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->MasterItems, 0);
 
 	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
-	{
-		State state = { doc->DocItems, 0 };
-		m_stateStack.push(state);
-	}
+		m_stateStack.emplace_back(doc->DocItems, 0);
 
-	if (m_stateStack.count() > 0)
+	if (m_stateStack.size() > 0)
 		m_current = next();
 	return m_current;
 }
@@ -127,8 +102,7 @@ PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
 
 	if (itemList.count() > 0)
 	{
-		State state = { itemList, 0 };
-		m_stateStack.push(state);
+		m_stateStack.emplace_back(itemList, 0);
 		m_current = next();
 	}
 
@@ -137,12 +111,12 @@ PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
 
 PageItem* PageItemIterator::next()
 {
-	while (m_stateStack.count() > 0)
+	while (m_stateStack.size() > 0)
 	{
-		State& currentState = m_stateStack.top();
+		State& currentState = m_stateStack.back();
 		if (currentState.currentIndex >= currentState.itemList.count())
 		{
-			m_stateStack.pop();
+			m_stateStack.pop_back();
 			continue;
 		}
 
@@ -161,10 +135,7 @@ PageItem* PageItemIterator::next()
 				m_current = groupItem;
 				currentState.currentIndex++;
 				if (groupItem->groupItemList.count() > 0)
-				{
-					State groupState = { groupItem->groupItemList, 0 };
-					m_stateStack.push(groupState);
-				}
+					m_stateStack.emplace_back(groupItem->groupItemList, 0);
 				break;
 			}
 		}
@@ -178,10 +149,7 @@ PageItem* PageItemIterator::next()
 				currentState.currentIndex++;
 				QList<PageItem*> cellItems = tableItem->getChildren();
 				if (cellItems.count() > 0)
-				{
-					State tableState = { cellItems, 0 };
-					m_stateStack.push(tableState);
-				}
+					m_stateStack.emplace_back(cellItems, 0);
 				break;
 			}
 		}
@@ -191,7 +159,7 @@ PageItem* PageItemIterator::next()
 		break;
 	}
 
-	if (m_stateStack.isEmpty())
+	if (m_stateStack.empty())
 		m_current = nullptr;
 	return m_current;
 }

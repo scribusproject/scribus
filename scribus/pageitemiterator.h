@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEMITERATOR_H
 #define PAGEITEMITERATOR_H
 
+#include <vector>
 #include <QList>
-#include <QStack>
 
 #include "scribusapi.h"
 
@@ -52,13 +52,19 @@ public:
 protected:
 	struct State
 	{
+		State() {}
+		State(const QList<PageItem*> items, int startIndex)
+		{
+			itemList = items;
+			currentIndex = startIndex;
+		}
 		QList<PageItem*> itemList;
-		int   currentIndex;
+		int   currentIndex { 0 };
 	};
 
 	int m_options { 0 };
 	PageItem* m_current { nullptr };
-	QStack<State> m_stateStack;
+	std::vector<State> m_stateStack;
 };
 
 #endif // PAGEITEMITERATOR_H
