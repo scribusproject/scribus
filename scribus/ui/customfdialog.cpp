@@ -69,7 +69,7 @@ ImIconProvider::ImIconProvider()
 	fmts.reserve(arraySize);
 	for (size_t i = 0; i < arraySize; ++i)
 		fmts.append(tmp[i]);
-	IconManager& im=IconManager::instance();
+	IconManager& im = IconManager::instance();
 	imagepm = im.loadIcon("16/image-x-generic.png");
 	pspm = im.loadIcon("postscript.png");
 	txtpm = im.loadIcon("txt.png");
@@ -174,22 +174,22 @@ void FDialogPreview::genPreview(const QString& name)
 		QString tmp2;
 		QImage im2 = im.scaled(w - 5, h - 44, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 		// Qt4 FIXME imho should be better
 		pm = *pixmap();
 		p.begin(&pm);
-		p.fillRect(0, 0, w, h-44, b);
-		p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
+		p.fillRect(0, 0, w, h - 44, b);
+		p.fillRect(0, h - 44, w, 44, QColor(255, 255, 255));
 		p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
-		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+		p.drawText(2, h - 29, tr("Size:") + " " + tmp.setNum(ix) + " x " + tmp2.setNum(iy));
 		if (!(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)))
-			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+			p.drawText(2, h - 17, tr("Resolution:") + " " + tmp.setNum(xres) + " x " + tmp2.setNum(yres) + " " + tr("DPI"));
 		QString cSpace;
 		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (im.imgInfo.type != ImageType7))
 			cSpace = tr("Unknown");
 		else
-			cSpace=colorSpaceText(im.imgInfo.colorspace);
-		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
+			cSpace = colorSpaceText(im.imgInfo.colorspace);
+		p.drawText(2, h - 5, tr("Colorspace:") + " " + cSpace);
 		p.end();
 		setPixmap(pm);
 		repaint();
@@ -213,13 +213,13 @@ void FDialogPreview::genPreview(const QString& name)
 		desc += value2String(im.text("YSize").toDouble(), PrefsManager::instance().appPrefs.docSetupPrefs.docUnitIndex, true, true);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 		pm = *pixmap();
 		p.begin(&pm);
-		p.fillRect(0, 0, w, h-21, b);
-		p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+		p.fillRect(0, 0, w, h - 21, b);
+		p.fillRect(0, h - 21, w, 21, QColor(255, 255, 255));
 		p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
-		p.drawText(2, h-5, desc);
+		p.drawText(2, h - 5, desc);
 		p.end();
 		setPixmap(pm);
 		repaint();
@@ -238,14 +238,14 @@ void FDialogPreview::genPreview(const QString& name)
 		QImage im = pre->createPreview(f);
 		im = im.scaled(w - 5, h - 21, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 		pm = *pixmap();
 		p.begin(&pm);
-		p.fillRect(0, 0, w, h-21, b);
-		p.fillRect(0, h-21, w, 21, QColor(255, 255, 255));
+		p.fillRect(0, 0, w, h - 21, b);
+		p.fillRect(0, h - 21, w, 21, QColor(255, 255, 255));
 		p.drawImage((w - im.width()) / 2, (h - 21 - im.height()) / 2, im);
-		QString desc = tr("Size:")+QString(" %1 x %2").arg(im.width()).arg(im.height());
-		p.drawText(2, h-5, desc);
+		QString desc = tr("Size:") + QString(" %1 x %2").arg(im.width()).arg(im.height());
+		p.drawText(2, h - 5, desc);
 		p.end();
 		setPixmap(pm);
 		repaint();
@@ -260,18 +260,18 @@ void FDialogPreview::genPreview(const QString& name)
 			QString ti2 = slaInfos.title();
 			if (ti2.isEmpty())
 				ti2= tr("No Title");
-			Title += ti2+"\n";
+			Title += ti2 + "\n";
 			QString Author = tr("Author:")+" ";
 			QString au2 = slaInfos.author();
 			if (au2.isEmpty())
 				au2 = tr("Unknown");
-			Author += au2+"\n";
+			Author += au2 + "\n";
 			QString Format =  tr("File Format:")+" ";
 			QString fm2 = slaInfos.format();
 			if (fm2.isEmpty())
 				fm2 = tr("Unknown");
 			Format += fm2;
-			setText( tr("Scribus Document")+"\n\n"+Title+Author+Format);
+			setText( tr("Scribus Document") + "\n\n" + Title + Author + Format);
 		}
 		else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
 		{
