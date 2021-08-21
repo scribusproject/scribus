@@ -39,16 +39,14 @@ typedef QMap<QString, PrefsTable*> TableMap;
 
 class SCRIBUS_API PrefsContext
 {
-private:
-	QString m_name;
-	bool m_isplugin;
-	bool m_ispersistent;
 public:
-	AttributeMap values;
-	TableMap tables;
 	PrefsContext();
 	PrefsContext(const QString& contextName, bool persistent = true, bool plugin = false);
 	~PrefsContext();
+
+	AttributeMap values;
+	TableMap tables;
+
 	QString getName();
 	bool    isPersistent();
 	bool    isPlugin();
@@ -69,6 +67,11 @@ public:
 	void    set(const QString& key, bool value);
 	PrefsTable* getTable(const QString& m_name);
 	void    removeTable(const QString& m_name);
+
+private:
+	QString m_name;
+	bool m_isPlugin { false };
+	bool m_isPersistent { false };
 };
 
 #endif // PREFSCONTEXTS_H
