@@ -1256,11 +1256,19 @@ namespace sfnt {
 
 		for (int i = 0; i < cids.count(); ++i)
 			hb_set_add(glyphSet, cids.at(i));
-	
+
+#if HB_VERSION_ATLEAST(2, 9, 0)
+		uint32_t subsetFlags = (uint32_t) hb_subset_input_get_flags(hbSubsetInput.get());
+		subsetFlags |= HB_SUBSET_FLAGS_RETAIN_GIDS;
+		subsetFlags &= ~HB_SUBSET_FLAGS_NO_HINTING;
+		subsetFlags |= HB_SUBSET_FLAGS_NAME_LEGACY;
+		hb_subset_input_set_flags(hbSubsetInput.get(), subsetFlags);
+#else
 		hb_subset_input_set_retain_gids(hbSubsetInput.get(), true);
 		hb_subset_input_set_drop_hints(hbSubsetInput.get(), false);
 #if HB_VERSION_ATLEAST(2, 6, 5)
 		hb_subset_input_set_name_legacy(hbSubsetInput.get(), true);
+#endif
 #endif
 
 		QScopedPointer<hb_face_t, HbFaceDeleter> hbSubsetFace(hb_subset(hbFullFace.get(), hbSubsetInput.get()));
