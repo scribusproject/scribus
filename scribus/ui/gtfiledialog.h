@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_gtfiledialog.h"
 #include "scribusapi.h"
 
+class PrefsContext;
 
 /*! \brief Enhanced file dialog for get-text plugins
 This class is separated from gtdialogs.h file due the huge
@@ -23,7 +24,7 @@ class SCRIBUS_API gtFileDialog : public QDialog, public Ui::gtFileDialog
 	Q_OBJECT
 public:
 	gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir);
-	~gtFileDialog();
+	~gtFileDialog() {};
 
 	QString selectedFile();
 
@@ -33,6 +34,17 @@ public slots:
 	void okClicked();
 
 protected:
+	PrefsContext* m_fileDialogPrefs { nullptr };
+
+	/** @brief Restore the geometry of the window when showing it. */
+	void showEvent(QShowEvent *showEvent) override;
+	/** @brief Captures the close event and changes it to hide */
+	void closeEvent(QCloseEvent *closeEvent) override;
+	/** @brief Stores the geometry of the window when hiding. */
+	void hideEvent(QHideEvent* hideEvent) override;
+
+	void storeSize();
+
 	void loadSettings();
 	void saveSettings();
 };

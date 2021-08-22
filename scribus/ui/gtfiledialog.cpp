@@ -5,8 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QPushButton>
+#include <QScreen>
 #include <QToolTip>
 #include <QTextCodec>
+
 #include "gtfiledialog.h"
 
 #include "prefsmanager.h"
@@ -15,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir)
 {
+	m_fileDialogPrefs = PrefsManager::instance().prefsFile->getContext("gtFileDialog", false);
+
 	setupUi(this);
 
 	fileWidget->setDirectory(wdir);
@@ -51,6 +55,40 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(okClicked()));
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+}
+
+void gtFileDialog::closeEvent(QCloseEvent *closeEvent)
+{
+	storeSize();
+	QDialog::closeEvent(closeEvent);
+}
+
+void gtFileDialog::hideEvent(QHideEvent* hideEvent)
+{
+	storeSize();
+	QDialog::hideEvent(hideEvent);
+}
+
+void gtFileDialog::showEvent(QShowEvent *showEvent)
+{
+	QScreen* dialogScreen = this->screen();
+	if (m_fileDialogPrefs && dialogScreen && !showEvent->spontaneous())
+	{
+		if (m_fileDialogPrefs->contains("width"))
+		{
+			QRect scr = dialogScreen->availableGeometry();
+			int fdWidth  = qMax(0, qMin(m_fileDialogPrefs->getInt("width"), scr.width()));
+			int fdHeight = qMax(0, qMin(m_fileDialogPrefs->getInt("height"), scr.height()));
+			if (fdWidth > 0 && fdHeight > 0)
+			{
+				int newWidth = qMax(0, qMin(this->width() + fdWidth - fileWidget->width(), scr.width()));
+				int newHeight = qMax(0, qMin(this->height() + fdHeight - fileWidget->height(), scr.height()));
+				if (newWidth > 0 && newHeight > 0)
+					resize(newWidth, newHeight);
+			}
+		}
+	}
+	QDialog::showEvent(showEvent);
 }
 
 QString gtFileDialog::selectedFile()
@@ -129,6 +167,10 @@ void gtFileDialog::saveSettings()
 	context->set("prefix", prefixStylesCheckBox->isChecked());
 }
 
-gtFileDialog::~gtFileDialog()
+void gtFileDialog::storeSize()
 {
+	if (!m_fileDialogPrefs)
+		return;
+	m_fileDialogPrefs->set("width",  fileWidget->width());
+	m_fileDialogPrefs->set("height", fileWidget->height());
 }

@@ -27,14 +27,17 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 #include <QFileIconProvider>
 #include <QLabel>
+
 class QPushButton;
 class QComboBox;
 class QCheckBox;
+class QIcon;
 class QHBoxLayout;
 class QVBoxLayout;
 class QFrame;
+
+class PrefsContext;
 class ScFileWidget;
-class QIcon;
 
 #include "scribusapi.h"
 
@@ -171,13 +174,24 @@ protected:
 	QPushButton* okButton { nullptr };
 	QPushButton* cancelButton { nullptr };
 
+	PrefsContext* m_fileDialogPrefs { nullptr };
+
 	//! \brief Property with default extension
 	QString m_ext;
 	//! \brief Property with default compress extension
 	QString m_extZip;
 	//! \brief Option flags given by user in ctore
-	int  m_optionFlags;
-	bool m_previewIsShown;
+	int  m_optionFlags { 0 };
+	bool m_previewIsShown { false };
+
+	/** @brief Restore the geometry of the window when showing it. */
+	void showEvent(QShowEvent *showEvent) override;
+	/** @brief Captures the close event and changes it to hide */
+	void closeEvent(QCloseEvent *closeEvent) override;
+	/** @brief Stores the geometry of the window when hiding. */
+	void hideEvent(QHideEvent* hideEvent) override;
+
+	void storeSize();
 };
 
 #endif

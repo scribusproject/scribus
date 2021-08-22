@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDesktopWidget>
 #include <QDir>
 #include <QFileInfo>
 #include <QFrame>
@@ -35,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
+#include <QScreen>
 #include <QTextCodec>
 #include <QVBoxLayout>
 
@@ -46,6 +48,8 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scfilewidget.h"
 #include "scimage.h"
@@ -56,9 +60,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
-
-
-
 
 extern QString DocDir;
 
@@ -284,6 +285,8 @@ void FDialogPreview::genPreview(const QString& name)
 CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption, const QString& filter, int flags)
 			: QDialog(parent), m_optionFlags(flags)
 {
+	m_fileDialogPrefs = PrefsManager::instance().prefsFile->getContext("customfdialog", false);
+
 	setModal(true);
 	setWindowTitle(caption);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
@@ -489,6 +492,48 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 
 CustomFDialog::~CustomFDialog()
 {
+}
+
+void CustomFDialog::closeEvent(QCloseEvent *closeEvent)
+{
+	storeSize();
+	QDialog::closeEvent(closeEvent);
+}
+
+void CustomFDialog::hideEvent(QHideEvent* hideEvent)
+{
+	storeSize();
+	QDialog::hideEvent(hideEvent);
+}
+
+void CustomFDialog::showEvent(QShowEvent *showEvent)
+{
+	QScreen* dialogScreen = this->screen();
+	if (m_fileDialogPrefs && dialogScreen && !showEvent->spontaneous())
+	{
+		if (m_fileDialogPrefs->contains("width"))
+		{
+			QRect scr = dialogScreen->availableGeometry();
+			int fdWidth  = qMax(0, qMin(m_fileDialogPrefs->getInt("width"), scr.width()));
+			int fdHeight = qMax(0, qMin(m_fileDialogPrefs->getInt("height"), scr.height()));
+			if (fdWidth > 0 && fdHeight > 0)
+			{
+				int newWidth = qMax(0, qMin(this->width() + fdWidth - fileDialog->width(), scr.width()));
+				int newHeight = qMax(0, qMin(this->height() + fdHeight - fileDialog->height(), scr.height()));
+				if (newWidth > 0 && newHeight > 0)
+					resize(newWidth, newHeight);
+			}
+		}
+	}
+	QDialog::showEvent(showEvent);
+}
+
+void CustomFDialog::storeSize()
+{
+	if (!m_fileDialogPrefs)
+		return;
+	m_fileDialogPrefs->set("width",  fileDialog->width());
+	m_fileDialogPrefs->set("height", fileDialog->height());
 }
 
 void CustomFDialog::fileClicked(const QString &path)
