@@ -1993,7 +1993,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 											GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 										}
 									}
-									else
+									else if (pointList.count() > 0)
 									{
 										if (isOpen)
 										{
