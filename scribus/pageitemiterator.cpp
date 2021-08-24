@@ -66,7 +66,7 @@ PageItem* PageItemIterator::begin(ScribusDoc* doc, int options)
 	m_options = options;
 	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
 
-	int stackItemCount = doc->docPatterns.count() + 3;
+	size_t stackItemCount = static_cast<size_t>(doc->docPatterns.count() + 3);
 	if (m_stateStack.capacity() < stackItemCount)
 		m_stateStack.reserve(stackItemCount);
 
