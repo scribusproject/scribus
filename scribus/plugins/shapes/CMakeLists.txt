@@ -16,7 +16,7 @@ add_library(${SCRIBUS_SHAPE_PLUGIN} MODULE
 	${SHAPE_PLUGIN_SOURCES}
 )
 
-target_link_libraries(${SCRIBUS_SHAPE_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SHAPE_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SHAPE_PLUGIN} PRIVATE "../plugins_pch.h")
@@ -28,5 +28,5 @@ install(TARGETS ${SCRIBUS_SHAPE_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_SHAPE_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_SHAPE_PLUGIN})
 

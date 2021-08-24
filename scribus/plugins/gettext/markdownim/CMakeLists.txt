@@ -18,7 +18,7 @@ else()
 
 	add_library(${SCRIBUS_MARKDOWN_IM_PLUGIN} MODULE ${MARKDOWN_IM_PLUGIN_SOURCES})
 
-	target_link_libraries(${SCRIBUS_MARKDOWN_IM_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_MARKDOWN_LIB})
+	target_link_libraries(${SCRIBUS_MARKDOWN_IM_PLUGIN} ${EXE_NAME} ${SCRIBUS_MARKDOWN_LIB})
 
 	if(WANT_PCH)
 		target_precompile_headers(${SCRIBUS_MARKDOWN_IM_PLUGIN} PRIVATE "../../plugins_pch.h")

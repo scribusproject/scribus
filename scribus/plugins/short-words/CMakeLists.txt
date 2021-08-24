@@ -19,7 +19,7 @@ add_library(${SCRIBUS_SHORTWORDS_PLUGIN} MODULE
 	${SHORTWORDS_PLUGIN_SOURCES}
 )
 
-target_link_libraries(${SCRIBUS_SHORTWORDS_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SHORTWORDS_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SHORTWORDS_PLUGIN} PRIVATE "../plugins_pch.h")
@@ -35,4 +35,4 @@ install(FILES scribus-short-words.rc
   DESTINATION ${SHAREDIR}/plugins
 )
 
-add_dependencies(${SCRIBUS_SHORTWORDS_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_SHORTWORDS_PLUGIN})

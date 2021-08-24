@@ -679,7 +679,7 @@ if(HAVE_PODOFO)
 endif()
 
 if(HAVE_HYPHEN)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 	${HYPHEN_LIBRARY}
 	)
 endif()
@@ -754,40 +754,32 @@ else()
 	set(WIN32_ONLY_LIBS)
 endif()
 
-##TEST FIX FOR 6897
-# Use the -E / --export-dynamic flag to ensure that symbols in the Scribus
-# binary are in the public symbol table for plugins. The symbols must also
-# be set as SCRIBUS_API if we're building with -fvisibility=hidden .
-# Should fix bug 6897 .
-if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
-	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
-endif ()
-if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND NOT WIN32)
-	set_target_properties(${EXE_NAME} PROPERTIES LINK_FLAGS -Wl,-E)
-endif ()
 ##
 
 
 #Set up libraries to link with all found packages
 include_directories(${cairo_INCLUDE_DIR})
-target_link_libraries(${EXE_NAME} ${cairo_LIBRARIES})
+target_link_libraries(${EXE_NAME} PRIVATE ${cairo_LIBRARIES})
 link_directories(${PREFIX_cairo_LIB})
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${PREFIX_cairo_LIB}")
 
 message("RPATH: ${CMAKE_INSTALL_RPATH}")
 
 IF(NOT WANT_QT6)
-    target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME}
+		PUBLIC
 		${Qt5Core_LIBRARIES}
 		${Qt5Widgets_LIBRARIES}
 		${Qt5Gui_LIBRARIES}
 		${Qt5Xml_LIBRARIES}
 		${Qt5Network_LIBRARIES}
 		${Qt5OpenGL_LIBRARIES}
+		PRIVATE
 		${Qt5PrintSupport_LIBRARIES}
 	)
 else()
 	target_link_libraries(${EXE_NAME}
+		PUBLIC
 		Qt6::Core
 		Qt6::Core5Compat
 		Qt6::Gui
@@ -797,23 +789,25 @@ else()
 endif()
 
 target_link_libraries(${EXE_NAME}
+	PUBLIC
+	${ZLIB_LIBRARIES}
+	${LIBXML2_LIBRARIES}
+	PRIVATE
 	${CUPS_LIBRARIES}
 	${FREETYPE_LIBRARIES}
 	${HARFBUZZ_LIBRARIES}
 	${HARFBUZZ_SUBSET_LIBRARIES}
 	${ICU_LIBRARIES}
-	${LIBXML2_LIBRARIES}
 	${TIFF_LIBRARIES}
 	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}
-	${ZLIB_LIBRARIES}
 	${WIN32_ONLY_LIBS}
 	${GMAGICK_LIBRARIES}
 )
 
 
 if (TARGET Fontconfig::Fontconfig)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		Fontconfig::Fontconfig
 	)
 endif()
@@ -821,7 +815,7 @@ endif()
 
 
 if (NOT WIN32 AND NOT HAIKU)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		${CUPS_LIBRARIES}
 	)
 endif ()
@@ -829,33 +823,36 @@ endif ()
 # required to resolve symbols from libdl when ld is called with --no-add-needed
 # #9310 for the OpenBSD addition
 if(UNIX AND NOT CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT HAIKU)
-	target_link_libraries(${EXE_NAME} dl)
+  target_link_libraries(${EXE_NAME} PUBLIC ${CMAKE_DL_LIBS})
 endif()
 
 # #9311 for the OpenBSD addition
 if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-	target_link_libraries(${EXE_NAME} util execinfo)
+  target_link_libraries(${EXE_NAME} PRIVATE util execinfo)
 endif()
 
 if(HAIKU)
-	target_link_libraries(${EXE_NAME} execinfo)
+  target_link_libraries(${EXE_NAME} PRIVATE execinfo)
 endif(HAIKU)
 
 if(WIN32)
-	target_link_libraries(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
+  target_link_libraries(${EXE_NAME} PRIVATE ${QT_QTMAIN_LIBRARY})
 endif()
 
 if(APPLE)
 	target_link_libraries(${EXE_NAME}
-	"-undefined dynamic_lookup"
-	"-framework CoreFoundation" )
+		PUBLIC
+		"-undefined dynamic_lookup"
+		PRIVATE
+		"-framework CoreFoundation"
+		)
 endif()
 
 if (WANT_SVNVERSION)
 	add_dependencies(${EXE_NAME} svnheader)
 endif ()
 
-target_link_libraries(${EXE_NAME}
+target_link_libraries(${EXE_NAME} PRIVATE
 	${SCRIBUS_WPG_LIB}
 	${SCRIBUS_PGF_LIB}
 	${SCRIBUS_ZIP_LIB}
@@ -864,20 +861,20 @@ target_link_libraries(${EXE_NAME}
 )
 
 if(WITH_TESTS)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		${QT_QTTEST_LIBRARY}
 		${SCRIBUS_TESTS_LIB}
 	)
 endif()
 
 if(HAVE_PODOFO)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		${LIBPODOFO_LIBRARY}
 	)
 endif()
 
 if(HAVE_OSG)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		${OPENTHREADS_LIBRARY}
 		${OSG_LIBRARY}
 		${OSGGA_LIBRARY}
@@ -890,51 +887,17 @@ if(HAVE_OSG)
 endif()
 
 if (HAVE_BOOST)
-	target_link_libraries(${EXE_NAME}
+	target_link_libraries(${EXE_NAME} PRIVATE
 		${SCRIBUS_2GEOM_LIB}
 	)
 endif()
 
 # Now build plugins
-IF(NOT WANT_QT6)
-    set(PLUGIN_LIBRARIES
-		${Qt5Core_LIBRARIES}
-		${Qt5Widgets_LIBRARIES}
-		${Qt5Gui_LIBRARIES}
-		${Qt5Xml_LIBRARIES}
-		${Qt5Network_LIBRARIES}
-		${Qt5OpenGL_LIBRARIES}
-		${LIBXML2_LIBRARIES}
-		${ZLIB_LIBRARIES}
-	)
-else()
-	set(PLUGIN_LIBRARIES
-		${Qt6Core_LIBRARIES}
-		${Qt6Core5Compat_LIBRARIES}
-		${Qt6Widgets_LIBRARIES}
-		${Qt6Gui_LIBRARIES}
-		${LIBXML2_LIBRARIES}
-		${ZLIB_LIBRARIES}
-	)
-endif()
 
-if(WIN32)
-	# IF your plugin needs more than this, please link them privately
-	# in the CMakeLists.txt for your plugin.
-	set(PLUGIN_LIBRARIES
-#		${QT_LIBRARIES} part of #7210
-		${PLUGIN_LIBRARIES}
-		${EXE_NAME}
-	)
-endif()
-if(APPLE)
-	set(PLUGIN_LIBRARIES
-		${PLUGIN_LIBRARIES}
-		"-undefined dynamic_lookup"
-	)
-endif()
-message(STATUS ${PLUGIN_LIBRARIES})
+# IF your plugin needs additional libraries, please link them privately
+# in the CMakeLists.txt for your plugin.
 
+add_custom_target(Plugins ALL)
 add_subdirectory(plugins)
 
 #do we want a lib suffix on osx? doubt it

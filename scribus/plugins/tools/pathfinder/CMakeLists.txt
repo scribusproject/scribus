@@ -22,7 +22,7 @@ set(SCRIBUS_PATHFINDER_PLUGIN "pathfinder")
 
 add_library(${SCRIBUS_PATHFINDER_PLUGIN} MODULE ${PATHFINDER_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_PATHFINDER_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_PATHFINDER_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_PATHFINDER_PLUGIN} PRIVATE "../../plugins_pch.h")

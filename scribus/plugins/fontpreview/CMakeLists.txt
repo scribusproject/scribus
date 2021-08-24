@@ -12,7 +12,7 @@ set(SCRIBUS_FONTPREVIEW_PLUGIN "fontpreview")
 
 add_library(${SCRIBUS_FONTPREVIEW_PLUGIN} MODULE ${FONTPREVIEW_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_FONTPREVIEW_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_FONTPREVIEW_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_FONTPREVIEW_PLUGIN} PRIVATE "../plugins_pch.h")

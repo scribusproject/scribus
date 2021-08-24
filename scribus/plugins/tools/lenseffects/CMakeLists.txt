@@ -12,7 +12,7 @@ set(SCRIBUS_LENSEFFECTS_PLUGIN "lenseffects")
 
 add_library(${SCRIBUS_LENSEFFECTS_PLUGIN} MODULE ${LENSEFFECTS_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_LENSEFFECTS_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_LENSEFFECTS_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_LENSEFFECTS_PLUGIN} PRIVATE "../../plugins_pch.h")

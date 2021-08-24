@@ -14,7 +14,7 @@ set(SCRIBUS_SXW_IM_PLUGIN "sxwimplugin")
 
 add_library(${SCRIBUS_SXW_IM_PLUGIN} MODULE ${SXW_IM_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_SXW_IM_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SXW_IM_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SXW_IM_PLUGIN} PRIVATE "../../plugins_pch.h")

@@ -13,7 +13,7 @@ add_library(${SCRIBUS_TXT_GT_PLUGIN} MODULE ${TXT_GT_PLUGIN_SOURCES})
 
 link_libraries (${LIBXML2_LIBRARIES})
 
-target_link_libraries(${SCRIBUS_TXT_GT_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_TXT_GT_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_TXT_GT_PLUGIN} PRIVATE "../../plugins_pch.h")

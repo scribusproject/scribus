@@ -52,26 +52,19 @@ for which a new license (GPL+exception) is in place.
         #endif
     #endif
 #else
-    #ifdef HAVE_GCC_SYMBOL_VISIBILITY
-        /* Forces inclusion of a symbol in the symbol table, so
-           software outside the current library / app can use it. */
-        #define SCRIBUS_API __attribute__ ((visibility("default")))
-        /* Within a section exported with SCRIBUS_API, forces a symbol to be
-           private to the library / app. Good for private members. */
-        #define SCRIBUS_LOCAL __attribute__ ((visibility("hidden")))
-    #else
-        #define SCRIBUS_API
-        #define SCRIBUS_LOCAL
-    #endif
+    /* Forces inclusion of a symbol in the symbol table, so
+       software outside the current library / app can use it. */
+    #define SCRIBUS_API __attribute__ ((visibility("default")))
+    /* Within a section exported with SCRIBUS_API, forces a symbol to be
+       private to the library / app. Good for private members. */
+    #define SCRIBUS_LOCAL __attribute__ ((visibility("hidden")))
 #endif
 
 /* Throwable classes must always be visible on GCC in all binaries */
 #ifdef WIN32
   #define SCEXCEPTIONAPI(api) api
-#elif defined(HAVE_GCC_SYMBOL_VISIBILITY)
-  #define SCEXCEPTIONAPI(api) SCRIBUS_API
 #else
-  #define SCEXCEPTIONAPI(api)
+  #define SCEXCEPTIONAPI(api) SCRIBUS_API
 #endif
 
 #endif

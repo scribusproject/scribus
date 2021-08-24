@@ -11,7 +11,7 @@ set(SCRIBUS_SMOOTHPATH_PLUGIN "smoothpath")
 
 add_library(${SCRIBUS_SMOOTHPATH_PLUGIN} MODULE ${SMOOTHPATH_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_SMOOTHPATH_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SMOOTHPATH_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SMOOTHPATH_PLUGIN} PRIVATE "../../plugins_pch.h")

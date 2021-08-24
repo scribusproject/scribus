@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTSML_PLUGIN "importsml")
 
 add_library(${SCRIBUS_IMPORTSML_PLUGIN} MODULE ${IMPORTSML_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTSML_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTSML_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTSML_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,4 +25,4 @@ install(TARGETS ${SCRIBUS_IMPORTSML_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTSML_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTSML_PLUGIN})

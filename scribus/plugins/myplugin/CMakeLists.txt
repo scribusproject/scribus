@@ -19,7 +19,7 @@ QT5_WRAP_CPP(MY_PLUGIN_MOC_SOURCES ${MY_PLUGIN_MOC_CLASSES})
 
 add_library(${SCRIBUS_MY_PLUGIN} MODULE ${MY_PLUGIN_SOURCES} ${MY_PLUGIN_MOC_SOURCES})
 
-target_link_libraries(${SCRIBUS_MY_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_MY_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_MY_PLUGIN} PRIVATE "../plugins_pch.h")

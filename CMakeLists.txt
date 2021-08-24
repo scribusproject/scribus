@@ -340,7 +340,9 @@ if(NOT WANT_DEBUG AND NOT WANT_RELEASEWITHDEBUG)
 	set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Set Release Build Type" FORCE)
 endif()
 
-
+set(CMAKE_ENABLE_EXPORTS ON)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 
 #Based on our build type, setup our build options
 if(APPLE)
@@ -354,19 +356,15 @@ else()
 		set(CMAKE_C_FLAGS_DEBUG)
 	else()
 		# vanilla gcc
-		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing -Wl,-E")
-		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing -Wl,-E")
-		if (_machine_x86 OR _machine_x86_64)
-			set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fPIC")
-			set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fPIC")
-		endif()
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -g -Wall -fstrict-aliasing")
 	endif()
 	if(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
 		set(CMAKE_CXX_FLAGS_RELEASE)
 		set(CMAKE_C_FLAGS_RELEASE)
 	else()
-		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wall -fPIC -Wl,-E")
-		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2 -Wall -fPIC -Wl,-E")
+		set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wall")
+		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2 -Wall")
 	#	add_definitions(-DNDEBUG)
 	endif()
 endif()
@@ -398,6 +396,7 @@ elseif(WANT_CPP17)
 		set(CMAKE_CXX_STANDARD 17)
 endif()
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF)
 
 ##############################################################################################################
 ########## Find Dependencies                                                                        ##########

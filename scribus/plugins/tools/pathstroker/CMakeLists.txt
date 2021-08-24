@@ -11,7 +11,7 @@ set(SCRIBUS_PATHSTROKER_PLUGIN "pathstroker")
 
 add_library(${SCRIBUS_PATHSTROKER_PLUGIN} MODULE ${PATHSTROKER_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_PATHSTROKER_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_PATHSTROKER_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_PATHSTROKER_PLUGIN} PRIVATE "../../plugins_pch.h")

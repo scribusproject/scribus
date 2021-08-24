@@ -12,7 +12,7 @@ set(SCRIBUS_OODRAW_FL_PLUGIN "oodrawimp")
 
 add_library(${SCRIBUS_OODRAW_FL_PLUGIN} MODULE ${OODRAW_FL_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_OODRAW_FL_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_OODRAW_FL_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_OODRAW_FL_PLUGIN} PRIVATE "../../plugins_pch.h")

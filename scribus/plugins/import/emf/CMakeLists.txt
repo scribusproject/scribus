@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTEMF_PLUGIN "importemf")
 
 add_library(${SCRIBUS_IMPORTEMF_PLUGIN} MODULE ${IMPORTEMF_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTEMF_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTEMF_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTEMF_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,4 +25,4 @@ install(TARGETS ${SCRIBUS_IMPORTEMF_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTEMF_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTEMF_PLUGIN})

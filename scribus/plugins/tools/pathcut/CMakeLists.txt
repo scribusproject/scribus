@@ -18,7 +18,7 @@ set(SCRIBUS_PATHCUT_PLUGIN "pathcut")
 
 add_library(${SCRIBUS_PATHCUT_PLUGIN} MODULE ${PATHCUT_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_PATHCUT_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_PATHCUT_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_PATHCUT_PLUGIN} PRIVATE "../../plugins_pch.h")

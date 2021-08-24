@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTSVM_PLUGIN "importsvm")
 
 add_library(${SCRIBUS_IMPORTSVM_PLUGIN} MODULE ${IMPORTSVM_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTSVM_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTSVM_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTSVM_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,4 +25,4 @@ install(TARGETS ${SCRIBUS_IMPORTSVM_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTSVM_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTSVM_PLUGIN})

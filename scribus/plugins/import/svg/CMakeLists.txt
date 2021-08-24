@@ -12,7 +12,7 @@ set(SCRIBUS_IMPORTSVG_PLUGIN "svgimplugin")
 
 add_library(${SCRIBUS_IMPORTSVG_PLUGIN} MODULE ${IMPORTSVG_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTSVG_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTSVG_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTSVG_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -24,4 +24,4 @@ install(TARGETS ${SCRIBUS_IMPORTSVG_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTSVG_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTSVG_PLUGIN})

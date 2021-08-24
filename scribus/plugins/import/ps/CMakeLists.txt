@@ -19,7 +19,7 @@ set(SCRIBUS_IMPORTPS_PLUGIN "importps")
 
 add_library(${SCRIBUS_IMPORTPS_PLUGIN} MODULE ${IMPORTPS_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTPS_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTPS_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTPS_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -42,4 +42,4 @@ install(FILES
 	DESTINATION ${LIBDIR}
 )
 
-add_dependencies(${SCRIBUS_IMPORTPS_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTPS_PLUGIN})

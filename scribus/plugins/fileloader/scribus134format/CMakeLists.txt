@@ -18,7 +18,7 @@ if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SCR134FORMAT_FL_PLUGIN} PRIVATE "../../plugins_pch.h")
 endif()
 
-target_link_libraries(${SCRIBUS_SCR134FORMAT_FL_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SCR134FORMAT_FL_PLUGIN} ${EXE_NAME})
 
 install(TARGETS ${SCRIBUS_SCR134FORMAT_FL_PLUGIN}
 	LIBRARY

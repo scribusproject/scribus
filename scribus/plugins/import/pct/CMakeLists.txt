@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTPCT_PLUGIN "importpct")
 
 add_library(${SCRIBUS_IMPORTPCT_PLUGIN} MODULE ${IMPORTPCT_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTPCT_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTPCT_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTPCT_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,4 +25,4 @@ install(TARGETS ${SCRIBUS_IMPORTPCT_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTPCT_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTPCT_PLUGIN})

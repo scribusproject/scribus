@@ -11,7 +11,7 @@ set(SCRIBUS_RTF_IM_PLUGIN "rtfimplugin")
 
 add_library(${SCRIBUS_RTF_IM_PLUGIN} MODULE ${RTF_IM_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_RTF_IM_PLUGIN} ${PLUGIN_LIBRARIES} ${SCRIBUS_RTF_LIB})
+target_link_libraries(${SCRIBUS_RTF_IM_PLUGIN} ${EXE_NAME} ${SCRIBUS_RTF_LIB})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_RTF_IM_PLUGIN} PRIVATE "../../plugins_pch.h")

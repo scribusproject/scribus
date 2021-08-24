@@ -12,7 +12,7 @@ set(SCRIBUS_EXPORTSVG_PLUGIN "svgexplugin")
 
 add_library(${SCRIBUS_EXPORTSVG_PLUGIN} MODULE ${EXPORTSVG_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_EXPORTSVG_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_EXPORTSVG_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_EXPORTSVG_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -24,6 +24,6 @@ install(TARGETS ${SCRIBUS_EXPORTSVG_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_EXPORTSVG_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_EXPORTSVG_PLUGIN})
 
 # set_target_properties(${SCRIBUS_FONTPREVIEW_PLUGIN} PROPERTIES VERSION "0.0.0")

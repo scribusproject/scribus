@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTDRW_PLUGIN "importdrw")
 
 add_library(${SCRIBUS_IMPORTDRW_PLUGIN} MODULE ${IMPORTDRW_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTDRW_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTDRW_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTDRW_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,5 +25,5 @@ install(TARGETS ${SCRIBUS_IMPORTDRW_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTDRW_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTDRW_PLUGIN})
 

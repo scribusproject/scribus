@@ -13,7 +13,7 @@ set(SCRIBUS_IMPORTCGM_PLUGIN "importcgm")
 
 add_library(${SCRIBUS_IMPORTCGM_PLUGIN} MODULE ${IMPORTCGM_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTCGM_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_IMPORTCGM_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTCGM_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -25,4 +25,4 @@ install(TARGETS ${SCRIBUS_IMPORTCGM_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTCGM_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTCGM_PLUGIN})

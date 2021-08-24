@@ -30,7 +30,7 @@
 *  it maps the empty name "" to the given default style and uses
 *  the style's context to resolve all other names.
 */
-class StyleContextProxy: public StyleContext 
+class SCRIBUS_API StyleContextProxy: public StyleContext 
 {
 public:
 	const BaseStyle* resolve(const QString& name) const;

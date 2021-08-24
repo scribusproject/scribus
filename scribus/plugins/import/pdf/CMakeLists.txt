@@ -26,7 +26,7 @@ set(SCRIBUS_IMPORTPDF_PLUGIN "importpdf")
 add_library(${SCRIBUS_IMPORTPDF_PLUGIN} MODULE ${IMPORTPDF_PLUGIN_SOURCES})
 
 link_directories( /usr/local/lib )
-target_link_libraries(${SCRIBUS_IMPORTPDF_PLUGIN} ${PLUGIN_LIBRARIES} ${poppler_LIBRARY})
+target_link_libraries(${SCRIBUS_IMPORTPDF_PLUGIN} ${EXE_NAME} ${poppler_LIBRARY})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTPDF_PLUGIN} PRIVATE "../../plugins_pch.h")
@@ -38,4 +38,4 @@ install(TARGETS ${SCRIBUS_IMPORTPDF_PLUGIN}
 	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
-add_dependencies(${SCRIBUS_IMPORTPDF_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_IMPORTPDF_PLUGIN})

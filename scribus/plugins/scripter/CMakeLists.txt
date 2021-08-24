@@ -33,7 +33,7 @@ target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN}
   ${PYTHON_LIBRARIES}
 )
 
-target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${PLUGIN_LIBRARIES})
+target_link_libraries(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_SCRIPTER_PLUGIN} PRIVATE "../plugins_pch.h")
@@ -65,4 +65,4 @@ install(FILES ${sceditor}
   DESTINATION ${PLUGINDIR}/scripter/sceditor
 )
 
-add_dependencies(${SCRIBUS_SCRIPTER_PLUGIN} ${EXE_NAME})
+add_dependencies(Plugins ${SCRIBUS_SCRIPTER_PLUGIN})
