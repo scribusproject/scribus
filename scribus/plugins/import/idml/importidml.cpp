@@ -1922,106 +1922,106 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			for (QDomNode itp = ite.firstChild(); !itp.isNull(); itp = itp.nextSibling())
 			{
 				QDomElement itpg = itp.toElement();
-				if (itpg.tagName() == "PathGeometry")
-				{
-					for (QDomNode itg = itpg.firstChild(); !itg.isNull(); itg = itg.nextSibling())
-					{
-						QDomElement itgg = itg.toElement();
-						if (itgg.tagName() == "GeometryPathType")
-						{
-							isOpen = (itgg.attribute("PathOpen") == "true");
-							for (QDomNode itpp = itgg.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
-							{
-								QDomElement itpa = itpp.toElement();
-								if (itpa.tagName() == "PathPointArray")
-								{
-									bool firstPoint = true;
-									QPointF firstBezPoint;
-									QPointF firstAncPoint;
-									QList<QPointF> pointList;
-									for (QDomNode itpap = itpa.firstChild(); !itpap.isNull(); itpap = itpap.nextSibling())
-									{
-										QDomElement itpo = itpap.toElement();
-										if (itpo.tagName() == "PathPointType")
-										{
-											double x1, y1, x2, y2, x3, y3;
-											QString anchor = itpo.attribute("Anchor");
-											QString lDir = itpo.attribute("LeftDirection");
-											QString rDir = itpo.attribute("RightDirection");
-											ScTextStream an(&anchor, QIODevice::ReadOnly);
-											an >> x1 >> y1;
-											QPointF aP = QPointF(x1, y1);
-											ScTextStream lr(&lDir, QIODevice::ReadOnly);
-											lr >> x2 >> y2;
-											QPointF lP = QPointF(x2, y2);
-											ScTextStream rr(&rDir, QIODevice::ReadOnly);
-											rr >> x3 >> y3;
-											QPointF rP = QPointF(x3, y3);
+				if (itpg.tagName() != "PathGeometry")
+					continue;
 
-											if (firstPoint)
-											{
-												firstBezPoint = lP;
-												firstAncPoint = aP;
-												pointList.append(aP);
-												pointList.append(rP);
-												firstPoint = false;
-											}
-											else
-											{
-												if (itElem.tagName() == "GraphicLine")
-												{
-													pointList.append(lP);
-													pointList.append(aP);
-												}
-												else
-												{
-													pointList.append(lP);
-													pointList.append(aP);
-													pointList.append(rP);
-												}
-											}
-										}
-									}
-									if (itElem.tagName() == "GraphicLine")
-									{
-										if (pointList.count() > 1)
-										{
-											GCoords.svgMoveTo(pointList[0].x(), pointList[0].y());
-											QPointF p1 = pointList[1];
-											QPointF p2 = pointList[2];
-											QPointF p3 = pointList[3];
-											GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
-										}
-									}
-									else if (pointList.count() > 0)
-									{
-										if (isOpen)
-										{
-											pointList.removeLast();
-										}
-										else
-										{
-											pointList.append(firstBezPoint);
-											pointList.append(firstAncPoint);
-										}
-										if (pointList.count() > 1)
-										{
-											GCoords.svgMoveTo(pointList[0].x(), pointList[0].y());
-											for (int a = 1; a < pointList.count(); a += 3)
-											{
-												QPointF p1 = pointList[a];
-												QPointF p2 = pointList[a+1];
-												QPointF p3 = pointList[a+2];
-												GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
-											}
-										}
-									}
+				for (QDomNode itg = itpg.firstChild(); !itg.isNull(); itg = itg.nextSibling())
+				{
+					QDomElement itgg = itg.toElement();
+					if (itgg.tagName() != "GeometryPathType")
+						continue;
+
+					isOpen = (itgg.attribute("PathOpen") == "true");
+					for (QDomNode itpp = itgg.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
+					{
+						QDomElement itpa = itpp.toElement();
+						if (itpa.tagName() != "PathPointArray")
+							continue;
+
+						bool firstPoint = true;
+						QPointF firstBezPoint;
+						QPointF firstAncPoint;
+						QList<QPointF> pointList;
+						for (QDomNode itpap = itpa.firstChild(); !itpap.isNull(); itpap = itpap.nextSibling())
+						{
+							QDomElement itpo = itpap.toElement();
+							if (itpo.tagName() != "PathPointType")
+								continue;
+
+							double x1, y1, x2, y2, x3, y3;
+							QString anchor = itpo.attribute("Anchor");
+							QString lDir = itpo.attribute("LeftDirection");
+							QString rDir = itpo.attribute("RightDirection");
+							ScTextStream an(&anchor, QIODevice::ReadOnly);
+							an >> x1 >> y1;
+							QPointF aP = QPointF(x1, y1);
+							ScTextStream lr(&lDir, QIODevice::ReadOnly);
+							lr >> x2 >> y2;
+							QPointF lP = QPointF(x2, y2);
+							ScTextStream rr(&rDir, QIODevice::ReadOnly);
+							rr >> x3 >> y3;
+							QPointF rP = QPointF(x3, y3);
+
+							if (firstPoint)
+							{
+								firstBezPoint = lP;
+								firstAncPoint = aP;
+								pointList.append(aP);
+								pointList.append(rP);
+								firstPoint = false;
+							}
+							else
+							{
+								if (itElem.tagName() == "GraphicLine")
+								{
+									pointList.append(lP);
+									pointList.append(aP);
+								}
+								else
+								{
+									pointList.append(lP);
+									pointList.append(aP);
+									pointList.append(rP);
 								}
 							}
-							if (!isOpen)
-								GCoords.svgClosePath();
+						}
+						if (itElem.tagName() == "GraphicLine")
+						{
+							if (pointList.count() > 1)
+							{
+								GCoords.svgMoveTo(pointList[0].x(), pointList[0].y());
+								QPointF p1 = pointList[1];
+								QPointF p2 = pointList[2];
+								QPointF p3 = pointList[3];
+								GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+							}
+						}
+						else if (pointList.count() > 0)
+						{
+							if (isOpen)
+							{
+								pointList.removeLast();
+							}
+							else
+							{
+								pointList.append(firstBezPoint);
+								pointList.append(firstAncPoint);
+							}
+							if (pointList.count() > 1)
+							{
+								GCoords.svgMoveTo(pointList[0].x(), pointList[0].y());
+								for (int a = 1; a < pointList.count(); a += 3)
+								{
+									QPointF p1 = pointList[a];
+									QPointF p2 = pointList[a + 1];
+									QPointF p3 = pointList[a + 2];
+									GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+								}
+							}
 						}
 					}
+					if (!isOpen)
+						GCoords.svgClosePath();
 				}
 			}
 		}
