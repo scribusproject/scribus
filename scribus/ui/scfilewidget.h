@@ -40,7 +40,7 @@ public slots:
 	void gotoHomeDirectory();
 
 private:
-	bool m_forceDoubleClickActivation;
+	bool m_forceDoubleClickActivation { false };
 };
 
 #endif

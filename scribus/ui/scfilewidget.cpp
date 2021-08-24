@@ -22,8 +22,6 @@ for which a new license (GPL+exception) is in place.
 
 ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 {
-	m_forceDoubleClickActivation = false;
-
 	setOption(QFileDialog::DontUseNativeDialog);
 	setSizeGripEnabled(false);
 	setModal(false);
@@ -49,10 +47,9 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 #endif
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
-	QList<QListView *> lv = findChildren<QListView *>();
-	QListIterator<QListView *> lvi(lv);
-	while (lvi.hasNext())
-		lvi.next()->installEventFilter(keyCatcher);
+	QList<QListView *> childListViews = findChildren<QListView *>();
+	for (QListView * lvi : childListViews)
+		lvi->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));
 	connect(keyCatcher, SIGNAL(desktopPressed()), this, SLOT(gotoDesktopDirectory()));
@@ -60,10 +57,9 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	connect(keyCatcher, SIGNAL(parentPressed()), this, SLOT(gotoParentDirectory()));
 	connect(keyCatcher, SIGNAL(enterSelectedPressed()), this, SLOT(gotoSelectedDirectory()));
 
-	QList<QPushButton *> b = findChildren<QPushButton *>();
-	QListIterator<QPushButton *> i(b);
-	while (i.hasNext())
-		i.next()->setVisible(false);
+	QList<QPushButton *> childPushButtons = findChildren<QPushButton *>();
+	for (QPushButton* pb : childPushButtons)
+		pb->setVisible(false);
 	setMinimumSize(QSize(480, 310));
 	setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
