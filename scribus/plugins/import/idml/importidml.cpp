@@ -2253,7 +2253,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				item->setFillEvenOdd(false);
 				if (!fillGradient.isEmpty())
 				{
-					QLineF gradientVector = QLineF(gstX, gstY, gstX+1, gstY);
+					QLineF gradientVector = QLineF(gstX, gstY, gstX + 1, gstY);
 					gradientVector.setLength(gLen);
 					gradientVector.setAngle(gAngle);
 					gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2264,7 +2264,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				}
 				if (!strokeGradient.isEmpty())
 				{
-					QLineF gradientVector = QLineF(gstSX, gstSY, gstSX+1, gstSY);
+					QLineF gradientVector = QLineF(gstSX, gstSY, gstSX + 1, gstSY);
 					gradientVector.setLength(gSLen);
 					gradientVector.setAngle(gSAngle);
 					gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2489,7 +2489,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			item->setFillEvenOdd(false);
 			if (!fillGradient.isEmpty())
 			{
-				QLineF gradientVector = QLineF(gstX, gstY, gstX+1, gstY);
+				QLineF gradientVector = QLineF(gstX, gstY, gstX + 1, gstY);
 				gradientVector.setLength(gLen);
 				gradientVector.setAngle(gAngle);
 				gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2500,7 +2500,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			}
 			if (!strokeGradient.isEmpty())
 			{
-				QLineF gradientVector = QLineF(gstSX, gstSY, gstSX+1, gstSY);
+				QLineF gradientVector = QLineF(gstSX, gstSY, gstSX + 1, gstSY);
 				gradientVector.setLength(gSLen);
 				gradientVector.setAngle(gSAngle);
 				gradientVector.translate(-grOffset.x(), -grOffset.y());
