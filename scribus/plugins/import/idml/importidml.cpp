@@ -1737,17 +1737,17 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	double lineWidth = def_lineWidth;
 	int fillShade = def_fillTint;
 	int strokeShade = def_strokeTint;
-	double Opacity = def_Opacity;
+	double opacity = def_Opacity;
 	int blendMode = def_Blendmode;
 	double Extra = def_Extra;
 	double TExtra = def_TExtra;
 	double BExtra = def_BExtra;
 	double RExtra = def_RExtra;
-	int TextColumnCount = def_TextColumnCount;
-	double TextColumnGutter = def_TextColumnGutter;
+	int textColumnCount = def_TextColumnCount;
+	double textColumnGutter = def_TextColumnGutter;
 	//double TextColumnFixedWidth = def_TextColumnFixedWidth;
-	QString LeftLineEnd = def_LeftLineEnd;
-	QString RightLineEnd = def_RightLineEnd;
+	QString leftLineEnd = def_LeftLineEnd;
+	QString rightLineEnd = def_RightLineEnd;
 	QString imageFit = "None";
 	PageItem::TextFlowMode textFlow = def_TextFlow;
 	if (itElem.hasAttribute("AppliedObjectStyle"))
@@ -1804,18 +1804,18 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			lineWidth = nstyle.lineWidth;
 			fillShade = nstyle.fillTint;
 			strokeShade = nstyle.strokeTint;
-			Opacity = nstyle.Opacity;
+			opacity = nstyle.Opacity;
 			blendMode = nstyle.blendMode;
 			Extra = nstyle.Extra;
 			TExtra = nstyle.TExtra;
 			BExtra = nstyle.BExtra;
 			RExtra = nstyle.RExtra;
-			TextColumnCount = nstyle.TextColumnCount;
-			TextColumnGutter = nstyle.TextColumnGutter;
+			textColumnCount = nstyle.TextColumnCount;
+			textColumnGutter = nstyle.TextColumnGutter;
 		//	TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
 			textFlow = nstyle.TextFlow;
-			LeftLineEnd = nstyle.LeftLineEnd;
-			RightLineEnd = nstyle.RightLineEnd;
+			leftLineEnd = nstyle.LeftLineEnd;
+			rightLineEnd = nstyle.RightLineEnd;
 		}
 	}
 	if (itElem.hasAttribute("FillColor"))
@@ -1879,9 +1879,9 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	if (strokeShade < 0)
 		strokeShade = 100;
 	if (itElem.hasAttribute("RightLineEnd"))
-		RightLineEnd = itElem.attribute("RightLineEnd");
+		rightLineEnd = itElem.attribute("RightLineEnd");
 	if (itElem.hasAttribute("LeftLineEnd"))
-		LeftLineEnd = itElem.attribute("LeftLineEnd");
+		leftLineEnd = itElem.attribute("LeftLineEnd");
 	QString forLayer = itElem.attribute("ItemLayer");
 	if (layerTranslate.contains(forLayer))
 		forLayer = layerTranslate[forLayer];
@@ -2050,7 +2050,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				QDomElement itpg = itp.toElement();
 				if (itpg.tagName() == "BlendingSetting")
 				{
-					Opacity = 1.0 - (itpg.attribute("Opacity", "100").toDouble() / 100.0);
+					opacity = 1.0 - (itpg.attribute("Opacity", "100").toDouble() / 100.0);
 					blendMode = convertBlendMode(itpg.attribute("BlendMode", "Normal"));
 				}
 			}
@@ -2067,9 +2067,9 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 		else if (ite.tagName() == "TextFramePreference")
 		{
 			if (ite.hasAttribute("TextColumnCount"))
-				TextColumnCount = ite.attribute("TextColumnCount").toInt();
+				textColumnCount = ite.attribute("TextColumnCount").toInt();
 			if (ite.hasAttribute("TextColumnGutter"))
-				TextColumnGutter = ite.attribute("TextColumnGutter").toDouble();
+				textColumnGutter = ite.attribute("TextColumnGutter").toDouble();
 		//	if (ite.hasAttribute("TextColumnFixedWidth"))
 		//		TextColumnFixedWidth = ite.attribute("TextColumnFixedWidth").toDouble();
 			for (QDomNode itpp = ite.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling())
@@ -2205,8 +2205,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					item->setTextToFrameDistTop(TExtra);
 					item->setTextToFrameDistRight(RExtra);
 					item->setTextToFrameDistBottom(BExtra);
-					item->setColumns(TextColumnCount);
-					item->setColumnGap(TextColumnGutter);
+					item->setColumns(textColumnCount);
+					item->setColumnGap(textColumnGutter);
 				}
 				else if (isPathText)
 				{
@@ -2306,54 +2306,54 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				item->OldH2 = item->height();
 				if (item->isPolyLine())
 				{
-					if (LeftLineEnd != "None")
+					if (leftLineEnd != "None")
 					{
-						if (LeftLineEnd == "SimpleArrowHead")
+						if (leftLineEnd == "SimpleArrowHead")
 							item->setStartArrowIndex(2);
-						else if (LeftLineEnd == "SimpleWideArrowHead")
+						else if (leftLineEnd == "SimpleWideArrowHead")
 							item->setStartArrowIndex(2);
-						else if (LeftLineEnd == "TriangleArrowHead")
+						else if (leftLineEnd == "TriangleArrowHead")
 							item->setStartArrowIndex(8);
-						else if (LeftLineEnd == "TriangleWideArrowHead")
+						else if (leftLineEnd == "TriangleWideArrowHead")
 							item->setStartArrowIndex(8);
-						else if (LeftLineEnd == "BarbedArrowHead")
+						else if (leftLineEnd == "BarbedArrowHead")
 							item->setStartArrowIndex(23);
-						else if (LeftLineEnd == "CurvedArrowHead")
+						else if (leftLineEnd == "CurvedArrowHead")
 							item->setStartArrowIndex(26);
-						else if (LeftLineEnd == "CircleArrowHead")
+						else if (leftLineEnd == "CircleArrowHead")
 							item->setStartArrowIndex(17);
-						else if (LeftLineEnd == "CircleSolidArrowHead")
+						else if (leftLineEnd == "CircleSolidArrowHead")
 							item->setStartArrowIndex(17);
-						else if (LeftLineEnd == "Square-ArrowHead")
+						else if (leftLineEnd == "Square-ArrowHead")
 							item->setStartArrowIndex(5);
-						else if (LeftLineEnd == "SquareSolid-ArrowHead")
+						else if (leftLineEnd == "SquareSolid-ArrowHead")
 							item->setStartArrowIndex(5);
-						else if (LeftLineEnd == "BarArrowHead")
+						else if (leftLineEnd == "BarArrowHead")
 							item->setStartArrowIndex(35);
 					}
-					if (RightLineEnd != "None")
+					if (rightLineEnd != "None")
 					{
-						if (RightLineEnd == "SimpleArrowHead")
+						if (rightLineEnd == "SimpleArrowHead")
 							item->setEndArrowIndex(2);
-						else if (RightLineEnd == "SimpleWideArrowHead")
+						else if (rightLineEnd == "SimpleWideArrowHead")
 							item->setEndArrowIndex(2);
-						else if (RightLineEnd == "TriangleArrowHead")
+						else if (rightLineEnd == "TriangleArrowHead")
 							item->setEndArrowIndex(8);
-						else if (RightLineEnd == "TriangleWideArrowHead")
+						else if (rightLineEnd == "TriangleWideArrowHead")
 							item->setEndArrowIndex(8);
-						else if (RightLineEnd == "BarbedArrowHead")
+						else if (rightLineEnd == "BarbedArrowHead")
 							item->setEndArrowIndex(23);
-						else if (RightLineEnd == "CurvedArrowHead")
+						else if (rightLineEnd == "CurvedArrowHead")
 							item->setEndArrowIndex(26);
-						else if (RightLineEnd == "CircleArrowHead")
+						else if (rightLineEnd == "CircleArrowHead")
 							item->setEndArrowIndex(17);
-						else if (RightLineEnd == "CircleSolidArrowHead")
+						else if (rightLineEnd == "CircleSolidArrowHead")
 							item->setEndArrowIndex(17);
-						else if (RightLineEnd == "Square-ArrowHead")
+						else if (rightLineEnd == "Square-ArrowHead")
 							item->setEndArrowIndex(7);
-						else if (RightLineEnd == "SquareSolid-ArrowHead")
+						else if (rightLineEnd == "SquareSolid-ArrowHead")
 							item->setEndArrowIndex(7);
-						else if (RightLineEnd == "BarArrowHead")
+						else if (rightLineEnd == "BarArrowHead")
 							item->setEndArrowIndex(35);
 					}
 				}
@@ -2403,8 +2403,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				itemg->PoLine = gClip.copy();
 			itemg->updateClip();
 			itemg->setItemName(pre+itemName);
-			itemg->setFillTransparency(Opacity);
-			itemg->setLineTransparency(Opacity);
+			itemg->setFillTransparency(opacity);
+			itemg->setLineTransparency(opacity);
 			itemg->setLineBlendmode(blendMode);
 			itemg->setFillBlendmode(blendMode);
 			itemg->setFillEvenOdd(false);
@@ -2437,8 +2437,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				item->setTextToFrameDistTop(TExtra);
 				item->setTextToFrameDistRight(RExtra);
 				item->setTextToFrameDistBottom(BExtra);
-				item->setColumns(TextColumnCount);
-				item->setColumnGap(TextColumnGutter);
+				item->setColumns(textColumnCount);
+				item->setColumnGap(textColumnGutter);
 			}
 			else if (isPathText)
 			{
@@ -2482,8 +2482,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			item->setLineColor(strokeColor);
 			item->setFillShade(fillShade);
 			item->setLineShade(strokeShade);
-			item->setFillTransparency(Opacity);
-			item->setLineTransparency(Opacity);
+			item->setFillTransparency(opacity);
+			item->setLineTransparency(opacity);
 			item->setLineBlendmode(blendMode);
 			item->setFillBlendmode(blendMode);
 			item->setFillEvenOdd(false);
@@ -2547,54 +2547,54 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			item->OldH2 = item->height();
 			if (item->isPolyLine())
 			{
-				if (LeftLineEnd != "None")
+				if (leftLineEnd != "None")
 				{
-					if (LeftLineEnd == "SimpleArrowHead")
+					if (leftLineEnd == "SimpleArrowHead")
 						item->setStartArrowIndex(2);
-					else if (LeftLineEnd == "SimpleWideArrowHead")
+					else if (leftLineEnd == "SimpleWideArrowHead")
 						item->setStartArrowIndex(2);
-					else if (LeftLineEnd == "TriangleArrowHead")
+					else if (leftLineEnd == "TriangleArrowHead")
 						item->setStartArrowIndex(8);
-					else if (LeftLineEnd == "TriangleWideArrowHead")
+					else if (leftLineEnd == "TriangleWideArrowHead")
 						item->setStartArrowIndex(8);
-					else if (LeftLineEnd == "BarbedArrowHead")
+					else if (leftLineEnd == "BarbedArrowHead")
 						item->setStartArrowIndex(23);
-					else if (LeftLineEnd == "CurvedArrowHead")
+					else if (leftLineEnd == "CurvedArrowHead")
 						item->setStartArrowIndex(26);
-					else if (LeftLineEnd == "CircleArrowHead")
+					else if (leftLineEnd == "CircleArrowHead")
 						item->setStartArrowIndex(17);
-					else if (LeftLineEnd == "CircleSolidArrowHead")
+					else if (leftLineEnd == "CircleSolidArrowHead")
 						item->setStartArrowIndex(17);
-					else if (LeftLineEnd == "Square-ArrowHead")
+					else if (leftLineEnd == "Square-ArrowHead")
 						item->setStartArrowIndex(5);
-					else if (LeftLineEnd == "SquareSolid-ArrowHead")
+					else if (leftLineEnd == "SquareSolid-ArrowHead")
 						item->setStartArrowIndex(5);
-					else if (LeftLineEnd == "BarArrowHead")
+					else if (leftLineEnd == "BarArrowHead")
 						item->setStartArrowIndex(35);
 				}
-				if (RightLineEnd != "None")
+				if (rightLineEnd != "None")
 				{
-					if (RightLineEnd == "SimpleArrowHead")
+					if (rightLineEnd == "SimpleArrowHead")
 						item->setEndArrowIndex(2);
-					else if (RightLineEnd == "SimpleWideArrowHead")
+					else if (rightLineEnd == "SimpleWideArrowHead")
 						item->setEndArrowIndex(2);
-					else if (RightLineEnd == "TriangleArrowHead")
+					else if (rightLineEnd == "TriangleArrowHead")
 						item->setEndArrowIndex(8);
-					else if (RightLineEnd == "TriangleWideArrowHead")
+					else if (rightLineEnd == "TriangleWideArrowHead")
 						item->setEndArrowIndex(8);
-					else if (RightLineEnd == "BarbedArrowHead")
+					else if (rightLineEnd == "BarbedArrowHead")
 						item->setEndArrowIndex(23);
-					else if (RightLineEnd == "CurvedArrowHead")
+					else if (rightLineEnd == "CurvedArrowHead")
 						item->setEndArrowIndex(26);
-					else if (RightLineEnd == "CircleArrowHead")
+					else if (rightLineEnd == "CircleArrowHead")
 						item->setEndArrowIndex(17);
-					else if (RightLineEnd == "CircleSolidArrowHead")
+					else if (rightLineEnd == "CircleSolidArrowHead")
 						item->setEndArrowIndex(17);
-					else if (RightLineEnd == "Square-ArrowHead")
+					else if (rightLineEnd == "Square-ArrowHead")
 						item->setEndArrowIndex(7);
-					else if (RightLineEnd == "SquareSolid-ArrowHead")
+					else if (rightLineEnd == "SquareSolid-ArrowHead")
 						item->setEndArrowIndex(7);
-					else if (RightLineEnd == "BarArrowHead")
+					else if (rightLineEnd == "BarArrowHead")
 						item->setEndArrowIndex(35);
 				}
 			}
@@ -2732,8 +2732,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			item->OldH2 = item->height();
 			item->updateClip();
 			item->setItemName(itemName);
-			item->setFillTransparency(Opacity);
-			item->setLineTransparency(Opacity);
+			item->setFillTransparency(opacity);
+			item->setLineTransparency(opacity);
 			item->setLineBlendmode(blendMode);
 			item->setFillBlendmode(blendMode);
 			item->setFillEvenOdd(false);
