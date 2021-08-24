@@ -17,9 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmessagebox.h"
 #include "iconmanager.h"
 
-Query::Query( QWidget* parent,  const char* name, bool modal, const QString& text, const QString& titel ) : QDialog( parent )
+Query::Query( QWidget* parent,  const char* name, bool modal, const QString& text, const QString& title ) : QDialog( parent )
 {
-	setWindowTitle( titel );
+	setWindowTitle( title );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );

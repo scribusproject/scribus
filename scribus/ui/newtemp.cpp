@@ -21,11 +21,11 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 
-NewTm::NewTm( QWidget* parent, const QString& text, const QString& titel, ScribusDoc *doc, const QString& answerText)
+NewTm::NewTm( QWidget* parent, const QString& text, const QString& title, ScribusDoc *doc, const QString& answerText)
 		: QDialog( parent )
 {
 	setModal(true);
-	setWindowTitle(titel);
+	setWindowTitle(title);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	QueryLayout = new QVBoxLayout( this );
 	QueryLayout->setSpacing(6);

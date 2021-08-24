@@ -57,7 +57,7 @@ protected:
 
 	static DWORD translateFlagsToLcmsFlags(long flags);
 	static DWORD translateFormatToLcmsFormat(eColorFormat format);
-	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent defaut = Intent_Relative_Colorimetric);
+	static int translateIntentToLcmsIntent(eRenderIntent intent, eRenderIntent default = Intent_Relative_Colorimetric);
 	static eColorSpaceType translateLcmsColorSpaceType(icColorSpaceSignature);
 	static eProfileClass   translateLcmsProfileClass(icProfileClassSignature);
 

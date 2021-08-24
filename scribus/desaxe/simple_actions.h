@@ -113,7 +113,7 @@ struct  FactoryWithArgs : public MakeGenerator<FactoryWithArgs_body<Type>, Type,
 
 /**
  *   Pushes a new object of type Obj_Type onto the stack which is initialized with the tag name.
- *   If no create method is given, Obj_Type needs a constructor which taks a Xml_string argument
+ *   If no create method is given, Obj_Type needs a constructor which takes a Xml_string argument
  */
 template<class Obj_Type>
 class FactoryWithName_body : public Generator_body<Obj_Type>

@@ -1303,7 +1303,7 @@ QString XtgScanner::getToken()
 			/**
 			An escape sequence is occurred, hence we will just append 
 			the next character in buffer to the text. This will automatically
-			deal the occurrance of '\@' or '\:' or any other relevant escapes
+			deal the occurrence of '\@' or '\:' or any other relevant escapes
 			*/
 			m_textIndex = m_textIndex+1;
 			m_textToAppend.append( nextSymbol() );

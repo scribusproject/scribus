@@ -1853,7 +1853,7 @@ protected: // Start protected variables
 	double m_height {0.0}; ///<  Height of the item
 	double m_rotation {0.0}; ///< Rotation of the item
 	bool   m_isSelected {false}; ///< Is the item selected?
-	bool   m_imageVisible {true}; ///< Darstellungsart Bild/Titel
+	bool   m_imageVisible {true}; ///< Is the image/title visible?
 	double m_imageXScale {1.0}; ///< Scaling X Factor for images
 	double m_imageYScale {1.0}; ///< Scaling Y Factor for images
 	double m_imageXOffset {0.0}; ///< Image X Offset to frame

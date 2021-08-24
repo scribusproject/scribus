@@ -107,7 +107,7 @@ For both languages there is a great amount of documentation and
 free articles on the internet available, e.g.:
   * http://www.diveintopython.org/toc/index.html
   * http://www.unix.com.ua/orelly/web/jscript/
-For a C/C++ or PHP programmer the syntax of QtScript might be more appealling 
+For a C/C++ or PHP programmer the syntax of QtScript might be more appealing 
 because it's nearly the same. Python is suitable for beginners as well as computer
 scientists. 
 Additionally Python provides powerful third-party libraries (database 

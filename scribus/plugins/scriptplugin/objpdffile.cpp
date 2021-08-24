@@ -1327,7 +1327,7 @@ static int PDFfile_setopenAction(PDFfile *self, PyObject *value, void * /*closur
 
 static char *effval_doc = const_cast<char*>(
 "List of effection values for each saved page.\n"
-"It is list of list of six integers. Those int has followin meaning:\n\t"
+"It is a list of list of six integers. Those int have the following meaning:\n\t"
 "- Length of time the page is shown before the presentation\n\tstarts on the selected page. (1-3600)\n\t"
 "- Length of time the effect runs. (1 - 3600)\n\t\tA shorter time will speed up the effect,\n\t\ta longer one will slow it down\n\t"
 "- Type of the display effect\n\t\t0 - No Effect\n\t\t1 - Blinds\n\t\t2 - Box\n\t\t3 - Dissolve\n\t\t4 - Glitter\n\t\t5 - Split\n\t\t6 - Wipe\n\t"
@@ -1337,7 +1337,7 @@ static char *effval_doc = const_cast<char*>(
 
 static char *lpival_doc = const_cast<char*>(
 "Rendering Settings for individual colors.\n\n"
-"This is list of values for each color\n"
+"This is a list of values for each color\n"
 "Color values have structure [siii] which stand for:\n\t"
 "s - Color name ('Black', 'Cyan', 'Magenta', 'Yellow')\n\t"
 "i - Frequency (10 to 1000)\n\t"

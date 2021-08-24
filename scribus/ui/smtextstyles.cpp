@@ -184,7 +184,7 @@ QString SMParagraphStyle::fromSelection() const
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
-		// wth is going on here
+		// FIXME: wth is going on here
 		PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().parent();
@@ -1978,7 +1978,7 @@ QString SMCharacterStyle::fromSelection() const
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
-		// wth is going on here
+		// FIXME: wth is going on here
 		PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().charStyle().parent();

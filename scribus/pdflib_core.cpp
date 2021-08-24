@@ -679,7 +679,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 				progressDialog->setOverallProgress(pc_exportmasterpages+pc_exportpages);
 			}
 		}
-		ret = true;//Even when aborting we return true. Don't want that "couldnt write msg"
+		ret = true;//Even when aborting we return true. Don't want that "couldn't write msg"
 		if (!abortExport)
 		{
 			if (PDF_IsPDFX(Options.Version))
