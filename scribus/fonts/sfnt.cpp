@@ -1271,9 +1271,15 @@ namespace sfnt {
 #endif
 #endif
 
+#if HB_VERSION_ATLEAST(2, 9, 0)
+		QScopedPointer<hb_face_t, HbFaceDeleter> hbSubsetFace(hb_subset_or_fail(hbFullFace.get(), hbSubsetInput.get()));
+		if (hbSubsetFace.isNull())
+			return QByteArray();
+#else
 		QScopedPointer<hb_face_t, HbFaceDeleter> hbSubsetFace(hb_subset(hbFullFace.get(), hbSubsetInput.get()));
 		if (hbSubsetFace.isNull())
 			return QByteArray();
+#endif
 
 		QScopedPointer<hb_blob_t, HbBlobDeleter> hbSubsetBlob(hb_face_reference_blob(hbSubsetFace.get()));
 		if (hbSubsetBlob.isNull())
