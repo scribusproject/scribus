@@ -31,8 +31,6 @@ ColorPixmapValue::ColorPixmapValue(const ScColor& col, ScribusDoc* doc, const QS
 	m_name = colName;
 }
 
-ColorPixmapValue ColorListModel::m_NoneColor(ScColor(), nullptr, CommonStrings::None);
-
 ColorListModel::ColorListModel(QObject *parent)
 	          : QAbstractItemModel(parent)
 {

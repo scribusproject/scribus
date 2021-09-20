@@ -103,9 +103,6 @@ protected:
 	// SortRule m_sortRule
 	SortRule m_sortRule;
 
-	//! Dummy object used to represent None Color
-	static ColorPixmapValue m_NoneColor;
-
 	static bool compareColorNames(const ColorPixmapValue& v1, const ColorPixmapValue& v2);
 	static bool compareColorValues(const ColorPixmapValue& v1, const ColorPixmapValue& v2);
 	static bool compareColorTypes(const ColorPixmapValue& v1, const ColorPixmapValue& v2);
