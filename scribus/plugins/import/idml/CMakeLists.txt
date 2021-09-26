@@ -15,7 +15,7 @@ set(SCRIBUS_IMPORTIDML_PLUGIN "importidml")
 
 add_library(${SCRIBUS_IMPORTIDML_PLUGIN} MODULE ${IMPORTIDML_PLUGIN_SOURCES})
 
-target_link_libraries(${SCRIBUS_IMPORTIDML_PLUGIN} ${EXE_NAME})
+target_link_libraries(${SCRIBUS_IMPORTIDML_PLUGIN} ${EXE_NAME} ${SCRIBUS_ZIP_LIB})
 
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTIDML_PLUGIN} PRIVATE "../../plugins_pch.h")
