@@ -27,8 +27,6 @@ for which a new license (GPL+exception) is in place.
 
 ScZipHandler::ScZipHandler(bool forWrite)
 {
-	m_uz = nullptr;
-	m_zi = nullptr;
 	if (forWrite)
 		m_zi = new Zip();
 	else

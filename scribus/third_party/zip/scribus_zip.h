@@ -38,6 +38,7 @@ class ScZipHandler
 
 		ScZipHandler(bool forWrite = false);
 		virtual ~ScZipHandler();
+
 		bool open(const QString& fileName);
 		bool close();
 		bool contains(const QString& fileName);
@@ -45,9 +46,10 @@ class ScZipHandler
 		bool write(const QString& dirName);
 		bool extract(const QString& name, const QString& path, ExtractionOption eo);
 		QStringList files();
+
 	private:
-		UnZip* m_uz;
-		Zip* m_zi;
+		UnZip* m_uz { nullptr };
+		Zip* m_zi { nullptr };
 };
 
 #endif
