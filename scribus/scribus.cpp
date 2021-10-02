@@ -624,9 +624,9 @@ void ScribusMainWindow::initDefaultValues()
 	//m_keyrep = false;
 	//m_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
-	for (int i=0; i<PAL_MAX ; ++i)
+	for (int i = 0; i < PAL_MAX ; ++i)
 		m_palettesStatus[i] = false;
-	for (int i=0; i<GS_MAX ; ++i)
+	for (int i = 0; i < GS_MAX ; ++i)
 		m_guidesStatus[i] = false;
 #ifdef HAVE_OSG
 	QStringList supportedExts;
@@ -817,19 +817,19 @@ void ScribusMainWindow::initPalettes()
 void ScribusMainWindow::initScrapbook()
 {
 	QString scrapbookFileO = QDir::toNativeSeparators(m_prefsManager.preferencesLocation()+"/scrap13.scs");
-	QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);
+	QFileInfo scrapbookFileInfoO(scrapbookFileO);
 	if (scrapbookFileInfoO.exists())
 	{
 		scrapbookPalette->readOldContents(scrapbookFileO, ScPaths::scrapbookDir(true) + "main");
-		QDir d = QDir();
+		QDir d;
 		d.rename(scrapbookFileO, QDir::toNativeSeparators(m_prefsManager.preferencesLocation()+"/scrap13.backup"));
 	}
 	QString scrapbookTemp = QDir::toNativeSeparators(ScPaths::scrapbookDir(true) + "tmp");
-	QFileInfo scrapbookTempInfo = QFileInfo(scrapbookTemp);
+	QFileInfo scrapbookTempInfo(scrapbookTemp);
 	if (scrapbookTempInfo.exists())
 		scrapbookPalette->readTempContents(scrapbookTemp);
 	QString scrapbookFile = QDir::toNativeSeparators(ScPaths::scrapbookDir(true) + "main");
-	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
+	QFileInfo scrapbookFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
@@ -1710,7 +1710,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (k->modifiers() & Qt::AltModifier)
 			keyMod |= Qt::ALT;
 
-		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+		QKeySequence currKeySeq(k->key() | keyMod);
 		if (QString(currKeySeq.toString()).isNull())
 			return false;
 		retVal = true;
@@ -5360,11 +5360,11 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	//Zoom to Fit
 	if (zoomFactor == -100.0)
 	{
-		finalZoomFactor = (view->height()-70) / (doc->currentPage()->height()+30);
+		finalZoomFactor = (view->height() - 70) / (doc->currentPage()->height()+30);
 	}
 	else if (zoomFactor == -200.0)
 	{
-		finalZoomFactor = (view->width()-50) / (doc->currentPage()->width()+30);
+		finalZoomFactor = (view->width() - 50) / (doc->currentPage()->width()+30);
 	}
 	//Zoom to %
 	else
@@ -6986,9 +6986,9 @@ void ScribusMainWindow::reallySaveAsEps()
 	{
 		QDir di = QDir();
 		if (!doc->m_Selection->isEmpty())
-			filename = di.currentPath() + "/" + doc->documentFileName() + "_selection.eps";
+			filename = QDir::currentPath() + "/" + doc->documentFileName() + "_selection.eps";
 		else
-			filename = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+			filename = QDir::currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	filename = QDir::toNativeSeparators(filename);
 

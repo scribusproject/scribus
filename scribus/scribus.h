@@ -201,9 +201,9 @@ public:
 	void setPreviewToolbar();
 	void updateFromDrop();
 	struct CopyContentsBuffer contentsBuffer;
-	bool internalCopy;
+	bool internalCopy { false };
 	QString internalCopyBuffer;
-	int  HaveDoc;
+	int  HaveDoc { 0 };
 	PrefsContext* dirs {nullptr};
 	/** \brief view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
@@ -220,8 +220,8 @@ public:
 
 
 	QProgressBar* mainWindowProgressBar {nullptr};
-	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
-	PageSelector* pageSelector; //Page selector at bottom of view
+	ScrSpinBox* zoomSpinBox {nullptr}; //zoom spinbox at bottom of view
+	PageSelector* pageSelector {nullptr}; //Page selector at bottom of view
 	QPushButton *zoomDefaultToolbarButton {nullptr};
 	QPushButton *zoomOutToolbarButton {nullptr};
 	QPushButton *zoomInToolbarButton {nullptr};
@@ -625,33 +625,20 @@ private:
 	QString m_statusLabelText;
 	//QPixmap noIcon;
 
-	int m_toolbarMenuTools;
-	int m_toolbarMenuPDFTools;
-	int m_viewToolbars;
-	int m_viewPropertiesPalette;
-	int m_viewPropertiesPaletteText;
-	int m_viewOutlinePalette;
-	int m_viewNodePalette;
-	int m_viewBpal;
-	int m_viewLayerPalette;
-	int m_viewPagePalette;
-	int m_viewBopal;
-	int m_viewUndoPalette;
-
-	bool m_palettesStatus[13];
-	bool m_guidesStatus[13];
+	bool m_palettesStatus[13] { false };
+	bool m_guidesStatus[13] { false };
 
 	//bool m_keyrep;
 	/** @brief Tells if an arrow key is pressed down */
 	//bool m_arrowKeyDown;
 	/** @brief tells the undo mode */
-	bool m_objectSpecificUndo;
+	bool m_objectSpecificUndo { false };
 
 	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, const QString& siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
-	int m_DocNr;
-	bool m_PrinterUsed;
+	int m_DocNr { 1 };
+	bool m_PrinterUsed { false };
 	struct PDe {
 					QString Pname;
 					QString Dname;
@@ -669,9 +656,9 @@ private:
 
 	void insertMark(MarkType);
 	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
-	int m_marksCount; //remember marks count from last call
-	bool m_WasAutoSave;
-	bool m_pagePalVisible;
+	int m_marksCount { 0 }; //remember marks count from last call
+	bool m_WasAutoSave { false };
+	bool m_pagePalVisible { false };
 };
 
 #endif
