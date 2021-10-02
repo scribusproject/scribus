@@ -51,19 +51,19 @@ class ScPattern;
 class SCRIBUS_API ScPainterExBase
 {
 public:
-	virtual ~ScPainterExBase() {};
+	virtual ~ScPainterExBase() = default;
 
 	enum FillMode { None, Solid, Gradient, Pattern };
 	enum ColorMode { rgbMode = 1, cmykMode = 2 };
 	enum ImageMode { cmykImages, rgbImages, rawImages };
 	enum Capabilities{ basic = 0, transparencies = 1, patterns = 2 };
 
-	virtual Capabilities capabilities() { return basic; }
+	virtual Capabilities capabilities() const { return basic; }
 	virtual bool hasCapability(Capabilities cap) { return ((m_capabilities & (int) cap) != 0); }
 
-	virtual int supportedColorModes() = 0;
-	virtual ColorMode preferredColorMode() = 0;
-	virtual ImageMode imageMode() = 0;
+	virtual int supportedColorModes() const = 0;
+	virtual ColorMode preferredColorMode() const = 0;
+	virtual ImageMode imageMode() const = 0;
 	
 	virtual void begin() = 0;
 	virtual void end() = 0;
@@ -72,7 +72,7 @@ public:
 
 	// matrix manipulation
 	virtual void setWorldMatrix(const QTransform &) = 0;
-	virtual const QTransform worldMatrix() = 0;
+	virtual QTransform worldMatrix() const = 0;
 	virtual void translate(double, double) = 0;
 	virtual void translate(const QPointF& offset) = 0;
 	virtual void rotate(double) = 0;
@@ -86,11 +86,11 @@ public:
 	virtual void fillPath() = 0;
 	virtual void strokePath() = 0;
 	virtual void setFillRule(bool fillRule) = 0;
-	virtual bool fillRule()  = 0;
+	virtual bool fillRule() const = 0;
 	virtual void setFillMode(int fill) = 0;
-	virtual int  fillMode() = 0;
+	virtual int  fillMode() const = 0;
 	virtual void setStrokeMode(int stroke) = 0;
-	virtual int  strokeMode() = 0;
+	virtual int  strokeMode() const = 0;
 	virtual void setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) = 0;
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) = 0;
 
@@ -136,15 +136,15 @@ public:
 	virtual void setBlendModeFill(int blendMode) = 0;
 	virtual void setBlendModeStroke(int blendMode) = 0;
 
-	VGradientEx  m_fillGradient;
-	VGradientEx  m_strokeGradient;
+	VGradientEx  m_fillGradient { VGradientEx::linear };
+	VGradientEx  m_strokeGradient { VGradientEx::linear };
 	VGradientEx  m_maskGradient;
 	ScPattern*   m_pattern;
 	ScPattern*   m_maskPattern;
 	QTransform   m_patternTransform;
 
 protected:
-	int m_capabilities;
+	int m_capabilities { 0 };
 	ScPainterExBase(void);
 };
 

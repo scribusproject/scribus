@@ -26,67 +26,17 @@ ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blen
 {
 	Q_ASSERT(w >= 0);
 	Q_ASSERT(h >= 0);
-	m_maskPattern = nullptr;
-	m_pattern = nullptr;
-	m_imageMask = nullptr;
+
 	m_image = target;
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
-	m_blendModeFill = 0;
-	m_blendModeStroke = 0;
 	m_width = w;
 	m_height= h;
-	m_fontSize = 0.0;
-	mf_underline = false;
-	mf_strikeout = false;
-	mf_shadow = false;
-	mf_outlined = false;
-	m_fill = QColor(0,0,0);
-	m_fill_trans = 1.0;
-	m_fillRule = true;
-	m_fillMode = 1;
-	m_patternScaleX = 0.0;
-	m_patternScaleX = 0.0;
-	m_patternScaleY = 0.0;
-	m_patternOffsetX = 0.0;
-	m_patternOffsetY = 0.0;
-	m_patternRotation = 0.0;
-	m_patternSkewX = 0.0;
-	m_patternSkewY = 0.0;
-	m_patternMirrorX = false;
-	m_patternMirrorY = false;
-	m_gradientScale = 0.0;
-	m_gradientSkew = 0.0;
+
 	setHatchParameters(0, 2, 0, false, QColor(), QColor(), 0.0, 0.0);
-	m_stroke = QColor(0,0,0);
-	m_stroke_trans = 1.0;
-	m_LineWidth = 1.0;
-	m_strokeMode = 0;
-	m_maskMode = 0;
-	m_mask_patternScaleX = 0.0;
-	m_mask_patternScaleY = 0.0;
-	m_mask_patternOffsetX = 0.0;
-	m_mask_patternOffsetY = 0.0;
-	m_mask_patternRotation = 0.0;
-	m_mask_patternSkewX = 0.0;
-	m_mask_patternSkewY = 0.0;
-	m_mask_patternMirrorX = false;
-	m_mask_patternMirrorY = false;
-	m_mask_gradientScale = 0.0;
-	m_mask_gradientSkew = 0.0;
-	PLineEnd = Qt::FlatCap;
-	PLineJoin = Qt::MiterJoin;
-	m_offset = 0;
-	m_zoomFactor = 1;
-	m_layeredMode = true;
-	m_imageMode = true;
-	m_svgMode = false;
 
-	fill_gradient = VGradient(VGradient::linear);
-	stroke_gradient = VGradient(VGradient::linear);
-
-	m_matrix = QTransform();
 	m_zoomStack.clear();
+
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w * 4);
 	cairo_surface_set_device_scale(img, m_image->devicePixelRatio(), m_image->devicePixelRatio());
 	m_cr = cairo_create(img);
@@ -227,7 +177,7 @@ const QTransform ScPainter::worldMatrix()
 {
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QTransform mat = QTransform(matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0);
+	QTransform mat(matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0);
 	return mat;
 }
 
@@ -835,11 +785,11 @@ void ScPainter::fillPathHelper()
 				qStopRampPoints.append(colorStops[offset]->rampPoint);
 			}
 			qStopColors.last().getRgbF(&r, &g, &b, &a);
-			QPointF centerP = QPointF(gradControlP5.x(), gradControlP5.y());
-			QLineF edge1 = QLineF(centerP, QPointF(p1x, p1y));
-			QLineF edge2 = QLineF(centerP, QPointF(p2x, p2y));
-			QLineF edge3 = QLineF(centerP, QPointF(p3x, p3y));
-			QLineF edge4 = QLineF(centerP, QPointF(p4x, p4y));
+			QPointF centerP(gradControlP5.x(), gradControlP5.y());
+			QLineF edge1(centerP, QPointF(p1x, p1y));
+			QLineF edge2(centerP, QPointF(p2x, p2y));
+			QLineF edge3(centerP, QPointF(p3x, p3y));
+			QLineF edge4(centerP, QPointF(p4x, p4y));
 			QPointF p1 = edge1.pointAt(colorStops.last()->rampPoint);
 			QPointF p2 = edge2.pointAt(colorStops.last()->rampPoint);
 			QPointF p3 = edge3.pointAt(colorStops.last()->rampPoint);
@@ -1647,7 +1597,7 @@ void ScPainter::drawSharpRect(double x, double y, double w, double h)
 	strokePath();
 }
 
-void ScPainter::drawText(QRectF area, const QString& text, bool filled, int align)
+void ScPainter::drawText(const QRectF& area, const QString& text, bool filled, int align)
 {
 	cairo_text_extents_t extents;
 	cairo_font_extents_t extentsF;
@@ -1951,7 +1901,7 @@ void ScPainter::blurAlpha(int radius)
 	int *vmin = new int[qMax(w,h)];
 	int divsum = (div+1)>>1;
 	divsum *= divsum;
-	int *dv = new int[256*divsum];
+	int *dv = new int[256 * (size_t) divsum];
 	for (i = 0; i < 256 * divsum; ++i)
 	{
 		dv[i] = (i / divsum);
@@ -1999,7 +1949,7 @@ void ScPainter::blurAlpha(int radius)
 			ainsum += sir[0];
 			asum += ainsum;
 			stackpointer = (stackpointer + 1) % div;
-			sir = stack[(stackpointer) % div];
+			sir = stack[stackpointer % div];
 			aoutsum += sir[0];
 			ainsum -= sir[0];
 			++yi;
@@ -2066,23 +2016,23 @@ void ScPainter::blur(int radius)
 	if (radius < 1)
 		return;
 	cairo_surface_t *data = cairo_get_group_target(m_cr);
-	QRgb *pix = (QRgb*)cairo_image_surface_get_data(data);
+	QRgb *pix = (QRgb*) cairo_image_surface_get_data(data);
 	int w   = cairo_image_surface_get_width(data);
 	int h   = cairo_image_surface_get_height(data);
-	int wm  = w-1;
-	int hm  = h-1;
-	int wh  = w*h;
-	int div = radius+radius+1;
+	int wm  = w - 1;
+	int hm  = h - 1;
+	int wh  = w * h;
+	int div = radius + radius + 1;
 	int *r = new int[wh];
 	int *g = new int[wh];
 	int *b = new int[wh];
 	int *a = new int[wh];
 	int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
 	QRgb p;
-	int *vmin = new int[qMax(w,h)];
+	int *vmin = new int[qMax(w, h)];
 	int divsum = (div+1)>>1;
 	divsum *= divsum;
-	int *dv = new int[256*divsum];
+	int *dv = new int[256 * (size_t) divsum];
 	for (i = 0; i < 256 * divsum; ++i)
 	{
 		dv[i] = (i / divsum);
@@ -2165,8 +2115,8 @@ void ScPainter::blur(int radius)
 			gsum += ginsum;
 			bsum += binsum;
 			asum += ainsum;
-			stackpointer = (stackpointer+1)%div;
-			sir = stack[(stackpointer)%div];
+			stackpointer = (stackpointer + 1) % div;
+			sir = stack[stackpointer % div];
 			routsum += sir[0];
 			goutsum += sir[1];
 			boutsum += sir[2];

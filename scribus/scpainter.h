@@ -36,6 +36,7 @@ class SCRIBUS_API ScPainter
 public:
 	ScPainter(QImage *target, int w, int h, double transparency = 1.0, int blendmode = 0);
 	virtual ~ScPainter();
+
 	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = nullptr);
 	virtual void endLayer();
@@ -65,12 +66,12 @@ public:
 	virtual void fillPath();
 	virtual void strokePath();
 	virtual void setFillRule(bool fillRule);
-	virtual bool fillRule() { return m_fillRule; }
+	virtual bool fillRule() const { return m_fillRule; }
 	virtual void setFillMode(int fill);
-	virtual int  fillMode() { return m_fillMode; }
-	virtual int  maskMode() { return m_maskMode; }
+	virtual int  fillMode() const  { return m_fillMode; }
+	virtual int  maskMode() const  { return m_maskMode; }
 	virtual void setStrokeMode(int stroke);
-	virtual int  strokeMode() { return m_strokeMode; }
+	virtual int  strokeMode() const  { return m_strokeMode; }
 	virtual void setGradient(VGradient::VGradientType mode, const FPoint& orig, const FPoint& vec, const FPoint& foc, double scale, double skew);
 	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 
@@ -101,7 +102,7 @@ public:
 	virtual void drawSharpLine(QPointF start, QPointF end);
 	virtual void drawRect(double, double, double, double);
 	virtual void drawSharpRect(double x, double y, double w, double h);
-	virtual void drawText(QRectF area, const QString& text, bool filled = true, int align = 0);
+	virtual void drawText(const QRectF& area, const QString& text, bool filled = true, int align = 0);
 	virtual void drawShadeCircle(const QRectF &re, const QColor& color, bool sunken, int lineWidth);
 	virtual void drawShadePanel(const QRectF &r, const QColor& color, bool sunken, int lineWidth);
 	virtual void drawUnderlinedRect(const QRectF &r, const QColor& color, int lineWidth);
@@ -134,17 +135,17 @@ public:
 	virtual void setBlendModeFill(int blendMode);
 	virtual void setBlendModeStroke(int blendMode);
 
-	VGradient fill_gradient;
-	VGradient stroke_gradient;
+	VGradient fill_gradient { VGradient::linear };
+	VGradient stroke_gradient { VGradient::linear };
 	VGradient mask_gradient;
-	ScPattern *m_maskPattern;
-	ScPattern *m_pattern;
+	ScPattern *m_maskPattern { nullptr };
+	ScPattern *m_pattern { nullptr };
 
 private:
 	void fillPathHelper();
 	void strokePathHelper();
 
-	cairo_t *m_cr;
+	cairo_t* m_cr { nullptr };
 	struct layerProp
 	{
 		cairo_surface_t *data;
@@ -169,41 +170,41 @@ private:
 		bool fillRule;
 	};
 	cairo_pattern_t *getMaskPattern();
-	cairo_surface_t *m_imageMask;
+	cairo_surface_t *m_imageMask { nullptr };
 	QImage m_imageQ;
 
 	QStack<layerProp> m_Layers;
 	QStack<double> m_zoomStack;
-	QImage *m_image;
+	QImage *m_image { nullptr };
 	double  m_layerTransparency;
 	int  m_blendMode;
-	int  m_blendModeFill;
-	int  m_blendModeStroke;
+	int  m_blendModeFill { 0 };
+	int  m_blendModeStroke { 0 };
 	unsigned int m_width;
 	unsigned int m_height;
 	QTransform m_matrix;
 	ScFace m_font;
-	double m_fontSize;
-	bool mf_underline;
-	bool mf_strikeout;
-	bool mf_shadow;
-	bool mf_outlined;
+	double m_fontSize { 0.0 };
+	bool mf_underline { false };
+	bool mf_strikeout { false };
+	bool mf_shadow { false };
+	bool mf_outlined { false };
 	/*! \brief Filling */
-	QColor m_fill;
-	double m_fill_trans;
-	bool m_fillRule;
-	int m_fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
-	double m_patternScaleX;
-	double m_patternScaleY;
-	double m_patternOffsetX;
-	double m_patternOffsetY;
-	double m_patternRotation;
-	double m_patternSkewX;
-	double m_patternSkewY;
-	bool m_patternMirrorX;
-	bool m_patternMirrorY;
-	double m_gradientScale;
-	double m_gradientSkew;
+	QColor m_fill { 0, 0, 0 };
+	double m_fill_trans { 1.0 };
+	bool m_fillRule { true };
+	int m_fillMode { 1 };				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
+	double m_patternScaleX { 0.0 };
+	double m_patternScaleY { 0.0 };
+	double m_patternOffsetX { 0.0 };
+	double m_patternOffsetY { 0.0 };
+	double m_patternRotation { 0.0 };
+	double m_patternSkewX { 0.0 };
+	double m_patternSkewY { 0.0 };
+	bool m_patternMirrorX { false };
+	bool m_patternMirrorY { false };
+	double m_gradientScale { 0.0 };
+	double m_gradientSkew { 0.0 };
 	FPoint gradPatchP1;
 	FPoint gradPatchP2;
 	FPoint gradPatchP3;
@@ -219,44 +220,44 @@ private:
 	QColor gradPatchColor4;
 	QList<QList<MeshPoint> > meshGradientArray;
 	QList<meshGradientPatch> meshGradientPatches;
-	double m_hatchAngle;
-	double m_hatchDistance;
-	int m_hatchType;				// 0 = single 1 = double 2 = triple
-	bool m_hatchUseBackground;
+	double m_hatchAngle { 0.0 };
+	double m_hatchDistance { 0.0 };
+	int m_hatchType { 0 };				// 0 = single 1 = double 2 = triple
+	bool m_hatchUseBackground { false };
 	QColor m_hatchBackground;
 	QColor m_hatchForeground;
-	double m_hatchWidth;
-	double m_hatchHeight;
+	double m_hatchWidth { 0.0 };
+	double m_hatchHeight { 0.0 };
 	/*! \brief Stroking */
-	QColor m_stroke;
-	double m_stroke_trans;
-	double m_LineWidth;
-	int m_strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
-	int m_maskMode;				// 0 = none, 1 = gradient 2 = pattern
-	double m_mask_patternScaleX;
-	double m_mask_patternScaleY;
-	double m_mask_patternOffsetX;
-	double m_mask_patternOffsetY;
-	double m_mask_patternRotation;
-	double m_mask_patternSkewX;
-	double m_mask_patternSkewY;
-	bool m_mask_patternMirrorX;
-	bool m_mask_patternMirrorY;
-	double m_mask_gradientScale;
-	double m_mask_gradientSkew;
+	QColor m_stroke { 0, 0, 0 };
+	double m_stroke_trans { 1.0 };
+	double m_LineWidth { 1.0 };
+	int m_strokeMode { 0 };				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
+	int m_maskMode { 0 };				// 0 = none, 1 = gradient 2 = pattern
+	double m_mask_patternScaleX { 0.0 };
+	double m_mask_patternScaleY { 0.0 };
+	double m_mask_patternOffsetX { 0.0 };
+	double m_mask_patternOffsetY { 0.0 };
+	double m_mask_patternRotation { 0.0 };
+	double m_mask_patternSkewX { 0.0 };
+	double m_mask_patternSkewY { 0.0 };
+	bool m_mask_patternMirrorX { false };
+	bool m_mask_patternMirrorY { false };
+	double m_mask_gradientScale { 0.0 };
+	double m_mask_gradientSkew { 0.0 };
 
 	/*! \brief Line End Style */
-	Qt::PenCapStyle PLineEnd;
+	Qt::PenCapStyle PLineEnd { Qt::FlatCap };
   /*! \brief Line Join Style */
-	Qt::PenJoinStyle PLineJoin;
+	Qt::PenJoinStyle PLineJoin { Qt::MiterJoin };
   /*! \brief The Dash Array */
 	QVector<double> m_array;
-	double m_offset;
+	double m_offset { 0.0 };
 	/*! \brief Zoom Factor of the Painter */
-	double m_zoomFactor;
-	bool m_imageMode;
-	bool m_layeredMode;
-	bool m_svgMode;
+	double m_zoomFactor { 1.0 };
+	bool m_imageMode { true };
+	bool m_layeredMode { true };
+	bool m_svgMode { false };
 };
 
 #endif

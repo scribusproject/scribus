@@ -11,31 +11,18 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, QRect& rect,  ScribusDoc* doc, bool gray) : ScPainterExBase()
+ScPainterEx_Cairo::ScPainterEx_Cairo(cairo_t* context, const QRect& rect,  ScribusDoc* doc, bool gray) : ScPainterExBase()
 {
 	m_doc    = doc;
 	m_width  = rect.width();
 	m_height = rect.height();
-	m_blendModeLayer = 0;
-	m_blendModeFill = 0;
-	m_blendModeStroke = 0;
 	m_strokeColor = ScColorShade(QColor(0,0,0), 100);
 	m_fillColor = ScColorShade(QColor(0,0,0), 100);
-	m_fillTrans = 1.0;
-	m_strokeTrans = 1.0;
-	m_fillRule  = true;
-	m_fillMode  = 1;
-	m_lineWidth = 1.0;
-	m_offset    = 0;
-	m_lineEnd   = Qt::SquareCap;
-	m_lineJoin  = Qt::RoundJoin;
-	m_fillGradient   = VGradientEx(VGradientEx::linear);
-	m_strokeGradient = VGradientEx(VGradientEx::linear);
 	// Grayscale conversion parameter
 	m_convertToGray = gray;
 	// Initialization of Windows GDI data
 	m_cr = context;
-	m_positionX = m_positionY = 0;
+
 	clear();
 }
 
@@ -44,11 +31,10 @@ ScPainterEx_Cairo::~ScPainterEx_Cairo()
 
 }
 
-QColor ScPainterEx_Cairo::transformColor(ScColorShade& colorShade, double trans)
+QColor ScPainterEx_Cairo::transformColor(const ScColorShade& colorShade, double trans) const
 {
-	QColor c, color;
-	c = ScColorEngine::getShadeColor(colorShade.color, m_doc, colorShade.shade);
-	color = qRgba(qRed(c.rgb()), qGreen(c.rgb()), qBlue(c.rgb()), qAlpha(trans * 255));
+	QColor c = ScColorEngine::getShadeColor(colorShade.color, m_doc, colorShade.shade);
+	QColor color = qRgba(qRed(c.rgb()), qGreen(c.rgb()), qBlue(c.rgb()), qAlpha(trans * 255));
 	if (m_convertToGray)
 	{
 		int grayLevel;
@@ -60,7 +46,7 @@ QColor ScPainterEx_Cairo::transformColor(ScColorShade& colorShade, double trans)
 	return color;
 }
 
-void ScPainterEx_Cairo::transformImage(QImage& image)
+void ScPainterEx_Cairo::transformImage(QImage& image) const
 {
 	int rgb, grey;
 	int imageWidth = image.width();
@@ -101,7 +87,7 @@ void ScPainterEx_Cairo::clear(ScColorShade &c)
 	m_graphics->FillRectangle(&brush, 0, 0, m_width, m_height);*/
 }
 
-const QTransform ScPainterEx_Cairo::worldMatrix()
+QTransform ScPainterEx_Cairo::worldMatrix() const
 {
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
@@ -434,6 +420,14 @@ void ScPainterEx_Cairo::setRasterOp(int blendMode)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_COLOR);
 	else if (blendMode == 15)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_LUMINOSITY);
+	else if (blendMode == 16)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
+	else if (blendMode == 17)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_IN);
+	else if (blendMode == 18)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+	else if (blendMode == 19)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_CLEAR);
 	else
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }

@@ -16,86 +16,86 @@ for which a new license (GPL+exception) is in place.
 class ScPainterEx_Cairo : public ScPainterExBase
 {
 public:
-	ScPainterEx_Cairo(cairo_t* context, QRect& rect, ScribusDoc* doc, bool gray );
+	ScPainterEx_Cairo(cairo_t* context, const QRect& rect, ScribusDoc* doc, bool gray );
 	virtual ~ScPainterEx_Cairo();
 
-	virtual Capabilities capabilities() { return transparencies; }
+	Capabilities capabilities() const override { return transparencies; }
 
-	virtual int supportedColorModes() { return (int) rgbMode; }
-	virtual ColorMode preferredColorMode() { return rgbMode; }
-	virtual ImageMode imageMode() { return rgbImages; }
+	int supportedColorModes() const override { return (int) rgbMode; }
+	ColorMode preferredColorMode() const override { return rgbMode; }
+	ImageMode imageMode() const override { return rgbImages; }
 
-	virtual void begin();
-	virtual void end();
-	virtual void clear();
-	virtual void clear( ScColorShade & );
+	void begin() override;
+	void end() override;
+	void clear() override;
+	void clear(ScColorShade &) override;
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QTransform & );
-	virtual const QTransform worldMatrix();
-	virtual void translate( double, double );
-	virtual void translate( const QPointF& offset );
-	virtual void rotate( double );
-	virtual void scale( double, double );
+	void setWorldMatrix(const QTransform &) override;
+	QTransform worldMatrix() const override;
+	void translate( double, double ) override;
+	void translate( const QPointF& offset ) override;
+	void rotate( double ) override;
+	void scale( double, double ) override;
 
 	// drawing
-	virtual void moveTo( const double &, const double & );
-	virtual void lineTo( const double &, const double & );
-	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
-	virtual void newPath();
+	void moveTo( const double &, const double & ) override;
+	void lineTo( const double &, const double & ) override;
+	void curveTo( FPoint p1, FPoint p2, FPoint p3 ) override;
+	void newPath() override;
 	virtual void closePath();
-	virtual void fillPath();
-	virtual void strokePath();
-	virtual void setFillRule( bool fillRule );
-	virtual bool fillRule() { return m_fillRule; }
-	virtual void setFillMode( int fill );
-	virtual int  fillMode() { return m_fillMode; }
-	virtual void setStrokeMode( int fill );
-	virtual int  strokeMode() { return m_strokeMode; }
-	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
-	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void fillPath() override;
+	void strokePath() override;
+	void setFillRule( bool fillRule ) override;
+	bool fillRule() const override  { return m_fillRule; }
+	void setFillMode( int fill ) override;
+	int  fillMode() const  override  { return m_fillMode; }
+	void setStrokeMode( int fill ) override;
+	int  strokeMode()  const override { return m_strokeMode; }
+	void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) override;
+	void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
 
-	virtual void setMaskMode( int mask );
-	virtual void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew);
-	virtual void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
+	void setMaskMode( int mask ) override;
+	void setGradientMask(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc, double scale, double skew) override;
+	void setPatternMask(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY) override;
 
-	virtual void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4);
-	virtual void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4);
-	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray);
-	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
+	void set4ColorGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4) override;
+	void set4ColorColors(const ScColorShade& col1, const ScColorShade& col2, const ScColorShade& col3, const ScColorShade& col4) override;
+	void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5) override;
+	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<MeshPoint> > meshArray) override;
+	void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches) override;
 
-	virtual void setClipPath();
+	void setClipPath() override;
 
-	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
-	virtual void setupPolygon(const FPointArray *points, bool closed = true);
-	virtual void drawPolygon();
-	virtual void drawPolyLine();
-	virtual void drawLine(FPoint start, FPoint end);
-	virtual void drawLine(const QPointF& start, const QPointF& end);
-	virtual void drawRect(double, double, double, double);
+	void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) override;
+	void setupPolygon(const FPointArray *points, bool closed = true) override;
+	void drawPolygon() override;
+	void drawPolyLine() override;
+	void drawLine(FPoint start, FPoint end) override;
+	void drawLine(const QPointF& start, const QPointF& end) override;
+	void drawRect(double, double, double, double) override;
 
 	// pen + brush
-	virtual ScColorShade pen();
-	virtual ScColorShade brush();
-	virtual void setPen( const ScColorShade & );
-	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
-	virtual void setPenOpacity( double op );
-	virtual void setLineWidth( double w);
-	virtual void setDash(const QVector<double>& array, double ofs);
-	virtual void setBrush( const ScColorShade & );
-	virtual void setBrushOpacity( double op );
-	virtual void setOpacity( double op );
-	virtual void setFont( const QFont &f );
-	virtual QFont font();
+	ScColorShade pen() override;
+	ScColorShade brush() override;
+	void setPen( const ScColorShade & ) override;
+	void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo ) override;
+	void setPenOpacity( double op ) override;
+	void setLineWidth( double w) override;
+	void setDash(const QVector<double>& array, double ofs) override;
+	void setBrush( const ScColorShade & ) override;
+	void setBrushOpacity( double op ) override;
+	void setOpacity( double op ) override;
+	void setFont( const QFont &f ) override;
+	QFont font() override;
 
 	// stack management
-	virtual void save();
-	virtual void restore();
+	void save() override;
+	void restore() override;
 
-	virtual void setRasterOp( int op );
-	virtual void setBlendModeFill( int blendMode );
-	virtual void setBlendModeStroke( int blendMode );
+	void setRasterOp( int op ) override;
+	void setBlendModeFill( int blendMode ) override;
+	void setBlendModeStroke( int blendMode ) override;
 
 private:
 	void fillPathHelper();
@@ -115,21 +115,21 @@ private:
 
 	void getClipPathDimensions( QRect& r );
 
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
 
 	unsigned int m_width;
 	unsigned int m_height;
 	QTransform m_matrix;
 	QFont m_font;
 /* Layer blend mode*/
-	int  m_blendModeLayer;
-	int  m_blendModeFill;
-	int  m_blendModeStroke;
+	int  m_blendModeLayer { 0 };
+	int  m_blendModeFill { 0 };
+	int  m_blendModeStroke { 0 };
 /* Filling */
 	ScColorShade m_fillColor;
-	double m_fillTrans;
-	bool   m_fillRule;
-	int    m_fillMode;			// 0 = none, 1 = solid, 2 = gradient
+	double m_fillTrans { 1.0 };
+	bool   m_fillRule { true };
+	int    m_fillMode { 1 };			// 0 = none, 1 = solid, 2 = gradient
 	int    m_gradientMode;		// 1 = linear, 2 = radial
 
 	double m_patternScaleX;
@@ -162,8 +162,8 @@ private:
 	double m_gradientSkew;
 /* Stroking */
 	ScColorShade m_strokeColor;
-	double m_strokeTrans;
-	double m_lineWidth;
+	double m_strokeTrans { 1.0 };
+	double m_lineWidth { 1.0 };
 	int    m_strokeMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 /* Masking */
 	int    m_maskMode;				// 0 = none, 1 = gradient 2 = pattern
@@ -180,28 +180,28 @@ private:
 	double m_maskGradientSkew;
 
 /* Grayscale conversion option */
-	bool   m_convertToGray;
+	bool   m_convertToGray { false };
 
 /* Line End Style */
-	Qt::PenCapStyle m_lineEnd;
+	Qt::PenCapStyle m_lineEnd { Qt::SquareCap };
 /* Line Join Style */
-	Qt::PenJoinStyle m_lineJoin;
+	Qt::PenJoinStyle m_lineJoin { Qt::RoundJoin };
 /* The Dash Array */
 	QVector<double> m_array;
-	double m_offset;
+	double m_offset { 0.0 };
 /* Transformation Stack */
 	QStack<QTransform> m_stack;
 
 /* Cairo context */
-	cairo_t* m_cr;
+	cairo_t* m_cr { nullptr };
 
 /* Color conversion function */
-	QColor transformColor( ScColorShade& colorShade, double trans );
-	void   transformImage( QImage& image );
+	QColor transformColor( const ScColorShade& colorShade, double trans ) const;
+	void   transformImage( QImage& image ) const;
 
 	QStack<int> m_gStates;
-	double      m_positionX;
-	double      m_positionY;
+	double      m_positionX { 0.0 };
+	double      m_positionY { 0.0 };
 };
 
 #endif
