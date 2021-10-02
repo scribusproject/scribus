@@ -157,8 +157,8 @@ class SCRIBUS_API PSLib : public QObject
 		void PutStream (const QByteArray& array, bool hexEnc);
 		void PutStream (const char* in, int length, bool hexEnc);
 
-		bool PutImageToStream(ScImage& image, int plate);
-		bool PutImageToStream(ScImage& image, const QByteArray& mask, int plate);
+		bool PutImageToStream(const ScImage& image, int plate);
+		bool PutImageToStream(const ScImage& image, const QByteArray& mask, int plate);
 
 		bool PutImageDataToStream(const QByteArray& image);
 		bool PutInterleavedImageMaskToStream(const QByteArray& image, const QByteArray& mask, bool gray);
@@ -173,18 +173,19 @@ class SCRIBUS_API PSLib : public QObject
 		Optimization m_optimization { OptimizeCompat };
 		OutputFormat m_outputFormat { OutputPS };
 
-		QString ToStr(double c);
-		QString IToStr(int c);
-		QString MatrixToStr(double m11, double m12, double m21, double m22, double x, double y);
-		QString PSEncode(const QString& in);
+		QString ToStr(double c) const;
+		QString IToStr(int c) const;
+		QString MatrixToStr(double m11, double m12, double m21, double m22, double x, double y) const;
+		QString PSEncode(const QString& in) const;
+
 		QString ErrorMessage;
 		QString Creator;
 		QString User;
 		QString Title;
 		bool GraySc { false };
 		int  PageIndex { 0 };
-		QString FillColor;
-		QString StrokeColor;
+		QString FillColor { "0.0 0.0 0.0 0.0" };
+		QString StrokeColor { "0.0 0.0 0.0 0.0" };
 		double LineW { 1.0 };
 		QString FontDesc;
 		QMap<QString, QString> FontSubsetMap;

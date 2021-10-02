@@ -23,15 +23,14 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blendmode)
+         : m_image(target),
+	       m_layerTransparency(transparency),
+	       m_blendMode(blendmode),
+	       m_width(w),
+	       m_height(h)
 {
 	Q_ASSERT(w >= 0);
 	Q_ASSERT(h >= 0);
-
-	m_image = target;
-	m_layerTransparency = transparency;
-	m_blendMode = blendmode;
-	m_width = w;
-	m_height= h;
 
 	setHatchParameters(0, 2, 0, false, QColor(), QColor(), 0.0, 0.0);
 

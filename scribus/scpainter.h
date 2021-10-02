@@ -177,7 +177,7 @@ private:
 	QStack<double> m_zoomStack;
 	QImage *m_image { nullptr };
 	double  m_layerTransparency;
-	int  m_blendMode;
+	int  m_blendMode { 0 };
 	int  m_blendModeFill { 0 };
 	int  m_blendModeStroke { 0 };
 	unsigned int m_width;
