@@ -43,17 +43,17 @@ public:
 
 	struct Elem
 	{
-		bool isDir;
-		bool isRaster;
-		bool isVector;
+		bool isDir { false };
+		bool isRaster { false };
+		bool isVector { false };
 		QString Data;
 		QPixmap Preview;
-		QListWidgetItem* widgetItem;
+		QListWidgetItem* widgetItem { nullptr };
 	};
 	QMap<QString,Elem> objectMap;
 	QString ScFilename;
 	QString visibleName;
-	bool canWrite;
+	bool canWrite { true };
 
 signals:
 	void objDropped(QString text);
@@ -89,14 +89,14 @@ public:
 	void readTempContents(const QString&);
 	void readOldContents(const QString&, const QString&);
 	void installEventFilter(QObject *);
-	void setOpenScrapbooks(QStringList &fileNames);
-	QStringList getOpenScrapbooks();
-	QStringList getOpenScrapbooksNames();
-	QString getObjectName(QString &text);
+	void setOpenScrapbooks(const QStringList &fileNames);
+	QStringList getOpenScrapbooks() const;
+	QStringList getOpenScrapbooksNames() const;
+	QString getObjectName(const QString &text) const;
 
-	BibView* tempBView;
-	BibView* activeBView;
-	QListWidgetItem *actItem;
+	BibView* tempBView { nullptr };
+	BibView* activeBView { nullptr };
+	QListWidgetItem *actItem { nullptr };
 	
 public slots:
 	void iconSetChange();
@@ -129,23 +129,23 @@ signals:
 	void scrapbookListChanged();
 
 protected:
-	int m_tempCount;
-	PrefsContext* m_prefs;
+	int m_tempCount { 0 };
+	PrefsContext* m_prefs { nullptr };
 
-	QToolBox* Frame3;
-	QVBoxLayout* BiblioLayout;
-	QHBoxLayout* buttonLayout;
-	QWidget* containerWidget;
-	QToolButton* newButton;
-	QToolButton* upButton;
-	QToolButton* importButton;
-	QToolButton* closeButton;
-	QToolButton* configButton;
-	QMenu* configMenue;
-	QAction* conf_HideDirs;
-	QAction* conf_HideImages;
-	QAction* conf_HideVectors;
-	QAction* conf_OpenMode;
+	QToolBox* Frame3 { nullptr };
+	QVBoxLayout* BiblioLayout { nullptr };
+	QHBoxLayout* buttonLayout { nullptr };
+	QWidget* containerWidget { nullptr };
+	QToolButton* newButton { nullptr };
+	QToolButton* upButton { nullptr };
+	QToolButton* importButton { nullptr };
+	QToolButton* closeButton { nullptr };
+	QToolButton* configButton { nullptr };
+	QMenu* configMenue { nullptr };
+	QAction* conf_HideDirs { nullptr };
+	QAction* conf_HideImages { nullptr };
+	QAction* conf_HideVectors { nullptr };
+	QAction* conf_OpenMode { nullptr };
 };
 
 #endif // BIBLIO_H
