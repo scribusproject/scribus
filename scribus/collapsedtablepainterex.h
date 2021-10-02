@@ -31,8 +31,8 @@ public:
 	virtual void paintTable(ScPainterExBase* p);
 
 private:
-	PageItem_Table* m_table;
-	ScPageOutput* m_pageOutput;
+	PageItem_Table* m_table { nullptr };
+	ScPageOutput* m_pageOutput { nullptr };
 	
 	/// Paints the fill of the table.
 	void paintTableFill(ScPainterExBase* p) const;

@@ -24,9 +24,10 @@ for which a new license (GPL+exception) is in place.
 using namespace TableUtils;
 
 CollapsedTablePainterEx::CollapsedTablePainterEx(ScPageOutput* pageOutput, PageItem_Table* table)
+	                   : m_table(table),
+	                     m_pageOutput(pageOutput)
 {
-	m_pageOutput = pageOutput;
-	m_table = table;
+
 }
 
 void CollapsedTablePainterEx::paintTable(ScPainterExBase* p)
