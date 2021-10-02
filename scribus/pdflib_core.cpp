@@ -121,30 +121,24 @@ class PdfPainter: public TextLayoutPainter
 	QByteArray m_backBuffer;
 	QByteArray m_glyphBuffer;
 	QByteArray m_pathBuffer;
-//	PageItem* m_item;
 	QMap<QString, PdfFont>  m_UsedFontsP;
 	PDFLibCore *m_pdf;
 	uint m_PNr;
 	const ScPage* m_page;
 
 	QByteArray m_prevFontName;
-	int        m_prevFontSize;
+	int        m_prevFontSize { - 1 };
 
-	QByteArray transformToStr(const QTransform& tr)
+	QByteArray transformToStr(const QTransform& tr) const
 	{
 		return FToStr(tr.m11()) + " " + FToStr(-tr.m12()) + " " + FToStr(-tr.m21()) + " " + FToStr(tr.m22()) + " " + FToStr(tr.dx()) + " " + FToStr(-tr.dy());
 	}
 
 public:
-	PdfPainter(PageItem *ite, PDFLibCore *pdf, uint num, const ScPage* pag) :
-		m_backBuffer(),
-		m_glyphBuffer(),
-		m_pathBuffer(),
-//		m_item(ite),
+	PdfPainter(PDFLibCore *pdf, uint num, const ScPage* pag) :
 		m_pdf(pdf),
 		m_PNr(num),
-		m_page(pag),
-		m_prevFontSize(-1)
+		m_page(pag)
 	{}
 
 	~PdfPainter() {}
@@ -533,21 +527,8 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 PDFLibCore::PDFLibCore(ScribusDoc & docu, const PDFOptions& options)
 	: QObject(&docu),
 	doc(docu),
-	ActPageP(nullptr),
 	Options(options),
-	Bvie(nullptr),
-	ucs2Codec(nullptr),
-	ResNam("RE"),
-	ResCount(0),
-	NDnam("LI"),
-	NDnum(0),
-	spotNam("Spot"),
-	spotCount(0),
-	progressDialog(nullptr),
-	abortExport(false),
-	usingGUI(ScCore->usingGUI()),
-	bleedDisplacementX(0),
-	bleedDisplacementY(0)
+	usingGUI(ScCore->usingGUI())
 {
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
@@ -578,7 +559,7 @@ PDFLibCore::~PDFLibCore()
 }
 
 
-bool PDFLibCore::PDF_IsPDFX()
+bool PDFLibCore::PDF_IsPDFX() const
 {
 	if (Options.Version == PDFVersion::PDF_X1a)
 		return true;
@@ -589,7 +570,7 @@ bool PDFLibCore::PDF_IsPDFX()
 	return false;
 }
 
-bool PDFLibCore::PDF_IsPDFX(const PDFVersion& ver)
+bool PDFLibCore::PDF_IsPDFX(const PDFVersion& ver) const
 {
 	if (ver == PDFVersion::PDF_X1a)
 		return true;
@@ -709,108 +690,62 @@ bool PDFLibCore::exportAborted() const
 #define PutDoc(s) writer.write(s)
 //#define newObject() writer.newObject()
 
-
-//void PDFLibCore::StartObj(PdfId nr)
-//{
-//	for (int i=XRef.size(); i < nr; ++i)
-//		XRef.append(0);
-//	XRef[nr-1] = bytesWritten();
-//	PutDoc(Pdf::toPdf(nr) + " 0 obj\n");
-//}
-
-//// Encode a string for inclusion in a
-//// PDF (literal) .
-//static QByteArray PDFEncode(const QString & in)
-//{
-//	QByteArray tmp("");
-//	for (int d = 0; d < in.length(); ++d)
-//	{
-//		QChar cc(in.at(d));
-//		if ((cc == '(') || (cc == ')') || (cc == '\\'))
-//			tmp += '\\';
-//		else if ((cc == '\r') || (cc == '\n'))
-//		{
-//			tmp += (cc == '\r') ? "\\r" : "\\n";
-//			continue;
-//		}
-//		tmp += cc;
-//	}
-//	return tmp;
-//}
-
 static QByteArray blendMode(int code)
 {
 	switch (code)
 	{
 		case 0:
-			return("Normal");
+			return "Normal";
 			break;
 		case 1:
-			return("Darken");
+			return "Darken";
 			break;
 		case 2:
-			return("Lighten");
+			return "Lighten";
 			break;
 		case 3:
-			return("Multiply");
+			return "Multiply";
 			break;
 		case 4:
-			return("Screen");
+			return "Screen";
 			break;
 		case 5:
-			return("Overlay");
+			return "Overlay";
 			break;
 		case 6:
-			return("HardLight");
+			return "HardLight";
 			break;
 		case 7:
-			return("SoftLight");
+			return "SoftLight";
 			break;
 		case 8:
-			return("Difference");
+			return "Difference";
 			break;
 		case 9:
-			return("Exclusion");
+			return "Exclusion";
 			break;
 		case 10:
-			return("ColorDodge");
+			return "ColorDodge";
 			break;
 		case 11:
-			return("ColorBurn");
+			return "ColorBurn";
 			break;
 		case 12:
-			return("Hue");
+			return "Hue";
 			break;
 		case 13:
-			return("Saturation");
+			return "Saturation";
 			break;
 		case 14:
-			return("Color");
+			return "Color";
 			break;
 		case 15:
-			return("Luminosity");
+			return "Luminosity";
 			break;
 		default:
 			return "";
 	}
 }
-//
-//QByteArray PDFLibCore::EncodeUTF16(const QString &in)
-//{
-//	QString tmp = in;
-//	QByteArray cres = ucs2Codec->fromUnicode( tmp );
-//#ifndef WORDS_BIGENDIAN
-//	// on little endian systems we need to swap bytes:
-//	uchar sw;
-//	for (int d = 0; d < cres.size() - 1; d += 2)
-//	{
-//		sw = cres[d];
-//		cres[d] = cres[d+1];
-//		cres[d+1] = sw;
-//	}
-//#endif
-//	return cres;
-//}
 
 QByteArray PDFLibCore::EncStream(const QByteArray & in, PdfId ObjNum)
 {
@@ -819,19 +754,6 @@ QByteArray PDFLibCore::EncStream(const QByteArray & in, PdfId ObjNum)
 	if (!Options.Encrypt)
 		return in;
 	return writer.encryptBytes(in, ObjNum);
-//	rc4_context_t rc4;
-//	QByteArray tmp(in);
-//	QByteArray us(tmp.length(), ' ');
-//	QByteArray ou(tmp.length(), ' ');
-//	for (int a = 0; a < tmp.length(); ++a)
-//		us[a] = (tmp.at(a));
-//	QByteArray step1 = writer.ComputeRC4Key(ObjNum);
-//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
-//	QString uk = "";
-//	for (int cl = 0; cl < tmp.length(); ++cl)
-//		uk += QChar(ou[cl]);
-//	return ou;
 }
 
 QByteArray PDFLibCore::EncString(const QByteArray & in, PdfId ObjNum)
@@ -840,21 +762,8 @@ QByteArray PDFLibCore::EncString(const QByteArray & in, PdfId ObjNum)
 		return "<>";
 	if (!Options.Encrypt)
 	{
-		//tmp = "(" + PDFEncode(in) + ")";
 		return Pdf::toLiteralString(in);
 	}
-	
-//	rc4_context_t rc4;
-//	QByteArray us(in.length(), ' ');
-//	QByteArray ou(in.length(), ' ');
-//	for (int a = 0; a < in.length(); ++a)
-//		us[a] = static_cast<uchar>(QChar(in.at(a)).cell());
-//	QByteArray step1 = writer.ComputeRC4Key(ObjNum);
-//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), in.length());
-//	QString uk = "";
-//	for (int cl = 0; cl < in.length(); ++cl)
-//		uk += QChar(ou[cl]);
 	
 	return Pdf::toHexString(writer.encryptBytes(in, ObjNum));
 }
@@ -866,20 +775,10 @@ QByteArray PDFLibCore::EncStringUTF16(const QString & in, PdfId ObjNum)
 	if (!Options.Encrypt)
 	{
 		QByteArray us = Pdf::toUTF16(in);
-//		QString uk = "";
-//		for (int cl = 0; cl < us.size(); ++cl)
-//			uk += QChar(us[cl]);
 		return Pdf::toHexString(us);
 	}
-//	rc4_context_t rc4;
+
 	QByteArray us = Pdf::toUTF16(in);
-//	QByteArray ou(us.size(), ' ');
-//	QByteArray step1 = writer.ComputeRC4Key(ObjNum);
-//	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-//	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
-//	QString uk = "";
-//	for (int cl = 0; cl < ou.size(); ++cl)
-//		uk += QChar(ou[cl]);
 	QByteArray tmp = Pdf::toHexString(writer.encryptBytes(us, ObjNum));
 	return tmp;
 }
@@ -4710,7 +4609,7 @@ bool PDFLibCore::PDF_ProcessItem(QByteArray& output, PageItem* ite, const ScPage
 					radioButtonGroup.kids.append(kid);
 					break;
 				}
-				if (!PDF_Annotation(ite, PNr))
+				if (!PDF_Annotation(ite))
 					return false;
 				break;
 			}
@@ -5760,37 +5659,6 @@ QByteArray PDFLibCore::putColor(const QString& color, double shade, bool fill)
 	return tmp;
 }
 
-/*CB 2982: cache code is borked somehow, original function is above
-QByteArray PDFLibCore::putColor(const QString & colorName, int shade, bool fill)
-{
-	// Cache of last foreground and background colours We cache fg and bg
-	// separately because they're alternated so much.  The primary purpose of
-	// this cache is to avoid re-caculating the fg and bg colors on each char
-	// of text when the color doesn't change.
-	static QString lastFGColorName, lastFGOutput, lastBGColorName, lastBGOutput;
-	static int lastFGShade = -1, lastBGShade = -1;
-	if (fill && colorName == lastBGColorName && shade == lastBGShade)
-		return lastBGOutput;
-	else if (colorName == lastFGColorName && shade == lastFGShade)
-		return lastFGOutput;
-	// Cache miss, generate the color
-	else if (fill)
-	{
-		lastBGColorName = colorName;
-		lastBGShade = shade;
-		lastBGOutput = putColorUncached(colorName, shade, fill);
-		return lastBGOutput;
-	}
-	else
-	{
-		lastFGColorName = colorName;
-		lastFGShade = shade;
-		lastFGOutput = putColorUncached(colorName, shade, fill);
-		return lastFGOutput;
-	}
-}
-*/
-
 QByteArray PDFLibCore::putColorUncached(const QString& color, int shade, bool fill)
 {
 	ScColor tmpC(doc.PageColors[color]);
@@ -5883,7 +5751,7 @@ QByteArray PDFLibCore::putColorUncached(const QString& color, int shade, bool fi
 	return tmp;
 }
 
-QByteArray PDFLibCore::setStrokeMulti(struct SingleLine *sl)
+QByteArray PDFLibCore::setStrokeMulti(const SingleLine *sl)
 {
 	QByteArray tmp(
 			putColor(sl->Color, sl->Shade, false) +
@@ -5932,7 +5800,7 @@ QByteArray PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	ite->layout();
 	ite->OwnPage = savedOwnPage;
 	
-	PdfPainter p(ite, this, PNr, pag);
+	PdfPainter p(this, PNr, pag);
 	ite->textLayout.renderBackground(&p);
 	ite->textLayout.render(&p);
 	return p.getBuffer();
@@ -5976,31 +5844,19 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 		rgb.getValues(h, s, v);
 		tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v);
 	}
-	else
+	else if ((doc.HasCMS) && (Options.UseProfiles))
 	{
-		if ((doc.HasCMS) && (Options.UseProfiles))
+		if (tmpC.getColorModel() == colorModelCMYK)
 		{
-			if (tmpC.getColorModel() == colorModelCMYK)
-			{
-				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-				cmyk.getValues(h, s, v, k);
-				tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
-			}
-			else
-			{
-				if (Options.SComp == 3)
-				{
-					ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
-					rgb.getValues(h, s, v);
-					tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v);
-				}
-				else
-				{
-					ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-					cmyk.getValues(h, s, v, k);
-					tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
-				}
-			}
+			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+			cmyk.getValues(h, s, v, k);
+			tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
+		}
+		else if (Options.SComp == 3)
+		{
+			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+			rgb.getValues(h, s, v);
+			tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v);
 		}
 		else
 		{
@@ -6008,6 +5864,12 @@ QByteArray PDFLibCore::SetColor(const ScColor& farbe, double Shade)
 			cmyk.getValues(h, s, v, k);
 			tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
 		}
+	}
+	else
+	{
+		ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+		cmyk.getValues(h, s, v, k);
+		tmp = FToStr(h) + " " + FToStr(s) + " " + FToStr(v) + " " + FToStr(k);
 	}
 	return tmp;
 }
@@ -6023,18 +5885,15 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 			tmp = "0.0";
 		if (Options.UseRGB)
 			tmp = "0.0 0.0 0.0";
-		else
+		else if ((doc.HasCMS) && (Options.UseProfiles))
 		{
-			if ((doc.HasCMS) && (Options.UseProfiles))
-			{
-				if (Options.SComp == 3)
-					tmp = "0.0 0.0 0.0";
-				else
-					tmp = "0.0 0.0 0.0 0.0";
-			}
+			if (Options.SComp == 3)
+				tmp = "0.0 0.0 0.0";
 			else
 				tmp = "0.0 0.0 0.0 0.0";
 		}
+		else
+			tmp = "0.0 0.0 0.0 0.0";
 		return tmp;
 	}
 	ScColor tmpC(doc.PageColors[farbe]);
@@ -6060,20 +5919,12 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 		ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
 		tmp = FToStr(rgb.r) + " " + FToStr(rgb.g) + " " + FToStr(rgb.b);
 	}
-	else
+	else if ((doc.HasCMS) && (Options.UseProfiles))
 	{
-		if ((doc.HasCMS) && (Options.UseProfiles))
+		if (Options.SComp == 3)
 		{
-			if (Options.SComp == 3)
-			{
-				ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
-				tmp = FToStr(rgb.r) + " " + FToStr(rgb.g) + " " + FToStr(rgb.b);
-			}
-			else
-			{
-				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
-				tmp = FToStr(cmyk.c) + " " + FToStr(cmyk.m) + " " + FToStr(cmyk.y) + " " + FToStr(cmyk.k);
-			}
+			ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+			tmp = FToStr(rgb.r) + " " + FToStr(rgb.g) + " " + FToStr(rgb.b);
 		}
 		else
 		{
@@ -6081,10 +5932,15 @@ QByteArray PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 			tmp = FToStr(cmyk.c) + " " + FToStr(cmyk.m) + " " + FToStr(cmyk.y) + " " + FToStr(cmyk.k);
 		}
 	}
+	else
+	{
+		ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+		tmp = FToStr(cmyk.c) + " " + FToStr(cmyk.m) + " " + FToStr(cmyk.y) + " " + FToStr(cmyk.k);
+	}
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPath(PageItem *ite, bool poly)
+QByteArray PDFLibCore::SetClipPath(const PageItem *ite, bool poly)
 {
 	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
@@ -6128,7 +5984,7 @@ QByteArray PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
+QByteArray PDFLibCore::SetClipPathArray(const FPointArray *ite, bool poly)
 {
 	QByteArray tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
@@ -6172,7 +6028,7 @@ QByteArray PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 	return tmp;
 }
 
-QByteArray PDFLibCore::SetClipPathImage(PageItem *ite)
+QByteArray PDFLibCore::SetClipPathImage(const PageItem *ite)
 {
 	QByteArray tmp;
 	if (ite->imageClip.size() <= 3)
@@ -6809,19 +6665,19 @@ bool PDFLibCore::PDF_PatternFillStroke(QByteArray& output, PageItem *currItem, i
 	return true;
 }
 
-quint32 PDFLibCore::encode32dVal(double val)
+quint32 PDFLibCore::encode32dVal(double val) const
 {
 	quint32 res = static_cast<quint32>(((val - (-40000.0)) / 80000.0) * 0xFFFFFFFF);
 	return res;
 }
 
-quint16 PDFLibCore::encode16dVal(double val)
+quint16 PDFLibCore::encode16dVal(double val) const
 {
 	quint16 m = val * 0xFFFF;
 	return m;
 }
 
-void PDFLibCore::encodeColor(QDataStream &vs, const QString& colName, int colShade, QStringList &spotColorSet, bool spotMode)
+void PDFLibCore::encodeColor(QDataStream &vs, const QString& colName, int colShade, const QStringList &spotColorSet, bool spotMode)
 {
 	if (spotMode)
 	{
@@ -6870,12 +6726,7 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, PageItem *c)
 	QStringList tmpAddedColors;
 	bool spotMode = false;
 	bool transparencyFound = false;
-	StopVec.clear();
-	TransVec.clear();
-	Gcolors.clear();
-	colorNames.clear();
-	colorShades.clear();
-	tmpAddedColors.clear();
+
 	for (int grow = 0; grow < c->meshGradientArray.count(); grow++)
 	{
 		for (int gcol = 0; gcol < c->meshGradientArray[grow].count(); gcol++)
@@ -7542,11 +7393,11 @@ bool PDFLibCore::PDF_DiamondGradientFill(QByteArray& output, PageItem *c)
 		}
 		Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 	}
-	QPointF cP = QPointF(c->GrControl5.x(), -c->GrControl5.y());
-	QLineF edge1 = QLineF(cP, QPointF(c->GrControl1.x(), -c->GrControl1.y()));
-	QLineF edge2 = QLineF(cP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
-	QLineF edge3 = QLineF(cP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
-	QLineF edge4 = QLineF(cP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
+	QPointF cP(c->GrControl5.x(), -c->GrControl5.y());
+	QLineF edge1(cP, QPointF(c->GrControl1.x(), -c->GrControl1.y()));
+	QLineF edge2(cP, QPointF(c->GrControl2.x(), -c->GrControl2.y()));
+	QLineF edge3(cP, QPointF(c->GrControl3.x(), -c->GrControl3.y()));
+	QLineF edge4(cP, QPointF(c->GrControl4.x(), -c->GrControl4.y()));
 	QByteArray TRes("");
 	if (Options.supportsTransparency() && transparencyFound)
 	{
@@ -8353,7 +8204,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	}
 	double lastStop = -1.0;
 	double actualStop = 0.0;
-	bool   isFirst = true, transparencyFound = false;
+	bool   isFirst = true;
+	bool   transparencyFound = false;
 	for (int cst = 0; cst < gradient.stops(); ++cst)
 	{
 		actualStop = cstops.at(cst)->rampPoint;
@@ -8692,7 +8544,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QByteArray& output, PageItem *currItem, 
 	QByteArray tmp;
 	if (Options.supportsTransparency() && transparencyFound)
 		tmp += Pdf::toName(TRes) + " gs\n";
-	if ((forArrow) || (!stroke))
+	if (forArrow || (!stroke))
 	{
 		tmp += "/Pattern cs\n";
 		tmp += "/Pattern" + Pdf::toPdf(patObject) + " scn\n";
@@ -9025,7 +8877,7 @@ PdfId PDFLibCore::PDF_RadioButton(PageItem* ite, PdfId parent, const QString& pa
 	return annotationObj;
 }
 
-bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
+bool PDFLibCore::PDF_Annotation(PageItem *ite)
 {
 	ScImage img;
 	ScImage img2;
@@ -9909,7 +9761,7 @@ void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 	BookMinUse = true;
 }
 
-bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, ShIm& imgInfo, bool &fatalError)
+bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, double sy, double x, double y, ShIm& imgInfo, bool &fatalError)
 {
 	if (!Options.embedPDF)
 		return false;
@@ -10346,13 +10198,12 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
 */
 bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
 {
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	ScImage img;
 	QString BBox;
-//	QChar  tc;
 	bool   found = false;
 	bool   alphaM = false;
 	bool   realCMYK = false;
@@ -10407,13 +10258,13 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 				opts.append( "-dAutoRotatePages=/None" ); // #14289: otherwise EPS might come out rotated
 				if (convertPS2PDF(fn, tmpFile, opts) == 0)
 				{
-					imageLoaded = PDF_EmbeddedPDF(item, tmpFile, sx, sy, x, y, fromAN, ImInfo, fatalError);
+					imageLoaded = PDF_EmbeddedPDF(item, tmpFile, sx, sy, x, y, ImInfo, fatalError);
 					QFile::remove(tmpFile);
 				}
 				pdfFile = tmpFile;
 			}
 			else
-				imageLoaded = PDF_EmbeddedPDF(item, fn, sx, sy, x, y, fromAN, ImInfo, fatalError);
+				imageLoaded = PDF_EmbeddedPDF(item, fn, sx, sy, x, y, ImInfo, fatalError);
 			ImInfo.isEmbeddedPDF = true;
 			ImInfo.Page = item->pixm.imgInfo.actualPageNumber;
 		}
@@ -10861,7 +10712,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 						cm = PDFOptions::Compression_ZIP;
 				}*/
 			}
-			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
+			if (hasGrayProfile && doc.HasCMS && Options.UseProfiles2 && (!hasColorEffect))
 				exportToGrayscale = true;
 			int bytesWritten = 0;
 			// Fixme: outType variable should be set directly in the if/else maze above.
@@ -10973,7 +10824,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 	{
 		if (item->imageRotation())
 		{
-			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
+			embedPre += "1 0 0 1 " + FToStr(x*sx) + " " + FToStr(-ImInfo.Height * ImInfo.sya + y * sy) + " cm\n";
 			QTransform mpa;
 			mpa.rotate(-item->imageRotation());
 			embedPre += "1 0 0 1 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " cm\n";
@@ -10982,7 +10833,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " 0 0 cm\n";
 		}
 		else
-			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " " + FToStr(x * sx) + " " + FToStr((-ImInfo.Height * ImInfo.sya + y * sy)) + " cm\n";
+			embedPre += FToStr(ImInfo.Width * ImInfo.sxa) + " 0 0 " + FToStr(ImInfo.Height * ImInfo.sya) + " " + FToStr(x * sx) + " " + FToStr(-ImInfo.Height * ImInfo.sya + y * sy) + " cm\n";
 		*output = embedPre + Pdf::toName(ResNam + "I" + Pdf::toPdf(ImInfo.ResNum)) + " Do\n";
 	}
 	else if (output)

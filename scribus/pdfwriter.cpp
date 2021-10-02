@@ -65,29 +65,29 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0x92:
-						return (134);
+						return 134;
 					case 0x41:
-						return (149);
+						return 149;
 					case 0x52:
-						return (150);
+						return 150;
 					case 0x60:
-						return (151);
+						return 151;
 					case 0x78:
-						return (152);
+						return 152;
 					case 0x7d:
-						return (153);
+						return 153;
 					case 0x31:
-						return (154);
+						return 154;
 					case 0x42:
-						return (155);
+						return 155;
 					case 0x53:
-						return (156);
+						return 156;
 					case 0x61:
-						return (157);
+						return 157;
 					case 0x7e:
-						return (158);
+						return 158;
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -96,23 +96,23 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0xc7:
-						return (25);
+						return 25;
 					case 0xc6:
-						return (26);
+						return 26;
 					case 0xd8:
-						return (24);
+						return 24;
 					case 0xd9:
-						return (27);
+						return 27;
 					case 0xda:
-						return (30);
+						return 30;
 					case 0xdb:
-						return (29);
+						return 29;
 					case 0xdc:
-						return (31);
+						return 31;
 					case 0xdd:
-						return (28);
+						return 28;
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -121,42 +121,42 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0x13:
-						return (133);
+						return 133;
 					case 0x14:
-						return (132);
+						return 132;
 					case 0x18:
-						return (143);
+						return 143;
 					case 0x19:
-						return (144);
+						return 144;
 					case 0x1a:
-						return (145);
+						return 145;
 					case 0x1c:
-						return (141);
+						return 141;
 					case 0x1d:
-						return (142);
+						return 142;
 					case 0x1e:
-						return (140);
+						return 140;
 					case 0x20:
-						return (129);
+						return 129;
 					case 0x21:
-						return (130);
+						return 130;
 					case 0x22:
-						return (128);
+						return 128;
 					case 0x26:
-						return (131);
+						return 131;
 					case 0x30:
-						return (139);
+						return 139;
 					case 0x39:
-						return (136);
+						return 136;
 					case 0x3a:
-						return (137);
+						return 137;
 					case 0x44:
-						return (135);
+						return 135;
 					case 0xac:
-						return (160);
+						return 160;
 						
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -165,9 +165,9 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0x22:
-						return (146);
+						return 146;
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -176,9 +176,9 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0x12:
-						return (138);
+						return 138;
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -187,11 +187,11 @@ namespace Pdf
 				switch (cell)
 				{
 					case 0x01:
-						return (147);
+						return 147;
 					case 0x02:
-						return (148);
+						return 148;
 					default:
-						return (0);
+						return 0;
 						break;
 				}
 				break;
@@ -470,26 +470,6 @@ namespace Pdf
 
 	Writer::Writer()
 	{
-		CatalogObj = 1;
-		InfoObj = 2;
-		PagesObj = 3;
-		AcroFormObj = 0;
-		DestsObj = 0;
-		OutlinesObj = 0;
-		NamesObj = 0;
-		ThreadsObj = 0;
-		
-		OCPropertiesObj = 0;
-		OutputIntentObj = 0;
-		EncryptObj = 0;
-		MetaDataObj = 0;
-		ResourcesObj = 0;
-		OpenActionObj = 0;
-		
-		m_ObjCounter = 0;
-		m_CurrentObj = 0;
-		
-		m_KeyLen = 5;
 		m_KeyGen.resize(32);
 		m_OwnerKey.resize(32);
 		m_UserKey.resize(32);
@@ -717,15 +697,6 @@ namespace Pdf
 			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(m_KeyGen.data()), reinterpret_cast<uchar*>(m_UserKey.data()), 32);
 		}
 	}
-	
-//	QByteArray PDFLibCore::ComputeMD5(const QString& in)
-//	{
-//		uint inlen=in.length();
-//		QByteArray TBytes(inlen, ' ');
-//		for (uint a = 0; a < inlen; ++a)
-//			TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
-//		return QCryptographicHash::hash(TBytes, QCryptographicHash::Md5);
-//	}
 	
 	void Writer::writeHeader(const PDFVersion& Version)
 	{

@@ -171,18 +171,12 @@ public:
 	QByteArray encryptBytes(const QByteArray& in, PdfId objNum);
 	
 	QByteArray ComputeRC4Key(PdfId ObjNum);
-private:
-	void CalcOwnerKey(const QByteArray & Owner, const QByteArray & User);
-	void CalcUserKey(const QByteArray & User, int Permission);
-	QByteArray FitKey(const QByteArray & pass);
-public:
 	
 	// writing
 	void writeHeader(const PDFVersion& vers);
 	void writeXrefAndTrailer();
 	void write(const QByteArray& bytes);
 	void write(const Pdf::ResourceDictionary& dict);
-	void write(const PdfFont font);
 
 	// objects
 	PdfId objectCounter() const { return m_ObjCounter; }
@@ -202,24 +196,24 @@ public:
 	
 	
 	// private:
-	PdfId CatalogObj; // 1
-	PdfId InfoObj; // 2
-	PdfId PagesObj; // 3
-	PdfId AcroFormObj;
-	PdfId DestsObj; 
-	PdfId OutlinesObj;
-	PdfId NamesObj;
-	PdfId ThreadsObj;
-	PdfId OCPropertiesObj; // (9)
-	PdfId OutputIntentObj; // (9 or 10)
-	PdfId EncryptObj; 
-	PdfId MetaDataObj;
-	PdfId ResourcesObj;
-	PdfId OpenActionObj;
+	PdfId CatalogObj { 1 }; // 1
+	PdfId InfoObj { 2 }; // 2
+	PdfId PagesObj { 3 }; // 3
+	PdfId AcroFormObj { 0 };
+	PdfId DestsObj { 0 };
+	PdfId OutlinesObj { 0 };
+	PdfId NamesObj { 0 };
+	PdfId ThreadsObj { 0 };
+	PdfId OCPropertiesObj { 0 }; // (9)
+	PdfId OutputIntentObj { 0 }; // (9 or 10)
+	PdfId EncryptObj { 0 }; 
+	PdfId MetaDataObj { 0 };
+	PdfId ResourcesObj { 0 };
+	PdfId OpenActionObj { 0 };
 	
 private:
-	PdfId m_ObjCounter;
-	PdfId m_CurrentObj;
+	PdfId m_ObjCounter { 0 };
+	PdfId m_CurrentObj { 0 };
 	
 	QFile m_Spool;
 	QDataStream m_outStream;
@@ -231,8 +225,11 @@ private:
 	QByteArray m_UserKey;
 	QByteArray m_FileID;
 	QByteArray m_EncryKey;
-	int m_KeyLen;
+	int m_KeyLen { 5 };
 
+	void CalcOwnerKey(const QByteArray& Owner, const QByteArray& User);
+	void CalcUserKey(const QByteArray& User, int Permission);
+	QByteArray FitKey(const QByteArray& pass);
 };
 
 }
