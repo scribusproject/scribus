@@ -32,38 +32,38 @@ struct SCRIBUS_API Private_Signal : public QObject
 	
 public:
 	void emitSignal(QObject* what)
-{
-		emit changedObject(what);
-}
+	{
+			emit changedObject(what);
+	}
 
-void emitSignal(QVariant what)
-{
-	emit changedData(what);
-}
+	void emitSignal(QVariant what)
+	{
+		emit changedData(what);
+	}
 
-bool connectSignal(QObject*, QObject* o, const char* slot)
-{
-	return QObject::connect(this, SIGNAL(changedObject(QObject*)), o, slot);
-}
+	bool connectSignal(QObject*, QObject* o, const char* slot)
+	{
+		return QObject::connect(this, SIGNAL(changedObject(QObject*)), o, slot);
+	}
 
-bool disconnectSignal(QObject*, QObject* o, const char* slot)
-{
-	return QObject::disconnect(this, SIGNAL(changedObject(QObject*)), o, slot);
-}
+	bool disconnectSignal(QObject*, QObject* o, const char* slot)
+	{
+		return QObject::disconnect(this, SIGNAL(changedObject(QObject*)), o, slot);
+	}
 
-bool connectSignal(QVariant, QObject* o, const char* slot)
-{
-	return QObject::connect(this, SIGNAL(changedData(QVariant)), o, slot);
-}
+	bool connectSignal(QVariant, QObject* o, const char* slot)
+	{
+		return QObject::connect(this, SIGNAL(changedData(QVariant)), o, slot);
+	}
 
-bool disconnectSignal(QVariant, QObject* o, const char* slot)
-{
-	return QObject::disconnect(this, SIGNAL(changedData(QVariant)), o, slot);
-}
+	bool disconnectSignal(QVariant, QObject* o, const char* slot)
+	{
+		return QObject::disconnect(this, SIGNAL(changedData(QVariant)), o, slot);
+	}
 
 signals:
-void changedObject(QObject* what);
-void changedData(QVariant what);
+	void changedObject(QObject* what);
+	void changedData(QVariant what);
 };
 
 
@@ -71,11 +71,11 @@ void changedData(QVariant what);
 template<class OBSERVED>
 struct Private_Memento : public UpdateMemento
 {
-	Private_Memento(OBSERVED data) : m_data(data), m_layout(false) {}
+	Private_Memento(OBSERVED data) : m_data(data) {}
 	Private_Memento(OBSERVED data, bool layout) : m_data(data), m_layout(layout) {}
 	
 	OBSERVED m_data;
-	bool     m_layout;
+	bool     m_layout { false };
 };
 
 
@@ -145,8 +145,8 @@ protected:
 	virtual void updateNow(UpdateMemento* what);
 
 	QSet<Observer<OBSERVED>*> m_observers;
-	Private_Signal* changedSignal;
-	UpdateManager* m_um;
+	Private_Signal* changedSignal { nullptr };
+	UpdateManager* m_um { nullptr };
 };
 
 
@@ -182,7 +182,7 @@ public:
 	}
 	
 private:
-	MassObservable<OBSERVED*>* m_massObservable;
+	MassObservable<OBSERVED*>* m_massObservable { nullptr };
 };
 
 
