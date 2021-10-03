@@ -15089,7 +15089,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::Ungroup, "", Um::IGroup);
 
 	QList<PageItem*> toDelete;
-	QRectF textInteractionRect;
+//	QRectF textInteractionRect;
 	for (int i = 0; i < docSelectionCount; ++i)
 	{
 		currItem = itemSelection->itemAt(i);

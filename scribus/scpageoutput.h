@@ -11,9 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include <QRectF>
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
 #include "sccolor.h"
-#include "scpainterexbase.h"
 #include "scimage.h"
+#include "scpainterexbase.h"
 
 class CharStyle;
 struct GlyphLayout;

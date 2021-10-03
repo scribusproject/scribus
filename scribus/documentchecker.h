@@ -24,8 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCUMENTCHECKER_H
 #define DOCUMENTCHECKER_H
 
+#include <QString>
+
 #include "scribusapi.h"
-#include "scribusstructs.h"
+#include "prefsstructs.h"
 
 class ScribusDoc;
 

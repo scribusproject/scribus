@@ -146,29 +146,29 @@ void ScrAction::triggeredToTriggeredData()
 
 void ScrAction::toggledToToggledData(bool ison)
 {
-	if (isCheckable())
-	{
-		if (m_actionType == ScrAction::DataInt)
-			emit toggledData(ison, data().toInt());
-		if (m_actionType == ScrAction::DataDouble)
-			emit toggledData(ison, data().toDouble());
-		if (m_actionType == ScrAction::DataQString)
-			emit toggledData(ison, data().toString());
-		if (m_actionType == ScrAction::DLL)
-			qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
-//			emit toggledData(ison, pluginID);
-		if (m_actionType == ScrAction::Window)
-			emit toggledData(ison, data().toInt());
-		if (m_actionType == ScrAction::RecentFile)
-			emit toggledData(ison, data().toString());
-		if (m_actionType == ScrAction::RecentPaste)
-			emit toggledData(ison, data().toString());
-		if (m_actionType == ScrAction::RecentScript)
-			emit toggledData(ison, text());
-		if (m_actionType == ScrAction::Layer)
-			emit toggledData(ison, data().toInt());
-		// no toggle for UnicodeChar
-	}
+
+	if (!isCheckable())
+		return;
+	if (m_actionType == ScrAction::DataInt)
+		emit toggledData(ison, data().toInt());
+	if (m_actionType == ScrAction::DataDouble)
+		emit toggledData(ison, data().toDouble());
+	if (m_actionType == ScrAction::DataQString)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::DLL)
+		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
+	//			emit toggledData(ison, pluginID);
+	if (m_actionType == ScrAction::Window)
+		emit toggledData(ison, data().toInt());
+	if (m_actionType == ScrAction::RecentFile)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::RecentPaste)
+		emit toggledData(ison, data().toString());
+	if (m_actionType == ScrAction::RecentScript)
+		emit toggledData(ison, text());
+	if (m_actionType == ScrAction::Layer)
+		emit toggledData(ison, data().toInt());
+	// no toggle for UnicodeChar
 }
 
 void ScrAction::addedTo(int index, QMenu * menu)

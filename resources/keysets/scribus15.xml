@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shortcutset name="Scribus 1.5.3">
+<shortcutset name="Scribus 1.5.8">
     <function name="BarcodeGenerator" shortcut=""/>
     <function name="ColorWheel" shortcut=""/>
     <function name="ExportAsImage" shortcut="Ctrl+Shift+E"/>
@@ -11,6 +11,8 @@
     <function name="LensEffects" shortcut=""/>
     <function name="MeshDistortion" shortcut=""/>
     <function name="NewFromDocumentTemplate" shortcut="Ctrl+Alt+N"/>
+    <function name="OutputPreviewPDF" shortcut=""/>
+    <function name="OutputPreviewPS" shortcut=""/>
     <function name="PathAlongPath" shortcut=""/>
     <function name="PathConnect" shortcut=""/>
     <function name="PathCutter" shortcut=""/>
@@ -29,7 +31,7 @@
     <function name="alignRight" shortcut=""/>
     <function name="editActionMode" shortcut=""/>
     <function name="editClearContents" shortcut="Ctrl+Shift+Del"/>
-    <function name="editColors" shortcut=""/>
+    <function name="editColorsAndFills" shortcut=""/>
     <function name="editCopy" shortcut="Ctrl+C"/>
     <function name="editCopyContents" shortcut="Ctrl+Shift+C"/>
     <function name="editCut" shortcut="Ctrl+X"/>
@@ -57,7 +59,6 @@
     <function name="extrasGenerateTableOfContents" shortcut=""/>
     <function name="extrasHyphenateText" shortcut=""/>
     <function name="extrasManageImages" shortcut=""/>
-    <function name="extrasTestQTQuick2_1" shortcut=""/>
     <function name="extrasUpdateDocument" shortcut=""/>
     <function name="fileClose" shortcut="Ctrl+W"/>
     <function name="fileCollect" shortcut=""/>
@@ -95,6 +96,7 @@
     <function name="helpAboutPlugins" shortcut=""/>
     <function name="helpAboutQt" shortcut=""/>
     <function name="helpAboutScribus" shortcut=""/>
+    <function name="helpActionSearch" shortcut="Ctrl+/"/>
     <function name="helpChat" shortcut=""/>
     <function name="helpCheckUpdates" shortcut=""/>
     <function name="helpManual" shortcut="F1"/>
@@ -107,7 +109,6 @@
     <function name="insertGlyph" shortcut=""/>
     <function name="insertMark2Mark" shortcut=""/>
     <function name="insertMarkAnchor" shortcut=""/>
-    <function name="insertMarkIndex" shortcut=""/>
     <function name="insertMarkItem" shortcut=""/>
     <function name="insertMarkNote" shortcut=""/>
     <function name="insertMarkVariableText" shortcut=""/>
@@ -192,6 +193,7 @@
     <function name="toolsActionHistory" shortcut=""/>
     <function name="toolsAlignDistribute" shortcut=""/>
     <function name="toolsBookmarks" shortcut=""/>
+    <function name="toolsContent" shortcut="F3"/>
     <function name="toolsCopyProperties" shortcut=""/>
     <function name="toolsDownloads" shortcut=""/>
     <function name="toolsEditContents" shortcut="E"/>
@@ -230,7 +232,6 @@
     <function name="toolsScrapbook" shortcut=""/>
     <function name="toolsSelect" shortcut="C"/>
     <function name="toolsSymbols" shortcut=""/>
-    <function name="toolsText" shortcut="F3"/>
     <function name="toolsToolbarPDF" shortcut=""/>
     <function name="toolsToolbarTools" shortcut=""/>
     <function name="toolsToolbarView" shortcut=""/>
@@ -265,6 +266,7 @@
     <function name="unicodeLigature_ft" shortcut=""/>
     <function name="unicodeLigature_st" shortcut=""/>
     <function name="unicodeMidpoint" shortcut=""/>
+    <function name="unicodeNarrowNoBreakSpace" shortcut="Ctrl+Alt+Space"/>
     <function name="unicodeNewLine" shortcut="Shift+Return"/>
     <function name="unicodeNonBreakingHyphen" shortcut="Ctrl+Alt+-"/>
     <function name="unicodeNonBreakingSpace" shortcut="Ctrl+Space"/>
