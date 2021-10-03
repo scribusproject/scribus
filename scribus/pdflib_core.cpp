@@ -28,6 +28,8 @@ for which a new license (GPL+exception) is in place.
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
+
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <string>
@@ -1741,7 +1743,13 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 
 	ScFace::FaceEncoding encoding;
 	face.glyphNames(encoding);
-	QList<uint> keys = encoding.uniqueKeys();
+
+	// In some case (arial!), all used glyphs may not be listed in the  encoding map,
+	// and glyphs such as old numerals may be found only in the usedGlyphs map
+	QList<uint> keys = encoding.uniqueKeys() + usedGlyphs.uniqueKeys();
+	std::sort(keys.begin(), keys.end());
+	auto lastIt = std::unique(keys.begin(), keys.end());
+	keys.erase(lastIt, keys.end());
 	bool seenNotDef = false;
 	
 	PutDoc("[ ");
@@ -1755,6 +1763,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 		PutDoc(Pdf::toPdf(gid) + " [" + Pdf::toPdf(static_cast<int>(face.glyphWidth(*git) * 1000)) + "] ");
 		QString tmp = QString::asprintf("%04X", gid);
 		QString tmp2;
+
 		auto  glyphIt = encoding.constFind(*git);
 		if ((glyphIt != encoding.constEnd()) && (glyphIt->charcode > 0))
 			tmp2 = glyphIt->toUnicode;
