@@ -10,8 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include "cxfobject.h"
 
 CxfObject::CxfObject(CxfDocument* cxfDoc)
+         : m_cxfDoc(cxfDoc)
 {
-	m_cxfDoc = cxfDoc;
+
 }
 
 const CxfColor* CxfObject::color(CxfColorType type) const

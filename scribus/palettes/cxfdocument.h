@@ -28,7 +28,7 @@ public:
 
 	int   objectCount() const { return m_objects.count(); }
 	const CxfObject* objectAt(int index) const { return m_objects.at(index); }
-	const QList<CxfObject*>& objects() { return m_objects; }
+	const QList<CxfObject*>& objects() const { return m_objects; }
 	
 	bool parse(const QString& fileName);
 	void reset();

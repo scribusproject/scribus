@@ -7,12 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "cxfcolorspecification.h"
 
-CxfColorSpecification::CxfColorSpecification()
-{
-	m_hasMeasurementSpec = false;
-	m_hasTristimulusSpec = false;
-}
-
 bool CxfColorSpecification::isValid() const
 {
 	bool valid = true;

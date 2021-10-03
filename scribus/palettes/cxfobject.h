@@ -34,7 +34,7 @@ public:
 	bool parse(QDomElement& elem);
 
 protected:
-	CxfDocument* m_cxfDoc;
+	CxfDocument* m_cxfDoc { nullptr };
 	
 	QString m_id;
 	QString m_name;

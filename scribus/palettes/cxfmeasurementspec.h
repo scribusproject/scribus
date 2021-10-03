@@ -33,9 +33,9 @@ public:
 	static QVector<int> wavelengths(int start, int increment, int count);
 	
 protected:
-	CxfMeasurementType m_measurementType;
-	int m_waveLengthStart;
-	int m_waveLengthIncrement;
+	CxfMeasurementType m_measurementType { cxfMeasurementUnknown };
+	int m_waveLengthStart { 0 };
+	int m_waveLengthIncrement { 0 };
 };
 
 #endif

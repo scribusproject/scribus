@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 class CxfColorSpecification
 {
 public:
-	CxfColorSpecification();
+	CxfColorSpecification() = default;
 
 	const QString& id() const { return m_id; }
 	
@@ -37,8 +37,8 @@ public:
 protected:
 	QString m_id;
 
-	bool m_hasMeasurementSpec;
-	bool m_hasTristimulusSpec;
+	bool m_hasMeasurementSpec { false };
+	bool m_hasTristimulusSpec { false };
 	
 	CxfMeasurementSpec m_measurementSpec;
 	CxfTristimulusSpec m_tristimulusSpec;

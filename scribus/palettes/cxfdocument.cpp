@@ -107,7 +107,7 @@ bool CxfDocument::parseObjectCollection(QDomElement& elem)
 		if (childElem.tagName() != "Object")
 			continue;
 
-		CxfObject* object = new CxfObject(this);
+		auto* object = new CxfObject(this);
 		if (!object->parse(childElem))
 		{
 			delete object;

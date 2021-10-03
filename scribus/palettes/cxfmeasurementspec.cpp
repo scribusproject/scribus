@@ -10,9 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 CxfMeasurementSpec::CxfMeasurementSpec()
 {
-	m_measurementType = cxfMeasurementUnknown;
-	m_waveLengthStart = 0;
-	m_waveLengthIncrement = 0;
+
 }
 
 bool CxfMeasurementSpec::hasWavelengthRange() const
