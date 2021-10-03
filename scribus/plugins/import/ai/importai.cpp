@@ -1353,14 +1353,14 @@ void AIPlug::processData(const QString& data)
 	double x, y, x1, y1, x2, y2;
 	int z, tmpInt;
 	PageItem *ite;
-	QString command = "";
-	QString Cdata = "";
+	QString command;
+	QString Cdata;
 	QStringList da;
 	if (dataMode && fObjectMode)
 	{
 		if (data.contains("~>"))
 		{
-			dataString += data.midRef(1);
+			dataString += QStringView{data}.mid(1);
 			dataMode = false;
 			QByteArray fData;
 			decodeA85(fData, dataString);
@@ -1420,7 +1420,7 @@ void AIPlug::processData(const QString& data)
 		}
 		else
 		{
-			dataString += data.midRef(1);
+			dataString += QStringView{data}.mid(1);
 		}
 		return;
 	}
@@ -2970,7 +2970,7 @@ void AIPlug::processRaster(QDataStream &ts)
 			for (int a = 1; a < tmp.length(); a += 2)
 			{
 				bool ok;
-				ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
+				ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
 				psdata[dataPointer++] = data;
 			}
 		}

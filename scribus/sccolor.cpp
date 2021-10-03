@@ -367,19 +367,20 @@ QString ScColor::nameRGB(const ScribusDoc* doc) const
 void ScColor::setNamedColor(QString colorName)
 {
 	bool ok;
+	QStringView colorNameView(colorName);
 	if (colorName.length () == 9)
 	{
-		int c = colorName.midRef(1,2).toInt(&ok, 16);
-		int m = colorName.midRef(3,2).toInt(&ok, 16);
-		int y = colorName.midRef(5,2).toInt(&ok, 16);
-		int k = colorName.midRef(7,2).toInt(&ok, 16);
+		int c = colorNameView.mid(1,2).toInt(&ok, 16);
+		int m = colorNameView.mid(3,2).toInt(&ok, 16);
+		int y = colorNameView.mid(5,2).toInt(&ok, 16);
+		int k = colorNameView.mid(7,2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
 	else if (colorName.length () == 7)
 	{
-		int r = colorName.midRef(1,2).toInt(&ok, 16);
-		int g = colorName.midRef(3,2).toInt(&ok, 16);
-		int b = colorName.midRef(5,2).toInt(&ok, 16);
+		int r = colorNameView.mid(1,2).toInt(&ok, 16);
+		int g = colorNameView.mid(3,2).toInt(&ok, 16);
+		int b = colorNameView.mid(5,2).toInt(&ok, 16);
 		setRgbColor(r, g, b);
 	}
 }
