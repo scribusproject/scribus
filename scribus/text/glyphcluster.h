@@ -43,9 +43,10 @@ public:
 	// get text out
 	QString getText() const;
 
-	double extraWidth;
-	double xoffset;
-	double yoffset;
+	double extraWidth { 0.0 };
+	double xoffset { 0.0 };
+	double yoffset { 0.0 };
+
 private:
 	const CharStyle* m_style;
 	LayoutFlags m_flags;
@@ -54,8 +55,8 @@ private:
 	int m_firstChar;
 	int m_lastChar;
 	int m_visualIndex;
-	double m_scaleH;
-	double m_scaleV;
+	double m_scaleH { 1.0 };
+	double m_scaleV { 1.0 };
 	QString m_str;
 };
 

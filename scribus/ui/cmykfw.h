@@ -34,12 +34,12 @@ public:
 	QPixmap alertIcon;
 	ScColor Farbe;
 
-	bool Wsave;
-	bool dynamic;
-	bool isNew;
-	bool isRegistration;
-	int BlackComp;
-	ColorList *EColors;
+	bool Wsave { false };
+	bool dynamic { true };
+	bool isNew { false };
+	bool isRegistration { false };
+	int BlackComp { 0 };
+	ColorList *EColors { nullptr };
 	ColorList CurrSwatch;
 	QString Fnam;
 
@@ -59,14 +59,14 @@ public slots:
 
 protected:
 	ColorSetManager csm;
-	ScribusDoc* m_doc;
-	QTreeWidgetItem *systemSwatches;
-	QTreeWidgetItem *userSwatches;
-	QTreeWidgetItem *hsvSelector;
+	ScribusDoc* m_doc { nullptr };
+	QTreeWidgetItem *systemSwatches { nullptr };
+	QTreeWidgetItem *userSwatches { nullptr };
+	QTreeWidgetItem *hsvSelector { nullptr };
 	QStringList customColSet;
-	bool isHLC;
+	bool isHLC { false };
 	
-	virtual void showEvent(QShowEvent * event);
+	void showEvent(QShowEvent * event) override;
 
 	QPalette sliderPix(int farbe);
 	QPalette sliderBlack();

@@ -161,32 +161,29 @@ void GroupBox::justify(const ParagraphStyle& style)
 int LineBox::pointToPosition(QPointF coord, const StoryText &story) const
 {
 	int position = GroupBox::pointToPosition(coord, story);
-	if (position < 0)
+	if (position < 0 && containsPoint(coord))
 	{
-		if (containsPoint(coord))
+		const ParagraphStyle& style = story.paragraphStyle(firstChar());
+		if (style.direction() == ParagraphStyle::RTL)
 		{
-			const ParagraphStyle& style = story.paragraphStyle(firstChar());
-			if (style.direction() == ParagraphStyle::RTL)
-			{
-				if (coord.x() < x())
-					position = lastChar();
-				else
-					position = firstChar();
-			}
+			if (coord.x() < x())
+				position = lastChar();
 			else
-			{
-				if (coord.x() < x())
-					position = firstChar();
-				else
-					position = lastChar();
-			}
-			if (position == story.length() - 1)
-			{
-				if (m_firstChar == m_lastChar)
-					position = m_lastChar;
-				else if (!SpecialChars::isBreak(story.text(position)))
-					position = story.length();
-			}
+				position = firstChar();
+		}
+		else
+		{
+			if (coord.x() < x())
+				position = firstChar();
+			else
+				position = lastChar();
+		}
+		if (position == story.length() - 1)
+		{
+			if (m_firstChar == m_lastChar)
+				position = m_lastChar;
+			else if (!SpecialChars::isBreak(story.text(position)))
+				position = story.length();
 		}
 	}
 
@@ -774,7 +771,7 @@ int GlyphBox::pointToPosition(QPointF coord, const StoryText& story) const
 			else
 				componentX = x() + (componentWidth * i);
 
-			if ((coord.x() >= componentX && coord.x() <= componentX + componentWidth))
+			if ((coord.x() >= componentX) && (coord.x() <= componentX + componentWidth))
 			{
 				if (coord.x() <= componentX + componentWidth / 2.0)
 					return rtlLayout ? (firstChar() + i + 1) : (firstChar() + i);

@@ -135,7 +135,7 @@ void FDialogPreview::genPreview(const QString& name)
 	updatePix();
 	if (name.isEmpty())
 		return;
-	QFileInfo fi = QFileInfo(name);
+	QFileInfo fi(name);
 	if (fi.isDir())
 		return;
 	int w = pixmap()->width();
@@ -283,7 +283,9 @@ void FDialogPreview::genPreview(const QString& name)
 }
 
 CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption, const QString& filter, int flags)
-			: QDialog(parent), m_optionFlags(flags)
+			: QDialog(parent),
+	          m_optionFlags(flags),
+	          m_previewIsShown(true)
 {
 	m_fileDialogPrefs = PrefsManager::instance().prefsFile->getContext("customfdialog", false);
 
@@ -319,7 +321,6 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	showPreview->setText( tr("Show Preview"));
 	showPreview->setToolTip( tr("Show a preview and information for the selected file"));
 	showPreview->setChecked(true);
-	m_previewIsShown = true;
 	hboxLayout1->addWidget(showPreview);
 	QSpacerItem *spacerItem = new QSpacerItem(2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	hboxLayout1->addItem(spacerItem);
@@ -490,10 +491,6 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 	resize(minimumSizeHint());
 }
 
-CustomFDialog::~CustomFDialog()
-{
-}
-
 void CustomFDialog::closeEvent(QCloseEvent *closeEvent)
 {
 	storeSize();
@@ -508,7 +505,7 @@ void CustomFDialog::hideEvent(QHideEvent* hideEvent)
 
 void CustomFDialog::showEvent(QShowEvent *showEvent)
 {
-	QScreen* dialogScreen = this->screen();
+	const QScreen* dialogScreen = this->screen();
 	if (m_fileDialogPrefs && dialogScreen && !showEvent->spontaneous())
 	{
 		if (m_fileDialogPrefs->contains("width"))
@@ -568,12 +565,12 @@ void CustomFDialog::togglePreview()
 			filePreview->genPreview(QDir::fromNativeSeparators(sel[0]));
 	}
 	// #11856: Hack to avoid file dialog widget turning black with Qt5
-	qApp->processEvents();
+	QCoreApplication::processEvents();
 	filePreview->setVisible(!m_previewIsShown);
-	qApp->processEvents();
+	QCoreApplication::processEvents();
 	filePreview->setVisible(m_previewIsShown);
 	fileDialog->repaint();
-	qApp->processEvents();
+	QCoreApplication::processEvents();
 	repaint();
 }
 

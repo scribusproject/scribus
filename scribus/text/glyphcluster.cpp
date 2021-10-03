@@ -1,17 +1,12 @@
 #include "glyphcluster.h"
 
 GlyphCluster::GlyphCluster(const CharStyle* style, LayoutFlags flags, int first, int last, const InlineFrame& o, int i, const QString& str)
-	: extraWidth(0.0)
-	, xoffset(0.0)
-	, yoffset(0.0)
-	, m_style(style)
+	: m_style(style)
 	, m_flags(flags)
 	, m_object(o)
 	, m_firstChar(first)
 	, m_lastChar(last)
 	, m_visualIndex(i)
-	, m_scaleH(1.0)
-	, m_scaleV(1.0)
 	, m_str(str)
 {}
 

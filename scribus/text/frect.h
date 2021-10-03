@@ -77,10 +77,10 @@ class FRect // rectangle class
 		void setX(qreal x);
 		void setY(qreal y);
 
-		void setTopLeft(FPoint &p);
-		void setBottomRight(FPoint &p);
-		void setTopRight(FPoint &p);
-		void setBottomLeft(FPoint &p);
+		void setTopLeft(const FPoint &p);
+		void setBottomRight(const FPoint &p);
+		void setTopRight(const FPoint &p);
+		void setBottomLeft(const FPoint &p);
 
 		FPoint topLeft() const;
 		FPoint bottomRight() const;
@@ -95,11 +95,11 @@ class FRect // rectangle class
 		void moveTop(qreal pos);
 		void moveRight(qreal pos);
 		void moveBottom(qreal pos);
-		void moveTopLeft(FPoint &p);
-		void moveBottomRight(FPoint &p);
-		void moveTopRight(FPoint &p);
-		void moveBottomLeft(FPoint &p);
-		void moveCenter(FPoint &p);
+		void moveTopLeft(const FPoint &p);
+		void moveBottomRight(const FPoint &p);
+		void moveTopRight(const FPoint &p);
+		void moveBottomLeft(const FPoint &p);
+		void moveCenter(const FPoint &p);
 		void moveBy(qreal dx, qreal dy);
 
 		void setRect(qreal x, qreal y, qreal w, qreal h);
@@ -157,14 +157,14 @@ bool operator!=(const FRect &, const FRect &);
 
 inline FRect::FRect(qreal left, qreal top, qreal width, qreal height)
 {
-	x1 = (qreal)left;
-	y1 = (qreal)top;
-	x2 = (qreal)(left+width-1);
-	y2 = (qreal)(top+height-1);
+	x1 = left;
+	y1 = top;
+	x2 = (left + width - 1);
+	y2 = (top + height -1);
 }
 
 inline bool FRect::isNull() const
-{ return x2 == x1-1 && y2 == y1-1; }
+{ return x2 == x1 - 1 && y2 == y1 - 1; }
 
 inline bool FRect::isEmpty() const
 { return x1 > x2 || y1 > y2; }
@@ -203,19 +203,19 @@ inline qreal FRect::y() const
 { return y1; }
 
 inline void FRect::setLeft(qreal pos)
-{ x1 = (qreal)pos; }
+{ x1 = pos; }
 
 inline void FRect::setTop(qreal pos)
-{ y1 = (qreal)pos; }
+{ y1 = pos; }
 
 inline void FRect::setRight(qreal pos)
-{ x2 = (qreal)pos; }
+{ x2 = pos; }
 
 inline void FRect::setBottom(qreal pos)
-{ y2 = (qreal)pos; }
+{ y2 = pos; }
 
 inline void FRect::setX(qreal x)
-{ x1 = (qreal)x; }
+{ x1 = x; }
 
 inline void FRect::setY(qreal y)
 { y1 = (qreal)y; }

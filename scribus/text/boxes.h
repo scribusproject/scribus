@@ -41,16 +41,7 @@ public:
 		D_Vertical
 	};
 
-	Box()
-	{
-		m_type = T_Invalid;
-		m_direction = D_Horizontal;
-		m_x = m_y = m_width = m_ascent = m_descent = 0;
-		m_firstChar = 0;
-		m_lastChar = 0;
-		m_naturalAscent = 0;
-		m_naturalDescent = 0;
-	}
+	Box() = default;
 
 	virtual ~Box()
 	{
@@ -107,7 +98,7 @@ public:
 	int lastChar() const { return m_lastChar == INT_MIN ? 0 : m_lastChar; }
 
 	/// Sets the transformation matrix to applied to the box.
-	void setMatrix(QTransform x) { m_matrix = x; }
+	void setMatrix(const QTransform& x) { m_matrix = x; }
 
 	/// The transformation matrix applied to the box.
 	const QTransform& matrix() const { return m_matrix; }
@@ -143,26 +134,26 @@ public:
 	BoxType type() const { return m_type; }
 
 protected:
-	BoxType m_type;
-	BoxDirection m_direction;
-	double m_x;
-	double m_y;
-	double m_width;
-	double m_descent;
-	double m_ascent;
+	BoxType m_type { T_Invalid };
+	BoxDirection m_direction { D_Horizontal };
+	double m_x { 0.0 };
+	double m_y { 0.0 };
+	double m_width { 0.0 };
+	double m_descent { 0.0 };
+	double m_ascent { 0.0 };
 	QList<Box*> m_boxes;
-	int m_firstChar;
-	int m_lastChar;
+	int m_firstChar { 0 };
+	int m_lastChar { 0 };
 	QTransform m_matrix;
-	double m_naturalAscent;
-	double m_naturalDescent;
+	double m_naturalAscent { 0.0 };
+	double m_naturalDescent { 0.0 };
 };
 
 
 class GroupBox: public Box
 {
 public:
-	GroupBox(BoxDirection direction)
+	explicit GroupBox(BoxDirection direction)
 	{
 		m_type = T_Block;
 		m_direction = direction;
@@ -244,7 +235,7 @@ protected:
 class GlyphBox: public Box
 {
 public:
-	GlyphBox(const GlyphCluster& run)
+	explicit GlyphBox(const GlyphCluster& run)
 		: m_glyphRun(run)
 		, m_effects(run.style().effects())
 	{
@@ -275,7 +266,7 @@ protected:
 class ObjectBox: public GlyphBox
 {
 public:
-	ObjectBox(const GlyphCluster& run, ITextContext* ctx)
+	ObjectBox(const GlyphCluster& run, const ITextContext* ctx)
 		: GlyphBox(run)
 		, m_object(ctx->object(run.object()))
 	{

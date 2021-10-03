@@ -33,7 +33,8 @@ public:
 	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
 	int timeOut() const;
-	QList<QString> files();
+	// Get list of watched files and directories
+	QList<QString> files() const;
 	
 public slots:
 	//Add a file to the watch list for monitoring
@@ -65,7 +66,7 @@ private:
 
 	};
 
-	typedef enum
+	enum StateFlags
 	{
 		AddRemoveBlocked  = 1,
 		FileCheckRunning  = 2,
@@ -73,12 +74,12 @@ private:
 		TimerStopped  = 8,
 		Dying = 16,
 		FileCheckMustStop = 20 //StopRequested + Dying
-	} StateFlags;
+	};
 
 	QMap<QString, fileMod> m_watchedFiles;
-	QTimer* m_watchTimer;
-	int  m_stateFlags;
-	int  m_timeOut; // milliseconds
+	QTimer* m_watchTimer { nullptr };
+	int  m_stateFlags { 0 };
+	int  m_timeOut { 10000 }; // milliseconds
 
 private slots:
 	void checkFiles();

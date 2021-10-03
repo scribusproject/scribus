@@ -102,7 +102,7 @@ public:
 	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
 	CustomFDialog(QWidget *parent, const QString& wDir, const QString& caption = "",  const QString& filter = "", int flags = fdExistingFiles);
-	~CustomFDialog();
+	~CustomFDialog() = default;
 
 	void setSelection(const QString& fileName);
 	QString selectedFile() const;

@@ -51,15 +51,15 @@ for which a new license (GPL+exception) is in place.
 
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QString& name, ColorList *Colors, bool newCol  )
-		: QDialog( parent ), CurrSwatch(doc)
+		: QDialog( parent ),
+	      Farbe(orig),
+	      isNew(newCol),
+	      EColors(Colors),
+	      CurrSwatch(doc),
+	      m_doc(doc)
 {
 	setModal(true);
-	m_doc = doc;
-	isNew = newCol;
-	dynamic = true;
-	Wsave = false;
-	isHLC = false;
-	EColors = Colors;
+
 	CurrSwatch.clear();
 	alertIcon = IconManager::instance().loadPixmap("alert.png");
 	imageA = QPixmap(50,50);
@@ -70,7 +70,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, const QS
 	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
-	Farbe = orig;
 
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );

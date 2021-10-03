@@ -105,10 +105,10 @@
 
 FRect::FRect( FPoint &topLeft, FPoint &bottomRight )
 {
-	x1 = (qreal)topLeft.x();
-	y1 = (qreal)topLeft.y();
-	x2 = (qreal)bottomRight.x();
-	y2 = (qreal)bottomRight.y();
+	x1 = topLeft.x();
+	y1 = topLeft.y();
+	x2 = bottomRight.x();
+	y2 = bottomRight.y();
 }
 
 /*!
@@ -118,10 +118,10 @@ FRect::FRect( FPoint &topLeft, FPoint &bottomRight )
 
 FRect::FRect( FPoint &topLeft, FSize &size )
 {
-	x1 = (qreal)topLeft.x();
-	y1 = (qreal)topLeft.y();
-	x2 = (qreal)(x1+size.width());
-	y2 = (qreal)(y1+size.height());
+	x1 = topLeft.x();
+	y1 = topLeft.y();
+	x2 = (x1 + size.width());
+	y2 = (y1 + size.height());
 }
 
 /*!
@@ -368,7 +368,7 @@ FRect FRect::normalize() const
 
 	\sa topLeft(), moveTopLeft(), setBottomRight(), setTopRight(), setBottomLeft()
 */
-void FRect::setTopLeft( FPoint &p )
+void FRect::setTopLeft( const FPoint &p )
 {
 	setLeft( p.x() );
 	setTop( p.y() );
@@ -381,7 +381,7 @@ void FRect::setTopLeft( FPoint &p )
 
 	\sa bottomRight(), moveBottomRight(), setTopLeft(), setTopRight(), setBottomLeft()
 */
-void FRect::setBottomRight( FPoint &p )
+void FRect::setBottomRight( const FPoint &p )
 {
 	setRight( p.x() );
 	setBottom( p.y() );
@@ -394,7 +394,7 @@ void FRect::setBottomRight( FPoint &p )
 
 	\sa topRight(), moveTopRight(), setTopLeft(), setBottomRight(), setBottomLeft()
 */
-void FRect::setTopRight( FPoint &p )
+void FRect::setTopRight( const FPoint &p )
 {
 	setRight( p.x() );
 	setTop( p.y() );
@@ -407,7 +407,7 @@ void FRect::setTopRight( FPoint &p )
 
 	\sa bottomLeft(), moveBottomLeft(), setTopLeft(), setBottomRight(), setTopRight()
 */
-void FRect::setBottomLeft( FPoint &p )
+void FRect::setBottomLeft( const FPoint &p )
 {
 	setLeft( p.x() );
 	setBottom( p.y() );
@@ -493,8 +493,8 @@ void FRect::coords( qreal *xp1, qreal *yp1, qreal *xp2, qreal *yp2 ) const
 */
 void FRect::moveLeft( qreal pos )
 {
-	x2 += (qreal)(pos - x1);
-	x1 = (qreal)pos;
+	x2 += (pos - x1);
+	x1 = pos;
 }
 
 /*!
@@ -506,8 +506,8 @@ void FRect::moveLeft( qreal pos )
 
 void FRect::moveTop( qreal pos )
 {
-	y2 += (qreal)(pos - y1);
-	y1 = (qreal)pos;
+	y2 += (pos - y1);
+	y1 = pos;
 }
 
 /*!
@@ -519,8 +519,8 @@ void FRect::moveTop( qreal pos )
 
 void FRect::moveRight( qreal pos )
 {
-	x1 += (qreal)(pos - x2);
-	x2 = (qreal)pos;
+	x1 += (pos - x2);
+	x2 = pos;
 }
 
 /*!
@@ -532,8 +532,8 @@ void FRect::moveRight( qreal pos )
 
 void FRect::moveBottom( qreal pos )
 {
-	y1 += (qreal)(pos - y2);
-	y2 = (qreal)pos;
+	y1 += (pos - y2);
+	y2 = pos;
 }
 
 /*!
@@ -543,7 +543,7 @@ void FRect::moveBottom( qreal pos )
 	\sa topLeft(), setTopLeft(), moveBottomRight(), moveTopRight(), moveBottomLeft()
 */
 
-void FRect::moveTopLeft( FPoint &p )
+void FRect::moveTopLeft( const FPoint &p )
 {
 	moveLeft( p.x() );
 	moveTop( p.y() );
@@ -556,7 +556,7 @@ void FRect::moveTopLeft( FPoint &p )
 	\sa bottomRight(), setBottomRight(), moveTopLeft(), moveTopRight(), moveBottomLeft()
 */
 
-void FRect::moveBottomRight( FPoint &p )
+void FRect::moveBottomRight( const FPoint &p )
 {
 	moveRight( p.x() );
 	moveBottom( p.y() );
@@ -569,7 +569,7 @@ void FRect::moveBottomRight( FPoint &p )
 	\sa topRight(), setTopRight(), moveTopLeft(), moveBottomRight(), moveBottomLeft()
 */
 
-void FRect::moveTopRight( FPoint &p )
+void FRect::moveTopRight( const FPoint &p )
 {
 	moveRight( p.x() );
 	moveTop( p.y() );
@@ -582,7 +582,7 @@ void FRect::moveTopRight( FPoint &p )
 	\sa bottomLeft(), setBottomLeft(), moveTopLeft(), moveBottomRight(), moveTopRight()
 */
 
-void FRect::moveBottomLeft( FPoint &p )
+void FRect::moveBottomLeft( const FPoint &p )
 {
 	moveLeft( p.x() );
 	moveBottom( p.y() );
@@ -596,12 +596,12 @@ void FRect::moveBottomLeft( FPoint &p )
 	\sa center(), moveTopLeft(), moveBottomRight(), moveTopRight(), moveBottomLeft()
 */
 
-void FRect::moveCenter( FPoint &p )
+void FRect::moveCenter( const FPoint &p )
 {
 	qreal w = x2 - x1;
 	qreal h = y2 - y1;
-	x1 = (qreal)(p.x() - w/2);
-	y1 = (qreal)(p.y() - h/2);
+	x1 = (p.x() - w / 2);
+	y1 = (p.y() - h / 2);
 	x2 = x1 + w;
 	y2 = y1 + h;
 }
@@ -617,10 +617,10 @@ void FRect::moveCenter( FPoint &p )
 
 void FRect::moveBy( qreal dx, qreal dy )
 {
-	x1 += (qreal)dx;
-	y1 -= (qreal)dy;
-	x2 += (qreal)dx;
-	y2 -= (qreal)dy;
+	x1 += dx;
+	y1 -= dy;
+	x2 += dx;
+	y2 -= dy;
 }
 
 /*!
@@ -632,10 +632,10 @@ void FRect::moveBy( qreal dx, qreal dy )
 
 void FRect::setRect( qreal x, qreal y, qreal w, qreal h )
 {
-	x1 = (qreal)x;
-	y1 = (qreal)y;
-	x2 = (qreal)(x+w);
-	y2 = (qreal)(y+h);
+	x1 = x;
+	y1 = y;
+	x2 = (x + w);
+	y2 = (y + h);
 }
 
 /*!
@@ -648,10 +648,10 @@ void FRect::setRect( qreal x, qreal y, qreal w, qreal h )
 
 void FRect::setCoords(qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 {
-	x1 = (qreal)xp1;
-	y1 = (qreal)yp1;
-	x2 = (qreal)xp2;
-	y2 = (qreal)yp2;
+	x1 = xp1;
+	y1 = yp1;
+	x2 = xp2;
+	y2 = yp2;
 }
 
 /*!
@@ -661,10 +661,10 @@ void FRect::setCoords(qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 
 void FRect::addCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 {
-	x1 += (qreal)xp1;
-	y1 += (qreal)yp1;
-	x2 += (qreal)xp2;
-	y2 += (qreal)yp2;
+	x1 += xp1;
+	y1 += yp1;
+	x2 += xp2;
+	y2 += yp2;
 }
 
 /*!
@@ -702,7 +702,7 @@ void FRect::addCoords( qreal xp1, qreal yp1, qreal xp2, qreal yp2 )
 
 void FRect::setWidth( qreal w )
 {
-	x2 = (qreal)(x1 + w);
+	x2 = (x1 + w);
 }
 
 /*!
@@ -714,7 +714,7 @@ void FRect::setWidth( qreal w )
 
 void FRect::setHeight( qreal h )
 {
-	y2 = (qreal)(y1 + h);
+	y2 = (y1 + h);
 }
 
 /*!
@@ -726,8 +726,8 @@ void FRect::setHeight( qreal h )
 
 void FRect::setSize( const FSize &s )
 {
-	x2 = (qreal)(s.width() +x1);
-	y2 = (qreal)(s.height()+y1);
+	x2 = (s.width() + x1);
+	y2 = (s.height() + y1);
 }
 
 /*!

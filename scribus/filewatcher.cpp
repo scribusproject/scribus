@@ -22,9 +22,6 @@ for which a new license (GPL+exception) is in place.
 
 FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
-	m_stateFlags = 0;
-	m_timeOut = 10000;
-	m_watchedFiles.clear();
 	m_watchTimer = new QTimer(this);
 	m_watchTimer->setSingleShot(true);
 	connect(m_watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
@@ -139,7 +136,7 @@ bool FileWatcher::isWatching(const QString& fileName) const
 	return m_watchedFiles.contains(qtFileName);
 }
 
-QList<QString> FileWatcher::files()
+QList<QString> FileWatcher::files() const
 {
 	return m_watchedFiles.keys();
 }
