@@ -40,8 +40,6 @@ DelColor::DelColor( QWidget* parent, const ColorList& colorList, const QString& 
 
 	PrefsManager& prefsManager = PrefsManager::instance();
 	bool isToolColor = prefsManager.isToolColor(colorName);
-	replaceLabel = nullptr;
-	replacementColData = nullptr;
 	if (haveDoc || isToolColor)
 	{
 		replaceLabel = new QLabel( tr( "Replace With:" ), this );
@@ -80,7 +78,7 @@ void DelColor::ReplaceColor(int id)
 	replacementColor = replacementColData->itemText(id);
 }
 
-const QString& DelColor::getReplacementColor()
+const QString& DelColor::getReplacementColor() const
 {
 	return replacementColor;
 }

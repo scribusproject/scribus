@@ -165,16 +165,16 @@ public:
 	//! \brief Sets the preferences' color set name
 	void setColorSetName(const QString&);
 	//! \brief Returns the preferences' color set
-	const ColorList& colorSet();
+	const ColorList& colorSet() const;
 	//! \brief Returns a pointer to the preferences' color set. Needed for now until colors are better defined
 	ColorList* colorSetPtr();
 	//! \brief Returns the preferences' color set name
-	const QString& colorSetName();
+	const QString& colorSetName() const;
 	/*! \brief Return if a color belongs to tools prefs colors */
-	bool isToolColor(const QString& name);
+	bool isToolColor(const QString& name) const;
 	static bool isToolColor(const struct ItemToolPrefs& settings, const QString& name);
 	/*! \brief Return the list of used colors in tool prefs */
-	QStringList toolColorNames();
+	QStringList toolColorNames() const;
 	static QStringList toolColorNames(const struct ItemToolPrefs& settings);
 	/*! \brief Replace used colors in tool prefs */
 	void replaceToolColors(const QMap<QString, QString>& replaceMap);

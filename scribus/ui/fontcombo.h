@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include <QComboBox>
 #include <QFontDatabase>
-#include <QPixmapCache>
 #include <QValidator>
 
 #include "scribusapi.h"
@@ -74,7 +73,7 @@ public:
 	FontComboH(QWidget* parent, bool labels=false);
 	~FontComboH() {}
 	
-	QString currentFont();
+	QString currentFont() const;
 	void rebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
 public slots:
@@ -125,11 +124,10 @@ class FontFamilyDelegate : public QAbstractItemDelegate
 		QSize sizeHint(const QStyleOptionViewItem &option,
 					   const QModelIndex &index) const Q_DECL_OVERRIDE;
 
-		QFontDatabase::WritingSystem writingSystem;
+		QFontDatabase::WritingSystem writingSystem { QFontDatabase::Any };
 
 	protected:
 		QFont m_font;
-		static QPixmapCache pixmapCache;
 };
 
 class FontComboValidator : public QValidator

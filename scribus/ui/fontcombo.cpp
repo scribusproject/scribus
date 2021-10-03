@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGridLayout>
 #include <QLabel>
 #include <QPixmap>
+#include <QPixmapCache>
 #include <QStringList>
 #include <QToolTip>
 
@@ -111,7 +112,6 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		prefsManager(PrefsManager::instance()),
 		showLabels(labels)
 {
-	currDoc = nullptr;
 	ttfFont = IconManager::instance().loadPixmap("font_truetype16.png");
 	otfFont = IconManager::instance().loadPixmap("font_otf16.png");
 	psFont = IconManager::instance().loadPixmap("font_type1_16.png");
@@ -200,7 +200,7 @@ void FontComboH::styleSelected(int id)
 	emit fontSelected(fontFamily->currentText() + " " + fontStyle->itemText(id));
 }
 
-QString FontComboH::currentFont()
+QString FontComboH::currentFont() const
 {
 	return fontFamily->currentText() + " " + fontStyle->currentText();
 }
@@ -495,9 +495,8 @@ const ScFace& getScFace(const QString& className, const QString& text)
 
 FontFamilyDelegate::FontFamilyDelegate(QObject *parent)
 	: QAbstractItemDelegate(parent)
-	, writingSystem(QFontDatabase::Any)
 {
-	pixmapCache.setCacheLimit(64*1024);
+	QPixmapCache::setCacheLimit(64 * 1024);
 }
 
 void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -511,13 +510,13 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QString cacheKey = text + wh;
 	if (option.state & QStyle::State_Selected)
 		cacheKey += "-selected";
-	if (pixmapCache.find(cacheKey, &cachedPixmap))
+	if (QPixmapCache::find(cacheKey, &cachedPixmap))
 	{
 		painter->drawPixmap(option.rect.x(), option.rect.y(), cachedPixmap);
 		return;
 	}
 
-	QFontDatabase& fontDb = ScQApp->qtFontDatabase();
+	const QFontDatabase& fontDb = ScQApp->qtFontDatabase();
 	const ScFace& scFace = getScFace(this->parent()->metaObject()->className(), text);
 
 	QPixmap  pixmap(pixmapW, pixmapH);
@@ -591,7 +590,7 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 		int w = pixPainter.fontMetrics().horizontalAdvance(text + QLatin1String("  "));
 		pixPainter.setFont(font2);
 		invpixPainter.setFont(font2);
-		QString sample = fontDb.writingSystemSample(system);
+		QString sample = QFontDatabase::writingSystemSample(system);
 		if (system == QFontDatabase::Arabic)
 			sample = "أبجدية عربية";
 
@@ -626,8 +625,8 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 		painter->drawPixmap(option.rect.x(), option.rect.y(), invPixmap);
 	else
 		painter->drawPixmap(option.rect.x(), option.rect.y(), pixmap);
-	pixmapCache.insert(cacheKey, pixmap);
-	pixmapCache.insert(cacheKey+"-selected", invPixmap);
+	QPixmapCache::insert(cacheKey, pixmap);
+	QPixmapCache::insert(cacheKey + "-selected", invPixmap);
 }
 
 bool FontFamilyDelegate::helpEvent(QHelpEvent * event, QAbstractItemView * view,

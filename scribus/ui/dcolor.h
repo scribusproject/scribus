@@ -25,23 +25,25 @@ class SCRIBUS_API DelColor : public QDialog
 public:
 	DelColor(QWidget* parent, const ColorList& colorList, const QString& colorName, bool haveDoc );
 	~DelColor() {};
-	const QString &getReplacementColor();
+
+	const QString &getReplacementColor() const;
 
 private:
-	QLabel* deleteLabel;
-	QLabel* colorToDelLabel;
-	QLabel* replaceLabel;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	ColorCombo* replacementColData;
-	QVBoxLayout* dialogLayout;
-	QGridLayout* delColorLayout;
-	QHBoxLayout* okCancelLayout;
+	QLabel* deleteLabel { nullptr };
+	QLabel* colorToDelLabel { nullptr };
+	QLabel* replaceLabel { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
+	ColorCombo* replacementColData { nullptr };
+	QVBoxLayout* dialogLayout { nullptr };
+	QGridLayout* delColorLayout { nullptr };
+	QHBoxLayout* okCancelLayout { nullptr };
+
 	QString replacementColor;
 	ColorList cList;
 
 private slots:
-    virtual void ReplaceColor(int);
+	virtual void ReplaceColor(int);
 };
 
 #endif // DELCOLOR_H

@@ -32,8 +32,8 @@ public:
 	void setNoEmbeddingEnabled(bool enabled);
 	
 private:
-	bool m_allowNoFontEmbedding;
-	FontEmbeddingModel* m_fontEmbeddingModel; 
+	bool m_allowNoFontEmbedding { true };
+	FontEmbeddingModel* m_fontEmbeddingModel { nullptr };
 };
 
 #endif

@@ -42,15 +42,16 @@ for which a new license (GPL+exception) is in place.
 
 
 
-EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
+EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc )
+	: QDialog( parent ),
+	  m_doc(docc),
+	  m_item(item)
 {
 	setModal(true);
 	setWindowTitle( tr( "Image Effects" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	m_item = item;
+
 	effectsList = m_item->effectsInUse;
-	m_doc = docc;
-	currentOptions = nullptr;
 
 //	CMSettings cms(docc, "", Intent_Perceptual);
 //	cms.allowColorManagement(false);
@@ -61,7 +62,6 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	m_image.loadPicture(m_item->Pfile, m_item->pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, 72, &mode);
 	int iw = m_image.width();
 	int ih = m_image.height();
-	m_imageScale = 1.0;
 	if ((iw > 220) || (ih > 220))
 	{
 		double sx = iw / 220.0;
@@ -755,9 +755,9 @@ void EffectsDialog::createPreview()
 	m_time.start();
 }
 
-void EffectsDialog::saveValues(bool final)
+void EffectsDialog::saveValues(bool finalValues)
 {
-	selectEffectHelper(final);
+	selectEffectHelper(finalValues);
 	effectsList.clear();
 	struct ImageEffect ef;
 	for (int e = 0; e < usedEffects->count(); ++e)
@@ -795,7 +795,7 @@ void EffectsDialog::saveValues(bool final)
 		if (usedEffects->item(e)->text() == tr("Blur"))
 		{
 			ef.effectCode = ImageEffect::EF_BLUR;
-			if (final)
+			if (finalValues)
 				ef.effectParameters = QString("%1 1.0").arg(blRadius->value() * m_imageScale);
 			else
 				ef.effectParameters = QString("%1 1.0").arg(blRadius->value());
@@ -1394,7 +1394,7 @@ void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
 	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
-void EffectsDialog::selectEffectHelper(bool final)
+void EffectsDialog::selectEffectHelper(bool finalValues)
 {
 	if (currentOptions != nullptr)
 	{
@@ -1432,7 +1432,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 		{
 			QString efval;
 			QString tmp;
-			if (!final)
+			if (!finalValues)
 				tmp.setNum(blRadius->value());
 			else
 				tmp.setNum(blRadius->value()*m_imageScale);

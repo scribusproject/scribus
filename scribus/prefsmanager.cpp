@@ -550,7 +550,7 @@ void PrefsManager::initDefaultActionKeys()
 
 void PrefsManager::applyLoadedShortCuts()
 {
-	QMap<QString, QPointer<ScrAction> > &actions = ScCore->primaryMainWindow()->scrActions;
+	const auto &actions = ScCore->primaryMainWindow()->scrActions;
 
 	for (auto it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it)
 	{
@@ -775,36 +775,43 @@ bool PrefsManager::copyOldAppConfigAndData()
 
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath() + "/.scribus.rc");
-	QFileInfo oldPi = QFileInfo(oldPR);
+	QFileInfo oldPi(oldPR);
 	if (oldPi.exists())
 		moveFile(oldPR, m_prefsLocation + "scribus.rc");
+
 	QString oldPR2 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusfont.rc");
-	QFileInfo oldPi2 = QFileInfo(oldPR2);
+	QFileInfo oldPi2(oldPR2);
 	if (oldPi2.exists())
 		moveFile(oldPR2, m_prefsLocation + "scribusfont.rc");
+
 	QString oldPR3 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusscrap.scs");
-	QFileInfo oldPi3 = QFileInfo(oldPR3);
+	QFileInfo oldPi3(oldPR3);
 	if (oldPi3.exists())
 		moveFile(oldPR3, m_prefsLocation + "scrap.scs");
+
 	QString oldPrefsLocation(ScPaths::oldApplicationDataDir());
 	QString oldPR4 = QDir::toNativeSeparators(oldPrefsLocation + "scribus150.rc");
-	QFileInfo oldPi4 = QFileInfo(oldPR4);
+	QFileInfo oldPi4(oldPR4);
 	if (oldPi4.exists())
 		moveFile(oldPR4, m_prefsLocation + "scribus150.rc");
+
 	QString oldPR5 = QDir::toNativeSeparators(oldPrefsLocation + "scrap150.scs");
-	QFileInfo oldPi5 = QFileInfo(oldPR5);
+	QFileInfo oldPi5(oldPR5);
 	if (oldPi5.exists())
 		moveFile(oldPR5, m_prefsLocation + "scrap150.scs");
+
 	QString oldPR6 = QDir::toNativeSeparators(oldPrefsLocation + "prefs150.xml");
-	QFileInfo oldPi6 = QFileInfo(oldPR6);
+	QFileInfo oldPi6(oldPR6);
 	if (oldPi6.exists())
 		moveFile(oldPR6, m_prefsLocation + "prefs150.xml");
+
 	QString oldPR7 = QDir::toNativeSeparators(oldPrefsLocation + "scripter150.rc");
-	QFileInfo oldPi7 = QFileInfo(oldPR7);
+	QFileInfo oldPi7(oldPR7);
 	if (oldPi7.exists())
 		moveFile(oldPR7, m_prefsLocation + "scripter150.rc");
+
 	QString oldPR8 = QDir::toNativeSeparators(oldPrefsLocation + "checkfonts.xml");
-	QFileInfo oldPi8 = QFileInfo(oldPR8);
+	QFileInfo oldPi8(oldPR8);
 	if (oldPi8.exists())
 		moveFile(oldPR8, m_prefsLocation + "checkfonts150.xml");
 
@@ -1152,7 +1159,7 @@ void PrefsManager::setShowStartupDialog(const bool showDialog)
 	appPrefs.uiPrefs.showStartupDialog=showDialog;
 }
 
-const ColorList& PrefsManager::colorSet()
+const ColorList& PrefsManager::colorSet() const
 {
 	return appPrefs.colorPrefs.DColors;
 }
@@ -1162,12 +1169,12 @@ ColorList* PrefsManager::colorSetPtr()
 	return &appPrefs.colorPrefs.DColors;
 }
 
-const QString& PrefsManager::colorSetName()
+const QString& PrefsManager::colorSetName() const
 {
 	return appPrefs.colorPrefs.DColorSet;
 }
 
-bool PrefsManager::isToolColor(const QString& name)
+bool PrefsManager::isToolColor(const QString& name) const
 {
 	return isToolColor(appPrefs.itemToolPrefs, name);
 }
@@ -1199,7 +1206,7 @@ bool PrefsManager::isToolColor(const struct ItemToolPrefs& settings, const QStri
 	return false;
 }
 
-QStringList PrefsManager::toolColorNames()
+QStringList PrefsManager::toolColorNames() const
 {
 	return toolColorNames(appPrefs.itemToolPrefs);
 }
@@ -2419,7 +2426,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (!m_importingFrom12 && dc.tagName() == "Shortcut")
 		{
 			appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("Action")].actionName = dc.attribute("Action");
-			QKeySequence newKeySequence = QKeySequence(dc.attribute("KeySequence"));
+			QKeySequence newKeySequence(dc.attribute("KeySequence"));
 			appPrefs.keyShortcutPrefs.KeyActions[dc.attribute("Action")].keySequence = newKeySequence;
 		}
 		if (dc.tagName() == "Recent")
@@ -2602,7 +2609,7 @@ bool PrefsManager::readPref(const QString& filePath)
 				appPrefs.colorPrefs.DColors.clear();
 				appPrefs.colorPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
 				appPrefs.colorPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
-				ScColor cc = ScColor(255, 255, 255, 255);
+				ScColor cc(255, 255, 255, 255);
 				cc.setRegistrationColor(true);
 				appPrefs.colorPrefs.DColors.insert("Registration", cc);
 				appPrefs.colorPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));

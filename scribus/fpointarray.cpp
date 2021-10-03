@@ -304,7 +304,7 @@ void FPointArray::addPoint(const FPoint& p)
 
 bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const
 {
-	int i = QVector<FPoint>::count()-4;
+	int i = QVector<FPoint>::count() - 4;
 	if (i < 0)
 		return false;
 	ConstIterator p = begin();
@@ -431,11 +431,11 @@ void FPointArray::pointTangentNormalAt(int seg, double t, FPoint* p, FPoint* tn,
 void FPointArray::pointDerivativesAt(int seg, double t, FPoint* p, FPoint* d1, FPoint* d2) const
 {
 	// Copy points.
-	FPoint* q = new FPoint[ 4 ];
+	FPoint q[ 4 ];
 	q[ 0 ] = point(seg);
-	q[ 1 ] = point(seg+1);
-	q[ 3 ] = point(seg+2);
-	q[ 2 ] = point(seg+3);
+	q[ 1 ] = point(seg + 1);
+	q[ 3 ] = point(seg + 2);
+	q[ 2 ] = point(seg + 3);
 	// The De Casteljau algorithm.
 	for (unsigned short j = 1; j <= 3; j++)
 	{
@@ -459,7 +459,6 @@ void FPointArray::pointDerivativesAt(int seg, double t, FPoint* p, FPoint* d1, F
 	// Save point.
 	if (p)
 		*p = q[ 0 ];
-	delete[] (q);
 }
 
 bool FPointArray::isBezierClosed() const
@@ -544,7 +543,7 @@ QString FPointArray::svgPath(bool closed) const
 
 QPainterPath FPointArray::toQPainterPath(bool closed) const
 {
-	QPainterPath m_path = QPainterPath();
+	QPainterPath m_path;
 	bool nPath = true;
 	bool first = true;
 	FPoint np, np1, np2, np3, np4, firstP;
@@ -648,12 +647,12 @@ void FPointArray::svgLineTo(double x1, double y1)
 	m_svgState->WasM = false;
 	if (size() > 3)
 	{
-		FPoint b1 = point(size()-4);
-		FPoint b2 = point(size()-3);
-		FPoint b3 = point(size()-2);
-		FPoint b4 = point(size()-1);
-		FPoint n1 = FPoint(m_svgState->CurrX, m_svgState->CurrY);
-		FPoint n2 = FPoint(x1, y1);
+		FPoint b1 = point(size() - 4);
+		FPoint b2 = point(size() - 3);
+		FPoint b3 = point(size() - 2);
+		FPoint b4 = point(size() - 1);
+		FPoint n1(m_svgState->CurrX, m_svgState->CurrY);
+		FPoint n2(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
@@ -675,14 +674,14 @@ void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, do
 	m_svgState->WasM = false;
 	if (m_svgState->PathLen > 3)
 	{
-		FPoint b1 = point(size()-4);
-		FPoint b2 = point(size()-3);
-		FPoint b3 = point(size()-2);
-		FPoint b4 = point(size()-1);
-		FPoint n1 = FPoint(m_svgState->CurrX, m_svgState->CurrY);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x2, y2);
+		FPoint b1 = point(size() - 4);
+		FPoint b2 = point(size() - 3);
+		FPoint b3 = point(size() - 2);
+		FPoint b4 = point(size() - 1);
+		FPoint n1(m_svgState->CurrX, m_svgState->CurrY);
+		FPoint n2(x1, y1);
+		FPoint n3(x3, y3);
+		FPoint n4(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}

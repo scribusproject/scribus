@@ -13,7 +13,6 @@ FontEmbeddingCombo::FontEmbeddingCombo(QWidget* parent) : QComboBox(parent)
 #ifdef Q_OS_MAC
 //	setStyle( new FontEmbeddingCombo::ScMacStyle() );
 #endif
-	m_allowNoFontEmbedding = true;
 	m_fontEmbeddingModel = new FontEmbeddingModel(this);
 	
 	setEditable(false);
