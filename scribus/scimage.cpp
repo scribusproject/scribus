@@ -2134,9 +2134,10 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	profile->resize(0);
 	*components = 0;
 
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return;
+
 	QString ext = fi.suffix().toLower();
 	QString ext2 = getImageType(fn);
 	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
@@ -2250,26 +2251,24 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	if (realCMYK != nullptr)
 		*realCMYK = false;
 	bool bilevel = false;
-//	short resolutionunit = 0;
 	RequestType reqType = requestType;
 	int cmsFlags = 0;
 	int cmsProofFlags = 0;
-	QScopedPointer<ScImgDataLoader> pDataLoader;
-	QFileInfo fi = QFileInfo(fn);
+
+	QString profileName;
+	bool hasEmbeddedProfile = false;
+	ScColorTransform xform;
+	ScColorProfile inputProf;
+
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return ret;
 	QString ext = fi.suffix().toLower();
-	QString profileName;
-	bool hasEmbeddedProfile = false;
-	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+
 	QStringList fmtImg;
-	ScColorTransform xform;
-	ScColorProfile inputProf;
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	for (int i = 0; i < fmtList.count(); i++)
-	{
 		fmtImg.append( QString(fmtList[i].toLower()) );
-	}
-//	bool found = false;
 
 	// Do some basic checks when requestType is OutputProfile
 	if (requestType == OutputProfile)
@@ -2286,6 +2285,8 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	QString ext2 = getImageType(fn);
 	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
+
+	QScopedPointer<ScImgDataLoader> pDataLoader;
 	if (extensionIndicatesPDF(ext))
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	else if (extensionIndicatesEPSorPS(ext))

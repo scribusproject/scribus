@@ -18,59 +18,89 @@ struct RGBColorF;
 
 struct RGBColor
 {
-	int r;
-	int g;
-	int b;
+	int r { 0 };
+	int g { 0 };
+	int b { 0 };
 	
-	RGBColor() {r=g=b=0;}
+	RGBColor() = default;
 
-	void getRgb(RGBColorF& rgb);
-	void getValues(int& vr, int& vg, int& vb) { vr = r; vg = g; vb = b; }
+	void getRgb(RGBColorF& rgb) const;
+	void getValues(int& vr, int& vg, int& vb) const
+	{
+		vr = r;
+		vg = g;
+		vb = b;
+	}
 };
 
 struct RGBColorF
 {
-	double r;
-	double g;
-	double b;
+	double r { 0.0 };
+	double g { 0.0 };
+	double b { 0.0 };
 	
-	RGBColorF() {r=g=b=0.0;}
+	RGBColorF() = default;
 
-	void getRgb(RGBColor& rgb);
-	void getValues(double& vr, double& vg, double& vb) { vr = r; vg = g; vb = b; }
-	void toHsv(HSVColorF& hsv);
+	void getRgb(RGBColor& rgb) const;
+	void getValues(double& vr, double& vg, double& vb) const
+	{
+		vr = r;
+		vg = g;
+		vb = b;
+	}
+	void toHsv(HSVColorF& hsv) const;
 };
 
 struct CMYKColor
 {
-	int c;
-	int m;
-	int y;
-	int k;
+	int c { 0 };
+	int m { 0 };
+	int y { 0 };
+	int k { 0 };
 	
-	CMYKColor() {c=m=y=k=0;}
-	void getValues(int& vc, int& vm, int& vy, int& vk) { vc = c; vm = m; vy = y; vk = k; }
+	CMYKColor() = default;
+
+	void getValues(int& vc, int& vm, int& vy, int& vk) const
+	{
+		vc = c;
+		vm = m;
+		vy = y;
+		vk = k;
+	}
 };
 
 struct CMYKColorF
 {
-	double c;
-	double m;
-	double y;
-	double k;
+	double c { 0.0 };
+	double m { 0.0 };
+	double y { 0.0 };
+	double k { 0.0 };
 	
-	CMYKColorF() {c=m=y=k=0.0;}
-	void getValues(double& vc, double& vm, double& vy, double& vk) { vc = c; vm = m; vy = y; vk = k; }
+	CMYKColorF() = default;
+
+	void getValues(double& vc, double& vm, double& vy, double& vk) const
+	{
+		vc = c;
+		vm = m;
+		vy = y;
+		vk = k;
+	}
 };
 
 struct HSVColorF
 {
-	double h;
-	double s;
-	double v;
+	double h { 0.0 };
+	double s { 0.0 };
+	double v { 0.0 };
 	
-	HSVColorF() { h = s = v = 0.0; }
-	void getValues(double& vh, double& vs, double& vv) { vh = h; vs = s; vv = v; }
+	HSVColorF() = default;
+
+	void getValues(double& vh, double& vs, double& vv) const
+	{
+		vh = h;
+		vs = s;
+		vv = v;
+	}
 	void toRgb(RGBColor& rgb)  const;
 	void toRgb(RGBColorF& rgb) const;
 };

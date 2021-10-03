@@ -154,12 +154,10 @@ private:
 	static const uint MENU_HEIGHT = 5;
 	std::vector<QString> undoItems;
 	std::vector<QString> redoItems;
-	/* BnF buttons
-	QToolButton* undoButton;
-	QToolButton* redoButton;
-	*/
-	QMenu* undoMenu;
-	QMenu* redoMenu;
+
+	QMenu* undoMenu { nullptr };
+	QMenu* redoMenu { nullptr };
+
 	void updateUndoMenu();
 	void updateRedoMenu();
 
@@ -168,7 +166,7 @@ public:
 	UndoWidget(QWidget* parent = nullptr, const char* name = 0);
 
 	/** @brief Destroys the widget */
-	virtual ~UndoWidget();
+	virtual ~UndoWidget() = default;
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear() override;
@@ -273,7 +271,7 @@ public:
 	UndoPalette(QWidget* parent = nullptr, const char* name = 0);
 
 	/** @brief Destroys the widget */
-	~UndoPalette();
+	~UndoPalette() = default;
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear() override;
@@ -306,21 +304,21 @@ private:
 	{
 	private:
 		/** @brief An icon for the undo target */
-		QPixmap *targetpixmap { nullptr };
+		QPixmap *m_targetPixmap { nullptr };
 		/** @brief An icon for the undo state (action) */
-		QPixmap *actionpixmap { nullptr };
+		QPixmap *m_actionPixmap { nullptr };
 		/** @brief Name of the target of the state (action) */
-		QString target;
+		QString m_target;
 		/** @brief Undo action's name */
-		QString action;
+		QString m_action;
 		/** @brief Description of the action */
-		QString description;
+		QString m_description;
 		/** @brief Does this item describe an undo action if false it's a redo action */
-		bool isUndoAction_ { true };
+		bool m_isUndoAction { true };
 
 	public:
 		/** @brief Create an empty UndoItem object */
-		UndoItem();
+		UndoItem() = default;
 		/**
 		 * @brief Create a copy of <code>another</code> UndoItem instance.
 		 * @param another UndoItem instance to copy
@@ -345,13 +343,11 @@ private:
                  QPixmap *actionPixmap,
 		         bool isUndoAction,
 				 QListWidget* parent = nullptr);
-		~UndoItem();
+		~UndoItem() = default;
 
-		/*void paint(QPainter *painter);
-		int height(const QListWidget*) const;
-		int width(const QListWidget*) const;*/
-		QString getDescription();
-		bool isUndoAction();
+		QString getDescription() const;
+
+		bool isUndoAction() const;
 		void setUndoAction(bool isUndo);
 	};
 	

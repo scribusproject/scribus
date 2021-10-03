@@ -183,7 +183,7 @@ public:
 	 * @brief Returns true if in transaction mode if not will return false.
 	 * @return bool true if in transaction mode if not will return false
 	 */
-	bool isTransactionMode();
+	bool isTransactionMode() const;
 	
 	/**
 	 * @brief Register an UndoGui to the UndoManager.
@@ -234,14 +234,14 @@ public:
 	 * or disabled depending on the status of the undo stack.
 	 * @return true if there are actions that can be undone otherwise returns false
 	 */
-	bool hasUndoActions(int uid = -1);
+	bool hasUndoActions(int uid = -1) const;
 	
 	/**
 	 * @brief Returns true if there are actions that can be redone otherwise returns false.
 	 * @return true if there are actions that can be redone otherwise returns false
 	 * @sa UndoManager::hasUndoActions()
 	 */
-	bool hasRedoActions(int uid = -1);
+	bool hasRedoActions(int uid = -1) const;
 	
 	/**
 	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
@@ -255,13 +255,13 @@ public:
 	 * @brief Returns the maximum length of the undostack.
 	 * @return the maximum length of the undostack
 	 */
-	int getHistoryLength();
+	int getHistoryLength() const;
 
 	/**
 	 * @brief Returns true if in global mode and false if in object specific mode.
 	 * @return true if in global mode and false if in object specific mode
 	 */
-	bool isGlobalMode();
+	bool isGlobalMode() const;
 
 	UndoState* getLastUndo();
 
@@ -288,7 +288,7 @@ private:
 	 */
 	static int m_undoEnabledCounter;
 
-	PrefsContext *prefs_;
+	PrefsContext* prefs_ { nullptr };
 
 	/** @brief Doc to which the currently active stack belongs */
 	QString m_currentDoc;
@@ -297,7 +297,7 @@ private:
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
-	int m_currentUndoObjectId;
+	int m_currentUndoObjectId { -1 };
 
 	/**
 	 * @brief Stores the transactions which are currently started but not

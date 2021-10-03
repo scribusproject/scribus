@@ -167,19 +167,6 @@ private:
 
 class SCRIBUS_API ColorList : public QMap<QString, ScColor>
 {
-protected:
-	QPointer<ScribusDoc> m_doc;
-	bool m_retainDoc;
-
-	/** \brief Ensure availability of black color. */
-	void ensureBlack();
-
-	/** \brief Ensure availability of white color. */
-	void ensureWhite();
-
-	/** \brief Ensure availability of registration color. */
-	void ensureRegistration();
-
 public:
 	ColorList(ScribusDoc* doc = nullptr, bool retainDoc = false);
 
@@ -201,7 +188,20 @@ public:
 	void ensureDefaultColors();
 
 	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
-	QString tryAddColor(QString name, ScColor col);
+	QString tryAddColor(QString name, const ScColor& col);
+
+protected:
+	QPointer<ScribusDoc> m_doc;
+	bool m_retainDoc { false };
+
+	/** \brief Ensure availability of black color. */
+	void ensureBlack();
+
+	/** \brief Ensure availability of white color. */
+	void ensureWhite();
+
+	/** \brief Ensure availability of registration color. */
+	void ensureRegistration();
 };
 
 #endif

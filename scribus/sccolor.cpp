@@ -49,13 +49,11 @@ ScColor::ScColor(int r, int g, int b)
 }
 
 ScColor::ScColor(double l, double a, double b)
+	   : m_L_val(l),
+	     m_a_val(a),
+	     m_b_val(b),
+	     m_Model(colorModelLab)
 {
-	m_Model = colorModelLab;
-
-	m_L_val = l;
-	m_a_val = a;
-	m_b_val = b;
-
 	m_values[0] = 0.6;
 	m_values[1] = 0.4;
 	m_values[2] = 0.2;
@@ -411,9 +409,10 @@ void ScColor::setSpotColor(bool s)
 }
 
 ColorList::ColorList(ScribusDoc* doc, bool retainDoc)
+	     : m_doc(doc),
+	       m_retainDoc(retainDoc)
 {
-	m_doc = doc;
-	m_retainDoc = retainDoc;
+
 }
 
 void ColorList::setDocument(ScribusDoc* doc)
@@ -538,12 +537,12 @@ void ColorList::ensureWhite()
 
 void ColorList::ensureRegistration()
 {
-	ScColor cc = ScColor(255, 255, 255, 255);
+	ScColor cc(255, 255, 255, 255);
 	cc.setRegistrationColor(true);
 	insert("Registration", cc);
 }
 
-QString ColorList::tryAddColor(QString name, ScColor col)
+QString ColorList::tryAddColor(QString name, const ScColor& col)
 {
 	if (contains(name))
 		return name;

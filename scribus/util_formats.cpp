@@ -157,10 +157,6 @@ FormatsManager::FormatsManager()
 	updateSupportedImageFormats(m_supportedImageFormats);
 }
 
-FormatsManager::~FormatsManager()
-{
-}
-
 FormatsManager* FormatsManager::instance()
 {
 	if (m_instance == nullptr)
@@ -175,12 +171,7 @@ void FormatsManager::deleteInstance()
 	m_instance = nullptr;
 }
 
-void FormatsManager::imageFormatSupported(const QString& ext)
-{
-// 	return m_supportedImageFormats.contains(QByteArray(ext).toLatin1());
-}
-
-void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats)
+void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats) const
 {
 	QMapIterator<int, QStringList> it(m_fmts);
 	while (it.hasNext())
@@ -195,7 +186,7 @@ void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedIma
 	}
 }
 
-QString FormatsManager::nameOfFormat(int type)
+QString FormatsManager::nameOfFormat(int type) const
 {
 	QMapIterator<int, QString> it(m_fmtNames);
 	while (it.hasNext())
@@ -207,7 +198,7 @@ QString FormatsManager::nameOfFormat(int type)
 	return QString();
 }
 
-QStringList FormatsManager::mimetypeOfFormat(int type)
+QStringList FormatsManager::mimetypeOfFormat(int type) const
 {
 	QMapIterator<int, QStringList> it(m_fmtMimeTypes);
 	while (it.hasNext())
@@ -219,7 +210,7 @@ QStringList FormatsManager::mimetypeOfFormat(int type)
 	return QStringList();
 }
 
-QString FormatsManager::extensionsForFormat(int type)
+QString FormatsManager::extensionsForFormat(int type) const
 {
 	QString a;
 	QString b;
@@ -228,7 +219,7 @@ QString FormatsManager::extensionsForFormat(int type)
 	return b;
 }
 
-QString FormatsManager::fileDialogFormatList(int type)
+QString FormatsManager::fileDialogFormatList(int type) const
 {
 	QString a;
 	QString b;
@@ -237,7 +228,7 @@ QString FormatsManager::fileDialogFormatList(int type)
 	return a + b + ";;" +c;
 }
 
-QString FormatsManager::extensionListForFormat(int type, int listType)
+QString FormatsManager::extensionListForFormat(int type, int listType) const
 {
 	QString nameMatch;
 	QString separator(listType==0 ? " *." : "|");
@@ -277,7 +268,7 @@ QString FormatsManager::extensionListForFormat(int type, int listType)
 	return nameMatch;
 }
 
-void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly)
+void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly) const
 {
 	QString allFormats = QObject::tr("All Supported Formats")+" (";
 	QStringList formats;
@@ -294,13 +285,13 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 				continue;
 			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
 				continue;
+
 			if (first)
-				first=false;
+				first = false;
 			else
-			{
 				allFormats += " ";
-			}
-			QString text=m_fmtNames[it.key()] + " (";
+
+			QString text = m_fmtNames[it.key()] + " (";
 			QStringListIterator itSL(it.value());
 			while (itSL.hasNext())
 			{
@@ -323,10 +314,10 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 		}
 		++n;
 	}
-	formatList+=allFormats + ");;";
+	formatList += allFormats + ");;";
 	formats.sort(Qt::CaseInsensitive);
-	formatText+=formats.join(";;");
-	formatAll=QObject::tr("All Files (*)");
+	formatText += formats.join(";;");
+	formatAll = QObject::tr("All Files (*)");
 }
 
 bool extensionIndicatesEPS(const QString &ext)
@@ -387,41 +378,43 @@ bool extensionIndicatesPattern(const QString &ext)
 
 QString getImageType(const QString& filename)
 {
-	QString ret;
 	QFile f(filename);
 	QFileInfo fi(f);
-	if (fi.exists())
-	{
-		QByteArray buf(24, ' ');
-		if (f.open(QIODevice::ReadOnly))
-		{
-			f.read(buf.data(), 24);
-			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
-				ret = "eps";
-			else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
-				ret = "eps";
-			else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
-				ret = "gif";
-			else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
-				ret = "jpg";
-			else if ((buf[20] == 'G') && (buf[21] == 'P') && (buf[22] == 'A') && (buf[23] == 'T'))
-				ret = "pat";
-			else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
-				ret = "pdf";
-			else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
-				ret = "pgf";
-			else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
-				ret = "png";
-			else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
-				ret = "psd";
-			else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
-				ret = "tif";
-			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
-				ret = "xpm";
-			else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
-				ret = "svm";
-			f.close();
-		}
-	}
+	if (!fi.exists())
+		return QString();
+
+	if (!f.open(QIODevice::ReadOnly))
+		return QString();
+
+	QString ret;
+	QByteArray buf(24, ' ');
+	f.read(buf.data(), 24);
+	
+	if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
+		ret = "eps";
+	else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
+		ret = "eps";
+	else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
+		ret = "gif";
+	else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
+		ret = "jpg";
+	else if ((buf[20] == 'G') && (buf[21] == 'P') && (buf[22] == 'A') && (buf[23] == 'T'))
+		ret = "pat";
+	else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
+		ret = "pdf";
+	else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
+		ret = "pgf";
+	else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
+		ret = "png";
+	else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
+		ret = "psd";
+	else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
+		ret = "tif";
+	else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
+		ret = "xpm";
+	else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
+		ret = "svm";
+	f.close();
+
 	return ret;
 }

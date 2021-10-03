@@ -237,8 +237,10 @@ QString getGSVersion()
 	QProcess proc;
 	proc.start(gsExe.toLocal8Bit(), args);
 	if (proc.waitForStarted(5000))
+	{
 		while (!proc.waitForFinished(5000))
-			qApp->processEvents();
+			QCoreApplication::processEvents();
+	}
 	QString gsVer;
 	if (proc.exitStatus() == QProcess::NormalExit)
 		gsVer = proc.readAllStandardOutput();
@@ -376,14 +378,16 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 		DWORD keyIndex = 0;
 		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &regVersionSize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
 		{
-			int gsNumericVer, gsMajor, gsMinor;
+			int gsNumericVer { 0 };
+			int gsMajor { 0 };
+			int gsMinor { 0 };
 			wcscpy(regPath, (const wchar_t*) regKey.utf16());
 			wcscat(regPath, L"\\");
 			wcscat(regPath, regVersion);
 			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, regPath, 0, flags, &hKey2) == ERROR_SUCCESS)
 			{
 				size = sizeof(gsPath) - 2;
-				if (RegQueryValueExW(hKey2, L"GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
+				if (RegQueryValueExW(hKey2, L"GS_DLL", nullptr, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
 				{
 					// We now have GhostScript dll path, but we want gswin32c.exe
 					// Normally gswin32c.exe and gsdll.dll are in the same directory

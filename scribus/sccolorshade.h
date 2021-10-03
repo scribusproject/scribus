@@ -34,10 +34,10 @@ public:
 	ScColorShade(const QColor& c, int level);
 	ScColorShade(const ScColor& c, int level);
 
-	ScColor getShadedColor();
+	ScColor getShadedColor() const;
 
 	ScColor color;
-	int shade;
+	int shade { 100 };
 };
 
 #endif

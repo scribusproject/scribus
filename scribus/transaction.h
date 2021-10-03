@@ -50,7 +50,7 @@ public:
 	class TransactionStateBase : public QSharedData
 	{
 	public:
-		virtual ~TransactionStateBase() {};
+		virtual ~TransactionStateBase() = default;
 
 		Status m_status;
 	};
@@ -67,7 +67,7 @@ public:
 	    can cancel in the subclass destructor; the commit here then will do nothing.
 	    Don't forget to set m_data to NULL if you free the m_data pointer!
 	 */
-	virtual ~Transaction() {};
+	virtual ~Transaction() = default;
 
 	/**
 		Test if transaction has some valid data 

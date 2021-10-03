@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "undoobject.h"
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
-	transactionCode(0),
 	m_actionName(name),
 	m_actionDescription(description),
 	m_actionPixmap(pixmap),
@@ -89,45 +88,38 @@ UndoObject* UndoState::undoObject()
 	return m_undoObject;
 }
 
-UndoState::~UndoState()
-{
-
-}
-
 /*** SimpleState **************************************************************/
 
 SimpleState::SimpleState(const QString& name, const QString& description, QPixmap* pixmap)
-: UndoState(name, description, pixmap)
+           : UndoState(name, description, pixmap)
 {
 
 }
 
-bool SimpleState::contains(const QString& key)
+bool SimpleState::contains(const QString& key) const
 {
 	return m_values.contains(key);
 }
 
-QVariant SimpleState::variant(const QString& key, const QVariant& def)
+QVariant SimpleState::variant(const QString& key, const QVariant& def) const
 {
 	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
 	if (it != m_values.constEnd())
 		return it.value();
 
-	m_values[key] = def;
 	return def;
 }
 
-QString SimpleState::get(const QString& key, const QString& def)
+QString SimpleState::get(const QString& key, const QString& def) const
 {
 	QMap<QString, QVariant>::const_iterator it = m_values.constFind(key);
 	if (it != m_values.constEnd())
 		return it.value().toString();
 
-	m_values[key] = def;
 	return def;
 }
 
-bool SimpleState::getBool(const QString& key, bool def)
+bool SimpleState::getBool(const QString& key, bool def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -137,7 +129,7 @@ bool SimpleState::getBool(const QString& key, bool def)
 	return ret;
 }
 
-int SimpleState::getInt(const QString& key, int def)
+int SimpleState::getInt(const QString& key, int def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -147,7 +139,7 @@ int SimpleState::getInt(const QString& key, int def)
 	return ret;
 }
 
-uint SimpleState::getUInt(const QString& key, uint def)
+uint SimpleState::getUInt(const QString& key, uint def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -157,7 +149,7 @@ uint SimpleState::getUInt(const QString& key, uint def)
 	return ret;
 }
 
-double SimpleState::getDouble(const QString& key, double def)
+double SimpleState::getDouble(const QString& key, double def) const
 {
 	bool ok = false;
 	QVariant retVar = variant(key, QVariant(def));
@@ -167,7 +159,7 @@ double SimpleState::getDouble(const QString& key, double def)
 	return ret;
 }
 
-void* SimpleState::getVoidPtr(const QString& key, void* def)
+void* SimpleState::getVoidPtr(const QString& key, void* def) const
 {
 	void* ret = nullptr;
 	QVariant retVar = variant(key, QVariant::fromValue(def));
@@ -212,16 +204,11 @@ void SimpleState::set(const QString& key, void* ptr)
 	m_values[key] = QVariant::fromValue<void*>(ptr);
 }
 
-SimpleState::~SimpleState()
-{
-
-}
-
 /*** TransactionState *****************************************************/
 
 TransactionState::TransactionState() : UndoState(QString())
 {
-	m_size = 0;
+
 }
 
 UndoState* TransactionState::at(int index) const

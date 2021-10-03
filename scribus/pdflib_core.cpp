@@ -1775,6 +1775,7 @@ PdfFont PDFLibCore::PDF_EncodeCidFont(const QByteArray& fontName, ScFace& face, 
 		}
 		if (tmp2.isEmpty())
 			tmp2 = "0000";
+
 		toUnicodeMap += "<" + Pdf::toAscii(tmp) + "> <" + Pdf::toAscii(tmp2) + ">\n";
 		toUnicodeMapCounter++;
 		if (toUnicodeMapCounter == 100)

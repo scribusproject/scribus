@@ -66,9 +66,9 @@ public:
 	 * @param description Description of the state (action)
 	 * @param pixmap Pointer to an icon describing the action visually.
 	 */
-	UndoState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr);
+	UndoState(const QString& name, const QString& description = QString(), QPixmap* pixmap = nullptr);
 
-	virtual ~UndoState();
+	virtual ~UndoState() = default;
 
 	/**
 	 * @brief Returns name of the state (action).
@@ -118,7 +118,8 @@ public:
 	virtual void setUndoObject(UndoObject *object);
 	/** @brief return the UndoObject this state belongs to */
 	virtual UndoObject* undoObject();
-	int transactionCode;
+
+	int transactionCode { 0 };
 
 private:
 	/** @brief Name of the state (operation) (f.e. Move object) */
@@ -152,16 +153,16 @@ public:
 	 * @param description Description of the state (action)
 	 * @param pixmap Pointer to an icon describing the state (action) visually.
 	 */
-	SimpleState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr);
+	SimpleState(const QString& name, const QString& description = QString(), QPixmap* pixmap = nullptr);
 
-	virtual ~SimpleState();
+	~SimpleState() override = default;
 
 	/**
 	 * @brief Returns true if parameter key exists in the map.
 	 * @param key Key that is searched from the map
 	 * @return true if parameter key exists in the map if not false
 	 */
-	bool contains(const QString& key);
+	bool contains(const QString& key) const;
 
 	/**
 	 * @brief Returns the QString value attached to the key.
@@ -175,7 +176,7 @@ public:
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	QString get(const QString& key, const QString& def = QString());
+	QString get(const QString& key, const QString& def = QString()) const;
 
 	/**
 	 * @brief Returns the int value attached to the key.
@@ -192,7 +193,7 @@ public:
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	int getInt(const QString& key, int def = 0);
+	int getInt(const QString& key, int def = 0) const;
 
 	/**
 	 * @brief Returns the uint value attached to the key.
@@ -209,7 +210,7 @@ public:
 	 * from the map it will be added with the value described in the param
 	 * <code>def</code> which is then returned.
 	 */
-	uint getUInt(const QString& key, uint def = 0);
+	uint getUInt(const QString& key, uint def = 0) const;
 
 	/**
 	 * @brief Returns the double value attached to the key.
@@ -225,7 +226,7 @@ public:
 	 * from the map it will be added with the value described in the parameter
 	 * <code>def</code> which is then returned.
 	 */
-	double getDouble(const QString& key, double def = 0.0);
+	double getDouble(const QString& key, double def = 0.0) const;
 
 	/**
 	 * @brief Returns the boolean value attached to the key.
@@ -241,7 +242,7 @@ public:
 	 * from the map it will be added with the value described in the parameter
 	 * <code>def</code> which is then returned.
 	 */
-	bool getBool(const QString& key, bool def = false);
+	bool getBool(const QString& key, bool def = false) const;
 
 	/**
 	* @brief Returns the pointer value attached to the key.
@@ -257,7 +258,7 @@ public:
 	* from the map it will be added with the value described in the parameter
 	* <code>def</code> which is then returned.
 	*/
-	void* getVoidPtr(const QString& key, void* def = nullptr);
+	void* getVoidPtr(const QString& key, void* def = nullptr) const;
 
 	/**
 	 * @brief Set a key with no value, to be used only for configuring action type
@@ -312,7 +313,7 @@ private:
 	/** @brief QMap to store key-value pairs */
 	QMap<QString, QVariant> m_values;
 
-	QVariant variant(const QString& key, const QVariant& def);
+	QVariant variant(const QString& key, const QVariant& def) const;
 };
 
 /*** ItemState ***************************************************************************/
@@ -321,9 +322,10 @@ template<class C>
 class ScItemState : public SimpleState
 {
 public:
-	ScItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr)
+	ScItemState(const QString& name, const QString& description = QString(), QPixmap* pixmap = nullptr)
 	: SimpleState(name, description, pixmap) {}
-	~ScItemState() {}
+
+	~ScItemState() override = default;
 
 	void setItem(const C &c) { item_ = c; }
 	C getItem() const { return item_; }
@@ -337,9 +339,10 @@ private:
 class ScItemsState : public SimpleState
 {
 public:
-	ScItemsState(const QString& name, const QString& description = 0, QPixmap* pixmap = nullptr)
+	ScItemsState(const QString& name, const QString& description = QString(), QPixmap* pixmap = nullptr)
 	: SimpleState(name, description, pixmap) {}
-	~ScItemsState() {}
+
+	~ScItemsState() override = default;
 
 	void insertItem(QString itemname, void * item) { pointerMap.insert(itemname, item); }
 	void* getItem(const QString& itemname) const;
@@ -427,7 +430,7 @@ public:
 
 private:
 	/** @brief Number of undo states stored in this transaction */
-	uint m_size;
+	uint m_size { 0 };
 	/** @brief vector to keep the states in */
 	std::vector<UndoState*> m_states;
 };

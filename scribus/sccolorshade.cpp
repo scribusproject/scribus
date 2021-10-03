@@ -27,22 +27,23 @@ for which a new license (GPL+exception) is in place.
 ScColorShade::ScColorShade()
 {
 	color.setColor( 0, 0, 0, 0 );
-	shade = 100;
 }
 
 ScColorShade::ScColorShade( const QColor& c, int level )
+	        : color(c.red(), c.green(), c.blue()),
+	          shade(level)
 {
-	color = ScColor(c.red(), c.green(), c.blue());
-	shade = level;
+
 }
 
 ScColorShade::ScColorShade( const ScColor& c, int level )
+	        : color(c),
+	          shade(level)
 {
-	color = c;
-	shade = level;
+
 }
 
-ScColor ScColorShade::getShadedColor()
+ScColor ScColorShade::getShadedColor() const
 {
 	ScColor value;
 	if (color.getColorModel() == colorModelRGB)

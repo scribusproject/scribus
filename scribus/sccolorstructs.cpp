@@ -10,14 +10,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolorstructs.h"
 
-void RGBColor::getRgb(RGBColorF& rgbF)
+void RGBColor::getRgb(RGBColorF& rgbF) const
 {
 	rgbF.r = r / 255.0;
 	rgbF.g = g / 255.0;
 	rgbF.b = b / 255.0;
 }
 
-void RGBColorF::getRgb(RGBColor& rgb)
+void RGBColorF::getRgb(RGBColor& rgb) const
 {
 	double rgb_r = qMax(0.0, qMin(r, 1.0));
 	double rgb_g = qMax(0.0, qMin(g, 1.0));
@@ -28,7 +28,7 @@ void RGBColorF::getRgb(RGBColor& rgb)
 	rgb.b = qRound(rgb_b * 255.0);
 }
 
-void RGBColorF::toHsv(HSVColorF& hsv)
+void RGBColorF::toHsv(HSVColorF& hsv) const
 {
 	double rgb_r = qMax(0.0, qMin(r, 1.0));
 	double rgb_g = qMax(0.0, qMin(g, 1.0));

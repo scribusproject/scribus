@@ -81,39 +81,40 @@ bool ScLcms2ColorProfileImpl::isSuitableForOutput() const
 
 QString ScLcms2ColorProfileImpl::productDescription() const
 {
-	if (m_productDescription.isEmpty())
-	{
-		if (m_profileHandle)
-		{
+	if (!m_productDescription.isEmpty())
+		return m_productDescription;
+
+	if (m_profileHandle == nullptr)
+		return QString();
+
 #ifdef _WIN32
-			cmsUInt32Number descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
-			if (descSize > 0)
-			{
-				wchar_t* descData = (wchar_t*) malloc(descSize + sizeof(wchar_t));
-				if (descData)
-					descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descData && (descSize > 0))
-				{
-					uint stringLen = descSize / sizeof(wchar_t);
-					descData[stringLen] = 0;
-					m_productDescription = QString::fromWCharArray(descData);
-				}
-				free(descData);
-			}
-#else
-			cmsUInt32Number descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
-			if (descSize > 0)
-			{
-				char* descData = (char*) malloc(descSize + sizeof(char));
-				if (descData)
-					descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
-				if (descData && (descSize > 0))
-					m_productDescription = QString(descData);
-				free(descData);
-			}
-#endif
+	cmsUInt32Number descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
+	if (descSize > 0)
+	{
+		wchar_t* descData = (wchar_t*) malloc(descSize + sizeof(wchar_t));
+		if (descData)
+			descSize = cmsGetProfileInfo(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+		if (descData && (descSize > 0))
+		{
+			uint stringLen = descSize / sizeof(wchar_t);
+			descData[stringLen] = 0;
+			m_productDescription = QString::fromWCharArray(descData);
 		}
+		free(descData);
 	}
+#else
+	cmsUInt32Number descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", nullptr, 0);
+	if (descSize > 0)
+	{
+		char* descData = (char*) malloc(descSize + sizeof(char));
+		if (descData)
+			descSize = cmsGetProfileInfoASCII(m_profileHandle, cmsInfoDescription, "en", "US", descData, descSize);
+		if (descData && (descSize > 0))
+			m_productDescription = QString(descData);
+		free(descData);
+	}
+#endif
+
 	return m_productDescription;
 }
 
@@ -134,7 +135,7 @@ bool ScLcms2ColorProfileImpl::save(QByteArray& profileData) const
 
 	// First retrieve profile size
 	cmsUInt32Number bytesNeeded = 0;
-	bool done = cmsSaveProfileToMem(m_profileHandle, 0, &bytesNeeded);
+	bool done = cmsSaveProfileToMem(m_profileHandle, nullptr, &bytesNeeded);
 	if (!done)
 		return false;
 

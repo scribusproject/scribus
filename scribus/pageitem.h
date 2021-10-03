@@ -677,10 +677,10 @@ public: // Start public functions
 	void set4ColorTransparency(double t1, double t2, double t3, double t4);
 	void set4ColorShade(int t1, int t2, int t3, int t4);
 	void set4ColorColors(const QString& col1, const QString& col2, const QString& col3, const QString& col4);
-	void get4ColorGeometry(FPoint& c1, FPoint& c2, FPoint& c3, FPoint& c4);
+	void get4ColorGeometry(FPoint& c1, FPoint& c2, FPoint& c3, FPoint& c4) const;
 	void setDiamondGeometry(const FPoint& c1, const FPoint& c2, const FPoint& c3, const FPoint& c4, const FPoint& c5);
-	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4);
-	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4);
+	void get4ColorTransparency(double &t1, double &t2, double &t3, double &t4) const;
+	void get4ColorColors(QString &col1, QString &col2, QString &col3, QString &col4) const;
 	void setMeshPointColor(int x, int y, const QString& color, int shade, double transparency, bool forPatch = false);
 	void createGradientMesh(int rows, int cols);
 	void resetGradientMesh();
@@ -1270,7 +1270,8 @@ public: // Start public functions
 		// End public functions
 
 public:	// Start public variables
-	int maxCharsInFrame();
+	int maxCharsInFrame() const;
+
 	bool AutoName {true};
 	double gXpos {0.0};
 	double gYpos {0.0};
@@ -1518,7 +1519,7 @@ protected: // Start protected functions
 	void DrawObj_Polygon(ScPainter *p);
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
-	void drawLockedMarker(ScPainter *p);
+	void drawLockedMarker(ScPainter *p) const;
 	void drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex);
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */

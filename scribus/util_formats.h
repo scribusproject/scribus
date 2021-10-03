@@ -103,7 +103,7 @@ class SCRIBUS_API FormatsManager
 		};
 */
 		FormatsManager();
-		~FormatsManager();
+		~FormatsManager() = default;
 
 	/**
 		 * @brief Returns a pointer to the FormatsManager instance
@@ -115,21 +115,21 @@ class SCRIBUS_API FormatsManager
 		 * Must be called when FormatsManager is no longer needed.
 	 */
 		static void deleteInstance();
-		void imageFormatSupported(const QString&);
+
 		//! Returns the name of a format, eg "Encapsulated PostScript"
-		QString nameOfFormat(int type);
+		QString nameOfFormat(int type) const;
 		
 		//! Returns the mimetypes of a format, eg "application/postscript"
-		QStringList mimetypeOfFormat(int type);
+		QStringList mimetypeOfFormat(int type) const;
 		
 		//! Returns in the form of "EPS (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI)"
-		QString extensionsForFormat(int type);
+		QString extensionsForFormat(int type) const;
 		
 		//! Returns in the form of "*.eps *.epsf *.epsi" or "eps|epsf|epsi"
- 		QString extensionListForFormat(int type, int listType);
+ 		QString extensionListForFormat(int type, int listType) const;
 		
 		//! Returns in the form of "All Supported Formats (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI);;EPS (*.eps *.EPS);;EPSI (*.epsf *.EPSF);;EPSI (*.epsi *.EPSI);;All Files (*)"
-		QString fileDialogFormatList(int type);
+		QString fileDialogFormatList(int type) const;
 		
 	protected:
 		QMap<int, QString> m_fmtNames;
@@ -139,8 +139,9 @@ class SCRIBUS_API FormatsManager
 		
 		QList<QByteArray> m_qtSupportedImageFormats;
 		QList<QByteArray> m_supportedImageFormats;
-		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats);
-		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false);
+
+		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats) const;
+		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false) const;
 		
 	private:
 	/**

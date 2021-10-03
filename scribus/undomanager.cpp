@@ -77,7 +77,6 @@ bool UndoManager::undoEnabled()
 
 UndoManager::UndoManager()
 {
-	m_currentUndoObjectId = -1;
 	if (!UndoManager::IGuides)
 		initIcons();
 	prefs_ = PrefsManager::instance().prefsFile->getContext("undo");
@@ -101,22 +100,22 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 		return UndoTransaction(nullptr);
 	
 	/** @brief Dummy object for storing transaction target's name */
-	UndoObject* transactionTarget_ = new DummyUndoObject();
-	TransactionState* transactionState_ = new TransactionState();
-	transactionTarget_->setUName(targetName); // Name which will be in action history
+	UndoObject* transactionTarget = new DummyUndoObject();
+	TransactionState* transactionState = new TransactionState();
+	transactionTarget->setUName(targetName); // Name which will be in action history
 	if (targetPixmap)
-		transactionTarget_->setUPixmap(targetPixmap);
+		transactionTarget->setUPixmap(targetPixmap);
 	if (name.length() > 0)          // if left to 0 length action will be fetched from the
-		transactionState_->setName(name); // last added UndoState in this transaction
+		transactionState->setName(name); // last added UndoState in this transaction
 	if (description.length() > 0)
-		transactionState_->setDescription(description); // tool tip for action history
+		transactionState->setDescription(description); // tool tip for action history
 	if (actionPixmap)
-		transactionState_->setPixmap(actionPixmap); // for action history
+		transactionState->setPixmap(actionPixmap); // for action history
 
 	// Holds the state and data of this transaction:
-	TransactionData *transaction = new TransactionData();
-	transaction->transactionObject = transactionTarget_;
-	transaction->transactionState = transactionState_;
+	auto *transaction = new TransactionData();
+	transaction->transactionObject = transactionTarget;
+	transaction->transactionState = transactionState;
 	transaction->stackLevel = m_transactions.size();
 	transaction->UM = this;
 	
@@ -126,7 +125,7 @@ UndoTransaction UndoManager::beginTransaction(const QString &targetName,
 	return UndoTransaction(transaction);
 }
 
-bool UndoManager::isTransactionMode()
+bool UndoManager::isTransactionMode() const
 {
 	return !m_transactions.empty();
 }
@@ -302,16 +301,17 @@ void UndoManager::renameStack(const QString& newName)
 
 void UndoManager::removeStack(const QString& stackName)
 {
-	if (m_stacks.contains(stackName))
+	auto stackIt = m_stacks.find(stackName);
+	if (stackIt == m_stacks.end())
+		return;
+
+	stackIt->clear();
+	m_stacks.remove(stackName);
+	if (m_currentDoc == stackName)
 	{
-		m_stacks[stackName].clear();
-		m_stacks.remove(stackName);
-		if (m_currentDoc == stackName)
-		{
-			for (size_t i = 0; i < m_undoGuis.size(); ++i)
-				m_undoGuis[i]->clear();
-			m_currentDoc = "__no_name__";
-		}
+		for (size_t i = 0; i < m_undoGuis.size(); ++i)
+			m_undoGuis[i]->clear();
+		m_currentDoc = "__no_name__";
 	}
 }
 
@@ -336,7 +336,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 
 	if (!m_undoEnabled) // if so flush down the state
 	{
-		TransactionState *ts = dynamic_cast<TransactionState*>(state);
+		auto *ts = dynamic_cast<TransactionState*>(state);
 		if (ts) // flush the TransactionObject too
 			delete target;
 		delete state;
@@ -415,16 +415,22 @@ void UndoManager::redo(int steps)
 	setTexts();
 }
 
-bool UndoManager::hasUndoActions(int )
+bool UndoManager::hasUndoActions(int ) const
 {
 	// TODO Needs to fixed for object specific mode
-	return m_stacks[m_currentDoc].undoItems() > 0;
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if (currentStackIt != m_stacks.constEnd())
+		return (currentStackIt->undoItems() > 0);
+	return false;
 }
 
-bool UndoManager::hasRedoActions(int )
+bool UndoManager::hasRedoActions(int ) const
 {
 	// TODO Needs to be fixed for object specific mode
-	return m_stacks[m_currentDoc].redoItems() > 0;
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if (currentStackIt != m_stacks.constEnd())
+		return (currentStackIt->redoItems() > 0);
+	return false;
 }
 
 void UndoManager::showObject(int uid)
@@ -500,14 +506,15 @@ void UndoManager::setAllHistoryLengths(int steps)
 	}
 }
 
-int UndoManager::getHistoryLength()
+int UndoManager::getHistoryLength() const
 {
-	if (!m_stacks.empty() && m_stacks[m_currentDoc].redoItems() > 0)
-		return -1;
-	return static_cast<int>(m_stacks[m_currentDoc].maxSize());
+	auto currentStackIt = m_stacks.constFind(m_currentDoc);
+	if ((currentStackIt != m_stacks.constEnd()) && (currentStackIt->redoItems() <= 0))
+		return static_cast<int>(currentStackIt->maxSize());
+	return -1;
 }
 
-bool UndoManager::isGlobalMode()
+bool UndoManager::isGlobalMode() const
 {
 	return m_currentUndoObjectId == -1;
 }
@@ -519,7 +526,7 @@ void UndoManager::setTexts()
 
 	if (currentStack.undoItems() > 0)
 	{
-		UndoState *state = currentStack.getNextUndo(m_currentUndoObjectId);
+		const UndoState *state = currentStack.getNextUndo(m_currentUndoObjectId);
 		if (state)
 			scMW->scrActions["editUndoAction"]->setTexts(QString(Um::MenuUndo).arg(state->getName()));
 		else
@@ -530,7 +537,7 @@ void UndoManager::setTexts()
 
 	if (currentStack.redoItems() > 0)
 	{
-		UndoState *state = currentStack.getNextRedo(m_currentUndoObjectId);
+		const UndoState *state = currentStack.getNextRedo(m_currentUndoObjectId);
 		if (state)
 			scMW->scrActions["editRedoAction"]->setTexts(QString(Um::MenuRedo).arg(state->getName()));
 		else
@@ -551,10 +558,8 @@ UndoManager::~UndoManager()
 	StackMap::iterator it;
 	for (it = m_stacks.begin(); it != m_stacks.end(); ++it)
 	{
-		for (uint i = 0; i < (*it).size(); ++i)
-		{
-			(*it).clear();
-		}
+		for (uint i = 0; i < it->size(); ++i)
+			it->clear();
 	}
 	m_stacks.clear();
 }

@@ -182,11 +182,6 @@ void UndoWidget::popBack()
 	}
 }
 
-UndoWidget::~UndoWidget()
-{
-
-}
-
 /*** UndoPalette **************************************************************/
 
 UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, name)
@@ -196,8 +191,6 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, na
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	container = new QWidget(this);
-	currentSelection = 0;
-	redoItems = 0;
 	QVBoxLayout* layout = new QVBoxLayout(container);
 	layout->setContentsMargins(3, 3, 3, 3);
 	layout->setSpacing(3);
@@ -332,7 +325,7 @@ void UndoPalette::updateList()
 	undoList->scrollToItem(undoList->item(currentSelection));
 	for (int i = 0; i < undoList->count(); ++i)
 	{
-		UndoItem *item = dynamic_cast<UndoItem*>(undoList->item(i));
+		auto *item = dynamic_cast<UndoItem*>(undoList->item(i));
 		if (!item)
 			continue;
 
@@ -381,7 +374,7 @@ void UndoPalette::objectCheckBoxClicked(bool on)
 
 void UndoPalette::showToolTip(QListWidgetItem *i)
 {
-	UndoItem *item = dynamic_cast<UndoItem*>(i);
+	auto *item = dynamic_cast<UndoItem*>(i);
 	if (item)
 	{
 		QString tip = item->getDescription();
@@ -397,28 +390,17 @@ void UndoPalette::removeToolTip()
 	undoList->setToolTip("");
 }
 
-UndoPalette::~UndoPalette()
-{
-
-}
-
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem()
-{
-	targetpixmap = nullptr;
-	actionpixmap = nullptr;
-	isUndoAction_ = true;
-}
-
 UndoPalette::UndoItem::UndoItem(const UndoItem &another)
+	: m_targetPixmap(another.m_targetPixmap),
+	  m_actionPixmap(another.m_actionPixmap),
+	  m_target(another.m_target),
+	  m_action(another.m_action),
+	  m_description(another.m_description),
+	  m_isUndoAction(another.m_isUndoAction)
 {
-	target = another.target;
-	action = another.action;
-	description = another.description;
-	targetpixmap = another.targetpixmap;
-	actionpixmap = another.actionpixmap;
-	isUndoAction_ = another.isUndoAction_;
+
 }
 
 UndoPalette::UndoItem::UndoItem(const QString &targetName,
@@ -430,12 +412,12 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 QListWidget * parent
 							   )
 	: QListWidgetItem(parent),
-	targetpixmap(targetPixmap),
-	actionpixmap(actionPixmap),
-	target(targetName),
-	action(actionName),
-	description(actionDescription),
-	isUndoAction_(isUndoAction)
+	m_targetPixmap(targetPixmap),
+	m_actionPixmap(actionPixmap),
+	m_target(targetName),
+	m_action(actionName),
+	m_description(actionDescription),
+	m_isUndoAction(isUndoAction)
 {
 	/*TODO: 16x16 is hardcoded, because images automatically scaled by QIcon are no longer recognizable 
 	would be better to have the icons designed for 16x16*/
@@ -461,25 +443,20 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 	setText(tr("%1 - %2\n%3").arg(targetName, actionName, actionDescription));
 }
 
-QString UndoPalette::UndoItem::getDescription()
+QString UndoPalette::UndoItem::getDescription() const
 {
-  return description;
+  return m_description;
 }
 
-bool UndoPalette::UndoItem::isUndoAction()
+bool UndoPalette::UndoItem::isUndoAction() const
 {
-	return isUndoAction_;
+	return m_isUndoAction;
 }
 
 void UndoPalette::UndoItem::setUndoAction(bool isUndo)
 {
-	isUndoAction_ = isUndo;
+	m_isUndoAction = isUndo;
 	QFont f = font();
-	f.setItalic(!isUndoAction_);
+	f.setItalic(!m_isUndoAction);
 	setFont(f);
-}
-
-UndoPalette::UndoItem::~UndoItem()
-{
-
 }
