@@ -81,7 +81,7 @@ class HistoryParser2
 
 			QXmlStreamReader sReader(&qFile);
 			QXmlStreamReader::TokenType tagType;
-			QStringRef tagName;
+			QStringView tagName;
 
 			while (!sReader.atEnd() && !sReader.hasError())
 			{
@@ -90,7 +90,7 @@ class HistoryParser2
 					continue;
 
 				tagName = sReader.name();
-				if (tagName != "item")
+				if (tagName != QStringView(u"item"))
 					continue;
 
 				struct histd2 his;
@@ -126,7 +126,7 @@ class BookmarkParser2
 
 			QXmlStreamReader sReader(&qFile);
 			QXmlStreamReader::TokenType tagType;
-			QStringRef tagName;
+			QStringView tagName;
 
 			while (!sReader.atEnd() && !sReader.hasError())
 			{
@@ -135,7 +135,7 @@ class BookmarkParser2
 					continue;
 
 				tagName = sReader.name();
-				if (tagName != "item")
+				if (tagName != QStringView(u"item"))
 					continue;
 
 				QXmlStreamAttributes attrs = sReader.attributes();

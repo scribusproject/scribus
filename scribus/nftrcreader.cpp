@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 
+#include <QStringView>
+
 #include "nftrcreader.h"
 
 using namespace std;
@@ -34,16 +36,16 @@ bool nftrcreader::parse(const QString& filePath)
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
 
-		QStringRef tagName = reader.name();
+		QStringView tagName = reader.name();
 		if (firstElement)
 		{
-			if (tagName != "templates")
+			if (tagName != QStringView(u"templates"))
 				return false;
 			firstElement = false;
 			continue;
 		}
 
-		if (tagName == "template")
+		if (tagName == QStringView(u"template"))
 		{
 			QXmlStreamAttributes attrs = reader.attributes();
 			QString attrCat  = attrs.value("category").toString();
@@ -70,8 +72,8 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 	if (!reader.isStartElement())
 		return false;
 
-	QStringRef elemName = reader.name();
-	if (elemName != "template")
+	QStringView elemName = reader.name();
+	if (elemName != QStringView(u"template"))
 		return false;
 
 	while (!reader.atEnd() && !reader.hasError())
@@ -85,10 +87,10 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 		if (tType != QXmlStreamReader::StartElement)
 			continue;
 
-		QStringRef tagName = reader.name();
-		if (tagName == "name")
+		QStringView tagName = reader.name();
+		if (tagName == QStringView(u"name"))
 			nftTemplate->name = reader.readElementText();
-		else if (tagName == "file")
+		else if (tagName == QStringView(u"file"))
 		{
 			QString tmp = reader.readElementText();
 			if (tmp.left(1) == "/")
@@ -96,7 +98,7 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 			else 
 				nftTemplate->file = currentDir + "/" + tmp;
 		}
-		else if (tagName == "tnail")
+		else if (tagName == QStringView(u"tnail"))
 		{
 			QString tmp = reader.readElementText();
 			if (tmp.left(1) == "/")
@@ -104,7 +106,7 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 			else 
 				nftTemplate->tnail = currentDir + "/" + tmp;
 		}
-		else if (tagName == "img")
+		else if (tagName == QStringView(u"img"))
 		{
 			QString tmp = reader.readElementText();
 			if (tmp.left(1) == "/")
@@ -112,21 +114,21 @@ bool nftrcreader::parseTemplate(QXmlStreamReader& reader, nfttemplate* nftTempla
 			else 
 				nftTemplate->img = currentDir + "/" + tmp;
 		}
-		else if (tagName == "psize")
+		else if (tagName == QStringView(u"psize"))
 			nftTemplate->psize = reader.readElementText();
-		else if (tagName == "color")
+		else if (tagName == QStringView(u"color"))
 			nftTemplate->color = reader.readElementText();
-		else if (tagName == "descr")
+		else if (tagName == QStringView(u"descr"))
 			nftTemplate->descr = reader.readElementText();
-		else if (tagName == "usage")
+		else if (tagName == QStringView(u"usage"))
 			nftTemplate->usage = reader.readElementText();
-		else if (tagName == "scribus_version")
+		else if (tagName == QStringView(u"scribus_version"))
 			nftTemplate->scribusVersion = reader.readElementText();
-		else if (tagName == "date")
+		else if (tagName == QStringView(u"date"))
 			nftTemplate->date = reader.readElementText();
-		else if (tagName == "author")
+		else if (tagName == QStringView(u"author"))
 			nftTemplate->author = reader.readElementText();
-		else if (tagName == "email")
+		else if (tagName == QStringView(u"email"))
 			nftTemplate->email = reader.readElementText();
 		else
 		{

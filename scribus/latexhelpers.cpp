@@ -171,11 +171,11 @@ void LatexConfigParser::formatError(const QString& message)
 	m_error += new_error + "\n";
 }
 
-bool LatexConfigParser::StrRefToBool(const QStringRef &str) const
+bool LatexConfigParser::StrViewToBool(const QStringView &str) const
 {
-	if (str == "1" || str == "true")
+	if (str == QStringView(u"1") || str == QStringView(u"true"))
 		return true;
-	if (str == "0" || str == "false" || str.isEmpty())
+	if (str == QStringView(u"0") || str == QStringView(u"false") || str.isEmpty())
 		return false;
 	qWarning() << "Invalid bool string:" << str.toString();
 	return false;
@@ -202,10 +202,10 @@ void LatexConfigParser::parseHighlighter()
 			continue;
 		}
 		QString regex = xml.attributes().value("regex").toString();
-		bool bold = StrRefToBool(xml.attributes().value("bold"));
-		bool italic = StrRefToBool(xml.attributes().value("italic"));
-		bool underline = StrRefToBool(xml.attributes().value("underline"));
-		bool minimal = StrRefToBool(xml.attributes().value("minimal"));
+		bool bold = StrViewToBool(xml.attributes().value("bold"));
+		bool italic = StrViewToBool(xml.attributes().value("italic"));
+		bool underline = StrViewToBool(xml.attributes().value("underline"));
+		bool minimal = StrViewToBool(xml.attributes().value("minimal"));
 		QString colorStr = xml.attributes().value("color").toString();
 		QColor color(colorStr);
 		if (!color.isValid())

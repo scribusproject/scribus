@@ -23,12 +23,12 @@ copyright            : Scribus Team
 #ifndef LATEXHELPERS_H
 #define LATEXHELPERS_H
 
-#include <QSyntaxHighlighter>
-#include <QXmlStreamReader>
-#include <QString>
-#include <QStringRef>
 #include <QObject>
 #include <QPointer>
+#include <QString>
+#include <QStringView>
+#include <QSyntaxHighlighter>
+#include <QXmlStreamReader>
 
 class LatexHighlighterRule
 {
@@ -89,11 +89,12 @@ class LatexConfigParser
 		void parseTab();
 		void parseHighlighter();
 		void ignoreList();
-		bool StrRefToBool(const QStringRef &str) const;
+		bool StrViewToBool(const QStringView& str) const;
 };
 
 class LatexConfigCache;
-class LatexConfigCache {
+class LatexConfigCache
+{
 	public:
 		static LatexConfigCache* instance();
 		static QStringList defaultConfigs();

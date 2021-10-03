@@ -28,12 +28,13 @@ copyright            : Scribus Team
 
 #include <QDebug>
 #include <QFile>
-#include <QFrame>
 #include <QFontComboBox>
+#include <QFrame>
 #include <QLineEdit>
-#include <QPushButton>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QStringView>
 #include <QTemporaryFile>
 #include <cmath>
 #include "filewatcher.h"
@@ -449,12 +450,12 @@ void LatexEditor::loadSettings()
 	{
 		xml.readNext();
 		if (xml.isWhitespace() || xml.isComment()) continue;
-		if (xml.isStartElement() && xml.name() == "tab")
+		if (xml.isStartElement() && xml.name() == QStringView(u"tab"))
 		{
-			if (xml.attributes().value("type") == "settings")
+			if (xml.attributes().value("type") == QStringView(u"settings"))
 			{
 				createNewSettingsTab(&xml);
-			} else if (xml.attributes().value("type") == "items")
+			} else if (xml.attributes().value("type") == QStringView(u"items"))
 			{
 				createNewItemsTab(&xml);
 			}
@@ -475,7 +476,7 @@ void LatexEditor::loadSettings()
 
 void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 {
-	QStringRef tagname;
+	QStringView tagname;
 	QFrame *newTab = new QFrame();
 	newTab->setFrameShape(QFrame::NoFrame);
 	QGridLayout *layout = new QGridLayout(newTab);
@@ -487,24 +488,32 @@ void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 		xml->readNext();
 		if (xml->isWhitespace() || xml->isComment()) continue;
 		tagname = xml->name();
-		if (xml->isEndElement() && (tagname == "tab")) {
+		if (xml->isEndElement() && (tagname == QStringView(u"tab")))
+		{
 			break;
 		}
-		if (!xml->isStartElement()) {
+		if (!xml->isStartElement())
+		{
 			xmlError() << "Unexpected element (not a start element)!";
 			continue;
 		}
 		
-		if (tagname == "comment") {
+		if (tagname == QStringView(u"comment"))
+		{
 			QLabel *label = new QLabel(xml->readI18nText());
 			int row = layout->rowCount();
 			label->setWordWrap(true);
 			layout->addWidget(label, row, 0, 1, 3);
-		} else if (tagname == "title") {
+		}
+		else if (tagname == QStringView(u"title"))
+		{
 			title = xml->readI18nText();
-		} else {
+		}
+		else
+		{
 			XmlWidget *widget = XmlWidget::fromXml(xml);
-			if (dynamic_cast<QWidget *>(widget)) {
+			if (dynamic_cast<QWidget *>(widget))
+			{
 				QLabel *label = new QLabel(widget->description());
 				label->setWordWrap(true);
 				QString name = widget->name();
@@ -522,15 +531,12 @@ void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 						this, SLOT(tagButtonClicked(QString)));
 				layout->addWidget(button, row, 2);*/
 			
-				if (widgetMap.contains(name)) {
-					xmlError() << "There is already an widget with name" << 
-						name << "!";
-				}
+				if (widgetMap.contains(name))
+					xmlError() << "There is already an widget with name" << name << "!";
 				widgetMap[name] = widget;
-			} else {
-				xmlError() << "Unexpected tag" << tagname.toString() << 
-						"in settings tab";
 			}
+			else
+				xmlError() << "Unexpected tag" << tagname.toString() << "in settings tab";
 		}
 	}
 	layout->setRowStretch(layout->rowCount(), 10);
@@ -539,8 +545,7 @@ void LatexEditor::createNewSettingsTab(I18nXmlStreamReader *xml)
 
 void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml) 
 {
-	QString title = "No Title!";
-	
+	QString title("No Title!");
 	
 	QFrame *newTab = new QFrame();
 	newTab->setFrameShape(QFrame::NoFrame);
@@ -567,24 +572,24 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 	vLayout->addWidget(iconList, 100);
 	vLayout->addLayout(hLayout, 0);
 	
-	QStringRef tagname;
+	QStringView tagname;
 	while (!xml->atEnd()) 
 	{
 		xml->readNext();
 		if (xml->isWhitespace() || xml->isComment()) continue;
 		tagname = xml->name();
-		if (xml->isEndElement() && (tagname == "tab")) 
+		if (xml->isEndElement() && (tagname == QStringView(u"tab")))
 			break;
 		if (!xml->isStartElement()) 
 		{
 			xmlError() << "Unexpected end element "	<<tagname.toString()<<"in item tab";
 			continue;
 		}
-		if (tagname == "title") 
+		if (tagname == QStringView(u"title"))
 		{
 			title = xml->readI18nText();
 		} 
-		else if (tagname == "item") 
+		else if (tagname == QStringView(u"item"))
 		{
 			QString value = xml->attributes().value("value").toString();
 			QString img = xml->attributes().value("image").toString();
@@ -611,8 +616,7 @@ void LatexEditor::createNewItemsTab(I18nXmlStreamReader *xml)
 		} 
 		else
 		{
-			xmlError() << "Unexpected tag" << tagname.toString() << 
-				"in item tab!";
+			xmlError() << "Unexpected tag" << tagname.toString() << "in item tab!";
 			continue;
 		}
 	}
@@ -652,11 +656,13 @@ class SCRIBUS_API XmlFontComboBox : public XmlWidget, public QFontComboBox
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const {
+		QString toString() const
+		{
 			return currentFont().toString();
 		}
 		
-		void fromString(QString str) {
+		void fromString(QString str)
+		{
 			QFont font;
 			font.fromString(str);
 			this->setCurrentFont(font);
@@ -730,15 +736,18 @@ class SCRIBUS_API XmlDoubleSpinBox : public XmlWidget, public QDoubleSpinBox
 class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 {
 	public:
-		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml) {
+		XmlLineEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml)
+		{
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const override {
+		QString toString() const override
+		{
 			return text();
 		}
 		
-		void fromString(QString str) override {
+		void fromString(QString str) override
+		{
 			setText(str);
 		}
 };
@@ -746,15 +755,18 @@ class SCRIBUS_API XmlLineEdit : public XmlWidget, public QLineEdit
 class SCRIBUS_API XmlTextEdit : public XmlWidget, public QTextEdit
 {
 	public:
-		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml) {
+		XmlTextEdit(I18nXmlStreamReader *xml) :  XmlWidget(xml)
+		{
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const override {
+		QString toString() const override
+		{
 			return toPlainText();
 		}
 		
-		void fromString(QString str) override {
+		void fromString(QString str) override
+		{
 			setPlainText(str);
 		}
 };
@@ -769,11 +781,13 @@ class SCRIBUS_API XmlColorPicker : public XmlWidget, public QLabel
 			fromString(m_defaultValue);
 		}
 		
-		QString toString() const override {
+		QString toString() const override
+		{
 			return "Not implemented!";
 		}
 		
-		void fromString(QString str) override {
+		void fromString(QString str) override
+		{
 			qDebug() << "Color pickers are not implemented yet!";
 		}
 };
@@ -783,61 +797,69 @@ class SCRIBUS_API XmlComboBox : public XmlWidget, public QComboBox
 	public:
 		XmlComboBox(I18nXmlStreamReader *xml) :  XmlWidget(xml, false)
 		{
-			QStringRef tagname;
+			QStringView tagname;
 			while (!xml->atEnd()) {
 				xml->readNext();
 				if (xml->isWhitespace() || xml->isComment()) continue;
 				tagname = xml->name();
-				if (xml->isEndElement() && (tagname == "list")) {
+				if (xml->isEndElement() && (tagname == QStringView(u"list")))
+				{
 					fromString(m_defaultValue);
 					return;
 				}
-				if (xml->isEndElement()) {
+				if (xml->isEndElement())
+				{
 					xmlError() << "Unexpected end element" << tagname.toString();
 					continue;
 				}
-				if (tagname == "title") {
+				if (tagname == QStringView(u"title"))
+				{
 					m_description = xml->readI18nText();
-				} else if (tagname == "option") {
+				}
+				else if (tagname == QStringView(u"option"))
+				{
 					QString value = xml->attributes().value("value").toString();
 					QString text = xml->readI18nText();
 					addItem(text, value);
-				} else {
-					xmlError() << "Unexpected tag" << tagname.toString() << 
-						"in list!";
+				}
+				else
+				{
+					xmlError() << "Unexpected tag" << tagname.toString() << "in list!";
 				}
 			}
 		}
 		
-		QString toString() const override {
+		QString toString() const override
+		{
 			return itemData(currentIndex()).toString();
 		}
 		
-		void fromString(QString str) override {
+		void fromString(QString str) override
+		{
 			setCurrentIndex(findData(str));
 		}
 };
 
 XmlWidget* XmlWidget::fromXml(I18nXmlStreamReader *xml)
 {
-	QStringRef tagname = xml->name();
-	if (tagname == "font")
+	QStringView tagname = xml->name();
+	if (tagname == QStringView(u"font"))
 		return new XmlFontComboBox(xml);
-	if (tagname == "spinbox")
+	if (tagname == QStringView(u"spinbox"))
 	{
 		if (xml->attributes().value("type") == "double")
 			return new XmlDoubleSpinBox(xml);
 		return new XmlSpinBox(xml);
 	}
-	if (tagname == "color")
+	if (tagname == QStringView(u"color"))
 		return new XmlColorPicker(xml);
-	if (tagname == "text")
+	if (tagname == QStringView(u"text"))
 	{
 		if (xml->attributes().value("type") == "long")
 			return new XmlTextEdit(xml);
 		return new XmlLineEdit(xml);
 	}
-	if (tagname == "list")
+	if (tagname == QStringView(u"list"))
 		return new XmlComboBox(xml);
 	return nullptr;
 }
@@ -852,7 +874,8 @@ XmlWidget::XmlWidget(I18nXmlStreamReader *xml, bool readDescription)
 
 void IconBuffer::loadFile(const QString& filename)
 {
-	if (loadedFiles.contains(filename)) return;
+	if (loadedFiles.contains(filename))
+		return;
 	loadedFiles << filename;
 	file = new QFile(filename);
 	if (!file->open(QIODevice::ReadOnly))
@@ -873,7 +896,7 @@ void IconBuffer::loadFile(const QString& filename)
 QIcon *IconBuffer::icon(const QString& filename, const QString& name)
 {
 	loadFile(filename);
-	QString cname = filename + ":" + name;
+	QString cname(filename + ":" + name);
 	if (icons.contains(cname))
 		return &(icons[cname]);
 	qWarning() << "Icon" << cname << "not found!";
