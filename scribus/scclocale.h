@@ -43,7 +43,7 @@ class SCRIBUS_API ScCLocale
 	~ScCLocale();
 
 	QLocale qLocale;
-	XLocaleType cLocale;
+	XLocaleType cLocale { nullptr };
 
 	static ScCLocale * m_instance;
 	static ScCLocale * that();

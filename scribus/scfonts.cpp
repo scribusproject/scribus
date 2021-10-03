@@ -82,12 +82,7 @@ for which a new license (GPL+exception) is in place.
 SCFonts::SCFonts()
 {
 //	insert("", ScFace::none()); // Wtf why inserting an empty entry here ????
-	m_showFontInfo = false;
 	m_checkedFonts.clear();
-}
-
-SCFonts::~SCFonts()
-{
 }
 
 void SCFonts::updateFontMap()
@@ -157,7 +152,7 @@ void SCFonts::addScalableFonts(const QString &path, const QString& DocName)
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
 			
-			qApp->processEvents();
+			QCoreApplication::processEvents();
 			
 			bool symlink = fi.isSymLink();
 			if (symlink)
@@ -519,7 +514,7 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 	if (!fi.exists())
 		return t;
 	bool Subset = false;
-	char *buf[50];
+	char buf[128];
 	QString glyName = "";
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
@@ -552,8 +547,8 @@ ScFace SCFonts::loadScalableFont(const QString &filename)
 			FT_Done_FreeType(library);
 			return t;
 		}
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		QString newName = QString(reinterpret_cast<char*>(buf));
+		FT_Get_Glyph_Name(face, gindex, buf, 128);
+		QString newName(buf);
 		if (newName == glyName)
 		{
 			HasNames = false;
@@ -652,7 +647,7 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 {
 	static bool firstRun;
 	bool Subset = false;
-	char *buf[50];
+	char buf[128];
 	QString glyName = "";
 	ScFace::FontFormat format;
 	ScFace::FontType   type;
@@ -740,8 +735,8 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 				m_checkedFonts.insert(filename, foCache);
 				return true;
 			}
-			FT_Get_Glyph_Name(face, gindex, buf, 50);
-			QString newName = QString(reinterpret_cast<char*>(buf));
+			FT_Get_Glyph_Name(face, gindex, buf, 128);
+			QString newName(buf);
 			if (newName == glyName)
 			{
 				HasNames = false;
@@ -784,8 +779,8 @@ bool SCFonts::addScalableFont(const QString& filename, FT_Library &library, cons
 					m_checkedFonts.insert(filename, foCache);
 					return true;
 				}
-				FT_Get_Glyph_Name(face, gindex, buf, 50);
-				QString newName = QString(reinterpret_cast<char*>(buf));
+				FT_Get_Glyph_Name(face, gindex, buf, 128);
+				QString newName(buf);
 				if (newName == glyName)
 				{
 					HasNames = false;
@@ -1323,7 +1318,7 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 		addScalableFonts( ScPaths::instance().fontDir() );
 
 	//Add downloaded user fonts
-	QString userFontDir(ScPaths::instance().userFontDir(false));
+	QString userFontDir(ScPaths::userFontDir(false));
 	if (QDir(userFontDir).exists())
 		addScalableFonts( userFontDir );
 

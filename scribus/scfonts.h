@@ -39,7 +39,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 {
 	public:
 		SCFonts();
-		~SCFonts();
+		~SCFonts() = default;
 
 		void updateFontMap();
 		void getFonts(const QString& pf, bool showFontInfo=false);
@@ -85,7 +85,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		QMap<QString, testCache> m_checkedFonts;
 
 	protected:
-		bool m_showFontInfo;
+		bool m_showFontInfo { false };
 };
 
 struct SCFontsIterator
@@ -98,7 +98,8 @@ struct SCFontsIterator
 	ScFace& next()             { ++m_it; return current(); }
 
 private:
-	QMap<QString,ScFace>::Iterator m_it, m_end_it;
+	QMap<QString, ScFace>::Iterator m_it;
+	QMap<QString, ScFace>::Iterator m_end_it;
 };
 
 #endif

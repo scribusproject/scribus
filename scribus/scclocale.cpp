@@ -20,7 +20,7 @@
 
 ScCLocale * ScCLocale::m_instance = nullptr;
 ScCLocale::ScCLocale()
-	:qLocale(QLocale::C), cLocale(nullptr)
+	: qLocale(QLocale::C)
 {
 	qLocale.setNumberOptions(QLocale::OmitGroupSeparator);
 

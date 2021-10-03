@@ -55,12 +55,12 @@ class SCRIBUS_API SampleItem : QObject
 		\param aStyle Paragraph style to set.*/
 		void setStyle(const ParagraphStyle& aStyle);
 		/*! \brief Following methods set only one style characteristic */
-		void setLineSpaMode(int lineSpaMode);
-		void setLineSpa(double lineSpa);
+		void setLineSpacingMode(int lineSpaMode);
+		void setLineSpacing(double lineSpa);
 		void setTextAlignment(int textAlignment);
-		void setIndent(double indent);
+		void setLeftMargin(double indent);
 		void setRightMargin(double indent);
-		void setFirst(double first);
+		void setFirstIndent(double first);
 		void setGapBefore(double gapBefore);
 		void setGapAfter(double gapAfter);
 		void setFont(const QString& font);
@@ -72,14 +72,13 @@ class SCRIBUS_API SampleItem : QObject
 		void setDrop(bool drop);
 		void setBullet(bool bul);
 		void setNum(bool num);
-		void setDropLin(int dropLin);
+		void setDropCapLines(int dropLin);
 		void setParEffectDist(double dropDist);
 		void setFontEffect(int fontEffect);
-		void setFColor(const QString& fColor);
-		void setFShade(int fShade);
-		void setSColor(const QString& sColor);
-		void setSShade(int sShade);
-		void setBaseAdj(bool baseAdj);
+		void setTxtFillColor(const QString& fColor);
+		void setTxtFillShade(int fShade);
+		void setTxtStrokeColor(const QString& sColor);
+		void setTxtStrokeShade(int sShade);
 		void setTxtShadowX(int txtShadowX);
 		void setTxtShadowY(int txtShadowY);
 		void setTxtOutline(int txtOutline);
@@ -106,9 +105,9 @@ class SCRIBUS_API SampleItem : QObject
 		ParagraphStyle m_tmpStyle;
 		/*! \brief Reference to a document.
 		Existing or created one */
-		ScribusDoc *m_Doc;
+		ScribusDoc* m_Doc { nullptr };
 		//! \brief Is the doc created used only? true = used
-		int m_bgShade;
+		int m_bgShade { 100 };
 		//! \brief Device pixel ratio
 		double m_devicePixelRatio { 1.0 };
 };

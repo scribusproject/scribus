@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTransform>
 
 #include <ft2build.h>
+#include <memory>
 
 #include FT_FREETYPE_H
 #include FT_TRUETYPE_TABLES_H
@@ -43,10 +44,6 @@ static const char* table[] = {
 #endif
 
 // private functions
-#if 0
-static void readAdobeGlyphNames();
-#endif
-//static QString adobeGlyphName(FT_ULong charcode);
 static int traceMoveto( FT_Vector *to, FPointArray *composite );
 static int traceLineto( FT_Vector *to, FPointArray *composite );
 static int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *composite );
@@ -243,10 +240,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 	int encode = setBestEncoding(face);
 	qreal uniEM = static_cast<qreal>(face->units_per_EM);
 
-//	qreal m_descent = face->descender / uniEM;
 	qreal m_height = qMax(face->height / uniEM, (face->bbox.yMax - face->bbox.yMin) / uniEM);
-//	if (m_height == 0)
-//		m_height = (face->bbox.yMax - face->bbox.yMin) / uniEM;
 
 	int h = qRound(m_height * s) + 1;
 	qreal a = 0;//m_descent * s + 1;
@@ -258,13 +252,13 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 	QImage pm(w, h, QImage::Format_ARGB32_Premultiplied);
 	pen_x = 0;
 	ymax = 0.0;
-	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
+
+	std::unique_ptr<ScPainter> p = std::make_unique<ScPainter>(&pm, pm.width(), pm.height());
 	p->clear(back);
 	p->setFillMode(ScPainter::Solid);
 	p->setLineWidth(0.0);
-//	p->setBrush(back);
-//	p->drawRect(0.0, 0.0, static_cast<qreal>(w), static_cast<qreal>(h));
 	p->setBrush(Qt::black);
+
 	FPointArray gly;
 	ScFace::ucs4_type dv;
 	dv = ts[0];
@@ -315,88 +309,12 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 		}
 	}
 	p->end();
-	QPixmap pmr;
-	pmr=QPixmap::fromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
-// this one below gives some funny results
-//	pmr.convertFromImage(pm.scaled(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-//	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
-	delete p;
+
+	QPixmap pmr = QPixmap::fromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
+
 	FT_Done_FreeType( library );
 	return pmr;
 }
-
-#if 0
-bool GlyphNames(const FtFace& fnt, FaceEncoding& GList)
-{
-	char buf[50];
-	FT_ULong  charcode;
-	FT_UInt gindex = 0;
-
-	FT_Face face = fnt.ftFace();
-	if (!face)
-		return false;
-
-	if (adobeGlyphNames.empty())
-		readAdobeGlyphNames();
-	
-	// The glyph name table embedded in Truetype fonts is not reliable.
-	// For those fonts we consequently use Adobe Glyph names whenever possible.
-	const bool avoidFntNames = (fnt.formatCode != ScFace::TYPE42 && fnt.typeCode == ScFace::TTF) &&
-	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE && face->charmap->platform_id == TT_PLATFORM_MICROSOFT);
-
-	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
-	
-//	qDebug() << "reading metrics for" << face->family_name << face->style_name;
-	charcode = FT_Get_First_Char(face, &gindex );
-	while (gindex != 0)
-	{
-		bool notfound = true;
-		if (hasPSNames && !avoidFntNames)
-			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
-
-		// just in case FT gives empty string or ".notdef"
-		// no valid glyphname except ".notdef" starts with '.'		
-//		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
-		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), adobeGlyphName(charcode)));
-		else
-			GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), QString(reinterpret_cast<char*>(buf))));
-
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
-	}
-
-	if (!hasPSNames)
-		return true;
-
-	// Let's see if we can find some more...
-	int maxSlot1 = face->num_glyphs;
-	for (int gindex = 1; gindex < maxSlot1; ++gindex)
-	{
-		if (GList.contains(gindex))
-			continue;
-		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
-			continue;
-		QString glyphname(reinterpret_cast<char*>(buf));
-
-		charcode = 0;
-		faceEncoding::Iterator gli;
-		for (gli = GList.begin(); gli != GList.end(); ++gli)
-		{
-			if (glyphname == gli.value().second)
-			{
-				charcode = gli.value().first.unicode();
-				break;
-			}
-		}
-//		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
-		if (avoidFntNames && buf[0] != '.' && buf[0] != '\0')
-			glyphname = adobeGlyphName(charcode);
-		GList.insert(gindex, std::make_pair(static_cast<ucs4_type>(charcode), glyphname));
-	}
-
-	return true;
-}
-#endif
 
 static int traceMoveto( FT_Vector *to, FPointArray *composite )
 {
@@ -457,22 +375,6 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 	}
 	return 0;
 }
-
-/// init the Adobe Glyph List
-#if 0
-void readAdobeGlyphNames() 
-{
-	adobeGlyphNames.clear();
-	QRegExp pattern("(\\w*);([0-9A-Fa-f]{4})");
-	for (uint i=0; table[i]; ++i) {
-		if (pattern.indexIn(table[i]) >= 0) {
-			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
-			qDebug() << QString("reading glyph name %1 for unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2));
-			adobeGlyphNames.insert(unicode, pattern.cap(1));
-		}
-	}
-}
-#endif
 
 /// if in AGL, use that name, else use "uni1234" or "u12345"
 QString adobeGlyphName(FT_ULong charcode) 

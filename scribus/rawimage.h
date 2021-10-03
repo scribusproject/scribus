@@ -18,6 +18,7 @@ class SCRIBUS_API RawImage : public QByteArray
 		RawImage();
 		RawImage( int width, int height, int channels);
 		~RawImage();
+
 		bool create( int width, int height, int channels);
 		int width() const { return m_width; };
 		int height() const { return m_height; };
@@ -26,6 +27,7 @@ class SCRIBUS_API RawImage : public QByteArray
 		uchar *scanLine(int row);
 		void setAlpha(int x, int y, int alpha);
 		QImage convertToQImage(bool cmyk, bool raw = false);
+
 	private:
 		int m_width {0};
 		int m_height {0};
