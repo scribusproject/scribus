@@ -36,19 +36,20 @@ class ScribusDoc;
 class SCRIBUS_API MarksOptions
 {
 public:
-	MarksOptions(void);
-	MarksOptions(struct PrintOptions& opt);
-	double markLength;
-	double markOffset;
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
-	bool   cropMarks;
-	bool   bleedMarks;
-	bool   registrationMarks;
-	bool   colorMarks;
-	bool   docInfoMarks;
+	MarksOptions(void) = default;
+	MarksOptions(const PrintOptions& opt);
+
+	double markLength { 20.0 };
+	double markOffset { 0.0 };
+	double bleedTop { 0.0 };
+	double bleedLeft { 0.0 };
+	double bleedRight { 0.0 };
+	double bleedBottom { 0.0 };
+	bool   cropMarks { false };
+	bool   bleedMarks { false };
+	bool   registrationMarks { false };
+	bool   colorMarks { false };
+	bool   docInfoMarks { false };
 };
 
 class SCRIBUS_API ScPageOutput
@@ -67,11 +68,11 @@ public:
 	void setMarksOptions(const MarksOptions& opt) { m_marksOptions = opt; }
 
 protected:
-	ScribusDoc* m_doc;
+	ScribusDoc* m_doc { nullptr };
 
-	bool m_reloadImages;
-	int  m_imageRes;
-	bool m_useProfiles;
+	bool m_reloadImages { true };
+	int  m_imageRes { 72 };
+	bool m_useProfiles { false };
 	MarksOptions m_marksOptions;
 
 	virtual void fillPath( PageItem* item, ScPainterExBase* painter, QRect clip );
@@ -104,7 +105,7 @@ protected:
 	virtual void drawBoxMarks( ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset , double markSize);
 	virtual void drawRegistrationCross( ScPainterExBase* painter );
 
-	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode);
+	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode) const;
 
 	friend class CollapsedTablePainterEx;
 };

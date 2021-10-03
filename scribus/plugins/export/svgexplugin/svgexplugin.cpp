@@ -1233,7 +1233,7 @@ public:
 		m_elem.appendChild(path);
 	}
 
-	void drawRect(QRectF rect) override
+	void drawRect(const QRectF& rect) override
 	{
 		QTransform transform = matrix();
 		transform.translate(x(), y());

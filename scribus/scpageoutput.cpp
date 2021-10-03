@@ -37,30 +37,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "text/boxes.h"
 
-
-MarksOptions::MarksOptions()
-{
-	markLength = 20.0;
-	markOffset = 0.0;
-	BleedTop = 0.0;
-	BleedLeft = 0.0;
-	BleedRight = 0.0;
-	BleedBottom = 0.0;
-	cropMarks = false;
-	bleedMarks = false;
-	registrationMarks = false;
-	colorMarks = false;
-	docInfoMarks = false;
-}
-
-MarksOptions::MarksOptions(struct PrintOptions& opt)
+MarksOptions::MarksOptions(const PrintOptions& opt)
 {
 	markLength = opt.markLength;
 	markOffset = opt.markOffset;
-	BleedTop = opt.bleeds.top();
-	BleedLeft = opt.bleeds.left();
-	BleedRight = opt.bleeds.right();
-	BleedBottom = opt.bleeds.bottom();
+	bleedTop = opt.bleeds.top();
+	bleedLeft = opt.bleeds.left();
+	bleedRight = opt.bleeds.right();
+	bleedBottom = opt.bleeds.bottom();
 	cropMarks = opt.cropMarks;
 	bleedMarks = opt.bleedMarks;
 	registrationMarks = opt.registrationMarks;
@@ -77,7 +61,7 @@ ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, b
 	m_useProfiles = useProfiles;
 }
 
-ScImage::RequestType ScPageOutput::translateImageModeToRequest(ScPainterExBase::ImageMode mode)
+ScImage::RequestType ScPageOutput::translateImageModeToRequest(ScPainterExBase::ImageMode mode) const
 {
 	ScImage::RequestType value = ScImage::RGBData;
 	if (mode == ScPainterExBase::cmykImages)
@@ -159,7 +143,7 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 		return;
 	if (!layer.isViewable || !layer.isPrintable)
 		return;
-	int docCurrPageNo = static_cast<int>(page->pageNr());
+	int currentPageNr = page->pageNr();
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
 		currItem = m_doc->Items->at(it);
@@ -167,7 +151,7 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 			continue;
 		if (!currItem->printEnabled())
 			continue;
-		if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
+		if ((m_doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != currentPageNr)))
 			continue;
 		if (!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty())
 		{
@@ -254,10 +238,10 @@ void ScPageOutput::drawItem_Pre(PageItem* item, ScPainterExBase* painter)
 	else if (item->GrType == Gradient_4Colors)
 	{
 		painter->setFillMode(ScPainterExBase::Gradient);
-		FPoint pG1 = FPoint(0, 0);
-		FPoint pG2 = FPoint(item->width(), 0);
-		FPoint pG3 = FPoint(item->width(), item->height());
-		FPoint pG4 = FPoint(0, item->height());
+		FPoint pG1(0, 0);
+		FPoint pG2(item->width(), 0);
+		FPoint pG3(item->width(), item->height());
+		FPoint pG4(0, item->height());
 		ScColorShade col1(m_doc->PageColors[item->GrColorP1], item->GrCol1Shade);
 		ScColorShade col2(m_doc->PageColors[item->GrColorP2], item->GrCol2Shade);
 		ScColorShade col3(m_doc->PageColors[item->GrColorP3], item->GrCol3Shade);
@@ -921,9 +905,9 @@ void ScPageOutput::drawItem_Line(PageItem_Line* item, ScPainterExBase* painter, 
 class ScPageOutputPainter: public TextLayoutPainter
 {
 private:
-	PageItem* m_item;
-	ScPainterExBase* m_painter;
-	ScPageOutput* m_scpage;
+	PageItem* m_item { nullptr };
+	ScPainterExBase* m_painter { nullptr };
+	ScPageOutput* m_scpage { nullptr };
 
 	void setupState()
 	{
@@ -1053,7 +1037,7 @@ public:
 		m_painter->restore();
 	}
 
-	void drawRect(QRectF rect) override
+	void drawRect(const QRectF& rect) override
 	{
 		m_painter->save();
 		setupState();
@@ -1575,24 +1559,24 @@ void ScPageOutput::drawMarks(ScPage* page, ScPainterExBase* painter, const Marks
 	double markLength = options.markLength;
 	double markOffs   = options.markOffset;
 	double bleedLeft = 0.0, bleedRight = 0.0;
-	double bleedBottom = options.BleedBottom;
-	double bleedTop = options.BleedTop;
+	double bleedBottom = options.bleedBottom;
+	double bleedTop = options.bleedTop;
 	if (!options.cropMarks && !options.bleedMarks && !options.registrationMarks && !options.colorMarks)
 		return;
 	if (m_doc->locationOfPage(page->pageNr()) == LeftPage)
 	{
-		bleedRight = options.BleedRight;
-		bleedLeft  = options.BleedLeft;
+		bleedRight = options.bleedRight;
+		bleedLeft  = options.bleedLeft;
 	}
 	else if (m_doc->locationOfPage(page->pageNr()) == RightPage)
 	{
-		bleedRight = options.BleedLeft;
-		bleedLeft  = options.BleedRight;
+		bleedRight = options.bleedLeft;
+		bleedLeft  = options.bleedRight;
 	}
 	else
 	{
-		bleedRight = options.BleedLeft;
-		bleedLeft  = options.BleedLeft;
+		bleedRight = options.bleedLeft;
+		bleedLeft  = options.bleedLeft;
 	}
 	double width = page->width();
 	double height = page->height();
@@ -1701,10 +1685,14 @@ void ScPageOutput::drawMarks(ScPage* page, ScPainterExBase* painter, const Marks
 void ScPageOutput::drawBoxMarks(ScPainterExBase* painter, const QRectF& box, const QRectF& bleedBox, double offset , double markSize)
 {
 	FPoint start, end;
-	double left   = box.left(), right = box.right();
-	double bottom = box.bottom(), top = box.top();
-	double bleedLeft = bleedBox.left(), bleedRight = bleedBox.right();
-	double bleedBottom = bleedBox.bottom(), bleedTop = bleedBox.top();
+	double left = box.left();
+	double right = box.right();
+	double bottom = box.bottom();
+	double top = box.top();
+	double bleedLeft = bleedBox.left();
+	double bleedRight = bleedBox.right();
+	double bleedBottom = bleedBox.bottom();
+	double bleedTop = bleedBox.top();
 	// Top Left
 	start.setXY(bleedLeft - offset, top);
 	end.setXY  (bleedLeft - offset - markSize, top);

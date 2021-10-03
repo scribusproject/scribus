@@ -129,9 +129,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_canvas(new Canvas(doc, this)),
 	Prefs(&(PrefsManager::instance().appPrefs)),
 	undoManager(UndoManager::instance()),
-	m_ScMW(mw),
-	RCenter(-1,-1),
-	m_vhRulerHW(17)
+	m_ScMW(mw)
 {
 	setObjectName("s");
 	QPalette p=palette();
@@ -513,112 +511,7 @@ void ScribusView::requestMode(int appMode)
 	}
 	if (updateNecessary)
 		updateCanvas();
-	//setCursorBasedOnAppMode(appMode);
 }
-
-/*
-void ScribusView::setCursorBasedOnAppMode(int appMode)
-{
-	IconManager* im=IconManager::instance();
-	int docSelectionCount = Doc->m_Selection->count();
-	switch (appMode)
-	{
-		case modeDrawShapes:
-		case modeDrawArc:
-		case modeDrawSpiral:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawframe.png"));
-			break;
-		case modeDrawImage:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawimageframe.png"));
-			break;
-		case modeDrawLatex:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawlatexframe.png"));
-			break;
-		case modeDrawText:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawtextframe.png"));
-			break;
-		case modeDrawTable2:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawtable.png"));
-			break;
-		case modeDrawRegularPolygon:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(im->loadCursor("drawpolyline.png"));
-			break;
-		case modeMagnifier:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			Magnify = true;
-			setCursor(im->loadCursor("lupez.png"));
-			break;
-		case modePanning:
-			setCursor(im->loadCursor("handc.png"));
-			break;
-		case modeDrawLine:
-		case modeDrawBezierLine:
-			setCursor(QCursor(Qt::CrossCursor));
-			break;
-		case modeDrawCalligraphicLine:
-		case modeDrawFreehandLine:
-			setCursor(im->loadCursor("DrawFreeLine.png", 0, 32));
-			break;
-		case modeEyeDropper:
-			setCursor(im->loadCursor("colorpickercursor.png", 0, 32));
-			break;
-		case modeInsertPDFButton:
-		case modeInsertPDFRadioButton:
-		case modeInsertPDFTextfield:
-		case modeInsertPDFCheckbox:
-		case modeInsertPDFCombobox:
-		case modeInsertPDFListbox:
-		case modeInsertPDFTextAnnotation:
-		case modeInsertPDFLinkAnnotation:
-		case modeInsertPDF3DAnnotation:
-			if (docSelectionCount!=0)
-				Deselect(true);
-			setCursor(QCursor(Qt::CrossCursor));
-			break;
-		case modeLinkFrames:
-			setCursor(im->loadCursor("LinkTextFrame.png", 0, 31));
-			break;
-		case modeMeasurementTool:
-		case modeEditGradientVectors:
-		case modeEditMeshGradient:
-		case modeEditArc:
-		case modeEditPolygon:
-		case modeEditSpiral:
-			setCursor(QCursor(Qt::CrossCursor));
-			break;
-		default:
-			setCursor(QCursor(Qt::ArrowCursor));
-		break;
-	}
-}
-*/
-
-
-/*
-void ScribusView::paintEvent ( QPaintEvent * p )
-{
-	#ifndef _WIN32
-	if (p->spontaneous())
-		evSpon = true;
-	#endif
-	QScrollArea::paintEvent(p);
-//	QPainter qp(viewport());
-//	drawContents(&qp, p->rect().x(), p->rect().y(), p->rect().width(), p->rect().height());
-}
-*/
 
 void ScribusView::enterEvent(QEvent * e)
 {
@@ -673,8 +566,8 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	if (ss.readElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
 	{
 		FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
-		dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
-		dragY = dragPosDoc.y(); //e->pos().y() / m_canvas->scale();
+		dragX = dragPosDoc.x();
+		dragY = dragPosDoc.y();
 		dragW = gw;
 		dragH = gh;
 		DraggedGroup = true;
@@ -998,7 +891,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
 	//CB When we drag an image to a page from outside
 	//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
-	if ((fi.exists()) && (img) && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
+	if ((fi.exists()) && img && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
 	{
 		int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor);
 		PageItem *item = m_doc->Items->at(z);
@@ -1037,17 +930,17 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		update();
 		return;
 	}
-	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, m_doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && ((!vectorFile) || (img)))
+	if (selectedItemByDrag && (m_canvas->frameHitTest(dropPosDocQ, m_doc->m_Selection->itemAt(0)) >= Canvas::INSIDE) && (!vectorFile || img))
 	{
 		PageItem *item = m_doc->m_Selection->itemAt(0);
 		if (item->itemType() == PageItem::ImageFrame)
 		{
-			if ((fi.exists()) && (img))
+			if (fi.exists() && img)
 				m_doc->loadPict(url.toLocalFile(), item);
 		}
 		else if (item->itemType() == PageItem::TextFrame)
 		{
-			if ((fi.exists()) && (!img))
+			if (fi.exists() && !img)
 			{
 				gtGetText* gt = new gtGetText(m_doc);
 				QStringList exts = gt->getSupportedTypes();
@@ -1547,7 +1440,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			undoManager->setUndoEnabled(false);
 			currItem->checkChanges(true);
 			undoManager->setUndoEnabled(true);
-			SimpleState *ss = new SimpleState(Um::EditContourLine, "", Um::IBorder);
+			auto *ss = new SimpleState(Um::EditContourLine, "", Um::IBorder);
 			ss->set("EDIT_CONTOUR");
 			ss->set("MODE", mode);
 			ss->set("ROT", rot);
@@ -1652,7 +1545,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		undoManager->setUndoEnabled(false);
 		currItem->checkChanges(true);
 		undoManager->setUndoEnabled(true);
-		SimpleState *ss = new SimpleState(Um::EditShape, "", Um::IBorder);
+		auto *ss = new SimpleState(Um::EditShape, "", Um::IBorder);
 		ss->set("EDIT_SHAPE");
 		ss->set("MODE", mode);
 		ss->set("ROT", rot);
@@ -2105,20 +1998,19 @@ void ScribusView::setRulerPos(int x, int y)
 	vertRuler->shiftRel(0*m_doc->minCanvasCoordinate.y() - m_doc->rulerYoffset);
 	horizRuler->update();
 	vertRuler->update();
-	//	evSpon = true;
 	QString newStatusBarText(" ");
 	if ((verticalScrollBar()->isSliderDown()) || (horizontalScrollBar()->isSliderDown()))
 	{
 		QList<int> pag;
 		pag.clear();
-		int docPageCount=m_doc->Pages->count();
+		int docPageCount = m_doc->Pages->count();
 		for (int i = 0; i < docPageCount; ++i)
 		{
 			int xs = static_cast<int>(m_doc->Pages->at(i)->xOffset() * m_canvas->scale());
 			int ys = static_cast<int>(m_doc->Pages->at(i)->yOffset() * m_canvas->scale());
 			int ws = static_cast<int>(m_doc->Pages->at(i)->width() * m_canvas->scale());
 			int hs = static_cast<int>(m_doc->Pages->at(i)->height() * m_canvas->scale());
-			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
+			QRect drawRect(x, y, visibleWidth(), visibleHeight());
 			//			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(-Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
 				pag.append(i+1);
@@ -2239,7 +2131,7 @@ void ScribusView::scrollCanvasBy(double deltaX, double deltaY)
 {
 	double scale = m_canvas->scale();
 	horizontalScrollBar()->setValue(qRound(horizontalScrollBar()->value() + deltaX * scale));
-	verticalScrollBar()->setValue(qRound(verticalScrollBar()->value() + deltaX * scale));
+	verticalScrollBar()->setValue(qRound(verticalScrollBar()->value() + deltaY * scale));
 }
 
 
@@ -2344,7 +2236,8 @@ void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 void ScribusView::slotZoomOut(int mx, int my, bool preservePoint)
 {
 	// FIXME : mx and my should really be ScribusView local coordinates or global coordinates
-	int oldZoomX(mx), oldZoomY(my);
+	int oldZoomX(mx);
+	int oldZoomY(my);
 	if ((mx == 0) && (my == 0))
 	{
 		double x = qMax(contentsX() / m_canvas->scale(), m_doc->minCanvasCoordinate.x());
@@ -2386,9 +2279,6 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	m_ScMW->slotSetCurrentPage(m_doc->currentPage()->pageNr());
-	//	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
-	//	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
-	//	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 }
 
 void ScribusView::setCanvasCenterPos(double x, double y)
@@ -2582,7 +2472,7 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 	setScale(1.0);
 	m_canvas->setPreviewMode(true);
 	m_canvas->setForcedRedraw(true);
-	QImage pm = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
+	QImage pm(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
 	painter->clear(m_doc->paperColor());
 	painter->translate(-clipx, -clipy);
@@ -2717,7 +2607,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags)
 	if ((m_doc->Items->count() != 0) && !flags.testFlag(Pixmap_DontReloadImages))
 	{
 		FPoint orig = m_canvas->localToCanvas(QPoint(clipx, clipy));
-		QRectF cullingArea = QRectF(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));
+		QRectF cullingArea(orig.x(), orig.y(), qRound(clipw / sc + 0.5), qRound(cliph / sc + 0.5));
 		QList<PageItem*> itemList = *(m_doc->Items);
 		while (itemList.count() > 0)
 		{
@@ -2956,14 +2846,13 @@ class TextToPathPainter: public TextLayoutPainter
 		ScribusView* m_view;
 		PageItem* m_item;
 		QList<PageItem*> &m_group;
-		int m_counter;
+		int m_counter { 0 };
 
 	public:
 		TextToPathPainter(ScribusView* view, PageItem* item, QList<PageItem*> &group)
 			: m_view(view)
 			, m_item(item)
 			, m_group(group)
-			, m_counter(0)
 		{}
 
 		void drawGlyph(const GlyphCluster& gc) override
@@ -3114,7 +3003,7 @@ class TextToPathPainter: public TextLayoutPainter
 			m_group.append(m_view->m_doc->Items->takeAt(z));
 		}
 
-		void drawRect(QRectF rect) override {}
+		void drawRect(const QRectF& rect) override {}
 		void drawObject(PageItem* item) override {}
 };
 

@@ -27,12 +27,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMSETTINGS_H
 #define CMSETTINGS_H
 
+#include <QString>
+
 #include "scconfig.h"
 #include "scribusapi.h"
-#include <QString>
-class ScribusDoc;
-
 #include "colormgmt/sccolormgmtengine.h"
+
+class ScribusDoc;
 
 class SCRIBUS_API CMSettings
 {
@@ -90,7 +91,7 @@ class SCRIBUS_API CMSettings
 		ScColorTransform cmykGamutCheckTransform() const;    //stdProofCMYKGCG
 
 	private:
-		ScribusDoc*    m_Doc;
+		ScribusDoc*    m_Doc {nullptr};
 		bool           m_colorManagementAllowed {true};
 		bool           m_softProofingAllowed {false};
 		bool           m_useEmbeddedProfile {false};

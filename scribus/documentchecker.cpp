@@ -61,7 +61,7 @@ public:
 		drawGlyph(gc);
 	}
 	void drawLine(QPointF, QPointF) override { }
-	void drawRect(QRectF) override { }
+	void drawRect(const QRectF&) override { }
 	void drawObject(PageItem*) override { }
 };
 
@@ -106,7 +106,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc, const QString& checkerP
 	return (currDoc->hasPreflightErrors());
 }
 
-void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings)
 {
 	errorCodes pageError;
 	for (int i=0; i < currDoc->DocPages.count(); ++i )
@@ -144,7 +144,7 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checke
 	}
 }
 
-void DocumentChecker::checkLayers(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+void DocumentChecker::checkLayers(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings)
 {
 	errorCodes layerError;
 	int Lnr;
@@ -172,7 +172,7 @@ void DocumentChecker::checkLayers(ScribusDoc *currDoc, struct CheckerPrefs check
 	}
 }
 
-void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings)
 {
 	errorCodes itemError;
 
@@ -283,7 +283,6 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 				itemError.insert(ObjectNotOnPage, 0);
 			if (currItem->isImageFrame() && !currItem->isOSGFrame())
 			{
-
 				// check image vs. frame sizes
 				if (checkerSettings.checkPartFilledImageFrames && isPartFilledImageFrame(currItem))
 				{

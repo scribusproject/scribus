@@ -100,7 +100,7 @@ public:
 	void init();
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
-	QList<PageItem*> getAllItems(QList<PageItem*> &items);
+	QList<PageItem*> getAllItems(QList<PageItem*> &items) const;
 	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
 	void setup(int, int, int, int, int, const QString&, const QString&);
 	void setLoading(bool);
@@ -171,6 +171,8 @@ public:
 	PDFOptions& pdfOptions() { return m_docPrefsData.pdfPrefs; }
 
 	ObjAttrVector& itemAttributes() { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
+	const ObjAttrVector& itemAttributes() const { return m_docPrefsData.itemAttrPrefs.defaultItemAttributes; }
+
 	void setItemAttributes(ObjAttrVector& oav) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes=oav;}
 	void clearItemAttributes() { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.clear(); }
 	void appendToItemAttributes(const ObjectAttribute& oa) { m_docPrefsData.itemAttrPrefs.defaultItemAttributes.append(oa); }
@@ -617,10 +619,10 @@ public:
 	bool styleExists(const QString& styleName) const;
 	bool charStyleExists(const QString& styleName) const;
 	
-	QList<int> getSortedStyleList();
-	QList<int> getSortedCharStyleList();
-	QList<int> getSortedTableStyleList();
-	QList<int> getSortedCellStyleList();
+	QList<int> getSortedStyleList() const;
+	QList<int> getSortedCharStyleList() const;
+	QList<int> getSortedTableStyleList() const;
+	QList<int> getSortedCellStyleList() const;
 	
 	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**
@@ -675,7 +677,7 @@ public:
 	/*!
 	 * @brief Returns a stringlist of the item attributes within the document
 	 */
-	QStringList getItemAttributeNames();
+	QStringList getItemAttributeNames() const;
 
 	bool AddFont(const QString& name, int fsize = 10);
 	/*!
@@ -942,11 +944,11 @@ public:
 	 * @retval double containing the offset. Returns -1.0 if page not in Pages list (as -ve is not possible).
 	 * Mostly saves bringing in extra includes into files that already have scribusdoc.h
 	 */
-	double getXOffsetForPage(int);
-	double getYOffsetForPage(int);
-	void getBleeds(int pageNumber, MarginStruct& bleedData);
-	void getBleeds(const ScPage* page, MarginStruct& bleedData);
-	void getBleeds(const ScPage* page, const MarginStruct& baseValues, MarginStruct& bleedData);
+	double getXOffsetForPage(int) const;
+	double getYOffsetForPage(int) const;
+	void getBleeds(int pageNumber, MarginStruct& bleedData) const;
+	void getBleeds(const ScPage* page, MarginStruct& bleedData) const;
+	void getBleeds(const ScPage* page, const MarginStruct& baseValues, MarginStruct& bleedData) const;
 	
 	/**
 	 * @brief Item type conversion functions
@@ -1247,7 +1249,7 @@ public:
 	void rotateItem(double win, PageItem *currItem);
 	void moveRotated(PageItem *currItem, const FPoint& npv);
 	bool sizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	bool moveSizeItem(const FPoint& newX, const FPoint& newY, PageItem* currItem, bool fromMP = false, bool constrainRotation = false);
+	bool moveSizeItem(const FPoint& newX, const FPoint& newY, PageItem* currItem, bool fromMP = false);
 	void adjustItemSize(PageItem *currItem, bool includeGroup = false);
 	void moveGroup(double x, double y, Selection* customSelection = nullptr);
 	void rotateGroup(double angle, Selection* customSelection = nullptr);

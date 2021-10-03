@@ -477,7 +477,7 @@ public:
 		return m_backBuffer + "BT\n" + m_glyphBuffer + "ET\n" + m_pathBuffer;
 	}
 
-	void drawRect(QRectF rect) override
+	void drawRect(const QRectF& rect) override
 	{
 		QTransform transform = matrix();
 //		transform.translate(x(), y());

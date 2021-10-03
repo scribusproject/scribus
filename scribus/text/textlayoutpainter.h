@@ -121,7 +121,7 @@ public:
 	/// Draws a rectangle at current x and y positions, using current stoke
 	/// color and width for its border, and filled with the current fill
 	/// color.
-	virtual void drawRect(QRectF rect) = 0;
+	virtual void drawRect(const QRectF& rect) = 0;
 	/// Draws and embedded page item at the current x and y positions.
 	virtual void drawObject(PageItem* item) = 0;
 

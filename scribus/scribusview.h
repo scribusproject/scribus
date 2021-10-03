@@ -119,7 +119,6 @@ public:
 	};
 	
 	void requestMode(int appMode);
-//	void setCursorBasedOnAppMode(int appMode);
 	void startGesture(CanvasGesture*);
 	void stopGesture();
 	
@@ -157,7 +156,7 @@ public:
 	bool m_EditModeWasOn;
 	bool m_ChangedState;
 	SelectionRubberBand *redrawMarker;
-	FPoint RCenter;
+	FPoint RCenter { -1.0, -1.0 };
 	FPoint m_mousePointDoc;
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
@@ -351,7 +350,7 @@ protected: // Protected methods
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
-	int m_vhRulerHW;
+	int m_vhRulerHW { 17 };
 
 signals:
 	void unitChanged(int);

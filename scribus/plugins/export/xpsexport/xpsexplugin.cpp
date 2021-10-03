@@ -974,7 +974,7 @@ public:
 		m_restart = true;
 	}
 
-	void drawRect(QRectF rect) override
+	void drawRect(const QRectF& rect) override
 	{
 		QTransform transform = matrix();
 		double rx = (x() + rect.x()) * m_xps->conversionFactor;

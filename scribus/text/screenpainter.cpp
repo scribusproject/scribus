@@ -289,7 +289,7 @@ void ScreenPainter::drawLine(QPointF start, QPointF end)
 	m_painter->restore();
 }
 
-void ScreenPainter::drawRect(QRectF rect)
+void ScreenPainter::drawRect(const QRectF& rect)
 {
 	m_painter->save();
 	setupState(true);

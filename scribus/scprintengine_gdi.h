@@ -47,7 +47,7 @@ public:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool gdiPrintPreview(ScPage* page, QImage* image, PrintOptions& options, double scale = 1.0);
+	bool gdiPrintPreview(ScPage* page, QImage* image, const PrintOptions& options, double scale = 1.0);
 
 	/*! \brief Get the default printer name
 	\retval QString the default printer name on success or an empty string 
@@ -61,7 +61,7 @@ protected:
 
 	void resetData(void);
 
-	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) (ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+	typedef bool (ScPrintEngine_GDI::*PrintPageFunc) (ScPage* page, const PrintOptions& options, HDC printerDC, cairo_t* context);
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer
@@ -72,7 +72,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPages(PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName);
+	bool printPages(const PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName);
 
 	/*! \brief Print a page to a gdi printer
 	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
@@ -84,7 +84,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_GDI(ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+	bool printPage_GDI(ScPage* page, const PrintOptions& options, HDC printerDC, cairo_t* context);
 
 	/*! \brief Print a page to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
@@ -96,7 +96,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS (ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+	bool printPage_PS (ScPage* page, const PrintOptions& options, HDC printerDC, cairo_t* context);
 
 	/*! \brief Print a page separations to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
@@ -108,7 +108,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS_Sep(ScPage* page, PrintOptions& options, HDC printerDC, cairo_t* context);
+	bool printPage_PS_Sep(ScPage* page, const PrintOptions& options, HDC printerDC, cairo_t* context);
 
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
@@ -128,7 +128,7 @@ protected:
 	\param devMode pointer to a DEVMODE structure
 	\author Jean Ghali
 	*/
-	void setDeviceParams(PrintOptions& options, DEVMODEW* devMode);
+	void setDeviceParams(const PrintOptions& options, DEVMODEW* devMode);
 
 	/*! \brief Get support for PostScript Passthrough
 	Get ps passthrough support and escape code
@@ -136,21 +136,21 @@ protected:
 	\retval int the postscript passthrough escape code if success, 0 if the function fails
 	\author Jean Ghali
 	*/
-	int getPSPassthroughSupport(HDC printerDC);
+	int getPSPassthroughSupport(HDC printerDC) const;
 
 	/*! \brief Check if a specified printer use the FILE: port
 	\param printerName the printer name
 	\retval bool return true if the specified printer print to the FILE: port 
 	\author Jean Ghali
 	*/
-	bool printerUseFilePort (QString& printerName);
+	bool printerUseFilePort (const QString& printerName) const;
 
 	/*! \brief Check if PostScript is supported by a printer device context
 	\param dc the printer device context
 	\retval bool return true if PostScript is supported 
 	\author Jean Ghali
 	*/
-	bool isPostscriptPrinter(HDC dc);
+	bool isPostscriptPrinter(HDC dc) const;
 };
 
 #endif

@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <memory>
+
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scribusstructs.h"
@@ -23,8 +25,9 @@ ScPrintEngine_PS::ScPrintEngine_PS(ScribusDoc& doc)
 bool ScPrintEngine_PS::print(PrintOptions& options)
 {
 	QString filename(options.filename);
-	PSLib *dd = new PSLib(&m_doc, options, PSLib::OutputPS);
-	if (dd == nullptr)
+
+	std::unique_ptr<PSLib> psLib(new PSLib(&m_doc, options, PSLib::OutputPS));
+	if (!psLib)
 		return false;
 
 	if (!options.toFile)
@@ -33,13 +36,13 @@ bool ScPrintEngine_PS::print(PrintOptions& options)
 	// Write the PS to a file
 	filename = QDir::toNativeSeparators(filename);
 
-	int psCreationRetVal = dd->createPS(filename);
+	int psCreationRetVal = psLib->createPS(filename);
 	if (psCreationRetVal != 0)
 	{
 		QFile::remove(filename);
 		if (psCreationRetVal == 2)
 			return true;
-		m_errorMessage = dd->errorMessage();
+		m_errorMessage = psLib->errorMessage();
 		return false;
 	}
 	if (options.prnLanguage != PrintLanguage::PostScript3 && ScCore->haveGS())
