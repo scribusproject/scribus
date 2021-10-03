@@ -154,7 +154,6 @@ public:
 		// caches
 		mutable QHash<gid_type, qreal>     m_glyphWidth;
 		mutable QHash<gid_type, GlyphData> m_glyphOutline;
-		//mutable QHash<gid_type, uint>      m_cMap;
 		void* m_hbFont {nullptr};
 
 		// fill caches & members
@@ -163,7 +162,6 @@ public:
 		{ 
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			//m_cMap.clear();
 
 			status = qMax(m_cachedStatus, ScFace::LOADED);
 		}
@@ -172,7 +170,6 @@ public:
 		{
 			m_glyphWidth.clear();
 			m_glyphOutline.clear();
-			//m_cMap.clear();
 
 			status = ScFace::UNKNOWN;
 		}

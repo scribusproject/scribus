@@ -55,10 +55,9 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	FtFace(const QString& fam, const QString& sty, const QString& variant, const QString& scname,
 		   const QString& psname, const QString& path, int face, const QStringList& features);
+	~FtFace() override;
 
 	FT_Face ftFace() const override;
-
-	virtual ~FtFace();
 
 	// font metrics
 	qreal ascent(qreal sz=1.0) const override          { return m_ascent * sz; }
@@ -97,12 +96,12 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	void loadGlyph (ScFace::gid_type gl) const override;
 
 protected:
-	mutable FT_Face m_face;
+	mutable FT_Face m_face { nullptr };
 
 	static FT_Library m_library;
 
-	mutable bool m_isBold;
-	mutable bool m_isItalic;
+	mutable bool m_isBold { false };
+	mutable bool m_isItalic { false };
 
 	mutable QString m_pdfAscent;
 	mutable QString m_pdfCapHeight;
@@ -110,18 +109,18 @@ protected:
 	mutable QString m_italicAngle;
 	mutable QString m_pdfFontBBox;
 
-	mutable int m_encoding;
+	mutable int m_encoding { 0 };
 
-	mutable qreal m_uniEM;
-	mutable qreal m_ascent;
-	mutable qreal m_descent;
-	mutable qreal m_height;
-	mutable qreal m_xHeight;
-	mutable qreal m_capHeight;
-	mutable qreal m_maxAdvanceWidth;
-	mutable qreal m_underlinePos;
-	mutable qreal m_strikeoutPos;
-	mutable qreal m_strokeWidth;
+	mutable qreal m_uniEM { 0.0 };
+	mutable qreal m_ascent { 0.0 };
+	mutable qreal m_descent { 0.0 };
+	mutable qreal m_height { 0.0 };
+	mutable qreal m_xHeight { 0.0 };
+	mutable qreal m_capHeight { 0.0 };
+	mutable qreal m_maxAdvanceWidth { 0.0 };
+	mutable qreal m_underlinePos { 0.0 };
+	mutable qreal m_strikeoutPos { 0.0 };
+	mutable qreal m_strokeWidth { 0.0 };
 
 	QString uniGlyphNameToUnicode(const QString& glyphName) const;
 };

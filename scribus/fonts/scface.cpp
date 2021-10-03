@@ -385,7 +385,6 @@ void ScFace::unload() const
 	// clear caches
 	m_m->m_glyphWidth.clear();
 	m_m->m_glyphOutline.clear();
-	//m->m_cMap.clear();
 	m_m->status = ScFace::UNKNOWN;
 }
 

@@ -41,20 +41,6 @@ FT_Library FtFace::m_library = nullptr;
  *****/
 
 FtFace::FtFace(const QString& fam, const QString& sty, const QString& vari, const QString& scname, const QString& psname, const QString& path, int face, const QStringList& features)
-	: 	m_face(nullptr),
-	  m_isBold(false),
-	  m_isItalic(false),
-	  m_encoding(0.0),
-	  m_uniEM(0.0),
-	  m_ascent(0.0),
-	  m_descent(0.0),
-	  m_height(0.0),
-	  m_xHeight(0.0),
-	  m_capHeight(0.0),
-	  m_maxAdvanceWidth(0.0),
-	  m_underlinePos(0.0),
-	  m_strikeoutPos(0.0),
-	  m_strokeWidth(0.0)
 {
 	family = fam;
 	style = sty;
@@ -70,7 +56,8 @@ FtFace::FtFace(const QString& fam, const QString& sty, const QString& vari, cons
 }
 
 
-FtFace::~FtFace() {
+FtFace::~FtFace()
+{
 	unload();
 }
 
