@@ -1039,7 +1039,29 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemEditWeld", "Weld");
-	scrMenuMgr->addMenuItemString("editMark", "Item");
+
+	scrMenuMgr->createMenu("Marks", tr("Marks"), "Item");
+	scrMenuMgr->addMenuItemString("Marks", "Item");
+	scrMenuMgr->addMenuItemString("editMark", "Marks");
+
+	scrMenuMgr->createMenu("TextFeatures", tr("Text Features", "Item"));
+	scrMenuMgr->addMenuItemString("TextFeatures", "Item");
+	scrMenuMgr->addMenuItemString("alignLeft", "TextFeatures");
+	scrMenuMgr->addMenuItemString("alignCenter", "TextFeatures");
+	scrMenuMgr->addMenuItemString("alignRight", "TextFeatures");
+	scrMenuMgr->addMenuItemString("alignBlock", "TextFeatures");
+	scrMenuMgr->addMenuItemString("alignForced", "TextFeatures");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectNormal", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectUnderline", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectUnderlineWords", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectStrikeThrough", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectAllCaps", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectSmallCaps", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectSuperscript", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectSubscript", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectOutline", "TextFeatures");
+	scrMenuMgr->addMenuItemString("typeEffectShadow", "TextFeatures");
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));

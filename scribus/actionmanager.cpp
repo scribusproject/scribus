@@ -318,11 +318,11 @@ void ActionManager::initStyleMenuActions()
 	name = "alignForced";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), mainWindow, 4));
 
-	(*scrActions)["alignLeft"]->setToggleAction(true);
-	(*scrActions)["alignCenter"]->setToggleAction(true);
-	(*scrActions)["alignRight"]->setToggleAction(true);
-	(*scrActions)["alignBlock"]->setToggleAction(true);
-	(*scrActions)["alignForced"]->setToggleAction(true);
+//	(*scrActions)["alignLeft"]->setToggleAction(true);
+//	(*scrActions)["alignCenter"]->setToggleAction(true);
+//	(*scrActions)["alignRight"]->setToggleAction(true);
+//	(*scrActions)["alignBlock"]->setToggleAction(true);
+//	(*scrActions)["alignForced"]->setToggleAction(true);
 
 	connect( (*scrActions)["alignLeft"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
 	connect( (*scrActions)["alignCenter"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));

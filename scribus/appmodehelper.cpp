@@ -531,6 +531,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
 			(*a_scrActions)["toolsRotate"]->setEnabled(false);
 			(*a_scrActions)["toolsCopyProperties"]->setEnabled(false);
+			enableTextStyleActions(false);
 			break;
 		case PageItem::ImageFrame: //Image Frame
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
@@ -621,6 +622,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
 			(*a_scrActions)["insertSampleText"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("InsertMark",true);
+			enableTextStyleActions(true);
 
 			if ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr))
 			{
@@ -1790,6 +1792,7 @@ void AppModeHelper::setPreviewMode(bool b)
 void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 {
 	(*a_scrActions)["insertGlyph"]->setEnabled(enabled);
+
 	a_actMgr->enableUnicodeActions(a_scrActions, enabled, fontName);
 	if (!enabled)
 	{
@@ -1800,6 +1803,25 @@ void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 		(*a_scrActions)["insertMarkNote"]->setEnabled(false);
 		(*a_scrActions)["editMark"]->setEnabled(false);
 	}
+}
+
+void AppModeHelper::enableTextStyleActions(bool enabled)
+{
+	(*a_scrActions)["alignLeft"]->setEnabled(enabled);
+	(*a_scrActions)["alignCenter"]->setEnabled(enabled);
+	(*a_scrActions)["alignRight"]->setEnabled(enabled);
+	(*a_scrActions)["alignBlock"]->setEnabled(enabled);
+	(*a_scrActions)["alignForced"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectNormal"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectUnderline"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectUnderlineWords"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectStrikeThrough"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectAllCaps"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectSmallCaps"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectSuperscript"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectSubscript"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectOutline"]->setEnabled(enabled);
+	(*a_scrActions)["typeEffectShadow"]->setEnabled(enabled);
 }
 
 void AppModeHelper::setStartupActionsEnabled(bool enabled)
