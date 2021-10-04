@@ -253,7 +253,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QVector<uint> ts, const QColor& bac
 	pen_x = 0;
 	ymax = 0.0;
 
-	std::unique_ptr<ScPainter> p = std::make_unique<ScPainter>(&pm, pm.width(), pm.height());
+	std::unique_ptr<ScPainter> p(new ScPainter(&pm, pm.width(), pm.height()));
 	p->clear(back);
 	p->setFillMode(ScPainter::Solid);
 	p->setLineWidth(0.0);

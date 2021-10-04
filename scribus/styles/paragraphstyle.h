@@ -71,7 +71,7 @@ public:
 	ParagraphStyle();
 	ParagraphStyle(const ParagraphStyle& other);
 	ParagraphStyle& operator=(const ParagraphStyle& other);
-	~ParagraphStyle();
+	~ParagraphStyle() = default;
 
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, const Xml_string& elemtag = saxxDefaultElem);
@@ -153,8 +153,8 @@ public:
 private:
 		
 	// member declarations:
-	StyleContextProxy m_cstyleContext;
-	bool m_cstyleContextIsInh;
+	StyleContextProxy m_cstyleContext { nullptr };
+	bool m_cstyleContextIsInh { true };
 	CharStyle m_cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \

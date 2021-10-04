@@ -76,20 +76,21 @@ class SCRIBUS_API SampleItem : QObject
 		void setParEffectDist(double dropDist);
 		void setFontEffect(int fontEffect);
 		void setTxtFillColor(const QString& fColor);
-		void setTxtFillShade(int fShade);
+		void setTxtFillShade(double fShade);
 		void setTxtStrokeColor(const QString& sColor);
-		void setTxtStrokeShade(int sShade);
-		void setTxtShadowX(int txtShadowX);
-		void setTxtShadowY(int txtShadowY);
-		void setTxtOutline(int txtOutline);
-		void setTxtUnderPos(int txtUnderPos);
-		void setTxtUnderWidth(int txtUnderWidth);
-		void setTxtStrikePos(int txtStrikePos);
-		void setTxtStrikeWidth(int txtStrikeWidth);
-		void setScaleH(int scaleH);
-		void setScaleV(int scaleV);
-		void setBaseOff(int baseOff);
-		void setKernVal(int kernVal);
+		void setTxtStrokeShade(double sShade);
+		void setTxtShadowX(double txtShadowX);
+		void setTxtShadowY(double txtShadowY);
+		void setTxtOutlineWidth(double txtOutline);
+		void setTxtUnderlineOffset(double txtUnderPos);
+		void setTxtUnderlineWidth(double txtUnderWidth);
+		void setTxtStrikethruOffset(double txtStrikePos);
+		void setTxtStrikethruWidth(double txtStrikeWidth);
+		void setScaleH(double scaleH);
+		void setScaleV(double scaleV);
+		void setBaselineOffset(double baseOff);
+		void setKernVal(double kernVal);
+		void setWordTracking(double wordTracking);
 
 		/*! \brief Get the sample.
 		\param width W of the sample

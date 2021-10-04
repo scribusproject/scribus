@@ -27,7 +27,7 @@ bool ParagraphStyle::TabRecord::operator==(const TabRecord& other) const
 	return isequiv(tabPosition, other.tabPosition) && tabType==other.tabType && tabFillChar == other.tabFillChar;
 }
 
-ParagraphStyle::ParagraphStyle() : m_cstyleContext(nullptr), m_cstyleContextIsInh(true)
+ParagraphStyle::ParagraphStyle()
 {
 	setParent("");
 	m_cstyleContext.setDefaultStyle( &m_cstyle );
@@ -38,11 +38,14 @@ ParagraphStyle::ParagraphStyle() : m_cstyleContext(nullptr), m_cstyleContextIsIn
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
-	m_isDefaultStyle=false;
+	m_isDefaultStyle = false;
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : BaseStyle(other), m_cstyleContext(nullptr), m_cstyleContextIsInh(other.m_cstyleContextIsInh), m_cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other)
+	          : BaseStyle(other), 
+	            m_cstyleContextIsInh(other.m_cstyleContextIsInh),
+	            m_cstyle(other.charStyle())
 {
 	if (m_cstyleContextIsInh)
 		m_cstyle.setContext(nullptr);
@@ -59,12 +62,6 @@ ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : BaseStyle(other), 
 #undef ATTRDEF
 }
 
-ParagraphStyle::~ParagraphStyle()
-{
-//	qDebug() << QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this));
-}
-	
-
 QString ParagraphStyle::displayName() const
 {
 	if (isDefaultStyle())
@@ -80,7 +77,7 @@ QString ParagraphStyle::displayName() const
 bool ParagraphStyle::equiv(const BaseStyle& other) const
 {
 	other.validate();
-	const ParagraphStyle* oth = reinterpret_cast<const ParagraphStyle*> ( & other );
+	const auto* oth = reinterpret_cast<const ParagraphStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() && m_cstyle.equiv(oth->charStyle())
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -90,25 +87,6 @@ bool ParagraphStyle::equiv(const BaseStyle& other) const
 #undef ATTRDEF
 		;
 }	
-
-
-/* hm... av
-static void updateAutoLinespacing(ParagraphStyle& that)
-{
-	switch (that.lineSpacingMode())
-	{
-		case 0: 
-			that.setLineSpacing(((that.charStyle().fontSize() / 10.0) * static_cast<qreal>(typographicSettings.autoLineSpacing) / 100));
-			break;
-		case 1:
-			that.setLineSpacing(that.charStyle().font().height(size));
-			break;
-		case 2:
-			that.setLineSpacing(typographicSettings.valueBaseGrid-1);
-			break;
-	}
-}
-*/
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
@@ -122,7 +100,7 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 	
 	if (m_cstyleContextIsInh)
 	{
-		const ParagraphStyle * parent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
+		const auto * parent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 		m_cstyle.setContext(parent ? parent->charStyleContext() : nullptr);
 	}
 	else
@@ -148,8 +126,9 @@ void ParagraphStyle::setContext(const StyleContext* context)
 
 void ParagraphStyle::repairImplicitCharStyleInheritance()
 {
-	if (m_cstyleContextIsInh) {
-		const ParagraphStyle * newParent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
+	if (m_cstyleContextIsInh)
+	{
+		const auto * newParent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 		m_cstyle.setContext(newParent ? newParent->charStyleContext() : nullptr);
 	}
 }
@@ -171,9 +150,9 @@ void ParagraphStyle::update(const StyleContext* context)
 	m_cstyle.validate();
 	m_cstyleContext.invalidate();
 
-	const ParagraphStyle * oth = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
+	const auto * oth = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 //	qDebug() << QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth);
-	if (oth) {
+	if (oth){
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		if (inh_##attr_NAME) \
 			m_##attr_NAME = oth->attr_GETTER();
@@ -323,7 +302,7 @@ class SetCharStyle_body : public desaxe::Action_body
 	void end (const Xml_string& /*tagname*/)
 	{
 		ParagraphStyle* pstyle = this->dig->top<ParagraphStyle>(1);
-		CharStyle* cstyle = this->dig->top<CharStyle>(0);
+		const CharStyle* cstyle = this->dig->top<CharStyle>(0);
 		pstyle->charStyle() = *cstyle;
 	}
 };

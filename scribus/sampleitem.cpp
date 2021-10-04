@@ -209,7 +209,7 @@ void SampleItem::setTxtFillColor(const QString& fColor)
 	m_tmpStyle.charStyle().setFillColor(fColor);
 }
 
-void SampleItem::setTxtFillShade(int fShade)
+void SampleItem::setTxtFillShade(double fShade)
 {
 	m_tmpStyle.charStyle().setFillShade(fShade);
 }
@@ -219,64 +219,69 @@ void SampleItem::setTxtStrokeColor(const QString& sColor)
 	m_tmpStyle.charStyle().setStrokeColor(sColor);
 }
 
-void SampleItem::setTxtStrokeShade(int sShade)
+void SampleItem::setTxtStrokeShade(double sShade)
 {
 	m_tmpStyle.charStyle().setStrokeShade(sShade);
 }
 
-void SampleItem::setTxtShadowX(int txtShadowX)
+void SampleItem::setTxtShadowX(double txtShadowX)
 {
 	m_tmpStyle.charStyle().setShadowXOffset(txtShadowX);
 }
 
-void SampleItem::setTxtShadowY(int txtShadowY)
+void SampleItem::setTxtShadowY(double txtShadowY)
 {
 	m_tmpStyle.charStyle().setShadowYOffset(txtShadowY);
 }
 
-void SampleItem::setTxtOutline(int txtOutline)
+void SampleItem::setTxtOutlineWidth(double txtOutline)
 {
 	m_tmpStyle.charStyle().setOutlineWidth(txtOutline);
 }
 
-void SampleItem::setTxtUnderPos(int txtUnderPos)
+void SampleItem::setTxtUnderlineOffset(double txtUnderPos)
 {
 	m_tmpStyle.charStyle().setUnderlineOffset(txtUnderPos);
 }
 
-void SampleItem::setTxtUnderWidth(int txtUnderWidth)
+void SampleItem::setTxtUnderlineWidth(double txtUnderWidth)
 {
 	m_tmpStyle.charStyle().setUnderlineWidth(txtUnderWidth);
 }
 
-void SampleItem::setTxtStrikePos(int txtStrikePos)
+void SampleItem::setTxtStrikethruOffset(double txtStrikePos)
 {
 	m_tmpStyle.charStyle().setStrikethruOffset(txtStrikePos);
 }
 
-void SampleItem::setTxtStrikeWidth(int txtStrikeWidth)
+void SampleItem::setTxtStrikethruWidth(double txtStrikeWidth)
 {
 	m_tmpStyle.charStyle().setStrikethruWidth(txtStrikeWidth);
 }
 
-void SampleItem::setScaleH(int scaleH)
+void SampleItem::setScaleH(double scaleH)
 {
 	m_tmpStyle.charStyle().setScaleH(scaleH);
 }
 
-void SampleItem::setScaleV(int scaleV)
+void SampleItem::setScaleV(double scaleV)
 {
 	m_tmpStyle.charStyle().setScaleV(scaleV);
 }
 
-void SampleItem::setBaseOff(int baseOff)
+void SampleItem::setBaselineOffset(double baseOff)
 {
 	m_tmpStyle.charStyle().setBaselineOffset(baseOff);
 }
 
-void SampleItem::setKernVal(int kernVal)
+void SampleItem::setKernVal(double kernVal)
 {
 	m_tmpStyle.charStyle().setTracking(kernVal);
+}
+
+void SampleItem::setWordTracking(double val)
+{
+	m_tmpStyle.charStyle().setWordTracking(val);
 }
 
 QPixmap SampleItem::getSample(int width, int height)
