@@ -83,7 +83,7 @@ void SampleItem::setText(const QString& aText)
 
 void SampleItem::setLoremIpsum(int para)
 {
-	auto loremParser = std::make_unique<LoremParser>("loremipsum.xml");
+	std::unique_ptr<LoremParser> loremParser(new LoremParser("loremipsum.xml"));
 	m_text = loremParser->createLorem(para);
 }
 
@@ -303,7 +303,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	QImage pm(pmWidth, pmHeight, QImage::Format_ARGB32);
 	pm.setDevicePixelRatio(m_devicePixelRatio);
 
-	auto painter = std::make_unique<ScPainter>(&pm, pmWidth, pmHeight, 1.0, 0);
+	std::unique_ptr<ScPainter> painter(new ScPainter(&pm, pmWidth, pmHeight, 1.0, 0));
 	painter->setZoomFactor(PrefsManager::instance().appPrefs.displayPrefs.displayScale);
 
 	if (m_Doc->UsedFonts.contains(m_tmpStyle.charStyle().font().scName()))
@@ -311,7 +311,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	m_Doc->AddFont(m_tmpStyle.charStyle().font().scName(), qRound(m_Doc->itemToolPrefs().textSize / 10.0));
 
-	auto previewItem = std::make_unique<PageItem_TextFrame>(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
+	std::unique_ptr<PageItem_TextFrame> previewItem(new PageItem_TextFrame(m_Doc, 0, 0, frameWidth, frameHeight, 0, "__whiteforpreviewbg__", "__whiteforpreview__"));
 	m_text.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
 
 	previewItem->FrameType = PageItem::TextFrame;
