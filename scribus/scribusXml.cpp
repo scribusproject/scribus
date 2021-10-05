@@ -83,7 +83,7 @@ bool ScriXmlDoc::readElemHeader(const QString& file, bool isFile, double *x, dou
 		ff  = file;
 
 	bool succeed = false;
-	QStringView tName;
+	QStringRef tName;
 	QXmlStreamReader sReader(ff);
 	QXmlStreamReader::TokenType tType;
 	while (!sReader.atEnd() && !sReader.hasError())
@@ -92,7 +92,7 @@ bool ScriXmlDoc::readElemHeader(const QString& file, bool isFile, double *x, dou
 		if (tType == QXmlStreamReader::StartElement)
 		{
 			tName = sReader.name();
-			if ((tName == QStringView(u"SCRIBUSELEM")) || (tName == QStringView(u"SCRIBUSELEMUTF8")))
+			if ((tName == "SCRIBUSELEM") || (tName == "SCRIBUSELEMUTF8"))
 			{
 				QXmlStreamAttributes attrs = sReader.attributes();;
 				QString attx = attrs.value("XP").toString();

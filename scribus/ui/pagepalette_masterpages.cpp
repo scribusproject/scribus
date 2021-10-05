@@ -550,7 +550,7 @@ void PagePalette_MasterPages::changeEvent(QEvent *e)
 // FIXME: move to a new masterpages.h
 bool PagePalette_MasterPages::isReservedName(const QString& name) const
 {
-	return name == CommonStrings::masterPageNormal ||
+	bool retval = name == CommonStrings::masterPageNormal ||
 		name == CommonStrings::trMasterPageNormal ||
 		name == CommonStrings::masterPageNormalLeft ||
 		name == CommonStrings::trMasterPageNormalLeft ||
@@ -558,6 +558,7 @@ bool PagePalette_MasterPages::isReservedName(const QString& name) const
 		name == CommonStrings::trMasterPageNormalMiddle ||
 		name == CommonStrings::masterPageNormalRight ||
 		name == CommonStrings::trMasterPageNormalRight;
+	return retval;
 }
 
 // FIXME: move to a new masterpages.h

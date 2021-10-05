@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include <QIODevice>
 #include <QList>
 #include <QScopedPointer>
-#include <QStringView>
 
 #include "../../formatidlist.h"
 #include "commonstrings.h"

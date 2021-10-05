@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QFileInfo>
 #include <QRegExp>
-#include <QStringView>
 
 #include "cmsettings.h"
 #include "colormgmt/sccolormgmtengine.h"
@@ -101,7 +100,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn, int /* page */)
 				for (int a = 2; a < tmp.length(); a += 2)
 				{
 					bool ok;
-					ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+					ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 					psdata.resize(psdata.size()+1);
 					psdata[psdata.size()-1] = data;
 				}
@@ -426,7 +425,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
-								ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+								ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 								psdata.resize(psdata.size()+1);
 								psdata[psdata.size()-1] = data;
 							}
@@ -443,7 +442,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
-								ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+								ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 								psdata.resize(psdata.size()+1);
 								psdata[psdata.size()-1] = data;
 							}
@@ -1245,7 +1244,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn)
 						for (int a = 0; a < tmp.length(); a += 2)
 						{
 							bool ok;
-							ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+							ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 							psdata.resize(psdata.size()+1);
 							psdata[psdata.size()-1] = data;
 						}
@@ -1378,7 +1377,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn, QImage &tmpImg)
 							for (int a = 0; a < tmp.length(); a += 2)
 							{
 								bool ok;
-								ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+								ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 								psdata.resize(psdata.size()+1);
 								psdata[psdata.size()-1] = data;
 							}

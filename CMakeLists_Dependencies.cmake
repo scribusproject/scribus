@@ -67,6 +67,8 @@ if (NOT WANT_QT6)
 else()
 #WANT QT6
     message(STATUS "Qt6 Requested")
+	set(QT_MIN_VERSION "6.2.0")
+
 	find_package(Qt6 COMPONENTS Core REQUIRED)
 	add_definitions(${Qt6Core_DEFINITIONS})
 	include_directories(${Qt6Core_INCLUDE_DIRS})

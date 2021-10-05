@@ -26,7 +26,7 @@ copyright            : Scribus Team
 #include <QObject>
 #include <QPointer>
 #include <QString>
-#include <QStringView>
+#include <QStringRef>
 #include <QSyntaxHighlighter>
 #include <QXmlStreamReader>
 
@@ -89,7 +89,7 @@ class LatexConfigParser
 		void parseTab();
 		void parseHighlighter();
 		void ignoreList();
-		bool StrViewToBool(const QStringView& str) const;
+		bool StrRefToBool(const QStringRef& str) const;
 };
 
 class LatexConfigCache;

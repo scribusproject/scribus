@@ -36,7 +36,7 @@ public:
 
 		QXmlStreamReader sReader(&qFile);
 		QXmlStreamReader::TokenType tagType;
-		QStringView tagName;
+		QStringRef tagName;
 
 		while (!sReader.atEnd() && !sReader.hasError())
 		{
@@ -45,7 +45,7 @@ public:
 				continue;
 
 			tagName = sReader.name();
-			if (tagName != QStringView(u"template"))
+			if (tagName != "template")
 				continue;
 
 			QXmlStreamAttributes attrs = sReader.attributes();

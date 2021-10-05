@@ -1360,7 +1360,7 @@ void AIPlug::processData(const QString& data)
 	{
 		if (data.contains("~>"))
 		{
-			dataString += QStringView{data}.mid(1);
+			dataString += data.midRef(1);
 			dataMode = false;
 			QByteArray fData;
 			decodeA85(fData, dataString);
@@ -1419,9 +1419,7 @@ void AIPlug::processData(const QString& data)
 			currentSpecialPath.svgInit();
 		}
 		else
-		{
-			dataString += QStringView{data}.mid(1);
-		}
+			dataString += data.midRef(1);
 		return;
 	}
 	getCommands(data, da);
@@ -2970,7 +2968,7 @@ void AIPlug::processRaster(QDataStream &ts)
 			for (int a = 1; a < tmp.length(); a += 2)
 			{
 				bool ok;
-				ushort data = QStringView{tmp}.mid(a, 2).toUShort(&ok, 16);
+				ushort data = tmp.midRef(a, 2).toUShort(&ok, 16);
 				psdata[dataPointer++] = data;
 			}
 		}
