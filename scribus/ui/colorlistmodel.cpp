@@ -10,11 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 
-ColorPixmapValue::ColorPixmapValue() : m_name("invalid")
-{}
+ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other)
+	            : m_color(other.m_color),
+	              m_doc(other.m_doc),
+	              m_name(other.m_name)
+{
 
-ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)
-{}
+}
 
 ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 {
@@ -25,17 +27,16 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 }
 
 ColorPixmapValue::ColorPixmapValue(const ScColor& col, ScribusDoc* doc, const QString& colName)
+                : m_color(col),
+	              m_name(colName)
 {
 	m_doc = (doc) ? doc->guardedPtr() : nullptr;
-	m_color = col;
-	m_name = colName;
 }
 
 ColorListModel::ColorListModel(QObject *parent)
 	          : QAbstractItemModel(parent)
 {
-	m_isNoneColorShown = false;
-	m_sortRule = SortByName;
+
 }
 
 void ColorListModel::clear()
@@ -55,7 +56,7 @@ QVariant ColorListModel::data(const QModelIndex &index, int role) const
 	if (!index.isValid())
 		return QVariant();
 
-	ColorPixmapValue* pColorValue = static_cast<ColorPixmapValue*>(index.internalPointer());
+	const auto* pColorValue = static_cast<ColorPixmapValue*>(index.internalPointer());
 	if (!pColorValue)
 		return QVariant();
 
@@ -116,7 +117,7 @@ QModelIndex ColorListModel::index(int row, int column, const QModelIndex &parent
 	if (!hasIndex(row, column, parent))
 		return QModelIndex();
 
-	ColorPixmapValue* pColorValue = static_cast<ColorPixmapValue*>(parent.internalPointer());
+	const auto* pColorValue = static_cast<ColorPixmapValue*>(parent.internalPointer());
 	if (pColorValue)
 		return QModelIndex();
 
@@ -170,7 +171,7 @@ int ColorListModel::rowCount(const QModelIndex &parent) const
 	if (m_colors.count() == 0)
 		return 0;
 
-	ColorPixmapValue* pColorValue = static_cast<ColorPixmapValue*>(parent.internalPointer());
+	const auto* pColorValue = static_cast<ColorPixmapValue*>(parent.internalPointer());
 	if (pColorValue)
 		return 0;
 
@@ -274,8 +275,8 @@ bool ColorListModel::compareColorTypes(const ColorPixmapValue& v1, const ColorPi
 	if (v2.m_name == CommonStrings::None || v2.m_name == CommonStrings::tr_None)
 		return false;
 
-	QString sortString1 = QString("%1-%2");
-	QString sortString2 = QString("%1-%2");
+	QString sortString1("%1-%2");
+	QString sortString2("%1-%2");
 
 	if (v1.m_color.isRegistrationColor())
 		sortString1 = sortString1.arg("A", v1.m_name);

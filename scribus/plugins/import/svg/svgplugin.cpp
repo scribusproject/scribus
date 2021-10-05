@@ -218,22 +218,22 @@ QImage SVGImportPlugin::readThumbnail(const QString& fileName)
 }
 
 SVGPlug::SVGPlug(ScribusDoc* doc, int flags)
+	   : m_Doc(doc),
+	     importerFlags(flags)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	unsupported = false;
-	importFailed = false;
-	importCanceled = true;
-	firstLayer = true;
+
 	importedColors.clear();
 	importedGradients.clear();
 	importedPatterns.clear();
-	docDesc = "";
-	docTitle = "";
-	groupLevel = 0;
-	importerFlags = flags;
+
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 //	m_gc.setAutoDelete(true);
+}
+
+SVGPlug::~SVGPlug()
+{
+	delete tmpSel;
 }
 
 QImage SVGPlug::readThumbnail(const QString& fName)
@@ -284,7 +284,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	}
 	QList<PageItem*> Elements = parseGroup(docElem);
 	tmpSel->clear();
-	QImage tmpImage = QImage();
+	QImage tmpImage;
 	if (Elements.count() > 0)
 	{
 		m_Doc->groupObjectsList(Elements);
@@ -337,7 +337,7 @@ bool SVGPlug::loadData(const QString& fName)
 		if ((QChar(bb[0]) == QChar(0x1F)) && (QChar(bb[1]) == QChar(0x8B)))
 			isCompressed = true;
 	}
-	if ((fName.right(2) == "gz") || (isCompressed))
+	if ((fName.right(2) == "gz") || isCompressed)
 	{
 		QFile file(fName);
 		QtIOCompressor compressor(&file);
@@ -384,7 +384,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			ret = true;
 		}
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (width > height)
 			m_Doc->setPageOrientation(1);
@@ -923,13 +923,13 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	return item;
 }
 
-bool SVGPlug::isIgnorableNode(const QDomElement &e)
+bool SVGPlug::isIgnorableNode(const QDomElement &e) const
 {
 	QString nodeName(e.tagName());
 	return isIgnorableNodeName(nodeName);
 }
 
-bool SVGPlug::isIgnorableNodeName(const QString &n)
+bool SVGPlug::isIgnorableNodeName(const QString &n) const
 {
 	return n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata";
 }
@@ -1530,7 +1530,7 @@ QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
-	QTransform mm = QTransform();
+	QTransform mm;
 	mm.translate(x, y);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
@@ -1554,7 +1554,7 @@ QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
-	QTransform mm = QTransform();
+	QTransform mm;
 	mm.translate(x, y);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
@@ -1779,7 +1779,7 @@ QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	QTransform mm = QTransform();
+	QTransform mm;
 	mm.translate(x, y);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
@@ -2094,7 +2094,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 {
 	bool doBreak = false;
 	setupNode(e);
-//	QDomNode c = e.firstChild();
+
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		if (n.isElement() && (parseTagName(n.toElement()) == "tspan"))
@@ -2955,7 +2955,7 @@ void SVGPlug::parseMarker(const QDomElement &b)
 	GElements = parseGroup(b);
 	if (GElements.count() > 0)
 	{
-		ScPattern pat = ScPattern();
+		ScPattern pat;
 		pat.setDoc(m_Doc);
 		PageItem* currItem = GElements.at(0);
 		m_Doc->DoDrawing = true;
@@ -3015,7 +3015,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		GElements = parseGroup(b);
 		if (GElements.count() > 0)
 		{
-			ScPattern pat = ScPattern();
+			ScPattern pat;
 			pat.setDoc(m_Doc);
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
@@ -3204,9 +3204,4 @@ QString SVGPlug::parseTagName(const QDomElement& element)
 	if (tagName.startsWith("svg:"))
 		return tagName.mid(4, -1);
 	return tagName;
-}
-
-SVGPlug::~SVGPlug()
-{
-	delete tmpSel;
 }

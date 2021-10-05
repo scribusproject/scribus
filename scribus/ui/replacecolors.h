@@ -52,8 +52,9 @@ private slots:
 
 private:
 	void updateReplacementTable();
-	QPixmap getColorIcon(const QString& color);
-	int selectedRow;
+	QPixmap getColorIcon(const QString& color) const;
+
+	int selectedRow { -1 };
 	QPixmap alertIcon;
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;

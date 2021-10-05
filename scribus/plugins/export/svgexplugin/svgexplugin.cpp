@@ -1186,7 +1186,7 @@ public:
 
 	void drawGlyphOutline(const GlyphCluster& gc, bool hasFill) override
 	{
-		if (gc.isControlGlyphs() | gc.isEmpty())
+		if (gc.isControlGlyphs() || gc.isEmpty())
 			return;
 
 		double current_x = 0.0;

@@ -8,11 +8,6 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scdomelement.h"
 
-ScDomElement::ScDomElement()
-{
-
-}
-
 ScDomElement::ScDomElement(const QDomElement &elem) : QDomElement(elem)
 {
 

@@ -40,7 +40,7 @@ class ScImageCacheFile : public QObject
 
 public:
 	ScImageCacheFile(const QString & name, ScImageCacheDir* parent = nullptr);
-	~ScImageCacheFile();
+	~ScImageCacheFile() = default;
 
 	QString path(bool relative = false) const;
 	qint64 size() const;
@@ -53,9 +53,9 @@ public:
 
 private:
 	const QString m_name;
-	ScImageCacheDir * const m_parent;
+	ScImageCacheDir * const m_parent { nullptr };
 	QDateTime m_modified;
-	qint64 m_size;
+	qint64 m_size { 0 };
 };
 
 #endif

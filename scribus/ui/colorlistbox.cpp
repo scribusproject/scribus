@@ -31,7 +31,7 @@ class SCRIBUS_API ColorSmallItemDelegate : public ScListBoxPixmap<15, 15>
 {
 public:
 	ColorSmallItemDelegate(): ScListBoxPixmap<15, 15>() {};
-	~ColorSmallItemDelegate() {};
+	~ColorSmallItemDelegate() = default;
 	
 	void redraw(const QVariant&) const override;
 	QString text(const QVariant&) const override;
@@ -41,7 +41,7 @@ class SCRIBUS_API ColorWideItemDelegate : public ScListBoxPixmap<30, 15>
 {
 public:
 	ColorWideItemDelegate(): ScListBoxPixmap<30, 15>() {};
-	~ColorWideItemDelegate() {};
+	~ColorWideItemDelegate() = default;
 	
 	void redraw(const QVariant&) const override;
 	QString text(const QVariant&) const override;
@@ -51,7 +51,7 @@ class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60, 15>
 {
 public:
 	ColorFancyItemDelegate();
-	~ColorFancyItemDelegate() {};
+	~ColorFancyItemDelegate() = default;
 	
 	void iconSetChange();
 	void redraw(const QVariant&) const override;
@@ -178,7 +178,6 @@ int ColorListBox::sortRule;
 ColorListBox::ColorListBox(QWidget * parent)
 	: QListView(parent)
 {
-	cList = nullptr;
 	if (initialized != 12345)
 		sortRule = 0;
 	initialized = 12345;
@@ -486,7 +485,7 @@ void ColorListBox::slotRightClick()
 		setCurrentColor(currentSel);
 }
 
-QString ColorListBox::text(int row)
+QString ColorListBox::text(int row) const
 {
 	QVariant varText = data(row, Qt::DisplayRole);
 	return varText.toString();

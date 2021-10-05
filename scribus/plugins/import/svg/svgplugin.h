@@ -232,6 +232,7 @@ public:
 	 */
 	SVGPlug(ScribusDoc* doc, int flags);
 	~SVGPlug();
+
 	bool import(const QString& fname, const TransactionSettings& trSettings, int flags);
 	QImage readThumbnail(const QString& fn);
 	bool loadData(const QString& fname);
@@ -240,8 +241,8 @@ public:
 	void setupNode( const QDomElement &e );
 	void setupTransform( const QDomElement &e );
 	PageItem* finishNode( const QDomNode &e, PageItem* item);
-	bool isIgnorableNode( const QDomElement &e );
-	bool isIgnorableNodeName( const QString &n );
+	bool isIgnorableNode( const QDomElement &e ) const;
+	bool isIgnorableNodeName( const QString &n ) const;
 	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = nullptr);
 	QSizeF  parseWidthHeight(const QDomElement &e);
 	QRectF  parseViewBox(const QDomElement &e);
@@ -284,38 +285,37 @@ public:
 	void parseMarker(const QDomElement &b);
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
-	FPoint GetMaxClipO(FPointArray Clip);
-	FPoint GetMinClipO(FPointArray Clip);
+
 	QDomDocument inpdoc;
 	QString docDesc;
 	QString docTitle;
-	int groupLevel;
+	int groupLevel { 0 };
 	QStack<SvgStyle*>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
 	QMap<QString, FPointArray>		m_clipPaths;
 	QMap<QString, QString>			m_unsupportedFeatures;
-	bool PathClosed;
-	double viewTransformX;
-	double viewTransformY;
-	double viewScaleX;
-	double viewScaleY;
-	bool interactive;
+
+	double viewTransformX { 0.0 };
+	double viewTransformY { 0.0 };
+	double viewScaleX { 1.0 };
+	double viewScaleY { 1.0 };
+	bool interactive { false };
 	//! \brief Indicator if there is any unsupported feature in imported svg.
-	bool unsupported;
-	bool importFailed;
-	bool importCanceled;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
+	bool unsupported { false };
+	bool importFailed { false };
+	bool importCanceled { true };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
 	QStringList importedColors;
 	QStringList importedGradients;
 	QMap<QString, QString> importedGradTrans;
 	QStringList importedPatterns;
 	QMap<QString, QString> importedPattTrans;
-	double inGroupXOrigin;
-	double inGroupYOrigin;
-	int importerFlags;
-	bool firstLayer;
+	double inGroupXOrigin { 0 };
+	double inGroupYOrigin { 0 };
+	int importerFlags { 0 };
+	bool firstLayer { true };
 	struct filterSpec
 	{
 		int blendMode;

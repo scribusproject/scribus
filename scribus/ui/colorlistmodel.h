@@ -20,9 +20,9 @@ struct SCRIBUS_API ColorPixmapValue
 {
 	ScColor m_color;
 	ScGuardedPtr<ScribusDoc> m_doc;
-	QString m_name;
+	QString m_name { "invalid" };
 
-	ColorPixmapValue();
+	ColorPixmapValue() = default;
 	ColorPixmapValue(const ScColor& col, ScribusDoc* doc, const QString& colName);
 	ColorPixmapValue(const ColorPixmapValue& other);
 	ColorPixmapValue& operator= (const ColorPixmapValue& other);
@@ -95,13 +95,13 @@ public:
 
 protected:
 	//! If None color is shown as first item in the list
-	bool m_isNoneColorShown;
+	bool m_isNoneColorShown { false };
 
 	//! The color list
 	QVector<ColorPixmapValue> m_colors;
 
 	// SortRule m_sortRule
-	SortRule m_sortRule;
+	SortRule m_sortRule { SortByName };
 
 	static bool compareColorNames(const ColorPixmapValue& v1, const ColorPixmapValue& v2);
 	static bool compareColorValues(const ColorPixmapValue& v1, const ColorPixmapValue& v2);

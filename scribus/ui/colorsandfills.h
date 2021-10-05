@@ -42,17 +42,18 @@ class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 	public:
 		ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, const ColorList& doco, const QString& docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~ColorsAndFillsDialog() {}
+
 		/*! \brief Returns the name of the current/selected color set.
 		\retval QString selected name. */
 		QString getColorSetName();
 		/*! \brief Returns currently selected ScColor.
 		It's used e.g. in BarcodeGenerator plugin.
 		*/
-		ScColor selectedColor();
+		ScColor selectedColor() const;
 		/*! \brief Returns name of the currently selected color.
 		It's used e.g. in BarcodeGenerator plugin.
 		*/
-		QString selectedColorName();
+		QString selectedColorName() const;
 
 		void keyPressEvent(QKeyEvent *k);
 
@@ -92,26 +93,27 @@ class SCRIBUS_API ColorsAndFillsDialog : public QDialog, Ui::ColorsAndFillsBase
 		QTreeWidgetItem* updatePatternList(const QString& addedName = "");
 		QTreeWidgetItem* updateGradientList(const QString& addedName = "");
 		QTreeWidgetItem* updateColorList(const QString& addedName = "");
-		ColorList getGradientColors();
-		QString getColorTooltip(const ScColor& color);
-		bool isMandatoryColor(const QString& colorName);
+		ColorList getGradientColors() const;
+		QString getColorTooltip(const ScColor& color) const;
+		bool isMandatoryColor(const QString& colorName) const;
 		void loadPatternDir();
 		void loadVectors(const QString& data);
 		void updateGradientColors(const QString& newName, const QString& oldName);
 		void loadGimpFormat(const QString& fileName);
 		void addGimpColor(QString &colorName, double r, double g, double b);
 		void loadScribusFormat(const QString& fileName);
-		QStringList getUsedPatternsHelper(const QString& pattern, QStringList &results);
+		QStringList getUsedPatternsHelper(const QString& pattern, QStringList &results) const;
 		void doSaveDefaults(const QString& name, bool changed = false);
+
 		ColorSetManager csm;
-		bool paletteLocked;
-		bool modified;
-		int sortRule;
-		QTreeWidgetItem *colorItems;
-		QTreeWidgetItem *gradientItems;
-		QTreeWidgetItem *patternItems;
-		QTreeWidgetItem *systemSwatches;
-		QTreeWidgetItem *userSwatches;
+		bool paletteLocked { false };
+		bool modified { false };
+		int sortRule { 0 };
+		QTreeWidgetItem* colorItems { nullptr };
+		QTreeWidgetItem *gradientItems { nullptr };
+		QTreeWidgetItem *patternItems { nullptr };
+		QTreeWidgetItem *systemSwatches { nullptr };
+		QTreeWidgetItem *userSwatches { nullptr };
 		ColorList inDocUsedColors;
 };
 

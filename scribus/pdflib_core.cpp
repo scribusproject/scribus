@@ -1905,7 +1905,7 @@ PdfFont PDFLibCore::PDF_EncodeSimpleFont(const QByteArray& fontName, ScFace& fac
 		{
 			uint glyph = 224 * Fc + ww2 - 32;
 			ScFace::FaceEncoding::ConstIterator glIt = gl.find(glyph);
-			if (glIt != gl.cend() && !glIt.value().glyphName.isEmpty())
+			if (glIt != gl.cend() && !glIt->glyphName.isEmpty())
 			{
 				const ScFace::GlyphEncoding& glEncoding = glIt.value();
 				if (startOfSeq)

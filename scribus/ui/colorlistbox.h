@@ -108,10 +108,10 @@ class SCRIBUS_API ColorListBox : public QListView
 		void setShowNoneColor(bool showNone);
 
 		/*! \brief Return text displayed at specified row */
-		QString text(int row);
+		QString text(int row) const;
 				
 		/*! \brief Pointer to the color list displayed by this box */
-		ColorList *cList;
+		ColorList* cList { nullptr };
 
 	public slots:
 		void clear();

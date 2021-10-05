@@ -28,13 +28,8 @@ for which a new license (GPL+exception) is in place.
 
 const QString ScLockedFile::lockSuffix("lock");
 
-ScLockedFile::ScLockedFile()
-	: m_fileName(), m_isOpened(false), m_isLocked(false)
-{
-}
-
 ScLockedFile::ScLockedFile(const QString& name)
-	: m_fileName(name), m_isOpened(false), m_isLocked(false)
+	: m_fileName(name)
 {
 }
 
@@ -105,10 +100,6 @@ bool ScLockedFile::createPath() const
 	return dir.mkpath(path);
 }
 
-
-ScLockedFileRW::ScLockedFileRW()
-{
-}
 
 ScLockedFileRW::ScLockedFileRW(const QString & name)
 	: ScLockedFile(name)

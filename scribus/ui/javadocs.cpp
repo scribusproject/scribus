@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "javadocs.h"
 
+#include <memory>
+
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidget>
@@ -25,13 +27,15 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 
 
-JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog( parent )
+JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
+	    : QDialog( parent ),
+	      m_Doc(doc),
+	      m_View(vie)
 {
 	setModal(true);
 	setWindowTitle( tr( "Edit JavaScripts" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	m_Doc = doc;
-	m_View = vie;
+
 	JavaDocsLayout = new QHBoxLayout(this);
 	JavaDocsLayout->setContentsMargins(9, 9, 9, 9);
 	JavaDocsLayout->setSpacing(6);
@@ -55,7 +59,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 
 	DeleteScript = new QPushButton( tr( "&Delete" ), this);
 	Layout1->addWidget( DeleteScript );
-	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	auto* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout1->addItem( spacer );
 
 	ExitDia = new QPushButton( tr( "&Close" ), this);
@@ -78,40 +82,39 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 
 void JavaDocs::slotAdd()
 {
-	QString nam;
 	Query dia(this, "tt", true, tr("&New Script:"), tr("New Script"));
 	dia.setEditText( tr("New Script"), false );
 	dia.setTestList(m_Doc->JavaScripts.keys());
-	if (dia.exec())
-	{
-		nam = dia.getEditText();
-		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
-		Editor* dia2 = new Editor(this, "", m_View);
-		dia2->EditTex->setText("function "+nam+"()\n{\n}");
-		if (dia2->exec())
-		{
-			m_Doc->JavaScripts[nam] = dia2->EditTex->toPlainText();
-			Scripts->addItem(nam);
-			Scripts->setCurrentRow(Scripts->count() - 1);
-			emit docChanged(false);
-		}
-		delete dia2;
-	}
+	if (!dia.exec())
+		return;
+
+	QString nam = dia.getEditText();
+	nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
+
+	std::unique_ptr<Editor> dia2(new Editor(this, "", m_View));
+	dia2->EditTex->setText("function "+nam+"()\n{\n}");
+	if (!dia2->exec())
+		return;
+
+	m_Doc->JavaScripts[nam] = dia2->EditTex->toPlainText();
+	Scripts->addItem(nam);
+	Scripts->setCurrentRow(Scripts->count() - 1);
+	emit docChanged(false);
 }
 
 void JavaDocs::slotEdit()
 {
-	QListWidgetItem* currentItem = Scripts->currentItem();
+	const QListWidgetItem* currentItem = Scripts->currentItem();
 	if (!currentItem)
 		return;
+
 	QString name = currentItem->text();
-	Editor* dia2 = new Editor(this, m_Doc->JavaScripts[name], m_View);
-	if (dia2->exec())
-	{
-		m_Doc->JavaScripts[name] = dia2->EditTex->toPlainText();
-		emit docChanged(false);
-	}
-	delete dia2;
+	std::unique_ptr<Editor> dia2(new Editor(this, m_Doc->JavaScripts[name], m_View));
+	if (!dia2->exec())
+		return;
+
+	m_Doc->JavaScripts[name] = dia2->EditTex->toPlainText();
+	emit docChanged(false);
 }
 
 void JavaDocs::slotDelete()

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 class ScDomElement : public QDomElement
 {
 public:
-	ScDomElement();
+	ScDomElement() = default;
 	ScDomElement(const QDomElement &elem); 
 
 	int     valueAsInt    (const QString& attrName, int def = 0) const;

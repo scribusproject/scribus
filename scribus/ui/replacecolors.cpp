@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.             *
 ***************************************************************************/
 
+#include <memory>
+
 #include "replacecolors.h"
 #include "replaceonecolor.h"
 #include "commonstrings.h"
@@ -39,7 +41,6 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
 	EditColors = colorList;
 	UsedColors = colorListUsed;
-	selectedRow = -1;
 	replaceMap.clear();
 	alertIcon = IconManager::instance().loadPixmap("alert.png", true);
 	cmykIcon = IconManager::instance().loadPixmap("cmyk.png", true);
@@ -66,19 +67,18 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 
 void replaceColorsDialog::addColor()
 {
-	replaceColorDialog *dia = new replaceColorDialog(this, EditColors, UsedColors);
-	if (dia->exec())
-	{
-		QString orig = dia->getOriginalColor();
-		if (orig == CommonStrings::tr_NoneColor)
-			orig = CommonStrings::None;
-		QString repl = dia->getReplacementColor();
-		if (repl == CommonStrings::tr_NoneColor)
-			repl = CommonStrings::None;
-		replaceMap.insert(orig, repl);
-		updateReplacementTable();
-	}
-	delete dia;
+	std::unique_ptr<replaceColorDialog> dia(new replaceColorDialog(this, EditColors, UsedColors));
+	if (!dia->exec())
+		return;
+
+	QString orig = dia->getOriginalColor();
+	if (orig == CommonStrings::tr_NoneColor)
+		orig = CommonStrings::None;
+	QString repl = dia->getReplacementColor();
+	if (repl == CommonStrings::tr_NoneColor)
+		repl = CommonStrings::None;
+	replaceMap.insert(orig, repl);
+	updateReplacementTable();
 }
 
 void replaceColorsDialog::selReplacement(int sel)
@@ -102,25 +102,24 @@ void replaceColorsDialog::delReplacement()
 
 void replaceColorsDialog::editReplacement()
 {
-	if (selectedRow > -1)
-	{
-		replaceColorDialog *dia = new replaceColorDialog(this, EditColors, UsedColors);
-		dia->setReplacementColor(replacementTable->item(selectedRow, 1)->text());
-		dia->setOriginalColor(replacementTable->item(selectedRow, 0)->text());
-		if (dia->exec())
-		{
-			replaceMap.remove(replacementTable->item(selectedRow, 0)->text());
-			QString orig = dia->getOriginalColor();
-			if (orig == CommonStrings::tr_NoneColor)
-				orig = CommonStrings::None;
-			QString repl = dia->getReplacementColor();
-			if (repl == CommonStrings::tr_NoneColor)
-				repl = CommonStrings::None;
-			replaceMap.insert(orig, repl);
-			updateReplacementTable();
-		}
-		delete dia;
-	}
+	if (selectedRow < 0)
+		return;
+
+	std::unique_ptr<replaceColorDialog> dia(new replaceColorDialog(this, EditColors, UsedColors));
+	dia->setReplacementColor(replacementTable->item(selectedRow, 1)->text());
+	dia->setOriginalColor(replacementTable->item(selectedRow, 0)->text());
+	if (!dia->exec())
+		return;
+
+	replaceMap.remove(replacementTable->item(selectedRow, 0)->text());
+	QString orig = dia->getOriginalColor();
+	if (orig == CommonStrings::tr_NoneColor)
+		orig = CommonStrings::None;
+	QString repl = dia->getReplacementColor();
+	if (repl == CommonStrings::tr_NoneColor)
+		repl = CommonStrings::None;
+	replaceMap.insert(orig, repl);
+	updateReplacementTable();
 }
 
 void replaceColorsDialog::updateReplacementTable()
@@ -156,7 +155,7 @@ void replaceColorsDialog::updateReplacementTable()
 	}
 }
 
-QPixmap replaceColorsDialog::getColorIcon(const QString& color)
+QPixmap replaceColorsDialog::getColorIcon(const QString& color) const
 {
 	QPixmap smallPix(15, 15);
 	QPixmap pPixmap(60,15);

@@ -44,22 +44,24 @@ protected:
 	QPixmap psFont;
 	QPixmap okIcon;
 	//! \brief Default "blue quartz" text
-	QString defaultStr;
+	QString m_defaultStr;
 	/** \brief Configuration structure */
-	PrefsContext* prefs;
+	PrefsContext* m_prefs { nullptr };
 	/*! \brief window size */
-	uint xsize;
-	uint ysize;
+	uint m_xsize { 640 };
+	uint m_ysize { 480 };
+
+	ScribusDoc* m_Doc { nullptr };
 
 	//! \brief Sample text frame to render the preview
-	SampleItem *sampleItem;
+	SampleItem *m_sampleItem { nullptr };
 
 	//! \brief Store fonts in the Qt4 MVC model part.
-	FontListModel * fontModel;
+	FontListModel * m_fontModel { nullptr };
 
 	/*! \brief A model for searching in the font set.
 	see searchEdit_textChanged() for more. */
-	QSortFilterProxyModel * proxyModel;
+	QSortFilterProxyModel * m_proxyModel { nullptr };
 
 	/*! \brief Create a pixmap sample with font preview.
 	With GUI oprions. */
@@ -73,8 +75,6 @@ protected:
 	//! \brief Paint sample on the dialog opening.
 	void showEvent(QShowEvent * event);
 	void resizeEvent(QResizeEvent * event);
-
-	ScribusDoc* m_Doc;
 
 protected slots:
 	/*! \brief Sets the strings of the subwidgets using the current

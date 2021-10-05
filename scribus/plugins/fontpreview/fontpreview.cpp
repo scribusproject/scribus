@@ -19,46 +19,50 @@ for which a new license (GPL+exception) is in place.
 
 
 FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* doc)
-	: QDialog(parent, Qt::WindowFlags())
+	: QDialog(parent, Qt::WindowFlags()),
+	  m_Doc(doc)
 {
 	setupUi(this);
 	setModal(true);
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	m_Doc = doc;
 
-	sampleItem = new SampleItem();
-	sampleItem->setDevicePixelRatio(devicePixelRatioF());
+	m_sampleItem = new SampleItem();
+	m_sampleItem->setDevicePixelRatio(devicePixelRatioF());
 
 	languageChange();
 
-	fontModel = new FontListModel(this, m_Doc, false);
+	m_fontModel = new FontListModel(this, m_Doc, false);
 
-	proxyModel = new QSortFilterProxyModel();
-	proxyModel->setDynamicSortFilter(true);
-	proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-	proxyModel->setSourceModel(fontModel);
-	proxyModel->setFilterKeyColumn(1);
-	proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
-	fontList->setModel(proxyModel);
+	m_proxyModel = new QSortFilterProxyModel();
+	m_proxyModel->setDynamicSortFilter(true);
+	m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+	m_proxyModel->setSourceModel(m_fontModel);
+	m_proxyModel->setFilterKeyColumn(1);
+	m_proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+	fontList->setModel(m_proxyModel);
 
 	// scribus config
-	defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
-	prefs = PrefsManager::instance().prefsFile->getPluginContext("fontpreview");
-	uint srt = prefs->getUInt("sortColumn", 0);
-	bool extend = prefs->getBool("extendedView", false);
+	m_defaultStr = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
+	m_prefs = PrefsManager::instance().prefsFile->getPluginContext("fontpreview");
+	uint srt = m_prefs->getUInt("sortColumn", 0);
+	bool extend = m_prefs->getBool("extendedView", false);
 	extendedCheckBox->setChecked(extend);
-	Qt::SortOrder srtOrder = (Qt::SortOrder) prefs->getUInt("sortColumnOrder", 0);
 
-	proxyModel->sort(srt, srtOrder);
+	auto srtOrder = (Qt::SortOrder) m_prefs->getUInt("sortColumnOrder", 0);
+	m_proxyModel->sort(srt, srtOrder);
+
 	fontList->horizontalHeader()->setSortIndicatorShown(true);
 	fontList->horizontalHeader()->setSortIndicator(srt, srtOrder);
-	xsize = prefs->getUInt("xsize", 640);
-	ysize = prefs->getUInt("ysize", 480);
-	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
-	QString ph = prefs->get("phrase", defaultStr);
+
+	m_xsize = m_prefs->getUInt("xsize", 640);
+	m_ysize = m_prefs->getUInt("ysize", 480);
+	sizeSpin->setValue(m_prefs->getUInt("fontSize", 18));
+
+	QString ph = m_prefs->get("phrase", m_defaultStr);
 	displayEdit->setText(ph);
+
 	displayButton_clicked();
-	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
+	resize(QSize(m_xsize, m_ysize).expandedTo(minimumSizeHint()));
 
 	setExtendedView(extend);
 
@@ -73,10 +77,10 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 		else
 			searchName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 	}
-	QModelIndexList found = fontModel->match(fontModel->index(0, 0),
-											 Qt::DisplayRole, searchName,
-											 1,
-											 Qt::MatchContains | Qt::MatchWrap);
+	QModelIndexList found = m_fontModel->match(m_fontModel->index(0, 0),
+											   Qt::DisplayRole, searchName,
+											   1,
+											   Qt::MatchContains | Qt::MatchWrap);
 	if (!found.empty())
 	{
 		fontList->scrollTo(found.at(0), QAbstractItemView::PositionAtCenter);
@@ -96,13 +100,13 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 
 FontPreview::~FontPreview()
 {
-	prefs->set("sortColumn", fontList->horizontalHeader()->sortIndicatorSection());
-	prefs->set("sortColumnOrder", fontList->horizontalHeader()->sortIndicatorOrder());
-	prefs->set("xsize", width());
-	prefs->set("ysize", height());
-	prefs->set("fontSize", sizeSpin->value());
-	prefs->set("phrase", displayEdit->text());
-	prefs->set("extendedView", extendedCheckBox->isChecked());
+	m_prefs->set("sortColumn", fontList->horizontalHeader()->sortIndicatorSection());
+	m_prefs->set("sortColumnOrder", fontList->horizontalHeader()->sortIndicatorOrder());
+	m_prefs->set("xsize", width());
+	m_prefs->set("ysize", height());
+	m_prefs->set("fontSize", sizeSpin->value());
+	m_prefs->set("phrase", displayEdit->text());
+	m_prefs->set("extendedView", extendedCheckBox->isChecked());
 }
 
 void FontPreview::languageChange()
@@ -126,7 +130,7 @@ void FontPreview::resizeEvent(QResizeEvent * event)
 
 bool FontPreview::allowSample()
 {
-	if (fontModel->rowCount() != 0)
+	if (m_fontModel->rowCount() != 0)
 		return true;
 	fontPreview->setText("No font selected");
 	return false;
@@ -141,10 +145,10 @@ void FontPreview::paintSample()
 	if (fontName.isNull())
 		return;
 
-	sampleItem->setFontSize(sizeSpin->value() * 10, true);
-	sampleItem->setFont(fontName);
-	QPixmap pixmap = sampleItem->getSample(fontPreview->width(),
-										   fontPreview->height());
+	m_sampleItem->setFontSize(sizeSpin->value() * 10, true);
+	m_sampleItem->setFont(fontName);
+	QPixmap pixmap = m_sampleItem->getSample(fontPreview->width(),
+										     fontPreview->height());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -155,7 +159,7 @@ void FontPreview::searchEdit_textChanged(const QString &/*s*/)
 	fontList->blockSignals(true);
 	QString s(searchEdit->text());
 	if (s.isEmpty())
-		proxyModel->setFilterRegExp(QRegExp("*",
+		m_proxyModel->setFilterRegExp(QRegExp("*",
 											Qt::CaseInsensitive,
 											QRegExp::Wildcard));
 	else
@@ -163,7 +167,7 @@ void FontPreview::searchEdit_textChanged(const QString &/*s*/)
 		QRegExp regExp(QString("*%1*").arg(s),
 					   Qt::CaseInsensitive,
 					   QRegExp::Wildcard);
-		proxyModel->setFilterRegExp(regExp);
+		m_proxyModel->setFilterRegExp(regExp);
 	}
 	fontList->resizeColumnsToContents();
 	fontList->blockSignals(false);
@@ -174,12 +178,12 @@ QString FontPreview::getCurrentFont()
 	QModelIndex ix(fontList->currentIndex());
 	if (!ix.isValid())
 		return QString();
-	return fontModel->nameForIndex(proxyModel->mapToSource(fontList->currentIndex()));
+	return m_fontModel->nameForIndex(m_proxyModel->mapToSource(fontList->currentIndex()));
 }
 
 void FontPreview::displayButton_clicked()
 {
-	sampleItem->setText(displayEdit->text());
+	m_sampleItem->setText(displayEdit->text());
 	paintSample();
 }
 
@@ -190,7 +194,7 @@ void FontPreview::cancelButton_clicked()
 
 void FontPreview::resetDisplayButton_clicked()
 {
-	displayEdit->setText(defaultStr);
+	displayEdit->setText(m_defaultStr);
 	displayButton_clicked();
 }
 

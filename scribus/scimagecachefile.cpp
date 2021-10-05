@@ -38,10 +38,6 @@ ScImageCacheFile::ScImageCacheFile(const QString & name, ScImageCacheDir *parent
 	m_size = info.size();
 }
 
-ScImageCacheFile::~ScImageCacheFile()
-{
-}
-
 QString ScImageCacheFile::path(bool relative) const
 {
 	return m_parent ? m_parent->path(relative) + "/" + m_name : m_name;

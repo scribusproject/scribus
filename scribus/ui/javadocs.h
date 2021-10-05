@@ -25,11 +25,11 @@ public:
 	JavaDocs( QWidget* parent, ScribusDoc *doc, ScribusView* vie);
 	~JavaDocs() {};
 
-	QListWidget* Scripts;
-	QPushButton* EditScript;
-	QPushButton* AddScript;
-	QPushButton* DeleteScript;
-	QPushButton* ExitDia;
+	QListWidget* Scripts { nullptr };
+	QPushButton* EditScript { nullptr };
+	QPushButton* AddScript { nullptr };
+	QPushButton* DeleteScript { nullptr };
+	QPushButton* ExitDia { nullptr };
 
 private slots:
 	void slotAdd();
@@ -41,11 +41,11 @@ signals:
 	void docChanged(bool);
 
 protected:
-	ScribusDoc  *m_Doc;
-	ScribusView *m_View;
+	ScribusDoc  *m_Doc { nullptr };
+	ScribusView *m_View { nullptr };
 
-	QHBoxLayout* JavaDocsLayout;
-	QVBoxLayout* Layout1;
+	QHBoxLayout* JavaDocsLayout { nullptr };
+	QVBoxLayout* Layout1 { nullptr };
 };
 
 #endif // JAVADOCS_H

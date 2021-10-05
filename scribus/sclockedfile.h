@@ -58,14 +58,14 @@ public:
 	static const QString lockSuffix;
 
 protected:
-	ScLockedFile();
-	ScLockedFile(const QString & name);
+	ScLockedFile() = default;
+	explicit ScLockedFile(const QString & name);
 
 	QString m_fileName;
-	bool m_isOpened;
+	bool m_isOpened { false };
 
 private:
-	bool m_isLocked;
+	bool m_isLocked { false };
 
 	QString lockName() const;
 };
@@ -78,12 +78,12 @@ class ScLockedFileRO : public ScLockedFile
 {
 public:
 	ScLockedFileRO();
-	ScLockedFileRO(const QString & name);
+	explicit ScLockedFileRO(const QString & name);
 
-	virtual bool open();
-	virtual bool commit();
+	bool open() override;
+	bool commit() override;
 
-	virtual QIODevice *io() { return &m_file; }
+	QIODevice *io() override { return &m_file; }
 
 private:
 	QFile m_file;
@@ -96,13 +96,13 @@ private:
 class ScLockedFileRW : public ScLockedFile
 {
 public:
-	ScLockedFileRW();
-	ScLockedFileRW(const QString & name);
+	ScLockedFileRW() = default;
+	explicit ScLockedFileRW(const QString & name);
 
-	virtual bool open();
-	virtual bool commit();
+	bool open() override;
+	bool commit() override;
 
-	virtual QIODevice *io() { return &m_file; }
+	QIODevice *io() override { return &m_file; }
 
 private:
 	QTemporaryFile m_file;
