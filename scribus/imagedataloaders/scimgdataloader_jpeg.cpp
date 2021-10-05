@@ -82,7 +82,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	if (read_jpeg_marker(ICC_MARKER, &cinfo, &EmbedBuffer, &EmbedLen))
 	{
 		bool profileIsValid = false;
-		QByteArray profArray = QByteArray((const char*) EmbedBuffer, EmbedLen);
+		QByteArray profArray((const char*) EmbedBuffer, EmbedLen);
 		ScColorProfile prof = ScCore->defaultEngine.openProfileFromMem(profArray);
 		if (prof)
 		{
@@ -524,7 +524,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		if (ori != 1)
 		{
 			QTransform M;
-			QTransform flip = QTransform(-1, 0, 0, 1, 0, 0);
+			QTransform flip(-1, 0, 0, 1, 0, 0);
 			switch ( ori )
 			{  // notice intentional fallthroughs
 				case 2:

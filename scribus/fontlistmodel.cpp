@@ -64,7 +64,7 @@ int FontListModel::rowCount(const QModelIndex& /*mi*/) const
 	return m_font_names.size();
 }
 
-int FontListModel::rowCount()
+int FontListModel::rowCount() const
 {
 	return m_font_names.size();
 }
@@ -300,7 +300,7 @@ bool FontListModel::setData(const QModelIndex & idx,
 	return true;
 }
 
-QString FontListModel::nameForIndex(const QModelIndex & idx)
+QString FontListModel::nameForIndex(const QModelIndex & idx) const
 {
 	return m_font_names.at(idx.row());
 }

@@ -50,7 +50,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		It returns the count of fonts. */
 		int rowCount(const QModelIndex&) const;
 		//! The same behaviour as the previous one.
-		int rowCount();
+		int rowCount() const;
 		/*! Required inherited method. See Qt4 docs.
 		It *must* return the count of ColumnTypes items */
 		int columnCount(const QModelIndex&) const;
@@ -76,7 +76,7 @@ class SCRIBUS_API FontListModel : public QAbstractTableModel
 		/*! Get the font name for current index.
 		\note Remember to use the mapToSource() if you're using QSortFilterProxyModel
 		*/
-		QString nameForIndex(const QModelIndex & index);
+		QString nameForIndex(const QModelIndex & index) const;
 
         bool isLive() const { return m_embedFlags.count() == 0; }
 

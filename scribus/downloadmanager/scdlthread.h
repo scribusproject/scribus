@@ -15,7 +15,8 @@ class ScDLThread : public QThread
 	Q_OBJECT
 	public:
 		ScDLThread(QObject * parent = nullptr);
-		~ScDLThread();
+		~ScDLThread() = default;
+
 		void run();
 
 		void addURL(const QUrl &url, bool overwrite, const QString& location, const QString& destinationLocation);

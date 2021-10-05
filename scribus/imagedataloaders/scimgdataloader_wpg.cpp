@@ -17,14 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_wpg.h"
 #include "third_party/wpg/WPGStreamImplementation.h"
 
-ScrPainterIm::ScrPainterIm() :
-	fillrule(false),
-	gradientAngle(0.0),
-	isGradient(false),
-	fillSet(false),
-	strokeSet(false),
-	image(nullptr)
+ScrPainterIm::ScrPainterIm()
 {
+
 }
 
 void ScrPainterIm::startGraphics(double width, double height)
@@ -65,7 +60,7 @@ void ScrPainterIm::setPen(const libwpg::WPGPen& pen)
 	Qt::PenJoinStyle lineJoin;
 	Qt::PenCapStyle lineEnd;
 	double LineW = 72 * pen.width;
-	QColor foreColor = QColor(pen.foreColor.red, pen.foreColor.green, pen.foreColor.blue, 255 - pen.foreColor.alpha);
+	QColor foreColor(pen.foreColor.red, pen.foreColor.green, pen.foreColor.blue, 255 - pen.foreColor.alpha);
 	if(!pen.solid)
 	{
 		for (unsigned i = 0; i < pen.dashArray.count(); i++)

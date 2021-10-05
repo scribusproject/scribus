@@ -78,35 +78,36 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	args.append("-dUseArtBox");
 	args.append(picFile);
 //	qDebug() << "scimgdataloader_pdf:" << args;
+
 	int retg = callGS(args);
-	if (retg == 0)
+	if (retg != 0)
+		return false;
+
+	m_image.load(tmpFile);
+	QFile::remove(tmpFile);
+	if (!ScCore->havePNGAlpha())
 	{
-		m_image.load(tmpFile);
-		QFile::remove(tmpFile);
-		if (!ScCore->havePNGAlpha())
+		for (int yi = 0; yi < m_image.height(); ++yi)
 		{
-			for (int yi = 0; yi < m_image.height(); ++yi)
+			QRgb *s = (QRgb*)(m_image.scanLine( yi ));
+			for (int xi = 0; xi < m_image.width(); ++xi )
 			{
-				QRgb *s = (QRgb*)(m_image.scanLine( yi ));
-				for (int xi = 0; xi < m_image.width(); ++xi )
-				{
-					if ((*s) == 0xffffffff)
-						(*s) &= 0x00ffffff;
-					s++;
-				}
+				if ((*s) == 0xffffffff)
+					(*s) &= 0x00ffffff;
+				s++;
 			}
 		}
-		m_imageInfoRecord.BBoxX = 0;
-		m_imageInfoRecord.BBoxH = m_image.height();
-		m_imageInfoRecord.xres = gsRes;
-		m_imageInfoRecord.yres = gsRes;
-		m_imageInfoRecord.colorspace = ColorSpaceRGB;
-		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
-		m_image.setDotsPerMeterY ((int) (yres / 0.0254));
-		m_pixelFormat = Format_BGRA_8;
-		return true;
 	}
-	return false;
+	m_imageInfoRecord.BBoxX = 0;
+	m_imageInfoRecord.BBoxH = m_image.height();
+	m_imageInfoRecord.xres = gsRes;
+	m_imageInfoRecord.yres = gsRes;
+	m_imageInfoRecord.colorspace = ColorSpaceRGB;
+	m_image.setDotsPerMeterX ((int) (xres / 0.0254));
+	m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+	m_pixelFormat = Format_BGRA_8;
+
+	return true;
 }
 
 bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int gsRes, bool& hasAlpha)
@@ -117,19 +118,17 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	m_imageInfoRecord.actualPageNumber = page;
 
 	hasAlpha = false;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc.png");
 	QString picFile = QDir::toNativeSeparators(fn);
 	QStringList args;
 	args.append("-r"+QString::number(gsRes));
-//	args.append("-sOutputFile=\""+tmpFile + "\"");
-	args.append("-sOutputFile="+tmpFile);
+	args.append("-sOutputFile=" + tmpFile);
 	args.append("-dFirstPage=" + QString::number(qMax(1, page)));
 	args.append("-dLastPage=" + QString::number(qMax(1, page)));
 	args.append("-dUseArtBox");
-//	args.append("\""+picFile+"\"");
 	args.append(picFile);
 //	qDebug() << "scimgdataloader_pdf(alpha):" << args;
 	int retg = callGS(args);

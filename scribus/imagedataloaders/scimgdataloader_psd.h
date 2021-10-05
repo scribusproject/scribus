@@ -44,8 +44,8 @@ protected:
 
 	void initSupportedFormatList();
 
-	bool IsValid( const PSDHeader & header );
-	bool IsSupported( const PSDHeader & header );
+	bool IsValid( const PSDHeader & header ) const;
+	bool IsSupported( const PSDHeader & header ) const;
 
 	bool LoadPSD( QDataStream & s, const PSDHeader & header);
 	bool LoadPSDResources( QDataStream & s, const PSDHeader & header, uint dataOffset );
@@ -56,7 +56,8 @@ protected:
 	bool parseLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
 	void putDuotone(uchar *ptr, uchar cbyte);
-	int m_maxChannels;
+
+	int m_maxChannels { 0 };
 	QVector<int> m_curveTable1;
 	QVector<int> m_curveTable2;
 	QVector<int> m_curveTable3;

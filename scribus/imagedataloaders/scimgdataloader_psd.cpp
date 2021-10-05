@@ -33,7 +33,6 @@ static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 
 ScImgDataLoader_PSD::ScImgDataLoader_PSD()
 {
-	m_maxChannels = 0;
 	initSupportedFormatList();
 }
 
@@ -50,7 +49,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn, int /*page*/)
 
 	ScColorProfile prof;
 	ScColorMgmtEngine engine(ScCore->defaultEngine);
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return;
 
@@ -100,7 +99,7 @@ bool ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int /*page*/, i
 	hasAlpha = false;
 	m_imageInfoRecord.RequestProps = req;
 	m_imageInfoRecord.isRequest = valid;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 
@@ -313,7 +312,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	cdataStart = s.device()->pos();
 	if (tmp != 0)
 	{
-		if ((header.color_mode == CM_DUOTONE))
+		if (header.color_mode == CM_DUOTONE)
 		{
 			short signature;
 			short count;
@@ -1035,13 +1034,13 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		{
 			unsigned char *s;
 			unsigned char *d;
-			for (int yi=static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi)
+			for (int yi = static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi)
 			{
 				s = r2_image.scanLine( yi );
 				d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height()-1) );
 				d += qMin(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
 				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				for (int xi=static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi)
+				for (int xi = static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi)
 				{
 					d[0] = s[0];
 					d[1] = s[1];
@@ -1550,13 +1549,13 @@ QString ScImgDataLoader_PSD::getLayerString(QDataStream & s)
 	return ret;
 }
 
-bool ScImgDataLoader_PSD::IsValid( const PSDHeader & header )
+bool ScImgDataLoader_PSD::IsValid( const PSDHeader & header ) const
 {
 	return header.signature == 0x38425053;
 }
 
 // Check that the header is supported.
-bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
+bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header ) const
 {
 	if ( header.version != 1 )
 		return false;

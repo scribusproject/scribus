@@ -40,24 +40,7 @@ extern "C"
 #endif
 }
 
-ScImgDataLoader_PS::ScImgDataLoader_PS() :
-	 m_isDCS1(false),
-	 m_isDCS2(false),
-	 m_isDCS2multi(false),
-	 m_isPhotoshop(false),
-	 m_hasPhotoshopImageData(false),
-	 m_doThumbnail(false),
-	 m_hasThumbnail(false),
-	 m_inTrailer(false),
-	 m_BBoxInTrailer(false),
-	 m_isRotated(false),
-	 m_psXSize(0),
-	 m_psYSize(0),
-	 m_psDepth(0),
-	 m_psMode(0),
-	 m_psChannel(0),
-	 m_psBlock(0),
-	 m_psDataType(0)
+ScImgDataLoader_PS::ScImgDataLoader_PS()
 {
 	initSupportedFormatList();
 }
@@ -468,7 +451,7 @@ bool ScImgDataLoader_PS::parseData(const QString& fn)
 						break;
 				}
 			}
-			if ((psFound) && (!isAtend))
+			if (psFound && !isAtend)
 				break;
 		}
 	}
@@ -483,15 +466,18 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 	double b = 0;
 	double h = 0;
 	bool found = false;
-	QFileInfo fi = QFileInfo(fn);
+
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
+
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + QString("sc%1.png").arg(qMax(1, page)));
 	QString tmpFiles = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc%d.png");
 	QString picFile = QDir::toNativeSeparators(fn);
+
 	float xres = gsRes;
 	float yres = gsRes;
 
@@ -538,7 +524,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 		m_imageInfoRecord.exifInfo.width = qRound(b);
 		m_imageInfoRecord.exifInfo.height = qRound(h);
 		m_image = m_imageInfoRecord.exifInfo.thumbnail;
-		if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
+		if (m_isPhotoshop && m_hasPhotoshopImageData)
 		{
 			m_imageInfoRecord.exifInfo.width = m_psXSize;
 			m_imageInfoRecord.exifInfo.height = m_psYSize;
@@ -577,7 +563,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			loadDCS1(fn, gsRes);
 		else if (m_isDCS2)
 			loadDCS2(fn, gsRes);
-		else if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
+		else if (m_isPhotoshop && m_hasPhotoshopImageData)
 			loadPhotoshop(fn, gsRes);
 		else if ((!m_imageInfoRecord.isEmbedded) || ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3)))
 		{
@@ -599,7 +585,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			if (retg == 0)
 			{
 				m_image.load(tmpFile);
-				if ((extensionIndicatesEPS(ext) && m_BBoxInTrailer) || (m_isRotated))
+				if ((extensionIndicatesEPS(ext) && m_BBoxInTrailer) || m_isRotated)
 				{
 					int ex = qRound(x * gsRes / 72.0);
 					int ey = qRound(m_image.height() - h);
@@ -607,12 +593,12 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					int eh = qRound(h - y * gsRes / 72.0);
 					m_image = m_image.copy(ex, ey, ew, eh);
 				}
-				if ((!ScCore->havePNGAlpha()) || (m_isRotated))
+				if (!ScCore->havePNGAlpha() || m_isRotated)
 				{
 					int wi = m_image.width();
 					int hi = m_image.height();
-					QRgb alphaFF = qRgba(255,255,255,255);
-					QRgb alpha00 = qRgba(255,255,255,  0);
+					QRgb alphaFF = qRgba(255, 255, 255, 255);
+					QRgb alpha00 = qRgba(255, 255, 255,   0);
 					QRgb *s;
 					for (int yi = 0; yi < hi; ++yi)
 					{
@@ -626,7 +612,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					}
 				}
 
-				QStringList files = QStringList("sc*.png");
+				QStringList files("sc*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i=0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
@@ -705,7 +691,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					f.close();
 				}
 				
-				QStringList files = QStringList("sc*.png");
+				QStringList files("sc*.png");
 				files = QDir(ScPaths::tempFileDir()).entryList(files);
 				for (int i=0; i < files.count(); ++i)
 					QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));
@@ -747,7 +733,7 @@ void ScImgDataLoader_PS::loadPhotoshop(const QString& fn, int gsRes)
 		return;
 	}
 	QStringList args;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	int retg;
@@ -1447,7 +1433,7 @@ void ScImgDataLoader_PS::loadDCS2(const QString& fn, int gsRes)
 	ts2 >> x >> y >> b >> h;
 	xres = gsRes;
 	yres = gsRes;
-	if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
+	if (m_isPhotoshop && m_hasPhotoshopImageData)
 	{
 		m_image = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
 		xres = m_psXSize / b * 72.0;
@@ -1473,7 +1459,7 @@ void ScImgDataLoader_PS::loadDCS2(const QString& fn, int gsRes)
 				f2.write(imgc.data(), it.value().len);
 			f2.close();
 			imgc.resize(0);
-			if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
+			if (m_isPhotoshop && m_hasPhotoshopImageData)
 			{
 				QImage tmpImg;
 				loadPhotoshopBinary(tmpFile2, tmpImg);
@@ -1502,7 +1488,7 @@ void ScImgDataLoader_PS::loadDCS2(const QString& fn, int gsRes)
 		for (QMap<QString, QString>::Iterator it = m_colorPlates.begin(); it != m_colorPlates.end(); ++it)
 		{
 			tmpFile2 = QDir::toNativeSeparators(baseFile+"/"+it.value());
-			if ((m_isPhotoshop) && (m_hasPhotoshopImageData))
+			if (m_isPhotoshop && m_hasPhotoshopImageData)
 			{
 				QImage tmpImg;
 				loadPhotoshopBinary(tmpFile2, tmpImg);
@@ -1549,7 +1535,7 @@ void ScImgDataLoader_PS::loadDCS1(const QString& fn, int gsRes)
 {
 	QStringList args;
 	double x, y, b, h;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.png");
 	QString baseFile = fi.absolutePath();
@@ -1646,7 +1632,7 @@ void ScImgDataLoader_PS::loadDCS1(const QString& fn, int gsRes)
 	m_pixelFormat = Format_YMCK_8;
 }
 
-void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
+void ScImgDataLoader_PS::blendImages(QImage &source, const ScColor& col)
 {
 	int h = source.height();
 	int w = source.width();
@@ -1682,7 +1668,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 	initialize();
 
 	hasAlpha = false;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();
@@ -1740,7 +1726,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				}
 			}
 			
-			QStringList files = QStringList("sc*.png");
+			QStringList files("sc*.png");
 			files = QDir(ScPaths::tempFileDir()).entryList(files);
 			for (int i=0; i < files.count(); ++i)
 				QFile::remove(QDir::toNativeSeparators(ScPaths::tempFileDir() + files[i]));

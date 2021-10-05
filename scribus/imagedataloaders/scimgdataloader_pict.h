@@ -64,34 +64,36 @@ private:
 	QByteArray decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte);
 	QBrush setFillPattern();
 
-	int m_baseX, m_baseY;
-	int m_docWidth;
-	int m_docHeight;
-	double m_resX, m_resY;
+	int m_baseX { 0 };
+	int m_baseY { 0 };
+	int m_docWidth { 0 };
+	int m_docHeight { 0 };
+	double m_resX { 0.0 };
+	double m_resY { 0.0 };
 
-	double m_LineW;
+	double m_lineW { 0.0 };
 	QColor m_backColor;
 	QColor m_foreColor;
-	bool m_patternMode;
+	bool m_patternMode { false };
 	QByteArray m_patternData;
 	QRect m_currRect;
 	QBrush m_currPatternBrush;
 	QRect m_lastImageRect;
 	QPoint m_ovalSize;
 	QMap<int, QString> m_fontMap;
-	int m_currentTextSize;
-	int m_currentFontID;
-	int m_currentFontStyle;
+	int m_currentTextSize { 0 };
+	int m_currentFontID { 0 };
+	int m_currentFontStyle { 0 };
 	QByteArray m_imageData;
 
 	QPainterPath m_Coords;
 	QPoint m_currentPoint;
 	QPoint m_currentPointT;
 	QPainter m_imagePainter;
-	bool m_postscriptMode;
-	bool m_textIsPostScript;
-	int m_pctVersion;
-	bool m_skipOpcode;
+	bool m_postscriptMode { false };
+	bool m_textIsPostScript { false };
+	int m_pctVersion { 0 };
+	bool m_skipOpcode { false };
 };
 
 #endif

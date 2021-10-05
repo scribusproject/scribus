@@ -16,10 +16,6 @@ ScDLThread::ScDLThread(QObject *parent) : QThread(parent)
 	connect(this, SIGNAL(runSignal()), this, SLOT(runSlot()));
 }
 
-ScDLThread::~ScDLThread()
-{
-}
-
 void ScDLThread::run()
 {
 	emit runSignal();

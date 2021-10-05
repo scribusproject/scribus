@@ -99,7 +99,7 @@ QByteArray ScImgDataLoader_KRA::getICCProfileFromPNGData(QByteArray& pngData)
 
 	if (png_get_iCCP(pngPtr, pngInfo, &profileName, &compression_type, &profileBuffer, &profileLen))
 	{
-		QByteArray profArray = QByteArray((const char*) profileBuffer, profileLen);
+		QByteArray profArray((const char*) profileBuffer, profileLen);
 		if ((profArray.size() >= 40) && (profArray[36] == 'a') && (profArray[37] == 'c') && (profArray[38] == 's') && (profArray[39] == 'p'))
 			profileData = profArray;
 	}

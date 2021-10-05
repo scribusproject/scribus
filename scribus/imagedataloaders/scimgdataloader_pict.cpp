@@ -42,22 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_math.h"
 
-ScImgDataLoader_PICT::ScImgDataLoader_PICT() :
-	m_baseX(0),
-	m_baseY(0),
-	m_docWidth(0),
-	m_docHeight(0),
-	m_resX(0.0),
-	m_resY(0.0),
-	m_LineW(0.0),
-	m_patternMode(false),
-	m_currentTextSize(0),
-	m_currentFontID(0),
-	m_currentFontStyle(0),
-	m_postscriptMode(false),
-	m_textIsPostScript(false),
-	m_pctVersion(0),
-	m_skipOpcode(false)
+ScImgDataLoader_PICT::ScImgDataLoader_PICT()
 {
 	initSupportedFormatList();
 }
@@ -178,7 +163,7 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 		m_backColor = Qt::white;
 		m_foreColor = Qt::black;
 		m_Coords = QPainterPath();
-		m_LineW = 1.0;
+		m_lineW = 1.0;
 		m_currentPoint = QPoint(0, 0);
 		m_currentPointT = QPoint(0, 0);
 		m_ovalSize = QPoint(0, 0);
@@ -768,7 +753,7 @@ void ScImgDataLoader_PICT::handleColor(QDataStream &ts, bool back)
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
-	QColor c = QColor(redC, greenC, blueC);
+	QColor c(redC, greenC, blueC);
 	if (back)
 		m_backColor = c;
 	else
@@ -783,7 +768,7 @@ void ScImgDataLoader_PICT::handleColorRGB(QDataStream &ts, bool back)
 	redC = qRound((Rc / 65535.0) * 255.0);
 	greenC = qRound((Gc / 65535.0) * 255.0);
 	blueC = qRound((Bc / 65535.0) * 255.0);
-	QColor c = QColor(redC, greenC, blueC);
+	QColor c(redC, greenC, blueC);
 	if (back)
 		m_backColor = c;
 	else
@@ -828,7 +813,7 @@ void ScImgDataLoader_PICT::handlePolygon(QDataStream &ts, quint16 opCode)
 		m_Coords.lineTo(x, y);
 	}
 	if (opCode == 0x0070)
-		m_imagePainter.strokePath(m_Coords, QPen(m_foreColor, m_LineW));
+		m_imagePainter.strokePath(m_Coords, QPen(m_foreColor, m_lineW));
 	else if (opCode == 0x0071)
 		m_imagePainter.fillPath(m_Coords, fillBrush);
 	else if (opCode == 0x0072)
@@ -853,7 +838,7 @@ void ScImgDataLoader_PICT::handleShape(QDataStream &ts, quint16 opCode)
 //	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	if (opCode == 0x0030)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawRect(bounds);
 	}
@@ -877,7 +862,7 @@ void ScImgDataLoader_PICT::handleShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0040)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
@@ -901,7 +886,7 @@ void ScImgDataLoader_PICT::handleShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0050)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawEllipse(bounds);
 	}
@@ -942,7 +927,7 @@ void ScImgDataLoader_PICT::handleSameShape(QDataStream &ts, quint16 opCode)
 		fillBrush = QBrush(m_foreColor);
 	if (opCode == 0x0038)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawRect(bounds);
 	}
@@ -966,7 +951,7 @@ void ScImgDataLoader_PICT::handleSameShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0048)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawRoundedRect(bounds, m_ovalSize.x(), m_ovalSize.y());
 	}
@@ -990,7 +975,7 @@ void ScImgDataLoader_PICT::handleSameShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0058)
 	{
-		m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+		m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 		m_imagePainter.setBrush(Qt::NoBrush);
 		m_imagePainter.drawEllipse(bounds);
 	}
@@ -1226,7 +1211,7 @@ void ScImgDataLoader_PICT::handlePenSize(QDataStream &ts)
 //	qDebug() << "Handle Pen Size";
 	quint16 x, y;
 	ts >> y >> x;
-	m_LineW = qMax(x, y);
+	m_lineW = qMax(x, y);
 }
 
 void ScImgDataLoader_PICT::handleOvalSize(QDataStream &ts)
@@ -1243,7 +1228,7 @@ void ScImgDataLoader_PICT::handleShortLine(QDataStream &ts)
 	qint8 dh, dv;
 	ts >> y >> x;
 	ts >> dh >> dv;
-	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 	m_imagePainter.drawLine(x, y, x + dh, y + dv);
 	m_currentPoint = QPoint(x+dh, y+dv);
 //	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
@@ -1256,7 +1241,7 @@ void ScImgDataLoader_PICT::handleShortLineFrom(QDataStream &ts)
 	if ((dh == 0) && (dv == 0))
 		return;
 	QPoint s = m_currentPoint;
-	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 	m_imagePainter.drawLine(s.x(), s.y(), s.x() + dh, s.y() + dv);
 	m_currentPoint = QPoint(s.x()+dh, s.y()+dv);
 //	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
@@ -1267,7 +1252,7 @@ void ScImgDataLoader_PICT::handleLine(QDataStream &ts)
 	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
-	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 	m_imagePainter.drawLine(x1, y1, x2, y2);
 	m_currentPoint = QPoint(x2, y2);
 //	qDebug() << "Handle Line" << x1 << y1 << "->" << currentPoint;
@@ -1280,7 +1265,7 @@ void ScImgDataLoader_PICT::handleLineFrom(QDataStream &ts)
 	if ((x == 0) && (y == 0))
 		return;
 	QPoint s = m_currentPoint;
-	m_imagePainter.setPen(QPen(m_foreColor, m_LineW));
+	m_imagePainter.setPen(QPen(m_foreColor, m_lineW));
 	m_imagePainter.drawLine(s.x(), s.y(), x, y);
 	m_currentPoint = QPoint(x, y);
 //	qDebug() << "Handle Line from" << s << "->" << currentPoint;
@@ -1699,7 +1684,7 @@ QRect ScImgDataLoader_PICT::readRect(QDataStream &ts)
 
 QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine, int multByte)
 {
-	QByteArray ret = QByteArray(bytesPerLine, ' ');
+	QByteArray ret(bytesPerLine, ' ');
 	uchar *ptrOut, *ptrIn;
 	ptrOut = (uchar*)ret.data();
 	ptrIn = (uchar*)in.data();
@@ -1771,7 +1756,7 @@ QByteArray ScImgDataLoader_PICT::decodeRLE(QByteArray &in, quint16 bytesPerLine,
 
 QBrush ScImgDataLoader_PICT::setFillPattern()
 {
-	QImage image = QImage(8, 8, QImage::Format_Mono);
+	QImage image(8, 8, QImage::Format_Mono);
 	QVector<QRgb> colors;
 	colors.append(m_backColor.rgb());
 	colors.append(m_foreColor.rgb());

@@ -36,12 +36,11 @@ PageSize::PageSize(const QString& sizeName)
 }
 
 PageSize::PageSize(const double w, const double h)
+        : m_width(w),
+          m_height(h)
 {
-	m_width=w;
-	m_height=h;
-	m_pageUnitIndex=-1;
-	m_pageSizeName=CommonStrings::customPageSize;
-	m_trPageSizeName=CommonStrings::trCustomPageSize;
+	m_pageSizeName = CommonStrings::customPageSize;
+	m_trPageSizeName = CommonStrings::trCustomPageSize;
 }
 
 PageSize& PageSize::operator=(const PageSize& other)
@@ -52,8 +51,9 @@ PageSize& PageSize::operator=(const PageSize& other)
 
 void PageSize::init(const QString& sizeName)
 {
-	m_width=m_height=0.0;
-	m_pageUnitIndex=-1;
+	m_width = 0.0;
+	m_height = 0.0;
+	m_pageUnitIndex = -1;
 	m_pageSizeName.clear();
 	m_trPageSizeName.clear();
 
@@ -63,26 +63,26 @@ void PageSize::init(const QString& sizeName)
 	if (m_pageSizeList.contains(sizeName))
 	{
 		PageSizeInfoMap::Iterator it = m_pageSizeList.find(sizeName);
-		m_pageSizeName=it.key();
-		m_width=it.value().width;
-		m_height=it.value().height;
-		m_pageUnitIndex=it.value().pageUnitIndex;
-		m_trPageSizeName=it.value().trSizeName;
+		m_pageSizeName = it.key();
+		m_width = it.value().width;
+		m_height = it.value().height;
+		m_pageUnitIndex = it.value().pageUnitIndex;
+		m_trPageSizeName = it.value().trSizeName;
 		valuesSet=true;
 	}
 	else //build based on translated value.
 	{
 		PageSizeInfoMap::Iterator it;
-		for (it=m_pageSizeList.begin();it!=m_pageSizeList.end() && !valuesSet;++it)
+		for (it = m_pageSizeList.begin(); it != m_pageSizeList.end() && !valuesSet; ++it)
 		{
-			if (sizeName==it.value().trSizeName)
+			if (sizeName == it.value().trSizeName)
 			{
-				m_pageSizeName=it.key();
-				m_width=it.value().width;
-				m_height=it.value().height;
-				m_pageUnitIndex=it.value().pageUnitIndex;
-				m_trPageSizeName=it.value().trSizeName;
-				valuesSet=true;
+				m_pageSizeName = it.key();
+				m_width = it.value().width;
+				m_height = it.value().height;
+				m_pageUnitIndex = it.value().pageUnitIndex;
+				m_trPageSizeName = it.value().trSizeName;
+				valuesSet = true;
 			}
 		}
 	}
@@ -90,19 +90,18 @@ void PageSize::init(const QString& sizeName)
 	if (!valuesSet)
 	{
 		//qDebug("Non-existent page size selected");
-		m_width=m_height=0.0;
-		m_pageUnitIndex=-1;
-		m_pageSizeName=CommonStrings::customPageSize;
-		m_trPageSizeName=CommonStrings::trCustomPageSize;
+		m_width = 0.0;
+		m_height = 0.0;
+		m_pageUnitIndex = -1;
+		m_pageSizeName = CommonStrings::customPageSize;
+		m_trPageSizeName = CommonStrings::trCustomPageSize;
 	}
 }
 
 QStringList PageSize::sizeList() const
 {
 	QStringList pageSizes;
-	pageSizes.clear();
-	PageSizeInfoMap::ConstIterator it;
-	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
+	for (auto it = m_pageSizeList.begin(); it != m_pageSizeList.end(); ++it)
 		pageSizes.append(it.key());
 	return QStringList(pageSizes);
 }
@@ -110,9 +109,7 @@ QStringList PageSize::sizeList() const
 QStringList PageSize::sizeTRList() const
 {
 	QStringList pageSizes;
-	pageSizes.clear();
-	PageSizeInfoMap::ConstIterator it;
-	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
+	for (auto it = m_pageSizeList.begin(); it != m_pageSizeList.end(); ++it)
 		pageSizes.append(it.value().trSizeName);
 	return QStringList(pageSizes);
 }
@@ -120,7 +117,7 @@ QStringList PageSize::sizeTRList() const
 QStringList PageSize::activeSizeList() const
 {
 	QStringList pageSizes=sizeList();
-	if (PrefsManager::instance().appPrefs.activePageSizes.count()==0)
+	if (PrefsManager::instance().appPrefs.activePageSizes.count() == 0)
 		return QStringList(pageSizes);
 	QStringList activePageSizes(PrefsManager::instance().appPrefs.activePageSizes);
 	QStringList activeSizes;
@@ -136,14 +133,14 @@ QStringList PageSize::activeSizeTRList() const
 {
 	QStringList pageTRSizes=sizeTRList();
 	QStringList pageSizes=sizeList();
-	if (PrefsManager::instance().appPrefs.activePageSizes.count()==0)
+	if (PrefsManager::instance().appPrefs.activePageSizes.count() == 0)
 		return QStringList(pageTRSizes);
 	QStringList activePageSizes(PrefsManager::instance().appPrefs.activePageSizes);
 	QStringList activeTRSizes;
 	for (int i = 0; i < activePageSizes.size(); ++i)
 	{
-		int j=pageSizes.indexOf(activePageSizes.at(i));
-		if (j!=-1)
+		int j = pageSizes.indexOf(activePageSizes.at(i));
+		if (j != -1)
 		{
 			activeTRSizes << pageTRSizes.at(j);
 		}
@@ -294,11 +291,11 @@ void PageSize::generateSizeList()
 	double height = 1120;
 	for (format = 0; format <= 10; format++)
 	{
-		info.width=mm2pts(width);
-		info.height=mm2pts(height);
-		info.pageUnitIndex=SC_MM;
+		info.width = mm2pts(width);
+		info.height = mm2pts(height);
+		info.pageUnitIndex = SC_MM;
 		name=QString("PA%1").arg(format);
-		info.trSizeName=name;
+		info.trSizeName = name;
 		m_pageSizeList.insert(name, info);
 		tmp = height;
 		height = width;
@@ -321,54 +318,54 @@ void PageSize::generateSizeList()
 	
 	for (uint i = 0; i < num_mappings_widths; ++i)
 	{
-		info.width=in2pts(impWidths[i]);
-		info.height=in2pts(impHeights[i]);
-		info.pageUnitIndex=SC_IN;
-		info.trSizeName=impTrNames[i];
+		info.width = in2pts(impWidths[i]);
+		info.height = in2pts(impHeights[i]);
+		info.pageUnitIndex = SC_IN;
+		info.trSizeName = impTrNames[i];
 		m_pageSizeList.insert(impNames[i], info);
 	}
 	//Comm10E
-	info.width=in2pts(4.125);
-	info.height=in2pts(9.5);
-	info.pageUnitIndex=SC_IN;
-	info.trSizeName=QObject::tr("Comm10E");
+	info.width = in2pts(4.125);
+	info.height = in2pts(9.5);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("Comm10E");
 	m_pageSizeList.insert("Comm10E", info); 
 	//DLE
-	info.width=mm2pts(110);
-	info.height=mm2pts(220);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("DLE");
+	info.width = mm2pts(110);
+	info.height = mm2pts(220);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("DLE");
 	m_pageSizeList.insert("DLE", info); 
 	// additional page sizes used by Viva Designer
 	//Compact Disc
-	info.width=mm2pts(119.9);
-	info.height=mm2pts(120.7);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("Compact Disc");
+	info.width = mm2pts(119.9);
+	info.height = mm2pts(120.7);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("Compact Disc");
 	m_pageSizeList.insert("Compact Disc", info);
 	//Letter Half
-	info.width=mm2pts(139.7);
-	info.height=mm2pts(215.9);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("Letter Half");
+	info.width = mm2pts(139.7);
+	info.height = mm2pts(215.9);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("Letter Half");
 	m_pageSizeList.insert("Letter Half", info);
 	//US Letter
-	info.width=mm2pts(215.9);
-	info.height=mm2pts(279.4);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("US Letter");
+	info.width = mm2pts(215.9);
+	info.height = mm2pts(279.4);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("US Letter");
 	m_pageSizeList.insert("US Letter", info);
 	//US Legal
-	info.width=mm2pts(215.9);
-	info.height=mm2pts(355.6);
-	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::tr("US Legal");
+	info.width = mm2pts(215.9);
+	info.height = mm2pts(355.6);
+	info.pageUnitIndex = SC_MM;
+	info.trSizeName = QObject::tr("US Legal");
 	m_pageSizeList.insert("US Legal", info);
 	//11x17
-	info.width=in2pts(11);
-	info.height=in2pts(17);
-	info.pageUnitIndex=SC_IN;
-	info.trSizeName=QObject::tr("11x17");
+	info.width = in2pts(11);
+	info.height = in2pts(17);
+	info.pageUnitIndex = SC_IN;
+	info.trSizeName = QObject::tr("11x17");
 	m_pageSizeList.insert("11x17", info);
 
 	// Arch A 9 × 12
@@ -428,10 +425,14 @@ void PageSize::generateSizeList()
 	//Tabloid
 }
 
-void PageSize::printSizeList()
+void PageSize::printSizeList() const
 {
-	PageSizeInfoMap::Iterator it;
-	for (it=m_pageSizeList.begin();it!=m_pageSizeList.end();++it)
-		std::cout << it.key().leftJustified(6).toStdString() << ": " << it.value().width << " x " << it.value().height << ",  " << it.value().width*unitGetRatioFromIndex(it.value().pageUnitIndex) << " x " << it.value().height*unitGetRatioFromIndex(it.value().pageUnitIndex) << ",  " << it.value().trSizeName.toStdString() << std::endl;
+	for (auto it = m_pageSizeList.begin(); it != m_pageSizeList.end(); ++it)
+	{
+		std::cout << it.key().leftJustified(6).toStdString() << ": ";
+		std::cout << it.value().width << " x " << it.value().height << ",  ";
+		std::cout << it.value().width * unitGetRatioFromIndex(it.value().pageUnitIndex) << " x " << it.value().height * unitGetRatioFromIndex(it.value().pageUnitIndex) << ",  ";
+		std::cout << it.value().trSizeName.toStdString() << std::endl;
+	}
 }
 
