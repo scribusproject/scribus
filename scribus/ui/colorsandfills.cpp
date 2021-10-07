@@ -931,7 +931,11 @@ void ColorsAndFillsDialog::removeColorItem()
 
 QStringList ColorsAndFillsDialog::getUsedPatternsHelper(const QString& pattern, QStringList &results) const
 {
-	const ScPattern *pat = &dialogPatterns[pattern];
+	auto patternIt = dialogPatterns.find(pattern);
+	if (patternIt == dialogPatterns.end())
+		return results;
+
+	const ScPattern* pat = &patternIt.value();
 	QStringList pats;
 
 	for (int c = 0; c < pat->items.count(); ++c)
