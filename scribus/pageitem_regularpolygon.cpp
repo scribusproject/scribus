@@ -62,7 +62,7 @@ PageItem_RegularPolygon::PageItem_RegularPolygon(ScribusDoc *pa, double x, doubl
 	Clip = flattenPath(PoLine, Segments);
 }
 
-void PageItem_RegularPolygon::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_RegularPolygon::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (!m_Doc->RePos)
 	{

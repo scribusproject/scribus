@@ -1073,7 +1073,7 @@ TableHandle PageItem_Table::hitTest(const QPointF& point, double threshold) cons
 {
 	const QPointF framePoint = getTransform().inverted().map(point);
 	const QPointF gridPoint = framePoint - gridOffset();
-	const QRectF gridRect = QRectF(0.0, 0.0, tableWidth(), tableHeight());
+	const QRectF gridRect(0.0, 0.0, tableWidth(), tableHeight());
 
 	// Test if hit is outside frame.
 	if (!QRectF(0.0, 0.0, width(), height()).contains(framePoint))
@@ -1339,7 +1339,7 @@ void PageItem_Table::applicableActions(QStringList& actionList)
 	actionList << "tableAdjustTableToFrame";
 }
 
-void PageItem_Table::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_Table::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (m_Doc->RePos)
 		return;

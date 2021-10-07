@@ -23,10 +23,10 @@ public:
 	~PdfImportOptions();
 
 	void setUpOptions(const QString& fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug);
-	QString getPagesString();
-	int getCropBox();
-	bool croppingEnabled();
-	bool getImportAsVectors();
+	QString getPagesString() const;
+	int getCropBox() const;
+	bool croppingEnabled() const;
+	bool getImportAsVectors() const;
 
 protected:
 	void paintEvent(QPaintEvent *e) override;
@@ -39,10 +39,10 @@ public slots:
 	void createPageNumberRange();
 
 private:
-	Ui::PdfImportOptions *ui;
-	PdfPlug* m_plugin;
-	int m_maxPage;
-	bool m_resized;
+	Ui::PdfImportOptions *ui { nullptr };
+	PdfPlug* m_plugin { nullptr };
+	int m_maxPage { 0 };
+	bool m_resized { false };
 
 private slots:
 	void onOkButtonClicked();

@@ -99,27 +99,32 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		QMap<QString,QString> editorProperties;
 
 	protected:
-		virtual void DrawObj_Item(ScPainter *p, QRectF e) override;
-		double m_lastWidth, m_lastHeight, m_lastDpi;
+		void DrawObj_Item(ScPainter *p, const QRectF& e) override;
+
+		double m_lastWidth { 0.0 };
+		double m_lastHeight { 0.0 };
+		double m_lastDpi { 72.0 };
 		
 		QString formulaText;
 
 		void writeFileContents(QFile *tempfile);
 		void deleteImageFile();
+
 		/* Last error code */
-		int m_err;
-		int m_dpi;
+		int m_err { 0 };
+		int m_dpi { 0 };
 		
 		QString imageFile, tempFileBase;
 		QString appStdout;
 		QString configFilename;
 		
-		QProcess *latex;
-		LatexEditor *internalEditor;
-		LatexConfigParser *config;
-		bool m_imgValid;
-		bool m_usePreamble;
-		bool m_killed;
+		QProcess *latex { nullptr };
+		LatexEditor *internalEditor { nullptr };
+		LatexConfigParser *config { nullptr };
+
+		bool m_imgValid { false };
+		bool m_usePreamble { true };
+		bool m_killed { false };
 
 	signals:
 		void formulaAutoUpdate(QString oldText, QString newText);

@@ -51,7 +51,7 @@ PageItem_PolyLine::PageItem_PolyLine(ScribusDoc *pa, double x, double y, double 
 {
 }
 
-void PageItem_PolyLine::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_PolyLine::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (m_Doc->RePos || PoLine.size() < 4)
 		return;
@@ -222,7 +222,7 @@ void PageItem_PolyLine::getBoundingRect(double *x1, double *y1, double *x2, doub
 {
 	PageItem::getBoundingRect(x1, y1, x2, y2);
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QRectF arrowRect = getStartArrowBoundingRect();
@@ -240,7 +240,7 @@ void PageItem_PolyLine::getOldBoundingRect(double *x1, double *y1, double *x2, d
 {
 	PageItem::getOldBoundingRect(x1, y1, x2, y2);
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QRectF arrowRect = getStartArrowOldBoundingRect();

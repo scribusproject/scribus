@@ -73,13 +73,13 @@ void PageItem_PathText::layout()
 }
 
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
 	m_maxChars = 0;
-	FPoint point = FPoint(0, 0);
-	FPoint tangent = FPoint(0, 0);
+	FPoint point(0, 0);
+	FPoint tangent(0, 0);
 	CurX = m_textDistanceMargins.left();
 
 	if (!m_Doc->layerOutline(m_layerID))

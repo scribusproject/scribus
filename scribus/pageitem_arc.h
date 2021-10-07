@@ -46,13 +46,14 @@ public:
 	void applicableActions(QStringList& actionList) override;
 	QString infoDescription() const override;
 	void recalcPath();
+
 	double arcHeight; //! height of the circumfering ellipse
 	double arcWidth;  //! width of the circumfering ellipse
-	double arcStartAngle;    //! angle where the arc starts
-	double arcSweepAngle;    //! angle the arc spans
+	double arcStartAngle { 30.0 };    //! angle where the arc starts
+	double arcSweepAngle { 300.0 };    //! angle the arc spans
 	
 protected:
-	void DrawObj_Item(ScPainter *p, QRectF e) override;
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

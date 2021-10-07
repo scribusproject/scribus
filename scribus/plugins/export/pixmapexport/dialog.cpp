@@ -133,7 +133,7 @@ void ExportForm::languageChange()
 
 void ExportForm::readConfig()
 {
-	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("ExportDirectory", ScPaths::instance().userDocumentDir())) );
+	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("ExportDirectory", ScPaths::userDocumentDir())) );
 	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
 	enlargementBox->setValue(prefs->getInt("EnlargementBox", 100));
 	qualityBox->setValue(prefs->getUInt("QualityBox", -1));

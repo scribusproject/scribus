@@ -50,7 +50,7 @@ public:
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 
 protected:
-	void DrawObj_Item(ScPainter *p, QRectF e) override;
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

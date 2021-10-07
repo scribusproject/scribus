@@ -361,39 +361,39 @@ fields which describe how the current line is placed into the frame
 struct LineControl {
 	LineSpec lineData;
 	QList<GlyphCluster> glyphs;
-	bool     isEmpty;
-	int      hyphenCount;
+	bool     isEmpty { true };
+	int      hyphenCount { 0 };
 	double   colWidth;
 	double   colGap;
 	double   colLeft;
 	double   colRight;
-	int      column;
-	bool     startOfCol;
+	int      column { 0 };
+	bool     startOfCol { true };
 	bool     hasDropCap;
-	bool     afterOverflow;
-	bool     addLine;
-	bool     recalculateY;
-	bool     lastInRowLine;
-	bool     addLeftIndent;
-	bool     wasFirstInRow;
-	double   leftIndent;
-	double   rightIndent;
-	double   rightMargin;
-	double   mustLineEnd;
-	int      restartIndex;  //index of glyph run where line computing should be restarted
-	int      restartRowIndex;  //index of glyph run where row of text is started
-	double   restartX; //starting X position of line if must be restarted
-	double   rowDesc;
+	bool     afterOverflow { false };
+	bool     addLine { false };
+	bool     recalculateY { false };
+	bool     lastInRowLine { false };
+	bool     addLeftIndent { false };
+	bool     wasFirstInRow { false };
+	double   leftIndent { 0.0 };
+	double   rightIndent { 0.0 };
+	double   rightMargin { 0.0 };
+	double   mustLineEnd { false };
+	int      restartIndex { 0 };  //index of glyph run where line computing should be restarted
+	int      restartRowIndex { 0 };  //index of glyph run where row of text is started
+	double   restartX { 0.0 }; //starting X position of line if must be restarted
+	double   rowDesc { 0.0 };
 
-	double   xPos;
-	double   yPos;
-	int      breakIndex;
-	double   breakXPos;
+	double   xPos { 0.0 };
+	double   yPos { 0.0 };
+	int      breakIndex { -1 };
+	double   breakXPos { 0.0 };
 
-	double   maxShrink;
-	double   maxStretch;
-	ScribusDoc *doc;
-	ITextContext* context;
+	double   maxShrink { 0.0 };
+	double   maxStretch { 0.0 };
+	ScribusDoc* doc { nullptr };
+	ITextContext* context { nullptr };
 
 	/// remember frame dimensions and offsets
 	LineControl(double w, double h, const MarginStruct& extra, double lCorr, ScribusDoc* d, ITextContext* ctx, double colwidth, double colgap)
@@ -404,34 +404,10 @@ struct LineControl {
 		lineCorr = lCorr;
 		frameWidth = w;
 		frameHeight = h;
-		column = 0;
 		colWidth = colwidth;
 		colGap = colgap;
-		hyphenCount = 0;
-		isEmpty = true;
 		colLeft = insets.left() + lineCorr;
 		colRight = colLeft + colWidth;
-		startOfCol = true;
-		afterOverflow = false;
-		addLine = false;
-		recalculateY = false;
-		lastInRowLine = false;
-		addLeftIndent = false;
-		wasFirstInRow = false;
-		leftIndent = 0.0;
-		rightIndent = 0.0;
-		rightMargin = 0.0;
-		mustLineEnd = false;
-		restartIndex = 0;
-		restartRowIndex = 0;
-		restartX = 0.0;
-		rowDesc = 0.0;
-		xPos = 0.0;
-		yPos = 0.0;
-		breakIndex = -1;
-		breakXPos = 0.0;
-		maxShrink = 0.0;
-		maxStretch = 0.0;
 	}
 
 	/// move position to next column
@@ -3069,7 +3045,7 @@ bool PageItem_TextFrame::isValidChainFromBegin()
 	return true;
 }
 
-void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
+void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 {
 	if (invalid)
 	{

@@ -56,7 +56,7 @@ PageItem_Spiral::PageItem_Spiral(ScribusDoc *pa, double x, double y, double w, d
 	recalcPath();
 }
 
-void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_Spiral::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (m_Doc->RePos || PoLine.size() < 4)
 		return;
@@ -355,7 +355,7 @@ void PageItem_Spiral::getBoundingRect(double *x1, double *y1, double *x2, double
 {
 	PageItem::getBoundingRect(x1, y1, x2, y2);
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QRectF arrowRect = getStartArrowBoundingRect();
@@ -373,7 +373,7 @@ void PageItem_Spiral::getOldBoundingRect(double *x1, double *y1, double *x2, dou
 {
 	PageItem::getOldBoundingRect(x1, y1, x2, y2);
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0 && !PoLine.empty())
 	{
 		QRectF arrowRect = getStartArrowOldBoundingRect();

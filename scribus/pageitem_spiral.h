@@ -46,16 +46,17 @@ public:
 	void applicableActions(QStringList& actionList) override;
 	QString infoDescription() const override;
 	void recalcPath();
-	double spiralStartAngle;    //! angle where the spiral starts
-	double spiralEndAngle;    //! angle the spiral spans
-	double spiralFactor;	//! factor the spiral gets smaller
+
+	double spiralStartAngle { 0.0 };    //! angle where the spiral starts
+	double spiralEndAngle { 1080 };    //! angle the spiral spans
+	double spiralFactor { 1.2 };	//! factor the spiral gets smaller
 
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 	void getOldBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const override;
 	
 protected:
-	void DrawObj_Item(ScPainter *p, QRectF e) override;
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

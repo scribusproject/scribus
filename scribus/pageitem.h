@@ -288,7 +288,7 @@ public: // Start public functions
 	void DrawObj_Pre(ScPainter *p);
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
-	virtual void DrawObj_Item(ScPainter *p, QRectF e) = 0;
+	virtual void DrawObj_Item(ScPainter *p, const QRectF& e) = 0;
 	QImage DrawObj_toImage(double maxSize, int options = 0);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
 	void DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyle& style, PageItem* cembedded);

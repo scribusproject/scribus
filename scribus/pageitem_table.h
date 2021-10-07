@@ -542,7 +542,7 @@ private slots:
 
 protected:
 	/// Paints this item.
-	void DrawObj_Item(ScPainter *p, QRectF clipRect) override;
+	void DrawObj_Item(ScPainter *p, const QRectF& clipRect) override;
 
 private:
 	/// Enum describing types of changes on a table. For internal use.

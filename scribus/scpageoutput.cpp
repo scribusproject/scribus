@@ -729,77 +729,74 @@ void ScPageOutput::drawItem_ImageFrame(PageItem_ImageFrame* item, ScPainterExBas
 		painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
 		painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));*/
 	}
+	else if ((!item->imageVisible()) || (!item->imageIsAvailable))
+	{
+		/*painter->setPen(ScColorShade(Qt::red, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
+		painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));*/
+	}
 	else
 	{
-		if ((!item->imageVisible()) || (!item->imageIsAvailable))
+		ScImage scImg;
+		ScImage* pImage = nullptr;
+		double imScaleX = item->imageXScale();
+		double imScaleY = item->imageYScale();
+		if (m_reloadImages)
 		{
-			/*painter->setPen(ScColorShade(Qt::red, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
-			painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));*/
+			bool dummy;
+			bool useCmyk = false;
+			ScPainterExBase::ImageMode imageMode = painter->imageMode();
+			if (imageMode == ScPainterExBase::cmykImages)
+				useCmyk = true;
+			QFileInfo fInfo(item->Pfile);
+			QString ext = fInfo.suffix();
+			CMSettings cmsSettings(item->doc(), item->ImageProfile, item->ImageIntent);
+			cmsSettings.allowColorManagement(m_useProfiles);
+			cmsSettings.setUseEmbeddedProfile(item->UseEmbedded);
+			scImg.imgInfo.valid = false;
+			scImg.imgInfo.clipPath = "";
+			scImg.imgInfo.PDSpathData.clear();
+			scImg.imgInfo.layerInfo.clear();
+			scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
+			scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
+			scImg.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
+			if (extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext))
+			{
+				imScaleX *= (72.0 / (double) m_imageRes);
+				imScaleY *= (72.0 / (double) m_imageRes);
+			}
+			scImg.applyEffect(item->effectsInUse, m_doc->PageColors, useCmyk);
+			mode = imageMode;
+			pImage = &scImg;
 		}
 		else
-		{
-			ScImage scImg;
-			ScImage* pImage = nullptr;
-			double imScaleX = item->imageXScale();
-			double imScaleY = item->imageYScale();
-			if (m_reloadImages)
-			{
-				bool dummy;
-				bool useCmyk = false;
-				ScPainterExBase::ImageMode imageMode = painter->imageMode();
-				if (imageMode == ScPainterExBase::cmykImages)
-					useCmyk = true;
-				QFileInfo fInfo(item->Pfile);
-				QString ext = fInfo.suffix();
-				CMSettings cmsSettings(item->doc(), item->ImageProfile, item->ImageIntent);
-				cmsSettings.allowColorManagement(m_useProfiles);
-				cmsSettings.setUseEmbeddedProfile(item->UseEmbedded);
-				scImg.imgInfo.valid = false;
-				scImg.imgInfo.clipPath = "";
-				scImg.imgInfo.PDSpathData.clear();
-				scImg.imgInfo.layerInfo.clear();
-				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
-				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
-				if (extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext))
-				{
-					imScaleX *= (72.0 / (double) m_imageRes);
-					imScaleY *= (72.0 / (double) m_imageRes);
-				}
-				scImg.applyEffect(item->effectsInUse, m_doc->PageColors, useCmyk);
-				mode = imageMode;
-				pImage = &scImg;
-			}
-			else
-				pImage = &item->pixm;
+			pImage = &item->pixm;
 
-			painter->save();
-			if (!item->imageClip.empty())
-			{
-				painter->setupPolygon(&item->imageClip);
-				painter->setClipPath();
-			}
-			painter->setupPolygon(&item->PoLine);
+		painter->save();
+		if (!item->imageClip.empty())
+		{
+			painter->setupPolygon(&item->imageClip);
 			painter->setClipPath();
-			if (item->imageFlippedH())
-			{
-				painter->translate(item->width(), 0);
-				painter->scale(-1, 1);
-			}
-			if (item->imageFlippedV())
-			{
-				painter->translate(0, item->height());
-				painter->scale(1, -1);
-			}
-			painter->translate(item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
-			painter->rotate(item->imageRotation());
-			painter->scale(imScaleX, imScaleY);
-			if (pImage->imgInfo.lowResType != 0)
-				painter->scale(pImage->imgInfo.lowResScale, pImage->imgInfo.lowResScale);
-			painter->drawImage(pImage, mode);
-			painter->restore();
 		}
+		painter->setupPolygon(&item->PoLine);
+		painter->setClipPath();
+		if (item->imageFlippedH())
+		{
+			painter->translate(item->width(), 0);
+			painter->scale(-1, 1);
+		}
+		if (item->imageFlippedV())
+		{
+			painter->translate(0, item->height());
+			painter->scale(1, -1);
+		}
+		painter->translate(item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
+		painter->rotate(item->imageRotation());
+		painter->scale(imScaleX, imScaleY);
+		if (pImage->imgInfo.lowResType != 0)
+			painter->scale(pImage->imgInfo.lowResScale, pImage->imgInfo.lowResScale);
+		painter->drawImage(pImage, mode);
+		painter->restore();
 	}
 }
 

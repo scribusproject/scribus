@@ -18,9 +18,6 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 {
 	ui->setupUi(this);
 	ui->pageSelectButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
-	m_plugin = nullptr;
-	m_maxPage = 0;
-	m_resized = false;
 
 	connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(onOkButtonClicked()));
 	connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
@@ -72,7 +69,7 @@ void PdfImportOptions::paintEvent(QPaintEvent *e)
 	QDialog::paintEvent(e);
 }
 
-QString PdfImportOptions::getPagesString()
+QString PdfImportOptions::getPagesString() const
 {
 	if (ui->allPages->isChecked())
 		return "*";
@@ -81,7 +78,7 @@ QString PdfImportOptions::getPagesString()
 	return ui->pageRangeString->text();
 }
 
-int PdfImportOptions::getCropBox()
+int PdfImportOptions::getCropBox() const
 {
 	int ret = 0;
 	if (ui->cropGroup->isChecked())
@@ -89,12 +86,12 @@ int PdfImportOptions::getCropBox()
 	return ret;
 }
 
-bool PdfImportOptions::croppingEnabled()
+bool PdfImportOptions::croppingEnabled() const
 {
 	return ui->cropGroup->isChecked();
 }
 
-bool PdfImportOptions::getImportAsVectors()
+bool PdfImportOptions::getImportAsVectors() const
 {
 	return ui->textAsVectors->isChecked();
 }

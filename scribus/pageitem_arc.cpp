@@ -56,7 +56,7 @@ PageItem_Arc::PageItem_Arc(ScribusDoc *pa, double x, double y, double w, double 
 	recalcPath();
 }
 
-void PageItem_Arc::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_Arc::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (!m_Doc->RePos)
 	{

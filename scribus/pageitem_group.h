@@ -62,7 +62,7 @@ public:
 	void layout() override;
 	
 protected:
-	void DrawObj_Item(ScPainter *p, QRectF e) override;
+	void DrawObj_Item(ScPainter *p, const QRectF& e) override;
 
 };
 

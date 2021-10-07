@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 ScListWidgetDelegate::ScListWidgetDelegate(QListWidget *view, QWidget *parent) : QItemDelegate(parent), m_view(view)
 {
-	m_dispIconOnly = false;
+
 }
 
 void ScListWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -66,7 +66,7 @@ void ScListWidgetDelegate::setIconOnly(bool setter)
 	m_dispIconOnly = setter;
 }
 
-bool ScListWidgetDelegate::iconOnly()
+bool ScListWidgetDelegate::iconOnly() const
 {
 	return m_dispIconOnly;
 }

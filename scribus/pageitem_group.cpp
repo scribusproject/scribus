@@ -168,7 +168,7 @@ void PageItem_Group::getNamedResources(ResourceCollection& lists) const
 	}
 }
 
-void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
+void PageItem_Group::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 {
 	if (m_Doc->RePos)
 		return;

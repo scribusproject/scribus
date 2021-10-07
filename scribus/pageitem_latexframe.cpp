@@ -47,13 +47,6 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	m_itemName = tr("Render") + QString::number(m_Doc->TotalItems);
 	setUName(m_itemName);
 	
-	m_imgValid = false;
-	m_usePreamble = true;
-	m_err = 0;
-	internalEditor = nullptr;
-	m_killed = false;
-	
-	config = nullptr;
 	if (PrefsManager::instance().latexConfigs().count() > 0)
 		setConfigFile(PrefsManager::instance().latexConfigs()[0]);
 
@@ -70,8 +63,6 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
-	m_dpi = 0;
-	m_lastWidth = m_lastHeight = 0;
 	m_lastDpi = realDpi();
 
 	m_imageXScale *= (72.0 / realDpi());
@@ -127,7 +118,7 @@ void PageItem_LatexFrame::deleteImageFile()
 	m_imgValid = false;
 }
 
-void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
+void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, const QRectF& e)
 {
 	layout();
 	if (!m_imgValid && !m_err)
@@ -404,7 +395,7 @@ bool PageItem_LatexFrame::setFormula(const QString& formula, bool undoable)
 	m_err = 0;
 	if (UndoManager::undoEnabled() && undoable)
 	{
-		SimpleState *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
+		auto *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
 		ss->set("CHANGE_FORMULA");
 		ss->set("OLD_FORMULA", formulaText);
 		ss->set("NEW_FORMULA", formula);
@@ -528,7 +519,7 @@ void PageItem_LatexFrame::killProcess()
 
 void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 {
-	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	auto *ss = dynamic_cast<SimpleState*>(state);
 	if (!ss)
 	{
 		PageItem_ImageFrame::restore(state, isUndo);

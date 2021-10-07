@@ -31,14 +31,16 @@ class SCRIBUS_API ScListWidgetDelegate : public QItemDelegate
 	Q_OBJECT
 public:
 	ScListWidgetDelegate(QListWidget *view, QWidget *parent);
-	virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-	virtual QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const;
+
+	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+	QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const override;
+
 	void setIconOnly(bool setter);
-	bool iconOnly();
+	bool iconOnly() const;
 
 private:
-	QListWidget *m_view;
-	bool m_dispIconOnly;
+	QListWidget *m_view { nullptr };
+	bool m_dispIconOnly { false };
 };
 
 #endif // SCLISTWIDGETDELEGATE_H
