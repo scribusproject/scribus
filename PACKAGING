@@ -45,7 +45,7 @@ commercial grade output in PDF and Postscript, primarily, though not exclusively
 for Linux. Scribus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
 -----------------------------------------------------------------------------
 
-Recommended Spec File Summary: Scribus - Open Source Page Layout
+Recommended Spec File Summary: Scribus - Open Source Desktop Publishing
 
 Please remove all references to proprietary applications.
 
@@ -80,9 +80,9 @@ Please file issues or enhancement requests at http://bugs.scribus.net
 
 Detailed notes on exact library requirements are detailed in the BUILDING file with the source tarball.
 
-There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
+There is a lively on-line community, both on IRC @ #scribus on libera.chat
 and the mailing list. Mailing list info can be found at: 
-http://nashi.altmuehlnet.de/mailman/listinfo/scribus
+http://lists.scribus.net/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell

@@ -1016,7 +1016,7 @@ void ActionManager::initHelpMenuActions()
 	name = "helpOnlineTutorial1";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, ""));
 	name = "helpChat";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://webchat.freenode.net/?channels=scribus"));
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QString(), QString(), "", defaultKey(name), mainWindow, "http://web.libera.chat/?channels=scribus"));
 	name = "helpCheckUpdates";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
