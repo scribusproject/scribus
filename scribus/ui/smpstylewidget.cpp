@@ -555,12 +555,11 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		backShade_->setValue(qRound(d));
 
 	QString s;
-	QString emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (!s.isNull() && s != cstyles[i]->backgroundColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cstyles[i]->backgroundColor();

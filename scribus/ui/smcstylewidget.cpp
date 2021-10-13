@@ -572,12 +572,11 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		backShade_->setValue(qRound(d));
 
 	QString s;
-	QString emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
-		if (!s.isNull() && s != cstyles[i]->fillColor())
+		if (!s.isEmpty() && s != cstyles[i]->fillColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cstyles[i]->fillColor();
@@ -591,12 +590,12 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	else
 		fillColor_->setCurrentText(s);
 
-	s = emptyString;
+	s.clear();
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
-		if (!s.isNull() && s != cstyles[i]->strokeColor())
+		if (!s.isEmpty() && s != cstyles[i]->strokeColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cstyles[i]->strokeColor();
@@ -610,12 +609,12 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	else
 		strokeColor_->setCurrentText(s);
 
-	s = emptyString;
+	s.clear();
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
-		if (!s.isNull() && s != cstyles[i]->backColor())
+		if (!s.isEmpty() && s != cstyles[i]->backColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cstyles[i]->backColor();
@@ -632,13 +631,12 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 
 void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang)
 {
-	QString emptyString;
 	QString s(cstyles[0]->language());
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (s != cstyles[i]->language())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cstyles[i]->language();

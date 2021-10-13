@@ -152,12 +152,11 @@ void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
 	else
 		fillShade->setValue(qRound(d));
 	QString s;
-	QString emptyString;
 	for (int i = 0; i < cellStyles.count(); ++i)
 	{
-		if (!s.isNull() && s != cellStyles[i]->fillColor())
+		if (!s.isEmpty() && s != cellStyles[i]->fillColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = cellStyles[i]->fillColor();

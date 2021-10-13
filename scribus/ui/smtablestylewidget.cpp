@@ -139,12 +139,11 @@ void SMTableStyleWidget::showColors(const QList<TableStyle*> &tableStyles)
 	else
 		fillShade->setValue(qRound(d));
 	QString s;
-	QString emptyString;
 	for (int i = 0; i < tableStyles.count(); ++i)
 	{
-		if (!s.isNull() && s != tableStyles[i]->fillColor())
+		if (!s.isEmpty() && s != tableStyles[i]->fillColor())
 		{
-			s = emptyString;
+			s.clear();
 			break;
 		}
 		s = tableStyles[i]->fillColor();
