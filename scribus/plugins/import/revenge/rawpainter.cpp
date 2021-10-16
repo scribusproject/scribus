@@ -2129,8 +2129,7 @@ void RawPainter::applyFill(PageItem* ite)
 				tempFile->write(imageData);
 				QString fileName = getLongPathName(tempFile->fileName());
 				tempFile->close();
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_Doc);
+				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
 				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
@@ -3344,8 +3343,7 @@ void RawPainter::applyFill(PageItem* ite)
 				tempFile->write(imageData);
 				QString fileName = getLongPathName(tempFile->fileName());
 				tempFile->close();
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_Doc);
+				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
 				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])

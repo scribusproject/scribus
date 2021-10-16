@@ -59,20 +59,22 @@ public:
 private:
 	bool convert(const QString& fn);
 
-	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
+	QList<PageItem*> Elements;
 	QStringList importedColors;
 	QStringList importedPatterns;
 
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	bool cancel { false };
+	int  importerFlags { 0 };
+
+	MultiProgressDialog* progressDialog { nullptr };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
 
 public slots:
 	void cancelRequested() { cancel = true; }

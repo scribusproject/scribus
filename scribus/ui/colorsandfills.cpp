@@ -1205,8 +1205,7 @@ void ColorsAndFillsDialog::importColorItems()
 		else
 		{
 			QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-			ScPattern pat;
-			pat.setDoc(m_doc);
+			ScPattern pat(m_doc);
 			pat.setPattern(fileName);
 			if (!dialogPatterns.contains(patNam))
 			{
@@ -1288,8 +1287,7 @@ void ColorsAndFillsDialog::loadPatternDir()
 		QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 		if (!dialogPatterns.contains(patNam))
 		{
-			ScPattern pat;
-			pat.setDoc(m_doc);
+			ScPattern pat(m_doc);
 			pat.setPattern(QDir::cleanPath(QDir::toNativeSeparators(fileName + "/" + d[dc])));
 			dialogPatterns.insert(patNam, pat);
 			origNamesPatterns.insert(patNam, patNam);
@@ -1361,8 +1359,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 			else
 				ite->layout();
 		}
-		ScPattern pat;
-		pat.setDoc(m_doc);
+
 		PageItem* currItem = m_doc->Items->at(ac);
 		double minx =  std::numeric_limits<double>::max();
 		double miny =  std::numeric_limits<double>::max();
@@ -1374,9 +1371,12 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
+
+		ScPattern pat(m_doc);
 		pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 		pat.width = maxx - minx;
 		pat.height = maxy - miny;
+
 		currItem->setXYPos(0, 0, true);
 		currItem->setWidthHeight(maxx - minx, maxy - miny, true);
 		currItem->groupWidth = maxx - minx;

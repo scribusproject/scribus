@@ -23,15 +23,15 @@ for which a new license (GPL+exception) is in place.
 #include <QThread>
 
 BarcodeType::BarcodeType(const QString &cmd, const QString &exa, const QString &exaop)
+           : command(cmd),
+             exampleContents(exa),
+             exampleOptions(exaop)
 {
-	command = cmd;
-	exampleContents = exa;
-	exampleOptions = exaop;
+
 }
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
-	: QDialog(parent),
-	  paintBarcodeTimer(nullptr)
+	: QDialog(parent)
 {
 	ui.setupUi(this);
 	setObjectName(name);
@@ -305,7 +305,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	paintColorSample(ui.txtLabel, txtColor);
 	paintColorSample(ui.bgLabel, bgColor);
 
-	paintBarcodeTimer=new QTimer(this);
+	paintBarcodeTimer = new QTimer(this);
 	paintBarcodeTimer->setSingleShot(true);
 	connect(paintBarcodeTimer, SIGNAL(timeout()), this, SLOT(paintBarcode()));
 
@@ -383,7 +383,7 @@ void BarcodeGenerator::bcFamilyComboChanged()
 	bcComboChanged();
 }
 
-void BarcodeGenerator::bcComboChanged(int i)
+void BarcodeGenerator::bcComboChanged(int)
 {
 	bcComboChanged();
 }
@@ -774,12 +774,12 @@ void BarcodeGenerator::cancelButton_pressed()
 	reject();
 }
 
-void BarcodeGenerator::codeEdit_textChanged(const QString& s)
+void BarcodeGenerator::codeEdit_textChanged(const QString&)
 {
 	enqueuePaintBarcode(0);
 }
 
-void BarcodeGenerator::on_optionsEdit_textChanged(const QString &s )
+void BarcodeGenerator::on_optionsEdit_textChanged(const QString&)
 {
 	updateUIFromOptionsText();
 	enqueuePaintBarcode(0);

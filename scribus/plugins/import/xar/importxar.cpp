@@ -1908,8 +1908,7 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 				s++;
 			}
 		}
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_Doc);
+		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		tempFile->setAutoRemove(false);
@@ -2707,8 +2706,7 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 				s++;
 			}
 		}
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_Doc);
+		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		tempFile->setAutoRemove(false);
@@ -2867,8 +2865,7 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 				}
 			}
 		}
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_Doc);
+		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
 		tempFile->setAutoRemove(false);
@@ -3677,8 +3674,7 @@ void XarPlug::popGraphicContext()
 				{
 					m_Doc->DoDrawing = true;
 					QImage tmpImg = groupItem->DrawObj_toImage(qMin(qMax(groupItem->width(), groupItem->height()), 500.0));
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_Doc);
+					ScPattern pat(m_Doc);
 					pat.width = groupItem->width();
 					pat.height = groupItem->height();
 					pat.pattern = tmpImg;

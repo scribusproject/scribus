@@ -13,15 +13,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
 #include <QMimeData>
 #include <QRawFont>
 #include <QRegExp>
+#include <QScopedPointer>
 #include <QTextCodec>
 #include <QUuid>
-#include <QDebug>
 
 #include <cstdlib>
 
@@ -426,47 +427,17 @@ for which a new license (GPL+exception) is in place.
 #define   U_RNDT_Infinite               0x10000003
 
 EmfPlug::EmfPlug(ScribusDoc* doc, int flags)
-	: clipGroup(nullptr),
-	  docWidth(0.0),
-	  docHeight(0.0),
-	  baseX(0.0),
-	  baseY(0.0),
-	  docX(0.0),
-	  docY(0.0),
-	  dpiX(0.0),
-	  dpiY(0.0),
-	  EmfPdpiX(0),
-	  EmfPdpiY(0.0),
-	  m_records(0),
-	  recordCount(0),
-	  viewPextendX(0),
-	  viewPextendY(0),
-	  winPextendX(0),
-	  winPextendY(0),
-	  winOrigX(0),
-	  winOrigY(0),
-	  progressDialog(nullptr),
-	  cancel(false),
-	  m_Doc(doc),
-	  importerFlags(flags),
-	  inPath(false),
-	  inEMFPlus(false),
-	  emfPlusDual(false),
-	  emfMixed(false),
-	  emfPlusScale(0.0),
-	  SerializableObject_Valid(false),
-	  m_ObjSize(0),
-	  m_currObjSize(0),
-	  m_objID(0)
+	: m_Doc(doc),
+	  importerFlags(flags)
 {
-	tmpSel=new Selection(this, false);
+	tmpSel = new Selection(this, false);
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
 QImage EmfPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	double b = 0;
 	double h = 0;
 	double x = 0;
@@ -568,7 +539,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	cancel = false;
 	double x, y, b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -577,7 +548,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
 	if ( showProgress )
 	{
-		ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -590,7 +561,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -602,7 +573,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	parseHeader(fNameIn, x, y, b, h);
 	if (b == 0.0)
@@ -630,22 +601,19 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			m_Doc->setPageHeight(docHeight);
-			m_Doc->setPageWidth(docWidth);
-			m_Doc->currentPage()->setInitialWidth(docWidth);
-			m_Doc->currentPage()->setInitialHeight(docHeight);
-			m_Doc->currentPage()->setWidth(docWidth);
-			m_Doc->currentPage()->setHeight(docHeight);
-			ret = true;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		m_Doc->setPageHeight(docHeight);
+		m_Doc->setPageWidth(docWidth);
+		m_Doc->currentPage()->setInitialWidth(docWidth);
+		m_Doc->currentPage()->setInitialHeight(docHeight);
+		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->setHeight(docHeight);
+		ret = true;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
 	if ((!ret) && (interactive))
 	{
@@ -668,7 +636,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QGuiApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -707,7 +675,7 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -783,17 +751,17 @@ bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->scMW()->setScriptRunning(false);
 		if (m_Doc->view() != nullptr)
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QGuiApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -1067,7 +1035,7 @@ bool EmfPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -1075,7 +1043,7 @@ bool EmfPlug::convert(const QString& fn)
 		if (progressDialog)
 		{
 			progressDialog->setTotalSteps("GI", m_records);
-			qApp->processEvents();
+			QCoreApplication::processEvents();
 		}
 		QDataStream ds(&f);
 		ds.setByteOrder(QDataStream::LittleEndian);
@@ -1699,7 +1667,7 @@ bool EmfPlug::convert(const QString& fn)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", recordCount);
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 		invalidateClipGroup();
@@ -1762,10 +1730,6 @@ double EmfPlug::convertDevice2Pts(double in)
 QPointF EmfPlug::convertDevice2Pts(QPointF in)
 {
 	QPointF out;
-//	double scaleX = (bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width(); // Device -> Pts
-//	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
-//	out.setX(in.x() * scaleX);
-//	out.setY(in.y() * scaleY);
 	out.setX(in.x() / dpiX * 72.0);
 	out.setY(in.y() / dpiY * 72.0);
 	return out;
@@ -1786,8 +1750,6 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 //	double scaleY = qAbs((bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height()); // Device -> Pts
 	if (currentDC.m_mapMode == 1)
 	{
-	//	out.setX(in.x() * scaleX);
-	//	out.setY(in.y() * scaleY);
 		out.setX(in.x() / dpiX * 72.0);
 		out.setY(in.y() / dpiY * 72.0);
 	}
@@ -1833,50 +1795,50 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 
 void EmfPlug::createPatternFromDIB(const QImage& img, quint32 brID)
 {
-	if (!img.isNull())
-	{
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		if (tempFile->open())
-		{
-			QString fileName = getLongPathName(tempFile->fileName());
-			if (!fileName.isEmpty())
-			{
-				tempFile->close();
-				img.save(fileName, "PNG");
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_Doc);
-				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-				PageItem* newItem = m_Doc->Items->at(z);
-				m_Doc->loadPict(fileName, newItem);
-				m_Doc->Items->takeAt(z);
-				newItem->isInlineImage = true;
-				newItem->isTempFile = true;
-				pat.width = newItem->pixm.qImage().width();
-				pat.height = newItem->pixm.qImage().height();
-				pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-				pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-				pat.pattern = newItem->pixm.qImage().copy();
-				newItem->setWidth(pat.pattern.width());
-				newItem->setHeight(pat.pattern.height());
-				newItem->SetRectFrame();
-				newItem->gXpos = 0.0;
-				newItem->gYpos = 0.0;
-				newItem->gWidth = pat.pattern.width();
-				newItem->gHeight = pat.pattern.height();
-				pat.items.append(newItem);
-				QString patternName = "Pattern_"+newItem->itemName();
-				m_Doc->addPattern(patternName, pat);
-				emfStyle sty;
-				sty.styType = U_OT_Brush;
-				sty.brushStyle = U_BT_TextureFill;
-				sty.patternName = patternName;
-				sty.fillTrans = 0;
-				emfStyleMap.insert(brID, sty);
-				importedPatterns.append(patternName);
-			}
-		}
-	}
+	if (img.isNull())
+		return;
+
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png"));
+	tempFile->setAutoRemove(false);
+	if (!tempFile->open())
+		return;
+
+	QString fileName = getLongPathName(tempFile->fileName());
+	tempFile->close();
+
+	if (fileName.isEmpty())
+		return;
+
+	img.save(fileName, "PNG");
+	ScPattern pat(m_Doc);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+	PageItem* newItem = m_Doc->Items->at(z);
+	m_Doc->loadPict(fileName, newItem);
+	m_Doc->Items->takeAt(z);
+	newItem->isInlineImage = true;
+	newItem->isTempFile = true;
+	pat.width = newItem->pixm.qImage().width();
+	pat.height = newItem->pixm.qImage().height();
+	pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+	pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+	pat.pattern = newItem->pixm.qImage().copy();
+	newItem->setWidth(pat.pattern.width());
+	newItem->setHeight(pat.pattern.height());
+	newItem->SetRectFrame();
+	newItem->gXpos = 0.0;
+	newItem->gYpos = 0.0;
+	newItem->gWidth = pat.pattern.width();
+	newItem->gHeight = pat.pattern.height();
+	pat.items.append(newItem);
+	QString patternName = "Pattern_" + newItem->itemName();
+	m_Doc->addPattern(patternName, pat);
+	emfStyle sty;
+	sty.styType = U_OT_Brush;
+	sty.brushStyle = U_BT_TextureFill;
+	sty.patternName = patternName;
+	sty.fillTrans = 0;
+	emfStyleMap.insert(brID, sty);
+	importedPatterns.append(patternName);
 }
 
 void EmfPlug::getPolyInfo(QDataStream &ds, QRectF &bounds, quint32 &count)
@@ -1969,7 +1931,7 @@ void EmfPlug::setWTransform(const QTransform& mm, quint32 how)
 		currentDC.m_WorldMap = mm;
 }
 
-QPointF EmfPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
+QPointF EmfPlug::intersectBoundingRect(PageItem *item, const QLineF& gradientVector)
 {
 	QPointF interPoint;
 	QPointF gradEnd;
@@ -2127,7 +2089,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 					gpath = points;
 				}
 				ite->meshGradientPatches.clear();
-				FPoint center = FPoint(cx.x(), cx.y());
+				FPoint center(cx.x(), cx.y());
 				QList<VColorStop*> colorStops = currentDC.gradient.colorStops();
 				if (colorStops.count() == 2)
 				{
@@ -2286,57 +2248,54 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				}
 			}
 		}
-		else
+		else if (currentDC.brushStyle == U_BT_HatchFill)
 		{
-			if (currentDC.brushStyle == U_BT_HatchFill)
+			switch (currentDC.hatchStyle)
 			{
-				switch (currentDC.hatchStyle)
-				{
-					case U_HSP_Horizontal:
-						ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case U_HSP_Vertical:
-						ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case U_HSP_ForwardDiagonal:
-						ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case U_HSP_BackwardDiagonal:
-						ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case U_HSP_LargeGrid:
-						ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case U_HSP_DiagonalCross:
-						ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
-						ite->GrType = Gradient_Hatch;
-						break;
-					case 6:
-					case 7:
-						ite->setFillColor(currentDC.CurrColorFill);
-						break;
-					case 8:
-					case 9:
-						ite->setFillColor(currentDC.CurrColorText);
-						break;
-					case 10:
-					case 11:
-						ite->setFillColor(currentDC.backColor);
-						break;
-					default:
-						break;
-				}
+				case U_HSP_Horizontal:
+					ite->setHatchParameters(0, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case U_HSP_Vertical:
+					ite->setHatchParameters(0, 5, 90, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case U_HSP_ForwardDiagonal:
+					ite->setHatchParameters(0, 5, -45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case U_HSP_BackwardDiagonal:
+					ite->setHatchParameters(0, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case U_HSP_LargeGrid:
+					ite->setHatchParameters(1, 5, 0, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case U_HSP_DiagonalCross:
+					ite->setHatchParameters(1, 5, 45, currentDC.backgroundMode, currentDC.backColor, currentDC.CurrColorFill);
+					ite->GrType = Gradient_Hatch;
+					break;
+				case 6:
+				case 7:
+					ite->setFillColor(currentDC.CurrColorFill);
+					break;
+				case 8:
+				case 9:
+					ite->setFillColor(currentDC.CurrColorText);
+					break;
+				case 10:
+				case 11:
+					ite->setFillColor(currentDC.backColor);
+					break;
+				default:
+					break;
 			}
-			else if (currentDC.brushStyle == U_BT_TextureFill)
-			{
-				ite->setPattern(currentDC.patternName);
-				ite->GrType = Gradient_Pattern;
-			}
+		}
+		else if (currentDC.brushStyle == U_BT_TextureFill)
+		{
+			ite->setPattern(currentDC.patternName);
+			ite->GrType = Gradient_Pattern;
 		}
 	}
 	if (clipGroup != nullptr)
@@ -2365,28 +2324,28 @@ void EmfPlug::invalidateClipGroup()
 
 void EmfPlug::createClipGroup()
 {
-	if (currentDC.clipValid)
-	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
-		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = currentDC.clipPath.copy();
-		ite->setFillEvenOdd(false);
-		ite->ClipEdited = true;
-		ite->FrameType = 3;
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(),wh.y());
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->adjustItemSize(ite, true);
-		ite->moveBy(-docX, -docY, true);
-		ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
-		ite->OldB2 = ite->width();
-		ite->OldH2 = ite->height();
-		ite->updateClip();
-		ite->OwnPage = m_Doc->OnPage(ite);
-		m_Doc->GroupOnPage(ite);
-		clipGroup = ite;
-		Elements.append(ite);
-	}
+	if (!currentDC.clipValid)
+		return;
+
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine = currentDC.clipPath.copy();
+	ite->setFillEvenOdd(false);
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(),wh.y());
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_Doc->adjustItemSize(ite, true);
+	ite->moveBy(-docX, -docY, true);
+	ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
+	ite->OldB2 = ite->width();
+	ite->OldH2 = ite->height();
+	ite->updateClip();
+	ite->OwnPage = m_Doc->OnPage(ite);
+	m_Doc->GroupOnPage(ite);
+	clipGroup = ite;
+	Elements.append(ite);
 }
 
 void EmfPlug::handleComment(QDataStream &ds)
@@ -2402,7 +2361,7 @@ void EmfPlug::handleEllipse(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	if (inPath)
 	{
 		QPainterPath painterPath;
@@ -2426,7 +2385,7 @@ void EmfPlug::handleRectangle(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	if (inPath)
 	{
 		QPainterPath painterPath;
@@ -2453,7 +2412,7 @@ void EmfPlug::handleRoundRect(QDataStream &ds)
 	qint32 x1, y1;
 	ds >> x1 >> y1;
 	QPointF p3 = convertLogical2Pts(QPointF(x1, y1));
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	if (inPath)
 	{
 		QPainterPath painterPath;
@@ -2563,11 +2522,11 @@ void EmfPlug::handleArc(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	QPointF st = getPoint(ds, true);
 	QPointF en = getPoint(ds, true);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(BoxDev.center(), st);
+	QLineF enlin(BoxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	painterPath.arcMoveTo(BoxDev, stlin.angle());
@@ -2597,11 +2556,11 @@ void EmfPlug::handleArcTo(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	QPointF st = getPoint(ds, true);
 	QPointF en = getPoint(ds, true);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(BoxDev.center(), st);
+	QLineF enlin(BoxDev.center(), en);
 	if (inPath)
 	{
 		if (enlin.angleTo(stlin) > 180)
@@ -2646,11 +2605,11 @@ void EmfPlug::handleChord(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	QPointF st = getPoint(ds, true);
 	QPointF en = getPoint(ds, true);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(BoxDev.center(), st);
+	QLineF enlin(BoxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	QPointF firstPoint;
@@ -2690,11 +2649,11 @@ void EmfPlug::handlePie(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds, true);
 	QPointF p2 = getPoint(ds, true);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF BoxDev(p1, p2);
 	QPointF st = getPoint(ds, true);
 	QPointF en = getPoint(ds, true);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(BoxDev.center(), st);
+	QLineF enlin(BoxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	QPointF firstPoint;
@@ -2938,48 +2897,49 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, co
 	}
 	QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
 	p = convertLogical2Pts(p);
-	QPointF p2 = QPointF(qAbs(dstW), qAbs(dstH));
-	QLineF wl = QLineF(0, 0, p2.x(), 0);
+	QPointF p2(qAbs(dstW), qAbs(dstH));
+	QLineF wl(0, 0, p2.x(), 0);
 	wl = bm.map(wl);
-	QLineF hl = QLineF(0, 0, p2.y(), 0);
+	QLineF hl(0, 0, p2.y(), 0);
 	hl = bm.map(hl);
 	p2 = convertDevice2Pts(QPointF(wl.length(), hl.length()));
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite, false);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
+
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png"));
 	tempFile->setAutoRemove(false);
-	if (tempFile->open())
+	if (!tempFile->open())
+		return;
+
+	QString fileName = getLongPathName(tempFile->fileName());
+	tempFile->close();
+
+	if (fileName.isEmpty())
+		return;
+
+	img.save(fileName, "PNG");
+	ite->isInlineImage = true;
+	ite->isTempFile = true;
+	ite->AspectRatio = false;
+	ite->ScaleType   = false;
+	if (currentDC.clipValid)
 	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
-		{
-			tempFile->close();
-			img.save(fileName, "PNG");
-			ite->isInlineImage = true;
-			ite->isTempFile = true;
-			ite->AspectRatio = false;
-			ite->ScaleType   = false;
-			if (currentDC.clipValid)
-			{
-				FPointArray cp = currentDC.clipPath.copy();
-				cp.translate(baseX, baseY);
-				cp.translate(-docX, -docY);
-				cp.translate(-ite->xPos(), -ite->yPos());
-				ite->PoLine = cp.copy();
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(),wh.y());
-				ite->setTextFlowMode(PageItem::TextFlowDisabled);
-				m_Doc->adjustItemSize(ite);
-				ite->OldB2 = ite->width();
-				ite->OldH2 = ite->height();
-				ite->updateClip();
-			}
-			m_Doc->loadPict(fileName, ite);
-			ite->adjustPictScale();
-		}
+		FPointArray cp = currentDC.clipPath.copy();
+		cp.translate(baseX, baseY);
+		cp.translate(-docX, -docY);
+		cp.translate(-ite->xPos(), -ite->yPos());
+		ite->PoLine = cp.copy();
+		FPoint wh = getMaxClipF(&ite->PoLine);
+		ite->setWidthHeight(wh.x(),wh.y());
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		m_Doc->adjustItemSize(ite);
+		ite->OldB2 = ite->width();
+		ite->OldH2 = ite->height();
+		ite->updateClip();
 	}
-	delete tempFile;
+	m_Doc->loadPict(fileName, ite);
+	ite->adjustPictScale();
 }
 
 void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH)
@@ -2995,10 +2955,10 @@ void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 ds
 		}
 		QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
 		p = convertLogical2Pts(p);
-		QPointF p2 = QPointF(qAbs(dstW), qAbs(dstH));
-		QLineF wl = QLineF(0, 0, p2.x(), 0);
+		QPointF p2(qAbs(dstW), qAbs(dstH));
+		QLineF wl(0, 0, p2.x(), 0);
 		wl = bm.map(wl);
-		QLineF hl = QLineF(0, 0, p2.y(), 0);
+		QLineF hl(0, 0, p2.y(), 0);
 		hl = bm.map(hl);
 		p2 = convertDevice2Pts(QPointF(wl.length(), hl.length()));
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + p.x(), baseY + p.y(), p2.x(), p2.y(), 0, CommonStrings::None, CommonStrings::None);
@@ -3009,7 +2969,7 @@ void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 ds
 
 QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quint32 sizeBitH, quint32 offBits, quint32 sizeBits)
 {
-	QImage img = QImage();
+	QImage img;
 	quint32 hSiz = 0, hCompression = 0, imgSize = 0, xres = 0, yres = 0, colorsUsed = 0, colorsReq = 0;
 	qint32 hWidth = 0, hHeight = 0;
 	quint16 hPlane = 0, hBitCount = 0;
@@ -3353,7 +3313,7 @@ void EmfPlug::handlePenDef(quint32 penID, quint32 penStyle, quint32 penWidth, qu
 		sty.penWidth = convertLogical2Pts(static_cast<double>(penWidth));
 	else
 		sty.penWidth = convertDevice2Pts(static_cast<double>(penWidth));
-	QLineF p = QLineF(0, 0, sty.penWidth, 0);
+	QLineF p(0, 0, sty.penWidth, 0);
 	p = currentDC.m_WorldMap.map(p);
 	sty.penWidth = p.length();
 	emfStyleMap.insert(penID, sty);
@@ -3847,7 +3807,7 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 				lenS += 24;
 				float m11, m12, m21, m22, dx, dy;
 				ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-				QLineF lin = QLineF(0, 0, 1, 0);
+				QLineF lin(0, 0, 1, 0);
 				lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 				sty.gradientAngle = lin.angle();
 			}
@@ -3897,7 +3857,7 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 		{
 			float m11, m12, m21, m22, dx, dy;
 			ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-			QLineF lin = QLineF(0, 0, 1, 0);
+			QLineF lin(0, 0, 1, 0);
 			lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 			sty.gradientAngle = lin.angle() + 45;
 		}
@@ -4105,17 +4065,17 @@ void EmfPlug::handleEMPPen(QDataStream &ds, quint16 id)
 	{
 		qint32 penStyle;
 		ds >> penStyle;
-		if ((penStyle) == U_LS_Solid)
+		if (penStyle == U_LS_Solid)
 			sty.penStyle = Qt::SolidLine;
-		else if ((penStyle) == U_LS_Dash)
+		else if (penStyle == U_LS_Dash)
 			sty.penStyle = Qt::DashLine;
-		else if ((penStyle) == U_LS_Dot)
+		else if (penStyle == U_LS_Dot)
 			sty.penStyle = Qt::DotLine;
-		else if ((penStyle) == U_LS_DashDot)
+		else if (penStyle == U_LS_DashDot)
 			sty.penStyle = Qt::DashDotLine;
-		else if ((penStyle) == U_LS_DashDotDot)
+		else if (penStyle == U_LS_DashDotDot)
 			sty.penStyle = Qt::DashDotDotLine;
-		else if ((penStyle) == 5)
+		else if (penStyle == 5)
 			sty.penStyle = Qt::SolidLine;
 		else
 			sty.penStyle = Qt::SolidLine;
@@ -4313,7 +4273,7 @@ quint32 EmfPlug::handleEMPImage(QDataStream &ds, quint16 id, bool first, bool co
 	return retVal;
 }
 
-quint32 EmfPlug::getImageData(QDataStream &ds, quint16 id, bool first, bool cont, quint32 dataSize, emfStyle &sty)
+quint32 EmfPlug::getImageData(QDataStream &ds, quint16 id, bool first, bool /*cont*/, quint32 dataSize, emfStyle& sty)
 {
 	quint32 retVal = 0;
 	if (first)
@@ -4833,7 +4793,7 @@ void EmfPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 
 	font.setPixelSize(fSize);
 	QList<QChar> stringData;
 	QList<quint32> glyphs;
-	QTransform txTrans = QTransform();
+	QTransform txTrans;
 	if (txOpts & 0x00000001)
 	{
 		for (quint32 a = 0; a < numChars; a++)
@@ -5256,87 +5216,85 @@ void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 		currentDC.CurrFillTrans = 1.0 - col.alphaF();
 		currentDC.brushStyle = U_BT_SolidColor;
 	}
-	else
+	else if (emfStyleMapEMP.contains(brushID))
 	{
-		if (emfStyleMapEMP.contains(brushID))
+		emfStyle sty = emfStyleMapEMP[brushID];
+		currentDC.CurrColorFill = sty.brushColor;
+		currentDC.brushStyle = sty.brushStyle;
+		currentDC.hatchStyle = sty.hatchStyle;
+		currentDC.CurrFillTrans = sty.fillTrans;
+		if (sty.brushStyle == U_BT_HatchFill)
 		{
-			emfStyle sty = emfStyleMapEMP[brushID];
-			currentDC.CurrColorFill = sty.brushColor;
-			currentDC.brushStyle = sty.brushStyle;
-			currentDC.hatchStyle = sty.hatchStyle;
-			currentDC.CurrFillTrans = sty.fillTrans;
-			if (sty.brushStyle == U_BT_HatchFill)
+			currentDC.backColor = sty.penColor;
+			currentDC.backgroundMode = true;
+		}
+		else if (sty.brushStyle == U_BT_LinearGradient)
+		{
+			currentDC.gradientStart = sty.gradientStart;
+			currentDC.gradientEnd = sty.gradientEnd;
+			currentDC.gradientAngle = sty.gradientAngle;
+			currentDC.gradient = sty.gradient;
+		}
+		else if (sty.brushStyle == U_BT_PathGradient)
+		{
+			currentDC.gradientStart = sty.gradientStart;
+			currentDC.gradientAngle = sty.gradientAngle;
+			currentDC.gradient = sty.gradient;
+			currentDC.gradientPath = sty.gradientPath.copy();
+		}
+		else if (sty.brushStyle == U_BT_TextureFill)
+		{
+			currentDC.patternMode = sty.patternMode;
+			if (!sty.patternName.isEmpty())
 			{
-				currentDC.backColor = sty.penColor;
-				currentDC.backgroundMode = true;
+				currentDC.patternName = sty.patternName;
+				return;
 			}
-			else if (sty.brushStyle == U_BT_LinearGradient)
-			{
-				currentDC.gradientStart = sty.gradientStart;
-				currentDC.gradientEnd = sty.gradientEnd;
-				currentDC.gradientAngle = sty.gradientAngle;
-				currentDC.gradient = sty.gradient;
-			}
-			else if (sty.brushStyle == U_BT_PathGradient)
-			{
-				currentDC.gradientStart = sty.gradientStart;
-				currentDC.gradientAngle = sty.gradientAngle;
-				currentDC.gradient = sty.gradient;
-				currentDC.gradientPath = sty.gradientPath.copy();
-			}
-			else if (sty.brushStyle == U_BT_TextureFill)
-			{
-				currentDC.patternMode = sty.patternMode;
-				if (sty.patternName.isEmpty())
-				{
-					if (!emfStyleMapEMP[brushID].MetaFile)
-					{
-						QImage img = getImageDataFromStyle(brushID);
-						if (!img.isNull())
-						{
-							QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-							tempFile->setAutoRemove(false);
-							if (tempFile->open())
-							{
-								QString fileName = getLongPathName(tempFile->fileName());
-								if (!fileName.isEmpty())
-								{
-									tempFile->close();
-									img.save(fileName, "PNG");
-									ScPattern pat = ScPattern();
-									pat.setDoc(m_Doc);
-									int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-									PageItem* newItem = m_Doc->Items->at(z);
-									m_Doc->loadPict(fileName, newItem);
-									m_Doc->Items->takeAt(z);
-									newItem->isInlineImage = true;
-									newItem->isTempFile = true;
-									pat.width = newItem->pixm.qImage().width();
-									pat.height = newItem->pixm.qImage().height();
-									pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-									pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-									pat.pattern = newItem->pixm.qImage().copy();
-									newItem->setWidth(pat.pattern.width());
-									newItem->setHeight(pat.pattern.height());
-									newItem->SetRectFrame();
-									newItem->gXpos = 0.0;
-									newItem->gYpos = 0.0;
-									newItem->gWidth = pat.pattern.width();
-									newItem->gHeight = pat.pattern.height();
-									pat.items.append(newItem);
-									QString patternName = "Pattern_"+newItem->itemName();
-									m_Doc->addPattern(patternName, pat);
-									emfStyleMapEMP[brushID].patternName = patternName;
-									importedPatterns.append(patternName);
-									currentDC.patternName = patternName;
-								}
-							}
-						}
-					}
-				}
-				else
-					currentDC.patternName = sty.patternName;
-			}
+
+			if (emfStyleMapEMP[brushID].MetaFile)
+				return;
+
+			QImage img = getImageDataFromStyle(brushID);
+			if (img.isNull())
+				return;
+
+			QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png"));
+			tempFile->setAutoRemove(false);
+			if (!tempFile->open())
+				return;
+
+			QString fileName = getLongPathName(tempFile->fileName());
+			tempFile->close();
+
+			if (fileName.isEmpty())
+				return;
+				
+			img.save(fileName, "PNG");
+			ScPattern pat(m_Doc);
+			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+			PageItem* newItem = m_Doc->Items->at(z);
+			m_Doc->loadPict(fileName, newItem);
+			m_Doc->Items->takeAt(z);
+			newItem->isInlineImage = true;
+			newItem->isTempFile = true;
+			pat.width = newItem->pixm.qImage().width();
+			pat.height = newItem->pixm.qImage().height();
+			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+			pat.pattern = newItem->pixm.qImage().copy();
+			newItem->setWidth(pat.pattern.width());
+			newItem->setHeight(pat.pattern.height());
+			newItem->SetRectFrame();
+			newItem->gXpos = 0.0;
+			newItem->gYpos = 0.0;
+			newItem->gWidth = pat.pattern.width();
+			newItem->gHeight = pat.pattern.height();
+			pat.items.append(newItem);
+			QString patternName = "Pattern_" + newItem->itemName();
+			m_Doc->addPattern(patternName, pat);
+			emfStyleMapEMP[brushID].patternName = patternName;
+			importedPatterns.append(patternName);
+			currentDC.patternName = patternName;
 		}
 	}
 }
@@ -5573,7 +5531,7 @@ QPointF EmfPlug::convertEMFPLogical2Pts(QPointF in, quint16 unit)
 
 double EmfPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 {
-	QLineF dist = QLineF(0, 0, in, 0);
+	QLineF dist(0, 0, in, 0);
 	dist = currentDC.m_WorldMapEMFP.map(dist);
 	double out = dist.length();
 	switch (unit)

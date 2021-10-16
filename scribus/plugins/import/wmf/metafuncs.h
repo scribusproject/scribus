@@ -22,7 +22,7 @@ static const struct MetaFuncRec
 {
     const char* name;
     unsigned short func;
-    void ( WMFImport::*method )( QList<PageItem*>& items, long, short* );
+    void ( WMFImport::*method )( QList<PageItem*>& items, long, const short* );
 } metaFuncTab[] =
   {
       { "SETBKCOLOR",           0x0201, &WMFImport::setBkColor },

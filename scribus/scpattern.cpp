@@ -30,18 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "commonstrings.h"
 
-ScPattern::ScPattern()
+ScPattern::ScPattern(ScribusDoc* theDoc)
+         : doc(theDoc)
 {
-	items.clear();
-	doc = nullptr;
-	pattern = QImage();
-	scaleX = 1.0;
-	scaleY = 1.0;
-	width = 0.0;
-	height = 0.0;
-	xoffset = 0.0;
-	yoffset = 0.0;
-};
+
+}
 
 ScPattern::~ScPattern()
 {
@@ -65,6 +58,7 @@ void ScPattern::setPattern(const QString& filename)
 {
 	items.clear();
 	doc->setLoading(true);
+
 	PageItem* newItem = new PageItem_ImageFrame(doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 	if (newItem->loadImage(filename, false, 72, false))
 	{
@@ -83,7 +77,11 @@ void ScPattern::setPattern(const QString& filename)
 		items.append(newItem);
 	}
 	else
+	{
 		pattern = QImage();
+		delete newItem;
+	}
+
 	doc->setLoading(false);
 }
 

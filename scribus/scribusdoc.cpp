@@ -15672,8 +15672,6 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 		m_ScMW->patternsDependingOnThis.prepend(getEditedSymbol());
 	allItems.clear();
 
-	ScPattern pat;
-	pat.setDoc(this);
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -15684,6 +15682,8 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 	miny = qMin(miny, y1);
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
+
+	ScPattern pat(this);
 	pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	pat.width = maxx - minx;
 	pat.height = maxy - miny;

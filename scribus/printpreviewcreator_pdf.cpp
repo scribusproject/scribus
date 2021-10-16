@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFileInfo>
 #include <QImage>
+#include <QScopedPointer>
 #include <QTemporaryFile>
 
 #include "commonstrings.h"
@@ -29,13 +30,13 @@ for which a new license (GPL+exception) is in place.
 
 PrintPreviewCreator_PDF::PrintPreviewCreator_PDF(ScribusDoc* doc) :
 	SeparationPreviewCreator(doc),
-	m_prefsManager(PrefsManager::instance())
+	m_prefsManager(PrefsManager::instance()),
+	m_pdfPrintEngine(new ScPrintEngine_PDF(*doc))
 {
-	m_pdfPrintEngine = new ScPrintEngine_PDF(*doc);
 	m_printOptions.prnLanguage = PrintLanguage::PDF;
 
 	// Generate a template name for temporary files
-	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scpdfpreview_XXXXXX.png");
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(ScPaths::tempFileDir() + "/scpdfpreview_XXXXXX.png"));
 	if (tempFile->open())
 	{
 		QString tempFileBase = tempFile->fileName();
@@ -45,7 +46,6 @@ PrintPreviewCreator_PDF::PrintPreviewCreator_PDF(ScribusDoc* doc) :
 	}
 	if (m_tempBaseName.isEmpty())
 		m_tempBaseName = "scpdfpreview";
-	delete tempFile;
 }
 
 PrintPreviewCreator_PDF::~PrintPreviewCreator_PDF()

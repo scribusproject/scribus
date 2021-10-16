@@ -2404,8 +2404,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				tmpImg.save(fileName, "PNG");
 				m_Doc->loadPict(fileName, ite);
 				ite->setImageScalingMode(false, true);
-				ScPattern pat = ScPattern();
-				pat.setDoc(m_Doc);
+				ScPattern pat(m_Doc);
 				pat.pattern = tmpImg;
 				pat.xoffset = 0;
 				pat.yoffset = 0;

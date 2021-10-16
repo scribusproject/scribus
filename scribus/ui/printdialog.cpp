@@ -40,16 +40,17 @@ for which a new license (GPL+exception) is in place.
 extern bool previewDinUse;
 
 PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions)
-		: QDialog( parent )
+		: QDialog( parent ),
+		  m_doc(doc),
+		  m_unit(doc->unitIndex()),
+		  m_unitRatio(doc->unitRatio()),
+		  m_devMode(printOptions.devMode)
 {
 	setupUi(this);
 	setModal(true);
 
-	m_doc = doc;
-	m_unit = doc->unitIndex();
 	m_unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance().prefsFile->getContext("print_options");
-	m_devMode = printOptions.devMode;
 
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
@@ -587,32 +588,32 @@ void PrintDialog::setStoredValues(const QString& fileName)
 	usePDFMarks->setChecked(m_doc->Print_Options.includePDFMarks);
 }
 
-QString PrintDialog::printerName()
+QString PrintDialog::printerName() const
 {
 	return PrintDest->currentText();
 }
 
-QString PrintDialog::outputFileName()
+QString PrintDialog::outputFileName() const
 {
 	return QDir::fromNativeSeparators(fileNameEdit->text());
 }
 
-bool PrintDialog::outputToFile()
+bool PrintDialog::outputToFile() const
 {
 	return (PrintDest->currentText() == CommonStrings::trFile);
 }
 
-int PrintDialog::numCopies()
+int PrintDialog::numCopies() const
 {
 	return Copies->value();
 }
 
-bool PrintDialog::outputSeparations()
+bool PrintDialog::outputSeparations() const
 {
 	return separationsCombo->isEnabled();
 }
 
-QString PrintDialog::separationName()
+QString PrintDialog::separationName() const
 {
 	if (separationsCombo->currentIndex() == 0)
 		return QString("All");
@@ -627,7 +628,7 @@ QString PrintDialog::separationName()
 	return separationsCombo->currentText();
 }
 
-QStringList PrintDialog::allSeparations()
+QStringList PrintDialog::allSeparations() const
 {
 	QStringList ret;
 	for (int i = 1; i < separationsCombo->count(); ++i)
@@ -635,57 +636,57 @@ QStringList PrintDialog::allSeparations()
 	return ret;
 }
 
-bool PrintDialog::color()
+bool PrintDialog::color() const
 {
 	return colorType->currentIndex() == 0;
 }
 
-bool PrintDialog::mirrorHorizontal()
+bool PrintDialog::mirrorHorizontal() const
 {
 	return mirrorHor->isChecked();
 }
 
-bool PrintDialog::mirrorVertical()
+bool PrintDialog::mirrorVertical() const
 {
 	return mirrorVert->isChecked();
 }
 
-bool PrintDialog::doGCR()
+bool PrintDialog::doGCR() const
 {
 	return applyGCR->isChecked();
 }
 
-bool PrintDialog::doClip()
+bool PrintDialog::doClip() const
 {
 	return clipMargins->isChecked();
 }
 
-PrintLanguage PrintDialog::printLanguage()
+PrintLanguage PrintDialog::printLanguage() const
 {
 	return printLanguages->currentLanguage();
 }
 
-bool PrintDialog::doDev()
+bool PrintDialog::doDev() const
 {
 	return setMediaSize->isChecked();
 }
 
-bool PrintDialog::doSpot()
+bool PrintDialog::doSpot() const
 {
 	return !convertSpots->isChecked();
 }
 
-bool PrintDialog::doPrintAll()
+bool PrintDialog::doPrintAll() const
 {
 	return printAllRadio->isChecked();
 }
 
-bool PrintDialog::doPrintCurrentPage()
+bool PrintDialog::doPrintCurrentPage() const
 {
 	return printCurrentRadio->isChecked();
 }
 
-QString PrintDialog::getPageString()
+QString PrintDialog::getPageString() const
 {
 	return pageNr->text();
 }

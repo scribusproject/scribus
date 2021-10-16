@@ -1466,8 +1466,7 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 					if (!item)
 						continue;
 					m_Doc->sizeItem((item->width() / conversionFactor) * vw, (item->height() / conversionFactor) * vh, item, false, true, false);
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_Doc);
+					ScPattern pat(m_Doc);
 					m_Doc->DoDrawing = true;
 					QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
 					if (tmpImg.isNull())

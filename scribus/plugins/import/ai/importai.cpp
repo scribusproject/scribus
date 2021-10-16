@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMimeData>
 #include <QRegExp>
+#include <QScopedPointer>
 #include <QStack>
 #include <QTemporaryFile>
 #include <QDebug>
@@ -63,10 +64,10 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 AIPlug::AIPlug(ScribusDoc* doc, int flags)
+      : m_Doc(doc),
+        importerFlags(flags)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
@@ -78,7 +79,7 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 	importedColors.clear();
 	importedGradients.clear();
 	importedPatterns.clear();
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 /* Check if the file is an old style AI or one of the newer PDF wrapped ones */
 	QFile fT(fName);
 	if (fT.open(QIODevice::ReadOnly))
@@ -205,7 +206,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	importedColors.clear();
 	importedGradients.clear();
 	importedPatterns.clear();
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 /* Check if the file is an old style AI or one of the newer PDF wrapped ones */
 	QFile fT(fName);
 	if (fT.open(QIODevice::ReadOnly))
@@ -297,8 +298,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	importedColors.clear();
 	importedGradients.clear();
 	importedPatterns.clear();
-	QFileInfo fi = QFileInfo(fName);
-//	QString ext = fi.suffix().toLower();
+	QFileInfo fi(fName);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -349,7 +349,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -361,7 +361,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	parseHeader(fName, x, y, b, h);
 	if (b == 0)
@@ -400,12 +400,12 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		m_Doc->documentInfo().setTitle(docTitle);
 		m_Doc->documentInfo().setDate(docDate+" "+docTime);
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (b-x > h-y)
 			m_Doc->setPageOrientation(1);
@@ -413,8 +413,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (auto it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
@@ -430,7 +429,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QGuiApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -466,7 +465,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -548,19 +547,19 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
 	if (convertedPDF)
 		QFile::remove(fName);
-	qApp->restoreOverrideCursor();
+	QGuiApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -577,7 +576,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 	QFile outf(outfile);
 	if (!outf.open(QIODevice::WriteOnly))
 	{
-		qDebug()<<"Failed to open QFile outf in AIPlug::extractFromPDF";
+		qDebug() << "Failed to open QFile outf in AIPlug::extractFromPDF";
 		return false;
 	}
 	try
@@ -667,8 +666,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
 
 bool AIPlug::decompressAIData(QString &fName)
 {
-	QString f2 = fName+"_decom.ai";
-	char buffer[4096];
+	QString f2 = fName + "_decom.ai";
 
 	QFile source(fName);
 	if (!source.open(QFile::ReadOnly))
@@ -697,6 +695,7 @@ bool AIPlug::decompressAIData(QString &fName)
 
 	qint64 bytesRead = -1;
 	qint64 bytesWritten = -1;
+	char buffer[4096];
 
 	bytesRead = compressor.read(buffer, 4096);
 	while (bytesRead > 0)
@@ -717,7 +716,7 @@ bool AIPlug::decompressAIData(QString &fName)
 	if (!convertedPDF)
 	{
 		QFileInfo bF2(fName);
-		QString tmpFile = ScPaths::tempFileDir()+ "/"+bF2.baseName()+"_tmp.ai";
+		QString tmpFile = ScPaths::tempFileDir() +  "/" + bF2.baseName() + "_tmp.ai";
 		moveFile(f2, tmpFile);
 		fName = tmpFile;
 		convertedPDF = true;
@@ -1450,7 +1449,7 @@ void AIPlug::processData(const QString& data)
 			{
 				ScTextStream ts2(&Cdata, QIODevice::ReadOnly);
 				ts2 >> x >> y >> x1 >> y1 >> x2 >> y2;
-				QTransform symTrans = QTransform(x, y, x1, y1, x2, y2);
+				QTransform symTrans(x, y, x1, y1, x2, y2);
 				double rotation = getRotationFromMatrix(symTrans, 0.0);
 				QTransform symT;
 				symT.translate(x2, y2);
@@ -2466,26 +2465,19 @@ void AIPlug::processData(const QString& data)
 			}
 			if (found)
 				textFont = family;
-			else
+			else if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+				textFont = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
+			else if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
-				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-					textFont = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
-				else
-				{
-					if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
-					{
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
-						dia->exec();
-						QString tmpf = dia->getReplacementFont();
-						delete dia;
-						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-						PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = tmpf;
-					}
-					else
-						textFont = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
-				}
+				QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QScopedPointer<MissingFont> dia(new MissingFont(nullptr, family, m_Doc));
+				dia->exec();
+				QString tmpf = dia->getReplacementFont();
+				QGuiApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = tmpf;
 			}
+			else
+				textFont = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
 			textSize *= 10.0;
 		}
 		else if (command == "TO")
@@ -2494,7 +2486,7 @@ void AIPlug::processData(const QString& data)
 			{
 				if (!((textData.length() == 1) && (textData.text(0) == SpecialChars::PARSEP)))
 				{
-					QPointF pos = QPointF(textMatrix.dx(), textMatrix.dy());
+					QPointF pos(textMatrix.dx(), textMatrix.dy());
 					pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					pos += QPointF(0.0, textSize / 10.0 + 2.0);
 					z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CommonStrings::None, CommonStrings::None);
@@ -2691,15 +2683,14 @@ void AIPlug::processPattern(QDataStream &ts)
 						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
 					if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
 					{
-						ScPattern pat = ScPattern();
-						pat.setDoc(m_Doc);
+						ScPattern pat(m_Doc);
 						PageItem* currItem = tmpSel->itemAt(0);
 						currItem->setItemName(currentPatternDefName);
 						m_Doc->DoDrawing = true;
 						QImage tmpImg = currItem->DrawObj_toImage(qMin(qMax(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1)), 500));
 						if (!tmpImg.isNull())
 						{
-							QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
+							QImage retImg(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
 							retImg.fill( qRgba(255, 255, 255, 0) );
 							QPainter p;
 							p.begin(&retImg);
@@ -2788,7 +2779,7 @@ void AIPlug::processPattern(QDataStream &ts)
 				if (progressDialog)
 				{
 					progressDialog->setProgress("GI", ts.device()->pos());
-					qApp->processEvents();
+					QCoreApplication::processEvents();
 				}
 			}
 		}
@@ -2849,8 +2840,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
 				if ((tmpSel->width() > 1) && (tmpSel->height() > 1))
 				{
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_Doc);
+					ScPattern pat(m_Doc);
 					PageItem* currItem = tmpSel->itemAt(0);
 					currItem->setItemName(currentPatternDefName);
 					m_Doc->DoDrawing = true;
@@ -2886,7 +2876,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 				if (progressDialog)
 				{
 					progressDialog->setProgress("GI", ts.device()->pos());
-					qApp->processEvents();
+					QCoreApplication::processEvents();
 				}
 			}
 		}
@@ -2978,8 +2968,8 @@ void AIPlug::processRaster(QDataStream &ts)
 		psdata.resize(dataSize);
 		ts.readRawData(psdata.data(), dataSize);
 	}
-	QTransform imgMatrix = QTransform(m1, m2, m3, m4, m5, m6);
-	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
+	QTransform imgMatrix(m1, m2, m3, m4, m5, m6);
+	QPointF pos(imgMatrix.dx(), imgMatrix.dy());
 	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 	pos += QPointF(baseX, -baseY);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke);
@@ -3099,7 +3089,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3116,7 +3106,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3130,7 +3120,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3148,7 +3138,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	} */
@@ -3162,7 +3152,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3183,7 +3173,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3197,7 +3187,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3211,7 +3201,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3225,7 +3215,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3235,7 +3225,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 		if (progressDialog)
 		{
 			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			QCoreApplication::processEvents();
 		}
 	}
 	else if (tmp.contains("BeginRaster") && (tmp.startsWith("%")))
@@ -3248,7 +3238,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3262,7 +3252,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3276,7 +3266,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3290,7 +3280,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3311,7 +3301,7 @@ void AIPlug::processComment(QDataStream &ts, const QString& comment)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 	}
@@ -3399,16 +3389,15 @@ bool AIPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		int fSize = (int) f.size();
 		if (progressDialog)
 		{
-			progressDialog->setTotalSteps("GI", fSize);
-			qApp->processEvents();
+			progressDialog->setTotalSteps("GI", (int) f.size());
+			QCoreApplication::processEvents();
 		}
 		QDataStream ts(&f);
 		while (!ts.atEnd())
@@ -3421,7 +3410,7 @@ bool AIPlug::convert(const QString& fn)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", ts.device()->pos());
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 			}
 		}
 		f.close();

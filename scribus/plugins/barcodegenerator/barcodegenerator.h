@@ -74,7 +74,7 @@ class BarcodeGenerator : public QDialog
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
 		BarcodeMap map;
 
-		QTimer *paintBarcodeTimer;
+		QTimer* paintBarcodeTimer { nullptr };
 
 		//! \brief List of available barcode encoders.
 		QList<QString> encoderlist;

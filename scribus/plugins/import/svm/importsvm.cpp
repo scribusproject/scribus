@@ -4193,8 +4193,7 @@ void SvmPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 								{
 									tempFile->close();
 									img.save(fileName, "PNG");
-									ScPattern pat = ScPattern();
-									pat.setDoc(m_Doc);
+									ScPattern pat(m_Doc);
 									int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 									PageItem* newItem = m_Doc->Items->at(z);
 									m_Doc->loadPict(fileName, newItem);

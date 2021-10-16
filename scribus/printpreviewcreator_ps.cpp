@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFileInfo>
 #include <QImage>
+#include <QScopedPointer>
 #include <QTemporaryFile>
 #include <QTransform>
 
@@ -34,7 +35,7 @@ PrintPreviewCreator_PS::PrintPreviewCreator_PS(ScribusDoc* doc) :
 	m_printOptions.prnLanguage = PrintLanguage::PostScript3;
 
 	// Generate a template name for temporary files
-	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scpspreview_XXXXXX.png");
+	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(ScPaths::tempFileDir() + "/scpspreview_XXXXXX.png"));
 	if (tempFile->open())
 	{
 		QString tempFileBase = tempFile->fileName();
@@ -44,7 +45,6 @@ PrintPreviewCreator_PS::PrintPreviewCreator_PS(ScribusDoc* doc) :
 	}
 	if (m_tempBaseName.isEmpty())
 		m_tempBaseName = "scpspreview";
-	delete tempFile;
 }
 
 PrintPreviewCreator_PS::~PrintPreviewCreator_PS()

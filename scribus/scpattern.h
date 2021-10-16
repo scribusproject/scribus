@@ -36,7 +36,8 @@ class ScribusDoc;
 class SCRIBUS_API ScPattern
 {
 public:
-	ScPattern();
+	ScPattern() = default;
+	ScPattern(ScribusDoc* theDoc);
 	~ScPattern();
 
 	QImage* getPattern();
@@ -44,14 +45,14 @@ public:
 	void setPattern(const QString& filename);
 	void createPreview();
 
-	double scaleX;
-	double scaleY;
-	double height;
-	double width;
-	double xoffset;
-	double yoffset;
+	double scaleX { 1.0 };
+	double scaleY { 1.0 };
+	double height { 0.0 };
+	double width { 0.0 };
+	double xoffset { 0.0 };
+	double yoffset { 0.0 };
 	QList<PageItem*> items;
-	ScribusDoc *doc;
+	ScribusDoc* doc { nullptr };
 	QImage pattern;
 };
 

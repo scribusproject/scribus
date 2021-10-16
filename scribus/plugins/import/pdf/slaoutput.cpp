@@ -1506,8 +1506,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 		PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_doc);
+		ScPattern pat(m_doc);
 		m_doc->DoDrawing = true;
 		pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
 		pat.xoffset = 0;
@@ -2358,9 +2357,8 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
 		m_doc->m_Selection->clear();
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_doc);
 		m_doc->DoDrawing = true;
+		ScPattern pat(m_doc);
 		pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
 		pat.xoffset = 0;
 		pat.yoffset = 0;

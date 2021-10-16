@@ -52,26 +52,18 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 CdrPlug::CdrPlug(ScribusDoc* doc, int flags)
+	   : interactive(flags & LoadSavePlugin::lfInteractive),
+	     importerFlags(flags),
+	     m_Doc(doc)
 {
-	baseX = baseY = 0;
-	docWidth = docHeight = 1;
-
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
-	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	cancel = false;
 }
 
 QImage CdrPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	double b, h;
-	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
+	QFileInfo fi(fName);
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
@@ -129,7 +121,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	cancel = false;
 	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -150,7 +142,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -160,7 +152,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QCoreApplication::processEvents();
 	}
 	if (b == 0.0)
 		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -178,25 +170,22 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -212,7 +201,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QGuiApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -224,7 +213,7 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -299,17 +288,17 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QGuiApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -330,7 +319,7 @@ bool CdrPlug::convert(const QString& fn)
 		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist";
 		return false;
 	}
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 #if HAVE_REVENGE
 	librevenge::RVNGFileStream input(QFile::encodeName(fn).data());
@@ -381,10 +370,10 @@ bool CdrPlug::convert(const QString& fn)
 				progressDialog->close();
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				ScribusMainWindow* mw=(m_Doc==nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+				QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"));
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				QGuiApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 			}
 			return false;
 		}

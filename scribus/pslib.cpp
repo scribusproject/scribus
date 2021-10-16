@@ -672,7 +672,6 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		PutStream("/PaintProc {\n");
 		QIODevice *spStream = spoolStream.device();
 		QByteArray buf;
-		// Qt4 QBuffer b(buf);
 		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
@@ -701,7 +700,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 		{
 			progressDialog->setOverallProgress(ap);
 			progressDialog->setProgress("EMP", ap);
-			ScQApp->processEvents();
+			QCoreApplication::processEvents();
 		}
 		if (m_Doc->MasterItems.count() <= 0)
 			continue;
@@ -718,7 +717,7 @@ bool PSLib::PS_begin_doc(double x, double y, double width, double height, int nu
 			{
 				PageItem *it = m_Doc->MasterItems.at(api);
 				if (progressDialog)
-					ScQApp->processEvents();
+					QCoreApplication::processEvents();
 				if ((it->m_layerID != ll.ID) || (!it->printEnabled()))
 					continue;
 				double bLeft, bRight, bBottom, bTop;
@@ -1649,7 +1648,7 @@ int PSLib::createPS(const QString& outputFileName)
 			progressDialog->setProgress("EP", 0);
 			progressDialog->show();
 			connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-			ScQApp->processEvents();
+			QCoreApplication::processEvents();
 		}
 	}
 	uint docSelectionCount = m_Doc->m_Selection->count();
@@ -1984,7 +1983,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		}
 		if (item->itemText.length() != 0)
 			setTextSt(item, PNr - 1, page, master);
-		if (((item->lineColor() != CommonStrings::None) || (!item->NamedLStyle.isEmpty()) || (!item->strokePattern().isEmpty()) || (item->GrTypeStroke > 0)))
+		if ((item->lineColor() != CommonStrings::None) || (!item->NamedLStyle.isEmpty()) || (!item->strokePattern().isEmpty()) || (item->GrTypeStroke > 0))
 		{
 			PS_setlinewidth(item->lineWidth());
 			PS_setcapjoin(item->PLineEnd, item->PLineJoin);
@@ -2618,7 +2617,6 @@ void PSLib::ProcessPage(ScPage* page, uint PNr)
 				continue;
 			if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 				continue;
-			//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 			if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
 				continue;
 			double bLeft, bRight, bBottom, bTop;
@@ -2657,7 +2655,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 	{
 		PageItem *ite = page->FromMaster.at(am);
 		if (progressDialog)
-			ScQApp->processEvents();
+			QCoreApplication::processEvents();
 		if ((ite->m_layerID != layer.ID) || (!ite->printEnabled()))
 			continue;
 		if (!ite->isTextContainer())
@@ -2711,7 +2709,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			}
 			if (ite->itemText.length() != 0)
 				setTextSt(ite, PNr - 1, mPage, true);
-			if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0)))
+			if ((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty()) || (!ite->strokePattern().isEmpty()) || (ite->GrTypeStroke > 0))
 			{
 				PS_setlinewidth(ite->lineWidth());
 				PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
@@ -2787,7 +2785,6 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			continue;
 		if ((!page->pageNameEmpty()) && (item->isImageFrame()) && ((Options.outputSeparations) || (!Options.useColor)))
 			continue;
-		//if ((!Art) && (view->SelItem.count() != 0) && (!item->Select))
 		if ((m_outputFormat == OutputEPS) && (!item->isSelected()) && (m_Doc->m_Selection->count() != 0))
 			continue;
 		double bLeft, bRight, bBottom, bTop;

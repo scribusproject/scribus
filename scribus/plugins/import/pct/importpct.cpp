@@ -2179,8 +2179,7 @@ void PctPlug::setFillPattern(PageItem* ite)
 			*q = patternData[rr];
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_Doc);
+		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		tempFile->setAutoRemove(false);

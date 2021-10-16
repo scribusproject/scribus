@@ -50,14 +50,14 @@ public:
 	void wmfLineTo(FPointArray *i, double x1, double y1);
 	void wmfCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 
-	bool interactive;
+	bool interactive { false };
 	//! \brief Indicator if there is any unsupported feature in imported wmf.
-	bool unsupported;
-	bool importFailed;
-	bool importCanceled;
+    bool unsupported { false };
+	bool importFailed { false };
+    bool importCanceled { true };
 
-	ScribusDoc* m_Doc;
-	Selection*  m_tmpSel;
+    ScribusDoc* m_Doc { nullptr };
+	Selection*  m_tmpSel { nullptr };
 	QStringList importedColors;
 
 protected:
@@ -67,16 +67,18 @@ protected:
 
 	WMFContext m_context;
 
-    bool m_IsPlaceable, m_IsEnhanced, m_Valid;
+    bool m_IsPlaceable { false };
+    bool m_IsEnhanced { false };
+    bool m_Valid { false };
 
     // coordinate system
     QRect  m_HeaderBoundingBox;
     QRect  m_BBox;
 
 	QList<WmfCmd*> m_commands;
-    WmfObjHandle** m_ObjHandleTab;
+    WmfObjHandle** m_ObjHandleTab { nullptr };
     FPointArray    m_Points;
-    int m_Dpi;
+    int            m_Dpi { 1440 };
 
 	/** Protected import functions */
 	bool importWMF(const TransactionSettings& trSettings, int flags);
@@ -91,21 +93,21 @@ protected:
 	QString importColor(const QColor& color);
 
 	/** Get color from parameters array */
-	QColor  colorFromParam( short* params );
+	QColor  colorFromParam(const short* params );
 
 	/** Get text codec from charset code */
 	QTextCodec* codecFromCharset( int charset );
 
 	/** Translate characters in symbol charset to unicode */
-	QString symbolToUnicode ( const QByteArray& chars );
+	QString symbolToUnicode ( const QByteArray& chars ) const;
 
 	/** Get polygon array from parameters array */
-	FPointArray pointsFromParam( short num,  short* params );
+	FPointArray pointsFromParam( short num, const short* params ) const;
 
 	/** Transform a point array to an item path used as polyline */
-	FPointArray pointsToPolyline( const FPointArray& points, bool closePath );
+	FPointArray pointsToPolyline( const FPointArray& points, bool closePath ) const;
 
-	void pointsToAngle( double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength );
+	void pointsToAngle( double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength ) const;
 
 	/** Handle win-object-handles */
     void addHandle( WmfObjHandle*  );
@@ -124,76 +126,76 @@ protected:
 public:
 
 	/** set window origin */
-    void setWindowOrg( QList<PageItem*>& items, long num, short* params );
+    void setWindowOrg( QList<PageItem*>& items, long num, const short* params );
     /** set window extents */
-    void setWindowExt( QList<PageItem*>& items, long num, short* params );
+    void setWindowExt( QList<PageItem*>& items, long num, const short* params );
 
     /****************** Drawing *******************/
     /** draw line to coord */
-    void lineTo( QList<PageItem*>& items, long num, short* params );
+    void lineTo( QList<PageItem*>& items, long num, const short* params );
     /** move pen to coord */
-    void moveTo( QList<PageItem*>& items, long num, short* params );
+    void moveTo( QList<PageItem*>& items, long num, const short* params );
     /** draw ellipse */
-	void ellipse(QList<PageItem*>& items, long num, short* params );
+	void ellipse(QList<PageItem*>& items, long num, const short* params );
     /** draw polygon */
-    void polygon( QList<PageItem*>& items, long num, short* params );
+    void polygon( QList<PageItem*>& items, long num, const short* params );
     /** draw a list of polygons */
-    void polyPolygon( QList<PageItem*>& items, long num, short* params );
+    void polyPolygon( QList<PageItem*>& items, long num, const short* params );
     /** draw series of lines */
-    void polyline( QList<PageItem*>& items, long num, short* params );
+    void polyline( QList<PageItem*>& items, long num, const short* params );
     /** draw a rectangle */
-    void rectangle( QList<PageItem*>& items, long num, short* params );
+    void rectangle( QList<PageItem*>& items, long num, const short* params );
     /** draw round rectangle */
-    void roundRect( QList<PageItem*>& items, long num, short* params );
+    void roundRect( QList<PageItem*>& items, long num, const short* params );
     /** draw arc */
-    void arc( QList<PageItem*>& items, long num, short* params );
+    void arc( QList<PageItem*>& items, long num, const short* params );
     /** draw chord */
-    void chord( QList<PageItem*>& items, long num, short* params );
+    void chord( QList<PageItem*>& items, long num, const short* params );
     /** draw pie */
-    void pie( QList<PageItem*>& items, long num, short* params );
+    void pie( QList<PageItem*>& items, long num, const short* params );
     /** set polygon fill mode */
-    void setPolyFillMode( QList<PageItem*>& items, long num, short* params );
+    void setPolyFillMode( QList<PageItem*>& items, long num, const short* params );
     /** set background pen color */
-    void setBkColor( QList<PageItem*>& items, long num, short* params );
+    void setBkColor( QList<PageItem*>& items, long num, const short* params );
     /** set background pen mode */
-	void setBkMode( QList<PageItem*>& items, long num, short* params );
+	void setBkMode( QList<PageItem*>& items, long num, const short* params );
     /** save device context */
-    void saveDC( QList<PageItem*>& items, long num, short* params );
+    void saveDC( QList<PageItem*>& items, long num, const short* params );
     /** restore device context */
-	void restoreDC( QList<PageItem*>& items, long num, short* params );
+	void restoreDC( QList<PageItem*>& items, long num, const short* params );
     /**  clipping region is the intersection of this region and the original region */
-    void intersectClipRect( QList<PageItem*>& items, long num, short* params );
+    void intersectClipRect( QList<PageItem*>& items, long num, const short* params );
     /** delete a clipping rectangle of the original region */
-    void excludeClipRect( QList<PageItem*>& items, long num, short* params );
+    void excludeClipRect( QList<PageItem*>& items, long num, const short* params );
 
     /****************** Text *******************/
     /** set text color */
-    void setTextColor( QList<PageItem*>& items, long num, short* params );
+    void setTextColor( QList<PageItem*>& items, long num, const short* params );
     /** set text alignment */
-    void setTextAlign( QList<PageItem*>& items, long num, short* params );
+    void setTextAlign( QList<PageItem*>& items, long num, const short* params );
     /** draw text */
-    void textOut( QList<PageItem*>& items, long num, short* params );
-    void extTextOut( QList<PageItem*>& items, long num, short* params );
+    void textOut( QList<PageItem*>& items, long num, const short* params );
+    void extTextOut( QList<PageItem*>& items, long num, const short* params );
 
     /****************** Object handle *******************/
     /** Activate object handle */
-	void selectObject( QList<PageItem*>& items, long num, short* params );
+	void selectObject( QList<PageItem*>& items, long num, const short* params );
     /** Free object handle */
-    void deleteObject( QList<PageItem*>& items, long num, short* params );
+    void deleteObject( QList<PageItem*>& items, long num, const short* params );
     /** create an empty object in the object list */
-    void createEmptyObject( QList<PageItem*>& items, long num, short* params );
+    void createEmptyObject( QList<PageItem*>& items, long num, const short* params );
     /** create a logical brush */
-    void createBrushIndirect( QList<PageItem*>& items, long num, short* params );
+    void createBrushIndirect( QList<PageItem*>& items, long num, const short* params );
     /** create a logical pen */
-    void createPenIndirect( QList<PageItem*>& items, long num, short* params );
+    void createPenIndirect( QList<PageItem*>& items, long num, const short* params );
     /** create a logical font */
-    void createFontIndirect( QList<PageItem*>& items, long num, short* params );
+    void createFontIndirect( QList<PageItem*>& items, long num, const short* params );
 
     /****************** misc *******************/
     /** nothing to do */
-    void noop( QList<PageItem*>& items, long , short* );
+    void noop( QList<PageItem*>& items, long , const short* );
     /** end of meta file */
-    void end( QList<PageItem*>& items, long /*num*/, short* /*params*/ );
+    void end( QList<PageItem*>& items, long /*num*/, const short* /*params*/ );
 
 };
 

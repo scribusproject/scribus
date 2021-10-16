@@ -9078,8 +9078,6 @@ void ScribusMainWindow::PutToPatterns()
 	}
 	patternName = dia.getEditText();
 
-	ScPattern pat = ScPattern();
-	pat.setDoc(doc);
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
@@ -9090,10 +9088,13 @@ void ScribusMainWindow::PutToPatterns()
 	miny = qMin(miny, y1);
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
+
+	ScPattern pat(doc);
 	pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	pat.width = maxx - minx;
 	pat.height = maxy - miny;
 	pat.items.append(currItem);
+
 	// #11274 : OwnPage is not meaningful for pattern items
 	// We set consequently pattern item's OwnPage to -1
 	QList<PageItem*> patternItems = pat.items;

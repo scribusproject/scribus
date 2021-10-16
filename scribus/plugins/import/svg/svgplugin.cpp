@@ -2955,8 +2955,7 @@ void SVGPlug::parseMarker(const QDomElement &b)
 	GElements = parseGroup(b);
 	if (GElements.count() > 0)
 	{
-		ScPattern pat;
-		pat.setDoc(m_Doc);
+		ScPattern pat(m_Doc);
 		PageItem* currItem = GElements.at(0);
 		m_Doc->DoDrawing = true;
 		double minx =  std::numeric_limits<double>::max();
@@ -3015,8 +3014,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		GElements = parseGroup(b);
 		if (GElements.count() > 0)
 		{
-			ScPattern pat;
-			pat.setDoc(m_Doc);
+			ScPattern pat(m_Doc);
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
 			pat.pattern = currItem->DrawObj_toImage(qMin(qMax(wpat, hpat), 500.0));

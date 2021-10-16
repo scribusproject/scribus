@@ -28,24 +28,24 @@ public:
 	PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& printOptions);
 	~PrintDialog();
 
-	QString printerName();
-	QString outputFileName();
-	bool outputToFile();
-	int numCopies();
-	bool outputSeparations();
-	QString separationName();
-	QStringList allSeparations();
-	bool color();
-	bool mirrorHorizontal();
-	bool mirrorVertical();
-	bool doGCR();
-	bool doClip();
-	PrintLanguage printLanguage();
-	bool doDev();
-	bool doSpot();
-	bool doPrintAll();
-	bool doPrintCurrentPage();
-	QString getPageString();
+	QString printerName() const;
+	QString outputFileName() const;
+	bool outputToFile() const;
+	int numCopies() const;
+	bool outputSeparations() const;
+	QString separationName() const;
+	QStringList allSeparations() const;
+	bool color() const;
+	bool mirrorHorizontal() const;
+	bool mirrorVertical() const;
+	bool doGCR() const;
+	bool doClip() const;
+	PrintLanguage printLanguage() const;
+	bool doDev() const;
+	bool doSpot() const;
+	bool doPrintAll() const;
+	bool doPrintCurrentPage() const;
+	QString getPageString() const;
 
 public slots:
 	void setMinMax(int min, int max, int cur);
@@ -67,7 +67,7 @@ protected slots:
 	void previewButtonClicked();
 
 protected:
-	ScribusDoc*    m_doc;
+	ScribusDoc*    m_doc { nullptr };
 	PrefsContext*  prefs { nullptr };
 	CupsOptions*   m_cupsOptions { nullptr };
 	int            m_unit { 0 };

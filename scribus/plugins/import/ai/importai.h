@@ -129,7 +129,7 @@ private:
 	bool cancel = false;
 	ScribusDoc* m_Doc = nullptr;
 	Selection* tmpSel = nullptr;
-	int importerFlags;
+	int importerFlags { 0 };
 	QStringList commandList;
 	bool convertedPDF = false;
 	QMap<QString, VGradient> m_gradients;
