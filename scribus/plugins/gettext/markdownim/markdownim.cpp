@@ -38,20 +38,19 @@ QStringList FileExtensions()
 	return QStringList("md");
 }
 
-void GetText2(const QString& filename, const QString& encoding, bool textOnly, bool prefix, bool append, PageItem *textItem)
+void GetText2(const QString& filename, const QString& /*encoding*/, bool textOnly, bool prefix, bool append, PageItem *textItem)
 {
 	MarkDownIm* markdownim = new MarkDownIm(filename, textItem, textOnly, prefix, append);
 	delete markdownim;
 }
 
 MarkDownIm::MarkDownIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
+          : m_Doc(textItem->doc()),
+	        m_item(textItem),
+	        m_prefixName(prefix),
+	        m_append(append),
+	        m_textOnly(textOnly)
 {
-	m_Doc = textItem->doc();
-	m_item = textItem;
-	m_textOnly = textOnly;
-	m_prefixName = prefix;
-	m_append = append;
-
 	QFile f(fileName);
 	if (!f.open(QIODevice::ReadOnly))
 		return;
@@ -78,8 +77,8 @@ void MarkDownIm::parseMarkDown()
 {
 	struct styleStruct
 	{
-		int start;
-		int length;
+		int start { 0 };
+		int length { 0 };
 		QString styleName;
 	};
 	QList<styleStruct> styleApplicationList;
@@ -92,8 +91,8 @@ void MarkDownIm::parseMarkDown()
 	m_item->itemText.clear();
 	m_item->itemText.setDefaultStyle(defaultParagraphStyle);
 
-	int listStyleCount=1;
-	int listCounter=1;
+	int listStyleCount = 1;
+	int listCounter = 1;
 	int blockCount = m_importedText.blockCount();
 	QString listStyleName;
 	for (int i = 0; i < blockCount; i++)
@@ -110,18 +109,18 @@ void MarkDownIm::parseMarkDown()
 			int headingLevel = curblk.blockFormat().headingLevel();
 			if (headingLevel > 0)
 			{
-				QString headingStyleName=QString("Heading %1").arg(headingLevel);
+				QString headingStyleName = QString("Heading %1").arg(headingLevel);
 				if (!newParaStyleSet.contains(headingStyleName))
 				{
 					ParagraphStyle newParaStyle;
 					newParaStyle.setParent(CommonStrings::DefaultParagraphStyle);
 					newParaStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 					newParaStyle.setContext(m_item->itemText.defaultStyle().context());
-					newParaStyle.charStyle().setFontSize(20 * (7-headingLevel) + newParaStyle.charStyle().fontSize());
+					newParaStyle.charStyle().setFontSize(20 * (7 - headingLevel) + newParaStyle.charStyle().fontSize());
 					QString styleName;
 					if (m_prefixName)
-						styleName=m_item->itemName() + "_";
-					styleName+=headingStyleName;
+						styleName = m_item->itemName() + "_";
+					styleName += headingStyleName;
 					newParaStyle.setName(styleName);
 					newParaStyleSet.create(newParaStyle);
 					currentParagraphStyle = newParaStyle;
@@ -131,12 +130,12 @@ void MarkDownIm::parseMarkDown()
 			}
 
 			//List items
-			if (curblk.textList()!=nullptr)
+			if (curblk.textList() != nullptr)
 			{
 				QTextListFormat tlf = curblk.textList()->format();
-				if (listCounter==1)
+				if (listCounter == 1)
 				{
-					listStyleName=QString("List %1").arg(listStyleCount);
+					listStyleName = QString("List %1").arg(listStyleCount);
 					if (tlf.style() == QTextListFormat::ListDecimal)
 						listStyleName.prepend("Numbered ");
 					if (!newParaStyleSet.contains(listStyleName))
@@ -172,8 +171,8 @@ void MarkDownIm::parseMarkDown()
 						}
 						QString styleName;
 						if (m_prefixName)
-							styleName=m_item->itemName() + "_";
-						styleName+=listStyleName;
+							styleName = m_item->itemName() + "_";
+						styleName += listStyleName;
 						newParaStyle.setName(styleName);
 						newParaStyleSet.create(newParaStyle);
 						currentParagraphStyle = newParaStyle;
@@ -181,8 +180,8 @@ void MarkDownIm::parseMarkDown()
 				}
 				else
 					currentParagraphStyle = newParaStyleSet.get(listStyleName);
-				if (listCounter++==curblk.textList()->count())
-					listCounter=1;
+				if (listCounter++ == curblk.textList()->count())
+					listCounter = 1;
 			}
 			//Process all fragments of the text block to find different formats within. Create a structure
 			//of where and what style was applied
@@ -192,68 +191,67 @@ void MarkDownIm::parseMarkDown()
 			for (QTextBlock::iterator it = curblk.begin(); !(it.atEnd()); ++it)
 			{
 				QTextFragment currentFragment = it.fragment();
-				if (currentFragment.isValid())
+				if (!currentFragment.isValid())
+					continue;
+
+				if (!currentFragment.charFormat().isValid())
+					continue;
+
+				QTextCharFormat cf = currentFragment.charFormat();
+				bool charFormatFound = false;
+				CharStyle cs;
+				cs.setParent(CommonStrings::DefaultCharacterStyle);
+				cs.setContext(m_item->itemText.defaultStyle().context());
+				QString styleName;
+				if (m_prefixName)
+					styleName = m_item->itemName() + "_";
+
+				//Strikethrough
+				if (cf.fontStrikeOut())
 				{
-					if (currentFragment.charFormat().isValid())
+					StyleFlag s(cs.effects());
+					charFormatFound = true;
+					styleName += "Strikethrough";
+					cs.setName(styleName);
+					s |= ScStyle_Strikethrough;
+					cs.setFeatures(s.featureList());
+				}
+
+				//Bold and Italic
+				bool isBold = cf.fontWeight() == QFont::Bold;
+				bool isItalic = cf.fontItalic();
+				if ((isBold && headingLevel == 0) || isItalic)
+				{
+					charFormatFound = true;
+					if (isBold)
+						styleName += "Bold";
+					if (isItalic)
+						styleName += "Italic";
+					cs.setName(styleName);
+					QString family(m_item->itemText.charStyle(m_item->itemText.length()).font().family());
+					if (!family.isEmpty())
 					{
-						QTextCharFormat cf = currentFragment.charFormat();
-						bool charFormatFound = false;
-						CharStyle cs;
-						cs.setParent(CommonStrings::DefaultCharacterStyle);
-						cs.setContext(m_item->itemText.defaultStyle().context());
-						QString styleName;
-						if (m_prefixName)
-							styleName=m_item->itemName() + "_";
-
-						//Strikethrough
-						if (cf.fontStrikeOut())
-						{
-							StyleFlag s(cs.effects());
-							charFormatFound = true;
-							styleName+="Strikethrough";
-							cs.setName(styleName);
-							s |= ScStyle_Strikethrough;
-							cs.setFeatures(s.featureList());
-						}
-
-						//Bold and Italic
-						bool isBold = cf.fontWeight() == QFont::Bold;
-						bool isItalic = cf.fontItalic();
-						if ((isBold && headingLevel == 0) || isItalic)
-						{
-							charFormatFound = true;
-							if (isBold)
-								styleName+="Bold";
-							if (isItalic)
-								styleName+="Italic";
-							cs.setName(styleName);
-							QString family(m_item->itemText.charStyle(m_item->itemText.length()).font().family());
-							if (!family.isEmpty())
-							{
-								QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[family];
-								if (isBold && isItalic && slist.contains("Bold Italic"))
-									cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Bold Italic"]);
-								if (isBold && !isItalic && slist.contains("Bold"))
-									cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Bold"]);
-								if (!isBold && isItalic && slist.contains("Italic"))
-									cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Italic"]);
-//								if (!isBold && !isItalic && slist.contains("Regular"))
-//									cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Regular"]);
-							}
-						}
-						
-				
-						//If we found a character formatted then record the generated character style
-						if (charFormatFound)
-						{
-							newCharStyleSet.create(cs);
-							styleStruct ss;
-							ss.start = currentFragment.position();
-							ss.length = currentFragment.length();
-							ss.styleName = cs.name();
-							styleApplicationList.append(ss);
-						}
+						QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[family];
+						if (isBold && isItalic && slist.contains("Bold Italic"))
+							cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Bold Italic"]);
+						if (isBold && !isItalic && slist.contains("Bold"))
+							cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Bold"]);
+						if (!isBold && isItalic && slist.contains("Italic"))
+							cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Italic"]);
+//						if (!isBold && !isItalic && slist.contains("Regular"))
+//							cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Regular"]);
 					}
+				}
+						
+				//If we found a character formatted then record the generated character style
+				if (charFormatFound)
+				{
+					newCharStyleSet.create(cs);
+					styleStruct ss;
+					ss.start = currentFragment.position();
+					ss.length = currentFragment.length();
+					ss.styleName = cs.name();
+					styleApplicationList.append(ss);
 				}
 			}
 		}
