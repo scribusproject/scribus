@@ -20,7 +20,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 
 	public:
 		HunspellDialog(QWidget* parent, ScribusDoc *doc, PageItem* item);
-		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* iText);
+		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* itemText);
 		~HunspellDialog() {};
 
 		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound>* wfList);

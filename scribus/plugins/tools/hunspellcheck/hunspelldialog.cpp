@@ -15,6 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include "undotransaction.h"
 
 HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *item)
+              : QDialog(parent),
+                m_doc(doc),
+                m_item(item),
+                m_iText(&item->itemText)
 {
 	setupUi( this );
 	setModal( true );
@@ -24,14 +28,12 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *item)
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
 	connect (languagesComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(languageComboChanged(const QString &)));
-
-	m_doc = doc;
-	m_docChanged = false;
-	m_item  = item;
-	m_iText = &m_item->itemText;
 }
 
-HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *item)
+HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText * itemText)
+              : QDialog(parent),
+                m_doc(doc),
+                m_iText(itemText)
 {
 	setupUi( this );
 	setModal( true );
@@ -41,11 +43,6 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *item
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
 	connect (languagesComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(languageComboChanged(const QString &)));
-
-	m_doc = doc;
-	m_docChanged = false;
-	m_item  = nullptr;
-	m_iText = &m_item->itemText;
 }
 
 void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound> *wfList)
