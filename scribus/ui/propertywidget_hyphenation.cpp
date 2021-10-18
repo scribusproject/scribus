@@ -19,9 +19,6 @@ for which a new license (GPL+exception) is in place.
 PropertyWidget_Hyphenation::PropertyWidget_Hyphenation(QWidget* parent)
 	: QFrame(parent)
 {
-	m_item = nullptr;
-	m_ScMW = nullptr;
-
 	setupUi(this);
 
 	hyphenCharLineEdit->setMaxLength(1);

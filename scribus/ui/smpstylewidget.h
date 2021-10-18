@@ -24,7 +24,7 @@ class SMPStyleWidget : public QWidget, Ui::SMPStyleWidget
 
 public:
 	SMPStyleWidget(ScribusDoc *doc, StyleSet<CharStyle> *cstyles);
-	~SMPStyleWidget();
+	~SMPStyleWidget() = default;
 
 	void show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 	void show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
@@ -54,21 +54,21 @@ private:
 	void fillNumRestartCombo();
 	void checkParEffectState();
 	void showColors(const QList<ParagraphStyle*> &cstyles);
-	void showLineSpacing(QList<ParagraphStyle*> &pstyles);
-	void showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
-	void showBullet(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
-	void showNumeration(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
-	void showAlignment(QList<ParagraphStyle*> &pstyles);
-	void showDirection(QList<ParagraphStyle*> &pstyles);
-	void showOpticalMargin(QList<ParagraphStyle*> &pstyles);
-	void showMinSpace(QList<ParagraphStyle*> &pstyles);
-	void showMinGlyphExt(QList<ParagraphStyle*> &pstyles);
-	void showMaxGlyphExt(QList<ParagraphStyle*> &pstyles);
-	void showConsecutiveLines(QList<ParagraphStyle*> &pstyles);
-	void showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
-	void showParent(QList<ParagraphStyle*> &pstyles);
+	void showLineSpacing(const QList<ParagraphStyle*> &pstyles);
+	void showSpaceAB(const QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showDropCap(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex);
+	void showBullet(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex);
+	void showNumeration(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex);
+	void showAlignment(const QList<ParagraphStyle*> &pstyles);
+	void showDirection(const QList<ParagraphStyle*> &pstyles);
+	void showOpticalMargin(const QList<ParagraphStyle*> &pstyles);
+	void showMinSpace(const QList<ParagraphStyle*> &pstyles);
+	void showMinGlyphExt(const QList<ParagraphStyle*> &pstyles);
+	void showMaxGlyphExt(const QList<ParagraphStyle*> &pstyles);
+	void showConsecutiveLines(const QList<ParagraphStyle*> &pstyles);
+	void showTabs(const QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showCStyle(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void showParent(const QList<ParagraphStyle*> &pstyles);
 	void setOpticalMargins(int o, bool inhO=false, const ParagraphStyle *parent=nullptr);
 
 	void openEnhanced();

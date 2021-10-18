@@ -164,7 +164,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	setupConnections();
 }
 
-QList<CharStyle> SMParagraphStyle::getCharStyles()
+QList<CharStyle> SMParagraphStyle::getCharStyles() const
 {
 	QList<CharStyle> charStyles;
 	if (!m_doc)
@@ -1871,7 +1871,6 @@ SMCharacterStyle::SMCharacterStyle()
 	m_widget->setContentsMargins(5, 5, 5, 5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
 	m_page = new SMCStyleWidget();
 	Q_CHECK_PTR(m_page);
-//	m_widget->addTab(m_page, tr("Properties"));
 }
 
 QTabWidget* SMCharacterStyle::widget()
@@ -2075,8 +2074,6 @@ void SMCharacterStyle::apply()
 	m_deleted.clear(); // deletion done at this point
 
 	m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
-	// Better not call DrawNew() here, as this will cause several unnecessary calls
-	// m_doc->view()->DrawNew();
 	m_doc->changed();
 }
 

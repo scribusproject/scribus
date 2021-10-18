@@ -28,7 +28,7 @@ private:
 	bool   m_useParentValue = false;
 	int    m_pValue = 0;
 
-	QString useParentValueText();
+	QString useParentValueText() const;
 	void setFont(bool wantBold);
 
 private slots:

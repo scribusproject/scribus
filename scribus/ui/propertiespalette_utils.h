@@ -48,7 +48,7 @@ struct SCRIBUS_API LineStyleValue
 	ScGuardedPtr<ScribusDoc> m_doc;
 	QString m_name;
 	
-	LineStyleValue();
+	LineStyleValue() = default;
 	LineStyleValue(const multiLine& line, ScribusDoc* doc, const QString& name);
 	LineStyleValue(const LineStyleValue& other);
 	LineStyleValue& operator= (const LineStyleValue& other);

@@ -106,7 +106,7 @@ protected:
 	
 	double m_oldRotation {0.0};
 
-	bool _userActionOn;
+	bool m_userActionOn { false };
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);
 

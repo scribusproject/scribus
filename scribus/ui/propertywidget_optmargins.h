@@ -27,8 +27,8 @@ public:
 	void updateStyle(const ParagraphStyle& newCurrent);
 
 protected:
-	PageItem *         m_item;
-	ScribusMainWindow* m_ScMW;
+	PageItem *         m_item { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
 
 	void connectSignals();
 	void disconnectSignals();

@@ -461,7 +461,7 @@ void PropertiesPalette_Line::handleLineWidth()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		double oldL = m_item->lineWidth();
 		m_doc->itemSelection_SetLineWidth(lineWidth->value() / m_unitRatio);
@@ -492,7 +492,7 @@ void PropertiesPalette_Line::handleLineStyle()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if (lineType->currentIndex() == 37)
 		{
@@ -529,7 +529,7 @@ void PropertiesPalette_Line::handleLineJoin()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		Qt::PenJoinStyle c = Qt::MiterJoin;
 		switch (lineJoinStyle->currentIndex())
@@ -552,7 +552,7 @@ void PropertiesPalette_Line::handleLineEnd()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		Qt::PenCapStyle c = Qt::FlatCap;
 		switch (lineEndStyle->currentIndex())
@@ -611,7 +611,7 @@ void PropertiesPalette_Line::handleDashChange()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if (m_item->lineWidth() != 0.0)
 		{

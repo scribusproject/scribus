@@ -27,7 +27,7 @@ public:
 	/// Constructor.
 	SMTableStyleWidget(QWidget* parent = nullptr);
 	/// Destructor.
-	~SMTableStyleWidget();
+	~SMTableStyleWidget() = default;
 
 	void setDoc(ScribusDoc* doc);
 

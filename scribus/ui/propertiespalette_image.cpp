@@ -549,7 +549,7 @@ void PropertiesPalette_Image::handleLocalScale()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		//CB Don't pass in the scale to the offset change as its taken from the new scale
 		m_doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
@@ -562,7 +562,7 @@ void PropertiesPalette_Image::handleLocalDpi()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		//CB Don't pass in the scale to the offset change as its taken from the new scale
 		m_doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
@@ -576,7 +576,7 @@ void PropertiesPalette_Image::handleLocalRotation()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value());
 		if (frameScale->isChecked())
@@ -623,7 +623,7 @@ void PropertiesPalette_Image::handleScaling()
 		keepImageDPIRatioButton->setEnabled(false);
 	}
 
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		m_item->setImageScalingMode(freeScale->isChecked(), cbProportional->isChecked());
 		m_doc->changed();

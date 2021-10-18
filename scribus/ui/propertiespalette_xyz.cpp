@@ -50,7 +50,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
-	_userActionOn = false;
 	userActionSniffer = new UserActionSniffer(this);
 	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
@@ -107,7 +106,6 @@ PropertiesPalette_XYZ::PropertiesPalette_XYZ( QWidget* parent) : QWidget(parent)
 	connect(doGroup  , SIGNAL(clicked()), this, SLOT(handleGrouping()) );
 	connect(doUnGroup, SIGNAL(clicked()), this, SLOT(handleUngrouping()) );
 
-	m_haveItem = false;
 	xposSpin->showValue(0);
 	yposSpin->showValue(0);
 	widthSpin->showValue(0);
@@ -617,7 +615,7 @@ void PropertiesPalette_XYZ::showWH(double x, double y)
 		return;
 	bool sigBlocked1 = widthSpin->blockSignals(true);
 	bool sigBlocked2 = heightSpin->blockSignals(true);
-	if ((m_lineMode) && (m_item->asLine()))
+	if (m_lineMode && m_item->isLine())
 	{
 		QTransform ma;
 		ma.translate(m_item->xPos(), m_item->yPos());
@@ -677,10 +675,10 @@ void PropertiesPalette_XYZ::handleNewX()
 			base = gx + gw / 2.0;
 		else if ((bp == 1) || (bp == 4))
 			base = gx + gw;
-		if (!_userActionOn)
+		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->moveGroup(x - base, 0);
-		if (!_userActionOn)
+		if (!m_userActionOn)
 		{
 			m_ScMW->view->endGroupTransaction();
 		}
@@ -747,10 +745,10 @@ void PropertiesPalette_XYZ::handleNewY()
 			base = gy + gh / 2.0;
 		else if ((bp == 3) || (bp == 4))
 			base = gy + gh;
-		if (!_userActionOn)
+		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->moveGroup(0, y - base);
-		if (!_userActionOn)
+		if (!m_userActionOn)
 		{
 			m_ScMW->view->endGroupTransaction();
 		}
@@ -804,7 +802,7 @@ void PropertiesPalette_XYZ::handleNewW()
 	double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		if (!_userActionOn)
+		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		if (keepFrameWHRatioButton->isChecked())
@@ -818,7 +816,7 @@ void PropertiesPalette_XYZ::handleNewW()
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			showWH(gw, gh);
 		}
-		if (!_userActionOn)
+		if (!m_userActionOn)
 		{
 			m_ScMW->view->endGroupTransaction();
 		}
@@ -886,7 +884,7 @@ void PropertiesPalette_XYZ::handleNewH()
 	double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		if (!_userActionOn)
+		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction();
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		if (keepFrameWHRatioButton->isChecked())
@@ -900,7 +898,7 @@ void PropertiesPalette_XYZ::handleNewH()
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			showWH(gw, gh);
 		}
-		if (!_userActionOn)
+		if (!m_userActionOn)
 		{
 			m_ScMW->view->endGroupTransaction();
 		}
@@ -959,9 +957,9 @@ void PropertiesPalette_XYZ::handleRotation()
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	double gx, gy, gh, gw;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
-		if (!_userActionOn)
+		if (!m_userActionOn)
 			m_ScMW->view->startGroupTransaction(Um::Rotate, "", Um::IRotate);
 		if (m_doc->m_Selection->isMultipleSelection())
 		{
@@ -971,7 +969,7 @@ void PropertiesPalette_XYZ::handleRotation()
 		}
 		else
 			m_doc->rotateItem(rotationSpin->value()*(-1), m_item);
-		if (!_userActionOn)
+		if (!m_userActionOn)
 		{
 			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 				m_doc->m_Selection->itemAt(i)->checkChanges(true);
@@ -1022,7 +1020,7 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 	double inX, inY, gx, gy, gh, gw;
 	inX = 0;
 	inY = 0;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		m_haveItem = false;
 		m_doc->setRotationMode(m);
@@ -1213,17 +1211,17 @@ void PropertiesPalette_XYZ::installSniffer(ScrSpinBox *spinBox)
 
 bool PropertiesPalette_XYZ::userActionOn()
 {
-	return _userActionOn;
+	return m_userActionOn;
 }
 
 void PropertiesPalette_XYZ::spinboxStartUserAction()
 {
-	_userActionOn = true;
+	m_userActionOn = true;
 }
 
 void PropertiesPalette_XYZ::spinboxFinishUserAction()
 {
-	_userActionOn = false;
+	m_userActionOn = false;
 
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
@@ -1258,17 +1256,17 @@ void PropertiesPalette_XYZ::iconSetChange()
 	flipH->setIcon(im.loadIcon("16/flip-object-horizontal.png"));
 	flipV->setIcon(im.loadIcon("16/flip-object-vertical.png"));
 	
-	QIcon a = QIcon();
+	QIcon a;
 	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
 	a.addPixmap(im.loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
 	doLock->setIcon(a);
 
-	QIcon a2 = QIcon();
+	QIcon a2;
 	a2.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
 	a2.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
 	noPrint->setIcon(a2);
 
-	QIcon a3 = QIcon();
+	QIcon a3;
 	a3.addPixmap(im.loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
 	a3.addPixmap(im.loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
 	noResize->setIcon(a3);
@@ -1309,7 +1307,7 @@ void PropertiesPalette_XYZ::showLocked(bool isLocked)
 	widthSpin->setReadOnly(isLocked);
 	heightSpin->setReadOnly(isLocked);
 	rotationSpin->setReadOnly(isLocked);
-	QPalette pal(qApp->palette());
+	QPalette pal(QApplication::palette());
 	if (isLocked)
 		pal.setCurrentColorGroup(QPalette::Disabled);
 
@@ -1329,7 +1327,7 @@ void PropertiesPalette_XYZ::showSizeLocked(bool isSizeLocked)
 		b=true;
 	widthSpin->setReadOnly(b);
 	heightSpin->setReadOnly(b);
-	QPalette pal(qApp->palette());
+	QPalette pal(QApplication::palette());
 	
 	if (b)
 		pal.setCurrentColorGroup(QPalette::Disabled);

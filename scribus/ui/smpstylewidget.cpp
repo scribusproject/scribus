@@ -574,7 +574,7 @@ void SMPStyleWidget::showColors(const QList<ParagraphStyle*> &cstyles)
 		backColor_->setCurrentText(s);
 }
 
-void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showLineSpacing(const QList<ParagraphStyle*> &pstyles)
 {
 	lineSpacingMode->clear();
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
@@ -618,7 +618,7 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 		lineSpacing->setValue(tmpLS);
 }
 
-void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showSpaceAB(const QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 // 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	double tmpA = -1.2;
@@ -653,7 +653,7 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 		spaceBelow->setValue(tmpA);
 }
 
-void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::showDropCap(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
 {
 	disconnectPESignals();
 	bool dc = pstyles[0]->hasDropCap();
@@ -687,7 +687,7 @@ void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyl
 	connectPESignals();
 }
 
-void SMPStyleWidget::showBullet(QList<ParagraphStyle *> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::showBullet(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
 {
 //	double unitRatio = unitGetRatioFromIndex(unitIndex);
 
@@ -719,7 +719,7 @@ void SMPStyleWidget::showBullet(QList<ParagraphStyle *> &pstyles, QList<CharStyl
 	bulletCharTableButton->setEnabled(true);
 }
 
-void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::showNumeration(const QList<ParagraphStyle *> &pstyles, const QList<CharStyle> &cstyles, int unitIndex)
 {
 	disconnectPESignals();
 	QString prefix = pstyles[0]->numPrefix();
@@ -751,7 +751,7 @@ void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<Char
 	connectPESignals();
 }
 
-void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showAlignment(const QList<ParagraphStyle*> &pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -775,7 +775,7 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 	alignment->setStyle(a, direction->getStyle());
 }
 
-void SMPStyleWidget::showDirection(QList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showDirection(const QList<ParagraphStyle*> &pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -799,7 +799,7 @@ void SMPStyleWidget::showDirection(QList<ParagraphStyle*> &pstyles)
 	direction->setStyle(a);
 }
 
-void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
+void SMPStyleWidget::showOpticalMargin(const QList< ParagraphStyle * > & pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -829,7 +829,7 @@ void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
 	setOpticalMargins(pstyles[0]->opticalMargins());
 }
 
-void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
+void SMPStyleWidget::showMinSpace(const QList< ParagraphStyle * > & pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -849,7 +849,7 @@ void SMPStyleWidget::showMinSpace(QList< ParagraphStyle * > & pstyles)
 	minSpaceSpin->setValue(ms * 100.0);
 }
 
-void SMPStyleWidget::showMinGlyphExt(QList< ParagraphStyle * > & pstyles)
+void SMPStyleWidget::showMinGlyphExt(const QList< ParagraphStyle * > & pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -869,7 +869,7 @@ void SMPStyleWidget::showMinGlyphExt(QList< ParagraphStyle * > & pstyles)
 	minGlyphExtSpin->setValue(mge * 100.0);
 }
 
-void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
+void SMPStyleWidget::showMaxGlyphExt(const QList< ParagraphStyle * > & pstyles)
 {
 	if (pstyles.isEmpty())
 	{
@@ -889,7 +889,7 @@ void SMPStyleWidget::showMaxGlyphExt(QList< ParagraphStyle * > & pstyles)
 	maxGlyphExtSpin->setValue(mge * 100.0);
 }
 
-void SMPStyleWidget::showConsecutiveLines(QList<ParagraphStyle *> &pstyles)
+void SMPStyleWidget::showConsecutiveLines(const QList<ParagraphStyle *> &pstyles)
 {
 
 	if (pstyles.isEmpty())
@@ -912,7 +912,7 @@ void SMPStyleWidget::showConsecutiveLines(QList<ParagraphStyle *> &pstyles)
 }
 
 
-void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showTabs(const QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	QList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
@@ -982,7 +982,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 
 }
 
-void SMPStyleWidget::showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
+void SMPStyleWidget::showCStyle(const QList<ParagraphStyle*> &pstyles, const QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	cpage->parentLabel->setText( tr("Based On:"));
 
@@ -993,7 +993,7 @@ void SMPStyleWidget::showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle
 	cpage->show(cstyle, cstyles, defLang, unitIndex);
 }
 
-void SMPStyleWidget::showParent(QList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showParent(const QList<ParagraphStyle*> &pstyles)
 {
 	parentCombo->setEnabled(false);
 
@@ -1185,11 +1185,6 @@ void SMPStyleWidget::slotParentParEffects()
 	numBox->setChecked(m_parentNum);
 	emit useParentParaEffects();
 	connectPESignals();
-}
-
-SMPStyleWidget::~SMPStyleWidget()
-{
-	
 }
 
 void SMPStyleWidget::openEnhanced()

@@ -55,7 +55,7 @@ bool SMShadeButton::useParentValue()
 	return ret;
 }
 
-QString SMShadeButton::useParentValueText()
+QString SMShadeButton::useParentValueText() const
 {
 	QString trText = tr("Use Parent Value");
 	return trText;

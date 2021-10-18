@@ -753,7 +753,7 @@ QColor ScColorEngine::getColorProof(const ScColor& color, const ScribusDoc* doc,
 		rgb.r = qRound(color.m_values[0] * 255.0);
 		rgb.g = qRound(color.m_values[1] * 255.0);
 		rgb.b = qRound(color.m_values[2] * 255.0);
-		tmp = getColorProof(rgb, doc, spot, gamutCheck & gamutChkEnabled);
+		tmp = getColorProof(rgb, doc, spot, gamutCheck && gamutChkEnabled);
 	}
 	else
 	{
@@ -762,7 +762,7 @@ QColor ScColorEngine::getColorProof(const ScColor& color, const ScribusDoc* doc,
 		cmyk.m = qRound(color.m_values[1] * 255.0);
 		cmyk.y = qRound(color.m_values[2] * 255.0);
 		cmyk.k = qRound(color.m_values[3] * 255.0);
-		tmp = getColorProof(cmyk, doc, spot, gamutCheck & gamutChkEnabled);
+		tmp = getColorProof(cmyk, doc, spot, gamutCheck && gamutChkEnabled);
 	}
 	return tmp;
 }
@@ -1106,7 +1106,7 @@ bool ScColorEngine::isOutOfGamut(const ScColor& color, const ScribusDoc* doc)
 			xformProof = doc->stdProofGC;
 			if ((color.m_values[0] == 0) && (color.m_values[1] == 0) && (color.m_values[2] == 1.0))
 				alert = false;
-			if ((color.m_values[0] == color.m_values[1] && color.m_values[1] == color.m_values[2]))
+			if ((color.m_values[0] == color.m_values[1]) && (color.m_values[1] == color.m_values[2]))
 				alert = false;
 		}
 		else if (color.getColorModel() == colorModelCMYK)

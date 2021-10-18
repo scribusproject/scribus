@@ -209,8 +209,3 @@ QColor SMLineStyleWidget::getColor(const QString &name, int shade)
 	QColor tmpf = ScColorEngine::getDisplayColor(color, m_colors.document(), shade);
 	return tmpf;
 }
-
-SMLineStyleWidget::~SMLineStyleWidget()
-{
-	
-}

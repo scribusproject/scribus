@@ -286,17 +286,6 @@ void PropertyWidget_Distance::handleColumns()
 	{
 		textItem->setColumns(static_cast<int>(columns->value()));
 		showColumns(textItem->m_columns, textItem->m_columnGap);
-		//this is already done in showColumns()
-		/*if (static_cast<int>(columns->value()) == 1)
-		{
-			columnGap->setEnabled(false);
-			columnGapLabel->setEnabled(false);
-		}
-		else
-		{
-			columnGap->setEnabled(true);
-			columnGapLabel->setEnabled(true);
-		}*/
 		textItem->update();
 		if (m_doc->appMode == modeEditTable)
 			m_item->asTable()->update();

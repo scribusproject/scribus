@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 PropertyWidget_FontFeatures::PropertyWidget_FontFeatures(QWidget* parent) : QFrame(parent)
 {
-	m_item = nullptr;
-	m_ScMW = nullptr;
 	setupUi(this);
 
 	layout()->setAlignment(Qt::AlignTop);

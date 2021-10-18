@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 
 SMCStyleWidget::SMCStyleWidget(QWidget *parent)
+              : QWidget(parent)
 {
 	setupUi(this);
 
@@ -203,7 +204,7 @@ void SMCStyleWidget::setDoc(ScribusDoc *doc)
 	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
-void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
+void SMCStyleWidget::show(const CharStyle *cstyle, const QList<CharStyle> &cstyles, const QString &defLang, int /*unitIndex*/)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	parentCombo->setEnabled(!cstyle->isDefaultStyle());
@@ -375,11 +376,8 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
-void SMCStyleWidget::show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
+void SMCStyleWidget::show(const QList<CharStyle*> &cstyles, const QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
 {
-// 	int decimals = unitGetDecimalsFromIndex(unitIndex);
-// 	QString suffix = unitGetSuffixFromIndex(unitIndex);
-
 	if (cstyles.count() == 1)
 		show(cstyles[0], cstylesAll, defLang, unitIndex);
 	else if (cstyles.count() > 1)
@@ -629,7 +627,7 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 		backColor_->setCurrentText(s);
 }
 
-void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang)
+void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QString& /*defLang*/)
 {
 	QString s(cstyles[0]->language());
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -687,7 +685,7 @@ void SMCStyleWidget::showHyphenChar(const QList<CharStyle *> &cstyles)
 	hyphenCharLineEdit->setValue(hyphenText);
 }
 
-void SMCStyleWidget::showParent(const QList<CharStyle*> &cstyles)
+void SMCStyleWidget::showParent(const QList<CharStyle*>& /*cstyles*/)
 {
 	parentCombo->setEnabled(false);
 }
@@ -724,10 +722,4 @@ void SMCStyleWidget::slotColorChange()
 	StrokeIcon->setEnabled(enabled);
 	strokeShade_->setEnabled(enabled);
 	strokeColor_->setEnabled(enabled);
-}
-
-
-SMCStyleWidget::~SMCStyleWidget()
-{
-	
 }

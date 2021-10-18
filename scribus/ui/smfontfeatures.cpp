@@ -91,7 +91,7 @@ void SMFontFeatures::languageChange()
 	fractionComboBox->setCurrentIndex(oldFractionIndex);
 }
 
-QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo)
+QStringList SMFontFeatures::comboboxFeatures(QComboBox* combo) const
 {
 	QStringList features;
 	for (int i = 0; i < combo->count(); ++i)

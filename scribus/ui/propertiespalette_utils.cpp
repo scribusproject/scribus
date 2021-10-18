@@ -38,9 +38,6 @@ for which a new license (GPL+exception) is in place.
 
 //using namespace std;
 
-
-LineStyleValue::LineStyleValue() : m_doc(nullptr), m_name() {};
-
 LineStyleValue::LineStyleValue(const multiLine& line, ScribusDoc* doc, const QString& name) :
 	m_Line(line),
 	m_doc(doc),

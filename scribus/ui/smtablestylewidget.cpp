@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtablestylewidget.h"
 
 SMTableStyleWidget::SMTableStyleWidget(QWidget *parent)
+                  : QWidget(parent)
 {
 	setupUi(this);
 
@@ -22,10 +23,6 @@ SMTableStyleWidget::SMTableStyleWidget(QWidget *parent)
 	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-}
-
-SMTableStyleWidget::~SMTableStyleWidget()
-{
 }
 
 void SMTableStyleWidget::changeEvent(QEvent *e)
@@ -63,7 +60,7 @@ void SMTableStyleWidget::setDoc(ScribusDoc* doc)
 	connect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 }
 
-void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableStyles, const QString &defLang, int unitIndex)
+void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableStyles, const QString& /*defLang*/, int /*unitIndex*/)
 {
 	Q_ASSERT(tableStyle);
 	if (!tableStyle)

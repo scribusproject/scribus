@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "smcellstylewidget.h"
 
 SMCellStyleWidget::SMCellStyleWidget(QWidget *parent)
+                 : QWidget(parent)
 {
 	setupUi(this);
 
@@ -22,10 +23,6 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent)
 	iconSetChange();
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-}
-
-SMCellStyleWidget::~SMCellStyleWidget()
-{
 }
 
 void SMCellStyleWidget::changeEvent(QEvent *e)

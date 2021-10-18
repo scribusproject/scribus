@@ -67,7 +67,7 @@ private:
 	void removeConnections();
 	void updateStyleList();
 	void reloadTmpStyles();
-	QList<CharStyle> getCharStyles();
+	QList<CharStyle> getCharStyles() const;
 
 private slots:
 	// pstyle

@@ -35,7 +35,6 @@ QTabWidget* SMLineStyle::widget()
 		m_widget = new SMLineStyleWidget();
 		m_twidget->addTab(m_widget, tr("Properties"));
 		unitChange();
-// 		connect(m_widget->lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotCurrentLineChanged(int)));
 		connect(m_widget->lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotCurrentLineChanged(int)));
 	}
 	return m_twidget;
@@ -569,8 +568,7 @@ void SMLineStyle::slotLineWidth()
 {
 	double unitRatio = m_widget->lineWidth->unitRatio();
 
-	QHash<QString, multiLine*>::iterator it;
-	for (it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Width = m_widget->lineWidth->value() / unitRatio;
@@ -636,8 +634,8 @@ void SMLineStyle::rebuildList()
 
 	m_widget->lineStyles->clear();
 
-	multiLine *tmpLine = m_selection.begin().value();
-	for (multiLine::iterator it = tmpLine->begin(); it != tmpLine->end(); ++it)
+	const multiLine *tmpLine = m_selection.begin().value();
+	for (auto it = tmpLine->begin(); it != tmpLine->end(); ++it)
 	{
 		pm2 = getWidePixmap(calcFarbe(it->Color, it->Shade));
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + unitSuffix + " ";
@@ -720,7 +718,7 @@ void SMLineStyle::updatePreview()
 	if (m_selection.count() < 1)
 		return;
 	
-	QPixmap pm = QPixmap(200, 37);
+	QPixmap pm(200, 37);
 	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);

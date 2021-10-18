@@ -25,12 +25,12 @@ SMRowWidget::SMRowWidget(const QString &toBeDeleted, const QStringList& replaceO
 	layout->addWidget(optionsCombo);
 }
 
-QString SMRowWidget::toBeDeleted()
+QString SMRowWidget::toBeDeleted() const
 {
 	return deleteLabel->text();
 }
 
-QString SMRowWidget::replaceWith()
+QString SMRowWidget::replaceWith() const
 {
 	return optionsCombo->currentIndex() == 0 ? "" : optionsCombo->currentText();
 }
@@ -77,7 +77,7 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	layout->addStretch(10);
 }
 
-QList<RemoveItem> SMReplaceDia::items()
+QList<RemoveItem> SMReplaceDia::items() const
 {
 	QList<RemoveItem> tmp;
 	for (int i = 0; i < rowWidgets.count(); ++i)

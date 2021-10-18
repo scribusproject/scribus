@@ -27,12 +27,13 @@ public:
 protected:
 	void connectSignals();
 	void disconnectSignals();
-	PageItem* m_item;
-	ScribusMainWindow* m_ScMW;
 
 	void configureWidgets();
 	void setCurrentItem(PageItem *item);
 	void changeEvent(QEvent *e) override;
+
+	PageItem* m_item { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

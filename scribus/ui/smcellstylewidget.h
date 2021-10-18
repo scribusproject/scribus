@@ -28,7 +28,7 @@ public:
 	/// Constructor.
 	SMCellStyleWidget(QWidget* parent = nullptr);
 	/// Destructor.
-	~SMCellStyleWidget();
+	~SMCellStyleWidget() = default;
 
 	void setDoc(ScribusDoc* doc);
 

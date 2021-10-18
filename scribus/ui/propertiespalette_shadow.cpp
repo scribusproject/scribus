@@ -247,7 +247,7 @@ void PropertiesPalette_Shadow::updateColorList()
 
 void PropertiesPalette_Shadow::handleNewValues()
 {
-	if (!m_haveItem)
+	if (!m_haveItem || !m_haveDoc)
 		return;
 	double x = softShadowXOffset->valueAsDouble() / m_unitRatio;
 	double y = softShadowYOffset->valueAsDouble() / m_unitRatio;
@@ -258,10 +258,8 @@ void PropertiesPalette_Shadow::handleNewValues()
 	int b = softShadowBlendMode->valueAsInt();
 	double o = (100 - softShadowOpacity->valueAsDouble()) / 100.0;
 	int s = softShadowShade->valueAsInt();
-	if (m_haveDoc)
-	{
-		m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
-	}
+
+	m_doc->itemSelection_SetSoftShadow(hasSoftShadow->valueAsBool(), color, x, y, r, s, o, b, softShadowErase->valueAsBool(), softShadowObjTrans->valueAsBool());
 }
 
 void PropertiesPalette_Shadow::changeEvent(QEvent *e)

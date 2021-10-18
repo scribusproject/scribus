@@ -20,11 +20,11 @@ class SMCStyleWidget : public QWidget, public Ui::SMCStyleWidget
 	Q_OBJECT
 public:
 	SMCStyleWidget(QWidget* parent = nullptr);
-	~SMCStyleWidget();
+	~SMCStyleWidget() = default;
 
 	void setDoc(ScribusDoc* doc);
-	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
-	void show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
+	void show(const CharStyle *cstyle, const QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void show(const QList<CharStyle*> &cstyles, const QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
 	//void fillLangCombo(QMap<QString,QString> langMap);
 	void fillLangComboFromList(const QStringList& langList);
 	void fillColorCombo(ColorList &colors);

@@ -134,7 +134,7 @@ PageItem* PropertiesPalette_Shape::currentItemFromSelection()
 {
 	PageItem *currentItem = nullptr;
 
-	if (m_doc && m_doc->m_Selection->count()>0)
+	if (m_doc && m_doc->m_Selection->count() > 0)
 		currentItem = m_doc->m_Selection->itemAt(0);
 
 	return currentItem;
@@ -147,10 +147,10 @@ void PropertiesPalette_Shape::setCustomShapeIcon(int submode)
 
 void PropertiesPalette_Shape::setLocked(bool isLocked)
 {
-	QPalette pal(qApp->palette());
+	QPalette pal(QApplication::palette());
 	if (isLocked)
 		pal.setCurrentColorGroup(QPalette::Disabled);
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		enableCustomShape();
 		enableEditShape();
@@ -298,7 +298,6 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 	}
 	setCurrentItem(currItem);
 	updateGeometry();
-	//repaint();
 }
 
 void PropertiesPalette_Shape::handleUpdateRequest(int updateFlags)
@@ -392,7 +391,7 @@ void PropertiesPalette_Shape::handleTextFlow()
 	PageItem::TextFlowMode mode = PageItem::TextFlowDisabled;
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if (textFlowDisabled->isChecked())
 			mode = PageItem::TextFlowDisabled;
@@ -415,7 +414,7 @@ void PropertiesPalette_Shape::handleShapeEdit()
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		m_tmpSelection->clear();
 		if (m_item->asRegularPolygon())
@@ -446,7 +445,7 @@ void PropertiesPalette_Shape::handleShapeEdit()
 void PropertiesPalette_Shape::handleShapeEditEnded()
 {
 	disconnect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if (m_tmpSelection->count() > 0)
 		{
@@ -481,7 +480,7 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+	if (m_haveDoc && m_haveItem)
 	{
 		if ((m_item->itemType() == PageItem::PolyLine) || (m_item->itemType() == PageItem::PathText))
 			return;

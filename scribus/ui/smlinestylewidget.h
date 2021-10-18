@@ -24,7 +24,7 @@ class SMLineStyleWidget : public QWidget, Ui::SMLineStyleWidget
 
 public:
 	SMLineStyleWidget();
-	~SMLineStyleWidget();
+	~SMLineStyleWidget() = default;
 	
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
 	void unitChange(int unitIndex);

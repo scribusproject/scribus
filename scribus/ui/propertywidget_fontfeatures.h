@@ -29,8 +29,6 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 	void disableAllFeatures();
-	PageItem* m_item;
-	ScribusMainWindow* m_ScMW;
 
 	void configureWidgets();
 	void initWidgets();
@@ -38,6 +36,9 @@ protected:
 	void changeEvent(QEvent *e) override;
 
 	quint64 featureFlags();
+
+	PageItem* m_item { nullptr };
+	ScribusMainWindow* m_ScMW { nullptr };
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);

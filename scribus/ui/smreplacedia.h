@@ -25,8 +25,8 @@ public:
 	SMRowWidget(const QString &toBeDeleted, const QStringList& replaceOptions, QWidget *parent);
 	~SMRowWidget();
 
-	QString toBeDeleted();
-	QString replaceWith();
+	QString toBeDeleted() const;
+	QString replaceWith() const;
 
 private:
 	QHBoxLayout *layout;
@@ -44,7 +44,7 @@ public:
 	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent);
 	~SMReplaceDia();
 
-	QList<RemoveItem> items();
+	QList<RemoveItem> items() const;
 
 private:
 	QVBoxLayout *layout;
