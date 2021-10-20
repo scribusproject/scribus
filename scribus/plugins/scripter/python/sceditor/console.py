@@ -157,7 +157,7 @@ class PythonInterpreter(object):
 
 
     def run(self, source, locals=None):
-        if locals == None:
+        if locals is None:
                 locals = self.locals
         code = compile(source, self.name, "exec")
         try:

@@ -7,7 +7,7 @@ def findFramework(path, name = None):
 	"find the framework folder for FW name"
 	if path == "" or path == "@executable_path" or path == "/":
 		return None
-	elif name == None:
+	elif name is None:
 		return findFramework(os.path.dirname(path), 
 							 os.path.basename(path))
 	elif os.path.basename(path) == name + ".framework":

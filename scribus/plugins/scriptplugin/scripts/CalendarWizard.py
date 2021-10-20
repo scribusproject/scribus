@@ -649,7 +649,7 @@ class TkCalendar(Frame):
             cal = ScVerticalEventCalendar(year, months, self.weekVar.get(), draw, self.sepMonthsVar.get(), self.key)
         self.master.withdraw()
         err = cal.createCalendar()
-        if err != None:
+        if err is not None:
             self.master.deiconify()
             self.statusVar.set(err)
         else:

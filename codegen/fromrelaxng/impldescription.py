@@ -54,9 +54,9 @@ class Class(object):
     def addIncludes(self, datatypes, refnames):
         #print datatypes, refnames
         for p in self.properties:
-            if p.datatype == None and p.refname in refnames:
+            if p.datatype is None and p.refname in refnames:
                                 p.datatype = refnames[p.refname].datatype
-            if p.datatype == None:
+            if p.datatype is None:
                 print "X>>>", p.name, p.refname, refnames
             
             if p.datatype.find("<") > 0:

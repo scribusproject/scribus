@@ -53,7 +53,7 @@ while argp < len(sys.argv) :
 		print "Error: unknown option: " + sys.argv[argp]
 		usage()
 		sys.exit(1)
-	elif bundle == None:
+	elif bundle is None:
 		bundle = sys.argv[argp]
 		argp = argp + 1
 	else:
@@ -61,7 +61,7 @@ while argp < len(sys.argv) :
 		usage()
 		sys.exit(1)
 
-if bundle == None:	
+if bundle is None:	
 	print "Error: no bundle path specified!"
 	usage()
 	sys.exit(1)

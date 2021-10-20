@@ -8,7 +8,7 @@ cc_re = re.compile("([A-Z][a-z]+)")
 
 
 def is_camelcase(s):
-    return cc_re.match(s) != None
+    return cc_re.match(s) is not None
 
 
 def to_camelcase(s):

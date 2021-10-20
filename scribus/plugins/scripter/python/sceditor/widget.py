@@ -58,7 +58,7 @@ class RopeEditorWrapper(object):
     def _get_block(self, line_no=None):
         cursor = self.editview.textCursor()
         row = cursor.blockNumber()
-        if line_no == None:
+        if line_no is None:
             line_no = row
         block = cursor.block()
         while row > line_no:

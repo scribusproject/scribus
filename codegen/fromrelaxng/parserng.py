@@ -27,7 +27,7 @@ class RNG_Parser(object):
                 self.currentClass = c
             elif self.currentClass != None:
                 newProp = Property(pattern, isOptional, isCollection)
-                if newProp.datatype == None:
+                if newProp.datatype is None:
                     ref = pattern.getchildren()[0]
                     if ref.tag == qn('rng:ref'):
                         newProp.refname = ref.get(an('name'))
