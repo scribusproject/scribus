@@ -110,6 +110,8 @@ void MarkDownIm::parseMarkDown()
 			if (headingLevel > 0)
 			{
 				QString headingStyleName = QString("Heading %1").arg(headingLevel);
+				if (m_prefixName)
+					headingStyleName = m_item->itemName() + "_" + headingStyleName;
 				if (!newParaStyleSet.contains(headingStyleName))
 				{
 					ParagraphStyle newParaStyle;
@@ -117,16 +119,17 @@ void MarkDownIm::parseMarkDown()
 					newParaStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 					newParaStyle.setContext(m_item->itemText.defaultStyle().context());
 					newParaStyle.charStyle().setFontSize(20 * (7 - headingLevel) + newParaStyle.charStyle().fontSize());
-					QString styleName;
-					if (m_prefixName)
-						styleName = m_item->itemName() + "_";
-					styleName += headingStyleName;
-					newParaStyle.setName(styleName);
-					newParaStyleSet.create(newParaStyle);
-					currentParagraphStyle = newParaStyle;
+					newParaStyle.setName(headingStyleName);
+					const auto* newParaStylePtr = newParaStyleSet.create(newParaStyle);
+					currentParagraphStyle.setContext(newParaStylePtr->context());
+					currentParagraphStyle = *newParaStylePtr;
 				}
 				else
-					currentParagraphStyle = newParaStyleSet.get(headingStyleName);
+				{
+					const auto& headingStyle = newParaStyleSet.get(headingStyleName);
+					currentParagraphStyle.setContext(headingStyle.context());
+					currentParagraphStyle = headingStyle;
+				}
 			}
 
 			//List items
@@ -138,6 +141,8 @@ void MarkDownIm::parseMarkDown()
 					listStyleName = QString("List %1").arg(listStyleCount);
 					if (tlf.style() == QTextListFormat::ListDecimal)
 						listStyleName.prepend("Numbered ");
+					if (m_prefixName)
+						listStyleName = m_item->itemName() + "_" + listStyleName;
 					if (!newParaStyleSet.contains(listStyleName))
 					{
 						listStyleCount++;
@@ -169,17 +174,18 @@ void MarkDownIm::parseMarkDown()
 							case QTextListFormat::ListStyleUndefined:
 								break;
 						}
-						QString styleName;
-						if (m_prefixName)
-							styleName = m_item->itemName() + "_";
-						styleName += listStyleName;
-						newParaStyle.setName(styleName);
-						newParaStyleSet.create(newParaStyle);
-						currentParagraphStyle = newParaStyle;
+						newParaStyle.setName(listStyleName);
+						const auto* newParaStylePtr = newParaStyleSet.create(newParaStyle);
+						currentParagraphStyle.setContext(newParaStylePtr->context());
+						currentParagraphStyle = *newParaStylePtr;
 					}
 				}
 				else
-					currentParagraphStyle = newParaStyleSet.get(listStyleName);
+				{
+					const auto& listStyle = newParaStyleSet.get(listStyleName);
+					currentParagraphStyle.setContext(listStyle.context());
+					currentParagraphStyle = listStyle;
+				}
 				if (listCounter++ == curblk.textList()->count())
 					listCounter = 1;
 			}
