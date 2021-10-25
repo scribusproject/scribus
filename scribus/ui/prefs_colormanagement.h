@@ -22,7 +22,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 
 	public:
 		Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_ColorManagement();
+		~Prefs_ColorManagement() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;

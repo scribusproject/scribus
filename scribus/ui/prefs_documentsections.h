@@ -21,7 +21,7 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 
 	public:
 		Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_DocumentSections();
+		~Prefs_DocumentSections() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
@@ -31,8 +31,8 @@ class SCRIBUS_API Prefs_DocumentSections : public Prefs_Pane, Ui::Prefs_Document
 
 	protected:
 		DocumentSectionMap m_localSections;
-		ScribusDoc* m_doc;
-		uint m_maxPageIndex;
+		ScribusDoc* m_doc { nullptr };
+		uint m_maxPageIndex { 0 };
 		QStringList m_styles;
 		virtual void updateTable();
 

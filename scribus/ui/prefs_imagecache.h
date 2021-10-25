@@ -20,7 +20,7 @@ class SCRIBUS_API Prefs_ImageCache : public Prefs_Pane, Ui::Prefs_ImageCache
 
 	public:
 		Prefs_ImageCache(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_ImageCache();
+		~Prefs_ImageCache() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;

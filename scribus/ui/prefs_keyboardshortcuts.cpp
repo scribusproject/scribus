@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 
-Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* doc)
+Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -36,8 +36,8 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* do
 	m_caption = tr("Keyboard Shortcuts");
 	m_icon = "16/preferences-desktop-keyboard-shortcuts.png";
 
-	defMenus=ActionManager::defaultMenus();
-	defNonMenuActions=ActionManager::defaultNonMenuActions();
+	defMenus = ActionManager::defaultMenus();
+	defNonMenuActions = ActionManager::defaultNonMenuActions();
 
 	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions->begin();
 	PluginManager& pluginManager(PluginManager::instance());
@@ -87,6 +87,7 @@ Prefs_KeyboardShortcuts::~Prefs_KeyboardShortcuts() = default;
 
 void Prefs_KeyboardShortcuts::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_KeyboardShortcuts::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -143,55 +144,55 @@ void Prefs_KeyboardShortcuts::exportKeySetFile()
 void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 {
 	searchTextLineEdit->clear();
-	QFileInfo fi = QFileInfo(filename);
-	if (fi.exists())
+
+	QFileInfo fi(filename);
+	if (!fi.exists())
+		return;
+
+	//import the file into qdomdoc
+	QDomDocument doc( "keymapentries" );
+	QFile file1( filename );
+	if ( !file1.open( QIODevice::ReadOnly ) )
+		return;
+	QTextStream ts(&file1);
+	ts.setCodec("UTF-8");
+	QString errorMsg;
+	int eline;
+	int ecol;
+	if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol ))
 	{
-		//import the file into qdomdoc
-		QDomDocument doc( "keymapentries" );
-		QFile file1( filename );
-		if ( !file1.open( QIODevice::ReadOnly ) )
-			return;
-		QTextStream ts(&file1);
-		ts.setCodec("UTF-8");
-		QString errorMsg;
-		int eline;
-		int ecol;
-		if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol ))
-		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename, errorMsg).arg(eline).arg(ecol).toLatin1().constData());
-			file1.close();
-			return;
-		}
+		qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename, errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 		file1.close();
-		//load the file now
-		QDomElement docElem = doc.documentElement();
-		if (docElem.tagName()=="shortcutset" && docElem.hasAttribute("name"))
+		return;
+	}
+	file1.close();
+
+	//load the file now
+	QDomElement docElem = doc.documentElement();
+	if (docElem.tagName() == "shortcutset" && docElem.hasAttribute("name"))
+	{
+		QDomAttr keysetAttr = docElem.attributeNode( "name" );
+
+		//clear current menu entries
+		for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
+			it.value().keySequence = QKeySequence();
+
+		//load in new set
+		for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 		{
-			QDomAttr keysetAttr = docElem.attributeNode( "name" );
-
-			//clear current menu entries
-			for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
-				it.value().keySequence = QKeySequence();
-
-			//load in new set
-			QDomNode n = docElem.firstChild();
-			while (!n.isNull())
+			QDomElement e = n.toElement();
+			if (e.isNull())
+				continue;
+			if (e.hasAttribute("name") && e.hasAttribute("shortcut"))
 			{
-				QDomElement e = n.toElement(); // try to convert the node to an element.
-				if (!e.isNull())
-				{
-					if (e.hasAttribute("name")  && e.hasAttribute( "shortcut" ))
-					{
-						QDomAttr nameAttr = e.attributeNode( "name" );
-						QDomAttr shortcutAttr = e.attributeNode( "shortcut" );
-						if (keyMap.contains(nameAttr.value()))
-							keyMap[nameAttr.value()].keySequence=QKeySequence(shortcutAttr.value());
-					}
-				}
-				n = n.nextSibling();
+				QDomAttr nameAttr = e.attributeNode("name");
+				QDomAttr shortcutAttr = e.attributeNode("shortcut");
+				if (keyMap.contains(nameAttr.value()))
+					keyMap[nameAttr.value()].keySequence = QKeySequence(shortcutAttr.value());
 			}
 		}
 	}
+
 	insertActions();
 }
 
@@ -311,14 +312,17 @@ void Prefs_KeyboardShortcuts::setKeyText()
 
 void Prefs_KeyboardShortcuts::insertActions()
 {
+	bool first = true;
+	bool firstMenu = true;
+	QTreeWidgetItem* currLVI = nullptr;
+	QTreeWidgetItem* currMenuLVI = nullptr;
+	QTreeWidgetItem* prevLVI = nullptr;
+	QTreeWidgetItem* prevMenuLVI = nullptr;
+
 	lviToActionMap.clear();
 	lviToMenuMap.clear();
 	keyTable->clear();
-	bool first, firstMenu=true;
-	QTreeWidgetItem *currLVI = nullptr;
-	QTreeWidgetItem *currMenuLVI = nullptr;
-	QTreeWidgetItem *prevLVI = nullptr;
-	QTreeWidgetItem *prevMenuLVI = nullptr;
+
 	for (int i = 0; i < defMenus->count(); ++i)
 	{
 		const QPair<QString, QStringList> &actionStrings = defMenus->at(i);
@@ -335,9 +339,9 @@ void Prefs_KeyboardShortcuts::insertActions()
 		currMenuLVI->setExpanded(true);
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
 		prevMenuLVI=currMenuLVI;
-		first=true;
-		currLVI=nullptr;
-		prevLVI=nullptr;
+		first = true;
+		currLVI = nullptr;
+		prevLVI = nullptr;
 		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
 			QString actionName = actionStrings.second.at(j);
@@ -379,10 +383,10 @@ void Prefs_KeyboardShortcuts::insertActions()
 		currMenuLVI->setText(0, actionStrings.first);
 		currMenuLVI->setExpanded(true);
 		currMenuLVI->setFlags(Qt::ItemIsEnabled);
-		prevMenuLVI=currMenuLVI;
-		first=true;
-		currLVI=nullptr;
-		prevLVI=nullptr;
+		prevMenuLVI = currMenuLVI;
+		first = true;
+		currLVI = nullptr;
+		prevLVI = nullptr;
 		for (int j = 0; j < actionStrings.second.count(); ++j)
 		{
 			QString actionName = actionStrings.second.at(j);
@@ -396,16 +400,16 @@ void Prefs_KeyboardShortcuts::insertActions()
 				continue;
 			if (first)
 			{
-				currLVI=new QTreeWidgetItem(currMenuLVI);
-				first=false;
+				currLVI = new QTreeWidgetItem(currMenuLVI);
+				first = false;
 			}
 			else
-				currLVI=new QTreeWidgetItem(currMenuLVI, prevLVI);
+				currLVI = new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, actionName);
 			currLVI->setText(0, actionKeys.cleanMenuText);
 			currLVI->setText(1, actionKeys.keySequence.toString(QKeySequence::NativeText));
-			prevLVI=currLVI;
+			prevLVI = currLVI;
 		}
 	}
 	keyTable->resizeColumnToContents(0);
@@ -475,94 +479,87 @@ bool Prefs_KeyboardShortcuts::event( QEvent* ev )
 
 void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isChecked())
+	if (!setKeyButton->isChecked())
+		return;
+
+	switch (k->key())
 	{
-		switch (k->key())
-		{
-			case Qt::Key_Meta:
-				keyCode |= Qt::META;
-				break;
-			case Qt::Key_Shift:
-				keyCode |= Qt::SHIFT;
-				break;
-			case Qt::Key_Alt:
-				keyCode |= Qt::ALT;
-				break;
-			case Qt::Key_Control:
-				keyCode |= Qt::CTRL;
-				break;
-			default:
-				keyCode |= k->key();
-				keyDisplay->setText(getTrKeyText(keyCode));
-				releaseKeyboard();
-				if (selectedLVI)
+		case Qt::Key_Meta:
+			keyCode |= Qt::META;
+			break;
+		case Qt::Key_Shift:
+			keyCode |= Qt::SHIFT;
+			break;
+		case Qt::Key_Alt:
+			keyCode |= Qt::ALT;
+			break;
+		case Qt::Key_Control:
+			keyCode |= Qt::CTRL;
+			break;
+		default:
+			keyCode |= k->key();
+			keyDisplay->setText(getTrKeyText(keyCode));
+			releaseKeyboard();
+			if (selectedLVI)
+			{
+				QString actionName = lviToActionMap[selectedLVI];
+				if (checkKey(keyCode))
 				{
-					QString actionName = lviToActionMap[selectedLVI];
-					if (checkKey(keyCode))
-					{
-						ScMessageBox::information(this, CommonStrings::trWarning, tr("The %1 key sequence is already in use by \"%2\"").arg(getTrKeyText(keyCode),getAction(keyCode)));
-						selectedLVI->setText(1,keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
-						keyDisplay->setText(keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
-					}
-					else
-					{
-						QKeySequence newKeySequence(keyCode);
-						selectedLVI->setText(1, newKeySequence.toString(QKeySequence::NativeText));
-						keyMap[actionName].keySequence=newKeySequence;
-						userDef->setChecked(true);
-					}
+					ScMessageBox::information(this, CommonStrings::trWarning, tr("The %1 key sequence is already in use by \"%2\"").arg(getTrKeyText(keyCode),getAction(keyCode)));
+					selectedLVI->setText(1,keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
+					keyDisplay->setText(keyMap[actionName].keySequence.toString(QKeySequence::NativeText));
 				}
-				setKeyButton->setChecked(false);
-		}
+				else
+				{
+					QKeySequence newKeySequence(keyCode);
+					selectedLVI->setText(1, newKeySequence.toString(QKeySequence::NativeText));
+					keyMap[actionName].keySequence=newKeySequence;
+					userDef->setChecked(true);
+				}
+			}
+			setKeyButton->setChecked(false);
 	}
+
 	if (setKeyButton->isChecked())
 		keyDisplay->setText(getTrKeyText(keyCode));
 }
 
 void Prefs_KeyboardShortcuts::keyReleaseEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isChecked())
-	{
-		if (k->key() == Qt::Key_Meta)
-			keyCode &= ~Qt::META;
-		if (k->key() == Qt::Key_Shift)
-			keyCode &= ~Qt::SHIFT;
-		if (k->key() == Qt::Key_Alt)
-			keyCode &= ~Qt::ALT;
-		if (k->key() == Qt::Key_Control)
-			keyCode &= ~Qt::CTRL;
-		keyDisplay->setText(getTrKeyText(keyCode));
-	}
+	if (!setKeyButton->isChecked())
+		return;
+
+	if (k->key() == Qt::Key_Meta)
+		keyCode &= ~Qt::META;
+	if (k->key() == Qt::Key_Shift)
+		keyCode &= ~Qt::SHIFT;
+	if (k->key() == Qt::Key_Alt)
+		keyCode &= ~Qt::ALT;
+	if (k->key() == Qt::Key_Control)
+		keyCode &= ~Qt::CTRL;
+	keyDisplay->setText(getTrKeyText(keyCode));
 }
 
 QString Prefs_KeyboardShortcuts::getAction(int code)
 {
-	QString ret;
-	QKeySequence key = QKeySequence(code);
-	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	QKeySequence key(code);
+	for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
-		{
-			ret = it->cleanMenuText;
-			break;
-		}
+			return it->cleanMenuText;
 	}
-	return ret;
+	return QString();
 }
 
 bool Prefs_KeyboardShortcuts::checkKey(int code)
 {
-	bool ret = false;
-	QKeySequence key = QKeySequence(code);
-	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	QKeySequence key(code);
+	for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
-		{
-			ret = true;
-			break;
-		}
+			return true;
 	}
-	return ret;
+	return false;
 }
 
 void Prefs_KeyboardShortcuts::clearSearchString( )

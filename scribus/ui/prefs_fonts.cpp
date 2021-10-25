@@ -47,9 +47,6 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	m_icon = "16/preferences-desktop-font.png";
 
 	RList = PrefsManager::instance().appPrefs.fontPrefs.GFontSub;
-	UsedFonts.clear();
-	CurrentPath = "";
-	m_askBeforeSubstitute = true;
 
 	setMinimumSize(fontMetrics().horizontalAdvance( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" )+ tr( "Rejected Fonts" ))+180, 200);
 
@@ -118,95 +115,33 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 //fontSubstitutionsTableWidget
 }
 
-Prefs_Fonts::~Prefs_Fonts()
-{
-}
-
 void Prefs_Fonts::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	// 	SCFonts* availFonts=&(PrefsManager::instance().appPrefs.AvailFonts);
 	m_availFonts = prefsData->fontPrefs.AvailFonts;
 	fontListTableView->setFonts(m_availFonts);
-	/*
-	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
-	It's just a performance vs. functionality test.
-	availFonts->clear();
-	// FIXME: This is main performance issue. It's about 90% of all preference reads! - PV
-	availFonts->getFonts(HomeP); */
-	/* Are you wondering why this condition? See the comment at
-	line #102 (or somewhere near) as reference. Hint: PathList
-	is not initialized for example... - PV */
-/*	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
-	{
-		for (uint a = 0; a < PathList->count(); ++a)
-		{
-			QString dir = ScPaths::separatorsToSlashes(PathList->text(a));
-			availFonts->addScalableFonts(dir +"/"); //, docc->DocName);
-			availFonts->updateFontMap();
-		}
-	} */
-// 	UsedFonts.clear();
-// 	fontFlags.clear();
-// 	fontList->clear();
-// 	SCFontsIterator it(*availFonts);
-// 	for ( ; it.hasNext(); it.next())
-// 	{
-// 		if (it.current().isNone())
-// 			continue;
-// 		fontSet foS;
-// 		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
-// 		row->setText(0, it.currentKey());
 
-// 		foS.FlagUse = it.current().usable();
-// 		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
-// 		if (foS.FlagUse)
-// 			UsedFonts.append(it.currentKey());
-
-// 		foS.FlagPS = it.current().embedPs();
-// 		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
-
-// 		foS.FlagSub = it.current().subset();
-// 		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
-
-// 		ScFace::FontType type = it.current().type();
-// 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
-// 		if (it.current().isReplacement())
-// 			row->setIcon(0, substFont);
-// 		else if (type == ScFace::TYPE1)
-// 			row->setIcon(0, psFont);
-// 		else if (type == ScFace::TTF)
-// 			row->setIcon(0, ttfFont);
-// 		else if (type == ScFace::OTF)
-// 			row->setIcon(0, otfFont);
-
-// 		foS.FlagNames = it.current().hasNames();
-// 		row->setText(4, it.current().fontPath());
-// 		fontFlags.insert(it.currentKey(), foS);
-// 	}
-// 	fontList->sortByColumn(0, Qt::AscendingOrder);
-// 	fontList->resizeColumnToContents(0);
-// 	fontList->resizeColumnToContents(4);
-// 	UsedFonts.sort();
 	FlagsRepl.clear();
 	fontSubstitutionsTableWidget->clearContents();
 	m_GFontSub = prefsData->fontPrefs.GFontSub;
-	int a = 0;
+
+	int i = 0;
 	for (auto itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
 		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
-		fontSubstitutionsTableWidget->setItem(a, 0, tWidgetItem);
+		fontSubstitutionsTableWidget->setItem(i, 0, tWidgetItem);
 		auto item = new QComboBox(fontSubstitutionsTableWidget);
-		fontSubstitutionsTableWidget->setCellWidget(a, 1, item);
+		fontSubstitutionsTableWidget->setCellWidget(i, 1, item);
 		item->setEditable(false);
 		item->addItem(itfsu.value());
 		setCurrentComboItem(item, itfsu.value());
 		FlagsRepl.append(item);
-		a++;
+		i++;
 	}
 	deleteSubstitutionButton->setEnabled(false);
 
@@ -254,21 +189,22 @@ void Prefs_Fonts::ReplaceSel()
 
 void Prefs_Fonts::updateFontList()
 {
-	UsedFonts.clear();
+	m_usedFonts.clear();
 	SCFontsIterator it(m_availFonts);
 	for ( ; it.hasNext() ; it.next())
 	{
 		if (m_availFonts[it.currentKey()].usable())
-			UsedFonts.append(it.currentKey());
+			m_usedFonts.append(it.currentKey());
 	}
-	UsedFonts.sort();
+	m_usedFonts.sort();
+
 	QString tmp;
 	for (int b = 0; b < FlagsRepl.count(); ++b)
 	{
 		tmp = FlagsRepl.at(b)->currentText();
 		FlagsRepl.at(b)->clear();
-		FlagsRepl.at(b)->addItems(UsedFonts);
-		if (UsedFonts.contains(tmp) != 0)
+		FlagsRepl.at(b)->addItems(m_usedFonts);
+		if (m_usedFonts.contains(tmp) != 0)
 			setCurrentComboItem(FlagsRepl.at(b), tmp);
 		else
 			FlagsRepl.at(b)->setCurrentIndex(0);
@@ -340,15 +276,15 @@ void Prefs_Fonts::SelectPath(QListWidgetItem *c)
 		changeButton->setEnabled(true);
 		removeButton->setEnabled(true);
 	}
-	CurrentPath = c->text();
+	m_currentPath = c->text();
 }
 
 void Prefs_Fonts::AddPath()
 {
 	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
-	CurrentPath = dirs->get("fontprefs", ".");
-	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
+	m_currentPath = dirs->get("fontprefs", ".");
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), m_currentPath);
 	if (s.isEmpty())
 		return;
 
@@ -362,7 +298,7 @@ void Prefs_Fonts::AddPath()
 	//writePaths();
 	changeButton->setEnabled(false);
 	removeButton->setEnabled(false);
-	CurrentPath = s;
+	m_currentPath = s;
 	QString dir(QDir::fromNativeSeparators(s2));
 	m_availFonts.addScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
@@ -375,7 +311,7 @@ void Prefs_Fonts::AddPath()
 void Prefs_Fonts::ChangePath()
 {
 	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
-	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), m_currentPath);
 	if (s.isEmpty())
 		return;
 
@@ -396,7 +332,7 @@ void Prefs_Fonts::ChangePath()
 	}
 	pathListWidget->currentItem()->setText(s2);
 	//writePaths();
-	CurrentPath = s;
+	m_currentPath = s;
 	QString dir = QDir::fromNativeSeparators(s2);
 	m_availFonts.addScalableFonts(dir +"/");
 	m_availFonts.updateFontMap();
@@ -409,7 +345,7 @@ void Prefs_Fonts::ChangePath()
 void Prefs_Fonts::DelPath()
 {
 	Q_ASSERT(m_doc==nullptr); // should never be called in doc-specific prefs
-	QFile fx(PrefsManager::instance().preferencesLocation()+"/scribusfont13.rc");
+	QFile fx(PrefsManager::instance().preferencesLocation() + "/scribusfont13.rc");
 	if (!fx.open(QIODevice::WriteOnly))
 		return;
 
@@ -431,7 +367,7 @@ void Prefs_Fonts::DelPath()
 			m_availFonts.remove(it.key());
 	}
 	m_availFonts.updateFontMap();
-	CurrentPath = "";
+	m_currentPath.clear();
 	updateFontList();
 	changeButton->setEnabled(false);
 	removeButton->setEnabled(false);

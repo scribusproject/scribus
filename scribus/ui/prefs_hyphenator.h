@@ -21,7 +21,7 @@ class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 
 	public:
 		Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_Hyphenator();
+		~Prefs_Hyphenator() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
@@ -43,6 +43,7 @@ class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 		QString affixFileName(QStringList files);
 		QString dictFileName(QStringList files);
 		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
+
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 

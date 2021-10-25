@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 
-Prefs_OperatorTools::Prefs_OperatorTools(QWidget* parent, ScribusDoc* doc)
+Prefs_OperatorTools::Prefs_OperatorTools(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);

@@ -68,10 +68,6 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(pare
 	}
 }
 
-Prefs_Display::~Prefs_Display()
-{
-}
-
 void Prefs_Display::languageChange()
 {
 	pageFillColorButton->setToolTip( "<qt>" + tr( "Color for paper (onscreen)" ) + "</qt>");
@@ -111,7 +107,6 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-//	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	showImagesCheckBox->setChecked(prefsData->guidesPrefs.showPic);
 	showControlCharsCheckBox->setChecked(prefsData->guidesPrefs.showControls);
@@ -267,7 +262,7 @@ void Prefs_Display::drawRuler()
 void Prefs_Display::restoreDisScale()
 {
 	disconnect(adjustDisplaySlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
-	int dpi = qApp->desktop()->logicalDpiX();
+	int dpi = QApplication::desktop()->logicalDpiX();
 	if ((dpi < 60) || (dpi > 500))
 		dpi = 72;
 	displayScale = dpi / 72.0;

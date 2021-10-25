@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_documentitemattributes.h"
 #include "prefsstructs.h"
 
-Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, ScribusDoc* doc)
+Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -31,11 +31,6 @@ Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, Scri
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearEntries()));
 	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
-
-}
-
-Prefs_DocumentItemAttributes::~Prefs_DocumentItemAttributes()
-{
 }
 
 void Prefs_DocumentItemAttributes::languageChange()
@@ -45,13 +40,13 @@ void Prefs_DocumentItemAttributes::languageChange()
 
 void Prefs_DocumentItemAttributes::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	localAttributes=prefsData->itemAttrPrefs.defaultItemAttributes;
+	localAttributes = prefsData->itemAttrPrefs.defaultItemAttributes;
 	updateTable();
 }
 
 void Prefs_DocumentItemAttributes::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->itemAttrPrefs.defaultItemAttributes=localAttributes;
+	prefsData->itemAttrPrefs.defaultItemAttributes = localAttributes;
 }
 
 void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
@@ -59,47 +54,47 @@ void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
 	switch (col)
 	{
 	case 0:
-		localAttributes[row].name=attributesTable->item(row, col)->text();
+		localAttributes[row].name = attributesTable->item(row, col)->text();
 		break;
 	case 1:
 		{
-			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=nullptr)
+			QComboBox* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+			if (qcti != nullptr)
 			{
-				int index=qcti->currentIndex();
-				if (index<typesData.count())
-					localAttributes[row].type=typesData[index];
+				int index = qcti->currentIndex();
+				if (index < typesData.count())
+					localAttributes[row].type = typesData[index];
 			}
 		}
 		break;
 	case 2:
-		localAttributes[row].value=attributesTable->item(row, col)->text();
+		localAttributes[row].value = attributesTable->item(row, col)->text();
 		break;
 	case 3:
-		localAttributes[row].parameter=attributesTable->item(row, col)->text();
+		localAttributes[row].parameter = attributesTable->item(row, col)->text();
 		break;
 	case 4:
 		{
-			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=nullptr)
+			QComboBox* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+			if (qcti != nullptr)
 			{
-				int index=qcti->currentIndex();
-				if (index<relationshipsData.count())
-					localAttributes[row].relationship=relationshipsData[index];
+				int index = qcti->currentIndex();
+				if (index < relationshipsData.count())
+					localAttributes[row].relationship = relationshipsData[index];
 			}
 		}
 		break;
 	case 5:
-		localAttributes[row].relationshipto=attributesTable->item(row, col)->text();
+		localAttributes[row].relationshipto = attributesTable->item(row, col)->text();
 		break;
 	case 6:
 		{
-			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
-			if (qcti!=nullptr)
+			QComboBox* qcti = dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
+			if (qcti != nullptr)
 			{
-				int index=qcti->currentIndex();
-				if (index<autoAddToData.count())
-					localAttributes[row].autoaddto=autoAddToData[index];
+				int index = qcti->currentIndex();
+				if (index < autoAddToData.count())
+					localAttributes[row].autoaddto = autoAddToData[index];
 			}
 		}
 		break;
@@ -112,9 +107,9 @@ void Prefs_DocumentItemAttributes::tableItemChanged( int row, int col )
 void Prefs_DocumentItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
-	blank.relationship="none";
-	blank.autoaddto="none";
-	blank.type="none";
+	blank.relationship = "none";
+	blank.autoaddto = "none";
+	blank.type = "none";
 	localAttributes.append(blank);
 	updateTable();
 }
@@ -139,8 +134,8 @@ void Prefs_DocumentItemAttributes::updateTable()
 		int listIndex=typesData.indexOf(objAttr.type);
 		if (listIndex==-1)
 		{
-			objAttr.type="none";
-			listIndex=0;
+			objAttr.type = "none";
+			listIndex = 0;
 		}
 		item2->setCurrentIndex(listIndex);
 
@@ -156,11 +151,11 @@ void Prefs_DocumentItemAttributes::updateTable()
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
 		attributesTable->setCellWidget(row, col++, item5);
-		int index=relationshipsData.indexOf(objAttr.relationship);
-		if (index==-1)
+		int index = relationshipsData.indexOf(objAttr.relationship);
+		if (index == -1)
 		{
-			objAttr.relationship="none";
-			index=0;
+			objAttr.relationship = "none";
+			index = 0;
 		}
 		item5->setCurrentIndex(index);
 		//Relationship to
@@ -170,16 +165,16 @@ void Prefs_DocumentItemAttributes::updateTable()
 		QComboBox *item7 = new QComboBox();
 		item7->addItems(autoAddTo);
 		attributesTable->setCellWidget(row, col++, item7);
-		int index2=autoAddToData.indexOf(objAttr.autoaddto);
-		if (index2==-1)
+		int index2 = autoAddToData.indexOf(objAttr.autoaddto);
+		if (index2 == -1)
 		{
-			objAttr.relationship="none";
-			index2=0;
+			objAttr.relationship = "none";
+			index2 = 0;
 		}
 		item7->setCurrentIndex(index2);
 
-		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
-		if (t!=nullptr)
+		QTableWidgetItem *t = attributesTable->verticalHeaderItem(row);
+		if (t != nullptr)
 			t->setText(QString("%1").arg(row));
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);
@@ -190,15 +185,15 @@ void Prefs_DocumentItemAttributes::updateTable()
 
 void Prefs_DocumentItemAttributes::deleteEntry()
 {
-	int currRow=attributesTable->currentRow();
-	bool found=false;
+	int currRow = attributesTable->currentRow();
+	bool found = false;
 	ObjAttrVector::Iterator it;
-	int count=0;
+	int count = 0;
 	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
-		if(count==currRow)
+		if(count == currRow)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 		++count;
@@ -220,15 +215,15 @@ void Prefs_DocumentItemAttributes::clearEntries()
 
 void Prefs_DocumentItemAttributes::copyEntry()
 {
-	int currRow=attributesTable->currentRow();
-	bool found=false;
+	int currRow = attributesTable->currentRow();
+	bool found = false;
 	ObjAttrVector::Iterator it;
-	int count=0;
-	for (it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	int count = 0;
+	for (it = localAttributes.begin(); it != localAttributes.end(); ++it)
 	{
-		if(count==currRow)
+		if(count == currRow)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 		++count;

@@ -30,10 +30,10 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 		void enableCMS(bool);
 
-		PDFOptions::PDFFontEmbedding fontEmbeddingMode();
-		QStringList fontsToEmbed();
-		QStringList fontsToSubset();
-		QStringList fontsToOutline();
+		PDFOptions::PDFFontEmbedding fontEmbeddingMode() const;
+		QStringList fontsToEmbed() const;
+		QStringList fontsToSubset() const;
+		QStringList fontsToOutline() const;
 
 	signals:
 		void noInfo();
@@ -80,9 +80,10 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		void enablePDFXWidgets(bool);
 		void addPDFVersions(bool);
 		void enableEffects(bool);
-		bool cmsEnabled;
-		double unitRatio;
-		ScribusDoc* m_doc;
+
+		bool cmsEnabled { false };
+		double unitRatio { 1.0 };
+		ScribusDoc* m_doc { nullptr };
 		QString defaultSolidColorRGBProfile;
 		QString defaultPrinterProfile;
 		PDFOptions Opts;
@@ -90,7 +91,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 
 		QList<PDFPresentationData> EffVal;
 		SCFonts AllFonts;
-		bool exportingPDF;
+		bool exportingPDF { false };
 		QString SelLPIcolor;
 };
 

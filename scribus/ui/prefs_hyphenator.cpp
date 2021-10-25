@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 
-Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
+Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -51,10 +51,9 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	connect(exceptionListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(enableExceptButtons()));
 }
 
-Prefs_Hyphenator::~Prefs_Hyphenator() = default;
-
 void Prefs_Hyphenator::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -89,7 +88,7 @@ void Prefs_Hyphenator::addToIgnoreList()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("Ignore List"), tr("Add a new Entry"), QLineEdit::Normal, "", &ok);
-	if ((ok) && (!text.isEmpty()))
+	if (ok && !text.isEmpty())
 	{
 		if (ignoreListWidget->findItems(text, Qt::MatchExactly).count() == 0)
 			ignoreListWidget->addItem(text);
@@ -101,7 +100,7 @@ void Prefs_Hyphenator::editIgnoreListEntry()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("Ignore List"), tr("Edit Entry"), QLineEdit::Normal, ignoreListWidget->currentItem()->text(), &ok);
-	if ((ok) && (!text.isEmpty()))
+	if (ok && !text.isEmpty())
 	{
 		if (ignoreListWidget->findItems(text, Qt::MatchExactly).count() == 0)
 			ignoreListWidget->currentItem()->setText(text);
@@ -130,7 +129,7 @@ void Prefs_Hyphenator::addToExceptList()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("Exception List"), tr("Add a new Entry"), QLineEdit::Normal, "", &ok);
-	if ((ok) && (!text.isEmpty()))
+	if (ok && !text.isEmpty())
 	{
 		if (exceptionListWidget->findItems(text, Qt::MatchExactly).count() == 0)
 			exceptionListWidget->addItem(text);
@@ -142,7 +141,7 @@ void Prefs_Hyphenator::editExceptListEntry()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("Exception List"), tr("Edit Entry"), QLineEdit::Normal, exceptionListWidget->currentItem()->text(), &ok);
-	if ((ok) && (!text.isEmpty()))
+	if (ok && !text.isEmpty())
 	{
 		if (exceptionListWidget->findItems(text, Qt::MatchExactly).count() == 0)
 			exceptionListWidget->currentItem()->setText(text);

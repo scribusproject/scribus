@@ -39,8 +39,8 @@ class SCRIBUS_API Prefs_ItemTools : public Prefs_Pane, Ui::Prefs_ItemTools
 		void imageScalingTypeChange();
 
 	protected:
-		ScribusDoc* m_doc;
-		bool showFontPreview;
+		ScribusDoc* m_doc { nullptr };
+		bool showFontPreview { false };
 
 };
 

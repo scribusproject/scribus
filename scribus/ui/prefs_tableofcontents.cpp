@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_Doc(doc)
+	  m_Doc(doc)
 {
 	setupUi(this);
 	languageChange();
@@ -48,7 +48,6 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	itemListNonPrintingCheckBox->setEnabled(false);
 
 	setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
-	numSelected = 999;
 }
 
 Prefs_TableOfContents::~Prefs_TableOfContents() = default;

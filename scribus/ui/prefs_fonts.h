@@ -24,7 +24,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 
 	public:
 		Prefs_Fonts(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_Fonts();
+		~Prefs_Fonts() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
@@ -46,15 +46,15 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 		void updateFontList();
 		void updateRejectedFontList();
 
-		QMap<QString,QString> RList;
+		QMap<QString, QString> RList;
 		QList<QComboBox*> FlagsRepl;
 		//! List of font names of allowed fonts for substitutions
-		QStringList UsedFonts;
-		QString CurrentPath;
-		ScribusDoc* m_doc;
+		QStringList m_usedFonts;
+		QString m_currentPath;
+		ScribusDoc* m_doc { nullptr };
 
 		SCFonts m_availFonts; //! Fonts that Scribus has available to it, or the current document has available to use
-		bool m_askBeforeSubstitute; //! Request that the user confirms a font substitution or not
+		bool m_askBeforeSubstitute { true }; //! Request that the user confirms a font substitution or not
 		QMap<QString,QString> m_GFontSub;
 };
 

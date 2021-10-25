@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 
-Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
+Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -39,7 +39,7 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 	ScPlugin* plugin;
 	ScActionPlugin* ixplug;
 	QString pName;
-	ScribusMainWindow* scMW=ScCore->primaryMainWindow();
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
 	for (int i = 0; i < pluginNames.count(); ++i)
 	{
 		pName = pluginNames.at(i);
@@ -57,7 +57,7 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 			Q_ASSERT(ixplug);
 			ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 			// menu path
-			QString men = "";
+			QString men;
 			if (!ai.parentMenu.isEmpty())
 			{
 				if (scMW->scrMenuMgr->menuExists(ai.parentMenu))
@@ -65,7 +65,7 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 			}
 			if (scMW->scrMenuMgr->menuExists(ai.menu))
 			{
-				QMenu *m=scMW->scrMenuMgr->getLocalPopupMenu(ai.menu);
+				QMenu *m = scMW->scrMenuMgr->getLocalPopupMenu(ai.menu);
 				if (m)
 					men += m->title().remove(QRegExp("&(?!&)")) + " -> ";
 			}

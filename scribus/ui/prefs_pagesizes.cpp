@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_pagesizes.h"
 
 
-Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* doc)
+Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -35,6 +35,7 @@ Prefs_PageSizes::~Prefs_PageSizes() = default;
 
 void Prefs_PageSizes::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -47,7 +48,7 @@ void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	for (int i = 0; i < activeSizeList.count(); ++i)
 	{
-		QListWidgetItem* lwi=new QListWidgetItem();
+		QListWidgetItem* lwi = new QListWidgetItem();
 		PageSize ps2(activeSizeList.at(i));
 		lwi->setText(ps2.nameTR());
 		lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));
@@ -58,7 +59,7 @@ void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
 	{
 		if (!activeSizeList.contains(sizeList.at(i)))
 		{
-			QListWidgetItem* lwi=new QListWidgetItem();
+			QListWidgetItem* lwi = new QListWidgetItem();
 			PageSize ps2(sizeList.at(i));
 			lwi->setText(ps2.nameTR());
 			lwi->setToolTip(QString("%1 x %2 %3").arg(ps2.originalWidth()).arg(ps2.originalHeight()).arg(ps2.originalUnit()));

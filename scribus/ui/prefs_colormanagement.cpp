@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <array>
+
 #include "prefs_colormanagement.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
@@ -41,10 +43,6 @@ Prefs_ColorManagement::Prefs_ColorManagement(QWidget* parent, ScribusDoc* doc)
 	}
 }
 
-Prefs_ColorManagement::~Prefs_ColorManagement()
-{
-}
-
 void Prefs_ColorManagement::languageChange()
 {
 }
@@ -63,15 +61,14 @@ void Prefs_ColorManagement::restoreDefaults(struct ApplicationPrefs *prefsData)
 	}
 	activateCMCheckBox->setChecked(prefsData->colorPrefs.DCMSset.CMSinUse);
 
-	QString tmp_mp[] = { tr("Perceptual"), tr("Relative Colorimetric"),
-		tr("Saturation"), tr("Absolute Colorimetric")};
-		size_t array = sizeof(tmp_mp) / sizeof(*tmp_mp);
+	std::array<QString, 4> tmp_mp = { tr("Perceptual"), tr("Relative Colorimetric"),
+	                                  tr("Saturation"), tr("Absolute Colorimetric") };
 	imageRenderingIntentComboBox->clear();
-	for (uint prop = 0; prop < array; ++prop)
+	for (uint prop = 0; prop < tmp_mp.size(); ++prop)
 		imageRenderingIntentComboBox->addItem(tmp_mp[prop]);
 	imageRenderingIntentComboBox->setCurrentIndex(prefsData->colorPrefs.DCMSset.DefaultIntentImages);
 	solidColorsRenderingIntentComboBox->clear();
-	for (uint prop = 0; prop < array; ++prop)
+	for (uint prop = 0; prop < tmp_mp.size(); ++prop)
 		solidColorsRenderingIntentComboBox->addItem(tmp_mp[prop]);
 	solidColorsRenderingIntentComboBox->setCurrentIndex(prefsData->colorPrefs.DCMSset.DefaultIntentColors);
 

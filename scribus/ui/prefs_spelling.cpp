@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 
-Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* doc)
+Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -50,6 +50,7 @@ Prefs_Spelling::~Prefs_Spelling() = default;
 
 void Prefs_Spelling::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_Spelling::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -165,60 +166,7 @@ void Prefs_Spelling::downloadDictListFinished()
 void Prefs_Spelling::downloadSpellDictsFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
-/*
-	//qDebug()<<"Downloads All Finished";
-	QString userDictDir(ScPaths::getUserDictDir(true));
-	// List all downloaded files in order to handle identical
-	// affix files while reducing potential errors related to
-	// disk space
-	QStringList allFileList;
-	foreach(DictData d, downloadList)
-	{
-		allFileList += d.files.split(";", Qt::SkipEmptyParts);
-	}
-	// Move downloaded files to destination
-	foreach(DictData d, downloadList)
-	{
-		QString basename = QFileInfo(d.url).fileName();
-		QString filename = downloadLocation+basename;
-		QStringList files = d.files.split(";", Qt::SkipEmptyParts);
-		QString affixFile = affixFileName(files);
-		QString dictFile  = dictFileName(files);
-		//qDebug()<<filename;
-		if (d.filetype=="zip")
-		{
-			//qDebug()<<"zip data found"<<filename;
-			ScZipHandler* fun = new ScZipHandler();
-			if (fun->open(filename))
-			{
-				foreach (QString s, files)
-				{
-					//qDebug()<<"Unzipping"<<userDictDir+s;
-					fun->extract(s, userDictDir);
-					allFileList.removeOne(s);
-				}
-			}
-			delete fun;
-		}
-		if (d.filetype=="plain")
-		{
-			foreach (QString s, files)
-			{
-				//qDebug()<<"plain data found"<<downloadLocation<<userDictDir<<s;
-				QString dstName = s;
-				if (dstName == affixFile)
-					dstName = QFileInfo(downloadLocation+dictFile).baseName() + ".aff";
-				allFileList.removeOne(s);
-				if (allFileList.contains(s))
-				{
-					copyFile(downloadLocation+s, userDictDir+dstName);
-					continue;
-				}
-				moveFile(downloadLocation+s, userDictDir+dstName);
-			}
-		}
-	}
-*/
+
 	updateDictList();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
@@ -256,37 +204,35 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	}
 	dictList.clear();
 	QDomElement docElem = doc.documentElement();
-	QDomNode n = docElem.firstChild();
-	while (!n.isNull())
+	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomElement e = n.toElement();
-		if (!e.isNull())
+		if (e.isNull())
+			continue;
+
+		if (e.tagName() != "dictionary")
+			continue;
+
+		if (e.hasAttribute("type") && e.hasAttribute("filetype"))
 		{
-			if (e.tagName()=="dictionary")
+			if (e.attribute("type") == "spell")
 			{
-				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
-				{
-					if (e.attribute("type")=="spell")
-					{
-						struct DownloadItem d;
-						d.desc=e.attribute("description");
-						d.download=false;
-						d.files=e.attribute("files");
-						d.url=e.attribute("URL");
-						d.version=e.attribute("version");
-						d.lang=e.attribute("language");
-						d.license=e.attribute("license");
-						d.filetype=e.attribute("filetype");
-						QUrl url(d.url);
-						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
-							dictList.append(d);
-						//else
-						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
-					}
-				}
+				struct DownloadItem d;
+				d.desc = e.attribute("description");
+				d.download = false;
+				d.files = e.attribute("files");
+				d.url = e.attribute("URL");
+				d.version = e.attribute("version");
+				d.lang = e.attribute("language");
+				d.license = e.attribute("license");
+				d.filetype = e.attribute("filetype");
+				QUrl url(d.url);
+				if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
+					dictList.append(d);
+				//else
+				//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 			}
 		}
-		n = n.nextSibling();
 	}
 	availDictTableWidget->clear();
 	if(dictList.isEmpty())
@@ -296,7 +242,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	}
 	availDictTableWidget->setRowCount(dictList.count());
 	availDictTableWidget->setColumnCount(4);
-	int row=0;
+	int row = 0;
 	foreach(DownloadItem d, dictList)
 	{
 		int column=0;
@@ -323,7 +269,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	spellDownloadButton->setEnabled(true);
 }
 
-QString Prefs_Spelling::affixFileName(const QStringList& files)
+QString Prefs_Spelling::affixFileName(const QStringList& files) const
 {
 	for (int i = 0; i < files.count(); ++i)
 	{
@@ -334,7 +280,7 @@ QString Prefs_Spelling::affixFileName(const QStringList& files)
 	return QString();
 }
 
-QString Prefs_Spelling::dictFileName(const QStringList& files)
+QString Prefs_Spelling::dictFileName(const QStringList& files) const
 {
 	for (int i = 0; i < files.count(); ++i)
 	{

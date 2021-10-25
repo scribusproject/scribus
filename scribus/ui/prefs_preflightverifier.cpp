@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "util.h"
 
-Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* doc)
+Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -47,6 +47,7 @@ Prefs_PreflightVerifier::~Prefs_PreflightVerifier() = default;
 
 void Prefs_PreflightVerifier::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData)

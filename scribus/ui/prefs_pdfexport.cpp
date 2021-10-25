@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <array>
+
 #include <QStandardItem>
 #include <QAbstractItemView>
 
@@ -22,9 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	cmsEnabled(false),
-	m_doc(doc),
-	exportingPDF(false)
+	  m_doc(doc)
 {
 	setupUi(this);
 
@@ -119,12 +119,12 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 
 Prefs_PDFExport::~Prefs_PDFExport() = default;
 
-PDFOptions::PDFFontEmbedding Prefs_PDFExport::fontEmbeddingMode()
+PDFOptions::PDFFontEmbedding Prefs_PDFExport::fontEmbeddingMode() const
 {
 	return fontEmbeddingCombo->embeddingMode();
 }
 
-QStringList Prefs_PDFExport::fontsToEmbed()
+QStringList Prefs_PDFExport::fontsToEmbed() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
@@ -136,7 +136,7 @@ QStringList Prefs_PDFExport::fontsToEmbed()
 	return fonts;
 }
 
-QStringList Prefs_PDFExport::fontsToSubset()
+QStringList Prefs_PDFExport::fontsToSubset() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
@@ -148,7 +148,7 @@ QStringList Prefs_PDFExport::fontsToSubset()
 	return fonts;
 }
 
-QStringList Prefs_PDFExport::fontsToOutline()
+QStringList Prefs_PDFExport::fontsToOutline() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::OutlineFonts)
@@ -249,11 +249,11 @@ void Prefs_PDFExport::languageChange()
 	int j=imageRenderingIntentComboBox->currentIndex();
 	solidColorRenderingIntentComboBox->clear();
 	imageRenderingIntentComboBox->clear();
-	QString tmp_ip[] = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
-	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
-	for (uint a = 0; a < ar_ip; ++a)
+	
+	std::array<QString, 4> tmp_ip = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
+	for (size_t a = 0; a < tmp_ip.size(); ++a)
 		solidColorRenderingIntentComboBox->addItem(tmp_ip[a]);
-	for (uint a = 0; a < ar_ip; ++a)
+	for (size_t a = 0; a < tmp_ip.size(); ++a)
 		imageRenderingIntentComboBox->addItem(tmp_ip[a]);
 	solidColorRenderingIntentComboBox->setCurrentIndex(i);
 	imageRenderingIntentComboBox->setCurrentIndex(j);
@@ -303,7 +303,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	fontEmbeddingCombo->setEmbeddingMode(prefsData->pdfPrefs.FontEmbedding);
 	if (m_doc != nullptr && exportingPDF)
 	{
-		//	Build a list of all Fonts used in Annotations;
+		//	Build a list of all Fonts used in Annotations
 		int pageItOptions = PageItemIterator::IterateInGroups | PageItemIterator::IterateInDocItems | PageItemIterator::IterateInMasterItems | PageItemIterator::IterateInFrameItems;
 		for (PageItemIterator it(m_doc, pageItOptions); *it; ++it)
 		{
@@ -1034,11 +1034,9 @@ void Prefs_PDFExport::enablePDFX(int)
 	}
 	if (m_doc != nullptr && exportingPDF)
 	{
-//		EmbedFonts->setChecked(true);
 		EmbedAll();
 		enabledEffectsCheckBox->setChecked(false);
 		enabledEffectsCheckBox->setEnabled(false);
-//		EmbedFonts->setEnabled(false);
 		if (pdfx3InfoStringLineEdit->text().isEmpty())
 			emit noInfo();
 		else
@@ -1202,11 +1200,14 @@ void Prefs_PDFExport::doDocBleeds()
 void Prefs_PDFExport::SetEffOpts(int nr)
 {
 	QStandardItem* si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(2));
-	if (si) si->setSelectable(false);
+	if (si)
+		si->setSelectable(false);
 	si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(3));
-	if (si) si->setSelectable(false);
+	if (si)
+		si->setSelectable(false);
 	si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(4));
-	if (si) si->setSelectable(false);
+	if (si)
+		si->setSelectable(false);
 	switch (nr)
 	{
 	case 0:
@@ -1237,14 +1238,17 @@ void Prefs_PDFExport::SetEffOpts(int nr)
 		if (nr == 6)
 		{
 			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(2));
-			if (si) si->setSelectable(true);
+			if (si)
+				si->setSelectable(true);
 			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(3));
-			if (si) si->setSelectable(true);
+			if (si)
+				si->setSelectable(true);
 		}
 		else
 		{
 			si = dynamic_cast<QStandardItem*>(effectDirectionComboBox->view()->children().at(4));
-			if (si) si->setSelectable(true);
+			if (si)
+				si->setSelectable(true);
 		}
 		break;
 	case 5:

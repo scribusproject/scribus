@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "scribusdoc.h"
 
-Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* doc)
+Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -21,8 +21,6 @@ Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* doc)
 	m_caption = tr("Image Cache");
 	m_icon = "16/image-x-generic.png";
 }
-
-Prefs_ImageCache::~Prefs_ImageCache() = default;
 
 void Prefs_ImageCache::languageChange()
 {

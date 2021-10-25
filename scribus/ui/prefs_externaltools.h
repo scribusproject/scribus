@@ -19,7 +19,7 @@ class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalToo
 
 	public:
 		Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_ExternalTools();
+		~Prefs_ExternalTools() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
@@ -30,6 +30,7 @@ class SCRIBUS_API Prefs_ExternalTools : public Prefs_Pane, Ui::Prefs_ExternalToo
 	protected:
 		void insertConfigItem(const QString& config, int row = -1);
 		void setConfigItemText(QListWidgetItem *item);
+
 		QMap<QString, QString> commands;
 
 	protected slots:

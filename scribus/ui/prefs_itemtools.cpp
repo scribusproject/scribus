@@ -17,10 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "sampleitem.h"
 
 
-Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* doc)
-	: Prefs_Pane(parent),
-	m_doc(nullptr),
-	showFontPreview(false)
+Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* /*doc*/)
+	: Prefs_Pane(parent)
 {
 	setupUi(this);
 

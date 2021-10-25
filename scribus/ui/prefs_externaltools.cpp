@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_externaltools.h"
 
-Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc)
+Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -41,15 +41,11 @@ Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* doc)
 	connect(latexConfigDeleteButton, SIGNAL(clicked()), this, SLOT(deleteConfig()));
 	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(latexConfigChangeCommandButton, SIGNAL(clicked()), this, SLOT(changeLatexPath()));
-
-}
-
-Prefs_ExternalTools::~Prefs_ExternalTools()
-{
 }
 
 void Prefs_ExternalTools::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_ExternalTools::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -192,46 +188,44 @@ void Prefs_ExternalTools::rescanForTools()
 	}
 
 	//Scan for render frame render applications
-	for (int i=0; i < latexConfigsListWidget->count(); i++)
+	for (int i = 0; i < latexConfigsListWidget->count(); i++)
 	{
 		QString config(latexConfigsListWidget->item(i)->data(Qt::UserRole).toString());
+		if (config != "100_latex.xml")
+			continue;
+
 		QString oldCommand = commands[config];
-		if (config=="100_latex.xml")
-		{
-			if (!fileInPath(oldCommand))
-			{
-				QStringList pdflatexPaths;
+		if (fileInPath(oldCommand))
+			continue;
+
+		QStringList pdflatexPaths;
 #ifdef Q_OS_MAC
-				pdflatexPaths	<<"/opt/local/bin/pdflatex"
-								<<"/sw/bin/pdflatex"
-								<<"/usr/local/texlive/2009/bin/universal-darwin/pdflatex"
-								<<"/usr/local/texlive/2008/bin/universal-darwin/pdflatex";
+		pdflatexPaths	<<"/opt/local/bin/pdflatex"
+						<<"/sw/bin/pdflatex"
+						<<"/usr/local/texlive/2009/bin/universal-darwin/pdflatex"
+						<<"/usr/local/texlive/2008/bin/universal-darwin/pdflatex";
 #endif
 #ifdef Q_OS_LINUX
-				pdflatexPaths	<<"/usr/local/bin/pdflatex"
-								<<"/usr/bin/pdflatex";
+		pdflatexPaths	<<"/usr/local/bin/pdflatex"
+						<<"/usr/bin/pdflatex";
 #endif
-				QString parms(" --interaction nonstopmode");
-				for (int i = 0; i < pdflatexPaths.size(); ++i) //do nothing when we have no paths.. need some more from other OSes
-				{
-					QString cmd(pdflatexPaths.at(i));
-					QFileInfo fInfo(cmd);
-					if (fInfo.exists())
-					{
-						cmd.append(parms);
-						int ret = ScMessageBox::question(this, tr("LaTeX Command"),
-								tr("Scribus has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
-								QMessageBox::Yes|QMessageBox::No,
-								QMessageBox::No,	// GUI default
-								QMessageBox::Yes);	// batch default
-						if (ret==QMessageBox::Yes)
-						{
-							commands[config]=cmd;
-							setConfigItemText(latexConfigsListWidget->item(i));
-						}
-					}
-				}
-			}
+		QString parms(" --interaction nonstopmode");
+		for (int i = 0; i < pdflatexPaths.size(); ++i) //do nothing when we have no paths.. need some more from other OSes
+		{
+			QString cmd(pdflatexPaths.at(i));
+			QFileInfo fInfo(cmd);
+			if (!fInfo.exists())
+				continue;
+			cmd.append(parms);
+			int ret = ScMessageBox::question(this, tr("LaTeX Command"),
+					tr("Scribus has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
+					QMessageBox::Yes|QMessageBox::No,
+					QMessageBox::No,	// GUI default
+					QMessageBox::Yes);	// batch default
+			if (ret != QMessageBox::Yes)
+				continue;
+			commands[config] = cmd;
+			setConfigItemText(latexConfigsListWidget->item(i));
 		}
 	}
 }

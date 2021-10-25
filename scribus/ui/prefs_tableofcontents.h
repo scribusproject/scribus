@@ -52,7 +52,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		virtual void nonPrintingFramesSelected( bool showNonPrinting );
 
 	protected:
-		int numSelected;
+		int numSelected { 999 };
 		QString strPNNotShown;
 		QString strPNEnd;
 		QString strPNBeginning;
@@ -60,7 +60,7 @@ class SCRIBUS_API Prefs_TableOfContents : public Prefs_Pane, Ui::Prefs_TableOfCo
 		QString trStrPNEnd;
 		QString trStrPNBeginning;
 		ToCSetupVector localToCSetupVector;
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc { nullptr };
 		QString selectedTOCAttrName;
 		QStringList paragraphStyleList;
 

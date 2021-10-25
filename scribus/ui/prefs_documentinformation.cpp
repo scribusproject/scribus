@@ -22,10 +22,6 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 	m_icon = "documentinfo.png";
 }
 
-Prefs_DocumentInformation::~Prefs_DocumentInformation()
-{
-}
-
 void Prefs_DocumentInformation::languageChange()
 {
 }

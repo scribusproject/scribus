@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "scribusdoc.h"
 
-Prefs_Miscellaneous::Prefs_Miscellaneous(QWidget* parent, ScribusDoc* doc)
+Prefs_Miscellaneous::Prefs_Miscellaneous(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
@@ -23,6 +23,7 @@ Prefs_Miscellaneous::~Prefs_Miscellaneous() = default;
 
 void Prefs_Miscellaneous::languageChange()
 {
+	// No need to do anything here, the UI language cannot change while prefs dialog is opened
 }
 
 void Prefs_Miscellaneous::restoreDefaults(struct ApplicationPrefs *prefsData)

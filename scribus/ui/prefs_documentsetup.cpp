@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_doc(doc)
+	  m_doc(doc)
 {
 	setupUi(this);
 	
@@ -33,9 +33,6 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 
 	m_caption = tr("Document Setup");
 	m_icon = "scribusdoc16.png";
-
-	unitRatio = 1.0;
-	pageW = pageH = 1.0;
 
 	if (!m_doc)
 	{
@@ -79,10 +76,6 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	connect(pageUnitsComboBox, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(undoCheckBox, SIGNAL(toggled(bool)), this, SLOT(slotUndo(bool)));
 	connect(changeAutoDir, SIGNAL(clicked()), this, SLOT(changeAutoDocDir()));
-}
-
-Prefs_DocumentSetup::~Prefs_DocumentSetup()
-{
 }
 
 void Prefs_DocumentSetup::unitChange()
@@ -321,7 +314,7 @@ void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 void Prefs_DocumentSetup::pageLayoutChanged(int i)
 {
 	setupPageSets();
-	marginsWidget->setFacingPages(!(i == singlePage));
+	marginsWidget->setFacingPages(i != singlePage);
 	//layoutFirstPageIsComboBox->setCurrentIndex(pageSets[pageLayoutButtonGroup->checkedId()].FirstPage);
 }
 
@@ -383,16 +376,17 @@ void Prefs_DocumentSetup::setSize(const QString &newSize)
 {
 	pageW = pageWidthSpinBox->value() / unitRatio;
 	pageH = pageHeightSpinBox->value() / unitRatio;
-	PageSize *ps2=new PageSize(newSize);
 
-	prefsPageSizeName=ps2->name();
+	PageSize ps2(newSize);
+	prefsPageSizeName = ps2.name();
 	if (newSize != CommonStrings::trCustomPageSize)
 	{
-		pageW = ps2->width();
-		pageH = ps2->height();
+		pageW = ps2.width();
+		pageH = ps2.height();
 	}
 	else
 		prefsPageSizeName = CommonStrings::customPageSize;
+
 	pageWidthSpinBox->blockSignals(true);
 	pageHeightSpinBox->blockSignals(true);
 	pageWidthSpinBox->setValue(pageW * unitRatio);
@@ -402,7 +396,6 @@ void Prefs_DocumentSetup::setSize(const QString &newSize)
 	marginsWidget->setPageSize(newSize);
 	pageWidthSpinBox->blockSignals(false);
 	pageHeightSpinBox->blockSignals(false);
-	delete ps2;
 }
 
 void Prefs_DocumentSetup::slotUndo(bool isEnabled)

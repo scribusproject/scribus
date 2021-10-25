@@ -320,7 +320,7 @@ void PreferencesDialog::changeEvent(QEvent *e)
 		languageChange();
 	}
 	else
-		QWidget::changeEvent(e);
+		QDialog::changeEvent(e);
 }
 
 void PreferencesDialog::languageChange()

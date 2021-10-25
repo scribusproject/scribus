@@ -50,8 +50,8 @@ protected:
 	QList<QTreeWidgetItem*> lviToMenuMap;
 	QVector< QPair<QString, QStringList> >* defMenus;
 	QVector< QPair<QString, QStringList> >* defNonMenuActions;
-	QTreeWidgetItem * selectedLVI;
-	int keyCode;
+	QTreeWidgetItem * selectedLVI { nullptr };
+	int keyCode { 0 };
 
 	void insertActions();
 	void importKeySet(const QString&);

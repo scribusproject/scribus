@@ -21,7 +21,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 
 	public:
 		Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc=nullptr);
-		~Prefs_DocumentSetup();
+		~Prefs_DocumentSetup() = default;
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
@@ -61,11 +61,11 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 
 	protected:
 		void setupPageSets();
-		ScribusDoc* m_doc;
+		ScribusDoc* m_doc { nullptr };
 
-		double unitRatio;
-		double pageW;
-		double pageH;
+		double unitRatio { 1.0 };
+		double pageW { 1.0 };
+		double pageH { 1.0 };
 		QString prefsPageSizeName;
 		QList<PageSet> pageSets;
 

@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
-	m_doc(doc), m_maxPageIndex(0)
+	  m_doc(doc)
 {
 	setupUi(this);
 	languageChange();
@@ -29,10 +29,6 @@ Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	connect(sectionsTable, SIGNAL(cellChanged(int,int)), this, SLOT(tableItemChanged(int,int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
-}
-
-Prefs_DocumentSections::~Prefs_DocumentSections()
-{
 }
 
 void Prefs_DocumentSections::languageChange()
@@ -148,7 +144,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			break;
 		case 5:
 			{
-				NumFormatCombo* qcti = dynamic_cast<NumFormatCombo*>(sectionsTable->cellWidget(row,col));
+				auto* qcti = dynamic_cast<NumFormatCombo*>(sectionsTable->cellWidget(row,col));
 				if (qcti != nullptr)
 					m_localSections[row].type = qcti->currentFormat();
 			}
@@ -161,7 +157,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			break;
 		case 8:
 			{
-				QString ch=sectionsTable->item(row, col)->text();
+				QString ch = sectionsTable->item(row, col)->text();
 				if (ch.length() > 0)
 					m_localSections[row].pageNumberFillChar = ch.at(0);
 				else
