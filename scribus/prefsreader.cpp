@@ -27,15 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsreader.h"
 
 PrefsReader::PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts)
+           : m_aContexts(appContexts),
+             m_pContexts(pluginContexts)
 {
-	m_aContexts = appContexts;
-	m_pContexts = pluginContexts;
-	m_currentContext = nullptr;
-	m_currentTable = nullptr;
-	m_inApp = false;
-	m_rowIndex = 0;
-	m_colIndex = 0;
-	m_inTable = false;
+
 }
 
 bool PrefsReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs)
@@ -113,9 +108,4 @@ bool PrefsReader::endElement(const QString&, const QString&, const QString &name
 		m_colIndex = 0;
 	}
 	return true;
-}
-
-PrefsReader::~PrefsReader()
-{
-
 }

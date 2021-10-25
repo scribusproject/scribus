@@ -35,26 +35,19 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-typedef std::vector<QStringList> Table;
+using Table = std::vector<QStringList>;
 
 class SCRIBUS_API PrefsTable
 {
-	private:
-		QString m_name;
-		Table m_table;
-		int m_rowCount;
-		int m_colCount;
-		void checkSize(int rowIndex, int colIndex, const QString& defValue = "");
-		void checkHeight(int rowIndex);
-		void checkWidth(int rowIndex, int colIndex, const QString& defValue = "");
 	public:
-		PrefsTable(const QString& tableName);
-		~PrefsTable();
-		QString getName();
-		int     height();
-		int     getRowCount();
-		int     width();
-		int     getColCount();
+		explicit PrefsTable(const QString& tableName);
+		~PrefsTable() = default;
+
+		QString getName() const;
+		int     height() const;
+		int     getRowCount() const;
+		int     width() const;
+		int     getColCount() const;
 		QString get(int row, int col, const QString& defValue = "");
 		void    set(int row, int col, const char* value);
 		void    set(int row, int col, const std::string& value);
@@ -73,6 +66,16 @@ class SCRIBUS_API PrefsTable
 		void removeRow(int colIndex, const QString& what);
 		/*** Empties the table ***/
 		void clear();
+
+	private:
+		QString m_name;
+		Table m_table;
+		int m_rowCount { 0 };
+		int m_colCount { 0 };
+
+		void checkSize(int rowIndex, int colIndex, const QString& defValue = "");
+		void checkHeight(int rowIndex);
+		void checkWidth(int rowIndex, int colIndex, const QString& defValue = "");
 };
 
 #endif

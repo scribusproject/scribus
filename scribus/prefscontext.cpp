@@ -28,44 +28,53 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 
 PrefsContext::PrefsContext()
+            : m_isPersistent(false),
+	          m_isPlugin(false)
 {
-	m_isPersistent = false;
-	m_isPlugin = false;
+
 }
 
 PrefsContext::PrefsContext(const QString& contextName, bool persistent, bool plugin)
+            : m_name(contextName),
+              m_isPersistent(persistent),
+              m_isPlugin(plugin)
 {
-	m_name = contextName;
-	m_isPersistent = persistent;
-	m_isPlugin = plugin;
+
 }
 
-QString PrefsContext::getName()
+PrefsContext::~PrefsContext()
+{
+	TableMap::Iterator it;
+	for (it = tables.begin(); it != tables.end(); ++it)
+		delete it.value();
+}
+
+QString PrefsContext::getName() const
 {
 	return m_name;
 }
 
-bool PrefsContext::isPersistent()
+bool PrefsContext::isPersistent() const
 {
 	return m_isPersistent;
 }
 
-bool PrefsContext::isPlugin()
+bool PrefsContext::isPlugin() const
 {
 	return m_isPlugin;
 }
 
-bool PrefsContext::isEmpty()
+bool PrefsContext::isEmpty() const
 {
 	return (values.empty() && tables.empty());
 }
 
-bool PrefsContext::contains(const QString& key)
+bool PrefsContext::contains(const QString& key) const
 {
 	return values.contains(key);
 }
 
-bool PrefsContext::containsTable(const QString& key)
+bool PrefsContext::containsTable(const QString& key) const
 {
 	return tables.contains(key);
 }
@@ -173,11 +182,4 @@ PrefsTable* PrefsContext::getTable(const QString& name)
 void PrefsContext::removeTable(const QString& name)
 {
 	tables.remove(name);
-}
-
-PrefsContext::~PrefsContext()
-{
-	TableMap::Iterator it;
-	for (it = tables.begin(); it != tables.end(); ++it)
-		delete it.value();
 }

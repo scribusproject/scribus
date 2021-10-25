@@ -34,8 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "prefstable.h"
 
-typedef QMap<QString, QString> AttributeMap;
-typedef QMap<QString, PrefsTable*> TableMap;
+using AttributeMap =  QMap<QString, QString>;
+using TableMap = QMap<QString, PrefsTable*>;
 
 class SCRIBUS_API PrefsContext
 {
@@ -47,23 +47,23 @@ public:
 	AttributeMap values;
 	TableMap tables;
 
-	QString getName();
-	bool    isPersistent();
-	bool    isPlugin();
-	bool    isEmpty();
-	bool    contains(const QString& key);
-	bool    containsTable(const QString& key);
+	QString getName() const;
+	bool    isPersistent() const;
+	bool    isPlugin() const;
+	bool    isEmpty() const;
+	bool    contains(const QString& key) const;
+	bool    containsTable(const QString& key) const;
 	QString get(const QString& key, const QString& defValue = "");
+	int     getInt(const QString& key, int defValue = -1);
+	uint    getUInt(const QString& key, uint defValue = 0);
+	double  getDouble(const QString& key, double defValue = -1.0);
+	bool    getBool(const QString& key, bool defValue = false);
 	void    set(const QString& key, const char* value);
 	void    set(const QString& key, const std::string& value);
 	void    set(const QString& key, const QString& value);
-	int     getInt(const QString& key, int defValue = -1);
 	void    set(const QString& key, int value);
 	void    set(const QString& key, uint value);
-	uint    getUInt(const QString& key, uint defValue = 0);
-	double  getDouble(const QString& key, double defValue = -1.0);
 	void    set(const QString& key, double value);
-	bool    getBool(const QString& key, bool defValue = false);
 	void    set(const QString& key, bool value);
 	PrefsTable* getTable(const QString& m_name);
 	void    removeTable(const QString& m_name);

@@ -39,21 +39,23 @@ for which a new license (GPL+exception) is in place.
 
 class SCRIBUS_API PrefsReader : public QXmlDefaultHandler
 {
-private:
-	ContextMap* m_aContexts;
-	ContextMap* m_pContexts;
-	PrefsContext* m_currentContext;
-	PrefsTable* m_currentTable;
-	bool m_inApp;
-	int m_rowIndex;
-	int m_colIndex;
-	bool m_inTable;
 public:
 	PrefsReader(ContextMap *appContexts, ContextMap *pluginContexts);
-	~PrefsReader();
+	~PrefsReader() override = default;
+
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool characters (const QString& ch); 
 	bool endElement(const QString&, const QString&, const QString &name);
+
+private:
+	ContextMap* m_aContexts { nullptr };
+	ContextMap* m_pContexts { nullptr };
+	PrefsContext* m_currentContext { nullptr };
+	PrefsTable* m_currentTable { nullptr };
+	bool m_inApp { false };
+	bool m_inTable { false };
+	int m_rowIndex { 0 };
+	int m_colIndex { 0 };
 };
 
 #endif

@@ -27,33 +27,32 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 
 PrefsTable::PrefsTable(const QString& tableName)
+          : m_name(tableName)
 {
-	m_name = tableName;
-	m_rowCount = 0;
-	m_colCount = 0;
+
 }
 
-QString PrefsTable::getName()
+QString PrefsTable::getName() const
 {
 	return m_name;
 }
 
-int PrefsTable::height()
+int PrefsTable::height() const
 {
 	return m_rowCount;
 }
 
-int PrefsTable::getRowCount()
+int PrefsTable::getRowCount() const
 {
 	return m_rowCount;
 }
 
-int PrefsTable::width()
+int PrefsTable::width() const
 {
 	return m_colCount;
 }
 
-int PrefsTable::getColCount()
+int PrefsTable::getColCount() const
 {
 	return m_colCount;
 }
@@ -62,7 +61,7 @@ QString PrefsTable::get(int row, int col, const QString& defValue)
 {
 	checkSize(row, col, defValue);
 	if (m_table[row][col] == "__NOT__SET__")
-		m_table[row].insert(m_table[row].begin()+col, defValue);
+		m_table[row].insert(m_table[row].begin() + col, defValue);
 
 	return (m_table[row][col]);
 }
@@ -80,7 +79,7 @@ void PrefsTable::set(int row, int col, const std::string& value)
 void PrefsTable::set(int row, int col, const QString& value)
 {
 	checkSize(row, col, "__NOT__SET__");
-	m_table[row].insert(m_table[row].begin()+col, value);
+	m_table[row].insert(m_table[row].begin() + col, value);
 }
 
 int PrefsTable::getInt(int row, int col, int defValue)
@@ -152,7 +151,7 @@ int PrefsTable::find(int searchCol, const QString& what)
 	for (int i = 0; i < height(); ++i)
 	{
 		if ((get(i, searchCol, "__NOT__SET__") == what) &&
-				(get(i, searchCol, "__NOT__SET__") != "__NOT__SET__"))
+			(get(i, searchCol, "__NOT__SET__") != "__NOT__SET__"))
 		{
 			rowi = i;
 			break;
@@ -217,8 +216,4 @@ void PrefsTable::clear()
 	m_rowCount = 0;
 	m_colCount = 0;
 	m_table.clear();
-}
-
-PrefsTable::~PrefsTable()
-{
 }
