@@ -77,8 +77,6 @@ protected:
 	UndoManager *undoManager { nullptr };
 	
 	ScGuardedPtr<ScribusDoc> m_doc;
-	
-	int idTextItem;
 
 	void changeEvent(QEvent *e) override;
 	void closeEvent(QCloseEvent *closeEvent) override;

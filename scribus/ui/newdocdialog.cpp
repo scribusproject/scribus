@@ -66,19 +66,21 @@ PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) :
 
 void PageLayoutsWidget::arrangeIcons()
 {
-	QListWidgetItem* ic;
 	int startY = 5;
 	int startX = 5;
-	setResizeMode(QListView::Fixed);
 	int maxSizeY = 0;
-	for (int cc = 0; cc < count(); ++cc)
+
+	setResizeMode(QListView::Fixed);
+
+	for (int i = 0; i < count(); ++i)
 	{
-		ic = item(cc);
-		QRect ir = visualItemRect(ic);
-		setPositionForIndex(QPoint(startX, startY), indexFromItem(ic));
-		startX += ir.width() + 5;
-		maxSizeY = qMax(maxSizeY, ir.height());
+		QListWidgetItem* itemWidget = item(i);
+		QRect itemRect = visualItemRect(itemWidget);
+		setPositionForIndex(QPoint(startX, startY), indexFromItem(itemWidget));
+		startX += itemRect.width() + 5;
+		maxSizeY = qMax(maxSizeY, itemRect.height());
 	}
+
 	maxX = startX;
 	maxY = maxSizeY + 10;
 }
@@ -89,12 +91,12 @@ QSize PageLayoutsWidget::minimumSizeHint() const
 }
 
 NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog(parent),
-	prefsManager(PrefsManager::instance())
+	prefsManager(PrefsManager::instance()),
+	m_onStartup(startUp)
 {
 	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
 	setModal(true);
 
-	m_onStartup = startUp;
 	m_unitIndex = prefsManager.appPrefs.docSetupPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
@@ -644,16 +646,15 @@ void NewDocDialog::setSize(const QString& gr)
 	}
 	else
 	{
-		PageSize *ps2 = new PageSize(gr);
+		PageSize ps2(gr);
 		if (pageOrientationComboBox->currentIndex() == portraitPage)
 		{
-			m_pageWidth = ps2->width();
-			m_pageHeight = ps2->height();
+			m_pageWidth = ps2.width();
+			m_pageHeight = ps2.height();
 		} else {
-			m_pageWidth = ps2->height();
-			m_pageHeight = ps2->width();
+			m_pageWidth = ps2.height();
+			m_pageHeight = ps2.width();
 		}
-		delete ps2;
 	}
 	widthSpinBox->setValue(m_pageWidth * m_unitRatio);
 	heightSpinBox->setValue(m_pageHeight * m_unitRatio);

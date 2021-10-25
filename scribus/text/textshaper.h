@@ -53,19 +53,18 @@ private:
 		QStringList features;
 	};
 
-//	QString ExpandToken(int base);
 	void buildText(int fromPos, int toPos, QVector<int>& smallCaps);
-	QList<TextRun> itemizeBiDi();
-	QList<TextRun> itemizeScripts(const QList<TextRun> &runs);
-	QList<TextRun> itemizeStyles(const QList<TextRun> &runs);
 
-	QList<FeaturesRun> itemizeFeatures(const TextRun &run);
+	QList<TextRun> itemizeBiDi() const;
+	QList<TextRun> itemizeScripts(const QList<TextRun> &runs) const;
+	QList<TextRun> itemizeStyles(const QList<TextRun> &runs) const;
+	QList<FeaturesRun> itemizeFeatures(const TextRun &run) const;
 
-	ITextContext* m_context;
-	bool m_contextNeeded;
+	ITextContext* m_context { nullptr };
+	bool m_contextNeeded { false };
 	ITextSource& m_story;
-	int m_firstChar;
-	bool m_singlePar;
+	int m_firstChar { 0 };
+	bool m_singlePar { false };
 	QString m_text;
 	QMap<int, int> m_textMap;
 };

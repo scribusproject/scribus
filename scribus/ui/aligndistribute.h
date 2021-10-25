@@ -57,7 +57,7 @@ class SCRIBUS_API AlignDistributePalette : public ScDockPalette, Ui::AlignDistri
 
 public:
 	AlignDistributePalette( QWidget* parent = nullptr, const char* name = 0);
-	~AlignDistributePalette();
+	~AlignDistributePalette() = default;
 
 	virtual void setDoc( ScribusDoc* newDoc );
 	void unitChange();
@@ -107,16 +107,18 @@ protected slots:
 
 private:
 	void init();
-	UndoManager *undoManager;
-	ScribusDoc::AlignTo currAlignTo;
-	ScribusDoc::AlignMethod currAlignMethod;
-	QList<AlignObjs> *alignObjects;
-	ScribusDoc *currDoc {nullptr};
-	qreal unitRatio;
-	int guideDirection {-1};
-	qreal guidePosition;
-	QString guideInfoText, guideInfoTextNone;
 	void enableGuideButtons();
+
+	UndoManager *undoManager { nullptr };
+	ScribusDoc::AlignTo currAlignTo { ScribusDoc::alignFirst };
+	ScribusDoc::AlignMethod currAlignMethod { ScribusDoc::alignByMoving };
+	QList<AlignObjs> *alignObjects { nullptr };
+	ScribusDoc *currDoc { nullptr };
+	qreal unitRatio { 1.0 };
+	int guideDirection { -1 };
+	qreal guidePosition { 0.0 };
+	QString guideInfoText;
+	QString guideInfoTextNone;
 	
 signals:
 	void documentChanged();

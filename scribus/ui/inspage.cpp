@@ -316,10 +316,11 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 void InsPage::setSize(const QString & gr)
 {
+	PageSize ps2(gr);
+
 	widthSpinBox->setEnabled(false);
 	heightSpinBox->setEnabled(false);
-	PageSize *ps2 = new PageSize(gr);
-	prefsPageSizeName = ps2->name();
+	prefsPageSizeName = ps2.name();
 	if (gr == CommonStrings::trCustomPageSize)
 	{
 		widthSpinBox->setEnabled(true);
@@ -328,10 +329,9 @@ void InsPage::setSize(const QString & gr)
 	}
 	else
 	{
-		widthSpinBox->setValue(ps2->width() * m_unitRatio);
-		heightSpinBox->setValue(ps2->height() * m_unitRatio);
+		widthSpinBox->setValue(ps2.width() * m_unitRatio);
+		heightSpinBox->setValue(ps2.height() * m_unitRatio);
 	}
-	delete ps2;
 }
 
 void InsPage::setOrientation(int ori)

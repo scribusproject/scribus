@@ -22,14 +22,14 @@ class SCRIBUS_API NumFormatCombo : public QComboBox
 	Q_OBJECT
 
 public:
-	NumFormatCombo(QWidget* parent=nullptr);
+	NumFormatCombo(QWidget* parent = nullptr);
 	NumFormatCombo(QWidget* parent, bool showNone);
 
 	NumFormat currentFormat() const;
 	void setCurrentFormat(NumFormat format);
 	
 protected:
-	bool m_showNoneFormat;
+	bool m_showNoneFormat { false };
 	
 	void changeEvent(QEvent *e) override;
 	void languageChange(void);

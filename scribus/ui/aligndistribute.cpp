@@ -68,10 +68,6 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
 }
 
-AlignDistributePalette::~AlignDistributePalette()
-{
-}
-
 void AlignDistributePalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)

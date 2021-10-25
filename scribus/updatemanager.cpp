@@ -1,16 +1,8 @@
 
 
 #include "updatemanager.h"
-
-UpdateMemento::~UpdateMemento() 
-{}
-
-
-//	int m_updatesDisabled;
-//	QSet<QPair<UpdateManaged*, UpdateMemento*> > m_pending;
 	
-typedef QPair<UpdateManaged*, UpdateMemento*> PendingUpdate;
-
+using PendingUpdate = QPair<UpdateManaged*, UpdateMemento*>;
 
 UpdateManager::~UpdateManager()
 {
@@ -40,7 +32,6 @@ void UpdateManager::setUpdatesEnabled(bool val)
 	}
 }
 
-
 bool UpdateManager::requestUpdate(UpdateManaged* observable, UpdateMemento* what)
 {
 	if (m_updatesDisabled == 0)
@@ -48,4 +39,3 @@ bool UpdateManager::requestUpdate(UpdateManaged* observable, UpdateMemento* what
 	m_pending.insert(PendingUpdate(observable, what));
 	return false;
 }
-

@@ -38,38 +38,38 @@ public:
 
 	/*! \brief Returns recomputed "Links" index/value for facing pages.
 	\retval int 0 for max item, 1 for min. item++ for middle. Why? */
-	int pageOrder();
+	int pageOrder() const;
 	/*! \brief Current value of orientationQComboBox.
 	\retval int index of combobox */
-	int getPageOrientation();
+	int getPageOrientation() const;
 	/*! \brief Selected page width
 	\retval double X */
-	double getPageWidth();
+	double getPageWidth() const;
 	/*! \brief Selected page height
 	\retval double Y */
-	double getPageHeight();
+	double getPageHeight() const;
 	/*! \brief Bool value of moveObjects "property"
 	\retval bool true for moving */
-	bool getMoveObjects();
+	bool getMoveObjects() const;
 	/*! \brief Returns prefsPageSizeName value
 	\retval QString prefsPageSizeName property */
-	QString getPrefsPageSizeName();
+	QString getPrefsPageSizeName() const;
 	/*! \brief Top Margin
 	\retval double margin size */
-	double top();
+	double top() const;
 	/*! \brief Bottom Margin
 	\retval double margin size */
-	double bottom();
+	double bottom() const;
 	/*! \brief Left Margin
 	\retval double margin size */
-	double left();
+	double left() const;
 	/*! \brief Right Margin
 	\retval double margin size */
-	double right();
+	double right() const;
 	/*! \brief Master Page
 	\retval QString Master Page Name */
-	QString masterPage();
-	int getMarginPreset();
+	QString masterPage() const;
+	int getMarginPreset() const;
 
 public slots:
 	//! \brief as setOrientation for orientationQComboBox current item
@@ -90,35 +90,36 @@ public slots:
 	void setPageHeight(double v);
 
 private:
-	MarginWidget* marginWidget;
-	QGroupBox* dsGroupBox7;
-	QGroupBox* groupMaster;
-	QLabel* masterPageLabel;
-	QComboBox* masterPageComboBox;
-	ScrSpinBox* widthSpinBox;
-	ScrSpinBox* heightSpinBox;
-	QLabel* widthQLabel;
-	QLabel* heightQLabel;
-	QLabel* TextLabel1;
-	QLabel* TextLabel2;
-	QComboBox* sizeQComboBox;
-	QComboBox* orientationQComboBox;
-	QComboBox* Links;
-	QLabel* TextLabel3;
-	QCheckBox* moveObjects;
-	QPushButton* pageFillColorButton;
-	QPushButton* cancelButton;
-	QPushButton* okButton;
-	double unitRatio;
-	double pageWidth;
-	double pageHeight;
+	MarginWidget* marginWidget { nullptr };
+	QGroupBox* dsGroupBox7 { nullptr };
+	QGroupBox* groupMaster { nullptr };
+	QLabel* masterPageLabel { nullptr };
+	QComboBox* masterPageComboBox { nullptr };
+	ScrSpinBox* widthSpinBox { nullptr };
+	ScrSpinBox* heightSpinBox { nullptr };
+	QLabel* widthQLabel { nullptr };
+	QLabel* heightQLabel { nullptr };
+	QLabel* TextLabel1 { nullptr };
+	QLabel* TextLabel2 { nullptr };
+	QComboBox* sizeQComboBox { nullptr };
+	QComboBox* orientationQComboBox { nullptr };
+	QComboBox* Links { nullptr };
+	QLabel* TextLabel3 { nullptr };
+	QCheckBox* moveObjects { nullptr };
+	QPushButton* pageFillColorButton { nullptr };
+	QPushButton* cancelButton { nullptr };
+	QPushButton* okButton { nullptr };
+	QGridLayout* dsGroupBox7Layout { nullptr };
+	QVBoxLayout* dialogLayout { nullptr };
+	QHBoxLayout* okCancelLayout { nullptr };
+	QHBoxLayout* masterLayout { nullptr };
+
+	double m_unitRatio { 1.0 };
+	double m_pageWidth { 1.0 };
+	double m_pageHeight { 1.0 };
 	//! \brief Old orientation. Before it's changed via combobox.
-	int oldOri;
+	int    oldOri { 0 };
 	QString prefsPageSizeName;
-	QGridLayout* dsGroupBox7Layout;
-	QVBoxLayout* dialogLayout;
-	QHBoxLayout* okCancelLayout;
-	QHBoxLayout* masterLayout;
 
 
 };

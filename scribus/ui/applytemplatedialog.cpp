@@ -147,17 +147,11 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	masterPageLabel->setBuddy( masterPageComboBox );
 }
 
-/*
- *  Destroys the object and frees any allocated resources
- */
-ApplyMasterPageDialog::~ApplyMasterPageDialog()
-{
-	// no need to delete child widgets, Qt does it all for us
-}
-
 void ApplyMasterPageDialog::setup(ScribusDoc *doc, const QString& Nam)
 {
-	QString na = (Nam == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : Nam, in;
+	QString na = (Nam == CommonStrings::masterPageNormal) ? CommonStrings::trMasterPageNormal : Nam;
+	QString in;
+
 	int cc = 0;
 	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
 	{
@@ -167,13 +161,13 @@ void ApplyMasterPageDialog::setup(ScribusDoc *doc, const QString& Nam)
 			masterPageComboBox->setCurrentIndex(cc);
 		++cc;
 	}
-	const unsigned int docPagesCount = doc->Pages->count();
+	const int docPagesCount = doc->Pages->count();
 	if (docPagesCount < 2)
 		evenPagesRadioButton->setEnabled(false);
 	fromPageSpinBox->setMaximum(docPagesCount);
-	fromPageSpinBox->setValue(doc->currentPage()->pageNr()+1);
+	fromPageSpinBox->setValue(doc->currentPage()->pageNr() + 1);
 	toPageSpinBox->setMaximum(docPagesCount);
-	toPageSpinBox->setValue(static_cast<int>(docPagesCount));
+	toPageSpinBox->setValue(docPagesCount);
 }
 
 

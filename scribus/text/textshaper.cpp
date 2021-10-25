@@ -19,7 +19,6 @@ using namespace icu;
 
 TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar, bool singlePar)
 	: m_context(context),
-	m_contextNeeded(false),
 	m_story(story),
 	m_firstChar(firstChar),
 	m_singlePar(singlePar)
@@ -27,7 +26,6 @@ TextShaper::TextShaper(ITextContext* context, ITextSource &story, int firstChar,
 
 TextShaper::TextShaper(ITextSource &story, int firstChar)
 	: m_context(nullptr),
-	m_contextNeeded(false),
 	m_story(story),
 	m_firstChar(firstChar),
 	m_singlePar(false)
@@ -44,7 +42,7 @@ TextShaper::TextShaper(ITextSource &story, int firstChar)
 	}
 }
 
-QList<TextShaper::TextRun> TextShaper::itemizeBiDi()
+QList<TextShaper::TextRun> TextShaper::itemizeBiDi() const
 {
 	QList<TextRun> textRuns;
 	UBiDi *obj = ubidi_open();
@@ -75,7 +73,7 @@ QList<TextShaper::TextRun> TextShaper::itemizeBiDi()
 	return textRuns;
 }
 
-QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs)
+QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs) const
 {
 	QList<TextRun> newRuns;
 	ScriptRun scriptrun((const UChar*) m_text.utf16(), m_text.length());
@@ -111,7 +109,7 @@ QList<TextShaper::TextRun> TextShaper::itemizeScripts(const QList<TextRun> &runs
 	return newRuns;
 }
 
-QList<TextShaper::FeaturesRun> TextShaper::itemizeFeatures(const TextRun &run)
+QList<TextShaper::FeaturesRun> TextShaper::itemizeFeatures(const TextRun &run) const
 {
 	QList<FeaturesRun> newRuns;
 	QList<FeaturesRun> subfeature;
@@ -136,7 +134,7 @@ QList<TextShaper::FeaturesRun> TextShaper::itemizeFeatures(const TextRun &run)
 	return newRuns;
 }
 
-QList<TextShaper::TextRun> TextShaper::itemizeStyles(const QList<TextRun> &runs)
+QList<TextShaper::TextRun> TextShaper::itemizeStyles(const QList<TextRun> &runs) const
 {
 	QList<TextRun> newRuns;
 
@@ -214,7 +212,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 			const ParagraphStyle& style = m_story.paragraphStyle(i);
 			if (style.hasDropCap() || style.hasBullet() || style.hasNum())
 			{
-				CharStyle charStyle = ((m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle());
+				CharStyle charStyle = (m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle();
 				const QString& curParent(style.hasParent() ? style.parent() : style.name());
 				CharStyle newStyle(charStyle);
 				if (style.peCharStyleName().isEmpty())
@@ -227,7 +225,7 @@ void TextShaper::buildText(int fromPos, int toPos, QVector<int>& smallCaps)
 			else if (!style.peCharStyleName().isEmpty())
 			{
 				//par effect is cleared but is set dcCharStyleName = clear drop cap char style
-				CharStyle charStyle = ((m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle());
+				CharStyle charStyle = (m_story.text(i) != SpecialChars::PARSEP) ? m_story.charStyle(i) : style.charStyle();
 				if (charStyle.parent() == style.peCharStyleName())
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());
@@ -270,9 +268,8 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 {
 	m_contextNeeded = false;
 	
-	ShapedText result(ShapedText(&m_story, fromPos, toPos, m_context));
+	ShapedText result(&m_story, fromPos, toPos, m_context);
 	
-
 	QVector<int> smallCaps;
 
 	buildText(fromPos, toPos, smallCaps);

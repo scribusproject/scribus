@@ -15,14 +15,13 @@ for which a new license (GPL+exception) is in place.
 NumFormatCombo::NumFormatCombo(QWidget* parent)
               : QComboBox(parent)
 {
-	m_showNoneFormat = false;
 	setupCombo();
 }
 
 NumFormatCombo::NumFormatCombo(QWidget* parent, bool showNone)
-              : QComboBox(parent)
+              : QComboBox(parent),
+	            m_showNoneFormat(showNone)
 {
-	m_showNoneFormat = showNone;
 	setupCombo();
 }
 

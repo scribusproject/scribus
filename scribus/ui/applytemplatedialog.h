@@ -40,21 +40,21 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 
 public:
 	ApplyMasterPageDialog( QWidget* parent = nullptr );
-	~ApplyMasterPageDialog();
+	~ApplyMasterPageDialog() = default;
 
-	QLabel* masterPageLabel;
-	QComboBox* masterPageComboBox;
-	QGroupBox* applyToPageButtonGroup;
-	QRadioButton* currentPageRadioButton;
-	QRadioButton* evenPagesRadioButton;
-	QRadioButton* oddPagesRadioButton;
-	QRadioButton* allPagesRadioButton;
-	QCheckBox* useRangeCheckBox;
-	ScrSpinBox* fromPageSpinBox;
-	QLabel* toPageLabel;
-	ScrSpinBox* toPageSpinBox;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
+	QLabel* masterPageLabel { nullptr };
+	QComboBox* masterPageComboBox { nullptr };
+	QGroupBox* applyToPageButtonGroup { nullptr };
+	QRadioButton* currentPageRadioButton { nullptr };
+	QRadioButton* evenPagesRadioButton { nullptr };
+	QRadioButton* oddPagesRadioButton { nullptr };
+	QRadioButton* allPagesRadioButton { nullptr };
+	QCheckBox* useRangeCheckBox { nullptr };
+	ScrSpinBox* fromPageSpinBox { nullptr };
+	QLabel* toPageLabel { nullptr };
+	ScrSpinBox* toPageSpinBox { nullptr };
+	QPushButton* okButton { nullptr };
+	QPushButton* cancelButton { nullptr };
 
 	virtual void setup(ScribusDoc* doc, const QString& Nam);
 	virtual QString getMasterPageName();
@@ -64,14 +64,14 @@ public:
 	virtual int getToPage();
 
 protected:
-	QVBoxLayout* ApplyMasterPageDialogLayout;
-	QHBoxLayout* templateNameLayout;
-	QSpacerItem* spacer2;
-	QVBoxLayout* applyToPageButtonGroupLayout;
-	QHBoxLayout* rangeLayout;
-	QSpacerItem* spacer3;
-	QHBoxLayout* layout8;
-	QSpacerItem* spacer1;
+	QVBoxLayout* ApplyMasterPageDialogLayout { nullptr };
+	QHBoxLayout* templateNameLayout { nullptr };
+	QSpacerItem* spacer2 { nullptr };
+	QVBoxLayout* applyToPageButtonGroupLayout { nullptr };
+	QHBoxLayout* rangeLayout { nullptr };
+	QSpacerItem* spacer3 { nullptr };
+	QHBoxLayout* layout8 { nullptr };
+	QSpacerItem* spacer1 { nullptr };
 	
 	void changeEvent(QEvent *e) override;
 

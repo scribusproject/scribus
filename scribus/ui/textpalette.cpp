@@ -56,8 +56,6 @@ TextPalette::TextPalette( QWidget* parent) : ScDockPalette(parent, "TextPalette"
 	setWidget( textPal );
 
 	languageChange();
-
-	m_haveItem = false;
 }
 
 void TextPalette::closeEvent(QCloseEvent *closeEvent)

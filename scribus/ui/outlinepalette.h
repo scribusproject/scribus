@@ -30,11 +30,12 @@ public:
 	OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after);
 	OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after);
 	~OutlineTreeItem() {};
-	PageItem *PageItemObject;
-	ScPage *PageObject;
-	ScribusDoc *DocObject;
-	int LayerID;
-	int type; //1=PageItem on Master Page,2=,3=PageItem,4=,5=,...
+
+	PageItem *PageItemObject { nullptr };
+	ScPage *PageObject { nullptr };
+	ScribusDoc *DocObject { nullptr };
+	int LayerID { -1 };
+	int type { -1 }; //1=PageItem on Master Page,2=,3=PageItem,4=,5=,...
 };
 
 class SCRIBUS_API OutlineWidget : public QTreeWidget
@@ -103,6 +104,10 @@ protected:
 	void clearPalette();
 	void createContextMenu(PageItem *currItem, double, double);
 
+	bool selectionTriggered { false };
+	ScribusDoc* currDoc { nullptr };
+	ScribusMainWindow* m_MainWindow { nullptr };
+
 	QWidget* containerWidget { nullptr };
 	OutlineWidget* reportDisplay { nullptr };
 	QTreeWidgetItem* freeObjects { nullptr };
@@ -110,7 +115,6 @@ protected:
 	QTreeWidgetItem* currentObject { nullptr };
 	QLabel* filterLabel { nullptr };
 	QLineEdit* filterEdit { nullptr };
-	ScribusMainWindow* m_MainWindow { nullptr };
 	QPixmap textIcon;
 	QPixmap imageIcon;
 	QPixmap latexIcon;
@@ -130,8 +134,6 @@ protected:
 	QPixmap annotLinkIcon;
 	QPixmap annot3DIcon;
 	QPixmap groupIcon;
-	bool selectionTriggered { false };
-	ScribusDoc *currDoc { nullptr };
 };
 
 #endif // TREE_H

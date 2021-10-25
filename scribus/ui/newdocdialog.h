@@ -169,14 +169,14 @@ protected:
 	double m_unitRatio { 1.0 };
 	int m_orientation { 0 };
 	int m_choosenLayout { 0 };
-	double m_pageWidth;
-	double m_pageHeight;
+	double m_pageWidth { 1.0 };
+	double m_pageHeight { 1.0 };
 	double m_distance { 11.0 };
 	QString m_unitSuffix;
 	QString m_selectedFile;
 	int m_unitIndex { 0 };
 	int m_tabSelected { 0 };
-	bool m_onStartup;
+	bool m_onStartup { false };
 	double m_bleedBottom { 0.0 };
 	double m_bleedTop { 0.0 };
 	double m_bleedLeft { 0.0 };
