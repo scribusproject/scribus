@@ -502,7 +502,7 @@ QString ScPaths::getSpecialDir(int folder)
 {
 	QString qstr;
 #if defined(_WIN32)
-	WCHAR dir[256];
+	WCHAR dir[MAX_PATH];
 	if ( SHGetSpecialFolderPathW(NULL, dir, folder , false) )
 	{
 		qstr = QString::fromUtf16((const unsigned short*) dir);
