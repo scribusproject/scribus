@@ -107,8 +107,8 @@ ScPaths::ScPaths()
 	qDebug() << QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":"));
 
 #elif defined(_WIN32)
-	QFileInfo appInfo(qApp->applicationDirPath());
-	QString appPath = qApp->applicationDirPath();
+	QFileInfo appInfo(QCoreApplication::applicationDirPath());
+	QString appPath = QCoreApplication::applicationDirPath();
 	QString cleanAppPath = appInfo.canonicalFilePath();
 	if (!cleanAppPath.isEmpty())
 		appPath = cleanAppPath;
@@ -511,9 +511,9 @@ QString ScPaths::oldApplicationDataDir()
 	QString appData = windowsSpecialDir(CSIDL_APPDATA);
 	if (QDir(appData).exists())
 #ifdef APPLICATION_DATA_DIR
-	return (appData + "/" + APPLICATION_DATA_DIR + "/");
+		return (appData + "/" + APPLICATION_DATA_DIR + "/");
 #else
-	return (appData + "/Scribus/");
+		return (appData + "/Scribus/");
 #endif
 #endif
 
@@ -686,7 +686,7 @@ QString ScPaths::windowsSpecialDir(int folder)
 {
 	QString qstr;
 #ifdef Q_OS_WIN32
-	WCHAR dir[256];
+	WCHAR dir[MAX_PATH];
 	if (SHGetSpecialFolderPathW(nullptr, dir, folder , false))
 	{
 		qstr = QString::fromUtf16((const unsigned short*) dir);
