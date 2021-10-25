@@ -372,7 +372,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 
 	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), 0, flags, &hKey1) == ERROR_SUCCESS)
 	{
-		regVersionSize = sizeof(regVersion) / sizeof(WCHAR) - 1;
+		regVersionSize = sizeof(regVersion) / sizeof(WCHAR);
 		DWORD keyIndex = 0;
 		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &regVersionSize, NULL, NULL, NULL, NULL) == ERROR_SUCCESS)
 		{
@@ -403,6 +403,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 				}
 				RegCloseKey(hKey2);
 			}
+			regVersionSize = sizeof(regVersion) / sizeof(WCHAR);
 			keyIndex++;
 		}
 		RegCloseKey(hKey1);
