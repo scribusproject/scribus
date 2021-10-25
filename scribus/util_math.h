@@ -35,7 +35,7 @@ FPoint   SCRIBUS_API getMinClipF(const FPointArray* clip);
 FPoint   SCRIBUS_API projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd);
 bool     SCRIBUS_API regionContainsRect(const QRegion& shape, QRect rect);
 QPolygon SCRIBUS_API flattenPath(const FPointArray& ina, QList<uint> &segments);
-QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
+QList<QPainterPath> SCRIBUS_API decomposePath(const QPainterPath &path);
 QPainterPath  SCRIBUS_API regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
 QPainterPath  SCRIBUS_API spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
 inline double SCRIBUS_API xy2Deg(double x, double y);
@@ -56,14 +56,14 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \param def the value that should be return if matrix is not a rotation matrix
    \retval double the rotation angle
  */
-double SCRIBUS_API getRotationFromMatrix(QTransform& matrix, double def);
+double SCRIBUS_API getRotationFromMatrix(const QTransform& matrix, double def);
 /*! \brief Get the rotation angle (in degree) from a transformation matrix
    \param matrix the transformation matrix
    \retval double the rotation angle
  */
-double SCRIBUS_API getRotationDFromMatrix(QTransform& matrix);
-void SCRIBUS_API getScaleFromMatrix(QTransform &matrix, double &scX, double &scY);
-void SCRIBUS_API getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy);
+double SCRIBUS_API getRotationDFromMatrix(const QTransform& matrix);
+void SCRIBUS_API getScaleFromMatrix(const QTransform &matrix, double &scX, double &scY);
+void SCRIBUS_API getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy);
 
 
 // IMPLEMENTATION

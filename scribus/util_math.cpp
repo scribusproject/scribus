@@ -81,17 +81,17 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 				hf *= di;
 				sc += innerRot;
 			}
-			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
-			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);
+			mx = sin(sc / 180.0 * M_PI) * wf + (w / 2.0);
+			my = cos(sc / 180.0 * M_PI) * hf + (h / 2.0);
 		}
 		else
 		{
-			mx = sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0);
-			my = cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0);
+			mx = sin(sc / 180.0 * M_PI) * (w / 2.0) + (w / 2.0);
+			my = cos(sc / 180.0 * M_PI) * (h / 2.0) + (h / 2.0);
 		}
 		cornerPoints.append(QPointF(mx, my));
 	}
-	// now calculate bezier control points if needed;
+	// now calculate bezier control points if needed
 	if (star)
 	{
 		pts.moveTo(cornerPoints[0]);
@@ -262,14 +262,13 @@ QPainterPath spiralPath(double spiralWidth, double spiralHeight, double spiralSt
 	return path;
 }
 
-QList<QPainterPath> decomposePath(QPainterPath &path)
+QList<QPainterPath> decomposePath(const QPainterPath &path)
 {
 	QList<QPainterPath> ret;
 	QPainterPath part;
 	QPainterPath::Element element1;
 	QPainterPath::Element element2;
 
-	part = QPainterPath();
 	bool first = true;
 	for (int i = 0; i < path.elementCount(); ++i)
 	{
@@ -325,10 +324,10 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 
 	// Code adapted from Qt RectInRegion (cf. qregion.cpp) to detect
 	// if a specific rect is strictly contained in a specific region
-	const QRect *pbox, *pboxEnd;
-	bool partIn(false), partOut(false);
+	bool partIn(false);
+	bool partOut(false);
 
-	QRect *prect = &rect;
+	const QRect *prect = &rect;
 	int rx = rect.left();
 	int ry = rect.top();
 
@@ -338,8 +337,8 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 		return false;
 
 	/* can stop when both partOut and partIn are true, or we reach prect->y2 */
-	pbox = (rectCount == 1) ? &boundingRect : shape.cbegin();
-	pboxEnd = (rectCount == 1) ? (&boundingRect + 1) : shape.cend();
+	const QRect* pbox = (rectCount == 1) ? &boundingRect : shape.cbegin();
+	const QRect* pboxEnd = (rectCount == 1) ? (&boundingRect + 1) : shape.cend();
 	for (; pbox < pboxEnd; ++pbox)
 	{
 		if (pbox->bottom() < ry)
@@ -496,7 +495,7 @@ double constrainAngle(double angle, double constrain)
 	return newAngle;
 }
 
-double getRotationFromMatrix(QTransform& matrix, double def)
+double getRotationFromMatrix(const QTransform& matrix, double def)
 {
 	double value = def;
 	double norm = sqrt(fabs(matrix.determinant()));
@@ -519,14 +518,14 @@ double getRotationFromMatrix(QTransform& matrix, double def)
 	return value;
 }
 
-double getRotationDFromMatrix(QTransform& matrix)
+double getRotationDFromMatrix(const QTransform& matrix)
 {
 	QLineF line(0.0, 0.0, 1.0, 0.0);
 	line = matrix.map(line);
 	return line.angle();
 }
 
-void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
+void getScaleFromMatrix(const QTransform &matrix, double &scX, double &scY)
 {
 	QLineF lineX(0.0, 0.0, 1.0, 0.0);
 	QLineF lineY(0.0, 0.0, 0.0, 1.0);
@@ -536,7 +535,7 @@ void getScaleFromMatrix(QTransform &matrix, double &scX, double &scY)
 	scY = lineY.length();
 }
 
-void getTransformValuesFromMatrix(QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
+void getTransformValuesFromMatrix(const QTransform &matrix, double &scX, double &scY, double &rot, double &dx, double &dy)
 {
 	QLineF lineX(0.0, 0.0, 1.0, 0.0);
 	QLineF lineY(0.0, 0.0, 0.0, 1.0);
