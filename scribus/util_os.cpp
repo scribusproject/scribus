@@ -40,6 +40,15 @@ bool os_is_win()
 #endif
 }
 
+bool os_is_win64()
+{
+#ifdef Q_OS_WIN64
+	return true;
+#else
+	return false;
+#endif
+}
+
 bool os_is_unix()
 {
 #ifdef Q_OS_UNIX

@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 
 #include "util.h"
+#include "util_os.h"
 
 using namespace std;
 
@@ -249,7 +250,9 @@ QString getGSVersion()
 
 bool getNumericGSVersion(int &version)
 {
-	int gsMajor(0), gsMinor(0);
+	int gsMajor(0);
+	int gsMinor(0);
+
 	version = 0;
 	if (getNumericGSVersion(gsMajor, gsMinor))
 	{
@@ -287,13 +290,13 @@ QString getGSDefaultExeName()
 
 	// Test is we are running a 64bit version of WINDOWS
 	bool isWindows64 = false;
-	wchar_t* procArch = _wgetenv(L"PROCESSOR_ARCHITECTURE");
+	const wchar_t* procArch = _wgetenv(L"PROCESSOR_ARCHITECTURE");
 	if (procArch)
 	{
 		isWindows64 |= (wcscmp(procArch, L"AMD64") == 0);
 		isWindows64 |= (wcscmp(procArch, L"IA64") == 0);
 	}
-	wchar_t* procArchWow64 = _wgetenv(L"PROCESSOR_ARCHITEW6432");
+	const wchar_t* procArchWow64 = _wgetenv(L"PROCESSOR_ARCHITEW6432");
 	if (procArchWow64) isWindows64 = true;
 
 	// Search for Ghostsscript executable in native registry
@@ -360,10 +363,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 	WCHAR gsPath[MAX_PATH] = {};
 	QString gsVersion, gsExeName, gsName;
 
-	bool isWin64Api = false;
-#if defined(_WIN64)
-	isWin64Api = true;
-#endif
+	bool isWin64Api = os_is_win64();
 
 	gsExeName = isWin64Api ? "gswin64c.exe" : "gswin32c.exe";
 	if (alternateView)
@@ -374,7 +374,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 
 	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), 0, flags, &hKey1) == ERROR_SUCCESS)
 	{
-		regVersionSize = sizeof(regVersion) / sizeof(WCHAR) - 1;
+		regVersionSize = sizeof(regVersion) / sizeof(WCHAR);
 		DWORD keyIndex = 0;
 		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &regVersionSize, nullptr, nullptr, nullptr, nullptr) == ERROR_SUCCESS)
 		{
@@ -407,6 +407,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alterna
 				}
 				RegCloseKey(hKey2);
 			}
+			regVersionSize = sizeof(regVersion) / sizeof(WCHAR);
 			keyIndex++;
 		}
 		RegCloseKey(hKey1);

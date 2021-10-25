@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 bool SCRIBUS_API os_is_osx();
 bool SCRIBUS_API os_is_win();
+bool SCRIBUS_API os_is_win64();
 bool SCRIBUS_API os_is_unix();
 
 #endif
