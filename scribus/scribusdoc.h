@@ -1454,9 +1454,9 @@ public:
 	int previewVisual {0};
 	struct OpenNodesList
 	{
-		int type;
-		ScPage *page;
-		PageItem *item;
+		int type { -1 };
+		ScPage* page { nullptr };
+		PageItem *item { nullptr };
 	};
 	QList<OpenNodesList> OpenNodes;
 	QTimer *CurTimer {nullptr};

@@ -6,10 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "rawimage.h"
 
-RawImage::RawImage()
-{
-}
-
 RawImage::RawImage( int width, int height, int channels )
 {
 	create(width, height, channels);
@@ -25,9 +21,9 @@ bool RawImage::create( int width, int height, int channels )
 	m_width = width;
 	m_height = height;
 	m_channels = channels;
-	int finalSize=width * height * channels;
+	int finalSize = width * height * channels;
 	resize(finalSize);
-	return (size()==finalSize);
+	return (size() == finalSize);
 }
 
 uchar *RawImage::scanLine(int row)
@@ -60,52 +56,52 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 	{
 		for (int i = 0; i < height(); i++)
 		{
-			ptr = (QRgb *)img.scanLine(i);
+			ptr = (QRgb *) img.scanLine(i);
 			src = scanLine(i);
 			for (int j = 0; j < width(); j++)
 			{
-				*ptr++ = qRgba(src[0],src[1],src[2],src[3]);
+				*ptr++ = qRgba(src[0], src[1], src[2], src[3]);
 				src += chans;
 			}
 		}
+		return img;
 	}
-	else
+
+	for (int i = 0; i < height(); i++)
 	{
-		for (int i = 0; i < height(); i++)
+		ptr = (QRgb *) img.scanLine(i);
+		src = scanLine(i);
+		for (int j = 0; j < width(); j++)
 		{
-			ptr = (QRgb *)img.scanLine(i);
-			src = scanLine(i);
-			for (int j = 0; j < width(); j++)
+			if (chans > 1)
 			{
-				if (chans > 1)
+				if (cmyk)
 				{
-					if (cmyk)
+					ck = src[3];
+					cr = 255 - qMin(255, src[0] + ck);
+					cg = 255 - qMin(255, src[1] + ck);
+					cb = 255 - qMin(255, src[2] + ck);
+					if (chans > 4)
 					{
-						ck = src[3];
-						cr = 255 - qMin(255, src[0] + ck);
-						cg = 255 - qMin(255, src[1] + ck);
-						cb = 255 - qMin(255, src[2] + ck);
-						if (chans > 4)
-						{
-							ca = src[4];
-							*ptr++ = qRgba(cr,cg,cb,ca);
-						}
-						else
-							*ptr++ = qRgba(cr,cg,cb,255);
+						ca = src[4];
+						*ptr++ = qRgba(cr, cg, cb, ca);
 					}
 					else
-					{
-						if (chans > 3)
-							*ptr++ = qRgba(src[0],src[1],src[2],src[3]);
-						else
-							*ptr++ = qRgba(src[0],src[1],src[2],255);
-					}
+						*ptr++ = qRgba(cr, cg, cb, 255);
 				}
 				else
-					*ptr++ = qRgba(src[0],src[0],src[0],255);
-				src += chans;
+				{
+					if (chans > 3)
+						*ptr++ = qRgba(src[0], src[1], src[2], src[3]);
+					else
+						*ptr++ = qRgba(src[0], src[1], src[2], 255);
+				}
 			}
+			else
+				*ptr++ = qRgba(src[0], src[0], src[0], 255);
+			src += chans;
 		}
 	}
+
 	return img;
 }

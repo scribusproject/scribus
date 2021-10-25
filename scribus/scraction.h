@@ -94,7 +94,7 @@ public:
 	\param extraQString extra QString value
 	 */
 	ScrAction(QKeySequence accel, QObject *parent, QVariant data = QVariant());
-	~ScrAction();
+	~ScrAction() = default;
 	
 	/*!
 		\author Craig Bradney

@@ -18,8 +18,6 @@ namespace {
 	const QDataStream::Version dsVersion = QDataStream::Qt_4_0;
 }
 
-const qint32 ExifValues::dsVersion = 1;
-
 QDataStream & operator<< (QDataStream& stream, const ExifValues & exif)
 {
 	stream << static_cast<qint32>(exif.width) << static_cast<qint32>(exif.height) << static_cast<qint32>(exif.orientation) 
@@ -64,8 +62,6 @@ void ExifValues::init()
 	dateTime.resize(0);
 	thumbnail = QImage();
 }
-
-const qint32 ImageInfoRecord::iirVersion = 1;
 
 ImageInfoRecord::ImageInfoRecord()
 {

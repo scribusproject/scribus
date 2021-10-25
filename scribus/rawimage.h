@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API RawImage : public QByteArray
 {
 	public:
-		RawImage();
+		RawImage() = default;
 		RawImage( int width, int height, int channels);
 		~RawImage();
 

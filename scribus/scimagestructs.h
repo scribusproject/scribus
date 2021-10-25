@@ -124,14 +124,14 @@ public:
 
 	// Remember to increment this version number and update
 	// the QDataStream operators if this class in changed.
-	static const qint32 dsVersion;
+	static constexpr qint32 dsVersion { 1 };
 
-	int width;
-	int height;
-	int   orientation;
-	float ExposureTime;
-	float ApertureFNumber;
-	int   ISOequivalent;
+	int width { 0 };
+	int height { 0 };
+	int   orientation { 1 };
+	float ExposureTime { 0.0f };
+	float ApertureFNumber { 0.0f };
+	int   ISOequivalent { 0 };
 	QString cameraName;
 	QString cameraVendor;
 	QString comment;
@@ -142,7 +142,7 @@ public:
 	QImage thumbnail;
 };
 
-typedef enum
+enum ImageTypeEnum
 {
 	ImageTypeJPG = 0,
 	ImageTypeTIF = 1,
@@ -152,16 +152,16 @@ typedef enum
 	ImageTypeJPG2K = 5,
 	ImageTypeOther = 6,
 	ImageType7 = 7
-} ImageTypeEnum;
+};
 
-typedef enum
+enum ColorSpaceEnum
 {
 	ColorSpaceRGB  = 0,
 	ColorSpaceCMYK = 1,
 	ColorSpaceGray = 2,
 	ColorSpaceDuotone = 3,
 	ColorSpaceMonochrome = 4
-} ColorSpaceEnum;
+};
 
 class ImageInfoRecord
 {
@@ -171,27 +171,27 @@ public:
 
 	// Remember to increment this version number and update
 	// the serialization routines if this class in changed.
-	static const int iirVersion;
+	static constexpr int iirVersion { 1 };
 
 	bool canSerialize() const;
 	bool serialize(ScImageCacheProxy & cache) const;
 	bool deserialize(const ScImageCacheProxy & cache);
 
-	ImageTypeEnum type;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
-	int  xres;
-	int  yres;
-	int  BBoxX;
-	int  BBoxH;
-	ColorSpaceEnum colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
-	bool valid;
-	bool isRequest;
-	bool progressive;
-	bool isEmbedded;
-	bool exifDataValid;
-	int  lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
-	double lowResScale;
-	int numberOfPages;
-	int actualPageNumber;
+	ImageTypeEnum type { ImageTypeOther };			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
+	int  xres { 72 };
+	int  yres { 72 };
+	int  BBoxX { 0 };
+	int  BBoxH { 0 };
+	ColorSpaceEnum colorspace { ColorSpaceRGB }; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
+	bool valid { false };
+	bool isRequest { false };
+	bool progressive { false };
+	bool isEmbedded { false };
+	bool exifDataValid { false };
+	int  lowResType { 1 }; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
+	double lowResScale { 1.0 };
+	int numberOfPages { 1 };
+	int actualPageNumber { 0 };
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, ImageLoadRequest> RequestProps;
 	QString clipPath;

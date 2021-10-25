@@ -113,10 +113,6 @@ void ScrAction::initScrAction()
 	m_fakeToggle = false;
 }
 
-ScrAction::~ScrAction()
-{
-}
-
 void ScrAction::triggeredToTriggeredData()
 {
 	if (m_actionType == ScrAction::DataInt)
