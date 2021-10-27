@@ -425,6 +425,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		}
 	}
 
+	//When a parent style is renamed, also set the parent style name of the children
 	for (int j = 0; j < m_tmpStyles.count(); ++j)
 	{
 		if (m_tmpStyles[j].parent() == oldName)

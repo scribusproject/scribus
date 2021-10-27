@@ -160,7 +160,6 @@ void ScDLThread::downloadFinished()
 
 void ScDLThread::replyFinished(QNetworkReply* reply)
 {
-	qDebug()<<"replyFinished";
 	QVariant possibleRedirectUrl =reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
 	QUrl urlRedirectedTo = possibleRedirectUrl.toUrl();
 	QString text;

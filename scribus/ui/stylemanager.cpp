@@ -1216,8 +1216,7 @@ void StyleManager::slotSetupWidget()
 		nameEdit->setEnabled(false);
 	}
 
-	connect(nameEdit, SIGNAL(textChanged(const QString&)),
-	        this, SLOT(slotNameChanged(const QString&)));
+	connect(nameEdit, SIGNAL(textChanged(const QString&)), this, SLOT(slotNameChanged(const QString&)));
 
 }
 

@@ -76,13 +76,13 @@ umask 022
 =============================================================================
 
 We do appreciate the effort in maintaining packagers make for Scribus. 
-Please file issues or enhancement requests at http://bugs.scribus.net
+Please file issues or enhancement requests at https://bugs.scribus.net
 
 Detailed notes on exact library requirements are detailed in the BUILDING file with the source tarball.
 
 There is a lively on-line community, both on IRC @ #scribus on libera.chat
 and the mailing list. Mailing list info can be found at: 
-http://lists.scribus.net/mailman/listinfo/scribus
+https://lists.scribus.net/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
