@@ -83,5 +83,5 @@ if not os.path.exists(binPath):
 if binfile != None:
 	shutil.copy(binfile, os.path.join(binPath, appName))
 			
-shutil.copy(infofile, os.path.join(bundle, "Contents/Info.plist")
+shutil.copy(infofile, os.path.join(bundle, "Contents/Info.plist"))
 
