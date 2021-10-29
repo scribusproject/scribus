@@ -932,11 +932,11 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 				case modeCopyProperties:
 				case modeEditGradientVectors:
 				case modeEditMeshGradient:
-				case modeLinkFrames:
-				case modeUnlinkFrames:
 				case modeRotation:
 					m_view->deselectItems(false);
 					/* fall through */
+				case modeLinkFrames:
+				case modeUnlinkFrames:
 				case modeEditWeldPoint:
 				case modeEyeDropper:
 				case modeImportObject:
