@@ -198,6 +198,15 @@ points. If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getlinespacing(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getlinespacingmode__doc__,
+QT_TR_NOOP("getLineSpacingMode([\"name\"]) -> float\n\
+\n\
+Returns the line spacing mode of the text frame \"name\". If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get line spacing mode*/
+PyObject *scribus_getlinespacingmode(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_gettextdistances__doc__,
 QT_TR_NOOP("getTextDistances([\"name\"]) -> tuple\n\
 \n\

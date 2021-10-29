@@ -385,6 +385,24 @@ PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(item->currentStyle().lineSpacing()));
 }
 
+PyObject *scribus_getlinespacingmode(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line spacing mode of non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	return PyFloat_FromDouble(static_cast<double>(item->currentStyle().lineSpacingMode()));
+}
+
 PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
