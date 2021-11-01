@@ -33,63 +33,63 @@ class SCRIBUS_API SearchReplace : public QDialog
 	Q_OBJECT
 
 public:
-	SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode = true );
+	SearchReplace(QWidget* parent, ScribusDoc *doc, PageItem* item, bool mode = true );
 	~SearchReplace() {};
 
 	int firstMatchCursorPosition();
 	void setSearchedText(const QString& text);
 
-	QLabel* SText1;
-	QLabel* RText1;
-	QGroupBox* Search;
-	QCheckBox* SStroke;
-	QCheckBox* SFill;
-	QCheckBox* SStrokeS;
-	QCheckBox* SFillS;
-	QCheckBox* SSize;
-	QCheckBox* SFont;
-	QCheckBox* SStyle;
-	QCheckBox* SAlign;
-	QCheckBox* SText;
-	QCheckBox* SEffect;
-	QCheckBox* REffect;
-	QLineEdit* STextVal;
-	QComboBox* SStyleVal;
-	QComboBox* SAlignVal;
-	FontCombo* SFontVal;
-	ScrSpinBox* SSizeVal;
-	ColorCombo* SFillVal;
-	ShadeButton *SFillSVal;
-	ColorCombo* SStrokeVal;
-	ShadeButton *SStrokeSVal;
-	QGroupBox* Replace;
-	QCheckBox* RStroke;
-	QCheckBox* RStrokeS;
-	QCheckBox* RFill;
-	QCheckBox* RFillS;
-	QCheckBox* RSize;
-	QCheckBox* RFont;
-	QCheckBox* RStyle;
-	QCheckBox* RAlign;
-	QCheckBox* RText;
-	QLineEdit* RTextVal;
-	QComboBox* RStyleVal;
-	QComboBox* RAlignVal;
-	FontCombo* RFontVal;
-	ScrSpinBox* RSizeVal;
-	ColorCombo* RFillVal;
-	ShadeButton *RFillSVal;
-	ColorCombo* RStrokeVal;
-	ShadeButton *RStrokeSVal;
-	StyleSelect* SEffVal;
-	StyleSelect* REffVal;
-	QCheckBox* Word;
-	QCheckBox* CaseIgnore;
-	QPushButton* DoSearch;
-	QPushButton* DoReplace;
-	QPushButton* AllReplace;
+	ColorCombo* replaceFillValue;
+	ColorCombo* replaceStrokeValue;
+	ColorCombo* searchFillValue;
+	ColorCombo* searchStrokeValue;
+	FontCombo* replaceFontValue;
+	FontCombo* searchFontValue;
+	QCheckBox* ignoreCaseCheckBox;
+	QCheckBox* replaceAlignCheckBox;
+	QCheckBox* replaceEffectCheckBox;
+	QCheckBox* replaceFillCheckBox;
+	QCheckBox* replaceFillShadeCheckBox;
+	QCheckBox* replaceFontCheckBox;
+	QCheckBox* replaceSizeCheckBox;
+	QCheckBox* replaceStrokeCheckBox;
+	QCheckBox* replaceStrokeShadeCheckBox;
+	QCheckBox* replaceStyleCheckBox;
+	QCheckBox* replaceTextCheckBox;
+	QCheckBox* searchAlignCheckBox;
+	QCheckBox* searchEffectCheckBox;
+	QCheckBox* searchFillCheckBox;
+	QCheckBox* searchFillShadeCheckBox;
+	QCheckBox* searchFontCheckBox;
+	QCheckBox* searchSizeCheckBox;
+	QCheckBox* searchStrokeCheckBox;
+	QCheckBox* searchStrokeShadeCheckBox;
+	QCheckBox* searchStyleCheckBox;
+	QCheckBox* searchTextCheckBox;
+	QCheckBox* wholeWordCheckBox;
+	QComboBox* replaceAlignValue;
+	QComboBox* replaceStyleValue;
+	QComboBox* searchAlignValue;
+	QComboBox* searchStyleValue;
+	QGroupBox* replaceGroupBox;
+	QGroupBox* searchGroupBox;
+	QLabel* replaceTextLabel;
+	QLabel* searchTextLabel;
+	QLineEdit* replaceTextLineEdit;
+	QLineEdit* searchTextLineEdit;
 	QPushButton* clearButton;
-	QPushButton* Leave;
+	QPushButton* closeButton;
+	QPushButton* replaceAllButton;
+	QPushButton* replaceButton;
+	QPushButton* searchButton;
+	ScrSpinBox* replaceSizeSpinBox;
+	ScrSpinBox* searchSizeSpinBox;
+	ShadeButton *replaceFillShadeValue;
+	ShadeButton *replaceStrokeShadeValue;
+	ShadeButton *searchFillShadeValue;
+	ShadeButton *searchStrokeShadeValue;
+	StyleSelect* replaceStyleEffectsValue;
+	StyleSelect* searchStyleEffectsValue;
 
 public slots:
 	virtual void slotSearch();
@@ -121,7 +121,7 @@ public slots:
 	virtual void clear();
 
 protected:
-	PageItem*   m_item;
+	PageItem* m_item;
 	ScribusDoc* m_doc;
 
 	uint m_replStart;
@@ -140,7 +140,6 @@ protected:
 	virtual void doSearch();
 	virtual void doReplace();
 	virtual void showNotFoundMessage();
-
 	virtual void readPrefs();
 
 	/// Number of matches found thus far in a search

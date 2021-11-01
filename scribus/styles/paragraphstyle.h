@@ -27,23 +27,30 @@ class ResourceCollection;
 class SCRIBUS_API ParagraphStyle : public BaseStyle
 {
 public:
-	enum LineSpacingMode { 
+	enum LineSpacingMode
+	{
 		FixedLineSpacing        = 0, 
 		AutomaticLineSpacing    = 1,
 		BaselineGridLineSpacing = 2
 	};
-	enum AlignmentType {
+
+	enum AlignmentType
+	{
 		LeftAligned  = 0,
 		Centered     = 1,
 		RightAligned = 2,
 		Justified    = 3,
 		Extended     = 4
 	};
-	enum DirectionType {
+
+	enum DirectionType
+	{
 		LTR  = 0,
 		RTL  = 1
 	};
-	enum OpticalMarginType {
+
+	enum OpticalMarginType
+	{
 		OM_None  = 0,
 		OM_LeftProtruding    = 1,
 		OM_RightProtruding   = 2,
@@ -51,11 +58,14 @@ public:
 		OM_RightHangingPunct = 8,
 		OM_Default           = OM_RightProtruding + OM_LeftHangingPunct + OM_RightHangingPunct
 	};
-	enum HyphenationMode {
+
+	enum HyphenationMode
+	{
 		NoHyphenation        = 0,
 		ManualHyphenation    = 1,
 		AutomaticHyphenation = 2
 	};
+
 	struct TabRecord
 	{
 		qreal tabPosition;
