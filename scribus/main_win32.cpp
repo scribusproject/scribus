@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QMessageBox>
 #include <exception>
-using namespace std;
 
 #define MAX_LINES 500
 
@@ -52,6 +51,8 @@ using namespace std;
 
 #include <windows.h>
 #include <wincon.h>
+
+using namespace std;
 
 int mainApp(ScribusQApp& app);
 
@@ -72,9 +73,9 @@ void setPythonEnvironment(const QString& appPath);
 extern const char ARG_CONSOLE[];
 extern const char ARG_CONSOLE_SHORT[];
 
-ScribusCore SCRIBUS_API *ScCore;
-ScribusQApp SCRIBUS_API *ScQApp;
-bool emergencyActivated;
+ScribusCore SCRIBUS_API* ScCore { nullptr };
+ScribusQApp SCRIBUS_API *ScQApp { nullptr };
+bool emergencyActivated { false };
 
 #if !defined(_CONSOLE)
 #if defined(_DEBUG)
@@ -103,7 +104,7 @@ int main(int argc, char *argv[])
 #endif
 
 	ScribusQApp app(argc, argv);
-	setPythonEnvironment(app.applicationDirPath());
+	setPythonEnvironment(ScribusQApp::applicationDirPath());
 	result =  mainApp(app);
 
 	return result;
@@ -131,8 +132,8 @@ int mainApp(ScribusQApp& app)
 		appRetVal = app.init();
 		if (appRetVal != EXIT_FAILURE)
 		{
-			if (app.useGUI)
-				appRetVal = app.exec();
+			if (ScribusQApp::useGUI)
+				appRetVal = ScribusQApp::exec();
 		}
 #ifndef _DEBUG
 	}
@@ -175,7 +176,7 @@ void setPythonEnvironment(const QString& appPath)
 	tmp += "\\python\\tcl";
 	_wputenv((const wchar_t*) tmp.utf16());
 
-	wchar_t* oldenv = _wgetenv(L"PATH");
+	const wchar_t* oldenv = _wgetenv(L"PATH");
 	tmp = "PATH=";
 	tmp += nativePath;
 	tmp += ";";
