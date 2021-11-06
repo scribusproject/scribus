@@ -762,8 +762,8 @@ void ScPageOutput::drawItem_ImageFrame(PageItem_ImageFrame* item, ScPainterExBas
 			scImg.loadPicture(item->Pfile, item->pixm.imgInfo.actualPageNumber, cmsSettings, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
 			if (extensionIndicatesEPSorPS(ext) || extensionIndicatesPDF(ext))
 			{
-				imScaleX *= (72.0 / (double) m_imageRes);
-				imScaleY *= (72.0 / (double) m_imageRes);
+				imScaleX *= (PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / (double) m_imageRes);
+				imScaleY *= (PrefsManager::instance().appPrefs.extToolPrefs.gs_Resolution / (double) m_imageRes);
 			}
 			scImg.applyEffect(item->effectsInUse, m_doc->PageColors, useCmyk);
 			mode = imageMode;
