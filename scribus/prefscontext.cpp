@@ -27,17 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "scclocale.h"
 
-PrefsContext::PrefsContext()
-            : m_isPersistent(false),
-	          m_isPlugin(false)
-{
-
-}
-
 PrefsContext::PrefsContext(const QString& contextName, bool persistent, bool plugin)
             : m_name(contextName),
-              m_isPersistent(persistent),
-              m_isPlugin(plugin)
+              m_isPlugin(plugin),
+              m_isPersistent(persistent)
 {
 
 }

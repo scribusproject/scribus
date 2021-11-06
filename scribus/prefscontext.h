@@ -40,7 +40,7 @@ using TableMap = QMap<QString, PrefsTable*>;
 class SCRIBUS_API PrefsContext
 {
 public:
-	PrefsContext();
+	PrefsContext() = default;
 	PrefsContext(const QString& contextName, bool persistent = true, bool plugin = false);
 	~PrefsContext();
 
