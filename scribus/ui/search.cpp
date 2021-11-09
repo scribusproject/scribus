@@ -571,6 +571,8 @@ void SearchReplace::doSearch()
 					m_doc->regionsChanged()->update(updateRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 			}
 		}
+		if (found)
+			m_matchesFound++;
 		if ((!found) || (a == m_item->itemText.length()))
 		{
 			m_doc->DoDrawing = true;
@@ -702,7 +704,6 @@ void SearchReplace::doSearch()
 				replaceButton->setEnabled(true);
 				replaceAllButton->setEnabled(true);
 			}
-			m_matchesFound++;
 			m_firstMatchPosition = storyTextEdit->textCursor().selectionStart();
 		}
 		else
@@ -730,7 +731,6 @@ void SearchReplace::doReplace()
 {
 	if (m_itemMode)
 	{
-		m_matchesFound++;
 		UndoTransaction transaction;
 		if (UndoManager::undoEnabled())
 			transaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap());
@@ -922,7 +922,7 @@ void SearchReplace::showNotFoundMessage()
 //		ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished));
 //	else
 //	{
-	ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished. ") + tr("%1 match(es) found", "", m_matchesFound));
+	ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished. ") + tr("%n match(es) found", "", m_matchesFound));
 	m_matchesFound = 0;
 //	}
 }

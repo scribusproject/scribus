@@ -146,7 +146,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 
 	pmen->clear();
 
-	QString styleName = "";
+	QString styleName;
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(pmen);
 	paraStyleCombo->setDoc(m_editor->doc);
 	if ((currentPar < static_cast<int>(m_editor->StyledText.nrOfParagraphs())) && (m_editor->StyledText.length() != 0))
