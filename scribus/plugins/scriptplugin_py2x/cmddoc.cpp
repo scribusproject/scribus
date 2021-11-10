@@ -270,6 +270,22 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_getinfo(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	if (! ScCore->primaryMainWindow()->doc->hasName)
+	{
+		return PyUnicode_FromString("");
+	}
+
+	DocumentInformation& docInfo = ScCore->primaryMainWindow()->doc->documentInfo();
+	return Py_BuildValue("(sss)",
+				docInfo.author().toUtf8().data(),
+				docInfo.title().toUtf8().data(),
+				docInfo.comments().toUtf8().data());
+}
+
 PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 {
 	int e;

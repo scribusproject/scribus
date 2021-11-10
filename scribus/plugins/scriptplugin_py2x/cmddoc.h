@@ -182,6 +182,16 @@ strings.\n\
 PyObject *scribus_setinfo(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getinfo__doc__,
+QT_TR_NOOP("getInfo() -> \"author\", \"info\", \"description\"\n\
+\n\
+Gets the document information. \"Author\", \"Info\", \"Description\" are\n\
+strings.\n\
+"));
+/** Gets document infos - author, title and description */
+PyObject *scribus_getinfo(PyObject * /*self*/);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setbleeds__doc__,
 QT_TR_NOOP("setBleeds(lr, rr, tr, br)\n\
 \n\
