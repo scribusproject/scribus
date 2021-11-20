@@ -11,7 +11,7 @@ set(IMPORTWPG_PLUGIN_SOURCES
 set(SCRIBUS_IMPORTWPG_PLUGIN "importwpg")
 
 add_library(${SCRIBUS_IMPORTWPG_PLUGIN} MODULE ${IMPORTWPG_PLUGIN_SOURCES})
-target_link_libraries(${SCRIBUS_IMPORTWPG_PLUGIN} ${EXE_NAME})
+target_link_libraries(${SCRIBUS_IMPORTWPG_PLUGIN} ${EXE_NAME} ${SCRIBUS_WPG_LIB})
 if(WANT_PCH)
 	target_precompile_headers(${SCRIBUS_IMPORTWPG_PLUGIN} PRIVATE "../../plugins_pch.h")
 endif()
