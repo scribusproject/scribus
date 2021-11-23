@@ -994,7 +994,7 @@ void PDFLibCore::PDF_Begin_Catalog()
 		PutDoc("/PageMode /FullScreen\n");
 	else if (Options.displayThumbs)
 		PutDoc("/PageMode /UseThumbs\n");
-	else if ((Options.Version == PDFVersion::PDF_15 || Options.Version == PDFVersion::PDF_16) && (Options.displayLayers))
+	else if (Options.Version.supportsOCGs() && Options.displayLayers)
 		PutDoc("/PageMode /UseOC\n");
 	if (!Options.openAction.isEmpty())
 	{
@@ -11203,8 +11203,7 @@ void PDFLibCore::PDF_End_Layers()
 	}
 	for (int layc = 0; layc < lay.count(); ++layc)
 	{
-		if (Options.Version != PDFVersion::PDF_X4)
-			PutDoc(lay[layc]);
+		PutDoc(lay[layc]);
 	}
 	PutDoc("]\n");
 	if (Options.Version == PDFVersion::PDF_X4)
