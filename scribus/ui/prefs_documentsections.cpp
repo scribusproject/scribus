@@ -39,7 +39,7 @@ void Prefs_DocumentSections::languageChange()
 void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	m_localSections = prefsData->docSectionMap;
-	m_maxPageIndex = m_doc->DocPages.count()-1;
+	m_maxPageIndex = m_doc->DocPages.count() - 1;
 	m_styles.clear();
 	m_styles = getFormatList();
 	m_styles << CommonStrings::tr_None;
@@ -59,7 +59,7 @@ void Prefs_DocumentSections::updateTable()
 
 	sectionsTable->setRowCount(m_localSections.count());
 	int row = 0;
-	for (DocumentSectionMap::Iterator it = m_localSections.begin(); it!= m_localSections.end(); ++it)
+	for (auto it = m_localSections.begin(); it!= m_localSections.end(); ++it)
 	{
 		uint i = 0;
 		//Name
@@ -108,7 +108,7 @@ void Prefs_DocumentSections::updateTable()
 	deleteButton->setEnabled(m_localSections.count() > 1);
 }
 
-void Prefs_DocumentSections::tableItemChanged( int row, int col )
+void Prefs_DocumentSections::tableItemChanged(int row, int col)
 {
 	bool outOfRange = false;
 	uint newDocPageSpec;
@@ -180,10 +180,10 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 
 void Prefs_DocumentSections::addEntry()
 {
-	int currRow=sectionsTable->currentRow();
-	bool found=false;
+	int currRow = sectionsTable->currentRow();
+	bool found = false;
 	DocumentSectionMap::Iterator it = m_localSections.begin();
-	int count=0;
+	int count = 0;
 	for (; it != m_localSections.end(); ++it)
 	{
 		if(count == currRow)
@@ -199,8 +199,8 @@ void Prefs_DocumentSections::addEntry()
 		uint count = m_localSections.count();
 		blank.number = count;
 		blank.name = QString::number(count);
-		blank.fromindex = m_maxPageIndex+1;
-		blank.toindex = m_maxPageIndex+1;
+		blank.fromindex = m_maxPageIndex + 1;
+		blank.toindex = m_maxPageIndex + 1;
 		blank.type = Type_1_2_3;
 		blank.sectionstartindex = 1;
 		blank.reversed = false;
@@ -215,7 +215,7 @@ void Prefs_DocumentSections::addEntry()
 		m_localSections.clear();
 		//Copy the temp map entries over. When we find the number of the current row, also insert a new entry.
 		uint i = 0;
-		for (DocumentSectionMap::Iterator it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
+		for (auto it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
 		{
 			it2.value().number = i;
 			m_localSections.insert(i, it2.value());
@@ -225,8 +225,8 @@ void Prefs_DocumentSections::addEntry()
 				struct DocumentSection blank;
 				blank.number = ++i;
 				blank.name = QString::number(i);
-				blank.fromindex = it->toindex+1;
-				blank.toindex = it->toindex+2;
+				blank.fromindex = it->toindex + 1;
+				blank.toindex = it->toindex + 2;
 				blank.type = Type_1_2_3;
 				blank.sectionstartindex = 1;
 				blank.reversed = false;
@@ -242,17 +242,17 @@ void Prefs_DocumentSections::addEntry()
 
 void Prefs_DocumentSections::deleteEntry()
 {
-	int currRow=sectionsTable->currentRow();
-	if (currRow==0 && m_localSections.count()==1)
+	int currRow = sectionsTable->currentRow();
+	if (currRow == 0 && m_localSections.count() == 1)
 		return;
 	bool found=false;
 	DocumentSectionMap::Iterator it = m_localSections.begin();
-	int count=0;
+	int count = 0;
 	for (; it!= m_localSections.end(); ++it)
 	{
-		if(count==currRow)
+		if(count == currRow)
 		{
-			found=true;
+			found = true;
 			break;
 		}
 		++count;
@@ -261,27 +261,27 @@ void Prefs_DocumentSections::deleteEntry()
 	{
 		//If we aren't at the start, copy the toindex of the current item
 		//to the toindex of the previous item
-		if (it!=m_localSections.begin())
+		if (it != m_localSections.begin())
 		{
 			DocumentSectionMap::Iterator it2(it);
-			(*--it2).toindex=(*it).toindex;
+			(*--it2).toindex = (*it).toindex;
 		}
 		//Delete the currently selected entry
 		m_localSections.erase(it);
 		//Now, copy to a temp map and reinsert with consecutive keys again
 		DocumentSectionMap tempSections(m_localSections);
 		m_localSections.clear();
-		uint i=0;
+		uint i = 0;
 		it = tempSections.begin();
-		for (; it!= tempSections.end(); ++it)
+		for (; it != tempSections.end(); ++it)
 		{
-			it.value().number=i;
+			it.value().number = i;
 			m_localSections.insert(i++, it.value());
 		}
-		int newCount=m_localSections.count();
+		int newCount = m_localSections.count();
 		//int preIndex=qMax(currentIndex-1, 0);
-		m_localSections[0].fromindex=0;
-		m_localSections[newCount-1].toindex = m_maxPageIndex;
+		m_localSections[0].fromindex = 0;
+		m_localSections[newCount - 1].toindex = m_maxPageIndex;
 		updateTable();
 	}
 }
