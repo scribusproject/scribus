@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QComboBox>
 #include <QMessageBox>
+#include <QSignalBlocker>
 
 #include "prefs_documentsections.h"
 #include "commonstrings.h"
@@ -49,16 +50,18 @@ void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_DocumentSections::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->docSectionMap=m_localSections;
+	prefsData->docSectionMap = m_localSections;
 }
 
 void Prefs_DocumentSections::updateTable()
 {
+	QSignalBlocker blocker(sectionsTable);
+
 	sectionsTable->setRowCount(m_localSections.count());
-	int row=0;
+	int row = 0;
 	for (DocumentSectionMap::Iterator it = m_localSections.begin(); it!= m_localSections.end(); ++it)
 	{
-		uint i=0;
+		uint i = 0;
 		//Name
 		QTableWidgetItem *item0 = new QTableWidgetItem(it->name);
 		sectionsTable->setItem(row, i++, item0);
