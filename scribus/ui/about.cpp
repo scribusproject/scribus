@@ -99,7 +99,6 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	aboutLayout->setSpacing(6);
 	aboutLayout->setContentsMargins(9, 9, 9, 9);
 	tabWidget2 = new QTabWidget( this );
-//	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
 	tab = new QWidget( tabWidget2 );
 	tabLayout1 = new QVBoxLayout( tab );
 	tabLayout1->setSpacing(6);
@@ -127,8 +126,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "24";
-	QString BUILD_MONTH = CommonStrings::august;
+	QString BUILD_DAY = "5";
+	QString BUILD_MONTH = CommonStrings::december;
 	QString BUILD_YEAR = "2021";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
