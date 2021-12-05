@@ -188,6 +188,12 @@ if (_machine_arm)
 	set(ARCH_ARM ON)
 endif()
 
+string(REGEX MATCH "(arm64+)" _machine_arm "${MACHINE}")
+if (_machine_arm)
+	message(STATUS "Found target arm64")
+	set(ARCH_ARM_64 ON)
+endif()
+
 # We need to pass -fPIC to lib2geom on amd64, mips, mipsel, and hppa. See:
 # http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3 and
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=559133
@@ -198,6 +204,10 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if (APPLE)
 	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_ARM))
 		string(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
+		if (_apple_ver EQUAL "21")
+			message(STATUS "Found macOS Monterey Target: Apple, 64 bit, ARM")
+			set(APPLE_12_00_X ON CACHE BOOL "Found macOS Monterey Target: Apple, 64 bit, ARM")
+		endif()
 		if (_apple_ver EQUAL "20")
 			message(STATUS "Found macOS Big Sur Target: Apple, 64 bit, ARM")
 			set(APPLE_11_00_X ON CACHE BOOL "Found macOS Big Sur Target: Apple, 64 bit, ARM")
@@ -205,6 +215,10 @@ if (APPLE)
 	endif()
 	if ((CMAKE_SIZEOF_VOID_P EQUAL 8) AND (ARCH_X86 OR ARCH_X86_64))
 		string(REGEX REPLACE ".*-darwin([0-9]+).*" "\\1" _apple_ver "${MACHINE}")
+		if (_apple_ver EQUAL "21")
+			message(STATUS "Found macOS Monterey Target: Apple, 64 bit, X86")
+			set(APPLE_12_00_X ON CACHE BOOL "Found macOS Monterey Target: Apple, 64 bit, X86")
+		endif()
 		if (_apple_ver EQUAL "20")
 			message(STATUS "Found macOS Big Sur Target: Apple, 64 bit, X86")
 			set(APPLE_11_00_X ON CACHE BOOL "Found macOS Big Sur Target: Apple, 64 bit, X86")
@@ -259,7 +273,7 @@ endif()
 
 
 #convert any 64 bit build into generic 64 tag for below
-if (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64)
+if (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64 OR ARCH_ARM_64)
 	set(ARCH64BIT ON)
 endif()
 
