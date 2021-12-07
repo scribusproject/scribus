@@ -706,7 +706,7 @@ void LanguageManager::generateInstalledHyphLangList()
 void LanguageManager::generateInstalledSpellLangList()
 {
 	QStringList dictionaryPaths;
-	bool dictPathFound=findSpellingDictionaries(dictionaryPaths);
+	bool dictPathFound = findSpellingDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
 		qDebug()<<"No preinstalled spelling dictionaries or paths found";
@@ -753,7 +753,7 @@ QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslate
 //	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i=langTableIndex(langAbbrev);
 //	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
-	if (i==-1)
+	if (i == -1)
 	{
 		if (langAbbrev.length() > 5)
 		{
@@ -938,7 +938,7 @@ bool LanguageManager::isAvailableTranslation(QString langAbbrev)
 			i = langTableIndex(langAbbrev);
 		}
 	}
-	if (i !=-1)
+	if (i != -1)
 		return m_langTable[i].m_transAvailable;
 	return false;
 }
@@ -949,9 +949,9 @@ QStringList LanguageManager::languageList(bool getTranslated)
 	for (int i = 0; i < m_langTable.size(); ++i)
 	{
 		if (getTranslated)
-			sl<<m_langTable[i].m_transName;
+			sl << m_langTable[i].m_transName;
 		else
-			sl<<m_langTable[i].m_name;
+			sl << m_langTable[i].m_name;
 	}
 	sl.sort();
 	return sl;
@@ -1011,7 +1011,7 @@ QString LanguageManager::numericSequence(const QString& seq)
 			retSeq += "";
 			break;
 		default:
-			retSeq="0123456789";
+			retSeq = "0123456789";
 			break;
 	}
 	return retSeq;
@@ -1019,13 +1019,13 @@ QString LanguageManager::numericSequence(const QString& seq)
 
 bool LanguageManager::findSpellingDictionaries(QStringList &sl)
 {
-	sl=ScPaths::instance().spellDirs();
+	sl = ScPaths::instance().spellDirs();
 	return sl.count() != 0;
 }
 
 void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, QMap<QString, QString> &dictionaryMap)
 {
-	for (int i = 0; i<dictionaryPaths.count(); ++i)
+	for (int i = 0; i < dictionaryPaths.count(); ++i)
 	{
 		// Find the dic and aff files in the location
 		QDir dictLocation(dictionaryPaths.at(i));
@@ -1047,7 +1047,7 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 			{
 				//QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
 				//qDebug()<<"findSpellingDictionarySets"<<dictName<<shortAbbrev;
-				dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+				dictionaryMap.insert(dictName, dictionaryPaths.at(i) + dictName);
 				//dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
 			}
 			//qDebug()<<"Spell Finder:"<<dictName<<dictionaryPaths.at(i)+dictName;
@@ -1055,11 +1055,12 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 			{
 				QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
 				//qDebug()<<shortAbbrev;
-				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
+				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i) + dictName);
 			}
 		}
 //		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
 	}
+
 	//Now rescan dictionary map for any extra languages we can support with the files we have
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
 	while (it != dictionaryMap.end())
@@ -1093,40 +1094,40 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 
 bool LanguageManager::findHyphDictionaries(QStringList& sl)
 {
-	sl=ScPaths::instance().hyphDirs();
+	sl = ScPaths::instance().hyphDirs();
 	return sl.count() != 0;
 }
 
 void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap)
 {
-	for (int i = 0; i<dictionaryPaths.count(); ++i)
+	for (int i = 0; i < dictionaryPaths.count(); ++i)
 	{
 		// Find the dic and aff files in the location
 		QDir dictLocation(dictionaryPaths.at(i));
 		QStringList dictFilters("hyph*.dic");
-		if (dictionaryPaths.at(i)==ScPaths::userDictDir(ScPaths::Hyph, false))
+		if (dictionaryPaths.at(i) == ScPaths::userDictDir(ScPaths::Hyph, false))
 			dictFilters.append("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
-		dictList.replaceInStrings(".dic","");
+		dictList.replaceInStrings(".dic", "");
 
 		for (const QString& dn : qAsConst(dictList))
 		{
 //			qDebug()<<dn;
 			QString dictName;
 			if (dn.startsWith("hyph_"))
-				dictName = dn.section('_',1);
+				dictName = dn.section('_', 1);
 			else
 				dictName = dn;
 			if (dictionaryMap.contains(dictName))
 				continue;
 			if (dictName.length() <= 2)
 			{
-				dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn+".dic");
+				dictionaryMap.insert(dictName, dictionaryPaths.at(i) + dn + ".dic");
 			}
 			if (dictName.length() > 2)
 			{
 				QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn+".dic");
+				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i) + dn + ".dic");
 			}
 		}
 	}
@@ -1147,4 +1148,3 @@ QString LanguageManager::getHyphFilename(const QString & langAbbrev)
 	}
 	return QString();
 }
-

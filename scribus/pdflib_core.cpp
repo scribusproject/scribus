@@ -3523,7 +3523,7 @@ void PDFLibCore::PDF_End_Page()
 			QString docDate = tr("Date:") + " " + d.toString(Qt::TextDate);
 			PutPage("q\n");
 			PutPage("1 0 0 1 " + FToStr(maxBoxX / 2.0 + 20.0) + " " + FToStr(startY) + " cm\n");
-			painter2.addText( QPointF(0.0,0.0), infoFont, docDate );
+			painter2.addText( QPointF(0.0, 0.0), infoFont, docDate );
 			textPath.fromQPainterPath(painter2);
 			PutPage(SetClipPathArray(&textPath, true));
 			PutPage("h\nf*\n");
