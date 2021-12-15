@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QScopedValueRollback>
 #include <QWidget>
 
 #include "appmodehelper.h"
@@ -218,9 +219,35 @@ void PropertiesPalette_Table::setCellStyle(const QString &name)
 {
 	if (!m_item || !m_item->isTable())
 		return;
-	m_doc->dontResize = true;
-	m_item->asTable()->activeCell().setStyle(name);
-	m_doc->dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
+
+	PageItem_Table* table = m_item->asTable();
+	if (m_doc->appMode != modeEditTable)
+	{
+		for (int row = 0; row < table->rows(); ++row)
+		{
+			int colSpan = 0;
+			for (int col = 0; col < table->columns(); col += colSpan)
+			{
+				TableCell currentCell = table->cellAt(row, col);
+				if (row == currentCell.row())
+					currentCell.setStyle(name);
+				colSpan = currentCell.columnSpan();
+			}
+		}
+	}
+	else
+	{
+		QSet<TableCell> cells = table->selectedCells();
+		if (cells.isEmpty())
+			cells.insert(table->activeCell());
+		for (auto cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			currentCell.setStyle(name);
+		}
+	}
+
 	m_item->asTable()->update();
 	showCellStyle(name);
 }
@@ -593,9 +620,35 @@ void PropertiesPalette_Table::on_buttonClearCellStyle_clicked()
 {
 	if (!m_item || !m_item->isTable())
 		return;
-	m_doc->dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
+
 	PageItem_Table* table = m_item->asTable();
-	table->activeCell().unsetDirectFormatting();
+	if (m_doc->appMode != modeEditTable)
+	{
+		for (int row = 0; row < table->rows(); ++row)
+		{
+			int colSpan = 0;
+			for (int col = 0; col < table->columns(); col += colSpan)
+			{
+				TableCell currentCell = table->cellAt(row, col);
+				if (row == currentCell.row())
+					currentCell.unsetDirectFormatting();
+				colSpan = currentCell.columnSpan();
+			}
+		}
+	}
+	else
+	{
+		QSet<TableCell> cells = table->selectedCells();
+		if (cells.isEmpty())
+			cells.insert(table->activeCell());
+		for (auto cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			currentCell.unsetDirectFormatting();
+		}
+	}
+
 	table->adjustTable();
 	table->update();
 }
@@ -604,11 +657,10 @@ void PropertiesPalette_Table::updateBorders()
 {
 	if (!m_doc || !m_item || !m_item->isTable())
 		return;
+	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
 
 	PageItem_Table* table = m_item->asTable();
 	TableSideSelector::Sides selectedSides = sideSelector->selection();
-
-	m_doc->dontResize = true;
 	if (m_doc->appMode != modeEditTable)
 	{
 		if (selectedSides & TableSideSelector::Left)
