@@ -28,10 +28,11 @@ int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 	//qDebug() << QString("looking up %1/ %2").arg(parStyle.name()).arg(parStyle.alignment()); 
 	if (named)
 	{
-		for (int i=0; i < doc->paragraphStyles().count(); ++i)
+		const auto& paragraphStyles = doc->paragraphStyles();
+		for (int i=0; i < paragraphStyles.count(); ++i)
 		{
 			//qDebug() << QString("%1 %2").arg(i).arg(doc->paragraphStyles()[i].name());
-			if (parStyle.name() == doc->paragraphStyles()[i].name()) {
+			if (parStyle.name() == paragraphStyles[i].name()) {
 				return i;
 			}
 		}
