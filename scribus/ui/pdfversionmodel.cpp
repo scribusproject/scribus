@@ -17,11 +17,6 @@ PdfVersionModel::PdfVersionModel(QObject *parent)
 	m_enabledVec << true << true << true << true << false << false << false;
 }
 
-void PdfVersionModel::clear()
-{
-	qDebug() << "PdfVersionModel: this model cannot be cleared";
-}
-
 int PdfVersionModel::columnCount(const QModelIndex &/*parent*/) const
 {
 	return 1;
@@ -32,7 +27,7 @@ QVariant PdfVersionModel::data(const QModelIndex &index, int role) const
 	if (!index.isValid())
 		return QVariant();
 
-	bool* pEnabled = static_cast<bool*>(index.internalPointer());
+	const bool* pEnabled = static_cast<bool*>(index.internalPointer());
 	if (!pEnabled)
 		return QVariant();
 
@@ -75,7 +70,7 @@ QModelIndex PdfVersionModel::index(int row, int column, const QModelIndex &paren
 	if (!hasIndex(row, column, parent))
 		return QModelIndex();
 
-	bool* pEnabled = static_cast<bool*>(parent.internalPointer());
+	const bool* pEnabled = static_cast<bool*>(parent.internalPointer());
 	if (pEnabled)
 		return QModelIndex();
 
@@ -91,7 +86,7 @@ QModelIndex PdfVersionModel::parent(const QModelIndex &/*child*/) const
 	return QModelIndex();
 }
 
-bool PdfVersionModel::removeRow(int row, const QModelIndex& parent)
+bool PdfVersionModel::removeRow(int /*row*/, const QModelIndex& /*parent*/)
 {
 	qDebug() << "PdfVersionModel: this model cannot have rows removed";
 	return false;
@@ -108,7 +103,7 @@ int PdfVersionModel::rowCount(const QModelIndex &parent) const
 	if (m_enabledVec.count() == 0)
 		return 0;
 
-	bool* pEnabled = static_cast<bool*>(parent.internalPointer());
+	const bool* pEnabled = static_cast<bool*>(parent.internalPointer());
 	if (pEnabled)
 		return 0;
 

@@ -33,38 +33,35 @@ public:
 		ItemPDFX_4  = 6
 	};
 
-	//! Remove all colors from list;
-	void clear();
-
 	//! Reimplement QAbstractItemModel columnCount()
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
 	//! Reimplement QAbstractItemModel data()
-	QVariant data(const QModelIndex &index, int role) const;
+	QVariant data(const QModelIndex &index, int role) const override;
 
 	//! Reimplement QAbstractItemModel flags()
-	Qt::ItemFlags flags(const QModelIndex &index) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const override;
 
 	//! Reimplement QAbstractItemModel index()
-	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
 
 	//! Reimplement QAbstractItemModel parent()
-	QModelIndex parent(const QModelIndex &child) const;
+	QModelIndex parent(const QModelIndex &child) const override;
 
 	//! Reimplement QAbstractItemModel removeRow()
 	bool removeRow(int row, const QModelIndex& parent = QModelIndex());
 
 	//! Reimplement QAbstractItemModel removeRowz()
-	bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+	bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
 	//! Reimplement QAbstractItemModel rowCount()
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	
 	//! Allow or disallow no font embedding mode
 	void setPdfXEnabled(bool enabled);
 
 protected:
-	//! The color list
+	//! The enabled/disabled flags
 	QVector<bool> m_enabledVec;
 };
 
