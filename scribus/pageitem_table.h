@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEM_TABLE_H
 #define PAGEITEM_TABLE_H
 
+#include <tuple>
+
+#include <QFlags>
 #include <QList>
 #include <QPointF>
 #include <QRectF>
@@ -18,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "cellarea.h"
 #include "pageitem.h"
 #include "scribusapi.h"
+#include "scribusstructs.h"
 #include "styles/tablestyle.h"
 #include "tablecell.h"
 #include "tablehandle.h"
@@ -281,6 +285,11 @@ public:
 	void splitCell(int row, int column, int numRows, int numCols);
 
 	/**
+	 * Returns the set of table cells.
+	 */
+	QSet<TableCell> cells() const;
+
+	/**
 	 * Returns the set of selected cells.
 	 */
 	const QSet<TableCell>& selectedCells() const { return m_selection; }
@@ -461,6 +470,24 @@ public:
 	/// Returns the bottom border of this table.
 	TableBorder bottomBorder() const;
 
+	/// Set tabme borders
+	void setBorders(const TableBorder& border, TableSides selectedSides);
+
+	/// Set cell borders
+	void setCellBorders(const TableBorder& border, TableSides selectedSides);
+
+	/// Set cell borders
+	void setCellBorders(const QSet<TableCell>& cells, const TableBorder& border, TableSides selectedSides);
+
+	/// Sets the cell fill color of this table to @a fillColor.
+	void setCellFillColor(const QString& fillColor);
+
+	/// Sets the cell fill color of this table to @a fillShade.
+	void setCellFillShade(double fillShade);
+
+	/// Sets the cell style of this table to @a cellStyle.
+	void setCellStyle(const QString& cellStyle);
+
 	/// Sets the table style of this table to @a style.
 	void setStyle(const QString& style);
 
@@ -530,6 +557,9 @@ public:
 	/// creates valid layout information
 	void layout() override;
 
+	/** @brief Perform undo/redo action */
+	void restore(UndoState *state, bool isUndo) override;
+
 signals:
 	/// This signal is emitted whenever the table changes.
 	void changed();
@@ -553,6 +583,8 @@ private:
 		ColumnsInserted, /**< Columns were inserted. */
 		ColumnsRemoved   /**< Columns were removed. */
 	};
+
+	using TableBorderTuple = std::tuple<TableBorder, TableBorder, TableBorder, TableBorder, TableBorder>;
 
 	/**
 	 * Initializes the table with @a numRows rows and @a numColumns columns.
@@ -609,6 +641,63 @@ private:
 
 	/// Table sanity check. Very slow. For internal use.
 	void assertValid() const;
+
+	// Undo/redo setCellFillColor action
+	void restoreCellBorders(SimpleState *state, bool isUndo);
+
+	// Undo/redo setCellFillColor action
+	void restoreCellFillColor(SimpleState *state, bool isUndo);
+
+	// Undo/redo setCellFillColor action
+	void restoreCellFillShade(SimpleState *state, bool isUndo);
+
+	// Undo/redo setCellStyle action
+	void restoreCellStyle(SimpleState *state, bool isUndo);
+
+	// Undo/redo setFillColor action
+	void restoreTableFillColor(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetFillColor action
+	void restoreTableFillColorReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setFillShade action
+	void restoreTableFillShade(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetFillShade action
+	void restoreTableFillShadeReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setBorders action
+	void restoreTableBorders(SimpleState *state, bool isUndo);
+
+	// Undo/redo setLeftBorder action
+	void restoreTableLeftBorder(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetLeftBorder action
+	void restoreTableLeftBorderReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setRightBorder action
+	void restoreTableRightBorder(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetRightBorder action
+	void restoreTableRightBorderReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setBottomBorder action
+	void restoreTableBottomBorder(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetBottomBorder action
+	void restoreTableBottomBorderReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setTopBorder action
+	void restoreTableTopBorder(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetTopBorder action
+	void restoreTableTopBorderReset(SimpleState *state, bool isUndo);
+
+	// Undo/redo setStyle action
+	void restoreTableStyle(SimpleState *state, bool isUndo);
+
+	// Undo/redo unsetStyle action
+	void restoreTableStyleReset(SimpleState *state, bool isUndo);
 
 private:
 	//<<Data we need to save

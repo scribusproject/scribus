@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QFrame>
 
+#include "scribusstructs.h"
+
 class QPaintEvent;
 class QMouseEvent;
 class QEvent;
@@ -27,25 +29,10 @@ class TableSideSelector : public QFrame
 {
 	Q_OBJECT
 
-	Q_PROPERTY(Sides selection READ selection WRITE setSelection RESET clearSelection NOTIFY selectionChanged)
+	Q_PROPERTY(TableSides selection READ selection WRITE setSelection RESET clearSelection NOTIFY selectionChanged)
 	Q_PROPERTY(Style style READ style WRITE setStyle)
 
 public:
-	/**
-	 * This enum describes the sides that can be selected. A selection can be
-	 * expressed as an ORed combination of Left, Right, Top and Bottom.
-	 */
-	enum Side
-	{
-		None = 0,   /**< None of the sides are selected. */
-		Left = 1,   /**< The left side is selected. */
-		Right = 2,  /**< The right side is selected. */
-		Top = 4,    /**< The top side is selected. */
-		Bottom = 8, /**< The bottom side is selected. */
-		All = Left | Right | Top | Bottom
-	};
-	Q_DECLARE_FLAGS(Sides, Side)
-
 	/**
 	 * This enum describes two possible styles for the selector. If the cell style is used,
 	 * the selector will resemble a cell. In the table style, a table.
@@ -60,16 +47,16 @@ public:
 	TableSideSelector(QWidget* parent);
 
 	/// Returns the current selection as an ORed combination of enum flags.
-	Sides selection() const { return m_selection; }
+	TableSides selection() const { return m_selection; }
 
 	/// Returns the current selection as a list of enum values.
-	QList<TableSideSelector::Side> selectionList() const;
+	QList<TableSide> selectionList() const;
 
 	/// Sets the current selection to @a selection.
-	void setSelection(Sides selection) { m_selection = selection; emit selectionChanged(); }
+	void setSelection(TableSides selection) { m_selection = selection; emit selectionChanged(); }
 
 	/// Clears the current selection.
-	void clearSelection() { m_selection = None; emit selectionChanged(); }
+	void clearSelection() { m_selection = TableSide::None; emit selectionChanged(); }
 
 	/// Returns the current style of the selector.
 	Style style() const { return m_style; }
@@ -99,17 +86,17 @@ protected:
 
 private:
 	/// Utility function to return the side closest to @a point.
-	Side closestSide(const QPointF& point) const;
+	TableSide closestSide(const QPointF& point) const;
 
 private:
 	/// The current selection.
-	Sides m_selection;
+	TableSides m_selection;
 
 	/// The current style of the selector.
 	Style m_style;
 
 	/// The side currently closest to the mouse pointer.
-	Side m_highlighted;
+	TableSide m_highlighted;
 
 	/// The left side line.
 	QLineF m_left;
@@ -123,7 +110,5 @@ private:
 	/// The bottom side line.
 	QLineF m_bottom;
 };
-
-Q_DECLARE_OPERATORS_FOR_FLAGS(TableSideSelector::Sides)
 
 #endif // TABLESIDESELECTOR_H

@@ -77,9 +77,6 @@ struct PageSet
 	int FirstPage;
 	int Rows;
 	int Columns;
-//	double GapHorizontal;
-//	double GapVertical;
-//	double GapBelow;
 	QStringList pageNames;
 };
 
@@ -133,6 +130,22 @@ enum
 	GradMask_PatternInverted = 8
 };
 
+/**
+ * This enum describes the sides that can be selected. A selection can be
+ * expressed as an ORed combination of Left, Right, Top and Bottom.
+ */
+enum class TableSide
+{
+	None = 0,   /**< None of the sides are selected. */
+	Left = 1,   /**< The left side is selected. */
+	Right = 2,  /**< The right side is selected. */
+	Top = 4,    /**< The top side is selected. */
+	Bottom = 8, /**< The bottom side is selected. */
+	All = Left | Right | Top | Bottom
+};
+Q_DECLARE_FLAGS(TableSides, TableSide)
+Q_DECLARE_OPERATORS_FOR_FLAGS(TableSides)
+
 struct SingleLine
 {
 	double Width;
@@ -163,6 +176,15 @@ struct SingleLine
 	}
 };
 
+class multiLine : public QList<SingleLine> {
+public:
+	QString shortcut;
+	bool operator!=(const multiLine& other) const
+	{
+		return !(this->operator ==(other));
+	}
+};
+
 struct Bullet  //used by style reader while importing ODT files
 {
 	QString name;
@@ -186,7 +208,7 @@ enum class ArrowDirection
 struct ArrowDesc
 {
 	QString name;
-	bool userArrow;
+	bool userArrow { false };
 	FPointArray points;
 };
 
@@ -263,16 +285,6 @@ struct PrintOptions
 };
 
 typedef QMap<QString,QString> ProfilesL;
-// typedef QValueVector<SingleLine> multiLine;
-
-class multiLine : public QList<SingleLine> {
-public:
-	QString shortcut;
-	bool operator!=(const multiLine& other) const
-	{
-		return !(this->operator ==(other));
-	}
-};
 
 enum PreflightError
 {
@@ -360,13 +372,6 @@ enum UpdateRequests
 
 //! \brief Common type for guides list
 typedef QList<double> Guides;
-
-//! \brief from ols scribusXml
-struct Linked
-{
-	int Start;
-	int StPag;
-};
 
 // this is a quick hack to combine runs until I've thought of something better -- AV
 class LastStyles

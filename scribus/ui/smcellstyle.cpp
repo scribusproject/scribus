@@ -135,7 +135,21 @@ QString SMCellStyle::fromSelection() const
 
 void SMCellStyle::toSelection(const QString &styleName) const
 {
-	// TODO: Implement this once we have cell items.
+	if (!m_doc)
+		return; // nowhere to apply or no doc
+
+	QString realName = styleName;
+	int styleIndex = m_cachedStyles.find(styleName);
+	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultCellStyle))
+	{
+		styleIndex = m_cachedStyles.find(CommonStrings::DefaultCellStyle);
+		if (styleIndex >= 0)
+			realName = CommonStrings::DefaultCellStyle;
+	}
+	if (styleIndex >= 0)
+	{
+		m_doc->itemSelection_SetNamedCellStyle(realName);
+	}
 }
 
 QString SMCellStyle::newStyle()

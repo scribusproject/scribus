@@ -135,7 +135,21 @@ QString SMTableStyle::fromSelection() const
 
 void SMTableStyle::toSelection(const QString &styleName) const
 {
-	// TODO: Implement this once we have table items.
+	if (!m_doc)
+		return; // nowhere to apply or no doc
+
+	QString realName = styleName;
+	int styleIndex = m_cachedStyles.find(styleName);
+	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultTableStyle))
+	{
+		styleIndex = m_cachedStyles.find(CommonStrings::DefaultTableStyle);
+		if (styleIndex >= 0)
+			realName = CommonStrings::DefaultTableStyle;
+	}
+	if (styleIndex >= 0)
+	{
+		m_doc->itemSelection_SetNamedTableStyle(realName);
+	}
 }
 
 QString SMTableStyle::newStyle()

@@ -29,6 +29,8 @@ for which a new license (GPL+exception) is in place.
 #include "styles/tablestyle.h"
 #include "tablehandle.h"
 #include "tableutils.h"
+#include "undomanager.h"
+#include "undostate.h"
 
 #include "pageitem_table.h"
 
@@ -1014,6 +1016,25 @@ TableCell PageItem_Table::cellAt(const QPointF& point) const
 		std::upper_bound(m_columnPositions.begin(), m_columnPositions.end(), gridPoint.x()) - m_columnPositions.begin() - 1);
 }
 
+QSet<TableCell> PageItem_Table::cells() const
+{
+	QSet<TableCell> tableCells;
+
+	for (int row = 0; row < m_rows; ++row)
+	{
+		int colSpan = 0;
+		for (int col = 0; col < m_columns; col += colSpan)
+		{
+			TableCell currentCell = cellAt(row, col);
+			if (row == currentCell.row())
+				tableCells.insert(currentCell);
+			colSpan = currentCell.columnSpan();
+		}
+	}
+
+	return tableCells;
+}
+
 void PageItem_Table::moveLeft()
 {
 	if (m_activeCell.column() < 1)
@@ -1151,12 +1172,29 @@ void PageItem_Table::adjustFrameToTable()
 
 void PageItem_Table::setFillColor(const QString& color)
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::TableFillColor, QString(), Um::ITable);
+		ss->set("SET_TABLE_FILLCOLOR");
+		ss->set("OLD_COLOR", m_style.fillColor());
+		ss->set("NEW_COLOR", color);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setFillColor(color);
 	emit changed();
 }
 
 void PageItem_Table::unsetFillColor()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::TableFillColorRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_FILLCOLOR");
+		ss->set("OLD_COLOR", m_style.fillColor());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetFillColor();
 	emit changed();
 }
@@ -1168,12 +1206,29 @@ QString PageItem_Table::fillColor() const
 
 void PageItem_Table::setFillShade(const double& shade)
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::TableFillShade, QString(), Um::ITable);
+		ss->set("SET_TABLE_FILLSHADE");
+		ss->set("OLD_SHADE", m_style.fillShade());
+		ss->set("NEW_SHADE", shade);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setFillShade(shade);
 	emit changed();
 }
 
 void PageItem_Table::unsetFillShade()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::TableFillShadeRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_FILLSHADE");
+		ss->set("OLD_SHADE", m_style.fillShade());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetFillShade();
 	emit changed();
 }
@@ -1185,6 +1240,17 @@ double PageItem_Table::fillShade() const
 
 void PageItem_Table::setLeftBorder(const TableBorder& border)
 {
+	if (UndoManager::undoEnabled())
+	{
+		QPair<TableBorder, TableBorder> oldNewBorders;
+		oldNewBorders.first = m_style.leftBorder();
+		oldNewBorders.second = border;
+		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableLeftBorder, QString(), Um::ITable);
+		ss->set("SET_TABLE_LEFTBORDER");
+		ss->setItem(oldNewBorders);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setLeftBorder(border);
 	updateCells(0, 0, rows() - 1, 0);
 	emit changed();
@@ -1192,6 +1258,14 @@ void PageItem_Table::setLeftBorder(const TableBorder& border)
 
 void PageItem_Table::unsetLeftBorder()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new ScItemState<TableBorder>(Um::TableLeftBorderRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_LEFTBORDER");
+		ss->setItem(m_style.leftBorder());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetLeftBorder();
 	updateCells(0, 0, rows() - 1, 0);
 	emit changed();
@@ -1204,6 +1278,17 @@ TableBorder PageItem_Table::leftBorder() const
 
 void PageItem_Table::setRightBorder(const TableBorder& border)
 {
+	if (UndoManager::undoEnabled())
+	{
+		QPair<TableBorder, TableBorder> oldNewBorders;
+		oldNewBorders.first = m_style.rightBorder();
+		oldNewBorders.second = border;
+		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableRightBorder, QString(), Um::ITable);
+		ss->set("SET_TABLE_RIGHTBORDER");
+		ss->setItem(oldNewBorders);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setRightBorder(border);
 	updateCells(0, columns() - 1, rows() - 1, columns() - 1);
 	emit changed();
@@ -1211,6 +1296,14 @@ void PageItem_Table::setRightBorder(const TableBorder& border)
 
 void PageItem_Table::unsetRightBorder()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new ScItemState<TableBorder>(Um::TableLeftBorderRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_RIGHTBORDER");
+		ss->setItem(m_style.rightBorder());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetRightBorder();
 	updateCells(0, columns() - 1, rows() - 1, columns() - 1);
 	emit changed();
@@ -1223,6 +1316,17 @@ TableBorder PageItem_Table::rightBorder() const
 
 void PageItem_Table::setTopBorder(const TableBorder& border)
 {
+	if (UndoManager::undoEnabled())
+	{
+		QPair<TableBorder, TableBorder> oldNewBorders;
+		oldNewBorders.first = m_style.topBorder();
+		oldNewBorders.second = border;
+		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableTopBorder, QString(), Um::ITable);
+		ss->set("SET_TABLE_TOPBORDER");
+		ss->setItem(oldNewBorders);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setTopBorder(border);
 	updateCells(0, 0, 0, columns() - 1);
 	emit changed();
@@ -1230,6 +1334,14 @@ void PageItem_Table::setTopBorder(const TableBorder& border)
 
 void PageItem_Table::unsetTopBorder()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new ScItemState<TableBorder>(Um::TableTopBorderRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_TOPBORDER");
+		ss->setItem(m_style.topBorder());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetTopBorder();
 	updateCells(0, 0, 0, columns() - 1);
 	emit changed();
@@ -1242,6 +1354,17 @@ TableBorder PageItem_Table::topBorder() const
 
 void PageItem_Table::setBottomBorder(const TableBorder& border)
 {
+	if (UndoManager::undoEnabled())
+	{
+		QPair<TableBorder, TableBorder> oldNewBorders;
+		oldNewBorders.first = m_style.bottomBorder();
+		oldNewBorders.second = border;
+		auto *ss = new ScItemState< QPair<TableBorder, TableBorder> >(Um::TableBottomBorder, QString(), Um::ITable);
+		ss->set("SET_TABLE_BOTTOMBORDER");
+		ss->setItem(oldNewBorders);
+		undoManager->action(this, ss);
+	}
+
 	m_style.setBottomBorder(border);
 	updateCells(rows() - 1, 0, rows() - 1, columns() - 1);
 	emit changed();
@@ -1249,6 +1372,14 @@ void PageItem_Table::setBottomBorder(const TableBorder& border)
 
 void PageItem_Table::unsetBottomBorder()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new ScItemState<TableBorder>(Um::TableBottomBorderRst, QString(), Um::ITable);
+		ss->set("UNSET_TABLE_BOTTOMBORDER");
+		ss->setItem(m_style.bottomBorder());
+		undoManager->action(this, ss);
+	}
+
 	m_style.resetBottomBorder();
 	updateCells(rows() - 1, 0, rows() - 1, columns() - 1);
 	emit changed();
@@ -1259,8 +1390,228 @@ TableBorder PageItem_Table::bottomBorder() const
 	return m_style.bottomBorder();
 }
 
+void PageItem_Table::setBorders(const TableBorder& border, TableSides selectedSides)
+{
+	if (selectedSides == (int) TableSide::None)
+		return;
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+	{
+		activeTransaction = UndoManager::instance()->beginTransaction(getUName(), getUPixmap(), Um::TableBorders, QString(), Um::ITable);
+		auto borderTuple = std::make_tuple(m_style.leftBorder(), m_style.rightBorder(), m_style.bottomBorder(), m_style.topBorder(), border);
+		auto *ss = new ScItemState<TableBorderTuple>(Um::TableBorders, QString(), Um::ITable);
+		ss->set("SET_TABLE_BORDERS");
+		ss->set("SIDES", (int) selectedSides);
+		ss->setItem(borderTuple);
+		undoManager->action(this, ss);
+	}
+
+	if (selectedSides & TableSide::Left)
+		m_style.setLeftBorder(border);
+	if (selectedSides & TableSide::Right)
+		m_style.setRightBorder(border);
+	if (selectedSides & TableSide::Top)
+		m_style.setTopBorder(border);
+	if (selectedSides & TableSide::Bottom)
+		m_style.setBottomBorder(border);
+	
+	updateCells();
+	adjustTable();
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	emit changed();
+}
+
+void PageItem_Table::setCellBorders(const TableBorder& border, TableSides selectedSides)
+{
+	QSet<TableCell> tableCells;
+
+	if (m_Doc->appMode != modeEditTable)
+		tableCells = this->cells();
+	else
+	{
+		tableCells = this->selectedCells();
+		if (tableCells.isEmpty())
+			tableCells.insert(activeCell());
+	}
+
+	setCellBorders(tableCells, border, selectedSides);
+}
+
+void PageItem_Table::setCellBorders(const QSet<TableCell>& cells, const TableBorder& border, TableSides selectedSides)
+{
+	if (selectedSides == (int) TableSide::None)
+		return;
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+	{
+		activeTransaction = UndoManager::instance()->beginTransaction(getUName(), getUPixmap(), Um::CellBorders, QString(), Um::ITable);
+
+		QMap<TableCell, TableBorderTuple> cellBorderMap;
+		for (auto cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			auto borderTuple = std::make_tuple(currentCell.leftBorder(), currentCell.rightBorder(), currentCell.bottomBorder(), currentCell.topBorder(), border);
+			cellBorderMap.insert(currentCell, borderTuple);
+		}
+		auto *ss = new ScItemState< QMap<TableCell, TableBorderTuple> >(Um::CellBorders, QString(), Um::ITable);
+		ss->set("SET_CELL_BORDERS");
+		ss->set("SIDES", (int) selectedSides);
+		ss->setItem(cellBorderMap);
+		undoManager->action(this, ss);
+	}
+
+	for (auto cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+	{
+		TableCell currentCell(*cellIter);
+		if (selectedSides & TableSide::Left)
+			currentCell.setLeftBorder(border);
+		if (selectedSides & TableSide::Right)
+			currentCell.setRightBorder(border);
+		if (selectedSides & TableSide::Top)
+			currentCell.setTopBorder(border);
+		if (selectedSides & TableSide::Bottom)
+			currentCell.setBottomBorder(border);
+	}
+
+	adjustTable();
+
+	if (activeTransaction)
+		activeTransaction.commit();
+}
+
+void PageItem_Table::setCellFillColor(const QString& fillColor)
+{
+	QSet<TableCell> tableCells;
+
+	if (m_Doc->appMode != modeEditTable)
+		tableCells = this->cells();
+	else
+	{
+		tableCells = this->selectedCells();
+		if (tableCells.isEmpty())
+			tableCells.insert(activeCell());
+	}
+
+	if (UndoManager::undoEnabled())
+	{
+		QMap<TableCell, QPair<QString, QString> > cellColorMap;
+		for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			QString oldColor = currentCell.fillColor();
+			cellColorMap.insert(currentCell, qMakePair(oldColor, fillColor));
+		}
+		auto *ss = new ScItemState< QMap<TableCell, QPair<QString, QString> > >(Um::CellFillColor, "", Um::ITable);
+		ss->set("SET_CELL_FILLCOLOR");
+		ss->setItem(cellColorMap);
+		undoManager->action(this, ss);
+	}
+
+	m_Doc->dontResize = true;
+	for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+	{
+		TableCell currentCell(*cellIter);
+		currentCell.setFillColor(fillColor);
+	}
+	m_Doc->dontResize = false;
+
+	emit changed();
+}
+
+void PageItem_Table::setCellFillShade(double fillShade)
+{
+	QSet<TableCell> tableCells;
+
+	if (m_Doc->appMode != modeEditTable)
+		tableCells = this->cells();
+	else
+	{
+		tableCells = this->selectedCells();
+		if (tableCells.isEmpty())
+			tableCells.insert(activeCell());
+	}
+
+	if (UndoManager::undoEnabled())
+	{
+		QMap<TableCell, QPair<double, double> > cellShadeMap;
+		for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			double oldShade = currentCell.fillShade();
+			cellShadeMap.insert(currentCell, qMakePair(oldShade, fillShade));
+		}
+		auto *ss = new ScItemState< QMap<TableCell, QPair<double, double> > >(Um::CellFillShade, "", Um::ITable);
+		ss->set("SET_CELL_FILLSHADE");
+		ss->setItem(cellShadeMap);
+		undoManager->action(this, ss);
+	}
+
+	m_Doc->dontResize = true;
+	for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+	{
+		TableCell currentCell(*cellIter);
+		currentCell.setFillShade(fillShade);
+	}
+	m_Doc->dontResize = false;
+
+	emit changed();
+}
+
+void PageItem_Table::setCellStyle(const QString& cellStyle)
+{
+	QSet<TableCell> tableCells;
+
+	if (m_Doc->appMode != modeEditTable)
+		tableCells = this->cells();
+	else
+	{
+		tableCells = this->selectedCells();
+		if (tableCells.isEmpty())
+			tableCells.insert(activeCell());
+	}
+
+	if (UndoManager::undoEnabled())
+	{
+		QMap<TableCell, QPair<QString, QString> > cellStyleMap;
+		for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			QString oldStyle = currentCell.styleName();
+			cellStyleMap.insert(currentCell, qMakePair(oldStyle, cellStyle));
+		}
+		auto *ss = new ScItemState< QMap<TableCell, QPair<QString, QString> > >(Um::CellStyle, "", Um::ITable);
+		ss->set("SET_CELL_STYLE");
+		ss->setItem(cellStyleMap);
+		undoManager->action(this, ss);
+	}
+
+	m_Doc->dontResize = true;
+	for (auto cellIter = tableCells.begin(); cellIter != tableCells.end(); cellIter++)
+	{
+		TableCell currentCell(*cellIter);
+		currentCell.setStyle(cellStyle);
+	}
+	m_Doc->dontResize = false;
+
+	emit changed();
+}
+
 void PageItem_Table::setStyle(const QString& style)
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::TableStyle, "", Um::ITable);
+		ss->set("SET_TABLE_STYLE");
+		ss->set("OLD_STYLE", m_style.parent());
+		ss->set("NEW_STYLE", style);
+		undoManager->action(this, ss);
+	}
+
 	doc()->dontResize = true;
 	m_style.setParent(style);
 	updateCells();
@@ -1270,6 +1621,15 @@ void PageItem_Table::setStyle(const QString& style)
 
 void PageItem_Table::unsetStyle()
 {
+	if (UndoManager::undoEnabled())
+	{
+		auto *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
+		ss->set("UNSET_TABLE_STYLE");
+		ss->set("OLD_STYLE", m_style.parent());
+		ss->set("NEW_STYLE", QString());
+		undoManager->action(this, ss);
+	}
+
 	doc()->dontResize = true;
 	m_style.setParent("");
 	updateCells();
@@ -1714,4 +2074,420 @@ void PageItem_Table::assertValid() const
 			if (cellArea.contains(cell.row(), cell.column()))
 				Q_ASSERT(cell.row() == cellArea.row() && cell.column() == cellArea.column());
 	}
+}
+
+void PageItem_Table::restore(UndoState *state, bool isUndo)
+{
+	auto *simpleState = dynamic_cast<SimpleState*>(state);
+	if (!simpleState)
+	{
+		PageItem::restore(state, isUndo);
+		return;
+	}
+
+	bool doUpdate = false;
+	if (simpleState->contains("SET_CELL_BORDERS"))
+	{
+		restoreCellBorders(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_CELL_FILLCOLOR"))
+	{
+		restoreCellFillColor(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_CELL_FILLSHADE"))
+	{
+		restoreCellFillShade(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_CELL_STYLE"))
+	{
+		restoreCellStyle(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_FILLCOLOR"))
+	{
+		restoreTableFillColor(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_FILLSHADE"))
+	{
+		restoreTableFillShade(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_BORDERS"))
+	{
+		restoreTableBorders(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_LEFTBORDER"))
+	{
+		restoreTableLeftBorder(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_RIGHTBORDER"))
+	{
+		restoreTableRightBorder(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_BOTTOMBORDER"))
+	{
+		restoreTableBottomBorder(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_TOPBORDER"))
+	{
+		restoreTableTopBorder(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("SET_TABLE_STYLE"))
+	{
+		restoreTableStyle(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_FILLCOLOR"))
+	{
+		restoreTableFillColorReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_FILLSHADE"))
+	{
+		restoreTableFillShadeReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_LEFTBORDER"))
+	{
+		restoreTableLeftBorderReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_RIGHTBORDER"))
+	{
+		restoreTableRightBorderReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_BOTTOMBORDER"))
+	{
+		restoreTableBottomBorderReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_TOPBORDER"))
+	{
+		restoreTableTopBorderReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("UNSET_TABLE_STYLE"))
+	{
+		restoreTableStyleReset(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else
+	{
+		PageItem::restore(state, isUndo);
+	}
+
+	if (doUpdate)
+	{
+		if (state->transactionCode == 0 || state->transactionCode == 2)
+			this->update();
+	}
+}
+
+void PageItem_Table::restoreCellBorders(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, TableBorderTuple > > *>(state);
+	if (!itemState)
+		return;
+
+	TableSides selectedSides;
+	selectedSides |= (TableSide) itemState->getInt("SIDES");
+
+	QMap<TableCell, TableBorderTuple> cellBorderMap = itemState->getItem();
+	if (isUndo)
+	{
+		for (auto iter = cellBorderMap.begin(); iter != cellBorderMap.end(); ++iter)
+		{
+			TableCell currentCell = iter.key();
+			TableBorderTuple currentBorders = iter.value();
+			currentCell.setLeftBorder( std::get<0>(currentBorders) );
+			currentCell.setRightBorder( std::get<1>(currentBorders) );
+			currentCell.setBottomBorder( std::get<2>(currentBorders) );
+			currentCell.setTopBorder( std::get<3>(currentBorders) );
+		}
+	}
+	else
+	{
+		for (auto iter = cellBorderMap.begin(); iter != cellBorderMap.end(); ++iter)
+		{
+			TableCell currentCell = iter.key();
+			TableBorder newBorder = std::get<4>(iter.value());
+			if (selectedSides & TableSide::Left)
+				currentCell.setLeftBorder(newBorder);
+			if (selectedSides & TableSide::Right)
+				currentCell.setRightBorder(newBorder);
+			if (selectedSides & TableSide::Bottom)
+				currentCell.setBottomBorder(newBorder);
+			if (selectedSides & TableSide::Top)
+				currentCell.setTopBorder(newBorder);
+		}
+	}
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreCellFillColor(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
+	if (!itemState)
+		return;
+
+	QMap<TableCell, QPair<QString, QString> > cellColorMap = itemState->getItem();
+	for (auto iter = cellColorMap.begin(); iter != cellColorMap.end(); ++iter)
+	{
+		TableCell currentCell = iter.key();
+		QString restoredColor = isUndo ? iter.value().first : iter.value().second;
+		currentCell.setFillColor(restoredColor);
+	}
+}
+
+void PageItem_Table::restoreCellFillShade(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<double, double> > > *>(state);
+	if (!itemState)
+		return;
+
+	QMap<TableCell, QPair<double, double> > cellColorMap = itemState->getItem();
+	for (auto iter = cellColorMap.begin(); iter != cellColorMap.end(); ++iter)
+	{
+		TableCell currentCell = iter.key();
+		double restoredShade = isUndo ? iter.value().first : iter.value().second;
+		currentCell.setFillShade(restoredShade);
+	}
+}
+
+void PageItem_Table::restoreCellStyle(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<QMap<TableCell, QPair<QString, QString> > > *>(state);
+	if (!itemState)
+		return;
+
+	QMap<TableCell, QPair<QString, QString> > cellStyleMap = itemState->getItem();
+	for (auto iter = cellStyleMap.begin(); iter != cellStyleMap.end(); ++iter)
+	{
+		TableCell currentCell = iter.key();
+		QString restoredStyle = isUndo ? iter.value().first : iter.value().second;
+		currentCell.setStyle(restoredStyle);
+	}
+}
+
+void PageItem_Table::restoreTableFillColor(SimpleState *state, bool isUndo)
+{
+	QString restoredFillColor = state->get(isUndo ? "OLD_COLOR" : "NEW_COLOR");
+	setFillColor(restoredFillColor);
+}
+
+void PageItem_Table::restoreTableFillColorReset(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+	{
+		QString restoredFillColor = state->get("OLD_COLOR");
+		setFillColor(restoredFillColor);
+	}
+	else
+	{
+		unsetFillColor();
+	}
+}
+
+void PageItem_Table::restoreTableFillShade(SimpleState *state, bool isUndo)
+{
+	double restoredFillShade = state->getDouble(isUndo ? "OLD_SHADE" : "NEW_SHADE");
+	setFillShade(restoredFillShade);
+}
+
+void PageItem_Table::restoreTableFillShadeReset(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+	{
+		double restoredFillShade = state->getDouble("OLD_SHADE");
+		setFillShade(restoredFillShade);
+	}
+	else
+	{
+		unsetFillShade();
+	}
+}
+
+void PageItem_Table::restoreTableBorders(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<TableBorderTuple> *>(state);
+	if (!itemState)
+		return;
+
+	TableSides selectedSides;
+	selectedSides |= (TableSide) itemState->getInt("SIDES");
+
+	TableBorderTuple borderTuple = itemState->getItem();
+	if (isUndo)
+	{
+		m_style.setLeftBorder( std::get<0>(borderTuple) );
+		m_style.setRightBorder( std::get<1>(borderTuple) );
+		m_style.setBottomBorder( std::get<2>(borderTuple) );
+		m_style.setTopBorder( std::get<3>(borderTuple) );
+	}
+	else
+	{
+		TableBorder newBorder = std::get<4>(borderTuple);
+		if (selectedSides & TableSide::Left)
+			m_style.setLeftBorder(newBorder);
+		if (selectedSides & TableSide::Right)
+			m_style.setRightBorder(newBorder);
+		if (selectedSides & TableSide::Bottom)
+			m_style.setBottomBorder(newBorder);
+		if (selectedSides & TableSide::Top)
+			m_style.setTopBorder(newBorder);
+	}
+
+	updateCells();
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableLeftBorder(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	if (!itemState)
+		return;
+
+	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
+	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	setLeftBorder(restoredBorder);
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableLeftBorderReset(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	if (!itemState)
+		return;
+
+	if (isUndo)
+	{
+		TableBorder oldBorder = itemState->getItem();
+		setLeftBorder(oldBorder);
+	}
+	else
+	{
+		unsetLeftBorder();
+	}
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableRightBorder(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	if (!itemState)
+		return;
+
+	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
+	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	setRightBorder(restoredBorder);
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableRightBorderReset(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	if (!itemState)
+		return;
+
+	if (isUndo)
+	{
+		TableBorder oldBorder = itemState->getItem();
+		setRightBorder(oldBorder);
+	}
+	else
+	{
+		unsetRightBorder();
+	}
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableBottomBorder(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	if (!itemState)
+		return;
+
+	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
+	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	setBottomBorder(restoredBorder);
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableBottomBorderReset(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	if (!itemState)
+		return;
+
+	if (isUndo)
+	{
+		TableBorder oldBorder = itemState->getItem();
+		setBottomBorder(oldBorder);
+	}
+	else
+	{
+		unsetBottomBorder();
+	}
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableTopBorder(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState< QPair<TableBorder, TableBorder> > *>(state);
+	if (!itemState)
+		return;
+
+	QPair<TableBorder, TableBorder> oldNewBorders = itemState->getItem();
+	TableBorder restoredBorder = isUndo ? oldNewBorders.first : oldNewBorders.second;
+	setTopBorder(restoredBorder);
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableTopBorderReset(SimpleState *state, bool isUndo)
+{
+	auto* itemState = dynamic_cast< ScItemState<TableBorder> *>(state);
+	if (!itemState)
+		return;
+
+	if (isUndo)
+	{
+		TableBorder oldBorder = itemState->getItem();
+		setTopBorder(oldBorder);
+	}
+	else
+	{
+		unsetTopBorder();
+	}
+
+	adjustTable();
+}
+
+void PageItem_Table::restoreTableStyle(SimpleState *state, bool isUndo)
+{
+	QString restoredStyle = state->get(isUndo ? "OLD_STYLE" : "NEW_STYLE");
+	setStyle(restoredStyle);
+}
+
+void PageItem_Table::restoreTableStyleReset(SimpleState *state, bool isUndo)
+{
+	QString restoredStyle = state->get(isUndo ? "OLD_STYLE" : "NEW_STYLE");
+	setStyle(restoredStyle);
 }

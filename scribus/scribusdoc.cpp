@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QRandomGenerator>
 #include <QRegExp>
+#include <QScopedValueRollback>
 #include <QtAlgorithms>
 #include <QTime>
 #include <QTransform>
@@ -7840,8 +7841,6 @@ void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection*
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "NAMED_STYLE");
 }
 
-
-
 void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
@@ -7849,11 +7848,10 @@ void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selec
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection, false);
 }
 
-
 void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
-	uint docSelectionCount   = itemSelection->count();
+	int docSelectionCount   = itemSelection->count();
 	if (docSelectionCount <= 0)
 		return;
 
@@ -7861,9 +7859,9 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 	m_updateManager.setUpdatesDisabled();
 	if (UndoManager::undoEnabled() && docSelectionCount > 1)
 		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
-	for (uint aa = 0; aa < docSelectionCount; ++aa)
+	for (int i = 0; i < docSelectionCount; ++i)
 	{
-		PageItem *currItem = itemSelection->itemAt(aa);
+		PageItem *currItem = itemSelection->itemAt(i);
 		currItem->setCustomLineStyle(name);
 		currItem->update();
 	}
@@ -7873,6 +7871,57 @@ void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection*
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetNamedCellStyle(const QString & name, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int docSelectionCount   = itemSelection->count();
+	if (docSelectionCount <= 0)
+		return;
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::CellStyle, name, Um::ITable);
+	for (int i = 0; i < docSelectionCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		PageItem_Table* tableItem = currItem->asTable();
+		if (!tableItem)
+			continue;
+		tableItem->setCellStyle(name);
+		tableItem->update();
+	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
+
+void ScribusDoc::itemSelection_SetNamedTableStyle(const QString & name, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != nullptr) ? customSelection : m_Selection;
+	int docSelectionCount   = itemSelection->count();
+	if (docSelectionCount <= 0)
+		return;
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled() && docSelectionCount > 1)
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::TableStyle, name, Um::ITable);
+	for (int i = 0; i < docSelectionCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		PageItem_Table* tableItem = currItem->asTable();
+		if (!tableItem)
+			continue;
+		tableItem->setStyle(name);
+		tableItem->update();
+	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
+	changed();
+}
 
 void ScribusDoc::itemSelection_SetItemPen(QString color, Selection* customSelection)
 {
@@ -8409,7 +8458,7 @@ void ScribusDoc::itemSelection_InsertTableRows()
 	QScopedPointer<InsertTableRowsDialog> dialog(new InsertTableRowsDialog(appMode, m_ScMW));
 	if (dialog->exec() == QDialog::Accepted)
 	{
-		dontResize = true;
+		QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 		/*
 		 * In table edit mode we insert either before or after the active
 		 * cell, otherwise we insert at beginning or end of table.
@@ -8445,7 +8494,7 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 	QPointer<InsertTableColumnsDialog> dialog = new InsertTableColumnsDialog(appMode, m_ScMW);
 	if (dialog->exec() == QDialog::Accepted)
 	{
-		dontResize = true;
+		QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 		/*
 		 * In table edit mode we insert either before or after the active
 		 * cell, otherwise we insert at beginning or end of table.
@@ -8486,7 +8535,8 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 	if (table->selectedRows().size() >= table->rows())
 		return;
 
-	dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+
 	if (table->selectedRows().isEmpty())
 	{
 		// Remove rows spanned by active cell.
@@ -8542,7 +8592,8 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 	if (table->selectedColumns().size() >= table->columns())
 		return;
 
-	dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+
 	if (table->selectedColumns().isEmpty())
 	{
 		// Remove columns spanned by active cell.
@@ -8608,7 +8659,7 @@ void ScribusDoc::itemSelection_MergeTableCells()
 	const int numRows = selectedRows.last() - row + 1;
 	const int numColumns = selectedColumns.last() - column + 1;
 
-	dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 	table->mergeCells(row, column, numRows, numColumns);
 
 	m_View->stopGesture(); // FIXME: Don't use m_View.
@@ -8634,7 +8685,8 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 		return;
 
 	const qreal rowHeight = dialog->rowHeight();
-	dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+
 	if (appMode == modeEditTable)
 	{
 		if (table->selectedCells().isEmpty())
@@ -8664,6 +8716,7 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 
 	table->adjustTable();
 	table->update();
+
 	changed();
 }
 
@@ -8682,7 +8735,8 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 		return;
 
 	const qreal columnWidth = dialog->columnWidth();
-	dontResize = true;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+
 	if (appMode == modeEditTable)
 	{
 		if (table->selectedCells().isEmpty())
@@ -8724,8 +8778,8 @@ void ScribusDoc::itemSelection_DistributeTableRowsEvenly()
 	PageItem_Table* table = item->asTable();
 	if (!table)
 		return;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 
-	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedRows().isEmpty())
 	{
 		// Distribute each contiguous range of selected rows.
@@ -8767,8 +8821,8 @@ void ScribusDoc::itemSelection_DistributeTableColumnsEvenly()
 	PageItem_Table* table = item->asTable();
 	if (!table)
 		return;
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 
-	dontResize = true;
 	if (appMode == modeEditTable && !table->selectedColumns().isEmpty())
 	{
 		// Distribute each contiguous range of selected columns.

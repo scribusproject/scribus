@@ -248,6 +248,8 @@ private:
 
 private:
 	friend class PageItem_Table;
+	friend bool operator<(const TableCell& cell1, const TableCell& cell2);
+
 	QExplicitlySharedDataPointer<TableCellData> d;
 };
 Q_DECLARE_TYPEINFO(TableCell, Q_MOVABLE_TYPE);
@@ -255,6 +257,15 @@ Q_DECLARE_TYPEINFO(TableCell, Q_MOVABLE_TYPE);
 inline uint qHash(const TableCell& cell)
 {
 	return (cell.row() << 16) ^ cell.column();
+}
+
+inline bool operator<(const TableCell& cell1, const TableCell& cell2)
+{
+	if (cell1.row() < cell2.row())
+		return true;
+	if (cell1.row() > cell2.row())
+		return false;
+	return (cell1.column() < cell2.column());
 }
 
 QDebug operator<<(QDebug debug, const TableCell& cell);

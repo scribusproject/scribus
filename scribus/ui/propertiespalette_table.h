@@ -123,8 +123,6 @@ private:
 	ScGuardedPtr<ScribusDoc> m_doc;
 	/// The currently edited item.
 	PageItem* m_item {nullptr};
-	/// The previous edited selected items.
-	PageItem* m_previousItem {nullptr};
 
 	/// The currently edited border.
 	TableBorder m_currentBorder;

@@ -1114,6 +1114,8 @@ public:
 	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection = nullptr);
+	void itemSelection_SetNamedCellStyle(const QString & name, Selection* customSelection = nullptr);
+	void itemSelection_SetNamedTableStyle(const QString & name, Selection* customSelection = nullptr);
 	void itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend, bool erase, bool objopa);
 	void itemSelection_SetLineWidth(double w, Selection* customSelection = nullptr);
 	void itemSelection_SetLineArt(Qt::PenStyle w, Selection* customSelection = nullptr);

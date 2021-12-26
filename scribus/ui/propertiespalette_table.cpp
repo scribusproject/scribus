@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "tableborder.h"
 #include "tablesideselector.h"
+#include "undomanager.h"
+#include "undotransaction.h"
 #include "util.h"
 #include "util_color.h"
 
@@ -139,12 +141,7 @@ void PropertiesPalette_Table::handleSelectionChanged()
 	else
 		m_item = nullptr;
 
-	// HACK: Guard against "false" re-selections resulting from m_item->update().
-	if (m_item == m_previousItem)
-		return;
-	m_previousItem = m_item;
-
-	sideSelector->setSelection(TableSideSelector::All);
+	sideSelector->setSelection(TableSide::All);
 
 	updateFillControls();
 	updateStyleControls();
@@ -221,32 +218,7 @@ void PropertiesPalette_Table::setCellStyle(const QString &name)
 		return;
 	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
 
-	PageItem_Table* table = m_item->asTable();
-	if (m_doc->appMode != modeEditTable)
-	{
-		for (int row = 0; row < table->rows(); ++row)
-		{
-			int colSpan = 0;
-			for (int col = 0; col < table->columns(); col += colSpan)
-			{
-				TableCell currentCell = table->cellAt(row, col);
-				if (row == currentCell.row())
-					currentCell.setStyle(name);
-				colSpan = currentCell.columnSpan();
-			}
-		}
-	}
-	else
-	{
-		QSet<TableCell> cells = table->selectedCells();
-		if (cells.isEmpty())
-			cells.insert(table->activeCell());
-		for (auto cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
-		{
-			TableCell currentCell(*cellIter);
-			currentCell.setStyle(name);
-		}
-	}
+	m_doc->itemSelection_SetNamedCellStyle(name);
 
 	m_item->asTable()->update();
 	showCellStyle(name);
@@ -266,11 +238,11 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 	 */
 	State borderState = Unset;
 	m_currentBorder = TableBorder();
-	TableSideSelector::Sides selectedSides = sideSelector->selection();
+	TableSides selectedSides = sideSelector->selection();
 	PageItem_Table* table = m_item->asTable();
 	bool tableEditMode = (m_doc->appMode == modeEditTable);
 
-	if (selectedSides & TableSideSelector::Left)
+	if (selectedSides & TableSide::Left)
 	{
 		TableBorder leftBorder = tableEditMode ? table->activeCell().leftBorder() : table->leftBorder();
 		if (borderState == Unset && !leftBorder.isNull())
@@ -282,7 +254,7 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 			borderState = TriState;
 	}
 
-	if (selectedSides & TableSideSelector::Right)
+	if (selectedSides & TableSide::Right)
 	{
 		TableBorder rightBorder = tableEditMode ? table->activeCell().rightBorder() : table->rightBorder();
 		if (borderState == Unset && !rightBorder.isNull())
@@ -294,7 +266,7 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 			borderState = TriState;
 	}
 
-	if (selectedSides & TableSideSelector::Top)
+	if (selectedSides & TableSide::Top)
 	{
 		TableBorder topBorder = tableEditMode ? table->activeCell().topBorder() : table->topBorder();
 		if (borderState == Unset && !table->topBorder().isNull())
@@ -306,7 +278,7 @@ void PropertiesPalette_Table::on_sideSelector_selectionChanged()
 			borderState = TriState;
 	}
 
-	if (selectedSides & TableSideSelector::Bottom)
+	if (selectedSides & TableSide::Bottom)
 	{
 		TableBorder bottomBorder = tableEditMode ? table->activeCell().bottomBorder() : table->bottomBorder();
 		if (borderState == Unset && !bottomBorder.isNull())
@@ -381,6 +353,9 @@ void PropertiesPalette_Table::updateBorderLineList(const TableBorderLine& curren
 void PropertiesPalette_Table::updateBorderLineListItem()
 {
 	QListWidgetItem* item = borderLineList->currentItem();
+	if (!item)
+		return;
+
 	QString text = QString(" %1%2 %3").arg(borderLineWidth->getValue()).arg(borderLineWidth->suffix(), CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
 	if (borderLineColor->currentColor() != CommonStrings::None)
 	{
@@ -551,28 +526,23 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 {
 	if (!m_item || !m_item->isTable())
 		return;
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap(), Um::CellFillColor, QString(), Um::ITable);
+
 	QString color = colorName;
 	if (colorName == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
+
 	PageItem_Table* table = m_item->asTable();
 	if (m_doc->appMode != modeEditTable)
-	{
 		table->setFillColor(color);
-		table->setFillShade(fillShade->value());
-	}
 	else
-	{
-		QSet<TableCell> cells = table->selectedCells();
-		if (cells.isEmpty())
-			cells.insert(table->activeCell());
-		QSet<TableCell>::Iterator cellIter;
-		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
-		{
-			TableCell currentCell(*cellIter);
-			currentCell.setFillColor(color);
-			currentCell.setFillShade(fillShade->value());
-		}
-	}
+		table->setCellFillColor(color);
+
+	if (activeTransaction)
+		activeTransaction.commit();
 
 	table->update();
 }
@@ -582,28 +552,23 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(double shade)
 	if (!m_item || !m_item->isTable())
 		return;
 
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap(), Um::CellFillShade, QString(), Um::ITable);
+
 	QString color = fillColor->currentColor();
 	if (color == CommonStrings::tr_NoneColor)
 		color = CommonStrings::None;
+
 	PageItem_Table* table = m_item->asTable();
 	if (m_doc->appMode != modeEditTable)
-	{
-		table->setFillColor(color);
 		table->setFillShade(shade);
-	}
 	else
-	{
-		QSet<TableCell> cells = table->selectedCells();
-		if (cells.isEmpty())
-			cells.insert(table->activeCell());
-		QSet<TableCell>::Iterator cellIter;
-		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
-		{
-			TableCell currentCell(*cellIter);
-			currentCell.setFillColor(color);
-			currentCell.setFillShade(shade);
-		}
-	}
+		table->setCellFillShade(fillShade->value());
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
 	table->update();
 }
 
@@ -660,39 +625,18 @@ void PropertiesPalette_Table::updateBorders()
 	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
 
 	PageItem_Table* table = m_item->asTable();
-	TableSideSelector::Sides selectedSides = sideSelector->selection();
+	TableSides selectedSides = sideSelector->selection();
 	if (m_doc->appMode != modeEditTable)
 	{
-		if (selectedSides & TableSideSelector::Left)
-			table->setLeftBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Right)
-			table->setRightBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Top)
-			table->setTopBorder(m_currentBorder);
-		if (selectedSides & TableSideSelector::Bottom)
-			table->setBottomBorder(m_currentBorder);
+		table->setBorders(m_currentBorder, selectedSides);
 	}
 	else
 	{
 		QSet<TableCell> cells = table->selectedCells();
 		if (cells.isEmpty())
 			cells.insert(table->activeCell());
-		QSet<TableCell>::Iterator cellIter;
-		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
-		{
-			TableCell currentCell(*cellIter);
-			if (selectedSides & TableSideSelector::Left)
-				currentCell.setLeftBorder(m_currentBorder);
-			if (selectedSides & TableSideSelector::Right)
-				currentCell.setRightBorder(m_currentBorder);
-			if (selectedSides & TableSideSelector::Top)
-				currentCell.setTopBorder(m_currentBorder);
-			if (selectedSides & TableSideSelector::Bottom)
-				currentCell.setBottomBorder(m_currentBorder);
-		}
+		table->setCellBorders(cells, m_currentBorder, selectedSides);
 	}
-
-	table->adjustTable();
 	table->update();
 }
 

@@ -26,7 +26,7 @@ class QEvent;
 
 TableSideSelector::TableSideSelector(QWidget* parent) : QFrame(parent)
 {
-	setSelection(All);
+	setSelection(TableSide::All);
 	setStyle(TableStyle);
 	setFrameShape(QFrame::StyledPanel);
 	setFrameShadow(QFrame::Sunken);
@@ -34,17 +34,17 @@ TableSideSelector::TableSideSelector(QWidget* parent) : QFrame(parent)
 	setMouseTracking(true);
 }
 
-QList<TableSideSelector::Side> TableSideSelector::selectionList() const
+QList<TableSide> TableSideSelector::selectionList() const
 {
-	QList<Side> sides;
-	if (m_selection & Left)
-		sides.append(Left);
-	if (m_selection & Right)
-		sides.append(Right);
-	if (m_selection & Top)
-		sides.append(Top);
-	if (m_selection & Bottom)
-		sides.append(Bottom);
+	QList<TableSide> sides;
+	if (m_selection & TableSide::Left)
+		sides.append(TableSide::Left);
+	if (m_selection & TableSide::Right)
+		sides.append(TableSide::Right);
+	if (m_selection & TableSide::Top)
+		sides.append(TableSide::Top);
+	if (m_selection & TableSide::Bottom)
+		sides.append(TableSide::Bottom);
 	return sides;
 }
 
@@ -67,10 +67,10 @@ void TableSideSelector::paintEvent(QPaintEvent* event)
 
 	// Paint selection.
 	painter.setPen(QPen(Qt::black, edgeWidth, Qt::SolidLine, Qt::RoundCap));
-	if (m_selection & Left) painter.drawLine(m_left);
-	if (m_selection & Right) painter.drawLine(m_right);
-	if (m_selection & Top) painter.drawLine(m_top);
-	if (m_selection & Bottom) painter.drawLine(m_bottom);
+	if (m_selection & TableSide::Left) painter.drawLine(m_left);
+	if (m_selection & TableSide::Right) painter.drawLine(m_right);
+	if (m_selection & TableSide::Top) painter.drawLine(m_top);
+	if (m_selection & TableSide::Bottom) painter.drawLine(m_bottom);
 
 	// Paint the dotted grid.
 	painter.setPen(QPen(Qt::gray, edgeWidth/4, Qt::DotLine));
@@ -82,16 +82,16 @@ void TableSideSelector::paintEvent(QPaintEvent* event)
 	painter.setPen(QPen(QColor(255, 255, 255, 60), edgeWidth, Qt::SolidLine, Qt::RoundCap));
 	switch (m_highlighted)
 	{
-	case Left:
+	case TableSide::Left:
 		painter.drawLine(m_left);
 		break;
-	case Right:
+	case TableSide::Right:
 		painter.drawLine(m_right);
 		break;
-	case Top:
+	case TableSide::Top:
 		painter.drawLine(m_top);
 		break;
-	case Bottom:
+	case TableSide::Bottom:
 		painter.drawLine(m_bottom);
 		break;
 	default:
@@ -115,17 +115,17 @@ void TableSideSelector::mouseMoveEvent(QMouseEvent* event)
 void TableSideSelector::leaveEvent(QEvent* event)
 {
 	Q_UNUSED(event);
-	m_highlighted = None;
+	m_highlighted = TableSide::None;
 	update();
 }
 
-TableSideSelector::Side TableSideSelector::closestSide(const QPointF& point) const
+TableSide TableSideSelector::closestSide(const QPointF& point) const
 {
-	QList<QPair<double, Side> > distances;
-	distances.append(QPair<double, Side>(QLineF(point, m_left.pointAt(0.5)).length(), Left));
-	distances.append(QPair<double, Side>(QLineF(point, m_right.pointAt(0.5)).length(), Right));
-	distances.append(QPair<double, Side>(QLineF(point, m_top.pointAt(0.5)).length(), Top));
-	distances.append(QPair<double, Side>(QLineF(point, m_bottom.pointAt(0.5)).length(), Bottom));
+	QList<QPair<double, TableSide> > distances;
+	distances.append(QPair<double, TableSide>(QLineF(point, m_left.pointAt(0.5)).length(), TableSide::Left));
+	distances.append(QPair<double, TableSide>(QLineF(point, m_right.pointAt(0.5)).length(), TableSide::Right));
+	distances.append(QPair<double, TableSide>(QLineF(point, m_top.pointAt(0.5)).length(), TableSide::Top));
+	distances.append(QPair<double, TableSide>(QLineF(point, m_bottom.pointAt(0.5)).length(), TableSide::Bottom));
 	std::sort(distances.begin(), distances.end());
 
 	return distances.first().second;
