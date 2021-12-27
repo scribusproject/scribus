@@ -527,7 +527,7 @@ void PrefsManager::initDefaults()
 	appPrefs.imageCachePrefs.maxCacheEntries = 1000;
 	appPrefs.imageCachePrefs.compressionLevel = 1;
 	appPrefs.activePageSizes.clear();
-	appPrefs.activePageSizes << "A4" << "Letter";
+	appPrefs.activePageSizes << "A3" << "A4" << "A5" << "A6" << "Letter";
 
 	//Attribute setup
 	appPrefs.itemAttrPrefs.defaultItemAttributes.clear();
