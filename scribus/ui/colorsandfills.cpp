@@ -68,15 +68,15 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 
-ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *docGradients, const ColorList& doco, const QString& docColSet, QHash<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW)
-	                : QDialog(parent),
-	                  m_doc(doc),
-	                  mainWin(scMW)
+ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGradient> *gradients, const ColorList& colorlist, const QString& docColSet, QHash<QString, ScPattern> *patterns, ScribusDoc *doc, ScribusMainWindow *scMW)
+	: QDialog(parent),
+	m_doc(doc),
+	mainWin(scMW)
 {
 	setupUi(this);
 	setModal(true);
 
-	m_colorList = doco;
+	m_colorList = colorlist;
 
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	dataTree->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -85,21 +85,21 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	colorItems->setText(0, tr("Solid Colors"));
 	gradientItems = new QTreeWidgetItem(dataTree);
 	gradientItems->setText(0, tr("Gradients"));
-	for (QHash<QString, VGradient>::Iterator it = docGradients->begin(); it != docGradients->end(); ++it)
+	for (QHash<QString, VGradient>::Iterator it = gradients->begin(); it != gradients->end(); ++it)
 	{
 		dialogGradients.insert(it.key(), it.value());
 		origNames.insert(it.key(), it.key());
 	}
-	origGradients = docGradients->keys();
+	origGradients = gradients->keys();
 
 	patternItems = new QTreeWidgetItem(dataTree);
 	patternItems->setText(0, tr("Patterns"));
-	for (QHash<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
+	for (QHash<QString, ScPattern>::Iterator it = patterns->begin(); it != patterns->end(); ++it)
 	{
 		dialogPatterns.insert(it.key(), it.value());
 		origNamesPatterns.insert(it.key(), it.key());
 	}
-	origPatterns = docPatterns->keys();
+	origPatterns = patterns->keys();
 
 	csm.findPaletteLocations();
 	systemSwatches = LoadColSet->addTopLevelItem( tr("Scribus Swatches"));
@@ -147,6 +147,8 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	dataTree->expandItem(gradientItems);
 	dataTree->expandItem(patternItems);
 	dataTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+	dataTree->setCurrentItem(dataTree->topLevelItem(0));
+	itemSelected(dataTree->currentItem());
 	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));

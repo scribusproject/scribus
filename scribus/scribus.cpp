@@ -9160,27 +9160,27 @@ void ScribusMainWindow::ConvertToSymbol()
 
 void ScribusMainWindow::manageColorsAndFills()
 {
-	ColorList edc;
-	QHash<QString, VGradient> *Gradients;
-	QHash<QString, ScPattern> *docPatterns;
+	ColorList colorlist;
+	QHash<QString, VGradient> *gradients;
+	QHash<QString, ScPattern> *patterns;
 	ScribusDoc* tmpDoc;
 	if (HaveDoc)
 	{
-		Gradients = &doc->docGradients;
-		edc = doc->PageColors;
-		docPatterns = &doc->docPatterns;
+		gradients = &doc->docGradients;
+		colorlist = doc->PageColors;
+		patterns = &doc->docPatterns;
 		tmpDoc = doc;
 	}
 	else
 	{
-		Gradients = &m_prefsManager.appPrefs.defaultGradients;
-		edc = m_prefsManager.colorSet();
-		docPatterns = &m_prefsManager.appPrefs.defaultPatterns;
+		gradients = &m_prefsManager.appPrefs.defaultGradients;
+		colorlist = m_prefsManager.colorSet();
+		patterns = &m_prefsManager.appPrefs.defaultPatterns;
 		tmpDoc = m_doc;
 		doc = m_doc;
 	}
 	m_undoManager->setUndoEnabled(false);
-	ColorsAndFillsDialog *dia = new ColorsAndFillsDialog(this, Gradients, edc, m_prefsManager.colorSetName(), docPatterns, tmpDoc, this);
+	ColorsAndFillsDialog *dia = new ColorsAndFillsDialog(this, gradients, colorlist, m_prefsManager.colorSetName(), patterns, tmpDoc, this);
 	if (dia->exec())
 	{
 		if (HaveDoc)
