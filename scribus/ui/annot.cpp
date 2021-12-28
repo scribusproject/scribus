@@ -763,7 +763,7 @@ void ScAnnot::DecodeVali()
 
 void ScAnnot::DecodeCalc()
 {
-	QString tm = "";
+	QString tm;
 	QString tm2;
 	QString pfor = m_annotation.C_act();
 	int ss = pfor.lastIndexOf("(");

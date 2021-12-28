@@ -392,20 +392,17 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	double newX, newY;
 	PageItem *currItem;
-	//bool erf = false;
 	m->accept();
 	if (commonMouseMove(m))
 		return;
 	if (GetItem(&currItem))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+		newX = qRound(mousePointDoc.x());
+		newY = qRound(mousePointDoc.y());
 		if (m_doc->DragP)
 			return;
 		if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEdit))
@@ -502,7 +499,6 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-// 					setModeCursor();
 					m_view->setCursor(QCursor(Qt::ArrowCursor));
 				}
 			}
@@ -512,8 +508,8 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+			newX = qRound(mousePointDoc.x());
+			newY = qRound(mousePointDoc.y());
 			SeRx = newX;
 			SeRy = newY;
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
@@ -541,27 +537,21 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				ss->set("ETEA", QString(""));
 		}
 	}
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	bool inText;
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
-	FPoint npf, npf2;
 	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
-//	oldClip = 0;
 	m->accept();
 	m_view->registerMousePress(m->globalPos());
-	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-// 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRad, m->y()-m_doc->guidesPrefs().grabRad, m_doc->guidesPrefs().grabRad*2, m_doc->guidesPrefs().grabRad*2);
-//	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+	Mxp = mousePointDoc.x();
+	Myp = mousePointDoc.y();
 	SeRx = Mxp;
 	SeRy = Myp;
 	if (m->button() == Qt::MiddleButton)

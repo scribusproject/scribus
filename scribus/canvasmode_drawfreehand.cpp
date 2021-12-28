@@ -104,8 +104,6 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	PageItem *currItem;
-	FPoint npf, npf2;
-//	QRect tx;
 	m->accept();
 	m_canvas->displayCorrectedXYHUD(m->globalPos(), mousePointDoc.x(), mousePointDoc.y());
 	if (commonMouseMove(m))
@@ -170,8 +168,6 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	double Rxp = 0;
 	double Ryp = 0;
-	FPoint npf, npf2;
-//	QRect tx;
 	QTransform pm;
 	m_mouseButtonPressed = true;
 	m_view->HaveSelRect = false;

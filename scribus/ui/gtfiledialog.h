@@ -29,7 +29,7 @@ public:
 	QString selectedFile();
 
 public slots:
-	virtual void accept();
+	void accept() override;
 	void fileClicked(const QString &path);
 	void okClicked();
 
