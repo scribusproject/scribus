@@ -581,7 +581,8 @@ void StoryText::insertParSep(int pos)
 void StoryText::removeParSep(int pos)
 {
 	ScText* it = item(pos);
-	if (it->parstyle) {
+	if (it->parstyle)
+	{
 //		const CharStyle* oldP = & it->parstyle->charStyle();
 //		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
 //		d->replaceParentStyle(pos, oldP, newP);
@@ -590,7 +591,7 @@ void StoryText::removeParSep(int pos)
 	}
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesn't choke:
-	it->ch = 0;
+	it->ch = QChar();
 	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());
 }
 

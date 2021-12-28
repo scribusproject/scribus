@@ -109,7 +109,8 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		else if (gid != 0)
 		{
 			gid = gc.getText().at(0).unicode();
-			if (gid != SpecialChars::NBSPACE && gid != SpecialChars::NNBSPACE)
+			QChar chr(gid);
+			if (chr != SpecialChars::NBSPACE && chr != SpecialChars::NNBSPACE)
 				gid = 32;
 		}
 		QTransform chma, chma4;

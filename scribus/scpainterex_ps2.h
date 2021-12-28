@@ -244,11 +244,11 @@ private:
 	bool m_pathIsClosed { false };
 	bool m_drawingClosedPath { false };
 /* Drawing surface dimensions */
-	double m_deviceDimX { 0.0 };
-	double m_deviceDimY { 0.0 };
+//	double m_deviceDimX { 0.0 };
+//	double m_deviceDimY { 0.0 };
 /* Device resolutions */
-	double m_deviceResX { 0.0 };
-	double m_deviceResY { 0.0 };
+//	double m_deviceResX { 0.0 };
+//	double m_deviceResY { 0.0 };
 
 /* Color conversion function */
 	void   transformImage(QImage* image, uchar* data, int scan) const;

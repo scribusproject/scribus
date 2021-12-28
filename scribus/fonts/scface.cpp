@@ -391,16 +391,17 @@ void ScFace::unload() const
 
 ScFace::gid_type ScFace::emulateGlyph(uint ch) const
 {
-	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP
-		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK
-		|| ch == SpecialChars::TAB || ch == SpecialChars::SHYPHEN
-		|| ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE || ch==SpecialChars::OBJECT)
+	QChar chr(ch);
+	if (chr == SpecialChars::LINEBREAK || chr == SpecialChars::PARSEP
+		|| chr == SpecialChars::FRAMEBREAK || chr == SpecialChars::COLBREAK
+		|| chr == SpecialChars::TAB || chr == SpecialChars::SHYPHEN
+		|| chr == SpecialChars::ZWSPACE || chr == SpecialChars::ZWNBSPACE || chr == SpecialChars::OBJECT)
 		return CONTROL_GLYPHS + ch;
-	if (ch == SpecialChars::NBSPACE)
+	if (chr == SpecialChars::NBSPACE)
 		return  m_m->char2CMap(' ');
-	if (ch == SpecialChars::NNBSPACE)
+	if (chr == SpecialChars::NNBSPACE)
 		return  m_m->char2CMap(0x2009); // Use thin space
-	if (ch == SpecialChars::NBHYPHEN)
+	if (chr == SpecialChars::NBHYPHEN)
 		return hyphenGlyph();
 	return 0;
 }
@@ -440,7 +441,7 @@ ScFace::gid_type ScFace::char2CMap(uint ch) const
 	if (m_m->status == ScFace::UNKNOWN)
 		m_m->load();
 	
-	if (ch == SpecialChars::SHYPHEN)
+	if (QChar(ch) == SpecialChars::SHYPHEN)
 		return emulateGlyph(ch);
 
 	gid_type gl = m_m->char2CMap(ch);
