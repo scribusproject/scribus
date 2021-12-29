@@ -32,7 +32,7 @@ SwatchCombo::SwatchCombo( QWidget* parent ) : QToolButton(parent)
 	dataTree = new QTreeWidget(nullptr);
 	dataTree->setHeaderHidden(true);
 	dataTree->setMinimumSize(QSize(140, 200));
-	popUp = new QMenu();
+	popUp = new QMenu(this);
 	popUpAct = new QWidgetAction(this);
 	popUpAct->setDefaultWidget(dataTree);
 	popUp->addAction(popUpAct);
