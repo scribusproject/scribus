@@ -1160,7 +1160,7 @@ void SearchReplace::readPrefs()
 	searchTextCheckBox->setChecked(m_prefs->getBool("SText", true));
 	replaceEffectCheckBox->setChecked(m_prefs->getBool("REffect", false));
 	searchTextLineEdit->setText(m_prefs->get("STextVal", ""));
-	int tmp = m_prefs->getInt("SStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle));
+	int tmp = m_prefs->getInt("SStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle.parent()));
 	if (tmp < 0 || tmp >= searchStyleValue->count())
 		tmp = 0;
 	searchStyleValue->setCurrentIndex(tmp);
@@ -1182,7 +1182,7 @@ void SearchReplace::readPrefs()
 	replaceStyleCheckBox->setChecked(m_prefs->getBool("RStyle", false));
 	replaceTextCheckBox->setChecked(m_prefs->getBool("RText", true));
 	replaceTextLineEdit->setText(m_prefs->get("RTextVal", ""));
-	tmp = m_prefs->getInt("RStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle));
+	tmp = m_prefs->getInt("RStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle.parent()));
 	if (tmp < 0 || tmp >= replaceStyleValue->count())
 		tmp = 0;
 	replaceStyleValue->setCurrentIndex(tmp);
