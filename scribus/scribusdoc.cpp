@@ -11258,9 +11258,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		if (currItem->isImageFrame() && ScCore->fileWatcher->isWatching(currItem->Pfile) && currItem->imageIsAvailable)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		//delete marks pointed to that item
-		for (int a=0; a < m_docMarksList.count(); a++)
+		for (int i = 0; i < m_docMarksList.count(); i++)
 		{
-			Mark* m = m_docMarksList.at(a);
+			Mark* m = m_docMarksList.at(i);
 			Q_ASSERT(m != nullptr);
 			if (m->isType(MARK2ItemType) && (m->getItemPtr() == currItem))
 			{
@@ -11270,7 +11270,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 		if (currItem->isNoteFrame())
 		{
-			if (currItem->itemText.length() >0)
+			if (currItem->itemText.length() > 0)
 			{
 				currItem->itemText.selectAll();
 				currItem->asTextFrame()->deleteSelectedTextFromFrame();
@@ -11419,13 +11419,7 @@ void ScribusDoc::itemSelection_SetItemLineBlend(int t)
 	regionsChanged()->update(QRectF());
 	changed();
 	if (activeTransaction)
-	{
-		activeTransaction.commit(Um::Selection,
-								 Um::IGroup,
-								 Um::BlendMode,
-								 "",
-								 Um::IGroup);
-	}
+		activeTransaction.commit(Um::Selection, Um::IGroup, Um::BlendMode, "", Um::IGroup);
 }
 
 
@@ -11507,13 +11501,7 @@ void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSel
 		currItem->update();
 	}
 	if (activeTransaction)
-	{
-		activeTransaction.commit(Um::Selection,
-								 Um::IGroup,
-							     Um::Overprint,
-								 "",
-								 Um::IGroup);
-	}
+		activeTransaction.commit(Um::Selection, Um::IGroup, Um::Overprint, "", Um::IGroup);
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
@@ -11627,13 +11615,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 		currItem->update();
 	}
 	if (activeTransaction)
-	{
-		activeTransaction.commit(Um::Selection,
-									Um::IGroup,
-									Um::ImageOffset,
-									tooltip,
-									Um::IImageScaling);
-	}
+		activeTransaction.commit(Um::Selection, Um::IGroup, Um::ImageOffset, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
@@ -11671,13 +11653,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 		currItem->update();
 	}
 	if (activeTransaction)
-	{
-		activeTransaction.commit(Um::Selection,
-							Um::IGroup,
-							Um::ImageScale,
-							tooltip,
-							Um::IImageScaling);
-	}
+		activeTransaction.commit(Um::Selection, Um::IGroup, Um::ImageScale, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
@@ -11717,23 +11693,11 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 		if (selectedItemCount <= Um::ItemsInvolvedLimit)
 			tooltip += "\t" + currItem->getUName() + "\n";
 		if (activeTransaction)
-		{
-			activeTransaction.commit(Um::Selection,
-									 Um::IImageFrame,
-									 Um::ImageScale,
-									 tooltip,
-									 Um::IImageScaling);
-		}
+			activeTransaction.commit(Um::Selection, Um::IImageFrame, Um::ImageScale, tooltip, Um::IImageScaling);
 		currItem->update();
 	}
 	if (outerTransaction)
-	{
-		outerTransaction.commit(Um::Selection,
-								Um::IGroup,
-								Um::ImageScale,
-								tooltip,
-								Um::IImageScaling);
-	}
+		outerTransaction.commit(Um::Selection, Um::IGroup, Um::ImageScale, tooltip, Um::IImageScaling);
 	m_updateManager.setUpdatesEnabled();
 	changed();
 }
@@ -16909,11 +16873,11 @@ Mark* ScribusDoc::getMark(const QString& l, MarkType t)
 
 Mark *ScribusDoc::newMark(Mark* mrk)
 {
-	Mark* newMrk = new Mark();
+	Mark* newMark = new Mark();
 	if (mrk != nullptr)
-		*newMrk = *mrk;
-	m_docMarksList.append(newMrk);
-	return newMrk;
+		*newMark = *mrk;
+	m_docMarksList.append(newMark);
+	return newMark;
 }
 
 TextNote *ScribusDoc::newNote(NotesStyle* noteStyle)
@@ -17939,67 +17903,67 @@ PageItem_NoteFrame *ScribusDoc::createNoteFrame(NotesStyle *nStyle, double x, do
 	return nF;
 }
 
-void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool forceDeletion)
+void ScribusDoc::delNoteFrame(PageItem_NoteFrame* noteFrame, bool removeMarks, bool forceDeletion)
 {
-	Q_ASSERT(nF != nullptr);
+	Q_ASSERT(noteFrame != nullptr);
 
 	//for all notes in noteFrame set notes marks to null
-	for (TextNote* n : nF->notesList())
+	for (TextNote* n : noteFrame->notesList())
 		n->setNoteMark(nullptr);
 
-	if (nF->itemText.length() > 0 && removeMarks)
-		nF->removeMarksFromText(false);
+	if (noteFrame->itemText.length() > 0 && removeMarks)
+		noteFrame->removeMarksFromText(false);
 		
-	if (appMode == modeEdit && nF->isSelected())
+	if (appMode == modeEdit && noteFrame->isSelected())
 	{
 		view()->deselectItems(true);
-		if (!nF->isEndNotesFrame())
-			view()->selectItem(nF->masterFrame());
+		if (!noteFrame->isEndNotesFrame())
+			view()->selectItem(noteFrame->masterFrame());
 	}
-	if (m_docEndNotesFramesMap.contains(nF))
+	if (m_docEndNotesFramesMap.contains(noteFrame))
 	{
-		m_docEndNotesFramesMap.remove(nF);
-		m_docEndNotesFramesChanged.removeAll(nF);
-		for (TextNote* note : nF->notesList())
+		m_docEndNotesFramesMap.remove(noteFrame);
+		m_docEndNotesFramesChanged.removeAll(noteFrame);
+		for (TextNote* note : noteFrame->notesList())
 		{
 			PageItem* masterMarkItem = note->masterMark()->getItemPtr();
-			masterMarkItem->asTextFrame()->removeNoteFrame(nF);
+			masterMarkItem->asTextFrame()->removeNoteFrame(noteFrame);
 			masterMarkItem->invalid = true;
 		}
 	}
-	else if (nF->masterFrame() != nullptr)
+	else if (noteFrame->masterFrame() != nullptr)
 	{
-		nF->masterFrame()->removeNoteFrame(nF);
-		nF->masterFrame()->invalid = true;
+		noteFrame->masterFrame()->removeNoteFrame(noteFrame);
+		noteFrame->masterFrame()->invalid = true;
 	}
-	m_docNotesInFrameMap.remove(nF);
+	m_docNotesInFrameMap.remove(noteFrame);
 
-	nF->dropLinks();
-	if (nF->isWelded())
-		nF->unWeld(!nF->isAutoNoteFrame());
+	noteFrame->dropLinks();
+	if (noteFrame->isWelded())
+		noteFrame->unWeld(!noteFrame->isAutoNoteFrame());
 	//delete marks pointed to that item
-	for (int a=0; a < m_docMarksList.count(); ++a)
+	for (int i = 0; i < m_docMarksList.count(); ++i)
 	{
-		Mark* m = m_docMarksList.at(a);
+		Mark* m = m_docMarksList.at(i);
 		Q_ASSERT(m != nullptr);
-		if (m->isType(MARK2ItemType) && (m->getItemPtr() == nF))
+		if (m->isType(MARK2ItemType) && (m->getItemPtr() == noteFrame))
 		{
 			setUndoDelMark(m);
 			eraseMark(m, true);
 		}
 	}
 	m_Selection->delaySignalsOn();
-	if (m_Selection->findItem(nF) != -1)
+	if (m_Selection->findItem(noteFrame) != -1)
 	{
 		if (appMode == modeEdit)
 			view()->requestMode(modeNormal);
-		m_Selection->removeItem(nF);
-		if (m_Selection->isEmpty() && nF->masterFrame())
-			m_Selection->addItem(nF->masterFrame());
+		m_Selection->removeItem(noteFrame);
+		if (m_Selection->isEmpty() && noteFrame->masterFrame())
+			m_Selection->addItem(noteFrame->masterFrame());
 	}
 	m_Selection->delaySignalsOff();
 
-	Items->removeOne(nF);
+	Items->removeOne(noteFrame);
 
 	QList<PageItem*> allItems = *Items;
 	while (allItems.count() > 0)
@@ -18011,11 +17975,11 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool for
 			continue;
 		}
 		if (item->isTextFrame())
-			item->asTextFrame()->removeNoteFrame(nF);
+			item->asTextFrame()->removeNoteFrame(noteFrame);
 	}
 	setNotesChanged(true);
 	if (forceDeletion)
-		delete nF;
+		delete noteFrame;
 }
 
 bool ScribusDoc::validateNSet(const NotesStyle& noteStyle, QString newName)

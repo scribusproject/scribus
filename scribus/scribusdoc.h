@@ -1813,7 +1813,7 @@ public:
 	PageItem_NoteFrame* createNoteFrame(PageItem_TextFrame* inFrame, NotesStyle *nStyle, int index = -1);
 	PageItem_NoteFrame* createNoteFrame(NotesStyle *nStyle, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	//delete noteframe
-	void delNoteFrame(PageItem_NoteFrame *nF, bool removeMarks=true, bool forceDeletion = true);
+	void delNoteFrame(PageItem_NoteFrame *noteFrame, bool removeMarks=true, bool forceDeletion = true);
 	//renumber notes for given notes style
 	//return true if doc needs update after changing numbers of notes
 	bool updateNotesNums(NotesStyle* nStyle);
