@@ -321,7 +321,7 @@ void ScribusView::togglePreview(bool inPreview)
 		if (m_doc->HasCMS && m_doc->Gamut)
 		{
 			ScMessageBox::information(m_ScMW, tr("Preview Mode"),
-									  "<qt>" + tr("Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
+									  "<qt>" + tr("Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired. Disable the option \"Mark colors out of gamut\" in Document Setup > Color Management if this function is not required.") + "</qt>");
 		}
 	}
 	else
