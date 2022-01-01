@@ -684,14 +684,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	m_doc->m_Selection->delaySignalsOff();
 
-	QStringList imfo;
-	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
-	for (int i = 0; i < imgs.count(); ++i )
+	QStringList imageFormatList;
+	QList<QByteArray> qImageReaderSupportedFormatList = QImageReader::supportedImageFormats();
+	for (int i = 0; i < qImageReaderSupportedFormatList.count(); ++i )
 	{
-		imfo.append(QString(imgs.at(i)).toUpper());
+		imageFormatList.append(QString(qImageReaderSupportedFormatList.at(i)).toUpper());
 	}
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
-	imfo += formatD.split("|");
+	imageFormatList += formatD.split("|");
 
 	if (e->mimeData()->hasUrls())
 	{
@@ -712,7 +712,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				QString ext = fi.suffix().toUpper();
 				if (ext == "JPG")
 					ext = "JPEG";
-				if (!imfo.contains(ext) || !fi.exists() || selectedItemByDrag)
+				if (!imageFormatList.contains(ext) || !fi.exists() || selectedItemByDrag)
 					continue;
 				int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, dropPosDoc.x() + dropOffsetX, dropPosDoc.y() + dropOffsetY, 1, 1, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().imageFillColor, m_doc->itemToolPrefs().imageStrokeColor);
 				PageItem *item = m_doc->Items->at(z);
@@ -774,7 +774,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			PageItem* item = m_doc->Items->at(i);
 			if (item->m_layerID != m_doc->activeLayer())
 				continue;
-			if ((m_doc->masterPageMode())  && (!((item->OwnPage == -1) || (item->OwnPage == m_doc->currentPage()->pageNr()))))
+			if ((m_doc->masterPageMode()) && (!((item->OwnPage == -1) || (item->OwnPage == m_doc->currentPage()->pageNr()))))
 				continue;
 			if ((m_canvas->frameHitTest(dropPosDocQ, item) >= Canvas::INSIDE) && (item->itemType() == PageItem::Symbol))
 			{
@@ -868,7 +868,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	if (ext == "JPG")
 		ext = "JPEG";
-	img = imfo.contains(ext);
+	img = imageFormatList.contains(ext);
 	bool vectorFile = false;
 	if (fi.exists())
 	{
