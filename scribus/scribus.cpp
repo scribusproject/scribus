@@ -7095,22 +7095,22 @@ void ScribusMainWindow::doSaveAsPDF()
 	if (doc->pdfOptions().EmbedList.count() != 0)
 	{
 		QList<QString> tmpEm;
-		QList<QString>::Iterator itef;
-		for (itef = doc->pdfOptions().EmbedList.begin(); itef != doc->pdfOptions().EmbedList.end(); ++itef)
+		const auto& fontsToEmbed = doc->pdfOptions().EmbedList;
+		for (const auto& fontName : fontsToEmbed)
 		{
-			if (ReallyUsed.contains((*itef)))
-				tmpEm.append((*itef));
+			if (ReallyUsed.contains(fontName))
+				tmpEm.append(fontName);
 		}
 		doc->pdfOptions().EmbedList = tmpEm;
 	}
 	if (doc->pdfOptions().SubsetList.count() != 0)
 	{
 		QList<QString> tmpEm;
-		QList<QString>::Iterator itef;
-		for (itef = doc->pdfOptions().SubsetList.begin(); itef != doc->pdfOptions().SubsetList.end(); ++itef)
+		const auto& fontsToSubset = doc->pdfOptions().SubsetList;
+		for (const auto& fontName : fontsToSubset)
 		{
-			if (ReallyUsed.contains((*itef)))
-				tmpEm.append((*itef));
+			if (ReallyUsed.contains(fontName))
+				tmpEm.append(fontName);
 		}
 		doc->pdfOptions().SubsetList = tmpEm;
 	}
