@@ -30539,7 +30539,7 @@ Zato je lahko podoba napačna</translation>
         <translation>&lt;p&gt;Uvoziti skušate več strani, kot jih je v tem dokumentu trenutno na voljo od dejavne strani dalje.&lt;/p&gt;Izberite eno izmed naslednjih možnosti:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt;manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt;kolikor gre do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18010"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nesprejemljive nastavitve opombnega sloga</translation>
     </message>
@@ -34305,7 +34305,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="212"/>
         <location filename="../../scribus/scribusdoc.cpp" line="218"/>
         <location filename="../../scribus/scribusdoc.cpp" line="248"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16473"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16469"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -34315,53 +34315,53 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Brisanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11795"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11787"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11792"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11788"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="954"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="950"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Pri odpiranju profilov ICC je prišlo do napake, zato upravljanje barv ni omogočeno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16153"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="959"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16149"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9061"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9057"/>
         <source>remove direct paragraph formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9530"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9526"/>
         <source>remove direct char formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13442"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13438"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34372,7 +34372,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13475"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13471"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34383,41 +34383,41 @@ Vodoravni razmik: %3
 Navpični razmik: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14842"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14897"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15059"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14838"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14893"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15055"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1540"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1536"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Uvoženo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13596"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13592"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Kopiranih %1 predmetov na %2 straneh</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16489"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16485"/>
         <source>File %1 autosaved</source>
         <translation>Datoteka %1 samodejno shranjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17641"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17680"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17637"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17676"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18008"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18004"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 slog zapisa ima dokument kot obseg in ponuja enak slog oštevilčenja, kot skupek %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11124"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11120"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ali res želite počistiti vsebino vseh izbranih okvirjev?</translation>
     </message>
@@ -35223,7 +35223,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="324"/>
         <source>Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired. Disable the option &quot;Mark colors out of gamut&quot; in Document Setup &gt; Color Management if this function is not required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prikaz barv izven obsega je vključen. Zaradi tega se lahko prikaz barv ne bo ujemal z dojemanjem vidno prizadetih. Onemogočite možnost &quot;Označi barve izven barvnega obsega&quot; v Nastavitev dokmenta &gt; Upravljanje barv, če ta zmožnost ni potrebna.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="958"/>

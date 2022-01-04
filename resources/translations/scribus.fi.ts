@@ -30489,7 +30489,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18010"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34246,7 +34246,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="212"/>
         <location filename="../../scribus/scribusdoc.cpp" line="218"/>
         <location filename="../../scribus/scribusdoc.cpp" line="248"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16473"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16469"/>
         <source>Document</source>
         <translation>Asiakirja</translation>
     </message>
@@ -34256,53 +34256,53 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Tausta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Käytössä olevaa kohdetta ei voi poistaa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Poisto-operaatio peruutetaan.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11795"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
         <source>Some objects are locked.</source>
         <translation>Jotkin kohteet ovat lukittuina.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11787"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Vapauta kaikki</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11792"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11788"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Ohita lukitut kohteet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="954"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="950"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>ICC-profiilien avaamisessa tapahtui virhe. Värienhallintaa ei otettu käyttöön.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16153"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="959"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16149"/>
         <source>Adjusting Colors</source>
         <translation>Säädetään värejä</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9061"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9057"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9530"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9526"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13442"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13438"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34310,7 +34310,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13475"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13471"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34318,41 +34318,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14842"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14897"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15059"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14838"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14893"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15055"/>
         <source>Group%1</source>
         <translation>Ryhmä%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1540"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1536"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13596"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13592"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16489"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16485"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17641"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17680"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17637"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17676"/>
         <source>No Style</source>
         <translation>Ei tyyliä</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18008"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18004"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11124"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11120"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
