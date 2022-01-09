@@ -5027,143 +5027,143 @@ currently %2 x %3 DPI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="332"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
         <source>Sort by Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
         <source>Sort by Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="335"/>
         <source>Sort by Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="369"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
         <source>&amp;Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="372"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="398"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="409"/>
-        <source>Load File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="399"/>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="410"/>
-        <source>Load Set</source>
+        <source>Load File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="400"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="411"/>
+        <source>Load Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="401"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="459"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="460"/>
         <source>New Gradient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="476"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="477"/>
         <source>New Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>&amp;Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
         <source>Rename Entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="638"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="673"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="639"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="674"/>
         <source>Copy of %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="753"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="754"/>
         <source>Selected Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="808"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="809"/>
         <source>Do you really want to clear all your gradients?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="831"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="832"/>
         <source>Do you really want to clear all your colors and gradients?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="892"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="893"/>
         <source>Do you really want to clear all your patterns?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1025"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1098"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1026"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1099"/>
         <source>All Supported Formats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1029"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
         <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
         <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
         <source>All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1192"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1038"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1193"/>
         <source>Open</source>
         <translation>Ldi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1076"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1077"/>
         <source>Import Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -5172,32 +5172,32 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1230"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1231"/>
         <source>Choose a Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1260"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1261"/>
         <source>Loading Patterns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1449"/>
         <source>R: %1 G: %2 B: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1455"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1460"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1461"/>
         <source>L: %1 a: %2 b: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>Choose a Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30418,7 +30418,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18010"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34175,7 +34175,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="212"/>
         <location filename="../../scribus/scribusdoc.cpp" line="218"/>
         <location filename="../../scribus/scribusdoc.cpp" line="248"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16473"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16469"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34185,53 +34185,53 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>Cannot Delete In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11226"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11222"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11795"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11791"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11787"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11792"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11788"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="954"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="950"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16153"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="959"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16149"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9061"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9057"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9530"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9526"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13442"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13438"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34239,7 +34239,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13475"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13471"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34247,41 +34247,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14842"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="14897"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15059"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14838"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14893"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15055"/>
         <source>Group%1</source>
         <translation>Group%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1540"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1536"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13596"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13592"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16489"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16485"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17641"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17680"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17637"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17676"/>
         <source>No Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18008"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18004"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11124"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11120"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>

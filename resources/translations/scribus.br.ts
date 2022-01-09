@@ -5051,143 +5051,143 @@ bremañ %2 x %3 PDM</translation>
         <translation>Toueziañ ar spletadoù livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="332"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
         <source>Sort by Name</source>
         <translation>Rummata dre anv</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
         <source>Sort by Color</source>
         <translation>Rummañ dre liv</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="335"/>
         <source>Sort by Type</source>
         <translation>Rummañ dre rizh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="369"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
         <source>&amp;Import</source>
         <translation>&amp;Enporzhiañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
         <source>Add</source>
         <translation>Ouzhpennañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="372"/>
         <source>&amp;Edit</source>
         <translation>&amp;Embann</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="398"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="409"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="399"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="410"/>
         <source>Load File</source>
         <translation>Kargañ ur restr</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="399"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="410"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="400"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="411"/>
         <source>Load Set</source>
         <translation>Kargañ an arventennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="400"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="401"/>
         <source>Rename</source>
         <translation>Adenvel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="459"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="460"/>
         <source>New Gradient</source>
         <translation>Ilrezenn nevez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="476"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="477"/>
         <source>New Color</source>
         <translation>Liv nevez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>&amp;Name:</source>
         <translation>&amp;Anv :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
         <source>Rename Entry</source>
         <translation>Adenvel an enankad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="638"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="673"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="639"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="674"/>
         <source>Copy of %1</source>
         <translation>Eilad eus %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="753"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="754"/>
         <source>Selected Colors</source>
         <translation>Livioù diuzet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="808"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="809"/>
         <source>Do you really want to clear all your gradients?</source>
         <translation>Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù holl ?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="831"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="832"/>
         <source>Do you really want to clear all your colors and gradients?</source>
         <translation>Ha fellout a ra deoc&apos;h skarzhañ hoc&apos;h ilrezennoù hag ho livioù holl ?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="892"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="893"/>
         <source>Do you really want to clear all your patterns?</source>
         <translation>Ha fellout a ra deoc&apos;h skarzhañ ho kousturioù holl ?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1025"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1098"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1026"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1099"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1029"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
         <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
         <translation>Restroù mod ilrezenn Scribus &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
         <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
         <translation>Restroù mod ilrezenn Gimp &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
         <source>All Files (*)</source>
         <translation>An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1192"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1038"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1193"/>
         <source>Open</source>
         <translation>Digeriñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
         <translation>An holl ventrezhioù skoret (%1);;Teulioù (%2);;Restroù all (%3);;An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1076"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1077"/>
         <source>Import Colors</source>
         <translation>Enporzhiañ livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>Information</source>
         <translation>Stlennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -5200,32 +5200,32 @@ An dra-se a vir enporzhiadur livioù zo diouzh restroù zo.
 Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1230"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1231"/>
         <source>Choose a Directory</source>
         <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1260"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1261"/>
         <source>Loading Patterns</source>
         <translation>Kargadur ar gousturioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1449"/>
         <source>R: %1 G: %2 B: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1455"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1460"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1461"/>
         <source>L: %1 a: %2 b: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>Choose a Name</source>
         <translation>Dibabit un anv</translation>
     </message>

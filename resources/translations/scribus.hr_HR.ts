@@ -5050,143 +5050,143 @@ trenutačno %2 × %3 DPI</translation>
         <translation>Spoji skupinu boja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="332"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
         <source>Sort by Name</source>
         <translation>Razvrstaj po imenu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="333"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
         <source>Sort by Color</source>
         <translation>Razvrstaj po boji</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="334"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="335"/>
         <source>Sort by Type</source>
         <translation>Razvrstaj po vrsti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="369"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
         <source>&amp;Import</source>
         <translation>&amp;Uvezi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="372"/>
         <source>&amp;Edit</source>
         <translation>&amp;Uredi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="398"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="409"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="399"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="410"/>
         <source>Load File</source>
         <translation>Učitaj datoteku</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="399"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="410"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="400"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="411"/>
         <source>Load Set</source>
         <translation>Učitaj set</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="400"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="401"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="459"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="460"/>
         <source>New Gradient</source>
         <translation>Novi gradijent</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="476"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="477"/>
         <source>New Color</source>
         <translation>Nova boja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="586"/>
         <source>Rename Entry</source>
         <translation>Preimenuj unos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="638"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="673"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="639"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="674"/>
         <source>Copy of %1</source>
         <translation>Kopija od %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="753"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="754"/>
         <source>Selected Colors</source>
         <translation>Odabrane boje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="808"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="809"/>
         <source>Do you really want to clear all your gradients?</source>
         <translation>Zaista želiš ukloniti sve tvoje gradijente?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="831"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="832"/>
         <source>Do you really want to clear all your colors and gradients?</source>
         <translation>Zaista želiš ukloniti sve tvoje boje i gradijente?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="892"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="893"/>
         <source>Do you really want to clear all your patterns?</source>
         <translation>Zaista želiš ukloniti sve tvoje mustre?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1025"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1098"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1026"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1099"/>
         <source>All Supported Formats</source>
         <translation>Svi podržavajući formati</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1029"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
         <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
         <translation>Scribus Gradient datoteke „*.sgr” (*.sgr *.SGR);;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1030"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
         <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
         <translation>Gimp gradijent datoteke „*.ggr” (*.ggr *.GGR);;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1031"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1032"/>
         <source>All Files (*)</source>
         <translation>Sve datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1037"/>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1192"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1038"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1193"/>
         <source>Open</source>
         <translation>Otvori</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1074"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1075"/>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
         <translation>Svi podupirajući formati (%1);;Dokumenti (%2);;Ostale datoteke (%3);;Sve datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1076"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1077"/>
         <source>Import Colors</source>
         <translation>Uvezi boje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>Information</source>
         <translation>Informacija</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1084"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1085"/>
         <source>The file %1 does not contain colors which can be imported.
 If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
 Not all files have DSC conformant comments where the color descriptions are located.
@@ -5199,32 +5199,32 @@ To onemogućuje uvoz boja iz nekih datoteka.
 Konzultiraj dokumentaciju u odjeljku za uređivanje boja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1230"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1231"/>
         <source>Choose a Directory</source>
         <translation>Odaberi direktorij</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1260"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1261"/>
         <source>Loading Patterns</source>
         <translation>Učitavanje mustri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1448"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1449"/>
         <source>R: %1 G: %2 B: %3</source>
         <translation>R:&#xa0;%1 G:&#xa0;%2 B:&#xa0;%3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1454"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1455"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
         <translation>C:&#xa0;%1% M:&#xa0;%2% Y:&#xa0;%3% K:&#xa0;%4%</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1460"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1461"/>
         <source>L: %1 a: %2 b: %3</source>
         <translation>L:&#xa0;%1 a:&#xa0;%2 b:&#xa0;%3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorsandfills.cpp" line="1948"/>
+        <location filename="../../scribus/ui/colorsandfills.cpp" line="1949"/>
         <source>Choose a Name</source>
         <translation>Odaberi ime</translation>
     </message>
