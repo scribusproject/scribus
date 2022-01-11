@@ -6671,7 +6671,7 @@ Se Rediger farver sektionen af dokumentationen for flere detaljer.</translation>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1223"/>
         <source>Group%1</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="155"/>
