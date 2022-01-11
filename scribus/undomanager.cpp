@@ -666,6 +666,8 @@ void UndoManager::languageChange()
 	UndoManager::TableTopBorder     = tr("Set table top border");
 	UndoManager::TableTopBorderRst  = tr("Reset table top border");
 	UndoManager::TableStyle         = tr("Set table style");
+	UndoManager::TableRowHeight     = tr("Set height of table row");
+	UndoManager::TableColumnWidth   = tr("Set width of table column");
 	UndoManager::SetFont            = tr("Set font");
 	UndoManager::SetFontSize        = tr("Set font size");
 	UndoManager::StartArrowScale    = tr("Set start arrow scale");
@@ -1004,6 +1006,8 @@ QString UndoManager::TableBottomBorderRst  = "";
 QString UndoManager::TableTopBorder     = "";
 QString UndoManager::TableTopBorderRst  = "";
 QString UndoManager::TableStyle         = "";
+QString UndoManager::TableRowHeight     = "";
+QString UndoManager::TableColumnWidth   = "";
 QString UndoManager::SetFont            = "";
 QString UndoManager::SetFontSize        = "";
 QString UndoManager::SetFontWidth       = "";

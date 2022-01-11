@@ -447,6 +447,8 @@ public:
 	static QString TableTopBorder;
 	static QString TableTopBorderRst;
 	static QString TableStyle;
+	static QString TableRowHeight;
+	static QString TableColumnWidth;
 	static QString SetFont;
 	static QString SetFontSize;
 	static QString SetFontWidth;
