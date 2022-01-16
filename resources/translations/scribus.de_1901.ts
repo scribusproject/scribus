@@ -5231,7 +5231,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
 <context>
     <name>ColumnResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
@@ -21066,7 +21066,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="251"/>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="268"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> pt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="258"/>
@@ -22648,7 +22648,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="210"/>
         <source>Blur:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unschärfe:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="220"/>
@@ -31290,7 +31290,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>RowResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="93"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>

@@ -5231,7 +5231,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
 <context>
     <name>ColumnResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
@@ -19494,7 +19494,7 @@ Möchten Sie diesen verwenden?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bestimmt die PDF-Kompatibilität.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, die frühste unterstützte Version, sorgt für höchste Kompatibilität für Drucker-RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, die vorgegebene Version, unterstützt Funktionen wie Transparenz und 128-Bit-Verschlüsselung.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; ist nötig, wenn Objekte in separaten Ebenen im PDF erhalten bleiben sollen.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; ist für blinden Austausch mit den Farben streng in CMYK oder Spot-Farben spezifiziert.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; ist für das Exportieren der PDF wenn Sie farbverwaltetes RGB für kommerzielles Drucken möchten und ist auswählbar wenn Sie die Farbverwaltung aktiviert haben. Verwenden Sie es nur wenn Sie von Ihrem Drucker dazu angewiesen wurden oder in einigen Fällen beim Drucken auf einem 4-Farb-Digital-Farblaserdrucker.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; ist eine Erweiterung von PDF/X-3 um Transparenz und Ebenen zu unterstützen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="70"/>
@@ -30881,7 +30881,7 @@ Die Grafik könnte daher nicht korrekt dargestellt werden</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="551"/>
         <source>3DAnnot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">3DAnnot</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdannotations.cpp" line="664"/>
@@ -31293,7 +31293,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
 <context>
     <name>RowResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="93"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>

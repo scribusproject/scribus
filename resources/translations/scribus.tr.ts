@@ -5228,7 +5228,7 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>ColumnResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
         <source>Width</source>
         <translation>En</translation>
     </message>
@@ -21112,7 +21112,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="98"/>
@@ -21332,7 +21332,9 @@ Do you want to use this?</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Belirteçlerin tüm sayfalar için *, sayfa aralığı
+için 1-5 veya tek bir sayfa numarası olabileceği,
+virgülle ayrılmış belirteçler listesi ekleyin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="271"/>
@@ -31199,7 +31201,7 @@ Document Liberation Projesine gönderin: http://www.documentliberation.org</tran
 <context>
     <name>RowResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="93"/>
         <source>Height</source>
         <translation>Boy</translation>
     </message>
@@ -34847,7 +34849,8 @@ Vertical gap: %4</source>
         <location filename="../../scribus/scribus.cpp" line="7207"/>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dosya yazılamıyor: 
+%1</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="5117"/>
