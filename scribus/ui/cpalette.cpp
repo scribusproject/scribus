@@ -971,7 +971,7 @@ void ColorPalette::slotGradStroke(int number)
 void ColorPalette::showGradient(int number)
 {
 	bool sigBlocked = fillModeCombo->blockSignals(true);
-	if (number==-1)
+	if (number == -1)
 	{
 		fillModeCombo->setCurrentIndex(0);
 	}
@@ -1082,7 +1082,7 @@ void ColorPalette::showGradient(int number)
 void ColorPalette::showGradientStroke(int number)
 {
 	bool sigBlocked = strokeModeCombo->blockSignals(true);
-	if (number==-1 || number == 0)
+	if (number == -1 || number == 0)
 		strokeModeCombo->setCurrentIndex(0);
 	else if (number > 0 && number < 8)
 	{
@@ -1101,7 +1101,7 @@ void ColorPalette::showGradientStroke(int number)
 		if (patternList->count() == 0)
 		{
 			strokeModeCombo->setCurrentIndex(0);
-			emit NewGradient(Gradient_None);
+			emit NewGradientS(Gradient_None);
 		}
 		else
 			strokeModeCombo->setCurrentIndex(2);
