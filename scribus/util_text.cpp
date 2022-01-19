@@ -43,7 +43,12 @@ int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 
 int findParagraphStyle(ScribusDoc* doc, const QString &name)
 {
-	for (int i=0; i < doc->paragraphStyles().count(); ++i)
+	// This make behavior consistent with findParagraphStyle(ScribusDoc*, const ParagraphStyle&)
+	// for unnamed styles
+	if (name.isEmpty())
+		return -1;
+
+	for (int i = 0; i < doc->paragraphStyles().count(); ++i)
 	{
 		if (name == doc->paragraphStyles()[i].name())
 			return i;
