@@ -1449,14 +1449,14 @@ void SToolBAlign::languageChange()
 
 void SToolBAlign::SetAlign(int s)
 {
-	GroupAlign->setStyle(s, GroupDirection->getStyle());
 	QSignalBlocker sigBlocker(GroupAlign);
+	GroupAlign->setStyle(s, GroupDirection->getStyle());
 }
 
 void SToolBAlign::SetDirection(int s)
 {
-	GroupDirection->setStyle(s);
 	QSignalBlocker sigBlocker(GroupDirection);
+	GroupDirection->setStyle(s);
 }
 
 void SToolBAlign::SetParaStyle(const QString& s)
