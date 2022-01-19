@@ -758,7 +758,16 @@ void PageItem_Table::resizeRow(int row, double height, ResizeStrategy strategy)
 
 	if (!validRow(row))
 		return;
-
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TableRowHeight, QString(), Um::IResize);
+		ss->set("TABLE_ROW_HEIGHT");
+		ss->set("ROW", row);
+		ss->set("OLD_ROW_HEIGHT", rowHeight(row));
+		ss->set("NEW_ROW_HEIGHT", height);
+		ss->set("ROW_RESIZE_STRATEGY", strategy == MoveFollowing ? 0 : 1);
+		undoManager->action(this, ss);
+	}
 	if (strategy == MoveFollowing)
 		resizeRowMoveFollowing(row, height);
 	else if (strategy == ResizeFollowing)
@@ -820,7 +829,16 @@ void PageItem_Table::resizeColumn(int column, double width, ResizeStrategy strat
 
 	if (!validColumn(column))
 		return;
-
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TableColumnWidth, QString(), Um::IResize);
+		ss->set("TABLE_COLUMN_WIDTH");
+		ss->set("COLUMN", column);
+		ss->set("OLD_COLUMN_WIDTH", columnWidth(column));
+		ss->set("NEW_COLUMN_WIDTH", width);
+		ss->set("COLUMN_RESIZE_STRATEGY", strategy == MoveFollowing ? 0 : 1);
+		undoManager->action(this, ss);
+	}
 	if (strategy == MoveFollowing)
 		resizeColumnMoveFollowing(column, width);
 	else if (strategy == ResizeFollowing)
@@ -2181,6 +2199,16 @@ void PageItem_Table::restore(UndoState *state, bool isUndo)
 		restoreTableStyleReset(simpleState, isUndo);
 		doUpdate = true;
 	}
+	else if (simpleState->contains("TABLE_ROW_HEIGHT"))
+	{
+		restoreTableRowHeight(simpleState, isUndo);
+		doUpdate = true;
+	}
+	else if (simpleState->contains("TABLE_COLUMN_WIDTH"))
+	{
+		restoreTableColumnWidth(simpleState, isUndo);
+		doUpdate = true;
+	}
 	else
 	{
 		PageItem::restore(state, isUndo);
@@ -2490,4 +2518,36 @@ void PageItem_Table::restoreTableStyleReset(SimpleState *state, bool isUndo)
 {
 	QString restoredStyle = state->get(isUndo ? "OLD_STYLE" : "NEW_STYLE");
 	setStyle(restoredStyle);
+}
+
+void PageItem_Table::restoreTableRowHeight(SimpleState *state, bool isUndo)
+{
+	int row = state->getInt("ROW");
+	ResizeStrategy strategy = state->getInt("ROW_RESIZE_STRATEGY") == 0 ? MoveFollowing : ResizeFollowing;
+	if (isUndo)
+	{
+		double oldHeight = state->getDouble("OLD_ROW_HEIGHT");
+		resizeRow(row, oldHeight, strategy);
+	}
+	else
+	{
+		double newHeight = state->getDouble("NEW_ROW_HEIGHT");
+		resizeRow(row, newHeight, strategy);
+	}
+}
+
+void PageItem_Table::restoreTableColumnWidth(SimpleState *state, bool isUndo)
+{
+	int column = state->getInt("COLUMN");
+	ResizeStrategy strategy = state->getInt("COLUMN_RESIZE_STRATEGY") == 0 ? MoveFollowing : ResizeFollowing;
+	if (isUndo)
+	{
+		double oldWidth = state->getDouble("OLD_COLUMN_WIDTH");
+		resizeColumn(column, oldWidth, strategy);
+	}
+	else
+	{
+		double newWidth = state->getDouble("NEW_COLUMN_WIDTH");
+		resizeColumn(column, newWidth, strategy);
+	}
 }

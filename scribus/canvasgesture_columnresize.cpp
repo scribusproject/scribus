@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_table.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "undomanager.h"
 
 #include "canvasgesture_columnresize.h"
 
@@ -60,6 +61,10 @@ void ColumnResize::mouseReleaseEvent(QMouseEvent* event)
 	else
 		strategy = PageItem_Table::ResizeFollowing;
 
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = UndoManager::instance()->beginTransaction(table()->getUName(), table()->getUPixmap(), Um::TableColumnWidth, QString(), Um::ITable);
+
 	table()->doc()->dontResize = true;
 	table()->resizeColumn(m_column, gridPoint.x() - table()->columnPosition(m_column), strategy);
 	if (strategy == PageItem_Table::MoveFollowing)
@@ -71,6 +76,9 @@ void ColumnResize::mouseReleaseEvent(QMouseEvent* event)
 	table()->adjustFrameToTable();
 	table()->doc()->setRedrawBounding(table());
 	table()->update();
+
+	if (activeTransaction)
+		activeTransaction.commit();
 
 	m_view->stopGesture();
 }

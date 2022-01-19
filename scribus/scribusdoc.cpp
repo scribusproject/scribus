@@ -8687,6 +8687,10 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 	const qreal rowHeight = dialog->rowHeight();
 	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::TableRowHeight, item->itemName(), Um::ITable);
 	if (appMode == modeEditTable)
 	{
 		if (table->selectedCells().isEmpty())
@@ -8711,12 +8715,12 @@ void ScribusDoc::itemSelection_SetTableRowHeights()
 		for (int row = 0; row < table->rows(); ++row)
 			table->resizeRow(row, rowHeight / unitRatio());
 	}
-
 	delete dialog;
-
 	table->adjustTable();
 	table->update();
-
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 
@@ -8736,6 +8740,11 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 
 	const qreal columnWidth = dialog->columnWidth();
 	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
+
+	UndoTransaction activeTransaction;
+	m_updateManager.setUpdatesDisabled();
+	if (UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::TableColumnWidth, item->itemName(), Um::ITable);
 
 	if (appMode == modeEditTable)
 	{
@@ -8766,6 +8775,9 @@ void ScribusDoc::itemSelection_SetTableColumnWidths()
 
 	table->adjustTable();
 	table->update();
+	if (activeTransaction)
+		activeTransaction.commit();
+	m_updateManager.setUpdatesEnabled();
 	changed();
 }
 

@@ -699,6 +699,12 @@ private:
 	// Undo/redo unsetStyle action
 	void restoreTableStyleReset(SimpleState *state, bool isUndo);
 
+	// Undo/redo row height action
+	void restoreTableRowHeight(SimpleState *state, bool isUndo);
+
+	// Undo/redo column widht action
+	void restoreTableColumnWidth(SimpleState *state, bool isUndo);
+
 private:
 	//<<Data we need to save
 	/// List of rows of cells in the table.
