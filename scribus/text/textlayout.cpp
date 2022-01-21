@@ -103,12 +103,20 @@ void TextLayout::removeLastLine ()
 	if (boxes.isEmpty())
 		return;
 
-	GroupBox* column = dynamic_cast<GroupBox*>(boxes.last());
-	assert(column);
+	int columnIndex = boxes.size() - 1;
+	while (columnIndex >= 0)
+	{
+		GroupBox* column = dynamic_cast<GroupBox*>(boxes[columnIndex]);
+		assert(column);
 
-	int lineCount = column->boxes().count();
-	if (lineCount > 0)
-		column->removeBox(lineCount - 1);
+		int lineCount = column->boxes().count();
+		if (lineCount > 0)
+		{
+			column->removeBox(lineCount - 1);
+			break;
+		}
+		--columnIndex;
+	}
 }
 
 void TextLayout::render(ScreenPainter *p, ITextContext *ctx) const
