@@ -995,7 +995,10 @@ void SEditor::setColor(bool marker)
 	if (marker)
 		tmp = QColor(Qt::red);
 	else
-		tmp = QColor(Qt::black);
+	{
+		const QPalette& palette = this->palette();
+		tmp = palette.color(QPalette::Text);
+	}
 	setTextColor(tmp);
 }
 
