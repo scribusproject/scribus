@@ -13507,7 +13507,7 @@ Please disable experimental PDF and PS embedding and try again.</translation>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="486"/>
         <source>Symbol</source>
-        <translation type="unfinished">Symbol</translation>
+        <translation>Symbol</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem.cpp" line="7423"/>
@@ -16517,7 +16517,7 @@ Document Liberation Project http://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="99"/>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Defaults</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferencesdialogbase.ui" line="122"/>
@@ -39298,12 +39298,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="669"/>
         <source>Set height of table row</source>
-        <translation type="unfinished"></translation>
+        <translation>Set height of table row</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="670"/>
         <source>Set width of table column</source>
-        <translation type="unfinished"></translation>
+        <translation>Set width of table column</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="673"/>
