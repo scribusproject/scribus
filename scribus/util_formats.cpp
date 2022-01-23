@@ -410,6 +410,8 @@ QString getImageType(const QString& filename)
 		ret = "psd";
 	else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
 		ret = "tif";
+	else if ((buf[0] == '\xff') && (buf[1] == 'W') && (buf[2] == 'P') && (buf[3] == 'C'))
+		ret = "wpg";
 	else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
 		ret = "xpm";
 	else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
