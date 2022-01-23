@@ -392,7 +392,6 @@ QMap<QString, QDomElement> SVGPlug::buildNodeMap(const QDomElement &e)
 void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 {
 	bool ret = false;
-	SvgStyle *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
 	QSizeF wh = parseWidthHeight(docElem);
 	double width = wh.width();
@@ -431,6 +430,8 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	SvgStyle *gc = new SvgStyle;
 	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
