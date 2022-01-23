@@ -5205,7 +5205,7 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>ColumnResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_columnresize.cpp" line="93"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31146,7 +31146,7 @@ Document Liberation Project http://www.documentliberation.org</source>
 <context>
     <name>RowResize</name>
     <message>
-        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="92"/>
+        <location filename="../../scribus/canvasgesture_rowresize.cpp" line="93"/>
         <source>Height</source>
         <translation type="unfinished"></translation>
     </message>
