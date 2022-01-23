@@ -283,7 +283,10 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 			m_gc.top()->matrix = matrix;
 		}
 	}
+
+	m_nodeMap = buildNodeMap(docElem);
 	QList<PageItem*> Elements = parseGroup(docElem);
+
 	tmpSel->clear();
 	QImage tmpImage;
 	if (Elements.count() > 0)
