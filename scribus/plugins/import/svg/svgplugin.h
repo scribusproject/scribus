@@ -286,6 +286,8 @@ public:
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
 
+	QMap<QString, QDomElement> buildNodeMap(const QDomElement &e);
+
 	QDomDocument inpdoc;
 	QString docDesc;
 	QString docTitle;

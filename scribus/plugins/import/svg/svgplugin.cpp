@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QPainterPath>
 #include <QRegExp>
+#include <QStack>
 #include <QTemporaryFile>
 
 #include "svgplugin.h"
@@ -358,6 +359,36 @@ bool SVGPlug::loadData(const QString& fName)
 	return success;
 }
 
+QMap<QString, QDomElement> SVGPlug::buildNodeMap(const QDomElement &e)
+{
+	const QString idAttribute("id");
+	QMap<QString, QDomElement> nodeMap;
+
+	QStack<QDomElement> elementStack;
+	elementStack.push(e);
+
+	while (!elementStack.isEmpty())
+	{
+		QDomElement domElem = elementStack.pop();
+
+		for (QDomNode n = domElem.firstChild(); !n.isNull(); n = n.nextSibling())
+		{
+			QDomElement e = n.toElement();
+			if (e.isNull())
+				continue;
+
+			QString id = e.attribute(idAttribute);
+			if (!id.isEmpty())
+				nodeMap.insert(id, e);
+
+			if (e.hasChildNodes())
+				elementStack.push(e);
+		}
+	}
+
+	return nodeMap;
+}
+
 void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 {
 	bool ret = false;
@@ -404,6 +435,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	m_gc.push(gc);
+
 	viewTransformX = 0;
 	viewTransformY = 0;
 	viewScaleX = 1;
@@ -428,7 +460,10 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_gc.top()->matrix = matrix;
 		}
 	}
+
+	m_nodeMap = buildNodeMap(docElem);
 	Elements += parseDoc(docElem);
+
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setTitle(docTitle);
@@ -1058,12 +1093,7 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			continue;
 		QString STag2 = parseTagName(b);
 		if (STag2 == "g")
-		{
-			QString id = b.attribute("id", "");
-			if (!id.isEmpty())
-				m_nodeMap.insert(id, b);
 			parseDefs(b);
-		}
 		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
 			parseGradient(b);
 		else if (STag2 == "clipPath")
@@ -1074,12 +1104,6 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parseMarker(b);
 		else if (STag2 == "filter")
 			parseFilter(b);
-		else if (b.hasAttribute("id"))
-		{
-			QString id = b.attribute("id");
-			if (!id.isEmpty())
-				m_nodeMap.insert(id, b);
-		}
 	}
 }
 
@@ -1382,8 +1406,7 @@ QList<PageItem*> SVGPlug::parseDoc(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 {
 	QList<PageItem*> GElements;
-	if (e.hasAttribute("id"))
-		m_nodeMap.insert(e.attribute("id"), e);
+
 	QString STag = parseTagName(e);
 	if (STag.startsWith("svg:"))
 		STag = STag.mid(4, - 1);
@@ -2900,8 +2923,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 
 void SVGPlug::parseFilter(const QDomElement &b)
 {
-	QString id = b.attribute("id", "");
-	QString origName = id;
+	QString id = b.attribute("id", QString());
 	if (id.isEmpty())
 		return;
 
@@ -2912,7 +2934,6 @@ void SVGPlug::parseFilter(const QDomElement &b)
 	if (child.isNull() || (child.tagName() != "feBlend"))
 	{
 		filters.insert(id, fspec);
-		m_nodeMap.insert(origName, b);
 		return;
 	}
 
@@ -2929,7 +2950,6 @@ void SVGPlug::parseFilter(const QDomElement &b)
 		fspec.blendMode = 4;
 
 	filters.insert(id, fspec);
-	m_nodeMap.insert(origName, b);
 }
 
 void SVGPlug::parseMarker(const QDomElement &b)
@@ -2982,7 +3002,6 @@ void SVGPlug::parseMarker(const QDomElement &b)
 		importedPattTrans.insert(origName, id);
 		markers.insert(id, mark);
 	}
-	m_nodeMap.insert(origName, b);
 	delete (m_gc.pop());
 }
 
@@ -3002,7 +3021,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		}
 		gradhelper.reference = href;
 	}
-	QString id = b.attribute("id", "");
+	QString id = b.attribute("id", QString());
 	QString origName = id;
 	if (!id.isEmpty())
 	{
@@ -3037,7 +3056,6 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			importedPatterns.append(id);
 			importedPattTrans.insert(origName, id);
 		}
-		m_nodeMap.insert(origName, b);
 		QString transf = b.attribute("patternTransform");
 		if (!transf.isEmpty())
 		{
