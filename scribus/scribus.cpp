@@ -6591,6 +6591,10 @@ void ScribusMainWindow::slotDocSetup()
 		viewToolBar->setDoc(doc);
 	}
 
+//	Mark* mrk = doc->getMark("Document Title", MARKVariableTextType);
+//	if (mrk)
+//		mrk->setString(newDocPrefs.docInfo.title());
+
 	emit UpdateRequest(reqDocFontListUpdate);
 	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);

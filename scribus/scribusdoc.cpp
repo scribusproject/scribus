@@ -457,6 +457,11 @@ void ScribusDoc::init()
 	docPatterns.clear();
 	docGradients.clear();
 
+//	MarkData markData;
+//	markData.text = "My Document Title";
+//	Mark* mrk = newMark();
+//	mrk->setValues("Document Title", 0, MARKVariableTextType, markData);
+
 	if (autoSave() && ScCore->usingGUI())
 		autoSaveTimer->start(autoSaveTime());
 	//Do this after all the collections have been created and cleared!
